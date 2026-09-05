@@ -145,9 +145,27 @@ def _dependencies(tmp_path: Path, calls: Calls) -> LauncherDependencies:
             ),
         )
 
+    def targeted_inventory(
+        _gateway: object,
+        profile: object,
+        *,
+        source_problem_ids: tuple[str, ...],
+        problem_ids: tuple[str, ...],
+        max_workers: int = 1,
+    ) -> GroupInventory:
+        """Return the one explicit target without invoking full inventory."""
+
+        assert profile.group_key == "27547" and max_workers > 0
+        assert (source_problem_ids, problem_ids) in {
+            (("247203",), ()),
+            ((), ("problem-1",)),
+        }
+        return GroupInventory(targets=(target,), png_targets=(target,), svg_targets=())
+
     return LauncherDependencies(
         gateway_factory=lambda _api_key: object(),
         inventory=inventory,
+        targeted_inventory=targeted_inventory,
         image_executor=lambda _command: 0,
         prepare_images=prepare_images,
         prepare_rings=lambda *args, **kwargs: pytest.fail(
@@ -185,6 +203,38 @@ def test_launcher_uses_explicit_group_and_one_apply_image_pass(
     assert calls.image_runs == [True]
     assert calls.strategy_keys == ["base-height-triangle"]
     assert calls.solution_runs == calls.helpers_runs == 1
+
+
+def test_internal_problem_selector_uses_targeted_initialization(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    """Do not run full inventory before selecting one internal problem UUID."""
+
+    calls = Calls([], [], [])
+    monkeypatch.setenv("TEACHERHELPER_MCP_API_KEY", "test-key")
+
+    assert main(
+        [
+            "--group",
+            "27547",
+            "--confirm-catalog",
+            CATALOG_SNAPSHOT_ID,
+            "--only-problem-id",
+            "problem-1",
+            "--apply",
+            "--color",
+            "never",
+        ],
+        deps=_dependencies(tmp_path, calls),
+    ) == 0
+
+    assert calls.inventories == []
+    output = capsys.readouterr().out
+    assert "TARGET SELECTION STARTED" in output
+    assert "TARGET SELECTION COMPLETED  TARGETS 1" in output
+    assert "INVENTORY STARTED" not in output
 
 
 def test_launcher_routes_content_rule_group_without_geometry_preparation(
@@ -491,6 +541,25 @@ def test_launcher_filters_multiple_source_problem_ids_after_one_inventory(
         calls.inventories.append(profile.group_key)
         return GroupInventory(targets=targets, png_targets=(), svg_targets=targets)
 
+    def targeted_inventory(
+        _gateway: object,
+        profile: object,
+        *,
+        source_problem_ids: tuple[str, ...],
+        problem_ids: tuple[str, ...],
+        max_workers: int = 1,
+    ) -> GroupInventory:
+        """Return only requested records without invoking full inventory."""
+
+        assert profile.group_key == "27547" and max_workers > 0
+        assert source_problem_ids == ("247203", "247207")
+        assert problem_ids == ()
+        requested = set(source_problem_ids)
+        selected = tuple(
+            target for target in targets if target.source_problem_id in requested
+        )
+        return GroupInventory(targets=selected, png_targets=(), svg_targets=selected)
+
     def prepare_existing(
         _gateway: object,
         target: ProblemTarget,
@@ -579,7 +648,10 @@ def test_launcher_filters_multiple_source_problem_ids_after_one_inventory(
     deps = LauncherDependencies(
         **{
             **base.__dict__,
-            "inventory": inventory,
+            "inventory": lambda *args, **kwargs: pytest.fail(
+                "full inventory must not run for exact selectors"
+            ),
+            "targeted_inventory": targeted_inventory,
             "prepare_existing": prepare_existing,
             "solution_stage": solution_stage,
             "helpers_stage": helpers_stage,
@@ -601,7 +673,7 @@ def test_launcher_filters_multiple_source_problem_ids_after_one_inventory(
         ],
         deps=deps,
     ) == 0
-    assert calls.inventories == ["27547"]
+    assert calls.inventories == []
     assert sorted(prepared_source_problem_ids) == ["247203", "247207"]
     assert max_active_preparations == 2
     assert solution_source_problem_ids == ["247203", "247207"]

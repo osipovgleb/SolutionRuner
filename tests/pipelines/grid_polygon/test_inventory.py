@@ -6,7 +6,13 @@ import threading
 from typing import Any
 
 from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.inventory import discover_group_inventory
+import pytest
+
+from solution_runner.pipelines.grid_polygon.inventory import (
+    InventoryError,
+    discover_group_inventory,
+    discover_targeted_inventory,
+)
 
 
 class InventoryGateway:
@@ -283,6 +289,75 @@ def test_content_rule_inventory_includes_ready_tasks_without_current_images() ->
     ]
     assert inventory.png_targets == ()
     assert inventory.svg_targets == ()
+
+
+class TargetedContentRuleGateway(ContentRuleInventoryGateway):
+    """Record state reads and reject full-group compact inventory calls."""
+
+    def __init__(self) -> None:
+        self.state_reads: list[str] = []
+
+    def get_problem_pipeline_state(self, problem_id: str):
+        self.state_reads.append(problem_id)
+        return super().get_problem_pipeline_state(problem_id)
+
+    def get_source_catalog_section_images(self, target_id: str, target_type: str):
+        raise AssertionError("targeted content rule must not read group images")
+
+    def get_source_catalog_missing_solution_summary(
+        self, target_id: str, target_type: str
+    ):
+        raise AssertionError("targeted content rule must not read missing-solution audit")
+
+
+@pytest.mark.parametrize(
+    ("selectors", "expected"),
+    [
+        ({"source_problem_ids": ("4583",)}, "problem-no-image"),
+        ({"problem_ids": ("problem-no-image",)}, "problem-no-image"),
+    ],
+)
+def test_targeted_content_rule_reads_only_parent_and_selected_problem(
+    selectors: dict[str, tuple[str, ...]],
+    expected: str,
+) -> None:
+    gateway = TargetedContentRuleGateway()
+
+    inventory = discover_targeted_inventory(
+        gateway,
+        get_group_profile("27238"),
+        max_workers=1,
+        **selectors,
+    )
+
+    assert [target.problem_id for target in inventory.targets] == [
+        "problem-parent",
+        expected,
+    ]
+    assert gateway.state_reads == ["problem-parent", expected]
+
+
+@pytest.mark.parametrize(
+    "selectors",
+    [
+        {"source_problem_ids": ("outside",)},
+        {"problem_ids": ("outside",)},
+        {"source_problem_ids": ("4583", "4583")},
+    ],
+)
+def test_targeted_inventory_rejects_unknown_or_duplicate_selector(
+    selectors: dict[str, tuple[str, ...]],
+) -> None:
+    gateway = TargetedContentRuleGateway()
+
+    with pytest.raises(InventoryError):
+        discover_targeted_inventory(
+            gateway,
+            get_group_profile("27238"),
+            **selectors,
+        )
+
+    assert gateway.state_reads == []
 
 
 class MissingSolutionInventoryGateway:

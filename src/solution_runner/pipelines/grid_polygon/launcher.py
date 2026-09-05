@@ -17,7 +17,11 @@ from typing import Any, Callable
 from .asset_preparation import execute_image_preparation, prepare_existing_svg
 from .group_profiles import get_group_profile
 from .helpers_runtime import run_helpers_stage
-from .inventory import GroupInventory, discover_group_inventory
+from .inventory import (
+    GroupInventory,
+    discover_group_inventory,
+    discover_targeted_inventory,
+)
 from .manifest import FrozenRunScope, read_prepared_manifest, write_prepared_manifest
 from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 from .models import GroupProfile, PreparedFigure, PreparedGridPolygon, ProblemStageResult
@@ -37,7 +41,7 @@ class LauncherDependencies:
     """Inject orchestration boundaries for deterministic local tests."""
 
     gateway_factory: Callable[[str], Any]
-    inventory: Callable[[Any, Any], GroupInventory]
+    inventory: Callable[..., GroupInventory]
     image_executor: Callable[[tuple[str, ...]], int]
     prepare_images: Callable[..., tuple[PreparedGridPolygon, ...]]
     prepare_rings: Callable[..., tuple[PreparedFigure, ...]]
@@ -47,6 +51,7 @@ class LauncherDependencies:
     output_root: Path
     now: Callable[[], datetime]
     content_rule_stage: Callable[..., tuple[ProblemStageResult, ...]] | None = None
+    targeted_inventory: Callable[..., GroupInventory] | None = None
 
 
 @dataclass(frozen=True)
@@ -85,6 +90,7 @@ def _default_dependencies() -> LauncherDependencies:
             api_key=api_key,
         ),
         inventory=discover_group_inventory,
+        targeted_inventory=discover_targeted_inventory,
         image_executor=_execute,
         prepare_images=execute_image_preparation,
         prepare_rings=prepare_ring_assets,
@@ -107,6 +113,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--resume-images", type=Path)
     parser.add_argument("--resume-solutions", type=Path)
     parser.add_argument("--only-source-problem-id", action="append")
+    parser.add_argument("--only-problem-id", action="append", help="select by internal problem UUID")
     parser.add_argument("--batch-size", type=int, default=10)
     parser.add_argument("--batch-pause-seconds", type=float, default=0.0)
     parser.add_argument("--max-workers", type=int, default=10)
@@ -177,6 +184,11 @@ def _validated_args(
         parser.error("--confirm-catalog does not match the selected group profile")
     if args.resume_images and args.resume_solutions:
         parser.error("choose only one resume mode")
+    if args.only_source_problem_id and args.only_problem_id:
+        parser.error("choose only one problem selector")
+    selected_ids = args.only_problem_id or args.only_source_problem_id or []
+    if len(selected_ids) != len(set(selected_ids)):
+        parser.error("problem selectors must be unique")
     if profile.workflow_kind == "content_rule" and args.resume_images:
         parser.error("content-rule groups resume with --resume-solutions")
     if args.batch_size <= 0 or args.batch_pause_seconds < 0:
@@ -193,20 +205,22 @@ def _selected_inventory(
 ) -> GroupInventory:
     """Narrow the frozen inventory to optional exact source problems."""
 
-    if not args.only_source_problem_id:
+    if args.only_source_problem_id and args.only_problem_id:
+        parser.error("choose only one problem selector")
+    if not args.only_source_problem_id and not args.only_problem_id:
         return inventory
-    requested_source_problem_ids = set(args.only_source_problem_id)
+    field = "problem_id" if args.only_problem_id else "source_problem_id"
+    requested_ids = set(args.only_problem_id or args.only_source_problem_id)
     matches = tuple(
         target
         for target in inventory.targets
-        if target.source_problem_id in requested_source_problem_ids
+        if getattr(target, field) in requested_ids
     )
     if (
-        len(matches) != len(requested_source_problem_ids)
-        or {target.source_problem_id for target in matches}
-        != requested_source_problem_ids
+        len(matches) != len(requested_ids)
+        or {getattr(target, field) for target in matches} != requested_ids
     ):
-        parser.error("--only-source-problem-id is outside the frozen group scope")
+        parser.error(f"--only-{field.replace('_', '-')} is outside the frozen group scope")
     selected_ids = {target.problem_id for target in matches}
     return GroupInventory(
         targets=matches,
@@ -461,27 +475,40 @@ def main(
                 internal=internal,
                 color=args.color == "always" or (args.color == "auto" and sys.stdout.isatty()),
             )
+            targeted = bool(args.only_source_problem_id or args.only_problem_id)
+            discovery_label = "TARGET SELECTION" if targeted else "INVENTORY"
             reporter.group(
                 profile.theme_title,
                 profile.group_key,
-                "INVENTORY STARTED",
-                stage="inventory",
+                f"{discovery_label} STARTED",
+                stage="target_selection" if targeted else "inventory",
             )
-            full_inventory = active.inventory(
-                gateway,
-                profile,
-                max_workers=args.max_workers,
-            )
+            if targeted:
+                if active.targeted_inventory is None:
+                    raise ValueError("targeted inventory dependency is unavailable")
+                full_inventory = active.targeted_inventory(
+                    gateway,
+                    profile,
+                    source_problem_ids=tuple(args.only_source_problem_id or ()),
+                    problem_ids=tuple(args.only_problem_id or ()),
+                    max_workers=args.max_workers,
+                )
+            else:
+                full_inventory = active.inventory(
+                    gateway,
+                    profile,
+                    max_workers=args.max_workers,
+                )
             inventory = _selected_inventory(parser, args, full_inventory)
             reporter.group(
                 profile.theme_title,
                 profile.group_key,
                 (
-                    f"INVENTORY COMPLETED  TARGETS {len(inventory.targets)}  "
+                    f"{discovery_label} COMPLETED  TARGETS {len(inventory.targets)}  "
                     f"PNG {len(inventory.png_targets)}  SVG {len(inventory.svg_targets)}"
                 ),
                 severity="success",
-                stage="inventory",
+                stage="target_selection" if targeted else "inventory",
                 details={
                     "targets": len(inventory.targets),
                     "png": len(inventory.png_targets),

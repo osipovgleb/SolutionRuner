@@ -236,6 +236,157 @@ def _audit_scope(
         return children.result(), images.result(), missing.result()
 
 
+def _child_identities(children: dict[str, Any]) -> tuple[_ChildIdentity, ...]:
+    """Validate and normalize one group's ordered child identities."""
+
+    raw_items = children.get("items")
+    if not isinstance(raw_items, list):
+        raise InventoryError("source group children are missing")
+    identities: list[_ChildIdentity] = []
+    seen_problem_ids: set[str] = set()
+    seen_source_ids: set[str] = set()
+    for order_index, item in enumerate(raw_items):
+        if not isinstance(item, dict):
+            raise InventoryError("source group child is not an object")
+        name = str(item.get("name") or "")
+        problem_id = str(item.get("uuid") or "")
+        if not name.startswith("Задача ") or not problem_id:
+            raise InventoryError("source group child has no canonical problem identity")
+        source_problem_id = name.removeprefix("Задача ").strip()
+        if (
+            not source_problem_id
+            or source_problem_id in seen_source_ids
+            or problem_id in seen_problem_ids
+        ):
+            raise InventoryError("source group contains duplicate problem identity")
+        seen_problem_ids.add(problem_id)
+        seen_source_ids.add(source_problem_id)
+        identities.append(
+            _ChildIdentity(
+                problem_id=problem_id,
+                source_problem_id=source_problem_id,
+                order_index=order_index,
+            )
+        )
+    return tuple(identities)
+
+
+def _requested_identities(
+    identities: tuple[_ChildIdentity, ...],
+    *,
+    source_problem_ids: tuple[str, ...],
+    problem_ids: tuple[str, ...],
+) -> tuple[_ChildIdentity, ...]:
+    """Select exact group members without reading any problem content."""
+
+    if bool(source_problem_ids) == bool(problem_ids):
+        raise InventoryError("targeted inventory requires exactly one problem selector")
+    requested = set(problem_ids or source_problem_ids)
+    if len(requested) != len(problem_ids or source_problem_ids):
+        raise InventoryError("targeted inventory contains duplicate problem selectors")
+    field = "problem_id" if problem_ids else "source_problem_id"
+    selected = tuple(
+        identity for identity in identities if getattr(identity, field) in requested
+    )
+    if {getattr(identity, field) for identity in selected} != requested:
+        flag = "--only-problem-id" if problem_ids else "--only-source-problem-id"
+        raise InventoryError(f"{flag} is outside the selected source group")
+    return selected
+
+
+def discover_targeted_inventory(
+    gateway: InventoryGateway,
+    profile: GroupProfile,
+    *,
+    source_problem_ids: tuple[str, ...] = (),
+    problem_ids: tuple[str, ...] = (),
+    max_workers: int = 1,
+) -> GroupInventory:
+    """Inventory only explicit members plus a content-rule parent when required."""
+
+    if max_workers <= 0:
+        raise ValueError("max_workers must be positive")
+    children = gateway.get_source_catalog_children(profile.source_group_id, "group")
+    identities = _child_identities(children)
+    selected = _requested_identities(
+        identities,
+        source_problem_ids=source_problem_ids,
+        problem_ids=problem_ids,
+    )
+    if profile.workflow_kind == "content_rule":
+        if not identities:
+            raise InventoryError("content-rule group has no parent problem")
+        selected_problem_ids = {identity.problem_id for identity in selected}
+        candidates = tuple(
+            identity
+            for identity in identities
+            if identity is identities[0] or identity.problem_id in selected_problem_ids
+        )
+        classify_content = lambda identity: _content_rule_target(
+            gateway, profile, identity
+        )
+        if max_workers == 1:
+            classified = tuple(map(classify_content, candidates))
+        else:
+            with ThreadPoolExecutor(max_workers=min(max_workers, len(candidates))) as executor:
+                classified = tuple(executor.map(classify_content, candidates))
+        targets = tuple(target for target in classified if target is not None)
+        if not targets or targets[0].problem_id != identities[0].problem_id:
+            raise InventoryError("content-rule parent is not ready")
+        return GroupInventory(targets=targets, png_targets=(), svg_targets=())
+
+    # Geometry workflows still need the compact group audits to locate image_1
+    # and determine solution eligibility, but only selected problems receive
+    # state, context, or asset-metadata reads.
+    with ThreadPoolExecutor(max_workers=min(2, max_workers)) as executor:
+        images_future = executor.submit(
+            gateway.get_source_catalog_section_images,
+            profile.source_group_id,
+            "group",
+        )
+        missing_future = executor.submit(
+            gateway.get_source_catalog_missing_solution_summary,
+            profile.source_group_id,
+            "group",
+        )
+        section_images = images_future.result()
+        missing_solutions = missing_future.result()
+    assets_by_source_problem_id = _condition_assets(section_images)
+    missing_source_problem_ids = _source_problem_ids(missing_solutions)
+    generated_source_problem_ids = _pipeline_generated_solution_ids(section_images)
+    if profile.solution_scope == "all":
+        eligible_source_problem_ids = set(assets_by_source_problem_id)
+    elif profile.solution_scope == "missing_only":
+        eligible_source_problem_ids = set(assets_by_source_problem_id) & missing_source_problem_ids
+    else:
+        eligible_source_problem_ids = set(assets_by_source_problem_id) & (
+            missing_source_problem_ids | generated_source_problem_ids
+        )
+    eligible = tuple(
+        identity
+        for identity in selected
+        if identity.source_problem_id in eligible_source_problem_ids
+    )
+    classify = lambda identity: _classify_target(
+        gateway,
+        profile,
+        identity,
+        assets_by_source_problem_id[identity.source_problem_id],
+    )
+    if max_workers == 1:
+        classified = tuple(map(classify, eligible))
+    else:
+        with ThreadPoolExecutor(max_workers=min(max_workers, len(eligible) or 1)) as executor:
+            classified = tuple(executor.map(classify, eligible))
+    present = tuple(item for item in classified if item is not None)
+    targets = tuple(target for target, _ in present)
+    return GroupInventory(
+        targets=targets,
+        png_targets=tuple(target for target, kind in present if kind == "raster"),
+        svg_targets=tuple(target for target, kind in present if kind == "svg"),
+    )
+
+
 def discover_group_inventory(
     gateway: InventoryGateway,
     profile: GroupProfile,
@@ -251,29 +402,7 @@ def discover_group_inventory(
         profile,
         max_workers=max_workers,
     )
-    raw_items = children.get("items")
-    if not isinstance(raw_items, list):
-        raise InventoryError("source group children are missing")
-    identities: list[_ChildIdentity] = []
-    seen_source_ids: set[str] = set()
-    for order_index, item in enumerate(raw_items):
-        if not isinstance(item, dict):
-            raise InventoryError("source group child is not an object")
-        name = str(item.get("name") or "")
-        problem_id = str(item.get("uuid") or "")
-        if not name.startswith("Задача ") or not problem_id:
-            raise InventoryError("source group child has no canonical problem identity")
-        source_problem_id = name.removeprefix("Задача ").strip()
-        if not source_problem_id or source_problem_id in seen_source_ids:
-            raise InventoryError("source group contains duplicate problem identity")
-        seen_source_ids.add(source_problem_id)
-        identities.append(
-            _ChildIdentity(
-                problem_id=problem_id,
-                source_problem_id=source_problem_id,
-                order_index=order_index,
-            )
-        )
+    identities = _child_identities(children)
     if profile.workflow_kind == "content_rule":
         classify_content = lambda identity: _content_rule_target(
             gateway,
