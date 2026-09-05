@@ -5,6 +5,29 @@ the failure modes found while building and operating the first general-triangle
 runners. A task is not complete merely because a planner returns output or one
 fixture passes.
 
+## Research scope
+
+The default and maximum unapproved content sample is:
+
+- the mandatory parent problem; and
+- one explicitly selected non-parent child that currently needs repair.
+
+One additional child may be read only when a known alternative serialization or
+condition form must be represented. Researching more than two children requires
+explicit user authorization before the reads occur.
+
+It is acceptable to read the group's child identity listing and a compact
+missing-solution summary solely to select the representative child IDs. It is
+not acceptable to batch-fetch or enumerate the conditions, answers, solutions,
+transformation contexts, pipeline states, or assets of the whole group during
+profile design. Do not use `get_problem_batch` over the group and do not keep
+sampling children to gain confidence.
+
+The parent and one or two selected children define the explicit accepted form.
+Anything not proven by that sample is handled by record-local fail-closed at
+runtime. Fail-closed exists precisely so exhaustive group research is not
+required.
+
 ## Sources of truth
 
 Use each input for exactly one purpose:
@@ -82,8 +105,10 @@ A group profile is ready only when all of the following are demonstrated:
 - A table or profile document names every parsed input, the deterministic
   formula, derived answer, and a real non-parent child that currently needs
   repair.
-- Tests cover at least two children with different values so static parent
-  copying cannot pass.
+- Tests cover the parent and at least one selected child with different values
+  so static parent copying cannot pass. A second MCP child is used only for a
+  known alternative input form; additional parser cases use local synthetic
+  fixtures rather than wider production research.
 - Tests assert adapted inline LaTeX and paragraph placement, not only the final
   answer.
 - Tests cover correct, missing, malformed, and incorrect stored answers and
@@ -113,3 +138,8 @@ A group profile is ready only when all of the following are demonstrated:
   to contain that executable.
 - Declaring all groups ready from unit tests that assert only answers or only
   the parent example.
+- Reading every child in a group to discover possible variants before writing a
+  fail-closed parser.
+- Calling `get_problem_batch` for the full group during runner design.
+- Expanding beyond the parent plus two child problems without explicit user
+  authorization.

@@ -112,3 +112,17 @@ Add dated entries here when a group investigation produces rules that may help f
   `.venv/bin/solution-runner`, retain the exact task selector, distinguish a
   targeted run from full inventory, and never claim a visible terminal run
   that was not actually executed there.
+
+### 2026-09-06 — bounded profile research
+
+- Exhaustively reading a group's children is not required to design a strict
+  runner and unnecessarily broadens MCP access. The standard evidence set is
+  the parent plus one repair-needed child; a second child is permitted only for
+  a known alternate input form.
+- Child listings and compact missing-solution summaries are selection tools,
+  not authorization to fetch every problem's content. Never use a group-wide
+  `get_problem_batch` during profile design without explicit user approval.
+- Accepted forms come from the bounded sample. Unseen conditions are expected
+  and must fail closed for that record while independent records continue.
+  Local synthetic fixtures may expand parser edge-case coverage without wider
+  production-data research.
