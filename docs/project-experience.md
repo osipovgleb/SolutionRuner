@@ -121,8 +121,13 @@ Add dated entries here when a group investigation produces rules that may help f
   a known alternate input form.
 - Child listings and compact missing-solution summaries are selection tools,
   not authorization to fetch every problem's content. Never use a group-wide
-  `get_problem_batch` during profile design without explicit user approval.
+  `get_problem_batch` to discover forms during profile design without explicit
+  user approval.
 - Accepted forms come from the bounded sample. Unseen conditions are expected
   and must fail closed for that record while independent records continue.
   Local synthetic fixtures may expand parser edge-case coverage without wider
   production-data research.
+- Once that parser and record-local fail-closed behavior are implemented,
+  `get_problem_batch` is allowed as an execution transport. Its records are
+  evaluated independently against the frozen grammar; the batch must not be
+  treated as a new research corpus or alter accepted forms during the run.

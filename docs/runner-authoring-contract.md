@@ -20,13 +20,21 @@ It is acceptable to read the group's child identity listing and a compact
 missing-solution summary solely to select the representative child IDs. It is
 not acceptable to batch-fetch or enumerate the conditions, answers, solutions,
 transformation contexts, pipeline states, or assets of the whole group during
-profile design. Do not use `get_problem_batch` over the group and do not keep
-sampling children to gain confidence.
+profile design. Do not use `get_problem_batch` over the group to discover forms
+or keep sampling children to gain confidence.
 
 The parent and one or two selected children define the explicit accepted form.
 Anything not proven by that sample is handled by record-local fail-closed at
 runtime. Fail-closed exists precisely so exhaustive group research is not
 required.
+
+After the profile, accepted grammar, and per-record fail-closed boundary are
+implemented and frozen, `get_problem_batch` may be used by the real runner or
+an explicit validation run for efficient input transport. This does not expand
+the research sample: every returned task is independently passed through the
+already defined parser. Unsupported records receive no writes and a structured
+failure while valid records continue. Batch observations must never mutate the
+accepted grammar or trigger ad-hoc implementation changes during that run.
 
 ## Sources of truth
 
@@ -140,6 +148,7 @@ A group profile is ready only when all of the following are demonstrated:
   the parent example.
 - Reading every child in a group to discover possible variants before writing a
   fail-closed parser.
-- Calling `get_problem_batch` for the full group during runner design.
+- Calling `get_problem_batch` for the full group during runner design or using
+  its results to discover and add accepted forms dynamically.
 - Expanding beyond the parent plus two child problems without explicit user
   authorization.
