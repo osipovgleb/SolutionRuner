@@ -60,6 +60,16 @@ Add dated entries here when a group investigation produces rules that may help f
   this server materialized the centered image after the condition paragraph.
   Always inspect materialized readback when exact placement matters.
 
+### 2026-09-06 — representative repair targets for the next ten groups
+
+- The representative UUID must be selected from the read-only
+  `get_source_catalog_missing_solution_summary` result, not from the group
+  parent. The current table in `general_triangle_pipeline/next_ten.md` uses
+  one concrete missing-solution task per group and records its actual parsed
+  values and expected answer.
+- The selected tasks have correct numeric answers but absent solutions; they
+  are useful first repair targets without changing the parent examples.
+
 ### 2026-09-05 — group 27591 repair semantics
 
 - A nonempty solution is not automatically correct. Preserve the recognized
@@ -73,3 +83,32 @@ Add dated entries here when a group investigation produces rules that may help f
   no write to that record, an explicit result, and continued independent work.
   Fresh preparation is required for outstanding stale repairs. Completed
   records remain idempotent. No production run accompanied this revision.
+
+### 2026-09-06 — targeted single-problem initialization
+
+- `--only-problem-id` and `--only-source-problem-id` are execution scope, not a
+  filter to apply after full inventory. Validate exact membership from the
+  group's ordered child identities, then read pipeline state/context/assets
+  only for selected tasks.
+- Content-rule targeted runs also retain the canonical parent target because it
+  supplies the shared audited asset/proof contract. They must not classify the
+  remaining children or request the group image/missing-solution audits.
+- Use `TARGET SELECTION` progress events for this path so operators can tell it
+  apart from a full group `INVENTORY` run.
+
+### 2026-09-06 — incident review: static parent solutions
+
+- A parent solution is a syntax and layout template, not child output. Copying
+  its HTML unchanged can produce plausible-looking but mathematically wrong
+  solutions and false `ALREADY COMPLETE` results.
+- Prove adaptation with at least two children whose condition values differ.
+  Assert the parsed values, every substituted inline-LaTeX expression, the
+  computed answer, paragraph placement, parent asset behavior, and fresh
+  readback separately.
+- Use a concrete child from the repair-needed inventory for acceptance. A
+  parent UUID proves only the reference template and must not stand in for the
+  task the operator intends to repair.
+- Operational instructions are part of correctness: use the repository-local
+  `.venv/bin/solution-runner`, retain the exact task selector, distinguish a
+  targeted run from full inventory, and never claim a visible terminal run
+  that was not actually executed there.

@@ -59,5 +59,6 @@ Apply after reviewing the frozen scope and preview:
   --apply
 ```
 
-See [the pipeline documentation](src/solution_runner/pipelines/grid_polygon/README.md)
-and [the migration inventory](docs/migration.md) for details.
+See [the pipeline documentation](src/solution_runner/pipelines/grid_polygon/README.md),
+[the runner authoring contract](docs/runner-authoring-contract.md), and
+[the migration inventory](docs/migration.md) for details.
