@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solution-runner"
+version = "0.1.0"
+description = "Deterministic TeacherHelper transformation runners and image converters"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "beautifulsoup4==4.13.4",
+  "httpx==0.28.1",
+  "lxml>=5.3,<7",
+  "numpy==2.4.6",
+  "opencv-python-headless>=4.11,<5",
+  "Pillow==11.3.0",
+  "requests>=2.32,<3",
+  "scipy>=1.15,<2",
+  "sympy>=1.13,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==9.1.1",
+]
+
+[project.scripts]
+solution-runner = "solution_runner.pipelines.grid_polygon.launcher:main"
+solution-runner-assets = "solution_runner.converters.mcp_grid_polygon_transformations:main"
+solution-runner-polygon-svg = "solution_runner.converters.png_to_svg_by_contrast:main"
+solution-runner-ring-svg = "solution_runner.converters.png_to_svg_ring_by_contrast:main"
+solution-runner-graph-svg = "solution_runner.converters.graph_png_to_svg_by_contrast:main"
+solution-runner-graph-extrema-svg = "solution_runner.converters.graph_png_to_svg_by_extrema:main"
+solution-runner-svg-cleanup = "solution_runner.converters.file_opener:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"solution_runner.converters" = ["*.js", "*.svg"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
