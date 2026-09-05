@@ -45,6 +45,20 @@ _PROFILES = MappingProxyType(
         profile.group_key: profile
         for profile in (
             _profile(
+                "27591",
+                "cba0bfd4-8e64-4d51-812e-0049e9e86e9b",
+                0,
+                catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+                category_key="1",
+                theme_title="Треугольники общего вида",
+                theme_order_index=2,
+                snapshot_theme_id="ade013e0-059b-4b5e-bdb4-b4d701c2ca76",
+                expected_vertices=None,
+                strategy_key=None,
+                workflow_kind="content_rule",
+                content_rule_key="general-triangle-27591-area-sas-30",
+            ),
+            _profile(
                 "27284",
                 "6fa6e46a-8e66-40ab-8b12-a830d8cec6fe",
                 0,

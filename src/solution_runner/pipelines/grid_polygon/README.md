@@ -49,6 +49,8 @@ The package is organized behind characterization and contract tests:
 - [`right_triangle_pipeline/`](right_triangle_pipeline/README.md) owns the
   deterministic sine-based right-triangle content rule used by the shared
   launcher. It does not enter grid geometry or own a second CLI.
+- [`general_triangle_pipeline/`](general_triangle_pipeline/README.md) owns the
+  strict group-27591 included-angle area rule and its audited input contract.
 - `isosceles_triangle_pipeline/` owns strict group-scoped content rules for the
   isosceles-triangle theme. Each registered group has an explicit accepted
   condition shape and requested quantity; the shared launcher remains the only

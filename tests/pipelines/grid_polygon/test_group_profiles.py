@@ -13,6 +13,7 @@ from solution_runner.pipelines.grid_polygon.group_profiles import (
 
 
 EXPECTED_GROUPS = {
+    "27591": ("cba0bfd4-8e64-4d51-812e-0049e9e86e9b", None, None),
     "27284": ("6fa6e46a-8e66-40ab-8b12-a830d8cec6fe", None, None),
     "27285": ("e815ef19-e5b1-4407-bcb3-011d096b8f46", None, None),
     "27286": ("3a9411cf-7a1f-47dc-bbce-c93b5fb195f9", None, None),

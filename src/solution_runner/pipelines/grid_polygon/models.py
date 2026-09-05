@@ -22,6 +22,7 @@ StrategyKey: TypeAlias = Literal[
 ]
 WorkflowKind: TypeAlias = Literal["geometry", "content_rule"]
 ContentRuleKey: TypeAlias = Literal[
+    "general-triangle-27591-area-sas-30",
     "right-triangle-sine",
     "right-triangle-cosine-hypotenuse",
     "right-triangle-tangent-hypotenuse",

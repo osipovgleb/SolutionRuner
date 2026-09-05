@@ -45,7 +45,7 @@ that OCR boundary.
 Preview without writes:
 
 ```bash
-solution-runner \
+.venv/bin/solution-runner \
   --group 27547 \
   --confirm-catalog 4073fc7b-2056-4697-b18b-38741c94d0f4
 ```
@@ -53,7 +53,7 @@ solution-runner \
 Apply after reviewing the frozen scope and preview:
 
 ```bash
-solution-runner \
+.venv/bin/solution-runner \
   --group 27547 \
   --confirm-catalog 4073fc7b-2056-4697-b18b-38741c94d0f4 \
   --apply
@@ -61,4 +61,3 @@ solution-runner \
 
 See [the pipeline documentation](src/solution_runner/pipelines/grid_polygon/README.md)
 and [the migration inventory](docs/migration.md) for details.
-

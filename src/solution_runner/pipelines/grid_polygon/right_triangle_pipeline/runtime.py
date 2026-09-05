@@ -12,6 +12,7 @@ import re
 import time
 from typing import Any, Protocol
 
+from ..general_triangle_pipeline.planner import RULE as GROUP_27591_RULE
 from ..models import GroupProfile, ProblemStageResult, ProblemTarget
 from ..progress import ProgressReporter, TargetProgress
 from .planner import (
@@ -208,6 +209,8 @@ def _context_fingerprint(context: dict[str, Any]) -> str:
 def _planner_constraints(content_rule_key: str | None) -> dict[str, str]:
     """Return strict condition requirements selected by one content-rule profile."""
 
+    if content_rule_key == GROUP_27591_RULE:
+        return {}
     if content_rule_key in {None, "right-triangle-sine"}:
         return {}
     if content_rule_key == "right-triangle-cosine-hypotenuse":
@@ -305,6 +308,13 @@ def _build_content_plan(
     parent_solution_assets: tuple[dict[str, str], ...] = (),
 ):
     """Build one repair with the strict planner selected by the group profile."""
+
+    if content_rule_key == GROUP_27591_RULE:
+        from ..general_triangle_pipeline.planner import build_repair_plan as build_general_plan
+
+        if parent_solution_assets:
+            raise RightTrianglePlanError("group 27591 parent has unexpected solution assets")
+        return build_general_plan(context, parent_condition_asset_id=parent_asset_id)
 
     if content_rule_key == "isosceles-triangle-27284-base-from-sine":
         from ..isosceles_triangle_pipeline.planner import (
@@ -896,6 +906,8 @@ def _apply_record(
         }
     try:
         context = gateway.get_problem_context(problem_id)
+        if content_rule_key == GROUP_27591_RULE and context.get("problem_id") != problem_id:
+            raise RightTrianglePlanError("group 27591 current problem identity drifted")
         current_plan = _build_content_plan(
             context,
             parent_asset_id=parent_asset_id,
@@ -911,6 +923,9 @@ def _apply_record(
         current_transformations = list(current_plan.transformations)
         changed = False
         if current_transformations:
+            if (content_rule_key == GROUP_27591_RULE and
+                    _context_fingerprint(context) != record.get("input_fingerprint")):
+                raise RightTrianglePlanError("group 27591 frozen input drifted; prepare again")
             if current_transformations != frozen:
                 raise RightTrianglePlanError("current repair differs from frozen manifest")
             if (
@@ -969,6 +984,38 @@ def _write_checkpoint(path: Path, summary: dict[str, Any]) -> None:
     temporary.replace(path)
 
 
+def _validate_group_27591_scope(gateway: RightTriangleGateway, manifest: dict[str, Any]) -> None:
+    """Reject shared scope/inventory corruption, never task-local content errors."""
+    from ..general_triangle_pipeline.planner import PARENT_ASSET_ID
+    from ..group_profiles import get_group_profile
+
+    profile = get_group_profile("27591")
+    if (manifest.get("catalog_snapshot_id") != profile.catalog_snapshot_id
+            or manifest.get("source_group_id") != profile.source_group_id
+            or manifest.get("source_group_number") != profile.group_key
+            or manifest.get("schema_version") != 1
+            or manifest.get("solution_assets") != []
+            or (manifest.get("condition_asset") or {}).get("source_asset_id") != PARENT_ASSET_ID):
+        raise RightTrianglePlanError("group 27591 manifest scope or assets drifted")
+    records = manifest["records"]
+    ids = [record.get("problem_id") for record in records]
+    if not records or not all(ids) or len(set(ids)) != len(ids):
+        raise RightTrianglePlanError("group 27591 manifest identities are invalid")
+    membership = dict(_problem_identity(child) for child in _children(
+        gateway.get_source_catalog_children(profile.source_group_id, "group")
+    ))
+    for record in records:
+        if membership.get(record["problem_id"]) != record.get("source_problem_id"):
+            raise RightTrianglePlanError("group 27591 catalog membership drifted")
+        if record.get("status") not in {"prepared", "blocked"}:
+            raise RightTrianglePlanError("group 27591 frozen record status is invalid")
+        if not isinstance(record.get("transformations"), list):
+            raise RightTrianglePlanError("group 27591 frozen repairs are invalid")
+        if record["status"] == "prepared" and (
+                not record.get("expected_answer") or not record.get("input_fingerprint")):
+            raise RightTrianglePlanError("group 27591 frozen record is incomplete")
+
+
 def apply_frozen_manifest(
     gateway: RightTriangleGateway,
     manifest: dict[str, Any],
@@ -1002,6 +1049,8 @@ def apply_frozen_manifest(
     )
     if not isinstance(records, list) or not parent_asset_id:
         raise RightTrianglePlanError("prepared manifest is incomplete")
+    if content_rule_key == GROUP_27591_RULE:
+        _validate_group_27591_scope(gateway, manifest)
     results: list[dict[str, Any]] = []
     for offset in range(0, len(records), batch_size):
         batch = records[offset : offset + batch_size]
@@ -1184,6 +1233,7 @@ def run_content_rule_stage(
     """Run the sine rule through frozen records and old-pipeline progress."""
 
     if profile.content_rule_key not in {
+        GROUP_27591_RULE,
         "right-triangle-sine",
         "right-triangle-cosine-hypotenuse",
         "right-triangle-tangent-hypotenuse",
@@ -1260,6 +1310,11 @@ def run_content_rule_stage(
         raise RightTrianglePlanError("unsupported content rule")
     if not targets:
         return ()
+    if profile.content_rule_key == GROUP_27591_RULE:
+        from ..general_triangle_pipeline.planner import PARENT_PROBLEM_ID
+
+        if asset_source_target.problem_id != PARENT_PROBLEM_ID:
+            raise RightTrianglePlanError("group 27591 requires its audited parent")
     manifest_path = run_dir / "prepared-manifest.json"
     if resume:
         manifest = _read_content_rule_manifest(manifest_path, targets, profile)
@@ -1318,6 +1373,9 @@ def run_manifest(
     apply: bool,
 ) -> dict[str, Any]:
     """Discover, repair, verify, and optionally mark ready one manifest group."""
+
+    if manifest.get("content_rule_key") == GROUP_27591_RULE:
+        raise RightTrianglePlanError("group 27591 requires the shared frozen-manifest launcher")
 
     source_group_id = str(manifest.get("source_group_id") or "")
     parent_asset_id = str(
