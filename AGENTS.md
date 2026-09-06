@@ -11,6 +11,7 @@
 ## Accumulating project experience
 
 - Treat this repository as the canonical home for runners, launchers, converters, fixtures, operational commands, and lessons learned. Do not leave the only useful copy in TeacherHelper, svg_parseer, ignored files, or a task transcript.
+- Before designing, implementing, or reviewing a runner, read `docs/target-vision.md`. It defines the intended editorial result, parent-faithful solution style, condition-asset policy, and minimal-research operating loop.
 - Before implementing a runner, read `docs/project-experience.md` and the relevant package README files.
 - Before implementing or reviewing any group profile, read and follow `docs/runner-authoring-contract.md`. A profile is not complete until its definition-of-done checklist is satisfied with a real child task that needs repair.
 - After learning a reusable rule, edge case, MCP contract, deterministic validation rule, or safe operator procedure, update `docs/project-experience.md` in the same task.
