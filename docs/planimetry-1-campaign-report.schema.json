@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://solution-runner.local/schemas/planimetry-1-campaign-report.schema.json",
+  "title": "Planometry 1 group campaign checkpoint",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "catalog_snapshot_id",
+    "category_id",
+    "theme_id",
+    "theme_title",
+    "group_id",
+    "group_key",
+    "status",
+    "research",
+    "verification"
+  ],
+  "properties": {
+    "catalog_snapshot_id": {"const": "41bc4d03-40cd-4407-8dea-df76e3f47ea8"},
+    "category_id": {"const": "0255b2f6-ef48-4356-8edf-aec792deb65b"},
+    "theme_id": {"type": "string", "minLength": 1},
+    "theme_title": {"type": "string", "minLength": 1},
+    "group_id": {"type": "string", "minLength": 1},
+    "group_key": {"type": "string", "pattern": "^[0-9]+$"},
+    "status": {"enum": ["ready", "blocked", "needs_review"]},
+    "research": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["parent_source_problem_id", "repair_child_source_problem_ids", "accepted_forms_frozen"],
+      "properties": {
+        "parent_source_problem_id": {"type": "string", "pattern": "^[0-9]+$"},
+        "repair_child_source_problem_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[0-9]+$"}
+        },
+        "accepted_forms_frozen": {"type": "boolean"},
+        "notes": {"type": "string"}
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["focused_test_command", "focused_tests_passed", "dry_run_command", "dry_run_passed", "apply_executed"],
+      "properties": {
+        "focused_test_command": {"type": "string"},
+        "focused_tests_passed": {"type": "boolean"},
+        "dry_run_command": {"type": "string"},
+        "dry_run_passed": {"type": "boolean"},
+        "dry_run_artifact": {"type": "string"},
+        "apply_executed": {"const": false}
+      }
+    },
+    "blocker": {"type": "string"},
+    "commit_sha": {"type": "string"},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "ready"}}},
+      "then": {
+        "properties": {
+          "research": {"properties": {"accepted_forms_frozen": {"const": true}}},
+          "verification": {
+            "properties": {
+              "focused_tests_passed": {"const": true},
+              "dry_run_passed": {"const": true}
+            }
+          }
+        }
+      },
+      "else": {"required": ["blocker"]}
+    }
+  ]
+}
