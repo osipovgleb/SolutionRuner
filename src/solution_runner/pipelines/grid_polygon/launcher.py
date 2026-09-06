@@ -15,7 +15,7 @@ import sys
 from typing import Any, Callable
 
 from .asset_preparation import execute_image_preparation, prepare_existing_svg
-from .group_profiles import get_group_profile
+from ..core.group_profiles import get_group_profile
 from .helpers_runtime import run_helpers_stage
 from .inventory import (
     GroupInventory,
@@ -24,7 +24,7 @@ from .inventory import (
 )
 from .manifest import FrozenRunScope, read_prepared_manifest, write_prepared_manifest
 from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
-from .models import GroupProfile, PreparedFigure, PreparedGridPolygon, ProblemStageResult
+from ..core.models import GroupProfile, PreparedFigure, PreparedGridPolygon, ProblemStageResult
 from .progress import ProgressReporter
 from .ring_asset_preparation import prepare_ring_assets
 from .solution_runtime import run_solution_stage
@@ -76,7 +76,7 @@ def _execute(command: tuple[str, ...]) -> int:
 def _run_content_rule_stage(*args: Any, **kwargs: Any) -> tuple[ProblemStageResult, ...]:
     """Load the content-rule runtime only for explicitly configured groups."""
 
-    from .right_triangle_pipeline.runtime import run_content_rule_stage
+    from ..core.content_runtime import run_content_rule_stage
 
     return run_content_rule_stage(*args, **kwargs)
 
@@ -114,10 +114,14 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--resume-solutions", type=Path)
     parser.add_argument("--only-source-problem-id", action="append")
     parser.add_argument("--only-problem-id", action="append", help="select by internal problem UUID")
+    parser.add_argument(
+        "--exclude-parent-problem",
+        action="store_true",
+        help="run every content-rule task except the first canonical parent",
+    )
     parser.add_argument("--batch-size", type=int, default=10)
     parser.add_argument("--batch-pause-seconds", type=float, default=0.0)
     parser.add_argument("--max-workers", type=int, default=10)
-    parser.add_argument("--color", choices=("auto", "always", "never"), default="auto")
     return parser
 
 
@@ -186,6 +190,12 @@ def _validated_args(
         parser.error("choose only one resume mode")
     if args.only_source_problem_id and args.only_problem_id:
         parser.error("choose only one problem selector")
+    if args.exclude_parent_problem and (
+        args.only_source_problem_id or args.only_problem_id
+    ):
+        parser.error("--exclude-parent-problem cannot be combined with problem selectors")
+    if args.exclude_parent_problem and profile.workflow_kind != "content_rule":
+        parser.error("--exclude-parent-problem requires a content-rule group")
     selected_ids = args.only_problem_id or args.only_source_problem_id or []
     if len(selected_ids) != len(set(selected_ids)):
         parser.error("problem selectors must be unique")
@@ -473,7 +483,7 @@ def main(
             reporter = ProgressReporter(
                 console=sys.stdout,
                 internal=internal,
-                color=args.color == "always" or (args.color == "auto" and sys.stdout.isatty()),
+                color=True,
             )
             targeted = bool(args.only_source_problem_id or args.only_problem_id)
             discovery_label = "TARGET SELECTION" if targeted else "INVENTORY"
@@ -500,6 +510,17 @@ def main(
                     max_workers=args.max_workers,
                 )
             inventory = _selected_inventory(parser, args, full_inventory)
+            if args.exclude_parent_problem:
+                parent_problem_id = full_inventory.targets[0].problem_id
+                inventory = GroupInventory(
+                    targets=tuple(
+                        target
+                        for target in inventory.targets
+                        if target.problem_id != parent_problem_id
+                    ),
+                    png_targets=(),
+                    svg_targets=(),
+                )
             reporter.group(
                 profile.theme_title,
                 profile.group_key,

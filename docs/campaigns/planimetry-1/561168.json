@@ -1,0 +1,24 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "category_id": "0255b2f6-ef48-4356-8edf-aec792deb65b",
+  "theme_id": "ade013e0-059b-4b5e-bdb4-b4d701c2ca76",
+  "theme_title": "Треугольники общего вида",
+  "group_id": "8e613f33-1103-4aef-a8da-3155a43e4e1c",
+  "group_key": "561168",
+  "status": "ready",
+  "research": {
+    "parent_source_problem_id": "561168",
+    "repair_child_source_problem_ids": ["561220"],
+    "accepted_forms_frozen": true,
+    "notes": "Obtuse B, positive AB and BC, included-angle area; only area forms 7,5 and k√3 observed, yielding sin B=1/2 or √3/2."
+  },
+  "verification": {
+    "focused_test_command": ".venv/bin/python -m pytest tests/pipelines/grid_polygon/test_group_561168_planner.py tests/pipelines/grid_polygon/test_group_profiles.py -q",
+    "focused_tests_passed": true,
+    "dry_run_command": ".venv/bin/solution-runner --group 561168 --confirm-catalog 41bc4d03-40cd-4407-8dea-df76e3f47ea8 --max-workers 1 --batch-size 1",
+    "dry_run_passed": true,
+    "dry_run_artifact": "var/grid-polygon/runs/20260906T005828Z-group-561168/summary.json",
+    "apply_executed": true
+  },
+  "updated_at": "2026-09-06T00:59:00Z"
+}

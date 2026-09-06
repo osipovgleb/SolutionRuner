@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.models import PreparedGridRing
+from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.models import PreparedGridRing
 from solution_runner.pipelines.grid_polygon.strategies import get_solution_strategy
 from solution_runner.pipelines.grid_polygon.strategies.protocol import StrategyError
 

@@ -9,7 +9,7 @@ import hashlib
 from typing import Any, Protocol
 
 from .mcp_runtime import McpGateway
-from .models import (
+from ..core.models import (
     GeometryAnalysis,
     GroupProfile,
     PreparedFigure,

@@ -15,7 +15,7 @@ import re
 from typing import Any, Callable, Literal, Protocol
 
 from .geometry.ring import RingSvgGeometry, parse_ring_svg
-from .models import GroupProfile, KnownCircleArea, PreparedGridRing, ProblemTarget
+from ..core.models import GroupProfile, KnownCircleArea, PreparedGridRing, ProblemTarget
 from .progress import ProgressReporter, TargetProgress
 
 

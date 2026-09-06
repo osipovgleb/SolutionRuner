@@ -26,7 +26,8 @@ dev = [
 ]
 
 [project.scripts]
-solution-runner = "solution_runner.pipelines.grid_polygon.launcher:main"
+solution-runner = "solution_runner.launcher:main"
+solution-runner-probe = "solution_runner.pipelines.grid_polygon.runner_probe:main"
 solution-runner-assets = "solution_runner.converters.mcp_grid_polygon_transformations:main"
 solution-runner-polygon-svg = "solution_runner.converters.png_to_svg_by_contrast:main"
 solution-runner-ring-svg = "solution_runner.converters.png_to_svg_ring_by_contrast:main"

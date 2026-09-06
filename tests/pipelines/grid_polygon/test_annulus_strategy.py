@@ -6,8 +6,8 @@ from dataclasses import replace
 from fractions import Fraction
 from pathlib import Path
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.models import PreparedGridRing
+from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.models import PreparedGridRing
 from solution_runner.pipelines.grid_polygon.strategies import get_solution_strategy
 
 

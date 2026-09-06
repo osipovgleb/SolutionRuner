@@ -10,7 +10,7 @@ from typing import Any, Sequence
 from bs4 import BeautifulSoup
 
 from .mcp_runtime import McpGateway
-from .models import GeometryAnalysis, GroupProfile, PreparedFigure
+from ..core.models import GeometryAnalysis, GroupProfile, PreparedFigure
 from .strategies.protocol import SolutionStrategy
 
 

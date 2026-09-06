@@ -12,8 +12,8 @@ from typing import Any
 from bs4 import BeautifulSoup
 import pytest
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.models import PreparedGridPolygon
+from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.models import PreparedGridPolygon
 from solution_runner.pipelines.grid_polygon.progress import ProgressReporter
 from solution_runner.pipelines.grid_polygon.solution_runtime import run_solution_stage
 from solution_runner.pipelines.grid_polygon.strategies import get_solution_strategy

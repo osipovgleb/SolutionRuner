@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.models import ProblemTarget
+from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.models import ProblemTarget
 from solution_runner.pipelines.grid_polygon.ring_asset_preparation import (
     ConditionAsset,
     RingAssetPreparationError,

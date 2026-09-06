@@ -13,10 +13,10 @@ import os
 from pathlib import Path
 from typing import Any, Protocol
 
-from .group_profiles import get_group_profile
+from ..core.group_profiles import get_group_profile
 from .manifest import FrozenRunScope, read_prepared_manifest
 from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
-from .models import (
+from ..core.models import (
     GroupProfile,
     PreparedFigure,
     PreparedGridPolygon,

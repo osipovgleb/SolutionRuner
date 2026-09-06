@@ -1,0 +1,24 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "category_id": "0255b2f6-ef48-4356-8edf-aec792deb65b",
+  "theme_id": "dd26db09-ca42-4fe4-b408-2f80383fd94a",
+  "theme_title": "Решение прямоугольного треугольника",
+  "group_id": "89f12433-3a17-412f-bfec-ef20bd38ce63",
+  "group_key": "642289",
+  "status": "ready",
+  "research": {
+    "parent_source_problem_id": "642289",
+    "repair_child_source_problem_ids": ["682016"],
+    "accepted_forms_frozen": true,
+    "notes": "AB>0, 0<sin A<1, right angle C, request BC; only \\sin A and \\sin \\angle A observed. Rule BC=AB·sin A."
+  },
+  "verification": {
+    "focused_test_command": ".venv/bin/python -m pytest tests/pipelines/grid_polygon/test_group_642289_planner.py tests/pipelines/grid_polygon/test_group_profiles.py -q",
+    "focused_tests_passed": true,
+    "dry_run_command": ".venv/bin/solution-runner --group 642289 --confirm-catalog 41bc4d03-40cd-4407-8dea-df76e3f47ea8 --max-workers 1 --batch-size 1",
+    "dry_run_passed": true,
+    "dry_run_artifact": "var/grid-polygon/runs/20260906T005348Z-group-642289/summary.json",
+    "apply_executed": true
+  },
+  "updated_at": "2026-09-06T00:54:00Z"
+}

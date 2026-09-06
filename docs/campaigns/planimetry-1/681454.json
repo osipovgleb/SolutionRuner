@@ -1,0 +1,24 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "category_id": "0255b2f6-ef48-4356-8edf-aec792deb65b",
+  "theme_id": "ade013e0-059b-4b5e-bdb4-b4d701c2ca76",
+  "theme_title": "Треугольники общего вида",
+  "group_id": "254dd37d-7ec4-40b6-9c5a-6812f32f055f",
+  "group_key": "681454",
+  "status": "ready",
+  "research": {
+    "parent_source_problem_id": "681454",
+    "repair_child_source_problem_ids": ["681460", "704521"],
+    "accepted_forms_frozen": true,
+    "notes": "Two frozen forms: ABD = 180 - 2*BAD - ACB, and exterior ADB = BAD + C. Exact parent condition image is required."
+  },
+  "verification": {
+    "focused_test_command": ".venv/bin/python -m pytest tests/pipelines/grid_polygon/test_group_681454_planner.py tests/pipelines/grid_polygon/test_group_profiles.py -q",
+    "focused_tests_passed": true,
+    "dry_run_command": ".venv/bin/solution-runner --group 681454 --confirm-catalog 41bc4d03-40cd-4407-8dea-df76e3f47ea8 --max-workers 1 --batch-size 1",
+    "dry_run_passed": true,
+    "dry_run_artifact": "var/grid-polygon/runs/20260906T010534Z-group-681454/summary.json",
+    "apply_executed": false
+  },
+  "updated_at": "2026-09-06T01:06:00Z"
+}

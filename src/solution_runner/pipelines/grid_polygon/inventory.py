@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from typing import Any, Protocol
 
-from .models import GroupProfile, ProblemTarget
+from ..core.models import GroupProfile, ProblemTarget
 
 
 RASTER_CONTENT_TYPES = frozenset({"image/png", "image/bmp", "image/x-ms-bmp"})

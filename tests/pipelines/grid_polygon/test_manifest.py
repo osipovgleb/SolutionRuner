@@ -10,14 +10,14 @@ import shutil
 import pytest
 
 from solution_runner.pipelines.grid_polygon.asset_preparation import load_prepared_grid_polygons
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
+from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.grid_polygon.manifest import (
     FrozenRunScope,
     ManifestDriftError,
     read_prepared_manifest,
     write_prepared_manifest,
 )
-from solution_runner.pipelines.grid_polygon.models import PreparedGridRing, ProblemTarget
+from solution_runner.pipelines.core.models import PreparedGridRing, ProblemTarget
 
 
 FIXTURE_DIR = Path(__file__).with_name("fixtures")

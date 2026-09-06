@@ -7,8 +7,8 @@ from xml.etree import ElementTree
 
 import pytest
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.models import PreparedGridPolygon
+from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.models import PreparedGridPolygon
 from solution_runner.pipelines.grid_polygon.strategies import get_solution_strategy
 
 

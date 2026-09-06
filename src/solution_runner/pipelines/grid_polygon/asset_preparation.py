@@ -16,7 +16,7 @@ from .geometry.grid_polygon import (
     polygon_sha256,
     serialize_coordinate_alt,
 )
-from .models import GroupProfile, PreparedGridPolygon, ProblemTarget
+from ..core.models import GroupProfile, PreparedGridPolygon, ProblemTarget
 
 
 DEFAULT_IMAGE_RUNNER = (
@@ -106,8 +106,6 @@ def build_image_runner_command(
         f"{batch_pause_seconds:g}",
         "--max-workers",
         str(max_workers),
-        "--color",
-        "always",
         "--run-dir",
         str(run_dir),
     )

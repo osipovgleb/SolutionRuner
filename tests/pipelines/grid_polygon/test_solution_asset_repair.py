@@ -5,8 +5,8 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.models import PreparedGridPolygon
+from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.models import PreparedGridPolygon
 from solution_runner.pipelines.grid_polygon.solution_asset_repair import (
     repair_rectangle_solution_asset,
 )

@@ -5,7 +5,7 @@ from __future__ import annotations
 import threading
 from typing import Any
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
+from solution_runner.pipelines.core.group_profiles import get_group_profile
 import pytest
 
 from solution_runner.pipelines.grid_polygon.inventory import (

@@ -6,9 +6,9 @@ from io import StringIO
 import threading
 from typing import Any
 
-from solution_runner.pipelines.grid_polygon.group_profiles import get_group_profile
+from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.grid_polygon.helpers_runtime import run_helpers_stage
-from solution_runner.pipelines.grid_polygon.models import ProblemStageResult
+from solution_runner.pipelines.core.models import ProblemStageResult
 from solution_runner.pipelines.grid_polygon.progress import ProgressReporter
 
 

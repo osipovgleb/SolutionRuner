@@ -1,0 +1,24 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "category_id": "0255b2f6-ef48-4356-8edf-aec792deb65b",
+  "theme_id": "b83f22cf-01ea-4a6e-802d-0a2a1831924e",
+  "theme_title": "Параллелограммы",
+  "group_id": "f43579ce-3c4e-4b2e-97a0-cab36f034bef",
+  "group_key": "665285",
+  "status": "ready",
+  "research": {
+    "parent_source_problem_id": "665285",
+    "repair_child_source_problem_ids": ["676889", "677159"],
+    "accepted_forms_frozen": true,
+    "notes": "Parallelogram ABCD, E midpoint of AD, find trapezoid BCDE area. Compute 3/4 of the stated positive integer parallelogram area; canonical answers use a comma decimal when needed."
+  },
+  "verification": {
+    "focused_test_command": ".venv/bin/python -m pytest tests/pipelines/grid_polygon/test_group_665285_planner.py tests/pipelines/grid_polygon/test_group_profiles.py -q",
+    "focused_tests_passed": true,
+    "dry_run_command": ".venv/bin/solution-runner --group 665285 --confirm-catalog 41bc4d03-40cd-4407-8dea-df76e3f47ea8 --max-workers 1 --batch-size 1",
+    "dry_run_passed": true,
+    "dry_run_artifact": "var/grid-polygon/runs/20260906T011020Z-group-665285/summary.json",
+    "apply_executed": false
+  },
+  "updated_at": "2026-09-06T01:11:00Z"
+}

@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from solution_runner.pipelines.grid_polygon.models import PreparedGridPolygon, ProblemTarget
+from solution_runner.pipelines.core.models import PreparedGridPolygon, ProblemTarget
 
 
 def test_prepared_polygon_is_immutable_and_keeps_canonical_identities(

@@ -11,10 +11,10 @@ from typing import Any
 
 import pytest
 
-from solution_runner.pipelines.grid_polygon.group_profiles import CATALOG_SNAPSHOT_ID
+from solution_runner.pipelines.core.group_profiles import CATALOG_SNAPSHOT_ID
 from solution_runner.pipelines.grid_polygon.inventory import GroupInventory
 from solution_runner.pipelines.grid_polygon.launcher import LauncherDependencies, main
-from solution_runner.pipelines.grid_polygon.models import (
+from solution_runner.pipelines.core.models import (
     PreparedGridPolygon,
     ProblemStageResult,
     ProblemTarget,
@@ -224,14 +224,13 @@ def test_internal_problem_selector_uses_targeted_initialization(
             "--only-problem-id",
             "problem-1",
             "--apply",
-            "--color",
-            "never",
         ],
         deps=_dependencies(tmp_path, calls),
     ) == 0
 
     assert calls.inventories == []
     output = capsys.readouterr().out
+    assert "\x1b[" in output
     assert "TARGET SELECTION STARTED" in output
     assert "TARGET SELECTION COMPLETED  TARGETS 1" in output
     assert "INVENTORY STARTED" not in output
@@ -328,6 +327,75 @@ def test_launcher_routes_content_rule_group_without_geometry_preparation(
     ) == 0
     assert content_calls == [("27238", "4583")]
     assert calls.helpers_runs == 1
+
+
+def test_content_rule_group_can_run_every_task_except_parent(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Keep the canonical first task as source context, never as an apply target."""
+
+    calls = Calls([], [], [])
+    base = _dependencies(tmp_path, calls)
+    targets = tuple(
+        ProblemTarget(
+            problem_id=f"problem-{index}",
+            source_problem_id=source_problem_id,
+            source_group_id="8b5a2cb7-4831-4355-9d47-e473b8aef65c",
+            group_key="27238",
+            problem_order_index=index,
+        )
+        for index, source_problem_id in enumerate(("27238", "4583", "4584"), start=1)
+    )
+    observed: list[tuple[tuple[str, ...], str]] = []
+
+    def content_rule_stage(
+        _gateway: object,
+        selected_targets: tuple[ProblemTarget, ...],
+        asset_source_target: ProblemTarget,
+        _profile: object,
+        _reporter: object,
+        **_: object,
+    ) -> tuple[ProblemStageResult, ...]:
+        observed.append(
+            (
+                tuple(target.source_problem_id for target in selected_targets),
+                asset_source_target.source_problem_id,
+            )
+        )
+        return tuple(
+            ProblemStageResult(
+                problem_id=target.problem_id,
+                source_problem_id=target.source_problem_id,
+                stage="solution_answer",
+                status="applied",
+            )
+            for target in selected_targets
+        )
+
+    deps = LauncherDependencies(
+        **{
+            **base.__dict__,
+            "inventory": lambda *_args, **_kwargs: GroupInventory(
+                targets=targets, png_targets=(), svg_targets=()
+            ),
+            "content_rule_stage": content_rule_stage,
+        }
+    )
+    monkeypatch.setenv("TEACHERHELPER_MCP_API_KEY", "test-key")
+
+    assert main(
+        [
+            "--group",
+            "27238",
+            "--confirm-catalog",
+            "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+            "--exclude-parent-problem",
+            "--apply",
+        ],
+        deps=deps,
+    ) == 0
+    assert observed == [(("4583", "4584"), "27238")]
 
 
 def test_launcher_passes_explicit_worker_bound_to_parallel_stages(

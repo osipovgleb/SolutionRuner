@@ -2798,7 +2798,7 @@ def run_pipeline(args: argparse.Namespace) -> int:
     writes = apply or rollback
     run_dir = args.run_dir.resolve()
     run_dir.mkdir(parents=True, exist_ok=True)
-    logger = EventLogger(run_dir / "events.jsonl", color=args.color)
+    logger = EventLogger(run_dir / "events.jsonl", color="always")
     client: McpClient | None = None
     summary: dict[str, Any] = {}
     try:
@@ -3458,12 +3458,6 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--mcp-timeout-seconds", type=float, default=120.0)
     parser.add_argument("--transfer-timeout-seconds", type=float, default=120.0)
-    parser.add_argument(
-        "--color",
-        choices=("auto", "always", "never"),
-        default="auto",
-        help="ANSI colors for console task-stage logs.",
-    )
     parser.add_argument("--run-dir", type=Path, default=default_run_dir)
     parser.add_argument(
         "--resume-from-run",

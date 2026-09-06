@@ -1,64 +1,89 @@
-# Solution Runner
+# SolutionRuner
 
-This repository is the canonical home for deterministic TeacherHelper runners,
-strict source-group profiles, raster-to-SVG converters, SVG cleanup, manifests,
-and their regression tests.
+Детерминированные раннеры TeacherHelper: вычисление ответов, сборка решений,
+обработка изображений и применение изменений через MCP.
 
-The former copies under `TeacherHelper/scripts/grid_polygon_pipeline` and
-`svg_parseer` are migration sources only. New work must be made here after the
-migration verification is complete.
+## Что где лежит
 
-## Boundaries
+| Путь | Содержимое |
+| --- | --- |
+| [src/solution_runner/launcher.py](src/solution_runner/launcher.py) | Общая точка входа `.venv/bin/solution-runner`. |
+| [pipelines/core/](src/solution_runner/pipelines/core/) | Реестры обработчиков и профилей, общий content runtime, модели, MCP-интерфейс и точные числа. |
+| [pipelines/equations/](src/solution_runner/pipelines/equations/) | Обработчики уравнений. |
+| [pipelines/vectors/](src/solution_runner/pipelines/vectors/) | Векторы, длины и скалярные произведения. |
+| [pipelines/triangles/](src/solution_runner/pipelines/triangles/) | Треугольники: `general/`, `isosceles/`, `right/`. |
+| [pipelines/quadrilaterals/](src/solution_runner/pipelines/quadrilaterals/) | Параллелограммы и трапеции. |
+| [pipelines/grid_polygon/](src/solution_runner/pipelines/grid_polygon/) | Фигуры на сетке и кольца; здесь пока находится общая оркестрация запусков. |
+| [converters/](src/solution_runner/converters/) | Преобразование растров в SVG, очистка SVG, шаблоны и OCR. |
+| [tests/](tests/) | Тесты раннеров и конвертеров, фикстуры. |
+| [issues/](issues/) | Разборы проблем и предложения по развитию. |
+| [docs/campaigns/](docs/campaigns/) | Инвентаризация и отчёты обработки групп. |
+| `var/` | Манифесты, логи, превью, ассеты и результаты запусков; не отслеживаются Git. |
+| [pyproject.toml](pyproject.toml), [package.json](package.json) | Python-пакет, CLI и зависимости; Node используется конвертером с OCR. |
 
-- `src/solution_runner/pipelines/` decides which transformations a selected
-  source group requires and in which order they run.
-- `src/solution_runner/converters/` transforms local image bytes. A converter
-  must not independently choose a source group or silently write production
-  content.
-- `src/solution_runner/pipelines/grid_polygon/mcp_runtime.py` is the shared
-  TeacherHelper MCP gateway for the migrated grid-polygon pipeline.
-- `tests/` and its minimized fixtures are tracked.
-- `var/` contains manifests, converted assets, logs, previews, caches, and
-  recovery evidence and is never tracked.
+В `grid_polygon/`:
 
-## Safety contract
+- `geometry/` — разбор SVG и геометрия сетки; `strategies/` — построение решений и рисунков;
+- `inventory.py` — выбор задач; `manifest.py` — сохранённое состояние запуска;
+- `asset_preparation.py`, `ring_asset_preparation.py` — подготовка изображений;
+- `mcp_transport.py`, `mcp_runtime.py` — транспорт и вызовы MCP;
+- `solution_plan.py` — план изменений; `solution_runtime.py`, `helpers_runtime.py` — применение и проверка результата;
+- `launcher.py`, `progress.py` — порядок этапов, возобновление и прогресс;
+- `solution_asset_repair.py` — восстановление рисунков решений;
+- `runner_probe.py` — read-only поиск подходящего существующего правила для одной задачи.
 
-The group launcher defaults to a dry run. Production writes require both
-`--apply` and an exact `--confirm-catalog` value. API keys are read from
-`TEACHERHELPER_MCP_API_KEY` or an interactive prompt and must never be stored in
-the repository or runtime manifests.
+## Документация
 
-## Installation
+- [Контракт разработки раннеров](docs/runner-authoring-contract.md) — режимы и этапы работы.
+- [Пожелания к стилю](docs/target-vision.md) — оформление решений и рисунков.
+- [Пробник раннеров](docs/runner-probe.md) — расположение и интерфейс пробника.
+- [Планиметрия 1](docs/planimetry-1-campaign.md) — расположение отчётов кампании.
 
-```bash
-python3 -m venv .venv
-.venv/bin/pip install -e '.[dev]'
-npm ci
+## Как подключаются группы
+
+Общий лаунчер остаётся один: `.venv/bin/solution-runner`.
+
+```text
+domain/profiles.py → content_rule_key → core/handler_registry.py
+                                         ↓
+                                 HandlerSpec.plan(PlanInput)
+                                         ↓
+                                 core/content_runtime.py
+                                 manifest / apply / readback
 ```
 
-Tesseract.js is needed only by the temperature-chart converter. The remaining
-runner and converter tests do not require Node packages unless they exercise
-that OCR boundary.
+- `profiles.py` в математическом разделе содержит только привязки групп и
+  параметры. `core/group_profiles.py` собирает их, отвергая дубликаты и ссылки
+  на неизвестные content rules.
+- `handlers.py` того же раздела объявляет `HandlerSpec`: ключ, функцию
+  обработчика, отображение аргументов, ограничения, требования к изображениям
+  и родителю. Общий реестр собирает декларации разделов без перебора задач.
+- `PlanInput` — единый вход; адаптер передаёт существующему planner только
+  объявленные аргументы. `plan()` возвращает ответ и transformations.
+- Неизвестный ключ — ошибка конфигурации, а не попытка выбрать обработчик по
+  префиксу или совпавшему ответу. Чистый пробник остаётся отдельной операцией.
+- Геометрические стратегии сохраняют существующий реестр
+  `grid_polygon/strategies`; это другой подготовительный workflow того же
+  общего лаунчера, а не отдельный CLI.
 
-## Run one group
+Для новой группы с уже поддержанной математикой добавить привязку в
+`profiles.py` и тест. Например, группы 26660 и 26661 обе ссылаются на
+`irrational-26660-square-root-rational-affine`; новую ветку в runtime добавлять
+не нужно. Для нового правила добавить planner, одну декларацию в `handlers.py`
+и тесты. При создании нового математического раздела один раз подключить его
+декларации к агрегирующим реестрам.
 
-Preview without writes:
+`triangles/right/runtime.py` — только совместимый импорт общего runtime.
+Новый код использует `core/content_runtime.py`. Ключи остаются прежними,
+поэтому перенос не меняет записанные в манифестах идентификаторы правил.
+
+Проверка реестров без MCP:
 
 ```bash
-.venv/bin/solution-runner \
-  --group 27547 \
-  --confirm-catalog 4073fc7b-2056-4697-b18b-38741c94d0f4
+.venv/bin/python -m pytest tests/pipelines/core/test_handler_registry.py -q
 ```
 
-Apply after reviewing the frozen scope and preview:
-
-```bash
-.venv/bin/solution-runner \
-  --group 27547 \
-  --confirm-catalog 4073fc7b-2056-4697-b18b-38741c94d0f4 \
-  --apply
-```
-
-See [the pipeline documentation](src/solution_runner/pipelines/grid_polygon/README.md),
-[the runner authoring contract](docs/runner-authoring-contract.md), and
-[the migration inventory](docs/migration.md) for details.
+Тесты фиксируют прежние маршруты и аргументы, сохранность профилей, отсутствие
+дубликатов и неизвестных ключей. Миграционные JSON-фикстуры содержат только
+декларации и настройки, не содержимое задач; при намеренном изменении профилей
+актуализировать соответствующую запись, не переснимать весь snapshot вслепую.

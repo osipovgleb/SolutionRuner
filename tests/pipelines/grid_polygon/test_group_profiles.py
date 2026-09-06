@@ -6,14 +6,46 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from solution_runner.pipelines.grid_polygon.group_profiles import (
+from solution_runner.pipelines.core.group_profiles import (
     all_group_profiles,
     get_group_profile,
 )
 
 
 EXPECTED_GROUPS = {
+    "26662": ("7077709e-38b6-4081-9b4c-d3a8af279740", None, None),
+    "26663": ("e11d0ef5-d850-4f7e-89a8-5d4ea865ceee", None, None),
+    "27663": ("9e75ee4e-534e-4c70-b364-586e57afcc5d", None, None),
+    "27707": ("f60e3532-b35b-4da1-abd1-c2a5031c58cd", None, None),
+    "27708": ("363c95ed-4a3d-421e-a382-240b162aa85b", None, None),
+    "27718": ("d50899c8-97e9-4f30-a76c-69f2e919f379", None, None),
     "27591": ("cba0bfd4-8e64-4d51-812e-0049e9e86e9b", None, None),
+    "561168": ("8e613f33-1103-4aef-a8da-3155a43e4e1c", None, None),
+    "681454": ("254dd37d-7ec4-40b6-9c5a-6812f32f055f", None, None),
+    "665285": ("f43579ce-3c4e-4b2e-97a0-cab36f034bef", None, None),
+    "77152": ("913dd919-8d79-4ddc-be8c-f87a128e04c9", None, None),
+    "27592": ("222a6476-41c9-460e-a8d6-964c7f8e5fdb", None, None),
+    "27623": ("e5f64691-1349-4536-84cd-fd0b96ce573c", None, None),
+    "27743": ("2a5de0a0-a8a4-4e62-8bbe-fee17e7cbc5d", None, None),
+    "27752": ("d79679bf-ed11-4924-bc43-84ff8c2bb900", None, None),
+    "27757": ("5379db65-ac41-44f9-90ef-14841a34b4a6", None, None),
+    "27758": ("e34ccc5c-e73b-476e-8853-200aef746fe2", None, None),
+    "27759": ("3b5e0e36-0f29-4a67-911f-e9de436f9847", None, None),
+    "27762": ("09f4d8bb-5a05-4064-a238-e41fa27be7dc", None, None),
+    "27763": ("da77c136-d3c9-449d-b553-efe38e7237b0", None, None),
+    "27764": ("ace78318-f34b-4458-9cc5-de9d60c6a627", None, None),
+    "27767": ("0935a9b9-df78-45ae-8d59-a05a5620032b", None, None),
+    "27768": ("5c4b77d7-1161-4791-a4f1-fba3a25caf1a", None, None),
+    "27769": ("ae798923-fe8c-4e80-ad15-d186ba3c3e27", None, None),
+    "27776": ("a6a80898-a164-4477-9b42-198c3f53d071", None, None),
+    "27777": ("468da972-47cf-4932-b5d4-caa90170ba66", None, None),
+    "27778": ("a61797fc-3586-4a7c-ba12-224df14b1006", None, None),
+    "27779": ("274522b6-334a-4be7-a172-5380a38dfc30", None, None),
+    "317337": ("419acdb9-9d6a-4b74-8b95-1ac888864fd4", None, None),
+    "319058": ("5784d6be-e15e-4702-9f14-3366852d30ae", None, None),
+    "500142": ("fe1d0484-1d3d-43d8-b749-09afd351efac", None, None),
+    "510796": ("9da66d84-8afa-49c3-af98-d709b67b0ff6", None, None),
+    "642289": ("89f12433-3a17-412f-bfec-ef20bd38ce63", None, None),
     "27284": ("6fa6e46a-8e66-40ab-8b12-a830d8cec6fe", None, None),
     "27285": ("e815ef19-e5b1-4407-bcb3-011d096b8f46", None, None),
     "27286": ("3a9411cf-7a1f-47dc-bbce-c93b5fb195f9", None, None),
@@ -194,7 +226,9 @@ def test_profiles_select_strategies_from_explicit_data() -> None:
     """Catch missing groups or a return to dynamic module-path selection."""
 
     profiles = all_group_profiles()
-    assert set(profiles) == set(EXPECTED_GROUPS)
+    # Historical examples remain valid; all bindings are separately covered by
+    # core registry validation and the complete migration snapshot.
+    assert set(EXPECTED_GROUPS) <= set(profiles)
     for group_key, (source_group_id, strategy_key, vertex_count) in EXPECTED_GROUPS.items():
         profile = get_group_profile(group_key)
         assert profile.source_group_id == source_group_id
@@ -389,6 +423,32 @@ def test_later_elementary_right_triangle_groups_select_exact_content_rules(
 ) -> None:
     """Route each elementary condition family through its own strict rule."""
 
+    profile = get_group_profile(group_key)
+
+    assert profile.source_group_id == source_group_id
+    assert profile.group_order_index == order_index
+    assert profile.content_rule_key == content_rule_key
+    assert profile.strategy_key is None
+
+
+@pytest.mark.parametrize(
+    ("group_key", "source_group_id", "order_index", "content_rule_key"),
+    [
+        ("27769", "ae798923-fe8c-4e80-ad15-d186ba3c3e27", 13, "general-triangle-27769-extension-isosceles-angle"),
+        ("27776", "a6a80898-a164-4477-9b42-198c3f53d071", 14, "general-triangle-27776-bisector-congruent-angle"),
+        ("27777", "468da972-47cf-4932-b5d4-caa90170ba66", 15, "general-triangle-27777-exterior-bisector-isosceles-angle"),
+        ("27778", "a61797fc-3586-4a7c-ba12-224df14b1006", 16, "general-triangle-27778-incenter-bisectors-angle"),
+        ("27779", "274522b6-334a-4be7-a172-5380a38dfc30", 17, "general-triangle-27779-orthocenter-altitudes-angle"),
+        ("317337", "419acdb9-9d6a-4b74-8b95-1ac888864fd4", 18, "general-triangle-317337-midline-small-area-to-total"),
+        ("319058", "5784d6be-e15e-4702-9f14-3366852d30ae", 19, "general-triangle-319058-midline-trapezoid-area"),
+    ],
+)
+def test_next_general_triangle_groups_select_their_own_handlers(
+    group_key: str,
+    source_group_id: str,
+    order_index: int,
+    content_rule_key: str,
+) -> None:
     profile = get_group_profile(group_key)
 
     assert profile.source_group_id == source_group_id

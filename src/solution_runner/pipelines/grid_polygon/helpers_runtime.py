@@ -7,7 +7,7 @@ from functools import partial
 from typing import Any
 
 from .mcp_runtime import McpGateway
-from .models import GroupProfile, ProblemStageResult
+from ..core.models import GroupProfile, ProblemStageResult
 from .progress import ProgressReporter, TargetProgress
 
 

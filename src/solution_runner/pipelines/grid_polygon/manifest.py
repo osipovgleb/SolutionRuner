@@ -8,7 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from .models import PreparedFigure, PreparedGridPolygon, PreparedGridRing
+from ..core.models import PreparedFigure, PreparedGridPolygon, PreparedGridRing
 from .geometry.grid_polygon import GridPolygonError, ordered_coordinates_from_svg
 
 

@@ -1,154 +1,117 @@
-# Runner authoring contract
+# Контракт на разработку раннеров
 
-This contract is mandatory for every new or changed group profile. It captures
-the failure modes found while building and operating the first general-triangle
-runners. A task is not complete merely because a planner returns output or one
-fixture passes.
+Этот контракт предназначен для автоматической или ручной работы по регистрации групп и созданию для них раннеров.
 
-## Research scope
+## Обязательно перед работой
+1) Этот файл — основной контракт работы с раннерами в проекте.
+2) Перед анализом и разработкой прочитать [target-vision](target-vision.md).
+3) Расположение кода и материалов описано в [README проекта](../README.md).
 
-The default and maximum unapproved content sample is:
+# Режимы работы
+## Ручная работа:
+1) Человек выбирает группу и работает с агентом
+2) Агент читает задачи, регистрирует группу, пишет раннер и тесты
+3) Агент делает read-only проверки и выдаёт команду
+4) Команду с `--apply` запускает человек
+5) Агент читает манифест, дорабатывает fail-closed и выдаёт следующую команду
 
-- the mandatory parent problem; and
-- one explicitly selected non-parent child that currently needs repair.
+## Автоматическая работа:
+1) Агент сам находит или получает группы для обработки
+2) Агент читает родителя и нужные дочерние задачи
+3) Агент регистрирует группу, пишет или расширяет раннер
+4) Агент сам запускает раннер с `--apply`
+5) Успешные задачи записываются, неподдерживаемые попадают в fail-closed
+6) Агент читает манифест, дорабатывает раннер и повторно запускает только упавшие задачи
+7) Цикл продолжается, пока есть задачи в fail-closed
 
-One additional child may be read only when a known alternative serialization or
-condition form must be represented. Researching more than two children requires
-explicit user authorization before the reads occur.
 
-It is acceptable to read the group's child identity listing and a compact
-missing-solution summary solely to select the representative child IDs. It is
-not acceptable to batch-fetch or enumerate the conditions, answers, solutions,
-transformation contexts, pipeline states, or assets of the whole group during
-profile design. Do not use `get_problem_batch` over the group to discover forms
-or keep sampling children to gain confidence.
+# Этапы разработки ранеров:
+- Анализ группы
+- Регистрация группы
+- Разработка ранера
+- Проверка ранера
+- Запуск ранера
+- Fail-closed полировка
 
-The parent and one or two selected children define the explicit accepted form.
-Anything not proven by that sample is handled by record-local fail-closed at
-runtime. Fail-closed exists precisely so exhaustive group research is not
-required.
+## Анализ группы
+1) Найти и прочитать родительскую задачу
+2) Прочитать до 3 дочерних задач
+3) Понять, что меняется между задачами
+4) Найти соседние раннеры с похожими условиями
+5) Проверить условия, решения, ответы и ассеты
+6) Определить, что должен делать раннер
+7) Определить, какие опции и режим запуска нужны в лаунчере
 
-After the profile, accepted grammar, and per-record fail-closed boundary are
-implemented and frozen, `get_problem_batch` may be used by the real runner or
-an explicit validation run for efficient input transport. This does not expand
-the research sample: every returned task is independently passed through the
-already defined parser. Unsupported records receive no writes and a structured
-failure while valid records continue. Batch observations must never mutate the
-accepted grammar or trigger ad-hoc implementation changes during that run.
+## Регистрация группы
+1) Проверить, зарегистрирована ли группа
+2) Если нет — найти точный каталог, тему и группу
+3) Зарегистрировать профиль группы
+4) Указать тип раннера и правило обработки
+5) Указать родительскую задачу
+6) Указать правило работы с ассетами
+7) Указать параметры запуска для группы
 
-## Sources of truth
+Регистрацию добавлять в `profiles.py` соответствующего математического
+раздела. `content_rule_key` выбирает `HandlerSpec` из общего реестра.
+Если правило уже существует, достаточно новой привязки и теста: не менять
+лаунчер, content runtime или общий список типов ради каждой группы.
+Новое правило объявлять один раз в `handlers.py` своего раздела вместе с
+требованиями к родителю, ассетам и аргументам planner. Не добавлять диспетчеризацию
+по ID группы, префиксу ключа или цепочкой `if` в общем runtime.
+Использовать один общий лаунчер, `PlanInput`, manifest, apply и readback.
+Дубликат ключа или неизвестный обработчик — ошибка регистрации, не fallback.
 
-Use each input for exactly one purpose:
-
-- The child condition supplies the concrete values to parse and compute.
-- The registered deterministic rule defines the mathematics and canonical
-  answer.
-- The parent condition, solution, and asset supply the approved presentation:
-  wording, paragraph structure, inline-LaTeX structure, and diagram identity.
-- Existing child answer, solution, asset placement, and Helpers state are
-  repair targets. They are never mathematical authority.
-
-Do not copy a parent's solution as static HTML. Parse the parent once into an
-explicit template, parse every child independently, map semantic variables,
-and substitute all affected expressions. Preserve the parent's surrounding
-prose and LaTeX structure exactly unless the profile documents an intentional
-paragraph or punctuation change.
-
-## Per-task algorithm
-
-For every selected child:
-
-1. Freshly read its transformation context and verify catalog membership and
-   internal/source identity.
-2. Parse the complete condition using the profile's explicit accepted forms.
-   Do not infer missing values from the picture or accept a substring match.
-3. Map child values to parent variables and compute with exact arithmetic.
-4. Render a solution from the parent template with the child's values. Every
-   number and derived expression in inline LaTeX must be accounted for; an
-   unexplained parent literal is a profile error.
-5. Derive the canonical answer from the computation. Replace missing,
-   malformed, nonnumeric, or contradictory stored answers and solutions.
-6. Reuse the exact audited parent asset when required and absent. Preserve an
-   already matching asset; reject ambiguous/foreign layouts for that task and
-   never duplicate an image.
-7. Apply only the frozen transformations for that task, then freshly read back
-   condition, solution, answer, assets, and Helpers state. Report success only
-   when the recomputed plan is empty.
-
-Unsupported or ambiguous input receives zero writes and a clear record-local
-failure. Independent records continue. Abort the whole run only for shared
-scope, catalog, authorization, frozen-inventory, or configuration corruption.
-
-## Exact-problem operation
-
-`--only-source-problem-id` and `--only-problem-id` define execution scope; they
-are not post-inventory filters. Validate membership from the group's child
-identities, then read/classify only selected tasks plus the canonical parent
-needed by a content rule. Log `TARGET SELECTION`, not `INVENTORY`.
-
-Commands shown to an operator must work from the repository root. Prefer the
-installed local executable:
-
+## Разработка ранера
+1) Подключить группу к лаунчеру
+2) Написать или переиспользовать раннер по [target-vision](target-vision.md)
+3) Научить его читать условие задачи
+4) Научить его считать ответ
+5) Научить его собирать решение по образцу родителя
+6) Научить его работать с ассетами
+7) Для неподдерживаемых задач ничего не записывать
+8) Выдать команду на запуск
 ```bash
 .venv/bin/solution-runner \
   --group GROUP \
   --confirm-catalog CATALOG_SNAPSHOT_ID \
   --only-source-problem-id SOURCE_TASK_NUMBER \
-  --max-workers 1 \
-  --batch-size 1 \
+  --max-workers 5 \
+  --batch-size 10 \
   --apply
 ```
 
-Do not omit an exact selector when the user asked for one task. Do not execute
-`--apply` until explicitly authorized. State the exact command before running
-tests or a production command, and report the actual execution surface and
-result; do not imply that a side terminal was used when it was not.
+## Проверка ранера
+1) Запустить локальные тесты
+2) Прогнать ранер на 1–3 задачах без `--apply` и без INITIALIZE
+3) Сверить ответ и решение с ожидаемым результатом
+4) Проверить, что ассеты обработаны правильно
+5) Проверить, что неподдерживаемые задачи не получают записей
 
-## Definition of done
+## Запуск ранера
+1) В ручном режиме пользователь запускает выданную команду
+2) В автоматическом режиме агент запускает раннер с `--apply`
+3) Дождаться завершения запуска
+4) Перейти к Fail-closed полировке
 
-A group profile is ready only when all of the following are demonstrated:
+## Fail-closed полировка
+1) Прочитать манифест завершённого запуска
+2) Если все задачи прошли успешно — завершить работу
+3) Найти задачи со статусами `failed` и `blocked`
+4) Прочитать несколько таких задач через `get_problem(UUID)`
+5) Выяснить причину ошибки
+6) Поменять раннер и перейти к проверке раннера
 
-- Read-only audit records the exact parent problem, parent solution HTML,
-  parent asset, accepted condition forms, and values to parse.
-- A table or profile document names every parsed input, the deterministic
-  formula, derived answer, and a real non-parent child that currently needs
-  repair.
-- Tests cover the parent and at least one selected child with different values
-  so static parent copying cannot pass. A second MCP child is used only for a
-  known alternative input form; additional parser cases use local synthetic
-  fixtures rather than wider production research.
-- Tests assert adapted inline LaTeX and paragraph placement, not only the final
-  answer.
-- Tests cover correct, missing, malformed, and incorrect stored answers and
-  solutions.
-- Tests cover missing parent asset, already-correct asset, and rejection of
-  foreign or duplicate assets.
-- Tests prove one unsupported task makes no writes while later valid tasks
-  continue.
-- Tests prove a fresh run without `--resume-solutions` recomputes desired state;
-  `ALREADY COMPLETE` is emitted only after exact current-state comparison.
-- Targeted tests prove non-selected tasks receive no state, context, or asset
-  reads and the parent alone is not used as the acceptance target.
-- Fake-MCP readback proves the second plan is empty after application.
-- The exact test command is announced and passes. Any authorized live apply is
-  performed first on the documented repair-needed child and followed by a
-  fresh readback before broader operation is suggested.
-
-## Forbidden shortcuts
-
-- Static solution HTML shared by children whose values can differ.
-- Blind text replacement without a semantic variable map.
-- Treating a nonempty solution or prior manifest as proof of completeness.
-- Selecting the parent as the representative repair target.
-- Adding a parent image without checking whether the child already has it.
-- Full-group inventory before applying an exact-problem selector.
-- A bare `solution-runner` command unless the active shell environment is known
-  to contain that executable.
-- Declaring all groups ready from unit tests that assert only answers or only
-  the parent example.
-- Reading every child in a group to discover possible variants before writing a
-  fail-closed parser.
-- Calling `get_problem_batch` for the full group during runner design or using
-  its results to discover and add accepted forms dynamically.
-- Expanding beyond the parent plus two child problems without explicit user
-  authorization.
+## Фразы, запускающие этапы
+1) «Давай добавим группу» или «Зарегистрируй группу» — начать с анализа группы,
+   затем пройти регистрацию, разработку и проверку. В ручном режиме закончить
+   выдачей команды с `--apply`.
+2) «Зарегистрируй группу» для уже проанализированной группы — начать с регистрации
+   группы, затем перейти к разработке и проверке.
+3) «Напиши раннер», «Доработай раннер» или «Исправь раннер» — начать с разработки
+   раннера, затем перейти к проверке.
+4) «Проверь раннер» или «Сделай preview» — начать проверку раннера без `--apply`
+   и без INITIALIZE.
+5) «Запусти раннер» или «Прогони группу» — начать запуск раннера: в ручном режиме
+   выдать команду, в автоматическом — запустить её с `--apply`.
+6) «Проверь манифест», «Проверь результат», «Не сработало» или «Есть ошибки» —
+   сразу начать Fail-closed полировку.
