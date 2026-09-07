@@ -40,6 +40,7 @@ class HandlerSpec:
     strict_frozen_input: bool = False
     requires_frozen_manifest: bool = False
     manifest_validator: str | None = None
+    asset_selector: str | None = None
 
     def __post_init__(self):
         if not self.key or ':' not in self.target:
@@ -68,6 +69,27 @@ class HandlerSpec:
         if self.manifest_validator:
             module, name = self.manifest_validator.split(":", 1)
             signature(getattr(import_module(module), name)).bind(None, {})
+        if self.asset_selector:
+            module, name = self.asset_selector.split(":", 1)
+            signature(getattr(import_module(module), name)).bind({})
+
+    def asset_requirements(self, context: dict[str, Any]) -> tuple[dict[str, str], ...]:
+        """Return the exact reusable assets this rule needs for one problem.
+
+        Selectors are repository-declared pure functions.  They may inspect the
+        condition, but never mutate it or make MCP calls.
+        """
+        if not self.asset_selector:
+            return ()
+        module, name = self.asset_selector.split(":", 1)
+        raw = getattr(import_module(module), name)(context)
+        if not isinstance(raw, (list, tuple)) or not all(isinstance(item, dict) for item in raw):
+            raise TypeError(f"asset selector returned an invalid requirement list: {self.key}")
+        required = {"source_asset_id", "section_id", "alt_text"}
+        if any(set(item) != required or not all(isinstance(item[key], str) and item[key] for key in required)
+               for item in raw):
+            raise ValueError(f"asset selector returned an invalid requirement: {self.key}")
+        return tuple({key: str(item[key]) for key in required} for item in raw)
 
     def validate_manifest(self, gateway, manifest) -> None:
         if self.manifest_validator:

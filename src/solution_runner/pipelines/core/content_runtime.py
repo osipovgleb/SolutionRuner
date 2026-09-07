@@ -49,6 +49,16 @@ class RightTriangleGateway(Protocol):
     ) -> dict[str, Any]:
         """Apply one atomic problem transformation batch."""
 
+    def attach_source_asset_to_problems(
+        self,
+        *,
+        source_asset_id: str,
+        section_id: str,
+        alt_text: str,
+        problem_ids: list[str],
+    ) -> dict[str, Any]:
+        """Attach one shared library asset to explicit problem solution sections."""
+
     def get_problem_pipeline_state(self, problem_id: str) -> dict[str, Any]:
         """Return the current Helpers values and concurrency token."""
 
@@ -300,6 +310,65 @@ def _build_content_plan(
     ))
 
 
+def _asset_key(source_asset_id: str) -> str:
+    """Mirror TeacherHelper's stable key for a shared SourceAsset attachment."""
+    return "shared_" + source_asset_id.replace("-", "")[:16]
+
+
+def _with_required_assets(context: dict[str, Any], content_rule_key: str | None) -> dict[str, Any]:
+    """Materialize missing assets locally so a safe preview can plan exactly."""
+    requirements = _registered_handler(content_rule_key).asset_requirements(context)
+    if not requirements:
+        return context
+    planned = deepcopy(context)
+    content = planned.get("normalized_content")
+    if not isinstance(content, dict):
+        raise RightTrianglePlanError("normalized content is required for asset selection")
+    assets = content.setdefault("assets", [])
+    if not isinstance(assets, list):
+        raise RightTrianglePlanError("normalized content assets are invalid")
+    attached_ids = {str(item.get("asset_id")) for item in assets if isinstance(item, dict)}
+    for requirement in requirements:
+        source_asset_id = requirement["source_asset_id"]
+        if source_asset_id not in attached_ids:
+            assets.append({"asset_key": _asset_key(source_asset_id), "asset_id": source_asset_id})
+    return planned
+
+
+def _ensure_required_assets(
+    gateway: RightTriangleGateway,
+    problem_id: str,
+    context: dict[str, Any],
+    content_rule_key: str | None,
+) -> dict[str, Any]:
+    """Attach the rule-selected assets once, then return authoritative readback."""
+    requirements = _registered_handler(content_rule_key).asset_requirements(context)
+    if not requirements:
+        return context
+    content = context.get("normalized_content")
+    assets = content.get("assets") if isinstance(content, dict) else None
+    attached_ids = {
+        str(item.get("asset_id")) for item in assets or [] if isinstance(item, dict)
+    }
+    missing = [item for item in requirements if item["source_asset_id"] not in attached_ids]
+    for requirement in missing:
+        gateway.attach_source_asset_to_problems(
+            source_asset_id=requirement["source_asset_id"],
+            section_id=requirement["section_id"],
+            alt_text=requirement["alt_text"],
+            problem_ids=[problem_id],
+        )
+    if not missing:
+        return context
+    refreshed = gateway.get_problem_context(problem_id)
+    refreshed_assets = ((refreshed.get("normalized_content") or {}).get("assets") or [])
+    refreshed_ids = {str(item.get("asset_id")) for item in refreshed_assets if isinstance(item, dict)}
+    absent = [item["source_asset_id"] for item in requirements if item["source_asset_id"] not in refreshed_ids]
+    if absent:
+        raise RightTrianglePlanError("shared asset attachment was not visible after readback")
+    return refreshed
+
+
 
 def _prepared_record(
     gateway: RightTriangleGateway,
@@ -314,6 +383,7 @@ def _prepared_record(
     problem_id, source_problem_id = _problem_identity(child)
     try:
         context = gateway.get_problem_context(problem_id)
+        context = _with_required_assets(context, content_rule_key)
         current_asset_content_type = _current_condition_asset_content_type(
             gateway, context, content_rule_key
         )
@@ -436,6 +506,7 @@ def _apply_record(
         }
     try:
         context = gateway.get_problem_context(problem_id)
+        context = _ensure_required_assets(gateway, problem_id, context, content_rule_key)
         if _registered_handler(content_rule_key).strict_frozen_input and context.get("problem_id") != problem_id:
             raise RightTrianglePlanError("current problem identity drifted")
         current_asset_content_type = _current_condition_asset_content_type(

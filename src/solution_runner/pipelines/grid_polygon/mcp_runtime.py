@@ -125,6 +125,16 @@ class McpGateway(Protocol):
     ) -> dict[str, Any]:
         """Apply one problem's transformations without blind retry."""
 
+    def attach_source_asset_to_problems(
+        self,
+        *,
+        source_asset_id: str,
+        section_id: str,
+        alt_text: str,
+        problem_ids: list[str],
+    ) -> dict[str, Any]:
+        """Attach one reusable SourceAsset to explicit solution sections."""
+
     def get_problem_asset_target_context(
         self,
         problem_id: str,
@@ -664,6 +674,27 @@ class JsonRpcMcpGateway:
             {
                 "problem_id": problem_id,
                 "transformations": list(transformations),
+            },
+            read_only=False,
+        )
+
+    def attach_source_asset_to_problems(
+        self,
+        *,
+        source_asset_id: str,
+        section_id: str,
+        alt_text: str,
+        problem_ids: list[str],
+    ) -> dict[str, Any]:
+        """Attach one reusable SourceAsset to explicit solution sections."""
+
+        return self._call(
+            "attach_source_asset_to_problems",
+            {
+                "source_asset_id": source_asset_id,
+                "section_id": section_id,
+                "alt_text": alt_text,
+                "problem_ids": problem_ids,
             },
             read_only=False,
         )

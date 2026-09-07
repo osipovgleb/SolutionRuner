@@ -12,6 +12,7 @@ from solution_runner.pipelines.core.numbers import (
     NumberFormatError,
     format_answer,
     parse_rational,
+    terminating_decimal_places,
 )
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
 
@@ -21,6 +22,7 @@ RULE = "elementary-equations-509214-linear-equation"
 _CONDITION_INTRO = "Най\u00adди\u00adте ко\u00adрень урав\u00adне\u00adния"
 _SOLUTION_INTRO = "По\u00adсле\u00adдо\u00adва\u00adтельно по\u00adлу\u00adча\u00adем:"
 _TERM = re.compile(r"[+-]?(?:\d+x|\d+|x)")
+_PARENTHESIZED_TERM = re.compile(r"(?P<multiplier>[+-]?\d+)\((?P<inner>[^()]+)\)")
 
 
 class UnsupportedCondition(ValueError):
@@ -62,32 +64,98 @@ def _rewrite(
     }
 
 
+def _term_values(token: str) -> tuple[int, int]:
+    """Return the constant and x coefficient represented by one simple term."""
+
+    if token.endswith("x"):
+        coefficient_token = token[:-1]
+        coefficient = (
+            -1
+            if coefficient_token == "-"
+            else 1
+            if coefficient_token in ("", "+")
+            else int(coefficient_token)
+        )
+        return 0, coefficient
+    return int(token), 0
+
+
+def _simple_terms(side: str) -> list[tuple[int, int]]:
+    matches = list(_TERM.finditer(side))
+    if not matches or "".join(match.group(0) for match in matches) != side:
+        raise UnsupportedCondition("side contains unsupported terms")
+    return [_term_values(match.group(0)) for match in matches]
+
+
 def _parse_side(side: str) -> tuple[int, int]:
     """Return ``constant, coefficient`` for exactly one constant plus one x-term."""
 
-    matches = list(_TERM.finditer(side))
-    if len(matches) != 2 or "".join(match.group(0) for match in matches) != side:
+    terms = _simple_terms(side)
+    if len(terms) != 2:
         raise UnsupportedCondition("each side must contain one integer and one x-term")
 
-    constant: int | None = None
-    coefficient: int | None = None
-    for match in matches:
-        token = match.group(0)
-        if token.endswith("x"):
-            coefficient_token = token[:-1]
-            coefficient = (
-                -1
-                if coefficient_token == "-"
-                else 1
-                if coefficient_token in ("", "+")
-                else int(coefficient_token)
-            )
-        else:
-            constant = int(token)
-
-    if constant is None or coefficient is None or coefficient == 0:
+    constant = sum(term[0] for term in terms)
+    coefficient = sum(term[1] for term in terms)
+    if not any(term[1] == 0 for term in terms) or coefficient == 0:
         raise UnsupportedCondition("each side must contain one nonzero x-term")
     return constant, coefficient
+
+
+def _parse_affine_side(side: str) -> tuple[int, int]:
+    """Return the value of a simple affine side used beside parentheses."""
+
+    terms = _simple_terms(side)
+    return sum(term[0] for term in terms), sum(term[1] for term in terms)
+
+
+def _expanded_term(constant: int, coefficient: int, *, first: bool) -> str:
+    if bool(constant) == bool(coefficient):
+        raise UnsupportedCondition("expanded term is ambiguous")
+    value = coefficient if coefficient else constant
+    text = _render_x(coefficient) if coefficient else str(constant)
+    return text if first or value < 0 else f"+{text}"
+
+
+def _expand_side(side: str) -> tuple[int, int, str]:
+    """Expand one distributive-product side without simplifying like terms."""
+
+    constant = coefficient = 0
+    rendered: list[str] = []
+    position = 0
+    while position < len(side):
+        parenthesized = _PARENTHESIZED_TERM.match(side, position)
+        if parenthesized is not None:
+            inner_terms = _simple_terms(parenthesized.group("inner"))
+            if len(inner_terms) != 2 or not any(term[0] for term in inner_terms) or not any(term[1] for term in inner_terms):
+                raise UnsupportedCondition("parentheses must contain one integer and one x-term")
+            multiplier = int(parenthesized.group("multiplier"))
+            for inner_constant, inner_coefficient in inner_terms:
+                expanded_constant = multiplier * inner_constant
+                expanded_coefficient = multiplier * inner_coefficient
+                constant += expanded_constant
+                coefficient += expanded_coefficient
+                rendered.append(
+                    _expanded_term(
+                        expanded_constant, expanded_coefficient, first=not rendered
+                    )
+                )
+            position = parenthesized.end()
+            continue
+
+        simple = _TERM.match(side, position)
+        if simple is None:
+            raise UnsupportedCondition("side contains unsupported terms")
+        simple_constant, simple_coefficient = _term_values(simple.group(0))
+        constant += simple_constant
+        coefficient += simple_coefficient
+        rendered.append(
+            _expanded_term(simple_constant, simple_coefficient, first=not rendered)
+        )
+        position = simple.end()
+
+    if coefficient == 0:
+        raise UnsupportedCondition("each side must contain a nonzero x-term")
+    return constant, coefficient, "".join(rendered)
 
 
 def _render_x(coefficient: int) -> str:
@@ -105,19 +173,76 @@ def _render_difference(first: int, second: int, *, variable: bool = False) -> st
     return f"{render(first)}+{render(-second)}"
 
 
-def _parse_formula(formula: str) -> tuple[int, int, int, int]:
+def _fraction_latex(numerator: int, denominator: int) -> str:
+    """Render a signed fraction without reducing an equivalent fraction."""
+
+    sign = "-" if numerator < 0 else ""
+    return rf"{sign}\frac{{{abs(numerator)}}}{{{denominator}}}"
+
+
+def _terminal_x_steps(value: Fraction, answer: str) -> str:
+    """Show the exact fraction and its conversion to a decimal answer.
+
+    A terminating decimal is formed by bringing the reduced denominator to the
+    least applicable power of ten: 10, 100, or 1000.
+    """
+
+    if value.denominator == 1:
+        return f"x={answer}"
+
+    places = terminating_decimal_places(value)
+    if places is None or places > 3:
+        raise UnsupportedCondition("answer needs more than three decimal places")
+
+    power_of_ten = 10**places
+    fraction = _fraction_latex(value.numerator, value.denominator)
+    decimal = answer.replace(",", "{,}")
+    if value.denominator == power_of_ten:
+        return f"x={fraction}={decimal}"
+
+    scaled_numerator = value.numerator * power_of_ten // value.denominator
+    scaled_fraction = _fraction_latex(scaled_numerator, power_of_ten)
+    return f"x={fraction}={scaled_fraction}={decimal}"
+
+
+def _parse_formula(formula: str) -> tuple[int, int, int, int, str | None]:
     if formula.count("=") != 1:
         raise UnsupportedCondition("equation must contain one equals sign")
     left, right = formula.split("=", 1)
-    left_constant, left_coefficient = _parse_side(left)
-    right_constant, right_coefficient = _parse_side(right)
-    return left_constant, left_coefficient, right_constant, right_coefficient
+    if "(" not in formula and ")" not in formula:
+        left_constant, left_coefficient = _parse_side(left)
+        right_constant, right_coefficient = _parse_side(right)
+        return left_constant, left_coefficient, right_constant, right_coefficient, None
+
+    if ("(" in left) != (")" in left) or ("(" in right) != (")" in right):
+        raise UnsupportedCondition("parentheses are unmatched")
+    if "(" in left:
+        left_constant, left_coefficient, expanded_left = _expand_side(left)
+    else:
+        left_constant, left_coefficient = _parse_affine_side(left)
+        expanded_left = left
+    if "(" in right:
+        right_constant, right_coefficient, expanded_right = _expand_side(right)
+    else:
+        right_constant, right_coefficient = _parse_affine_side(right)
+        expanded_right = right
+    return (
+        left_constant,
+        left_coefficient,
+        right_constant,
+        right_coefficient,
+        f"{expanded_left}={expanded_right}",
+    )
 
 
 def _build_plan(formula: str) -> RepairPlan:
-    left_constant, left_coefficient, right_constant, right_coefficient = _parse_formula(
-        formula
-    )
+    (
+        left_constant,
+        left_coefficient,
+        right_constant,
+        right_coefficient,
+        expanded,
+    ) = _parse_formula(formula)
     coefficient = left_coefficient - right_coefficient
     constant = right_constant - left_constant
     if coefficient == 0:
@@ -134,11 +259,12 @@ def _build_plan(formula: str) -> RepairPlan:
         f"{_render_difference(right_constant, left_constant)}"
     )
     collected = f"{_render_x(coefficient)}={constant}"
-    latex_answer = answer.replace(",", "{,}")
+    terminal_steps = _terminal_x_steps(result, answer)
     solution = (
         f"<p>{_SOLUTION_INTRO}</p>"
-        f'<center><p><span data-inline-latex="{formula}\\iff {moved}\\iff '
-        f'{collected}\\iff x={latex_answer}"></span>.</p></center>'
+        f'<center><p><span data-inline-latex="{formula}'
+        f'{f"\\iff {expanded}" if expanded is not None else ""}\\iff {moved}\\iff '
+        f'{collected}\\iff {terminal_steps}"></span>.</p></center>'
     )
     condition = (
         f'<p>{_CONDITION_INTRO} '

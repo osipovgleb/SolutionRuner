@@ -24,7 +24,7 @@ PARENT_CONDITION = (
 PARENT_SOLUTION = (
     '<p>По\u00adсле\u00adдо\u00adва\u00adтельно по\u00adлу\u00adча\u00adем:</p>'
     '<center><p><span data-inline-latex="'
-    r'2+9x=4x+3\iff 9x-4x=3-2\iff 5x=1\iff x=0{,}2'
+    r'2+9x=4x+3\iff 9x-4x=3-2\iff 5x=1\iff x=\frac{1}{5}=\frac{2}{10}=0{,}2'
     '"></span>.</p></center>'
 )
 
@@ -136,6 +136,47 @@ def test_group_is_registered_with_the_base_ege_scope() -> None:
     assert handler.requires_parent_condition_asset is False
 
 
+def test_next_quadratic_group_reuses_the_quadratic_root_selector() -> None:
+    profile = get_group_profile("509612")
+
+    assert profile.catalog_snapshot_id == "4073fc7b-2056-4697-b18b-38741c94d0f4"
+    assert profile.source_group_id == "059dfad8-d068-4752-aebf-6988d2a16d0c"
+    assert profile.category_key == "17"
+    assert profile.content_rule_key == "elementary-equations-26667-quadratic-root-selector"
+
+
+def test_parenthesized_linear_group_reuses_the_linear_equation_runner() -> None:
+    profile = get_group_profile("509712")
+
+    assert profile.source_group_id == "533043d7-0b9c-4009-b68c-ecca08c23dca"
+    assert profile.category_key == "17"
+    assert profile.content_rule_key == RULE
+
+
+def test_next_parenthesized_linear_group_reuses_the_linear_equation_runner() -> None:
+    profile = get_group_profile("509752")
+
+    assert profile.source_group_id == "e25232d5-b8f6-4719-ba6c-84c6a6a41cfe"
+    assert profile.category_key == "17"
+    assert profile.content_rule_key == RULE
+
+
+def test_following_parenthesized_linear_group_reuses_the_linear_equation_runner() -> None:
+    profile = get_group_profile("510177")
+
+    assert profile.source_group_id == "c28b1b26-cddf-43ee-8798-35702143d7bb"
+    assert profile.category_key == "17"
+    assert profile.content_rule_key == RULE
+
+
+def test_transposed_quadratic_group_reuses_the_quadratic_root_selector() -> None:
+    profile = get_group_profile("510182")
+
+    assert profile.source_group_id == "b6e81bd9-8daa-450d-8a8d-a903683f8bf7"
+    assert profile.category_key == "17"
+    assert profile.content_rule_key == "elementary-equations-26667-quadratic-root-selector"
+
+
 @pytest.mark.parametrize(
     ("formula", "expected"),
     [
@@ -161,7 +202,7 @@ def test_audited_group_forms_use_one_parent_style(formula: str, expected: str) -
     assert _solution_target(targets)["value"]["html"].startswith(
         "<p>По\u00adсле\u00adдо\u00adва\u00adтельно по\u00adлу\u00adча\u00adем:</p>"
     )
-    assert f"x={expected.replace(',', '{,}')}" in _solution_target(targets)["value"]["html"]
+    assert f"={expected.replace(',', '{,}')}" in _solution_target(targets)["value"]["html"]
 
 
 def test_wrong_answer_and_existing_solution_are_repaired_to_parent_style() -> None:
@@ -178,9 +219,43 @@ def test_wrong_answer_and_existing_solution_are_repaired_to_parent_style() -> No
     assert targets["section:answer:1"]["value"]["html"] == (
         '<p><span data-effect="spaced">-1,8</span></p>'
     )
-    assert r"-1+5x=10x+8\iff 5x-10x=8+1\iff -5x=9\iff x=-1{,}8" in targets[
+    assert r"-1+5x=10x+8\iff 5x-10x=8+1\iff -5x=9\iff x=-\frac{9}{5}=-\frac{18}{10}=-1{,}8" in targets[
         "section:solution:1"
     ]["value"]["html"]
+
+
+@pytest.mark.parametrize(
+    ("formula", "terminal_steps"),
+    [
+        ("-3+6x=-4x+4", r"x=\frac{7}{10}=0{,}7"),
+        ("0+6x=x+2", r"x=\frac{2}{5}=\frac{4}{10}=0{,}4"),
+        ("-6-4x=-8x+7", r"x=\frac{13}{4}=\frac{325}{100}=3{,}25"),
+        ("0+9x=x+1", r"x=\frac{1}{8}=\frac{125}{1000}=0{,}125"),
+    ],
+)
+def test_fractional_roots_show_conversion_to_a_power_of_ten(
+    formula: str, terminal_steps: str
+) -> None:
+    plan = build_repair_plan(formula)
+
+    assert terminal_steps in plan.solution_html
+
+
+@pytest.mark.parametrize(
+    ("formula", "expected", "expanded"),
+    [
+        ("8(6+x)+2x=8", "-4", "48+8x+2x=8"),
+        ("-3-3(2x-9)=6", "3", "-3-6x+27=6"),
+        ("2(x+3)=3(x-1)", "9", "2x+6=3x-3"),
+    ],
+)
+def test_parentheses_are_expanded_before_the_standard_linear_steps(
+    formula: str, expected: str, expanded: str
+) -> None:
+    plan = build_repair_plan(formula)
+
+    assert plan.answer == expected
+    assert f"{formula}\\iff {expanded}\\iff" in plan.solution_html
 
 
 def test_repaired_content_converges() -> None:

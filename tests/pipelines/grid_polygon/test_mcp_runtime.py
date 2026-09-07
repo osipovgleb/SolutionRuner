@@ -73,6 +73,7 @@ def test_gateway_exposes_narrow_problem_operations() -> None:
             _success({"problem_id": "p1", "content": {}}),
             _success({"asset_id": "asset-1", "content_type": "image/svg+xml"}),
             _success({"results": [{"problem_id": "p1"}]}),
+            _success({"outcomes": [{"problem_id": "p1", "ok": True}]}),
             _success({"problem_id": "p1", "stage_details": {}}),
         ]
     )
@@ -86,16 +87,29 @@ def test_gateway_exposes_narrow_problem_operations() -> None:
     assert gateway.get_problem_context("p1")["problem_id"] == "p1"
     assert gateway.get_asset_metadata("asset-1")["content_type"] == "image/svg+xml"
     assert gateway.apply_problem_transformations("p1", [{"operation": "add"}])["results"]
+    assert gateway.attach_source_asset_to_problems(
+        source_asset_id="shared-svg",
+        section_id="solution:1",
+        alt_text="Табличное значение sin",
+        problem_ids=["p1"],
+    )["outcomes"]
     assert gateway.get_problem_pipeline_state("p1")["problem_id"] == "p1"
     assert [call["params"]["name"] for call in transport.calls] == [
         "get_problem_transformation_context",
         "get_asset",
         "apply_problem_transformations_batch",
+        "attach_source_asset_to_problems",
         "get_problem_pipeline_state",
     ]
     assert transport.calls[2]["params"]["arguments"] == {
         "problem_id": "p1",
         "transformations": [{"operation": "add"}],
+    }
+    assert transport.calls[3]["params"]["arguments"] == {
+        "source_asset_id": "shared-svg",
+        "section_id": "solution:1",
+        "alt_text": "Табличное значение sin",
+        "problem_ids": ["p1"],
     }
 
 

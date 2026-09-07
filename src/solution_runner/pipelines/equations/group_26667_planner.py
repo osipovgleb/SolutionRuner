@@ -15,14 +15,47 @@ from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
 RULE = "elementary-equations-26667-quadratic-root-selector"
 PARENT_PROBLEM_ID = "095f3b3a-83aa-429e-ab8d-8feceeb37f53"
 
-# Only the parent wording plus a quadratic polynomial in canonical source TeX.
-# Omitted coefficients are 1; omitted b or c terms are zero.
+# Canonical quadratic TeX with the wording variants used by this source group.
+# Omitted coefficients are 1; omitted b or c terms are zero.  The selector
+# intentionally remains limited to explicit "меньший" / "больший" requests:
+# requests for a named-sign root are handled as separate manual repairs.
 _CONDITION = re.compile(
-    r"Найдите корень уравнения: "
+    r"(?:Найдите корень уравнения|Решите уравнение):? "
     r"(?P<a_sign>-?)(?P<a_value>\d*)x\^\{2\}"
     r"(?:(?P<b_sign>[+-])(?P<b_value>\d*)x)?"
     r"(?:(?P<c_sign>[+-])(?P<c_value>\d+))?=0\. "
-    r"Если уравнение имеет более одного корня, укажите "
+    r"Если уравнение имеет (?:более|больше) одного корня, "
+    r"(?:в ответе )?(?:укажите|запишите) "
+    r"(?P<kind>меньший|больший) из них\."
+)
+
+_SHIFTED_CONDITION = re.compile(
+    r"(?:Найдите корень уравнения|Решите уравнение) "
+    r"(?P<formula>(?P<a_sign>-?)(?P<a_value>\d*)x\^\{2\}"
+    r"(?P<b_sign>[+-])(?P<b_value>\d*)x="
+    r"(?P<rhs_sign>-?)(?P<rhs_value>\d+))\. "
+    r"Если уравнение имеет (?:более|больше) одного корня, "
+    r"(?:в ответе )?(?:укажите|запишите) "
+    r"(?P<kind>меньший|больший) из них\."
+)
+
+_TRANSPOSED_CONDITION = re.compile(
+    r"(?:Найдите корень уравнения|Решите уравнение) "
+    r"(?P<formula>(?P<a_sign>-?)(?P<a_value>\d*)x\^\{2\}"
+    r"(?P<c_sign>[+-])(?P<c_value>\d+)="
+    r"(?P<b_sign>-?)(?P<b_value>\d*)x)\. "
+    r"Если уравнение имеет (?:более|больше) одного корня, "
+    r"(?:в ответе )?(?:укажите|запишите) "
+    r"(?P<kind>меньший|больший) из них\."
+)
+
+_RIGHT_AFFINE_CONDITION = re.compile(
+    r"(?:Найдите корень уравнения|Решите уравнение):? "
+    r"(?P<formula>(?P<a_sign>-?)(?P<a_value>\d*)x\^\{2\}="
+    r"(?P<b_sign>-?)(?P<b_value>\d*)x"
+    r"(?P<c_sign>[+-])(?P<c_value>\d+))\. "
+    r"Если уравнение имеет (?:более|больше) одного корня, "
+    r"(?:в ответе )?(?:укажите|запишите) "
     r"(?P<kind>меньший|больший) из них\."
 )
 
@@ -63,6 +96,15 @@ def _latex_number(value: int, *, squared: bool = False) -> str:
     return f"{text}^{{2}}" if squared else text
 
 
+def _normalized_quadratic_formula(a: int, b: int, c: int) -> str:
+    """Render ``ax² + bx + c = 0`` without changing the accepted grammar."""
+
+    leading = "x^{2}" if a == 1 else "-x^{2}" if a == -1 else f"{a}x^{{2}}"
+    b_term = "+x" if b == 1 else "-x" if b == -1 else f"+{b}x" if b > 0 else f"-{abs(b)}x"
+    c_term = f"+{c}" if c > 0 else f"-{abs(c)}"
+    return f"{leading}{b_term}{c_term}=0"
+
+
 def build_repair_plan(
     context: dict[str, Any], *, parent_condition_asset_id: str | None,
     parent_solution_html: str = "", current_asset_content_type: str | None = None,
@@ -85,12 +127,29 @@ def build_repair_plan(
     condition_text = re.sub(r"\s+([.])", r"\1", " ".join(
         soup.get_text(" ", strip=True).replace("\u00ad", "").split()
     ))
-    match = _CONDITION.fullmatch(condition_text)
-    if not match:
+    standard_match = _CONDITION.fullmatch(condition_text)
+    shifted_match = _SHIFTED_CONDITION.fullmatch(condition_text)
+    transposed_match = _TRANSPOSED_CONDITION.fullmatch(condition_text)
+    right_affine_match = _RIGHT_AFFINE_CONDITION.fullmatch(condition_text)
+    if all(match is None for match in (
+        standard_match, shifted_match, transposed_match, right_affine_match
+    )):
         raise RightTrianglePlanError("condition does not match group 26667")
+
+    match = standard_match or shifted_match or transposed_match or right_affine_match
     a = _coefficient(match.group("a_sign"), match.group("a_value"), default=1)
-    b = _coefficient(match.group("b_sign"), match.group("b_value"), default=0)
-    c = _coefficient(match.group("c_sign"), match.group("c_value"), default=0)
+    if standard_match is not None:
+        b = _coefficient(match.group("b_sign"), match.group("b_value"), default=0)
+        c = _coefficient(match.group("c_sign"), match.group("c_value"), default=0)
+    elif shifted_match is not None:
+        b = _coefficient(match.group("b_sign"), match.group("b_value"), default=0)
+        c = -_coefficient(match.group("rhs_sign"), match.group("rhs_value"), default=0)
+    elif transposed_match is not None:
+        b = -_coefficient(match.group("b_sign"), match.group("b_value"), default=1)
+        c = _coefficient(match.group("c_sign"), match.group("c_value"), default=0)
+    else:
+        b = -_coefficient(match.group("b_sign") or "+", match.group("b_value"), default=1)
+        c = -_coefficient(match.group("c_sign"), match.group("c_value"), default=0)
     if a == 0:
         raise RightTrianglePlanError("quadratic coefficient is zero")
     discriminant = b * b - 4 * a * c
@@ -99,6 +158,17 @@ def build_repair_plan(
         raise RightTrianglePlanError("discriminant is not a nonnegative square")
     roots = sorted((Fraction(-b - square_root, 2 * a), Fraction(-b + square_root, 2 * a)))
     chosen = roots[0] if match.group("kind") == "меньший" else roots[-1]
+    normalization_html = ""
+    equation_steps = formula
+    if any(match is not None for match in (
+        shifted_match, transposed_match, right_affine_match
+    )):
+        normalized_formula = _normalized_quadratic_formula(a, b, c)
+        normalization_html = (
+            "<p>Перенесём число из правой части в левую часть уравнения:</p>"
+            f'<center><p><span data-inline-latex="{formula}\\iff {normalized_formula}"></span>.</p></center>'
+        )
+        equation_steps = normalized_formula
     numerator, denominator = str(-b), str(2 * a)
     four_ac = 4 * a * c
     root_radicand = f"{b * b}{'-' if four_ac >= 0 else '+'}{abs(four_ac)}"
@@ -113,10 +183,11 @@ def build_repair_plan(
         f"{_latex_number(b, squared=True)}-4\\cdot{_latex_number(a)}\\cdot{_latex_number(c)}"
     )
     expected_solution = (
-        "<p>Вос­поль­зу­ем­ся фор­му­лой дис­кри­ми­нан­та:</p>"
+        normalization_html
+        + "<p>Вос­поль­зу­ем­ся фор­му­лой дис­кри­ми­нан­та:</p>"
         f'<center><p><span data-inline-latex="D=b^2-4ac={discriminant_substitution}={discriminant}"></span>.</p></center>'
         "<p>Вос­поль­зу­ем­ся фор­му­лой для кор­ней квад­рат­но­го урав­не­ния:</p>"
-        f'<center><p><span data-inline-latex="{formula}\\iff \\left[\\begin{{aligned}}{root_rows}\\end{{aligned}}\\right.\\iff \\left[\\begin{{aligned}}{value_rows}\\end{{aligned}}\\right."></span>.</p></center>'
+        f'<center><p><span data-inline-latex="{equation_steps}\\iff \\left[\\begin{{aligned}}{root_rows}\\end{{aligned}}\\right.\\iff \\left[\\begin{{aligned}}{value_rows}\\end{{aligned}}\\right."></span>.</p></center>'
     )
     changes = []
     if solution is None or str(solution.get("html") or "") != expected_solution:
