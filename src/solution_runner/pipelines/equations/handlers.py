@@ -9,6 +9,8 @@ HANDLERS = (
     HandlerSpec('logarithm-77382-affine-base-perfect-power', 'solution_runner.pipelines.equations.group_77382:build_context_repair_plan', requires_parent_condition_asset=False),
     HandlerSpec('logarithm-315120-power-argument-common-base', 'solution_runner.pipelines.equations.group_315120:build_context_repair_plan', requires_parent_condition_asset=False),
     HandlerSpec('logarithm-315535-exponential-logarithm-affine', 'solution_runner.pipelines.equations.group_315535:build_context_repair_plan', requires_parent_condition_asset=False),
+    HandlerSpec('trigonometric-table-value-affine-argument', 'solution_runner.pipelines.equations.group_trigonometric:build_context_repair_plan', requires_parent_condition_asset=False),
+    HandlerSpec('elementary-equations-509214-linear-equation', 'solution_runner.pipelines.equations.group_509214_planner:build_context_repair_plan', requires_parent_condition_asset=False),
     HandlerSpec('elementary-equations-101879-equal-numerators', 'solution_runner.pipelines.equations.group_101879_planner:build_repair_plan',
         inputs=(('parent_condition_asset_id', 'parent_asset_id'), ('parent_solution_html', 'parent_solution_html'), ('current_asset_content_type', 'current_asset_content_type')), requires_parent_condition_asset=False),
     HandlerSpec('elementary-equations-26662-fractional-linear-equation', 'solution_runner.pipelines.equations.group_26662_planner:build_repair_plan',

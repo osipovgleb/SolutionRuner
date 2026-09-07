@@ -249,4 +249,43 @@ PROFILES = (
 
     _profile("315119", "33e9054e-79b1-41e1-9118-1392618e07d3", 5,
                 catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8", category_key="7", theme_title="Рациональные уравнения", theme_order_index=1, snapshot_theme_id="ff83f99f-e437-4bc1-a0d3-a78223deab73", expected_vertices=None, strategy_key=None, workflow_kind="content_rule", content_rule_key="elementary-equations-315119-equal-unit-fractions", rewrite_existing_solution=True),
+
+    _profile(
+        "509214",
+        "f23c746f-e0e5-4598-9f07-416be328b49c",
+        0,
+        catalog_snapshot_id="4073fc7b-2056-4697-b18b-38741c94d0f4",
+        category_key="17",
+        theme_title="Линейные, квадратные, кубические уравнения",
+        theme_order_index=0,
+        snapshot_theme_id="6eaa6630-cb99-478d-9fa1-f4ff94c85a76",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="elementary-equations-509214-linear-equation",
+        rewrite_existing_solution=True,
+    ),
+
+    *(
+        _profile(
+            group_key,
+            source_group_id,
+            order_index,
+            catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+            category_key="7",
+            theme_title="Тригонометрические уравнения",
+            theme_order_index=5,
+            snapshot_theme_id="43e6c4b8-e107-4e11-bc7b-9bcc9782f9c3",
+            expected_vertices=None,
+            strategy_key=None,
+            workflow_kind="content_rule",
+            content_rule_key="trigonometric-table-value-affine-argument",
+            rewrite_existing_solution=True,
+        )
+        for group_key, source_group_id, order_index in (
+            ("26669", "8511fed3-8953-4f5e-8d12-e4225fa69e0f", 0),
+            ("77376", "289f583b-338c-4908-a9e3-49038435a10f", 1),
+            ("77377", "ab321f4f-3a38-4a97-a449-888902691eaf", 2),
+        )
+    ),
 )
