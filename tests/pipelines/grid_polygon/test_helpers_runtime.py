@@ -7,8 +7,12 @@ import threading
 from typing import Any
 
 from solution_runner.pipelines.core.group_profiles import get_group_profile
-from solution_runner.pipelines.grid_polygon.helpers_runtime import run_helpers_stage
+from solution_runner.pipelines.grid_polygon.helpers_runtime import (
+    run_helpers_stage,
+    verify_existing_solutions,
+)
 from solution_runner.pipelines.core.models import ProblemStageResult
+from solution_runner.pipelines.core.models import ProblemTarget
 from solution_runner.pipelines.grid_polygon.progress import ProgressReporter
 
 
@@ -185,6 +189,53 @@ def test_helpers_preview_performs_no_write() -> None:
 
     assert result.status == "planned"
     assert gateway.write_problem_ids == []
+
+
+class ExistingSolutionGateway(RecordingGateway):
+    """Expose a fixed normalized content payload for reconciliation tests."""
+
+    def __init__(self, context: dict[str, Any]) -> None:
+        super().__init__()
+        self.context = context
+
+    def get_problem_context(self, _problem_id: str) -> dict[str, Any]:
+        return self.context
+
+
+def test_existing_solution_verification_requires_exact_final_numeric_answer() -> None:
+    """Only an exact final numeric equality may unlock the Helpers stage."""
+
+    target = ProblemTarget(
+        problem_id="problem-1",
+        source_problem_id="1",
+        source_group_id="group-1",
+        group_key="27547",
+        problem_order_index=1,
+    )
+    context = {
+        "normalized_content": {
+            "sections": [
+                {"key": "answer", "html": "<p>18,4</p>"},
+                {
+                    "key": "solution",
+                    "html": '<p><span data-inline-latex="\\frac{23}{5}\\cdot4=18{,}4"></span></p>',
+                },
+            ]
+        }
+    }
+    reporter, _ = _reporter()
+    results = verify_existing_solutions(
+        ExistingSolutionGateway(context), (target,), get_group_profile("27547"), reporter
+    )
+
+    assert results[0].status == "already_complete"
+
+    context["normalized_content"]["sections"][0]["html"] = "<p>18,5</p>"
+    results = verify_existing_solutions(
+        ExistingSolutionGateway(context), (target,), get_group_profile("27547"), reporter
+    )
+    assert results[0].status == "skipped"
+    assert results[0].message == "solution ends in 18{,}4, answer is 18{,}5"
 
 
 class ConcurrentHelpersGateway(RecordingGateway):

@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 import re
 import time
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
 from solution_runner.pipelines.core.models import GroupProfile, ProblemStageResult, ProblemTarget
 from solution_runner.pipelines.grid_polygon.progress import ProgressReporter, TargetProgress
@@ -315,12 +315,43 @@ def _asset_key(source_asset_id: str) -> str:
     return "shared_" + source_asset_id.replace("-", "")[:16]
 
 
+def _has_solution_section(context: dict[str, Any]) -> bool:
+    """Return whether the target can accept a solution-scoped shared asset."""
+    content = context.get("normalized_content")
+    sections = content.get("sections") if isinstance(content, dict) else None
+    return any(
+        isinstance(section, dict) and section.get("key") == "solution"
+        for section in sections or []
+    )
+
+
+def _with_solution_placeholder(context: dict[str, Any]) -> dict[str, Any]:
+    """Provide the deterministic section shape used before attaching an SVG."""
+    if _has_solution_section(context):
+        return context
+    planned = deepcopy(context)
+    content = planned.get("normalized_content")
+    if not isinstance(content, dict):
+        raise RightTrianglePlanError("normalized content is required for solution setup")
+    sections = content.setdefault("sections", [])
+    if not isinstance(sections, list):
+        raise RightTrianglePlanError("normalized content sections are invalid")
+    sections.append({
+        "key": "solution",
+        "title": "Решение",
+        "html": "<p></p>",
+        "asset_keys": [],
+        "transformation_target_id": "section:solution:1",
+    })
+    return planned
+
+
 def _with_required_assets(context: dict[str, Any], content_rule_key: str | None) -> dict[str, Any]:
     """Materialize missing assets locally so a safe preview can plan exactly."""
     requirements = _registered_handler(content_rule_key).asset_requirements(context)
     if not requirements:
         return context
-    planned = deepcopy(context)
+    planned = deepcopy(_with_solution_placeholder(context))
     content = planned.get("normalized_content")
     if not isinstance(content, dict):
         raise RightTrianglePlanError("normalized content is required for asset selection")
@@ -345,6 +376,15 @@ def _ensure_required_assets(
     requirements = _registered_handler(content_rule_key).asset_requirements(context)
     if not requirements:
         return context
+    if not _has_solution_section(context):
+        gateway.apply_problem_transformations(problem_id, [{
+            "transformation_target_id": "section:solution:1",
+            "operation": "add",
+            "value": {"title": "Решение", "html": "<p></p>", "asset_keys": []},
+        }])
+        context = gateway.get_problem_context(problem_id)
+        if not _has_solution_section(context):
+            raise RightTrianglePlanError("solution section was not visible after setup")
     content = context.get("normalized_content")
     assets = content.get("assets") if isinstance(content, dict) else None
     attached_ids = {
@@ -591,6 +631,7 @@ def apply_frozen_manifest(
     max_workers: int,
     checkpoint_path: Path,
     batch_pause_seconds: float = 0.0,
+    on_batch_complete: Callable[[list[dict[str, Any]], int], None] | None = None,
 ) -> dict[str, Any]:
     """Apply frozen records in bounded batches with restartable readback."""
 
@@ -624,7 +665,7 @@ def apply_frozen_manifest(
     for offset in range(0, len(records), batch_size):
         batch = records[offset : offset + batch_size]
         with ThreadPoolExecutor(max_workers=min(max_workers, len(batch) or 1)) as executor:
-            results.extend(
+            batch_results = list(
                 executor.map(
                     lambda record: _apply_record(
                         gateway,
@@ -637,7 +678,10 @@ def apply_frozen_manifest(
                     batch,
                 )
             )
+        results.extend(batch_results)
         _write_checkpoint(checkpoint_path, _summary(results))
+        if on_batch_complete:
+            on_batch_complete(batch_results, len(results))
         if offset + batch_size < len(records) and batch_pause_seconds:
             time.sleep(batch_pause_seconds)
     return _summary(results)
@@ -652,6 +696,7 @@ def _content_rule_manifest(
     parent_solution_assets: tuple[dict[str, str], ...],
     parent_solution_html: str = "",
     max_workers: int,
+    on_record_prepared: Callable[[dict[str, Any], int], None] | None = None,
 ) -> dict[str, Any]:
     """Freeze exact per-task repairs for one already inventoried source group."""
 
@@ -663,8 +708,8 @@ def _content_rule_manifest(
         for target in targets
     )
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        records = list(
-            executor.map(
+        records: list[dict[str, Any]] = []
+        for index, record in enumerate(executor.map(
                 lambda child: _prepared_record(
                     gateway,
                     child,
@@ -674,8 +719,10 @@ def _content_rule_manifest(
                     parent_solution_html,
                 ),
                 children,
-            )
-        )
+            ), start=1):
+            records.append(record)
+            if on_record_prepared:
+                on_record_prepared(record, index)
     return {
         "schema_version": 1,
         "kind": "right_triangle_sine_solution_repair",
@@ -849,6 +896,19 @@ def run_content_rule_stage(
             parent_asset_id = _condition_asset_id(source_context)
         parent_solution_assets = _solution_assets(source_context)
         parent_solution_html = _solution_html(source_context)
+        def report_preparation(record: dict[str, Any], index: int) -> None:
+            prepared = record.get("status") == "prepared"
+            reporter.task(
+                profile.theme_title,
+                profile.group_key,
+                str(record.get("source_problem_id") or ""),
+                TargetProgress(index=index, total=len(targets)),
+                "SOLUTION PREPARED" if prepared else "SOLUTION BLOCKED",
+                severity="info" if prepared else "error",
+                stage="solution_prepare",
+                details={"message": str(record.get("message") or "")} if not prepared else None,
+            )
+
         manifest = _content_rule_manifest(
             gateway,
             targets,
@@ -857,10 +917,24 @@ def run_content_rule_stage(
             parent_solution_assets=parent_solution_assets,
             parent_solution_html=parent_solution_html,
             max_workers=max_workers,
+            on_record_prepared=report_preparation,
         )
         _write_checkpoint(manifest_path, manifest)
     records = manifest["records"]
     if apply:
+        reported_results: list[ProblemStageResult] = []
+
+        def report_batch(batch: list[dict[str, Any]], completed: int) -> None:
+            start = completed - len(batch) + 1
+            total = len(records)
+            for index, result in enumerate(batch, start=start):
+                reported_results.append(_report_content_result(
+                    reporter,
+                    profile,
+                    result,
+                    TargetProgress(index=index, total=total),
+                ))
+
         summary = apply_frozen_manifest(
             gateway,
             manifest,
@@ -868,8 +942,10 @@ def run_content_rule_stage(
             max_workers=max_workers,
             checkpoint_path=run_dir / "apply-results.json",
             batch_pause_seconds=batch_pause_seconds,
+            on_batch_complete=report_batch,
         )
-        raw_results = summary["results"]
+        del summary
+        return tuple(reported_results)
     else:
         raw_results = [
             {

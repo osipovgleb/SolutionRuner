@@ -8,13 +8,19 @@ from solution_runner.pipelines.core.numbers import NumberFormatError, format_ans
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
 
 RULE = "exponential-26650-common-base-affine-exponent"
-_NUMBER = r"(?:[1-9]\d*(?:\{,\}\d+)?|0\{,\}[1-9]\d*|\\frac\{[1-9]\d*\}\{[1-9]\d*\}|\(\\frac\{[1-9]\d*\}\{[1-9]\d*\}\))"
+_NUMBER = r"(?:[1-9]\d*(?:\{,\}\d+)?|0\{,\}[1-9]\d*|\\frac\{[1-9]\d*\}\{[1-9]\d*\}|\(\\frac\{[1-9]\d*\}\{[1-9]\d*\}\)|\\left\(\\frac\{[1-9]\d*\}\{[1-9]\d*\}\\right\))"
 _FORMULA = re.compile(rf"(?P<base>{_NUMBER})\^\{{(?P<exponent>[^{{}}]+)\}}=(?P<right>{_NUMBER})")
 _TWO_BASES = re.compile(rf"(?P<left_base>{_NUMBER})\^\{{(?P<left_exponent>[^{{}}]+)\}}=(?P<right_base>{_NUMBER})\^\{{(?P<right_exponent>[^{{}}]+)\}}")
+_DIVIDED_SAME_BASE = re.compile(rf"(?P<base>{_NUMBER})\^\{{(?P<left_exponent>[^{{}}]+)\}}\\colon (?P=base)\^\{{(?P<right_exponent>[^{{}}]+)\}}=(?P<right>{_NUMBER})")
+_MULTIPLIED_SAME_BASE = re.compile(rf"(?P<base>{_NUMBER})\^\{{(?P<left_exponent>[^{{}}]+)\}}\\cdot (?P=base)\^\{{(?P<right_exponent>[^{{}}]+)\}}=(?P<right>{_NUMBER})")
 _CONSTANT_FIRST = re.compile(r"(?P<constant>-?\d+)(?P<sign>[+-])(?P<coefficient>\d*)x")
 _VARIABLE_FIRST = re.compile(r"(?P<coefficient>-?\d*)x(?P<sign>[+-])(?P<constant>\d+)")
 
 class UnsupportedCondition(ValueError): pass
+
+def _parse_base(token: str) -> Fraction:
+    """Parse a supported base, including TeX sizing delimiters around a fraction."""
+    return parse_rational(token.replace(r"\left(", "").replace(r"\right)", "").strip("()"))
 
 def _exponent(value: Fraction, base: Fraction) -> int:
     if base <= 0 or base == 1: raise UnsupportedCondition("base must be positive and different from one")
@@ -49,6 +55,11 @@ def _linear_latex(constant: int, coefficient: int) -> str:
     x = "x" if coefficient == 1 else "-x" if coefficient == -1 else f"{coefficient}x"
     if constant == 0: return x
     return f"{constant}{'+' if coefficient > 0 else ''}{x}" if constant else x
+
+def _variable_first_latex(constant: int, coefficient: int) -> str:
+    """Render a nonzero affine exponent in the familiar ``mx ± n`` order."""
+    x = "x" if coefficient == 1 else "-x" if coefficient == -1 else f"{coefficient}x"
+    return x if constant == 0 else f"{x}{constant:+d}"
 
 def _base_latex(value: Fraction) -> str:
     latex=format_latex_fraction(value)
@@ -129,10 +140,34 @@ def _solution_signature(html: str) -> tuple[str, str] | None:
     return formulas[0], prose
 
 def build_repair_plan(formula: str) -> RepairPlan:
+    combined_match = _DIVIDED_SAME_BASE.fullmatch(formula) or _MULTIPLIED_SAME_BASE.fullmatch(formula)
+    if combined_match:
+        left_constant, left_coefficient = _parse_linear(combined_match.group("left_exponent"))
+        right_constant, right_coefficient = _parse_linear(combined_match.group("right_exponent"))
+        is_division = "\\colon" in formula
+        exponent = _variable_first_latex(
+            left_constant - right_constant if is_division else left_constant + right_constant,
+            left_coefficient - right_coefficient if is_division else left_coefficient + right_coefficient,
+        )
+        combined = f"{combined_match.group('base')}^{{{exponent}}}={combined_match.group('right')}"
+        collapsed = build_repair_plan(combined)
+        marker = f"{combined}\\iff "
+        if marker not in collapsed.solution_html:
+            raise UnsupportedCondition("collapsed division solution is malformed")
+        solution_html = collapsed.solution_html.replace(
+            marker,
+            f"{formula}\\iff {combined}\\iff ",
+            1,
+        )
+        return RepairPlan(
+            answer=collapsed.answer,
+            condition_html="",
+            solution_html=solution_html,
+        )
     two=_TWO_BASES.fullmatch(formula)
     if two:
         try:
-            left_base=parse_rational(two.group("left_base").strip("()")); right_base=parse_rational(two.group("right_base").strip("()"))
+            left_base=_parse_base(two.group("left_base")); right_base=_parse_base(two.group("right_base"))
         except ValueError as e: raise UnsupportedCondition("bases are unsupported") from e
         common,left_factor=_common_base_for_two_sides(left_base); common_right,right_factor=_common_base_for_two_sides(right_base)
         if common != common_right: raise UnsupportedCondition("bases do not reduce to one common base")
@@ -147,13 +182,14 @@ def build_repair_plan(formula: str) -> RepairPlan:
         moved_coefficient = right_factor * right_coefficient - left_factor * left_coefficient
         moved_constant = left_factor * left_constant - right_factor * right_constant
         moved_x = "x" if moved_coefficient == 1 else "-x" if moved_coefficient == -1 else f"{moved_coefficient}x"
+        common_base_step = "" if left_base == right_base and left_factor == right_factor == 1 else f"{base_latex}^{{{left}}}={base_latex}^{{{right}}}\\iff "
         solution=("<p>Перейдём к одному основанию степени:</p>"
-            f'<center><p><span data-inline-latex="{formula}\\iff {base_latex}^{{{left}}}={base_latex}^{{{right}}}\\iff {left}={right}\\iff {moved_constant}={moved_x}\\iff {_answer_steps(result)}"></span>.</p></center>')
+            f'<center><p><span data-inline-latex="{formula}\\iff {common_base_step}{left}={right}\\iff {moved_constant}={moved_x}\\iff {_answer_steps(result)}"></span>.</p></center>')
         return RepairPlan(answer=answer,condition_html="",solution_html=solution)
     m=_FORMULA.fullmatch(formula)
     if not m: raise UnsupportedCondition("unsupported exponential equation")
-    base_token = m.group("base").strip("()")
-    try: base=parse_rational(base_token); right=parse_rational(m.group("right").strip("()"))
+    base_token = m.group("base")
+    try: base=_parse_base(base_token); right=_parse_base(m.group("right"))
     except ValueError as e: raise UnsupportedCondition("base or right side is unsupported") from e
     if "{,}" in base_token:
         common_base, base_factor, power = base, 1, _exponent(right, base)

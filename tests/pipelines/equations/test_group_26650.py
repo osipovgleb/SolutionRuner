@@ -32,6 +32,33 @@ def test_parenthesized_fractional_base_matches_group_26652_parent():
     assert plan.answer=="10"
     assert r"(\frac{1}{3})^{x-8}=(\frac{1}{3})^{2}\iff x-8=2\iff x=10" in plan.solution_html
 
+def test_accepts_tex_sizing_delimiters_around_a_fractional_base():
+    plan=build_repair_plan(r"\left(\frac{1}{4}\right)^{4x-10}=\frac{1}{16}")
+    assert plan.answer=="3"
+    assert r"\left(\frac{1}{4}\right)^{4x-10}=\frac{1}{16}\iff (\frac{1}{2})^{8x-20}=(\frac{1}{2})^{4}\iff 8x-20=4\iff x=3" in plan.solution_html
+
+def test_solves_division_of_powers_with_the_same_base():
+    plan=build_repair_plan(r"(\frac{1}{5})^{3x+4}\colon (\frac{1}{5})^{-5x-2}=\frac{1}{125}")
+    assert plan.answer=="-0,375"
+    assert r"\colon (\frac{1}{5})^{-5x-2}=\frac{1}{125}\iff (\frac{1}{5})^{8x+6}=\frac{1}{125}" in plan.solution_html
+
+def test_solves_integer_base_division_of_powers():
+    plan=build_repair_plan(r"3^{6x+5}\colon 3^{3x-2}=81")
+    assert plan.answer=="-1"
+    assert r"3^{6x+5}\colon 3^{3x-2}=81\iff 3^{3x+7}=81" in plan.solution_html
+
+
+def test_solves_product_of_powers_with_the_same_base():
+    plan = build_repair_plan(r"6^{2x-6}\cdot 6^{5-3x}=216")
+    assert plan.answer == "-4"
+    assert r"6^{2x-6}\cdot 6^{5-3x}=216\iff 6^{-x-1}=216" in plan.solution_html
+
+
+def test_solves_equal_powers_with_the_same_base():
+    plan = build_repair_plan(r"2^{2x-3}=2^{x-2}")
+    assert plan.answer == "1"
+    assert r"2^{2x-3}=2^{x-2}\iff 2x-3=x-2\iff -1=-x\iff x=1" in plan.solution_html
+
 def test_reduces_a_composite_unit_fraction_to_an_integer_base():
     plan=build_repair_plan(r"(\frac{1}{9})^{x-13}=3")
     assert plan.answer=="12,5"

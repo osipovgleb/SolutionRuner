@@ -54,7 +54,7 @@ _VALUES: dict[str, dict[str, _Value]] = {
         r"\frac{1}{\sqrt{3}}": _v((Fraction(1, 6),), 1, "tg-one-over-sqrt3.svg"), r"-\frac{1}{\sqrt{3}}": _v((Fraction(-1, 6),), 1, "tg-minus-one-over-sqrt3.svg"),
     },
 }
-_FORMULA = re.compile(r"\\(?P<function>sin|cos|tg)\\frac\{\\pi(?P<argument>\([^{}]+\)|[^{}]+)\}\{(?P<denominator>[1-9]\d*)\}=(?P<value>.+)")
+_FORMULA = re.compile(r"\\(?P<function>sin|cos|tg)\\frac\{(?P<pi_coefficient>[1-9]\d*)?\\pi(?P<argument>\([^{}]+\)|[^{}]+)\}\{(?P<denominator>[1-9]\d*)\}=(?P<value>.+)")
 
 
 def _latex(value: Fraction) -> str:
@@ -101,11 +101,13 @@ def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str, as
     return {"transformation_target_id": target, "operation": "rewrite" if section else "add", "value": {"title": title, "html": html, "asset_keys": asset_keys}}
 
 
-def _parse(formula: str) -> tuple[str, str, int, int, int, _Value]:
+def _parse(formula: str) -> tuple[str, str, int, int, int, int, _Value]:
     match = _FORMULA.fullmatch(formula)
     if not match:
         raise UnsupportedCondition("unsupported trigonometric equation")
-    function, argument, denominator, value = match.group("function", "argument", "denominator", "value")
+    function, pi_coefficient, argument, denominator, value = match.group(
+        "function", "pi_coefficient", "argument", "denominator", "value"
+    )
     argument = (argument[1:-1] if argument.startswith("(") else argument).replace(" ", "")
     try:
         constant, coefficient = _parse_linear(argument)
@@ -117,7 +119,7 @@ def _parse(formula: str) -> tuple[str, str, int, int, int, _Value]:
     spec = _VALUES.get(function, {}).get(value)
     if spec is None:
         raise UnsupportedCondition("value is not in reviewed table")
-    return function, argument, int(denominator), constant, coefficient, spec
+    return function, argument, int(denominator), int(pi_coefficient or 1), constant, coefficient, spec
 
 
 def _pick(a: Fraction, b: Fraction, largest_negative: bool) -> tuple[int, Fraction]:
@@ -184,6 +186,19 @@ def _pi_times(argument: str) -> str:
     return rf"\pi {argument}" if argument == "x" else rf"\pi({argument})"
 
 
+def _pi_numerator(pi_coefficient: int, argument: str) -> str:
+    """Render the full numerator, retaining a reviewed coefficient before π."""
+    prefix = r"\pi" if pi_coefficient == 1 else rf"{pi_coefficient}\pi"
+    return f"{prefix} {argument}" if argument == "x" else rf"{prefix}({argument})"
+
+
+def _scaled_argument(pi_coefficient: int, argument: str) -> str:
+    """Render the post-π division left side without an ambiguous product."""
+    if pi_coefficient == 1:
+        return argument
+    return f"{pi_coefficient}{argument}" if argument == "x" else f"{pi_coefficient}({argument})"
+
+
 def _root_table(
     branches: list[tuple[Fraction, Fraction]],
     *,
@@ -218,17 +233,20 @@ def _root_table(
 
 
 def build_repair_plan(formula: str, *, largest_negative: bool) -> RepairPlan:
-    function, argument, denominator, constant, coefficient, spec = _parse(formula)
+    function, argument, denominator, pi_coefficient, constant, coefficient, spec = _parse(formula)
     source_match = _FORMULA.fullmatch(formula)
     if source_match is None:  # Kept for a clear invariant beside _parse.
         raise UnsupportedCondition("unsupported trigonometric equation")
     condition_formula = (
-        rf"\{function} \frac{{{_pi_times(argument)}}}{{{denominator}}}="
+        rf"\{function} \frac{{{_pi_numerator(pi_coefficient, argument)}}}{{{denominator}}}="
         + str(source_match.group("value") or "").replace(" ", "")
     )
     branches: list[tuple[Fraction, Fraction]] = []
     for angle in spec.angles:
-        branches.append((Fraction(denominator) * angle - constant, Fraction(denominator * spec.period, coefficient)))
+        branches.append((
+            (Fraction(denominator) * angle / pi_coefficient - constant) / coefficient,
+            Fraction(denominator * spec.period, pi_coefficient * coefficient),
+        ))
     sign = "отрицательный" if largest_negative else "положительный"
     algorithm = (
         '<ol>'
@@ -237,29 +255,40 @@ def build_repair_plan(formula: str, *, largest_negative: bool) -> RepairPlan:
         f'<li>Выбираем ближайший к нулю {sign} корень</li>'
         '</ol>'
     )
-    normalized_branches = [(shift / coefficient, step) for shift, step in branches]
     table, roots = _root_table(
-        normalized_branches,
+        branches,
         largest_negative=largest_negative,
     )
     answer_value = (max if largest_negative else min)(root for _, root in roots)
     answer = format_answer(answer_value, allow_latex_fraction=True)
     names = tuple("k" for _ in branches)
     initial_equations = [
-        rf"\frac{{{_pi_times(argument)}}}{{{denominator}}}={_pi_fraction(angle)}+{_pi_fraction(Fraction(spec.period))} {name}"
+        rf"\frac{{{_pi_numerator(pi_coefficient, argument)}}}{{{denominator}}}={_pi_fraction(angle)}+{_pi_fraction(Fraction(spec.period))} {name}"
+        for angle, name in zip(spec.angles, names, strict=True)
+    ]
+    multiplied_equations = [
+        rf"{_pi_numerator(pi_coefficient, argument)}={_pi_fraction(Fraction(denominator) * angle)}+{_pi_fraction(Fraction(denominator * spec.period))} {name}"
         for angle, name in zip(spec.angles, names, strict=True)
     ]
     argument_equations = [
-        rf"{argument}={_latex(Fraction(denominator) * angle)}+{denominator * spec.period}{name}"
+        rf"{_scaled_argument(pi_coefficient, argument)}={_latex(Fraction(denominator) * angle)}+{denominator * spec.period}{name}"
         for angle, name in zip(spec.angles, names, strict=True)
     ]
     x_equations = [
-        rf"x={_latex(shift / coefficient)}+{_latex(step)}{name}"
+        rf"x={_latex(shift)}+{_latex(step)}{name}"
         for (shift, step), name in zip(branches, names, strict=True)
     ]
+    equation_steps = [
+        condition_formula,
+        _union(initial_equations),
+        _union(multiplied_equations),
+        _union(argument_equations),
+    ]
+    if argument != "x" or pi_coefficient != 1:
+        equation_steps.append(_union(x_equations))
     equations = (
         '<center><p><span data-formula-render-mode="display" data-inline-latex="'
-        + r"\iff ".join((condition_formula, _union(initial_equations), _union(argument_equations), _union(x_equations)))
+        + r"\iff ".join(equation_steps)
         + '"></span></p></center>'
     )
     selected_index = next(index for index, (_, root) in enumerate(roots) if root == answer_value)
@@ -303,7 +332,7 @@ def _condition_formula_and_selection(context: dict[str, Any]) -> tuple[dict[str,
 def required_assets(context: dict[str, Any]) -> tuple[dict[str, str], ...]:
     """Select the one reviewed diagram demanded by the condition's table value."""
     _, formula, _ = _condition_formula_and_selection(context)
-    function, _, _, _, _, spec = _parse(formula)
+    function, _, _, _, _, _, spec = _parse(formula)
     return ({
         "source_asset_id": str(_ASSETS[spec.asset]),
         "section_id": "solution:1",
@@ -318,7 +347,7 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     condition, formula, largest_negative = _condition_formula_and_selection(context)
     answer, solution = (_section(content, key) for key in ("answer", "solution"))
     planned = build_repair_plan(formula, largest_negative=largest_negative)
-    _, _, _, _, _, spec = _parse(formula)
+    _, _, _, _, _, _, spec = _parse(formula)
     source_asset_id = _ASSETS[spec.asset]
     attached_assets = [
         item for item in content.get("assets", [])

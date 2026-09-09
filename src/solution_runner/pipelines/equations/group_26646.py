@@ -29,6 +29,7 @@ _MULTIPLIED_LOGARITHM = re.compile(
     rf"(?P<multiplier>[1-9]\d*)\\log_(?P<right_base>\{{?\(?{_BASE}\)?\}}?)\s*(?P<right_argument>[1-9]\d*)"
 )
 _PARENTHESIZED_BASE = re.compile(rf"\\log_\{{\((?P<base>{_BASE}|{_FRACTION_BASE})\)\}}")
+_DECIMAL_LOGARITHM = re.compile(r"\\lg(?=\s*\()")
 
 
 class UnsupportedCondition(ValueError):
@@ -125,6 +126,9 @@ def _solution_signature(html: str) -> str:
 
 
 def _build_plan(formula: str) -> RepairPlan:
+    # ``\\lg`` is the conventional shorthand for ``\\log_{10}`` in source tasks.
+    # Normalize only for calculation; the condition itself is kept untouched.
+    formula = _DECIMAL_LOGARITHM.sub(r"\\log_{10}", formula)
     multiplied_log = _MULTIPLIED_LOGARITHM.fullmatch(formula)
     if multiplied_log:
         left_base = int(multiplied_log.group("left_base").strip("{}()"))
@@ -249,10 +253,9 @@ def _build_plan(formula: str) -> RepairPlan:
     base_latex = format_latex_fraction(base)
     power_base = f"({base_latex})" if base.denominator != 1 else base_latex
     log = f"\\log_{_log_base_latex(base)} ({inner})={power}"
-    linear = _linear_latex(constant, coefficient)
     solution = (
         "<p>Последовательно получаем:</p>"
-        f'<center><p><span data-inline-latex="{log}\\iff {linear}={power_base}^{{{power}}}\\iff {linear}={format_latex_fraction(value)}\\iff {_answer_steps(result)}"></span>.</p></center>'
+        f'<center><p><span data-inline-latex="{log}\\iff {inner}={power_base}^{{{power}}}\\iff {inner}={format_latex_fraction(value)}\\iff {_answer_steps(result)}"></span>.</p></center>'
     )
     return RepairPlan(answer=answer, condition_html="", solution_html=solution)
 
@@ -269,7 +272,7 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     if len(spans) != 1 or spans[0].get_text("", strip=True) or set(spans[0].attrs) != {"data-inline-latex"}:
         raise UnsupportedCondition("condition equation is ambiguous")
     source_formula = str(spans[0].get("data-inline-latex") or "")
-    if "\\log_" not in source_formula:
+    if "\\log_" not in source_formula and "\\lg" not in source_formula:
         raise UnsupportedCondition("condition is not logarithmic")
     spans[0].replace_with(source_formula)
     canonical_formula = _PARENTHESIZED_BASE.sub(_normalize_parenthesized_log_base, source_formula)

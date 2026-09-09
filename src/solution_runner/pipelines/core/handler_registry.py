@@ -8,6 +8,7 @@ from solution_runner.pipelines.quadrilaterals.parallelogram.handlers import HAND
 from solution_runner.pipelines.triangles.right.handlers import HANDLERS as RIGHT_TRIANGLES
 from solution_runner.pipelines.quadrilaterals.trapezoid.handlers import HANDLERS as TRAPEZOIDS
 from solution_runner.pipelines.vectors.handlers import HANDLERS as VECTORS
+from solution_runner.pipelines.word_problems.handlers import HANDLERS as WORD_PROBLEMS
 
 
 def build_registry(specs):
@@ -21,7 +22,7 @@ def build_registry(specs):
 
 HANDLERS = build_registry((
     *EQUATIONS, *GENERAL_TRIANGLES, *ISOSCELES_TRIANGLES, *PARALLELOGRAMS,
-    *RIGHT_TRIANGLES, *TRAPEZOIDS, *VECTORS,
+    *RIGHT_TRIANGLES, *TRAPEZOIDS, *VECTORS, *WORD_PROBLEMS,
 ))
 
 

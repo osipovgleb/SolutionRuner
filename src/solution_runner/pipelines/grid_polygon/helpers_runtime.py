@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
+import re
 from typing import Any
+
+from bs4 import BeautifulSoup
 
 from .mcp_runtime import McpGateway
 from ..core.models import GroupProfile, ProblemStageResult
@@ -13,6 +16,116 @@ from .progress import ProgressReporter, TargetProgress
 
 class HelpersRuntimeError(RuntimeError):
     """Report one target-local Helpers state or readback failure."""
+
+
+_FINAL_NUMBER = re.compile(r"(?:^|=)(?P<value>-?\d+(?:\{,\}\d+)?)$")
+
+
+def _section_html(context: dict[str, Any], key: str) -> str:
+    """Return the unique normalized section HTML, if it exists."""
+
+    content = context.get("normalized_content")
+    sections = content.get("sections") if isinstance(content, dict) else None
+    if not isinstance(sections, list):
+        return ""
+    matches = [
+        section
+        for section in sections
+        if isinstance(section, dict)
+        if section.get("key") == key
+    ]
+    if len(matches) != 1:
+        return ""
+    return str(matches[0].get("html") or "")
+
+
+def _existing_solution_answer(context: dict[str, Any]) -> tuple[str | None, str | None]:
+    """Return matching final solution value and answer, otherwise an audit reason.
+
+    This deliberately accepts only a single inline formula ending in a plain
+    integer or terminating decimal.  It is a status-reconciliation path, not a
+    mathematical solver: ambiguous or symbolic endings must stay unverified.
+    """
+
+    answer_html = _section_html(context, "answer")
+    answer = BeautifulSoup(answer_html, "html.parser").get_text("", strip=True)
+    answer = re.sub(r"\s+", "", answer).replace(",", "{,}")
+    if not re.fullmatch(r"-?\d+(?:\{,\}\d+)?", answer):
+        return None, "answer is not one plain number"
+
+    solution_html = _section_html(context, "solution")
+    formulas = BeautifulSoup(solution_html, "html.parser").find_all(
+        "span", attrs={"data-inline-latex": True}
+    )
+    if len(formulas) != 1:
+        return None, "solution must contain exactly one inline calculation"
+    formula = str(formulas[0].get("data-inline-latex") or "").replace(" ", "")
+    match = _FINAL_NUMBER.search(formula)
+    if match is None:
+        return None, "solution does not end in one plain number"
+    final_value = match["value"]
+    if final_value != answer:
+        return None, f"solution ends in {final_value}, answer is {answer}"
+    return final_value, None
+
+
+def verify_existing_solutions(
+    gateway: Any,
+    targets: tuple[Any, ...],
+    profile: GroupProfile,
+    reporter: ProgressReporter,
+) -> tuple[ProblemStageResult, ...]:
+    """Audit existing numeric solutions before allowing only Helpers reconciliation."""
+
+    results: list[ProblemStageResult] = []
+    total = len(targets)
+    for index, target in enumerate(targets, start=1):
+        progress = TargetProgress(index=index, total=total)
+        try:
+            final_value, reason = _existing_solution_answer(
+                gateway.get_problem_context(target.problem_id)
+            )
+        except Exception as exc:  # noqa: BLE001 - a bad task is locally isolated.
+            final_value, reason = None, f"context read failed: {type(exc).__name__}"
+        if final_value is None:
+            reporter.task(
+                profile.theme_title,
+                profile.group_key,
+                target.source_problem_id,
+                progress,
+                "SOLUTION NOT VERIFIED",
+                severity="warning",
+                stage="solution_answer",
+                details={"reason": reason},
+            )
+            results.append(
+                ProblemStageResult(
+                    problem_id=target.problem_id,
+                    source_problem_id=target.source_problem_id,
+                    stage="solution_answer",
+                    status="skipped",
+                    message=reason,
+                )
+            )
+            continue
+        reporter.task(
+            profile.theme_title,
+            profile.group_key,
+            target.source_problem_id,
+            progress,
+            "SOLUTION VERIFIED",
+            stage="solution_answer",
+            details={"final_value": final_value},
+        )
+        results.append(
+            ProblemStageResult(
+                problem_id=target.problem_id,
+                source_problem_id=target.source_problem_id,
+                stage="solution_answer",
+                status="already_complete",
+            )
+        )
+    return tuple(results)
 
 
 def _desired_branches(profile: GroupProfile) -> dict[str, dict[str, Any]]:

@@ -16,7 +16,7 @@ from typing import Any, Callable
 
 from .asset_preparation import execute_image_preparation, prepare_existing_svg
 from ..core.group_profiles import get_group_profile
-from .helpers_runtime import run_helpers_stage
+from .helpers_runtime import run_helpers_stage, verify_existing_solutions
 from .inventory import (
     GroupInventory,
     discover_group_inventory,
@@ -112,6 +112,14 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--resume-images", type=Path)
     parser.add_argument("--resume-solutions", type=Path)
+    parser.add_argument(
+        "--helpers-from-existing-solution",
+        action="store_true",
+        help=(
+            "do not rewrite solutions; set Helpers ready only where the existing "
+            "single calculation ends with the stored numeric answer"
+        ),
+    )
     parser.add_argument("--only-source-problem-id", action="append")
     parser.add_argument("--only-problem-id", action="append", help="select by internal problem UUID")
     parser.add_argument(
@@ -196,6 +204,10 @@ def _validated_args(
         parser.error("--exclude-parent-problem cannot be combined with problem selectors")
     if args.exclude_parent_problem and profile.workflow_kind != "content_rule":
         parser.error("--exclude-parent-problem requires a content-rule group")
+    if args.helpers_from_existing_solution and profile.workflow_kind != "content_rule":
+        parser.error("--helpers-from-existing-solution requires a content-rule group")
+    if args.helpers_from_existing_solution and (args.resume_images or args.resume_solutions):
+        parser.error("--helpers-from-existing-solution cannot be combined with resume modes")
     selected_ids = args.only_problem_id or args.only_source_problem_id or []
     if len(selected_ids) != len(set(selected_ids)):
         parser.error("problem selectors must be unique")
@@ -415,19 +427,27 @@ def _run_content_rule_stages(
         raise ValueError("content-rule group has no asset source target")
     if context.active.content_rule_stage is None:
         raise ValueError("content-rule runtime is unavailable")
-    solution_results = context.active.content_rule_stage(
-        context.gateway,
-        inventory.targets,
-        full_inventory.targets[0],
-        context.profile,
-        context.reporter,
-        run_dir=context.run_dir,
-        resume=bool(args.resume_solutions),
-        apply=context.apply,
-        batch_size=args.batch_size,
-        batch_pause_seconds=args.batch_pause_seconds,
-        max_workers=context.max_workers,
-    )
+    if args.helpers_from_existing_solution:
+        solution_results = verify_existing_solutions(
+            context.gateway,
+            inventory.targets,
+            context.profile,
+            context.reporter,
+        )
+    else:
+        solution_results = context.active.content_rule_stage(
+            context.gateway,
+            inventory.targets,
+            full_inventory.targets[0],
+            context.profile,
+            context.reporter,
+            run_dir=context.run_dir,
+            resume=bool(args.resume_solutions),
+            apply=context.apply,
+            batch_size=args.batch_size,
+            batch_pause_seconds=args.batch_pause_seconds,
+            max_workers=context.max_workers,
+        )
     helpers_results = context.active.helpers_stage(
         context.gateway,
         solution_results,

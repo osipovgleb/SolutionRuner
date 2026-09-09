@@ -35,6 +35,8 @@ def test_cosine_parent_selects_largest_negative_root_and_reuses_local_asset() ->
     assert r"\cos\,u" not in plan.solution_html
     assert r"\left[\begin{aligned}" in plan.solution_html
     assert r"\frac{\pi}{3}" in plan.solution_html
+    assert r"\pi(x-7)=\pi+6\pi k" in plan.solution_html
+    assert r"x-7=1+6k" in plan.solution_html
     assert 'data-formula-render-mode="display"' in plan.solution_html
     assert r"\cos \frac{\pi(x-7)}{3}=\frac{1}{2}\iff " in plan.solution_html
     assert '<center><p><span data-formula-render-mode="display"' in plan.solution_html
@@ -70,6 +72,8 @@ def test_sine_and_tangent_table_values() -> None:
     assert r"\frac{\pi x}{3}" in sin.solution_html
     assert r"\pi(x)" not in sin.solution_html
     assert r"\sin \frac{\pi x}{3}=\frac{1}{2}\iff " in sin.solution_html
+    assert r"\pi x=\frac{\pi}{2}+6\pi k" in sin.solution_html
+    assert sin.solution_html.count(r"x=\frac{1}{2}+6k") == 1
     assert r"x=\frac{1}{2}+6\cdot(-1)=-5{,}5" in sin.solution_html
     assert 'Ближайший к нулю положительный корень: <span data-inline-latex="x=0{,}5"></span>' in sin.solution_html
 
@@ -91,3 +95,15 @@ def test_asset_selector_chooses_the_exact_library_svg_from_the_condition() -> No
         "section_id": "solution:1",
         "alt_text": "Табличное значение sin",
     },)
+
+
+def test_parser_supports_a_positive_integer_coefficient_before_pi() -> None:
+    plan = build_repair_plan(
+        r"\cos\frac{2\pi x}{6}=\frac{\sqrt{3}}{2}",
+        largest_negative=True,
+    )
+    assert plan.answer == "-0,5"
+    assert r"\frac{2\pi x}{6}=\frac{\pi}{6}+2\pi k" in plan.solution_html
+    assert r"2\pi x=\pi+12\pi k" in plan.solution_html
+    assert r"2x=1+12k" in plan.solution_html
+    assert r"x=\frac{1}{2}+6k" in plan.solution_html

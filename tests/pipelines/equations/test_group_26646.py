@@ -80,6 +80,12 @@ def test_normalizes_parenthesized_logarithm_base_notation():
     assert r"\log_5 (4+x)=2\iff 4+x=5^{2}\iff 4+x=25\iff x=21" in plan.solution_html
 
 
+def test_accepts_decimal_logarithm_shorthand():
+    plan = _build_plan(r"\lg (-4x-30)=2")
+    assert plan.answer == "-32,5"
+    assert r"\log_{10} (-4x-30)=2\iff -4x-30=10^{2}\iff -4x-30=100\iff x=-\frac{65}{2}\iff x=-32{,}5" in plan.solution_html
+
+
 def test_rewrites_parenthesized_base_in_the_condition_before_writing_solution():
     plan = build_context_repair_plan({"normalized_content": {"format": "teacherhelper-normalized", "schema_version": 3, "assets": [], "sections": [
         {"key": "condition", "title": "Условие", "html": '<p>Найдите корень уравнения <span data-inline-latex="\\log_{(8)} (4+x)=2"></span>.</p>', "asset_keys": [], "section_id": "condition:1"},

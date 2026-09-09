@@ -21,6 +21,7 @@ from solution_runner.pipelines.quadrilaterals.trapezoid.profiles import PROFILES
 from solution_runner.pipelines.triangles.isosceles.profiles import PROFILES as TRIANGLES_ISOSCELES
 from solution_runner.pipelines.triangles.right.profiles import PROFILES as TRIANGLES_RIGHT
 from solution_runner.pipelines.grid_polygon.profiles import PROFILES as GRID_POLYGON
+from solution_runner.pipelines.word_problems.profiles import PROFILES as WORD_PROBLEMS
 
 
 def build_profile_registry(profiles) -> Mapping[str, GroupProfile]:
@@ -34,7 +35,7 @@ def build_profile_registry(profiles) -> Mapping[str, GroupProfile]:
     return MappingProxyType(result)
 
 
-_PROFILES = build_profile_registry((*EQUATIONS, *VECTORS, *TRIANGLES_GENERAL, *QUADRILATERALS_PARALLELOGRAM, *QUADRILATERALS_TRAPEZOID, *TRIANGLES_ISOSCELES, *TRIANGLES_RIGHT, *GRID_POLYGON))
+_PROFILES = build_profile_registry((*EQUATIONS, *VECTORS, *TRIANGLES_GENERAL, *QUADRILATERALS_PARALLELOGRAM, *QUADRILATERALS_TRAPEZOID, *TRIANGLES_ISOSCELES, *TRIANGLES_RIGHT, *GRID_POLYGON, *WORD_PROBLEMS))
 
 
 def get_group_profile(group_key: str) -> GroupProfile:
