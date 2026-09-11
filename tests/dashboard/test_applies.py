@@ -140,7 +140,7 @@ def test_apply_calls_shared_executor_for_only_the_verified_problem(tmp_path):
     row = inventory.list_items("123")[0]
     assert row["apply_status"] == "applied"
     assert row["helpers_status"] == "applied"
-    assert store.get_group("123")["column"] == "done"
+    assert store.get_group("123")["column"] == "review"
 
 
 def test_apply_reports_primary_solution_error_when_helpers_is_skipped(tmp_path):

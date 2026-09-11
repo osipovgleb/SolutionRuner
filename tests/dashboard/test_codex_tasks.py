@@ -17,6 +17,8 @@ def test_registration_prompt_defines_the_bounded_registration_job():
     assert "group_item_stage_results" in prompt
     assert "source_problem_id" in prompt
     assert "superpowers" in prompt
+    assert "agent_status" in prompt
+    assert "agent_summary" in prompt
     assert "не запускай полный dry-run" in prompt.lower()
     assert "не выполняй apply" in prompt.lower()
 

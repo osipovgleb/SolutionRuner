@@ -55,7 +55,7 @@ def test_sync_uses_latest_run_and_preserves_manual_state(tmp_path):
     assert group["total"] == 3
     assert group["transformed"] == 3
     assert group["helpers"] == 3
-    assert group["column"] == "done"
+    assert group["column"] == "review"
 
     store.add_comment("123", "Раскрыть вычисление в решении")
     store.update_group("123", {"column": "review", "task_title": "Проверить группу"})
@@ -80,6 +80,42 @@ def test_store_persists_codex_thread_and_full_group_review_state(tmp_path):
     assert group["codex_thread_id"] == "thread-123"
     assert group["task"] == "Регистрация группы 123"
     assert group["full_dry_run_status"] == "ready"
+
+
+def test_store_persists_agent_card_status(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+
+    group = store.update_group("123", {
+        "agent_status": "updated",
+        "agent_summary": "508128: уточнён обработчик условия.",
+    })
+
+    assert group["agent_status"] == "updated"
+    assert group["agent_summary"] == "508128: уточнён обработчик условия."
+    assert group["column"] == "review"
+
+    assert store.update_group("123", {"agent_status": "working"})["column"] == "work"
+    assert store.update_group("123", {"agent_status": "blocked"})["column"] == "issues"
+
+
+def test_completed_small_group_goes_to_review_instead_of_done(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.upsert_fact({
+        "group_key": "small", "title": "Малая группа", "path": "Малая группа",
+        "source": "Каталог", "source_id": "catalog", "registered": 1, "legacy": 0,
+        "workflow": "content_rule", "handler": "test", "total": 5,
+        "transformed": 5, "helpers": 5, "errors": 0, "blocked": 0,
+        "latest_run": "run", "run_status": "completed", "system_column": "work",
+        "synced_at": "now",
+    })
+    store.reconcile_problem_counts("small", [
+        {"apply_status": "applied", "helpers_status": "applied"}
+        for _ in range(5)
+    ])
+
+    assert store.get_group("small")["column"] == "review"
+    assert store.update_group("small", {"column": "done"})["column"] == "review"
 
 
 def test_comments_from_issues_and_review_return_group_to_work(tmp_path):

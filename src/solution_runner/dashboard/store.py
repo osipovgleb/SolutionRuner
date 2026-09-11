@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS groups (
     task_url TEXT,
     codex_thread_id TEXT,
     full_dry_run_status TEXT,
+    agent_status TEXT,
+    agent_summary TEXT,
     synced_at TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS comments (
@@ -85,6 +87,8 @@ def _source_label(source_id: str) -> str:
 def _system_column(*, registered: bool, has_run: bool, total: int, transformed: int, helpers: int, errors: int, blocked: int) -> str:
     if errors or blocked:
         return "issues"
+    if 0 < total <= 5 and transformed >= total and helpers >= total:
+        return "review"
     if total > 0 and helpers >= total:
         return "done"
     if has_run and transformed >= total > 0:
@@ -163,6 +167,8 @@ class DashboardStore:
                 "agent_sample_size": "INTEGER NOT NULL DEFAULT 1",
                 "codex_thread_id": "TEXT",
                 "full_dry_run_status": "TEXT",
+                "agent_status": "TEXT",
+                "agent_summary": "TEXT",
             }
             for name, definition in migrations.items():
                 if name not in columns:
@@ -265,6 +271,8 @@ class DashboardStore:
             "task_url": "task_url",
             "codex_thread_id": "codex_thread_id",
             "full_dry_run_status": "full_dry_run_status",
+            "agent_status": "agent_status",
+            "agent_summary": "agent_summary",
             "revision_requested": "revision_requested",
             "existing_solution_policy": "existing_solution_policy",
             "condition_image_policy": "condition_image_policy",
@@ -274,7 +282,19 @@ class DashboardStore:
             "agent_sample_size": "agent_sample_size",
         }
         values = {allowed[key]: value for key, value in changes.items() if key in allowed}
-        if changes.get("column") in {"review", "done"} and "revision_requested" not in changes:
+        agent_column = {
+            "working": "work",
+            "updated": "review",
+            "no_changes": "review",
+            "blocked": "issues",
+        }.get(changes.get("agent_status"))
+        if agent_column and "column" not in changes:
+            values["manual_column"] = agent_column
+        if values.get("manual_column") == "done":
+            group = self.get_group(group_key)
+            if group and 0 < group["total"] <= 5 and group["transformed"] >= group["total"] and group["helpers"] >= group["total"]:
+                values["manual_column"] = "review"
+        if values.get("manual_column") in {"review", "done"} and "revision_requested" not in changes:
             values["revision_requested"] = 0
         if not values:
             return self.get_group(group_key)

@@ -278,6 +278,8 @@ class Handler(BaseHTTPRequestHandler):
                 "column": "work",
                 "revision_requested": 0,
                 "full_dry_run_status": None,
+                "agent_status": "working",
+                "agent_summary": "Тред создан: ожидается итог работы агента.",
             })
             self._json(202, {"task": task, "group": self._group_payload(updated)})
             return
@@ -451,6 +453,11 @@ class Handler(BaseHTTPRequestHandler):
                     self._json(502, {"error": "codex_comment_failed", "message": str(exc)})
                     return
             comment = self.server.store.add_comment(segments[2], body, problem_id)
+            target = f" по задаче {source_problem_id}" if source_problem_id else ""
+            self.server.store.update_group(segments[2], {
+                "agent_status": "working",
+                "agent_summary": f"Комментарий{target} отправлен в Codex.",
+            })
             self._json(201, {
                 "comment": comment,
                 "group": self._group_payload(self.server.store.get_group(segments[2])),

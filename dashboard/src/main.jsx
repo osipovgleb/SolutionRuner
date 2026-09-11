@@ -13,6 +13,12 @@ const Icon = ({ children }) => <span class="icon" aria-hidden="true">{children}<
 function GroupCard({ group, onOpen, onDragStart }) {
   const { transformed, total, helpers, errors } = group.stats;
   const teacherhelperUrl = teacherHelperGroupUrl(group.teacherhelper);
+  const agentStatus = {
+    working: "Агент работает",
+    updated: "Есть обновление",
+    no_changes: "Проверено без изменений",
+    blocked: "Агент заблокирован",
+  }[group.agent_status];
   return (
     <div class={`group-card-shell${teacherhelperUrl ? " has-group-link" : ""}`}>
       <button
@@ -26,6 +32,7 @@ function GroupCard({ group, onOpen, onDragStart }) {
           <span class="source-pill">{compactCatalogLabel(group.source)}</span>
         </div>
         {group.revision_requested && <span class="agent-waiting">Ждёт агента</span>}
+        {agentStatus && <span class={`agent-status agent-${group.agent_status}`} title={group.agent_summary || ""}>{agentStatus}</span>}
         <strong>{group.title}</strong>
         <span class="group-path">{group.path}</span>
         <div class="progress-track"><span style={{ width: `${total ? Math.round((transformed / total) * 100) : 0}%` }} /></div>
