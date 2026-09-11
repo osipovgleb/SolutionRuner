@@ -7,6 +7,7 @@ from solution_runner.dashboard.server import (
     _finish_automatic_dry_run,
     _finish_initialization,
     _handle_codex_exit,
+    _resume_automatic_groups,
     make_server,
 )
 from solution_runner.dashboard.store import DashboardStore
@@ -95,6 +96,31 @@ def test_agent_result_without_full_dry_run_is_verified_by_server(tmp_path):
     group = store.get_group("123")
     assert group["agent_status"] == "updated"
     assert group["column"] == "review"
+
+
+def test_startup_resumes_ready_initialization_and_repairs_agent_column(tmp_path):
+    class FakeCodexTasks:
+        def register_group(self, group, inventory, thread_id=None):
+            return {"id": f"thread-{group['id']}", "title": f"{group['id']} · {group['title']}"}
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    inventory = GroupInventoryStore(store.path)
+    store.add_manual_group("ready", "catalog")
+    inventory.replace(GroupInventorySnapshot(
+        group_key="ready", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+    ))
+    store.add_manual_group("blocked", "catalog")
+    store.update_group("blocked", {"column": "work", "agent_status": "blocked"})
+    with store.connect() as connection:
+        connection.execute("UPDATE groups SET manual_column = 'work' WHERE group_key = 'blocked'")
+
+    _resume_automatic_groups(store, inventory, FakeCodexTasks())
+
+    assert store.get_group("ready")["agent_status"] == "working"
+    assert store.get_group("ready")["codex_thread_id"] == "thread-ready"
+    assert store.get_group("blocked")["column"] == "issues"
 
 
 def test_group_api_lists_updates_and_comments(tmp_path):
@@ -253,6 +279,18 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
         )
         assert task_comment["comment"]["problem_id"] == "parent"
         assert codex_tasks.comments[-1] == ("thread-existing", "123", "Проверь формулировку", "10")
+
+        store.update_group("123", {"agent_status": "blocked"})
+        with store.connect() as connection:
+            connection.execute("UPDATE groups SET manual_column = 'work' WHERE group_key = '123'")
+        _, restarted = _request(
+            f"{base}/api/groups/123/comments", method="POST",
+            payload={"body": "Повторный запуск после блокировки"},
+        )
+        assert restarted["group"]["agent_status"] == "working"
+        assert codex_tasks.comments[-1] == (
+            "thread-existing", "123", "Повторный запуск после блокировки", None,
+        )
     finally:
         server.shutdown()
         server.server_close()

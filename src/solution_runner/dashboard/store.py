@@ -191,7 +191,11 @@ class DashboardStore:
         group["revision_requested"] = bool(group["revision_requested"])
         group["verify_answers"] = bool(group["verify_answers"])
         group["verify_helpers"] = bool(group["verify_helpers"])
-        group["column"] = group.pop("manual_column") or group["system_column"]
+        manual_column = group.pop("manual_column")
+        group["column"] = {
+            "needs_input": "issues",
+            "blocked": "issues",
+        }.get(group.get("agent_status")) or manual_column or group["system_column"]
         group["source"] = group.pop("manual_source") or group["source"]
         group["id"] = group.pop("group_key")
         group["task"] = group["task_title"]

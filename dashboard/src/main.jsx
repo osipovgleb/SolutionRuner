@@ -254,6 +254,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
   const [codexTasks, setCodexTasks] = useState([]);
   const [selectedThreadId, setSelectedThreadId] = useState("");
   const [registering, setRegistering] = useState(false);
+  const [restartingAgent, setRestartingAgent] = useState(false);
   const [taskError, setTaskError] = useState("");
   const [preview, setPreview] = useState(null);
   const [previewState, setPreviewState] = useState("loading");
@@ -440,6 +441,22 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
     setComments((items) => [...items, result.comment]);
     onGroupUpdate(result.group);
   };
+  const restartAgent = async () => {
+    setRestartingAgent(true);
+    setRunError("");
+    try {
+      const result = await api.addComment(
+        group.id,
+        `Повторный запуск после блокировки: ${group.agent_summary || "продолжи работу над группой"}`,
+      );
+      setComments((items) => [...items, result.comment]);
+      onGroupUpdate(result.group);
+    } catch {
+      setRunError("Не удалось перезапустить связанную Codex-задачу.");
+    } finally {
+      setRestartingAgent(false);
+    }
+  };
   const openRegistration = async () => {
     setEditingTask(true);
     setTaskError("");
@@ -508,7 +525,8 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
             <span>Apply: <b>{latestApply ? runLabels[latestApply.status] || latestApply.status : "не запускался"}</b>{latestApply && <time>{formatRunDate(latestApply)}</time>}</span>
           </div>
           {group.agent_summary && <div class={`detail-agent-state agent-${group.agent_status || "idle"}`}>
-            <b>{group.agent_status === "needs_input" ? "Нужен ответ: " : "Codex: "}</b>{group.agent_summary}
+            <span><b>{group.agent_status === "needs_input" ? "Нужен ответ: " : "Codex: "}</b>{group.agent_summary}</span>
+            {group.agent_status === "blocked" && group.codex_thread_id && <button class="secondary-button" onClick={restartAgent} disabled={restartingAgent}>{restartingAgent ? "Запускаю…" : "Перезапустить"}</button>}
           </div>}
         </div>
         <div class="detail-actions">

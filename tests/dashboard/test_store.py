@@ -98,6 +98,9 @@ def test_store_persists_agent_card_status(tmp_path):
     assert store.update_group("123", {"agent_status": "working"})["column"] == "work"
     assert store.update_group("123", {"agent_status": "needs_input"})["column"] == "issues"
     assert store.update_group("123", {"agent_status": "blocked"})["column"] == "issues"
+    with store.connect() as connection:
+        connection.execute("UPDATE groups SET manual_column = 'done' WHERE group_key = '123'")
+    assert store.get_group("123")["column"] == "issues"
 
 
 def test_completed_small_group_goes_to_review_instead_of_done(tmp_path):

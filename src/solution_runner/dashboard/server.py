@@ -9,7 +9,7 @@ import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import sys
-from threading import Event
+from threading import Event, Thread
 from typing import Any, Mapping
 from urllib.parse import unquote, urlparse
 
@@ -173,6 +173,27 @@ def _finish_automatic_dry_run(
             f"Полный dry-run не прошёл: {state.get('error') or state.get('status')}"
         )[:200],
     })
+
+
+def _resume_automatic_groups(
+    store: DashboardStore,
+    inventory_store: GroupInventoryStore,
+    codex_tasks: CodexTaskService,
+) -> None:
+    for group in store.list_groups():
+        group_key = str(group["id"])
+        if group.get("agent_status"):
+            store.update_group(group_key, {"agent_status": group["agent_status"]})
+        snapshot = inventory_store.get(group_key)
+        if (
+            group.get("column") == "initialization"
+            and snapshot is not None
+            and snapshot.status == "ready"
+            and not group.get("codex_thread_id")
+        ):
+            _finish_initialization(
+                store, inventory_store, codex_tasks, group_key, {"status": "ready"}
+            )
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -559,7 +580,7 @@ class Handler(BaseHTTPRequestHandler):
                     self._json(404, {"error": "problem_not_found"})
                     return
                 source_problem_id = str(item["source_problem_id"])
-            if group["column"] in {"issues", "review"} or problem_id:
+            if group["column"] in {"issues", "review"} or group.get("agent_status") in {"blocked", "needs_input"} or problem_id:
                 thread_id = group.get("codex_thread_id")
                 if not thread_id or self.server.codex_tasks is None:
                     self._json(409, {"error": "codex_task_not_linked"})
@@ -713,6 +734,11 @@ def main(argv: list[str] | None = None) -> int:
         ),
     ) if api_key else None
     server = make_server(store=store, var_dir=args.var, profiles=profiles, static_dir=args.static, preview_dir=args.previews, dry_runs=dry_runs, applies=applies, initializer=initializer, inventory_store=inventory_store, preview_gateway_factory=gateway_factory if api_key else None, codex_tasks=codex_tasks, host=args.host, port=args.port)
+    Thread(
+        target=_resume_automatic_groups,
+        args=(store, inventory_store, codex_tasks),
+        daemon=True,
+    ).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
