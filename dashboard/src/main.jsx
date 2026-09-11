@@ -7,6 +7,7 @@ import { canApplyGroup, canApplyTask, columns, compactCatalogLabel, filterGroups
 import "./styles.css";
 
 const api = createApi();
+const activeApplyStatuses = ["queued", "running", "retry_wait"];
 
 const Icon = ({ children }) => <span class="icon" aria-hidden="true">{children}</span>;
 
@@ -333,12 +334,12 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
     return () => clearInterval(timer);
   }, [group.id, dryRun?.status, runningProblemId]);
   useEffect(() => {
-    if (!applyRun || !["queued", "running"].includes(applyRun.status)) return undefined;
+    if (!applyRun || !activeApplyStatuses.includes(applyRun.status)) return undefined;
     const timer = setInterval(async () => {
       try {
         const state = await api.getApply(group.id);
         setApplyRun(state);
-        if (!["queued", "running"].includes(state.status)) {
+        if (!activeApplyStatuses.includes(state.status)) {
           setApplyingProblemId(null);
           if (state.status === "failed") {
             setRunError(state.scope === "group" ? "Не все задачи группы удалось записать. Подробности — во вкладке «Проблемы»." : "Не удалось записать выбранную задачу.");
@@ -503,7 +504,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
     }
   };
   const selectedTask = inventory?.tasks?.find((task) => task.problem_id === selectedSample?.problem_id);
-  const groupApplyActive = applyRun?.scope === "group" && ["queued", "running"].includes(applyRun.status);
+  const groupApplyActive = applyRun?.scope === "group" && activeApplyStatuses.includes(applyRun.status);
   const groupBusy = groupApplyActive || ["queued", "running"].includes(dryRun?.status);
   const latestDryRun = activity?.runs?.find((run) => run.kind === "dry-run");
   const latestApply = activity?.runs?.find((run) => run.kind === "apply");
@@ -628,7 +629,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
           {["queued", "running"].includes(dryRun?.status) ? "Выполняется…" : "Тестовый прогон"}
         </button>
         <button class="primary-button" onClick={applyGroup} disabled={!canApplyGroup(group, groupBusy)} title="После подтверждения запишет всю группу и выполнит Helpers с readback">
-          {groupApplyActive ? "Применяю группу…" : "Одобрить и применить"}
+          {applyRun?.status === "retry_wait" ? `Повтор через ${applyRun.retry_in_seconds}с` : groupApplyActive ? "Применяю группу…" : "Одобрить и применить"}
         </button>
       </footer>
     </aside>

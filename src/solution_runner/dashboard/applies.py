@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 import json
 from pathlib import Path
 from threading import Lock
+import time
 from typing import Any, Callable, Mapping
 
 from solution_runner.group_inventory_store import GroupInventoryStore, GroupItemStageResult
@@ -50,6 +51,19 @@ def _result_for(rows: list[dict[str, Any]], problem_id: str) -> dict[str, Any] |
     return next((row for row in rows if str(row.get("problem_id")) == problem_id), None)
 
 
+def _stage_error(
+    solution: Mapping[str, Any] | None,
+    helper: Mapping[str, Any] | None,
+    solution_status: str,
+    helpers_status: str,
+) -> str | None:
+    if solution_status not in SUCCESS:
+        return str((solution or {}).get("error") or (solution or {}).get("message") or "MCP не записал решение")
+    if helpers_status not in SUCCESS:
+        return str((helper or {}).get("error") or (helper or {}).get("message") or "MCP не записал Helpers")
+    return None
+
+
 class ApplyManager:
     """Serialize explicit problem or whole-group writes and keep local state."""
 
@@ -61,12 +75,16 @@ class ApplyManager:
         inventory_store: GroupInventoryStore,
         store: Any | None = None,
         executor: Callable[[list[str]], int] = _execute,
+        sleeper: Callable[[float], None] = time.sleep,
+        retry_delays: tuple[int, ...] = (5, 10, 15),
     ) -> None:
         self.var_dir = var_dir
         self.profiles = profiles
         self.inventory_store = inventory_store
         self.store = store
         self.executor_fn = executor
+        self.sleeper = sleeper
+        self.retry_delays = retry_delays
         self.state_dir = var_dir / "dashboard/applies"
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-apply")
         self.lock = Lock()
@@ -119,7 +137,7 @@ class ApplyManager:
         self._verified_row(group_key, problem_id)
         with self.lock:
             current = self.get(group_key)
-            if current and current.get("status") in {"queued", "running"}:
+            if current and current.get("status") in {"queued", "running", "retry_wait"}:
                 raise RuntimeError("apply already active")
             state = self._write({
                 "group_key": group_key,
@@ -135,7 +153,7 @@ class ApplyManager:
         self._verified_group(group_key)
         with self.lock:
             current = self.get(group_key)
-            if current and current.get("status") in {"queued", "running"}:
+            if current and current.get("status") in {"queued", "running", "retry_wait"}:
                 raise RuntimeError("apply already active")
             state = self._write({
                 "group_key": group_key,
@@ -178,9 +196,7 @@ class ApplyManager:
                 raise RuntimeError("launcher produced no result for the selected problem")
             solution_status = str(solution.get("status") or "failed")
             helpers_status = str(helpers.get("status") or "failed") if helpers else "failed"
-            error = solution.get("error") or solution.get("message")
-            if solution_status in SUCCESS and helpers and helpers_status not in SUCCESS:
-                error = helpers.get("error") or helpers.get("message") or error
+            error = _stage_error(solution, helpers, solution_status, helpers_status)
             self.inventory_store.update_item_stage(GroupItemStageResult(
                 group_key=group_key,
                 problem_id=problem_id,
@@ -226,6 +242,8 @@ class ApplyManager:
             "started_at": _now(),
         }
         self._write(state)
+        if self.store is not None:
+            self.store.update_group(group_key, {"agent_status": None, "agent_summary": None})
         argv = [
             "--group", str(profile.group_key),
             "--confirm-catalog", str(profile.catalog_snapshot_id),
@@ -233,67 +251,78 @@ class ApplyManager:
             "--max-workers", "5",
             "--apply",
         ]
-        try:
-            return_code = self.executor_fn(argv)
-            if return_code:
-                raise RuntimeError(f"launcher exited with status {return_code}")
-            run_dir = _latest_run(self.var_dir, group_key)
-            if run_dir is None:
-                raise RuntimeError("launcher produced no run report")
-            solutions = {
-                str(result.get("problem_id")): result
-                for result in _read_results(run_dir / "solution-results.json")
-                if result.get("problem_id")
-            }
-            helpers = {
-                str(result.get("problem_id")): result
-                for result in _read_results(run_dir / "helpers-results.json")
-                if result.get("problem_id")
-            }
-            terminal_statuses: list[str] = []
-            for row in rows:
-                problem_id = str(row["problem_id"])
-                solution = solutions.get(problem_id)
-                helper = helpers.get(problem_id)
-                solution_status = str(solution.get("status") or "failed") if solution else "failed"
-                helpers_status = str(helper.get("status") or "failed") if helper else "failed"
-                error = (
-                    (solution.get("error") or solution.get("message"))
-                    if solution else "launcher produced no result for this problem"
-                )
-                if solution_status in SUCCESS and helper and helpers_status not in SUCCESS:
-                    error = helper.get("error") or helper.get("message") or error
-                self.inventory_store.update_item_stage(GroupItemStageResult(
-                    group_key=group_key,
-                    problem_id=problem_id,
-                    apply_status=solution_status,
-                    helpers_status=helpers_status,
-                    error=" ".join(str(error).split())[:500] if error else None,
-                ))
-                terminal_statuses.extend((solution_status, helpers_status))
+        delays: tuple[int | None, ...] = (*self.retry_delays, None)
+        last_error = "Не все задачи удалось записать и проверить."
+        for attempt, delay in enumerate(delays, start=1):
+            try:
+                return_code = self.executor_fn(argv)
+                if return_code:
+                    raise RuntimeError(f"launcher exited with status {return_code}")
+                run_dir = _latest_run(self.var_dir, group_key)
+                if run_dir is None:
+                    raise RuntimeError("launcher produced no run report")
+                solutions = {
+                    str(result.get("problem_id")): result
+                    for result in _read_results(run_dir / "solution-results.json")
+                    if result.get("problem_id")
+                }
+                helpers = {
+                    str(result.get("problem_id")): result
+                    for result in _read_results(run_dir / "helpers-results.json")
+                    if result.get("problem_id")
+                }
+                self.inventory_store.clear_apply_results(group_key)
+                terminal_statuses: list[str] = []
+                for row in rows:
+                    problem_id = str(row["problem_id"])
+                    solution = solutions.get(problem_id)
+                    helper = helpers.get(problem_id)
+                    solution_status = str(solution.get("status") or "failed") if solution else "failed"
+                    helpers_status = str(helper.get("status") or "failed") if helper else "failed"
+                    error = _stage_error(solution, helper, solution_status, helpers_status)
+                    if error:
+                        last_error = " ".join(error.split())[:300]
+                    self.inventory_store.update_item_stage(GroupItemStageResult(
+                        group_key=group_key,
+                        problem_id=problem_id,
+                        apply_status=solution_status,
+                        helpers_status=helpers_status,
+                        error=" ".join(error.split())[:500] if error else None,
+                    ))
+                    terminal_statuses.extend((solution_status, helpers_status))
+                completed = all(status in SUCCESS for status in terminal_statuses)
+            except Exception as exc:  # noqa: BLE001 - one retry owns its current error.
+                completed = False
+                last_error = " ".join(str(exc).split())[:300]
+            items = self.inventory_store.list_items(group_key)
             if self.store is not None:
-                self.store.reconcile_problem_counts(
-                    group_key, self.inventory_store.list_items(group_key)
-                )
-            if all(status in SUCCESS for status in terminal_statuses):
-                state.update(status="completed", completed_at=_now())
+                self.store.reconcile_problem_counts(group_key, items)
+            if completed:
+                state.update(status="completed", attempt=attempt, completed_at=_now())
+                state.pop("retry_in_seconds", None)
+                state.pop("error", None)
                 if self.store is not None:
-                    self.store.update_group(group_key, {"column": "done"})
-            else:
-                state.update(
-                    status="failed",
-                    completed_at=_now(),
-                    error="Не все задачи удалось записать и проверить.",
-                )
-                if self.store is not None:
-                    self.store.update_group(group_key, {"column": "issues"})
-            return self._write(state)
-        except Exception as exc:  # noqa: BLE001 - persist an isolated dashboard operation.
-            state.update(
-                status="failed",
-                completed_at=_now(),
-                error=" ".join(str(exc).split())[:300],
-            )
+                    self.store.update_group(group_key, {
+                        "column": "done",
+                        "agent_status": None,
+                        "agent_summary": None,
+                    })
+                return self._write(state)
             if self.store is not None:
                 self.store.update_group(group_key, {"column": "issues"})
-            return self._write(state)
+            if delay is None:
+                break
+            state.update(
+                status="retry_wait",
+                attempt=attempt,
+                retry_in_seconds=delay,
+                error=last_error,
+            )
+            self._write(state)
+            self.sleeper(delay)
+            state.update(status="running", attempt=attempt + 1)
+            state.pop("retry_in_seconds", None)
+            self._write(state)
+        state.update(status="failed", attempt=len(delays), completed_at=_now(), error=last_error)
+        state.pop("retry_in_seconds", None)
+        return self._write(state)

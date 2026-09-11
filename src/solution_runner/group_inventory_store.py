@@ -346,6 +346,20 @@ class GroupInventoryStore:
                 ),
             )
 
+    def clear_apply_results(self, group_key: str) -> None:
+        """Forget prior Apply/Helpers outcomes before a new approved write."""
+
+        with self.connect() as connection:
+            connection.execute(
+                """
+                UPDATE group_item_stage_results
+                SET apply_status = NULL, helpers_status = NULL,
+                    apply_error = NULL, error = NULL
+                WHERE group_key = ?
+                """,
+                (group_key,),
+            )
+
     def remove_item(self, group_key: str, problem_id: str) -> None:
         with self.connect() as connection:
             connection.execute(

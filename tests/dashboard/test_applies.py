@@ -255,3 +255,80 @@ def test_apply_group_requires_a_successful_review_run(tmp_path):
 
     with pytest.raises(ValueError, match="successful full-group dry-run"):
         manager.start_group("123")
+
+
+def test_group_apply_retries_after_5_10_15_and_clears_previous_problems(tmp_path):
+    inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    store.update_group("123", {
+        "full_dry_run_status": "ready",
+        "agent_status": "blocked",
+        "agent_summary": "Старая проблема",
+    })
+    inventory.replace(GroupInventorySnapshot(
+        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(
+            GroupInventoryItem("parent", "10", 0, True, True, True),
+            GroupInventoryItem("child", "11", 1, True, False, True),
+        ),
+    ))
+    inventory.update_item_stage(GroupItemStageResult(
+        group_key="123", problem_id="child",
+        apply_status="failed", helpers_status="skipped", error="Старая ошибка",
+    ))
+    attempts = []
+    delays = []
+
+    def wait(delay):
+        delays.append((
+            delay,
+            store.get_group("123")["column"],
+            manager.get("123")["status"],
+        ))
+
+    def execute(_args):
+        attempts.append(len(attempts) + 1)
+        run = tmp_path / "content-rule/runs/current-group-123"
+        run.mkdir(parents=True, exist_ok=True)
+        success = len(attempts) == 4
+        (run / "summary.json").write_text(json.dumps({
+            "group_key": "123", "status": "completed" if success else "completed_with_errors",
+            "targets": 2, "failed_stage_results": 0 if success else 1,
+        }))
+        (run / "solution-results.json").write_text(json.dumps([
+            {"problem_id": "parent", "status": "already_complete"},
+            {"problem_id": "child", "status": "applied" if success else "failed", "error": None if success else "temporary MCP error"},
+        ]))
+        (run / "helpers-results.json").write_text(json.dumps([
+            {"problem_id": "parent", "status": "already_complete"},
+            {"problem_id": "child", "status": "applied" if success else "skipped"},
+        ]))
+        return 0
+
+    manager = ApplyManager(
+        var_dir=tmp_path,
+        profiles={"123": SimpleNamespace(group_key="123", catalog_snapshot_id="catalog")},
+        inventory_store=inventory,
+        store=store,
+        executor=execute,
+        sleeper=wait,
+    )
+
+    state = manager.run_group_now("123")
+
+    assert attempts == [1, 2, 3, 4]
+    assert delays == [
+        (5, "issues", "retry_wait"),
+        (10, "issues", "retry_wait"),
+        (15, "issues", "retry_wait"),
+    ]
+    assert state["status"] == "completed"
+    assert state["attempt"] == 4
+    assert all(not row["error"] for row in inventory.list_items("123"))
+    group = store.get_group("123")
+    assert group["column"] == "review"
+    assert group["stats"]["errors"] == 0
+    assert group["agent_status"] is None
+    assert group["agent_summary"] is None
