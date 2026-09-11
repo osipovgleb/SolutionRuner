@@ -96,6 +96,7 @@ def test_store_persists_agent_card_status(tmp_path):
     assert group["column"] == "review"
 
     assert store.update_group("123", {"agent_status": "working"})["column"] == "work"
+    assert store.update_group("123", {"agent_status": "needs_input"})["column"] == "issues"
     assert store.update_group("123", {"agent_status": "blocked"})["column"] == "issues"
 
 

@@ -28,11 +28,13 @@ def build_registration_prompt(group: Mapping[str, Any], inventory: Mapping[str, 
 
 Сначала найди в SQLite все незакрытые проблемы именно этой группы: соедини `group_item_stage_results` и `group_inventory_items` по `group_key` и `problem_id`; изучи `dry_run_error`, `apply_error`, `error` и статусы Apply/Helpers. Для каждой причины зафиксируй внешний `source_problem_id` и объясни, какой этап раннера её вызвал. Не останавливайся на том, что профиль уже зарегистрирован: если есть хотя бы одна проблема, сначала исследуй её карточку и только затем решай, нужна ли правка.
 
-Затем изучи проблемные задачи через TeacherHelper MCP, соседние зарегистрированные группы и существующие раннеры. Подбери наиболее близкий раннер: переиспользуй или минимально адаптируй его; создавай новый только если подходящего действительно нет. После изменения технически проверь родителя и каждую проблемную задачу без внешней записи.
+Затем изучи проблемные задачи через TeacherHelper MCP, соседние зарегистрированные группы и существующие раннеры. Подбери наиболее близкий раннер: переиспользуй или минимально адаптируй его; создавай новый только если подходящего действительно нет.
 
-Не запускай полный dry-run группы: пользователь запускает его из дэшборда. После изменения допустим только точечный dry-run проблемных задач; полный dry-run не запускай автоматически. Не выполняй Apply, Helpers или Reject через MCP. Не используй навыки `superpowers`. Не коммить и не пушь изменения.
+Если без ответа пользователя нельзя выбрать корректное поведение, до вопроса обнови карточку: `agent_status='needs_input'`, а в `agent_summary` запиши сам вопрос до 200 символов. Затем задай тот же вопрос в задаче Codex и остановись.
 
-Перед финальным сообщением обязательно обнови карточку этой группы в SQLite через `DashboardStore(...).update_group(...)`: выставь `agent_status` в `updated`, `no_changes` или `blocked`, а в `agent_summary` запиши короткий итог (до 200 символов) с проблемным `source_problem_id` и результатом. Карточка — обязательный итог работы, а не только сообщение в треде."""
+После исследования и изменений обязательно запусти полный локальный dry-run всей группы без внешней записи. Если он выявил исправимую ошибку, исследуй её, исправь и повтори полный dry-run; не останавливайся после первой неудачи. Не выполняй Apply, Helpers или Reject через MCP. Не используй навыки `superpowers`. Не коммить и не пушь изменения.
+
+Перед финальным сообщением обязательно обнови карточку этой группы в SQLite через `DashboardStore(...).update_group(...)`. Только после успешного полного dry-run выставь `agent_status` в `updated` или `no_changes` и `full_dry_run_status='ready'`. Если dry-run не прошёл или работа заблокирована, выставь `agent_status='blocked'` и `full_dry_run_status='failed'`. В `agent_summary` запиши короткий итог до 200 символов с проблемным `source_problem_id` и результатом. Карточка — обязательный итог работы, а не только сообщение в треде."""
 
 
 def build_feedback_prompt(group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> str:
@@ -41,7 +43,7 @@ def build_feedback_prompt(group: Mapping[str, Any], body: str, source_problem_id
 
 {body}
 
-Продолжи работу над раннером с учётом комментария. Не выполняй Apply или Reject через MCP и не запускай полный dry-run автоматически. После локальной проверки обнови карточку группы в `var/dashboard/dashboard.sqlite3` через `DashboardStore(...).update_group(...)`: `agent_status` — `updated`, `no_changes` или `blocked`, `agent_summary` — краткий итог до 200 символов. Затем сообщи результат в этой задаче."""
+Продолжи работу над раннером с учётом комментария. Если нужен ответ пользователя, до вопроса выставь в `var/dashboard/dashboard.sqlite3` `agent_status='needs_input'` и запиши сам вопрос в `agent_summary`, затем остановись. Иначе обязательно заверши работу полным локальным dry-run всей группы без внешней записи. Исправимые ошибки dry-run исследуй и исправляй, повторяя полный прогон до успеха; не останавливайся после первой неудачи. Не выполняй Apply, Helpers или Reject через MCP. После проверки обнови карточку: успешный полный dry-run — `agent_status='updated'` или `no_changes` и `full_dry_run_status='ready'`; неисправимая техническая блокировка — `agent_status='blocked'` и `full_dry_run_status='failed'`. `agent_summary` — краткий итог до 200 символов. Затем сообщи результат в этой задаче."""
 
 
 def _list_threads(project_root: Path) -> list[dict[str, Any]]:
@@ -97,11 +99,23 @@ def _list_threads(project_root: Path) -> list[dict[str, Any]]:
             process.kill()
 
 
-def _wait(process: subprocess.Popen[str]) -> None:
-    process.wait()
+def _watch(
+    process: subprocess.Popen[str],
+    thread_id: str,
+    on_exit: Callable[[str, int], None] | None,
+) -> None:
+    return_code = process.wait()
+    if on_exit:
+        on_exit(thread_id, return_code)
 
 
-def _create_thread(project_root: Path, prompt: str, model: str, effort: str) -> str:
+def _create_thread(
+    project_root: Path,
+    prompt: str,
+    model: str,
+    effort: str,
+    on_exit: Callable[[str, int], None] | None = None,
+) -> str:
     output = tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=False)
     output_path = Path(output.name)
     process = subprocess.Popen(
@@ -131,10 +145,11 @@ def _create_thread(project_root: Path, prompt: str, model: str, effort: str) -> 
             except json.JSONDecodeError:
                 continue
             if event.get("type") == "thread.started" and event.get("thread_id"):
-                Thread(target=_wait, args=(process,), daemon=True).start()
+                thread_id = str(event["thread_id"])
+                Thread(target=_watch, args=(process, thread_id, on_exit), daemon=True).start()
                 reader.close()
                 output_path.unlink(missing_ok=True)
-                return str(event["thread_id"])
+                return thread_id
         if process.poll() is not None:
             break
         time.sleep(0.05)
@@ -144,7 +159,12 @@ def _create_thread(project_root: Path, prompt: str, model: str, effort: str) -> 
     raise RuntimeError("Codex did not create a task")
 
 
-def _send_message(project_root: Path, thread_id: str, prompt: str) -> None:
+def _send_message(
+    project_root: Path,
+    thread_id: str,
+    prompt: str,
+    on_exit: Callable[[str, int], None] | None = None,
+) -> None:
     """Resume the task with a user message instead of merely queueing it."""
 
     process = subprocess.Popen(
@@ -158,6 +178,7 @@ def _send_message(project_root: Path, thread_id: str, prompt: str) -> None:
     time.sleep(0.15)
     if process.poll() is not None:
         raise RuntimeError("Codex task did not start")
+    Thread(target=_watch, args=(process, thread_id, on_exit), daemon=True).start()
 
 
 class CodexTaskService:
@@ -168,11 +189,12 @@ class CodexTaskService:
         list_threads: Callable[[], list[dict[str, Any]]] | None = None,
         create_thread: Callable[[str, str, str], str] | None = None,
         send_message: Callable[[str, str], None] | None = None,
+        on_exit: Callable[[str, int], None] | None = None,
     ) -> None:
         self.project_root = project_root
         self._list = list_threads or (lambda: _list_threads(project_root))
-        self._create = create_thread or (lambda prompt, model, effort: _create_thread(project_root, prompt, model, effort))
-        self._send = send_message or (lambda thread_id, prompt: _send_message(project_root, thread_id, prompt))
+        self._create = create_thread or (lambda prompt, model, effort: _create_thread(project_root, prompt, model, effort, on_exit))
+        self._send = send_message or (lambda thread_id, prompt: _send_message(project_root, thread_id, prompt, on_exit))
 
     def list_tasks(self) -> list[dict[str, Any]]:
         return [{

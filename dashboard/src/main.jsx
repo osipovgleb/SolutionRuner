@@ -15,8 +15,10 @@ function GroupCard({ group, onOpen, onDragStart }) {
   const teacherhelperUrl = teacherHelperGroupUrl(group.teacherhelper);
   const agentStatus = {
     working: "Агент работает",
+    verifying: "Идёт полный dry-run",
     updated: "Есть обновление",
     no_changes: "Проверено без изменений",
+    needs_input: "Нужен ответ",
     blocked: "Агент заблокирован",
   }[group.agent_status];
   return (
@@ -33,6 +35,7 @@ function GroupCard({ group, onOpen, onDragStart }) {
         </div>
         {group.revision_requested && <span class="agent-waiting">Ждёт агента</span>}
         {agentStatus && <span class={`agent-status agent-${group.agent_status}`} title={group.agent_summary || ""}>{agentStatus}</span>}
+        {group.agent_status === "needs_input" && group.agent_summary && <span class="agent-question">{group.agent_summary}</span>}
         <strong>{group.title}</strong>
         <span class="group-path">{group.path}</span>
         <div class="progress-track"><span style={{ width: `${total ? Math.round((transformed / total) * 100) : 0}%` }} /></div>
@@ -504,6 +507,9 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
             <span>Dry-run: <b>{latestDryRun ? runLabels[latestDryRun.status] || latestDryRun.status : "не запускался"}</b>{latestDryRun && <time>{formatRunDate(latestDryRun)}</time>}</span>
             <span>Apply: <b>{latestApply ? runLabels[latestApply.status] || latestApply.status : "не запускался"}</b>{latestApply && <time>{formatRunDate(latestApply)}</time>}</span>
           </div>
+          {group.agent_summary && <div class={`detail-agent-state agent-${group.agent_status || "idle"}`}>
+            <b>{group.agent_status === "needs_input" ? "Нужен ответ: " : "Codex: "}</b>{group.agent_summary}
+          </div>}
         </div>
         <div class="detail-actions">
           {group.task_url
@@ -720,10 +726,10 @@ function App() {
 
   useEffect(() => { loadGroups(); }, []);
   useEffect(() => {
-    if (!groups.some((group) => group.column === "initialization")) return undefined;
+    if (!groups.some((group) => group.column === "initialization" || ["working", "verifying"].includes(group.agent_status))) return undefined;
     const timer = setInterval(loadGroups, 1500);
     return () => clearInterval(timer);
-  }, [groups.some((group) => group.column === "initialization")]);
+  }, [groups.some((group) => group.column === "initialization" || ["working", "verifying"].includes(group.agent_status))]);
 
   const refresh = async () => {
     setLoading(true);

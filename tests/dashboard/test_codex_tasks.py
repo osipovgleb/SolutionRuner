@@ -19,7 +19,9 @@ def test_registration_prompt_defines_the_bounded_registration_job():
     assert "superpowers" in prompt
     assert "agent_status" in prompt
     assert "agent_summary" in prompt
-    assert "не запускай полный dry-run" in prompt.lower()
+    assert "полный локальный dry-run всей группы" in prompt.lower()
+    assert "needs_input" in prompt
+    assert "full_dry_run_status='ready'" in prompt
     assert "не выполняй apply" in prompt.lower()
 
 

@@ -284,8 +284,10 @@ class DashboardStore:
         values = {allowed[key]: value for key, value in changes.items() if key in allowed}
         agent_column = {
             "working": "work",
+            "verifying": "work",
             "updated": "review",
             "no_changes": "review",
+            "needs_input": "issues",
             "blocked": "issues",
         }.get(changes.get("agent_status"))
         if agent_column and "column" not in changes:

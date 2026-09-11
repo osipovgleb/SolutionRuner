@@ -170,6 +170,7 @@ class DryRunManager:
         inventory_store: GroupInventoryStore | None = None,
         launcher: Callable[[list[str]], int] = _run_launcher,
         choose: Callable[[Sequence[Mapping[str, Any]]], Mapping[str, Any]] = secrets.choice,
+        on_complete: Callable[[str, Mapping[str, Any]], None] | None = None,
     ) -> None:
         self.var_dir = var_dir
         self.profiles = profiles
@@ -178,6 +179,7 @@ class DryRunManager:
         self.inventory_store = inventory_store
         self.launcher = launcher
         self.choose = choose
+        self.on_complete = on_complete
         self.state_dir = var_dir / "dashboard/dry-runs"
         self.preview_dir = var_dir / "dashboard/previews"
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-dry-run")
@@ -258,7 +260,7 @@ class DryRunManager:
                 "append": append,
                 "queued_at": _now(),
             })
-            self.executor.submit(
+            future = self.executor.submit(
                 self.run_now,
                 group_key,
                 mode,
@@ -266,6 +268,10 @@ class DryRunManager:
                 excluded_problem_ids=excluded_problem_ids,
                 requested_problem_id=requested_problem_id,
             )
+            if self.on_complete:
+                future.add_done_callback(
+                    lambda completed: self.on_complete(group_key, completed.result())
+                )
             return state
 
     def run_now(

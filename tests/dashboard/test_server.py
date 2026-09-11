@@ -3,7 +3,12 @@ from threading import Thread
 from types import SimpleNamespace
 from urllib.request import Request, urlopen
 
-from solution_runner.dashboard.server import make_server
+from solution_runner.dashboard.server import (
+    _finish_automatic_dry_run,
+    _finish_initialization,
+    _handle_codex_exit,
+    make_server,
+)
 from solution_runner.dashboard.store import DashboardStore
 from solution_runner.dashboard.previews import save_preview
 from solution_runner.group_inventory_store import (
@@ -18,6 +23,78 @@ def _request(url, *, method="GET", payload=None):
     request = Request(url, method=method, data=data, headers={"Content-Type": "application/json"})
     with urlopen(request) as response:
         return response.status, json.load(response)
+
+
+def test_ready_initialization_starts_codex_and_process_exit_cannot_leave_working(tmp_path):
+    class FakeCodexTasks:
+        def register_group(self, group, inventory, thread_id=None):
+            assert group["id"] == "new-1"
+            assert inventory["task_count"] == 1
+            assert thread_id is None
+            return {"id": "thread-new", "title": "new-1 · Группа new-1"}
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("new-1", "catalog")
+    inventory = GroupInventoryStore(store.path)
+    inventory.replace(GroupInventorySnapshot(
+        group_key="new-1", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+    ))
+
+    _finish_initialization(store, inventory, FakeCodexTasks(), "new-1", {"status": "ready"})
+    group = store.get_group("new-1")
+    assert group["codex_thread_id"] == "thread-new"
+    assert group["agent_status"] == "working"
+    assert group["column"] == "work"
+
+    _handle_codex_exit(store, "thread-new", 0)
+    group = store.get_group("new-1")
+    assert group["agent_status"] == "needs_input"
+    assert group["column"] == "issues"
+
+
+def test_failed_codex_exit_does_not_override_agent_final_status(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    store.update_group("123", {
+        "codex_thread_id": "thread-123",
+        "agent_status": "updated",
+        "agent_summary": "Полный dry-run готов.",
+        "full_dry_run_status": "ready",
+    })
+
+    _handle_codex_exit(store, "thread-123", 1)
+
+    assert store.get_group("123")["agent_status"] == "updated"
+
+
+def test_agent_result_without_full_dry_run_is_verified_by_server(tmp_path):
+    class FakeDryRuns:
+        def __init__(self):
+            self.started = []
+
+        def start(self, group_key, mode):
+            self.started.append((group_key, mode))
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    store.update_group("123", {
+        "codex_thread_id": "thread-123",
+        "agent_status": "updated",
+        "agent_summary": "Раннер исправлен.",
+    })
+    dry_runs = FakeDryRuns()
+
+    _handle_codex_exit(store, "thread-123", 0, dry_runs)
+
+    assert dry_runs.started == [("123", "all")]
+    assert store.get_group("123")["agent_status"] == "verifying"
+
+    _finish_automatic_dry_run(store, "123", {"mode": "all", "status": "completed"})
+    group = store.get_group("123")
+    assert group["agent_status"] == "updated"
+    assert group["column"] == "review"
 
 
 def test_group_api_lists_updates_and_comments(tmp_path):

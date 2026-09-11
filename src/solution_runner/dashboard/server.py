@@ -8,6 +8,8 @@ import mimetypes
 import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import sys
+from threading import Event
 from typing import Any, Mapping
 from urllib.parse import unquote, urlparse
 
@@ -47,6 +49,130 @@ class DashboardServer(ThreadingHTTPServer):
     inventory_store: GroupInventoryStore | None
     preview_gateway_factory: Any | None
     codex_tasks: Any | None
+
+
+def _register_group_task(
+    store: DashboardStore,
+    inventory_store: GroupInventoryStore,
+    codex_tasks: CodexTaskService,
+    group_key: str,
+    thread_id: str | None = None,
+) -> tuple[dict[str, str], dict[str, Any]]:
+    group = store.get_group(group_key)
+    snapshot = inventory_store.get(group_key)
+    if group is None or snapshot is None:
+        raise KeyError(group_key)
+    task = codex_tasks.register_group(group, {
+        "parent_problem_id": snapshot.parent_problem_id,
+        "parent_source_problem_id": snapshot.parent_source_problem_id,
+        "task_count": len(inventory_store.list_items(group_key)),
+    }, thread_id)
+    updated = store.update_group(group_key, {
+        "codex_thread_id": task["id"],
+        "task_title": task["title"],
+        "task_url": f"codex://threads/{task['id']}",
+        "column": "work",
+        "revision_requested": 0,
+        "full_dry_run_status": None,
+        "agent_status": "working",
+        "agent_summary": "Агент исследует группу и готовит полный dry-run.",
+    })
+    assert updated is not None
+    return task, updated
+
+
+def _handle_codex_exit(
+    store: DashboardStore,
+    thread_id: str,
+    return_code: int,
+    dry_runs: Any | None = None,
+) -> bool:
+    group = next((item for item in store.list_groups() if item.get("codex_thread_id") == thread_id), None)
+    if not group:
+        return False
+    if group.get("agent_status") in {"updated", "no_changes"}:
+        if group.get("full_dry_run_status") == "ready":
+            return group.get("agent_status") == "updated"
+        if dry_runs is None:
+            store.update_group(str(group["id"]), {
+                "agent_status": "blocked",
+                "agent_summary": "Результат агента не подтверждён полным dry-run.",
+            })
+            return False
+        store.update_group(str(group["id"]), {
+            "agent_status": "verifying",
+            "full_dry_run_status": "running",
+            "agent_summary": "Сервер проверяет результат полным dry-run.",
+        })
+        try:
+            dry_runs.start(str(group["id"]), "all")
+        except (KeyError, ValueError, RuntimeError) as exc:
+            store.update_group(str(group["id"]), {
+                "agent_status": "blocked",
+                "full_dry_run_status": "failed",
+                "agent_summary": f"Полный dry-run не запущен: {' '.join(str(exc).split())}"[:200],
+            })
+        return False
+    if group.get("agent_status") != "working":
+        return False
+    store.update_group(str(group["id"]), {
+        "agent_status": "blocked" if return_code else "needs_input",
+        "agent_summary": (
+            f"Codex завершился с кодом {return_code}; открой задачу и повтори запуск."
+            if return_code else
+            "Codex остановился без итогового статуса; открой задачу — возможно, нужен ответ."
+        ),
+    })
+    return False
+
+
+def _finish_initialization(
+    store: DashboardStore,
+    inventory_store: GroupInventoryStore,
+    codex_tasks: CodexTaskService,
+    group_key: str,
+    state: Mapping[str, Any],
+) -> None:
+    if state.get("status") != "ready":
+        store.update_group(group_key, {
+            "agent_status": "blocked",
+            "agent_summary": f"Инициализация не завершена: {state.get('error') or 'неизвестная ошибка'}"[:200],
+        })
+        return
+    store.update_group(group_key, {"column": "queue"})
+    try:
+        group = store.get_group(group_key) or {}
+        _register_group_task(
+            store,
+            inventory_store,
+            codex_tasks,
+            group_key,
+            str(group.get("codex_thread_id") or "").strip() or None,
+        )
+    except (KeyError, ValueError, RuntimeError) as exc:
+        store.update_group(group_key, {
+            "agent_status": "blocked",
+            "agent_summary": f"Codex не запущен: {' '.join(str(exc).split())}"[:200],
+        })
+
+
+def _finish_automatic_dry_run(
+    store: DashboardStore,
+    group_key: str,
+    state: Mapping[str, Any],
+) -> None:
+    group = store.get_group(group_key)
+    if not group or group.get("agent_status") != "verifying" or state.get("mode") != "all":
+        return
+    completed = state.get("status") == "completed"
+    store.update_group(group_key, {
+        "agent_status": "updated" if completed else "blocked",
+        "agent_summary": (
+            "Полный dry-run завершён успешно."
+            if completed else
+            f"Полный dry-run не прошёл: {state.get('error') or state.get('status')}"
+        )[:200],
+    })
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -252,35 +378,24 @@ class Handler(BaseHTTPRequestHandler):
             if self.server.codex_tasks is None or self.server.inventory_store is None:
                 self._json(503, {"error": "codex_registration_unavailable"})
                 return
-            group = self.server.store.get_group(segments[2])
-            snapshot = self.server.inventory_store.get(segments[2])
-            if group is None or snapshot is None:
+            thread_id = str(self._body().get("thread_id") or "").strip() or None
+            try:
+                task, updated = _register_group_task(
+                    self.server.store,
+                    self.server.inventory_store,
+                    self.server.codex_tasks,
+                    segments[2],
+                    thread_id,
+                )
+            except KeyError:
                 self._json(404, {"error": "group_inventory_not_found"})
                 return
-            thread_id = str(self._body().get("thread_id") or "").strip() or None
-            inventory = {
-                "parent_problem_id": snapshot.parent_problem_id,
-                "parent_source_problem_id": snapshot.parent_source_problem_id,
-                "task_count": len(self.server.inventory_store.list_items(segments[2])),
-            }
-            try:
-                task = self.server.codex_tasks.register_group(group, inventory, thread_id)
             except ValueError as exc:
                 self._json(409, {"error": "invalid_codex_task", "message": str(exc)})
                 return
             except RuntimeError as exc:
                 self._json(502, {"error": "codex_registration_failed", "message": str(exc)})
                 return
-            updated = self.server.store.update_group(segments[2], {
-                "codex_thread_id": task["id"],
-                "task_title": task["title"],
-                "task_url": f"codex://threads/{task['id']}",
-                "column": "work",
-                "revision_requested": 0,
-                "full_dry_run_status": None,
-                "agent_status": "working",
-                "agent_summary": "Тред создан: ожидается итог работы агента.",
-            })
             self._json(202, {"task": task, "group": self._group_payload(updated)})
             return
         if len(segments) == 6 and segments[:2] == ["api", "groups"] and segments[3] == "tasks" and segments[5] == "reject":
@@ -407,6 +522,11 @@ class Handler(BaseHTTPRequestHandler):
                 self.server.store.add_comment(group_key, note)
             if self.server.initializer is not None:
                 self.server.initializer.start(group_key)
+            else:
+                group = self.server.store.update_group(group_key, {
+                    "agent_status": "blocked",
+                    "agent_summary": "Инициализация недоступна: dashboard запущен без TeacherHelper API key.",
+                })
             self._json(201, self._group_payload(group))
             return
         if segments == ["api", "sync"]:
@@ -545,6 +665,7 @@ def main(argv: list[str] | None = None) -> int:
         gateway_factory=gateway_factory,
         store=store,
         inventory_store=inventory_store,
+        on_complete=None,
     ) if api_key else None
     applies = ApplyManager(
         var_dir=args.var,
@@ -552,16 +673,45 @@ def main(argv: list[str] | None = None) -> int:
         inventory_store=inventory_store,
         store=store,
     ) if api_key else None
+    restart_requested = Event()
+    server: DashboardServer | None = None
+
+    def restart_dashboard() -> None:
+        restart_requested.set()
+        if server is not None:
+            server.shutdown()
+
+    def on_dry_run_complete(group_key: str, state: Mapping[str, Any]) -> None:
+        _finish_automatic_dry_run(store, group_key, state)
+        group = store.get_group(group_key) or {}
+        if (
+            state.get("mode") == "all"
+            and state.get("status") == "completed"
+            and group.get("agent_status") == "updated"
+        ):
+            restart_dashboard()
+
+    if dry_runs is not None:
+        dry_runs.on_complete = on_dry_run_complete
+
+    codex_tasks = CodexTaskService(
+        project_root=project_root,
+        on_exit=lambda thread_id, code: (
+            restart_dashboard()
+            if _handle_codex_exit(store, thread_id, code, dry_runs)
+            else None
+        ),
+    )
+
     initializer = GroupInitializer(
         profiles=profiles,
         inventory_store=inventory_store,
         gateway_factory=gateway_factory,
         group_source_lookup=store.get_group,
-        on_complete=lambda group_key, state: store.update_group(
-            group_key, {"column": "queue"}
-        ) if state.get("status") == "ready" else None,
+        on_complete=lambda group_key, state: _finish_initialization(
+            store, inventory_store, codex_tasks, group_key, state
+        ),
     ) if api_key else None
-    codex_tasks = CodexTaskService(project_root=project_root)
     server = make_server(store=store, var_dir=args.var, profiles=profiles, static_dir=args.static, preview_dir=args.previews, dry_runs=dry_runs, applies=applies, initializer=initializer, inventory_store=inventory_store, preview_gateway_factory=gateway_factory if api_key else None, codex_tasks=codex_tasks, host=args.host, port=args.port)
     try:
         server.serve_forever()
@@ -569,6 +719,8 @@ def main(argv: list[str] | None = None) -> int:
         pass
     finally:
         server.server_close()
+    if restart_requested.is_set():
+        os.execv(sys.executable, [sys.executable, "-m", "solution_runner.dashboard.server", *sys.argv[1:]])
     return 0
 
 
