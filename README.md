@@ -37,6 +37,7 @@
 
 - [Контракт разработки раннеров](docs/runner-authoring-contract.md) — режимы и этапы работы.
 - [Пожелания к стилю](docs/target-vision.md) — оформление решений и рисунков.
+- [Профиль «вкуса» решения](docs/solution-flavor-profile.md) — как держать детальность без избыточной ширины.
 - [Пробник раннеров](docs/runner-probe.md) — расположение и интерфейс пробника.
 - [Планиметрия 1](docs/planimetry-1-campaign.md) — расположение отчётов кампании.
 - [Дизайн доски групп](docs/superpowers/specs/2026-09-10-group-dashboard-design.md) — Initialize, превью и статусы задач.

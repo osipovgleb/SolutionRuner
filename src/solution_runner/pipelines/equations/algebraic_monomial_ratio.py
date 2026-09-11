@@ -8,7 +8,10 @@ from ..triangles.isosceles.planner import _normalized_content, _section, _sectio
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
 
 _FRACTION = re.compile(r"^\\frac\{(?P<a>\d*)(?P<m1>[axy]{3})-\(-(?P<b>\d*)(?P<m2>[axy]{3})\)\}\{(?P<c>\d*)(?P<m3>[axy]{3})\}$")
-_COLON = re.compile(r"^\((?P<a>\d*)(?P<m1>[axy]{3})-\(-(?P<b>\d*)(?P<m2>[axy]{3})\)\)\\colon(?P<c>\d*)(?P<m3>[axy]{3})$")
+_COLON = re.compile(
+    r"^\((?P<a>\d*)(?P<m1>[axy]{3})-\(-(?P<b>\d*)(?P<m2>[axy]{3})\)\)"
+    r"\\colon(?:\((?P<c>\d*)(?P<m3>[axy]{3})\)|(?P<c_plain>\d*)(?P<m3_plain>[axy]{3}))$"
+)
 
 def _formula(condition: dict[str, Any]) -> str:
     soup=BeautifulSoup(str(condition.get("html") or ""),"html.parser")
@@ -23,9 +26,15 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     content=_normalized_content(context); condition=_section(content,"condition")
     if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()): raise RightTrianglePlanError("monomial-ratio condition must be text-only")
     formula=_formula(condition); match=_FRACTION.fullmatch(formula) or _COLON.fullmatch(formula)
-    if match is None or len({"".join(sorted(match[n])) for n in ("m1","m2","m3")}) != 1: raise RightTrianglePlanError("condition does not match a registered monomial ratio")
-    a,b,c=(int(match[n] or "1") for n in ("a","b","c")); monomial="".join(sorted(match["m1"])); answer=_latex(Fraction(a+b,c))
-    fraction=f"\\frac{{{a}{match['m1']}-(-{b}{match['m2']})}}{{{c}{match['m3']}}}"
+    if match is None: raise RightTrianglePlanError("condition does not match a registered monomial ratio")
+    denominator_monomial = match["m3"] or match["m3_plain"]
+    if len({"".join(sorted(match[n])) for n in ("m1","m2")} | {"".join(sorted(denominator_monomial))}) != 1:
+        raise RightTrianglePlanError("condition does not match a registered monomial ratio")
+    a = int(match["a"] or "1")
+    b = int(match["b"] or "1")
+    c = int((match["c"] or match["c_plain"]) or "1")
+    monomial="".join(sorted(match["m1"])); answer=_latex(Fraction(a+b,c))
+    fraction=f"\\frac{{{a}{match['m1']}-(-{b}{match['m2']})}}{{{c}{denominator_monomial}}}"
     primary=f"{fraction}=\\frac{{{a}{monomial}+{b}{monomial}}}{{{c}{monomial}}}=\\frac{{{a+b}{monomial}}}{{{c}{monomial}}}={answer}"
     html=f'<center><p><span data-inline-latex="{primary}"></span>.</p></center>'
     answer_section=_section(content,"answer"); solution_section=_section(content,"solution"); changes=[]
