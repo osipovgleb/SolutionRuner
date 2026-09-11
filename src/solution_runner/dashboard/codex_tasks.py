@@ -19,18 +19,23 @@ EFFORT = "medium"
 def build_registration_prompt(group: Mapping[str, Any], inventory: Mapping[str, Any]) -> str:
     """Build the bounded, repeatable prompt used for group registration."""
 
-    return f"""Зарегистрируй группу SolutionRunner {group['id']} — «{group['title']}».
+    return f"""{group['id']} · {group['title']}
 
-Источник истины — локальный SQLite-индекс дэшборда. Не используй старые manifest-файлы как реестр.
+Зарегистрируй группу SolutionRunner {group['id']} — «{group['title']}».
+
+Источник истины — локальный SQLite-индекс дэшборда `var/dashboard/dashboard.sqlite3`. Не используй старые manifest-файлы как реестр.
 В группе {inventory['task_count']} задач; родитель: локальный ID {inventory['parent_problem_id']}, source ID {inventory['parent_source_problem_id']}.
 
-Сначала изучи родительскую задачу через TeacherHelper MCP, соседние зарегистрированные группы и существующие раннеры. Подбери наиболее близкий раннер: переиспользуй или минимально адаптируй его; создавай новый только если подходящего действительно нет. Затем зарегистрируй группу в проекте и технически проверь родителя и одного ребёнка без внешней записи.
+Сначала найди в SQLite все незакрытые проблемы именно этой группы: соедини `group_item_stage_results` и `group_inventory_items` по `group_key` и `problem_id`; изучи `dry_run_error`, `apply_error`, `error` и статусы Apply/Helpers. Для каждой причины зафиксируй внешний `source_problem_id` и объясни, какой этап раннера её вызвал. Не останавливайся на том, что профиль уже зарегистрирован: если есть хотя бы одна проблема, сначала исследуй её карточку и только затем решай, нужна ли правка.
 
-Не запускай полный dry-run группы: пользователь запустит его из дэшборда. Не выполняй Apply, Helpers или Reject через MCP. Не коммить и не пушь изменения. Когда работа закончена или нужен выбор пользователя, коротко опиши результат в этой Codex-задаче."""
+Затем изучи проблемные задачи через TeacherHelper MCP, соседние зарегистрированные группы и существующие раннеры. Подбери наиболее близкий раннер: переиспользуй или минимально адаптируй его; создавай новый только если подходящего действительно нет. После изменения технически проверь родителя и каждую проблемную задачу без внешней записи.
+
+Не запускай полный dry-run группы: пользователь запустит его из дэшборда. Не выполняй Apply, Helpers или Reject через MCP. Не используй навыки `superpowers`. Не коммить и не пушь изменения. Когда работа закончена или нужен выбор пользователя, коротко опиши: какие `source_problem_id` были проблемными, почему и что было исправлено."""
 
 
-def build_feedback_prompt(group: Mapping[str, Any], body: str) -> str:
-    return f"""Комментарий пользователя по группе {group['id']} — «{group['title']}»:
+def build_feedback_prompt(group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> str:
+    target = f" по задаче {source_problem_id}" if source_problem_id else ""
+    return f"""Комментарий пользователя по группе {group['id']} — «{group['title']}»{target}:
 
 {body}
 
@@ -138,16 +143,19 @@ def _create_thread(project_root: Path, prompt: str, model: str, effort: str) -> 
 
 
 def _send_message(project_root: Path, thread_id: str, prompt: str) -> None:
-    result = subprocess.run(
-        ["codex", "queue", "--thread", thread_id, "--message", prompt],
+    """Resume the task with a user message instead of merely queueing it."""
+
+    process = subprocess.Popen(
+        ["codex", "exec", "resume", "--json", thread_id, prompt],
         cwd=project_root,
-        check=False,
-        capture_output=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
         text=True,
-        timeout=15,
+        start_new_session=True,
     )
-    if result.returncode:
-        raise RuntimeError(result.stderr.strip() or "Codex message was not queued")
+    time.sleep(0.15)
+    if process.poll() is not None:
+        raise RuntimeError("Codex task did not start")
 
 
 class CodexTaskService:
@@ -188,7 +196,7 @@ class CodexTaskService:
             self._send(thread_id, prompt)
             return {"id": thread_id, "title": str(task["title"])}
         created_id = self._create(prompt, MODEL, EFFORT)
-        return {"id": created_id, "title": f"Регистрация группы {group['id']}"}
+        return {"id": created_id, "title": f"{group['id']} · {group['title']}"}
 
-    def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str) -> None:
-        self._send(thread_id, build_feedback_prompt(group, body))
+    def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> None:
+        self._send(thread_id, build_feedback_prompt(group, body, source_problem_id))

@@ -27,6 +27,7 @@ export const canApplyGroup = (group, busy = false) =>
 const errorLabels = {
   "condition does not match a registered numeric rational expression": "Условие не подходит обработчику числовых рациональных выражений",
   "condition wording does not match square-root selector": "Формулировка условия не подходит обработчику квадратных корней",
+  "condition equation is ambiguous": "В условии несколько или неоднозначная запись уравнения — раннер не смог однозначно определить, что решать",
   "ineligible upstream solution_answer:failed": "Решение или ответ не подготовлены: предыдущий этап завершился ошибкой",
 };
 

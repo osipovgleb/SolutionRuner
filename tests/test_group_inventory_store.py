@@ -76,6 +76,25 @@ def test_successful_dry_run_does_not_clear_an_unresolved_helpers_error(tmp_path)
     assert row["error"] == "write fence is busy"
 
 
+def test_stage_results_keep_dry_run_and_apply_errors_separate(tmp_path):
+    store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    store.replace(_snapshot())
+    store.update_item_stage(GroupItemStageResult(
+        group_key="27591", problem_id="problem-child",
+        apply_status="failed", error="write fence is busy",
+    ))
+
+    store.update_item_stage(GroupItemStageResult(
+        group_key="27591", problem_id="problem-child", dry_run_status="ready",
+    ))
+
+    row = store.list_items("27591")[1]
+    assert row["dry_run_status"] == "ready"
+    assert row["dry_run_error"] is None
+    assert row["apply_status"] == "failed"
+    assert row["apply_error"] == "write fence is busy"
+
+
 def test_successful_helpers_retry_clears_the_resolved_error(tmp_path):
     store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
     store.replace(_snapshot())

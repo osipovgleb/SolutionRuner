@@ -130,12 +130,12 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
             task_id = thread_id or "thread-new"
             return {"id": task_id, "title": "Existing task" if thread_id else "Регистрация группы 123"}
 
-        def send_comment(self, thread_id, group, body):
-            self.comments.append((thread_id, group["id"], body))
+        def send_comment(self, thread_id, group, body, source_problem_id=None):
+            self.comments.append((thread_id, group["id"], body, source_problem_id))
 
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     store.add_manual_group("123", "catalog")
-    store.update_group("123", {"column": "queue"})
+    store.update_group("123", {"column": "issues"})
     inventory = GroupInventoryStore(store.path)
     inventory.replace(GroupInventorySnapshot(
         group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
@@ -168,7 +168,14 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
             payload={"body": "Исправь выбор рисунка"},
         )
         assert comment["group"]["column"] == "work"
-        assert codex_tasks.comments == [("thread-existing", "123", "Исправь выбор рисунка")]
+        assert codex_tasks.comments == [("thread-existing", "123", "Исправь выбор рисунка", None)]
+
+        _, task_comment = _request(
+            f"{base}/api/groups/123/comments", method="POST",
+            payload={"body": "Проверь формулировку", "problem_id": "parent"},
+        )
+        assert task_comment["comment"]["problem_id"] == "parent"
+        assert codex_tasks.comments[-1] == ("thread-existing", "123", "Проверь формулировку", "10")
     finally:
         server.shutdown()
         server.server_close()

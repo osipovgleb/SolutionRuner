@@ -109,11 +109,6 @@ def fetch_problem_preview(
 ) -> dict[str, Any]:
     """Return a saved comparison or a read-only normalized card for one task."""
 
-    state = gateway.get_problem_pipeline_state(problem_id)
-    statuses = state.get("statuses") if isinstance(state, dict) else None
-    if isinstance(statuses, dict) and statuses.get("normalized") == "rejected":
-        raise ProblemPreviewUnavailable("rejected problems are excluded")
-
     cached = load_preview(preview_dir, group_key)
     if cached:
         sample = next(
@@ -250,18 +245,14 @@ def _with_solution_plans(manifest_path: Path, payload: dict[str, Any]) -> dict[s
 
 
 def latest_dry_run_manifest(var_dir: Path, group_key: str) -> dict[str, Any] | None:
-    """Return only a dry-run newer than every apply for the same group."""
+    """Return the newest usable dry-run, including one already applied.
+
+    A preview is an audit artifact: recording its plan through Apply must not
+    make the before/after comparison disappear from the dashboard.
+    """
 
     manifests = list(var_dir.glob(f"**/runs/*-group-{group_key}/prepared-manifest.json"))
-    latest_apply = max(
-        (result.stat().st_mtime for manifest in manifests for result in [manifest.parent / "apply-results.json"] if result.exists()),
-        default=0.0,
-    )
-    candidates = [
-        manifest for manifest in manifests
-        if not (manifest.parent / "apply-results.json").exists() and manifest.stat().st_mtime > latest_apply
-    ]
-    for manifest in sorted(candidates, key=lambda path: path.stat().st_mtime, reverse=True):
+    for manifest in sorted(manifests, key=lambda path: path.stat().st_mtime, reverse=True):
         try:
             payload = json.loads(manifest.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):

@@ -44,6 +44,20 @@ def test_numeric_rational_expression_handles_all_registered_shapes() -> None:
         assert len(plan.transformations) == 2
 
 
+def test_numeric_rational_expression_handles_the_remaining_base_ege_forms() -> None:
+    cases = (
+        (r"1\frac{1}{12}\colon(1\frac{13}{18}-2\frac{5}{9})", "-1,3"),
+        (r"\frac{14}{15}\colon\frac{7}{3}-0{,}5", "-0,1"),
+        (r"\frac{3}{2}\colon(1+\frac{1}{9})", "1,35"),
+        (r"\frac{1}{\frac{1}{9}-\frac{1}{12}}", "36"),
+        (r"\frac{3{,}1-5{,}7}{2{,}5}", "-1,04"),
+        (r"6{,}6-5\cdot(-3{,}5)", "24,1"),
+        (r"28\cdot(\frac{2}{7}-\frac{3}{14}-\frac{5}{28})", "-3"),
+    )
+    for formula, answer in cases:
+        assert build_context_repair_plan(_context(formula)).answer == answer
+
+
 def test_numeric_rational_expression_profiles_cover_profile_base_and_oge() -> None:
     profiles = all_group_profiles()
     for key in (

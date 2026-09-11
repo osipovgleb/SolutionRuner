@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS groups (
 CREATE TABLE IF NOT EXISTS comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_key TEXT NOT NULL REFERENCES groups(group_key) ON DELETE CASCADE,
+    problem_id TEXT,
     body TEXT NOT NULL,
     created_at TEXT NOT NULL
 );
@@ -166,6 +167,9 @@ class DashboardStore:
             for name, definition in migrations.items():
                 if name not in columns:
                     connection.execute(f"ALTER TABLE groups ADD COLUMN {name} {definition}")
+            comment_columns = {row[1] for row in connection.execute("PRAGMA table_info(comments)")}
+            if "problem_id" not in comment_columns:
+                connection.execute("ALTER TABLE comments ADD COLUMN problem_id TEXT")
 
     def connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.path)
@@ -328,24 +332,24 @@ class DashboardStore:
     def list_comments(self, group_key: str) -> list[dict[str, Any]]:
         with self.connect() as connection:
             rows = connection.execute(
-                "SELECT id, body, created_at FROM comments WHERE group_key = ? ORDER BY id",
+                "SELECT id, problem_id, body, created_at FROM comments WHERE group_key = ? ORDER BY id",
                 (group_key,),
             ).fetchall()
         return [dict(row) for row in rows]
 
-    def add_comment(self, group_key: str, body: str) -> dict[str, Any]:
+    def add_comment(self, group_key: str, body: str, problem_id: str | None = None) -> dict[str, Any]:
         created_at = _now()
         with self.connect() as connection:
             cursor = connection.execute(
-                "INSERT INTO comments (group_key, body, created_at) VALUES (?, ?, ?)",
-                (group_key, body, created_at),
+                "INSERT INTO comments (group_key, problem_id, body, created_at) VALUES (?, ?, ?, ?)",
+                (group_key, problem_id, body, created_at),
             )
             connection.execute(
                 "UPDATE groups SET manual_column = 'work', revision_requested = 1, full_dry_run_status = NULL "
                 "WHERE group_key = ? AND COALESCE(manual_column, system_column) IN ('review', 'issues')",
                 (group_key,),
             )
-        return {"id": cursor.lastrowid, "body": body, "created_at": created_at}
+        return {"id": cursor.lastrowid, "problem_id": problem_id, "body": body, "created_at": created_at}
 
 
 def sync_groups(

@@ -16,7 +16,15 @@ from solution_runner.pipelines.grid_polygon.mcp_runtime import DEFAULT_MCP_URL, 
 from solution_runner.group_inventory_store import GroupInventoryStore
 
 from .initialization import GroupInitializer
-from .previews import ProblemPreviewUnavailable, fetch_problem_preview, load_preview
+from .previews import (
+    ProblemPreviewUnavailable,
+    append_preview_sample,
+    fetch_preview,
+    fetch_problem_preview,
+    latest_dry_run_manifest,
+    load_preview,
+    save_preview,
+)
 from .rejections import reject_indexed_problem
 from .dry_runs import DryRunManager
 from .applies import ApplyManager
@@ -105,6 +113,18 @@ class Handler(BaseHTTPRequestHandler):
             return
         if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "preview":
             preview = load_preview(self.server.preview_dir, segments[2])
+            profile = self.server.profiles.get(segments[2])
+            if preview is None and profile is not None and self.server.preview_gateway_factory is not None:
+                gateway = self.server.preview_gateway_factory()
+                try:
+                    manifest = latest_dry_run_manifest(self.server.var_dir, segments[2])
+                    if manifest is not None:
+                        preview = fetch_preview(gateway, profile, manifest)
+                        save_preview(self.server.preview_dir, preview)
+                finally:
+                    close = getattr(gateway, "close", None)
+                    if callable(close):
+                        close()
             self._json(200, preview) if preview else self._json(404, {"error": "preview_not_found"})
             return
         if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "dry-run":
@@ -158,13 +178,33 @@ class Handler(BaseHTTPRequestHandler):
             gateway = self.server.preview_gateway_factory()
             preview = None
             try:
-                preview = fetch_problem_preview(
-                    gateway,
-                    self.server.preview_dir,
-                    segments[2],
-                    segments[4],
-                    str(task["source_problem_id"]),
-                )
+                profile = self.server.profiles.get(segments[2])
+                if profile is not None:
+                    try:
+                        cached = append_preview_sample(
+                            gateway,
+                            profile,
+                            self.server.preview_dir,
+                            self.server.var_dir,
+                            source_problem_id=str(task["source_problem_id"]),
+                        )
+                        preview = {
+                            **cached,
+                            "samples": [
+                                sample for sample in cached.get("samples", [])
+                                if str(sample.get("problem_id")) == segments[4]
+                            ],
+                        }
+                    except ValueError:
+                        pass
+                if not preview or not preview.get("samples"):
+                    preview = fetch_problem_preview(
+                        gateway,
+                        self.server.preview_dir,
+                        segments[2],
+                        segments[4],
+                        str(task["source_problem_id"]),
+                    )
             except ProblemPreviewUnavailable:
                 self._json(404, {"error": "problem_not_available"})
             finally:
@@ -216,9 +256,6 @@ class Handler(BaseHTTPRequestHandler):
             snapshot = self.server.inventory_store.get(segments[2])
             if group is None or snapshot is None:
                 self._json(404, {"error": "group_inventory_not_found"})
-                return
-            if group["column"] != "queue":
-                self._json(409, {"error": "group_not_waiting_for_registration"})
                 return
             thread_id = str(self._body().get("thread_id") or "").strip() or None
             inventory = {
@@ -384,21 +421,36 @@ class Handler(BaseHTTPRequestHandler):
             if group is None:
                 self._json(404, {"error": "group_not_found"})
                 return
-            body = str(self._body().get("body", "")).strip()
+            payload = self._body()
+            body = str(payload.get("body", "")).strip()
             if not body:
                 self._json(400, {"error": "comment_required"})
                 return
-            if group["column"] in {"issues", "review"}:
+            problem_id = str(payload.get("problem_id") or "").strip() or None
+            source_problem_id = None
+            if problem_id:
+                item = next((
+                    item for item in (self.server.inventory_store.list_items(segments[2]) if self.server.inventory_store else [])
+                    if str(item.get("problem_id")) == problem_id
+                ), None)
+                if item is None:
+                    self._json(404, {"error": "problem_not_found"})
+                    return
+                source_problem_id = str(item["source_problem_id"])
+            if group["column"] in {"issues", "review"} or problem_id:
                 thread_id = group.get("codex_thread_id")
                 if not thread_id or self.server.codex_tasks is None:
                     self._json(409, {"error": "codex_task_not_linked"})
                     return
                 try:
-                    self.server.codex_tasks.send_comment(str(thread_id), group, body)
+                    if source_problem_id:
+                        self.server.codex_tasks.send_comment(str(thread_id), group, body, source_problem_id)
+                    else:
+                        self.server.codex_tasks.send_comment(str(thread_id), group, body)
                 except RuntimeError as exc:
                     self._json(502, {"error": "codex_comment_failed", "message": str(exc)})
                     return
-            comment = self.server.store.add_comment(segments[2], body)
+            comment = self.server.store.add_comment(segments[2], body, problem_id)
             self._json(201, {
                 "comment": comment,
                 "group": self._group_payload(self.server.store.get_group(segments[2])),

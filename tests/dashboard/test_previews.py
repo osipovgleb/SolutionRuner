@@ -90,16 +90,17 @@ def test_problem_preview_falls_back_to_normalized_content_without_a_dry_run(tmp_
     assert preview["samples"][0]["after"] is None
 
 
-def test_problem_preview_never_opens_rejected_content(tmp_path):
+def test_problem_preview_opens_indexed_content_marked_rejected_for_review(tmp_path):
     class Gateway:
-        def get_problem_pipeline_state(self, problem_id):
-            return {"statuses": {"normalized": "rejected"}}
-
         def get_problem_context(self, problem_id):
-            raise AssertionError("rejected content must not be read")
+            return {"normalized_content": {
+                "sections": [{"key": "condition", "html": "<p>Условие для проверки</p>"}],
+                "assets": [],
+            }}
 
-    with pytest.raises(ProblemPreviewUnavailable):
-        fetch_problem_preview(Gateway(), tmp_path, "group", "problem", "42")
+    preview = fetch_problem_preview(Gateway(), tmp_path, "group", "problem", "42")
+
+    assert preview["samples"][0]["before"]["condition_html"] == "<p>Условие для проверки</p>"
 
 
 def test_geometry_dry_run_reads_planned_transformations_from_solution_results(tmp_path):
@@ -124,6 +125,21 @@ def test_geometry_dry_run_reads_planned_transformations_from_solution_results(tm
     manifest = latest_dry_run_manifest(tmp_path, "7")
 
     assert manifest["records"][0]["transformations"][0]["value"]["html"] == "<p>99</p>"
+
+
+def test_preview_remains_available_after_its_dry_run_was_applied(tmp_path):
+    run_dir = tmp_path / "equations/runs/20260910T120000Z-group-7"
+    run_dir.mkdir(parents=True)
+    (run_dir / "prepared-manifest.json").write_text(json.dumps({
+        "group_key": "7",
+        "records": [{
+            "problem_id": "child", "source_problem_id": "101",
+            "transformations": [],
+        }],
+    }))
+    (run_dir / "apply-results.json").write_text("[]")
+
+    assert latest_dry_run_manifest(tmp_path, "7")["records"][0]["problem_id"] == "child"
 
 
 def test_preview_materializes_new_sections_from_a_geometry_plan():

@@ -106,6 +106,39 @@ def test_context_accepts_the_observed_colon_variant() -> None:
     assert build_context_repair_plan(context).answer == "-5"
 
 
+def test_context_delegates_the_observed_html_exponential_equation() -> None:
+    context = {
+        "normalized_content": {
+            "format": "teacherhelper-normalized",
+            "schema_version": 3,
+            "assets": [],
+            "sections": [
+                {
+                    "key": "condition",
+                    "section_id": "condition:1",
+                    "transformation_target_id": "section:condition:1",
+                    "asset_keys": [],
+                    "html": "<p>Най­ди­те ко­рень урав­не­ния 5<sup>2 + <i>x</i></sup> = 125<sup><i>x</i></sup>.</p>",
+                },
+                {
+                    "key": "answer",
+                    "section_id": "answer:1",
+                    "transformation_target_id": "section:answer:1",
+                    "asset_keys": [],
+                    "html": '<p><span data-effect="spaced">1</span></p>',
+                },
+            ],
+        }
+    }
+
+    plan = build_context_repair_plan(context)
+
+    assert plan.answer == "1"
+    assert {item["transformation_target_id"] for item in plan.transformations} == {
+        "section:solution"
+    }
+
+
 @pytest.mark.parametrize(
     ("formula", "condition_html", "answer"),
     [

@@ -153,6 +153,14 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     if condition is None or tuple(condition.get("asset_keys") or ()):
         raise UnsupportedCondition("canonical condition is required")
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
+    if not soup.select("span[data-inline-latex]") and soup.find("sup"):
+        # A few source-group items encode an exponential equation as HTML.
+        # Reuse its existing strict parser instead of treating it as ambiguous.
+        from solution_runner.pipelines.equations.group_26650 import (
+            build_context_repair_plan as build_exponential_context_repair_plan,
+        )
+
+        return build_exponential_context_repair_plan(context)
     spans = soup.find_all("span")
     if len(spans) != 1 or spans[0].get_text("", strip=True):
         raise UnsupportedCondition("condition equation is ambiguous")

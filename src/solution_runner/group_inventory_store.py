@@ -89,7 +89,9 @@ CREATE TABLE IF NOT EXISTS group_item_stage_results (
     group_key TEXT NOT NULL,
     problem_id TEXT NOT NULL,
     dry_run_status TEXT,
+    dry_run_error TEXT,
     apply_status TEXT,
+    apply_error TEXT,
     helpers_status TEXT,
     error TEXT,
     PRIMARY KEY (group_key, problem_id)
@@ -119,6 +121,24 @@ class GroupInventoryStore:
                 connection.execute(
                     "ALTER TABLE group_inventory_items ADD COLUMN inventory_error TEXT"
                 )
+            stage_columns = {
+                row["name"] for row in connection.execute(
+                    "PRAGMA table_info(group_item_stage_results)"
+                ).fetchall()
+            }
+            for name in ("dry_run_error", "apply_error"):
+                if name not in stage_columns:
+                    connection.execute(
+                        f"ALTER TABLE group_item_stage_results ADD COLUMN {name} TEXT"
+                    )
+            connection.execute(
+                """
+                UPDATE group_item_stage_results
+                SET apply_error = error
+                WHERE apply_error IS NULL AND error IS NOT NULL
+                  AND (apply_status IS NOT NULL OR helpers_status IS NOT NULL)
+                """
+            )
 
     def connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.path)
@@ -282,11 +302,21 @@ class GroupInventoryStore:
                 """
                 INSERT INTO group_item_stage_results (
                     group_key, problem_id, dry_run_status, apply_status,
-                    helpers_status, error
-                ) VALUES (?, ?, ?, ?, ?, ?)
+                    helpers_status, error, dry_run_error, apply_error
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 ON CONFLICT(group_key, problem_id) DO UPDATE SET
                     dry_run_status=COALESCE(excluded.dry_run_status, dry_run_status),
+                    dry_run_error=CASE
+                        WHEN excluded.dry_run_status IS NOT NULL THEN excluded.dry_run_error
+                        ELSE dry_run_error
+                    END,
                     apply_status=COALESCE(excluded.apply_status, apply_status),
+                    apply_error=CASE
+                        WHEN excluded.apply_status IS NULL AND excluded.helpers_status IS NULL THEN apply_error
+                        WHEN ? THEN NULL
+                        WHEN excluded.apply_error IS NOT NULL THEN excluded.apply_error
+                        ELSE apply_error
+                    END,
                     helpers_status=COALESCE(excluded.helpers_status, helpers_status),
                     error=CASE
                         WHEN ? THEN NULL
@@ -305,6 +335,11 @@ class GroupInventoryStore:
                     result.apply_status,
                     result.helpers_status,
                     result.error,
+                    result.error if result.dry_run_status is not None else None,
+                    result.error if result.apply_status is not None or result.helpers_status is not None else None,
+                    result.error is None and result.helpers_status in {
+                        "applied", "already_complete"
+                    },
                     result.error is None and result.helpers_status in {
                         "applied", "already_complete"
                     },
@@ -326,8 +361,8 @@ class GroupInventoryStore:
         with self.connect() as connection:
             rows = connection.execute(
                 """
-                SELECT item.*, result.dry_run_status, result.apply_status,
-                       result.helpers_status, result.error
+                SELECT item.*, result.dry_run_status, result.dry_run_error,
+                       result.apply_status, result.apply_error, result.helpers_status, result.error
                 FROM group_inventory_items AS item
                 LEFT JOIN group_item_stage_results AS result
                   ON result.group_key = item.group_key

@@ -55,6 +55,10 @@ test("technical pipeline failures are shown as useful Russian reasons", () => {
     formatTaskError("ineligible upstream solution_answer:failed"),
     "Решение или ответ не подготовлены: предыдущий этап завершился ошибкой",
   );
+  assert.equal(
+    formatTaskError("condition equation is ambiguous"),
+    "В условии несколько или неоднозначная запись уравнения — раннер не смог однозначно определить, что решать",
+  );
 });
 
 test("builds the TeacherHelper group link from every navigation id", () => {
