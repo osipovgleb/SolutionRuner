@@ -73,4 +73,14 @@ test("builds the TeacherHelper group link from every navigation id", () => {
     }),
     "https://lessons-helper.ru/source-catalog/open?source_site_id=site+id&snapshot_id=snapshot%2Fid&category_id=category%3Fid&theme_id=theme%26id&group_id=group+id",
   );
+  assert.match(
+    model.teacherHelperGroupUrl({
+      source_site_id: "4e79360f-d623-4d50-9e85-67858ac1bc85",
+      snapshot_id: "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+      category_id: "9c34b1ea-0cb8-4dc9-a841-3956f290d786",
+      theme_id: "f598f433-d5cf-4ca7-af95-0d1cb6b52818",
+      group_id: "940a61ed-f4c1-4dee-b1f2-4bf7b256f254",
+    }),
+    /source_site_id=4e79360f-d623-4d50-9e85-67858ac1bc85&snapshot_id=41bc4d03-40cd-4407-8dea-df76e3f47ea8/,
+  );
 });

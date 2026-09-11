@@ -4,9 +4,11 @@ from __future__ import annotations
 
 from typing import Any
 
-from solution_runner.pipelines.grid_polygon.mcp_runtime import SOURCE_SITE_ID
-
-
+SOURCE_SITE_IDS_BY_SNAPSHOT = {
+    "4073fc7b-2056-4697-b18b-38741c94d0f4": "7bed2492-5b8b-4c88-9be8-7d47916cd7c6",
+    "41bc4d03-40cd-4407-8dea-df76e3f47ea8": "4e79360f-d623-4d50-9e85-67858ac1bc85",
+    "fd733f80-43d2-4b4a-b903-2423796cbee5": "9b8fb96a-649b-494b-afa5-ecdd9a7dca5e",
+}
 CATEGORY_IDS = {
     ("4073fc7b-2056-4697-b18b-38741c94d0f4", "1"): "c226053c-29e7-4e88-aafb-81896ab0d969",
     ("4073fc7b-2056-4697-b18b-38741c94d0f4", "9"): "651e7b69-ab21-4d51-9115-7491e0a7f2c9",
@@ -26,11 +28,12 @@ CATEGORY_IDS = {
 
 def teacherhelper_navigation(profile: Any) -> dict[str, str] | None:
     snapshot_id = str(profile.catalog_snapshot_id)
+    source_site_id = SOURCE_SITE_IDS_BY_SNAPSHOT.get(snapshot_id)
     category_id = CATEGORY_IDS.get((snapshot_id, str(profile.category_key)))
-    if category_id is None:
+    if source_site_id is None or category_id is None:
         return None
     return {
-        "source_site_id": SOURCE_SITE_ID,
+        "source_site_id": source_site_id,
         "snapshot_id": snapshot_id,
         "category_id": category_id,
         "theme_id": str(profile.snapshot_theme_id),
