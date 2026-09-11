@@ -16,6 +16,7 @@
 | [pipelines/grid_polygon/](src/solution_runner/pipelines/grid_polygon/) | Фигуры на сетке и кольца; здесь пока находится общая оркестрация запусков. |
 | [converters/](src/solution_runner/converters/) | Преобразование растров в SVG, очистка SVG, шаблоны и OCR. |
 | [tests/](tests/) | Тесты раннеров и конвертеров, фикстуры. |
+| [dashboard/](dashboard/) | Локальная OpenKanban-доска групп; SQLite-индекс, dry-run и превью. |
 | [issues/](issues/) | Разборы проблем и предложения по развитию. |
 | [docs/campaigns/](docs/campaigns/) | Инвентаризация и отчёты обработки групп. |
 | `var/` | Манифесты, логи, превью, ассеты и результаты запусков; не отслеживаются Git. |
@@ -38,6 +39,26 @@
 - [Пожелания к стилю](docs/target-vision.md) — оформление решений и рисунков.
 - [Пробник раннеров](docs/runner-probe.md) — расположение и интерфейс пробника.
 - [Планиметрия 1](docs/planimetry-1-campaign.md) — расположение отчётов кампании.
+- [Дизайн доски групп](docs/superpowers/specs/2026-09-10-group-dashboard-design.md) — Initialize, превью и статусы задач.
+
+## Локальная доска
+
+```bash
+cd dashboard && npm run build && cd ..
+.venv/bin/python -m solution_runner.dashboard.server
+```
+
+Новая карточка проходит `Инициализация → На регистрацию`. Initialize один раз
+сохраняет в `var/dashboard/dashboard.sqlite3` ID группы, родителя и задач,
+наличие разделов и метаданные PNG/SVG; содержимое задач в базу не копируется.
+Дальнейший dry-run передаёт общему launcher `--inventory-db` и не повторяет
+инвентаризацию группы через MCP. Старый MCP inventory пока остаётся только
+переходным CLI fallback для групп без локального индекса.
+
+После Initialize группа регистрируется в выбранной Codex-задаче либо в новой
+задаче `gpt-5.6-terra` с уровнем reasoning `medium`. Порядок колонок:
+`Инициализация → На регистрацию → В работе → Есть проблемы → На проверке → Готово`.
+Apply всей группы доступен только после успешного полного dry-run без записи.
 
 ## Как подключаются группы
 

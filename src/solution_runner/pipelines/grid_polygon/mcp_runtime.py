@@ -29,6 +29,9 @@ class McpGateway(Protocol):
     def get_problem_context(self, problem_id: str) -> dict[str, Any]:
         """Return normalized problem transformation context."""
 
+    def get_problem_batch(self, problem_ids: Sequence[str]) -> dict[str, Any]:
+        """Return normalized content for up to 30 known problem UUIDs."""
+
     def get_asset_metadata(self, asset_id: str) -> dict[str, Any]:
         """Return authoritative metadata for one current asset UUID."""
 
@@ -145,6 +148,9 @@ class McpGateway(Protocol):
     def get_problem_pipeline_state(self, problem_id: str) -> dict[str, Any]:
         """Return pipeline stage values and concurrency tokens."""
 
+    def reject_problem_content_pipeline(self, problem_id: str, reason: str) -> dict[str, Any]:
+        """Explicitly reject one problem across the full content pipeline."""
+
     def set_problem_pipeline_stage_state_batch(
         self,
         stage: str,
@@ -218,6 +224,8 @@ class JsonRpcMcpGateway:
                 return unpack_result(result)
             except Exception as exc:  # noqa: BLE001 - transport implementations vary.
                 last_error = exc
+                if "Normalized content is unavailable" in str(exc):
+                    break
                 if attempt < attempts:
                     self._sleep(float(attempt))
         message = " ".join(str(last_error or "unknown error").split())[:1000]
@@ -235,6 +243,17 @@ class JsonRpcMcpGateway:
         return self._call(
             "get_problem_transformation_context",
             {"problem_id": problem_id},
+            read_only=True,
+        )
+
+    def get_problem_batch(self, problem_ids: Sequence[str]) -> dict[str, Any]:
+        """Return normalized content for one bounded problem batch."""
+
+        if not 1 <= len(problem_ids) <= 30:
+            raise ValueError("problem batch must contain 1 to 30 ids")
+        return self._call(
+            "get_problem_batch",
+            {"problem_ids": list(problem_ids)},
             read_only=True,
         )
 
@@ -722,6 +741,15 @@ class JsonRpcMcpGateway:
             "get_problem_pipeline_state",
             {"problem_id": problem_id},
             read_only=True,
+        )
+
+    def reject_problem_content_pipeline(self, problem_id: str, reason: str) -> dict[str, Any]:
+        """Explicitly reject one problem without invoking a model or runner."""
+
+        return self._call(
+            "reject_problem_content_pipeline",
+            {"problem_id": problem_id, "reason": reason},
+            read_only=False,
         )
 
     def set_problem_pipeline_stage_state_batch(

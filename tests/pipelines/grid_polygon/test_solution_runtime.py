@@ -710,5 +710,6 @@ def test_preview_builds_plan_without_upload_or_write(tmp_path: Path) -> None:
     )[0]
 
     assert result.status == "planned"
+    assert result.transformations
     assert gateway.upload_calls == []
     assert gateway.apply_calls == []

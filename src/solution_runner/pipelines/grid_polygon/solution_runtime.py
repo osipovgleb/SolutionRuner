@@ -239,6 +239,7 @@ def _planned_result(
         stage="solution_answer",
         status="planned",
         message=plan.answer_audit,
+        transformations=tuple(plan.transformations),
     )
 
 

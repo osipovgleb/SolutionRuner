@@ -65,6 +65,31 @@ def _success(payload: dict[str, object]) -> Response:
     )
 
 
+def test_semantic_missing_normalized_error_is_not_retried() -> None:
+    transport = Transport([Response({
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+            "isError": True,
+            "content": [{
+                "type": "text",
+                "text": "Normalized content is unavailable for one or more requested problems",
+            }],
+        },
+    })])
+    gateway = JsonRpcMcpGateway(
+        url="https://example.invalid/mcp",
+        api_key="secret",
+        transport=transport,
+        sleep=lambda _: None,
+    )
+
+    with pytest.raises(McpCallError, match="Normalized content is unavailable"):
+        gateway.get_problem_batch(["p1"])
+
+    assert len(transport.calls) == 1
+
+
 def test_gateway_exposes_narrow_problem_operations() -> None:
     """Keep raw MCP tool names inside one transport boundary."""
 
@@ -110,6 +135,24 @@ def test_gateway_exposes_narrow_problem_operations() -> None:
         "section_id": "solution:1",
         "alt_text": "Табличное значение sin",
         "problem_ids": ["p1"],
+    }
+
+
+def test_gateway_rejects_one_problem_with_a_required_reason() -> None:
+    transport = Transport([_success({"problem_id": "p1", "status": "rejected"})])
+    gateway = JsonRpcMcpGateway(
+        url="https://example.invalid/mcp",
+        api_key="secret",
+        transport=transport,
+        sleep=lambda _: None,
+    )
+
+    result = gateway.reject_problem_content_pipeline("p1", "Некорректное условие")
+
+    assert result["status"] == "rejected"
+    assert transport.calls[0]["params"] == {
+        "name": "reject_problem_content_pipeline",
+        "arguments": {"problem_id": "p1", "reason": "Некорректное условие"},
     }
 
 

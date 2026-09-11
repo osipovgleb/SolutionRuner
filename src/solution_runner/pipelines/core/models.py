@@ -159,6 +159,7 @@ class ProblemStageResult:
     status: StageResultStatus
     message: str | None = None
     artifact_paths: tuple[Path, ...] = ()
+    transformations: tuple[Mapping[str, object], ...] = ()
 
 
 @dataclass(frozen=True)

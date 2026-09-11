@@ -14,6 +14,8 @@ import subprocess
 import sys
 from typing import Any, Callable
 
+from solution_runner.group_inventory_store import GroupInventoryStore
+
 from .asset_preparation import execute_image_preparation, prepare_existing_svg
 from ..core.group_profiles import get_group_profile
 from .helpers_runtime import run_helpers_stage, verify_existing_solutions
@@ -25,6 +27,7 @@ from .inventory import (
 from .manifest import FrozenRunScope, read_prepared_manifest, write_prepared_manifest
 from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 from ..core.models import GroupProfile, PreparedFigure, PreparedGridPolygon, ProblemStageResult
+from ..core.local_inventory import load_group_inventory
 from .progress import ProgressReporter
 from .ring_asset_preparation import prepare_ring_assets
 from .solution_runtime import run_solution_stage
@@ -63,6 +66,7 @@ class _StageContext:
     profile: GroupProfile
     run_dir: Path
     apply: bool
+    targeted: bool
     reporter: ProgressReporter
     max_workers: int
 
@@ -110,6 +114,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--group", required=True)
     parser.add_argument("--confirm-catalog", required=True)
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument(
+        "--inventory-db",
+        type=Path,
+        help="use the initialized local group index instead of repeating MCP discovery",
+    )
     parser.add_argument("--resume-images", type=Path)
     parser.add_argument("--resume-solutions", type=Path)
     parser.add_argument(
@@ -408,6 +417,8 @@ def _run_stages(
         "targets": len(inventory.targets),
         "prepared": len(prepared),
         "failed_stage_results": failed,
+        "apply": context.apply,
+        "targeted": context.targeted,
     }
     (context.run_dir / "summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -469,6 +480,8 @@ def _run_content_rule_stages(
         "targets": len(inventory.targets),
         "prepared": sum(result.status != "failed" for result in solution_results),
         "failed_stage_results": failed,
+        "apply": context.apply,
+        "targeted": context.targeted,
     }
     (context.run_dir / "summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
@@ -506,14 +519,22 @@ def main(
                 color=True,
             )
             targeted = bool(args.only_source_problem_id or args.only_problem_id)
-            discovery_label = "TARGET SELECTION" if targeted else "INVENTORY"
+            discovery_label = "TARGET SELECTION" if targeted else (
+                "LOCAL INVENTORY" if args.inventory_db else "INVENTORY"
+            )
             reporter.group(
                 profile.theme_title,
                 profile.group_key,
                 f"{discovery_label} STARTED",
                 stage="target_selection" if targeted else "inventory",
             )
-            if targeted:
+            if args.inventory_db:
+                full_inventory = load_group_inventory(
+                    GroupInventoryStore(args.inventory_db),
+                    profile,
+                    apply_solution_scope=not targeted,
+                )
+            elif targeted:
                 if active.targeted_inventory is None:
                     raise ValueError("targeted inventory dependency is unavailable")
                 full_inventory = active.targeted_inventory(
@@ -562,6 +583,7 @@ def main(
                 profile=profile,
                 run_dir=run_dir,
                 apply=args.apply,
+                targeted=targeted,
                 reporter=reporter,
                 max_workers=args.max_workers,
             )
