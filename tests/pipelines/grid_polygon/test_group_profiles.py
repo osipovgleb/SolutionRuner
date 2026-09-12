@@ -539,10 +539,10 @@ def test_trapezoid_groups_select_requested_extra_visual_methods() -> None:
         assert profile.strategy_key == "parallel-bases-trapezoid-three-methods"
         assert profile.existing_solution_policy == "rewrite"
 
-    assert get_group_profile("244985").strategy_key == "trapezoid-pick"
-    assert get_group_profile("244986").strategy_key == "trapezoid-pick"
     for group_key in ("244985", "244986"):
-        assert get_group_profile(group_key).existing_solution_policy == "rewrite"
+        profile = get_group_profile(group_key)
+        assert profile.strategy_key == "trapezoid-pick"
+        assert profile.existing_solution_policy == "rewrite"
 
 
 def test_remaining_arbitrary_quadrilateral_groups_use_rectangle_and_pick() -> None:

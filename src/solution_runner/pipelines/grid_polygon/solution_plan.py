@@ -232,7 +232,8 @@ def _solution_transformations(
             alt_text=alt_text,
         )
         centered_diagrams.append((variant_index, centered))
-        diagram_items.append({**item, "html": centered})
+        if not item.get("already_attached"):
+            diagram_items.append({**item, "html": centered})
         asset_target_ids.append((f"asset:{asset_key}", source_asset_id))
     solution_html = _place_solution_diagrams(solution_text, centered_diagrams)
     asset_keys = (*asset_key_order, *existing_keys)
@@ -262,8 +263,8 @@ def _solution_transformations(
             for asset in content.get("assets", [])
         )
     )
-    additions = [_asset_transformation(content, item) for item in diagram_items]
-    transformations = [*additions, section_transformation, *removals]
+    transformations = [*removals, section_transformation]
+    transformations.extend(_asset_transformation(content, item) for item in diagram_items)
     return transformations, solution_html, tuple(asset_target_ids)
 
 
@@ -284,11 +285,22 @@ def _asset_transformation(
     ]
     if len(current_assets) > 1:
         raise SolutionRuntimeError("multiple generated solution assets are present")
+    solution = _section(content, "solution")
+    parent_target_id = "section:solution"
+    if solution is not None:
+        parent_target_id = str(
+            solution.get("transformation_target_id")
+            or (
+                f"section:{solution['section_id']}"
+                if solution.get("section_id")
+                else parent_target_id
+            )
+        )
     return {
         "transformation_target_id": f"asset:{asset_key}",
         "operation": "add",
         "value": {
-            "parent_target_id": "section:solution",
+            "parent_target_id": parent_target_id,
             "position": int(uploaded.get("solution_variant_index") or 0),
             "asset_key": asset_key,
             "asset_id": source_asset_id,

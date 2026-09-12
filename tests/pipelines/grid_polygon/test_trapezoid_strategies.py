@@ -174,6 +174,7 @@ def test_parallel_bases_trapezoid_adds_rectangle_and_pick_after_formula(
     assert html.count('data-content-kind="solution"') == 3
     assert html.index("полусуммы оснований") < html.index("Дополним трапецию")
     assert html.index("Дополним трапецию") < html.index("По формуле Пика")
+    assert "По формуле Пика" in html
     assert [(item.asset_key, item.solution_variant_index) for item in diagrams] == [
         ("generated_solution_diagram", 1),
         ("generated_pick_diagram", 2),

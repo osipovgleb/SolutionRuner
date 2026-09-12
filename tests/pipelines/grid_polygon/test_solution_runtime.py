@@ -147,6 +147,28 @@ class RecordingGateway:
 
         return deepcopy(self.asset_metadata[asset_id])
 
+    def replace_problem_asset_target(
+        self,
+        *,
+        problem_id: str,
+        transformation_target_id: str,
+        replacement_asset_id: str,
+        alt_text: str,
+    ) -> dict[str, str]:
+        """Replace the one current generated asset in the fake readback."""
+
+        asset_key = transformation_target_id.split(":", 1)[1]
+        for asset in self.content[problem_id]["assets"]:
+            if asset["asset_key"] == asset_key:
+                asset.update(
+                    asset_id=replacement_asset_id,
+                    url=f"/assets/{replacement_asset_id}",
+                    alt=alt_text,
+                )
+                self.asset_targets[(problem_id, transformation_target_id)] = replacement_asset_id
+                return {"asset_id": replacement_asset_id, "alt": alt_text}
+        raise AssertionError("asset target is missing")
+
     def apply_problem_transformations(
         self,
         problem_id: str,
@@ -217,8 +239,19 @@ class RecordingGateway:
     ) -> dict[str, Any]:
         """Return the current generated asset identity."""
 
+        current = self.asset_targets.get((problem_id, transformation_target_id))
+        if current is None:
+            asset_key = transformation_target_id.split(":", 1)[1]
+            current = next(
+                (
+                    str(asset["asset_id"])
+                    for asset in self.content[problem_id]["assets"]
+                    if asset["asset_key"] == asset_key
+                ),
+                None,
+            )
         return {
-            "current_asset_id": self.asset_targets.get((problem_id, transformation_target_id))
+            "current_asset_id": current
         }
 
 
@@ -439,12 +472,13 @@ def test_parallelogram_runtime_places_all_three_diagrams_in_matching_methods(
     assert len(wrappers) == 3
     assert len(gateway.upload_calls) == 3
     assert solution["asset_keys"] == list(expected_keys)
-    asset_batch, section_batch = gateway.applied_batches["problem-401034"]
-    assert {item["transformation_target_id"] for item in asset_batch} == {
-        f"asset:{asset_key}" for asset_key in expected_keys
-    }
+    (batch,) = gateway.applied_batches["problem-401034"]
+    assert {
+        item["transformation_target_id"] for item in batch
+        if item["transformation_target_id"].startswith("asset:")
+    } == {f"asset:{asset_key}" for asset_key in expected_keys}
     assert "section:solution" in {
-        item["transformation_target_id"] for item in section_batch
+        item["transformation_target_id"] for item in batch
     }
     for index, asset_key in enumerate(expected_keys):
         assert wrappers[index].select_one(
@@ -583,7 +617,7 @@ def test_successful_write_accepts_semantically_equal_html_readback(tmp_path: Pat
     result = run_solution_stage(
         gateway,
         (_prepared(tmp_path, "5089"),),
-        get_group_profile("27548"),
+        get_group_profile("244982"),
         get_solution_strategy("bounding-rectangle-triangle"),
         reporter,
         apply=True,
@@ -692,6 +726,37 @@ def test_existing_solution_asset_is_reused_via_authoritative_metadata(tmp_path: 
 
     assert result.status == "applied"
     assert gateway.upload_calls == []
+
+
+def test_new_solution_asset_uses_the_existing_section_target(tmp_path: Path) -> None:
+    """Attach a new diagram to a legacy section's exact normalized target."""
+
+    gateway = RecordingGateway(("5089",))
+    gateway.content["problem-5089"]["sections"] = [{
+        "key": "solution",
+        "section_id": "solution:1",
+        "transformation_target_id": "section:solution:1",
+        "title": "Решение",
+        "html": "<p>Старое решение</p>",
+    }]
+    reporter, _ = _reporter()
+
+    result = run_solution_stage(
+        gateway,
+        (_prepared(tmp_path, "5089"),),
+        get_group_profile("244982"),
+        get_solution_strategy("bounding-rectangle-triangle"),
+        reporter,
+        apply=True,
+    )[0]
+
+    assert result.status == "applied"
+    asset = next(
+        item
+        for item in gateway.applied_transformations["problem-5089"]
+        if item["transformation_target_id"] == "asset:generated_solution_diagram"
+    )
+    assert asset["value"]["parent_target_id"] == "section:solution:1"
 
 
 def test_existing_transformation_added_asset_preserves_add_operation(

@@ -111,12 +111,26 @@ def _diagram_uploads(
             diagram.asset_key,
             digest,
         )
+        attached = uploaded is not None
         if context.apply and uploaded is None:
             uploaded = context.gateway.upload_solution_asset(
                 source_problem_id=target.source_problem_id,
                 svg_bytes=diagram.svg_bytes,
                 sha256=digest,
             )
+            current = [
+                asset
+                for asset in content.get("assets", [])
+                if isinstance(asset, dict) and asset.get("asset_key") == diagram.asset_key
+            ]
+            if len(current) == 1:
+                context.gateway.replace_problem_asset_target(
+                    problem_id=target.problem_id,
+                    transformation_target_id=f"asset:{diagram.asset_key}",
+                    replacement_asset_id=str(uploaded["source_asset_id"]),
+                    alt_text=diagram.alt_text,
+                )
+                attached = True
         if uploaded is None:
             uploaded = {
                 "source_asset_id": f"preview-{digest[:16]}",
@@ -129,6 +143,7 @@ def _diagram_uploads(
                 "asset_key": diagram.asset_key,
                 "solution_variant_index": diagram.solution_variant_index,
                 "alt_text": diagram.alt_text,
+                "already_attached": attached,
             }
         )
     return tuple(results)
@@ -265,23 +280,12 @@ def _apply_and_verify(
     target: PreparedFigure,
     plan: SolutionPlan,
 ) -> None:
-    """Create generated assets before writing solution HTML that references them."""
+    """Apply the standard one-batch plan used by established groups."""
 
-    asset_creations = tuple(
-        transformation
-        for transformation in plan.transformations
-        if transformation["transformation_target_id"].startswith("asset:")
-        and transformation["operation"] in {"add", "rewrite"}
+    context.gateway.apply_problem_transformations(
+        target.problem_id,
+        plan.transformations,
     )
-    remaining = tuple(
-        transformation
-        for transformation in plan.transformations
-        if transformation not in asset_creations
-    )
-    if asset_creations:
-        context.gateway.apply_problem_transformations(target.problem_id, asset_creations)
-    if remaining:
-        context.gateway.apply_problem_transformations(target.problem_id, remaining)
     verify_solution_plan(context.gateway, target.problem_id, plan)
 
 
