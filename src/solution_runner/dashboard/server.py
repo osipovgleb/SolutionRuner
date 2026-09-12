@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 import json
 import mimetypes
 import os
@@ -49,6 +51,21 @@ class DashboardServer(ThreadingHTTPServer):
     inventory_store: GroupInventoryStore | None
     preview_gateway_factory: Any | None
     codex_tasks: Any | None
+    jobs_started_at: datetime
+
+
+ACTIVE_JOB_STATUSES = {"queued", "running", "retry_wait"}
+
+
+def _job_timestamp(state: Mapping[str, Any]) -> datetime | None:
+    raw = state.get("queued_at") or state.get("started_at")
+    if not raw:
+        return None
+    try:
+        value = datetime.fromisoformat(str(raw))
+    except ValueError:
+        return None
+    return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
 
 
 def _register_group_task(
@@ -57,18 +74,24 @@ def _register_group_task(
     codex_tasks: CodexTaskService,
     group_key: str,
     thread_id: str | None = None,
+    comment: str = "",
 ) -> tuple[dict[str, str], dict[str, Any]]:
     group = store.get_group(group_key)
     snapshot = inventory_store.get(group_key)
     if group is None or snapshot is None:
         raise KeyError(group_key)
-    task = codex_tasks.register_group(group, {
+    inventory = {
         "parent_problem_id": snapshot.parent_problem_id,
         "parent_source_problem_id": snapshot.parent_source_problem_id,
         "task_count": len(inventory_store.list_items(group_key)),
-    }, thread_id)
+    }
+    task = (
+        codex_tasks.register_group(group, inventory, thread_id, comment)
+        if comment else codex_tasks.register_group(group, inventory, thread_id)
+    )
     updated = store.update_group(group_key, {
         "codex_thread_id": task["id"],
+        "codex_archived": 0,
         "task_title": task["title"],
         "task_url": f"codex://threads/{task['id']}",
         "column": "work",
@@ -228,9 +251,29 @@ class Handler(BaseHTTPRequestHandler):
         if group is None:
             return None
         profile = self.server.profiles.get(str(group["id"]))
-        navigation = teacherhelper_navigation(profile) if profile else None
+        navigation = teacherhelper_navigation(profile) if profile else group.get("teacherhelper")
         if navigation:
             group["teacherhelper"] = navigation
+        candidates: list[dict[str, Any]] = []
+        for manager, default_kind in (
+            (self.server.dry_runs, "dry_run"),
+            (self.server.applies, "apply"),
+        ):
+            state = manager.get(str(group["id"])) if manager else None
+            if not state or state.get("status") not in ACTIVE_JOB_STATUSES:
+                continue
+            timestamp = _job_timestamp(state)
+            if timestamp and timestamp < self.server.jobs_started_at:
+                continue
+            candidates.append({
+                "kind": "helpers" if state.get("stage") == "helpers" else default_kind,
+                "status": state["status"],
+                "scope": state.get("scope") or ("problem" if state.get("mode") == "problem" else "group"),
+            })
+        if candidates:
+            priority = {"running": 2, "retry_wait": 1, "queued": 0}
+            group["job"] = max(candidates, key=lambda item: priority[item["status"]])
+            group["column"] = "jobs"
         return group
 
     def do_OPTIONS(self) -> None:  # noqa: N802
@@ -395,11 +438,36 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         segments = self._segments()
+        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "archive-codex":
+            group = self.server.store.get_group(segments[2])
+            if group is None:
+                self._json(404, {"error": "group_not_found"})
+                return
+            if group["column"] != "done":
+                self._json(409, {"error": "group_not_done"})
+                return
+            thread_id = group.get("codex_thread_id")
+            if not thread_id or self.server.codex_tasks is None:
+                self._json(409, {"error": "codex_task_not_linked"})
+                return
+            if group.get("codex_archived"):
+                self._json(200, {"group": self._group_payload(group)})
+                return
+            try:
+                self.server.codex_tasks.archive_task(str(thread_id))
+            except RuntimeError as exc:
+                self._json(502, {"error": "codex_archive_failed", "message": str(exc)})
+                return
+            updated = self.server.store.update_group(segments[2], {"codex_archived": 1})
+            self._json(200, {"group": self._group_payload(updated)})
+            return
         if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "register":
             if self.server.codex_tasks is None or self.server.inventory_store is None:
                 self._json(503, {"error": "codex_registration_unavailable"})
                 return
-            thread_id = str(self._body().get("thread_id") or "").strip() or None
+            body = self._body()
+            thread_id = str(body.get("thread_id") or "").strip() or None
+            comment = str(body.get("comment") or "").strip()
             try:
                 task, updated = _register_group_task(
                     self.server.store,
@@ -407,6 +475,7 @@ class Handler(BaseHTTPRequestHandler):
                     self.server.codex_tasks,
                     segments[2],
                     thread_id,
+                    comment,
                 )
             except KeyError:
                 self._json(404, {"error": "group_inventory_not_found"})
@@ -499,11 +568,16 @@ class Handler(BaseHTTPRequestHandler):
             body = self._body()
             problem_id = str(body.get("problem_id") or "")
             try:
-                state = (
-                    self.server.applies.start_group(segments[2])
-                    if body.get("scope") == "group"
-                    else self.server.applies.start(segments[2], problem_id)
-                )
+                if body.get("stage") == "helpers":
+                    state = self.server.applies.start_helpers(
+                        segments[2], None if body.get("scope") == "group" else problem_id
+                    )
+                else:
+                    state = (
+                        self.server.applies.start_group(segments[2])
+                        if body.get("scope") == "group"
+                        else self.server.applies.start(segments[2], problem_id)
+                    )
             except KeyError:
                 self._json(404, {"error": "group_profile_not_found"})
             except ValueError as exc:
@@ -580,10 +654,16 @@ class Handler(BaseHTTPRequestHandler):
                     self._json(404, {"error": "problem_not_found"})
                     return
                 source_problem_id = str(item["source_problem_id"])
-            if group["column"] in {"issues", "review"} or group.get("agent_status") in {"blocked", "needs_input"} or problem_id:
-                thread_id = group.get("codex_thread_id")
-                if not thread_id or self.server.codex_tasks is None:
-                    self._json(409, {"error": "codex_task_not_linked"})
+            thread_id = group.get("codex_thread_id")
+            must_send = (
+                group["column"] in {"issues", "review"}
+                or group.get("agent_status") in {"blocked", "needs_input"}
+                or problem_id
+            )
+            sent_to_codex = False
+            if thread_id:
+                if self.server.codex_tasks is None:
+                    self._json(503, {"error": "codex_tasks_unavailable"})
                     return
                 try:
                     if source_problem_id:
@@ -593,12 +673,16 @@ class Handler(BaseHTTPRequestHandler):
                 except RuntimeError as exc:
                     self._json(502, {"error": "codex_comment_failed", "message": str(exc)})
                     return
+                sent_to_codex = True
+            elif must_send:
+                    self._json(409, {"error": "codex_task_not_linked"})
+                    return
             comment = self.server.store.add_comment(segments[2], body, problem_id)
-            target = f" по задаче {source_problem_id}" if source_problem_id else ""
-            self.server.store.update_group(segments[2], {
-                "agent_status": "working",
-                "agent_summary": f"Комментарий{target} отправлен в Codex.",
-            })
+            if sent_to_codex:
+                self.server.store.update_group(segments[2], {
+                    "agent_status": "working",
+                    "agent_summary": None,
+                })
             self._json(201, {
                 "comment": comment,
                 "group": self._group_payload(self.server.store.get_group(segments[2])),
@@ -648,6 +732,7 @@ def make_server(*, store: DashboardStore, var_dir: Path, profiles: Mapping[str, 
     server.inventory_store = inventory_store
     server.preview_gateway_factory = preview_gateway_factory
     server.codex_tasks = codex_tasks
+    server.jobs_started_at = datetime.now(timezone.utc)
     return server
 
 
@@ -680,6 +765,7 @@ def main(argv: list[str] | None = None) -> int:
         api_key=api_key,
         timeout_seconds=45,
     )
+    runner_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-run")
     dry_runs = DryRunManager(
         var_dir=args.var,
         profiles=profiles,
@@ -687,12 +773,14 @@ def main(argv: list[str] | None = None) -> int:
         store=store,
         inventory_store=inventory_store,
         on_complete=None,
+        background_executor=runner_executor,
     ) if api_key else None
     applies = ApplyManager(
         var_dir=args.var,
         profiles=profiles,
         inventory_store=inventory_store,
         store=store,
+        background_executor=runner_executor,
     ) if api_key else None
     restart_requested = Event()
     server: DashboardServer | None = None
@@ -729,6 +817,9 @@ def main(argv: list[str] | None = None) -> int:
         inventory_store=inventory_store,
         gateway_factory=gateway_factory,
         group_source_lookup=store.get_group,
+        on_resolved=lambda group_key, navigation: store.update_group(
+            group_key, {"teacherhelper": navigation}
+        ),
         on_complete=lambda group_key, state: _finish_initialization(
             store, inventory_store, codex_tasks, group_key, state
         ),

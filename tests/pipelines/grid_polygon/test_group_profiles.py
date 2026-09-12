@@ -144,13 +144,13 @@ EXPECTED_GROUPS = {
     "27789": ("be74920f-7317-46b2-90f7-91f4b05b43b2", None, None),
     "27790": ("d1a1906b-4407-4824-ae72-78bb95e7ecd9", None, None),
     "27791": ("e731573a-c95b-4cc4-bfd6-dab7432d0a1c", None, None),
-    "27556": ("fc5fc7a7-75ba-41d4-9bb7-4fee7b1b8be1", "parallel-bases-trapezoid", 4),
-    "27557": ("ae4b8e1f-4ff2-4085-aee5-d3be39ccdbd6", "parallel-bases-trapezoid", 4),
-    "27558": ("416046da-eecc-4473-83fd-b1b6c799a7e6", "parallel-bases-trapezoid", 4),
-    "27559": ("0719750c-08ff-450c-bc16-3a65989caf9a", "parallel-bases-trapezoid", 4),
-    "27560": ("3fb2e89d-9858-4c76-9683-d2d348ce4a35", "parallel-bases-trapezoid", 4),
-    "244985": ("f2422780-bacb-4231-a06a-b89e855fc801", "bounding-rectangle-trapezoid", 4),
-    "244986": ("0be1e4bb-4e88-43d0-8f03-2d4b1440773c", "bounding-rectangle-trapezoid", 4),
+    "27556": ("fc5fc7a7-75ba-41d4-9bb7-4fee7b1b8be1", "parallel-bases-trapezoid-three-methods", 4),
+    "27557": ("ae4b8e1f-4ff2-4085-aee5-d3be39ccdbd6", "parallel-bases-trapezoid-three-methods", 4),
+    "27558": ("416046da-eecc-4473-83fd-b1b6c799a7e6", "parallel-bases-trapezoid-three-methods", 4),
+    "27559": ("0719750c-08ff-450c-bc16-3a65989caf9a", "parallel-bases-trapezoid-three-methods", 4),
+    "27560": ("3fb2e89d-9858-4c76-9683-d2d348ce4a35", "parallel-bases-trapezoid-three-methods", 4),
+    "244985": ("f2422780-bacb-4231-a06a-b89e855fc801", "trapezoid-pick", 4),
+    "244986": ("0be1e4bb-4e88-43d0-8f03-2d4b1440773c", "trapezoid-pick", 4),
     "27543": ("4808d0b7-aa63-4a5f-85ed-da28c8f80b18", "right-triangle", 3),
     "27544": ("b8fcbdc6-7967-4bc0-99b1-3fa49d5d824f", "base-height-triangle", 3),
     "27545": ("0d938f6c-b012-4013-8dad-778add652e11", "base-height-triangle", 3),
@@ -529,6 +529,20 @@ def test_group_27553_selects_two_verified_rhombus_solutions() -> None:
     assert profile.group_order_index == 0
     assert profile.solution_text_profile == "rhombus-two-methods"
     assert profile.existing_solution_policy == "rewrite"
+
+
+def test_trapezoid_groups_select_requested_extra_visual_methods() -> None:
+    """Keep the requested rectangle/Pick variants attached to trapezoid groups."""
+
+    for group_key in ("27556", "27557", "27558", "27559", "27560"):
+        profile = get_group_profile(group_key)
+        assert profile.strategy_key == "parallel-bases-trapezoid-three-methods"
+        assert profile.existing_solution_policy == "rewrite"
+
+    assert get_group_profile("244985").strategy_key == "trapezoid-pick"
+    assert get_group_profile("244986").strategy_key == "trapezoid-pick"
+    for group_key in ("244985", "244986"):
+        assert get_group_profile(group_key).existing_solution_policy == "rewrite"
 
 
 def test_remaining_arbitrary_quadrilateral_groups_use_rectangle_and_pick() -> None:

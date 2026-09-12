@@ -42,7 +42,7 @@ class Calls:
         self.helpers_workers = self.helpers_workers or []
 
 
-def _dependencies(tmp_path: Path, calls: Calls) -> LauncherDependencies:
+def _dependencies(tmp_path: Path, calls: Calls, *, helpers_only: bool = False) -> LauncherDependencies:
     """Build one completely local launcher dependency set."""
 
     target = ProblemTarget(
@@ -111,13 +111,13 @@ def _dependencies(tmp_path: Path, calls: Calls) -> LauncherDependencies:
         calls.strategy_keys.append(strategy.key)
         assert calls.solution_workers is not None
         calls.solution_workers.append(max_workers)
-        assert apply is True and len(prepared) == 1 and profile.group_key == "27547"
+        assert apply is (not helpers_only) and len(prepared) == 1 and profile.group_key == "27547"
         return (
             ProblemStageResult(
                 problem_id=target.problem_id,
                 source_problem_id=target.source_problem_id,
                 stage="solution_answer",
-                status="applied",
+                status="planned" if helpers_only else "applied",
             ),
         )
 
@@ -135,7 +135,7 @@ def _dependencies(tmp_path: Path, calls: Calls) -> LauncherDependencies:
         calls.helpers_runs += 1
         assert calls.helpers_workers is not None
         calls.helpers_workers.append(max_workers)
-        assert apply is True and solution_results[0].status == "applied"
+        assert apply is True and solution_results[0].status == ("already_complete" if helpers_only else "applied")
         return (
             ProblemStageResult(
                 problem_id=target.problem_id,
@@ -162,8 +162,15 @@ def _dependencies(tmp_path: Path, calls: Calls) -> LauncherDependencies:
         }
         return GroupInventory(targets=(target,), png_targets=(target,), svg_targets=())
 
+    class Gateway:
+        def get_problem_context(self, _problem_id: str) -> dict[str, object]:
+            return {"normalized_content": {"sections": [
+                {"key": "solution", "html": "<p>Решение</p>"},
+                {"key": "answer", "html": "<p>5</p>"},
+            ]}}
+
     return LauncherDependencies(
-        gateway_factory=lambda _api_key: object(),
+        gateway_factory=lambda _api_key: Gateway(),
         inventory=inventory,
         targeted_inventory=targeted_inventory,
         image_executor=lambda _command: 0,
@@ -203,6 +210,28 @@ def test_launcher_uses_explicit_group_and_one_apply_image_pass(
     assert calls.image_runs == [True]
     assert calls.strategy_keys == ["base-height-triangle"]
     assert calls.solution_runs == calls.helpers_runs == 1
+
+
+def test_geometry_helpers_only_does_not_apply_solution(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls = Calls([], [], [])
+    monkeypatch.setenv("TEACHERHELPER_MCP_API_KEY", "test-key")
+
+    assert main(
+        [
+            "--group", "27547",
+            "--confirm-catalog", CATALOG_SNAPSHOT_ID,
+            "--apply",
+            "--helpers-from-existing-solution",
+        ],
+        deps=_dependencies(tmp_path, calls, helpers_only=True),
+    ) == 0
+
+    assert calls.solution_runs == 0
+    assert calls.helpers_runs == 1
+    assert calls.image_runs == []
 
 
 def test_internal_problem_selector_uses_targeted_initialization(

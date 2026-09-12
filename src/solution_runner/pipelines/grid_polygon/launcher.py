@@ -125,8 +125,8 @@ def _parser() -> argparse.ArgumentParser:
         "--helpers-from-existing-solution",
         action="store_true",
         help=(
-            "do not rewrite solutions; set Helpers ready only where the existing "
-            "single calculation ends with the stored numeric answer"
+            "do not inspect conditions or rewrite content; set Helpers ready only "
+            "where stored solution and answer sections are non-empty"
         ),
     )
     parser.add_argument("--only-source-problem-id", action="append")
@@ -213,8 +213,6 @@ def _validated_args(
         parser.error("--exclude-parent-problem cannot be combined with problem selectors")
     if args.exclude_parent_problem and profile.workflow_kind != "content_rule":
         parser.error("--exclude-parent-problem requires a content-rule group")
-    if args.helpers_from_existing_solution and profile.workflow_kind != "content_rule":
-        parser.error("--helpers-from-existing-solution requires a content-rule group")
     if args.helpers_from_existing_solution and (args.resume_images or args.resume_solutions):
         parser.error("--helpers-from-existing-solution cannot be combined with resume modes")
     selected_ids = args.only_problem_id or args.only_source_problem_id or []
@@ -280,6 +278,7 @@ def _prepared_records(
     """Load a resume manifest or prepare and freeze the selected image scope."""
 
     manifest_path = run_dir / "prepared-manifest.json"
+    apply_images = args.apply and not args.helpers_from_existing_solution
     if args.resume_solutions or args.resume_images:
         expected = FrozenRunScope(
             catalog_snapshot_id=profile.catalog_snapshot_id,
@@ -303,7 +302,7 @@ def _prepared_records(
                 profile=profile,
                 run_dir=ring_run_dir,
                 expected_targets=inventory.targets,
-                apply=args.apply,
+                apply=apply_images,
                 batch_size=args.batch_size,
                 batch_pause_seconds=args.batch_pause_seconds,
                 max_workers=args.max_workers,
@@ -324,7 +323,7 @@ def _prepared_records(
                 profile=profile,
                 run_dir=run_dir / "images",
                 expected_targets=inventory.png_targets,
-                apply=args.apply,
+                apply=apply_images,
                 batch_size=args.batch_size,
                 batch_pause_seconds=args.batch_pause_seconds,
             )
@@ -345,7 +344,7 @@ def _prepared_records(
                     target,
                     artifact_dir=run_dir / "existing-svg",
                     profile=profile,
-                    apply=args.apply,
+                    apply=apply_images,
                 ),
                 None,
             )
@@ -381,21 +380,31 @@ def _run_stages(
     context: _StageContext,
     inventory: GroupInventory,
     prepared: tuple[PreparedFigure, ...],
+    *,
+    helpers_from_existing_solution: bool = False,
 ) -> None:
     """Run solution and Helpers stages and persist their terminal summary."""
 
-    if context.profile.strategy_key is None:
-        raise ValueError("geometry workflow requires strategy_key")
-    strategy = get_solution_strategy(context.profile.strategy_key)
-    solution_results = context.active.solution_stage(
-        context.gateway,
-        prepared,
-        context.profile,
-        strategy,
-        context.reporter,
-        apply=context.apply,
-        max_workers=context.max_workers,
-    )
+    if helpers_from_existing_solution:
+        solution_results = verify_existing_solutions(
+            context.gateway,
+            inventory.targets,
+            context.profile,
+            context.reporter,
+        )
+    else:
+        if context.profile.strategy_key is None:
+            raise ValueError("geometry workflow requires strategy_key")
+        strategy = get_solution_strategy(context.profile.strategy_key)
+        solution_results = context.active.solution_stage(
+            context.gateway,
+            prepared,
+            context.profile,
+            strategy,
+            context.reporter,
+            apply=context.apply,
+            max_workers=context.max_workers,
+        )
     helpers_results = context.active.helpers_stage(
         context.gateway,
         solution_results,
@@ -415,7 +424,7 @@ def _run_stages(
         "group_key": context.profile.group_key,
         "strategy_key": context.profile.strategy_key,
         "targets": len(inventory.targets),
-        "prepared": len(prepared),
+        "prepared": sum(result.status != "skipped" for result in solution_results),
         "failed_stage_results": failed,
         "apply": context.apply,
         "targeted": context.targeted,
@@ -532,7 +541,7 @@ def main(
                 full_inventory = load_group_inventory(
                     GroupInventoryStore(args.inventory_db),
                     profile,
-                    apply_solution_scope=not targeted,
+                    apply_solution_scope=not targeted and not args.helpers_from_existing_solution,
                 )
             elif targeted:
                 if active.targeted_inventory is None:
@@ -595,10 +604,15 @@ def main(
                     inventory,
                 )
             else:
-                prepared = _prepared_records(
+                prepared = () if args.helpers_from_existing_solution else _prepared_records(
                     active, args, gateway, profile, inventory, run_dir, reporter
                 )
-                _run_stages(stage_context, inventory, prepared)
+                _run_stages(
+                    stage_context,
+                    inventory,
+                    prepared,
+                    helpers_from_existing_solution=args.helpers_from_existing_solution,
+                )
         return 0
     finally:
         close = getattr(gateway, "close", None)

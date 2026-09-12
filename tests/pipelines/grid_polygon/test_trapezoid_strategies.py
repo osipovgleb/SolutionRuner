@@ -76,7 +76,10 @@ def test_trapezoid_strategy_matches_characterization(
     """Keep exact audited area, formula, and answer behavior."""
 
     fixture = _fixture(strategy_key)
-    profile = get_group_profile(str(fixture["group_key"]))
+    profile = replace(
+        get_group_profile(str(fixture["group_key"])),
+        strategy_key=strategy_key,
+    )
     prepared = _prepared(tmp_path, fixture)
     strategy = get_solution_strategy(strategy_key)
     analysis = strategy.analyze(prepared, profile)
@@ -91,7 +94,10 @@ def test_parallel_bases_strategy_is_orientation_independent(tmp_path: Path) -> N
 
     fixture = _fixture("parallel-bases-trapezoid")
     strategy = get_solution_strategy("parallel-bases-trapezoid")
-    profile = get_group_profile("27557")
+    profile = replace(
+        get_group_profile("27557"),
+        strategy_key="parallel-bases-trapezoid",
+    )
     vertical = strategy.analyze(_prepared(tmp_path, fixture), profile)
     horizontal_fixture = dict(fixture)
     horizontal_fixture["coordinates"] = [[2, 1], [9, 1], [8, 9], [4, 9]]
@@ -109,7 +115,10 @@ def test_bounding_trapezoid_draws_complete_rectangle_without_changing_polygon(
     """Protect the missing upper-left horizontal bounding-side regression."""
 
     fixture = _fixture("bounding-rectangle-trapezoid")
-    profile = get_group_profile("244986")
+    profile = replace(
+        get_group_profile("244986"),
+        strategy_key="bounding-rectangle-trapezoid",
+    )
     prepared = _prepared(tmp_path, fixture)
     strategy = get_solution_strategy("bounding-rectangle-trapezoid")
     before = ElementTree.fromstring(prepared.condition_svg_path.read_bytes())
@@ -124,6 +133,51 @@ def test_bounding_trapezoid_draws_complete_rectangle_without_changing_polygon(
     assert rendered.count(b'data-kind="bounding-side"') == 4
     assert after_polygon.get("points") == before_polygon.get("points")
     assert b'id="solution-construction"' in rendered
+
+
+def test_trapezoid_pick_strategy_renders_rectangle_and_pick_variants(
+    tmp_path: Path,
+) -> None:
+    """A bounding trapezoid gets two illustrated, independently checked methods."""
+
+    fixture = _fixture("bounding-rectangle-trapezoid")
+    prepared = _prepared(tmp_path, fixture)
+    profile = get_group_profile("244986")
+    strategy = get_solution_strategy(profile.strategy_key)
+    analysis = strategy.analyze(prepared, profile)
+
+    html = strategy.build_solution_html(analysis, profile)
+    diagrams = strategy.render_solution_diagrams(prepared, analysis, profile)
+
+    assert html.count('data-content-kind="solution"') == 2
+    assert "По формуле Пика" in html
+    assert [(item.asset_key, item.solution_variant_index) for item in diagrams] == [
+        ("generated_solution_diagram", 0),
+        ("generated_pick_diagram", 1),
+    ]
+
+
+def test_parallel_bases_trapezoid_adds_rectangle_and_pick_after_formula(
+    tmp_path: Path,
+) -> None:
+    """The base-height method remains first, followed by the two visual methods."""
+
+    fixture = _fixture("parallel-bases-trapezoid")
+    prepared = _prepared(tmp_path, fixture)
+    profile = get_group_profile("27556")
+    strategy = get_solution_strategy(profile.strategy_key)
+    analysis = strategy.analyze(prepared, profile)
+
+    html = strategy.build_solution_html(analysis, profile)
+    diagrams = strategy.render_solution_diagrams(prepared, analysis, profile)
+
+    assert html.count('data-content-kind="solution"') == 3
+    assert html.index("полусуммы оснований") < html.index("Дополним трапецию")
+    assert html.index("Дополним трапецию") < html.index("По формуле Пика")
+    assert [(item.asset_key, item.solution_variant_index) for item in diagrams] == [
+        ("generated_solution_diagram", 1),
+        ("generated_pick_diagram", 2),
+    ]
 
 
 @pytest.mark.parametrize(

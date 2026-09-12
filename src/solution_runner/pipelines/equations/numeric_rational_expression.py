@@ -208,7 +208,7 @@ def _source_fraction_latex(value: str) -> str:
         return value
     if "{,}" in raw:
         whole, fractional = raw.split("{,}", 1)
-        return f"{sign}\\frac{{{whole}{fractional}}}{{{10 ** len(fractional)}}}"
+        return f"{sign}\\frac{{{int(whole + fractional)}}}{{{10 ** len(fractional)}}}"
     return f"{sign}\\frac{{{raw}}}{{1}}"
 
 

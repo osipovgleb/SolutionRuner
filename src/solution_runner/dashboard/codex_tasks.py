@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import selectors
 import subprocess
-from threading import Thread
+from threading import Event, Lock, Thread
 import tempfile
 import time
 from typing import Any, Callable, Mapping
@@ -14,12 +14,22 @@ from typing import Any, Callable, Mapping
 
 MODEL = "gpt-5.6-terra"
 EFFORT = "medium"
+AUTOMATION_ACCESS_ARGS = [
+    "--config", 'sandbox_mode="danger-full-access"',
+    "--config", 'approval_policy="never"',
+    "--config", 'mcp_servers.teacherhelper.default_tools_approval_mode="approve"',
+    "--config", 'mcp_servers.teacherhelper_org.default_tools_approval_mode="approve"',
+]
 
 
-def build_registration_prompt(group: Mapping[str, Any], inventory: Mapping[str, Any]) -> str:
+def build_registration_prompt(
+    group: Mapping[str, Any],
+    inventory: Mapping[str, Any],
+    comment: str = "",
+) -> str:
     """Build the bounded, repeatable prompt used for group registration."""
 
-    return f"""{group['id']} · {group['title']}
+    prompt = f"""{group['id']} · {group['title']}
 
 Зарегистрируй группу SolutionRunner {group['id']} — «{group['title']}».
 
@@ -35,18 +45,11 @@ def build_registration_prompt(group: Mapping[str, Any], inventory: Mapping[str, 
 После исследования и изменений обязательно запусти полный локальный dry-run всей группы без внешней записи. Если он выявил исправимую ошибку, исследуй её, исправь и повтори полный dry-run; не останавливайся после первой неудачи. Не выполняй Apply, Helpers или Reject через MCP. Не используй навыки `superpowers`. Не коммить и не пушь изменения.
 
 Перед финальным сообщением обязательно обнови карточку этой группы в SQLite через `DashboardStore(...).update_group(...)`. Только после успешного полного dry-run выставь `agent_status` в `updated` или `no_changes` и `full_dry_run_status='ready'`. Если dry-run не прошёл или работа заблокирована, выставь `agent_status='blocked'` и `full_dry_run_status='failed'`. В `agent_summary` запиши короткий итог до 200 символов с проблемным `source_problem_id` и результатом. Карточка — обязательный итог работы, а не только сообщение в треде."""
+    comment = comment.strip()
+    return prompt if not comment else f"{prompt}\n\nКомментарий пользователя:\n{comment}"
 
 
-def build_feedback_prompt(group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> str:
-    target = f" по задаче {source_problem_id}" if source_problem_id else ""
-    return f"""Комментарий пользователя по группе {group['id']} — «{group['title']}»{target}:
-
-{body}
-
-Продолжи работу над раннером с учётом комментария. Если нужен ответ пользователя, до вопроса выставь в `var/dashboard/dashboard.sqlite3` `agent_status='needs_input'` и запиши сам вопрос в `agent_summary`, затем остановись. Иначе обязательно заверши работу полным локальным dry-run всей группы без внешней записи. Исправимые ошибки dry-run исследуй и исправляй, повторяя полный прогон до успеха; не останавливайся после первой неудачи. Не выполняй Apply, Helpers или Reject через MCP. После проверки обнови карточку: успешный полный dry-run — `agent_status='updated'` или `no_changes` и `full_dry_run_status='ready'`; неисправимая техническая блокировка — `agent_status='blocked'` и `full_dry_run_status='failed'`. `agent_summary` — краткий итог до 200 символов. Затем сообщи результат в этой задаче."""
-
-
-def _list_threads(project_root: Path) -> list[dict[str, Any]]:
+def _app_server_request(project_root: Path, method: str, params: Mapping[str, Any]) -> dict[str, Any]:
     process = subprocess.Popen(
         ["codex", "app-server", "--stdio"],
         cwd=project_root,
@@ -63,9 +66,7 @@ def _list_threads(project_root: Path) -> list[dict[str, Any]]:
             "capabilities": {"experimentalApi": True},
         }},
         {"method": "initialized", "params": {}},
-        {"id": 2, "method": "thread/list", "params": {
-            "cwd": str(project_root), "limit": 100, "archived": False,
-        }},
+        {"id": 2, "method": method, "params": dict(params)},
     ]
     for message in messages:
         process.stdin.write(json.dumps(message) + "\n")
@@ -87,9 +88,8 @@ def _list_threads(project_root: Path) -> list[dict[str, Any]]:
             if message.get("id") == 2:
                 if message.get("error"):
                     raise RuntimeError(str(message["error"]))
-                result = message.get("result") or {}
-                return [item for item in result.get("data", []) if isinstance(item, dict)]
-        raise RuntimeError("Codex task list timed out")
+                return message.get("result") or {}
+        raise RuntimeError(f"Codex request timed out: {method}")
     finally:
         selector.close()
         process.terminate()
@@ -97,6 +97,27 @@ def _list_threads(project_root: Path) -> list[dict[str, Any]]:
             process.wait(timeout=2)
         except subprocess.TimeoutExpired:
             process.kill()
+
+
+def _list_threads(project_root: Path) -> list[dict[str, Any]]:
+    threads = []
+    cursor = None
+    while True:
+        result = _app_server_request(project_root, "thread/list", {
+            "cwd": str(project_root),
+            "limit": 100,
+            "archived": False,
+            "sourceKinds": ["cli", "vscode", "exec", "appServer", "unknown"],
+            "cursor": cursor,
+        })
+        threads.extend(item for item in result.get("data", []) if isinstance(item, dict))
+        cursor = result.get("nextCursor")
+        if not cursor:
+            return threads
+
+
+def _archive_thread(project_root: Path, thread_id: str) -> None:
+    _app_server_request(project_root, "thread/archive", {"threadId": thread_id})
 
 
 def _watch(
@@ -120,9 +141,9 @@ def _create_thread(
     output_path = Path(output.name)
     process = subprocess.Popen(
         [
-            "codex", "exec", "--json", "-C", str(project_root),
+            "codex", "exec", "--json", *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
             "-m", model, "-c", f'model_reasoning_effort="{effort}"',
-            "-s", "workspace-write", "--thread-source", "appServer", prompt,
+            "--thread-source", "appServer", prompt,
         ],
         cwd=project_root,
         stdout=output,
@@ -165,20 +186,48 @@ def _send_message(
     prompt: str,
     on_exit: Callable[[str, int], None] | None = None,
 ) -> None:
-    """Resume the task with a user message instead of merely queueing it."""
+    """Queue a turn in the app-owned task."""
 
-    process = subprocess.Popen(
-        ["codex", "exec", "resume", "--json", thread_id, prompt],
+    process = subprocess.run(
+        [
+            "codex", "queue", "--thread", thread_id, "--message", prompt,
+            *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
+        ],
         cwd=project_root,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         text=True,
-        start_new_session=True,
+        check=False,
     )
-    time.sleep(0.15)
-    if process.poll() is not None:
-        raise RuntimeError("Codex task did not start")
-    Thread(target=_watch, args=(process, thread_id, on_exit), daemon=True).start()
+    if process.returncode and on_exit:
+        on_exit(thread_id, process.returncode)
+
+
+class _SerialMessageSender:
+    """Run messages for one Codex task in submission order."""
+
+    def __init__(self, send: Callable[[str, str], None]) -> None:
+        self._send = send
+        self._lock = Lock()
+        self._tails: dict[str, Event] = {}
+
+    def __call__(self, thread_id: str, prompt: str) -> None:
+        done = Event()
+        with self._lock:
+            previous = self._tails.get(thread_id)
+            self._tails[thread_id] = done
+        Thread(target=self._run, args=(thread_id, prompt, previous, done), daemon=True).start()
+
+    def _run(self, thread_id: str, prompt: str, previous: Event | None, done: Event) -> None:
+        if previous:
+            previous.wait()
+        try:
+            self._send(thread_id, prompt)
+        finally:
+            done.set()
+            with self._lock:
+                if self._tails.get(thread_id) is done:
+                    self._tails.pop(thread_id, None)
 
 
 class CodexTaskService:
@@ -189,17 +238,21 @@ class CodexTaskService:
         list_threads: Callable[[], list[dict[str, Any]]] | None = None,
         create_thread: Callable[[str, str, str], str] | None = None,
         send_message: Callable[[str, str], None] | None = None,
+        archive_thread: Callable[[str], None] | None = None,
         on_exit: Callable[[str, int], None] | None = None,
     ) -> None:
         self.project_root = project_root
         self._list = list_threads or (lambda: _list_threads(project_root))
         self._create = create_thread or (lambda prompt, model, effort: _create_thread(project_root, prompt, model, effort, on_exit))
-        self._send = send_message or (lambda thread_id, prompt: _send_message(project_root, thread_id, prompt, on_exit))
+        self._send = send_message or _SerialMessageSender(
+            lambda thread_id, prompt: _send_message(project_root, thread_id, prompt, on_exit)
+        )
+        self._archive = archive_thread or (lambda thread_id: _archive_thread(project_root, thread_id))
 
     def list_tasks(self) -> list[dict[str, Any]]:
         return [{
             "id": str(item["id"]),
-            "title": str(item.get("title") or item.get("name") or item.get("preview") or item["id"]),
+            "title": str(item.get("title") or item.get("name") or str(item.get("preview") or item["id"]).splitlines()[0]),
             "model": item.get("model"),
             "reasoning_effort": item.get("reasoningEffort"),
             "status": item.get("status"),
@@ -211,8 +264,9 @@ class CodexTaskService:
         group: Mapping[str, Any],
         inventory: Mapping[str, Any],
         thread_id: str | None = None,
+        comment: str = "",
     ) -> dict[str, str]:
-        prompt = build_registration_prompt(group, inventory)
+        prompt = build_registration_prompt(group, inventory, comment)
         if thread_id:
             task = next((item for item in self.list_tasks() if item["id"] == thread_id), None)
             if task is None:
@@ -223,4 +277,8 @@ class CodexTaskService:
         return {"id": created_id, "title": f"{group['id']} · {group['title']}"}
 
     def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> None:
-        self._send(thread_id, build_feedback_prompt(group, body, source_problem_id))
+        target = f" · задача {source_problem_id}" if source_problem_id else ""
+        self._send(thread_id, f"Группа {group['id']}{target}: {body}")
+
+    def archive_task(self, thread_id: str) -> None:
+        self._archive(thread_id)

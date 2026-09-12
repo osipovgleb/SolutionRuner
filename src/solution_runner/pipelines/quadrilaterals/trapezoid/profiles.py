@@ -13,5 +13,6 @@ PROFILES = (
                 content_rule_key="trapezoid-77152-isosceles-leg-from-sine",
                 rewrite_existing_solution=True,
                 condition_asset_id="324c1800-e987-4e60-9cb7-f41cc3d0254c",
+                condition_asset_sha256="7a40fc7067bd9d2358cd717894f3eb0a62ecb4b3dd573278137f2f58c863236d",
             ),
 )

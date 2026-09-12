@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Executor, ThreadPoolExecutor
 from datetime import UTC, datetime
 import json
 from pathlib import Path
@@ -51,6 +51,21 @@ def _result_for(rows: list[dict[str, Any]], problem_id: str) -> dict[str, Any] |
     return next((row for row in rows if str(row.get("problem_id")) == problem_id), None)
 
 
+def _label_dashboard_run(run_dir: Path, *, action: str, scope: str) -> None:
+    summary_path = run_dir / "summary.json"
+    try:
+        summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    if not isinstance(summary, dict):
+        return
+    summary.update(dashboard_action=action, dashboard_scope=scope)
+    summary_path.write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+
 def _stage_error(
     solution: Mapping[str, Any] | None,
     helper: Mapping[str, Any] | None,
@@ -77,6 +92,7 @@ class ApplyManager:
         executor: Callable[[list[str]], int] = _execute,
         sleeper: Callable[[float], None] = time.sleep,
         retry_delays: tuple[int, ...] = (5, 10, 15),
+        background_executor: Executor | None = None,
     ) -> None:
         self.var_dir = var_dir
         self.profiles = profiles
@@ -86,7 +102,7 @@ class ApplyManager:
         self.sleeper = sleeper
         self.retry_delays = retry_delays
         self.state_dir = var_dir / "dashboard/applies"
-        self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-apply")
+        self.executor = background_executor or ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-apply")
         self.lock = Lock()
 
     def _path(self, group_key: str) -> Path:
@@ -163,6 +179,115 @@ class ApplyManager:
             })
             self.executor.submit(self.run_group_now, group_key)
             return state
+
+    def start_helpers(self, group_key: str, problem_id: str | None = None) -> dict[str, Any]:
+        rows = self.inventory_store.list_items(group_key)
+        if group_key not in self.profiles:
+            raise KeyError(group_key)
+        if problem_id:
+            rows = [row for row in rows if str(row["problem_id"]) == problem_id]
+            if not rows:
+                raise ValueError("problem does not belong to the initialized group")
+        rows = [
+            row for row in rows
+            if row.get("helpers_status") not in SUCCESS
+            and (row.get("has_solution") or row.get("apply_status") in SUCCESS)
+        ]
+        if not rows:
+            raise ValueError("no tasks require Helpers")
+        problem_ids = tuple(str(row["problem_id"]) for row in rows)
+        with self.lock:
+            current = self.get(group_key)
+            if current and current.get("status") in {"queued", "running", "retry_wait"}:
+                raise RuntimeError("apply already active")
+            state = self._write({
+                "group_key": group_key,
+                "problem_id": problem_id,
+                "scope": "problem" if problem_id else "group",
+                "stage": "helpers",
+                "status": "queued",
+                "queued_at": _now(),
+            })
+            self.executor.submit(self.run_helpers_now, group_key, problem_ids, state["scope"])
+            return state
+
+    def run_helpers_now(
+        self,
+        group_key: str,
+        problem_ids: tuple[str, ...],
+        scope: str | None = None,
+    ) -> dict[str, Any]:
+        profile = self.profiles[group_key]
+        scope = scope or ("problem" if len(problem_ids) == 1 else "group")
+        state: dict[str, Any] = {
+            "group_key": group_key,
+            "problem_id": problem_ids[0] if len(problem_ids) == 1 else None,
+            "scope": scope,
+            "stage": "helpers",
+            "status": "running",
+            "started_at": _now(),
+        }
+        self._write(state)
+        argv = [
+            "--group", str(profile.group_key),
+            "--confirm-catalog", str(profile.catalog_snapshot_id),
+            "--inventory-db", str(self.inventory_store.path),
+            "--max-workers", "1" if len(problem_ids) == 1 else "5",
+            "--apply",
+            "--helpers-from-existing-solution",
+        ]
+        for problem_id in problem_ids:
+            argv.extend(("--only-problem-id", problem_id))
+        try:
+            return_code = self.executor_fn(argv)
+            if return_code:
+                raise RuntimeError(f"launcher exited with status {return_code}")
+            run_dir = _latest_run(self.var_dir, group_key)
+            if run_dir is None:
+                raise RuntimeError("launcher produced no run report")
+            _label_dashboard_run(run_dir, action="helpers", scope=scope)
+            helpers = {
+                str(result.get("problem_id")): result
+                for result in _read_results(run_dir / "helpers-results.json")
+                if result.get("problem_id")
+            }
+            completed = True
+            last_error = "Helpers не выполнены"
+            for problem_id in problem_ids:
+                helper = helpers.get(problem_id)
+                helpers_status = str(helper.get("status") or "failed") if helper else "failed"
+                error = None if helpers_status in SUCCESS else str(
+                    (helper or {}).get("error") or (helper or {}).get("message") or "MCP не записал Helpers"
+                )
+                completed = completed and error is None
+                if error:
+                    last_error = " ".join(error.split())[:300]
+                self.inventory_store.update_item_stage(GroupItemStageResult(
+                    group_key=group_key,
+                    problem_id=problem_id,
+                    helpers_status=helpers_status,
+                    error=" ".join(error.split())[:500] if error else None,
+                ))
+            items = self.inventory_store.list_items(group_key)
+            if self.store is not None:
+                self.store.reconcile_problem_counts(group_key, items)
+            if completed:
+                state.update(status="completed", completed_at=_now())
+                if self.store is not None and all(
+                    item.get("apply_status") in SUCCESS and item.get("helpers_status") in SUCCESS
+                    for item in items
+                ):
+                    self.store.update_group(group_key, {"column": "done"})
+            else:
+                state.update(status="failed", completed_at=_now(), error=last_error)
+                if self.store is not None:
+                    self.store.update_group(group_key, {"column": "issues"})
+            return self._write(state)
+        except Exception as exc:  # noqa: BLE001 - persist an isolated dashboard operation.
+            state.update(status="failed", completed_at=_now(), error=" ".join(str(exc).split())[:300])
+            if self.store is not None:
+                self.store.update_group(group_key, {"column": "issues"})
+            return self._write(state)
 
     def run_now(self, group_key: str, problem_id: str) -> dict[str, Any]:
         self._verified_row(group_key, problem_id)

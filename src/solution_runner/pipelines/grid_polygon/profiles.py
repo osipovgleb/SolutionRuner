@@ -21,7 +21,8 @@ PROFILES = (
                     theme_order_index=2,
                     snapshot_theme_id=TRAPEZOID_THEME_ID,
                     expected_vertices=4,
-                    strategy_key="parallel-bases-trapezoid",
+                    strategy_key="parallel-bases-trapezoid-three-methods",
+                    rewrite_existing_solution=True,
                 )
                 for index, (group_key, source_group_id) in enumerate(
                     (
@@ -42,7 +43,8 @@ PROFILES = (
                 theme_order_index=2,
                 snapshot_theme_id=TRAPEZOID_THEME_ID,
                 expected_vertices=4,
-                strategy_key="bounding-rectangle-trapezoid",
+                strategy_key="trapezoid-pick",
+                rewrite_existing_solution=True,
             ),
 
     _profile(
@@ -53,7 +55,8 @@ PROFILES = (
                 theme_order_index=2,
                 snapshot_theme_id=TRAPEZOID_THEME_ID,
                 expected_vertices=4,
-                strategy_key="bounding-rectangle-trapezoid",
+                strategy_key="trapezoid-pick",
+                rewrite_existing_solution=True,
             ),
 
     _profile(

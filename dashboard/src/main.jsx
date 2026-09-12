@@ -8,37 +8,59 @@ import "./styles.css";
 
 const api = createApi();
 const activeApplyStatuses = ["queued", "running", "retry_wait"];
+const isHelpersReady = (task) => ["applied", "already_complete"].includes(task.helpers_status);
+const runStageLabels = { solution: "Решение", apply: "Запись", helpers: "Helpers" };
+const agentStatusLabels = {
+  working: "Агент работает",
+  verifying: "Идёт полный dry-run",
+  updated: "Есть обновление",
+  no_changes: "Проверено без изменений",
+  needs_input: "Нужен ответ",
+  blocked: "Агент заблокирован",
+};
+const jobKindLabels = { dry_run: "Dry-run", apply: "Apply", helpers: "Helpers" };
+const jobStatusLabels = { queued: "ожидает", running: "выполняется", retry_wait: "ожидает повтора" };
 
 const Icon = ({ children }) => <span class="icon" aria-hidden="true">{children}</span>;
+
+function RunStatus({ label, run }) {
+  return <div class="detail-run">
+    <span>{label}: <b>{run ? runLabels[run.status] || run.status : "не запускался"}</b>{run && <time>{formatRunDate(run)}</time>}</span>
+    {Object.entries(run?.stages || {}).map(([stage, counts]) => {
+      const errors = counts.failed + counts.blocked + counts.skipped;
+      return <span class={errors ? "run-stage-error" : ""} title={`Ошибки: ${counts.failed}; блокировки: ${counts.blocked}; пропуски: ${counts.skipped}`}>
+        {runStageLabels[stage] || stage}: <b>{errors}</b>
+      </span>;
+    })}
+  </div>;
+}
 
 function GroupCard({ group, onOpen, onDragStart }) {
   const { transformed, total, helpers, errors } = group.stats;
   const teacherhelperUrl = teacherHelperGroupUrl(group.teacherhelper);
-  const agentStatus = {
-    working: "Агент работает",
-    verifying: "Идёт полный dry-run",
-    updated: "Есть обновление",
-    no_changes: "Проверено без изменений",
-    needs_input: "Нужен ответ",
-    blocked: "Агент заблокирован",
-  }[group.agent_status];
+  const agentStatus = agentStatusLabels[group.agent_status];
   return (
-    <div class={`group-card-shell${teacherhelperUrl ? " has-group-link" : ""}`}>
+    <div
+      class={`group-card-shell${teacherhelperUrl ? " has-group-link" : ""}`}
+      draggable={group.column !== "jobs"}
+      onDragStart={(event) => onDragStart(event, group.id)}
+    >
       <button
         class="group-card"
         onClick={() => onOpen(group.id)}
-        draggable
-        onDragStart={(event) => onDragStart(event, group.id)}
       >
         <div class="card-topline">
           <span class="group-id">Группа {group.id}</span>
           <span class="source-pill">{compactCatalogLabel(group.source)}</span>
         </div>
         {group.revision_requested && <span class="agent-waiting">Ждёт агента</span>}
+        {group.job && <span class={`job-status job-${group.job.status}`}>
+          {jobKindLabels[group.job.kind] || group.job.kind}: {jobStatusLabels[group.job.status] || group.job.status}
+        </span>}
         {agentStatus && <span class={`agent-status agent-${group.agent_status}`} title={group.agent_summary || ""}>{agentStatus}</span>}
         {group.agent_status === "needs_input" && group.agent_summary && <span class="agent-question">{group.agent_summary}</span>}
         <strong>{group.title}</strong>
-        <span class="group-path">{group.path}</span>
+        {group.path && group.path !== group.title && <span class="group-path">{group.path}</span>}
         <div class="progress-track"><span style={{ width: `${total ? Math.round((transformed / total) * 100) : 0}%` }} /></div>
         <div class="card-metrics">
           <span title="Обработано"><Icon>✓</Icon>{transformed}/{total}</span>
@@ -82,7 +104,7 @@ function StageStatus({ status, error }) {
   </td>;
 }
 
-function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canComment, onRunProblem, onApplyProblem, onRejectProblem, runningProblemId, applyingProblemId, rejectingProblemId }) {
+function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canComment, onRunProblem, onApplyProblem, onApplyHelpers, onRejectProblem, runningProblemId, applyingProblemId, applyingHelpersProblemId, rejectingProblemId }) {
   const [filter, setFilter] = useState("all");
   const [expandedProblemId, setExpandedProblemId] = useState(null);
   const [expandedPreview, setExpandedPreview] = useState(null);
@@ -147,13 +169,16 @@ function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canCommen
           <td>{solutionAssets.map((asset) => asset.content_type.replace("image/", "")).join(", ") || "—"}</td>
           <StageStatus status={task.dry_run_status} error={task.dry_run_error} /><StageStatus status={task.apply_status} error={task.error || task.apply_error} /><td>{task.helpers_status || "—"}</td><td>{formatTaskError(task.error || task.apply_error)}</td>
           <td><div class="task-actions">
-            <button class="secondary-button" onClick={(event) => { event.stopPropagation(); onRunProblem(task); }} disabled={Boolean(runningProblemId || applyingProblemId)}>
+            <button class="secondary-button" onClick={(event) => { event.stopPropagation(); onRunProblem(task); }} disabled={Boolean(runningProblemId || applyingProblemId || applyingHelpersProblemId)}>
               {runningProblemId === task.problem_id ? "Проверяю…" : "Проверить"}
             </button>
-            <button class="primary-button" onClick={(event) => { event.stopPropagation(); onApplyProblem(task); }} disabled={!canApplyTask(task, Boolean(runningProblemId || applyingProblemId))}>
-              {applyingProblemId === task.problem_id ? "Записываю…" : recorded ? "Записано" : "Записать"}
+            <button class="primary-button" onClick={(event) => { event.stopPropagation(); onApplyProblem(task); }} disabled={!canApplyTask(task, Boolean(runningProblemId || applyingProblemId || applyingHelpersProblemId))}>
+              {applyingProblemId === task.problem_id ? "Применяю…" : recorded ? "Применено" : "Применить"}
             </button>
-            <button class="danger-button" title={task.problem_id === inventory.parent_problem_id ? "Родитель отклоняется только вместе с группой" : ""} onClick={(event) => { event.stopPropagation(); onRejectProblem(task); }} disabled={task.problem_id === inventory.parent_problem_id || Boolean(runningProblemId || applyingProblemId || rejectingProblemId)}>
+            <button class="secondary-button" onClick={(event) => { event.stopPropagation(); onApplyHelpers(task); }} disabled={isHelpersReady(task) || !(task.has_solution || ["applied", "already_complete"].includes(task.apply_status)) || Boolean(runningProblemId || applyingProblemId || applyingHelpersProblemId)}>
+              {applyingHelpersProblemId === task.problem_id ? "Helpers…" : isHelpersReady(task) ? "Helpers готовы" : "Helpers"}
+            </button>
+            <button class="danger-button" title={task.problem_id === inventory.parent_problem_id ? "Родитель отклоняется только вместе с группой" : ""} onClick={(event) => { event.stopPropagation(); onRejectProblem(task); }} disabled={task.problem_id === inventory.parent_problem_id || Boolean(runningProblemId || applyingProblemId || applyingHelpersProblemId || rejectingProblemId)}>
               {rejectingProblemId === task.problem_id ? "Отклоняю…" : "Reject"}
             </button>
           </div></td>
@@ -179,6 +204,7 @@ function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canCommen
 
 const runLabels = {
   apply: "Запись",
+  helpers: "Helpers",
   "dry-run": "Тестовый прогон",
   group: "Вся группа",
   problem: "Одна задача",
@@ -186,6 +212,11 @@ const runLabels = {
   completed_with_errors: "Завершён с ошибками",
   failed: "Ошибка",
 };
+
+function runKindLabel(run) {
+  if (run.kind === "helpers" && run.scope === "group") return "Helpers для всех";
+  return runLabels[run.kind] || run.kind;
+}
 
 function formatRunDate(run) {
   if (!run?.started_at) return "Дата неизвестна";
@@ -196,7 +227,7 @@ function RunTab({ activity }) {
   const run = activity?.latest;
   if (!run) return <EmptyTab title="Запусков нет" text="Для этой группы ещё нет сохранённых локальных отчётов." />;
   return <section class="activity-card">
-    <div class="activity-heading"><div><span>Последний запуск</span><strong>{runLabels[run.kind] || run.kind}</strong></div><time>{formatRunDate(run)}</time></div>
+    <div class="activity-heading"><div><span>Последний запуск</span><strong>{runKindLabel(run)}</strong></div><time>{formatRunDate(run)}</time></div>
     <dl class="activity-stats">
       <div><dt>Режим</dt><dd>{runLabels[run.scope] || run.scope}</dd></div>
       <div><dt>Статус</dt><dd>{runLabels[run.status] || run.status}</dd></div>
@@ -222,7 +253,7 @@ function ProblemsTab({ activity, inventory, onOpenProblem, onApplyProblem, runni
         <td><div class="task-actions">
           <button class="secondary-button" onClick={() => onOpenProblem(problem)}>Открыть проверку</button>
           <button class="primary-button" onClick={() => onApplyProblem(task)} disabled={!canApplyTask(task, Boolean(runningProblemId || applyingProblemId))}>
-            {applyingProblemId === problem.problem_id ? "Записываю…" : "Повторить запись"}
+            {applyingProblemId === problem.problem_id ? "Применяю…" : "Повторить Apply"}
           </button>
         </div></td>
       </tr>;
@@ -239,7 +270,7 @@ function HistoryTab({ activity }) {
     <div class="inventory-table-wrap"><table class="inventory-table activity-table">
       <thead><tr><th>Дата</th><th>Тип</th><th>Режим</th><th>Статус</th><th>Задач</th><th>Ошибки</th></tr></thead>
       <tbody>{runs.map((run) => <tr key={run.run_name}>
-        <td>{formatRunDate(run)}</td><td>{runLabels[run.kind] || run.kind}</td><td>{runLabels[run.scope] || run.scope}</td>
+        <td>{formatRunDate(run)}</td><td>{runKindLabel(run)}</td><td>{runLabels[run.scope] || run.scope}</td>
         <td>{runLabels[run.status] || run.status}</td><td>{run.targets}</td><td class={run.failed ? "activity-error" : ""}>{run.failed}</td>
       </tr>)}</tbody>
     </table></div>
@@ -254,8 +285,10 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
   const [editingTask, setEditingTask] = useState(false);
   const [codexTasks, setCodexTasks] = useState([]);
   const [selectedThreadId, setSelectedThreadId] = useState("");
+  const [registrationComment, setRegistrationComment] = useState("");
   const [registering, setRegistering] = useState(false);
   const [restartingAgent, setRestartingAgent] = useState(false);
+  const [archivingCodex, setArchivingCodex] = useState(false);
   const [taskError, setTaskError] = useState("");
   const [preview, setPreview] = useState(null);
   const [previewState, setPreviewState] = useState("loading");
@@ -268,6 +301,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
   const [runningProblemId, setRunningProblemId] = useState(null);
   const [applyRun, setApplyRun] = useState(null);
   const [applyingProblemId, setApplyingProblemId] = useState(null);
+  const [applyingHelpersProblemId, setApplyingHelpersProblemId] = useState(null);
   const [rejectingProblemId, setRejectingProblemId] = useState(null);
   const [initialization, setInitialization] = useState(null);
   const [inventory, setInventory] = useState(null);
@@ -298,6 +332,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
     setRunningProblemId(null);
     setApplyRun(null);
     setApplyingProblemId(null);
+    setApplyingHelpersProblemId(null);
     setRejectingProblemId(null);
     setRunError("");
     api.getDryRun(group.id).then(setDryRun).catch(() => setDryRun(null));
@@ -341,8 +376,9 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
         setApplyRun(state);
         if (!activeApplyStatuses.includes(state.status)) {
           setApplyingProblemId(null);
+          setApplyingHelpersProblemId(null);
           if (state.status === "failed") {
-            setRunError(state.scope === "group" ? "Не все задачи группы удалось записать. Подробности — во вкладке «Проблемы»." : "Не удалось записать выбранную задачу.");
+            setRunError(state.stage === "helpers" ? "Не все Helpers удалось применить. Подробности — во вкладке «Проблемы»." : state.scope === "group" ? "Не все задачи группы удалось записать. Подробности — во вкладке «Проблемы»." : "Не удалось записать выбранную задачу.");
           }
           api.getTasks(group.id).then(setInventory).catch(() => {});
           refreshActivity();
@@ -384,7 +420,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
     }
   };
   const applyProblem = async (task) => {
-    if (!window.confirm(`Записать изменения только для задачи ${task.source_problem_id}?`)) return;
+    if (!window.confirm(`Применить изменения только к задаче ${task.source_problem_id}?`)) return;
     setRunError("");
     setApplyingProblemId(task.problem_id);
     try {
@@ -401,6 +437,26 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
       setApplyRun(await api.applyGroup(group.id));
     } catch {
       setRunError("Не удалось запустить запись всей группы. Сначала нужен успешный тестовый прогон.");
+    }
+  };
+  const applyHelpers = async (task) => {
+    if (!window.confirm(`Применить только Helpers к задаче ${task.source_problem_id}?`)) return;
+    setRunError("");
+    setApplyingHelpersProblemId(task.problem_id);
+    try {
+      setApplyRun(await api.applyProblemHelpers(group.id, task.problem_id));
+    } catch {
+      setApplyingHelpersProblemId(null);
+      setRunError("Не удалось запустить Helpers выбранной задачи.");
+    }
+  };
+  const applyGroupHelpers = async () => {
+    if (!window.confirm(`Применить Helpers ко всем задачам группы «${group.title}», где они ещё не готовы?`)) return;
+    setRunError("");
+    try {
+      setApplyRun(await api.applyGroupHelpers(group.id));
+    } catch {
+      setRunError("Не удалось запустить Helpers группы.");
     }
   };
   const rejectProblem = async (task) => {
@@ -458,8 +514,21 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
       setRestartingAgent(false);
     }
   };
+  const archiveCodex = async () => {
+    setArchivingCodex(true);
+    setRunError("");
+    try {
+      const result = await api.archiveCodex(group.id);
+      onGroupUpdate(result.group);
+    } catch {
+      setRunError("Не удалось архивировать связанную Codex-задачу.");
+    } finally {
+      setArchivingCodex(false);
+    }
+  };
   const openRegistration = async () => {
     setEditingTask(true);
+    setRegistrationComment("");
     setTaskError("");
     try {
       const result = await api.listCodexTasks();
@@ -472,7 +541,11 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
     setRegistering(true);
     setTaskError("");
     try {
-      const result = await api.registerGroup(group.id, selectedThreadId || null);
+      const result = await api.registerGroup(
+        group.id,
+        selectedThreadId || null,
+        selectedThreadId ? "" : registrationComment,
+      );
       onGroupUpdate(result.group);
       setEditingTask(false);
     } catch {
@@ -504,10 +577,14 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
     }
   };
   const selectedTask = inventory?.tasks?.find((task) => task.problem_id === selectedSample?.problem_id);
-  const groupApplyActive = applyRun?.scope === "group" && activeApplyStatuses.includes(applyRun.status);
-  const groupBusy = groupApplyActive || ["queued", "running"].includes(dryRun?.status);
+  const applyBusy = activeApplyStatuses.includes(applyRun?.status);
+  const groupApplyActive = applyRun?.scope === "group" && applyRun?.stage !== "helpers" && applyBusy;
+  const groupHelpersActive = applyRun?.scope === "group" && applyRun?.stage === "helpers" && applyBusy;
+  const groupBusy = applyBusy || ["queued", "running"].includes(dryRun?.status);
   const latestDryRun = activity?.runs?.find((run) => run.kind === "dry-run");
   const latestApply = activity?.runs?.find((run) => run.kind === "apply");
+  const columnTitle = columns.find((column) => column.id === group.column)?.title || group.column;
+  const agentStatus = agentStatusLabels[group.agent_status];
 
   return (
     <aside class="detail-panel">
@@ -522,11 +599,12 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
           <h2>{group.title}</h2>
           {group.path && group.path !== group.title && <p>{group.path}</p>}
           <div class="detail-run-status">
-            <span>Dry-run: <b>{latestDryRun ? runLabels[latestDryRun.status] || latestDryRun.status : "не запускался"}</b>{latestDryRun && <time>{formatRunDate(latestDryRun)}</time>}</span>
-            <span>Apply: <b>{latestApply ? runLabels[latestApply.status] || latestApply.status : "не запускался"}</b>{latestApply && <time>{formatRunDate(latestApply)}</time>}</span>
+            <span>Этап: <b>{columnTitle}</b></span>
+            <RunStatus label="Dry-run" run={latestDryRun} />
+            <RunStatus label="Apply" run={latestApply} />
           </div>
-          {group.agent_summary && <div class={`detail-agent-state agent-${group.agent_status || "idle"}`}>
-            <span><b>{group.agent_status === "needs_input" ? "Нужен ответ: " : "Codex: "}</b>{group.agent_summary}</span>
+          {agentStatus && <div class={`detail-agent-state agent-${group.agent_status || "idle"}`}>
+            <span><b>Codex:</b> {agentStatus}</span>
             {group.agent_status === "blocked" && group.codex_thread_id && <button class="secondary-button" onClick={restartAgent} disabled={restartingAgent}>{restartingAgent ? "Запускаю…" : "Перезапустить"}</button>}
           </div>}
         </div>
@@ -535,6 +613,9 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
             ? <a class="secondary-button codex-link" href={group.task_url}><Icon>↗</Icon>Codex</a>
             : <button class="secondary-button" onClick={openRegistration}><Icon>＋</Icon>Связать с Codex</button>
           }
+          {group.column === "done" && group.codex_thread_id && <button class="secondary-button" onClick={archiveCodex} disabled={archivingCodex || group.codex_archived}>
+            {group.codex_archived ? "Чат архивирован" : archivingCodex ? "Архивирую…" : "Архивировать чат"}
+          </button>}
           <button class="icon-button" onClick={onClose} aria-label="Закрыть">×</button>
         </div>
       </header>
@@ -548,6 +629,12 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
           {registering ? "Регистрирую…" : selectedThreadId ? "Связать и зарегистрировать" : "Создать и зарегистрировать"}
         </button>
         <button class="secondary-button" onClick={() => setEditingTask(false)} disabled={registering}>Отмена</button>
+        {!selectedThreadId && <textarea
+          value={registrationComment}
+          onInput={(event) => setRegistrationComment(event.currentTarget.value)}
+          placeholder="Комментарий к новой задаче (необязательно)"
+          rows="2"
+        />}
         {taskError && <span class="api-error">{taskError}</span>}
       </div>}
 
@@ -580,17 +667,16 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
                 <div class="sample-actions">
                   {selectedTask && <>
                     <button class="secondary-button" onClick={() => runProblem(selectedTask)} disabled={Boolean(runningProblemId || applyingProblemId)}>{runningProblemId === selectedTask.problem_id ? "Проверяю…" : "Проверить заново"}</button>
-                    <button class="primary-button" onClick={() => applyProblem(selectedTask)} disabled={!canApplyTask(selectedTask, Boolean(runningProblemId || applyingProblemId))}>{applyingProblemId === selectedTask.problem_id ? "Записываю…" : isTaskRecorded(selectedTask) ? "Записано" : "Записать"}</button>
+                    <button class="primary-button" onClick={() => applyProblem(selectedTask)} disabled={!canApplyTask(selectedTask, Boolean(runningProblemId || applyingProblemId))}>{applyingProblemId === selectedTask.problem_id ? "Применяю…" : isTaskRecorded(selectedTask) ? "Применено" : "Применить"}</button>
                     <button class="danger-button" onClick={() => rejectProblem(selectedTask)} disabled={selectedTask.problem_id === inventory.parent_problem_id || Boolean(rejectingProblemId)}>{rejectingProblemId === selectedTask.problem_id ? "Отклоняю…" : "Reject"}</button>
                   </>}
                   <button class="secondary-button" onClick={addSample} disabled={addingSample}>{addingSample ? "Добавляю…" : "+ Ещё задача"}</button>
                 </div>
               </div>
               {sampleError && <div class="sample-error">{sampleError}</div>}
-              <div class="sample-title">Задача {selectedSample.source_problem_id}</div>
               <div class="comparison-head">
-                <div><span>Normalized до прогона</span><small>Сохранённый снимок задачи</small></div>
-                <div><span>Локальный результат dry-run</span><small>Без записи через MCP</small></div>
+                <div><span>Normalized до прогона</span></div>
+                <div><span>Локальный результат dry-run</span></div>
               </div>
               <div class="comparison-grid">
                 <ProblemPreview card={selectedSample.before} />
@@ -601,24 +687,23 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
             </>}
             <section class="review-box">
               <div class="review-title">Комментарий к группе</div>
-              {comments.map((item) => <div class="comment" key={item.id}><span>Вы</span><p>{item.body}</p></div>)}
+              {comments.map((item) => <div class={`comment comment-${item.author_type || "user"}`} key={item.id}><span>{item.author_type === "codex" ? "Codex" : "Вы"}</span><p>{item.body}</p></div>)}
               <textarea value={comment} onInput={(event) => setComment(event.currentTarget.value)} placeholder="Что исправить в результате или раннере…" />
               <div class="review-actions">
-                <span>{group.codex_thread_id ? "Отправится в Codex и вернёт группу в «В работе»" : "Сначала свяжите группу с Codex"}</span>
                 <button class="primary-button" onClick={addComment} disabled={!group.codex_thread_id}>Отправить в Codex</button>
               </div>
             </section>
             {runError && <div class="sample-error">{runError}</div>}
           </>
         )}
-        {tab === "tasks" && <TaskInventory inventory={inventory} onExpandPreview={(task) => api.getProblemPreview(group.id, task.problem_id)} onAddTaskComment={addTaskComment} canComment={Boolean(group.codex_thread_id)} onRunProblem={runProblem} onApplyProblem={applyProblem} onRejectProblem={rejectProblem} runningProblemId={runningProblemId} applyingProblemId={applyingProblemId} rejectingProblemId={rejectingProblemId} />}
+        {tab === "tasks" && <TaskInventory inventory={inventory} onExpandPreview={(task) => api.getProblemPreview(group.id, task.problem_id)} onAddTaskComment={addTaskComment} canComment={Boolean(group.codex_thread_id)} onRunProblem={runProblem} onApplyProblem={applyProblem} onApplyHelpers={applyHelpers} onRejectProblem={rejectProblem} runningProblemId={runningProblemId} applyingProblemId={applyingProblemId} applyingHelpersProblemId={applyingHelpersProblemId} rejectingProblemId={rejectingProblemId} />}
         {tab === "run" && <RunTab activity={activity} />}
         {tab === "issues" && <ProblemsTab activity={activity} inventory={inventory} onOpenProblem={openProblemPreview} onApplyProblem={applyProblem} runningProblemId={runningProblemId} applyingProblemId={applyingProblemId} />}
         {tab === "history" && <HistoryTab activity={activity} />}
       </div>
 
       <footer class="detail-footer">
-        <span class="demo-label">{initialization?.status === "failed" ? `Initialize: ${initialization.error}` : "Данные и комментарии сохраняются локально"}</span>
+        {initialization?.status === "failed" && <span class="demo-label">Initialize: {initialization.error}</span>}
         {initialization?.status === "failed" && <button class="secondary-button" onClick={retryInitialization}>Повторить Initialize</button>}
         <select value={dryRunMode} onChange={(event) => setDryRunMode(event.currentTarget.value)} disabled={["queued", "running"].includes(dryRun?.status)} aria-label="Режим тестового прогона">
           <option value="parent">Только родитель</option>
@@ -627,6 +712,9 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
         </select>
         <button class="secondary-button" onClick={startDryRun} disabled={!group.registered || ["queued", "running"].includes(dryRun?.status)}>
           {["queued", "running"].includes(dryRun?.status) ? "Выполняется…" : "Тестовый прогон"}
+        </button>
+        <button class="secondary-button" onClick={applyGroupHelpers} disabled={groupBusy || !inventory?.tasks?.some((task) => !isHelpersReady(task) && (task.has_solution || ["applied", "already_complete"].includes(task.apply_status)))}>
+          {groupHelpersActive ? "Helpers выполняются…" : "Helpers для всех"}
         </button>
         <button class="primary-button" onClick={applyGroup} disabled={!canApplyGroup(group, groupBusy)} title="После подтверждения запишет всю группу и выполнит Helpers с readback">
           {applyRun?.status === "retry_wait" ? `Повтор через ${applyRun.retry_in_seconds}с` : groupApplyActive ? "Применяю группу…" : "Одобрить и применить"}
@@ -745,10 +833,10 @@ function App() {
 
   useEffect(() => { loadGroups(); }, []);
   useEffect(() => {
-    if (!groups.some((group) => group.column === "initialization" || ["working", "verifying"].includes(group.agent_status))) return undefined;
+    if (!groups.some((group) => ["initialization", "jobs"].includes(group.column) || ["working", "verifying"].includes(group.agent_status))) return undefined;
     const timer = setInterval(loadGroups, 1500);
     return () => clearInterval(timer);
-  }, [groups.some((group) => group.column === "initialization" || ["working", "verifying"].includes(group.agent_status))]);
+  }, [groups.some((group) => ["initialization", "jobs"].includes(group.column) || ["working", "verifying"].includes(group.agent_status))]);
 
   const refresh = async () => {
     setLoading(true);
@@ -799,11 +887,16 @@ function App() {
         {columns.map((column) => {
           const items = visibleGroups.filter((group) => group.column === column.id);
           return (
-            <section key={column.id} class={`board-column tone-${column.tone}`} onDragOver={(e) => e.preventDefault()} onDrop={(e) => dropGroup(e, column.id)}>
+            <section
+              key={column.id}
+              class={`board-column tone-${column.tone}`}
+              onDragOver={column.system ? undefined : (e) => e.preventDefault()}
+              onDrop={column.system ? undefined : (e) => dropGroup(e, column.id)}
+            >
               <header><h2>{column.title}</h2><span>{items.length}</span></header>
               <div class="column-list">
                 {items.map((group) => <GroupCard key={group.id} group={group} onOpen={setSelectedId} onDragStart={(event, id) => event.dataTransfer.setData("text/group-id", id)} />)}
-                {items.length === 0 && <div class="empty-column">Перетащите группу сюда</div>}
+                {items.length === 0 && <div class="empty-column">{column.system ? "Запусков нет" : "Перетащите группу сюда"}</div>}
               </div>
             </section>
           );

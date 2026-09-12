@@ -127,6 +127,33 @@ def test_geometry_dry_run_reads_planned_transformations_from_solution_results(tm
     assert manifest["records"][0]["transformations"][0]["value"]["html"] == "<p>99</p>"
 
 
+def test_empty_solution_result_does_not_erase_prepared_transformations(tmp_path):
+    run_dir = tmp_path / "grid-polygon/runs/20260910T120000Z-group-7"
+    run_dir.mkdir(parents=True)
+    prepared = [{
+        "operation": "add",
+        "transformation_target_id": "section:solution",
+        "value": {"html": "<p>Решение</p>"},
+    }]
+    (run_dir / "prepared-manifest.json").write_text(json.dumps({
+        "group_key": "7",
+        "records": [{
+            "problem_id": "child",
+            "source_problem_id": "101",
+            "transformations": prepared,
+        }],
+    }))
+    (run_dir / "solution-results.json").write_text(json.dumps([{
+        "problem_id": "child",
+        "status": "planned",
+        "transformations": [],
+    }]))
+
+    manifest = latest_dry_run_manifest(tmp_path, "7")
+
+    assert manifest["records"][0]["transformations"] == prepared
+
+
 def test_preview_remains_available_after_its_dry_run_was_applied(tmp_path):
     run_dir = tmp_path / "equations/runs/20260910T120000Z-group-7"
     run_dir.mkdir(parents=True)

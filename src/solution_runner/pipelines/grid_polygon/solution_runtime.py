@@ -6,6 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from functools import partial
 import hashlib
+import re
 from typing import Any, Protocol
 
 from .mcp_runtime import McpGateway
@@ -84,6 +85,22 @@ def _diagram_uploads(
     content: dict[str, Any],
 ) -> tuple[dict[str, Any], ...]:
     """Reuse, upload, or preview every explicit strategy diagram."""
+
+    solution = next(
+        (
+            section
+            for section in content.get("sections", [])
+            if isinstance(section, dict) and section.get("key") == "solution"
+        ),
+        None,
+    )
+    existing = str(solution.get("html") or "") if solution else ""
+    if (
+        context.profile.existing_solution_policy == "preserve"
+        and existing.strip()
+        and not re.search(r'<section\b[^>]*\bdata-content-kind\s*=', existing, re.I)
+    ):
+        return ()
 
     results: list[dict[str, Any]] = []
     for diagram in _diagram_specs(context, target, analysis):
@@ -248,12 +265,23 @@ def _apply_and_verify(
     target: PreparedFigure,
     plan: SolutionPlan,
 ) -> None:
-    """Apply one plan once and require an explicit successful MCP response."""
+    """Create generated assets before writing solution HTML that references them."""
 
-    context.gateway.apply_problem_transformations(
-        target.problem_id,
-        plan.transformations,
+    asset_creations = tuple(
+        transformation
+        for transformation in plan.transformations
+        if transformation["transformation_target_id"].startswith("asset:")
+        and transformation["operation"] in {"add", "rewrite"}
     )
+    remaining = tuple(
+        transformation
+        for transformation in plan.transformations
+        if transformation not in asset_creations
+    )
+    if asset_creations:
+        context.gateway.apply_problem_transformations(target.problem_id, asset_creations)
+    if remaining:
+        context.gateway.apply_problem_transformations(target.problem_id, remaining)
     verify_solution_plan(context.gateway, target.problem_id, plan)
 
 

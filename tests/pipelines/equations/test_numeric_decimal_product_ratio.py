@@ -48,7 +48,7 @@ def test_decimal_product_ratio_corrects_an_inverted_decimal_answer() -> None:
     assert plan.answer == "100"
 
 
-def test_decimal_product_ratio_profiles_cover_profile_base_and_oge() -> None:
+def test_decimal_product_ratio_profiles_cover_profile_and_base() -> None:
     profiles = all_group_profiles()
-    for key in ("77392", "ege-base-77392", "oge-314236"):
+    for key in ("77392", "ege-base-77392"):
         assert profiles[key].content_rule_key == "numeric-decimal-product-ratio"

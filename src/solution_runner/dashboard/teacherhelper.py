@@ -39,3 +39,20 @@ def teacherhelper_navigation(profile: Any) -> dict[str, str] | None:
         "theme_id": str(profile.snapshot_theme_id),
         "group_id": str(profile.source_group_id),
     }
+
+
+def teacherhelper_match_navigation(snapshot_id: str, match: Any) -> dict[str, str] | None:
+    if not isinstance(match, dict):
+        return None
+    category, theme, group = (match.get(key) for key in ("category", "theme", "group"))
+    source_site_id = SOURCE_SITE_IDS_BY_SNAPSHOT.get(snapshot_id)
+    if not source_site_id or not all(isinstance(item, dict) for item in (category, theme, group)):
+        return None
+    navigation = {
+        "source_site_id": source_site_id,
+        "snapshot_id": snapshot_id,
+        "category_id": str(category.get("uuid") or category.get("id") or ""),
+        "theme_id": str(theme.get("uuid") or theme.get("id") or ""),
+        "group_id": str(group.get("uuid") or group.get("id") or ""),
+    }
+    return navigation if all(navigation.values()) else None

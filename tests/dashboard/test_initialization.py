@@ -19,8 +19,12 @@ class FakeGateway:
         }
 
     def find_source_catalog_path(self, catalog_id, query, target_type):
-        assert (catalog_id, query, target_type) == ("catalog", "123", "group")
-        return {"target": {"id": "source-group", "source_id": "123"}}
+        assert (catalog_id, query, target_type) == ("4073fc7b-2056-4697-b18b-38741c94d0f4", "123", "group")
+        return {"matches": [{
+            "category": {"uuid": "category"},
+            "theme": {"uuid": "theme"},
+            "group": {"uuid": "source-group", "name": "Группа 123"},
+        }]}
 
     def get_problem_context(self, problem_id):
         sections = [
@@ -207,14 +211,23 @@ def test_failed_initializer_keeps_previous_snapshot_until_explicit_retry(tmp_pat
 
 def test_initializer_resolves_an_unregistered_group_from_dashboard_coordinates(tmp_path):
     store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    resolved = []
     initializer = GroupInitializer(
         profiles={},
-        group_source_lookup=lambda key: {"source_id": "catalog"} if key == "123" else None,
+        group_source_lookup=lambda key: {"source_id": "4073fc7b-2056-4697-b18b-38741c94d0f4"} if key == "123" else None,
         inventory_store=store,
         gateway_factory=FakeGateway,
+        on_resolved=lambda group_key, navigation: resolved.append((group_key, navigation)),
     )
 
     state = initializer.run_now("123")
 
     assert state["status"] == "ready"
     assert store.get("123").source_group_id == "source-group"
+    assert resolved == [("123", {
+        "source_site_id": "7bed2492-5b8b-4c88-9be8-7d47916cd7c6",
+        "snapshot_id": "4073fc7b-2056-4697-b18b-38741c94d0f4",
+        "category_id": "category",
+        "theme_id": "theme",
+        "group_id": "source-group",
+    })]

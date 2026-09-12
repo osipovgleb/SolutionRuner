@@ -4,6 +4,7 @@ export const columns = [
   { id: "work", title: "В работе", tone: "amber" },
   { id: "issues", title: "Есть проблемы", tone: "red" },
   { id: "review", title: "На проверке", tone: "violet" },
+  { id: "jobs", title: "Очередь", tone: "cyan", system: true },
   { id: "done", title: "Готово", tone: "green" },
 ];
 

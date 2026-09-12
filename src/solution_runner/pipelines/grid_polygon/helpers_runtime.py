@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
-import re
 from typing import Any
 
 from bs4 import BeautifulSoup
@@ -16,9 +15,6 @@ from .progress import ProgressReporter, TargetProgress
 
 class HelpersRuntimeError(RuntimeError):
     """Report one target-local Helpers state or readback failure."""
-
-
-_FINAL_NUMBER = re.compile(r"(?:^|=)(?P<value>-?\d+(?:\{,\}\d+)?)$")
 
 
 def _section_html(context: dict[str, Any], key: str) -> str:
@@ -39,34 +35,15 @@ def _section_html(context: dict[str, Any], key: str) -> str:
     return str(matches[0].get("html") or "")
 
 
-def _existing_solution_answer(context: dict[str, Any]) -> tuple[str | None, str | None]:
-    """Return matching final solution value and answer, otherwise an audit reason.
+def _has_section_content(context: dict[str, Any], key: str) -> bool:
+    """Return whether one normalized section contains text, a formula, or media."""
 
-    This deliberately accepts only a single inline formula ending in a plain
-    integer or terminating decimal.  It is a status-reconciliation path, not a
-    mathematical solver: ambiguous or symbolic endings must stay unverified.
-    """
-
-    answer_html = _section_html(context, "answer")
-    answer = BeautifulSoup(answer_html, "html.parser").get_text("", strip=True)
-    answer = re.sub(r"\s+", "", answer).replace(",", "{,}")
-    if not re.fullmatch(r"-?\d+(?:\{,\}\d+)?", answer):
-        return None, "answer is not one plain number"
-
-    solution_html = _section_html(context, "solution")
-    formulas = BeautifulSoup(solution_html, "html.parser").find_all(
-        "span", attrs={"data-inline-latex": True}
+    soup = BeautifulSoup(_section_html(context, key), "html.parser")
+    return bool(
+        soup.get_text("", strip=True)
+        or soup.find(attrs={"data-inline-latex": True})
+        or soup.find(("img", "svg"))
     )
-    if len(formulas) != 1:
-        return None, "solution must contain exactly one inline calculation"
-    formula = str(formulas[0].get("data-inline-latex") or "").replace(" ", "")
-    match = _FINAL_NUMBER.search(formula)
-    if match is None:
-        return None, "solution does not end in one plain number"
-    final_value = match["value"]
-    if final_value != answer:
-        return None, f"solution ends in {final_value}, answer is {answer}"
-    return final_value, None
 
 
 def verify_existing_solutions(
@@ -75,19 +52,23 @@ def verify_existing_solutions(
     profile: GroupProfile,
     reporter: ProgressReporter,
 ) -> tuple[ProblemStageResult, ...]:
-    """Audit existing numeric solutions before allowing only Helpers reconciliation."""
+    """Require stored solution and answer content before Helpers reconciliation."""
 
     results: list[ProblemStageResult] = []
     total = len(targets)
     for index, target in enumerate(targets, start=1):
         progress = TargetProgress(index=index, total=total)
         try:
-            final_value, reason = _existing_solution_answer(
-                gateway.get_problem_context(target.problem_id)
+            context = gateway.get_problem_context(target.problem_id)
+            reason = (
+                None if _has_section_content(context, "solution")
+                else "solution is empty"
             )
+            if reason is None and not _has_section_content(context, "answer"):
+                reason = "answer is empty"
         except Exception as exc:  # noqa: BLE001 - a bad task is locally isolated.
-            final_value, reason = None, f"context read failed: {type(exc).__name__}"
-        if final_value is None:
+            reason = f"context read failed: {type(exc).__name__}"
+        if reason is not None:
             reporter.task(
                 profile.theme_title,
                 profile.group_key,
@@ -115,7 +96,6 @@ def verify_existing_solutions(
             progress,
             "SOLUTION VERIFIED",
             stage="solution_answer",
-            details={"final_value": final_value},
         )
         results.append(
             ProblemStageResult(

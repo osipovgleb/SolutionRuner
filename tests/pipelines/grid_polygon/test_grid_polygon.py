@@ -127,6 +127,8 @@ def test_polygon_digest_is_stable_and_coordinates_must_be_near_grid() -> None:
         (((1, 5), (3, 1), (8, 5)), 3, "base-height-triangle"),
         (((1, 3), (4, 1), (6, 1), (6, 6)), 4, "bounding-rectangle-quadrilateral"),
         (((1, 4), (4, 1), (10, 1), (7, 4)), 4, "parallelogram-three-methods"),
+        (((1, 1), (1, 5), (5, 4), (5, 2)), 4, "parallel-bases-trapezoid-three-methods"),
+        (((1, 1), (1, 5), (5, 4), (5, 2)), 4, "trapezoid-pick"),
     ],
 )
 def test_parser_recovers_fixed_polygon_from_separate_outline_lines(

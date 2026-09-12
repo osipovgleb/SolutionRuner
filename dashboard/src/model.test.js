@@ -7,8 +7,9 @@ import * as model from "./model.js";
 test("initialization is the first kanban stage", () => {
   assert.equal(columns[0].id, "initialization");
   assert.deepEqual(columns.map((column) => column.id), [
-    "initialization", "queue", "work", "issues", "review", "done",
+    "initialization", "queue", "work", "issues", "review", "jobs", "done",
   ]);
+  assert.equal(columns.find((column) => column.id === "jobs").title, "Очередь");
 });
 
 test("filters groups by catalog UUID and search text", () => {

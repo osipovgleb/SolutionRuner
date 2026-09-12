@@ -276,13 +276,17 @@ def _with_solution_plans(manifest_path: Path, payload: dict[str, Any]) -> dict[s
         for result in results
         if isinstance(result, dict)
         and result.get("status") in {"planned", "already_complete"}
-        and isinstance(result.get("transformations"), list)
+        and result.get("transformations")
     }
     if not plans:
         return payload
     merged = deepcopy(payload)
     for record in merged.get("records", []):
-        if isinstance(record, dict) and str(record.get("problem_id")) in plans:
+        if (
+            isinstance(record, dict)
+            and not record.get("transformations")
+            and str(record.get("problem_id")) in plans
+        ):
             record["transformations"] = deepcopy(plans[str(record.get("problem_id"))])
     return merged
 

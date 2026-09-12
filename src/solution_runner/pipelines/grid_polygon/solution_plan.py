@@ -243,14 +243,14 @@ def _solution_transformations(
         section=solution,
         asset_keys=asset_keys,
     )
-    transformations: list[dict[str, Any]] = [
+    removals: list[dict[str, Any]] = [
         {
             "transformation_target_id": f"asset:{asset_key}",
             "operation": "remove",
         }
         for asset_key in stale_keys
     ]
-    transformations.extend(
+    removals.extend(
         {
             "transformation_target_id": f"asset:{asset_key}",
             "operation": "remove",
@@ -262,8 +262,8 @@ def _solution_transformations(
             for asset in content.get("assets", [])
         )
     )
-    transformations.append(section_transformation)
-    transformations.extend(_asset_transformation(content, item) for item in diagram_items)
+    additions = [_asset_transformation(content, item) for item in diagram_items]
+    transformations = [*additions, section_transformation, *removals]
     return transformations, solution_html, tuple(asset_target_ids)
 
 

@@ -228,8 +228,8 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
         def list_tasks(self):
             return [{"id": "thread-existing", "title": "Existing task", "model": "gpt-5.6-terra", "reasoning_effort": "medium"}]
 
-        def register_group(self, group, inventory, thread_id=None):
-            self.registrations.append((group["id"], inventory["parent_problem_id"], thread_id))
+        def register_group(self, group, inventory, thread_id=None, comment=""):
+            self.registrations.append((group["id"], inventory["parent_problem_id"], thread_id, comment))
             task_id = thread_id or "thread-new"
             return {"id": task_id, "title": "Existing task" if thread_id else "Регистрация группы 123"}
 
@@ -259,11 +259,11 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
 
         _, result = _request(
             f"{base}/api/groups/123/register", method="POST",
-            payload={"thread_id": "thread-existing"},
+            payload={"thread_id": "thread-existing", "comment": "Проверь задачу 42"},
         )
         assert result["group"]["codex_thread_id"] == "thread-existing"
         assert result["group"]["column"] == "work"
-        assert codex_tasks.registrations == [("123", "parent", "thread-existing")]
+        assert codex_tasks.registrations == [("123", "parent", "thread-existing", "Проверь задачу 42")]
 
         store.update_group("123", {"column": "issues"})
         _, comment = _request(
@@ -272,6 +272,15 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
         )
         assert comment["group"]["column"] == "work"
         assert codex_tasks.comments == [("thread-existing", "123", "Исправь выбор рисунка", None)]
+
+        _, work_comment = _request(
+            f"{base}/api/groups/123/comments", method="POST",
+            payload={"body": "Проверь результат ещё раз"},
+        )
+        assert work_comment["group"]["agent_status"] == "working"
+        assert codex_tasks.comments[-1] == (
+            "thread-existing", "123", "Проверь результат ещё раз", None,
+        )
 
         _, task_comment = _request(
             f"{base}/api/groups/123/comments", method="POST",
@@ -291,6 +300,48 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
         assert codex_tasks.comments[-1] == (
             "thread-existing", "123", "Повторный запуск после блокировки", None,
         )
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join()
+
+
+def test_done_group_can_archive_its_codex_task(tmp_path):
+    class FakeCodexTasks:
+        def __init__(self):
+            self.archived = []
+
+        def archive_task(self, thread_id):
+            self.archived.append(thread_id)
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    store.update_group("123", {
+        "column": "done",
+        "codex_thread_id": "thread-123",
+        "task_url": "codex://threads/thread-123",
+    })
+    codex_tasks = FakeCodexTasks()
+    server = make_server(
+        store=store, codex_tasks=codex_tasks,
+        var_dir=tmp_path / "var", profiles={}, static_dir=tmp_path, port=0,
+    )
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        _, result = _request(
+            f"http://127.0.0.1:{server.server_port}/api/groups/123/archive-codex",
+            method="POST",
+        )
+        assert codex_tasks.archived == ["thread-123"]
+        assert result["group"]["codex_archived"] is True
+        assert result["group"]["task_url"] == "codex://threads/thread-123"
+        _, repeated = _request(
+            f"http://127.0.0.1:{server.server_port}/api/groups/123/archive-codex",
+            method="POST",
+        )
+        assert repeated["group"]["codex_archived"] is True
+        assert codex_tasks.archived == ["thread-123"]
     finally:
         server.shutdown()
         server.server_close()
@@ -328,6 +379,10 @@ def test_group_api_starts_and_reads_local_dry_run(tmp_path):
         def start_group(self, group_key):
             self.started.append((group_key, "group"))
             return {"group_key": group_key, "scope": "group", "status": "queued"}
+
+        def start_helpers(self, group_key, problem_id=None):
+            self.started.append((group_key, "helpers", problem_id))
+            return {"group_key": group_key, "scope": "problem" if problem_id else "group", "stage": "helpers", "status": "queued"}
 
         def get(self, group_key):
             return {"group_key": group_key, "problem_id": "child", "status": "running"}
@@ -398,9 +453,57 @@ def test_group_api_starts_and_reads_local_dry_run(tmp_path):
         assert queued["scope"] == "group"
         assert applies.started[-1] == ("123", "group")
 
+        status, queued = _request(
+            f"{base}/api/groups/123/apply",
+            method="POST",
+            payload={"stage": "helpers", "problem_id": "child"},
+        )
+        assert status == 202
+        assert queued["stage"] == "helpers"
+        assert applies.started[-1] == ("123", "helpers", "child")
+
+        status, queued = _request(
+            f"{base}/api/groups/123/apply",
+            method="POST",
+            payload={"stage": "helpers", "scope": "group"},
+        )
+        assert status == 202
+        assert queued["scope"] == "group"
+        assert applies.started[-1] == ("123", "helpers", None)
+
         status, applying = _request(f"{base}/api/groups/123/apply")
         assert status == 200
         assert applying["status"] == "running"
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join()
+
+
+def test_group_api_projects_active_runner_job_into_separate_queue_column(tmp_path):
+    class FakeDryRuns:
+        def get(self, group_key):
+            assert group_key == "123"
+            return {"group_key": group_key, "mode": "all", "status": "queued"}
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    server = make_server(
+        store=store,
+        var_dir=tmp_path / "var",
+        profiles={},
+        static_dir=tmp_path,
+        dry_runs=FakeDryRuns(),
+        port=0,
+    )
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        status, payload = _request(f"http://127.0.0.1:{server.server_port}/api/groups")
+        assert status == 200
+        group = payload["groups"][0]
+        assert group["column"] == "jobs"
+        assert group["job"] == {"kind": "dry_run", "status": "queued", "scope": "group"}
     finally:
         server.shutdown()
         server.server_close()

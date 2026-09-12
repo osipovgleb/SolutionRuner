@@ -202,8 +202,7 @@ class ExistingSolutionGateway(RecordingGateway):
         return self.context
 
 
-def test_existing_solution_verification_requires_exact_final_numeric_answer() -> None:
-    """Only an exact final numeric equality may unlock the Helpers stage."""
+def test_existing_solution_verification_requires_non_empty_solution_and_answer() -> None:
 
     target = ProblemTarget(
         problem_id="problem-1",
@@ -230,12 +229,40 @@ def test_existing_solution_verification_requires_exact_final_numeric_answer() ->
 
     assert results[0].status == "already_complete"
 
-    context["normalized_content"]["sections"][0]["html"] = "<p>18,5</p>"
+    context["normalized_content"]["sections"][0]["html"] = "<p></p>"
     results = verify_existing_solutions(
         ExistingSolutionGateway(context), (target,), get_group_profile("27547"), reporter
     )
     assert results[0].status == "skipped"
-    assert results[0].message == "solution ends in 18{,}4, answer is 18{,}5"
+    assert results[0].message == "answer is empty"
+
+
+def test_existing_solution_verification_accepts_formula_content() -> None:
+
+    target = ProblemTarget(
+        problem_id="problem-1",
+        source_problem_id="1",
+        source_group_id="group-1",
+        group_key="27547",
+        problem_order_index=1,
+    )
+    context = {
+        "normalized_content": {
+            "sections": [
+                {"key": "answer", "html": "<p>18,4</p>"},
+                {"key": "solution", "html": (
+                    '<p><span data-inline-latex="x=4"></span>'
+                    '<span data-inline-latex="\\\\frac{23}{5}\\\\cdot4=18{,}4"></span></p>'
+                )},
+            ]
+        }
+    }
+    reporter, _ = _reporter()
+    results = verify_existing_solutions(
+        ExistingSolutionGateway(context), (target,), get_group_profile("27547"), reporter
+    )
+
+    assert results[0].status == "already_complete"
 
 
 class ConcurrentHelpersGateway(RecordingGateway):

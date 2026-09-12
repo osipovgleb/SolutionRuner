@@ -108,6 +108,7 @@ class RecordingGateway:
         self.upload_calls: list[str] = []
         self.apply_calls: list[str] = []
         self.applied_transformations: dict[str, list[dict[str, Any]]] = {}
+        self.applied_batches: dict[str, list[list[dict[str, Any]]]] = {}
         self.context_read_calls: list[str] = []
         self.condition_download_calls: list[str] = []
         self.fail_apply_for: set[str] = set()
@@ -155,6 +156,7 @@ class RecordingGateway:
 
         self.apply_calls.append(problem_id)
         self.applied_transformations[problem_id] = deepcopy(transformations)
+        self.applied_batches.setdefault(problem_id, []).append(deepcopy(transformations))
         if problem_id in self.fail_apply_for:
             raise RuntimeError("fake apply failure")
         content = self.content[problem_id]
@@ -271,6 +273,49 @@ def test_existing_solution_is_preserved_while_answer_is_repaired(tmp_path: Path)
     assert sections["solution"]["html"] == "<p>Эталонный текст</p>"
     assert sections["answer"]["html"] == '<p><span data-effect="spaced">12</span></p>'
     assert "answer_mismatch_before_write" in (result.message or "")
+
+
+def test_legacy_preserved_solution_does_not_receive_unplaceable_diagrams(
+    tmp_path: Path,
+) -> None:
+    """Keep a non-variant editorial solution untouched and upload nothing."""
+
+    gateway = RecordingGateway(("323790",))
+    prepared = _rhombus_prepared(tmp_path, "323790")
+    profile = get_group_profile("323790")
+    strategy = get_solution_strategy(profile.strategy_key)
+    analysis = strategy.analyze(prepared, profile)
+    gateway.content["problem-323790"]["sections"] = [
+        {
+            "key": "solution",
+            "title": "Решение",
+            "html": '<p><img data-asset-key="image_2" src="/assets/editorial"/>Текст.</p>',
+            "asset_keys": ["image_2"],
+        },
+        {
+            "key": "answer",
+            "title": "Ответ",
+            "html": strategy.build_answer_html(analysis),
+            "asset_keys": [],
+        },
+    ]
+    gateway.content["problem-323790"]["assets"] = [
+        {"asset_key": "image_2", "asset_id": "editorial", "url": "/assets/editorial"}
+    ]
+    reporter, _ = _reporter()
+
+    result = run_solution_stage(
+        gateway,
+        (prepared,),
+        profile,
+        strategy,
+        reporter,
+        apply=True,
+    )[0]
+
+    assert result.status == "already_complete"
+    assert gateway.upload_calls == []
+    assert gateway.apply_calls == []
 
 
 @pytest.mark.parametrize(
@@ -394,6 +439,13 @@ def test_parallelogram_runtime_places_all_three_diagrams_in_matching_methods(
     assert len(wrappers) == 3
     assert len(gateway.upload_calls) == 3
     assert solution["asset_keys"] == list(expected_keys)
+    asset_batch, section_batch = gateway.applied_batches["problem-401034"]
+    assert {item["transformation_target_id"] for item in asset_batch} == {
+        f"asset:{asset_key}" for asset_key in expected_keys
+    }
+    assert "section:solution" in {
+        item["transformation_target_id"] for item in section_batch
+    }
     for index, asset_key in enumerate(expected_keys):
         assert wrappers[index].select_one(
             f'img[data-asset-key="{asset_key}"]'

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Executor, ThreadPoolExecutor
 from datetime import UTC, datetime
 import json
 import os
@@ -171,6 +171,7 @@ class DryRunManager:
         launcher: Callable[[list[str]], int] = _run_launcher,
         choose: Callable[[Sequence[Mapping[str, Any]]], Mapping[str, Any]] = secrets.choice,
         on_complete: Callable[[str, Mapping[str, Any]], None] | None = None,
+        background_executor: Executor | None = None,
     ) -> None:
         self.var_dir = var_dir
         self.profiles = profiles
@@ -182,7 +183,7 @@ class DryRunManager:
         self.on_complete = on_complete
         self.state_dir = var_dir / "dashboard/dry-runs"
         self.preview_dir = var_dir / "dashboard/previews"
-        self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-dry-run")
+        self.executor = background_executor or ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-dry-run")
         self.lock = Lock()
 
     def _path(self, group_key: str) -> Path:

@@ -121,3 +121,15 @@ def test_accepts_the_equivalent_find_a_solution_wording():
         {"key":"condition","title":"Условие","html":"<p>Найдите решение уравнения: <span data-inline-latex=\"2^{x}=8\"></span>.</p>","asset_keys":[],"section_id":"condition:1"},
     ]}})
     assert plan.answer == "3"
+
+
+def test_accepts_legacy_html_power_with_plain_numeric_right_side():
+    plan = build_context_repair_plan({"normalized_content": {
+        "format": "teacherhelper-normalized", "schema_version": 3, "assets": [],
+        "sections": [
+            {"key": "condition", "title": "Условие", "html": "<p>Найдите корень уравнения 3<sup><i>x</i> − 5</sup> = 81.</p>", "asset_keys": []},
+            {"key": "answer", "title": "Ответ", "html": "<p>9</p>", "asset_keys": []},
+        ],
+    }})
+
+    assert plan.answer == "9"

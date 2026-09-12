@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from ..triangles.isosceles.planner import _normalized_content,_section,_section_transformation
 from ..triangles.right.planner import RepairPlan,RightTrianglePlanError
 RULE='elementary-equations-282850-odd-power-root'
-R=re.compile(r'(?:(?:\(x(?P<s>[+-]\d+)\))|x)\^\{(?P<n>3|5|9)\}=(?P<r>-?\d+)')
+R=re.compile(r'(?:(?:\(x(?P<s>[+-]\d+)\))|x)\^\{(?P<n>3|5|7|9)\}=(?P<r>-?\d+)')
 
 
 def _integer_root(value: int, degree: int) -> int:

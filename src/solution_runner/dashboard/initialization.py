@@ -13,6 +13,7 @@ from solution_runner.group_inventory_store import (
     GroupInventorySnapshot,
     GroupInventoryStore,
 )
+from .teacherhelper import teacherhelper_match_navigation
 
 
 class GroupInitializationError(RuntimeError):
@@ -168,12 +169,14 @@ class GroupInitializer:
         inventory_store: GroupInventoryStore,
         gateway_factory: Callable[[], Any],
         group_source_lookup: Callable[[str], Mapping[str, Any] | None] | None = None,
+        on_resolved: Callable[[str, Mapping[str, str]], None] | None = None,
         on_complete: Callable[[str, Mapping[str, Any]], None] | None = None,
     ) -> None:
         self.profiles = profiles
         self.inventory_store = inventory_store
         self.gateway_factory = gateway_factory
         self.group_source_lookup = group_source_lookup
+        self.on_resolved = on_resolved
         self.on_complete = on_complete
         self._executor = ThreadPoolExecutor(max_workers=1)
         self._futures: dict[str, Future[dict[str, Any]]] = {}
@@ -194,7 +197,14 @@ class GroupInitializer:
             return _GroupSource(catalog_snapshot_id=catalog_id, source_group_id="")
         resolved = gateway.find_source_catalog_path(catalog_id, group_key, "group")
         target = resolved.get("target") if isinstance(resolved, dict) else None
-        source_group_id = str(target.get("id") or "").strip() if isinstance(target, dict) else ""
+        matches = resolved.get("matches") if isinstance(resolved, dict) else None
+        if not isinstance(target, dict) and isinstance(matches, list) and len(matches) == 1:
+            match = matches[0]
+            target = match.get("group") if isinstance(match, dict) else None
+            navigation = teacherhelper_match_navigation(catalog_id, match)
+            if navigation and self.on_resolved:
+                self.on_resolved(group_key, navigation)
+        source_group_id = str(target.get("id") or target.get("uuid") or "").strip() if isinstance(target, dict) else ""
         if not source_group_id:
             raise GroupInitializationError(f"group {group_key} was not found in catalog")
         return _GroupSource(catalog_snapshot_id=catalog_id, source_group_id=source_group_id)

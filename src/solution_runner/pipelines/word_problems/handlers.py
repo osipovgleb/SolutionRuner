@@ -35,6 +35,11 @@ HANDLERS = (
         requires_parent_condition_asset=False,
     ),
     HandlerSpec(
+        "word-problem-323514-wallpaper-rolls-ceiling",
+        "solution_runner.pipelines.word_problems.group_323514:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "word-problem-99565-successive-population-change",
         "solution_runner.pipelines.word_problems.group_99565:build_context_repair_plan",
         requires_parent_condition_asset=False,

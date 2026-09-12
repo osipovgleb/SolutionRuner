@@ -196,7 +196,7 @@ class JsonRpcMcpGateway:
     ) -> dict[str, Any]:
         """Call one tool with retry only when the operation is read-only."""
 
-        attempts = 3 if read_only else 1
+        attempts = 5 if read_only else 1
         last_error: Exception | None = None
         for attempt in range(1, attempts + 1):
             self._next_id += 1

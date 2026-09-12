@@ -41,15 +41,18 @@ CREATE TABLE IF NOT EXISTS groups (
     task_title TEXT,
     task_url TEXT,
     codex_thread_id TEXT,
+    codex_archived INTEGER NOT NULL DEFAULT 0,
     full_dry_run_status TEXT,
     agent_status TEXT,
     agent_summary TEXT,
+    source_navigation TEXT,
     synced_at TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_key TEXT NOT NULL REFERENCES groups(group_key) ON DELETE CASCADE,
     problem_id TEXT,
+    author_type TEXT NOT NULL DEFAULT 'user',
     body TEXT NOT NULL,
     created_at TEXT NOT NULL
 );
@@ -166,9 +169,11 @@ class DashboardStore:
                 "verify_helpers": "INTEGER NOT NULL DEFAULT 1",
                 "agent_sample_size": "INTEGER NOT NULL DEFAULT 1",
                 "codex_thread_id": "TEXT",
+                "codex_archived": "INTEGER NOT NULL DEFAULT 0",
                 "full_dry_run_status": "TEXT",
                 "agent_status": "TEXT",
                 "agent_summary": "TEXT",
+                "source_navigation": "TEXT",
             }
             for name, definition in migrations.items():
                 if name not in columns:
@@ -176,6 +181,13 @@ class DashboardStore:
             comment_columns = {row[1] for row in connection.execute("PRAGMA table_info(comments)")}
             if "problem_id" not in comment_columns:
                 connection.execute("ALTER TABLE comments ADD COLUMN problem_id TEXT")
+            if "author_type" not in comment_columns:
+                connection.execute("ALTER TABLE comments ADD COLUMN author_type TEXT NOT NULL DEFAULT 'user'")
+                connection.execute(
+                    "INSERT INTO comments (group_key, problem_id, author_type, body, created_at) "
+                    "SELECT group_key, NULL, 'codex', agent_summary, synced_at FROM groups "
+                    "WHERE agent_summary IS NOT NULL AND agent_summary != ''"
+                )
 
     def connect(self) -> sqlite3.Connection:
         connection = sqlite3.connect(self.path)
@@ -189,8 +201,11 @@ class DashboardStore:
         group["registered"] = bool(group["registered"])
         group["legacy"] = bool(group["legacy"])
         group["revision_requested"] = bool(group["revision_requested"])
+        group["codex_archived"] = bool(group["codex_archived"])
         group["verify_answers"] = bool(group["verify_answers"])
         group["verify_helpers"] = bool(group["verify_helpers"])
+        navigation = group.pop("source_navigation")
+        group["teacherhelper"] = json.loads(navigation) if navigation else None
         manual_column = group.pop("manual_column")
         group["column"] = {
             "needs_input": "issues",
@@ -217,6 +232,19 @@ class DashboardStore:
                 "SELECT * FROM groups ORDER BY title COLLATE NOCASE, group_key"
             ).fetchall()
         return [self._group(row) for row in rows]
+
+    def prune_inactive_groups(self, active_group_keys: set[str]) -> int:
+        """Drop imported profiles/history that are no longer active; keep manual groups."""
+        with self.connect() as connection:
+            stale = [
+                row["group_key"]
+                for row in connection.execute(
+                    "SELECT group_key FROM groups WHERE registered = 1 OR legacy = 1"
+                )
+                if row["group_key"] not in active_group_keys
+            ]
+            connection.executemany("DELETE FROM groups WHERE group_key = ?", ((key,) for key in stale))
+        return len(stale)
 
     def get_group(self, group_key: str) -> dict[str, Any] | None:
         with self.connect() as connection:
@@ -274,9 +302,11 @@ class DashboardStore:
             "task_title": "task_title",
             "task_url": "task_url",
             "codex_thread_id": "codex_thread_id",
+            "codex_archived": "codex_archived",
             "full_dry_run_status": "full_dry_run_status",
             "agent_status": "agent_status",
             "agent_summary": "agent_summary",
+            "teacherhelper": "source_navigation",
             "revision_requested": "revision_requested",
             "existing_solution_policy": "existing_solution_policy",
             "condition_image_policy": "condition_image_policy",
@@ -286,6 +316,8 @@ class DashboardStore:
             "agent_sample_size": "agent_sample_size",
         }
         values = {allowed[key]: value for key, value in changes.items() if key in allowed}
+        if "source_navigation" in values:
+            values["source_navigation"] = json.dumps(values["source_navigation"])
         agent_column = {
             "working": "work",
             "verifying": "work",
@@ -296,20 +328,32 @@ class DashboardStore:
         }.get(changes.get("agent_status"))
         if agent_column and "column" not in changes:
             values["manual_column"] = agent_column
-        if values.get("manual_column") == "done":
-            group = self.get_group(group_key)
-            if group and 0 < group["total"] <= 5 and group["transformed"] >= group["total"] and group["helpers"] >= group["total"]:
-                values["manual_column"] = "review"
         if values.get("manual_column") in {"review", "done"} and "revision_requested" not in changes:
             values["revision_requested"] = 0
+        if values.get("manual_column") == "done":
+            values["agent_status"] = None
         if not values:
             return self.get_group(group_key)
         assignments = ", ".join(f"{key} = ?" for key in values)
         with self.connect() as connection:
+            current = connection.execute(
+                "SELECT agent_summary FROM groups WHERE group_key = ?", (group_key,),
+            ).fetchone()
             connection.execute(
                 f"UPDATE groups SET {assignments} WHERE group_key = ?",
                 (*values.values(), group_key),
             )
+            summary = changes.get("agent_summary")
+            if (
+                summary
+                and changes.get("agent_status") in {"updated", "no_changes", "needs_input", "blocked"}
+                and (current is None or current["agent_summary"] != summary)
+            ):
+                connection.execute(
+                    "INSERT INTO comments (group_key, problem_id, author_type, body, created_at) "
+                    "VALUES (?, NULL, 'codex', ?, ?)",
+                    (group_key, summary, _now()),
+                )
         return self.get_group(group_key)
 
     def add_manual_group(
@@ -358,7 +402,7 @@ class DashboardStore:
     def list_comments(self, group_key: str) -> list[dict[str, Any]]:
         with self.connect() as connection:
             rows = connection.execute(
-                "SELECT id, problem_id, body, created_at FROM comments WHERE group_key = ? ORDER BY id",
+                "SELECT id, problem_id, author_type, body, created_at FROM comments WHERE group_key = ? ORDER BY id",
                 (group_key,),
             ).fetchall()
         return [dict(row) for row in rows]
@@ -367,7 +411,7 @@ class DashboardStore:
         created_at = _now()
         with self.connect() as connection:
             cursor = connection.execute(
-                "INSERT INTO comments (group_key, problem_id, body, created_at) VALUES (?, ?, ?, ?)",
+                "INSERT INTO comments (group_key, problem_id, author_type, body, created_at) VALUES (?, ?, 'user', ?, ?)",
                 (group_key, problem_id, body, created_at),
             )
             connection.execute(
@@ -375,7 +419,7 @@ class DashboardStore:
                 "WHERE group_key = ? AND COALESCE(manual_column, system_column) IN ('review', 'issues')",
                 (group_key,),
             )
-        return {"id": cursor.lastrowid, "problem_id": problem_id, "body": body, "created_at": created_at}
+        return {"id": cursor.lastrowid, "problem_id": problem_id, "author_type": "user", "body": body, "created_at": created_at}
 
 
 def sync_groups(
@@ -386,7 +430,8 @@ def sync_groups(
     inventory_store: Any | None = None,
 ) -> dict[str, int]:
     runs, warnings = discover_latest_runs(var_dir)
-    keys = set(profiles) | set(runs)
+    keys = set(profiles)
+    store.prune_inactive_groups(keys)
     for group_key in keys:
         profile = profiles.get(group_key)
         run = runs.get(group_key, {})

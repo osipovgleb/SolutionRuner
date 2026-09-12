@@ -232,10 +232,12 @@ def build_context_repair_plan(context:dict[str,Any])->RepairPlan:
         normalize_condition = formula_span.parent.name != "p"
         formula=str(formula_span.get("data-inline-latex") or ""); formula_span.replace_with(formula)
     else:
-        match=re.search(r"(?P<a>\d+)<sup>(?P<ae>.*?)</sup>\s*=\s*(?P<b>\d+)<sup>(?P<be>.*?)</sup>",raw)
+        match=re.search(r"(?P<a>\d+)<sup>(?P<ae>.*?)</sup>\s*=\s*(?P<b>\d+)(?:<sup>(?P<be>.*?)</sup>)?",raw)
         if not match: raise UnsupportedCondition("condition equation is ambiguous")
         clean=lambda value: re.sub(r"\s+","",BeautifulSoup(value,"html.parser").get_text()).replace("−","-")
-        formula=f"{match.group('a')}^{{{clean(match.group('ae'))}}}={match.group('b')}^{{{clean(match.group('be'))}}}"
+        right_exponent = match.group("be")
+        right = match.group("b") if right_exponent is None else f"{match.group('b')}^{{{clean(right_exponent)}}}"
+        formula=f"{match.group('a')}^{{{clean(match.group('ae'))}}}={right}"
         soup=BeautifulSoup(f"<p>Найдите корень уравнения {formula}.</p>","html.parser")
     visible=re.sub(r"\s+([.])",r"\1"," ".join(soup.get_text(" ",strip=True).replace("\u00ad","").split()))
     matched = next((

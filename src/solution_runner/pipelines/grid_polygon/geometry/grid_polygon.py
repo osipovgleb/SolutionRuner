@@ -522,7 +522,11 @@ def _validate_geometry(
         elif geometry_profile != "bounding-rectangle-triangle":
             raise GridPolygonError(f"unsupported triangle geometry profile: {geometry_profile}")
     elif expected_vertices == 4:
-        if geometry_profile == "parallel-bases-trapezoid":
+        if geometry_profile in {
+            "parallel-bases-trapezoid",
+            "parallel-bases-trapezoid-three-methods",
+            "trapezoid-pick",
+        }:
             edges = [
                 (
                     points[(index + 1) % 4][0] - points[index][0],

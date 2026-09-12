@@ -185,7 +185,10 @@ def test_gateway_resolves_visible_group_inside_explicit_catalog() -> None:
 def test_read_retries_transient_failure_but_write_does_not_blindly_retry() -> None:
     """Avoid duplicating an ambiguous write while retaining bounded read retry."""
 
-    read_transport = Transport([Response({}, 502), _success({"problem_id": "p1"})])
+    read_transport = Transport([
+        Response({}, 502), Response({}, 502), Response({}, 502), Response({}, 502),
+        _success({"problem_id": "p1"}),
+    ])
     read_gateway = JsonRpcMcpGateway(
         url="https://example.invalid/mcp",
         api_key="secret",
@@ -193,7 +196,7 @@ def test_read_retries_transient_failure_but_write_does_not_blindly_retry() -> No
         sleep=lambda _: None,
     )
     assert read_gateway.get_problem_context("p1")["problem_id"] == "p1"
-    assert len(read_transport.calls) == 2
+    assert len(read_transport.calls) == 5
 
     write_transport = Transport([Response({}, 502), _success({"results": []})])
     write_gateway = JsonRpcMcpGateway(

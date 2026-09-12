@@ -94,6 +94,15 @@ def test_store_persists_agent_card_status(tmp_path):
     assert group["agent_status"] == "updated"
     assert group["agent_summary"] == "508128: уточнён обработчик условия."
     assert group["column"] == "review"
+    codex_comment = store.list_comments("123")[0]
+    assert codex_comment["author_type"] == "codex"
+    assert codex_comment["body"] == "508128: уточнён обработчик условия."
+
+    store.update_group("123", {
+        "agent_status": "updated",
+        "agent_summary": "508128: уточнён обработчик условия.",
+    })
+    assert len(store.list_comments("123")) == 1
 
     assert store.update_group("123", {"agent_status": "working"})["column"] == "work"
     assert store.update_group("123", {"agent_status": "needs_input"})["column"] == "issues"
@@ -101,9 +110,12 @@ def test_store_persists_agent_card_status(tmp_path):
     with store.connect() as connection:
         connection.execute("UPDATE groups SET manual_column = 'done' WHERE group_key = '123'")
     assert store.get_group("123")["column"] == "issues"
+    completed = store.update_group("123", {"column": "done"})
+    assert completed["column"] == "done"
+    assert completed["agent_status"] is None
 
 
-def test_completed_small_group_goes_to_review_instead_of_done(tmp_path):
+def test_completed_small_group_requires_review_but_allows_manual_completion(tmp_path):
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     store.upsert_fact({
         "group_key": "small", "title": "Малая группа", "path": "Малая группа",
@@ -119,7 +131,7 @@ def test_completed_small_group_goes_to_review_instead_of_done(tmp_path):
     ])
 
     assert store.get_group("small")["column"] == "review"
-    assert store.update_group("small", {"column": "done"})["column"] == "review"
+    assert store.update_group("small", {"column": "done"})["column"] == "done"
 
 
 def test_comments_from_issues_and_review_return_group_to_work(tmp_path):
@@ -217,22 +229,35 @@ def test_sync_uses_sqlite_inventory_as_registered_group_source_of_truth(tmp_path
     assert group["errors"] == 3
 
 
-def test_sync_keeps_history_only_group_as_legacy(tmp_path):
+def test_sync_does_not_import_history_only_group(tmp_path):
     run = tmp_path / "var" / "grid-polygon" / "runs" / "20260101T000000Z-group-999"
     _write_json(run / "summary.json", {"group_key": "999", "targets": 4, "status": "completed"})
 
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     sync_groups(store, {}, tmp_path / "var")
 
-    group = store.get_group("999")
-    assert group["registered"] is False
-    assert group["legacy"] is True
-    assert group["column"] == "review"
+    assert store.get_group("999") is None
+
+
+def test_sync_prunes_removed_profile_but_keeps_manual_group(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    sync_groups(store, {"old": _profile("old")}, tmp_path / "var")
+    store.add_manual_group("manual", "catalog-1")
+
+    sync_groups(store, {}, tmp_path / "var")
+
+    assert store.get_group("old") is None
+    assert store.get_group("manual") is not None
 
 
 def test_manual_group_stays_in_initialization_after_sync(tmp_path):
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     store.add_manual_group("new-1", "41bc4d03-40cd-4407-8dea-df76e3f47ea8")
+    navigation = {
+        "source_site_id": "site", "snapshot_id": "snapshot",
+        "category_id": "category", "theme_id": "theme", "group_id": "group",
+    }
+    store.update_group("new-1", {"teacherhelper": navigation})
 
     sync_groups(store, {}, tmp_path / "var")
 
@@ -248,6 +273,7 @@ def test_manual_group_stays_in_initialization_after_sync(tmp_path):
     assert group["verify_answers"] is True
     assert group["verify_helpers"] is True
     assert group["agent_sample_size"] == 1
+    assert group["teacherhelper"] == navigation
 
 
 def test_catalog_snapshots_get_distinct_filter_labels(tmp_path):

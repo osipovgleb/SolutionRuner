@@ -44,6 +44,15 @@ def test_numeric_rational_expression_handles_all_registered_shapes() -> None:
         assert len(plan.transformations) == 2
 
 
+def test_numeric_rational_expression_omits_leading_zero_from_decimal_numerator() -> None:
+    plan = build_context_repair_plan(
+        _context(r"(3\frac{4}{5}-0{,}6)\colon\frac{2}{25}")
+    )
+    solution = plan.transformations[0]["value"]["html"]
+    assert r"\frac{6}{10}" in solution
+    assert r"\frac{06}{10}" not in solution
+
+
 def test_numeric_rational_expression_handles_the_remaining_base_ege_forms() -> None:
     cases = (
         (r"1\frac{1}{12}\colon(1\frac{13}{18}-2\frac{5}{9})", "-1,3"),

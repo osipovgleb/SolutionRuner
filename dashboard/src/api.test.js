@@ -36,6 +36,19 @@ test("dashboard API creates a registration candidate", async () => {
   assert.equal(JSON.parse(calls[0][1].body).agent_sample_size, 2);
 });
 
+test("dashboard API includes a comment when creating a Codex task", async () => {
+  const calls = [];
+  const api = createApi(async (url, options) => {
+    calls.push([url, options]);
+    return { ok: true, json: async () => ({ task: { id: "thread-new" } }) };
+  });
+
+  await api.registerGroup("315122", null, "Проверь Helpers");
+
+  assert.equal(calls[0][0], "/api/groups/315122/register");
+  assert.deepEqual(JSON.parse(calls[0][1].body), { comment: "Проверь Helpers" });
+});
+
 test("dashboard API starts a scoped local dry-run", async () => {
   const calls = [];
   const api = createApi(async (url, options) => {
@@ -61,6 +74,8 @@ test("dashboard API starts exact-problem and whole-group apply", async () => {
   await api.startProblemDryRun("27719", "problem-uuid");
   await api.applyProblem("27719", "problem-uuid");
   await api.applyGroup("27719");
+  await api.applyProblemHelpers("27719", "problem-uuid");
+  await api.applyGroupHelpers("27719");
 
   assert.equal(calls[0][0], "/api/groups/27719/dry-run");
   assert.deepEqual(JSON.parse(calls[0][1].body), {
@@ -71,6 +86,8 @@ test("dashboard API starts exact-problem and whole-group apply", async () => {
   assert.deepEqual(JSON.parse(calls[1][1].body), { problem_id: "problem-uuid" });
   assert.equal(calls[2][0], "/api/groups/27719/apply");
   assert.deepEqual(JSON.parse(calls[2][1].body), { scope: "group" });
+  assert.deepEqual(JSON.parse(calls[3][1].body), { stage: "helpers", problem_id: "problem-uuid" });
+  assert.deepEqual(JSON.parse(calls[4][1].body), { stage: "helpers", scope: "group" });
 });
 
 test("dashboard API reads initialization and task inventory", async () => {
@@ -127,9 +144,12 @@ test("dashboard API lists Codex tasks and registers a group", async () => {
   await api.listCodexTasks();
   await api.registerGroup("27719", "thread-1");
   await api.registerGroup("27720", null);
+  await api.archiveCodex("27719");
 
   assert.equal(calls[0][0], "/api/codex/tasks");
   assert.equal(calls[1][0], "/api/groups/27719/register");
   assert.deepEqual(JSON.parse(calls[1][1].body), { thread_id: "thread-1" });
   assert.deepEqual(JSON.parse(calls[2][1].body), {});
+  assert.equal(calls[3][0], "/api/groups/27719/archive-codex");
+  assert.equal(calls[3][1].method, "POST");
 });

@@ -140,7 +140,49 @@ def test_apply_calls_shared_executor_for_only_the_verified_problem(tmp_path):
     row = inventory.list_items("123")[0]
     assert row["apply_status"] == "applied"
     assert row["helpers_status"] == "applied"
-    assert store.get_group("123")["column"] == "review"
+    assert store.get_group("123")["column"] == "done"
+
+
+def test_helpers_only_applies_one_task_without_reapplying_solution(tmp_path):
+    inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    inventory.replace(GroupInventorySnapshot(
+        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("child", "11", 0, True, True, True),),
+    ))
+    inventory.update_item_stage(GroupItemStageResult(
+        group_key="123", problem_id="child", apply_status="applied", helpers_status="failed",
+    ))
+    calls = []
+
+    def execute(args):
+        calls.append(args)
+        run = tmp_path / "content-rule/runs/20260911T000000Z-group-123"
+        run.mkdir(parents=True)
+        (run / "summary.json").write_text(json.dumps({"group_key": "123", "status": "completed"}))
+        (run / "helpers-results.json").write_text(json.dumps([{
+            "problem_id": "child", "source_problem_id": "11", "stage": "helpers", "status": "applied",
+        }]))
+        return 0
+
+    manager = ApplyManager(
+        var_dir=tmp_path,
+        profiles={"123": SimpleNamespace(group_key="123", catalog_snapshot_id="catalog")},
+        inventory_store=inventory,
+        executor=execute,
+    )
+
+    state = manager.run_helpers_now("123", ("child",))
+
+    assert state["status"] == "completed"
+    assert json.loads((tmp_path / "content-rule/runs/20260911T000000Z-group-123/summary.json").read_text())[
+        "dashboard_action"
+    ] == "helpers"
+    assert "--helpers-from-existing-solution" in calls[0]
+    assert calls[0][-2:] == ["--only-problem-id", "child"]
+    row = inventory.list_items("123")[0]
+    assert row["apply_status"] == "applied"
+    assert row["helpers_status"] == "applied"
 
 
 def test_apply_reports_primary_solution_error_when_helpers_is_skipped(tmp_path):
@@ -235,6 +277,7 @@ def test_apply_group_uses_sqlite_inventory_and_projects_every_result(tmp_path):
     assert state["scope"] == "group"
     assert "--apply" in calls[0]
     assert "--only-problem-id" not in calls[0]
+    assert calls[0][calls[0].index("--max-workers") + 1] == "5"
     assert all(row["apply_status"] in {"applied", "already_complete"} for row in inventory.list_items("123"))
     assert all(row["helpers_status"] in {"applied", "already_complete"} for row in inventory.list_items("123"))
 
@@ -328,7 +371,7 @@ def test_group_apply_retries_after_5_10_15_and_clears_previous_problems(tmp_path
     assert state["attempt"] == 4
     assert all(not row["error"] for row in inventory.list_items("123"))
     group = store.get_group("123")
-    assert group["column"] == "review"
+    assert group["column"] == "done"
     assert group["stats"]["errors"] == 0
     assert group["agent_status"] is None
     assert group["agent_summary"] is None

@@ -8,10 +8,12 @@ from math import isqrt
 import re
 from typing import Any
 
-from ...triangles.isosceles.planner import _asset_transformation, _section_transformation
+from ...triangles.isosceles.planner import _section_transformation
 from ...triangles.right.planner import RepairPlan, RightTrianglePlanError
 
 RULE = "trapezoid-77152-isosceles-leg-from-sine"
+CONDITION_ASSET_ID = "7bc01fc5-ee3d-4993-8a7e-a3bff5b5c810"
+CONDITION_ASSET_KEY = "condition_trapezoid"
 
 
 def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
@@ -66,6 +68,30 @@ def _solution_matches(current: str, expected: str, asset_id: str) -> bool:
     return re.fullmatch(re.escape(expected) + suffix, current) is not None
 
 
+def _condition_asset_transformation() -> dict[str, Any]:
+    """Add the cleaned trapezoid to the condition without moving solution art."""
+
+    return {
+        "transformation_target_id": f"asset:{CONDITION_ASSET_KEY}",
+        "operation": "add",
+        "value": {
+            "parent_target_id": "section:condition:1",
+            "position": 0,
+            "asset_key": CONDITION_ASSET_KEY,
+            "asset_id": CONDITION_ASSET_ID,
+            "url": f"/assets/{CONDITION_ASSET_ID}",
+            "kind": "ordinary_image",
+            "alt": "Равнобедренная трапеция",
+            "html": (
+                f'<center><img alt="Равнобедренная трапеция" '
+                f'data-asset-id="{CONDITION_ASSET_ID}" '
+                f'data-asset-key="{CONDITION_ASSET_KEY}" '
+                f'src="/assets/{CONDITION_ASSET_ID}"/></center>'
+            ),
+        },
+    }
+
+
 def build_repair_plan(context: dict[str, Any], *, parent_condition_asset_id: str) -> RepairPlan:
     content = context.get("normalized_content")
     if not isinstance(content, dict) or content.get("format") != "teacherhelper-normalized" or content.get("schema_version") != 3:
@@ -89,10 +115,11 @@ def build_repair_plan(context: dict[str, Any], *, parent_condition_asset_id: str
     changes: list[dict[str, Any]] = []
     solution = _section(content, "solution")
     keys = tuple(str(key) for key in (solution or {}).get("asset_keys", []))
-    if solution is None or not _solution_matches(str(solution.get("html") or ""), html, parent_condition_asset_id) or keys:
-        changes.append(_section_transformation(solution, "solution", "Решение", html))
-    if parent_condition_asset_id not in str(condition.get("html") or ""):
-        changes.append(_asset_transformation(parent_condition_asset_id))
+    if solution is None or not _solution_matches(str(solution.get("html") or ""), html, parent_condition_asset_id):
+        changes.append(_section_transformation(solution, "solution", "Решение", html, asset_keys=keys))
+    assets = content.get("assets") if isinstance(content.get("assets"), list) else []
+    if not any(isinstance(asset, dict) and asset.get("asset_id") == CONDITION_ASSET_ID for asset in assets):
+        changes.append(_condition_asset_transformation())
     answer_section = _section(content, "answer")
     answer_html = f'<p><span data-effect="spaced">{answer}</span></p>'
     if answer_section is None or str(answer_section.get("html") or "") != answer_html:

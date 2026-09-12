@@ -11,10 +11,11 @@ export function createApi(fetcher = fetch) {
   return {
     listGroups: () => request(fetcher, "/api/groups"),
     listCodexTasks: () => request(fetcher, "/api/codex/tasks"),
-    registerGroup: (id, threadId = null) => request(fetcher, `/api/groups/${id}/register`, {
+    registerGroup: (id, threadId = null, comment = "") => request(fetcher, `/api/groups/${id}/register`, {
       method: "POST",
-      body: JSON.stringify(threadId ? { thread_id: threadId } : {}),
+      body: JSON.stringify({ ...(threadId ? { thread_id: threadId } : {}), ...(comment ? { comment } : {}) }),
     }),
+    archiveCodex: (id) => request(fetcher, `/api/groups/${id}/archive-codex`, { method: "POST" }),
     getGroup: (id) => request(fetcher, `/api/groups/${id}`),
     getInitialization: (id) => request(fetcher, `/api/groups/${id}/initialization`),
     startInitialization: (id) => request(fetcher, `/api/groups/${id}/initialization`, { method: "POST" }),
@@ -57,6 +58,14 @@ export function createApi(fetcher = fetch) {
     applyGroup: (id) => request(fetcher, `/api/groups/${id}/apply`, {
       method: "POST",
       body: JSON.stringify({ scope: "group" }),
+    }),
+    applyProblemHelpers: (id, problemId) => request(fetcher, `/api/groups/${id}/apply`, {
+      method: "POST",
+      body: JSON.stringify({ stage: "helpers", problem_id: problemId }),
+    }),
+    applyGroupHelpers: (id) => request(fetcher, `/api/groups/${id}/apply`, {
+      method: "POST",
+      body: JSON.stringify({ stage: "helpers", scope: "group" }),
     }),
     addComment: (id, body, problemId = null) => request(fetcher, `/api/groups/${id}/comments`, {
       method: "POST",
