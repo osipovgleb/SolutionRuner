@@ -139,6 +139,23 @@ def fetch_problem_preview(
     }
 
 
+def _asset_keys_in_html(html: str) -> set[str]:
+    return {
+        str(tag.get("data-asset-key"))
+        for tag in BeautifulSoup(html, "lxml").find_all(attrs={"data-asset-key": True})
+    }
+
+
+def _asset_fragment(html: str, asset_key: str) -> str:
+    tag = BeautifulSoup(html, "lxml").find(attrs={"data-asset-key": asset_key})
+    if tag is None:
+        return ""
+    parent = tag.parent
+    if parent is not None and parent.name in {"p", "center"} and not parent.get_text(strip=True):
+        return str(parent)
+    return str(tag)
+
+
 def _apply_locally(content: Mapping[str, Any], transformations: list[dict[str, Any]]) -> dict[str, Any]:
     """Materialize a dry-run plan in memory without an MCP write."""
 
@@ -154,11 +171,20 @@ def _apply_locally(content: Mapping[str, Any], transformations: list[dict[str, A
             if operation == "remove":
                 sections[:] = [section for section in sections if section is not match]
             elif operation in {"add", "rewrite"} and isinstance(value, dict):
+                previous_html = str((match or {}).get("html") or "")
                 updates = {
                     key: deepcopy(item)
                     for key, item in value.items()
                     if key in {"html", "title", "asset_keys"}
                 }
+                if "html" in updates and "asset_keys" in updates:
+                    present = _asset_keys_in_html(str(updates["html"]))
+                    retained = "".join(
+                        _asset_fragment(previous_html, str(key))
+                        for key in updates["asset_keys"]
+                        if str(key) not in present
+                    )
+                    updates["html"] = retained + str(updates["html"])
                 if match is None and operation == "add":
                     sections.append({
                         "key": target_id.split(":", 2)[1],
@@ -177,6 +203,23 @@ def _apply_locally(content: Mapping[str, Any], transformations: list[dict[str, A
                     assets.append(deepcopy(value))
                 else:
                     match.update(deepcopy(value))
+                parent_id = str(value.get("parent_target_id") or "")
+                parent = next(
+                    (section for section in sections if section.get("transformation_target_id") == parent_id),
+                    None,
+                )
+                fragment = str(value.get("html") or "")
+                if parent is not None and fragment:
+                    parent_html = str(parent.get("html") or "")
+                    if key not in _asset_keys_in_html(parent_html):
+                        parent["html"] = (
+                            fragment + parent_html
+                            if int(value.get("position") or 0) == 0
+                            else parent_html + fragment
+                        )
+                    parent_keys = parent.setdefault("asset_keys", [])
+                    if key not in parent_keys:
+                        parent_keys.append(key)
     return result
 
 

@@ -165,3 +165,57 @@ def test_preview_materializes_new_sections_from_a_geometry_plan():
 
     assert sample["before"]["solution_html"] == ""
     assert sample["after"]["solution_html"] == "<p>Подробное решение</p>"
+
+
+def test_preview_materializes_attached_assets_and_keeps_referenced_section_assets():
+    class Gateway:
+        def get_problem_context(self, problem_id):
+            return {"normalized_content": {
+                "sections": [
+                    {
+                        "key": "condition",
+                        "transformation_target_id": "section:condition:1",
+                        "html": "<p>Условие</p>",
+                        "asset_keys": [],
+                    },
+                    {
+                        "key": "solution",
+                        "transformation_target_id": "section:solution:1",
+                        "html": '<p><img data-asset-key="old" src="/assets/old"/></p><p>Старое решение</p>',
+                        "asset_keys": ["old"],
+                    },
+                ],
+                "assets": [{"asset_key": "old", "url": "/assets/old"}],
+            }}
+
+    manifest = {"group_key": "7", "records": [{
+        "problem_id": "child",
+        "source_problem_id": "101",
+        "transformations": [
+            {
+                "operation": "rewrite",
+                "transformation_target_id": "section:solution:1",
+                "value": {"html": "<p>Новое решение</p>", "asset_keys": ["old"]},
+            },
+            {
+                "operation": "add",
+                "transformation_target_id": "asset:new",
+                "value": {
+                    "asset_key": "new",
+                    "url": "/assets/new",
+                    "parent_target_id": "section:condition:1",
+                    "position": 0,
+                    "html": '<center><img data-asset-key="new" src="/assets/new"/></center>',
+                },
+            },
+        ],
+    }]}
+
+    after = fetch_preview(
+        Gateway(),
+        SimpleNamespace(group_key="7", source_group_id="group-uuid"),
+        manifest,
+    )["samples"][0]["after"]
+
+    assert 'src="https://lessons-helper.ru/assets/new"' in after["condition_html"]
+    assert 'src="https://lessons-helper.ru/assets/old"' in after["solution_html"]
