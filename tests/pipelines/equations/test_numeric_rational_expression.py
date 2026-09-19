@@ -67,6 +67,16 @@ def test_numeric_rational_expression_handles_the_remaining_base_ege_forms() -> N
         assert build_context_repair_plan(_context(formula)).answer == answer
 
 
+def test_numeric_rational_expression_normalizes_legacy_text_fraction_tokens() -> None:
+    assert build_context_repair_plan(_context(r"\text{onehalf}+33\text{over}50")).answer == "1,16"
+
+
+def test_simple_fraction_sum_shows_common_and_decimal_denominators() -> None:
+    solution = build_context_repair_plan(_context(r"\frac{1}{4}+\frac{37}{20}")).transformations[0]["value"]["html"]
+    assert r"\frac{5}{20}+\frac{37}{20}=\frac{42}{20}" in solution
+    assert r"\frac{42}{20}=\frac{21}{10}=2{,}1" in solution
+
+
 def test_numeric_rational_expression_profiles_cover_profile_base_and_oge() -> None:
     profiles = all_group_profiles()
     for key in (
@@ -77,6 +87,7 @@ def test_numeric_rational_expression_profiles_cover_profile_base_and_oge() -> No
         "ege-base-77387",
         "ege-base-77389",
         "oge-314288",
+        "314264",
         "oge-333111",
     ):
         assert profiles[key].content_rule_key == "numeric-rational-expression-mixed-decimal"

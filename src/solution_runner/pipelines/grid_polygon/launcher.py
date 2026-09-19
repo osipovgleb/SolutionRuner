@@ -200,7 +200,25 @@ def _validated_args(
 
     parser = _parser()
     args = parser.parse_args(argv)
-    profile = get_group_profile(args.group)
+    try:
+        profile = get_group_profile(args.group)
+    except KeyError:
+        if not (args.helpers_from_existing_solution and args.inventory_db):
+            raise
+        snapshot = GroupInventoryStore(args.inventory_db).get(args.group)
+        if snapshot is None or snapshot.status != "ready":
+            parser.error("manual Helpers requires a ready local inventory")
+        profile = GroupProfile(
+            catalog_snapshot_id=snapshot.catalog_snapshot_id,
+            snapshot_theme_id="manual",
+            source_group_id=snapshot.source_group_id,
+            group_key=args.group,
+            group_order_index=0,
+            theme_title=f"Группа {args.group}",
+            theme_order_index=0,
+            expected_vertices=None,
+            strategy_key=None,
+        )
     if args.confirm_catalog != profile.catalog_snapshot_id:
         parser.error("--confirm-catalog does not match the selected group profile")
     if args.resume_images and args.resume_solutions:

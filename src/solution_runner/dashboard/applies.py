@@ -182,8 +182,6 @@ class ApplyManager:
 
     def start_helpers(self, group_key: str, problem_id: str | None = None) -> dict[str, Any]:
         rows = self.inventory_store.list_items(group_key)
-        if group_key not in self.profiles:
-            raise KeyError(group_key)
         if problem_id:
             rows = [row for row in rows if str(row["problem_id"]) == problem_id]
             if not rows:
@@ -217,7 +215,9 @@ class ApplyManager:
         problem_ids: tuple[str, ...],
         scope: str | None = None,
     ) -> dict[str, Any]:
-        profile = self.profiles[group_key]
+        snapshot = self.inventory_store.get(group_key)
+        if snapshot is None or snapshot.status != "ready":
+            raise ValueError("group has no ready local inventory")
         scope = scope or ("problem" if len(problem_ids) == 1 else "group")
         state: dict[str, Any] = {
             "group_key": group_key,
@@ -229,8 +229,8 @@ class ApplyManager:
         }
         self._write(state)
         argv = [
-            "--group", str(profile.group_key),
-            "--confirm-catalog", str(profile.catalog_snapshot_id),
+            "--group", group_key,
+            "--confirm-catalog", str(snapshot.catalog_snapshot_id),
             "--inventory-db", str(self.inventory_store.path),
             "--max-workers", "1" if len(problem_ids) == 1 else "5",
             "--apply",

@@ -313,6 +313,8 @@ PROFILES = (
 
     _profile("oge-314288", "d3d74bf8-6c6b-43c8-aa79-c7920f560a5b", 3,
                 catalog_snapshot_id="fd733f80-43d2-4b4a-b903-2423796cbee5", category_key="6", theme_title="Действия с обыкновенными дробями", theme_order_index=0, snapshot_theme_id="2fec0659-259e-4200-821e-8c2b8db13b21", expected_vertices=None, strategy_key=None, workflow_kind="content_rule", content_rule_key="numeric-rational-expression-mixed-decimal", rewrite_existing_solution=True),
+    _profile("314264", "d9b3fc1f-f154-4636-8995-ab758a951c69", 4,
+                catalog_snapshot_id="fd733f80-43d2-4b4a-b903-2423796cbee5", category_key="6", theme_title="Действия с обыкновенными дробями", theme_order_index=0, snapshot_theme_id="2fec0659-259e-4200-821e-8c2b8db13b21", expected_vertices=None, strategy_key=None, workflow_kind="content_rule", content_rule_key="numeric-rational-expression-mixed-decimal", rewrite_existing_solution=True),
     _profile("oge-333111", "1e478ce8-67c9-4366-83b0-a71220f99283", 5,
                 catalog_snapshot_id="fd733f80-43d2-4b4a-b903-2423796cbee5", category_key="6", theme_title="Действия с обыкновенными дробями", theme_order_index=0, snapshot_theme_id="2fec0659-259e-4200-821e-8c2b8db13b21", expected_vertices=None, strategy_key=None, workflow_kind="content_rule", content_rule_key="numeric-rational-expression-mixed-decimal", rewrite_existing_solution=True),
 

@@ -73,6 +73,19 @@ def test_local_inventory_applies_solution_scope_without_mcp_discovery(tmp_path):
     assert [target.problem_id for target in complete.targets] == ["parent", "child"]
 
 
+def test_local_inventory_allows_assetless_helpers_scope(tmp_path):
+    store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    store.replace(GroupInventorySnapshot(
+        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+    ))
+
+    inventory = load_group_inventory(store, _profile(), apply_solution_scope=False)
+
+    assert [target.problem_id for target in inventory.targets] == ["parent"]
+
+
 def test_local_inventory_rejects_stale_group_coordinates(tmp_path):
     with pytest.raises(ValueError, match="does not match"):
         load_group_inventory(_store(tmp_path), _profile(source_group_id="other"))

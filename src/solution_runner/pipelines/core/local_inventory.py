@@ -57,7 +57,7 @@ def load_group_inventory(
             ),
             None,
         )
-        if profile.workflow_kind != "content_rule" and (
+        if apply_solution_scope and profile.workflow_kind != "content_rule" and (
             condition_asset is None
             or condition_asset.content_type not in RASTER_CONTENT_TYPES | {"image/svg+xml"}
         ):
@@ -71,6 +71,8 @@ def load_group_inventory(
         )
         targets.append(target)
         if profile.workflow_kind == "content_rule":
+            continue
+        if condition_asset is None:
             continue
         if condition_asset.content_type in RASTER_CONTENT_TYPES:
             png.append(target)

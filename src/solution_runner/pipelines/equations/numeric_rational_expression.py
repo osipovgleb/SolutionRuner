@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from fractions import Fraction
-from math import gcd
+from math import gcd, lcm
 import re
 from typing import Any
 
@@ -214,10 +214,6 @@ def _source_fraction_latex(value: str) -> str:
 
 def _common_denominator_row(left: Fraction, right: Fraction, operator: str) -> tuple[str, Fraction]:
     denominator = left.denominator * right.denominator
-    # The groups use small denominators.  This avoids importing a second math engine
-    # while retaining the actual least common denominator in the written solution.
-    from math import lcm
-
     denominator = lcm(left.denominator, right.denominator)
     left_numerator = left.numerator * (denominator // left.denominator)
     right_numerator = right.numerator * (denominator // right.denominator)
@@ -264,6 +260,8 @@ def _formula(condition: dict[str, Any]) -> str:
         .replace(":", "\\colon")
         .replace(" ", "")
     )
+    formula = formula.replace(r"\text{onehalf}", r"\frac{1}{2}")
+    formula = re.sub(r"(\d+)\\text\{over\}(\d+)", r"\\frac{\1}{\2}", formula)
     return formula
 
 
@@ -276,6 +274,38 @@ def _generic_plan(
     expression = _ExpressionParser(formula).parse()
     result = _expression_value(expression)
     answer = _answer(result)
+    if (
+        expression[0] in ("+", "-")
+        and expression[1][0] in ("number", "frac")
+        and expression[2][0] in ("number", "frac")
+    ):
+        left, right = _expression_value(expression[1]), _expression_value(expression[2])
+        denominator = lcm(left.denominator, right.denominator)
+        left_numerator = left.numerator * (denominator // left.denominator)
+        right_numerator = right.numerator * (denominator // right.denominator)
+        numerator = left_numerator + right_numerator if expression[0] == "+" else left_numerator - right_numerator
+        decimal_denominator = 10 ** len(answer.partition(",")[2])
+        decimal_numerator = result.numerator * (decimal_denominator // result.denominator)
+        common_fraction = f"\\frac{{{numerator}}}{{{denominator}}}"
+        expected_solution = (
+            "<p>Приведём дроби к общему знаменателю:</p>"
+            f'<center><p><span data-inline-latex="{formula}=\\frac{{{left_numerator}}}{{{denominator}}}{expression[0]}\\frac{{{right_numerator}}}{{{denominator}}}={common_fraction}"></span>.</p></center>'
+            f"<p>Преобразуем полученную дробь к знаменателю {decimal_denominator}:</p>"
+            f'<center><p><span data-inline-latex="{common_fraction}=\\frac{{{decimal_numerator}}}{{{decimal_denominator}}}={_answer_latex(result)}"></span>.</p></center>'
+        )
+        changes: list[dict[str, Any]] = []
+        if solution_section is None or str(solution_section.get("html") or "") != expected_solution:
+            changes.append(_section_transformation(solution_section, "solution", "Решение", expected_solution))
+        current_answer = BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "", "html.parser"
+        ).get_text("", strip=True).replace(" ", "")
+        if current_answer != answer:
+            changes.append(
+                _section_transformation(
+                    answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
+                )
+            )
+        return RepairPlan(answer=answer, transformations=tuple(changes))
     rows = _expression_steps(expression)
     if not rows:
         raise RightTrianglePlanError("condition does not match a registered numeric rational expression")

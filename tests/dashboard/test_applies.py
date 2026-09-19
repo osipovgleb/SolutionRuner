@@ -185,6 +185,40 @@ def test_helpers_only_applies_one_task_without_reapplying_solution(tmp_path):
     assert row["helpers_status"] == "applied"
 
 
+def test_manual_initialized_group_can_apply_helpers_without_a_registered_runner(tmp_path):
+    inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    inventory.replace(GroupInventorySnapshot(
+        group_key="manual", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+    ))
+    calls = []
+
+    def execute(args):
+        calls.append(args)
+        run = tmp_path / "content-rule/runs/current-manual"
+        run.mkdir(parents=True)
+        (run / "summary.json").write_text(json.dumps({"group_key": "manual", "status": "completed"}))
+        (run / "helpers-results.json").write_text(json.dumps([{
+            "problem_id": "parent", "source_problem_id": "10", "stage": "helpers", "status": "applied",
+        }]))
+        return 0
+
+    manager = ApplyManager(
+        var_dir=tmp_path,
+        profiles={},
+        inventory_store=inventory,
+        executor=execute,
+    )
+
+    state = manager.run_helpers_now("manual", ("parent",))
+
+    assert state["status"] == "completed"
+    assert calls[0][calls[0].index("--group") + 1] == "manual"
+    assert calls[0][calls[0].index("--confirm-catalog") + 1] == "catalog"
+    assert "--helpers-from-existing-solution" in calls[0]
+
+
 def test_apply_reports_primary_solution_error_when_helpers_is_skipped(tmp_path):
     inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
     inventory.replace(GroupInventorySnapshot(
