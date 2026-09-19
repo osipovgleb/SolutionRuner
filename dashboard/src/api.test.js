@@ -3,6 +3,15 @@ import assert from "node:assert/strict";
 
 import { createApi } from "./api.js";
 
+test("dashboard API removes a card with an encoded group key", async () => {
+  const api = createApi(async (url, options) => {
+    assert.equal(url, `/api/groups/${encodeURIComponent("Группа 506803")}`);
+    assert.equal(options.method, "DELETE");
+    return { ok: true, json: async () => ({ removed: true }) };
+  });
+  assert.deepEqual(await api.removeGroup("Группа 506803"), { removed: true });
+});
+
 test("dashboard API updates a group column", async () => {
   const calls = [];
   const api = createApi(async (url, options) => {

@@ -277,7 +277,22 @@ function HistoryTab({ activity }) {
   </section>;
 }
 
-function DetailPanel({ group, onClose, onGroupUpdate }) {
+function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
+  const [removing, setRemoving] = useState(false);
+  const [removeError, setRemoveError] = useState("");
+  const removeGroup = async () => {
+    if (!window.confirm(`Удалить «${group.title}» с доски? Комментарии карточки будут удалены. Исходные задачи, решения и история запусков сохранятся. Группу можно добавить заново.`)) return;
+    setRemoving(true);
+    setRemoveError("");
+    try {
+      await api.removeGroup(group.id);
+      onRemove(group.id);
+    } catch {
+      setRemoveError("Не удалось удалить группу. Проверьте, что инициализация, агент и запуски завершены.");
+    } finally {
+      setRemoving(false);
+    }
+  };
   const teacherhelperUrl = teacherHelperGroupUrl(group.teacherhelper);
   const [tab, setTab] = useState("preview");
   const [comment, setComment] = useState("");
@@ -609,6 +624,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
           </div>}
         </div>
         <div class="detail-actions">
+          <button class="secondary-button" onClick={removeGroup} disabled={removing}>{removing ? "Удаляю…" : "Удалить с доски"}</button>
           {group.task_url
             ? <a class="secondary-button codex-link" href={group.task_url}><Icon>↗</Icon>Codex</a>
             : <button class="secondary-button" onClick={openRegistration}><Icon>＋</Icon>Связать с Codex</button>
@@ -620,6 +636,7 @@ function DetailPanel({ group, onClose, onGroupUpdate }) {
         </div>
       </header>
 
+      {removeError && <p class="api-error" role="alert">{removeError}</p>}
       {editingTask && <div class="task-editor">
         <select value={selectedThreadId} onChange={(event) => setSelectedThreadId(event.currentTarget.value)}>
           <option value="">Создать новую · Terra · Medium</option>
@@ -757,7 +774,7 @@ function AddGroupDialog({ catalogs, onClose, onCreate }) {
     <button class="modal-scrim" onClick={onClose} aria-label="Закрыть" />
     <form class="add-dialog" onSubmit={submit}>
       <header><h2>Добавить группу</h2><button type="button" class="icon-button" onClick={onClose}>×</button></header>
-      <label>Ключ группы<input value={id} onInput={(event) => setId(event.currentTarget.value)} placeholder="Например, 27719" autoFocus /></label>
+      <label>Номер группы<input value={id} onInput={(event) => setId(event.currentTarget.value)} placeholder="Например, 506803 или Группа 506803" autoFocus /></label>
       <label>UUID каталога
         <input
           value={catalogId}
@@ -806,6 +823,7 @@ function AddGroupDialog({ catalogs, onClose, onCreate }) {
 
 function App() {
   const [groups, setGroups] = useState([]);
+  const [catalogRegistry, setCatalogRegistry] = useState([]);
   const [search, setSearch] = useState("");
   const [catalogId, setCatalogId] = useState("all");
   const [selectedId, setSelectedId] = useState(null);
@@ -814,15 +832,17 @@ function App() {
   const [adding, setAdding] = useState(false);
   const visibleGroups = useMemo(() => filterGroups(groups, { search, catalogId }), [groups, search, catalogId]);
   const selected = groups.find((group) => group.id === selectedId);
-  const catalogs = useMemo(() => Array.from(new Map(
-    groups
+  const catalogs = useMemo(() => Array.from(new Map([
+    ...groups
       .filter((group) => group.source_id && group.source_id !== "history")
       .map((group) => [group.source_id, { id: group.source_id, name: group.source }]),
-  ).values()).sort((a, b) => a.name.localeCompare(b.name, "ru")), [groups]);
+    ...catalogRegistry.map((item) => [item.id, item]),
+  ]).values()).sort((a, b) => a.name.localeCompare(b.name, "ru")), [groups, catalogRegistry]);
   const loadGroups = async () => {
     try {
       const payload = await api.listGroups();
       setGroups(payload.groups);
+      setCatalogRegistry(payload.catalogs || []);
       setError("");
     } catch {
       setError("Локальная API недоступна");
@@ -903,7 +923,7 @@ function App() {
         })}
       </main>
 
-      {selected && <><button class="drawer-scrim" onClick={() => setSelectedId(null)} aria-label="Закрыть панель" /><DetailPanel group={selected} onClose={() => setSelectedId(null)} onGroupUpdate={updateVisibleGroup} /></>}
+      {selected && <><button class="drawer-scrim" onClick={() => setSelectedId(null)} aria-label="Закрыть панель" /><DetailPanel group={selected} onClose={() => setSelectedId(null)} onGroupUpdate={updateVisibleGroup} onRemove={(id) => { setGroups((items) => items.filter((item) => item.id !== id)); setSelectedId(null); }} /></>}
       {adding && <AddGroupDialog catalogs={catalogs} onClose={() => setAdding(false)} onCreate={createGroup} />}
     </div>
   );

@@ -627,7 +627,7 @@ def test_successful_write_accepts_semantically_equal_html_readback(tmp_path: Pat
     assert gateway.context_read_calls == ["problem-5089", "problem-5089"]
 
 
-def test_existing_sections_use_their_exact_transformation_targets(tmp_path: Path) -> None:
+def test_solution_section_uses_its_canonical_transformation_target(tmp_path: Path) -> None:
     """Rewrite exact section instances instead of stale section-key aliases."""
 
     gateway = RecordingGateway(("5089",))
@@ -664,7 +664,7 @@ def test_existing_sections_use_their_exact_transformation_targets(tmp_path: Path
         if item["transformation_target_id"].startswith("section:")
     }
     assert result.status == "applied"
-    assert targets == {"section:solution:1", "section:answer:1"}
+    assert targets == {"section:solution", "section:answer:1"}
 
 
 def test_successful_write_requires_answer_readback_match(tmp_path: Path) -> None:
@@ -756,7 +756,7 @@ def test_new_solution_asset_uses_the_existing_section_target(tmp_path: Path) -> 
         for item in gateway.applied_transformations["problem-5089"]
         if item["transformation_target_id"] == "asset:generated_solution_diagram"
     )
-    assert asset["value"]["parent_target_id"] == "section:solution:1"
+    assert asset["value"]["parent_target_id"] == "section:solution"
 
 
 def test_existing_transformation_added_asset_preserves_add_operation(

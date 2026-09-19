@@ -43,7 +43,7 @@ PROFILES = (
                 theme_order_index=2,
                 snapshot_theme_id=TRAPEZOID_THEME_ID,
                 expected_vertices=4,
-                strategy_key="trapezoid-pick",
+                strategy_key="parallel-bases-trapezoid-three-methods",
                 rewrite_existing_solution=True,
             ),
 

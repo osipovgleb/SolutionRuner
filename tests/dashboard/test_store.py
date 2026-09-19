@@ -319,6 +319,32 @@ def test_manual_group_cannot_replace_registered_group(tmp_path):
     assert store.get_group("123")["registered"] is True
 
 
+def test_manual_group_normalizes_number_before_duplicate_check(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    group = store.add_manual_group("  группа № 506803  ", "catalog")
+    assert group["id"] == "506803"
+    assert group["title"] == "Группа 506803"
+    with pytest.raises(ValueError, match="already exists"):
+        store.add_manual_group("506803", "catalog")
+    assert store.add_manual_group("ege-base-123", "catalog")["id"] == "ege-base-123"
+
+
+def test_removed_group_stays_removed_after_sync_and_can_be_added_again(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    profiles = {"123": _profile("123")}
+    sync_groups(store, profiles, tmp_path / "var")
+    store.add_comment("123", "Old registration")
+    assert store.remove_group("123") is True
+    sync_groups(store, profiles, tmp_path / "var")
+    assert store.get_group("123") is None
+    assert store.list_groups() == []
+    assert store.list_comments("123") == []
+    assert store.remove_group("123") is False
+    restored = store.add_manual_group("Группа 123", "catalog-1")
+    assert restored["column"] == "initialization"
+    assert restored["codex_thread_id"] is None
+
+
 def test_reconcile_problem_counts_uses_current_task_index(tmp_path):
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     sync_groups(store, {"123": _profile("123")}, tmp_path / "var")

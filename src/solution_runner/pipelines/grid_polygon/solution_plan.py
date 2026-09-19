@@ -94,7 +94,7 @@ def _section_transformation(
     """Build one exact section add/rewrite transformation."""
 
     target_id = f"section:{key}"
-    if section is not None:
+    if section is not None and key != "solution":
         exact_target_id = str(section.get("transformation_target_id") or "")
         section_id = str(section.get("section_id") or "")
         if exact_target_id:
@@ -232,8 +232,7 @@ def _solution_transformations(
             alt_text=alt_text,
         )
         centered_diagrams.append((variant_index, centered))
-        if not item.get("already_attached"):
-            diagram_items.append({**item, "html": centered})
+        diagram_items.append({**item, "html": centered, "asset_position": len(diagram_items)})
         asset_target_ids.append((f"asset:{asset_key}", source_asset_id))
     solution_html = _place_solution_diagrams(solution_text, centered_diagrams)
     asset_keys = (*asset_key_order, *existing_keys)
@@ -258,10 +257,6 @@ def _solution_transformations(
         }
         for asset_key in PIPELINE_ASSET_KEYS
         if asset_key not in seen_keys
-        and any(
-            isinstance(asset, dict) and asset.get("asset_key") == asset_key
-            for asset in content.get("assets", [])
-        )
     )
     transformations = [*removals, section_transformation]
     transformations.extend(_asset_transformation(content, item) for item in diagram_items)
@@ -285,23 +280,12 @@ def _asset_transformation(
     ]
     if len(current_assets) > 1:
         raise SolutionRuntimeError("multiple generated solution assets are present")
-    solution = _section(content, "solution")
-    parent_target_id = "section:solution"
-    if solution is not None:
-        parent_target_id = str(
-            solution.get("transformation_target_id")
-            or (
-                f"section:{solution['section_id']}"
-                if solution.get("section_id")
-                else parent_target_id
-            )
-        )
     return {
         "transformation_target_id": f"asset:{asset_key}",
         "operation": "add",
         "value": {
-            "parent_target_id": parent_target_id,
-            "position": int(uploaded.get("solution_variant_index") or 0),
+            "parent_target_id": "section:solution",
+            "position": int(uploaded.get("asset_position") or 0),
             "asset_key": asset_key,
             "asset_id": source_asset_id,
             "url": uploaded["url"],

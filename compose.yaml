@@ -1,0 +1,9 @@
+services:
+  dashboard:
+    build: .
+    ports:
+      - "9999:9999"
+    volumes:
+      - ./var:/app/var
+    environment:
+      TEACHERHELPER_MCP_API_KEY: ${TEACHERHELPER_MCP_API_KEY:-}

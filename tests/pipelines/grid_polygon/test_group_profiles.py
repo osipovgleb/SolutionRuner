@@ -149,7 +149,7 @@ EXPECTED_GROUPS = {
     "27558": ("416046da-eecc-4473-83fd-b1b6c799a7e6", "parallel-bases-trapezoid-three-methods", 4),
     "27559": ("0719750c-08ff-450c-bc16-3a65989caf9a", "parallel-bases-trapezoid-three-methods", 4),
     "27560": ("3fb2e89d-9858-4c76-9683-d2d348ce4a35", "parallel-bases-trapezoid-three-methods", 4),
-    "244985": ("f2422780-bacb-4231-a06a-b89e855fc801", "trapezoid-pick", 4),
+    "244985": ("f2422780-bacb-4231-a06a-b89e855fc801", "parallel-bases-trapezoid-three-methods", 4),
     "244986": ("0be1e4bb-4e88-43d0-8f03-2d4b1440773c", "trapezoid-pick", 4),
     "27543": ("4808d0b7-aa63-4a5f-85ed-da28c8f80b18", "right-triangle", 3),
     "27544": ("b8fcbdc6-7967-4bc0-99b1-3fa49d5d824f", "base-height-triangle", 3),
@@ -534,12 +534,12 @@ def test_group_27553_selects_two_verified_rhombus_solutions() -> None:
 def test_trapezoid_groups_select_requested_extra_visual_methods() -> None:
     """Keep the requested rectangle/Pick variants attached to trapezoid groups."""
 
-    for group_key in ("27556", "27557", "27558", "27559", "27560"):
+    for group_key in ("27556", "27557", "27558", "27559", "27560", "244985"):
         profile = get_group_profile(group_key)
         assert profile.strategy_key == "parallel-bases-trapezoid-three-methods"
         assert profile.existing_solution_policy == "rewrite"
 
-    for group_key in ("244985", "244986"):
+    for group_key in ("244986",):
         profile = get_group_profile(group_key)
         assert profile.strategy_key == "trapezoid-pick"
         assert profile.existing_solution_policy == "rewrite"

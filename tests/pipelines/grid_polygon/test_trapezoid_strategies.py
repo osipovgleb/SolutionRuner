@@ -18,6 +18,40 @@ from solution_runner.pipelines.grid_polygon.strategies.protocol import format_nu
 FIXTURE_DIR = Path(__file__).parent / "fixtures"
 
 
+def test_three_methods_keep_asset_positions_separate_from_variant_numbers(tmp_path: Path) -> None:
+    """Two images in methods 2/3 must occupy asset slots 0/1 on server replay."""
+    from solution_runner.pipelines.grid_polygon.solution_plan import build_solution_plan
+
+    prepared = _prepared(tmp_path, _fixture("parallel-bases-trapezoid"))
+    profile = get_group_profile("244985")
+    strategy = get_solution_strategy(profile.strategy_key)
+    analysis = strategy.analyze(prepared, profile)
+    diagrams = strategy.render_solution_diagrams(prepared, analysis, profile)
+    uploads = [
+        {
+            "asset_key": diagram.asset_key,
+            "source_asset_id": f"asset-{index}",
+            "url": f"/assets/asset-{index}",
+            "alt_text": diagram.alt_text,
+            "solution_variant_index": diagram.solution_variant_index,
+            "already_attached": True,
+        }
+        for index, diagram in enumerate(diagrams)
+    ]
+    plan = build_solution_plan(
+        {"sections": [], "assets": []}, prepared, analysis, profile, strategy, uploads,
+    )
+    additions = [item for item in plan.transformations if item["operation"] == "add" and item["transformation_target_id"].startswith("asset:")]
+    assert [item["value"]["position"] for item in additions] == [0, 1]
+    assert [item["value"]["alt"] for item in additions] == [diagram.alt_text for diagram in diagrams]
+    assert any(
+        item["transformation_target_id"] == "asset:generated_rectangle_diagram"
+        and item["operation"] == "remove"
+        for item in plan.transformations
+    )
+    assert plan.solution_html.count('data-content-kind="solution"') == 3
+
+
 def _fixture(key: str) -> dict[str, object]:
     """Load one audited trapezoid characterization."""
 

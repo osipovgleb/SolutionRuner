@@ -133,11 +133,11 @@ select, .secondary-button, .primary-button, .danger-button, .icon-button {
 .add-dialog label input:not([type="checkbox"]):not([type="range"]), .add-dialog label select { width: 100%; height: 36px; padding: 0 10px; border: 1px solid #d9dde3; border-radius: 7px; outline: none; color: #22262c; background: #fff; font-size: 13px; font-weight: 400; }
 .add-dialog label textarea { width: 100%; min-height: 68px; resize: vertical; padding: 9px 10px; border: 1px solid #d9dde3; border-radius: 7px; outline: none; color: #22262c; font-size: 12px; font-weight: 400; }
 .add-dialog label input:focus, .add-dialog label textarea:focus, .add-dialog label select:focus { border-color: #8b72c8; }
-.catalog-suggestions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.catalog-suggestions { display: grid; grid-template-columns: 1fr; gap: 5px; }
 .catalog-suggestions button { min-width: 0; overflow: hidden; padding: 6px 7px; border: 1px solid #dde1e6; border-radius: 5px; background: #f7f8f9; color: #777e88; text-align: left; cursor: pointer; }
 .catalog-suggestions button strong, .catalog-suggestions button small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.catalog-suggestions button strong { color: #4d535b; font-size: 9px; }
-.catalog-suggestions button small { margin-top: 2px; font-size: 8px; }
+.catalog-suggestions button strong { color: #4d535b; font-size: 13px; white-space: normal; }
+.catalog-suggestions button small { margin-top: 2px; font-size: 11px; }
 .catalog-suggestions button:hover { border-color: #b9bec6; color: #3f454d; }
 .catalog-suggestions button.selected { border-color: #8872ba; background: #f3f0f8; color: #624b91; }
 .policy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }

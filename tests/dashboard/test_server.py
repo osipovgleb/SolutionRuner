@@ -1,4 +1,6 @@
 import json
+from urllib.error import HTTPError
+import pytest
 from threading import Thread
 from types import SimpleNamespace
 from urllib.request import Request, urlopen
@@ -26,13 +28,53 @@ def _request(url, *, method="GET", payload=None):
         return response.status, json.load(response)
 
 
-def test_ready_initialization_starts_codex_and_process_exit_cannot_leave_working(tmp_path):
+def test_remove_group_rejects_active_work_and_preserves_inventory(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    inventory = GroupInventoryStore(store.path)
+    inventory.replace(GroupInventorySnapshot(
+        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+    ))
+    state = {"status": "running"}
+    initializer = SimpleNamespace(get=lambda key: state)
+    server = make_server(store=store, inventory_store=inventory, initializer=initializer,
+                         var_dir=tmp_path / "var", profiles={}, static_dir=tmp_path, port=0)
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    url = f"http://127.0.0.1:{server.server_port}/api/groups/123"
+    try:
+        with pytest.raises(HTTPError) as error:
+            _request(url, method="DELETE")
+        assert error.value.code == 409
+        state["status"] = "ready"
+        store.update_group("123", {"agent_status": "working"})
+        with pytest.raises(HTTPError) as error:
+            _request(url, method="DELETE")
+        assert error.value.code == 409
+        store.update_group("123", {"agent_status": "blocked"})
+        server.applies = SimpleNamespace(get=lambda key: {"status": "running"})
+        with pytest.raises(HTTPError) as error:
+            _request(url, method="DELETE")
+        assert error.value.code == 409
+        server.applies = None
+        assert _request(url, method="DELETE") == (200, {"removed": True})
+        assert store.get_group("123") is None
+        assert len(inventory.get("123").items) == 1
+        with pytest.raises(HTTPError) as error:
+            _request(url, method="DELETE")
+        assert error.value.code == 404
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join()
+
+
+def test_ready_initialization_waits_for_manual_registration(tmp_path):
     class FakeCodexTasks:
         def register_group(self, group, inventory, thread_id=None):
-            assert group["id"] == "new-1"
-            assert inventory["task_count"] == 1
-            assert thread_id is None
-            return {"id": "thread-new", "title": "new-1 · Группа new-1"}
+            raise AssertionError("Initialization must not launch Codex")
 
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     store.add_manual_group("new-1", "catalog")
@@ -45,10 +87,12 @@ def test_ready_initialization_starts_codex_and_process_exit_cannot_leave_working
 
     _finish_initialization(store, inventory, FakeCodexTasks(), "new-1", {"status": "ready"})
     group = store.get_group("new-1")
-    assert group["codex_thread_id"] == "thread-new"
-    assert group["agent_status"] == "working"
-    assert group["column"] == "work"
+    assert group["codex_thread_id"] is None
+    assert group["agent_status"] is None
+    assert group["column"] == "queue"
+    assert "ручной регистрации" in group["agent_summary"]
 
+    store.update_group("new-1", {"codex_thread_id": "thread-new", "agent_status": "working"})
     _handle_codex_exit(store, "thread-new", 0)
     group = store.get_group("new-1")
     assert group["agent_status"] == "needs_input"
@@ -101,7 +145,7 @@ def test_agent_result_without_full_dry_run_is_verified_by_server(tmp_path):
 def test_startup_resumes_ready_initialization_and_repairs_agent_column(tmp_path):
     class FakeCodexTasks:
         def register_group(self, group, inventory, thread_id=None):
-            return {"id": f"thread-{group['id']}", "title": f"{group['id']} · {group['title']}"}
+            raise AssertionError("Startup must not launch Codex")
 
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     inventory = GroupInventoryStore(store.path)
@@ -118,8 +162,9 @@ def test_startup_resumes_ready_initialization_and_repairs_agent_column(tmp_path)
 
     _resume_automatic_groups(store, inventory, FakeCodexTasks())
 
-    assert store.get_group("ready")["agent_status"] == "working"
-    assert store.get_group("ready")["codex_thread_id"] == "thread-ready"
+    assert store.get_group("ready")["agent_status"] is None
+    assert store.get_group("ready")["column"] == "queue"
+    assert store.get_group("ready")["codex_thread_id"] is None
     assert store.get_group("blocked")["column"] == "issues"
 
 
@@ -168,7 +213,7 @@ def test_group_api_lists_updates_and_comments(tmp_path):
             f"{base}/api/groups",
             method="POST",
             payload={
-                "id": "new-1",
+                "id": "  Группа 506803  ",
                 "catalog_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
                 "note": "Проверить картинку условия",
                 "agent_sample_size": 2,
@@ -177,13 +222,18 @@ def test_group_api_lists_updates_and_comments(tmp_path):
         assert created["column"] == "initialization"
         assert created["source_id"] == "41bc4d03-40cd-4407-8dea-df76e3f47ea8"
         assert created["agent_sample_size"] == 2
-        assert initializer.started == ["new-1"]
-        status, initialization = _request(f"{base}/api/groups/new-1/initialization")
+        assert created["id"] == "506803"
+        assert initializer.started == ["506803"]
+        assert store.list_comments("506803")[0]["body"] == "Проверить картинку условия"
+        status, initialization = _request(f"{base}/api/groups/506803/initialization")
         assert status == 200
         assert initialization["status"] == "running"
         status, groups = _request(f"{base}/api/groups")
         assert status == 200
-        assert {group["id"] for group in groups["groups"]} == {"123", "new-1"}
+        assert {group["id"] for group in groups["groups"]} == {"123", "506803"}
+        assert {item["name"] for item in groups["catalogs"]} >= {
+            "Каталог ОГЭ МАТ", "Каталог ЕГЭ МАТ БАЗА", "Каталог ЕГЭ МАТ ПРОФИЛЬ",
+        }
         registered = next(group for group in groups["groups"] if group["id"] == "123")
         assert registered.get("teacherhelper") == {
             "source_site_id": "7bed2492-5b8b-4c88-9be8-7d47916cd7c6",

@@ -20,6 +20,8 @@ from solution_runner.pipelines.grid_polygon.mcp_runtime import DEFAULT_MCP_URL, 
 from solution_runner.group_inventory_store import GroupInventoryStore
 
 from .initialization import GroupInitializer
+from .catalogs import load_catalogs
+from .store import normalize_group_key
 from .previews import (
     ProblemPreviewUnavailable,
     append_preview_sample,
@@ -162,21 +164,11 @@ def _finish_initialization(
             "agent_summary": f"Инициализация не завершена: {state.get('error') or 'неизвестная ошибка'}"[:200],
         })
         return
-    store.update_group(group_key, {"column": "queue"})
-    try:
-        group = store.get_group(group_key) or {}
-        _register_group_task(
-            store,
-            inventory_store,
-            codex_tasks,
-            group_key,
-            str(group.get("codex_thread_id") or "").strip() or None,
-        )
-    except (KeyError, ValueError, RuntimeError) as exc:
-        store.update_group(group_key, {
-            "agent_status": "blocked",
-            "agent_summary": f"Codex не запущен: {' '.join(str(exc).split())}"[:200],
-        })
+    store.update_group(group_key, {
+        "column": "queue",
+        "agent_status": None,
+        "agent_summary": "Инициализация завершена. Группа готова к ручной регистрации из проекта.",
+    })
 
 
 def _finish_automatic_dry_run(
@@ -232,7 +224,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.send_header("Access-Control-Allow-Origin", "http://127.0.0.1:5173")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
         self.end_headers()
         self.wfile.write(body)
 
@@ -279,6 +271,24 @@ class Handler(BaseHTTPRequestHandler):
     def do_OPTIONS(self) -> None:  # noqa: N802
         self._json(204, {})
 
+    def do_DELETE(self) -> None:  # noqa: N802
+        segments = self._segments()
+        if len(segments) != 3 or segments[:2] != ["api", "groups"]:
+            self._json(404, {"error": "not_found"})
+            return
+        group_key = segments[2]
+        group = self._group_payload(self.server.store.get_group(group_key))
+        if group is None:
+            self._json(404, {"error": "group_not_found"})
+            return
+        initialization = self.server.initializer.get(group_key) if self.server.initializer else {}
+        if (group.get("job") or group.get("agent_status") in {"working", "verifying"}
+                or initialization.get("status") in {"pending", "running"}):
+            self._json(409, {"error": "group_is_running"})
+            return
+        self.server.store.remove_group(group_key)
+        self._json(200, {"removed": True})
+
     def do_GET(self) -> None:  # noqa: N802
         segments = self._segments()
         if segments == ["api", "codex", "tasks"]:
@@ -296,7 +306,10 @@ class Handler(BaseHTTPRequestHandler):
             groups = self.server.store.list_groups()
             for group in groups:
                 self._group_payload(group)
-            self._json(200, {"groups": groups, "summary": _summary(groups)})
+            self._json(200, {
+                "groups": groups, "summary": _summary(groups),
+                "catalogs": [{"id": key, "name": name} for key, name in load_catalogs().items()],
+            })
             return
         if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "comments":
             self._json(200, {"comments": self.server.store.list_comments(segments[2])})
@@ -602,7 +615,7 @@ class Handler(BaseHTTPRequestHandler):
             return
         if segments == ["api", "groups"]:
             body = self._body()
-            group_key = str(body.get("id", "")).strip()
+            group_key = normalize_group_key(str(body.get("id", "")))
             catalog_id = str(body.get("catalog_id", "")).strip()
             if not group_key or not catalog_id:
                 self._json(400, {"error": "group_id_and_catalog_required"})

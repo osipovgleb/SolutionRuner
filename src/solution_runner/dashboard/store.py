@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sqlite3
 from datetime import UTC, datetime
 from pathlib import Path
@@ -10,7 +11,16 @@ from typing import Any, Mapping
 
 from .catalogs import catalog_label
 
+
+def normalize_group_key(value: str) -> str:
+    value = value.strip()
+    match = re.fullmatch(r"(?:Группа\s+)?(?:№\s*)?([0-9]+)", value, re.IGNORECASE)
+    return match.group(1) if match else value
+
 SCHEMA = """
+CREATE TABLE IF NOT EXISTS removed_groups (
+    group_key TEXT PRIMARY KEY
+);
 CREATE TABLE IF NOT EXISTS groups (
     group_key TEXT PRIMARY KEY,
     title TEXT NOT NULL,
@@ -233,6 +243,15 @@ class DashboardStore:
             ).fetchall()
         return [self._group(row) for row in rows]
 
+    def remove_group(self, group_key: str) -> bool:
+        """Remove only the dashboard card; retain inventory and run artifacts."""
+        with self.connect() as connection:
+            if connection.execute("SELECT 1 FROM groups WHERE group_key = ?", (group_key,)).fetchone() is None:
+                return False
+            connection.execute("INSERT OR IGNORE INTO removed_groups VALUES (?)", (group_key,))
+            connection.execute("DELETE FROM groups WHERE group_key = ?", (group_key,))
+        return True
+
     def prune_inactive_groups(self, active_group_keys: set[str]) -> int:
         """Drop imported profiles/history that are no longer active; keep manual groups."""
         with self.connect() as connection:
@@ -289,6 +308,8 @@ class DashboardStore:
         values = [fact.get(column) for column in columns]
         updates = ", ".join(f"{column}=excluded.{column}" for column in columns if column != "group_key")
         with self.connect() as connection:
+            if connection.execute("SELECT 1 FROM removed_groups WHERE group_key = ?", (fact["group_key"],)).fetchone():
+                return
             connection.execute(
                 f"INSERT INTO groups ({', '.join(columns)}) VALUES ({', '.join('?' for _ in columns)}) "
                 f"ON CONFLICT(group_key) DO UPDATE SET {updates}",
@@ -363,8 +384,11 @@ class DashboardStore:
         options: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         options = options or {}
+        group_key = normalize_group_key(group_key)
         if self.get_group(group_key) is not None:
             raise ValueError(f"group {group_key} already exists")
+        with self.connect() as connection:
+            connection.execute("DELETE FROM removed_groups WHERE group_key = ?", (group_key,))
         self.upsert_fact({
             "group_key": group_key,
             "title": f"Группа {group_key}",
