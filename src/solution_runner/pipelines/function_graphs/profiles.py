@@ -21,5 +21,6 @@ PROFILES = tuple(
         ('508971', 'b7df39c8-06a2-46ca-b69b-a7ad420cc81e', 2, 'horizontal-value'),
         ('508983', 'bec09ca3-a236-47aa-9fcd-776884b9a05a', 3, 'horizontal-argument'),
         ('508993', 'b4a0f3c7-c5de-4c56-a003-7c236d2be077', 4, 'fractional-coefficient'),
+        ('509001', '25605c37-1c45-4790-9713-6711d0b2090a', 5, 'fractional-coefficient'),
     )
 )

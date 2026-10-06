@@ -85,10 +85,12 @@ def test_requested_original_coefficient_is_recovered_from_canonical_form(sought,
     assert result.answer==expected
     updated=materialize(ctx,result.transformations)
     html=next(s['html'] for s in updated['normalized_content']['sections'] if s['key']=='solution')
-    assert r'f(x)=k+\frac{a-kb}{x+b}=C+\frac{A}{x+B}=\frac{A}{x+B}+C' in html
-    assert 'Подставим эти обозначения' in html
+    assert r'f(x)=\frac{A}{x+B}+C' in html
+    assert 'А значит, в нашем случае:' in html
     assert r'f(x)=\frac{5}{x+4}+1' in html
-    if sought=='a':assert r'a=A+CB=5+1\cdot 4=9' in html
+    if sought=='a':
+        assert r'A=a-kb\Rightarrow a=A+kb' in html
+        assert r'a=5+1\cdot 4=5+4=9' in html
     assert plan(updated,508993).transformations==()
 
 
@@ -106,3 +108,41 @@ def test_three_unknowns_are_solved_with_explicit_elimination_steps():
     assert r'-3+a-24=-18\iff a=-18+3+24=9' in formulas
     assert 'Вычтем второе уравнение из первого' in first.get_text()
     assert 'Вычтем третье уравнение из первого' in first.get_text()
+
+
+@pytest.mark.parametrize('n,expected',[
+    (508997,2),(508998,3),(508999,-2),(509000,-2),
+    (564960,2),(564962,-1),(564964,5),
+    (509001,9),(509002,-5),(509003,-5),(509004,1),
+    (509005,-4),(509006,15),(509007,11),(509008,-8),
+])
+def test_remaining_group_tasks_and_original_symbol_names(n,expected):
+    ctx=context(n);result=plan(ctx,n)
+    assert result.answer==str(expected)
+    updated=materialize(ctx,result.transformations)
+    html=next(s['html'] for s in updated['normalized_content']['sections'] if s['key']=='solution')
+    if n in (564960,564962,564964):
+        formulas=[e['data-inline-latex'] for e in BeautifulSoup(html,'html.parser').select('[data-inline-latex]')]
+        assert r'f(x)=\frac{ax+b}{x+c}=\frac{ax+ac+b-ac}{x+c}=\frac{a(x+c)+(b-ac)}{x+c}' in formulas
+        assert f'a=C={expected}' in formulas
+    assert html.count('<img ')==2
+    assert plan(updated,n).transformations==()
+
+
+def test_unmarked_source_has_exact_audited_grid_points():
+    data=(FIXTURES/'564963.svg').read_bytes()
+    facts=graph_evidence(data)
+    assert facts['k']==-4 and facts['a']==11 and facts['b']==-2
+    assert facts['point']==(3,-1) and facts['second']==(1,-7) and facts['third']==(5,-3)
+    with pytest.raises(ContentPlanError,match='audited source grid'):
+        graph_evidence(data.replace(b'width="250.552px"',b'width="250.553px"'))
+
+
+@pytest.mark.parametrize('n',[564960,564962,564963,564964])
+def test_symbol_renaming_preserves_latex_environment_names(n):
+    ctx=context(n);updated=materialize(ctx,plan(ctx,n).transformations)
+    html=next(s['html'] for s in updated['normalized_content']['sections'] if s['key']=='solution')
+    formulas=[e['data-inline-latex'] for e in BeautifulSoup(html,'html.parser').select('[data-inline-latex]')]
+    environments=[env for f in formulas for env in __import__('re').findall(r'\\(?:begin|end)\{([^}]+)\}',f)]
+    assert environments and set(environments)=={'cases'}
+    assert not any('k' in __import__('re').sub(r'\\[A-Za-z]+','',f) for f in formulas)

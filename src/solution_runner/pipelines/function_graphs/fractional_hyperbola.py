@@ -26,8 +26,9 @@ def graph_evidence(data: bytes) -> dict:
         raise ContentPlanError('need unique horizontal and vertical asymptotes')
     k=_snap((oy-next(iter(hs)))/sy);b=_snap((ox-next(iter(vs)))/sx)
     markers=[n for n in root.iter(NS+'circle') if n.get('fill','').upper()=='#143B8F']
-    if not markers:raise ContentPlanError('need a marked graph point')
-    points=[(_snap((float(n.get('cx'))-ox)/sx),_snap((oy-float(n.get('cy')))/sy)) for n in markers]
+    audit=registry().get('audited_unmarked_graphs',{}).get(hashlib.sha256(data).hexdigest()) if not markers else None
+    if not markers and not audit:raise ContentPlanError('need a marked graph point or audited source grid intersections')
+    points=[(_snap((float(n.get('cx'))-ox)/sx),_snap((oy-float(n.get('cy')))/sy)) for n in markers] if markers else [tuple(map(Fraction,p)) for p in audit['points']]
     x,y=points[0]
     if x+b==0:raise ContentPlanError('marked point is on vertical asymptote')
     c=(x+b)*(y-k)
@@ -60,23 +61,23 @@ def graph_evidence(data: bytes) -> dict:
             ny=k+c/(nx+b)
             if ny.denominator in (2,4) and inside((nx,ny)):candidates.append((Fraction(nx),ny))
     if not candidates:raise ContentPlanError('no third visible grid point')
-    third=offset if offset in candidates else min(candidates,key=lambda p:(abs(p[0]),abs(p[1])))
+    third=points[2] if audit else offset if offset in candidates else min(candidates,key=lambda p:(abs(p[0]),abs(p[1])))
     return {'k':k,'a':a,'b':b,'c':c,'point':(x,y),'second':second,'third':third,'offset':offset}
 
 
 def annotate(data: bytes, method: str) -> bytes:
     if method not in ('points','offset'):raise ValueError(method)
     facts=graph_evidence(data);ox,oy,sx,sy,_=svg_frame(data)
-    root=ET.fromstring(data);marker=next(n for n in root.iter(NS+'circle') if n.get('fill','').upper()=='#143B8F')
+    root=ET.fromstring(data);marker=next((n for n in root.iter(NS+'circle') if n.get('fill','').upper()=='#143B8F'),None)
     red='#D12626';nodes=['<g data-role="fractional-hyperbola-overlay">']
     if method=='points':
-        points=[('A',float(marker.get('cx')),float(marker.get('cy'))),('B',ox+float(facts['second'][0])*sx,oy-float(facts['second'][1])*sy),('C',ox+float(facts['third'][0])*sx,oy-float(facts['third'][1])*sy)]
+        points=[('A',float(marker.get('cx')) if marker is not None else ox+float(facts['point'][0])*sx,float(marker.get('cy')) if marker is not None else oy-float(facts['point'][1])*sy),('B',ox+float(facts['second'][0])*sx,oy-float(facts['second'][1])*sy),('C',ox+float(facts['third'][0])*sx,oy-float(facts['third'][1])*sy)]
     else:
         ux,uy=facts['offset'];px,py=ox+float(ux)*sx,oy-float(uy)*sy
         nodes.append(f'<line x1="{_n(ox-float(facts["b"])*sx)}" y1="{_n(py)}" x2="{_n(px)}" y2="{_n(py)}" stroke="{red}" stroke-width="1.8"/>')
         points=[('',px,py)]
     for label,px,py in points:
-        nodes.append(f'<circle cx="{_n(px)}" cy="{_n(py)}" r="{_n(float(marker.get("r"))+.5)}" fill="{red}"/>')
+        nodes.append(f'<circle cx="{_n(px)}" cy="{_n(py)}" r="{_n((float(marker.get("r")) if marker is not None else 2.5)+.5)}" fill="{red}"/>')
         if label:nodes.append(f'<text x="{_n(px+6)}" y="{_n(py-6)}" fill="{red}" font-family="Times New Roman, serif" font-size="11">{label}</text>')
     nodes.append('</g>');closing=data.rfind(b'</svg>')
     return data[:closing]+''.join(nodes).encode()+data[closing:]
@@ -90,7 +91,9 @@ def entry(context):
     assets=[a for a in c.get('assets',[]) if a.get('asset_key')=='image_1' and 'image_1' in (condition or {}).get('asset_keys',[])]
     if len(assets)!=1:raise ContentPlanError('unique image_1 required')
     found=registry()['conditions'].get(assets[0].get('asset_id'))
-    if found is None:raise ContentPlanError('fractional hyperbola source needs an audited registration')
+    if found is None:
+        reason=registry().get('unsupported_conditions',{}).get(assets[0].get('asset_id'))
+        raise ContentPlanError(reason or 'fractional hyperbola source needs an audited registration')
     return found
 
 
@@ -118,10 +121,13 @@ def build_context_repair_plan(context, *, condition_asset_bytes, current_asset_c
                 factor=matrix[i][col];matrix[i]=[v-factor*w for v,w in zip(matrix[i],matrix[col])]
     if tuple(r[-1] for r in matrix)!=(k,a,b):raise ContentPlanError('three-point system disagrees with graph')
     soup=BeautifulSoup(condition['html'].replace('\u00ad',''),'html.parser');forms=[str(n['data-inline-latex']).replace(' ','') for n in soup.find_all(attrs={'data-inline-latex':True})]
-    question=re.search(r'Найдите\s*(?:коэффициент\s*)?([kab])\s*\.',soup.get_text(' ',strip=True))
-    if not forms or forms[0] not in (r'f(x)=\frac{k}{x}+ax+b',r'f(x)=\frac{kx+a}{x+b}') or not question or forms[1:] not in ([],[question[1]]):
+    question=re.search(r'Найдите\s*(?:коэффициент\s*)?([kabc])\s*\.',soup.get_text(' ',strip=True))
+    abc_model=bool(forms and forms[0]==r'f(x)=\frac{ax+b}{x+c}')
+    if not forms or forms[0] not in (r'f(x)=\frac{k}{x}+ax+b',r'f(x)=\frac{kx+a}{x+b}',r'f(x)=\frac{ax+b}{x+c}') or not question or forms[1:] not in ([],[question[1]]):
         raise ContentPlanError('unsupported fractional hyperbola question')
-    sought=question[1];result={'k':k,'a':a,'b':b}[sought]
+    sought=({'a':'k','b':'a','c':'b'}.get(question[1]) if abc_model else question[1])
+    if sought not in ('k','a','b'):raise ContentPlanError('unsupported fractional hyperbola coefficient')
+    result={'k':k,'a':a,'b':b}[sought]
     images=[];keys=[]
     for req in required_assets(context):
         asset=next((a for a in _normalized_content(context)['assets'] if a.get('asset_id')==req['source_asset_id']),None)
@@ -194,14 +200,8 @@ def build_context_repair_plan(context, *, condition_asset_bytes, current_asset_c
                  +row(r'f(x)=\frac{kx+a}{x+b}=\frac{kx+kb+a-kb}{x+b}=\frac{k(x+b)+(a-kb)}{x+b}')
                  +'<p>Разделим сумму на знаменатель и сократим первую дробь:</p>'
                  +row(r'f(x)=\frac{k(x+b)}{x+b}+\frac{a-kb}{x+b}=k+\frac{a-kb}{x+b}')
-                 +'<p>Получили дробь и постоянное слагаемое. Обозначим числитель дроби через '
-                 +formula('A')+', число рядом с '+formula('x')+' в знаменателе — через '
-                 +formula('B')+', а постоянное слагаемое — через '+formula('C')+':</p>'
-                 +row(r'\begin{aligned}A&=a-kb,\\B&=b,\\C&=k.\end{aligned}')
-                 +'<p>Подставим эти обозначения в полученную формулу:</p>'
-                 +row(r'f(x)=k+\frac{a-kb}{x+b}=C+\frac{A}{x+B}=\frac{A}{x+B}+C')
-                 +'<p>Это канонический вид гиперболы: график '+formula(r'y=\frac{A}{x}')
-                 +' сдвинут по горизонтали на '+formula('-B')+' и по вертикали на '+formula('C')+'.</p>' 
+                 +'<p><br/></p>'
+                 +'<p>Каноническое уравнение гиперболы — '+formula(r'f(x)=\frac{A}{x+B}+C')+'. А значит, в нашем случае:</p>'
                  +f'<p>{formula("B=b")} — сдвиг по горизонтали. '
                  + (f'Асимптота {formula("x="+latex(-b))}: на {formula(latex(abs(b)))} '+('влево' if b>0 else 'вправо') if b else f'Асимптота {formula("x=0")}: сдвига нет')
                  +f' {formula(r"\Rightarrow B="+latex(b))}.</p>'
@@ -215,9 +215,18 @@ def build_context_repair_plan(context, *, condition_asset_bytes, current_asset_c
                  +formula(latex(abs(ux+b)))+' '+('вправо' if ux+b>0 else 'влево')
                  +' (красный отрезок) '+formula(r'\Rightarrow A='+latex(c0))+'.</p>'
                  +row(rf'f(x)=\frac{{{latex(c0)}}}{{x{signed(b)}}}'+signed(k))
-                 + (row(rf'a=A+CB={latex(c0)}'+('+'+latex(k)+r'\cdot '+latex(b) if k>=0 and b>=0 else rf'+({latex(k)})\cdot({latex(b)})')+'='+latex(a))
+                 + ('<p><br/></p>'+row(r'A=a-kb\Rightarrow a=A+kb')
+                    +row('k=C='+latex(k)+r',\qquad b=B='+latex(b))
+                    +row('a='+latex(c0)+'+'+(latex(k) if k>=0 else '('+latex(k)+')')+r'\cdot '+(latex(b) if b>=0 else '('+latex(b)+')')
+                         +'='+latex(c0)+signed(k*b)+'='+latex(a))
                     if sought=='a' else row(sought+'='+('C' if sought=='k' else 'B')+'='+latex(result))))
     html=f'<section data-content-kind="solution" data-solution-title="Решение">{first}</section><section data-content-kind="solution" data-solution-title="Альтернативное решение">{alternative}</section>'
+    if abc_model:
+        # Rename only LaTeX variables; commands such as \frac and \begin stay intact.
+        symbols={'k':'a','a':'b','b':'c'}
+        def renamed_formula(match):
+            return 'data-inline-latex="'+re.sub(r'\\(?:begin|end)\{[^}]+\}|\\[A-Za-z]+|[A-Za-z]',lambda token:symbols.get(token[0],token[0]),match[1])+'"'
+        html=re.sub(r'data-inline-latex="([^"]*)"',renamed_formula,html)
     old_html=str(solution.get('html') or '') if solution else ''
     retired=set(registry().get('retired_asset_ids',[]))
     retired_keys=tuple(a['asset_key'] for a in _normalized_content(context)['assets'] if a.get('asset_id') in retired)
