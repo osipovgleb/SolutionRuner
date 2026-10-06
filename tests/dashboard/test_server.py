@@ -1,4 +1,5 @@
 import json
+import solution_runner.dashboard.server as dashboard_server
 from urllib.error import HTTPError
 import pytest
 from threading import Thread
@@ -9,6 +10,8 @@ from solution_runner.dashboard.server import (
     _finish_automatic_dry_run,
     _finish_initialization,
     _handle_codex_exit,
+    _profile_source_state,
+    _refresh_server_profiles,
     _resume_automatic_groups,
     make_server,
 )
@@ -26,6 +29,44 @@ def _request(url, *, method="GET", payload=None):
     request = Request(url, method=method, data=data, headers={"Content-Type": "application/json"})
     with urlopen(request) as response:
         return response.status, json.load(response)
+
+
+def test_profile_source_state_detects_a_new_profile_declaration(tmp_path):
+    assert _profile_source_state(tmp_path) == {}
+
+    profile = tmp_path / "src/solution_runner/pipelines/equations/profiles.py"
+    profile.parent.mkdir(parents=True)
+    profile.write_text("PROFILES = ()\n", encoding="utf-8")
+
+    assert _profile_source_state(tmp_path) == {profile: profile.stat().st_mtime_ns}
+
+
+def test_refresh_server_profiles_updates_each_live_manager(monkeypatch, tmp_path):
+    profiles = {"new": object()}
+    captured = {}
+    server = SimpleNamespace(
+        profiles={},
+        dry_runs=SimpleNamespace(profiles={}),
+        applies=SimpleNamespace(profiles={}),
+        initializer=SimpleNamespace(profiles={}),
+        store=object(),
+        var_dir=tmp_path,
+        inventory_store=object(),
+    )
+    monkeypatch.setattr(dashboard_server, "reload_group_profiles", lambda: profiles)
+    monkeypatch.setattr(
+        dashboard_server,
+        "sync_groups",
+        lambda *args, **kwargs: captured.update(args=args, kwargs=kwargs),
+    )
+
+    _refresh_server_profiles(server)
+
+    assert server.profiles is profiles
+    assert server.dry_runs.profiles is profiles
+    assert server.applies.profiles is profiles
+    assert server.initializer.profiles is profiles
+    assert captured["args"][:3] == (server.store, profiles, tmp_path)
 
 
 def test_remove_group_rejects_active_work_and_preserves_inventory(tmp_path):

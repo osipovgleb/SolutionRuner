@@ -136,11 +136,48 @@ def test_apply_calls_shared_executor_for_only_the_verified_problem(tmp_path):
 
     assert state["status"] == "completed"
     assert "--apply" in calls[0]
+    assert calls[0][calls[0].index("--existing-solution-policy") + 1] == "preserve"
     assert calls[0][-2:] == ["--only-problem-id", "child"]
     row = inventory.list_items("123")[0]
     assert row["apply_status"] == "applied"
     assert row["helpers_status"] == "applied"
     assert store.get_group("123")["column"] == "done"
+
+
+def test_forced_problem_apply_overrides_solution_preservation(tmp_path):
+    inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    inventory.replace(GroupInventorySnapshot(
+        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("child", "11", 0, True, True, True),),
+    ))
+    inventory.update_item_stage(GroupItemStageResult(
+        group_key="123", problem_id="child", dry_run_status="ready",
+    ))
+    calls = []
+
+    def execute(args):
+        calls.append(args)
+        run = tmp_path / "content-rule/runs/20260911T000000Z-group-123"
+        run.mkdir(parents=True)
+        for filename, rows in (("solution-results.json", [{"problem_id": "child", "status": "applied"}]), ("helpers-results.json", [{"problem_id": "child", "status": "applied"}])):
+            (run / filename).write_text(json.dumps(rows))
+        (run / "summary.json").write_text(json.dumps({"group_key": "123"}))
+        return 0
+
+    manager = ApplyManager(
+        var_dir=tmp_path,
+        profiles={"123": SimpleNamespace(group_key="123", catalog_snapshot_id="catalog")},
+        inventory_store=inventory,
+        store=store,
+        executor=execute,
+    )
+
+    assert manager.run_now("123", "child", force=True)["status"] == "completed"
+    assert calls[0][calls[0].index("--existing-solution-policy") + 1] == "rewrite"
+    assert "--force-apply" in calls[0]
 
 
 def test_helpers_only_applies_one_task_without_reapplying_solution(tmp_path):

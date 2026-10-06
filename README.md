@@ -10,6 +10,7 @@
 | [src/solution_runner/launcher.py](src/solution_runner/launcher.py) | Общая точка входа `.venv/bin/solution-runner`. |
 | [pipelines/core/](src/solution_runner/pipelines/core/) | Реестры обработчиков и профилей, общий content runtime, модели, MCP-интерфейс и точные числа. |
 | [pipelines/equations/](src/solution_runner/pipelines/equations/) | Обработчики уравнений. |
+| [pipelines/function_graphs/](src/solution_runner/pipelines/function_graphs/) | Графики функций: гиперболы, два способа решения, сохранение изображений. |
 | [pipelines/vectors/](src/solution_runner/pipelines/vectors/) | Векторы, длины и скалярные произведения. |
 | [pipelines/triangles/](src/solution_runner/pipelines/triangles/) | Треугольники: `general/`, `isosceles/`, `right/`. |
 | [pipelines/quadrilaterals/](src/solution_runner/pipelines/quadrilaterals/) | Параллелограммы и трапеции. |
@@ -39,6 +40,7 @@
 - [Пожелания к стилю](docs/target-vision.md) — оформление решений и рисунков.
 - [Профиль «вкуса» решения](docs/solution-flavor-profile.md) — как держать детальность без избыточной ширины.
 - [Пробник раннеров](docs/runner-probe.md) — расположение и интерфейс пробника.
+- [Гиперболы 508951 и 508961](docs/hyperbola-runner.md) — способы решения, сохранение SVG/PNG и команды запуска.
 - [Планиметрия 1](docs/planimetry-1-campaign.md) — расположение отчётов кампании.
 - [Дизайн доски групп](docs/superpowers/specs/2026-09-10-group-dashboard-design.md) — Initialize, превью и статусы задач.
 

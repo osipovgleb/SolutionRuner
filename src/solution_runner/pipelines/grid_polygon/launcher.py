@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import UTC, datetime
 import getpass
 import json
@@ -115,6 +115,16 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--confirm-catalog", required=True)
     parser.add_argument("--apply", action="store_true")
     parser.add_argument(
+        "--force-apply",
+        action="store_true",
+        help="write one selected task even when its prepared content already matches",
+    )
+    parser.add_argument(
+        "--existing-solution-policy",
+        choices=("preserve", "rewrite"),
+        help="override the registered profile's handling of an existing solution",
+    )
+    parser.add_argument(
         "--inventory-db",
         type=Path,
         help="use the initialized local group index instead of repeating MCP discovery",
@@ -221,6 +231,12 @@ def _validated_args(
         )
     if args.confirm_catalog != profile.catalog_snapshot_id:
         parser.error("--confirm-catalog does not match the selected group profile")
+    if args.force_apply and not args.apply:
+        parser.error("--force-apply requires --apply")
+    if args.existing_solution_policy:
+        profile = replace(profile, existing_solution_policy=args.existing_solution_policy)
+    if args.force_apply:
+        profile = replace(profile, existing_solution_policy="rewrite")
     if args.resume_images and args.resume_solutions:
         parser.error("choose only one resume mode")
     if args.only_source_problem_id and args.only_problem_id:
@@ -400,6 +416,7 @@ def _run_stages(
     prepared: tuple[PreparedFigure, ...],
     *,
     helpers_from_existing_solution: bool = False,
+    force_apply: bool = False,
 ) -> None:
     """Run solution and Helpers stages and persist their terminal summary."""
 
@@ -414,14 +431,19 @@ def _run_stages(
         if context.profile.strategy_key is None:
             raise ValueError("geometry workflow requires strategy_key")
         strategy = get_solution_strategy(context.profile.strategy_key)
+        solution_kwargs = {
+            "apply": context.apply,
+            "max_workers": context.max_workers,
+        }
+        if force_apply:
+            solution_kwargs["force_apply"] = True
         solution_results = context.active.solution_stage(
             context.gateway,
             prepared,
             context.profile,
             strategy,
             context.reporter,
-            apply=context.apply,
-            max_workers=context.max_workers,
+            **solution_kwargs,
         )
     helpers_results = context.active.helpers_stage(
         context.gateway,
@@ -630,6 +652,7 @@ def main(
                     inventory,
                     prepared,
                     helpers_from_existing_solution=args.helpers_from_existing_solution,
+                    force_apply=args.force_apply,
                 )
         return 0
     finally:

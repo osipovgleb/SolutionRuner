@@ -175,6 +175,9 @@ function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canCommen
             <button class="primary-button" onClick={(event) => { event.stopPropagation(); onApplyProblem(task); }} disabled={!canApplyTask(task, Boolean(runningProblemId || applyingProblemId || applyingHelpersProblemId))}>
               {applyingProblemId === task.problem_id ? "Применяю…" : recorded ? "Применено" : "Применить"}
             </button>
+            {recorded && <button class="secondary-button" onClick={(event) => { event.stopPropagation(); onApplyProblem(task, true); }} disabled={Boolean(runningProblemId || applyingProblemId || applyingHelpersProblemId)}>
+              Применить принудительно
+            </button>}
             <button class="secondary-button" onClick={(event) => { event.stopPropagation(); onApplyHelpers(task); }} disabled={isHelpersReady(task) || !(task.has_solution || ["applied", "already_complete"].includes(task.apply_status)) || Boolean(runningProblemId || applyingProblemId || applyingHelpersProblemId)}>
               {applyingHelpersProblemId === task.problem_id ? "Helpers…" : isHelpersReady(task) ? "Helpers готовы" : "Helpers"}
             </button>
@@ -434,12 +437,15 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
       setRunError("Не удалось проверить выбранную задачу.");
     }
   };
-  const applyProblem = async (task) => {
-    if (!window.confirm(`Применить изменения только к задаче ${task.source_problem_id}?`)) return;
+  const applyProblem = async (task, force = false) => {
+    const action = force
+      ? `Принудительно переписать решение задачи ${task.source_problem_id}? Настройка «Сохранять решение» будет проигнорирована.`
+      : `Применить изменения только к задаче ${task.source_problem_id}?`;
+    if (!window.confirm(action)) return;
     setRunError("");
     setApplyingProblemId(task.problem_id);
     try {
-      setApplyRun(await api.applyProblem(group.id, task.problem_id));
+      setApplyRun(await api.applyProblem(group.id, task.problem_id, force));
     } catch {
       setApplyingProblemId(null);
       setRunError("Не удалось запустить запись выбранной задачи.");

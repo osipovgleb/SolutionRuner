@@ -17,6 +17,7 @@ _RATIO = re.compile(
     rf"^\\frac\{{(?P<numerator>{_DECIMAL}(?:\\cdot{_DECIMAL})?)\}}"
     rf"\{{(?P<denominator>{_DECIMAL}(?:\\cdot{_DECIMAL})?)\}}$"
 )
+_SIMPLE_PRODUCT = re.compile(rf"^(?P<left>{_DECIMAL})\\cdot(?P<right>{_DECIMAL})$")
 
 
 def _factors(raw: str) -> tuple[str, ...]:
@@ -54,6 +55,26 @@ def _formula(condition: dict[str, Any]) -> str:
     formula = str(formulas[0].get("data-inline-latex") or "").replace(" ", "")
     if _RATIO.fullmatch(formula) is None:
         raise RightTrianglePlanError("condition does not match a decimal product ratio")
+    return formula
+
+
+def _simple_product_formula(condition: dict[str, Any]) -> str:
+    soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
+    formulas = soup.find_all("span", attrs={"data-inline-latex": True})
+    if len(formulas) > 1:
+        raise RightTrianglePlanError("condition must contain one formula")
+    formula = str(formulas[0].get("data-inline-latex") or "") if formulas else ""
+    plain_text = not formula
+    if not formula:
+        match = re.search(r"\d+,\d+\s*·\s*\d+,\d+", soup.get_text(" ", strip=True))
+        if match is None:
+            raise RightTrianglePlanError("condition does not match a decimal product")
+        formula = match.group(0).replace("·", "\\cdot")
+    formula = re.sub(r"\s+", "", formula)
+    if plain_text:
+        formula = formula.replace(",", "{,}")
+    if _SIMPLE_PRODUCT.fullmatch(formula) is None:
+        raise RightTrianglePlanError("condition does not match a decimal product")
     return formula
 
 
@@ -117,6 +138,44 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
         changes.append(_section_transformation(solution_section, "solution", "Решение", html))
+    current_answer = BeautifulSoup(
+        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
+    ).get_text("", strip=True).replace(" ", "")
+    if current_answer != answer:
+        changes.append(_section_transformation(
+            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
+        ))
+    return RepairPlan(answer=answer, transformations=tuple(changes))
+
+
+def build_simple_decimal_product_plan(context: dict[str, Any]) -> RepairPlan:
+    """Use the group's parent wording for products of two decimal numbers."""
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    answer_section = _section(content, "answer")
+    solution_section = _section(content, "solution")
+    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+        raise RightTrianglePlanError("decimal product conditions must be text-only")
+    formula = _simple_product_formula(condition)
+    match = _SIMPLE_PRODUCT.fullmatch(formula)
+    assert match is not None
+    left_value, left_digits = _decimal_parts(match["left"])
+    right_value, right_digits = _decimal_parts(match["right"])
+    product = left_value * right_value
+    digits = left_digits + right_digits
+    answer = _answer(Fraction(product, 10**digits))
+    changes: list[dict[str, Any]] = []
+    if solution_section is None:
+        left = match["left"].replace("{,}", ",")
+        right = match["right"].replace("{,}", ",")
+        solution = (
+            f"<p>Умножим {left_value} на {right_value}, получим {product}. "
+            "Отделим в произведении запятой справа столько десятичных знаков, "
+            f"сколько их в обоих множителях, то есть {digits} знака, получим {answer}. "
+            f"Следовательно, {left} · {right} = {answer}.</p>"
+        )
+        changes.append(_section_transformation(solution_section, "solution", "Решение", solution))
     current_answer = BeautifulSoup(
         str(answer_section.get("html") or "") if answer_section else "", "html.parser"
     ).get_text("", strip=True).replace(" ", "")

@@ -1,6 +1,7 @@
 from solution_runner.pipelines.core.group_profiles import all_group_profiles
 from solution_runner.pipelines.equations.numeric_rational_expression import (
     build_context_repair_plan,
+    build_decimal_sum_difference_plan,
 )
 
 
@@ -28,6 +29,12 @@ def _context(formula: str) -> dict:
             ],
         }
     }
+
+
+def _plain_decimal_context(expression: str) -> dict:
+    context = _context("0")
+    context["normalized_content"]["sections"][0]["html"] = f"<p>Найдите значение выражения {expression}.</p>"
+    return context
 
 
 def test_numeric_rational_expression_handles_all_registered_shapes() -> None:
@@ -77,6 +84,49 @@ def test_simple_fraction_sum_shows_common_and_decimal_denominators() -> None:
     assert r"\frac{42}{20}=\frac{21}{10}=2{,}1" in solution
 
 
+def test_numeric_rational_expression_reads_plain_decimal_sum() -> None:
+    assert build_context_repair_plan(_plain_decimal_context("3,8 + 2,9")).answer == "6,7"
+
+
+def test_decimal_sum_difference_reads_typographic_minus() -> None:
+    plan = build_decimal_sum_difference_plan(_plain_decimal_context("5,7 − 7,6"))
+
+    assert plan.answer == "-1,9"
+
+
+def test_fraction_product_converts_final_result_to_decimal_denominator() -> None:
+    solution = build_context_repair_plan(_context(r"\frac{2}{5}\cdot\frac{9}{8}")).transformations[0]["value"]["html"]
+
+    assert r"\frac{9}{20}=\frac{45}{100}=0{,}45" in solution
+
+
+def test_decimal_sum_difference_preserves_existing_concise_solution() -> None:
+    context = _plain_decimal_context("3,8 + 2,9")
+    context["normalized_content"]["sections"][1]["html"] = "<p>6,7</p>"
+    context["normalized_content"]["sections"].append(
+        {
+            "key": "solution",
+            "title": "Решение",
+            "html": "<p>Найдём значение выражения: 3,8 + 2,9 = 6,7.</p>",
+            "asset_keys": [],
+        }
+    )
+
+    plan = build_decimal_sum_difference_plan(context)
+
+    assert plan.answer == "6,7"
+    assert plan.transformations == ()
+
+
+def test_decimal_sum_difference_adds_short_solution_when_missing() -> None:
+    plan = build_decimal_sum_difference_plan(_plain_decimal_context("3,8 + 2,9"))
+
+    assert plan.answer == "6,7"
+    assert plan.transformations[0]["value"]["html"] == (
+        "<p>Найдём значение выражения: 3,8+2,9 = 6,7.</p>"
+    )
+
+
 def test_numeric_rational_expression_profiles_cover_profile_base_and_oge() -> None:
     profiles = all_group_profiles()
     for key in (
@@ -89,5 +139,8 @@ def test_numeric_rational_expression_profiles_cover_profile_base_and_oge() -> No
         "oge-314288",
         "314264",
         "oge-333111",
+        "383596",
     ):
         assert profiles[key].content_rule_key == "numeric-rational-expression-mixed-decimal"
+    for key in ("316784", "369727"):
+        assert profiles[key].content_rule_key == "numeric-decimal-sum-difference"

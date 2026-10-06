@@ -52,9 +52,9 @@ export function createApi(fetcher = fetch) {
       body: JSON.stringify({ mode: "problem", problem_id: problemId }),
     }),
     getApply: (id) => request(fetcher, `/api/groups/${id}/apply`),
-    applyProblem: (id, problemId) => request(fetcher, `/api/groups/${id}/apply`, {
+    applyProblem: (id, problemId, force = false) => request(fetcher, `/api/groups/${id}/apply`, {
       method: "POST",
-      body: JSON.stringify({ problem_id: problemId }),
+      body: JSON.stringify({ problem_id: problemId, ...(force ? { force: true } : {}) }),
     }),
     applyGroup: (id) => request(fetcher, `/api/groups/${id}/apply`, {
       method: "POST",

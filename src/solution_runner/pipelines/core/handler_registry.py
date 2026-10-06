@@ -2,6 +2,7 @@
 from types import MappingProxyType
 from .handlers import HandlerSpec
 from solution_runner.pipelines.equations.handlers import HANDLERS as EQUATIONS
+from solution_runner.pipelines.function_graphs.handlers import HANDLERS as FUNCTION_GRAPHS
 from solution_runner.pipelines.triangles.general.handlers import HANDLERS as GENERAL_TRIANGLES
 from solution_runner.pipelines.triangles.isosceles.handlers import HANDLERS as ISOSCELES_TRIANGLES
 from solution_runner.pipelines.quadrilaterals.parallelogram.handlers import HANDLERS as PARALLELOGRAMS
@@ -21,7 +22,7 @@ def build_registry(specs):
 
 
 HANDLERS = build_registry((
-    *EQUATIONS, *GENERAL_TRIANGLES, *ISOSCELES_TRIANGLES, *PARALLELOGRAMS,
+    *EQUATIONS, *FUNCTION_GRAPHS, *GENERAL_TRIANGLES, *ISOSCELES_TRIANGLES, *PARALLELOGRAMS,
     *RIGHT_TRIANGLES, *TRAPEZOIDS, *VECTORS, *WORD_PROBLEMS,
 ))
 

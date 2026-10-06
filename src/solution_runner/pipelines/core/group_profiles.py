@@ -1,4 +1,5 @@
 """Validated aggregate of domain-owned group declarations."""
+from importlib import import_module, invalidate_caches, reload
 from types import MappingProxyType
 from typing import Mapping
 from .models import GroupProfile
@@ -13,15 +14,20 @@ from .profile_definitions import (
     OGE_AREAS_THEME_ID,
     CIRCLE_THEME_ID,
 )
-from solution_runner.pipelines.equations.profiles import PROFILES as EQUATIONS
-from solution_runner.pipelines.vectors.profiles import PROFILES as VECTORS
-from solution_runner.pipelines.triangles.general.profiles import PROFILES as TRIANGLES_GENERAL
-from solution_runner.pipelines.quadrilaterals.parallelogram.profiles import PROFILES as QUADRILATERALS_PARALLELOGRAM
-from solution_runner.pipelines.quadrilaterals.trapezoid.profiles import PROFILES as QUADRILATERALS_TRAPEZOID
-from solution_runner.pipelines.triangles.isosceles.profiles import PROFILES as TRIANGLES_ISOSCELES
-from solution_runner.pipelines.triangles.right.profiles import PROFILES as TRIANGLES_RIGHT
-from solution_runner.pipelines.grid_polygon.profiles import PROFILES as GRID_POLYGON
-from solution_runner.pipelines.word_problems.profiles import PROFILES as WORD_PROBLEMS
+
+
+_PROFILE_MODULES = (
+    "solution_runner.pipelines.equations.profiles",
+    "solution_runner.pipelines.function_graphs.profiles",
+    "solution_runner.pipelines.vectors.profiles",
+    "solution_runner.pipelines.triangles.general.profiles",
+    "solution_runner.pipelines.quadrilaterals.parallelogram.profiles",
+    "solution_runner.pipelines.quadrilaterals.trapezoid.profiles",
+    "solution_runner.pipelines.triangles.isosceles.profiles",
+    "solution_runner.pipelines.triangles.right.profiles",
+    "solution_runner.pipelines.grid_polygon.profiles",
+    "solution_runner.pipelines.word_problems.profiles",
+)
 
 
 def build_profile_registry(profiles) -> Mapping[str, GroupProfile]:
@@ -35,7 +41,26 @@ def build_profile_registry(profiles) -> Mapping[str, GroupProfile]:
     return MappingProxyType(result)
 
 
-_PROFILES = build_profile_registry((*EQUATIONS, *VECTORS, *TRIANGLES_GENERAL, *QUADRILATERALS_PARALLELOGRAM, *QUADRILATERALS_TRAPEZOID, *TRIANGLES_ISOSCELES, *TRIANGLES_RIGHT, *GRID_POLYGON, *WORD_PROBLEMS))
+def _build_profiles() -> Mapping[str, GroupProfile]:
+    return build_profile_registry(tuple(
+        profile
+        for module_name in _PROFILE_MODULES
+        for profile in import_module(module_name).PROFILES
+    ))
+
+
+_PROFILES = _build_profiles()
+
+
+def reload_group_profiles() -> Mapping[str, GroupProfile]:
+    """Reload declarations written by a registration task without restarting callers."""
+
+    global _PROFILES
+    invalidate_caches()
+    for module_name in _PROFILE_MODULES:
+        reload(import_module(module_name))
+    _PROFILES = _build_profiles()
+    return _PROFILES
 
 
 def get_group_profile(group_key: str) -> GroupProfile:

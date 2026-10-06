@@ -17,6 +17,7 @@ class PlanInput:
     parent_solution_assets: tuple[dict[str, str], ...] = ()
     parent_solution_html: str = ""
     current_asset_content_type: str | None = None
+    condition_asset_bytes: bytes | None = None
 
 
 @dataclass(frozen=True)
@@ -41,6 +42,8 @@ class HandlerSpec:
     requires_frozen_manifest: bool = False
     manifest_validator: str | None = None
     asset_selector: str | None = None
+    requires_condition_asset_download: bool = False
+    allow_non_svg_condition_asset: bool = False
 
     def __post_init__(self):
         if not self.key or ':' not in self.target:

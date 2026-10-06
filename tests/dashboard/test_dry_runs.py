@@ -41,6 +41,8 @@ def test_launcher_command_has_three_scopes_and_never_applies():
     assert "--only-problem-id" not in entire_group
     assert all("--inventory-db" in command for command in (parent, random, entire_group))
     assert all(command[command.index("--max-workers") + 1] == "5" for command in (parent, random, entire_group))
+    preserve = _launcher_command(profile, "parent", "parent-uuid", inventory_db, "preserve")
+    assert preserve[preserve.index("--existing-solution-policy") + 1] == "preserve"
 
 
 def test_problem_selection_uses_parent_or_one_saved_random_child():

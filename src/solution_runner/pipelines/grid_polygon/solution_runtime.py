@@ -45,6 +45,7 @@ class _SolutionContext:
     strategy: SolutionStrategy
     reporter: ProgressReporter
     apply: bool
+    force_apply: bool
     total: int
 
 
@@ -332,7 +333,7 @@ def _run_target(
         context.strategy,
         uploaded,
     )
-    if context.apply and content_matches_plan(content, plan):
+    if context.apply and not context.force_apply and content_matches_plan(content, plan):
         return _already_complete_result(context, target, progress, plan)
     if not context.apply:
         return _planned_result(context, target, progress, plan)
@@ -390,6 +391,7 @@ def run_solution_stage(
     reporter: ProgressReporter,
     *,
     apply: bool,
+    force_apply: bool = False,
     max_workers: int = 1,
 ) -> tuple[ProblemStageResult, ...]:
     """Process every frozen target independently and continue after failures."""
@@ -404,6 +406,7 @@ def run_solution_stage(
         strategy=strategy,
         reporter=reporter,
         apply=apply,
+        force_apply=force_apply,
         total=len(prepared),
     )
     indexed_targets = tuple(enumerate(prepared, start=1))

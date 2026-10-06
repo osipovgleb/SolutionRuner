@@ -4,6 +4,7 @@ from copy import deepcopy
 
 from solution_runner.pipelines.core.content_runtime import (
     _ensure_required_assets,
+    _preserving_solution_transformations,
     _with_required_assets,
 )
 from solution_runner.pipelines.equations.group_trigonometric import _ASSETS
@@ -68,6 +69,25 @@ def test_preview_models_missing_solution_and_matching_asset_without_mutating_con
         "asset_key": "shared_33f5a2d29d364033",
         "asset_id": _ASSETS["sin-half.svg"],
     }]
+
+
+def test_preserve_policy_keeps_editorial_solution_and_its_assets():
+    context = {
+        "normalized_content": {
+            "sections": [{
+                "key": "solution", "html": "<p>Редакторское решение</p>",
+                "asset_keys": ["editorial_figure"],
+            }],
+        },
+    }
+    transformations = (
+        {"transformation_target_id": "section:solution", "operation": "replace"},
+        {"transformation_target_id": "asset:editorial_figure", "operation": "remove"},
+        {"transformation_target_id": "asset:image_1", "operation": "replace"},
+        {"transformation_target_id": "section:answer", "operation": "replace"},
+    )
+
+    assert _preserving_solution_transformations(context, transformations) == transformations[2:]
 
 
 def test_apply_creates_solution_then_attaches_selected_asset_and_rereads() -> None:

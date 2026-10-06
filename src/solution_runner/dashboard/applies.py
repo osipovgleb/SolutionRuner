@@ -108,6 +108,14 @@ class ApplyManager:
     def _path(self, group_key: str) -> Path:
         return self.state_dir / f"{group_key}.json"
 
+    def _existing_solution_policy(self, profile: Any) -> str:
+        get_group = getattr(self.store, "get_group", None)
+        group = get_group(str(profile.group_key)) if callable(get_group) else None
+        policy = group.get("existing_solution_policy") if group else None
+        return str(policy) if policy in {"preserve", "rewrite"} else str(
+            getattr(profile, "existing_solution_policy", "preserve")
+        )
+
     def _write(self, state: Mapping[str, Any]) -> dict[str, Any]:
         payload = dict(state)
         self.state_dir.mkdir(parents=True, exist_ok=True)
@@ -149,7 +157,7 @@ class ApplyManager:
             raise ValueError("group requires a successful full-group dry-run before apply")
         return rows
 
-    def start(self, group_key: str, problem_id: str) -> dict[str, Any]:
+    def start(self, group_key: str, problem_id: str, *, force: bool = False) -> dict[str, Any]:
         self._verified_row(group_key, problem_id)
         with self.lock:
             current = self.get(group_key)
@@ -159,10 +167,14 @@ class ApplyManager:
                 "group_key": group_key,
                 "problem_id": problem_id,
                 "scope": "problem",
+                "force": force,
                 "status": "queued",
                 "queued_at": _now(),
             })
-            self.executor.submit(self.run_now, group_key, problem_id)
+            if force:
+                self.executor.submit(self.run_now, group_key, problem_id, force=True)
+            else:
+                self.executor.submit(self.run_now, group_key, problem_id)
             return state
 
     def start_group(self, group_key: str) -> dict[str, Any]:
@@ -289,13 +301,14 @@ class ApplyManager:
                 self.store.update_group(group_key, {"column": "issues"})
             return self._write(state)
 
-    def run_now(self, group_key: str, problem_id: str) -> dict[str, Any]:
+    def run_now(self, group_key: str, problem_id: str, *, force: bool = False) -> dict[str, Any]:
         self._verified_row(group_key, problem_id)
         profile = self.profiles[group_key]
         state: dict[str, Any] = {
             "group_key": group_key,
             "problem_id": problem_id,
             "scope": "problem",
+            "force": force,
             "status": "running",
             "started_at": _now(),
         }
@@ -306,8 +319,11 @@ class ApplyManager:
             "--inventory-db", str(self.inventory_store.path),
             "--max-workers", "1",
             "--apply",
+            "--existing-solution-policy", "rewrite" if force else self._existing_solution_policy(profile),
             "--only-problem-id", problem_id,
         ]
+        if force:
+            argv.append("--force-apply")
         try:
             return_code = self.executor_fn(argv)
             if return_code:
@@ -375,6 +391,7 @@ class ApplyManager:
             "--inventory-db", str(self.inventory_store.path),
             "--max-workers", "5",
             "--apply",
+            "--existing-solution-policy", self._existing_solution_policy(profile),
         ]
         delays: tuple[int | None, ...] = (*self.retry_delays, None)
         last_error = "Не все задачи удалось записать и проверить."

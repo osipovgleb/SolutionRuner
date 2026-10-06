@@ -10,12 +10,11 @@ import mimetypes
 import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-import sys
 from threading import Event, Thread
 from typing import Any, Mapping
 from urllib.parse import unquote, urlparse
 
-from solution_runner.pipelines.core.group_profiles import all_group_profiles
+from solution_runner.pipelines.core.group_profiles import all_group_profiles, reload_group_profiles
 from solution_runner.pipelines.grid_polygon.mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 from solution_runner.group_inventory_store import GroupInventoryStore
 
@@ -57,6 +56,49 @@ class DashboardServer(ThreadingHTTPServer):
 
 
 ACTIVE_JOB_STATUSES = {"queued", "running", "retry_wait"}
+
+
+def _profile_source_state(project_root: Path) -> dict[Path, int]:
+    """Return the profile declarations which require a fresh server process."""
+
+    source_root = project_root / "src/solution_runner/pipelines"
+    sources = set(source_root.rglob("profiles.py"))
+    return {
+        path: path.stat().st_mtime_ns
+        for path in sources
+        if path.is_file()
+    }
+
+
+def _refresh_server_profiles(server: DashboardServer) -> None:
+    profiles = reload_group_profiles()
+    server.profiles = profiles
+    for manager in (server.dry_runs, server.applies, server.initializer):
+        if manager is not None:
+            manager.profiles = profiles
+    sync_groups(
+        server.store,
+        profiles,
+        server.var_dir,
+        inventory_store=server.inventory_store,
+    )
+
+
+def _watch_profile_sources(
+    server: DashboardServer,
+    project_root: Path,
+    stop: Event,
+) -> None:
+    known = _profile_source_state(project_root)
+    while not stop.wait(1):
+        current = _profile_source_state(project_root)
+        if current == known:
+            continue
+        try:
+            _refresh_server_profiles(server)
+        except Exception:
+            continue
+        known = current
 
 
 def _job_timestamp(state: Mapping[str, Any]) -> datetime | None:
@@ -586,11 +628,12 @@ class Handler(BaseHTTPRequestHandler):
                         segments[2], None if body.get("scope") == "group" else problem_id
                     )
                 else:
-                    state = (
-                        self.server.applies.start_group(segments[2])
-                        if body.get("scope") == "group"
-                        else self.server.applies.start(segments[2], problem_id)
-                    )
+                    if body.get("scope") == "group":
+                        state = self.server.applies.start_group(segments[2])
+                    elif body.get("force"):
+                        state = self.server.applies.start(segments[2], problem_id, force=True)
+                    else:
+                        state = self.server.applies.start(segments[2], problem_id)
             except KeyError:
                 self._json(404, {"error": "group_profile_not_found"})
             except ValueError as exc:
@@ -795,13 +838,7 @@ def main(argv: list[str] | None = None) -> int:
         store=store,
         background_executor=runner_executor,
     ) if api_key else None
-    restart_requested = Event()
     server: DashboardServer | None = None
-
-    def restart_dashboard() -> None:
-        restart_requested.set()
-        if server is not None:
-            server.shutdown()
 
     def on_dry_run_complete(group_key: str, state: Mapping[str, Any]) -> None:
         _finish_automatic_dry_run(store, group_key, state)
@@ -811,19 +848,16 @@ def main(argv: list[str] | None = None) -> int:
             and state.get("status") == "completed"
             and group.get("agent_status") == "updated"
         ):
-            restart_dashboard()
+            _refresh_server_profiles(server)
 
     if dry_runs is not None:
         dry_runs.on_complete = on_dry_run_complete
 
-    codex_tasks = CodexTaskService(
-        project_root=project_root,
-        on_exit=lambda thread_id, code: (
-            restart_dashboard()
-            if _handle_codex_exit(store, thread_id, code, dry_runs)
-            else None
-        ),
-    )
+    def on_codex_exit(thread_id: str, code: int) -> None:
+        _refresh_server_profiles(server)
+        _handle_codex_exit(store, thread_id, code, dry_runs)
+
+    codex_tasks = CodexTaskService(project_root=project_root, on_exit=on_codex_exit)
 
     initializer = GroupInitializer(
         profiles=profiles,
@@ -843,14 +877,19 @@ def main(argv: list[str] | None = None) -> int:
         args=(store, inventory_store, codex_tasks),
         daemon=True,
     ).start()
+    profile_watch_stop = Event()
+    Thread(
+        target=_watch_profile_sources,
+        args=(server, project_root, profile_watch_stop),
+        daemon=True,
+    ).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         pass
     finally:
+        profile_watch_stop.set()
         server.server_close()
-    if restart_requested.is_set():
-        os.execv(sys.executable, [sys.executable, "-m", "solution_runner.dashboard.server", *sys.argv[1:]])
     return 0
 
 

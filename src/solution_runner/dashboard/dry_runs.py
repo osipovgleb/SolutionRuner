@@ -132,6 +132,7 @@ def _launcher_command(
     mode: str,
     problem_id: str | None,
     inventory_db: Path | None = None,
+    existing_solution_policy: str | None = None,
 ) -> list[str]:
     command = [
         sys.executable,
@@ -146,6 +147,8 @@ def _launcher_command(
     ]
     if inventory_db is not None:
         command.extend(("--inventory-db", str(inventory_db)))
+    if existing_solution_policy:
+        command.extend(("--existing-solution-policy", existing_solution_policy))
     if mode != "all":
         if not problem_id:
             raise ValueError("selected problem is required")
@@ -188,6 +191,14 @@ class DryRunManager:
 
     def _path(self, group_key: str) -> Path:
         return self.state_dir / f"{group_key}.json"
+
+    def _existing_solution_policy(self, profile: Any) -> str:
+        get_group = getattr(self.store, "get_group", None)
+        group = get_group(str(profile.group_key)) if callable(get_group) else None
+        policy = group.get("existing_solution_policy") if group else None
+        return str(policy) if policy in {"preserve", "rewrite"} else str(
+            getattr(profile, "existing_solution_policy", "preserve")
+        )
 
     def _write(self, state: Mapping[str, Any]) -> dict[str, Any]:
         payload = dict(state)
@@ -364,6 +375,7 @@ class DryRunManager:
                 mode,
                 state["selected_problem_id"],
                 self.inventory_store.path if self.inventory_store else None,
+                self._existing_solution_policy(profile),
             ))
             if return_code:
                 raise RuntimeError(f"launcher exited with status {return_code}")

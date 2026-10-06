@@ -39,6 +39,9 @@ class RightTriangleGateway(Protocol):
     def get_asset_metadata(self, asset_id: str) -> dict[str, Any]:
         """Return authoritative metadata for one current condition asset."""
 
+    def download_condition_asset(self, target: ProblemTarget) -> Any:
+        """Download one current condition image for a declared content rule."""
+
     def get_problem_asset_target_context(
         self, problem_id: str, transformation_target_id: str
     ) -> dict[str, Any]:
@@ -202,11 +205,12 @@ def _current_condition_asset_content_type(
         return None
     content = context.get("normalized_content")
     assets = content.get("assets") if isinstance(content, dict) else None
-    if not isinstance(assets, list) or len(assets) != 1:
+    if not isinstance(assets, list):
         return None
-    asset = assets[0]
-    if not isinstance(asset, dict):
+    matches = [asset for asset in assets if isinstance(asset, dict) and asset.get('asset_key') == 'image_1']
+    if len(matches) != 1:
         return None
+    asset = matches[0]
     asset_id = str(asset.get("asset_id") or "")
     if not asset_id:
         return None
@@ -299,6 +303,7 @@ def _build_content_plan(
     parent_solution_assets: tuple[dict[str, str], ...] = (),
     parent_solution_html: str = "",
     current_asset_content_type: str | None = None,
+    condition_asset_bytes: bytes | None = None,
 ):
     from solution_runner.pipelines.core.handlers import PlanInput
     return _registered_handler(content_rule_key).plan(PlanInput(
@@ -307,7 +312,27 @@ def _build_content_plan(
         parent_solution_assets=parent_solution_assets,
         parent_solution_html=parent_solution_html,
         current_asset_content_type=current_asset_content_type,
+        condition_asset_bytes=condition_asset_bytes,
     ))
+
+
+def _condition_asset_bytes(
+    gateway: RightTriangleGateway,
+    problem_id: str,
+    source_problem_id: str,
+    content_rule_key: str | None,
+) -> bytes | None:
+    """Download a current condition image only for an explicitly declared rule."""
+
+    if not _registered_handler(content_rule_key).requires_condition_asset_download:
+        return None
+    asset = gateway.download_condition_asset(ProblemTarget(
+        problem_id, source_problem_id, "", "", 0,
+    ))
+    if (str(asset.content_type).split(";", 1)[0].lower() != "image/svg+xml"
+            and not _registered_handler(content_rule_key).allow_non_svg_condition_asset):
+        raise RightTrianglePlanError("condition asset must be SVG")
+    return bytes(asset.data)
 
 
 def _asset_key(source_asset_id: str) -> str:
@@ -366,6 +391,35 @@ def _with_required_assets(context: dict[str, Any], content_rule_key: str | None)
     return planned
 
 
+def _preserving_solution_transformations(
+    context: dict[str, Any],
+    transformations: tuple[dict[str, Any], ...],
+) -> tuple[dict[str, Any], ...]:
+    """Keep an editorial solution and only retain condition/answer repairs."""
+
+    content = context.get("normalized_content")
+    sections = content.get("sections") if isinstance(content, dict) else None
+    solution = next(
+        (item for item in sections or [] if isinstance(item, dict) and item.get("key") == "solution"),
+        None,
+    )
+    if not solution or not str(solution.get("html") or "").strip():
+        return transformations
+    solution_asset_keys = {str(key) for key in solution.get("asset_keys") or []}
+    kept: list[dict[str, Any]] = []
+    for transformation in transformations:
+        target = str(transformation.get("transformation_target_id") or "")
+        value = transformation.get("value")
+        parent_target = str(value.get("parent_target_id") or "") if isinstance(value, dict) else ""
+        asset_key = target.removeprefix("asset:")
+        if target.startswith("section:solution") or parent_target.startswith("section:solution"):
+            continue
+        if target.startswith("asset:") and asset_key in solution_asset_keys:
+            continue
+        kept.append(transformation)
+    return tuple(kept)
+
+
 def _ensure_required_assets(
     gateway: RightTriangleGateway,
     problem_id: str,
@@ -417,6 +471,7 @@ def _prepared_record(
     content_rule_key: str | None = None,
     parent_solution_assets: tuple[dict[str, str], ...] = (),
     parent_solution_html: str = "",
+    preserve_existing_solution: bool = False,
 ) -> dict[str, Any]:
     """Freeze one group's current plan without changing source content."""
 
@@ -427,6 +482,9 @@ def _prepared_record(
         current_asset_content_type = _current_condition_asset_content_type(
             gateway, context, content_rule_key
         )
+        condition_asset_bytes = _condition_asset_bytes(
+            gateway, problem_id, source_problem_id, content_rule_key
+        )
         plan = _build_content_plan(
             context,
             parent_asset_id=parent_asset_id,
@@ -434,14 +492,19 @@ def _prepared_record(
             parent_solution_assets=parent_solution_assets,
             parent_solution_html=parent_solution_html,
             current_asset_content_type=current_asset_content_type,
+            condition_asset_bytes=condition_asset_bytes,
         )
+        transformations = tuple(plan.transformations)
+        if preserve_existing_solution:
+            transformations = _preserving_solution_transformations(context, transformations)
         return {
             "problem_id": problem_id,
             "source_problem_id": source_problem_id,
             "status": "prepared",
             "input_fingerprint": _context_fingerprint(context),
             "expected_answer": plan.answer,
-            "transformations": [deepcopy(item) for item in plan.transformations],
+            "transformations": [deepcopy(item) for item in transformations],
+            **({"message": "; ".join(plan.warnings)} if getattr(plan, "warnings", ()) else {}),
         }
     except Exception as exc:  # noqa: BLE001 - freeze one explicit blocker per task.
         return {
@@ -552,6 +615,9 @@ def _apply_record(
         current_asset_content_type = _current_condition_asset_content_type(
             gateway, context, content_rule_key
         )
+        condition_asset_bytes = _condition_asset_bytes(
+            gateway, problem_id, source_problem_id, content_rule_key
+        )
         current_plan = _build_content_plan(
             context,
             parent_asset_id=parent_asset_id,
@@ -559,6 +625,7 @@ def _apply_record(
             parent_solution_assets=parent_solution_assets,
             parent_solution_html=parent_solution_html,
             current_asset_content_type=current_asset_content_type,
+            condition_asset_bytes=condition_asset_bytes,
         )
         expected_answer = str(record.get("expected_answer") or "")
         frozen = record.get("transformations")
@@ -585,6 +652,7 @@ def _apply_record(
             "problem_id": problem_id,
             "source_problem_id": source_problem_id,
             "status": "applied" if changed else "already_complete",
+            **({"message": "; ".join(current_plan.warnings)} if getattr(current_plan, "warnings", ()) else {}),
         }
     except Exception as exc:  # noqa: BLE001 - preserve one target-local failure.
         return {
@@ -717,6 +785,7 @@ def _content_rule_manifest(
                     profile.content_rule_key,
                     parent_solution_assets,
                     parent_solution_html,
+                    profile.existing_solution_policy == "preserve",
                 ),
                 children,
             ), start=1):

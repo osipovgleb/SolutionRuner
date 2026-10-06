@@ -251,15 +251,19 @@ def _answer_latex(value: Fraction) -> str:
 def _formula(condition: dict[str, Any]) -> str:
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
     formulas = soup.find_all("span", attrs={"data-inline-latex": True})
-    if len(formulas) != 1:
+    if len(formulas) > 1:
         raise RightTrianglePlanError("condition must contain one formula")
-    formula = (
-        str(formulas[0].get("data-inline-latex") or "")
-        .replace("\\left", "")
-        .replace("\\right", "")
-        .replace(":", "\\colon")
-        .replace(" ", "")
-    )
+    formula = str(formulas[0].get("data-inline-latex") or "") if formulas else ""
+    plain_text = not formula
+    if not formula:
+        text = soup.get_text(" ", strip=True).replace("−", "-")
+        match = re.search(r"-?\d+,\d+\s*[+-]\s*-?\d+,\d+", text)
+        if match is None:
+            raise RightTrianglePlanError("condition must contain one formula")
+        formula = match.group(0)
+    formula = re.sub(r"\s+", "", formula.replace("\\left", "").replace("\\right", "").replace(":", "\\colon"))
+    if plain_text:
+        formula = formula.replace(",", "{,}")
     formula = formula.replace(r"\text{onehalf}", r"\frac{1}{2}")
     formula = re.sub(r"(\d+)\\text\{over\}(\d+)", r"\\frac{\1}{\2}", formula)
     return formula
@@ -309,6 +313,14 @@ def _generic_plan(
     rows = _expression_steps(expression)
     if not rows:
         raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+    if result.denominator != 1:
+        decimal_denominator = 10 ** len(answer.partition(",")[2])
+        decimal_numerator = result.numerator * (decimal_denominator // result.denominator)
+        decimal_fraction = (
+            f"{'-' if decimal_numerator < 0 else ''}"
+            f"\\frac{{{abs(decimal_numerator)}}}{{{decimal_denominator}}}"
+        )
+        rows.append(f"{_fraction_latex(result)}={decimal_fraction}={_answer_latex(result)}")
     calculation = "".join(
         f'<center><p><span data-inline-latex="{row}"></span>.</p></center>'
         for row in rows
@@ -412,6 +424,41 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     current_answer = BeautifulSoup(
         str(answer_section.get("html") or "") if answer_section else "", "html.parser"
     ).get_text("", strip=True).replace(" ", "")
+    if current_answer != answer:
+        changes.append(
+            _section_transformation(
+                answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
+            )
+        )
+    return RepairPlan(answer=answer, transformations=tuple(changes))
+
+
+def build_decimal_sum_difference_plan(context: dict[str, Any]) -> RepairPlan:
+    """Keep the parent's concise presentation for decimal sums and differences."""
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    answer_section = _section(content, "answer")
+    solution_section = _section(content, "solution")
+    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+        raise RightTrianglePlanError("numeric expression conditions must be text-only")
+    formula = _formula(condition)
+    expression = _ExpressionParser(formula).parse()
+    if (
+        expression[0] not in ("+", "-")
+        or expression[1][0] != "number"
+        or expression[2][0] != "number"
+        or "{,}" not in formula
+    ):
+        raise RightTrianglePlanError("condition does not match a decimal sum or difference")
+    answer = _answer(_expression_value(expression))
+    current_answer = BeautifulSoup(
+        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
+    ).get_text("", strip=True).replace(" ", "")
+    changes: list[dict[str, Any]] = []
+    if solution_section is None:
+        solution = f"<p>Найдём значение выражения: {formula.replace('{,}', ',')} = {answer}.</p>"
+        changes.append(_section_transformation(solution_section, "solution", "Решение", solution))
     if current_answer != answer:
         changes.append(
             _section_transformation(
