@@ -27,3 +27,14 @@ HANDLERS += (HandlerSpec(
     requires_condition_asset_download=True,
     asset_selector='solution_runner.pipelines.function_graphs.fractional_hyperbola:required_assets',
 ),)
+
+HANDLERS += (HandlerSpec(
+    key='hyperbola-unshifted-value',
+    target='solution_runner.pipelines.function_graphs.unshifted_hyperbola:build_context_repair_plan',
+    inputs=(('condition_asset_bytes','condition_asset_bytes'),('current_asset_content_type','current_asset_content_type')),
+    requires_parent_condition_asset=False,
+    inspect_current_asset_type=True,
+    requires_condition_asset_download=True,
+    allow_non_svg_condition_asset=True,
+    asset_selector='solution_runner.pipelines.function_graphs.unshifted_hyperbola:required_assets',
+),)

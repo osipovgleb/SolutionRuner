@@ -12,7 +12,7 @@ PROFILES = tuple(
         expected_vertices=None,
         strategy_key=None,
         workflow_kind='content_rule',
-        content_rule_key=f'hyperbola-shift-{mode}',
+        content_rule_key='hyperbola-unshifted-value' if mode=='unshifted-value' else f'hyperbola-shift-{mode}',
         rewrite_existing_solution=True,
     )
     for key, group_id, index, mode in (
@@ -22,5 +22,6 @@ PROFILES = tuple(
         ('508983', 'bec09ca3-a236-47aa-9fcd-776884b9a05a', 3, 'horizontal-argument'),
         ('508993', 'b4a0f3c7-c5de-4c56-a003-7c236d2be077', 4, 'fractional-coefficient'),
         ('509001', '25605c37-1c45-4790-9713-6711d0b2090a', 5, 'fractional-coefficient'),
+        ('660801', '67db17c6-c0a4-477d-8564-a9eeb199d4f1', 6, 'unshifted-value'),
     )
 )
