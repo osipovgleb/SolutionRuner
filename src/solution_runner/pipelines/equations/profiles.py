@@ -787,3 +787,19 @@ PROFILES = (
         )
     ),
 )
+
+# Audited OGE inequality-system groups; preserve all editorial solutions.
+PROFILES += tuple(
+    _profile(key, source_id, order,
+        catalog_snapshot_id="fd733f80-43d2-4b4a-b903-2423796cbee5",
+        category_key="13", theme_title="Системы неравенств", theme_order_index=0,
+        snapshot_theme_id="29856936-1cd0-4f14-94b9-b0bf595395bd",
+        expected_vertices=None, strategy_key=None, workflow_kind="content_rule",
+        content_rule_key="inequality-systems-linear-complete", rewrite_existing_solution=True)
+    for order, (key, source_id) in enumerate((
+        ("311672", "89380b0c-acef-48e8-a74b-2a283372bd3d"),
+        ("333109", "974f9bf8-c7db-4ac5-b94d-ec7d00b87abd"),
+        ("341322", "59cbcb9a-c08c-4d29-8a7d-dabecdaacbb5"),
+        ("348461", "9e682f8d-c17d-4ce8-9d7a-37af7159dba9"),
+    ))
+)

@@ -18,6 +18,7 @@ class PlanInput:
     parent_solution_html: str = ""
     current_asset_content_type: str | None = None
     condition_asset_bytes: bytes | None = None
+    generated_solution_assets: tuple[dict[str, str], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -44,6 +45,9 @@ class HandlerSpec:
     asset_selector: str | None = None
     requires_condition_asset_download: bool = False
     allow_non_svg_condition_asset: bool = False
+    presentation_only: bool = False
+    verify_content_readback: bool = False
+    diagram_builder: str | None = None
 
     def __post_init__(self):
         if not self.key or ':' not in self.target:
@@ -69,6 +73,9 @@ class HandlerSpec:
     def validate(self) -> None:
         """Check declaration wiring without reading a problem or invoking math."""
         signature(self.resolve()).bind({}, **self.arguments(PlanInput({})))
+        if self.diagram_builder:
+            module, name = self.diagram_builder.split(":", 1)
+            signature(getattr(import_module(module), name)).bind({})
         if self.manifest_validator:
             module, name = self.manifest_validator.split(":", 1)
             signature(getattr(import_module(module), name)).bind(None, {})
@@ -98,6 +105,19 @@ class HandlerSpec:
         if self.manifest_validator:
             module, name = self.manifest_validator.split(":", 1)
             getattr(import_module(module), name)(gateway, manifest)
+
+    def diagram_specs(self, context: dict[str, Any]) -> tuple[dict[str, str], ...]:
+        """Build deterministic diagrams without transport or persistent side effects."""
+        if not self.diagram_builder:
+            return ()
+        module, name = self.diagram_builder.split(':', 1)
+        specs = tuple(getattr(import_module(module), name)(context))
+        if any(set(spec) != {"asset_key", "svg_text", "sha256"} or
+               not all(isinstance(value, str) and value for value in spec.values()) for spec in specs):
+            raise ValueError("invalid deterministic diagram specification")
+        if len({spec["asset_key"] for spec in specs}) != len(specs):
+            raise ValueError("duplicate generated diagram asset key")
+        return specs
 
     def plan(self, value: PlanInput) -> RepairPlan:
         return self.resolve()(value.context, **self.arguments(value))

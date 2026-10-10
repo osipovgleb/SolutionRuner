@@ -12,6 +12,8 @@ import re
 import time
 from typing import Any, Callable, Protocol
 
+from bs4 import BeautifulSoup
+
 from solution_runner.pipelines.core.models import GroupProfile, ProblemStageResult, ProblemTarget
 from solution_runner.pipelines.grid_polygon.progress import ProgressReporter, TargetProgress
 from solution_runner.pipelines.core.errors import ContentPlanError as RightTrianglePlanError
@@ -304,6 +306,7 @@ def _build_content_plan(
     parent_solution_html: str = "",
     current_asset_content_type: str | None = None,
     condition_asset_bytes: bytes | None = None,
+    generated_solution_assets: tuple[dict[str, str], ...] = (),
 ):
     from solution_runner.pipelines.core.handlers import PlanInput
     return _registered_handler(content_rule_key).plan(PlanInput(
@@ -313,6 +316,7 @@ def _build_content_plan(
         parent_solution_html=parent_solution_html,
         current_asset_content_type=current_asset_content_type,
         condition_asset_bytes=condition_asset_bytes,
+        generated_solution_assets=generated_solution_assets,
     ))
 
 
@@ -464,6 +468,29 @@ def _ensure_required_assets(
 
 
 
+def _generated_diagram_assets(gateway, context, specs, source_problem_id, *, apply=False):
+    """Reuse checksum-verified solution assets or prepare preview/upload identities."""
+    result = []
+    for spec in specs:
+        svg_bytes = spec["svg_text"].encode()
+        digest = hashlib.sha256(svg_bytes).hexdigest()
+        if digest != spec["sha256"]:
+            raise RightTrianglePlanError("generated diagram checksum changed")
+        existing = next((a for a in (context.get("normalized_content") or {}).get("assets", [])
+                         if a.get("asset_key") == spec["asset_key"]), None)
+        asset = None
+        if existing:
+            metadata = gateway.get_source_asset(existing["asset_id"]).get("source_asset") or {}
+            if metadata.get("sha256") == digest:
+                asset = {"source_asset_id": existing["asset_id"], "url": existing["url"], "sha256": digest}
+        if asset is None and apply:
+            asset = gateway.upload_solution_asset(source_problem_id=source_problem_id, svg_bytes=svg_bytes, sha256=digest)
+        if asset is None:
+            asset = {"source_asset_id": "preview-" + digest[:16], "url": "/assets/preview-" + digest[:16], "sha256": digest}
+        result.append({**asset, "asset_key": spec["asset_key"]})
+    return tuple(result)
+
+
 def _prepared_record(
     gateway: RightTriangleGateway,
     child: dict[str, Any],
@@ -485,6 +512,8 @@ def _prepared_record(
         condition_asset_bytes = _condition_asset_bytes(
             gateway, problem_id, source_problem_id, content_rule_key
         )
+        diagram_specs = _registered_handler(content_rule_key).diagram_specs(context)
+        generated_assets = _generated_diagram_assets(gateway, context, diagram_specs, source_problem_id)
         plan = _build_content_plan(
             context,
             parent_asset_id=parent_asset_id,
@@ -493,6 +522,7 @@ def _prepared_record(
             parent_solution_html=parent_solution_html,
             current_asset_content_type=current_asset_content_type,
             condition_asset_bytes=condition_asset_bytes,
+            generated_solution_assets=generated_assets,
         )
         transformations = tuple(plan.transformations)
         if preserve_existing_solution:
@@ -503,6 +533,7 @@ def _prepared_record(
             "status": "prepared",
             "input_fingerprint": _context_fingerprint(context),
             "expected_answer": plan.answer,
+            "generated_diagrams": list(diagram_specs),
             "transformations": [deepcopy(item) for item in transformations],
             **({"message": "; ".join(plan.warnings)} if getattr(plan, "warnings", ()) else {}),
         }
@@ -588,6 +619,14 @@ def _has_current_image(context: dict[str, Any]) -> bool:
     )
 
 
+def _presentation_html(raw: str) -> str:
+    """Compare authoritative condition HTML without transient target annotations."""
+    soup = BeautifulSoup(raw, "html.parser")
+    for tag in soup.find_all(True):
+        tag.attrs.pop("data-transformation-target-id", None)
+    return str(soup)
+
+
 def _apply_record(
     gateway: RightTriangleGateway,
     record: dict[str, Any],
@@ -618,6 +657,10 @@ def _apply_record(
         condition_asset_bytes = _condition_asset_bytes(
             gateway, problem_id, source_problem_id, content_rule_key
         )
+        diagram_specs = _registered_handler(content_rule_key).diagram_specs(context)
+        if list(diagram_specs) != record.get("generated_diagrams", []):
+            raise RightTrianglePlanError("generated diagram drifted after prepare")
+        generated_assets = _generated_diagram_assets(gateway, context, diagram_specs, source_problem_id)
         current_plan = _build_content_plan(
             context,
             parent_asset_id=parent_asset_id,
@@ -626,14 +669,21 @@ def _apply_record(
             parent_solution_html=parent_solution_html,
             current_asset_content_type=current_asset_content_type,
             condition_asset_bytes=condition_asset_bytes,
+            generated_solution_assets=generated_assets,
         )
         expected_answer = str(record.get("expected_answer") or "")
         frozen = record.get("transformations")
-        if not isinstance(frozen, list) or not expected_answer:
+        if not isinstance(frozen, list) or (not expected_answer and not _registered_handler(content_rule_key).presentation_only):
             raise RightTrianglePlanError("prepared record is incomplete")
         if current_plan.answer != expected_answer:
             raise RightTrianglePlanError("condition or computed answer drifted after prepare")
         current_transformations = list(current_plan.transformations)
+        if _registered_handler(content_rule_key).presentation_only:
+            for item in frozen:
+                target = str(item.get("transformation_target_id") or "")
+                if not ((target.startswith("section:condition:") and item.get("operation") == "rewrite") or
+                        (target.startswith("asset:") and item.get("operation") == "remove")):
+                    raise RightTrianglePlanError("presentation rule may only rewrite the condition")
         changed = False
         if current_transformations:
             if (_registered_handler(content_rule_key).strict_frozen_input and
@@ -646,8 +696,41 @@ def _apply_record(
                 and _has_current_image(context)
             ):
                 gateway.get_problem_asset_target_context(problem_id, "asset:image_1")
+            if diagram_specs:
+                uploaded_assets = _generated_diagram_assets(gateway, context, diagram_specs, source_problem_id, apply=True)
+                encoded = json.dumps(frozen, ensure_ascii=False)
+                for preview, uploaded in zip(generated_assets, uploaded_assets):
+                    encoded = encoded.replace(preview["source_asset_id"], uploaded["source_asset_id"])
+                frozen = json.loads(encoded)
             gateway.apply_problem_transformations(problem_id, deepcopy(frozen))
             changed = True
+        if diagram_specs:
+            encoded = json.dumps(frozen, ensure_ascii=False)
+            for spec, asset in zip(diagram_specs, generated_assets):
+                encoded = encoded.replace("preview-" + spec["sha256"][:16], asset["source_asset_id"])
+            frozen = json.loads(encoded)
+        if (_registered_handler(content_rule_key).presentation_only or
+                _registered_handler(content_rule_key).verify_content_readback):
+            refreshed = gateway.get_problem_context(problem_id)
+            refreshed_specs = _registered_handler(content_rule_key).diagram_specs(refreshed)
+            refreshed_assets = _generated_diagram_assets(gateway, refreshed, refreshed_specs, source_problem_id)
+            verified = _build_content_plan(refreshed, parent_asset_id=parent_asset_id, content_rule_key=content_rule_key,
+                                           generated_solution_assets=refreshed_assets)
+            if verified.transformations or verified.answer != expected_answer:
+                raise RightTrianglePlanError("content failed authoritative readback")
+            before_sections = (context.get("normalized_content") or {}).get("sections", [])
+            after_sections = (refreshed.get("normalized_content") or {}).get("sections", [])
+            touched = set()
+            for item in frozen:
+                if str(item.get("transformation_target_id", "")).startswith("section:"):
+                    key = item["transformation_target_id"].split(":")[1]
+                    touched.add(key)
+                    actual = next((section.get("html", "") for section in after_sections if section.get("key") == key), "")
+                    if _presentation_html(actual) != _presentation_html(item["value"]["html"]):
+                        raise RightTrianglePlanError("section readback differs from frozen content")
+            if ([item for item in before_sections if item.get("key") not in touched] !=
+                    [item for item in after_sections if item.get("key") not in touched]):
+                raise RightTrianglePlanError("unrelated sections changed during content repair")
         return {
             "problem_id": problem_id,
             "source_problem_id": source_problem_id,

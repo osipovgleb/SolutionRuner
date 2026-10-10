@@ -46,6 +46,8 @@ where = ["src"]
 [tool.setuptools.package-data]
 "solution_runner.converters" = ["*.js", "*.svg"]
 
+"solution_runner.pipelines.equations" = ["inequality_systems_evidence.json", "inequality_systems_choices.json", "inequality_number_line_template.svg"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]

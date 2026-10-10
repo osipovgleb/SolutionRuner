@@ -2,6 +2,8 @@
 from solution_runner.pipelines.core.handlers import HandlerSpec
 
 HANDLERS = (
+    HandlerSpec("inequality-systems-linear-complete", "solution_runner.pipelines.equations.inequality_systems_complete:build_context_repair_plan", requires_parent_condition_asset=False, strict_frozen_input=True, verify_content_readback=True, diagram_builder="solution_runner.pipelines.equations.inequality_systems_complete:diagram_specs", inputs=(("generated_solution_assets", "generated_solution_assets"),)),
+    HandlerSpec("inequality-systems-reviewed-presentation", "solution_runner.pipelines.equations.inequality_systems:build_context_repair_plan", requires_parent_condition_asset=False, presentation_only=True),
     HandlerSpec('exponential-26650-common-base-affine-exponent', 'solution_runner.pipelines.equations.group_26650:build_context_repair_plan', requires_parent_condition_asset=False),
     HandlerSpec('exponential-77379-equal-exponent-different-bases', 'solution_runner.pipelines.equations.group_77379:build_context_repair_plan', requires_parent_condition_asset=False),
     HandlerSpec('logarithm-common-normalized', 'solution_runner.pipelines.equations.group_26646:build_context_repair_plan', requires_parent_condition_asset=False),
