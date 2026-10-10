@@ -10,6 +10,8 @@ async function request(fetcher, url, options = {}) {
 export function createApi(fetcher = fetch) {
   return {
     listGroups: () => request(fetcher, "/api/groups"),
+    listJobs: (groupId) => request(fetcher, `/api/jobs?group=${encodeURIComponent(groupId)}`),
+    getJobLog: (jobId) => request(fetcher, `/api/jobs/${encodeURIComponent(jobId)}/log`),
     removeGroup: (id) => request(fetcher, `/api/groups/${encodeURIComponent(id)}`, { method: "DELETE" }),
     listCodexTasks: () => request(fetcher, "/api/codex/tasks"),
     registerGroup: (id, threadId = null, comment = "") => request(fetcher, `/api/groups/${id}/register`, {

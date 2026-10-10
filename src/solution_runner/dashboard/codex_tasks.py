@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import selectors
 import subprocess
 from threading import Event, Lock, Thread
-import tempfile
+from uuid import uuid4
 import time
 from typing import Any, Callable, Mapping
 
@@ -49,16 +50,23 @@ def build_registration_prompt(
     return prompt if not comment else f"{prompt}\n\nКомментарий пользователя:\n{comment}"
 
 
+def _log_path(project_root: Path, operation: str) -> Path:
+    directory = project_root / "var/dashboard/logs"
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory / f"codex-{operation}-{uuid4().hex}.log"
+
+
 def _app_server_request(project_root: Path, method: str, params: Mapping[str, Any]) -> dict[str, Any]:
-    process = subprocess.Popen(
-        ["codex", "app-server", "--stdio"],
-        cwd=project_root,
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        bufsize=1,
-    )
+    with _log_path(project_root, "app-server").open("a", encoding="utf-8") as error_log:
+        process = subprocess.Popen(
+            ["codex", "app-server", "--stdio"],
+            cwd=project_root,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=error_log,
+            text=True,
+            bufsize=1,
+        )
     assert process.stdin is not None and process.stdout is not None
     messages = [
         {"id": 1, "method": "initialize", "params": {
@@ -137,22 +145,24 @@ def _create_thread(
     effort: str,
     on_exit: Callable[[str, int], None] | None = None,
 ) -> str:
-    output = tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=False)
-    output_path = Path(output.name)
-    process = subprocess.Popen(
-        [
-            "codex", "exec", "--json", *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
-            "-m", model, "-c", f'model_reasoning_effort="{effort}"',
-            "--thread-source", "appServer", prompt,
-        ],
-        cwd=project_root,
-        stdout=output,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        bufsize=1,
-        start_new_session=True,
-    )
-    output.close()
+    output_path = _log_path(project_root, "exec")
+    with (
+        output_path.open("w", encoding="utf-8") as output,
+        output_path.with_suffix(".stderr.log").open("w", encoding="utf-8") as error_log,
+    ):
+        process = subprocess.Popen(
+            [
+                "codex", "exec", "--json", *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
+                "-m", model, "-c", f'model_reasoning_effort="{effort}"',
+                "--thread-source", "appServer", prompt,
+            ],
+            cwd=project_root,
+            stdout=output,
+            stderr=error_log,
+            text=True,
+            bufsize=1,
+            start_new_session=True,
+        )
     reader = output_path.open(encoding="utf-8")
     deadline = time.monotonic() + 15
     position = 0
@@ -169,14 +179,12 @@ def _create_thread(
                 thread_id = str(event["thread_id"])
                 Thread(target=_watch, args=(process, thread_id, on_exit), daemon=True).start()
                 reader.close()
-                output_path.unlink(missing_ok=True)
                 return thread_id
         if process.poll() is not None:
             break
         time.sleep(0.05)
     process.terminate()
     reader.close()
-    output_path.unlink(missing_ok=True)
     raise RuntimeError("Codex did not create a task")
 
 
@@ -188,17 +196,18 @@ def _send_message(
 ) -> None:
     """Queue a turn in the app-owned task."""
 
-    process = subprocess.run(
-        [
-            "codex", "queue", "--thread", thread_id, "--message", prompt,
-            *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
-        ],
-        cwd=project_root,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        check=False,
-    )
+    with _log_path(project_root, "queue").open("w", encoding="utf-8") as output:
+        process = subprocess.run(
+            [
+                "codex", "queue", "--thread", thread_id, "--message", prompt,
+                *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
+            ],
+            cwd=project_root,
+            stdout=output,
+            stderr=subprocess.STDOUT,
+            text=True,
+            check=False,
+        )
     if process.returncode and on_exit:
         on_exit(thread_id, process.returncode)
 
@@ -273,7 +282,10 @@ class CodexTaskService:
                 raise ValueError("selected Codex task does not exist in this project")
             self._send(thread_id, prompt)
             return {"id": thread_id, "title": str(task["title"])}
-        created_id = self._create(prompt, MODEL, EFFORT)
+        created_id = self._create(
+            prompt, os.environ.get("SOLUTION_RUNNER_CODEX_MODEL", MODEL),
+            os.environ.get("SOLUTION_RUNNER_CODEX_EFFORT", EFFORT),
+        )
         return {"id": created_id, "title": f"{group['id']} · {group['title']}"}
 
     def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> None:

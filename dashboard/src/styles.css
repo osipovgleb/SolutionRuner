@@ -187,3 +187,7 @@ select, .secondary-button, .primary-button, .danger-button, .icon-button {
   .detail-panel { width: 92vw; min-width: 0; }
   .toolbar .secondary-button { display: none; }
 }
+.job-history { margin-bottom: 24px; }
+.job-history-row { display: grid; gap: 8px; padding: 12px 0; border-bottom: 1px solid #ddd; }
+.job-history-row button { justify-self: start; }
+.job-log { max-height: 400px; overflow: auto; padding: 12px; background: #f4f5f6; white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -162,3 +162,14 @@ test("dashboard API lists Codex tasks and registers a group", async () => {
   assert.equal(calls[3][0], "/api/groups/27719/archive-codex");
   assert.equal(calls[3][1].method, "POST");
 });
+
+test("job history and logs encode their identifiers", async () => {
+  const calls = [];
+  const api = createApi(async (url) => {
+    calls.push(url);
+    return { ok: true, json: async () => ({ jobs: [], log: "output" }) };
+  });
+  await api.listJobs("Группа 123");
+  await api.getJobLog(42);
+  assert.deepEqual(calls, [`/api/jobs?group=${encodeURIComponent("Группа 123")}`, "/api/jobs/42/log"]);
+});

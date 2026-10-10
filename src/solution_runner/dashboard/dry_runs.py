@@ -5,10 +5,8 @@ from __future__ import annotations
 from concurrent.futures import Executor, ThreadPoolExecutor
 from datetime import UTC, datetime
 import json
-import os
 from pathlib import Path
 import secrets
-import subprocess
 import sys
 from threading import Lock
 from typing import Any, Callable, Mapping, Sequence
@@ -20,6 +18,7 @@ from solution_runner.group_inventory_store import (
 from solution_runner.pipelines.core.local_inventory import load_group_inventory
 
 from .previews import fetch_preview, latest_dry_run_manifest, load_preview, save_preview
+from .process_logs import run_logged
 
 
 MODES = {"parent", "random", "all", "problem"}
@@ -157,7 +156,7 @@ def _launcher_command(
 
 
 def _run_launcher(command: list[str]) -> int:
-    return subprocess.run(command, env=os.environ.copy(), check=False).returncode
+    return run_logged(command)
 
 
 class DryRunManager:

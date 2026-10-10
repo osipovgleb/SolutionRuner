@@ -280,6 +280,53 @@ function HistoryTab({ activity }) {
   </section>;
 }
 
+function JobHistory({ groupId }) {
+  const [jobs, setJobs] = useState([]);
+  const [error, setError] = useState("");
+  const [log, setLog] = useState(null);
+  const [loadingLog, setLoadingLog] = useState(false);
+  useEffect(() => {
+    let active = true;
+    const refresh = async () => {
+      try {
+        const payload = await api.listJobs(groupId);
+        if (active) { setJobs(payload.jobs); setError(""); }
+      } catch {
+        if (active) setError("Не удалось загрузить очередь заданий.");
+      }
+    };
+    refresh();
+    const timer = setInterval(refresh, 3000);
+    return () => { active = false; clearInterval(timer); };
+  }, [groupId]);
+  const openLog = async (jobId) => {
+    setLoadingLog(true);
+    try {
+      const payload = await api.getJobLog(jobId);
+      setLog({ id: jobId, text: payload.log });
+    } catch {
+      setError("Не удалось загрузить лог задания.");
+    } finally {
+      setLoadingLog(false);
+    }
+  };
+  const statuses = { queued: "В очереди", running: "Выполняется", completed: "Завершено", failed: "Ошибка", interrupted: "Прервано" };
+  const kinds = { "dry-run": "Тестовый прогон", "apply-group": "Запись группы", "apply-problem": "Запись задачи", helpers: "Helpers" };
+  return <section class="job-history">
+    <h3>Задания</h3>
+    {error && <p class="sample-error">{error}</p>}
+    {!jobs.length && !error && <p>Заданий пока нет.</p>}
+    {jobs.map((job) => <div class="job-history-row" key={job.id}>
+      <span>#{job.id} · {kinds[job.kind] || job.kind} · {statuses[job.status] || job.status}</span>
+      <small>{new Date(job.created_at).toLocaleString("ru")}</small>
+      {job.error && <p class="sample-error">{job.error}</p>}
+      {job.status === "interrupted" && <p>Перед повтором проверьте результат записи в TeacherHelper.</p>}
+      <button class="secondary-button" onClick={() => openLog(job.id)} disabled={loadingLog}>Лог</button>
+    </div>)}
+    {log && <div><h4>Лог задания #{log.id}</h4><pre class="job-log">{log.text || "Вывод пока отсутствует."}</pre></div>}
+  </section>;
+}
+
 function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
   const [removing, setRemoving] = useState(false);
   const [removeError, setRemoveError] = useState("");
@@ -722,7 +769,7 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
         {tab === "tasks" && <TaskInventory inventory={inventory} onExpandPreview={(task) => api.getProblemPreview(group.id, task.problem_id)} onAddTaskComment={addTaskComment} canComment={Boolean(group.codex_thread_id)} onRunProblem={runProblem} onApplyProblem={applyProblem} onApplyHelpers={applyHelpers} onRejectProblem={rejectProblem} runningProblemId={runningProblemId} applyingProblemId={applyingProblemId} applyingHelpersProblemId={applyingHelpersProblemId} rejectingProblemId={rejectingProblemId} />}
         {tab === "run" && <RunTab activity={activity} />}
         {tab === "issues" && <ProblemsTab activity={activity} inventory={inventory} onOpenProblem={openProblemPreview} onApplyProblem={applyProblem} runningProblemId={runningProblemId} applyingProblemId={applyingProblemId} />}
-        {tab === "history" && <HistoryTab activity={activity} />}
+        {tab === "history" && <><JobHistory groupId={group.id} /><HistoryTab activity={activity} /></>}
       </div>
 
       <footer class="detail-footer">

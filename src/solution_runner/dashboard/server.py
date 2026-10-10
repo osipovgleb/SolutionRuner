@@ -1,9 +1,8 @@
-"""Small localhost-only HTTP API for the group dashboard."""
+"""Group dashboard API with optional authenticated remote access."""
 
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 import json
 import mimetypes
@@ -12,7 +11,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Event, Thread
 from typing import Any, Mapping
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 from solution_runner.pipelines.core.group_profiles import all_group_profiles, reload_group_profiles
 from solution_runner.pipelines.grid_polygon.mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
@@ -38,6 +37,8 @@ from .backfill import backfill_local_runs
 from .store import DashboardStore, sync_groups
 from .teacherhelper import teacherhelper_navigation
 from .codex_tasks import CodexTaskService
+from .auth import DashboardAuth
+from .job_queue import DurableJobQueue
 
 
 class DashboardServer(ThreadingHTTPServer):
@@ -53,6 +54,8 @@ class DashboardServer(ThreadingHTTPServer):
     preview_gateway_factory: Any | None
     codex_tasks: Any | None
     jobs_started_at: datetime
+    auth: DashboardAuth
+    job_queue: DurableJobQueue | None
 
 
 ACTIVE_JOB_STATUSES = {"queued", "running", "retry_wait"}
@@ -256,6 +259,27 @@ def _resume_automatic_groups(
 class Handler(BaseHTTPRequestHandler):
     server: DashboardServer
 
+    def parse_request(self) -> bool:
+        if not super().parse_request():
+            return False
+        auth = self.server.auth
+        if auth.enabled and not auth.authorized(self.headers.get("Authorization", "")):
+            self.send_response(401)
+            self.send_header("WWW-Authenticate", 'Basic realm="SolutionRunner", charset="UTF-8"')
+            self.send_header("Content-Length", "0")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            return False
+        if self.command in {"POST", "PATCH", "DELETE"}:
+            origin = self.headers.get("Origin")
+            allowed = auth.origin_allowed(origin, self.headers.get("Host", ""))
+            if not auth.enabled and origin == "http://127.0.0.1:5173":
+                allowed = True
+            if not allowed:
+                self._json(403, {"error": "cross_origin_request"})
+                return False
+        return True
+
     def log_message(self, format: str, *args: object) -> None:
         return
 
@@ -264,7 +288,9 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
-        self.send_header("Access-Control-Allow-Origin", "http://127.0.0.1:5173")
+        self.send_header("Cache-Control", "no-store")
+        if not self.server.auth.enabled:
+            self.send_header("Access-Control-Allow-Origin", "http://127.0.0.1:5173")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
         self.end_headers()
@@ -297,7 +323,7 @@ class Handler(BaseHTTPRequestHandler):
             if not state or state.get("status") not in ACTIVE_JOB_STATUSES:
                 continue
             timestamp = _job_timestamp(state)
-            if timestamp and timestamp < self.server.jobs_started_at:
+            if self.server.job_queue is None and timestamp and timestamp < self.server.jobs_started_at:
                 continue
             candidates.append({
                 "kind": "helpers" if state.get("stage") == "helpers" else default_kind,
@@ -333,6 +359,20 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         segments = self._segments()
+        if segments == ["api", "jobs"] and self.server.job_queue is not None:
+            group_key = parse_qs(urlparse(self.path).query).get("group", [None])[0]
+            self._json(200, {"jobs": self.server.job_queue.list_jobs(group_key=group_key)})
+            return
+        if len(segments) == 4 and segments[:2] == ["api", "jobs"] and segments[3] == "log":
+            try:
+                if self.server.job_queue is None:
+                    raise KeyError(segments[2])
+                content = self.server.job_queue.log_tail(int(segments[2]))
+            except (ValueError, KeyError):
+                self._json(404, {"error": "job_not_found"})
+            else:
+                self._json(200, {"log": content})
+            return
         if segments == ["api", "codex", "tasks"]:
             if self.server.codex_tasks is None:
                 self._json(503, {"error": "codex_tasks_unavailable"})
@@ -775,8 +815,13 @@ def _summary(groups: list[dict[str, Any]]) -> dict[str, int]:
     }
 
 
-def make_server(*, store: DashboardStore, var_dir: Path, profiles: Mapping[str, Any], static_dir: Path, preview_dir: Path | None = None, dry_runs: Any | None = None, applies: Any | None = None, initializer: Any | None = None, inventory_store: GroupInventoryStore | None = None, preview_gateway_factory: Any | None = None, codex_tasks: Any | None = None, host: str = "127.0.0.1", port: int = 8765) -> DashboardServer:
+def make_server(*, store: DashboardStore, var_dir: Path, profiles: Mapping[str, Any], static_dir: Path, preview_dir: Path | None = None, dry_runs: Any | None = None, applies: Any | None = None, initializer: Any | None = None, inventory_store: GroupInventoryStore | None = None, preview_gateway_factory: Any | None = None, codex_tasks: Any | None = None, host: str = "127.0.0.1", port: int = 8765, auth: DashboardAuth | None = None, job_queue: DurableJobQueue | None = None) -> DashboardServer:
+    auth = auth or DashboardAuth()
+    if host not in {"127.0.0.1", "localhost", "::1"} and not auth.enabled:
+        raise ValueError("non-loopback dashboard requires a password or API token")
     server = DashboardServer((host, port), Handler)
+    server.auth = auth
+    server.job_queue = job_queue
     server.store = store
     server.var_dir = var_dir
     server.profiles = profiles
@@ -802,6 +847,13 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--static", type=Path, default=project_root / "dashboard/dist")
     parser.add_argument("--previews", type=Path, default=project_root / "var/dashboard/previews")
     args = parser.parse_args(argv)
+    auth = DashboardAuth(
+        password=os.environ.get("SOLUTION_RUNNER_DASHBOARD_PASSWORD", ""),
+        token=os.environ.get("SOLUTION_RUNNER_DASHBOARD_TOKEN", ""),
+        username=os.environ.get("SOLUTION_RUNNER_DASHBOARD_USER", "owner"),
+    )
+    if args.host not in {"127.0.0.1", "localhost", "::1"} and not auth.enabled:
+        parser.error("non-loopback dashboard requires SOLUTION_RUNNER_DASHBOARD_PASSWORD or SOLUTION_RUNNER_DASHBOARD_TOKEN")
 
     store = DashboardStore(args.db)
     profiles = all_group_profiles()
@@ -821,7 +873,7 @@ def main(argv: list[str] | None = None) -> int:
         api_key=api_key,
         timeout_seconds=45,
     )
-    runner_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-run")
+    runner_executor = DurableJobQueue(args.db, args.var / "dashboard/logs")
     dry_runs = DryRunManager(
         var_dir=args.var,
         profiles=profiles,
@@ -857,6 +909,13 @@ def main(argv: list[str] | None = None) -> int:
         _refresh_server_profiles(server)
         _handle_codex_exit(store, thread_id, code, dry_runs)
 
+    if dry_runs is not None:
+        runner_executor.register("dry-run", dry_runs.run_now)
+    if applies is not None:
+        runner_executor.register("apply-problem", applies.run_now)
+        runner_executor.register("apply-group", applies.run_group_now)
+        runner_executor.register("helpers", applies.run_helpers_now)
+
     codex_tasks = CodexTaskService(project_root=project_root, on_exit=on_codex_exit)
 
     initializer = GroupInitializer(
@@ -871,7 +930,8 @@ def main(argv: list[str] | None = None) -> int:
             store, inventory_store, codex_tasks, group_key, state
         ),
     ) if api_key else None
-    server = make_server(store=store, var_dir=args.var, profiles=profiles, static_dir=args.static, preview_dir=args.previews, dry_runs=dry_runs, applies=applies, initializer=initializer, inventory_store=inventory_store, preview_gateway_factory=gateway_factory if api_key else None, codex_tasks=codex_tasks, host=args.host, port=args.port)
+    server = make_server(store=store, var_dir=args.var, profiles=profiles, static_dir=args.static, preview_dir=args.previews, dry_runs=dry_runs, applies=applies, initializer=initializer, inventory_store=inventory_store, preview_gateway_factory=gateway_factory if api_key else None, codex_tasks=codex_tasks, host=args.host, port=args.port, auth=auth, job_queue=runner_executor)
+    runner_executor.start()
     Thread(
         target=_resume_automatic_groups,
         args=(store, inventory_store, codex_tasks),
@@ -890,6 +950,7 @@ def main(argv: list[str] | None = None) -> int:
     finally:
         profile_watch_stop.set()
         server.server_close()
+        runner_executor.shutdown(cancel_futures=True)
     return 0
 
 
