@@ -23,7 +23,7 @@ class Record:
 
 
 def read_content(context):
-    # Some source alphabets use semantic <var> tags for individual letters.
+    # Some source alphabets use semantic <var> or plain italic single letters.
     # Unwrap only verified single-letter identifiers in the parsing copy.
     copy = deepcopy(context)
     for section in (copy.get('normalized_content') or {}).get('sections', []):
@@ -31,11 +31,12 @@ def read_content(context):
             continue
         soup = BeautifulSoup(section.get('html', ''), 'html.parser')
         changed = False
-        for tag in soup.find_all('var'):
+        for tag in soup.find_all(['var', 'i']):
             letter = tag.get_text()
-            if (set(tag.attrs) == {'data-math-identifier'} and len(letter) == 1
-                    and letter.isalpha() and tag['data-math-identifier'] == letter
-                    and not tag.find(True)):
+            semantic_letter = tag.name == 'var' and set(tag.attrs) == {'data-math-identifier'} and tag['data-math-identifier'] == letter
+            italic_letter = tag.name == 'i' and not tag.attrs
+            if ((semantic_letter or italic_letter) and len(letter) == 1
+                    and letter.isalpha() and not tag.find(True)):
                 tag.unwrap()
                 changed = True
         if changed:
