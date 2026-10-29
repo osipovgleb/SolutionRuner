@@ -4,6 +4,12 @@ from solution_runner.pipelines.core.profile_definitions import (
 )
 
 PROFILES = (
+    _profile('185', 'fa22c171-2a79-4914-809f-2147181bf88c', 0,
+        catalog_snapshot_id='fd733f80-43d2-4b4a-b903-2423796cbee5', category_key='13',
+        theme_title='Квадратные неравенства', theme_order_index=1,
+        snapshot_theme_id='760bb497-c0ac-4833-b37e-aea079eb9af0',
+        expected_vertices=None, strategy_key=None, workflow_kind='content_rule',
+        content_rule_key='quadratic-inequality-graph-choices', rewrite_existing_solution=True),
     _profile("355406", "657276c7-62fc-4465-8317-1cc7fac564b6", 2,
         catalog_snapshot_id="fd733f80-43d2-4b4a-b903-2423796cbee5", category_key="8",
         theme_title="Степени и корни", theme_order_index=0,
