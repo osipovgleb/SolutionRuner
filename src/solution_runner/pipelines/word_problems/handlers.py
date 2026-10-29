@@ -5,6 +5,11 @@ from solution_runner.pipelines.core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "word-problem-77331-mobile-call-duration",
+        "solution_runner.pipelines.word_problems.group_77331:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "word-problem-26623-monthly-travel-pass-savings",
         "solution_runner.pipelines.word_problems.group_26623:build_context_repair_plan",
         requires_parent_condition_asset=False,

@@ -5,6 +5,20 @@ from solution_runner.pipelines.core.profile_definitions import _profile
 
 PROFILES = (
     _profile(
+        "77331",
+        "f23ffe4f-acd2-4f14-966e-fbb336468960",
+        4,
+        catalog_snapshot_id="4073fc7b-2056-4697-b18b-38741c94d0f4",
+        category_key="1",
+        theme_title="Разные задачи",
+        theme_order_index=0,
+        snapshot_theme_id="0be411f6-d020-4856-a938-df5d2b2addf4",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="word-problem-77331-mobile-call-duration",
+    ),
+    _profile(
         "26623",
         "d269a4c3-2ae2-4255-a993-f69533b50a4e",
         0,
