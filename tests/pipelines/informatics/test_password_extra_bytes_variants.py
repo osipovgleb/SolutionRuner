@@ -108,6 +108,6 @@ def test_changed_units_or_encoding_do_not_write(old, new):
 
 
 def test_all_audited_groups_share_the_existing_rule():
-    profiles = [p for p in PROFILES if p.content_rule_key == 'informatics-password-extra-bytes']
-    assert len(profiles) == 20
-    assert len({p.source_group_id for p in profiles}) == 20
+    assert len(PROFILES) == 20
+    assert len({p.source_group_id for p in PROFILES}) == 20
+    assert {p.content_rule_key for p in PROFILES} == {'informatics-password-extra-bytes'}

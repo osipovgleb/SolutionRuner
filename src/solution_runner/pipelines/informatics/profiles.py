@@ -26,39 +26,7 @@ _GROUPS = (
     ('59835', 'e3a877f9-523f-44d0-8012-6042c86a5003', 51),
 )
 
-_TOTAL_GROUPS = (
-    ('8101', 'a2b015bc-8d33-49c6-a7c2-82e94d0227c7', 0),
-    ('5081', '3751d374-d915-4d52-b544-3446f0191ba9', 2),
-    ('13359', 'd2399e88-bf58-47af-9c94-1ed193691e24', 11),
-    ('13740', '0efbdbf5-14aa-4034-83a0-3525155eca3b', 14),
-    ('14228', 'a8222658-1bae-4f11-bca4-59c263c6de43', 15),
-    ('15629', '32b26433-4271-4b6d-ad27-b47c3ba00b33', 17),
-    ('18082', 'd2982563-e375-4daf-984a-9e072eefa81c', 24),
-    ('18715', '8c2c08e3-f645-4218-8c03-b1534c97900e', 27),
-    ('19062', 'd4d1df05-7d82-4bee-9e55-3f2df66ad3d2', 29),
-    ('35469', 'e63dff50-073f-4eba-b347-6902f3ab9b9c', 40),
-    ('37146', '90ee6d0c-1fad-4a98-8225-fa580dbe2f74', 42),
-    ('51980', '0f93716e-f6a2-4c1c-bef2-65d316fbfad3', 47),
-    ('56511', 'e7f57618-4236-4a4c-8885-d5fe7973ce17', 49),
-)
-
-
 PROFILES = tuple(
-    _profile(
-        key, source_group_id, order,
-        catalog_snapshot_id="4b8ce070-551c-4697-9b42-11c2617966d8",
-        category_key="11",
-        theme_title="Пароли с дополнительными сведениями",
-        theme_order_index=0,
-        snapshot_theme_id="d33e913c-5954-41fa-ae91-fd9e11ae3114",
-        expected_vertices=None,
-        strategy_key=None,
-        workflow_kind="content_rule",
-        content_rule_key="informatics-password-total-bytes",
-        rewrite_existing_solution=True,
-    )
-    for key, source_group_id, order in _TOTAL_GROUPS
-) + tuple(
     _profile(
         key, source_group_id, order,
         catalog_snapshot_id="4b8ce070-551c-4697-9b42-11c2617966d8",
