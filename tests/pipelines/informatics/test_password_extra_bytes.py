@@ -106,7 +106,8 @@ def test_registration_uses_exact_catalog_and_parent():
     assert profile.source_group_id == "88cfe7e0-7597-46ad-b077-de5bf6b4d812"
     handler = get_handler(profile.content_rule_key)
     handler.validate()
-    assert handler.expected_parent_id == "6ef82585-fe7e-465c-a288-7a0463db6c5e"
+    assert handler.expected_parent_id is None
+    assert handler.parent_from_group_listing
     assert not handler.requires_parent_condition_asset
     assert handler.verify_content_readback
     assert profile.existing_solution_policy == "rewrite"
