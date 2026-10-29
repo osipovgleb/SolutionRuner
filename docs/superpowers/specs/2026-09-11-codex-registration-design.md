@@ -19,7 +19,7 @@ The columns are ordered as follows:
 
 Registration is an explicit action in `queue`. The user can select any existing
 Codex task whose working directory is SolutionRunner. If no task is selected,
-the backend creates one with `gpt-5.6-terra` and medium reasoning. Several groups
+the backend creates one with `gpt-6.1-sol` and medium reasoning. Several groups
 may share one task. The stable Codex thread ID is stored in SQLite.
 
 The registration prompt tells Codex to use the SQLite inventory, inspect the

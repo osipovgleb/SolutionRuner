@@ -162,3 +162,8 @@ test("dashboard API lists Codex tasks and registers a group", async () => {
   assert.equal(calls[3][0], "/api/groups/27719/archive-codex");
   assert.equal(calls[3][1].method, "POST");
 });
+
+test("dry-run errors retain the server reason", async () => {
+  const api = createApi(async () => ({ ok: false, status: 404, json: async () => ({ error: "group_profile_not_found" }) }));
+  await assert.rejects(api.startDryRun("355406", "all"), /group_profile_not_found/);
+});

@@ -2,6 +2,8 @@
 from solution_runner.pipelines.core.handlers import HandlerSpec
 
 HANDLERS = (
+    HandlerSpec('numeric-power-of-power-product', 'solution_runner.pipelines.equations.numeric_special_forms:build_power_product_plan', requires_parent_condition_asset=False, inputs=(('parent_solution_html', 'parent_solution_html'),)),
+    HandlerSpec('numeric-root-product', 'solution_runner.pipelines.equations.numeric_special_forms:build_root_product_plan', requires_parent_condition_asset=False),
     HandlerSpec("inequality-systems-linear-complete", "solution_runner.pipelines.equations.inequality_systems_complete:build_context_repair_plan", requires_parent_condition_asset=False, strict_frozen_input=True, verify_content_readback=True, diagram_builder="solution_runner.pipelines.equations.inequality_systems_complete:diagram_specs", inputs=(("generated_solution_assets", "generated_solution_assets"),)),
     HandlerSpec("inequality-systems-reviewed-presentation", "solution_runner.pipelines.equations.inequality_systems:build_context_repair_plan", requires_parent_condition_asset=False, presentation_only=True),
     HandlerSpec('exponential-26650-common-base-affine-exponent', 'solution_runner.pipelines.equations.group_26650:build_context_repair_plan', requires_parent_condition_asset=False),

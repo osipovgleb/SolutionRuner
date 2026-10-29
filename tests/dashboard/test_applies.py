@@ -371,7 +371,7 @@ def test_apply_group_requires_a_successful_review_run(tmp_path):
         manager.start_group("123")
 
 
-def test_group_apply_retries_after_5_10_15_and_clears_previous_problems(tmp_path):
+def test_group_apply_failure_stops_after_one_run_and_keeps_problem_details(tmp_path):
     inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
     store.add_manual_group("123", "catalog")
@@ -393,15 +393,6 @@ def test_group_apply_retries_after_5_10_15_and_clears_previous_problems(tmp_path
         apply_status="failed", helpers_status="skipped", error="Старая ошибка",
     ))
     attempts = []
-    delays = []
-
-    def wait(delay):
-        delays.append((
-            delay,
-            store.get_group("123")["column"],
-            manager.get("123")["status"],
-        ))
-
     def execute(_args):
         attempts.append(len(attempts) + 1)
         run = tmp_path / "content-rule/runs/current-group-123"
@@ -427,22 +418,34 @@ def test_group_apply_retries_after_5_10_15_and_clears_previous_problems(tmp_path
         inventory_store=inventory,
         store=store,
         executor=execute,
-        sleeper=wait,
     )
 
     state = manager.run_group_now("123")
 
-    assert attempts == [1, 2, 3, 4]
-    assert delays == [
-        (5, "issues", "retry_wait"),
-        (10, "issues", "retry_wait"),
-        (15, "issues", "retry_wait"),
-    ]
-    assert state["status"] == "completed"
-    assert state["attempt"] == 4
-    assert all(not row["error"] for row in inventory.list_items("123"))
+    assert attempts == [1]
+    assert state["status"] == "failed"
+    assert state["attempt"] == 1
+    assert state["error"] == "temporary MCP error"
+    rows = {row["problem_id"]: row for row in inventory.list_items("123")}
+    assert rows["parent"]["apply_status"] == "already_complete"
+    assert rows["child"]["error"] == "temporary MCP error"
     group = store.get_group("123")
-    assert group["column"] == "done"
-    assert group["stats"]["errors"] == 0
+    assert group["column"] == "issues"
     assert group["agent_status"] is None
     assert group["agent_summary"] is None
+
+
+
+def test_apply_launcher_uses_fresh_process(monkeypatch):
+    import sys
+    from subprocess import CompletedProcess
+    from solution_runner.dashboard.applies import _execute
+
+    calls = []
+    def run(command, **kwargs):
+        calls.append((command, kwargs))
+        return CompletedProcess(command, 7)
+
+    monkeypatch.setattr("solution_runner.dashboard.applies.subprocess.run", run)
+    assert _execute(["--group", "123", "--apply"]) == 7
+    assert calls == [([sys.executable, "-m", "solution_runner.launcher", "--group", "123", "--apply"], {"check": False})]

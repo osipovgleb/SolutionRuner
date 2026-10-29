@@ -3,7 +3,10 @@ async function request(fetcher, url, options = {}) {
     ...options,
     headers: { "Content-Type": "application/json", ...(options.headers || {}) },
   });
-  if (!response.ok) throw new Error(`Dashboard API returned ${response.status}`);
+  if (!response.ok) {
+    const payload = await response.json().catch(() => ({}));
+    throw new Error(payload.message || payload.error || `Dashboard API returned ${response.status}`);
+  }
   return response.json();
 }
 

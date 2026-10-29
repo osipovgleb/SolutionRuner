@@ -146,3 +146,5 @@ def test_symbol_renaming_preserves_latex_environment_names(n):
     environments=[env for f in formulas for env in __import__('re').findall(r'\\(?:begin|end)\{([^}]+)\}',f)]
     assert environments and set(environments)=={'cases'}
     assert not any('k' in __import__('re').sub(r'\\[A-Za-z]+','',f) for f in formulas)
+    if n==564963:
+        assert r'\begin{cases}a-3c=2\\a+c=-6\end{cases}' in formulas

@@ -317,7 +317,7 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
             self.comments = []
 
         def list_tasks(self):
-            return [{"id": "thread-existing", "title": "Existing task", "model": "gpt-5.6-terra", "reasoning_effort": "medium"}]
+            return [{"id": "thread-existing", "title": "Existing task", "model": "gpt-6.1-sol", "reasoning_effort": "medium"}]
 
         def register_group(self, group, inventory, thread_id=None, comment=""):
             self.registrations.append((group["id"], inventory["parent_problem_id"], thread_id, comment))
@@ -747,6 +747,39 @@ def test_group_api_exposes_saved_activity(tmp_path):
         )
         assert status == 200
         assert payload["latest"]["kind"] == "apply"
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join()
+
+
+def test_dry_run_refreshes_a_profile_registered_after_server_start(tmp_path, monkeypatch):
+    class DryRuns:
+        profiles = {}
+
+        def start(self, key, mode):
+            if key not in self.profiles:
+                raise KeyError(key)
+            return {"status": "queued", "mode": mode}
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("355406", "catalog")
+    manager = DryRuns()
+    server = make_server(store=store, var_dir=tmp_path, profiles={}, static_dir=tmp_path,
+                         dry_runs=manager, port=0)
+
+    def refresh(actual):
+        actual.profiles = {"355406": object()}
+        actual.dry_runs.profiles = actual.profiles
+
+    monkeypatch.setattr(dashboard_server, "_refresh_server_profiles", refresh)
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        status, result = _request(f"http://127.0.0.1:{server.server_port}/api/groups/355406/dry-run",
+                                  method="POST", payload={"mode": "all"})
+        assert status == 202
+        assert result == {"status": "queued", "mode": "all"}
     finally:
         server.shutdown()
         server.server_close()

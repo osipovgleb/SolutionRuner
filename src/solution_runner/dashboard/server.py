@@ -62,7 +62,7 @@ def _profile_source_state(project_root: Path) -> dict[Path, int]:
     """Return the profile declarations which require a fresh server process."""
 
     source_root = project_root / "src/solution_runner/pipelines"
-    sources = set(source_root.rglob("profiles.py"))
+    sources = set(source_root.rglob("profiles.py")) | set(source_root.rglob("handlers.py"))
     return {
         path: path.stat().st_mtime_ns
         for path in sources
@@ -601,6 +601,8 @@ class Handler(BaseHTTPRequestHandler):
             body = self._body()
             mode = str(body.get("mode") or "")
             try:
+                if segments[2] not in self.server.profiles:
+                    _refresh_server_profiles(self.server)
                 if mode == "problem":
                     state = self.server.dry_runs.start_problem(
                         segments[2], str(body.get("problem_id") or "")

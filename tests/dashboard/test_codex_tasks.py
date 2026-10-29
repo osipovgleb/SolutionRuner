@@ -5,6 +5,7 @@ from solution_runner.dashboard.codex_tasks import (
     AUTOMATION_ACCESS_ARGS,
     CodexTaskService,
     _SerialMessageSender,
+    _create_thread,
     _list_threads,
     _send_message,
     build_registration_prompt,
@@ -50,9 +51,9 @@ def test_registration_prompt_appends_the_user_comment():
     assert prompt.endswith("Комментарий пользователя:\nПроверь отдельно задачу 42.")
 
 
-def test_service_selects_existing_task_or_creates_terra_medium(tmp_path):
+def test_service_selects_existing_task_or_creates_sol_6_1_medium(tmp_path):
     calls = []
-    tasks = [{"id": "thread-1", "title": "Existing", "model": "gpt-5.6-terra", "reasoningEffort": "medium"}]
+    tasks = [{"id": "thread-1", "title": "Existing", "model": "gpt-6.1-sol", "reasoningEffort": "medium"}]
     service = CodexTaskService(
         project_root=tmp_path,
         list_threads=lambda: tasks,
@@ -70,7 +71,7 @@ def test_service_selects_existing_task_or_creates_terra_medium(tmp_path):
     assert calls[0][0:2] == ("send", "thread-1")
     assert created["id"] == "thread-new"
     assert created["title"] == "123 · Уравнения"
-    assert calls[1][0:3] == ("create", "gpt-5.6-terra", "medium")
+    assert calls[1][0:3] == ("create", "gpt-6.1-sol", "medium")
     assert calls[1][3].endswith("Комментарий пользователя:\nПроверь задачу 42")
 
 
@@ -150,6 +151,7 @@ def test_send_message_queues_into_app_owned_task(monkeypatch, tmp_path):
         "codex", "queue", "--thread", "thread-1", "--message", "hello",
         *AUTOMATION_ACCESS_ARGS,
         "-C", str(tmp_path),
+        "-m", "gpt-6.1-sol", "-c", 'model_reasoning_effort="medium"',
     ]
     assert exits == []
 
@@ -168,3 +170,53 @@ def test_list_threads_includes_all_regular_sources_and_pages(monkeypatch, tmp_pa
     assert [item["id"] for item in _list_threads(tmp_path)] == ["first", "second"]
     assert calls[0][1]["sourceKinds"] == ["cli", "vscode", "exec", "appServer", "unknown"]
     assert calls[1][1]["cursor"] == "page-2"
+
+
+def test_creation_releases_app_server_before_queueing_first_turn(monkeypatch, tmp_path):
+    calls = []
+
+    def request(root, method, params):
+        calls.append((method, params))
+        return {"thread": {"id": "thread-new"}} if method == "thread/start" else {}
+
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks._app_server_request", request)
+    monkeypatch.setattr(
+        "solution_runner.dashboard.codex_tasks._send_message",
+        lambda root, thread_id, prompt, on_exit: calls.append(("queue", thread_id, prompt)),
+    )
+    monkeypatch.setattr(
+        "solution_runner.dashboard.codex_tasks.subprocess.Popen",
+        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("must not run codex exec")),
+    )
+
+    assert _create_thread(tmp_path, "123 · Группа\nЗадание", "gpt-6.1-sol", "medium") == "thread-new"
+    assert [call[0] for call in calls] == ["thread/start", "thread/name/set", "queue"]
+    assert calls[0][1]["model"] == "gpt-6.1-sol"
+    assert calls[0][1]["config"]["model_reasoning_effort"] == "medium"
+    assert calls[1][1] == {"threadId": "thread-new", "name": "123 · Группа"}
+    assert calls[2] == ("queue", "thread-new", "123 · Группа\nЗадание")
+
+
+def test_creation_without_id_does_not_queue_work(monkeypatch, tmp_path):
+    import pytest
+
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks._app_server_request", lambda *args: {})
+    monkeypatch.setattr(
+        "solution_runner.dashboard.codex_tasks._send_message",
+        lambda *args: (_ for _ in ()).throw(AssertionError("missing task must not be queued")),
+    )
+    with pytest.raises(RuntimeError, match="did not create"):
+        _create_thread(tmp_path, "Задание", "gpt-6.1-sol", "medium")
+
+
+def test_queue_failure_is_reported_instead_of_returning_success(monkeypatch, tmp_path):
+    import pytest
+
+    monkeypatch.setattr(
+        "solution_runner.dashboard.codex_tasks.subprocess.run",
+        lambda *args, **kwargs: CompletedProcess(args[0], 1),
+    )
+    exits = []
+    with pytest.raises(RuntimeError, match="did not queue"):
+        _send_message(tmp_path, "thread-1", "hello", lambda *args: exits.append(args))
+    assert exits == [("thread-1", 1)]

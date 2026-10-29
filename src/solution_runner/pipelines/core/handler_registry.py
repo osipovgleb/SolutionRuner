@@ -1,5 +1,6 @@
 """One lookup table for content rules from all mathematical domains."""
 from types import MappingProxyType
+from importlib import import_module, reload
 from .handlers import HandlerSpec
 from solution_runner.pipelines.equations.handlers import HANDLERS as EQUATIONS
 from solution_runner.pipelines.function_graphs.handlers import HANDLERS as FUNCTION_GRAPHS
@@ -32,3 +33,19 @@ def get_handler(key: str) -> HandlerSpec:
         return HANDLERS[key]
     except KeyError as exc:
         raise KeyError(f"unsupported content rule: {key}") from exc
+
+
+def reload_handler_registry():
+    """Refresh domain declarations before validating newly registered profiles."""
+    global HANDLERS
+    modules = (
+        "equations", "function_graphs", "triangles.general", "triangles.isosceles",
+        "quadrilaterals.parallelogram", "triangles.right", "quadrilaterals.trapezoid",
+        "vectors", "word_problems",
+    )
+    HANDLERS = build_registry(
+        spec
+        for domain in modules
+        for spec in reload(import_module(f"solution_runner.pipelines.{domain}.handlers")).HANDLERS
+    )
+    return HANDLERS

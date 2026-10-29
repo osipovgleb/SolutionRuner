@@ -127,3 +127,14 @@ def test_core_runtime_has_no_domain_dispatch_or_group_ids():
         if isinstance(node, ast.Compare):
             assert not any(isinstance(value, ast.Constant) and isinstance(value.value, str)
                            and value.value in HANDLERS for value in node.comparators)
+
+
+def test_profile_reload_refreshes_new_handler_declarations(monkeypatch):
+    import solution_runner.pipelines.core.handler_registry as registry
+    from solution_runner.pipelines.core.group_profiles import reload_group_profiles
+
+    key = "numeric-power-of-power-product"
+    monkeypatch.setattr(registry, "HANDLERS", {k: v for k, v in registry.HANDLERS.items() if k != key})
+    profiles = reload_group_profiles()
+    assert profiles["355406"].content_rule_key == key
+    assert registry.get_handler(key).target.endswith(":build_power_product_plan")

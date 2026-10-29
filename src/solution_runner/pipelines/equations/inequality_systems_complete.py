@@ -17,6 +17,7 @@ from .inequality_systems import condition_fingerprint, _repair_options
 from .inequality_system_svg import ASSET_KEY, render_intersection_svg
 
 _CHOICES = json.loads(Path(__file__).with_name('inequality_systems_choices.json').read_text())
+_FORMULA_OPTIONS = json.loads(Path(__file__).with_name('inequality_formula_options.json').read_text())
 
 
 @dataclass(frozen=True)
@@ -71,9 +72,34 @@ def build_context_repair_plan(context: dict[str, Any], *, generated_solution_ass
         _repair_options(soup)
         cells = soup.find_all('td')
         corrected_layout = True
+    accepted_choices = {record['choices_sha256'], record.get('formula_choices_sha256')}
     if (len(cells) != 4 or any(not re.match(rf'^{i}\)', cell.get_text(' ', strip=True)) for i, cell in enumerate(cells, 1))
-            or choices_fingerprint(cells) != record['choices_sha256']):
+            or choices_fingerprint(cells) not in accepted_choices):
         raise ValueError('answer options changed since visual review')
+    obsolete_option_keys = []
+    for cell in cells:
+        for image in cell.find_all('img'):
+            transcription = _FORMULA_OPTIONS.get(image.get('data-asset-id'))
+            if transcription is None:
+                continue
+            obsolete_option_keys.append(image['data-asset-key'])
+            replacement = soup.new_tag('span')
+            replacement['data-inline-latex'] = transcription['latex']
+            image.replace_with(replacement)
+    if obsolete_option_keys and choices_fingerprint(cells) != record.get('formula_choices_sha256'):
+        raise ValueError('formula choices do not match the reviewed transcription')
+    instruction = 'В ответе укажите номер правильного варианта.'
+    condition_text = re.sub(r'\s+', ' ', soup.get_text(' ', strip=True).replace('\xad', ''))
+    if instruction.rstrip('.') not in condition_text:
+        table = soup.find('table')
+        if table is None:
+            raise ValueError('verified choice table is required for the answer instruction')
+        paragraph = soup.new_tag('p')
+        emphasis = soup.new_tag('em')
+        emphasis.string = instruction
+        paragraph.append(emphasis)
+        table.insert_before(paragraph)
+        corrected_layout = True
     formulas = [tag['data-inline-latex'] for tag in soup.find_all('span', attrs={'data-inline-latex': True})
                 if tag['data-inline-latex'].startswith(r'\begin{cases}')]
     if len(formulas) != 1:
@@ -85,11 +111,14 @@ def build_context_repair_plan(context: dict[str, Any], *, generated_solution_ass
     expected = record['choice']
     current = BeautifulSoup(str(answer.get('html') or ''), 'html.parser').get_text('', strip=True) if answer else ''
     changes = list(base.transformations)
-    if corrected_layout:
+    if corrected_layout or obsolete_option_keys:
         condition_html = str(soup)
         keys = tuple(dict.fromkeys(tag['data-asset-key'] for tag in soup.find_all('img', attrs={'data-asset-key': True})))
         changes = [t for t in changes if not t['transformation_target_id'].startswith('section:condition')]
         changes.insert(0, _section_transformation(condition, 'condition', 'Условие', condition_html, asset_keys=keys))
+    for key in dict.fromkeys(obsolete_option_keys):
+        if any(a.get('asset_key') == key for a in content.get('assets', [])):
+            changes.append({'transformation_target_id': 'asset:' + key, 'operation': 'remove'})
     if current != expected:
         changes.append(_section_transformation(answer, 'answer', 'Ответ', f'<p><span data-effect="spaced">{expected}</span></p>'))
     existing_solution = str(solution.get('html') or '') if solution else ''
@@ -108,7 +137,12 @@ def build_context_repair_plan(context: dict[str, Any], *, generated_solution_ass
             previous.replace_with(BeautifulSoup(markup, 'html.parser').img)
             generated = str(tree)
         else:
-            generated += '<center>' + markup + '</center>'
+            centers = tree.find_all('center')
+            anchor = centers[-1] if centers else None
+            if anchor is None or anchor.find('span', attrs={'data-inline-latex': True}) is None:
+                raise ValueError('final intersection step is required after the diagram')
+            anchor.insert_before(BeautifulSoup('<center>' + markup + '</center>', 'html.parser').center)
+            generated = str(tree)
         asset_keys = list(dict.fromkeys(asset_keys + [ASSET_KEY]))
         existing_asset = next((a for a in content.get('assets', []) if a.get('asset_key') == ASSET_KEY), None)
         if not existing_asset or existing_asset.get('asset_id') != asset['source_asset_id']:

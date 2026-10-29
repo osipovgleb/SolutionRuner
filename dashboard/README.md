@@ -11,7 +11,7 @@ Dashboard dry-runs use that SQLite index through the one common launcher and
 never add `--apply`; real writes remain a separate, explicit step.
 
 After initialization, registration can reuse an existing Codex task for this
-repository or create a new `gpt-5.6-terra` task with medium reasoning. A clean
+repository or create a new `gpt-6.1-sol` task with medium reasoning. A clean
 full-group dry-run moves the card to review and enables Apply; a failed one moves
 it to problems. Review/problem comments are forwarded to the linked Codex task
 and invalidate the previous full-group approval.

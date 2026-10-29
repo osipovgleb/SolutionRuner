@@ -7,12 +7,11 @@ from pathlib import Path
 import selectors
 import subprocess
 from threading import Event, Lock, Thread
-import tempfile
 import time
 from typing import Any, Callable, Mapping
 
 
-MODEL = "gpt-5.6-terra"
+MODEL = "gpt-6.1-sol"
 EFFORT = "medium"
 AUTOMATION_ACCESS_ARGS = [
     "--config", 'sandbox_mode="danger-full-access"',
@@ -120,16 +119,6 @@ def _archive_thread(project_root: Path, thread_id: str) -> None:
     _app_server_request(project_root, "thread/archive", {"threadId": thread_id})
 
 
-def _watch(
-    process: subprocess.Popen[str],
-    thread_id: str,
-    on_exit: Callable[[str, int], None] | None,
-) -> None:
-    return_code = process.wait()
-    if on_exit:
-        on_exit(thread_id, return_code)
-
-
 def _create_thread(
     project_root: Path,
     prompt: str,
@@ -137,47 +126,35 @@ def _create_thread(
     effort: str,
     on_exit: Callable[[str, int], None] | None = None,
 ) -> str:
-    output = tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", delete=False)
-    output_path = Path(output.name)
-    process = subprocess.Popen(
-        [
-            "codex", "exec", "--json", *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
-            "-m", model, "-c", f'model_reasoning_effort="{effort}"',
-            "--thread-source", "appServer", prompt,
-        ],
-        cwd=project_root,
-        stdout=output,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        bufsize=1,
-        start_new_session=True,
-    )
-    output.close()
-    reader = output_path.open(encoding="utf-8")
-    deadline = time.monotonic() + 15
-    position = 0
-    while time.monotonic() < deadline:
-        reader.seek(position)
-        lines = reader.readlines()
-        position = reader.tell()
-        for line in lines:
-            try:
-                event = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if event.get("type") == "thread.started" and event.get("thread_id"):
-                thread_id = str(event["thread_id"])
-                Thread(target=_watch, args=(process, thread_id, on_exit), daemon=True).start()
-                reader.close()
-                output_path.unlink(missing_ok=True)
-                return thread_id
-        if process.poll() is not None:
-            break
-        time.sleep(0.05)
-    process.terminate()
-    reader.close()
-    output_path.unlink(missing_ok=True)
-    raise RuntimeError("Codex did not create a task")
+    """Create a saved task, release its owner, then queue work for the app.
+
+    Running ``codex exec`` here holds the task's ownership lock for the whole
+    turn, making the desktop composer unavailable with "open in another app".
+    The short app-server request closes before queueing the first message.
+    """
+    result = _app_server_request(project_root, "thread/start", {
+        "cwd": str(project_root),
+        "model": model,
+        "approvalPolicy": "never",
+        "sandbox": "danger-full-access",
+        "config": {
+            "model_reasoning_effort": effort,
+            "mcp_servers.teacherhelper.default_tools_approval_mode": "approve",
+            "mcp_servers.teacherhelper_org.default_tools_approval_mode": "approve",
+        },
+        "threadSource": "appServer",
+        "ephemeral": False,
+    })
+    thread_id = (result.get("thread") or {}).get("id")
+    if not thread_id:
+        raise RuntimeError("Codex did not create a task")
+    thread_id = str(thread_id)
+    _app_server_request(project_root, "thread/name/set", {
+        "threadId": thread_id,
+        "name": prompt.splitlines()[0],
+    })
+    _send_message(project_root, thread_id, prompt, on_exit)
+    return thread_id
 
 
 def _send_message(
@@ -192,6 +169,7 @@ def _send_message(
         [
             "codex", "queue", "--thread", thread_id, "--message", prompt,
             *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
+            "-m", MODEL, "-c", f'model_reasoning_effort="{EFFORT}"',
         ],
         cwd=project_root,
         stdout=subprocess.DEVNULL,
@@ -199,8 +177,10 @@ def _send_message(
         text=True,
         check=False,
     )
-    if process.returncode and on_exit:
-        on_exit(thread_id, process.returncode)
+    if process.returncode:
+        if on_exit:
+            on_exit(thread_id, process.returncode)
+        raise RuntimeError(f"Codex did not queue the message (exit {process.returncode})")
 
 
 class _SerialMessageSender:

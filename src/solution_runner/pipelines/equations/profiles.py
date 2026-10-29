@@ -4,6 +4,18 @@ from solution_runner.pipelines.core.profile_definitions import (
 )
 
 PROFILES = (
+    _profile("355406", "657276c7-62fc-4465-8317-1cc7fac564b6", 2,
+        catalog_snapshot_id="fd733f80-43d2-4b4a-b903-2423796cbee5", category_key="8",
+        theme_title="Степени и корни", theme_order_index=0,
+        snapshot_theme_id="e8d84e69-4a83-4629-b674-fcb9c2890ea8",
+        expected_vertices=None, strategy_key=None, workflow_kind="content_rule",
+        content_rule_key="numeric-power-of-power-product", rewrite_existing_solution=True),
+    _profile("137285", "e7e4fee3-dbff-4c84-91c0-8b085d15e96e", 0,
+        catalog_snapshot_id="fd733f80-43d2-4b4a-b903-2423796cbee5", category_key="8",
+        theme_title="Степени и корни", theme_order_index=0,
+        snapshot_theme_id="e8d84e69-4a83-4629-b674-fcb9c2890ea8",
+        expected_vertices=None, strategy_key=None, workflow_kind="content_rule",
+        content_rule_key="numeric-root-product"),
     _profile("26646", "ca9a99d2-695e-465d-8957-891c74be915d", 0,
         catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8", category_key="7", theme_title="Логарифмические уравнения", theme_order_index=4,
         snapshot_theme_id="dc2e142c-980d-4e7d-81d8-4ca5664b2b0b", expected_vertices=None, strategy_key=None, workflow_kind="content_rule", content_rule_key="logarithm-common-normalized", rewrite_existing_solution=True),

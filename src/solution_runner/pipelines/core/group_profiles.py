@@ -3,7 +3,7 @@ from importlib import import_module, invalidate_caches, reload
 from types import MappingProxyType
 from typing import Mapping
 from .models import GroupProfile
-from .handler_registry import get_handler
+from .handler_registry import get_handler, reload_handler_registry
 from .profile_definitions import (
     CATALOG_SNAPSHOT_ID,
     TRAPEZOID_THEME_ID,
@@ -57,6 +57,7 @@ def reload_group_profiles() -> Mapping[str, GroupProfile]:
 
     global _PROFILES
     invalidate_caches()
+    reload_handler_registry()
     for module_name in _PROFILE_MODULES:
         reload(import_module(module_name))
     _PROFILES = _build_profiles()

@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 import pytest
+from bs4 import BeautifulSoup
 from solution_runner.pipelines.core.content_runtime import _prepared_record, _apply_record
 from solution_runner.pipelines.equations.inequality_systems_complete import build_context_repair_plan
 
@@ -77,6 +78,12 @@ def test_runtime_completes_answers_solutions_diagrams_and_reuses_upload(sid, ans
     assert len(record['generated_diagrams']) == 1
     assert _apply_record(gateway, record, None, RULE)['status'] == 'applied'
     assert gateway.uploads == gateway.writes == 1
+    solution = BeautifulSoup(next(s['html'] for s in gateway.context['normalized_content']['sections'] if s['key'] == 'solution'), 'html.parser')
+    centers = solution.find_all('center')
+    assert centers[0].find('span', attrs={'data-inline-latex': True})
+    assert centers[1].find('img', attrs={'data-asset-key': 'generated_inequality_intersection'})
+    assert r'\in' in centers[2].find('span', attrs={'data-inline-latex': True})['data-inline-latex']
+    assert solution.find_all('p')[-1].get_text(strip=True).endswith(f'{answer}.')
     if sid == '311905':
         assert 'source-options' not in next(s['html'] for s in gateway.context['normalized_content']['sections'] if s['key'] == 'condition')
     assert _apply_record(gateway, record, None, RULE)['status'] == 'already_complete'
@@ -113,3 +120,30 @@ def test_reviewed_column_major_options_are_reordered_without_renumbering():
     assert record['status'] == 'prepared'
     assert _apply_record(gateway, record, None, RULE)['status'] == 'applied'
     assert _apply_record(gateway, record, None, RULE)['status'] == 'already_complete'
+
+FORMULA_FIXTURES = json.loads((Path(__file__).parent / 'fixtures/inequality_formula_options.json').read_text())
+
+
+@pytest.mark.parametrize('sid', sorted(FORMULA_FIXTURES))
+def test_reviewed_formula_images_become_latex_and_converge(sid):
+    """Preserve distractors and remove obsolete formula assets on all reviewed tasks."""
+    context = FORMULA_FIXTURES[sid]
+    gateway = Gateway(context)
+    existing = next((a for a in context['normalized_content']['assets'] if a['asset_key'] == 'generated_inequality_intersection'), None)
+    generated = ({'asset_key': existing['asset_key'], 'source_asset_id': existing['asset_id'], 'url': existing['url']},) if existing else ()
+    plan = build_context_repair_plan(context, generated_solution_assets=generated)
+    gateway.apply_problem_transformations(context['problem_id'], plan.transformations)
+    condition = next(s['html'] for s in gateway.context['normalized_content']['sections'] if s['key'] == 'condition')
+    soup = BeautifulSoup(condition, 'html.parser')
+    assert len(soup.find_all('td')) == 4
+    assert not soup.find('img')
+    instruction = soup.find('em', string='В ответе укажите номер правильного варианта.')
+    assert instruction is not None
+    assert instruction.find_parent('p').find_next_sibling('table') == soup.table
+    assert not any(a['asset_key'].startswith('image_') for a in gateway.context['normalized_content']['assets'])
+    assert build_context_repair_plan(gateway.context, generated_solution_assets=generated).transformations == ()
+    if sid == '404159':
+        assert plan.answer == '2'
+        assert r'6-3x>-18' in soup.find('span', attrs={'data-inline-latex': True})['data-inline-latex']
+    if sid == '404241':
+        assert '-2{,}7' in soup.find_all('td')[1].find('span', attrs={'data-inline-latex': True})['data-inline-latex']

@@ -73,3 +73,73 @@ def test_finish_makes_negative_terminating_fraction_explicit() -> None:
 def test_finish_uses_required_power_of_ten_for_all_2_and_5_denominators() -> None:
     assert _finish(Fraction(1, 8)) == ("\\frac{1}{8}", "\\frac{125}{1000}", "0{,}125")
     assert _finish(Fraction(1, 25)) == ("\\frac{1}{25}", "\\frac{4}{100}", "0{,}04")
+
+
+def _root_context(formula: str) -> dict:
+    context = _context(formula)
+    context['normalized_content']['sections'][0]['html'] = (
+        f'<p>Найдите значение выражения <span data-inline-latex="{formula}"></span>.</p>'
+    )
+    return context
+
+
+def test_root_product_factors_and_pairs_roots_in_parent_style() -> None:
+    from solution_runner.pipelines.equations.numeric_special_forms import build_root_product_plan
+    from bs4 import BeautifulSoup
+
+    plan = build_root_product_plan(_root_context(r'3\sqrt{19}\cdot3\sqrt{2}\cdot\sqrt{38}'))
+    assert plan.answer == '342'
+    soup = BeautifulSoup(plan.transformations[0]['value']['html'], 'html.parser')
+    lines = [span['data-inline-latex'] for span in soup.select('center span')]
+    assert len(lines) == 6
+    assert r'\sqrt{2\cdot19}' in lines[1]
+    assert r'(\sqrt{19})^{2}' in lines[3]
+    assert lines[-2:] == [r'=3\cdot3\cdot2\cdot19', '=342']
+
+
+def test_root_product_handles_two_roots_and_existing_radical_difference() -> None:
+    from solution_runner.pipelines.equations.numeric_special_forms import build_root_product_plan
+
+    assert build_root_product_plan(_root_context(r'\sqrt{45}\cdot\sqrt{605}')).answer == '165'
+    assert build_root_product_plan(_root_context(r'(\sqrt{45}-\sqrt{5})\cdot\sqrt{5}')).answer == '10'
+    assert build_root_product_plan(_root_context(r'\sqrt{11}\cdot\sqrt{18}\cdot\sqrt{22}')).answer == '66'
+    assert build_root_product_plan(_root_context(r'\sqrt{11}\cdot\sqrt{32}\cdot\sqrt{22}')).answer == '88'
+
+
+def test_root_product_rejects_ambiguous_or_irrational_input() -> None:
+    import pytest
+    from solution_runner.pipelines.equations.numeric_special_forms import build_root_product_plan
+    from solution_runner.pipelines.triangles.right.planner import RightTrianglePlanError
+
+    for formula in (
+        r'\sqrt{11 * 18 * \text{thesquarerootof} 22}',
+        r'\sqrt{11 * 32 * thesquarerootof22}',
+        r'\sqrt{2}\cdot\sqrt{3}',
+        r'\sqrt{-2}\cdot\sqrt{-2}',
+        r'\sqrt{2}+\sqrt{2}',
+    ):
+        with pytest.raises(RightTrianglePlanError):
+            build_root_product_plan(_root_context(formula))
+
+
+def test_root_product_is_idempotent_after_local_transformations() -> None:
+    from solution_runner.pipelines.equations.numeric_special_forms import build_root_product_plan
+
+    context = _root_context(r'5\sqrt{11}\cdot2\sqrt{2}\cdot\sqrt{22}')
+    plan = build_root_product_plan(context)
+    assert plan.answer == '220'
+    for change in plan.transformations:
+        key = 'solution' if change['value']['title'] == 'Решение' else 'answer'
+        sections = context['normalized_content']['sections']
+        sections[:] = [section for section in sections if section['key'] != key]
+        sections.append(dict(change['value'], key=key, section_id=f'{key}:1'))
+    assert build_root_product_plan(context).transformations == ()
+
+
+def test_group_137285_uses_root_product_and_preserves_editorial_solutions() -> None:
+    from solution_runner.pipelines.core.group_profiles import all_group_profiles
+
+    profile = all_group_profiles()['137285']
+    assert profile.source_group_id == 'e7e4fee3-dbff-4c84-91c0-8b085d15e96e'
+    assert profile.content_rule_key == 'numeric-root-product'
+    assert profile.existing_solution_policy == 'preserve'

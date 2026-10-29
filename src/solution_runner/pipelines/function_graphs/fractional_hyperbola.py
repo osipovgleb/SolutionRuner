@@ -222,10 +222,11 @@ def build_context_repair_plan(context, *, condition_asset_bytes, current_asset_c
                     if sought=='a' else row(sought+'='+('C' if sought=='k' else 'B')+'='+latex(result))))
     html=f'<section data-content-kind="solution" data-solution-title="Решение">{first}</section><section data-content-kind="solution" data-solution-title="Альтернативное решение">{alternative}</section>'
     if abc_model:
+        # Consume row breaks before commands so \\k is a row break plus variable.
         # Rename only LaTeX variables; commands such as \frac and \begin stay intact.
         symbols={'k':'a','a':'b','b':'c'}
         def renamed_formula(match):
-            return 'data-inline-latex="'+re.sub(r'\\(?:begin|end)\{[^}]+\}|\\[A-Za-z]+|[A-Za-z]',lambda token:symbols.get(token[0],token[0]),match[1])+'"'
+            return 'data-inline-latex="'+re.sub(r'\\\\|\\(?:begin|end)\{[^}]+\}|\\[A-Za-z]+|[A-Za-z]',lambda token:symbols.get(token[0],token[0]),match[1])+'"'
         html=re.sub(r'data-inline-latex="([^"]*)"',renamed_formula,html)
     old_html=str(solution.get('html') or '') if solution else ''
     retired=set(registry().get('retired_asset_ids',[]))

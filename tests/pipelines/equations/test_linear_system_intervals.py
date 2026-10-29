@@ -66,9 +66,28 @@ def test_solution_retains_systems_in_a_single_equivalence_chain():
     rows = parse_system(latex)
     html = solution_html(latex, rows, solve(rows), '3')
     formulas = BeautifulSoup(html, 'html.parser').find_all('span', attrs={'data-inline-latex':True})
-    assert len(formulas) == 1
+    assert len(formulas) == 2
     chain = formulas[0]['data-inline-latex']
     assert chain.count(r'\begin{cases}') == 3
     assert r'2x\le 8\\-3x\le -6' in chain
     assert r'x\le 4\\x\ge 2' in chain
-    assert chain.endswith(r'2\le x\le 4')
+    assert chain.endswith(r'\end{cases}')
+    assert formulas[1]['data-inline-latex'] == r'2\le x\le 4\iff x\in [2;4]'
+
+
+@pytest.mark.parametrize('body, expected', [
+    (r'x<3\\x<4', r'x\lt 3\iff x\in (-\infty;3)'),
+    (r'x>3\\x\ge7', r'x\ge 7\iff x\in [7;+\infty)'),
+    (r'x>3\\x<7', r'3\lt x\lt 7\iff x\in (3;7)'),
+    (r'x\ge3\\x<7', r'3\le x\lt 7\iff x\in [3;7)'),
+    (r'x\ge3\\x\le3', r'x=3\iff x\in \{3\}'),
+    (r'x<3\\x>7', r'x\in\varnothing'),
+])
+def test_final_line_records_the_exact_set_after_the_system(body, expected):
+    """Verify ray, interval, endpoint, singleton and empty-set result notation."""
+    from bs4 import BeautifulSoup
+    from solution_runner.pipelines.equations.linear_system_intervals import solution_html
+    latex = r'\begin{cases}' + body + r'\end{cases}'
+    rows = parse_system(latex)
+    soup = BeautifulSoup(solution_html(latex, rows, solve(rows), '3'), 'html.parser')
+    assert soup.find_all('span', attrs={'data-inline-latex': True})[-1]['data-inline-latex'] == expected

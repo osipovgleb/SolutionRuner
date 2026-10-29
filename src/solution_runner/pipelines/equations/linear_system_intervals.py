@@ -121,6 +121,8 @@ def interval_latex(interval: Interval) -> str:
     """Format a verified set using the source's interval convention."""
     if interval.empty:
         return r'\varnothing'
+    if interval.lower is not None and interval.lower == interval.upper:
+        return r'\{' + number(interval.lower) + r'\}'
     lower = number(interval.lower) if interval.lower is not None else r'-\infty'
     upper = number(interval.upper) if interval.upper is not None else r'+\infty'
     return ('[' if interval.lower_closed else '(') + lower + ';' + upper + (']' if interval.upper_closed else ')')
@@ -132,7 +134,7 @@ def relation_latex(relation: str) -> str:
 
 
 def solution_html(latex: str, rows: tuple[Inequality, ...], result: Interval, answer: str) -> str:
-    """Keep both inequalities together in the parent's compact equivalence chain."""
+    """Place systems before the diagram and the final set on a separate line."""
     from html import escape
     def system(values: list[str]) -> str:
         """Enclose simultaneous rows in one cases expression."""
@@ -147,7 +149,9 @@ def solution_html(latex: str, rows: tuple[Inequality, ...], result: Interval, an
     for stage in (system(moved), system(bounds)):
         if stage != stages[-1]:
             stages.append(stage)
-    if not result.empty:
+    if result.empty:
+        final = r'x\in\varnothing'
+    else:
         if result.lower is not None and result.upper is not None:
             final = ('x=' + number(result.lower) if result.lower == result.upper else
                      number(result.lower) + relation_latex('<=' if result.lower_closed else '<')
@@ -156,7 +160,7 @@ def solution_html(latex: str, rows: tuple[Inequality, ...], result: Interval, an
             final = 'x' + relation_latex('>=' if result.lower_closed else '>') + number(result.lower)
         else:
             final = 'x' + relation_latex('<=' if result.upper_closed else '<') + number(result.upper)
-        stages.append(final)
+        final += r'\iff x\in ' + interval_latex(result)
     chain = r'\iff '.join(stages)
     formula = '<center><p><span data-inline-latex="' + escape(chain, quote=True) + '"></span>.</p></center>'
     if result.empty:
@@ -164,4 +168,6 @@ def solution_html(latex: str, rows: tuple[Inequality, ...], result: Interval, an
     else:
         kind = 'точка' if result.lower == result.upper else ('отрезок' if result.lower_closed and result.upper_closed else 'полуинтервал' if result.lower_closed or result.upper_closed else 'интервал') if result.lower is not None and result.upper is not None else 'луч'
         conclusion = f'Решению системы соответствует вариант {answer}.' if kind == 'точка' else f'Решением системы является {kind}, изображённый под номером {answer}.'
-    return '<p>Решим систему:</p>' + formula + '<p>' + conclusion + '</p>'
+    result_formula = ('<center><p><span data-inline-latex="'
+                      + escape(final, quote=True) + '"></span>.</p></center>')
+    return '<p>Решим систему:</p>' + formula + result_formula + '<p>' + conclusion + '</p>'

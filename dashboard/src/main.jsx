@@ -413,8 +413,8 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
     setRunError("");
     try {
       setDryRun(await api.startDryRun(group.id, dryRunMode));
-    } catch {
-      setRunError("Не удалось запустить локальный тестовый прогон.");
+    } catch (error) {
+      setRunError(`Не удалось запустить локальный тестовый прогон. ${error.message}`);
     }
   };
   const addSample = async () => {
@@ -645,7 +645,7 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
       {removeError && <p class="api-error" role="alert">{removeError}</p>}
       {editingTask && <div class="task-editor">
         <select value={selectedThreadId} onChange={(event) => setSelectedThreadId(event.currentTarget.value)}>
-          <option value="">Создать новую · Terra · Medium</option>
+          <option value="">Создать новую · Sol 6.1 · Medium</option>
           {codexTasks.map((task) => <option value={task.id} key={task.id}>{task.title}</option>)}
         </select>
         <button class="primary-button" onClick={registerGroup} disabled={registering}>
@@ -716,7 +716,6 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
                 <button class="primary-button" onClick={addComment} disabled={!group.codex_thread_id}>Отправить в Codex</button>
               </div>
             </section>
-            {runError && <div class="sample-error">{runError}</div>}
           </>
         )}
         {tab === "tasks" && <TaskInventory inventory={inventory} onExpandPreview={(task) => api.getProblemPreview(group.id, task.problem_id)} onAddTaskComment={addTaskComment} canComment={Boolean(group.codex_thread_id)} onRunProblem={runProblem} onApplyProblem={applyProblem} onApplyHelpers={applyHelpers} onRejectProblem={rejectProblem} runningProblemId={runningProblemId} applyingProblemId={applyingProblemId} applyingHelpersProblemId={applyingHelpersProblemId} rejectingProblemId={rejectingProblemId} />}
@@ -726,6 +725,7 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
       </div>
 
       <footer class="detail-footer">
+        {runError && <div class="sample-error" role="alert">{runError}</div>}
         {initialization?.status === "failed" && <span class="demo-label">Initialize: {initialization.error}</span>}
         {initialization?.status === "failed" && <button class="secondary-button" onClick={retryInitialization}>Повторить Initialize</button>}
         <select value={dryRunMode} onChange={(event) => setDryRunMode(event.currentTarget.value)} disabled={["queued", "running"].includes(dryRun?.status)} aria-label="Режим тестового прогона">

@@ -535,6 +535,7 @@ def _prepared_record(
             "expected_answer": plan.answer,
             "generated_diagrams": list(diagram_specs),
             "transformations": [deepcopy(item) for item in transformations],
+            **({"preserve_existing_solution": True} if preserve_existing_solution else {}),
             **({"message": "; ".join(plan.warnings)} if getattr(plan, "warnings", ()) else {}),
         }
     except Exception as exc:  # noqa: BLE001 - freeze one explicit blocker per task.
@@ -678,6 +679,10 @@ def _apply_record(
         if current_plan.answer != expected_answer:
             raise RightTrianglePlanError("condition or computed answer drifted after prepare")
         current_transformations = list(current_plan.transformations)
+        if record.get("preserve_existing_solution") is True:
+            current_transformations = list(_preserving_solution_transformations(
+                context, tuple(current_transformations)
+            ))
         if _registered_handler(content_rule_key).presentation_only:
             for item in frozen:
                 target = str(item.get("transformation_target_id") or "")
@@ -716,7 +721,12 @@ def _apply_record(
             refreshed_assets = _generated_diagram_assets(gateway, refreshed, refreshed_specs, source_problem_id)
             verified = _build_content_plan(refreshed, parent_asset_id=parent_asset_id, content_rule_key=content_rule_key,
                                            generated_solution_assets=refreshed_assets)
-            if verified.transformations or verified.answer != expected_answer:
+            verified_transformations = verified.transformations
+            if record.get("preserve_existing_solution") is True:
+                verified_transformations = _preserving_solution_transformations(
+                    refreshed, tuple(verified_transformations)
+                )
+            if verified_transformations or verified.answer != expected_answer:
                 raise RightTrianglePlanError("content failed authoritative readback")
             before_sections = (context.get("normalized_content") or {}).get("sections", [])
             after_sections = (refreshed.get("normalized_content") or {}).get("sections", [])
