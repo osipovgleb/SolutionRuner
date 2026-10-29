@@ -52,18 +52,11 @@ def _alphabet_explanation(expression, locative, size):
     raise UnsupportedCondition('unsupported composite alphabet explanation')
 
 
-def storage_steps(length, size, *, genitive='пароля', locative='пароле', accusative='пароль', alphabet_formula='', alphabet_intro='', items='символов', item='символа'):
+def encoding_bits_steps(length, size, *, genitive='пароля', locative='пароле', alphabet_formula='', alphabet_intro='', items='символов', item='символа', byte_conversion_hint=False):
+    """Explain uniform symbol encoding without rounding a field to whole bytes."""
     bits = (size - 1).bit_length()
     password_bits = length * bits
-    password_bytes = (password_bits + 7) // 8
-    byte_count = decimal_latex(Fraction(password_bits, 8))
     bit_word = 'бита' if bits % 10 in (2, 3, 4) and bits % 100 not in (12, 13, 14) else 'бит'
-    rounding = (
-        f'<p>Память под {accusative} выделяется целым числом байт, '
-        'поэтому округляем полученный объём вверх.</p>'
-        + formula(rf"\left\lceil {byte_count}\right\rceil={password_bytes}\;\text{{байт}}")
-        if password_bits % 8 else ''
-    )
     opening = alphabet_intro or (
         _alphabet_explanation(alphabet_formula, locative, size)
         if alphabet_formula else f'Согласно условию, в {locative} могут быть использованы {size} {items}. '
@@ -78,9 +71,25 @@ def storage_steps(length, size, *, genitive='пароля', locative='парол
         + formula(rf"N={bits}")
         + f'<p>Для хранения одного {item} {genitive} нужно {bits} {bit_word}. '
         f'Всего в {locative} {length} {items}, поэтому умножим число бит для одного {item} на количество {items}. '
-        'Чтобы перевести биты в байты, разделим на 8 — число бит в одном байте.</p>'
+        + ('Чтобы перевести биты в байты, разделим на 8 — число бит в одном байте.' if byte_conversion_hint else '')
+        + '</p>'
         + formula(rf"{bits}\cdot {length}={password_bits}\;\text{{бит}}")
-        + formula(rf"\frac{{{password_bits}}}{{8}}={byte_count}\;\text{{байт}}")
-        + rounding
     )
+    return password_bits, html
+
+
+def storage_steps(length, size, *, genitive='пароля', locative='пароле', accusative='пароль', alphabet_formula='', alphabet_intro='', items='символов', item='символа'):
+    password_bits, html = encoding_bits_steps(
+        length, size, genitive=genitive, locative=locative, alphabet_formula=alphabet_formula,
+        alphabet_intro=alphabet_intro, items=items, item=item, byte_conversion_hint=True,
+    )
+    password_bytes = (password_bits + 7) // 8
+    byte_count = decimal_latex(Fraction(password_bits, 8))
+    html += formula(rf"\frac{{{password_bits}}}{{8}}={byte_count}\;\text{{байт}}")
+    if password_bits % 8:
+        html += (
+            f'<p>Память под {accusative} выделяется целым числом байт, '
+            'поэтому округляем полученный объём вверх.</p>'
+            + formula(rf"\left\lceil {byte_count}\right\rceil={password_bytes}\;\text{{байт}}")
+        )
     return password_bytes, html

@@ -53,6 +53,12 @@ _PASS_GROUPS = (
 )
 
 
+_TWO_DEPARTMENTS_GROUPS = (
+    ('18494', '02a5c27e-5976-46be-ad01-863378aa81c6', 25),
+    ('18561', '89fa70bc-a714-4437-b3ba-e5e20a42bacf', 26),
+)
+
+
 PROFILES = tuple(
     _profile(
         key, source_group_id, order,
@@ -98,4 +104,19 @@ PROFILES = tuple(
         rewrite_existing_solution=True,
     )
     for key, source_group_id, order in _PASS_GROUPS
+) + tuple(
+    _profile(
+        key, source_group_id, order,
+        catalog_snapshot_id="4b8ce070-551c-4697-9b42-11c2617966d8",
+        category_key="11",
+        theme_title="Пароли с дополнительными сведениями",
+        theme_order_index=0,
+        snapshot_theme_id="d33e913c-5954-41fa-ae91-fd9e11ae3114",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="informatics-pass-two-departments-extra-bytes",
+        rewrite_existing_solution=True,
+    )
+    for key, source_group_id, order in _TWO_DEPARTMENTS_GROUPS
 )
