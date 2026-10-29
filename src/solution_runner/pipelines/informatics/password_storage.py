@@ -52,7 +52,7 @@ def _alphabet_explanation(expression, locative, size):
     raise UnsupportedCondition('unsupported composite alphabet explanation')
 
 
-def encoding_bits_steps(length, size, *, genitive='пароля', locative='пароле', alphabet_formula='', alphabet_intro='', items='символов', item='символа', byte_conversion_hint=False):
+def encoding_bits_steps(length, size, *, genitive='пароля', locative='пароле', alphabet_formula='', alphabet_intro='', items='символов', item='символа', counted_items=None, byte_conversion_hint=False):
     """Explain uniform symbol encoding without rounding a field to whole bytes."""
     bits = (size - 1).bit_length()
     password_bits = length * bits
@@ -70,7 +70,7 @@ def encoding_bits_steps(length, size, *, genitive='пароля', locative='па
         + formula(rf"2^{{{bits-1}}} &lt; {size} \leq 2^{{{bits}}}")
         + formula(rf"N={bits}")
         + f'<p>Для хранения одного {item} {genitive} нужно {bits} {bit_word}. '
-        f'Всего в {locative} {length} {items}, поэтому умножим число бит для одного {item} на количество {items}. '
+        f'Всего в {locative} {length} {counted_items or items}, поэтому умножим число бит для одного {item} на количество {items}. '
         + ('Чтобы перевести биты в байты, разделим на 8 — число бит в одном байте.' if byte_conversion_hint else '')
         + '</p>'
         + formula(rf"{bits}\cdot {length}={password_bits}\;\text{{бит}}")
@@ -78,10 +78,10 @@ def encoding_bits_steps(length, size, *, genitive='пароля', locative='па
     return password_bits, html
 
 
-def storage_steps(length, size, *, genitive='пароля', locative='пароле', accusative='пароль', alphabet_formula='', alphabet_intro='', items='символов', item='символа'):
+def storage_steps(length, size, *, genitive='пароля', locative='пароле', accusative='пароль', alphabet_formula='', alphabet_intro='', items='символов', item='символа', counted_items=None):
     password_bits, html = encoding_bits_steps(
         length, size, genitive=genitive, locative=locative, alphabet_formula=alphabet_formula,
-        alphabet_intro=alphabet_intro, items=items, item=item, byte_conversion_hint=True,
+        alphabet_intro=alphabet_intro, items=items, item=item, counted_items=counted_items, byte_conversion_hint=True,
     )
     password_bytes = (password_bits + 7) // 8
     byte_count = decimal_latex(Fraction(password_bits, 8))

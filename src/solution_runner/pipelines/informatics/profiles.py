@@ -59,6 +59,13 @@ _TWO_DEPARTMENTS_GROUPS = (
 )
 
 
+# Numeric 27271 already identifies a mathematics group in the global registry.
+_EXPIRY_GROUPS = (
+    ('inf-27271', '47c1df0b-6a0f-480f-aee5-c7f0a5e23668', 33),
+    ('28549', '99cc4d91-ca8a-4011-b700-fb6f7613d236', 35),
+)
+
+
 PROFILES = tuple(
     _profile(
         key, source_group_id, order,
@@ -119,4 +126,19 @@ PROFILES = tuple(
         rewrite_existing_solution=True,
     )
     for key, source_group_id, order in _TWO_DEPARTMENTS_GROUPS
+) + tuple(
+    _profile(
+        key, source_group_id, order,
+        catalog_snapshot_id="4b8ce070-551c-4697-9b42-11c2617966d8",
+        category_key="11",
+        theme_title="Пароли с дополнительными сведениями",
+        theme_order_index=0,
+        snapshot_theme_id="d33e913c-5954-41fa-ae91-fd9e11ae3114",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="informatics-pass-expiry-bytes",
+        rewrite_existing_solution=True,
+    )
+    for key, source_group_id, order in _EXPIRY_GROUPS
 )
