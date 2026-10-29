@@ -436,7 +436,7 @@ def test_group_apply_failure_stops_after_one_run_and_keeps_problem_details(tmp_p
 
 
 
-def test_apply_launcher_uses_fresh_process(monkeypatch):
+def test_apply_launcher_uses_fresh_process(monkeypatch, tmp_path):
     import sys
     from subprocess import CompletedProcess
     from solution_runner.dashboard.applies import _execute
@@ -446,6 +446,16 @@ def test_apply_launcher_uses_fresh_process(monkeypatch):
         calls.append((command, kwargs))
         return CompletedProcess(command, 7)
 
-    monkeypatch.setattr("solution_runner.dashboard.applies.subprocess.run", run)
-    assert _execute(["--group", "123", "--apply"]) == 7
-    assert calls == [([sys.executable, "-m", "solution_runner.launcher", "--group", "123", "--apply"], {"check": False})]
+    from solution_runner.dashboard.process_logs import job_log
+
+    monkeypatch.setattr("solution_runner.dashboard.process_logs.subprocess.run", run)
+    token = job_log.set(tmp_path / "apply.log")
+    try:
+        result = _execute(["--group", "123", "--apply"])
+    finally:
+        job_log.reset(token)
+    assert result == 7
+    assert (tmp_path / "apply.log").exists()
+    assert calls[0][0] == [sys.executable, "-m", "solution_runner.launcher", "--group", "123", "--apply"]
+    assert calls[0][1]["check"] is False
+    assert calls[0][1]["stdout"].name == str(tmp_path / "apply.log")

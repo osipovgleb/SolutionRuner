@@ -7,11 +7,12 @@ from datetime import UTC, datetime
 import json
 from pathlib import Path
 from threading import Lock
-import subprocess
 import sys
 from typing import Any, Callable, Mapping
 
 from solution_runner.group_inventory_store import GroupInventoryStore, GroupItemStageResult
+
+from .process_logs import run_logged
 
 
 SUCCESS = {"applied", "already_complete"}
@@ -22,10 +23,7 @@ def _now() -> str:
 
 
 def _execute(argv: list[str]) -> int:
-    return subprocess.run(
-        [sys.executable, "-m", "solution_runner.launcher", *argv],
-        check=False,
-    ).returncode
+    return run_logged([sys.executable, "-m", "solution_runner.launcher", *argv])
 
 
 def _read_results(path: Path) -> list[dict[str, Any]]:

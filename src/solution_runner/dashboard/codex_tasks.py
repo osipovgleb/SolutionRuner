@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import selectors
 import subprocess
 from threading import Event, Lock, Thread
+from uuid import uuid4
 import time
 from typing import Any, Callable, Mapping
 
@@ -48,16 +50,23 @@ def build_registration_prompt(
     return prompt if not comment else f"{prompt}\n\nКомментарий пользователя:\n{comment}"
 
 
+def _log_path(project_root: Path, operation: str) -> Path:
+    directory = project_root / "var/dashboard/logs"
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory / f"codex-{operation}-{uuid4().hex}.log"
+
+
 def _app_server_request(project_root: Path, method: str, params: Mapping[str, Any]) -> dict[str, Any]:
-    process = subprocess.Popen(
-        ["codex", "app-server", "--stdio"],
-        cwd=project_root,
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        bufsize=1,
-    )
+    with _log_path(project_root, "app-server").open("a", encoding="utf-8") as error_log:
+        process = subprocess.Popen(
+            ["codex", "app-server", "--stdio"],
+            cwd=project_root,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=error_log,
+            text=True,
+            bufsize=1,
+        )
     assert process.stdin is not None and process.stdout is not None
     messages = [
         {"id": 1, "method": "initialize", "params": {
@@ -165,18 +174,19 @@ def _send_message(
 ) -> None:
     """Queue a turn in the app-owned task."""
 
-    process = subprocess.run(
-        [
-            "codex", "queue", "--thread", thread_id, "--message", prompt,
-            *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
-            "-m", MODEL, "-c", f'model_reasoning_effort="{EFFORT}"',
-        ],
-        cwd=project_root,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-        text=True,
-        check=False,
-    )
+    with _log_path(project_root, "queue").open("w", encoding="utf-8") as output:
+        process = subprocess.run(
+            [
+                "codex", "queue", "--thread", thread_id, "--message", prompt,
+                *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
+                "-m", MODEL, "-c", f'model_reasoning_effort="{EFFORT}"',
+            ],
+            cwd=project_root,
+            stdout=output,
+            stderr=subprocess.STDOUT,
+            text=True,
+            check=False,
+        )
     if process.returncode:
         if on_exit:
             on_exit(thread_id, process.returncode)
@@ -253,7 +263,10 @@ class CodexTaskService:
                 raise ValueError("selected Codex task does not exist in this project")
             self._send(thread_id, prompt)
             return {"id": thread_id, "title": str(task["title"])}
-        created_id = self._create(prompt, MODEL, EFFORT)
+        created_id = self._create(
+            prompt, os.environ.get("SOLUTION_RUNNER_CODEX_MODEL", MODEL),
+            os.environ.get("SOLUTION_RUNNER_CODEX_EFFORT", EFFORT),
+        )
         return {"id": created_id, "title": f"{group['id']} · {group['title']}"}
 
     def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> None:
