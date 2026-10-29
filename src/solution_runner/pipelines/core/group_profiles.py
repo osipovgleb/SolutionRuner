@@ -27,6 +27,7 @@ _PROFILE_MODULES = (
     "solution_runner.pipelines.triangles.right.profiles",
     "solution_runner.pipelines.grid_polygon.profiles",
     "solution_runner.pipelines.word_problems.profiles",
+    "solution_runner.pipelines.informatics.profiles",
 )
 
 

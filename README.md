@@ -12,6 +12,7 @@
 | [pipelines/equations/](src/solution_runner/pipelines/equations/) | Обработчики уравнений. |
 | [pipelines/function_graphs/](src/solution_runner/pipelines/function_graphs/) | Графики функций: гиперболы, два способа решения, сохранение изображений. |
 | [pipelines/vectors/](src/solution_runner/pipelines/vectors/) | Векторы, длины и скалярные произведения. |
+| [pipelines/informatics/](src/solution_runner/pipelines/informatics/) | Количество информации: пароли и дополнительные сведения. |
 | [pipelines/triangles/](src/solution_runner/pipelines/triangles/) | Треугольники: `general/`, `isosceles/`, `right/`. |
 | [pipelines/quadrilaterals/](src/solution_runner/pipelines/quadrilaterals/) | Параллелограммы и трапеции. |
 | [pipelines/grid_polygon/](src/solution_runner/pipelines/grid_polygon/) | Фигуры на сетке и кольца; здесь пока находится общая оркестрация запусков. |

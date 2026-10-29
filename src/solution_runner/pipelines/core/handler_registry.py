@@ -11,6 +11,7 @@ from solution_runner.pipelines.triangles.right.handlers import HANDLERS as RIGHT
 from solution_runner.pipelines.quadrilaterals.trapezoid.handlers import HANDLERS as TRAPEZOIDS
 from solution_runner.pipelines.vectors.handlers import HANDLERS as VECTORS
 from solution_runner.pipelines.word_problems.handlers import HANDLERS as WORD_PROBLEMS
+from solution_runner.pipelines.informatics.handlers import HANDLERS as INFORMATICS
 
 
 def build_registry(specs):
@@ -24,7 +25,7 @@ def build_registry(specs):
 
 HANDLERS = build_registry((
     *EQUATIONS, *FUNCTION_GRAPHS, *GENERAL_TRIANGLES, *ISOSCELES_TRIANGLES, *PARALLELOGRAMS,
-    *RIGHT_TRIANGLES, *TRAPEZOIDS, *VECTORS, *WORD_PROBLEMS,
+    *RIGHT_TRIANGLES, *TRAPEZOIDS, *VECTORS, *WORD_PROBLEMS, *INFORMATICS,
 ))
 
 
@@ -41,7 +42,7 @@ def reload_handler_registry():
     modules = (
         "equations", "function_graphs", "triangles.general", "triangles.isosceles",
         "quadrilaterals.parallelogram", "triangles.right", "quadrilaterals.trapezoid",
-        "vectors", "word_problems",
+        "vectors", "word_problems", "informatics",
     )
     HANDLERS = build_registry(
         spec
