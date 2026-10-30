@@ -1,5 +1,16 @@
 from solution_runner.dashboard.teacherhelper import teacherhelper_navigation
-from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.group_profiles import all_group_profiles, get_group_profile
+
+
+def test_all_registered_ege_profile_groups_have_navigation():
+    profiles = [p for p in all_group_profiles().values()
+                if p.catalog_snapshot_id == "41bc4d03-40cd-4407-8dea-df76e3f47ea8"]
+    assert profiles
+    for profile in profiles:
+        navigation = teacherhelper_navigation(profile)
+        assert navigation is not None, profile.group_key
+        assert navigation["group_id"] == profile.source_group_id
+        assert navigation["theme_id"] == profile.snapshot_theme_id
 
 
 def test_teacherhelper_navigation_uses_source_site_from_the_same_catalog():
