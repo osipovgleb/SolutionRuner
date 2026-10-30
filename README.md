@@ -10,7 +10,7 @@
 | [src/solution_runner/launcher.py](src/solution_runner/launcher.py) | Общая точка входа `.venv/bin/solution-runner`. |
 | [pipelines/core/](src/solution_runner/pipelines/core/) | Реестры обработчиков и профилей, общий content runtime, модели, MCP-интерфейс и точные числа. |
 | [pipelines/equations/](src/solution_runner/pipelines/equations/) | Обработчики уравнений. |
-| [pipelines/calculus/](src/solution_runner/pipelines/calculus/) | Производная, движение, параметры функций и графики касательных. |
+| [pipelines/calculus/](src/solution_runner/pipelines/calculus/) | Производная, движение, касательные, экстремумы и параметры функций. |
 | [pipelines/function_graphs/](src/solution_runner/pipelines/function_graphs/) | Графики функций: гиперболы, два способа решения, сохранение изображений. |
 | [pipelines/vectors/](src/solution_runner/pipelines/vectors/) | Векторы, длины и скалярные произведения. |
 | [pipelines/statistics/](src/solution_runner/pipelines/statistics/) | Статистика: моменты распределений, ожидание до успеха, коллекции, выборочная дисперсия и оценки. |

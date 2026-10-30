@@ -16,7 +16,7 @@ _NUMBER = r"-?\d+(?:[,.]\d+)?"
 _PREFIX = re.compile(
     r"На рисунке изображен график функции (?P<curve>(?:y=)?f\(x\)|y=F\(x\))"
     r"(?P<primitive>\s*(?:,\s*|—\s*)?одной из первообразных(?: некоторой)? функции f\(x\))?"
-    r",? определенной на интервале(?P<domain>\([^)]*\))\. (?P<request>.+)"
+    r",?\s*определенной на интервале(?P<domain>\([^)]*\))\. (?P<request>.+)"
 )
 _MOTION = re.compile(
     r"Материальная точка M начинает движение из точки A и движется по прямой на протяжении (?P<end>\d+) секунд\. "
@@ -77,10 +77,18 @@ def parse(text):
         )
     if request == "Найдите корень уравнения f'(x)=0." and not primitive:
         return Question("root", domain, domain)
+    if (
+        re.fullmatch(
+            r"Найдите количество точек, в которых производная функции f\(x\)\s*равна 0\.",
+            request,
+        )
+        and not primitive
+    ):
+        return Question("count", domain, domain)
     count = re.fullmatch(
         r"(?:Найдите|Пользуясь рисунком, определите) количество "
         r"(?:решений уравнения (?P<equation>f'\(x\)|f\(x\))=0|точек, в которых производная функции равна нулю) "
-        r"на отрезке (?P<interval>\[[^]]*\])\.",
+        r"на отрезке (?P<interval>\[[^]]*\])\.?",
         request,
     )
     if count and (count["equation"] == "f(x)") == primitive:
@@ -90,7 +98,7 @@ def parse(text):
     raise UnsupportedCondition("the entire stationary-point request must be recognized")
 
 
-def select(points, span):
+def select(points, span, *, svg_order=False):
     selected = []
     previous = None
     for point in points:
@@ -104,21 +112,29 @@ def select(points, span):
             lower, upper = map(Fraction, point["x_bounds"])
             if lower >= upper:
                 raise UnsupportedCondition("stationary-point bounds must be ordered")
-        if previous is not None and lower <= previous:
+        position = point["svg"][0] if svg_order else lower
+        if previous is not None and position <= previous:
             raise UnsupportedCondition(
                 "stationary points must have disjoint ordered bounds"
             )
-        previous = upper
+        previous = point["svg"][0] if svg_order else upper
+        lower_open, upper_open = point.get("x_bounds_open", [False, False])
         outside = (
             upper < span.lower
             or lower > span.upper
             or upper == span.lower
-            and not span.lower_closed
+            and (not span.lower_closed or upper_open)
             or lower == span.upper
-            and not span.upper_closed
+            and (not span.upper_closed or lower_open)
         )
-        inside = (lower > span.lower or lower == span.lower and span.lower_closed) and (
-            upper < span.upper or upper == span.upper and span.upper_closed
+        inside = (
+            lower > span.lower
+            or lower == span.lower
+            and (span.lower_closed or lower_open)
+        ) and (
+            upper < span.upper
+            or upper == span.upper
+            and (span.upper_closed or upper_open)
         )
         if inside:
             selected.append(point)

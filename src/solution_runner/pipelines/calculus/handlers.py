@@ -4,6 +4,14 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "calculus-graph-extrema",
+        "solution_runner.pipelines.calculus.graph_extrema:build_context_repair_plan",
+        inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
+        asset_selector="solution_runner.pipelines.calculus.graph_extrema:required_assets",
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+    ),
+    HandlerSpec(
         "calculus-graph-derivative-level",
         "solution_runner.pipelines.calculus.graph_derivative_levels:build_context_repair_plan",
         inputs=(

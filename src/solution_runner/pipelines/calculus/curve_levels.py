@@ -37,7 +37,7 @@ def count(nodes, level):
     return vertices + arcs
 
 
-def intersections(entry, level):
+def svg_intersections(entry, level):
     _ox, oy = entry["svg_origin"]
     unit = entry["svg_unit"]
     target = oy - float(level) * unit
@@ -69,6 +69,22 @@ def intersections(entry, level):
             )
             x = float(weights @ control[:, 0])
             points.append((x, target))
+    return points
+
+
+def distinct_points(points, left, right):
+    points = sorted(p for p in points if left + 0.05 < p[0] < right - 0.05)
+    unique = []
+    for p in points:
+        if not unique or p[0] - unique[-1][0] > 0.5:
+            unique.append(p)
+    return unique
+
+
+def intersections(entry, level):
+    points = svg_intersections(entry, level)
+    unit = entry["svg_unit"]
+    target = entry["svg_origin"][1] - float(level) * unit
     # Exact grid vertices override subpixel drawing errors at a tangent level.
     for node in entry["curve_nodes"]:
         if ordinate_sign(node, level) == 0:
@@ -77,11 +93,7 @@ def intersections(entry, level):
             if not node.get("endpoint", False):
                 points.append((x, target))
     left, right = entry["curve_nodes"][0]["svg"][0], entry["curve_nodes"][-1]["svg"][0]
-    points = sorted(p for p in points if left + 0.05 < p[0] < right - 0.05)
-    unique = []
-    for p in points:
-        if not unique or p[0] - unique[-1][0] > 0.5:
-            unique.append(p)
+    unique = distinct_points(points, left, right)
     if len(unique) != count(entry["curve_nodes"], level):
         raise UnsupportedCondition(
             "the SVG intersections and monotone-arc count disagree"
