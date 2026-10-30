@@ -79,7 +79,7 @@ def read_calculation(context):
         content, condition, expression, parameters = _superscripts(context)
     else:
         content, condition, formulas, text = read_math_markup(context, indexed=True)
-        pattern = rf"(?:Найдите значение выражения|Вычислите):? {_FORMULA}0(?:,? (?:при|если) (?P<constraints>.+?))?\.?"
+        pattern = rf"(?:Найдите значение выражения|Вычислите(?: значение выражения)?):? {_FORMULA}0(?:,? (?:при|если) (?P<constraints>.+?))?\.?"
         match = re.fullmatch(pattern, text)
         if match is None or not formulas:
             raise UnsupportedCondition("unsupported complete calculation question")

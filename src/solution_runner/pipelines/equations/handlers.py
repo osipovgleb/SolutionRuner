@@ -458,3 +458,36 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+# Numeric logarithm methods.
+HANDLERS += (
+    HandlerSpec(
+        "numeric-logarithm-expression",
+        "solution_runner.pipelines.equations.logarithm_expression:build_context_repair_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-logarithm-complements-two-methods",
+        "solution_runner.pipelines.equations.logarithm_expression:build_context_repair_plan",
+        options=(("two_methods", "complements"),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-logarithm-fraction-two-methods",
+        "solution_runner.pipelines.equations.logarithm_expression:build_context_repair_plan",
+        options=(("two_methods", "fraction"),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-logarithm-product-with-proof",
+        "solution_runner.pipelines.equations.logarithm_expression:build_context_repair_plan",
+        options=(("product_proof", True),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "algebraic-logarithm-monomial",
+        "solution_runner.pipelines.equations.logarithm_monomial:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+)
