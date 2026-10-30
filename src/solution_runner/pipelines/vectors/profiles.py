@@ -104,6 +104,72 @@ PROFILES += tuple(
             "vector-diagram-operations",
         ),
         (
+            "27709",
+            "f41d0e16-1e0f-4f21-a298-f3e26ed3f562",
+            4,
+            "vector-geometric-operations",
+        ),
+        (
+            "27711",
+            "50dc7a51-bcd6-491a-8fe1-cc926abcd3bf",
+            6,
+            "vector-geometric-operations",
+        ),
+        (
+            "27713",
+            "c7ee3b41-14e2-4aa2-b3f3-933a4134cb2c",
+            8,
+            "vector-geometric-operations",
+        ),
+        (
+            "27714",
+            "e973a052-ecae-4770-8f47-628f6d1a6a4c",
+            9,
+            "vector-geometric-operations",
+        ),
+        (
+            "27715",
+            "ed77567c-35e0-40d4-9814-693d60438131",
+            10,
+            "vector-geometric-operations",
+        ),
+        (
+            "27716",
+            "0789e4f2-9902-446c-9bc3-2d90f66b543e",
+            11,
+            "vector-geometric-operations",
+        ),
+        (
+            "27717",
+            "882690fe-1b2d-485d-b2a5-114ec5067a9d",
+            12,
+            "vector-geometric-operations",
+        ),
+        (
+            "27719",
+            "cee02046-032f-4eac-8fe1-bbc7a768a84c",
+            14,
+            "vector-geometric-operations",
+        ),
+        (
+            "27720",
+            "b04c1e1e-377b-4dde-a025-83c8fa0bb1b8",
+            15,
+            "vector-geometric-operations",
+        ),
+        (
+            "27721",
+            "55ce6692-f973-4e57-a83c-09e486ae9867",
+            16,
+            "vector-geometric-operations",
+        ),
+        (
+            "27722",
+            "073f0650-117a-41f8-b9a2-0a29a59f2f12",
+            17,
+            "vector-geometric-operations",
+        ),
+        (
             "27723",
             "86441ec1-0e10-45a0-9282-d8e70b0d7693",
             18,
@@ -218,6 +284,12 @@ PROFILES += tuple(
             "vector-diagram-operations",
         ),
         (
+            "513334",
+            "b22931bf-1f1c-4eb5-b87e-03d703206402",
+            37,
+            "vector-rectangle-coordinates",
+        ),
+        (
             "644807",
             "2af9c1ce-70df-4442-afe7-b82889019df3",
             38,
@@ -294,6 +366,12 @@ PROFILES += tuple(
             "d42c8d39-68d2-4e09-a1b4-3d967d940745",
             50,
             "vector-metric-relations",
+        ),
+        (
+            "654449",
+            "9623a334-e252-4b1b-ac00-9ef61114b514",
+            51,
+            "vector-geometric-operations",
         ),
         (
             "660709",

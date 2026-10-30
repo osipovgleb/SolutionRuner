@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 from bs4 import BeautifulSoup
 
+from solution_runner.pipelines.core.content_runtime import _with_required_assets
 from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.core.handlers import PlanInput
@@ -19,6 +20,7 @@ CASES = DATA["cases"]
 def plan(case, context):
     profile = get_group_profile(case["group"])
     handler = get_handler(profile.content_rule_key)
+    context = _with_required_assets(context, profile.content_rule_key)
     generated = tuple(
         {
             "asset_key": s["asset_key"],
@@ -39,6 +41,10 @@ def plan(case, context):
     return handler.plan(
         PlanInput(
             context,
+            parent_asset_id=profile.condition_asset_id,
+            current_asset_content_type="image/svg+xml"
+            if context["normalized_content"].get("assets")
+            else None,
             generated_solution_assets=generated,
             condition_asset_bytes=downloaded,
         )
@@ -67,7 +73,9 @@ def test_source_answer_matches_an_independent_plan(case):
     soup = BeautifulSoup(answer, "html.parser")
     for s in soup.select("[data-inline-latex]"):
         s.replace_with(s["data-inline-latex"])
-    expected = parse_rational(soup.get_text("", strip=True).removesuffix("."))
+    expected = parse_rational(
+        case.get("verified_answer", soup.get_text("", strip=True).removesuffix("."))
+    )
     result = plan(case, context)
     assert parse_rational(result.answer) == expected
     assert context == original
