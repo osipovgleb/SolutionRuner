@@ -6,8 +6,9 @@ import sympy as sp
 
 from ..calculus.common import T, answer, real_roots
 from ..probability.common import UnsupportedCondition, finish
-from . import common, formula_proof
-from .formula_questions import H, L, P, Q, Question, R, V, parse
+from . import common, formula_proof, inverse_proof
+from .formula_questions import D, H, L, P, Q, Question, R, S, V, parse
+from .inverse_patterns import KINDS as INVERSE_KINDS
 
 
 @dataclass(frozen=True)
@@ -47,6 +48,22 @@ _LAWS = {
         ("alpha", "density", "gravity"),
     ),
     "stars": (_A * _S * T**4, {"a": "sigma", "s": "surface"}, ("sigma", "surface")),
+    "fuse": (sp.Symbol("u", real=True) / R, {"u": "voltage"}, ("voltage",)),
+    "excavator": (
+        _M * _G / (2 * L * S),
+        {"m": "mass", "g": "gravity", "l": "length"},
+        ("mass", "gravity", "length"),
+    ),
+    "column": (
+        4 * _M * _G / (_A * D**2),
+        {"m": "mass", "g": "gravity", "a": "pi"},
+        ("mass", "gravity", "pi"),
+    ),
+    "traction": (
+        2 * _M * S / T**2,
+        {"m": "mass", "s": "distance"},
+        ("mass", "distance"),
+    ),
 }
 
 
@@ -128,6 +145,21 @@ def market(q, expression):
     return Analysis(q, expression, roots, result, domain_end)
 
 
+def inverse_power(q, expression):
+    if q.target <= 0:
+        raise UnsupportedCondition("a positive inverse-power threshold is required")
+    denominator = sp.fraction(sp.cancel(expression))[1]
+    power = sp.Poly(denominator, q.variable).degree()
+    coefficient = sp.cancel(expression * q.variable**power)
+    if power not in [1, 2] or coefficient.is_Rational is not True or coefficient <= 0:
+        raise UnsupportedCondition("a positive inverse power is required")
+    ratio = coefficient / q.target
+    result = sp.real_root(ratio, power)
+    if result.is_Rational is not True:
+        raise UnsupportedCondition("the exact answer must be rational without rounding")
+    return Analysis(q, expression, (result,), result, power=power, ratio=ratio)
+
+
 def inertia(q, expression):
     roots = tuple(real_roots(expression - q.target, H))
     allowed = [r for r in roots if r >= 0]
@@ -151,6 +183,8 @@ def analyze(question):
         return market(question, expression)
     if question.kind == "inertia":
         return inertia(question, expression)
+    if question.kind in INVERSE_KINDS:
+        return inverse_power(question, expression)
     return positive_power(question, sp.expand(expression))
 
 
@@ -162,6 +196,9 @@ def calculate(context):
 def build_context_repair_plan(context):
     data, analysis = calculate(context)
     condition, ans, solution, _ = data
-    return finish(
-        condition, ans, solution, answer(analysis.result), formula_proof.proof(analysis)
+    proof = (
+        inverse_proof.proof
+        if analysis.question.kind in INVERSE_KINDS
+        else formula_proof.proof
     )
+    return finish(condition, ans, solution, answer(analysis.result), proof(analysis))

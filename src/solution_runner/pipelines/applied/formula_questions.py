@@ -9,9 +9,11 @@ from ..calculus.common import T, polynomial
 from ..equations.laurent_arithmetic import names, symbolic
 from ..equations.laurent_parser import LaurentParser
 from ..probability.common import UnsupportedCondition
+from .inverse_patterns import KINDS as INVERSE_KINDS
+from .inverse_patterns import PATTERNS as INVERSE_PATTERNS
 from .physical_questions import scalar
 
-P, Q, V, L, R, H = sp.symbols("p q v l r h", real=True)
+P, Q, V, L, R, H, D, S = sp.symbols("p q v l r h d s", real=True)
 _KGCM = r"кг\s*\\cdot\s*см\^\{2\}"
 _SHIP = r"На верфи инженеры проектируют новый аппарат для погружения на небольшие глубины\. "
 _CUBE = (
@@ -101,14 +103,17 @@ def normalize(text):
     text = text.replace("CM^2", "см^{2}")
     text = re.sub(r"l\s+_0", "l_0", text)
     text = re.sub(r"t\s+°", "t°", text)
-    return text
+    return text.replace("π", r"\pi")
 
 
-def bind(formula, variable, values):
+def bind(formula, variable, values, *, positive_variable=False):
     for alias, name in [
         (r"\alpha", "a"),
         (r"\sigma", "a"),
         (r"\rho", "d"),
+        (r"\pi", "a"),
+        ("D", "d"),
+        ("U", "u"),
         ("l_0", "q"),
         ("M", "n"),
         ("R", "r"),
@@ -125,6 +130,8 @@ def bind(formula, variable, values):
     if names(parsed) - {variable.name, *values}:
         raise UnsupportedCondition("an undeclared formula variable remains")
     for name in parser.nonzero:
+        if positive_variable and name == variable.name:
+            continue
         value = values.get(name)
         if value is None or value.free_symbols or value.is_zero is not False:
             raise UnsupportedCondition(
@@ -140,7 +147,7 @@ def make_question(kind, match):
     values = {
         k: scalar(v.replace(" ", ""))
         for k, v in match.groupdict().items()
-        if k not in ["formula", "demand", "relation"] and v is not None
+        if k not in ["formula", "demand", "relation", "maximum"] and v is not None
     }
     variable, label, unit = {
         "thermal": (T, "t", r"{}^{\circ}\mathrm{C}"),
@@ -151,6 +158,10 @@ def make_question(kind, match):
         "cube": (L, "l", "м"),
         "sphere": (R, "r", "м"),
         "stars": (T, "T", "К"),
+        "fuse": (R, "R", "Ом"),
+        "excavator": (S, "s", "м"),
+        "column": (D, "D", "м"),
+        "traction": (T, "t", "с"),
     }[kind]
     names = {
         "thermal": {"length": "q", "alpha": "a"},
@@ -161,6 +172,10 @@ def make_question(kind, match):
         "cube": {"density": "d", "gravity": "g"},
         "sphere": {"alpha": "a", "density": "d", "gravity": "g"},
         "stars": {"sigma": "a", "surface": "s"},
+        "fuse": {"voltage": "u"},
+        "excavator": {"mass": "m", "length": "l", "gravity": "g"},
+        "column": {"mass": "m", "gravity": "g", "pi": "a"},
+        "traction": {"mass": "m", "distance": "s"},
     }[kind]
     bindings = {name: values[key] for key, name in names.items()}
     if kind == "bucket":
@@ -170,7 +185,12 @@ def make_question(kind, match):
         bindings["q"] = demand
     if kind == "bucket":
         bindings["m"] = sp.Symbol("m", real=True)
-    expression = bind(match["formula"], variable, bindings)
+    expression = bind(
+        match["formula"],
+        variable,
+        bindings,
+        positive_variable=kind in INVERSE_KINDS,
+    )
     target = values.get("target", sp.Integer(0))
     relation = (
         "eq"
@@ -184,6 +204,12 @@ def make_question(kind, match):
     if kind == "thermal":
         target = values["increase"] / 1000
         expression -= values["length"]
+    if kind == "traction":
+        relation = "eq" if match["relation"] == "равна" else "ge"
+        if bool(match["maximum"]) != (relation == "ge"):
+            raise UnsupportedCondition(
+                "the time request must agree with the force relation"
+            )
     return Question(
         kind,
         sp.expand(expression),
@@ -200,7 +226,7 @@ def make_question(kind, match):
 
 def parse(text):
     text = normalize(text)
-    for kind, pattern in _PATTERNS:
+    for kind, pattern in _PATTERNS + INVERSE_PATTERNS:
         match = pattern.fullmatch(text)
         if match:
             return make_question(kind, match)

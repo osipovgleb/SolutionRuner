@@ -46,7 +46,7 @@ def test_source_answers_are_computed_without_mutation_and_idempotently(case):
     )
     first = plan(case, context)
     assert parse_rational(first.answer) == parse_rational(
-        BeautifulSoup(expected, "html.parser").get_text()
+        case.get("expected_answer", BeautifulSoup(expected, "html.parser").get_text())
     )
     assert context == original
     assert all(
@@ -226,3 +226,67 @@ def test_parameter_or_unit_changes_do_not_reuse_the_old_computation():
     _, a = model.calculate(sample("27967")["context"])
     with pytest.raises(ValueError, match="contradicts"):
         model.analyze(replace(a.question, expression=a.expression / 2))
+
+
+@pytest.mark.parametrize("task", ["27973", "27978", "27988", "27989"])
+def test_inverse_powers_use_the_strict_positive_domain_and_exact_boundary(task):
+    _, a = model.calculate(sample(task)["context"])
+    q = a.question
+    assert a.result > 0 and a.result**a.power == a.ratio
+    assert a.expression.subs(q.variable, a.result) == q.target
+    assert a.expression.subs(q.variable, a.result / 2) > q.target
+    assert a.expression.subs(q.variable, 2 * a.result) < q.target
+    html = solution(plan(sample(task), sample(task)["context"]))
+    formulas = [
+        s["data-inline-latex"]
+        for s in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
+    ]
+    assert q.label + ">0" in formulas
+    for target in [sp.Integer(0), sp.Integer(-1)]:
+        with pytest.raises(ValueError):
+            model.analyze(replace(q, target=target))
+    for key in q.values.keys() - {"target"}:
+        with pytest.raises(ValueError):
+            model.analyze(replace(q, values={**q.values, key: sp.Integer(0)}))
+    with pytest.raises(ValueError, match="contradicts"):
+        model.analyze(replace(q, expression=q.expression * q.variable))
+
+
+def test_traction_equality_has_no_maximum_or_inequality():
+    _, bound = model.calculate(sample("27989")["context"])
+    _, equal = model.calculate(sample("517196")["context"])
+    assert bound.question.relation == "ge" and equal.question.relation == "eq"
+    html = solution(plan(sample("517196"), sample("517196")["context"]))
+    assert r"\leq" not in html and r"\max" not in html
+    text = common.read(sample("517196")["context"])[3].replace(
+        "Определите время", "Определите наибольшее время"
+    )
+    with pytest.raises(ValueError, match="request"):
+        formula_questions.parse(text)
+
+
+def test_bad_saved_fuse_answer_is_recomputed_from_voltage_and_current():
+    case = sample("28237")
+    saved = next(
+        s["html"]
+        for s in case["context"]["normalized_content"]["sections"]
+        if s["key"] == "answer"
+    )
+    assert BeautifulSoup(saved, "html.parser").get_text() == "000"
+    assert parse_rational(plan(case, case["context"]).answer) == sp.Rational(44, 5)
+
+
+def test_variable_denominators_need_an_explicit_positive_domain():
+    x = sp.Symbol("x", real=True)
+    with pytest.raises(ValueError, match="denominator"):
+        formula_questions.bind(r"\frac{1}{x}", x, {})
+    assert (
+        formula_questions.bind(r"\frac{1}{x^2}", x, {}, positive_variable=True) == x**-2
+    )
+    with pytest.raises(ValueError, match="denominator"):
+        formula_questions.bind(
+            r"\frac{1}{lx}", x, {"l": sp.Integer(0)}, positive_variable=True
+        )
+    _, a = model.calculate(sample("27988")["context"])
+    with pytest.raises(ValueError, match="without rounding"):
+        model.analyze(replace(a.question, target=sp.Integer(3)))
