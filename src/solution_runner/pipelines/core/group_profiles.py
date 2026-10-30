@@ -35,6 +35,7 @@ __all__ = [
 
 
 _PROFILE_MODULES = (
+    "solution_runner.pipelines.applied.profiles",
     "solution_runner.pipelines.equations.profiles",
     "solution_runner.pipelines.function_graphs.profiles",
     "solution_runner.pipelines.calculus.profiles",

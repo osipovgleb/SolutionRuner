@@ -3,6 +3,7 @@
 from importlib import import_module, reload
 from types import MappingProxyType
 
+from solution_runner.pipelines.applied.handlers import HANDLERS as APPLIED
 from solution_runner.pipelines.calculus.handlers import HANDLERS as CALCULUS
 from solution_runner.pipelines.equations.handlers import HANDLERS as EQUATIONS
 from solution_runner.pipelines.function_graphs.handlers import (
@@ -43,6 +44,7 @@ def build_registry(specs):
 
 HANDLERS = build_registry(
     (
+        *APPLIED,
         *EQUATIONS,
         *FUNCTION_GRAPHS,
         *CALCULUS,
@@ -71,6 +73,7 @@ def reload_handler_registry():
     """Refresh domain declarations before validating newly registered profiles."""
     global HANDLERS
     modules = (
+        "applied",
         "equations",
         "function_graphs",
         "calculus",
