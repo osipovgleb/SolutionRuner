@@ -28,7 +28,7 @@ class PowerParser:
             )
 
     def parse(self):
-        value = self._factor()
+        value = self._implicit()
         while self.index < len(self.text):
             sign = 1
             for operator in (r"\cdot", r"\times", r"\colon", r"\div", "*", "/"):
@@ -40,7 +40,17 @@ class PowerParser:
                 raise UnsupportedCondition(
                     "an explicit power product or quotient operator is required"
                 )
-            value = combine(value, self._factor(), sign)
+            value = combine(value, self._implicit(), sign)
+        return value
+
+    def _implicit(self):
+        value = self._factor()
+        while self.index < len(self.text) and (
+            self.text[self.index] in self.variables
+            or self.text[self.index] == "("
+            or self.text.startswith(r"\sqrt", self.index)
+        ):
+            value = combine(value, self._factor())
         return value
 
     def _nested(self, text):
@@ -60,7 +70,7 @@ class PowerParser:
                     )
                 exponent = match.group()
                 self.index += match.end()
-            parsed = ScalarParser(exponent).parse()
+            parsed = ScalarParser(exponent, self.variables).parse()
             value = raise_power(value, Exponent(parsed, exponent.replace(".", "{,}")))
         return value
 

@@ -47,6 +47,8 @@ def _formula(condition: dict[str, Any]) -> str:
         raise RightTrianglePlanError("condition must contain one formula")
     return (
         str(formulas[0].get("data-inline-latex") or "")
+        .replace("−", "-")
+        .replace("–", "-")
         .replace("\\left", "")
         .replace("\\right", "")
         .replace("\\div", "\\colon")
@@ -264,44 +266,13 @@ def build_conjugate_product_plan(context: dict[str, Any]) -> RepairPlan:
 
 
 def build_radical_factor_plan(
-    context: dict[str, Any], *, vertical_roots: bool = False
+    context: dict[str, Any], *, vertical_roots: bool = False, two_methods: bool = False
 ) -> RepairPlan:
-    """Simplify a radical multiple before multiplying by the shared radical."""
+    """Keep the legacy entrypoint for the shared radical-product method."""
+    from .radical_products import build_context_repair_plan
 
-    def calculation(
-        formula: str, match: re.Match[str]
-    ) -> tuple[tuple[str, ...], Fraction]:
-        left, base = int(match["left"]), int(match["base"])
-        if left % base:
-            raise RightTrianglePlanError(
-                "radicals do not have a shared square-free factor"
-            )
-        coefficient = isqrt(left // base)
-        if coefficient * coefficient * base != left:
-            raise RightTrianglePlanError(
-                "first radical cannot be simplified to the shared radical"
-            )
-        signed_coefficient = coefficient + (1 if match["sign"] == "+" else -1)
-        if signed_coefficient == 0:
-            middle = "0"
-        elif signed_coefficient == 1:
-            middle = f"\\sqrt{{{base}}}"
-        elif signed_coefficient == -1:
-            middle = f"-\\sqrt{{{base}}}"
-        else:
-            middle = f"{signed_coefficient}\\sqrt{{{base}}}"
-        return (
-            formula,
-            f"({coefficient}\\sqrt{{{base}}}{match['sign']}\\sqrt{{{base}}})\\cdot\\sqrt{{{base}}}",
-            f"{middle}\\cdot\\sqrt{{{base}}}",
-            f"{signed_coefficient}\\cdot{base}",
-        ), Fraction(signed_coefficient * base)
-
-    return _plan(
-        context,
-        formula_pattern=_RADICAL_FACTOR,
-        calculation=calculation,
-        vertical_roots=vertical_roots,
+    return build_context_repair_plan(
+        context, vertical_roots=vertical_roots, two_methods=two_methods
     )
 
 

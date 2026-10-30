@@ -298,7 +298,7 @@ def _conjugate_product_minus_square_plan(
     return RepairPlan(answer=str(answer), transformations=tuple(changes))
 
 
-def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
+def _build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     """Preserve factorization, then provide a short first-part substitution method."""
 
     content = _normalized_content(context)
@@ -323,3 +323,10 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     raise RightTrianglePlanError(
         "condition does not match a registered algebraic cancellation form"
     )
+
+
+def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
+    from .expression_repair import repair_terminal_product, with_condition_repair
+
+    prepared, change = repair_terminal_product(context)
+    return with_condition_repair(_build_context_repair_plan(prepared), change)

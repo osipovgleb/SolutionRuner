@@ -22,7 +22,7 @@ _PLAIN_NUMERIC = re.compile(
 )
 
 
-def normalized_content(context):
+def read_math_markup(context, *, indexed=False):
     content = _normalized_content(context)
     condition = _section(content, "condition")
     if condition is None:
@@ -33,11 +33,14 @@ def normalized_content(context):
     soup = BeautifulSoup(html, "html.parser")
     if _FORMULA in soup.get_text():
         raise RightTrianglePlanError("reserved formula marker in condition")
+    formulas = []
     for tag in list(soup.find_all(True)):
         if tag.name == "span" and set(tag.attrs) == {"data-inline-latex"}:
             if not tag["data-inline-latex"] or tag.get_text().strip():
                 raise RightTrianglePlanError("ambiguous visible mathematical formula")
-            tag.replace_with(" " + _FORMULA + " ")
+            marker = _FORMULA + (str(len(formulas)) if indexed else "")
+            formulas.append(tag["data-inline-latex"])
+            tag.replace_with(" " + marker + " ")
         elif tag.name == "var":
             if (
                 set(tag.attrs) != {"data-math-identifier"}
@@ -58,6 +61,11 @@ def normalized_content(context):
         .split()
     )
     text = re.sub(r"\s+([,.;:!?])", r"\1", text)
+    return content, condition, formulas, text
+
+
+def normalized_content(context):
+    content, _condition, _formulas, text = read_math_markup(context)
     if (
         _QUESTION.fullmatch(text) is None
         and _FORMULAS_ONLY.fullmatch(text) is None

@@ -54,8 +54,9 @@ def rational(text):
 class ScalarParser:
     """Read rational numbers and sums/products of square roots in an exponent."""
 
-    def __init__(self, text):
+    def __init__(self, text, variables=()):
         self.text = clean(text)
+        self.variables = variables
         self.index = 0
         if len(self.text) > 500:
             raise UnsupportedCondition("the scalar exponent is too long")
@@ -80,7 +81,10 @@ class ScalarParser:
         while self.index < len(self.text):
             if self.text.startswith(r"\cdot", self.index):
                 self.index += 5
-            elif self.text.startswith(r"\sqrt", self.index):
+            elif (
+                self.text.startswith(r"\sqrt", self.index)
+                or self.text[self.index : self.index + 1] in self.variables
+            ):
                 pass
             else:
                 break
@@ -94,15 +98,15 @@ class ScalarParser:
             return self._factor() * (1 if token == "+" else -1)
         if token == "(":
             text, self.index = balanced(self.text, self.index, "(", ")")
-            return ScalarParser(text).parse()
+            return ScalarParser(text, self.variables).parse()
         if self.text.startswith(r"\frac", self.index):
             self.index += 5
             a, self.index = balanced(self.text, self.index)
             b, self.index = balanced(self.text, self.index)
-            denominator = ScalarParser(b).parse()
+            denominator = ScalarParser(b, self.variables).parse()
             if denominator == 0:
                 raise UnsupportedCondition("division by zero in a scalar exponent")
-            return ScalarParser(a).parse() / denominator
+            return ScalarParser(a, self.variables).parse() / denominator
         if self.text.startswith(r"\sqrt", self.index):
             self.index += 5
             text, self.index = balanced(self.text, self.index)
@@ -111,11 +115,26 @@ class ScalarParser:
                     "the scalar square root needs a bounded integer radicand"
                 )
             return sp.sqrt(int(text))
+        if token and token in self.variables:
+            self.index += 1
+            return sp.Symbol(token, real=True)
         match = re.match(r"\d+(?:\.\d+)?", self.text[self.index :])
         if match is None:
             raise UnsupportedCondition("unsupported scalar exponent operand")
         self.index += match.end()
-        return rational(match.group())
+        result = rational(match.group())
+        if self.text.startswith(r"\frac", self.index):
+            fraction = self._factor()
+            if (
+                result.is_Integer is not True
+                or fraction.is_Rational is not True
+                or not 0 <= fraction < 1
+            ):
+                raise UnsupportedCondition(
+                    "a mixed numeral needs a proper rational fractional part"
+                )
+            result += fraction
+        return result
 
 
 @dataclass(frozen=True)
@@ -134,7 +153,11 @@ class Exponent:
 
 
 def factor_base(value):
-    value = Fraction(value)
+    value = (
+        Fraction(int(value.p), int(value.q))
+        if isinstance(value, sp.Rational)
+        else Fraction(value)
+    )
     if value <= 0 or max(value.numerator, value.denominator) > 10**9:
         raise UnsupportedCondition(
             "the supported power bases must be positive bounded rationals"
@@ -171,14 +194,37 @@ def totals(terms):
 
 def exact_value(terms, bindings):
     substituted = {}
-    for base, values in terms.items():
+    assignments = {sp.Symbol(k, real=True): v for k, v in bindings.items()}
+    for base, original in terms.items():
+        values = [Exponent(t.value.subs(assignments), t.latex) for t in original]
+        total = sp.simplify(sum((t.value for t in values), sp.Integer(0)))
+        if total == 0:
+            continue
         if isinstance(base, str):
             if base not in bindings:
                 raise UnsupportedCondition("an unassigned power variable remains")
-            for prime, powers in factor_base(bindings[base]).items():
-                substituted = combine(
-                    substituted, {prime: [v.times(powers[0]) for v in values]}
+            value = (
+                sp.Rational(
+                    Fraction(bindings[base]).numerator,
+                    Fraction(bindings[base]).denominator,
                 )
+                if isinstance(bindings[base], (int, Fraction))
+                else bindings[base]
+            )
+            if value.is_Rational is not True:
+                powered = sp.simplify(value**total)
+                if powered.is_Rational is not True:
+                    raise UnsupportedCondition(
+                        "the algebraic assignment does not yield a rational power"
+                    )
+                substituted = combine(
+                    substituted, factor_base(Fraction(int(powered.p), int(powered.q)))
+                )
+            else:
+                for prime, powers in factor_base(value).items():
+                    substituted = combine(
+                        substituted, {prime: [v.times(powers[0]) for v in values]}
+                    )
         else:
             substituted = combine(substituted, {base: values})
     result = Fraction(1)

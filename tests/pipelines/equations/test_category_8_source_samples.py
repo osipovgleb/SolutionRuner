@@ -52,8 +52,13 @@ def test_source_values_match_an_independent_plan_without_mutating_input(case):
     result = plan(case, context)
     assert parse_rational(result.answer) == expected
     assert context == original
+    allowed = (
+        ("section:solution", "section:answer", "section:condition")
+        if case.get("condition_repair")
+        else ("section:solution", "section:answer")
+    )
     assert all(
-        t["transformation_target_id"].startswith(("section:solution", "section:answer"))
+        t["transformation_target_id"].startswith(allowed)
         for t in result.transformations
     )
     html = "".join(t["value"].get("html", "") for t in result.transformations)

@@ -429,3 +429,32 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "algebraic-integer-power-expression",
+        "solution_runner.pipelines.equations.laurent_expression:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-exponential-function-ratio",
+        "solution_runner.pipelines.equations.power_methods:build_function_ratio_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-equal-index-root-ratio",
+        "solution_runner.pipelines.equations.power_methods:build_root_ratio_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-shared-radical-factor",
+        "solution_runner.pipelines.equations.numeric_special_forms:build_radical_factor_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-shared-radical-two-methods",
+        "solution_runner.pipelines.equations.numeric_special_forms:build_radical_factor_plan",
+        options=(("two_methods", True),),
+        requires_parent_condition_asset=False,
+    ),
+)
