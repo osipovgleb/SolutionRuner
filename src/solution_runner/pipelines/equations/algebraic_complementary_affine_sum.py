@@ -1,4 +1,5 @@
 """Evaluate p(x-a) + p(b-x) for an affine function p."""
+
 from __future__ import annotations
 
 import re
@@ -6,9 +7,9 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .expression_condition import normalized_content as _normalized_content
 
 _EXPRESSION = re.compile(r"^p\(x-(?P<a>\d+)\)\+p\((?P<b>\d+)-x\)$")
 _FUNCTION = re.compile(r"^p\(x\)=(?P<m>-?\d*)x(?P<d>[+-]\d+)$")
@@ -39,7 +40,9 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     expression = _EXPRESSION.fullmatch(formulas[0])
     function = _FUNCTION.fullmatch(formulas[1])
     if not expression or not function:
-        raise RightTrianglePlanError("condition does not match complementary affine sum")
+        raise RightTrianglePlanError(
+            "condition does not match complementary affine sum"
+        )
 
     a, b = int(expression["a"]), int(expression["b"])
     slope_text = function["m"]
@@ -61,21 +64,21 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     alternative_expression = f"p({first_argument})+p({second_argument})"
 
     html = (
-        '<p>Подставим аргументы в формулу, задающую функцию:</p>'
+        "<p>Подставим аргументы в формулу, задающую функцию:</p>"
         f'<center><p><span data-inline-latex="{first_substitution}"></span>.</p></center>'
         f'<center><p><span data-inline-latex="{second_substitution}"></span>.</p></center>'
-        '<p>Раскроем скобки:</p>'
+        "<p>Раскроем скобки:</p>"
         f'<center><p><span data-inline-latex="{opened}"></span>.</p></center>'
-        '<p>Сложим подобные слагаемые:</p>'
+        "<p>Сложим подобные слагаемые:</p>"
         f'<center><p><span data-inline-latex="{collected}"></span>.</p></center>'
-        '<p><b>Приведём другое решение</b></p>'
-        '<p>Так как это задание первой части, переменная <span data-inline-latex="x"></span> в ответе быть не может, значит, она должна сократиться.</p>'
+        "<p><b>Приведём другое решение</b></p>"
+        '<p>После преобразований переменная <span data-inline-latex="x"></span> сократилась. Проверим результат подстановкой допустимого значения.</p>'
         '<p>Подставим <span data-inline-latex="x=1"></span>:</p>'
         f'<center><p><span data-inline-latex="{alternative_expression}"></span>.</p></center>'
-        '<p>Найдём значения функции:</p>'
+        "<p>Найдём значения функции:</p>"
         f'<center><p><span data-inline-latex="p({first_argument})={slope}\\cdot({first_argument}){_signed(intercept)}={first_value}"></span>.</p></center>'
         f'<center><p><span data-inline-latex="p({second_argument})={slope}\\cdot({second_argument}){_signed(intercept)}={second_value}"></span>.</p></center>'
-        '<p>Подставим найденные значения:</p>'
+        "<p>Подставим найденные значения:</p>"
         f'<center><p><span data-inline-latex="{alternative_expression}={first_value}{_signed(second_value)}={answer}"></span>.</p></center>'
     ).replace("+-", "-")
 
@@ -83,10 +86,17 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     solution_section = _section(content, "solution")
     transformations = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        transformations.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        transformations.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != str(answer):
         transformations.append(
             _section_transformation(

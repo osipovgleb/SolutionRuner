@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .expression_condition import normalized_content as _normalized_content
 
 _DEFINITION = re.compile(
     r"^p\(b\)=\(b(?P<first>[+-])\\frac\{(?P<coefficient>\d+)\}\{b\}\)"
@@ -39,16 +39,18 @@ def _formulae(condition: dict[str, Any]) -> list[str]:
 
 
 def _solution_html(primary_steps: list[str], ratio: str, alternative: str) -> str:
-    centered = lambda formula: f'<center><p><span data-inline-latex="{formula}"></span>.</p></center>'
+    centered = lambda formula: (
+        f'<center><p><span data-inline-latex="{formula}"></span>.</p></center>'
+    )
     return (
-        '<p>Вычислим значения функции:</p>'
+        "<p>Вычислим значения функции:</p>"
         + "".join(centered(step) for step in primary_steps)
-        + '<p>Подставим полученные значения:</p>'
+        + "<p>Подставим полученные значения:</p>"
         + centered(ratio)
-        + '<p><b>Приведем другое решение</b></p>'
-        + '<p>Так как это задание первой части, переменной '
-        '<span data-inline-latex="b"></span> в ответе быть не может, значит, '
-        'она должна сократиться. Подставим, например, 5 вместо переменной:</p>'
+        + "<p><b>Приведем другое решение</b></p>"
+        + "<p>После преобразований значение не зависит от переменной "
+        '<span data-inline-latex="b"></span> при допустимых значениях. '
+        "Проверим результат подстановкой. Подставим, например, 5 вместо переменной:</p>"
         + centered(alternative)
     )
 
@@ -56,12 +58,20 @@ def _solution_html(primary_steps: list[str], ratio: str, alternative: str) -> st
 def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     content = _normalized_content(context)
     condition = _section(content, "condition")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
         raise RightTrianglePlanError("polynomial ratio condition must be text-only")
-    definition = next((item for item in _formulae(condition) if item.startswith("p(b)=")), None)
+    definition = next(
+        (item for item in _formulae(condition) if item.startswith("p(b)=")), None
+    )
     match = _DEFINITION.fullmatch(definition or "")
     if not match:
-        raise RightTrianglePlanError("condition does not match a reciprocal polynomial ratio")
+        raise RightTrianglePlanError(
+            "condition does not match a reciprocal polynomial ratio"
+        )
 
     coefficient = int(match["coefficient"])
     first, second = match["first"], match["second"]
@@ -74,7 +84,9 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     substitution = 1 if (is_plus or coefficient != 1) else 2
     if is_plus:
         p_b = f"p(b)=(b+\\frac{{{coefficient}}}{{b}})({coefficient}b+\\frac{{1}}{{b}})"
-        p_inverse_simplified = f"(\\frac{{1}}{{b}}+{coefficient}b)(\\frac{{{coefficient}}}{{b}}+b)"
+        p_inverse_simplified = (
+            f"(\\frac{{1}}{{b}}+{coefficient}b)(\\frac{{{coefficient}}}{{b}}+b)"
+        )
         p_inverse = (
             f"p(\\frac{{1}}{{b}})=(\\frac{{1}}{{b}}+\\frac{{{coefficient}}}{{\\frac{{1}}{{b}}}})"
             f"(\\frac{{{coefficient}}}{{b}}+\\frac{{1}}{{\\frac{{1}}{{b}}}})="
@@ -92,7 +104,9 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
         )
     else:
         p_b = f"p(b)=(b-\\frac{{{coefficient}}}{{b}})(-{coefficient}b+\\frac{{1}}{{b}})"
-        p_inverse_simplified = f"(\\frac{{1}}{{b}}-{coefficient}b)(-\\frac{{{coefficient}}}{{b}}+b)"
+        p_inverse_simplified = (
+            f"(\\frac{{1}}{{b}}-{coefficient}b)(-\\frac{{{coefficient}}}{{b}}+b)"
+        )
         p_inverse = (
             f"p(\\frac{{1}}{{b}})=(\\frac{{1}}{{b}}-\\frac{{{coefficient}}}{{\\frac{{1}}{{b}}}})"
             f"(-\\frac{{{coefficient}}}{{b}}+\\frac{{1}}{{\\frac{{1}}{{b}}}})="
@@ -122,12 +136,24 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     solution_section = _section(content, "solution")
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != "1":
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", '<p><span data-effect="spaced">1</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                '<p><span data-effect="spaced">1</span></p>',
+            )
+        )
     return RepairPlan(answer="1", transformations=tuple(changes))

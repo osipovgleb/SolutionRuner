@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .expression_condition import normalized_content as _normalized_content
 
 _DECIMAL = r"\d+(?:\{,\}\d+)?"
 _RATIO = re.compile(
@@ -98,14 +98,22 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     condition = _section(content, "condition")
     answer_section = _section(content, "answer")
     solution_section = _section(content, "solution")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
         raise RightTrianglePlanError("decimal ratio conditions must be text-only")
 
     formula = _formula(condition)
     match = _RATIO.fullmatch(formula)
     assert match is not None
-    numerator_parts = tuple(_decimal_parts(value) for value in _factors(match["numerator"]))
-    denominator_parts = tuple(_decimal_parts(value) for value in _factors(match["denominator"]))
+    numerator_parts = tuple(
+        _decimal_parts(value) for value in _factors(match["numerator"])
+    )
+    denominator_parts = tuple(
+        _decimal_parts(value) for value in _factors(match["denominator"])
+    )
     numerator_values = tuple(value for value, _ in numerator_parts)
     denominator_values = tuple(value for value, _ in denominator_parts)
     numerator_digits = sum(digits for _, digits in numerator_parts)
@@ -116,7 +124,10 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
         numerator_product *= value
     for value in denominator_values:
         denominator_product *= value
-    result = Fraction(numerator_product * 10**denominator_digits, denominator_product * 10**numerator_digits)
+    result = Fraction(
+        numerator_product * 10**denominator_digits,
+        denominator_product * 10**numerator_digits,
+    )
     answer = _answer(result)
 
     scale = max(numerator_digits, denominator_digits)
@@ -125,26 +136,40 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     common_power = min(numerator_digits, denominator_digits)
     numerator_reduced = _side(numerator_values, denominator_digits - common_power)
     denominator_reduced = _side(denominator_values, numerator_digits - common_power)
-    calculation = "=".join((
-        formula,
-        f"\\frac{{{numerator_expanded}}}{{{denominator_expanded}}}",
-        f"\\frac{{{numerator_reduced}}}{{{denominator_reduced}}}",
-        answer.replace(",", "{,}"),
-    ))
+    calculation = "=".join(
+        (
+            formula,
+            f"\\frac{{{numerator_expanded}}}{{{denominator_expanded}}}",
+            f"\\frac{{{numerator_reduced}}}{{{denominator_reduced}}}",
+            answer.replace(",", "{,}"),
+        )
+    )
     html = (
         f"<p>Умно­жим чис­ли­тель и зна­ме­на­тель на {10**scale}:</p>"
         f'<center><p><span data-inline-latex="{calculation}"></span>.</p></center>'
     )
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer:
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=answer, transformations=tuple(changes))
 
 
@@ -155,7 +180,11 @@ def build_simple_decimal_product_plan(context: dict[str, Any]) -> RepairPlan:
     condition = _section(content, "condition")
     answer_section = _section(content, "answer")
     solution_section = _section(content, "solution")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
         raise RightTrianglePlanError("decimal product conditions must be text-only")
     formula = _simple_product_formula(condition)
     match = _SIMPLE_PRODUCT.fullmatch(formula)
@@ -175,12 +204,24 @@ def build_simple_decimal_product_plan(context: dict[str, Any]) -> RepairPlan:
             f"сколько их в обоих множителях, то есть {digits} знака, получим {answer}. "
             f"Следовательно, {left} · {right} = {answer}.</p>"
         )
-        changes.append(_section_transformation(solution_section, "solution", "Решение", solution))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", solution)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer:
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=answer, transformations=tuple(changes))

@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
+from .expression_condition import normalized_content as _normalized_content
 
-
-_CONDITION = re.compile(r"^\\frac\{(?P<numerator>[^{}]+)\}\{(?P<denominator>[^{}]+)\}=(?P<value>-?\d+)$")
+_CONDITION = re.compile(
+    r"^\\frac\{(?P<numerator>[^{}]+)\}\{(?P<denominator>[^{}]+)\}=(?P<value>-?\d+)$"
+)
 _LINEAR = re.compile(
     r"^(?P<first_coefficient>\d*)(?P<first_variable>[ab])"
     r"(?P<sign>[+-])(?P<second_coefficient>\d*)(?P<second_variable>[ab])$"
@@ -36,7 +38,9 @@ def _join(first: str, sign: str, second: str) -> str:
 def _linear_coefficients(expression: str) -> tuple[int, int]:
     match = _LINEAR.fullmatch(expression)
     if match is None or match["first_variable"] == match["second_variable"]:
-        raise RightTrianglePlanError("linear expression must contain one a and one b term")
+        raise RightTrianglePlanError(
+            "linear expression must contain one a and one b term"
+        )
     first = _coefficient(match["first_coefficient"])
     second = _coefficient(match["second_coefficient"])
     if match["sign"] == "-":
@@ -73,7 +77,9 @@ def _finite_decimal(value: Fraction) -> str | None:
     numerator = abs(value.numerator) * scale
     digits = str(numerator).zfill(places + 1)
     sign = "-" if value < 0 else ""
-    return f"{sign}{digits[:-places]},{digits[-places:]}" if places else f"{sign}{digits}"
+    return (
+        f"{sign}{digits[:-places]},{digits[-places:]}" if places else f"{sign}{digits}"
+    )
 
 
 def _answer_latex(value: Fraction) -> tuple[str, str]:
@@ -87,8 +93,13 @@ def _answer_latex(value: Fraction) -> tuple[str, str]:
 def _formula(condition: dict[str, Any]) -> str:
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
     formulas = soup.find_all("span", attrs={"data-inline-latex": True})
-    if len(formulas) != 2 or str(formulas[0].get("data-inline-latex")) != r"\frac{a}{b}":
-        raise RightTrianglePlanError("condition must ask for a / b and contain one equality")
+    if (
+        len(formulas) != 2
+        or str(formulas[0].get("data-inline-latex")) != r"\frac{a}{b}"
+    ):
+        raise RightTrianglePlanError(
+            "condition must ask for a / b and contain one equality"
+        )
     return str(formulas[1].get("data-inline-latex") or "").replace(" ", "")
 
 
@@ -97,12 +108,18 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
 
     content = _normalized_content(context)
     condition = _section(content, "condition")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
         raise RightTrianglePlanError("linear ratio condition must be text-only")
     formula = _formula(condition)
     match = _CONDITION.fullmatch(formula)
     if match is None:
-        raise RightTrianglePlanError("condition does not match a registered linear ratio form")
+        raise RightTrianglePlanError(
+            "condition does not match a registered linear ratio form"
+        )
 
     numerator, denominator = match["numerator"], match["denominator"]
     numerator_a, numerator_b = _linear_coefficients(numerator)
@@ -134,12 +151,24 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     solution_section = _section(content, "solution")
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer:
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=answer, transformations=tuple(changes))

@@ -7,9 +7,9 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .expression_condition import normalized_content as _normalized_content
 
 _FRACTIONAL_EQUALITY = re.compile(
     r"^\\frac\{(?P<numerator>[^{}]+)\}\{(?P<denominator>[^{}]+)\}=(?P<ratio>-?\d+)$"
@@ -26,7 +26,9 @@ def _coefficient(value: str) -> int:
 def _linear(expression: str) -> tuple[int, int, int]:
     match = _LINEAR.fullmatch(expression)
     if match is None:
-        raise RightTrianglePlanError("expression must be linear in a and b with a constant")
+        raise RightTrianglePlanError(
+            "expression must be linear in a and b with a constant"
+        )
     a = _coefficient(match["a"])
     b = _coefficient(match["b"])
     constant = int(match["constant"])
@@ -54,7 +56,9 @@ def _added_latex(value: int) -> str:
     return f"+{value}" if value >= 0 else str(value)
 
 
-def _normalizing_factor(derived: tuple[int, int, int], target: tuple[int, int, int]) -> int:
+def _normalizing_factor(
+    derived: tuple[int, int, int], target: tuple[int, int, int]
+) -> int:
     """Return the integer factor that turns the derived linear part into target's."""
 
     candidates = [
@@ -63,21 +67,33 @@ def _normalizing_factor(derived: tuple[int, int, int], target: tuple[int, int, i
         if target_coefficient != 0 and derived_coefficient % target_coefficient == 0
     ]
     if not candidates or len(set(candidates)) != 1 or candidates[0] == 0:
-        raise RightTrianglePlanError("requested expression does not match the derived linear part")
+        raise RightTrianglePlanError(
+            "requested expression does not match the derived linear part"
+        )
     factor = candidates[0]
-    if any(
-        derived_coefficient != factor * target_coefficient
-        for derived_coefficient, target_coefficient in zip(derived[:2], target[:2])
-    ) or derived[2] % factor != 0:
-        raise RightTrianglePlanError("derived expression cannot be normalized to the requested linear part")
+    if (
+        any(
+            derived_coefficient != factor * target_coefficient
+            for derived_coefficient, target_coefficient in zip(derived[:2], target[:2])
+        )
+        or derived[2] % factor != 0
+    ):
+        raise RightTrianglePlanError(
+            "derived expression cannot be normalized to the requested linear part"
+        )
     return factor
 
 
 def _formulas(condition: dict[str, Any]) -> tuple[str, str]:
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
-    formulas = [str(node.get("data-inline-latex") or "").replace(" ", "") for node in soup.find_all("span", attrs={"data-inline-latex": True})]
+    formulas = [
+        str(node.get("data-inline-latex") or "").replace(" ", "")
+        for node in soup.find_all("span", attrs={"data-inline-latex": True})
+    ]
     if len(formulas) != 2:
-        raise RightTrianglePlanError("condition must contain the requested expression and one equality")
+        raise RightTrianglePlanError(
+            "condition must contain the requested expression and one equality"
+        )
     target, equality = formulas
     if not _FRACTIONAL_EQUALITY.fullmatch(equality):
         target, equality = equality, target
@@ -91,8 +107,14 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
 
     content = _normalized_content(context)
     condition = _section(content, "condition")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
-        raise RightTrianglePlanError("shifted linear expression condition must be text-only")
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
+        raise RightTrianglePlanError(
+            "shifted linear expression condition must be text-only"
+        )
     target, equality = _formulas(condition)
     target_a, target_b, target_constant = _linear(target)
     match = _FRACTIONAL_EQUALITY.fullmatch(equality)
@@ -126,7 +148,7 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     result = f"{derived_latex}{shift_latex}=0{shift_latex}\\iff {target}={shift}"
     html = (
         f'<center><p><span data-inline-latex="{primary}"></span>.</p></center>'
-        '<p>Если сравнить выражение, которое требуется найти, и левую часть последнего равенства, '
+        "<p>Если сравнить выражение, которое требуется найти, и левую часть последнего равенства, "
         f'можно заметить, что они отличаются на <span data-inline-latex="{shift_latex}"></span>. '
         f'Поэтому прибавим к обеим частям равенства <span data-inline-latex="{shift_latex}"></span>:</p>'
         f'<center><p><span data-inline-latex="{result}"></span>.</p></center>'
@@ -136,8 +158,24 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     solution_section = _section(content, "solution")
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(str(answer_section.get("html") or "") if answer_section else "", "html.parser").get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer:
-        changes.append(_section_transformation(answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=answer, transformations=tuple(changes))

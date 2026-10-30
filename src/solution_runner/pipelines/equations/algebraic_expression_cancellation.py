@@ -2,15 +2,15 @@
 
 from __future__ import annotations
 
-from math import isqrt
 import re
+from math import isqrt
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .expression_condition import normalized_content as _normalized_content
 
 _COMMON_FACTOR = re.compile(
     r"^\\frac\{\((?P<factor>\d+)a\)\^\{2\}(?P<sign>[+-])(?P=factor)a\}"
@@ -46,10 +46,12 @@ def _formula(condition: dict[str, Any]) -> str:
     )
 
 
-def _substitute_one(formula: str) -> str:
+def _substitute(formula: str, value: int) -> str:
     """Replace variable occurrences without corrupting LaTeX command names."""
 
-    return re.sub(r"(?<![A-Za-z])a(?![A-Za-z])", r"\\cdot 1", formula)
+    return re.sub(
+        r"(?<![A-Za-z])a(?![A-Za-z])", lambda _match: r"\cdot " + str(value), formula
+    )
 
 
 def _solution_html(
@@ -61,21 +63,24 @@ def _solution_html(
 ) -> str:
     """Return only section body markup; the content runtime owns the wrapper."""
 
-    intro = alternative_intro or (
-        "Поэтому подставим единицу вместо переменной: "
-    )
+    intro = alternative_intro or ("Поэтому подставим единицу вместо переменной: ")
     return (
         f'<center><p><span data-inline-latex="{primary}"></span>.</p></center>'
-        '<p><b>Приведем другое решение</b></p>'
-        '<p>Так как это задание первой части, переменной '
-        f'<span data-inline-latex="{variable}"></span> в ответе быть не может, значит, '
-        f'она должна сократиться. {intro}</p>'
+        "<p><b>Приведем другое решение</b></p>"
+        "<p>После преобразований значение не зависит от переменной "
+        f'<span data-inline-latex="{variable}"></span> при допустимых значениях. '
+        f"Проверим результат подстановкой. {intro}</p>"
         f'<center><p><span data-inline-latex="{alternative}"></span>.</p></center>'
     )
 
 
 def _plan(
-    context: dict[str, Any], *, answer: int, primary: str, alternative: str, variable: str = "a",
+    context: dict[str, Any],
+    *,
+    answer: int,
+    primary: str,
+    alternative: str,
+    variable: str = "a",
     alternative_intro: str | None = None,
 ) -> RepairPlan:
     content = _normalized_content(context)
@@ -87,50 +92,90 @@ def _plan(
     )
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer_text:
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer_text}</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer_text}</span></p>',
+            )
+        )
     return RepairPlan(answer=answer_text, transformations=tuple(changes))
 
 
-def _common_factor_plan(formula: str, match: re.Match[str], context: dict[str, Any]) -> RepairPlan:
+def _common_factor_plan(
+    formula: str, match: re.Match[str], context: dict[str, Any]
+) -> RepairPlan:
     factor, sign = int(match["factor"]), match["sign"]
     primary = f"{formula}=\\frac{{{factor}a({factor}a{sign}1)}}{{a({factor}a{sign}1)}}={factor}"
-    numerator = factor**2 + (factor if sign == "+" else -factor)
-    denominator = factor + (1 if sign == "+" else -1)
+    substitution = 2 if factor == 1 and sign == "-" else 1
+    term = factor * substitution
+    signed_term = term if sign == "+" else -term
+    numerator = term**2 + signed_term
+    denominator_term = factor * substitution**2
+    denominator = denominator_term + (substitution if sign == "+" else -substitution)
     alternative = (
-        f"{_substitute_one(formula)}="
-        f"\\frac{{{factor}^{{2}}{sign}{factor}}}{{{factor}{sign}1}}="
-        f"\\frac{{{factor**2}{sign}{factor}}}{{{denominator}}}="
+        f"{_substitute(formula, substitution)}="
+        f"\\frac{{{term}^{{2}}{sign}{term}}}{{{denominator_term}{sign}{substitution}}}="
+        f"\\frac{{{term**2}{sign}{term}}}{{{denominator}}}="
         f"\\frac{{{numerator}}}{{{denominator}}}={factor}"
     )
-    return _plan(context, answer=factor, primary=primary, alternative=alternative)
+    return _plan(
+        context,
+        answer=factor,
+        primary=primary,
+        alternative=alternative,
+        alternative_intro=f"Подставим, например, {substitution} вместо переменной: "
+        if substitution != 1
+        else None,
+    )
 
 
-def _reciprocal_difference_plan(formula: str, match: re.Match[str], context: dict[str, Any]) -> RepairPlan:
+def _reciprocal_difference_plan(
+    formula: str, match: re.Match[str], context: dict[str, Any]
+) -> RepairPlan:
     square, term_square = int(match["square"] or "1"), int(match["term_square"])
     base, term = int(match["base"] or "1"), int(match["term"])
     if isqrt(square) != base or isqrt(term_square) != term:
-        raise RightTrianglePlanError("denominators do not match the difference of squares")
+        raise RightTrianglePlanError(
+            "denominators do not match the difference of squares"
+        )
     first_sign, second_sign = match["first"], match["second"]
-    numerator = (term if second_sign == "+" else -term) - (term if first_sign == "+" else -term)
+    numerator = (term if second_sign == "+" else -term) - (
+        term if first_sign == "+" else -term
+    )
     answer = numerator
+    if base == 0:
+        raise RightTrianglePlanError(
+            "reciprocal linear denominators need a nonzero coefficient"
+        )
     substitution = max(5, term // base + 1)
     first_at_value = base * substitution + (term if first_sign == "+" else -term)
     second_at_value = base * substitution + (term if second_sign == "+" else -term)
     if first_at_value <= 0 or second_at_value <= 0:
-        raise RightTrianglePlanError("selected substitution must keep denominators positive")
+        raise RightTrianglePlanError(
+            "selected substitution must keep denominators positive"
+        )
     numerator_at_value = square * substitution**2 - term_square
     if numerator_at_value <= 0:
-        raise RightTrianglePlanError("selected substitution must keep the first factor positive")
+        raise RightTrianglePlanError(
+            "selected substitution must keep the first factor positive"
+        )
     primary = (
         f"{formula}=({square}a^2-{term_square})\\cdot"
-        f"\\frac{{{base}a{second_sign}{term}-{base}a{first_sign}{term}}}"
+        f"\\frac{{({base}a{second_sign}{term})-({base}a{first_sign}{term})}}"
         f"{{{square}a^2-{term_square}}}={answer}"
     )
     alternative = (
@@ -148,9 +193,7 @@ def _reciprocal_difference_plan(formula: str, match: re.Match[str], context: dic
         answer=answer,
         primary=primary,
         alternative=alternative,
-        alternative_intro=(
-            f"Подставим, например, {substitution} вместо переменной: "
-        ),
+        alternative_intro=(f"Подставим, например, {substitution} вместо переменной: "),
     )
 
 
@@ -186,7 +229,9 @@ def _difference_over_factor_plan(
         f"\\frac{{{numerator_at_one}}}{{{denominator_at_one}}}-{coefficient}="
         f"{numerator_at_one // denominator_at_one}-{coefficient}={answer}"
     )
-    return _plan(context, answer=answer, primary=primary, alternative=alternative, variable="x")
+    return _plan(
+        context, answer=answer, primary=primary, alternative=alternative, variable="x"
+    )
 
 
 def _conjugate_product_minus_square_plan(
@@ -199,8 +244,10 @@ def _conjugate_product_minus_square_plan(
     term = int(match["term"])
     square = int(match["square"] or "1")
     if square != coefficient**2 or match["first_sign"] == match["second_sign"]:
-        raise RightTrianglePlanError("subtracted square must match the conjugate coefficient")
-    answer = -term**2
+        raise RightTrianglePlanError(
+            "subtracted square must match the conjugate coefficient"
+        )
+    answer = -(term**2)
     linear = f"{coefficient_text}x"
     primary = (
         f"{formula}=({linear})^{{2}}-{term**2}-{square}x^{{2}}="
@@ -214,12 +261,12 @@ def _conjugate_product_minus_square_plan(
         f"{coefficient + (term if match['second_sign'] == '+' else -term)}-{square}={answer}"
     )
     html = (
-        '<p>Используем формулу разности квадратов:</p>'
+        "<p>Используем формулу разности квадратов:</p>"
         '<center><p><span data-inline-latex="(a-b)(a+b)=a^{2}-b^{2}"></span>.</p></center>'
         f'<center><p><span data-inline-latex="{primary}"></span>.</p></center>'
-        '<p><b>Приведём другое решение</b></p>'
-        '<p>Так как это задание первой части, переменная <span data-inline-latex="x"></span> '
-        'в ответе быть не может, значит, она должна сократиться.</p>'
+        "<p><b>Приведём другое решение</b></p>"
+        '<p>После преобразований переменная <span data-inline-latex="x"></span> '
+        "сократилась. Проверим результат подстановкой допустимого значения.</p>"
         '<p>Подставим <span data-inline-latex="x=1"></span>:</p>'
         f'<center><p><span data-inline-latex="{alternative}"></span>.</p></center>'
     )
@@ -228,14 +275,26 @@ def _conjugate_product_minus_square_plan(
     solution_section = _section(content, "solution")
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != str(answer):
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=str(answer), transformations=tuple(changes))
 
 
@@ -244,8 +303,14 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
 
     content = _normalized_content(context)
     condition = _section(content, "condition")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
-        raise RightTrianglePlanError("algebraic expression conditions must be text-only")
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
+        raise RightTrianglePlanError(
+            "algebraic expression conditions must be text-only"
+        )
     formula = _formula(condition)
     if match := _COMMON_FACTOR.fullmatch(formula):
         return _common_factor_plan(formula, match, context)
@@ -255,4 +320,6 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
         return _difference_over_factor_plan(formula, match, context)
     if match := _CONJUGATE_PRODUCT_MINUS_SQUARE.fullmatch(formula):
         return _conjugate_product_minus_square_plan(formula, match, context)
-    raise RightTrianglePlanError("condition does not match a registered algebraic cancellation form")
+    raise RightTrianglePlanError(
+        "condition does not match a registered algebraic cancellation form"
+    )

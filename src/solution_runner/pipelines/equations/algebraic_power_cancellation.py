@@ -7,9 +7,9 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .expression_condition import normalized_content as _normalized_content
 
 _FORMULA = re.compile(
     r"^\\frac\{\((?P<first>\d+)a\^\{2\}\)\^\{3\}\\cdot"
@@ -31,10 +31,10 @@ def _solution_html(primary: str, alternative: str) -> str:
 
     return (
         f'<p><span data-inline-latex="{primary}"></span>.</p>'
-        '<p><b>Приведем другое решение</b></p>'
-        '<p>Так как это задание первой части, переменных '
+        "<p><b>Приведем другое решение</b></p>"
+        "<p>После преобразований значение не зависит от переменных "
         '<span data-inline-latex="a"></span> и <span data-inline-latex="b"></span> '
-        'в ответе быть не может, значит, они должны сократиться. '
+        "при допустимых значениях. Проверим результат подстановкой. "
         'Поэтому подставим <span data-inline-latex="a=b=1"></span>: '
         f'<span data-inline-latex="{alternative}"></span>.</p>'
     )
@@ -47,13 +47,21 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     condition = _section(content, "condition")
     answer_section = _section(content, "answer")
     solution_section = _section(content, "solution")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
         raise RightTrianglePlanError("power-cancellation conditions must be text-only")
     formula = _formula(condition)
     match = _FORMULA.fullmatch(formula)
     if match is None:
-        raise RightTrianglePlanError("condition does not match the registered power-cancellation form")
-    first, second, product = (int(match[name]) for name in ("first", "second", "product"))
+        raise RightTrianglePlanError(
+            "condition does not match the registered power-cancellation form"
+        )
+    first, second, product = (
+        int(match[name]) for name in ("first", "second", "product")
+    )
     if first * second != product:
         raise RightTrianglePlanError("numeric denominator does not match the factors")
 
@@ -74,12 +82,24 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     html = _solution_html(primary, alternative)
     changes: list[dict[str, Any]] = []
     if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", html))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer:
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=answer, transformations=tuple(changes))

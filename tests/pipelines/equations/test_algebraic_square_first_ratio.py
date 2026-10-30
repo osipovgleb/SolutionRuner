@@ -1,12 +1,33 @@
 from solution_runner.pipelines.core.group_profiles import all_group_profiles
-from solution_runner.pipelines.equations.algebraic_square_expansion_ratio import build_context_repair_plan
+from solution_runner.pipelines.equations.algebraic_square_expansion_ratio import (
+    build_context_repair_plan,
+)
 
 
 def _context(formula: str) -> dict:
-    return {"normalized_content": {"format": "teacherhelper-normalized", "schema_version": 3, "assets": [], "sections": [
-        {"key": "condition", "title": "Условие", "section_id": "condition:1", "html": f'<p><span data-inline-latex="{formula}"></span></p>', "asset_keys": []},
-        {"key": "answer", "title": "Ответ", "section_id": "answer:1", "html": "<p></p>", "asset_keys": []},
-    ]}}
+    return {
+        "normalized_content": {
+            "format": "teacherhelper-normalized",
+            "schema_version": 3,
+            "assets": [],
+            "sections": [
+                {
+                    "key": "condition",
+                    "title": "Условие",
+                    "section_id": "condition:1",
+                    "html": f'<p><span data-inline-latex="{formula}"></span></p>',
+                    "asset_keys": [],
+                },
+                {
+                    "key": "answer",
+                    "title": "Ответ",
+                    "section_id": "answer:1",
+                    "html": "<p></p>",
+                    "asset_keys": [],
+                },
+            ],
+        }
+    }
 
 
 def test_expands_a_fraction_form_and_adds_the_alternative() -> None:
@@ -15,7 +36,7 @@ def test_expands_a_fraction_form_and_adds_the_alternative() -> None:
     assert plan.answer == "2"
     html = plan.transformations[0]["value"]["html"]
     assert r"\frac{12xy}{6xy}=2" in html
-    assert "это задание первой части" in html
+    assert "После преобразований" in html
     assert r"x=1,\;y=1" in html
 
 
@@ -28,7 +49,10 @@ def test_accepts_a_colon_form_and_avoids_zero_in_a_difference() -> None:
 
 
 def test_profile_is_registered() -> None:
-    assert all_group_profiles()["26809"].content_rule_key == "algebraic-square-expansion-ratio"
+    assert (
+        all_group_profiles()["26809"].content_rule_key
+        == "algebraic-square-expansion-ratio"
+    )
 
 
 def test_expands_conjugate_squares_and_registers_the_same_handler() -> None:
@@ -44,4 +68,7 @@ def test_expands_conjugate_squares_and_registers_the_same_handler() -> None:
     assert "Используем формулу квадрата суммы и разности" in html
     assert html.count("Приведём другое решение") == 2
     assert r"x=1,\;y=1" in html
-    assert all_group_profiles()["26810"].content_rule_key == "algebraic-square-expansion-ratio"
+    assert (
+        all_group_profiles()["26810"].content_rule_key
+        == "algebraic-square-expansion-ratio"
+    )

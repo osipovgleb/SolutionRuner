@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
+import re
 from fractions import Fraction
 from math import gcd, lcm
-import re
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import _section, _section_transformation
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .expression_condition import normalized_content as _normalized_content
 
 _RULE = "numeric-rational-expression-mixed-decimal"
 _TERM = r"-?(?:\d+\\frac\{\d+\}\{\d+\}|\\frac\{\d+\}\{\d+\}|\d+(?:\{,\}\d+)?)"
@@ -19,7 +19,9 @@ _EXPRESSION = re.compile(
     rf"^\((?P<left>{_TERM})(?P<inner>[+-])(?P<right>{_TERM})\)"
     rf"(?P<outer>\\cdot|\\colon|\\div)(?P<factor>{_TERM})$"
 )
-_MIXED = re.compile(r"(?P<whole>\d+)\\frac\{(?P<numerator>\d+)\}\{(?P<denominator>\d+)\}$")
+_MIXED = re.compile(
+    r"(?P<whole>\d+)\\frac\{(?P<numerator>\d+)\}\{(?P<denominator>\d+)\}$"
+)
 _FRACTION = re.compile(r"\\frac\{(?P<numerator>\d+)\}\{(?P<denominator>\d+)\}$")
 
 
@@ -33,7 +35,9 @@ class _ExpressionParser:
     def parse(self) -> tuple[Any, ...]:
         node = self._sum()
         if self.index != len(self.formula):
-            raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+            raise RightTrianglePlanError(
+                "condition does not match a registered numeric rational expression"
+            )
         return node
 
     def _sum(self) -> tuple[Any, ...]:
@@ -67,27 +71,37 @@ class _ExpressionParser:
             self.index += 1
             node = self._sum()
             if self._peek() != ")":
-                raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+                raise RightTrianglePlanError(
+                    "condition does not match a registered numeric rational expression"
+                )
             self.index += 1
             return ("group", node)
         if self.formula.startswith("\\frac", self.index):
             self.index += len("\\frac")
-            return ("frac", _ExpressionParser(self._braced()).parse(), _ExpressionParser(self._braced()).parse())
-        mixed = re.match(r"\d+\\frac\{\d+\}\{\d+\}", self.formula[self.index:])
+            return (
+                "frac",
+                _ExpressionParser(self._braced()).parse(),
+                _ExpressionParser(self._braced()).parse(),
+            )
+        mixed = re.match(r"\d+\\frac\{\d+\}\{\d+\}", self.formula[self.index :])
         if mixed is not None:
             raw = mixed.group(0)
             self.index += len(raw)
             return ("number", _number(raw), raw)
-        match = re.match(r"\d+(?:\{,\}\d+)?", self.formula[self.index:])
+        match = re.match(r"\d+(?:\{,\}\d+)?", self.formula[self.index :])
         if match is None:
-            raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+            raise RightTrianglePlanError(
+                "condition does not match a registered numeric rational expression"
+            )
         raw = match.group(0)
         self.index += len(raw)
         return ("number", Fraction(raw.replace("{,}", ".")), raw)
 
     def _braced(self) -> str:
         if self._peek() != "{":
-            raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+            raise RightTrianglePlanError(
+                "condition does not match a registered numeric rational expression"
+            )
         start = self.index = self.index + 1
         depth = 1
         while self.index < len(self.formula) and depth:
@@ -97,11 +111,13 @@ class _ExpressionParser:
                 depth -= 1
             self.index += 1
         if depth:
-            raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
-        return self.formula[start:self.index - 1]
+            raise RightTrianglePlanError(
+                "condition does not match a registered numeric rational expression"
+            )
+        return self.formula[start : self.index - 1]
 
     def _peek(self) -> str:
-        return self.formula[self.index:self.index + 1]
+        return self.formula[self.index : self.index + 1]
 
 
 def _expression_value(node: tuple[Any, ...]) -> Fraction:
@@ -128,7 +144,9 @@ def _expression_value(node: tuple[Any, ...]) -> Fraction:
             if not right_value:
                 raise RightTrianglePlanError("division by zero")
             return left_value / right_value
-    raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+    raise RightTrianglePlanError(
+        "condition does not match a registered numeric rational expression"
+    )
 
 
 def _expression_latex(node: tuple[Any, ...], *, computed: bool = False) -> str:
@@ -145,7 +163,9 @@ def _expression_latex(node: tuple[Any, ...], *, computed: bool = False) -> str:
             return f"\\frac{{{_expression_latex(numerator)}}}{{{_expression_latex(denominator)}}}"
         case (operation, left, right) if operation in ("+", "-", "\\cdot", "\\colon"):
             return f"{_expression_latex(left, computed=left[0] not in ('number', 'frac'))}{operation}{_expression_latex(right, computed=right[0] not in ('number', 'frac'))}"
-    raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+    raise RightTrianglePlanError(
+        "condition does not match a registered numeric rational expression"
+    )
 
 
 def _expression_steps(node: tuple[Any, ...]) -> list[str]:
@@ -156,8 +176,13 @@ def _expression_steps(node: tuple[Any, ...]) -> list[str]:
             return _expression_steps(child)
         case ("frac", numerator, denominator):
             steps = _expression_steps(numerator) + _expression_steps(denominator)
-            if numerator[0] not in ("number", "frac") or denominator[0] not in ("number", "frac"):
-                steps.append(f"{_expression_latex(node)}={_fraction_latex(_expression_value(node))}")
+            if numerator[0] not in ("number", "frac") or denominator[0] not in (
+                "number",
+                "frac",
+            ):
+                steps.append(
+                    f"{_expression_latex(node)}={_fraction_latex(_expression_value(node))}"
+                )
             return steps
         case (operation, left, right) if operation in ("+", "-", "\\cdot", "\\colon"):
             steps = _expression_steps(left) + _expression_steps(right)
@@ -167,7 +192,9 @@ def _expression_steps(node: tuple[Any, ...]) -> list[str]:
                 f"={_fraction_latex(_expression_value(node))}"
             )
             return steps
-    raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+    raise RightTrianglePlanError(
+        "condition does not match a registered numeric rational expression"
+    )
 
 
 def _number(value: str) -> Fraction:
@@ -202,7 +229,9 @@ def _source_fraction_latex(value: str) -> str:
     sign = "-" if value.startswith("-") else ""
     raw = value.removeprefix("-")
     if match := _MIXED.fullmatch(raw):
-        numerator = int(match["whole"]) * int(match["denominator"]) + int(match["numerator"])
+        numerator = int(match["whole"]) * int(match["denominator"]) + int(
+            match["numerator"]
+        )
         return f"{sign}\\frac{{{numerator}}}{{{match['denominator']}}}"
     if _FRACTION.fullmatch(raw):
         return value
@@ -212,7 +241,9 @@ def _source_fraction_latex(value: str) -> str:
     return f"{sign}\\frac{{{raw}}}{{1}}"
 
 
-def _common_denominator_row(left: Fraction, right: Fraction, operator: str) -> tuple[str, Fraction]:
+def _common_denominator_row(
+    left: Fraction, right: Fraction, operator: str
+) -> tuple[str, Fraction]:
     denominator = left.denominator * right.denominator
     denominator = lcm(left.denominator, right.denominator)
     left_numerator = left.numerator * (denominator // left.denominator)
@@ -221,7 +252,12 @@ def _common_denominator_row(left: Fraction, right: Fraction, operator: str) -> t
         f"\\frac{{{left_numerator}}}{{{denominator}}}{operator}"
         f"\\frac{{{right_numerator}}}{{{denominator}}}"
     )
-    return row, Fraction(left_numerator + right_numerator if operator == "+" else left_numerator - right_numerator, denominator)
+    return row, Fraction(
+        left_numerator + right_numerator
+        if operator == "+"
+        else left_numerator - right_numerator,
+        denominator,
+    )
 
 
 def _answer(value: Fraction) -> str:
@@ -261,7 +297,11 @@ def _formula(condition: dict[str, Any]) -> str:
         if match is None:
             raise RightTrianglePlanError("condition must contain one formula")
         formula = match.group(0)
-    formula = re.sub(r"\s+", "", formula.replace("\\left", "").replace("\\right", "").replace(":", "\\colon"))
+    formula = re.sub(
+        r"\s+",
+        "",
+        formula.replace("\\left", "").replace("\\right", "").replace(":", "\\colon"),
+    )
     if plain_text:
         formula = formula.replace(",", "{,}")
     formula = formula.replace(r"\text{onehalf}", r"\frac{1}{2}")
@@ -287,9 +327,15 @@ def _generic_plan(
         denominator = lcm(left.denominator, right.denominator)
         left_numerator = left.numerator * (denominator // left.denominator)
         right_numerator = right.numerator * (denominator // right.denominator)
-        numerator = left_numerator + right_numerator if expression[0] == "+" else left_numerator - right_numerator
+        numerator = (
+            left_numerator + right_numerator
+            if expression[0] == "+"
+            else left_numerator - right_numerator
+        )
         decimal_denominator = 10 ** len(answer.partition(",")[2])
-        decimal_numerator = result.numerator * (decimal_denominator // result.denominator)
+        decimal_numerator = result.numerator * (
+            decimal_denominator // result.denominator
+        )
         common_fraction = f"\\frac{{{numerator}}}{{{denominator}}}"
         expected_solution = (
             "<p>Приведём дроби к общему знаменателю:</p>"
@@ -298,29 +344,50 @@ def _generic_plan(
             f'<center><p><span data-inline-latex="{common_fraction}=\\frac{{{decimal_numerator}}}{{{decimal_denominator}}}={_answer_latex(result)}"></span>.</p></center>'
         )
         changes: list[dict[str, Any]] = []
-        if solution_section is None or str(solution_section.get("html") or "") != expected_solution:
-            changes.append(_section_transformation(solution_section, "solution", "Решение", expected_solution))
-        current_answer = BeautifulSoup(
-            str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-        ).get_text("", strip=True).replace(" ", "")
+        if (
+            solution_section is None
+            or str(solution_section.get("html") or "") != expected_solution
+        ):
+            changes.append(
+                _section_transformation(
+                    solution_section, "solution", "Решение", expected_solution
+                )
+            )
+        current_answer = (
+            BeautifulSoup(
+                str(answer_section.get("html") or "") if answer_section else "",
+                "html.parser",
+            )
+            .get_text("", strip=True)
+            .replace(" ", "")
+        )
         if current_answer != answer:
             changes.append(
                 _section_transformation(
-                    answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
+                    answer_section,
+                    "answer",
+                    "Ответ",
+                    f'<p><span data-effect="spaced">{answer}</span></p>',
                 )
             )
         return RepairPlan(answer=answer, transformations=tuple(changes))
     rows = _expression_steps(expression)
     if not rows:
-        raise RightTrianglePlanError("condition does not match a registered numeric rational expression")
+        raise RightTrianglePlanError(
+            "condition does not match a registered numeric rational expression"
+        )
     if result.denominator != 1:
         decimal_denominator = 10 ** len(answer.partition(",")[2])
-        decimal_numerator = result.numerator * (decimal_denominator // result.denominator)
+        decimal_numerator = result.numerator * (
+            decimal_denominator // result.denominator
+        )
         decimal_fraction = (
             f"{'-' if decimal_numerator < 0 else ''}"
             f"\\frac{{{abs(decimal_numerator)}}}{{{decimal_denominator}}}"
         )
-        rows.append(f"{_fraction_latex(result)}={decimal_fraction}={_answer_latex(result)}")
+        rows.append(
+            f"{_fraction_latex(result)}={decimal_fraction}={_answer_latex(result)}"
+        )
     calculation = "".join(
         f'<center><p><span data-inline-latex="{row}"></span>.</p></center>'
         for row in rows
@@ -331,15 +398,30 @@ def _generic_plan(
         f'<p>Следовательно, значение выражения равно <span data-inline-latex="{_answer_latex(result)}"></span>.</p>'
     )
     changes: list[dict[str, Any]] = []
-    if solution_section is None or str(solution_section.get("html") or "") != expected_solution:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", expected_solution))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+    if (
+        solution_section is None
+        or str(solution_section.get("html") or "") != expected_solution
+    ):
+        changes.append(
+            _section_transformation(
+                solution_section, "solution", "Решение", expected_solution
+            )
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer:
         changes.append(
             _section_transformation(
-                answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
             )
         )
     return RepairPlan(answer=answer, transformations=tuple(changes))
@@ -352,7 +434,11 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     condition = _section(content, "condition")
     answer_section = _section(content, "answer")
     solution_section = _section(content, "solution")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
         raise RightTrianglePlanError("numeric expression conditions must be text-only")
 
     formula = _formula(condition)
@@ -401,7 +487,10 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
         product_factor = factor
 
     first_numerator, first_denominator = inner.numerator, inner.denominator
-    second_numerator, second_denominator = product_factor.numerator, product_factor.denominator
+    second_numerator, second_denominator = (
+        product_factor.numerator,
+        product_factor.denominator,
+    )
     first_divisor = gcd(abs(first_numerator), abs(second_denominator))
     second_divisor = gcd(abs(second_numerator), abs(first_denominator))
     first_numerator //= first_divisor
@@ -410,24 +499,43 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     first_denominator //= second_divisor
     reduced_first = Fraction(first_numerator, first_denominator)
     reduced_second = Fraction(second_numerator, second_denominator)
-    reduced_product = f"{_fraction_latex(reduced_first)}\\cdot{_fraction_latex(reduced_second)}"
+    reduced_product = (
+        f"{_fraction_latex(reduced_first)}\\cdot{_fraction_latex(reduced_second)}"
+    )
     one_fraction = (
         f"\\frac{{{first_numerator}\\cdot{second_numerator}}}"
         f"{{{first_denominator}\\cdot{second_denominator}}}"
     )
     steps.extend((reduced_product, one_fraction, _answer_latex(result)))
     calculation = "=".join(steps)
-    expected_solution = f'<center><p><span data-inline-latex="{calculation}"></span></p></center>'
+    expected_solution = (
+        f'<center><p><span data-inline-latex="{calculation}"></span></p></center>'
+    )
     changes: list[dict[str, Any]] = []
-    if solution_section is None or str(solution_section.get("html") or "") != expected_solution:
-        changes.append(_section_transformation(solution_section, "solution", "Решение", expected_solution))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+    if (
+        solution_section is None
+        or str(solution_section.get("html") or "") != expected_solution
+    ):
+        changes.append(
+            _section_transformation(
+                solution_section, "solution", "Решение", expected_solution
+            )
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current_answer != answer:
         changes.append(
             _section_transformation(
-                answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
             )
         )
     return RepairPlan(answer=answer, transformations=tuple(changes))
@@ -440,7 +548,11 @@ def build_decimal_sum_difference_plan(context: dict[str, Any]) -> RepairPlan:
     condition = _section(content, "condition")
     answer_section = _section(content, "answer")
     solution_section = _section(content, "solution")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
         raise RightTrianglePlanError("numeric expression conditions must be text-only")
     formula = _formula(condition)
     expression = _ExpressionParser(formula).parse()
@@ -450,19 +562,31 @@ def build_decimal_sum_difference_plan(context: dict[str, Any]) -> RepairPlan:
         or expression[2][0] != "number"
         or "{,}" not in formula
     ):
-        raise RightTrianglePlanError("condition does not match a decimal sum or difference")
+        raise RightTrianglePlanError(
+            "condition does not match a decimal sum or difference"
+        )
     answer = _answer(_expression_value(expression))
-    current_answer = BeautifulSoup(
-        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
-    ).get_text("", strip=True).replace(" ", "")
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     changes: list[dict[str, Any]] = []
     if solution_section is None:
         solution = f"<p>Найдём значение выражения: {formula.replace('{,}', ',')} = {answer}.</p>"
-        changes.append(_section_transformation(solution_section, "solution", "Решение", solution))
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", solution)
+        )
     if current_answer != answer:
         changes.append(
             _section_transformation(
-                answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
             )
         )
     return RepairPlan(answer=answer, transformations=tuple(changes))
