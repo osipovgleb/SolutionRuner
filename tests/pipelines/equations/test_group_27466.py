@@ -14,10 +14,27 @@ from solution_runner.pipelines.equations.group_27466 import (
 
 
 def _context(formula: str, answer: str = "") -> dict:
-    return {"normalized_content": {"format": "teacherhelper-normalized", "schema_version": 3, "assets": [], "sections": [
-        {"key": "condition", "transformation_target_id": "section:condition:1", "asset_keys": [], "html": f'<p>Найдите корень уравнения <span data-inline-latex="{formula}"></span>.</p>'},
-        {"key": "answer", "transformation_target_id": "section:answer:1", "asset_keys": [], "html": f"<p>{answer}</p>"},
-    ]}}
+    return {
+        "normalized_content": {
+            "format": "teacherhelper-normalized",
+            "schema_version": 3,
+            "assets": [],
+            "sections": [
+                {
+                    "key": "condition",
+                    "transformation_target_id": "section:condition:1",
+                    "asset_keys": [],
+                    "html": f'<p>Найдите корень уравнения <span data-inline-latex="{formula}"></span>.</p>',
+                },
+                {
+                    "key": "answer",
+                    "transformation_target_id": "section:answer:1",
+                    "asset_keys": [],
+                    "html": f"<p>{answer}</p>",
+                },
+            ],
+        }
+    }
 
 
 def test_group_is_registered_with_its_own_odd_root_rule() -> None:
@@ -36,7 +53,9 @@ def test_group_is_registered_with_its_own_odd_root_rule() -> None:
         (r"\sqrt[9]{7-2x}=-1", "4"),
     ],
 )
-def test_any_odd_degree_and_both_affine_orderings_are_computed(formula: str, answer: str) -> None:
+def test_any_odd_degree_and_both_affine_orderings_are_computed(
+    formula: str, answer: str
+) -> None:
     plan = build_repair_plan(formula)
     assert plan.answer == answer
     assert f"x={answer}" in plan.solution_html
@@ -48,10 +67,19 @@ def test_parent_and_repair_child_have_different_values_and_parent_style() -> Non
     assert parent.answer == "31"
     assert child.answer == "62"
     assert "Возведём обе части уравнения в 3-ю степень" in child.solution_html
-    assert r"x+2=64\iff x=62" in child.solution_html
+    assert 'data-inline-latex="x+2=64"' in child.solution_html
+    assert 'data-inline-latex="x=62"' in child.solution_html
 
 
-@pytest.mark.parametrize("formula", [r"\sqrt[2]{x-4}=3", r"\sqrt[1]{x-4}=3", r"\sqrt[3]{x+2}=\frac{1}{2}", r"\sqrt[3]{x+y}=3"])
+@pytest.mark.parametrize(
+    "formula",
+    [
+        r"\sqrt[2]{x-4}=3",
+        r"\sqrt[1]{x-4}=3",
+        r"\sqrt[3]{x+2}=\frac{1}{2}",
+        r"\sqrt[3]{x+y}=3",
+    ],
+)
 def test_unsupported_forms_fail_closed(formula: str) -> None:
     with pytest.raises(UnsupportedCondition):
         build_context_repair_plan(_context(formula))

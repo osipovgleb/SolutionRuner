@@ -1,4 +1,5 @@
 r"""Plans for logarithms of a power with a compatible integer base."""
+
 from __future__ import annotations
 
 import re
@@ -7,10 +8,20 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from solution_runner.pipelines.core.numbers import NumberFormatError, format_answer, format_latex_fraction
-from solution_runner.pipelines.equations.group_26646 import _section, _solution_signature
+from solution_runner.pipelines.core.numbers import (
+    NumberFormatError,
+    format_answer,
+    format_latex_fraction,
+)
+from solution_runner.pipelines.equations.group_26646 import (
+    _section,
+    _solution_signature,
+)
 from solution_runner.pipelines.equations.group_26650 import _parse_linear, _rewrite
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
+
+from .equation_conditions import read_equation_prompt
+from .solution_formatting import vertical_derivation
 
 RULE = "logarithm-315120-power-argument-common-base"
 _INTEGER_BASE = r"(?:[2-9]|[1-9]\d+)"
@@ -63,15 +74,17 @@ def _build_plan(formula: str) -> RepairPlan:
     base_latex = _base_latex(base)
     solution = (
         f'<center><p><span data-inline-latex="\\log_{base_latex} {argument_base}^{{{exponent}}}={right}'
-        f'\\iff {argument_base}^{{{exponent}}}={base_latex}^{{{right}}}'
-        f'\\iff {argument_base}^{{{exponent}}}={argument_base}^{{{target}}}'
+        f"\\iff {argument_base}^{{{exponent}}}={base_latex}^{{{right}}}"
+        f"\\iff {argument_base}^{{{exponent}}}={argument_base}^{{{target}}}"
         f'\\iff {exponent}={target}\\iff x={format_latex_fraction(result)}"></span>.</p></center>'
     )
     return RepairPlan(answer=answer, condition_html="", solution_html=solution)
 
 
 def _normal_formula(formula: str) -> str:
-    return _PARENTHESIZED_BASE.sub(lambda match: f"\\log_{_base_latex(int(match.group('base')))}", formula)
+    return _PARENTHESIZED_BASE.sub(
+        lambda match: f"\\log_{_base_latex(int(match.group('base')))}", formula
+    )
 
 
 def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
@@ -80,19 +93,45 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     if not condition:
         raise UnsupportedCondition("missing condition")
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
+    read_equation_prompt(
+        str(condition.get("html") or ""),
+        allow_selector=True,
+        error_type=UnsupportedCondition,
+    )
     spans = soup.find_all("span", attrs={"data-inline-latex": True})
     if len(spans) != 1:
         raise UnsupportedCondition("condition must have one logarithmic formula")
     original = str(spans[0].get("data-inline-latex") or "")
     normalized = _normal_formula(original)
     plan = _build_plan(re.sub(r"\s+", "", normalized))
-    answer_section, solution_section = _section(content, "answer"), _section(content, "solution")
+    solution_html = vertical_derivation(plan.solution_html)
+    answer_section, solution_section = (
+        _section(content, "answer"),
+        _section(content, "solution"),
+    )
     transformations: list[dict[str, Any]] = []
     if normalized != original:
         spans[0]["data-inline-latex"] = normalized
         transformations.append(_rewrite(condition, "condition", "Условие", str(soup)))
-    if not solution_section or _solution_signature(str(solution_section.get("html") or "")) != _solution_signature(plan.solution_html):
-        transformations.append(_rewrite(solution_section, "solution", "Решение", plan.solution_html))
-    if not answer_section or BeautifulSoup(str(answer_section.get("html") or ""), "html.parser").get_text(" ", strip=True) != plan.answer:
-        transformations.append(_rewrite(answer_section, "answer", "Ответ", f"<p>{plan.answer}</p>"))
-    return RepairPlan(answer=plan.answer, condition_html="", solution_html=plan.solution_html, transformations=tuple(transformations))
+    if not solution_section or _solution_signature(
+        str(solution_section.get("html") or "")
+    ) != _solution_signature(solution_html):
+        transformations.append(
+            _rewrite(solution_section, "solution", "Решение", solution_html)
+        )
+    if (
+        not answer_section
+        or BeautifulSoup(str(answer_section.get("html") or ""), "html.parser").get_text(
+            " ", strip=True
+        )
+        != plan.answer
+    ):
+        transformations.append(
+            _rewrite(answer_section, "answer", "Ответ", f"<p>{plan.answer}</p>")
+        )
+    return RepairPlan(
+        answer=plan.answer,
+        condition_html="",
+        solution_html=solution_html,
+        transformations=tuple(transformations),
+    )

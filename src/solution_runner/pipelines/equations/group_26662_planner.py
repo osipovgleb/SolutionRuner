@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import math
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
@@ -15,7 +15,7 @@ from ..triangles.isosceles.planner import (
     _section_transformation,
 )
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
+from .solution_formatting import vertical_derivation
 
 RULE = "elementary-equations-26662-fractional-linear-equation"
 PARENT_PROBLEM_ID = "20bfb2f5-1f08-40f0-b0e5-e678c7fbea3e"
@@ -69,7 +69,13 @@ def _equation(
 
     values = {
         name: int(match.group(name))
-        for name in ("numerator", "denominator", "whole", "part_numerator", "part_denominator")
+        for name in (
+            "numerator",
+            "denominator",
+            "whole",
+            "part_numerator",
+            "part_denominator",
+        )
     }
     coefficient = Fraction(values["numerator"], values["denominator"])
     right_side = Fraction(values["whole"], 1) + Fraction(
@@ -80,8 +86,10 @@ def _equation(
     if match.group("right_sign") == "-":
         right_side = -right_side
     answer = right_side / coefficient
-    if answer.denominator != 1 or answer.numerator == 0 or (
-        not allow_negative_answer and answer.numerator < 0
+    if (
+        answer.denominator != 1
+        or answer.numerator == 0
+        or (not allow_negative_answer and answer.numerator < 0)
     ):
         raise RightTrianglePlanError("equation does not have a supported integral root")
     return formula, answer
@@ -89,8 +97,7 @@ def _equation(
 
 def _condition_html(formula: str) -> str:
     return (
-        '<p>Най­ди­те ко­рень урав­не­ния: '
-        f'<span data-inline-latex="{formula}"></span>.</p>'
+        f'<p>Най­ди­те ко­рень урав­не­ния: <span data-inline-latex="{formula}"></span>.</p>'
     )
 
 
@@ -109,13 +116,21 @@ def _solution_html(formula: str, answer: int) -> str:
         raise RightTrianglePlanError("equation formula is inconsistent")
     values = {
         name: int(match.group(name))
-        for name in ("numerator", "denominator", "whole", "part_numerator", "part_denominator")
+        for name in (
+            "numerator",
+            "denominator",
+            "whole",
+            "part_numerator",
+            "part_denominator",
+        )
     }
     coefficient_sign = -1 if match.group("coefficient_sign") == "-" else 1
     right_sign = -1 if match.group("right_sign") == "-" else 1
     numerator = values["numerator"]
     denominator = values["denominator"]
-    right_numerator = values["whole"] * values["part_denominator"] + values["part_numerator"]
+    right_numerator = (
+        values["whole"] * values["part_denominator"] + values["part_numerator"]
+    )
     right_denominator = values["part_denominator"]
     common_denominator = math.lcm(denominator, right_denominator)
     left_integer_coefficient = (
@@ -124,7 +139,9 @@ def _solution_html(formula: str, answer: int) -> str:
     right_integer_value = (
         right_sign * right_numerator * common_denominator // right_denominator
     )
-    coefficient_fraction = f"{'-' if coefficient_sign < 0 else ''}\\frac{{{numerator}}}{{{denominator}}}"
+    coefficient_fraction = (
+        f"{'-' if coefficient_sign < 0 else ''}\\frac{{{numerator}}}{{{denominator}}}"
+    )
     right_fraction = f"{'-' if right_sign < 0 else ''}\\frac{{{right_numerator}}}{{{right_denominator}}}"
     calculation = (
         f"{formula}\\iff "
@@ -132,7 +149,7 @@ def _solution_html(formula: str, answer: int) -> str:
         f"\\iff {left_integer_coefficient}x={right_integer_value}\\iff x={answer}"
     )
     return (
-        '<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p>'
+        "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p>"
         f'<center><p> <span data-inline-latex="{calculation}"></span>. </p></center>'
     )
 
@@ -149,12 +166,18 @@ def build_repair_plan(
 
     del parent_solution_html, current_asset_content_type
     if parent_condition_asset_id not in (None, ""):
-        raise RightTrianglePlanError("group 26662 must not have a parent condition asset")
+        raise RightTrianglePlanError(
+            "group 26662 must not have a parent condition asset"
+        )
     content = _normalized_content(context)
     condition = _section(content, "condition")
     answer_section = _section(content, "answer")
     solution = _section(content, "solution")
-    for key, section in (("condition", condition), ("answer", answer_section), ("solution", solution)):
+    for key, section in (
+        ("condition", condition),
+        ("answer", answer_section),
+        ("solution", solution),
+    ):
         _canonical_section(section, key)
     if condition is None:
         raise RightTrianglePlanError("canonical condition is required")
@@ -164,12 +187,18 @@ def build_repair_plan(
     )
     answer = answer_fraction.numerator
     expected_condition = _condition_html(formula)
-    expected_solution = _solution_html(formula, answer)
+    expected_solution = vertical_derivation(_solution_html(formula, answer))
     changes: list[dict[str, Any]] = []
     if str(condition.get("html") or "") != expected_condition:
-        changes.append(_section_transformation(condition, "condition", "Условие", expected_condition))
+        changes.append(
+            _section_transformation(
+                condition, "condition", "Условие", expected_condition
+            )
+        )
     if solution is None or str(solution.get("html") or "") != expected_solution:
-        changes.append(_section_transformation(solution, "solution", "Решение", expected_solution))
+        changes.append(
+            _section_transformation(solution, "solution", "Решение", expected_solution)
+        )
     if not _answer_matches(answer_section, answer):
         changes.append(
             _section_transformation(

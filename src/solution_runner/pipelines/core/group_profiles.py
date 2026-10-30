@@ -1,19 +1,37 @@
 """Validated aggregate of domain-owned group declarations."""
+
+from collections.abc import Mapping
 from importlib import import_module, invalidate_caches, reload
 from types import MappingProxyType
-from typing import Mapping
-from .models import GroupProfile
+
 from .handler_registry import get_handler, reload_handler_registry
+from .models import GroupProfile
 from .profile_definitions import (
+    ARBITRARY_QUADRILATERAL_THEME_ID,
     CATALOG_SNAPSHOT_ID,
+    CIRCLE_THEME_ID,
+    OGE_AREAS_THEME_ID,
+    OGE_CATALOG_SNAPSHOT_ID,
+    RHOMBUS_THEME_ID,
     TRAPEZOID_THEME_ID,
     TRIANGLE_THEME_ID,
-    RHOMBUS_THEME_ID,
-    ARBITRARY_QUADRILATERAL_THEME_ID,
-    OGE_CATALOG_SNAPSHOT_ID,
-    OGE_AREAS_THEME_ID,
-    CIRCLE_THEME_ID,
 )
+
+__all__ = [
+    "ARBITRARY_QUADRILATERAL_THEME_ID",
+    "CATALOG_SNAPSHOT_ID",
+    "CIRCLE_THEME_ID",
+    "OGE_AREAS_THEME_ID",
+    "OGE_CATALOG_SNAPSHOT_ID",
+    "RHOMBUS_THEME_ID",
+    "TRAPEZOID_THEME_ID",
+    "TRIANGLE_THEME_ID",
+    "GroupProfile",
+    "all_group_profiles",
+    "build_profile_registry",
+    "get_group_profile",
+    "reload_group_profiles",
+]
 
 
 _PROFILE_MODULES = (
@@ -28,6 +46,8 @@ _PROFILE_MODULES = (
     "solution_runner.pipelines.grid_polygon.profiles",
     "solution_runner.pipelines.word_problems.profiles",
     "solution_runner.pipelines.informatics.profiles",
+    "solution_runner.pipelines.probability.profiles",
+    "solution_runner.pipelines.statistics.profiles",
 )
 
 
@@ -43,11 +63,13 @@ def build_profile_registry(profiles) -> Mapping[str, GroupProfile]:
 
 
 def _build_profiles() -> Mapping[str, GroupProfile]:
-    return build_profile_registry(tuple(
-        profile
-        for module_name in _PROFILE_MODULES
-        for profile in import_module(module_name).PROFILES
-    ))
+    return build_profile_registry(
+        tuple(
+            profile
+            for module_name in _PROFILE_MODULES
+            for profile in import_module(module_name).PROFILES
+        )
+    )
 
 
 _PROFILES = _build_profiles()

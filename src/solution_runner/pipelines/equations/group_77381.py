@@ -1,4 +1,5 @@
 r"""Fail-closed plans for ``log_a(L)=log_a(R)+c`` with affine arguments."""
+
 from __future__ import annotations
 
 import re
@@ -7,10 +8,25 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from solution_runner.pipelines.core.numbers import NumberFormatError, format_answer, format_latex_fraction
-from solution_runner.pipelines.equations.group_26646 import _log_base_latex, _section, _solution_signature
-from solution_runner.pipelines.equations.group_26650 import _linear_latex, _parse_linear, _rewrite
+from solution_runner.pipelines.core.numbers import (
+    NumberFormatError,
+    format_answer,
+    format_latex_fraction,
+)
+from solution_runner.pipelines.equations.group_26646 import (
+    _log_base_latex,
+    _section,
+    _solution_signature,
+)
+from solution_runner.pipelines.equations.group_26650 import (
+    _linear_latex,
+    _parse_linear,
+    _rewrite,
+)
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
+
+from .equation_conditions import read_equation_prompt
+from .solution_formatting import vertical_derivation
 
 RULE = "logarithm-77381-shifted-equal-logs"
 _BASE = r"(?:[2-9]|[1-9]\d+)"
@@ -28,7 +44,9 @@ def _coefficient_latex(value: int) -> str:
     return "x" if value == 1 else "-x" if value == -1 else f"{value}x"
 
 
-def _inequality_steps(constant: int, coefficient: int) -> tuple[str, str, Fraction, str]:
+def _inequality_steps(
+    constant: int, coefficient: int
+) -> tuple[str, str, Fraction, str]:
     """Return the moved and solved forms of ``constant + coefficient*x > 0``."""
 
     if coefficient == 0:
@@ -40,7 +58,8 @@ def _inequality_steps(constant: int, coefficient: int) -> tuple[str, str, Fracti
 
 
 def _strictest_inequality(
-    left: tuple[str, str, Fraction, str], right: tuple[str, str, Fraction, str],
+    left: tuple[str, str, Fraction, str],
+    right: tuple[str, str, Fraction, str],
 ) -> tuple[str, ...]:
     """Drop the weaker bound only when the two inequalities have one direction."""
 
@@ -93,11 +112,11 @@ def _build_plan(formula: str) -> RepairPlan:
     solution = (
         f'<p>Заметим, что свободный член равен <span data-inline-latex="{shift}=\\log_{base} {left_base}^{{{shift}}}"></span>:</p>'
         f'<center><p><span data-inline-latex="{log_left}={log_right}+{shift}'
-        f'\\iff {log_left}={log_right}+\\log_{base} {left_base}^{{{shift}}}'
-        f'\\iff {log_left}=\\log_{base} ({left_base}^{{{shift}}}({right}))'
-        f'\\iff \\begin{{cases}}{left}\\gt 0\\\\{right}\\gt 0\\\\{left}={left_base}^{{{shift}}}({right})\\end{{cases}}\\quad '
-        f'\\iff \\begin{{cases}}{left_moved}\\\\{right_moved}\\\\{left}={scaled_right}\\end{{cases}}'
-        f'\\iff \\begin{{cases}}{left_solved}\\\\{right_solved}\\\\x={exact}\\end{{cases}}\\quad '
+        f"\\iff {log_left}={log_right}+\\log_{base} {left_base}^{{{shift}}}"
+        f"\\iff {log_left}=\\log_{base} ({left_base}^{{{shift}}}({right}))"
+        f"\\iff \\begin{{cases}}{left}\\gt 0\\\\{right}\\gt 0\\\\{left}={left_base}^{{{shift}}}({right})\\end{{cases}}\\quad "
+        f"\\iff \\begin{{cases}}{left_moved}\\\\{right_moved}\\\\{left}={scaled_right}\\end{{cases}}"
+        f"\\iff \\begin{{cases}}{left_solved}\\\\{right_solved}\\\\x={exact}\\end{{cases}}\\quad "
         f'\\iff \\begin{{cases}}{"\\\\".join(strictest)}\\\\x={exact}\\end{{cases}}\\quad \\iff x={exact}"></span>.</p></center>'
     )
     return RepairPlan(answer=answer, condition_html="", solution_html=solution)
@@ -109,15 +128,41 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     if not condition:
         raise UnsupportedCondition("missing condition")
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
-    formulas = [str(node.get("data-inline-latex") or "") for node in soup.find_all("span", attrs={"data-inline-latex": True})]
+    read_equation_prompt(
+        str(condition.get("html") or ""),
+        allow_selector=True,
+        error_type=UnsupportedCondition,
+    )
+    formulas = [
+        str(node.get("data-inline-latex") or "")
+        for node in soup.find_all("span", attrs={"data-inline-latex": True})
+    ]
     if len(formulas) != 1:
         raise UnsupportedCondition("condition must have one logarithmic formula")
     plan = _build_plan(re.sub(r"\s+", "", formulas[0]))
+    solution_html = vertical_derivation(plan.solution_html)
     answer_section = _section(content, "answer")
     solution_section = _section(content, "solution")
     transformations: list[dict[str, Any]] = []
-    if not solution_section or _solution_signature(str(solution_section.get("html") or "")) != _solution_signature(plan.solution_html):
-        transformations.append(_rewrite(solution_section, "solution", "Решение", plan.solution_html))
-    if not answer_section or BeautifulSoup(str(answer_section.get("html") or ""), "html.parser").get_text(" ", strip=True) != plan.answer:
-        transformations.append(_rewrite(answer_section, "answer", "Ответ", f"<p>{plan.answer}</p>"))
-    return RepairPlan(answer=plan.answer, condition_html="", solution_html=plan.solution_html, transformations=tuple(transformations))
+    if not solution_section or _solution_signature(
+        str(solution_section.get("html") or "")
+    ) != _solution_signature(solution_html):
+        transformations.append(
+            _rewrite(solution_section, "solution", "Решение", solution_html)
+        )
+    if (
+        not answer_section
+        or BeautifulSoup(str(answer_section.get("html") or ""), "html.parser").get_text(
+            " ", strip=True
+        )
+        != plan.answer
+    ):
+        transformations.append(
+            _rewrite(answer_section, "answer", "Ответ", f"<p>{plan.answer}</p>")
+        )
+    return RepairPlan(
+        answer=plan.answer,
+        condition_html="",
+        solution_html=solution_html,
+        transformations=tuple(transformations),
+    )

@@ -2,23 +2,24 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import math
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import (
+    _normalized_content,
+    _section,
+    _section_transformation,
+)
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
+from .solution_formatting import vertical_derivation
 
 RULE = "elementary-equations-26667-quadratic-root-selector"
 PARENT_PROBLEM_ID = "095f3b3a-83aa-429e-ab8d-8feceeb37f53"
 
-# Canonical quadratic TeX with the wording variants used by this source group.
-# Omitted coefficients are 1; omitted b or c terms are zero.  The selector
-# intentionally remains limited to explicit "меньший" / "больший" requests:
-# requests for a named-sign root are handled as separate manual repairs.
 _CONDITION = re.compile(
     r"(?:Найдите корень уравнения|Решите уравнение):? "
     r"(?P<a_sign>-?)(?P<a_value>\d*)x\^\{2\}"
@@ -100,69 +101,20 @@ def _normalized_quadratic_formula(a: int, b: int, c: int) -> str:
     """Render ``ax² + bx + c = 0`` without changing the accepted grammar."""
 
     leading = "x^{2}" if a == 1 else "-x^{2}" if a == -1 else f"{a}x^{{2}}"
-    b_term = "+x" if b == 1 else "-x" if b == -1 else f"+{b}x" if b > 0 else f"-{abs(b)}x"
+    b_term = (
+        "+x" if b == 1 else "-x" if b == -1 else f"+{b}x" if b > 0 else f"-{abs(b)}x"
+    )
     c_term = f"+{c}" if c > 0 else f"-{abs(c)}"
     return f"{leading}{b_term}{c_term}=0"
 
 
-def build_repair_plan(
-    context: dict[str, Any], *, parent_condition_asset_id: str | None,
-    parent_solution_html: str = "", current_asset_content_type: str | None = None,
-) -> RepairPlan:
-    del parent_solution_html, current_asset_content_type
-    if parent_condition_asset_id not in (None, ""):
-        raise RightTrianglePlanError("group 26667 must not have assets")
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    answer = _section(content, "answer")
-    solution = _section(content, "solution")
-    if condition is None or content.get("assets") or tuple(condition.get("asset_keys") or ()):
-        raise RightTrianglePlanError("condition is incomplete")
-    soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
-    spans = soup.find_all("span")
-    if len(spans) != 1 or spans[0].get_text(strip=True):
-        raise RightTrianglePlanError("condition formula is ambiguous")
-    formula = str(spans[0].get("data-inline-latex") or "")
-    spans[0].replace_with(formula)
-    condition_text = re.sub(r"\s+([.])", r"\1", " ".join(
-        soup.get_text(" ", strip=True).replace("\u00ad", "").split()
-    ))
-    standard_match = _CONDITION.fullmatch(condition_text)
-    shifted_match = _SHIFTED_CONDITION.fullmatch(condition_text)
-    transposed_match = _TRANSPOSED_CONDITION.fullmatch(condition_text)
-    right_affine_match = _RIGHT_AFFINE_CONDITION.fullmatch(condition_text)
-    if all(match is None for match in (
-        standard_match, shifted_match, transposed_match, right_affine_match
-    )):
-        raise RightTrianglePlanError("condition does not match group 26667")
-
-    match = standard_match or shifted_match or transposed_match or right_affine_match
-    a = _coefficient(match.group("a_sign"), match.group("a_value"), default=1)
-    if standard_match is not None:
-        b = _coefficient(match.group("b_sign"), match.group("b_value"), default=0)
-        c = _coefficient(match.group("c_sign"), match.group("c_value"), default=0)
-    elif shifted_match is not None:
-        b = _coefficient(match.group("b_sign"), match.group("b_value"), default=0)
-        c = -_coefficient(match.group("rhs_sign"), match.group("rhs_value"), default=0)
-    elif transposed_match is not None:
-        b = -_coefficient(match.group("b_sign"), match.group("b_value"), default=1)
-        c = _coefficient(match.group("c_sign"), match.group("c_value"), default=0)
-    else:
-        b = -_coefficient(match.group("b_sign") or "+", match.group("b_value"), default=1)
-        c = -_coefficient(match.group("c_sign"), match.group("c_value"), default=0)
-    if a == 0:
-        raise RightTrianglePlanError("quadratic coefficient is zero")
+def _solution_html(
+    formula: str, a: int, b: int, c: int, roots: list[Fraction], normalize: bool
+) -> str:
     discriminant = b * b - 4 * a * c
-    square_root = math.isqrt(discriminant)
-    if discriminant < 0 or square_root * square_root != discriminant:
-        raise RightTrianglePlanError("discriminant is not a nonnegative square")
-    roots = sorted((Fraction(-b - square_root, 2 * a), Fraction(-b + square_root, 2 * a)))
-    chosen = roots[0] if match.group("kind") == "меньший" else roots[-1]
     normalization_html = ""
     equation_steps = formula
-    if any(match is not None for match in (
-        shifted_match, transposed_match, right_affine_match
-    )):
+    if normalize:
         normalized_formula = _normalized_quadratic_formula(a, b, c)
         normalization_html = (
             "<p>Перенесём число из правой части в левую часть уравнения:</p>"
@@ -179,21 +131,114 @@ def build_repair_plan(
     value_rows = "\\\\".join(
         f"x={_number(value).replace(',', '{,}')}" for value in (roots[1], roots[0])
     )
-    discriminant_substitution = (
-        f"{_latex_number(b, squared=True)}-4\\cdot{_latex_number(a)}\\cdot{_latex_number(c)}"
-    )
-    expected_solution = (
-        normalization_html
-        + "<p>Вос­поль­зу­ем­ся фор­му­лой дис­кри­ми­нан­та:</p>"
+    discriminant_substitution = f"{_latex_number(b, squared=True)}-4\\cdot{_latex_number(a)}\\cdot{_latex_number(c)}"
+    expected_solution = vertical_derivation(
+        normalization_html + "<p>Вос­поль­зу­ем­ся фор­му­лой дис­кри­ми­нан­та:</p>"
         f'<center><p><span data-inline-latex="D=b^2-4ac={discriminant_substitution}={discriminant}"></span>.</p></center>'
         "<p>Вос­поль­зу­ем­ся фор­му­лой для кор­ней квад­рат­но­го урав­не­ния:</p>"
         f'<center><p><span data-inline-latex="{equation_steps}\\iff \\left[\\begin{{aligned}}{root_rows}\\end{{aligned}}\\right.\\iff \\left[\\begin{{aligned}}{value_rows}\\end{{aligned}}\\right."></span>.</p></center>'
     )
+    return expected_solution
+
+
+def _condition_parts(condition_html: str) -> tuple[str, re.Match[str], str]:
+    soup = BeautifulSoup(condition_html, "html.parser")
+    spans = soup.find_all("span")
+    if len(spans) != 1 or spans[0].get_text(strip=True):
+        raise RightTrianglePlanError("condition formula is ambiguous")
+    formula = str(spans[0].get("data-inline-latex") or "")
+    spans[0].replace_with(formula)
+    condition_text = re.sub(
+        r"\s+([.])",
+        r"\1",
+        " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split()),
+    )
+    for kind, pattern in (
+        ("standard", _CONDITION),
+        ("shifted", _SHIFTED_CONDITION),
+        ("transposed", _TRANSPOSED_CONDITION),
+        ("right-affine", _RIGHT_AFFINE_CONDITION),
+    ):
+        match = pattern.fullmatch(condition_text)
+        if match is not None:
+            return formula, match, kind
+    raise RightTrianglePlanError("condition does not match a supported quadratic")
+
+
+def build_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_condition_asset_id: str | None,
+    parent_solution_html: str = "",
+    current_asset_content_type: str | None = None,
+) -> RepairPlan:
+    del parent_solution_html, current_asset_content_type
+    if parent_condition_asset_id not in (None, ""):
+        raise RightTrianglePlanError("group 26667 must not have assets")
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    answer = _section(content, "answer")
+    solution = _section(content, "solution")
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
+        raise RightTrianglePlanError("condition is incomplete")
+    formula, match, kind = _condition_parts(str(condition.get("html") or ""))
+    a = _coefficient(match.group("a_sign"), match.group("a_value"), default=1)
+    if kind == "standard":
+        b = _coefficient(match.group("b_sign"), match.group("b_value"), default=0)
+        c = _coefficient(match.group("c_sign"), match.group("c_value"), default=0)
+    elif kind == "shifted":
+        b = _coefficient(match.group("b_sign"), match.group("b_value"), default=0)
+        c = -_coefficient(match.group("rhs_sign"), match.group("rhs_value"), default=0)
+    elif kind == "transposed":
+        b = -_coefficient(match.group("b_sign"), match.group("b_value"), default=1)
+        c = _coefficient(match.group("c_sign"), match.group("c_value"), default=0)
+    else:
+        b = -_coefficient(
+            match.group("b_sign") or "+", match.group("b_value"), default=1
+        )
+        c = -_coefficient(match.group("c_sign"), match.group("c_value"), default=0)
+    if a == 0:
+        raise RightTrianglePlanError("quadratic coefficient is zero")
+    discriminant = b * b - 4 * a * c
+    if discriminant < 0:
+        raise RightTrianglePlanError("quadratic has no real roots")
+    square_root = math.isqrt(discriminant)
+    if square_root * square_root != discriminant:
+        raise RightTrianglePlanError("discriminant is not a nonnegative square")
+    roots = sorted(
+        (Fraction(-b - square_root, 2 * a), Fraction(-b + square_root, 2 * a))
+    )
+    chosen = roots[0] if match.group("kind") == "меньший" else roots[-1]
+    expected_solution = _solution_html(
+        formula,
+        a,
+        b,
+        c,
+        roots,
+        kind != "standard",
+    )
     changes = []
     if solution is None or str(solution.get("html") or "") != expected_solution:
-        changes.append(_section_transformation(solution, "solution", "Решение", expected_solution))
-    actual_answer = BeautifulSoup(str(answer.get("html") or "") if answer else "", "html.parser").get_text("", strip=True).replace(" ", "")
+        changes.append(
+            _section_transformation(solution, "solution", "Решение", expected_solution)
+        )
+    actual_answer = (
+        BeautifulSoup(str(answer.get("html") or "") if answer else "", "html.parser")
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     canonical_answer = _number(chosen)
     if actual_answer != canonical_answer:
-        changes.append(_section_transformation(answer, "answer", "Ответ", f'<p><span data-effect="spaced">{canonical_answer}</span></p>'))
+        changes.append(
+            _section_transformation(
+                answer,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{canonical_answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=canonical_answer, transformations=tuple(changes))

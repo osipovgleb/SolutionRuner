@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
@@ -15,7 +15,6 @@ from solution_runner.pipelines.core.numbers import (
     format_latex_fraction,
 )
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
-
 
 RULE = "irrational-27466-odd-root-affine"
 
@@ -94,12 +93,25 @@ def build_repair_plan(formula: str) -> RepairPlan:
     try:
         answer = format_answer(result)
     except NumberFormatError as error:
-        raise UnsupportedCondition("root does not have a terminating decimal form") from error
+        raise UnsupportedCondition(
+            "root does not have a terminating decimal form"
+        ) from error
     result_latex = format_latex_fraction(result)
     linear = _linear_latex(coefficient, constant)
+    variable = _linear_latex(coefficient, 0)
+    steps = (
+        formula,
+        f"{linear}=({right})^{{{degree}}}",
+        f"{linear}={powered_right}",
+        f"{variable}={powered_right - constant}",
+        f"x={result_latex}",
+    )
+    calculation = "".join(
+        f'<center><p><span data-inline-latex="{step}"></span>.</p></center>'
+        for step in steps
+    )
     solution_html = (
-        f"<p>Возведём обе части уравнения в {degree}-ю степень:</p>"
-        f'<center><p><span data-inline-latex="{formula}\\iff {linear}={powered_right}\\iff x={result_latex}"></span>.</p></center>'
+        f"<p>Возведём обе части уравнения в {degree}-ю степень:</p>{calculation}"
     )
     return RepairPlan(
         answer=answer,
@@ -109,15 +121,21 @@ def build_repair_plan(formula: str) -> RepairPlan:
 
 
 def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
-    found = [section for section in content.get("sections", []) if section.get("key") == key]
+    found = [
+        section for section in content.get("sections", []) if section.get("key") == key
+    ]
     if len(found) > 1:
         raise UnsupportedCondition(f"multiple {key} sections")
     return found[0] if found else None
 
 
-def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) -> dict[str, Any]:
+def _rewrite(
+    section: dict[str, Any] | None, key: str, title: str, html: str
+) -> dict[str, Any]:
     return {
-        "transformation_target_id": str((section or {}).get("transformation_target_id") or f"section:{key}"),
+        "transformation_target_id": str(
+            (section or {}).get("transformation_target_id") or f"section:{key}"
+        ),
         "operation": "rewrite" if section is not None else "add",
         "value": {"title": title, "html": html, "asset_keys": []},
     }
@@ -126,40 +144,75 @@ def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) ->
 def _answer_matches(section: dict[str, Any] | None, expected: str) -> bool:
     if section is None:
         return False
-    return BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text("", strip=True).replace(" ", "") == expected
+    return (
+        BeautifulSoup(str(section.get("html") or ""), "html.parser")
+        .get_text("", strip=True)
+        .replace(" ", "")
+        == expected
+    )
 
 
 def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     """Build safe section transformations from one normalized problem context."""
 
     content = context.get("normalized_content")
-    if not isinstance(content, dict) or content.get("format") != "teacherhelper-normalized" or content.get("schema_version") != 3:
+    if (
+        not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+    ):
         raise UnsupportedCondition("schema-v3 normalized content is required")
     if content.get("assets") not in (None, []):
         raise UnsupportedCondition("odd-root affine tasks must not have assets")
-    condition, answer_section, solution = (_section(content, key) for key in ("condition", "answer", "solution"))
+    condition, answer_section, solution = (
+        _section(content, key) for key in ("condition", "answer", "solution")
+    )
     if condition is None or tuple(condition.get("asset_keys") or ()):
         raise UnsupportedCondition("canonical condition is required")
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
     spans = soup.find_all("span")
-    if len(spans) != 1 or spans[0].get_text("", strip=True) or set(spans[0].attrs) != {"data-inline-latex"}:
+    if (
+        len(spans) != 1
+        or spans[0].get_text("", strip=True)
+        or set(spans[0].attrs) != {"data-inline-latex"}
+    ):
         raise UnsupportedCondition("condition equation is ambiguous")
     formula = str(spans[0].get("data-inline-latex") or "")
     spans[0].replace_with(formula)
-    visible = re.sub(r"\s+([.])", r"\1", " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split()))
+    visible = re.sub(
+        r"\s+([.])",
+        r"\1",
+        " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split()),
+    )
     accepted = {
         f"{intro} {formula}{ending}"
-        for intro in ("Найдите корень уравнения", "Найдите корень уравнения:", "Решите уравнение", "Решите уравнение:")
+        for intro in (
+            "Найдите корень уравнения",
+            "Найдите корень уравнения:",
+            "Решите уравнение",
+            "Решите уравнение:",
+        )
         for ending in ("", ".")
     }
     if visible not in accepted:
-        raise UnsupportedCondition("condition does not match the odd-root affine profile")
+        raise UnsupportedCondition(
+            "condition does not match the odd-root affine profile"
+        )
     planned = build_repair_plan(formula)
     transformations: list[dict[str, Any]] = []
     if solution is None or str(solution.get("html") or "") != planned.solution_html:
-        transformations.append(_rewrite(solution, "solution", "Решение", planned.solution_html))
+        transformations.append(
+            _rewrite(solution, "solution", "Решение", planned.solution_html)
+        )
     if not _answer_matches(answer_section, planned.answer):
-        transformations.append(_rewrite(answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{planned.answer}</span></p>'))
+        transformations.append(
+            _rewrite(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{planned.answer}</span></p>',
+            )
+        )
     return RepairPlan(
         answer=planned.answer,
         condition_html=str(condition.get("html") or ""),

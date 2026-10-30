@@ -1,4 +1,5 @@
 """Two-method solver for equal-exponent equations with a scalar multiplier."""
+
 from __future__ import annotations
 
 import re
@@ -7,12 +8,24 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from solution_runner.pipelines.core.numbers import NumberFormatError, format_answer, format_latex_fraction, parse_rational
+from solution_runner.pipelines.core.numbers import (
+    NumberFormatError,
+    format_answer,
+    format_latex_fraction,
+    parse_rational,
+)
 from solution_runner.pipelines.equations.group_26650 import (
-    _NUMBER, _answer_steps, _exponent, _linear_latex, _parse_linear,
-    _section, _rewrite,
+    _NUMBER,
+    _answer_steps,
+    _exponent,
+    _linear_latex,
+    _parse_linear,
+    _rewrite,
+    _section,
 )
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
+
+from .solution_formatting import vertical_derivation
 
 RULE = "exponential-77379-equal-exponent-different-bases"
 _FORMULA = re.compile(
@@ -27,7 +40,11 @@ class UnsupportedCondition(ValueError):
 
 def _base_latex(value: Fraction) -> str:
     latex = format_latex_fraction(value)
-    return latex if value.denominator == 1 else f"(\\frac{{{value.numerator}}}{{{value.denominator}}})"
+    return (
+        latex
+        if value.denominator == 1
+        else f"(\\frac{{{value.numerator}}}{{{value.denominator}}})"
+    )
 
 
 def _subtract_exponent_shift(source: str, shift: int) -> str:
@@ -40,7 +57,9 @@ def _solution_signature(html: str) -> str:
     """Compare every prose and LaTeX node; this runner has two LaTeX formulas."""
     soup = BeautifulSoup(html, "html.parser")
     for span in soup.find_all("span", attrs={"data-inline-latex": True}):
-        span["data-inline-latex"] = re.sub(r"\s+", "", str(span["data-inline-latex"])).replace("е", "ё")
+        span["data-inline-latex"] = re.sub(
+            r"\s+", "", str(span["data-inline-latex"])
+        ).replace("е", "ё")
     return re.sub(r"\s+", " ", str(soup).replace("\u00ad", "")).strip()
 
 
@@ -60,7 +79,9 @@ def _build_plan(formula: str) -> RepairPlan:
     try:
         shift = _exponent(factor, ratio)
     except ValueError as error:
-        raise UnsupportedCondition("multiplier is not an exact power of the base ratio") from error
+        raise UnsupportedCondition(
+            "multiplier is not an exact power of the base ratio"
+        ) from error
     constant, coefficient = _parse_linear(match.group("exponent"))
     result = Fraction(shift - constant, coefficient)
     try:
@@ -95,25 +116,68 @@ def _build_plan(formula: str) -> RepairPlan:
 
 def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     content = context.get("normalized_content")
-    if not isinstance(content, dict) or content.get("format") != "teacherhelper-normalized" or content.get("schema_version") != 3 or content.get("assets") not in (None, []):
+    if (
+        not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+        or content.get("assets") not in (None, [])
+    ):
         raise UnsupportedCondition("normalized assetless content is required")
-    condition, answer, solution = (_section(content, key) for key in ("condition", "answer", "solution"))
+    condition, answer, solution = (
+        _section(content, key) for key in ("condition", "answer", "solution")
+    )
     if condition is None or tuple(condition.get("asset_keys") or ()):
         raise UnsupportedCondition("canonical condition is required")
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
     spans = soup.find_all("span")
-    if len(spans) != 1 or spans[0].get_text("", strip=True) or set(spans[0].attrs) != {"data-inline-latex"}:
+    if (
+        len(spans) != 1
+        or spans[0].get_text("", strip=True)
+        or set(spans[0].attrs) != {"data-inline-latex"}
+    ):
         raise UnsupportedCondition("condition equation is ambiguous")
     formula = str(spans[0].get("data-inline-latex") or "")
     spans[0].replace_with(formula)
-    visible = re.sub(r"\s+([.])", r"\1", " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split()))
-    if not any(visible == f"{intro} {formula}{end}" for intro in ("Решите уравнение", "Решите уравнение:", "Найдите корень уравнения", "Найдите корень уравнения:") for end in ("", ".")):
+    visible = re.sub(
+        r"\s+([.])",
+        r"\1",
+        " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split()),
+    )
+    if not any(
+        visible == f"{intro} {formula}{end}"
+        for intro in (
+            "Решите уравнение",
+            "Решите уравнение:",
+            "Найдите корень уравнения",
+            "Найдите корень уравнения:",
+        )
+        for end in ("", ".")
+    ):
         raise UnsupportedCondition("condition wording is unsupported")
     planned = _build_plan(re.sub(r"\s+", "", formula))
+    solution_html = vertical_derivation(planned.solution_html)
     changes = []
-    if solution is None or _solution_signature(str(solution.get("html") or "")) != _solution_signature(planned.solution_html):
-        changes.append(_rewrite(solution, "solution", "Решение", planned.solution_html))
-    current = BeautifulSoup(str(answer.get("html") or "") if answer else "", "html.parser").get_text("", strip=True).replace(" ", "")
+    if solution is None or _solution_signature(
+        str(solution.get("html") or "")
+    ) != _solution_signature(solution_html):
+        changes.append(_rewrite(solution, "solution", "Решение", solution_html))
+    current = (
+        BeautifulSoup(str(answer.get("html") or "") if answer else "", "html.parser")
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
     if current != planned.answer:
-        changes.append(_rewrite(answer, "answer", "Ответ", f'<p><span data-effect="spaced">{planned.answer}</span></p>'))
-    return RepairPlan(answer=planned.answer, condition_html=str(condition.get("html") or ""), solution_html=planned.solution_html, transformations=tuple(changes))
+        changes.append(
+            _rewrite(
+                answer,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{planned.answer}</span></p>',
+            )
+        )
+    return RepairPlan(
+        answer=planned.answer,
+        condition_html=str(condition.get("html") or ""),
+        solution_html=solution_html,
+        transformations=tuple(changes),
+    )

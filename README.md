@@ -12,6 +12,8 @@
 | [pipelines/equations/](src/solution_runner/pipelines/equations/) | Обработчики уравнений. |
 | [pipelines/function_graphs/](src/solution_runner/pipelines/function_graphs/) | Графики функций: гиперболы, два способа решения, сохранение изображений. |
 | [pipelines/vectors/](src/solution_runner/pipelines/vectors/) | Векторы, длины и скалярные произведения. |
+| [pipelines/statistics/](src/solution_runner/pipelines/statistics/) | Статистика: моменты распределений, ожидание до успеха, коллекции, выборочная дисперсия и оценки. |
+| [pipelines/probability/](src/solution_runner/pipelines/probability/) | Вероятности: монеты, кости, частоты, совместные события, смеси и отбор без возвращения. |
 | [pipelines/informatics/](src/solution_runner/pipelines/informatics/) | Количество информации: пароли и дополнительные сведения. |
 | [pipelines/triangles/](src/solution_runner/pipelines/triangles/) | Треугольники: `general/`, `isosceles/`, `right/`. |
 | [pipelines/quadrilaterals/](src/solution_runner/pipelines/quadrilaterals/) | Параллелограммы и трапеции. |
@@ -37,6 +39,7 @@
 
 ## Документация
 
+- [ЕГЭ профиль, категории 1–17](docs/campaigns/ege-profile-1-17.md) — таблица подготовки и проверки раннеров без Apply.
 - [Системы неравенств ОГЭ](docs/inequality-systems-runner.md) — проверенные формулы и единое оформление условий.
 - [Квадратные неравенства, группа 185](docs/quadratic-inequality-choices-runner.md) — четыре решения с отдельными рисунками и выводами через принадлежность.
 - [Квадратные неравенства, выбор промежутка или рисунка](docs/quadratic-interval-choices-runner.md) — 14 соседних групп с одним неравенством и проверенными вариантами ответа.

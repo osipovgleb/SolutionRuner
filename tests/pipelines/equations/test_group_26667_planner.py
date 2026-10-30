@@ -6,10 +6,10 @@ from copy import deepcopy
 
 import pytest
 
+from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.equations.group_26667_planner import (
     build_repair_plan,
 )
-from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.triangles.right.planner import (
     RightTrianglePlanError,
 )
@@ -28,7 +28,7 @@ def _context(formula: str, *, kind: str = "меньший", answer: str = "") ->
                     "transformation_target_id": "section:condition:1",
                     "asset_keys": [],
                     "html": (
-                        '<p>Най­ди­те ко­рень урав­не­ния: '
+                        "<p>Най­ди­те ко­рень урав­не­ния: "
                         f'<span data-inline-latex="{formula}"></span>. '
                         "Если урав­не­ние имеет более од­но­го корня, ука­жи­те "
                         f"{kind} из них.</p>"
@@ -41,7 +41,11 @@ def _context(formula: str, *, kind: str = "меньший", answer: str = "") ->
 
 
 def _solution(plan) -> str:
-    return next(item["value"]["html"] for item in plan.transformations if item["transformation_target_id"] == "section:solution")
+    return next(
+        item["value"]["html"]
+        for item in plan.transformations
+        if item["transformation_target_id"] == "section:solution"
+    )
 
 
 def _shifted_context(formula: str, *, kind: str) -> dict:
@@ -56,7 +60,7 @@ def _shifted_context(formula: str, *, kind: str) -> dict:
                     "section_id": "condition:1",
                     "asset_keys": [],
                     "html": (
-                        '<p>Най­ди­те ко­рень урав­не­ния '
+                        "<p>Най­ди­те ко­рень урав­не­ния "
                         f'<span data-inline-latex="{formula}"></span>. '
                         "Если урав­не­ние имеет более од­но­го корня, в от­ве­те ука­жи­те "
                         f"{kind} из них.</p>"
@@ -73,7 +77,9 @@ def _transposed_context(formula: str, *, kind: str) -> dict:
 
 
 def test_parent_layout_has_discriminant_before_one_root_collection() -> None:
-    plan = build_repair_plan(_context(r"x^{2}-17x+72=0"), parent_condition_asset_id=None)
+    plan = build_repair_plan(
+        _context(r"x^{2}-17x+72=0"), parent_condition_asset_id=None
+    )
 
     assert plan.answer == "8"
     html = _solution(plan)
@@ -92,8 +98,15 @@ def test_parent_layout_has_discriminant_before_one_root_collection() -> None:
         (r"2x^{2}-33x+136=0", "больший", "8,5"),
     ],
 )
-def test_accepted_canonical_forms_compute_requested_root(formula: str, kind: str, expected: str) -> None:
-    assert build_repair_plan(_context(formula, kind=kind), parent_condition_asset_id="").answer == expected
+def test_accepted_canonical_forms_compute_requested_root(
+    formula: str, kind: str, expected: str
+) -> None:
+    assert (
+        build_repair_plan(
+            _context(formula, kind=kind), parent_condition_asset_id=""
+        ).answer
+        == expected
+    )
 
 
 @pytest.mark.parametrize(
@@ -120,7 +133,7 @@ def test_standard_quadratics_accept_catalog_wording_variants(
 def test_named_sign_root_request_remains_fail_closed() -> None:
     context = _context(r"x^{2}-x-6=0", kind="меньший")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>Най­ди­те от­ри­ца­тель­ный ко­рень урав­не­ния '
+        "<p>Най­ди­те от­ри­ца­тель­ный ко­рень урав­не­ния "
         '<span data-inline-latex="x^{2}-x-6=0"></span>.</p>'
     )
 
@@ -152,7 +165,8 @@ def test_right_affine_quadratics_are_normalized_before_discriminant(
     plan = build_repair_plan(context, parent_condition_asset_id=None)
 
     assert plan.answer == expected
-    assert f"{formula}\\iff {normalized}" in _solution(plan)
+    assert f'data-inline-latex="{formula}"' in _solution(plan)
+    assert f'data-inline-latex="{normalized}"' in _solution(plan)
 
 
 @pytest.mark.parametrize(
@@ -166,12 +180,15 @@ def test_right_affine_quadratics_are_normalized_before_discriminant(
 def test_shifted_quadratics_select_the_requested_root(
     formula: str, kind: str, expected: str, normalized: str
 ) -> None:
-    plan = build_repair_plan(_shifted_context(formula, kind=kind), parent_condition_asset_id=None)
+    plan = build_repair_plan(
+        _shifted_context(formula, kind=kind), parent_condition_asset_id=None
+    )
 
     assert plan.answer == expected
     solution = _solution(plan)
-    assert f"{formula}\\iff {normalized}" in solution
-    assert solution.index(f"{formula}\\iff {normalized}") < solution.index("D=b^2-4ac")
+    assert f'data-inline-latex="{formula}"' in solution
+    assert f'data-inline-latex="{normalized}"' in solution
+    assert solution.index(normalized) < solution.index("D=b^2-4ac")
 
 
 @pytest.mark.parametrize(
@@ -185,12 +202,15 @@ def test_shifted_quadratics_select_the_requested_root(
 def test_transposed_quadratics_select_the_requested_root(
     formula: str, kind: str, expected: str, normalized: str
 ) -> None:
-    plan = build_repair_plan(_transposed_context(formula, kind=kind), parent_condition_asset_id=None)
+    plan = build_repair_plan(
+        _transposed_context(formula, kind=kind), parent_condition_asset_id=None
+    )
 
     assert plan.answer == expected
     solution = _solution(plan)
-    assert f"{formula}\\iff {normalized}" in solution
-    assert solution.index(f"{formula}\\iff {normalized}") < solution.index("D=b^2-4ac")
+    assert f'data-inline-latex="{formula}"' in solution
+    assert f'data-inline-latex="{normalized}"' in solution
+    assert solution.index(normalized) < solution.index("D=b^2-4ac")
 
 
 def test_non_square_discriminant_fails_closed() -> None:
@@ -209,11 +229,15 @@ def test_base_ege_group_26667_reuses_the_quadratic_selector() -> None:
     profile = get_group_profile("ege-base-26667")
 
     assert profile.source_group_id == "13690f80-628b-4848-b826-390378fb680a"
-    assert profile.content_rule_key == "elementary-equations-26667-quadratic-root-selector"
+    assert (
+        profile.content_rule_key == "elementary-equations-26667-quadratic-root-selector"
+    )
 
 
 def test_base_ege_group_506430_reuses_the_quadratic_selector() -> None:
     profile = get_group_profile("ege-base-506430")
 
     assert profile.source_group_id == "b1e4fe19-45b1-4959-a4d0-7dc1cc349a70"
-    assert profile.content_rule_key == "elementary-equations-26667-quadratic-root-selector"
+    assert (
+        profile.content_rule_key == "elementary-equations-26667-quadratic-root-selector"
+    )

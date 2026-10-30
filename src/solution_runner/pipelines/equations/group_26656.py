@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import re
+from dataclasses import dataclass
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from solution_runner.pipelines.core.numbers import format_answer, parse_rational
-
+from solution_runner.pipelines.core.numbers import (
+    format_answer,
+    format_latex_fraction,
+    parse_rational,
+)
 
 RULE = "irrational-26656-square-root-affine"
 
@@ -74,10 +77,26 @@ def build_repair_plan(formula: str) -> RepairPlan:
     answer = (c * c - a) / b
     squared = c * c
     rendered_answer = format_answer(answer, allow_latex_fraction=True)
-    first = f"{a} + {b}x={squared}"
+    radicand = formula[len(r"\sqrt{") :].rsplit("}=", 1)[0]
+    coefficient = "" if b == 1 else "-" if b == -1 else format_latex_fraction(b)
+    difference = format_latex_fraction(squared - a)
+    exact_answer = format_latex_fraction(answer)
+    steps = [
+        formula,
+        f"{radicand}=\\left({format_latex_fraction(c)}\\right)^{{2}}",
+        f"{radicand}={format_latex_fraction(squared)}",
+        f"{coefficient}x={difference}",
+        f"x={exact_answer}",
+    ]
+    if rendered_answer.replace(",", "{,}") != exact_answer:
+        steps.append(f"x={rendered_answer.replace(',', '{,}')}")
+    calculation = "".join(
+        f'<center><p><span data-inline-latex="{step}"></span>.</p></center>'
+        for step in steps
+    )
     solution = (
         "<p>Обе части уравнения неотрицательны, поэтому возведём их в квадрат:</p>"
-        f'<center><p><span data-inline-latex="{formula}\\iff {first}\\iff x={rendered_answer}"></span>.</p></center>'
+        f"{calculation}"
     )
     return RepairPlan(
         answer=rendered_answer,
@@ -169,13 +188,16 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     formula = str(spans[0].get("data-inline-latex") or "")
     formula_is_outside_introductory_paragraph = spans[0].parent.name != "p"
     spans[0].replace_with(formula)
-    visible = " ".join(
-        soup.get_text(" ", strip=True).replace("\u00ad", "").split()
-    )
+    visible = " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split())
     visible = re.sub(r"\s+([.])", r"\1", visible)
     if visible not in {
         f"{intro} {formula}{ending}"
-        for intro in ("Найдите корень уравнения", "Найдите корень уравнения:", "Решите уравнение", "Решите уравнение:")
+        for intro in (
+            "Найдите корень уравнения",
+            "Найдите корень уравнения:",
+            "Решите уравнение",
+            "Решите уравнение:",
+        )
         for ending in ("", ".")
     }:
         raise UnsupportedCondition("condition does not match group 26656")

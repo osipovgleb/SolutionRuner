@@ -1,32 +1,130 @@
-"""Equal-unit-fractions planner for group 315119."""
+"""Linear fraction equations with equal constant numerators or equal denominators."""
+
 from __future__ import annotations
-from fractions import Fraction
+
 import re
+from fractions import Fraction
 from typing import Any
+
 from bs4 import BeautifulSoup
-from ..triangles.isosceles.planner import _normalized_content,_section,_section_transformation
-from ..triangles.right.planner import RepairPlan,RightTrianglePlanError
-RULE='elementary-equations-315119-equal-unit-fractions'
-_F=re.compile(r'\\frac\{1\}\{(?P<a>-?\d*)x(?P<s>[+-])(?P<b>\d+)\}=\\frac\{1\}\{(?P<c>-?\d*)x(?P<t>[+-])(?P<d>\d+)\}')
-def build_repair_plan(context:dict[str,Any],*,parent_condition_asset_id:str|None,parent_solution_html:str='',current_asset_content_type:str|None=None)->RepairPlan:
- del parent_solution_html,current_asset_content_type
- if parent_condition_asset_id not in (None,''):raise RightTrianglePlanError('group 315119 must not have assets')
- x=_normalized_content(context);q=_section(x,'condition');ans=_section(x,'answer');sol=_section(x,'solution')
- if q is None or x.get('assets') or tuple(q.get('asset_keys') or ()):raise RightTrianglePlanError('condition incomplete')
- soup=BeautifulSoup(str(q.get('html') or ''),'html.parser');sp=soup.find_all('span')
- if len(sp)!=1 or sp[0].get_text(strip=True):raise RightTrianglePlanError('condition ambiguous')
- f=str(sp[0].get('data-inline-latex') or '');m=_F.fullmatch(f)
- if not m:raise RightTrianglePlanError('condition does not match group 315119')
- a=int(m['a'] or '1');b=int(m['b']) if m['s']=='+' else -int(m['b']);c=int(m['c'] or '1');d=int(m['d']) if m['t']=='+' else -int(m['d'])
- if a==c:raise RightTrianglePlanError('equal denominators')
- root=Fraction(d-b,a-c);excluded=Fraction(-d,c)
- if root==Fraction(-b,a) or root==excluded:raise RightTrianglePlanError('root violates domain')
- def n(v):return str(v.numerator) if v.denominator==1 else f'\\frac{{{v.numerator}}}{{{v.denominator}}}'
- def lin(k,s,z):return ('' if k==1 else '-' if k==-1 else str(k))+'x'+s+str(abs(z))
- left=lin(a,m['s'],b);right=lin(c,m['t'],d);out=n(root)
- h='<p>Если две дроби с рав­ны­ми чис­ли­те­ля­ми равны, то равны их зна­ме­на­те­ли. Имеем:</p>'+f'<center><p><span data-inline-latex="{f}\\iff \\begin{{cases}}{left}={right}\\\\{right}\\ne0\\end{{cases}}\\iff \\begin{{cases}}x={out}\\\\x\\ne{n(excluded)}\\end{{cases}}\\iff x={out}"></span>.</p></center>'
- ch=[]
- if sol is None or sol.get('html')!=h:ch.append(_section_transformation(sol,'solution','Решение',h))
- cur=BeautifulSoup(str(ans.get('html') if ans else ''),'html.parser').get_text('',strip=True).replace(' ','')
- if cur!=out:ch.append(_section_transformation(ans,'answer','Ответ',f'<p><span data-effect="spaced">{out}</span></p>'))
- return RepairPlan(answer=out,transformations=tuple(ch))
+
+from solution_runner.pipelines.core.numbers import format_answer, format_latex_fraction
+
+from .equation_conditions import read_equation_prompt
+from .exponential_affine import _parse_linear
+from .group_26656 import RepairPlan, _rewrite, _section
+
+RULE = "elementary-equations-315119-equal-unit-fractions"
+_FRACTIONS = re.compile(
+    r"\\frac\{(?P<ln>[^{}]+)\}\{(?P<ld>[^{}]+)\}="
+    r"\\frac\{(?P<rn>[^{}]+)\}\{(?P<rd>[^{}]+)\}"
+)
+
+
+class UnsupportedCondition(ValueError):
+    """Reject unsupported fraction forms before planning any changes."""
+
+
+def _affine(value: str) -> tuple[int, int]:
+    return (int(value), 0) if re.fullmatch(r"[+-]?\d+", value) else _parse_linear(value)
+
+
+def _solve(formula: str) -> RepairPlan:
+    match = _FRACTIONS.fullmatch(formula)
+    if match is None:
+        raise UnsupportedCondition("two affine fractions are required")
+    ln, ld, rn, rd = (_affine(match[key]) for key in ("ln", "ld", "rn", "rd"))
+    if ld == rd:
+        left, right = match["ln"], match["rn"]
+        left_values, right_values = ln, rn
+        introduction = (
+            "Если две дроби с равным знаменателем равны, то равны их числители. Имеем:"
+        )
+    elif ln == rn and ln[1] == 0 and ln[0] != 0:
+        left, right = match["ld"], match["rd"]
+        left_values, right_values = ld, rd
+        introduction = "Если две дроби с равными ненулевыми числителями равны, то равны их знаменатели. Имеем:"
+    else:
+        raise UnsupportedCondition(
+            "fractions need an equal denominator or an equal nonzero constant numerator"
+        )
+    constant = right_values[0] - left_values[0]
+    coefficient = left_values[1] - right_values[1]
+    if not coefficient:
+        raise UnsupportedCondition("fraction equation does not have a unique root")
+    root = Fraction(constant, coefficient)
+    if not (ld[0] + ld[1] * root) or not (rd[0] + rd[1] * root):
+        raise UnsupportedCondition("root violates the denominator domain")
+    domain = r"\\".join(dict.fromkeys((f"{match['ld']}\\ne 0", f"{match['rd']}\\ne 0")))
+    excluded = [
+        f"x\\ne {format_latex_fraction(Fraction(-c, k))}"
+        for c, k in dict.fromkeys((ld, rd))
+        if k
+    ]
+    exact = format_latex_fraction(root)
+    prefix = "" if coefficient == 1 else "-" if coefficient == -1 else str(coefficient)
+    steps = [
+        formula,
+        f"\\begin{{cases}}{left}={right}\\\\{domain}\\end{{cases}}",
+        f"\\begin{{cases}}{prefix}x={constant}\\\\{domain}\\end{{cases}}",
+    ]
+    if excluded:
+        steps.append(
+            f"\\begin{{cases}}x={exact}\\\\" + r"\\".join(excluded) + r"\end{cases}"
+        )
+    steps.append(f"x={exact}")
+    html = f"<p>{introduction}</p>" + "".join(
+        f'<center><p><span data-inline-latex="{step}"></span>.</p></center>'
+        for step in steps
+    )
+    return RepairPlan(
+        answer=format_answer(root, allow_latex_fraction=True),
+        condition_html="",
+        solution_html=html,
+    )
+
+
+def build_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_condition_asset_id: str | None,
+    parent_solution_html: str = "",
+    current_asset_content_type: str | None = None,
+) -> RepairPlan:
+    del parent_solution_html, current_asset_content_type
+    content = context.get("normalized_content")
+    if (
+        parent_condition_asset_id
+        or not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+        or content.get("assets")
+    ):
+        raise UnsupportedCondition("schema-v3 assetless content is required")
+    condition, answer, solution = (
+        _section(content, key) for key in ("condition", "answer", "solution")
+    )
+    if condition is None or condition.get("asset_keys"):
+        raise UnsupportedCondition("canonical condition is required")
+    planned = _solve(read_equation_prompt(str(condition.get("html") or "")))
+    changes = []
+    if solution is None or solution.get("html") != planned.solution_html:
+        changes.append(_rewrite(solution, "solution", "Решение", planned.solution_html))
+    current = BeautifulSoup(
+        str(answer.get("html") or "") if answer else "", "html.parser"
+    ).get_text("", strip=True)
+    if current != planned.answer:
+        changes.append(
+            _rewrite(
+                answer,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{planned.answer}</span></p>',
+            )
+        )
+    return RepairPlan(
+        answer=planned.answer,
+        condition_html=str(condition.get("html") or ""),
+        solution_html=planned.solution_html,
+        transformations=tuple(changes),
+    )

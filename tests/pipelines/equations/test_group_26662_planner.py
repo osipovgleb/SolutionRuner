@@ -6,25 +6,32 @@ from copy import deepcopy
 
 import pytest
 
+from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.equations.group_26662_planner import (
     RULE,
     build_repair_plan,
 )
 from solution_runner.pipelines.equations.group_26663_planner import (
     RULE as NEGATIVE_RULE,
+)
+from solution_runner.pipelines.equations.group_26663_planner import (
     build_repair_plan as build_negative_repair_plan,
 )
-from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.triangles.right.planner import (
     RightTrianglePlanError,
 )
-
 
 PARENT_ID = "20bfb2f5-1f08-40f0-b0e5-e678c7fbea3e"
 CHILD_ID = "8be7f38e-7bc4-42a6-8bd0-6d245c63251d"
 
 
-def _formula(numerator: int, denominator: int, whole: int, part_numerator: int, part_denominator: int) -> str:
+def _formula(
+    numerator: int,
+    denominator: int,
+    whole: int,
+    part_numerator: int,
+    part_denominator: int,
+) -> str:
     return rf"\frac{{{numerator}}}{{{denominator}}}x={whole}\frac{{{part_numerator}}}{{{part_denominator}}}"
 
 
@@ -51,7 +58,9 @@ def _context(
             "transformation_target_id": "section:condition:1",
             "title": "Условие",
             "asset_keys": [],
-            "html": _condition_html(formula, split_formula_from_paragraph=split_formula_from_paragraph),
+            "html": _condition_html(
+                formula, split_formula_from_paragraph=split_formula_from_paragraph
+            ),
         }
     ]
     if answer is not None:
@@ -115,7 +124,9 @@ def _materialize(context: dict, plan) -> dict:
     sections = result["normalized_content"]["sections"]
     for item in plan.transformations:
         key = item["transformation_target_id"].split(":")[1]
-        section = next((candidate for candidate in sections if candidate["key"] == key), None)
+        section = next(
+            (candidate for candidate in sections if candidate["key"] == key), None
+        )
         if section is None:
             sections.append(
                 {
@@ -150,7 +161,15 @@ def test_real_repair_child_rejoins_formula_to_one_condition_paragraph() -> None:
     assert condition == _condition_html(_formula(8, 9, 4, 4, 9))
     assert "</p> <span" not in condition
     assert "\n" not in condition
-    assert r"\frac{8}{9}x=4\frac{4}{9}\iff \frac{8}{9}x=\frac{40}{9}\iff 8x=40\iff x=5" in solution
+    assert all(
+        f'data-inline-latex="{step}"' in solution
+        for step in (
+            "\\frac{8}{9}x=4\\frac{4}{9}",
+            "\\frac{8}{9}x=\\frac{40}{9}",
+            "8x=40",
+            "x=5",
+        )
+    )
     assert r"\frac{4}{7}x=7\frac{3}{7}" not in solution
 
 
@@ -158,16 +177,40 @@ def test_second_audited_negative_form_preserves_signs_in_solution() -> None:
     context = _context("9679", r"-\frac{2}{5}x=-9\frac{1}{5}", answer="23")
 
     solution = _targets(_plan(context))["section:solution"]["value"]["html"]
-    assert r"-\frac{2}{5}x=-9\frac{1}{5}\iff -\frac{2}{5}x=-\frac{46}{5}\iff -2x=-46\iff x=23" in solution
+    assert all(
+        f'data-inline-latex="{step}"' in solution
+        for step in (
+            "-\\frac{2}{5}x=-9\\frac{1}{5}",
+            "-\\frac{2}{5}x=-\\frac{46}{5}",
+            "-2x=-46",
+            "x=23",
+        )
+    )
 
 
 def test_group_26663_accepts_the_audited_negative_root() -> None:
-    context = _context("9657", r"-\frac{5}{6}x=18\frac{1}{3}", answer="- 22", split_formula_from_paragraph=True)
+    context = _context(
+        "9657",
+        r"-\frac{5}{6}x=18\frac{1}{3}",
+        answer="- 22",
+        split_formula_from_paragraph=True,
+    )
     plan = build_negative_repair_plan(context, parent_condition_asset_id="")
 
     assert plan.answer == "-22"
-    assert r"-\frac{5}{6}x=18\frac{1}{3}\iff -\frac{5}{6}x=\frac{55}{3}\iff -5x=110\iff x=-22" in _targets(plan)["section:solution"]["value"]["html"]
-    assert _targets(plan)["section:condition:1"]["value"]["html"] == _condition_html(r"-\frac{5}{6}x=18\frac{1}{3}")
+    assert all(
+        f'data-inline-latex="{step}"'
+        in _targets(plan)["section:solution"]["value"]["html"]
+        for step in (
+            "-\\frac{5}{6}x=18\\frac{1}{3}",
+            "-\\frac{5}{6}x=\\frac{55}{3}",
+            "-5x=110",
+            "x=-22",
+        )
+    )
+    assert _targets(plan)["section:condition:1"]["value"]["html"] == _condition_html(
+        r"-\frac{5}{6}x=18\frac{1}{3}"
+    )
 
 
 def test_group_26663_profile_is_explicit() -> None:
@@ -200,7 +243,9 @@ def test_missing_malformed_and_wrong_answer_is_repaired(stored: str | None) -> N
     "html",
     [
         _condition_html(_formula(8, 9, 4, 4, 9)).replace("Най­ди­те", "Укажите", 1),
-        _condition_html(_formula(8, 9, 4, 4, 9)).replace(r"\frac{8}{9}", r"\frac{0}{9}"),
+        _condition_html(_formula(8, 9, 4, 4, 9)).replace(
+            r"\frac{8}{9}", r"\frac{0}{9}"
+        ),
         _condition_html(_formula(8, 9, 4, 4, 9)).replace("<p>", '<p class="other">'),
         _condition_html(_formula(8, 9, 4, 4, 9)).replace("</p>", "<br/></p>"),
     ],

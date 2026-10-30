@@ -8,9 +8,9 @@ its own smaller/larger-root instruction.
 
 from __future__ import annotations
 
+import re
 from fractions import Fraction
 from math import isqrt
-import re
 from typing import Any
 
 from bs4 import BeautifulSoup
@@ -18,16 +18,17 @@ from bs4 import BeautifulSoup
 from solution_runner.pipelines.core.numbers import format_answer, parse_rational
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
 
-
 RULE = "irrational-26668-square-root-negative-x"
 
 _FORMULA = re.compile(
     r"\\sqrt\{(?P<constant_sign>[+-]?)(?P<constant>[1-9]\d*)"
     r"(?P<linear_sign>[+-])(?P<coefficient>[1-9]\d*)?x\}=(?P<right_sign>[+-]?)x"
+    r"(?P<right_offset>[+-][1-9]\d*)?"
 )
 _CONDITION = re.compile(
-    r"Найдите корень уравнения:? (?P<formula>.+?)\s*\. "
-    r"Если уравнение имеет более одного корня, укажите (?P<choice>меньший|больший) из них\."
+    r"(?:Найдите корень уравнения|Решите уравнение):? (?P<formula>[^.]+?)\s*\.?"
+    r"(?: Если уравнение имеет более одного корня, (?:укажите|в ответе запишите) "
+    r"(?P<choice>меньший|больший) (?:из них|из корней)\.)?"
 )
 
 
@@ -42,7 +43,9 @@ def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
     return matches[0] if matches else None
 
 
-def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) -> dict[str, Any]:
+def _rewrite(
+    section: dict[str, Any] | None, key: str, title: str, html: str
+) -> dict[str, Any]:
     target = str((section or {}).get("transformation_target_id") or "")
     if not target:
         target = f"section:{key}"
@@ -56,17 +59,23 @@ def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) ->
 def _answer_matches(section: dict[str, Any] | None, expected: str) -> bool:
     if section is None:
         return False
-    visible = BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text("", strip=True)
+    visible = BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text(
+        "", strip=True
+    )
     try:
         return parse_rational(visible) == parse_rational(expected)
     except ValueError:
         return False
 
 
-def _condition_parts(condition_html: str) -> tuple[str, int, int, int, str]:
+def _condition_parts(condition_html: str) -> tuple[str, int, int, int, int, str | None]:
     soup = BeautifulSoup(condition_html, "html.parser")
     spans = soup.find_all("span")
-    if len(spans) != 1 or spans[0].get_text("", strip=True) or set(spans[0].attrs) != {"data-inline-latex"}:
+    if (
+        len(spans) != 1
+        or spans[0].get_text("", strip=True)
+        or set(spans[0].attrs) != {"data-inline-latex"}
+    ):
         raise UnsupportedCondition("condition equation is ambiguous")
     formula = str(spans[0].get("data-inline-latex") or "")
     spans[0].replace_with(formula)
@@ -84,23 +93,26 @@ def _condition_parts(condition_html: str) -> tuple[str, int, int, int, str]:
     if formula_match.group("linear_sign") == "-":
         coefficient = -coefficient
     right_sign = -1 if formula_match.group("right_sign") == "-" else 1
-    return formula, constant, coefficient, right_sign, match.group("choice")
+    offset = int(formula_match.group("right_offset") or "0")
+    return formula, constant, coefficient, right_sign, offset, match.group("choice")
 
 
 def _roots(
-    constant: int, coefficient: int, right_sign: int
+    constant: int, coefficient: int, right_sign: int, right_offset: int = 0
 ) -> tuple[tuple[Fraction, ...], tuple[Fraction, ...]]:
     """Solve ``x² - coefficient*x - constant = 0`` and enforce RHS sign."""
 
-    discriminant = coefficient * coefficient + 4 * constant
+    quadratic_linear = coefficient - 2 * right_sign * right_offset
+    quadratic_constant = constant - right_offset * right_offset
+    discriminant = quadratic_linear * quadratic_linear + 4 * quadratic_constant
     if discriminant < 0:
         raise UnsupportedCondition("quadratic has no real roots")
     square_root = isqrt(discriminant)
     if square_root * square_root != discriminant:
         raise UnsupportedCondition("quadratic roots are irrational")
-    numerators = (coefficient - square_root, coefficient + square_root)
+    numerators = (quadratic_linear - square_root, quadratic_linear + square_root)
     roots = tuple(sorted({Fraction(numerator, 2) for numerator in numerators}))
-    admissible = tuple(root for root in roots if right_sign * root >= 0)
+    admissible = tuple(root for root in roots if right_sign * root + right_offset >= 0)
     if not admissible:
         raise UnsupportedCondition("no root satisfies the right-hand-side sign")
     return roots, admissible
@@ -119,23 +131,35 @@ def _affine_latex(constant: int, coefficient: int) -> str:
 
 
 def _quadratic_latex(constant: int, coefficient: int) -> str:
-    return f"x^{{2}}{_signed_term(-coefficient, variable=True)}{_signed_term(-constant)}=0"
+    return (
+        f"x^{{2}}{_signed_term(-coefficient, variable=True)}{_signed_term(-constant)}=0"
+    )
 
 
 def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     """Adapt the audited parent structure to one child of group 26668."""
 
     content = context.get("normalized_content")
-    if not isinstance(content, dict) or content.get("format") != "teacherhelper-normalized" or content.get("schema_version") != 3:
+    if (
+        not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+    ):
         raise UnsupportedCondition("schema-v3 normalized content is required")
     if content.get("assets") not in (None, []):
         raise UnsupportedCondition("group 26668 does not allow assets")
-    condition, answer, solution = (_section(content, key) for key in ("condition", "answer", "solution"))
+    condition, answer, solution = (
+        _section(content, key) for key in ("condition", "answer", "solution")
+    )
     if condition is None or tuple(condition.get("asset_keys") or ()):
         raise UnsupportedCondition("canonical condition without assets is required")
 
-    formula, constant, coefficient, right_sign, choice = _condition_parts(str(condition.get("html") or ""))
-    roots, admissible = _roots(constant, coefficient, right_sign)
+    formula, constant, coefficient, right_sign, offset, choice = _condition_parts(
+        str(condition.get("html") or "")
+    )
+    roots, admissible = _roots(constant, coefficient, right_sign, offset)
+    if len(admissible) > 1 and choice is None:
+        raise UnsupportedCondition("multiple admissible roots require a root selector")
     selected = min(admissible) if choice == "меньший" else max(admissible)
     rendered_answer = format_answer(selected, allow_latex_fraction=True)
     roots_latex = r"\\".join(
@@ -144,25 +168,54 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     admissible_latex = r"\\".join(
         f"x={format_answer(root, allow_latex_fraction=True)}" for root in admissible
     )
-    sign_condition = "x\\ge 0" if right_sign > 0 else "x\\le 0"
-    rhs = "x" if right_sign > 0 else "-x"
+    bound = -right_sign * offset
+    sign_condition = f"x\\ge {bound}" if right_sign > 0 else f"x\\le {bound}"
+    rhs = formula.rsplit("=", 1)[1]
+    squared_rhs = "x^{2}" if offset == 0 else f"({rhs})^{{2}}"
+    quadratic = _quadratic_latex(
+        constant - offset * offset, coefficient - 2 * right_sign * offset
+    )
     final_step = (
         f"\\iff x={format_answer(admissible[0], allow_latex_fraction=True)}"
         if len(admissible) == 1
         else f"\\iff \\left[\\begin{{aligned}}{admissible_latex}\\end{{aligned}}\\right."
     )
-    conclusion = "" if len(admissible) == 1 else f"<p>{choice.capitalize()} корень равен {rendered_answer}.</p>"
+    conclusion = (
+        ""
+        if len(admissible) == 1
+        else f"<p>{choice.capitalize()} корень равен {rendered_answer}.</p>"
+    )
+    steps = (
+        formula,
+        f"\\iff \\begin{{cases}}{_affine_latex(constant, coefficient)}={squared_rhs}\\\\{rhs}\\ge 0\\end{{cases}}",
+        f"\\iff \\begin{{cases}}{quadratic}\\\\{sign_condition}\\end{{cases}}",
+        f"\\iff \\begin{{cases}}\\left[\\begin{{aligned}}{roots_latex}\\end{{aligned}}\\right.\\\\{sign_condition}\\end{{cases}}",
+        final_step,
+    )
     solution_html = (
-        "<p>Возведём в квадрат:</p>"
-        f'<center><p><span data-inline-latex="{formula}\\iff \\begin{{cases}}{_affine_latex(constant, coefficient)}=x^{{2}}\\\\{rhs}\\ge 0\\end{{cases}}'
-        f'\\iff \\begin{{cases}}{_quadratic_latex(constant, coefficient)}\\\\{sign_condition}\\end{{cases}}'
-        f'\\iff \\begin{{cases}}\\left[\\begin{{aligned}}{roots_latex}\\end{{aligned}}\\right.\\\\{sign_condition}\\end{{cases}}'
-        f'{final_step}"></span>.</p></center>'
-        f"{conclusion}"
+        "<p>Возведём в квадрат. Правая часть исходного уравнения должна быть "
+        "неотрицательной; сохраним это условие, чтобы исключить посторонние корни:</p>"
+        + "".join(
+            f'<center><p><span data-inline-latex="{step}"></span>.</p></center>'
+            for step in steps
+        )
+        + conclusion
     )
     changes: list[dict[str, Any]] = []
     if solution is None or str(solution.get("html") or "") != solution_html:
         changes.append(_rewrite(solution, "solution", "Решение", solution_html))
     if not _answer_matches(answer, rendered_answer):
-        changes.append(_rewrite(answer, "answer", "Ответ", f'<p><span data-effect="spaced">{rendered_answer}</span></p>'))
-    return RepairPlan(answer=rendered_answer, condition_html=str(condition.get("html") or ""), solution_html=solution_html, transformations=tuple(changes))
+        changes.append(
+            _rewrite(
+                answer,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{rendered_answer}</span></p>',
+            )
+        )
+    return RepairPlan(
+        answer=rendered_answer,
+        condition_html=str(condition.get("html") or ""),
+        solution_html=solution_html,
+        transformations=tuple(changes),
+    )

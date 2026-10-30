@@ -1,0 +1,117 @@
+"""Audited category-six bindings; each family is shared across groups."""
+
+from solution_runner.pipelines.core.profile_definitions import _profile
+
+PROFILES = tuple(
+    _profile(
+        key,
+        source_id,
+        order,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="6",
+        theme_title="Задания для подготовки",
+        theme_order_index=0,
+        snapshot_theme_id="d7af1f2a-dcb0-4225-8e5d-b27ba5c8e48a",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, source_id, order, rule in (
+        ("509373", "276e9626-b2b4-4ee1-8d12-1c14aa7c862b", 0, "statistics-moments"),
+        ("509353", "57f4331e-a8d9-433f-b294-e4eb40c17842", 1, "statistics-moments"),
+        ("638979", "0d2b34c2-8b47-4044-a88d-e80fa505186e", 2, "statistics-moments"),
+        (
+            "509393",
+            "7fdc16d9-4ee9-46ea-83f1-87fc0df51c1b",
+            3,
+            "statistics-waiting-times",
+        ),
+        ("509399", "fc221f48-3297-4928-b6cd-f7849b5c0786", 4, "statistics-moments"),
+        (
+            "509441",
+            "063b967e-48b1-42eb-9348-38d76cae2256",
+            5,
+            "statistics-waiting-times",
+        ),
+        (
+            "509444",
+            "cf163022-7e25-4876-aff9-7a53fc133d6a",
+            6,
+            "statistics-waiting-times",
+        ),
+        (
+            "509446",
+            "11e52956-9f95-4586-90b3-f82d2d2f3462",
+            7,
+            "statistics-waiting-times",
+        ),
+        (
+            "509448",
+            "b7728c20-07f8-4324-9fb8-198f505d004d",
+            8,
+            "statistics-waiting-times",
+        ),
+        (
+            "509450",
+            "a09931c4-1cda-4fb0-b1be-a8ac341b6314",
+            9,
+            "statistics-waiting-times",
+        ),
+        ("509479", "44d1fa7b-1de8-417e-920f-f6f031824b17", 10, "statistics-estimates"),
+        (
+            "509533",
+            "8f580c44-f378-4027-90eb-7b2f42067020",
+            11,
+            "statistics-euler-events",
+        ),
+        (
+            "509534",
+            "c37c269a-3392-4888-86cf-083853f9b977",
+            12,
+            "statistics-euler-events",
+        ),
+        ("663484", "3472f40b-77de-4aa4-b791-be1a1dbb2590", 13, "statistics-estimates"),
+        ("704605", "cb7d52c5-81a4-4eca-b077-56f48450e496", 14, "statistics-moments"),
+        ("509452", "1826786d-eb9e-4d08-b960-4d1934859dc4", 15, "statistics-estimates"),
+        ("509454", "e4af1ab6-5183-4e19-831c-64693fde197b", 16, "statistics-estimates"),
+        ("663479", "8786f105-874a-443a-978b-cfda8625fdaa", 17, "statistics-estimates"),
+        ("704651", "7e11cee1-f245-4442-b34f-981d4a4ba712", 18, "statistics-moments"),
+        ("704652", "85b3a7d6-d1b0-45c5-bbbc-79ee6464af54", 19, "statistics-moments"),
+        ("704653", "7e1bf768-5c44-4cae-bfef-d10d72e91494", 20, "statistics-moments"),
+        ("704654", "a80ce3e7-c899-4cb6-9b54-690c80a139e9", 21, "statistics-moments"),
+        ("704655", "72afaa50-84f4-451f-b600-c16802e2c187", 22, "statistics-moments"),
+        ("704656", "e312f24a-47f3-4eba-b960-a0a79de589ec", 23, "statistics-moments"),
+        ("704657", "fa3d0e81-3264-40f5-97d3-ab968b5d927a", 24, "statistics-moments"),
+        ("704659", "866e83cd-2ae1-4826-b083-46cef077ca1d", 25, "statistics-moments"),
+        (
+            "704660",
+            "5d8f9496-9493-4297-87e8-87f0b2f5205f",
+            26,
+            "statistics-symmetric-distribution",
+        ),
+        ("704661", "d747f18e-d3da-45eb-abed-d170b9268807", 27, "statistics-moments"),
+        ("704662", "3368e812-20d3-47d0-a50e-6934c8e97cd1", 28, "statistics-moments"),
+        ("704663", "0715c9b1-b424-48eb-a247-adf920975ca6", 29, "statistics-moments"),
+        (
+            "704664",
+            "32c18df8-fa2d-41a8-818b-e26081242c79",
+            30,
+            "statistics-waiting-times",
+        ),
+        (
+            "704665",
+            "cc330c82-605a-4e29-96c9-bae2950d5e38",
+            31,
+            "statistics-waiting-times",
+        ),
+        (
+            "704666",
+            "f8f7637e-46b7-4fe8-8679-f3b263172db8",
+            32,
+            "statistics-waiting-times",
+        ),
+        ("704667", "08d6fb93-2cc7-4375-bb7b-4b643e4a9641", 33, "statistics-estimates"),
+    )
+)

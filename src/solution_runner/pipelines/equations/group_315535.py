@@ -1,4 +1,5 @@
 r"""Plans for ``a^(log_b(affine x)) = c`` when ``b`` is a power of ``a``."""
+
 from __future__ import annotations
 
 import re
@@ -7,10 +8,20 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from solution_runner.pipelines.core.numbers import NumberFormatError, format_answer, format_latex_fraction
-from solution_runner.pipelines.equations.group_26646 import _section, _solution_signature
-from solution_runner.pipelines.equations.group_26650 import _linear_latex, _parse_linear, _rewrite
+from solution_runner.pipelines.core.numbers import (
+    NumberFormatError,
+    format_answer,
+    format_latex_fraction,
+)
+from solution_runner.pipelines.equations.group_26646 import (
+    _section,
+    _solution_signature,
+)
+from solution_runner.pipelines.equations.group_26650 import _parse_linear, _rewrite
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
+
+from .equation_conditions import read_equation_prompt
+from .solution_formatting import vertical_derivation
 
 RULE = "logarithm-315535-exponential-logarithm-affine"
 _INTEGER_BASE = r"(?:[2-9]|[1-9]\d+)"
@@ -76,23 +87,23 @@ def _build_plan(formula: str) -> RepairPlan:
     main_content = (
         '<p>Используя формулу <span data-inline-latex="a^{\\log_b c}=c^{\\log_b a}"></span>, получаем:</p>'
         f'<center><p><span data-inline-latex="{outer}^{{\\log_{log_base_latex} ({inner})}}={right}'
-        f'\\iff \\begin{{cases}}({inner})^{{\\log_{log_base_latex} {outer}}}={right}\\\\{inner}\\gt 0\\end{{cases}}'
-        f'\\quad \\iff ({inner})^{{{exponent}}}={right}'
+        f"\\iff \\begin{{cases}}({inner})^{{\\log_{log_base_latex} {outer}}}={right}\\\\{inner}\\gt 0\\end{{cases}}"
+        f"\\quad \\iff ({inner})^{{{exponent}}}={right}"
         f'\\iff {inner}={value}\\iff x={answer_latex}"></span>.</p></center>'
     )
     right_as_outer_power = _exact_power(right, outer)
     if right_as_outer_power is not None:
         alternative = (
             f'<center><p><span data-inline-latex="{outer}^{{\\log_{log_base_latex} ({inner})}}={right}'
-            f'\\iff {outer}^{{\\log_{log_base_latex} ({inner})}}={outer}^{{{right_as_outer_power}}}'
-            f'\\iff \\log_{log_base_latex} ({inner})={right_as_outer_power}'
-            f'\\iff {inner}={log_base_latex}^{{{right_as_outer_power}}}'
+            f"\\iff {outer}^{{\\log_{log_base_latex} ({inner})}}={outer}^{{{right_as_outer_power}}}"
+            f"\\iff \\log_{log_base_latex} ({inner})={right_as_outer_power}"
+            f"\\iff {inner}={log_base_latex}^{{{right_as_outer_power}}}"
             f'\\iff {inner}={value}\\iff x={answer_latex}"></span></p></center>'
         )
     else:
         alternative = (
             f'<center><p><span data-inline-latex="{outer}^{{\\log_{log_base_latex} ({inner})}}={right}'
-            f'\\iff {log_base_latex}^{{\\log_{log_base_latex} ({inner})}}={right}^{{{degree}}}'
+            f"\\iff {log_base_latex}^{{\\log_{log_base_latex} ({inner})}}={right}^{{{degree}}}"
             f'\\iff {inner}={value}\\iff x={answer_latex}"></span></p></center>'
         )
     solution = (
@@ -105,7 +116,9 @@ def _build_plan(formula: str) -> RepairPlan:
 
 
 def _normalize_formula(formula: str) -> str:
-    normalized = _PARENTHESIZED_BASE.sub(lambda m: f"\\log_{_base_latex(int(m.group('base')))}", formula)
+    normalized = _PARENTHESIZED_BASE.sub(
+        lambda m: f"\\log_{_base_latex(int(m.group('base')))}", formula
+    )
     match = _FORMULA.fullmatch(re.sub(r"\s+", "", normalized))
     if match and match.group("bare_inner"):
         base = int(match.group("log_base").strip("{}()"))
@@ -122,19 +135,45 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     if not condition:
         raise UnsupportedCondition("missing condition")
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
+    read_equation_prompt(
+        str(condition.get("html") or ""),
+        allow_selector=True,
+        error_type=UnsupportedCondition,
+    )
     spans = soup.find_all("span", attrs={"data-inline-latex": True})
     if len(spans) != 1:
         raise UnsupportedCondition("condition must have one formula")
     original = str(spans[0].get("data-inline-latex") or "")
     normalized = _normalize_formula(original)
     plan = _build_plan(re.sub(r"\s+", "", normalized))
-    answer_section, solution_section = _section(content, "answer"), _section(content, "solution")
+    solution_html = vertical_derivation(plan.solution_html)
+    answer_section, solution_section = (
+        _section(content, "answer"),
+        _section(content, "solution"),
+    )
     transformations: list[dict[str, Any]] = []
     if normalized != original:
         spans[0]["data-inline-latex"] = normalized
         transformations.append(_rewrite(condition, "condition", "Условие", str(soup)))
-    if not solution_section or _solution_signature(str(solution_section.get("html") or "")) != _solution_signature(plan.solution_html):
-        transformations.append(_rewrite(solution_section, "solution", "Решение", plan.solution_html))
-    if not answer_section or BeautifulSoup(str(answer_section.get("html") or ""), "html.parser").get_text(" ", strip=True) != plan.answer:
-        transformations.append(_rewrite(answer_section, "answer", "Ответ", f"<p>{plan.answer}</p>"))
-    return RepairPlan(answer=plan.answer, condition_html="", solution_html=plan.solution_html, transformations=tuple(transformations))
+    if not solution_section or _solution_signature(
+        str(solution_section.get("html") or "")
+    ) != _solution_signature(solution_html):
+        transformations.append(
+            _rewrite(solution_section, "solution", "Решение", solution_html)
+        )
+    if (
+        not answer_section
+        or BeautifulSoup(str(answer_section.get("html") or ""), "html.parser").get_text(
+            " ", strip=True
+        )
+        != plan.answer
+    ):
+        transformations.append(
+            _rewrite(answer_section, "answer", "Ответ", f"<p>{plan.answer}</p>")
+        )
+    return RepairPlan(
+        answer=plan.answer,
+        condition_html="",
+        solution_html=solution_html,
+        transformations=tuple(transformations),
+    )
