@@ -4,6 +4,18 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "calculus-graph-derivative-level",
+        "solution_runner.pipelines.calculus.graph_derivative_levels:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        asset_selector="solution_runner.pipelines.calculus.graph_derivative_levels:required_assets",
+        diagram_builder="solution_runner.pipelines.calculus.graph_derivative_levels:diagram_specs",
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+    ),
+    HandlerSpec(
         "calculus-graph-stationary-points",
         "solution_runner.pipelines.calculus.graph_stationary:build_context_repair_plan",
         inputs=(

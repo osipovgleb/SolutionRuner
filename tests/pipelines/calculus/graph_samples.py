@@ -38,7 +38,13 @@ def _apply_local(context, transformations):
     content = context["normalized_content"]
     for t in transformations:
         if t["transformation_target_id"].startswith("asset:"):
-            content["assets"].append(deepcopy(t["value"]))
+            if t["operation"] == "remove":
+                key = t["transformation_target_id"].removeprefix("asset:")
+                content["assets"] = [
+                    a for a in content["assets"] if a["asset_key"] != key
+                ]
+            else:
+                content["assets"].append(deepcopy(t["value"]))
             continue
         section = next(
             (
