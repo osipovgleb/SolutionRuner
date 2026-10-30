@@ -7,7 +7,9 @@ from bs4 import BeautifulSoup
 from .common import UnsupportedCondition, normalize, require_content
 
 
-def read(context, evidence, assets_dir, *, identifiers=()):
+def read(
+    context, evidence, assets_dir, *, identifiers=(), content_reader=require_content
+):
     content = context.get("normalized_content") or {}
     sections = content.get("sections") or []
     condition = next((s for s in sections if s.get("key") == "condition"), None)
@@ -53,7 +55,7 @@ def read(context, evidence, assets_dir, *, identifiers=()):
             "sections": [copied if s is condition else s for s in sections],
         },
     }
-    _, _, answer, solution, text = require_content(clean)
+    _, _, answer, solution, text = content_reader(clean)
     return content, condition, answer, solution, normalize(text), entry, source
 
 
