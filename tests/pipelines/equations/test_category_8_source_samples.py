@@ -119,10 +119,17 @@ def test_extra_instructions_cannot_be_discarded(case, leading):
 
 
 @pytest.mark.parametrize(
-    "case", [c for c in CASES if "unsupported_reason" in c], ids=lambda c: c["task"]
+    "case", [c for c in CASES if c.get("transcription_source")], ids=lambda c: c["task"]
 )
-def test_a_dangling_multiplication_is_not_repaired_by_guessing_an_operand(case):
+def test_an_unreviewed_dangling_operator_is_not_repaired_by_guessing(case):
     context = deepcopy(case["context"])
+    condition = next(
+        s for s in context["normalized_content"]["sections"] if s["key"] == "condition"
+    )
+    soup = BeautifulSoup(condition["html"], "html.parser")
+    formula = soup.select_one("[data-inline-latex]")
+    formula["data-inline-latex"] += r"\cdot"
+    condition["html"] = str(soup)
     original = deepcopy(context)
     with pytest.raises(ValueError):
         plan(case, context)

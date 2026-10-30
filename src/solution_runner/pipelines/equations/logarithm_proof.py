@@ -101,6 +101,32 @@ def _power_steps(node):
     return steps
 
 
+def _related_base_steps(node):
+    left, right = node.children
+    if (
+        left.kind != "log"
+        or right.kind != "log"
+        or left.children[1].value != right.children[1].value
+        or left.children[0].value == right.children[0].value
+    ):
+        return None
+    power = arithmetic.log_ratio(left.children[0].value, right.children[0].value)
+    if power.is_Rational is not True or power == 0 or node.value != power:
+        return None
+    coefficient = sp.latex(1 / power)
+    return [
+        right.children[0].text
+        + "=("
+        + left.children[0].text
+        + ")^{"
+        + sp.latex(power)
+        + "}",
+        right.text + "=(" + coefficient + ")(" + left.text + ")",
+        node.text + rf"=\frac{{{left.text}}}{{({coefficient})({left.text})}}",
+        rf"=\frac{{1}}{{{coefficient}}}={sp.latex(node.value)}",
+    ]
+
+
 def proof(node):
     match node.kind:
         case "scalar":
@@ -110,6 +136,9 @@ def proof(node):
         case "power":
             return _power_steps(node)
         case "divide":
+            related = _related_base_steps(node)
+            if related:
+                return related
             a, b = node.children
             if (
                 a.kind == b.kind == "power"

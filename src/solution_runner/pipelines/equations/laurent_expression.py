@@ -5,13 +5,13 @@ import sympy as sp
 from ..core.numbers import format_answer, format_latex_fraction
 from ..probability.common import UnsupportedCondition, finish, line
 from .calculation_input import read_calculation
-from .expression_repair import repair_terminal_product, with_condition_repair
+from .expression_repair import repair_expression_condition, with_condition_repair
 from .laurent_arithmetic import exact_value, latex, symbolic
 from .laurent_parser import LaurentParser
 
 
 def build_context_repair_plan(context):
-    prepared, change = repair_terminal_product(context)
+    prepared, change = repair_expression_condition(context)
     _content, condition, answer, solution, expression, parameters = read_calculation(
         prepared
     )

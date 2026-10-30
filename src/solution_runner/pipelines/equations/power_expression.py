@@ -9,8 +9,10 @@ import sympy as sp
 from ..core.numbers import format_answer, format_latex_fraction
 from ..probability.common import UnsupportedCondition, finish, line
 from .calculation_input import read_calculation
+from .expression_repair import with_condition_repair
 from .power_arithmetic import ScalarParser, clean, exact_value, totals
 from .power_parser import PowerParser
+from .verified_expression_repair import repair_verified_condition
 
 _NUMBER = r"\d+(?:\.\d+)?"
 _THREE = re.compile(
@@ -135,8 +137,9 @@ def _three_methods(expression, terms):
 
 
 def build_context_repair_plan(context, *, three_methods=False):
+    prepared, change = repair_verified_condition(context)
     _content, condition, answer, solution, expression, parameters = read_calculation(
-        context
+        prepared
     )
     bindings = parameters.bindings
     if parameters.definition or parameters.nonzero - parameters.positive:
@@ -154,4 +157,6 @@ def build_context_repair_plan(context, *, three_methods=False):
         value, html = _three_methods(expression, terms)
     else:
         value, html = _main_method(expression, terms, bindings, parameters.positive)
-    return finish(condition, answer, solution, format_answer(value), html)
+    return with_condition_repair(
+        finish(condition, answer, solution, format_answer(value), html), change
+    )

@@ -7,8 +7,10 @@ import sympy as sp
 from ..core.numbers import format_answer
 from ..probability.common import UnsupportedCondition, finish, line
 from .calculation_input import read_calculation
+from .expression_repair import with_condition_repair
 from .logarithm_parser import LogarithmParser
 from .logarithm_proof import walk
+from .verified_expression_repair import repair_verified_condition
 
 
 def _read(context):
@@ -120,7 +122,8 @@ def build_binomial_square_plan(context):
 
 
 def build_difference_square_plan(context):
-    condition, answer, solution, expression, node = _read(context)
+    prepared, change = repair_verified_condition(context)
+    condition, answer, solution, expression, node = _read(prepared)
     if node.kind != "root" or node.children[0].kind != "subtract":
         raise UnsupportedCondition(
             "the difference of squares must be entirely under the root"
@@ -152,10 +155,13 @@ def build_difference_square_plan(context):
         rf"({sp.latex(node.value)})^2={a * a - b * b},\quad {sp.latex(node.value)}\ge0"
     )
     html += line(expression + "=" + sp.latex(node.value))
-    return finish(
-        condition,
-        answer,
-        solution,
-        format_answer(Fraction(int(node.value.p), int(node.value.q))),
-        html,
+    return with_condition_repair(
+        finish(
+            condition,
+            answer,
+            solution,
+            format_answer(Fraction(int(node.value.p), int(node.value.q))),
+            html,
+        ),
+        change,
     )

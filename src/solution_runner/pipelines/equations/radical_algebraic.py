@@ -10,9 +10,11 @@ from ..probability.common import UnsupportedCondition, finish, line
 from ..triangles.isosceles.planner import _section
 from .calculation_input import read_calculation
 from .expression_condition import read_math_markup
+from .expression_repair import with_condition_repair
 from .laurent_arithmetic import symbolic
 from .laurent_parser import LaurentParser
 from .power_arithmetic import ScalarParser, clean
+from .verified_expression_repair import repair_verified_condition
 
 
 def build_nonzero_root_power_plan(context):
@@ -119,7 +121,8 @@ def build_upper_bound_plan(context):
 
 
 def build_interval_plan(context):
-    content, condition, formulas = _domain_question(context)
+    prepared, change = repair_verified_condition(context)
+    content, condition, formulas = _domain_question(prepared)
     domain = re.fullmatch(r"(-?\d+)\\le([a-z])\\le(-?\d+)", clean(formulas[1]))
     query = re.fullmatch(
         r"\\sqrt\{\((?P<v>[a-z])-(?P<a>\d+)\)\^\{2\}\}\+\\sqrt\{\((?P=v)-(?P<b>\d+)\)\^\{2\}\}",
@@ -145,10 +148,13 @@ def build_interval_plan(context):
     )
     html += line(rf"|{v}-{a}|={v}-{a},\quad |{v}-{b}|={b}-{v}")
     html += line(formulas[0] + rf"=({v}-{a})+({b}-{v})={b - a}")
-    return finish(
-        condition,
-        _section(content, "answer"),
-        _section(content, "solution"),
-        str(b - a),
-        html,
+    return with_condition_repair(
+        finish(
+            condition,
+            _section(content, "answer"),
+            _section(content, "solution"),
+            str(b - a),
+            html,
+        ),
+        change,
     )

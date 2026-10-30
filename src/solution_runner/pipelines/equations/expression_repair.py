@@ -13,6 +13,7 @@ from ..triangles.isosceles.planner import (
     _section_transformation,
 )
 from .expression_condition import read_math_markup
+from .verified_expression_repair import repair_verified_condition
 
 
 def _compact(text):
@@ -71,6 +72,11 @@ def repair_terminal_product(context):
     fixed["html"] = str(soup)
     change = _section_transformation(condition, "condition", "Условие", fixed["html"])
     return copied, change
+
+
+def repair_expression_condition(context):
+    prepared, change = repair_verified_condition(context)
+    return (prepared, change) if change else repair_terminal_product(context)
 
 
 def with_condition_repair(plan, change):
