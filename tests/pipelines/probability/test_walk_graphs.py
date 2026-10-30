@@ -10,6 +10,7 @@ import pytest
 from test_complex_source_samples import CASES, _plan
 
 from solution_runner.pipelines.probability.walk_graphs import (
+    build_context_repair_plan,
     forward_paths,
     svg_graph,
 )
@@ -97,7 +98,12 @@ def test_missing_or_incompatible_solution_figure_cannot_be_reused():
         if a["asset_key"] == "image_1"
     ]
     with pytest.raises(ValueError):
-        _plan(case, context)
+        build_context_repair_plan(
+            context,
+            condition_asset_bytes=(
+                ASSETS / "7ba4c5dd-126e-4116-9163-9088a61f4be4.svg"
+            ).read_bytes(),
+        )
 
 
 def test_parent_figure_position_and_two_of_four_roads_are_preserved():

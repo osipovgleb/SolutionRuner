@@ -151,3 +151,12 @@ HANDLERS += (
         inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "probability-random-walk",
+        "solution_runner.pipelines.probability.random_walk:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.probability.random_walk:required_assets",
+    ),
+)

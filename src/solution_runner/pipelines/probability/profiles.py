@@ -253,6 +253,10 @@ GROUPS = (
         "probability-knockout-tournament",
         (("508870", "44deeaa2-6c14-453b-87f3-8b744d73ef14", 9, 1),),
     ),
+    (
+        "probability-random-walk",
+        (("508876", "828ec65a-9877-44fb-9028-79207b28232f", 10, 1),),
+    ),
 )
 
 PROFILES += tuple(

@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 from bs4 import BeautifulSoup
 
+from solution_runner.pipelines.core.content_runtime import _with_required_assets
 from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.core.handlers import PlanInput
@@ -20,6 +21,7 @@ CASES = DATA["cases"]
 def _plan(case, context):
     profile = get_group_profile(case["group"])
     handler = get_handler(profile.content_rule_key)
+    context = _with_required_assets(context, profile.content_rule_key)
     generated = tuple(
         {
             "asset_key": spec["asset_key"],
@@ -111,7 +113,10 @@ def test_source_answer_and_input_are_preserved_independently(case):
             else []
         )
     assert set(keys) <= added | {
-        a["asset_key"] for a in context["normalized_content"]["assets"]
+        a["asset_key"]
+        for a in _with_required_assets(
+            context, get_group_profile(case["group"]).content_rule_key
+        )["normalized_content"]["assets"]
     }
 
 
