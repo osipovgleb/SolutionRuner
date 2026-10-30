@@ -491,3 +491,67 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+# Remaining radical methods.
+HANDLERS += (
+    HandlerSpec(
+        "algebraic-nonzero-root-power",
+        "solution_runner.pipelines.equations.radical_algebraic:build_nonzero_root_power_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-radical-difference-of-squares",
+        "solution_runner.pipelines.equations.radical_numeric:build_difference_square_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-radical-common-factor-ratio",
+        "solution_runner.pipelines.equations.radical_numeric:build_common_factor_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "numeric-radical-binomial-square-ratio",
+        "solution_runner.pipelines.equations.radical_numeric:build_binomial_square_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "algebraic-positive-radical-two-methods",
+        "solution_runner.pipelines.equations.radical_laurent:build_context_repair_plan",
+        options=(("two_methods", True),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "algebraic-positive-radical-expression",
+        "solution_runner.pipelines.equations.radical_laurent:build_context_repair_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "algebraic-odd-root-symmetric-ratio",
+        "solution_runner.pipelines.equations.radical_symmetry:build_symmetric_ratio_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "algebraic-odd-root-antisymmetric-sum",
+        "solution_runner.pipelines.equations.radical_symmetry:build_antisymmetric_sum_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "algebraic-square-root-with-upper-bound",
+        "solution_runner.pipelines.equations.radical_algebraic:build_upper_bound_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "algebraic-square-root-interval",
+        "solution_runner.pipelines.equations.radical_algebraic:build_interval_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+)

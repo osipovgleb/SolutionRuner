@@ -52,7 +52,14 @@ def power(poly, exponent, nonzero):
             return {}
         raise UnsupportedCondition("zero to a nonpositive power is undefined")
     if len(poly) != 1:
-        raise UnsupportedCondition("this power method raises monomials only")
+        if not 1 <= exponent <= 20:
+            raise UnsupportedCondition(
+                "polynomial powers need a small positive integer"
+            )
+        result = {(): Fraction(1)}
+        for _ in range(exponent):
+            result = multiply(result, poly)
+        return result
     key, coefficient = next(iter(poly.items()))
     if exponent <= 0:
         nonzero.update(names(poly))

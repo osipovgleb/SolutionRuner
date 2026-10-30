@@ -80,7 +80,9 @@ class LaurentParser:
     def _implicit(self):
         value = self._factor()
         while self.index < len(self.text) and (
-            self.text[self.index].islower() or self.text[self.index] == "("
+            self.text[self.index].islower()
+            or self.text[self.index] == "("
+            or self.text.startswith(r"\sqrt", self.index)
         ):
             if self.text[self.index] == "(" and self.text[self.index - 1].islower():
                 raise UnsupportedCondition(

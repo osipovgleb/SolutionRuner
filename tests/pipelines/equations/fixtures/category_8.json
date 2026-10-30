@@ -1127,6 +1127,114 @@
       "theme_order": 7,
       "order": 2,
       "rule": "algebraic-logarithm-monomial"
+    },
+    {
+      "key": "647129",
+      "uuid": "fe574866-2e9b-4529-83dd-baf1b191a264",
+      "theme_uuid": "f75f77ad-4e09-440b-b76e-b5aa4d91744c",
+      "theme_title": "Преобразования алгебраических выражений и дробей",
+      "theme_order": 1,
+      "order": 25,
+      "rule": "algebraic-integer-power-expression"
+    },
+    {
+      "key": "26832",
+      "uuid": "70b4d4ef-dbbf-40ca-8bbc-8369640a941c",
+      "theme_uuid": "ed7bc8b2-2ea6-445d-9ae1-01ae44a2cc7e",
+      "theme_title": "Действия со степенями",
+      "theme_order": 3,
+      "order": 11,
+      "rule": "algebraic-nonzero-root-power"
+    },
+    {
+      "key": "26735",
+      "uuid": "571011ea-045d-402b-b83e-5dcfe5b1905c",
+      "theme_uuid": "67b320b6-f12d-48d2-a116-42a97ae0972d",
+      "theme_title": "Преобразования числовых иррациональных выражений",
+      "theme_order": 4,
+      "order": 0,
+      "rule": "numeric-radical-difference-of-squares"
+    },
+    {
+      "key": "26744",
+      "uuid": "79143427-5128-4b38-be90-935c5d159546",
+      "theme_uuid": "67b320b6-f12d-48d2-a116-42a97ae0972d",
+      "theme_title": "Преобразования числовых иррациональных выражений",
+      "theme_order": 4,
+      "order": 4,
+      "rule": "numeric-radical-common-factor-ratio"
+    },
+    {
+      "key": "26750",
+      "uuid": "5c8c6804-da4b-4451-b0c2-ffcf728be255",
+      "theme_uuid": "67b320b6-f12d-48d2-a116-42a97ae0972d",
+      "theme_title": "Преобразования числовых иррациональных выражений",
+      "theme_order": 4,
+      "order": 7,
+      "rule": "numeric-radical-binomial-square-ratio"
+    },
+    {
+      "key": "26824",
+      "uuid": "1aba5937-f683-4e19-9893-4a951a7814ee",
+      "theme_uuid": "8432a8bb-2172-46e3-9e34-0239ff377a4f",
+      "theme_title": "Преобразования буквенных иррациональных выражений",
+      "theme_order": 5,
+      "order": 0,
+      "rule": "algebraic-positive-radical-two-methods"
+    },
+    {
+      "key": "26838",
+      "uuid": "1b2e554c-189b-4309-9d3a-28bf4768c32c",
+      "theme_uuid": "8432a8bb-2172-46e3-9e34-0239ff377a4f",
+      "theme_title": "Преобразования буквенных иррациональных выражений",
+      "theme_order": 5,
+      "order": 5,
+      "rule": "algebraic-positive-radical-expression"
+    },
+    {
+      "key": "26839",
+      "uuid": "c17a4d83-96e5-47b1-acdb-1fdcd55ba35c",
+      "theme_uuid": "8432a8bb-2172-46e3-9e34-0239ff377a4f",
+      "theme_title": "Преобразования буквенных иррациональных выражений",
+      "theme_order": 5,
+      "order": 6,
+      "rule": "algebraic-odd-root-symmetric-ratio"
+    },
+    {
+      "key": "26840",
+      "uuid": "87fdd91e-9697-45b2-85c1-bfe592d65c1d",
+      "theme_uuid": "8432a8bb-2172-46e3-9e34-0239ff377a4f",
+      "theme_title": "Преобразования буквенных иррациональных выражений",
+      "theme_order": 5,
+      "order": 7,
+      "rule": "algebraic-odd-root-antisymmetric-sum"
+    },
+    {
+      "key": "77388",
+      "uuid": "053ef3a6-9852-4b24-a336-4b90a0162b6e",
+      "theme_uuid": "8432a8bb-2172-46e3-9e34-0239ff377a4f",
+      "theme_title": "Преобразования буквенных иррациональных выражений",
+      "theme_order": 5,
+      "order": 8,
+      "rule": "algebraic-positive-radical-expression"
+    },
+    {
+      "key": "26829",
+      "uuid": "8ac2432b-483b-473b-bdab-6660f947a4f9",
+      "theme_uuid": "8432a8bb-2172-46e3-9e34-0239ff377a4f",
+      "theme_title": "Преобразования буквенных иррациональных выражений",
+      "theme_order": 5,
+      "order": 9,
+      "rule": "algebraic-square-root-with-upper-bound"
+    },
+    {
+      "key": "26830",
+      "uuid": "680c4b2a-186a-41b7-b317-c48c09995bd3",
+      "theme_uuid": "8432a8bb-2172-46e3-9e34-0239ff377a4f",
+      "theme_title": "Преобразования буквенных иррациональных выражений",
+      "theme_order": 5,
+      "order": 10,
+      "rule": "algebraic-square-root-interval"
     }
   ],
   "cases": [
@@ -21448,6 +21556,1995 @@
           }
         }
       }
+    },
+    {
+      "group": "647129",
+      "task": "647129",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(25x^{2}+9y^{2}-(5x+3y)^{2})\\colon (2xy)\"></span>  при <span data-inline-latex=\"x=17\\frac{5}{101}\"></span> , <span data-inline-latex=\"y=\\sqrt{305}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\frac{25x^{2}+9y^{2}-(5x+3y)^{2}}{2xy}=\\frac{25x^{2}+9y^{2}-25x^{2}-30xy-9y^{2}}{2xy}=-\\frac{30xy}{2xy}=-15\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "647129",
+      "task": "647149",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(16x^{2}+9y^{2}-(4x-3y)^{2})\\colon (-6xy)\"></span>  при <span data-inline-latex=\"x=15\\frac{7}{99}\"></span> , <span data-inline-latex=\"y=\\sqrt{317}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\frac{16x^{2}+9y^{2}-(4x-3y)^{2}}{-6xy}=\\frac{16x^{2}+9y^{2}-16x^{2}+24xy-9y^{2}}{-6xy}=-\\frac{24xy}{6xy}=-4\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "647129",
+      "task": "674925",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(4x^{2}+9y^{2}-(2x+3y)^{2})\\colon (6xy)\"></span>  при  <span data-inline-latex=\"x=\\frac{\\sqrt{7}}{4}\"></span> ,   <span data-inline-latex=\"y=1{,}81\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=81249043\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 11.02.2025 вариант МА2410309</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Упро­стим:</p><center><p><span> <span data-inline-latex=\"(4x^{2}+9y^{2}-(2x+3y)^{2})\\colon (6xy)=(4x^{2}+9y^{2}-(4x^{2}+12xy+9y^{2}))\\colon (6xy)=(-12xy)\\colon (6xy)=-2\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "647129",
+      "task": "674964",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(x^{2}+9y^{2}-(x-3y)^{2})\\colon (-6xy)\"></span>  при  <span data-inline-latex=\"x=\\frac{\\sqrt{5}}{6}\"></span> ,   <span data-inline-latex=\"y=0{,}38\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=81257590\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 11.02.2025 вариант МА2410310</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Упро­стим:</p><center><p><span> <span data-inline-latex=\"(x^{2}+9y^{2}-(x-3y)^{2})\\colon (-6xy)=(x^{2}+9y^{2}-x^{2}+6xy-9y^{2})\\colon (-6xy)=6xy\\colon (-6xy)=-1\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26832",
+      "task": "26832",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(\\sqrt[3]{7a^{2}})^{6}}{a^{4}}\"></span>  при <span data-inline-latex=\"a\\ne 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">49</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{(\\sqrt[3]{7a}^{2})^{6}}{a^{4}}=\\frac{(7a^{2})^{\\frac{6}{3}}}{a^{4}}=\\frac{(7a^{2})^{2}}{a^{4}}=\\frac{7^{2}a^{4}}{a^{4}}=49\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26832",
+      "task": "67731",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(\\sqrt{5a^{2}})^{8}}{a^{8}}\"></span>  при <span data-inline-latex=\"a\\ne 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">625</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{(\\sqrt{5a}^{2})^{8}}{a^{8}}=\\frac{(5a^{2})^{\\frac{8}{2}}}{a^{8}}=\\frac{(5a^{2})^{4}}{a^{8}}=\\frac{5^{4}a^{8}}{a^{8}}=625\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26832",
+      "task": "67807",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(\\sqrt[5]{24a^{2}})^{10}}{a^{4}}\"></span>  при <span data-inline-latex=\"a\\ne 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">576</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{(\\sqrt[5]{24a}^{2})^{10}}{a^{4}}=\\frac{(24a^{2})^{\\frac{10}{5}}}{a^{4}}=\\frac{(24a^{2})^{2}}{a^{4}}=\\frac{24^{2}a^{4}}{a^{4}}=576\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26832",
+      "task": "67733",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(\\sqrt[3]{22a^{2}})^{6}}{a^{4}}\"></span>  при <span data-inline-latex=\"a\\ne 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">484</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26735",
+      "task": "26735",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\sqrt{65}^{2}-56^{2}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">33</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p> <span data-inline-latex=\"\\sqrt{65}^{2}-56^{2}=\\sqrt{(65+56)(65-56)}=\\sqrt{121\\cdot 9}=11\\cdot 3=33\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "unsupported_reason": "Корень в условии охватывает только 65, а не разность квадратов; источник повторяет противоречивую запись."
+    },
+    {
+      "group": "26735",
+      "task": "16789",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния:  <span data-inline-latex=\"\\sqrt{548^{2}-420^{2}}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">352</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\sqrt{548}^{2}-420^{2}=\\sqrt{(548+420)(548-420)}=\\sqrt{968\\cdot 128}=\\sqrt{484\\cdot 256}=22\\cdot 16=352\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26735",
+      "task": "16791",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния:   <span data-inline-latex=\"\\sqrt{610^{2}-448^{2}}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">414</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\sqrt{610}^{2}-448^{2}=\\sqrt{(610+448)(610-448)}=\\sqrt{1058\\cdot 162}=\\sqrt{529\\cdot 324}=23\\cdot 18=414\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26735",
+      "task": "16797",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния:  <span data-inline-latex=\"\\sqrt{754^{2}-304^{2}}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">690</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\sqrt{754}^{2}-304^{2}=\\sqrt{(754+304)(754-304)}=\\sqrt{1058\\cdot 450}=\\sqrt{529\\cdot 900}=\\sqrt{23^{2}\\cdot 30^{2}}=23\\cdot 30=690\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26744",
+      "task": "26744",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(\\sqrt{3\\frac{6}{7}}-\\sqrt{1\\frac{5}{7}})\\colon \\sqrt{\\frac{3}{28}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p><span> <span data-inline-latex=\"(\\sqrt{3\\frac{6}{7}}-\\sqrt{1\\frac{5}{7}})\\colon \\sqrt{\\frac{3}{28}}=(\\sqrt{\\frac{27}{7}}-\\sqrt{\\frac{12}{7}})\\colon \\sqrt{\\frac{3}{28}}=\\frac{(3\\sqrt{3}-2\\sqrt{3})\\cdot 2\\sqrt{7}}{\\sqrt{7}\\cdot \\sqrt{3}}=2\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26744",
+      "task": "62205",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(\\sqrt{2\\frac{2}{5}}-\\sqrt{5\\frac{2}{5}})\\colon \\sqrt{\\frac{3}{20}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p><span><span data-inline-latex=\"\\left(\\sqrt{2\\frac{2}{5}}-\\sqrt{5\\frac{2}{5}}\\right):\\sqrt{\\frac{3}{20}}=\\left(\\sqrt{\\frac{12}{5}}-\\sqrt{\\frac{27}{5}}\\right):\\sqrt{\\frac{3}{20}}=\\frac{2\\sqrt{3}-3\\sqrt{3}}{\\sqrt{5}}\\cdot\\frac{2\\sqrt{5}}{\\sqrt{3}}=-2.\"></span></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26744",
+      "task": "62251",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(\\sqrt{2\\frac{4}{7}}-\\sqrt{7\\frac{1}{7}})\\colon \\sqrt{\\frac{2}{63}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p><span> <span data-inline-latex=\"(\\sqrt{2\\frac{4}{7}}-\\sqrt{7\\frac{1}{7}})\\colon \\sqrt{\\frac{2}{63}}=(\\sqrt{\\frac{18}{7}}-\\sqrt{\\frac{50}{7}})\\cdot \\frac{\\sqrt{63}}{\\sqrt{2}}=\\frac{(3\\sqrt{2}-5\\sqrt{2})\\cdot 3\\sqrt{7}}{\\sqrt{7}\\cdot \\sqrt{2}}=\\frac{(9\\sqrt{14}-15\\sqrt{14})}{\\sqrt{14}}=\\frac{\\sqrt{14}(9-15)}{\\sqrt{14}}=9-15=-6\"></span> </span> </p><p> </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26744",
+      "task": "530668",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"(\\sqrt{6\\frac{3}{7}}-\\sqrt{2\\frac{6}{7}})\\colon \\sqrt{\\frac{5}{63}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p><span> <span data-inline-latex=\"(\\sqrt{6\\frac{3}{7}}-\\sqrt{2\\frac{6}{7}})\\colon \\sqrt{\\frac{5}{63}}=(\\sqrt{\\frac{45}{7}}-\\sqrt{\\frac{20}{7}})\\colon \\sqrt{\\frac{5}{63}}=\\frac{(3\\sqrt{5}-2\\sqrt{5})\\cdot 3\\sqrt{7}}{\\sqrt{7}\\cdot \\sqrt{5}}=3\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26750",
+      "task": "26750",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(\\sqrt{13}+\\sqrt{7})^{2}}{10+\\sqrt{91}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{(\\sqrt{13}+\\sqrt{7})^{2}}{10+\\sqrt{91}}=\\frac{13+2\\sqrt{91}+7}{10+\\sqrt{91}}=\\frac{20+2\\sqrt{91}}{10+\\sqrt{91}}=\\frac{2(10+\\sqrt{91})}{10+\\sqrt{91}}=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26750",
+      "task": "26751",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(3\\sqrt{5}-\\sqrt{3})^{2}}{8-\\sqrt{15}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{(3\\sqrt{5}-\\sqrt{3})^{2}}{8-\\sqrt{15}}=\\frac{45-6\\sqrt{15}+3}{8-\\sqrt{15}}=\\frac{48-6\\sqrt{15}}{8-\\sqrt{15}}=\\frac{6(8-\\sqrt{15})}{8-\\sqrt{15}}=6\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26750",
+      "task": "62647",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(\\sqrt{12}+\\sqrt{8})^{2}}{10+\\sqrt{96}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{(\\sqrt{12}+\\sqrt{8})^{2}}{10+\\sqrt{96}}=\\frac{12+2\\sqrt{96}+8}{10+\\sqrt{96}}=\\frac{20+2\\sqrt{96}}{10+\\sqrt{96}}=\\frac{2\\cdot (10+\\sqrt{96})}{10+\\sqrt{96}}=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26750",
+      "task": "541256",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{(\\sqrt{3}+\\sqrt{11})^{2}}{7+\\sqrt{33}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{(\\sqrt{3}+\\sqrt{11})^{2}}{7+\\sqrt{33}}=\\frac{3+2\\sqrt{33}+11}{7+\\sqrt{33}}=\\frac{14+2\\sqrt{33}}{7+\\sqrt{33}}=\\frac{2\\cdot (7+\\sqrt{33})}{7+\\sqrt{33}}=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26824",
+      "task": "26824",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{5\\sqrt{x}+2}{\\sqrt{x}}-\\frac{2\\sqrt{x}}{x}\"></span>  при <span data-inline-latex=\"x\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p> <span data-inline-latex=\"\\frac{5\\sqrt{x}+2}{\\sqrt{x}}-\\frac{2\\sqrt{x}}{x}=\\frac{5\\sqrt{x}+2}{\\sqrt{x}}-\\frac{2\\sqrt{x}}{\\sqrt{x}\\cdot \\sqrt{x}}=\\frac{5x+2\\sqrt{x}-2\\sqrt{x}}{x}=5\"></span>.  </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Пусть <span data-inline-latex=\"a=\\sqrt{x}\"></span> , тогда <span data-inline-latex=\"a^{2}=x\"></span>. Упро­стим:</p><center><p> <span data-inline-latex=\"\\frac{5a+2}{a}-\\frac{2a}{a^{2}}=\\frac{5a+2}{a}-\\frac{2}{a}=\\frac{5a+2-2}{a}=\\frac{5a}{a}=5\"></span>. </p></center><p>По­лу­чен­ное вы­ра­же­ние не за­ви­сит от <i>а</i>, по­это­му ис­ход­ное вы­ра­же­ние равно 5.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26824",
+      "task": "67233",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{8\\sqrt{x}-2}{\\sqrt{x}}+\\frac{2\\sqrt{x}}{x}\"></span>  при <span data-inline-latex=\"x\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{8\\sqrt{x}-2}{\\sqrt{x}}+\\frac{2\\sqrt{x}}{x}=\\frac{8x-2\\sqrt{x}+2\\sqrt{x}}{x}=8\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26824",
+      "task": "67277",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{5\\sqrt{x}-2}{\\sqrt{x}}+\\frac{2\\sqrt{x}}{x}\"></span>  при <span data-inline-latex=\"x\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{5\\sqrt{x}-2}{\\sqrt{x}}+\\frac{2\\sqrt{x}}{x}=\\frac{5x-2\\sqrt{x}+2\\sqrt{x}}{x}=5\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26824",
+      "task": "67281",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{7\\sqrt{x}-5}{\\sqrt{x}}+\\frac{5\\sqrt{x}}{x}\"></span>  при <span data-inline-latex=\"x\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{7\\sqrt{x}-5}{\\sqrt{x}}+\\frac{5\\sqrt{x}}{x}=\\frac{7\\sqrt{x}-5}{\\sqrt{x}}+\\frac{5}{\\sqrt{x}}=\\frac{7\\sqrt{x}-5+5}{\\sqrt{x}}=\\frac{7\\sqrt{x}}{\\sqrt{x}}=7\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26838",
+      "task": "26838",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{15\\sqrt[5]{\\sqrt[28]{a}}-7\\sqrt[7]{\\sqrt[20]{a}}}{2\\sqrt[35]{\\sqrt[4]{a}}}\"></span>  при <span data-inline-latex=\"a\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{15\\sqrt[5]{\\sqrt[28]{a}}-7\\sqrt[7]{\\sqrt[20]{a}}}{2\\sqrt[35]{\\sqrt[4]{a}}}=\\frac{15\\sqrt[140]{a}-7\\sqrt[140]{a}}{2\\sqrt[140]{a}}=\\frac{8\\sqrt[140]{a}}{2\\sqrt[140]{a}}=\\frac{8}{2}=4\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26838",
+      "task": "68045",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{12\\sqrt[6]{\\sqrt[21]{a}}-4\\sqrt[7]{\\sqrt[18]{a}}}{4\\sqrt[3]{\\sqrt[42]{a}}}\"></span>  при <span data-inline-latex=\"a\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пе­робра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{12\\sqrt[6]{\\sqrt[21]{a}}-4\\sqrt[7]{\\sqrt[18]{a}}}{4\\sqrt[3]{\\sqrt[42]{a}}}=\\frac{12\\sqrt[126]{a}-4\\sqrt[126]{a}}{4\\sqrt[126]{a}}=\\frac{8\\sqrt[126]{a}}{4\\sqrt[126]{a}}=\\frac{8}{4}=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26838",
+      "task": "68091",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{9\\sqrt[7]{\\sqrt[15]{a}}-6\\sqrt[3]{\\sqrt[35]{a}}}{6\\sqrt[5]{\\sqrt[21]{a}}}\"></span>  при <span data-inline-latex=\"a\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p> <span data-inline-latex=\"\\frac{9\\sqrt[7]{\\sqrt[15]{a}}-6\\sqrt[3]{\\sqrt[35]{a}}}{6\\sqrt[5]{\\sqrt[21]{a}}}=\\frac{9\\sqrt[105]{a}-6\\sqrt[105]{a}}{6\\sqrt[105]{a}}=\\frac{3\\sqrt[105]{a}}{6\\sqrt[105]{a}}=\\frac{1}{2}=0{,}5\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26838",
+      "task": "68047",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{12\\sqrt[7]{\\sqrt[20]{a}}-9\\sqrt[4]{\\sqrt[35]{a}}}{15\\sqrt[5]{\\sqrt[28]{a}}}\"></span>  при <span data-inline-latex=\"a\\gt 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26839",
+      "task": "26839",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те  <span data-inline-latex=\"\\frac{g(2-x)}{g(2+x)}\"></span> ,  если <span data-inline-latex=\"g(x)=\\sqrt[3]{x(4-x)}\"></span>  при <span data-inline-latex=\"\\left|x\\right|\\ne 2\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­ка­жем, что чис­ли­тель дроби равен зна­ме­на­те­лю:</p><center><p><span data-inline-latex=\"g(2-x)=\\sqrt[3]{(2-x)(4-(2-x))}=\\sqrt[3]{(2-x)(2+x)}\"></span> , <br/><span data-inline-latex=\"g(2+x)=\\sqrt[3]{(2+x)(4-(2+x))}=\\sqrt[3]{(2+x)(2-x)}\"></span> . </p><p></p></center><p>Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"\\frac{g(2-x)}{g(2+x)}=\\frac{\\sqrt[3]{(2-x)(2+x)}}{\\sqrt[3]{(2+x)(2-x)}}=1\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26839",
+      "task": "68137",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те  <span data-inline-latex=\"\\frac{g(11-x)}{g(11+x)}\"></span> ,  если  <span data-inline-latex=\"g(x)=\\sqrt[7]{x(22-x)}\"></span> , при  <span data-inline-latex=\"\\left|x\\right|\\ne 11\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­ка­жем, что чис­ли­тель дроби равен зна­ме­на­те­лю:</p><center><p> <span data-inline-latex=\"g(11-x)=\\sqrt[7]{(11-x)(22-(11-x))}=\\sqrt[7]{(11-x)(11+x)}\"></span> ,<br/> <span data-inline-latex=\"g(11+x)=\\sqrt[7]{(11+x)(22-(11+x))}=\\sqrt[7]{(11+x)(11-x)}\"></span> .</p><p></p></center><p>Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"\\frac{g(11-x)}{g(11+x)}=\\frac{\\sqrt[7]{(11-x)(11+x)}}{\\sqrt[7]{(11+x)(11-x)}}=1\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26839",
+      "task": "68141",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те  <span data-inline-latex=\"\\frac{g(3-x)}{g(3+x)}\"></span> ,  если <span data-inline-latex=\"g(x)=\\sqrt[11]{x(6-x)}\"></span> , при <span data-inline-latex=\"\\left|x\\right|\\ne 3\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­ка­жем, что чис­ли­тель дроби равен зна­ме­на­те­лю:</p><center><p><span data-inline-latex=\"g(3-x)=\\sqrt[11]{(3-x)(6-(3-x))}=\\sqrt[11]{(3-x)(3+x)}\"></span> , <br/><span data-inline-latex=\"g(3+x)=\\sqrt[11]{(3+x)(6-(3+x))}=\\sqrt[11]{(3+x)(3-x)}\"></span> . </p><p></p></center><p>Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"\\frac{g(3-x)}{g(3+x)}=1\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26839",
+      "task": "68093",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те  <span data-inline-latex=\"\\frac{g(7-x)}{g(7+x)}\"></span> ,  если <span data-inline-latex=\"g(x)=\\sqrt[7]{x(14-x)}\"></span> , при <span data-inline-latex=\"\\left|x\\right|\\ne 7\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26840",
+      "task": "26840",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те <span data-inline-latex=\"h(5+x)+h(5-x)\"></span> , если <span data-inline-latex=\"h(x)=\\sqrt[3]{x}+\\sqrt[3]{x-10}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Под­ста­вим ар­гу­мен­ты в фор­му­лу, за­да­ю­щую функ­цию:</p><center><p><span data-inline-latex=\"h(5+x)=\\sqrt[3]{x+5}+\\sqrt[3]{5+x-10}=\\sqrt[3]{x+5}+\\sqrt[3]{x-5}\"></span> ;<br/><span data-inline-latex=\"h(5-x)=\\sqrt[3]{5-x}+\\sqrt[3]{5-x-10}=-\\sqrt[3]{x-5}-\\sqrt[3]{x+5}\"></span> .</p><p></p></center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"h(5+x)+h(5-x)=0\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26840",
+      "task": "68143",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те <span data-inline-latex=\"h(3+x)+h(3-x)\"></span> , если <span data-inline-latex=\"h(x)=\\sqrt[9]{x}+\\sqrt[9]{x-6}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Под­ста­вим ар­гу­мен­ты в фор­му­лу, за­да­ю­щую функ­цию:</p><center><p><span data-inline-latex=\"h(3+x)=\\sqrt[9]{3+x}+\\sqrt[9]{3+x-6}=\\sqrt[9]{3+x}+\\sqrt[9]{x-3}\"></span> ;<br/><span data-inline-latex=\"h(3-x)=\\sqrt[9]{3-x}+\\sqrt[9]{3-x-6}=-\\sqrt[9]{x-3}-\\sqrt[9]{x+3}\"></span> .</p><p></p></center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"h(3+x)+h(3-x)=0\"></span>.<span data-effect=\"spaced\"></span></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26840",
+      "task": "68191",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те <span data-inline-latex=\"h(5+x)+h(5-x)\"></span> , если <span data-inline-latex=\"h(x)=\\sqrt[11]{x}+\\sqrt[11]{x-10}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Под­ста­вим ар­гу­мен­ты в фор­му­лу, за­да­ю­щую функ­цию: </p><center><p><span data-inline-latex=\"h(5+x)=\\sqrt[11]{x+5}+\\sqrt[11]{5+x-10}=\\sqrt[11]{x+5}+\\sqrt[11]{x-5}\"></span> ;<br/><span data-inline-latex=\"h(5-x)=\\sqrt[11]{5-x}+\\sqrt[11]{5-x-10}=-\\sqrt[11]{x-5}-\\sqrt[11]{x+5}\"></span> .</p><p></p> </center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"h(5+x)+h(5-x)=0\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26840",
+      "task": "68145",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те <span data-inline-latex=\"h(2+x)+h(2-x)\"></span> , если <span data-inline-latex=\"h(x)=\\sqrt[9]{x}+\\sqrt[9]{x-4}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "77388",
+      "task": "77388",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{7\\sqrt{x}-5}{\\sqrt{x}}+\\frac{5\\sqrt{x}}{x}+3x-4\"></span>  при <span data-inline-latex=\"x=3\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку  <span data-inline-latex=\"\\frac{\\sqrt{x}}{x}=\\frac{1}{\\sqrt{x}}\"></span> ,  имеем: </p><center><p><span> <span data-inline-latex=\"\\frac{7\\sqrt{x}-5}{\\sqrt{x}}+\\frac{5}{\\sqrt{x}}+3x-4=\\frac{7\\sqrt{x}-5+5}{\\sqrt{x}}+3x-4=7+3x-4=3x+3=12\"></span> </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "77388",
+      "task": "85485",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{2\\sqrt{x}+3}{\\sqrt{x}}-\\frac{3\\sqrt{x}}{x}-x+5\"></span>  при <span data-inline-latex=\"x=3\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку  <span data-inline-latex=\"\\frac{\\sqrt{x}}{x}=\\frac{1}{\\sqrt{x}}\"></span> ,  имеем: </p><center><p><span> <span data-inline-latex=\"\\frac{2\\sqrt{x}+3}{\\sqrt{x}}-\\frac{3\\sqrt{x}}{x}-x+5=\\frac{2x+3\\sqrt{x}-3\\sqrt{x}}{x}-x+5=2-x+5=-x+7=4\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "77388",
+      "task": "85499",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{4\\sqrt{x}+3}{\\sqrt{x}}-\\frac{3\\sqrt{x}}{x}-3x+2\"></span>  при <span data-inline-latex=\"x=2\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­ме­тим, что  <span data-inline-latex=\"\\frac{3\\sqrt{x}}{x}=\\frac{3}{\\sqrt{x}}\"></span>  и упро­стим вы­ра­же­ние:</p><center><p><span><span data-inline-latex=\"\\frac{4\\sqrt{x}+3}{\\sqrt{x}}-\\frac{3\\sqrt{x}}{x}-3x+2=\\frac{4\\sqrt{x}}{\\sqrt{x}}+\\frac{3}{\\sqrt{x}}-\\frac{3}{\\sqrt{x}}-3x+2=4-3x+2=6-3x.\"></span></span></p></center><p>При <i>x</i>  =  2 по­лу­чен­ное вы­ра­же­ние, а вме­сте с ним и ис­ход­ное, равны 0.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "77388",
+      "task": "85983",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\frac{4\\sqrt{x}-1}{\\sqrt{x}}+\\frac{\\sqrt{x}}{x}+4x+5\"></span>  при <span data-inline-latex=\"x=1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>По­сколь­ку  <span data-inline-latex=\"\\frac{\\sqrt{x}}{x}=\\frac{1}{\\sqrt{x}}\"></span> ,  имеем: </p><center><p><span> <span data-inline-latex=\"\\frac{4\\sqrt{x}-1}{\\sqrt{x}}+\\frac{1}{\\sqrt{x}}+4x+5=\\frac{4\\sqrt{x}-1+1}{\\sqrt{x}}+4x+5=4+4x+5=9+4x=13\"></span>. </span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>По усло­вию <span data-inline-latex=\"x=1\"></span>, по­это­му  <span data-inline-latex=\"\\sqrt{x}=1\"></span>. Тогда имеем:</p><center><p> <span data-inline-latex=\"\\frac{4-1}{1}+\\frac{1}{1}+4+5=13\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26829",
+      "task": "26829",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния <span data-inline-latex=\"x+\\sqrt{x^{2}-4x+4}\"></span>  при <span data-inline-latex=\"x\\le 2\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p><span data-inline-latex=\"x+\\sqrt{x}^{2}-4x+4=x+\\sqrt{(x-2)}^{2}=x+\\left|x-2\\right|\"></span>.</p></center><p>При <span data-inline-latex=\"x\\le 2\"></span> имеем <span data-inline-latex=\"\\left|x-2\\right|=2-x\"></span>. Тогда <span data-inline-latex=\"x+\\left|x-2\\right|=x+2-x=2\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26829",
+      "task": "67611",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния <span data-inline-latex=\"x+\\sqrt{x^{2}+44x+484}\"></span>  при <span data-inline-latex=\"x\\le -22\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-22</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния:</p><center><p><span data-inline-latex=\"x+\\sqrt{x^{2}+44x+484}=x+\\sqrt{(x+22)^{2}}=x+\\left|x+22\\right|\"></span>.</p></center><p>При <span data-inline-latex=\"x\\le -22\"></span> имеем: <span data-inline-latex=\"\\left|x+22\\right|=-x-22\"></span>. Тогда <span data-inline-latex=\"x+\\left|x+22\\right|=x-x-22=-22\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26829",
+      "task": "67615",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния <span data-inline-latex=\"x+\\sqrt{x^{2}-24x+144}\"></span>  при <span data-inline-latex=\"x\\le 12\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вы­пол­ним пре­об­ра­зо­ва­ния: </p><center><p><span data-inline-latex=\"x+\\sqrt{x}^{2}-24x+144=x+\\sqrt{(x-12)}^{2}=x+\\left|x-12\\right|\"></span>. </p></center><p>При <span data-inline-latex=\"x\\le 12\"></span> имеем <span data-inline-latex=\"\\left|x-12\\right|=12-x\"></span>. Тогда <span data-inline-latex=\"x+\\left|x-12\\right|=x+12-x=12\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26829",
+      "task": "67567",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния <span data-inline-latex=\"x+\\sqrt{x^{2}+16x+64}\"></span>  при <span data-inline-latex=\"x\\le -8\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "26830",
+      "task": "26830",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\sqrt{(a-6)}^{2}+\\sqrt{(a-10)}^{2}\"></span>  при <span data-inline-latex=\"6\\le a\\le 10\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вос­поль­зу­ем­ся тож­де­ством  <span data-inline-latex=\"\\sqrt{(a-b)^{2}}=\\left|a-b\\right|\"></span> и рас­кро­ем мо­ду­ли на от­рез­ке [6; 10]: </p><center><p> <span data-inline-latex=\"\\sqrt{(a-6)}^{2}+\\sqrt{(a-10)}^{2}=\\left|a-6\\right|+\\left|a-10\\right|=a-6+10-a=4\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "unsupported_reason": "Квадраты стоят вне корней: видимое выражение не равно сумме модулей из исходного решения."
+    },
+    {
+      "group": "26830",
+      "task": "67617",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\sqrt{(a-3)}^{2}+\\sqrt{(a-9)}^{2}\"></span>  при <span data-inline-latex=\"3\\le a\\le 9\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вос­поль­зу­ем­ся тож­де­ством  <span data-inline-latex=\"\\sqrt{(a-b)^{2}}=\\left|a-b\\right|\"></span> и рас­кро­ем мо­ду­ли на от­рез­ке [3; 9]: </p><center><p> <span data-inline-latex=\"\\sqrt{(a-3)}^{2}+\\sqrt{(a-9)}^{2}=\\left|a-3\\right|+\\left|a-9\\right|=a-3+9-a=6\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "unsupported_reason": "Квадраты стоят вне корней: видимое выражение не равно сумме модулей из исходного решения."
+    },
+    {
+      "group": "26830",
+      "task": "67669",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\sqrt{(a-2)}^{2}+\\sqrt{(a-4)}^{2}\"></span>  при <span data-inline-latex=\"2\\le a\\le 4\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Вос­поль­зу­ем­ся тож­де­ством  <span data-inline-latex=\"\\sqrt{(a-b)^{2}}=\\left|a-b\\right|\"></span> и рас­кро­ем мо­ду­ли на от­рез­ке [2; 4]:</p><center><p> <span data-inline-latex=\"\\sqrt{(a-2)}^{2}+\\sqrt{(a-4)}^{2}=\\left|a-2\\right|+\\left|a-4\\right|=a-2+4-a=2\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "unsupported_reason": "Квадраты стоят вне корней: видимое выражение не равно сумме модулей из исходного решения."
+    },
+    {
+      "group": "26830",
+      "task": "67619",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те зна­че­ние вы­ра­же­ния  <span data-inline-latex=\"\\sqrt{(a-3)}^{2}+\\sqrt{(a-5)}^{2}\"></span>  при <span data-inline-latex=\"3\\le a\\le 5\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "unsupported_reason": "Квадраты стоят вне корней: видимое выражение не равно сумме модулей из исходного решения."
     }
   ]
 }

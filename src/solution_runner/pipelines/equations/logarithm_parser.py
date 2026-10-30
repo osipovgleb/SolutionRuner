@@ -185,4 +185,17 @@ class LogarithmParser:
             raise UnsupportedCondition("unsupported logarithm expression operand")
         self.index += match.end()
         value = rational(match.group())
-        return Node(value, match.group().replace(".", "{,}"))
+        text = match.group().replace(".", "{,}")
+        if self.text.startswith(r"\frac", self.index):
+            fraction = self._primary()
+            if (
+                value.is_Integer is not True
+                or fraction.value.is_Rational is not True
+                or not 0 < fraction.value < 1
+            ):
+                raise UnsupportedCondition(
+                    "a mixed numeral requires a proper fractional part"
+                )
+            value += fraction.value
+            text += fraction.text
+        return Node(value, text)
