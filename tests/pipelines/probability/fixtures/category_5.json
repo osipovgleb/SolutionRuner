@@ -31,6 +31,16 @@
       "parent_solution_html": "<p>Воз­мож­ность вы­иг­рать первую и вто­рую пар­тию не за­ви­сят друг от друга. Ве­ро­ят­ность про­из­ве­де­ния не­за­ви­си­мых со­бы­тий равна про­из­ве­де­нию их ве­ро­ят­но­стей: 0,52 · 0,3  =  0,156. </p><p><b>При­ме­ча­ние.</b></p><p>Для ре­ше­ния за­да­чи не­важ­но, какую пар­тию  — первую или вто­рую  — шах­ма­тист играл бе­лы­ми фи­гу­ра­ми, а какую  — чер­ны­ми. Для за­ин­те­ре­со­ван­ных чи­та­те­лей при­ве­дем ре­ше­ние, где учи­ты­ва­ют­ся оба эти ва­ри­ан­та.</p><p>Пусть <var data-math-identifier=\"A\">A</var>  — со­бы­тие, со­сто­я­щее в том, что шах­ма­тист вы­иг­ры­ва­ет обе пар­тии. Пусть <i>С</i><sub>1</sub>  — со­бы­тие, со­сто­я­щее в том, что шах­ма­тист иг­ра­ет первую пар­тию бе­лы­ми фи­гу­ра­ми, <var data-math-identifier=\"P\">P</var>(<i>С</i><sub>1</sub>)  =  0,5. В этом слу­чае в пер­вой пар­тии шах­ма­тист вы­иг­ра­ет с ве­ро­ят­но­стью 0,52, а во вто­рой пар­тии  — с ве­ро­ят­но­стью 0,3. Тогда ве­ро­ят­ность того, что он вы­иг­ра­ет обе пар­тии, равна <nobr><var data-math-identifier=\"P\">P</var>(<i>A|С</i><sub>1</sub>)</nobr>  =  0,52 · 0,3  =  0,156.</p><p>Пусть <i>С</i><sub>2</sub>  — со­бы­тие, со­сто­я­щее в том, что шах­ма­тист иг­ра­ет первую пар­тию чер­ны­ми фи­гу­ра­ми, <var data-math-identifier=\"P\">P</var>(<i>С</i><sub>2</sub>)  =  0,5. В этом слу­чае в пер­вой пар­тии шах­ма­тист вы­иг­ра­ет с ве­ро­ят­но­стью 0,3, а во вто­рой пар­тии  — с ве­ро­ят­но­стью 0,52. Тогда ве­ро­ят­ность того, что он вы­иг­ра­ет обе пар­тии, равна <nobr><var data-math-identifier=\"P\">P</var>(<var data-math-identifier=\"A\">A</var>|<i>С</i><sub>2</sub>)</nobr>  =  0,3 · 0,52  =  0,156.</p><p>По фор­му­ле пол­ной ве­ро­ят­но­сти имеем:</p><center><p><var data-math-identifier=\"P\">P</var>(<var data-math-identifier=\"A\">A</var>)  =  <var data-math-identifier=\"P\">P</var>(<i>С</i><sub>1</sub>) · <var data-math-identifier=\"P\">P</var>(<var data-math-identifier=\"A\">A</var>|<var data-math-identifier=\"C\">C</var><sub>1</sub>) + <var data-math-identifier=\"P\">P</var>(<var data-math-identifier=\"C\">C</var><sub>2</sub>) · <var data-math-identifier=\"P\">P</var>(<var data-math-identifier=\"A\">A</var>|<var data-math-identifier=\"C\">C</var><sub>2</sub>)  =  0,5 · 0,156 + 0,5 · 0,156  =  0,156.</p></center>"
     },
     {
+      "key": "320212",
+      "uuid": "7f049aa3-86f5-49f6-852c-5790739ce62d",
+      "order": 3,
+      "theme_uuid": "0e1c2dc6-575b-42dd-a945-6f90bd9dbf5d",
+      "rule": "probability-forward-walks",
+      "theme_title": "Теоремы о вероятностях событий",
+      "theme_order": 0,
+      "parent_solution_html": "<p>На каж­дой из че­ты­рех от­ме­чен­ных раз­ви­лок паук с ве­ро­ят­но­стью 0,5 может вы­брать или путь, ве­ду­щий к вы­хо­ду <var data-math-identifier=\"D\">D</var>, или дру­гой путь. Это не­за­ви­си­мые со­бы­тия, ве­ро­ят­ность их про­из­ве­де­ния (со­бы­тия, со­сто­я­ще­го в том, что паук дой­дет до вы­хо­да <var data-math-identifier=\"D\">D</var>) равна про­из­ве­де­нию ве­ро­ят­но­стей этих со­бы­тий. По­это­му ве­ро­ят­ность прий­ти к вы­хо­ду <var data-math-identifier=\"D\">D</var> равна (0,5)<sup>4</sup>  =  0,0625.</p><p><b>При­ме­ча­ние Решу ЕГЭ.</b> </p><p>Как и обыч­но в таких за­да­чах, мы опре­де­ли­ли, с какой ве­ро­ят­но­стью паук вы­пол­зет из ла­би­рин­та через выход <var data-math-identifier=\"D\">D</var> (а не про­сто до­пол­зет до этого вы­хо­да и оста­но­вит­ся или, на­при­мер, про­сле­ду­ет даль­ше к вы­хо­ду <i>А</i>). От­ме­тим, что во­прос сле­до­ва­ло бы сфор­му­ли­ро­вать од­но­знач­но. Мы уже свя­за­лись с раз­ра­бот­чи­ка­ми ЕГЭ и со­об­щи­ли им об этом.</p>"
+    },
+    {
       "key": "320197",
       "uuid": "230f18f0-98ec-404a-8ca1-91c9b1e8fd0b",
       "order": 4,
@@ -943,6 +953,202 @@
               "asset_keys": [],
               "section_id": "solution:1",
               "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "320212",
+      "task": "320212",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5d233d45-198f-4499-a026-aa1197d7c29c",
+              "kind": "ordinary_image",
+              "asset_id": "5d233d45-198f-4499-a026-aa1197d7c29c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5d233d45-198f-4499-a026-aa1197d7c29c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5d233d45-198f-4499-a026-aa1197d7c29c\"/>На ри­сун­ке изоб­ражён ла­би­ринт. Паук за­пол­за­ет в ла­би­ринт в точке «Вход». Раз­вер­нуть­ся и полз­ти назад паук не может, по­это­му на каж­дом раз­ветв­ле­нии паук вы­би­ра­ет один из путей, по ко­то­ро­му ещё не полз. Счи­тая, что выбор даль­ней­ше­го пути чисто слу­чай­ный, опре­де­ли­те, с какой ве­ро­ят­но­стью паук придёт к вы­хо­ду <var data-math-identifier=\"D\">D</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,0625</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>На каж­дой из че­ты­рех от­ме­чен­ных раз­ви­лок паук с ве­ро­ят­но­стью 0,5 может вы­брать или путь, ве­ду­щий к вы­хо­ду <var data-math-identifier=\"D\">D</var>, или дру­гой путь. Это не­за­ви­си­мые со­бы­тия, ве­ро­ят­ность их про­из­ве­де­ния (со­бы­тия, со­сто­я­ще­го в том, что паук дой­дет до вы­хо­да <var data-math-identifier=\"D\">D</var>) равна про­из­ве­де­нию ве­ро­ят­но­стей этих со­бы­тий. По­это­му ве­ро­ят­ность прий­ти к вы­хо­ду <var data-math-identifier=\"D\">D</var> равна (0,5)<sup>4</sup>  =  0,0625.</p><p><b>При­ме­ча­ние Решу ЕГЭ.</b> </p><p>Как и обыч­но в таких за­да­чах, мы опре­де­ли­ли, с какой ве­ро­ят­но­стью паук вы­пол­зет из ла­би­рин­та через выход <var data-math-identifier=\"D\">D</var> (а не про­сто до­пол­зет до этого вы­хо­да и оста­но­вит­ся или, на­при­мер, про­сле­ду­ет даль­ше к вы­хо­ду <i>А</i>). От­ме­тим, что во­прос сле­до­ва­ло бы сфор­му­ли­ро­вать од­но­знач­но. Мы уже свя­за­лись с раз­ра­бот­чи­ка­ми ЕГЭ и со­об­щи­ли им об этом.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "320212",
+      "task": "322935",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e3f8ce57-d538-4523-8a07-059b58b51138",
+              "kind": "ordinary_image",
+              "asset_id": "e3f8ce57-d538-4523-8a07-059b58b51138",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>На ри­сун­ке изоб­ражён ла­би­ринт. Паук за­пол­за­ет в ла­би­ринт в точке «Вход». Раз­вер­нуть­ся и полз­ти назад паук не может. На каж­дом раз­ветв­ле­нии паук вы­би­ра­ет путь, по ко­то­ро­му ещё не полз. Счи­тая выбор даль­ней­ше­го пути слу­чай­ным, опре­де­ли­те, с какой ве­ро­ят­но­стью паук придёт к вы­хо­ду <span data-inline-latex=\"C\"></span>.</p><img alt=\"\" data-asset-id=\"e3f8ce57-d538-4523-8a07-059b58b51138\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e3f8ce57-d538-4523-8a07-059b58b51138\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,0625</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>На пути к вы­хо­ду <i>С</i> паук встре­тит 4 раз­вил­ки. На каж­дой из них он с ве­ро­ят­но­стью 0,5 может вы­брать или путь, ве­ду­щий к вы­хо­ду <i>С</i>, или дру­гой путь. Это не­за­ви­си­мые со­бы­тия, ве­ро­ят­ность их про­из­ве­де­ния (со­бы­тия, со­сто­я­ще­го в том, что паук дой­дет до вы­хо­да <i>С</i>) равна про­из­ве­де­нию ве­ро­ят­но­стей этих со­бы­тий. По­это­му ве­ро­ят­ность прий­ти к вы­хо­ду <i>С</i> равна (0,5)<sup>4</sup>  =  0,0625.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "320212",
+      "task": "322923",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "L1.eps",
+              "url": "/assets/5a06b63b-b7a3-4479-a05a-84b279d30f2c",
+              "kind": "ordinary_image",
+              "asset_id": "5a06b63b-b7a3-4479-a05a-84b279d30f2c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>На ри­сун­ке изоб­ражён ла­би­ринт. Паук за­пол­за­ет в ла­би­ринт в точке «Вход». Раз­вер­нуть­ся и полз­ти назад паук не может. На каж­дом раз­ветв­ле­нии паук вы­би­ра­ет путь, по ко­то­ро­му ещё не полз. Счи­тая выбор даль­ней­ше­го пути слу­чай­ным, опре­де­ли­те, с какой ве­ро­ят­но­стью паук придёт к вы­хо­ду <span data-inline-latex=\"D\"></span>.</p><img alt=\"L1.eps\" data-asset-id=\"5a06b63b-b7a3-4479-a05a-84b279d30f2c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5a06b63b-b7a3-4479-a05a-84b279d30f2c\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "320212",
+      "task": "322925",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "L3.eps",
+              "url": "/assets/59fa57a9-e062-4cca-bb0a-2b610e888eed",
+              "kind": "ordinary_image",
+              "asset_id": "59fa57a9-e062-4cca-bb0a-2b610e888eed",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>На ри­сун­ке изоб­ражён ла­би­ринт. Паук за­пол­за­ет в ла­би­ринт в точке «Вход». Раз­вер­нуть­ся и полз­ти назад паук не может. На каж­дом раз­ветв­ле­нии паук вы­би­ра­ет путь, по ко­то­ро­му ещё не полз. Счи­тая выбор даль­ней­ше­го пути слу­чай­ным, опре­де­ли­те, с какой ве­ро­ят­но­стью паук придёт к вы­хо­ду <span data-inline-latex=\"D\"></span>.</p><img alt=\"L3.eps\" data-asset-id=\"59fa57a9-e062-4cca-bb0a-2b610e888eed\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/59fa57a9-e062-4cca-bb0a-2b610e888eed\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
             }
           ],
           "schema_version": 3,

@@ -156,6 +156,13 @@ GROUPS = (
         ),
     ),
     (
+        "probability-forward-walks",
+        (
+            ("320212", "7f049aa3-86f5-49f6-852c-5790739ce62d", 3, 0),
+            ("562239", "4fd5fc08-dc82-48f7-b15b-245ca0c30e42", 41, 0),
+        ),
+    ),
+    (
         "probability-event-sets",
         (
             ("320197", "230f18f0-98ec-404a-8ca1-91c9b1e8fd0b", 4, 0),
@@ -240,10 +247,6 @@ GROUPS = (
             ("509332", "8550c7de-4dc2-4f62-a39e-e42527139cfd", 39, 0),
             ("509342", "d1c5ae7b-08ce-4fd5-8811-e23fcedb6a26", 40, 0),
         ),
-    ),
-    (
-        "probability-forward-walks",
-        (("562239", "4fd5fc08-dc82-48f7-b15b-245ca0c30e42", 41, 0),),
     ),
     (
         "probability-record-tournament",

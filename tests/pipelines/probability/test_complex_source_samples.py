@@ -18,6 +18,24 @@ GROUPS = {group["key"]: group for group in DATA["groups"]}
 CASES = DATA["cases"]
 
 
+def _condition_bytes(context):
+    content = context["normalized_content"]
+    condition = next(s for s in content["sections"] if s["key"] == "condition")
+    asset = next(
+        a for a in content["assets"] if a["asset_key"] == condition["asset_keys"][0]
+    )
+    directory = (
+        Path(__file__).parents[3] / "src/solution_runner/pipelines/probability/assets"
+    )
+    files = [
+        p
+        for p in directory.glob(asset["asset_id"] + ".*")
+        if p.suffix in (".svg", ".png")
+    ]
+    assert len(files) == 1
+    return files[0].read_bytes()
+
+
 def _plan(case, context):
     profile = get_group_profile(case["group"])
     handler = get_handler(profile.content_rule_key)
@@ -34,27 +52,9 @@ def _plan(case, context):
     return handler.plan(
         PlanInput(
             context,
-            condition_asset_bytes=(
-                (
-                    Path(__file__).parents[3]
-                    / "src/solution_runner/pipelines/probability/assets"
-                    / (
-                        next(
-                            a["asset_id"]
-                            for a in context["normalized_content"]["assets"]
-                            if a["asset_key"]
-                            == next(
-                                s
-                                for s in context["normalized_content"]["sections"]
-                                if s["key"] == "condition"
-                            )["asset_keys"][0]
-                        )
-                        + ".svg"
-                    )
-                ).read_bytes()
-                if handler.requires_condition_asset_download
-                else None
-            ),
+            condition_asset_bytes=_condition_bytes(context)
+            if handler.requires_condition_asset_download
+            else None,
             parent_solution_html=GROUPS[case["group"]]["parent_solution_html"],
             generated_solution_assets=generated,
         )

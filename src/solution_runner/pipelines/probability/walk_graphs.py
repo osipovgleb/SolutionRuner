@@ -9,10 +9,13 @@ from xml.etree import ElementTree as ET
 
 from . import condition_diagram, solution_diagrams
 from .bernoulli import fmt, result
-from .common import UnsupportedCondition, line
+from .common import UnsupportedCondition, finish, line
 
 _ASSETS = Path(__file__).with_name("assets")
-_EVIDENCE = json.loads((_ASSETS / "park_diagrams.json").read_text())
+_EVIDENCE = {
+    **json.loads((_ASSETS / "park_diagrams.json").read_text()),
+    **json.loads((_ASSETS / "maze_diagrams.json").read_text()),
+}
 _TARGETS = {
     "пруду или фонтану": ("fountain", "pond"),
     "детской площадке": ("playground",),
@@ -22,6 +25,9 @@ _PATTERN = re.compile(
     r"Артем гуляет по парку\. Он выходит из точки S и, дойдя до очередной развилки, с равными шансами выбирает следующую дорожку, но не возвращается обратно\. Найдите вероятность того, что таким образом он выйдет к (?P<target>"
     + "|".join(_TARGETS)
     + r")\."
+)
+_MAZE = re.compile(
+    r"На рисунке изображен лабиринт\. Паук заползает в лабиринт в точке «Вход»\. Развернуться и ползти назад паук не может(?:, поэтому на каждом разветвлении паук выбирает один из путей, по которому еще не полз\. Считая, что выбор дальнейшего пути чисто случайный|\. На каждом разветвлении паук выбирает путь, по которому еще не полз\. Считая выбор дальнейшего пути случайным), определите, с какой вероятностью паук придет к выходу (?P<target>[A-D])\."
 )
 _KEY = "generated_park_routes"
 _ALT = "Пути к выбранным местам парка и вероятности выбора дорожек"
@@ -96,17 +102,23 @@ def _input(context):
     content, condition, answer, solution, text, entry, source = condition_diagram.read(
         context, _EVIDENCE, _ASSETS
     )
-    match = _PATTERN.fullmatch(text)
+    maze = entry.get("kind") == "maze"
+    match = (_MAZE if maze else _PATTERN).fullmatch(text)
     if match is None:
         raise UnsupportedCondition("unsupported complete forward-walk condition")
-    root, points, edges = svg_graph(source)
+    if maze:
+        root = None
+        points = entry["nodes"]
+        edges = tuple(tuple(edge) for edge in entry["edges"])
+    else:
+        root, points, edges = svg_graph(source)
     rows = forward_paths(len(points), edges, entry["start"])
     destinations = {int(k): v for k, v in entry["destinations"].items()}
     if set(destinations) != {leaf for leaf, _, _ in rows}:
         raise UnsupportedCondition(
             "every terminal graph node needs an audited destination"
         )
-    targets = _TARGETS[match["target"]]
+    targets = (match["target"],) if maze else _TARGETS[match["target"]]
     return (
         content,
         condition,
@@ -162,6 +174,9 @@ def build_context_repair_plan(context, *, condition_asset_bytes=None):
         targets,
     ) = _input(context)
     condition_diagram.verify_download(source, condition_asset_bytes)
+    if entry.get("kind") == "maze":
+        answer, html = _render_maze(rows, destinations, targets[0])
+        return finish(condition, answer_section, solution, answer, html)
     html = "<p>На каждой развилке Артем равновероятно выбирает одну из дорожек, кроме той, по которой пришёл. Вероятность конкретного пути равна произведению вероятностей этих выборов. Разные пути к нужным местам несовместны, поэтому их вероятности складываются.</p>"
     figure, key, changes = solution_diagrams.image(
         content, _KEY, _ALT, source_id=_overlay(entry, targets)
@@ -205,3 +220,27 @@ def build_context_repair_plan(context, *, condition_asset_bytes=None):
     return solution_diagrams.repair(
         condition, answer_section, solution, answer, html, (key,), changes
     )
+
+
+def _render_maze(rows, destinations, target):
+    selected = [factors for leaf, _, factors in rows if destinations[leaf] == target]
+    if len(selected) != 1:
+        raise UnsupportedCondition(
+            "one terminal node must represent the requested exit"
+        )
+    choices = [f for f in selected[0] if f != 1]
+    value = Fraction(1)
+    for factor in choices:
+        value *= factor
+    html = f"<p>Рассматриваем событие: паук выползет из лабиринта через выход {target}. Дорожку, по которой он пришёл, выбирать обратно нельзя. В тупике подходящего продолжения нет; достижение тупика не считается выходом.</p>"
+    html += f"<p>По рисунку путь к выходу {target} единственный. Число развилок с выбором на нём — {len(choices)}; повороты без выбора вероятность не меняют. Последовательно нужно выбрать одну из следующего числа доступных дорожек:</p>"
+    html += "<p>" + ", ".join(str(f.denominator) for f in choices) + ".</p>"
+    html += "<p>Условные вероятности правильного выбора вдоль пути перемножаются:</p>"
+    html += line(
+        "P=" + (r"\cdot ".join(fmt(f) for f in choices) or "1") + "=" + fmt(value)
+    )
+    if choices and all(f == choices[0] for f in choices):
+        html += line(
+            rf"P=\left({fmt(choices[0])}\right)^{{{len(choices)}}}={fmt(value)}"
+        )
+    return result(value, html)
