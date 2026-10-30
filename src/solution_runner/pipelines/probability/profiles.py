@@ -246,6 +246,10 @@ GROUPS = (
         (("562239", "4fd5fc08-dc82-48f7-b15b-245ca0c30e42", 41, 0),),
     ),
     (
+        "probability-record-tournament",
+        (("508866", "5cc96058-d371-4ec2-a157-092654b7456b", 8, 1),),
+    ),
+    (
         "probability-knockout-tournament",
         (("508870", "44deeaa2-6c14-453b-87f3-8b744d73ef14", 9, 1),),
     ),

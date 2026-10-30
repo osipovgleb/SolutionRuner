@@ -53,6 +53,7 @@ HANDLERS += tuple(
         ("independent-pairs", "independent_pairs"),
         ("event-sets", "event_sets"),
         ("knockout-tournament", "knockout"),
+        ("record-tournament", "record_tournaments"),
     ]
 )
 

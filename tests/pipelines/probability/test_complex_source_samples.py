@@ -94,7 +94,10 @@ def test_source_answer_and_input_are_preserved_independently(case):
         assert parse_rational(plan.answer) in expected
     assert context == original
     solution = BeautifulSoup(plan.solution_html, "html.parser")
-    keys = [img["data-asset-key"] for img in solution.find_all("img")]
+    keys = [
+        node["data-asset-key"]
+        for node in solution.select("img[data-asset-key], a[data-asset-key]")
+    ]
     added = set()
     for change in plan.transformations:
         if change["transformation_target_id"].startswith("asset:"):
