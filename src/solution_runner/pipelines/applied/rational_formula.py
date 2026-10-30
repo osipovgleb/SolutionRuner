@@ -8,6 +8,19 @@ from ..equations.power_arithmetic import ScalarParser, balanced
 from ..probability.common import UnsupportedCondition
 
 
+def canonical_formula(raw, aliases):
+    def substitute(match):
+        token = match[0]
+        if token in aliases:
+            return aliases[token]
+        if token in [r"\frac", r"\cdot", r"\left", r"\right", r"\sqrt"]:
+            return token
+        raise UnsupportedCondition("an undeclared physical formula variable remains")
+
+    canonical = re.sub(r"\\[a-zA-Z]+(?:_[a-z])?|[A-Za-z](?:_\d)?", substitute, raw)
+    return re.sub(r"([xabde])\s*(?=\\frac|\()", r"\1\\cdot ", canonical)
+
+
 class RationalFormulaParser(ScalarParser):
     def __init__(self, text, variables, denominators=None, depth=0):
         super().__init__(text, variables)
@@ -62,3 +75,23 @@ class RationalFormulaParser(ScalarParser):
         if self.text.startswith(r"\sqrt", self.index):
             raise UnsupportedCondition("the physical formula must be rational")
         return super()._factor()
+
+
+class SquareRootFormulaParser(RationalFormulaParser):
+    def __init__(self, text, variables, denominators=None, depth=0, roots=None):
+        super().__init__(text, variables, denominators, depth)
+        self.roots = [] if roots is None else roots
+
+    def nested(self, text):
+        return SquareRootFormulaParser(
+            text, self.variables, self.denominators, self.depth + 1, self.roots
+        ).parse()
+
+    def _operand(self):
+        if not self.text.startswith(r"\sqrt", self.index):
+            return super()._operand()
+        self.index += 5
+        raw, self.index = balanced(self.text, self.index)
+        radicand = self.nested(raw)
+        self.roots.append(radicand)
+        return sp.sqrt(radicand)

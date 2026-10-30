@@ -8,7 +8,8 @@ import sympy as sp
 from ..probability.common import UnsupportedCondition
 from .fraction_patterns import PATTERNS
 from .physical_questions import scalar
-from .rational_formula import RationalFormulaParser
+from .rational_formula import RationalFormulaParser, canonical_formula
+from .root_patterns import PATTERNS as ROOT_PATTERNS
 
 X, A, B, D, E = sp.symbols("x a b d e", real=True)
 _LAWS = {
@@ -102,20 +103,7 @@ def normalize(text):
 
 
 def read_formula(raw, aliases, expected):
-    def substitute(match):
-        token = match[0]
-        if token in aliases:
-            return aliases[token]
-        if token in [r"\frac", r"\cdot", r"\left", r"\right"]:
-            return token
-        raise UnsupportedCondition("an undeclared physical formula variable remains")
-
-    canonical = re.sub(
-        r"\\[a-zA-Z]+(?:_[a-z])?|[A-Za-z](?:_\d)?",
-        substitute,
-        raw,
-    )
-    canonical = re.sub(r"([xabde])\s*(?=\\frac|\()", r"\1\\cdot ", canonical)
+    canonical = canonical_formula(raw, aliases)
     parser = RationalFormulaParser(canonical, "xabde")
     expression = parser.parse()
     if sp.cancel(expression - expected) != 0:
@@ -177,6 +165,13 @@ def make_question(kind, match):
 
 
 def parse(text):
+    from .radical_questions import make_question as root_question
+    from .radical_questions import normalize as root_normalize
+
+    for kind, pattern in ROOT_PATTERNS:
+        match = pattern.fullmatch(root_normalize(text))
+        if match:
+            return root_question(kind, match)
     for kind, pattern in PATTERNS:
         match = pattern.fullmatch(normalize(text))
         if match:

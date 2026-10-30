@@ -50,7 +50,7 @@ def check_denominators(q):
 def analyze(q):
     check_denominators(q)
     numerator, denominator = sp.fraction(sp.cancel(q.expression - q.target))
-    degree = 2 if q.kind == "resonance" else 1
+    degree = 2 if q.kind in ["resonance", "rocket"] else 1
     if any(sp.Poly(p, X).degree() > degree for p in [numerator, denominator]):
         raise UnsupportedCondition(
             "the rational constraint exceeds its reviewed degree"
@@ -66,6 +66,8 @@ def analyze(q):
             q.expression >= q.lower_target, X, relational=False
         )
         feasible = feasible.intersect(lower)
+    if q.kind == "root_steps":
+        feasible = feasible.intersect(sp.S.Naturals0)
     if feasible is sp.S.EmptySet:
         raise UnsupportedCondition("no physical value meets the requested level")
     repair_lens_wording = False

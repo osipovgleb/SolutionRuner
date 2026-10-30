@@ -125,6 +125,15 @@
       "theme_order": 2,
       "order": 7,
       "rule": "applied-algebraic-formula"
+    },
+    {
+      "key": "523991",
+      "uuid": "d2a0a79e-2f3e-4f91-b34b-bd3c45fbeeb1",
+      "theme_uuid": "3e3348ee-8719-4c4e-a726-66816323cac0",
+      "theme_title": "Иррациональные уравнения и неравенства",
+      "theme_order": 3,
+      "order": 9,
+      "rule": "applied-algebraic-formula"
     }
   ],
   "cases": [
@@ -2357,6 +2366,48 @@
             {
               "key": "solution",
               "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"\\eta\\le 14\\%\"></span> при из­вест­ных зна­че­ни­ях теплоёмко­сти воды  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span> , удель­ной теп­ло­ты сго­ра­ния дров  <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>, массы воды  <span data-inline-latex=\"m_{\\mathrm{в}}=166\\,\\mathrm{кг}\"></span> и из­ме­не­ния тем­пе­ра­ту­ры  <span data-inline-latex=\"t_2-t_1=100-10=90\\,^{\\circ}\\mathrm{C}\"></span>:</p><center><p> <span data-inline-latex=\"\\frac{4{,}2\\cdot 10^{3}\\cdot 166\\cdot 90}{8{,}3\\cdot 10^{6}\\cdot m_{\\mathrm{др}}}\\cdot 100\\le 14\\iff \\frac{4{,}2\\cdot 90\\cdot 2}{m_{\\mathrm{др}}}\\le 14\\iff m_{\\mathrm{др}}\\ge 54\\,\\mathrm{кг}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "523991",
+      "task": "523991",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ав­то­мо­биль мас­сой <i>m</i> кг на­чи­на­ет тор­мо­зить и про­хо­дит до пол­ной оста­нов­ки путь <var data-math-identifier=\"S\">S</var> м. Сила тре­ния <var data-math-identifier=\"F\">F</var> (в Н), масса ав­то­мо­би­ля <i>m</i> <nobr>(в кг),</nobr> время <i>t</i> <nobr>(в с)</nobr> и прой­ден­ный путь <var data-math-identifier=\"S\">S</var> (в м) свя­за­ны со­от­но­ше­ни­ем <span data-inline-latex=\"F=\\frac{2mS}{t^{2}}\"></span> .  Опре­де­ли­те, сколь­ко се­кунд за­ня­ло тор­мо­же­ние, если из­вест­но, что сила тре­ния равна 2000 Н, масса ав­то­мо­би­ля  — 1500 кг, путь  — 600 м.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пре­об­ра­зу­ем дан­ную в усло­вии фор­му­лу:</p><center><p><span data-inline-latex=\"t^{2}=\\frac{2mS}{F}\\iff t=\\sqrt{\\frac{2ms}{F}}\"></span> . </p></center><p>Под­ста­вим зна­че­ния и вы­чис­лим:</p><center><p><span data-inline-latex=\"t=\\sqrt{\\frac{2ms}{F}}=\\sqrt{\\frac{2\\cdot 1500\\cdot 600}{2000}}=\\sqrt{900}=30\"></span>. </p></center>",
               "title": "Решение",
               "asset_keys": [],
               "section_id": "solution:1",
