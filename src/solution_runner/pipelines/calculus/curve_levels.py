@@ -99,3 +99,39 @@ def intersections(entry, level):
             "the SVG intersections and monotone-arc count disagree"
         )
     return unique
+
+
+def at_abscissa(entry, abscissa):
+    """Return native SVG ordinates and tangent slopes at one reviewed marker."""
+    samples = []
+    for control in entry["curve_segments"]:
+        p = np.asarray(control, dtype=float)
+        if p.shape != (4, 2) or not np.isfinite(p).all():
+            raise UnsupportedCondition("four finite cubic control points are required")
+        coefficients = np.array(
+            [
+                -p[0] + 3 * p[1] - 3 * p[2] + p[3],
+                3 * p[0] - 6 * p[1] + 3 * p[2],
+                -3 * p[0] + 3 * p[1],
+                p[0],
+            ]
+        )
+        x, y = (np.poly1d(coefficients[:, i]) for i in range(2))
+        equation = np.trim_zeros((x - abscissa).coefficients, "f")
+        if not len(equation):
+            raise UnsupportedCondition("a vertical curve segment is unsupported")
+        for root in np.roots(equation):
+            if abs(root.imag) > 1e-7 or not -1e-8 <= root.real <= 1 + 1e-8:
+                continue
+            t = float(np.clip(root.real, 0, 1))
+            dx, dy = np.polyder(x)(t), np.polyder(y)(t)
+            if abs(dx) < 1e-8:
+                # A repeated control point can hide a finite one-sided tangent.
+                t = min(1 - 1e-6, max(1e-6, t))
+                dx, dy = np.polyder(x)(t), np.polyder(y)(t)
+            if abs(dx) < 1e-8:
+                raise UnsupportedCondition("the marked tangent must have finite slope")
+            samples.append((float(y(t)), float(-dy / dx)))
+    if not samples or max(y for y, _ in samples) - min(y for y, _ in samples) > 1.5:
+        raise UnsupportedCondition("the marker must meet a single graph branch")
+    return samples

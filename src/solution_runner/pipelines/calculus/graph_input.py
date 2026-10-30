@@ -30,14 +30,16 @@ def _read_text(context):
             continue
         if (
             tag.attrs
-            or tag.get_text() != "0"
+            or not re.fullmatch(r"(?:0|[1-9][0-9]?)", tag.get_text())
             or any(
                 child.name != "sub" or child.attrs or child.find(True)
                 for child in tag.find_all(True)
             )
         ):
-            raise UnsupportedCondition("only the source x-zero subscript is supported")
-        tag.replace_with("_0")
+            raise UnsupportedCondition(
+                "only plain integer graph subscripts are supported"
+            )
+        tag.replace_with("_{" + tag.get_text() + "}")
     condition["html"] = str(soup)
     cond, ans, solution, text = read(prepared)
     text = re.sub(r"\s*([=()])\s*", r"\1", text)
