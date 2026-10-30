@@ -5,6 +5,8 @@ import re
 from dataclasses import dataclass
 from fractions import Fraction
 
+import sympy as sp
+
 from solution_runner.pipelines.core.numbers import (
     format_answer,
     format_latex_fraction,
@@ -25,7 +27,7 @@ _DECL = re.compile(
 _GIVEN = re.compile(r"Даны векторы (?P<decl>.+)\. Найдите (?P<ask>.+)\.")
 _SINGLE = re.compile(r"Найдите длину вектора (?P<expr>.+), если (?P<decl>.+)\.")
 _TOKEN = re.compile(
-    r"\\(?:vec|overrightarrow)\{[a-z]\}|\\frac\{\d+\}\{[1-9]\d*\}|\d+(?:\.\d+)?|\\cdot|[()+*−–-]"
+    r"\\(?:vec|overrightarrow)\{(?:[a-z]|[A-Z]{2})\}|\\frac\{\d+\}\{[1-9]\d*\}|\d+(?:\.\d+)?|\\cdot|[()+*−–-]"
 )
 
 
@@ -210,48 +212,66 @@ def _ask(text):
     raise UnsupportedCondition("unsupported complete coordinate-vector question")
 
 
-def build_context_repair_plan(context):
-    _, condition, answer_section, solution, text = require_content(context)
-    match = _GIVEN.fullmatch(text)
-    single = _SINGLE.fullmatch(text) if match is None else None
-    if match is None and single is None:
-        raise UnsupportedCondition("unsupported complete coordinate-vector condition")
-    vectors = _declarations((match or single)["decl"])
-    mode, expression = _ask(match["ask"]) if match else ("length", single["expr"])
+def exact_angle(a, b):
+    square = sum(x * x for x in a) * sum(x * x for x in b)
+    if not square:
+        raise UnsupportedCondition("an angle with the zero vector is undefined")
+    dot = sum(x * y for x, y in zip(a, b, strict=True))
+    value = sp.Rational(dot.numerator, dot.denominator) / sp.sqrt(
+        sp.Rational(square.numerator, square.denominator)
+    )
+    for angle in (0, 30, 45, 60, 90, 120, 135, 150, 180):
+        if sp.simplify(value - sp.cos(sp.pi * angle / 180)) == 0:
+            return angle
+    raise UnsupportedCondition(
+        "the exact angle is outside the supported standard values"
+    )
+
+
+def _angular(vectors, mode):
+    if len(vectors) != 2:
+        raise UnsupportedCondition("two vectors are required for their mutual angle")
+    a, b = vectors.values()
+    na = sum(x * x for x in a)
+    nb = sum(x * x for x in b)
+    if not na or not nb:
+        raise UnsupportedCondition("an angle with the zero vector is undefined")
+    dot = sum(x * y for x, y in zip(a, b, strict=True))
+    denominator = (
+        sp.sqrt(sp.Rational((na * nb).numerator, (na * nb).denominator))
+        if mode == "angle"
+        else exact_root(na * nb)
+    )
+    value = dot / denominator
+    html = ""
+    html += line(r"\vec a\cdot\vec b=x_ax_b+y_ay_b")
+    html += line(
+        r"\vec a\cdot\vec b="
+        + "+".join(rf"({_fmt(x)})\cdot({_fmt(y)})" for x, y in zip(a, b, strict=True))
+        + "="
+        + _fmt(dot)
+    )
+    html += line(rf"|\vec a|=\sqrt{{{_fmt(na)}}},\quad |\vec b|=\sqrt{{{_fmt(nb)}}}")
+    f = sp.latex if mode == "angle" else _fmt
+    html += line(
+        rf"\cos\alpha=\frac{{\vec a\cdot\vec b}}{{|\vec a||\vec b|}}=\frac{{{_fmt(dot)}}}{{{f(denominator)}}}={f(value)}"
+    )
+    if mode == "angle":
+        value = exact_angle(a, b)
+        html += line(rf"\alpha={value}^{{\circ}}")
+    return value, html
+
+
+def solve(vectors, mode, expression):
     html = "<p>Действия над векторами выполняем по соответствующим координатам:</p>"
     if mode == "scalar":
         html += (
             "<p>Скалярное произведение равно сумме произведений соответствующих координат:</p>"
             + line(r"\vec u\cdot\vec v=u_xv_x+u_yv_y")
         )
-    if mode == "cosine":
-        if len(vectors) != 2:
-            raise UnsupportedCondition(
-                "two vectors are required for their mutual angle"
-            )
-        a, b = vectors.values()
-        na = sum(x * x for x in a)
-        nb = sum(x * x for x in b)
-        if not na or not nb:
-            raise UnsupportedCondition("an angle with the zero vector is undefined")
-        dot = sum(x * y for x, y in zip(a, b, strict=True))
-        denominator = exact_root(na * nb)
-        value = dot / denominator
-        html += line(r"\vec a\cdot\vec b=x_ax_b+y_ay_b")
-        html += line(
-            r"\vec a\cdot\vec b="
-            + "+".join(
-                rf"({_fmt(x)})\cdot({_fmt(y)})" for x, y in zip(a, b, strict=True)
-            )
-            + "="
-            + _fmt(dot)
-        )
-        html += line(
-            rf"|\vec a|=\sqrt{{{_fmt(na)}}},\quad |\vec b|=\sqrt{{{_fmt(nb)}}}"
-        )
-        html += line(
-            rf"\cos\alpha=\frac{{\vec a\cdot\vec b}}{{|\vec a||\vec b|}}=\frac{{{_fmt(dot)}}}{{{_fmt(denominator)}}}={_fmt(value)}"
-        )
+    if mode in ("cosine", "angle"):
+        value, steps = _angular(vectors, mode)
+        html += steps
     else:
         computed, trace = evaluate(expression, vectors)
         if trace:
@@ -286,5 +306,16 @@ def build_context_repair_plan(context):
                 value = square if mode == "square" else exact_root(square)
                 if mode == "length":
                     html += line(rf"|\vec v|=\sqrt{{{_fmt(square)}}}={_fmt(value)}")
-    answer = format_answer(value)
+    return format_answer(value), html
+
+
+def build_context_repair_plan(context):
+    _, condition, answer_section, solution, text = require_content(context)
+    match = _GIVEN.fullmatch(text)
+    single = _SINGLE.fullmatch(text) if match is None else None
+    if match is None and single is None:
+        raise UnsupportedCondition("unsupported complete coordinate-vector condition")
+    vectors = _declarations((match or single)["decl"])
+    mode, expression = _ask(match["ask"]) if match else ("length", single["expr"])
+    answer, html = solve(vectors, mode, expression)
     return finish(condition, answer_section, solution, answer, html)

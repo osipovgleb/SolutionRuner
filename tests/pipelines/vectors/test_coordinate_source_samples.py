@@ -28,7 +28,21 @@ def plan(case, context):
         }
         for s in handler.diagram_specs(context)
     )
-    return handler.plan(PlanInput(context, generated_solution_assets=generated))
+    downloaded = None
+    if handler.requires_condition_asset_download:
+        asset = context["normalized_content"]["assets"][0]
+        downloaded = (
+            Path(__file__).parents[3]
+            / "src/solution_runner/pipelines/vectors/assets"
+            / (asset["asset_id"] + ".svg")
+        ).read_bytes()
+    return handler.plan(
+        PlanInput(
+            context,
+            generated_solution_assets=generated,
+            condition_asset_bytes=downloaded,
+        )
+    )
 
 
 @pytest.mark.parametrize("group", DATA["groups"], ids=lambda g: g["key"])

@@ -47,6 +47,13 @@ HANDLERS = (
 
 HANDLERS += (
     HandlerSpec(
+        "vector-diagram-operations",
+        "solution_runner.pipelines.vectors.coordinate_diagrams:build_context_repair_plan",
+        inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+    ),
+    HandlerSpec(
         "vector-coordinate-operations",
         "solution_runner.pipelines.vectors.coordinates:build_context_repair_plan",
         requires_parent_condition_asset=False,
