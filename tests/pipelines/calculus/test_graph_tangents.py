@@ -9,57 +9,17 @@ from pathlib import Path
 
 import pytest
 from bs4 import BeautifulSoup
+from graph_samples import _apply_local, plan
 
 from solution_runner.pipelines.calculus import graph_tangents as graph
 from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.handler_registry import get_handler
-from solution_runner.pipelines.core.handlers import PlanInput
 from solution_runner.pipelines.core.numbers import parse_rational
 
 DATA = json.loads(
     (Path(__file__).parent / "fixtures/category_9_graph.json").read_text()
 )
 CASES = DATA["cases"]
-
-
-def plan(case, context, *, downloaded=None, generated=None):
-    handler = get_handler(get_group_profile(case["group"]).content_rule_key)
-    content = case["context"]["normalized_content"]
-    condition = next(s for s in content["sections"] if s["key"] == "condition")
-    asset = next(
-        a for a in content["assets"] if a["asset_key"] in condition["asset_keys"]
-    )
-    source = (graph._ASSETS / (asset["asset_id"] + ".svg")).read_bytes()
-    if generated is None:
-        generated = tuple(
-            {
-                **spec,
-                "source_asset_id": "local-prepared-triangle",
-                "url": "/assets/local-prepared-triangle",
-            }
-            for spec in handler.diagram_specs(context)
-        )
-    return handler.plan(
-        PlanInput(
-            context,
-            condition_asset_bytes=source if downloaded is None else downloaded,
-            generated_solution_assets=generated,
-        )
-    )
-
-
-def _apply_local(context, transformations):
-    content = context["normalized_content"]
-    for t in transformations:
-        if t["transformation_target_id"].startswith("asset:"):
-            content["assets"].append(deepcopy(t["value"]))
-            continue
-        section = next(
-            s
-            for s in content["sections"]
-            if s["transformation_target_id"] == t["transformation_target_id"]
-        )
-        section.update(t["value"])
 
 
 @pytest.mark.parametrize("group", DATA["groups"], ids=lambda g: g["key"])

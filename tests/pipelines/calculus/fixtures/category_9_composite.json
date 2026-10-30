@@ -1,0 +1,888 @@
+{
+  "groups": [
+    {
+      "key": "40129",
+      "uuid": "31ebe95b-0d0b-42e4-a176-47c812896b99",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 8,
+      "rule": "calculus-graph-composite-tangent"
+    },
+    {
+      "key": "525688",
+      "uuid": "b9f3b04b-1d38-41ad-abc8-f4bf4a39f9a7",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 17,
+      "rule": "calculus-graph-composite-tangent"
+    },
+    {
+      "key": "525689",
+      "uuid": "ba6971de-9aa6-4a70-a356-5aad614b7d10",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 18,
+      "rule": "calculus-graph-composite-tangent"
+    },
+    {
+      "key": "525690",
+      "uuid": "6e1a13f6-ce54-4c93-8581-684410fc9d9f",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 19,
+      "rule": "calculus-graph-composite-tangent"
+    },
+    {
+      "key": "525691",
+      "uuid": "8b3ba2c3-9eb8-4864-b0ff-6d7c1935268f",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 20,
+      "rule": "calculus-graph-composite-tangent"
+    },
+    {
+      "key": "525698",
+      "uuid": "0e6e181f-0171-42d0-b106-2de595eb2985",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 21,
+      "rule": "calculus-graph-composite-tangent"
+    },
+    {
+      "key": "525703",
+      "uuid": "71cdcebe-564c-46ec-a87d-4f26b555b866",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 22,
+      "rule": "calculus-graph-composite-tangent"
+    },
+    {
+      "key": "541372",
+      "uuid": "8cbcf0e4-459f-4fcc-8ba3-f3580597b072",
+      "theme_uuid": "49fc1ee5-40ac-411d-a969-567d582b1177",
+      "theme_title": "Геометрический смысл производной, касательная",
+      "theme_order": 1,
+      "order": 23,
+      "rule": "calculus-graph-tangent-slope"
+    }
+  ],
+  "cases": [
+    {
+      "group": "40129",
+      "task": "40129",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1197e676-ad30-4fdf-bb5e-1109ff5f4c48",
+              "kind": "ordinary_image",
+              "asset_id": "1197e676-ad30-4fdf-bb5e-1109ff5f4c48",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/7857fe0d-c268-4238-8af3-bdce17eadac9",
+              "kind": "ordinary_image",
+              "asset_id": "7857fe0d-c268-4238-8af3-bdce17eadac9",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>На ри­сун­ке изоб­ра­жен гра­фик функ­ции <i>y</i>  =  <i>f</i>(<i>x</i>). Пря­мая, про­хо­дя­щая через на­ча­ло ко­ор­ди­нат, ка­са­ет­ся гра­фи­ка этой функ­ции в точке с абс­цис­сой 8. Най­ди­те <span data-inline-latex=\"f'(8)\"></span> .</p><img alt=\"\" data-asset-id=\"1197e676-ad30-4fdf-bb5e-1109ff5f4c48\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1197e676-ad30-4fdf-bb5e-1109ff5f4c48\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1,25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку ка­са­тель­ная про­хо­дит через на­ча­ло ко­ор­ди­нат, её урав­не­ние имеет вид <i>y  =  kx</i>. Эта пря­мая про­хо­дит через точку (8; 10), по­это­му 10  =  8 · <i>k</i>, от­ку­да <i>k</i>  =  1,25. По­сколь­ку уг­ло­вой ко­эф­фи­ци­ент ка­са­тель­ной равен зна­че­нию про­из­вод­ной в точке ка­са­ния, по­лу­ча­ем: <span data-inline-latex=\"f'(8)=1{,}25\"></span>.</p><p><img alt=\"\" data-asset-id=\"7857fe0d-c268-4238-8af3-bdce17eadac9\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7857fe0d-c268-4238-8af3-bdce17eadac9\"/></p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "40129",
+      "task": "54801",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1a4410a1-4891-46fb-8887-b8735112b34b",
+              "kind": "ordinary_image",
+              "asset_id": "1a4410a1-4891-46fb-8887-b8735112b34b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>На ри­сун­ке изоб­ра­жен гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span> . Пря­мая, про­хо­дя­щая через на­ча­ло ко­ор­ди­нат, ка­са­ет­ся гра­фи­ка этой функ­ции в точке с абс­цис­сой 10. Най­ди­те <span data-inline-latex=\"f'(10)\"></span> .</p><img alt=\"\" data-asset-id=\"1a4410a1-4891-46fb-8887-b8735112b34b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1a4410a1-4891-46fb-8887-b8735112b34b\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-0,6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной. По­сколь­ку ка­са­тель­ная про­хо­дит через на­ча­ло ко­ор­ди­нат, ее урав­не­ние имеет вид <span data-inline-latex=\"y=kx\"></span>. Пря­мая про­хо­дит через точку (10; −6), зна­чит, <span data-inline-latex=\"k=-0{,}6\"></span>. По­сколь­ку уг­ло­вой ко­эф­фи­ци­ент равен зна­че­нию про­из­вод­ной в точке ка­са­ния по­лу­ча­ем: <span data-inline-latex=\"f'(10)=-0{,}6\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525688",
+      "task": "525688",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/dd243845-57da-462c-95db-f7deeec5321a",
+              "kind": "ordinary_image",
+              "asset_id": "dd243845-57da-462c-95db-f7deeec5321a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/9c68e127-5476-4ed8-8791-a2b16ccd42e1",
+              "kind": "ordinary_image",
+              "asset_id": "9c68e127-5476-4ed8-8791-a2b16ccd42e1",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"dd243845-57da-462c-95db-f7deeec5321a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd243845-57da-462c-95db-f7deeec5321a\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <nobr><i>g</i>(<i>x</i>)  =  6<i>f</i>(<i>x</i>) − 3<i>x</i></nobr> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"9c68e127-5476-4ed8-8791-a2b16ccd42e1\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/9c68e127-5476-4ed8-8791-a2b16ccd42e1\"/> Найдём про­из­вод­ную функ­ции <i>g</i>(<i>x</i>):</p><center><p><span data-inline-latex=\"g'(x)=6\\cdot f'(x)-3\"></span>.</p></center><p>По ри­сун­ку найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной, ко­то­рый, в свою оче­редь, равен тан­ген­су угла на­кло­на дан­ной ка­са­тель­ной к оси абс­цисс. По­это­му <span data-inline-latex=\"f'(x_0)=-\\frac{2}{3}\"></span> .</p><p>Тогда для ис­ко­мо­го зна­че­ния по­лу­ча­ем</p><center><p><span data-inline-latex=\"g'(x_0)=6\\cdot f'(x_0)-3=6\\cdot (-\\frac{2}{3})-3=-7\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525688",
+      "task": "525699",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7b7bff47-f93d-4aa1-af21-aaef2dda25e0",
+              "kind": "ordinary_image",
+              "asset_id": "7b7bff47-f93d-4aa1-af21-aaef2dda25e0",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/6ba56030-a8c0-4863-98ed-cf47c9015aec",
+              "kind": "ordinary_image",
+              "asset_id": "6ba56030-a8c0-4863-98ed-cf47c9015aec",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7b7bff47-f93d-4aa1-af21-aaef2dda25e0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7b7bff47-f93d-4aa1-af21-aaef2dda25e0\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <span data-inline-latex=\"g(x)=9f(x)-\\frac{2}{7}x+7\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"6ba56030-a8c0-4863-98ed-cf47c9015aec\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/6ba56030-a8c0-4863-98ed-cf47c9015aec\"/> Найдём про­из­вод­ную функ­ции <i>g</i>(<i>x</i>):</p><center><p><span data-inline-latex=\"g'(x)=9\\cdot f'(x)-\\frac{2}{7}\"></span> .</p></center><p>По ри­сун­ку найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной, ко­то­рый, в свою оче­редь, равен тан­ген­су угла на­кло­на дан­ной ка­са­тель­ной к оси абс­цисс.  По­это­му <span data-inline-latex=\"f'(x_0)=\\frac{1}{7}\"></span> .</p><p>Тогда ис­ко­мое зна­че­ние </p><center><p><span data-inline-latex=\"g'(x_0)=9\\cdot f'(x_0)-\\frac{2}{7}=9\\cdot \\frac{1}{7}-\\frac{2}{7}=1\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525689",
+      "task": "525689",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3747d882-bdae-4fad-bd96-1bbdac00f5d4",
+              "kind": "ordinary_image",
+              "asset_id": "3747d882-bdae-4fad-bd96-1bbdac00f5d4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/65bfda78-e9ae-4720-861a-8cbca8f809e0",
+              "kind": "ordinary_image",
+              "asset_id": "65bfda78-e9ae-4720-861a-8cbca8f809e0",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3747d882-bdae-4fad-bd96-1bbdac00f5d4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3747d882-bdae-4fad-bd96-1bbdac00f5d4\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <span data-inline-latex=\"x_0=2\"></span>. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <span data-inline-latex=\"g(x)=x^{2}-f(x)+1\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3,6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"65bfda78-e9ae-4720-861a-8cbca8f809e0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/65bfda78-e9ae-4720-861a-8cbca8f809e0\"/></p><p>Найдём про­из­вод­ную функ­ции <i>g</i>(<i>x</i>):</p><center><p><span data-inline-latex=\"g'(x)=2x-f'(x)\"></span> .</p></center><p>По ри­сун­ку найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной, ко­то­рый, в свою оче­редь, равен тан­ген­су угла на­кло­на дан­ной ка­са­тель­ной к оси абс­цисс. По­это­му  <span data-inline-latex=\"f'(x_0)=f'(2)=\\frac{2}{5}=0{,}4\"></span>.</p><p>Тогда для ис­ко­мо­го зна­че­ния по­лу­ча­ем </p><center><p><span data-inline-latex=\"g'(x_0)=g'(2)=2\\cdot x_0-f'(x_0)=2\\cdot 2-f'(2)=2\\cdot 2-0{,}4=3{,}6\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525689",
+      "task": "525700",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8bc14d18-1a9e-46a6-873c-97e9d8b730e9",
+              "kind": "ordinary_image",
+              "asset_id": "8bc14d18-1a9e-46a6-873c-97e9d8b730e9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/4e7fb730-fb5e-49e5-b014-be88e5fe450c",
+              "kind": "ordinary_image",
+              "asset_id": "4e7fb730-fb5e-49e5-b014-be88e5fe450c",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"8bc14d18-1a9e-46a6-873c-97e9d8b730e9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8bc14d18-1a9e-46a6-873c-97e9d8b730e9\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в  точке <span data-inline-latex=\"x_0=-3\"></span>. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <span data-inline-latex=\"g(x)=x^{3}+f(x)\"></span>  в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">26,8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"4e7fb730-fb5e-49e5-b014-be88e5fe450c\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/4e7fb730-fb5e-49e5-b014-be88e5fe450c\"/> Найдём про­из­вод­ную функ­ции <i>g</i>(<i>x</i>):</p><center><p><span data-inline-latex=\"g'(x)=3x^{2}+f'(x)\"></span> .</p></center><p>По ри­сун­ку найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной, ко­то­рый, в свою оче­редь, равен тан­ген­су угла на­кло­на дан­ной ка­са­тель­ной к оси абс­цисс.  По­это­му <span data-inline-latex=\"f'(x_0)=f'(-3)=-\\frac{1}{5}=-0{,}2\"></span>.</p><p>Тогда для ис­ко­мо­го зна­че­ния по­лу­ча­ем </p><center><p><span><span data-inline-latex=\"g'(x_0)=g'(-3)=3\\cdot x_0^{2}+f'(x_0)=3\\cdot (-3)^{2}+f'(-3)=3\\cdot 9-0{,}2=26{,}8\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525690",
+      "task": "525690",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/14c282dd-bd4d-4025-9028-f4959dcd7282",
+              "kind": "ordinary_image",
+              "asset_id": "14c282dd-bd4d-4025-9028-f4959dcd7282",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"14c282dd-bd4d-4025-9028-f4959dcd7282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/14c282dd-bd4d-4025-9028-f4959dcd7282\"/>На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции  <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Урав­не­ние ка­са­тель­ной по­ка­за­но на ри­сун­ке. Най­ди­те зна­че­ние про­из­вод­ной функ­ции  <span data-inline-latex=\"g(x)=-7f(x)+21x+\\frac{1}{441}\"></span>  в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">42</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём про­из­вод­ную функ­ции  <span data-inline-latex=\"g(x)\"></span> :  <span data-inline-latex=\"g'(x)=-7f'(x)+21\"></span>. Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной, по­это­му  <span data-inline-latex=\"f'(x_0)=k=-3\"></span>. Сле­до­ва­тель­но, ис­ко­мое зна­че­ние равно</p><center><p> <span data-inline-latex=\"g'(x_0)=-7f'(x_0)+21=-7\\cdot (-3)+21=42\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525690",
+      "task": "525702",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/dcdcf52f-4d9a-4bdc-aa04-3d6d44dbae9b",
+              "kind": "ordinary_image",
+              "asset_id": "dcdcf52f-4d9a-4bdc-aa04-3d6d44dbae9b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"dcdcf52f-4d9a-4bdc-aa04-3d6d44dbae9b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dcdcf52f-4d9a-4bdc-aa04-3d6d44dbae9b\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Урав­не­ние ка­са­тель­ной по­ка­за­но на ри­сун­ке. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <span data-inline-latex=\"g(x)=-5f(x)-\\frac{2}{11}x+\\ln 3\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём про­из­вод­ную функ­ции <i>g</i>(<i>x</i>):</p><center><p><span data-inline-latex=\"g'(x)=-5\\cdot f'(x)-\\frac{2}{11}\"></span> . </p></center><p>Найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной.  </p><center><p><span data-inline-latex=\"f'(x_0)=k=\\frac{4}{11}\"></span> . </p></center><p>Тогда ис­ко­мое зна­че­ние </p><center><p><span data-inline-latex=\"g'(x_0)=-5\\cdot f'(x_0)-\\frac{2}{11}=-5\\cdot \\frac{4}{11}-\\frac{2}{11}=-2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525691",
+      "task": "525691",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b5f7f9c2-ca7f-4b28-8025-2168117f2631",
+              "kind": "ordinary_image",
+              "asset_id": "b5f7f9c2-ca7f-4b28-8025-2168117f2631",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b5f7f9c2-ca7f-4b28-8025-2168117f2631\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b5f7f9c2-ca7f-4b28-8025-2168117f2631\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Урав­не­ние ка­са­тель­ной по­ка­за­но на ри­сун­ке. Най­ди­те зна­че­ние  функ­ции <span data-inline-latex=\"g(x)=(f'(x)-0{,}5)\\cdot 6\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной.  </p><center><p><span data-inline-latex=\"f'(x_0)=k=\\frac{8}{3}\"></span> .</p></center><p>Тогда ис­ко­мое зна­че­ние </p><center><p><span data-inline-latex=\"g(x_0)=(f'(x_0)-0{,}5)\\cdot 6=(\\frac{8}{3}-0{,}5)\\cdot 6=13\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525698",
+      "task": "525698",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/63c912ff-0701-4545-8951-18b6c615d102",
+              "kind": "ordinary_image",
+              "asset_id": "63c912ff-0701-4545-8951-18b6c615d102",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"63c912ff-0701-4545-8951-18b6c615d102\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/63c912ff-0701-4545-8951-18b6c615d102\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Урав­не­ние ка­са­тель­ной по­ка­за­но на ри­сун­ке. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <span data-inline-latex=\"g(x)=12f(x)+\\frac{6}{13}\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём про­из­вод­ную функ­ции <i>g</i>(<i>x</i>):</p><center><p><span data-inline-latex=\"g'(x)=12\\cdot f'(x)\"></span> .</p></center><p>Найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной.  </p><center><p><span data-inline-latex=\"f'(x_0)=k=-\\frac{2}{3}\"></span> .</p></center><p>Тогда ис­ко­мое зна­че­ние </p><center><p><span data-inline-latex=\"g'(x_0)=12\\cdot f'(x_0)=12\\cdot (-\\frac{2}{3})=-8\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525698",
+      "task": "525701",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/40006918-f898-4685-a836-617502bf7b53",
+              "kind": "ordinary_image",
+              "asset_id": "40006918-f898-4685-a836-617502bf7b53",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"40006918-f898-4685-a836-617502bf7b53\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/40006918-f898-4685-a836-617502bf7b53\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Урав­не­ние ка­са­тель­ной по­ка­за­но на ри­сун­ке. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <span data-inline-latex=\"g(x)=3f(x)+\\frac{5}{7}x-4\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём про­из­вод­ную функ­ции <i>g</i>(<i>x</i>):</p><center><p><span data-inline-latex=\"g'(x)=3\\cdot f'(x)+\\frac{5}{7}\"></span> .</p></center><p>Найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной.  </p><center><p><span data-inline-latex=\"f'(x_0)=k=\\frac{3}{7}\"></span> .</p></center><p>Тогда ис­ко­мое зна­че­ние </p><center><p><span data-inline-latex=\"g'(x_0)=3\\cdot f'(x_0)+\\frac{5}{7}=3\\cdot \\frac{3}{7}+\\frac{5}{7}=2\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525703",
+      "task": "525703",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f90195ee-1304-4de8-b508-2030d420165b",
+              "kind": "ordinary_image",
+              "asset_id": "f90195ee-1304-4de8-b508-2030d420165b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f90195ee-1304-4de8-b508-2030d420165b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f90195ee-1304-4de8-b508-2030d420165b\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Урав­не­ние ка­са­тель­ной по­ка­за­но на ри­сун­ке. Най­ди­те зна­че­ние  функ­ции <span data-inline-latex=\"g(x)=f'(x)-f(x)+3\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной.  </p><center><p><span data-inline-latex=\"f'(x_0)=k=-\\frac{1}{4}\"></span> .</p></center><p>Тогда ис­ко­мое зна­че­ние </p><center><p><span data-inline-latex=\"g(x_0)=f'(x_0)-f(x_0)+3=-\\frac{1}{4}-2+3=0{,}75\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "525703",
+      "task": "525691",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b5f7f9c2-ca7f-4b28-8025-2168117f2631",
+              "kind": "ordinary_image",
+              "asset_id": "b5f7f9c2-ca7f-4b28-8025-2168117f2631",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b5f7f9c2-ca7f-4b28-8025-2168117f2631\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b5f7f9c2-ca7f-4b28-8025-2168117f2631\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к этому гра­фи­ку, про­ведённая в точке <i>x</i><sub>0</sub>. Урав­не­ние ка­са­тель­ной по­ка­за­но на ри­сун­ке. Най­ди­те зна­че­ние  функ­ции <span data-inline-latex=\"g(x)=(f'(x)-0{,}5)\\cdot 6\"></span> в точке <i>x</i><sub>0</sub>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём зна­че­ние <span data-inline-latex=\"f'(x_0)\"></span> . Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной.  </p><center><p><span data-inline-latex=\"f'(x_0)=k=\\frac{8}{3}\"></span> .</p></center><p>Тогда ис­ко­мое зна­че­ние </p><center><p><span data-inline-latex=\"g(x_0)=(f'(x_0)-0{,}5)\\cdot 6=(\\frac{8}{3}-0{,}5)\\cdot 6=13\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "541372",
+      "task": "541372",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5e82dfaa-9a18-4db2-8e0e-04ed0f68a203",
+              "kind": "ordinary_image",
+              "asset_id": "5e82dfaa-9a18-4db2-8e0e-04ed0f68a203",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/21bbad2b-213f-4cce-8209-36fc7d85b25a",
+              "kind": "ordinary_image",
+              "asset_id": "21bbad2b-213f-4cce-8209-36fc7d85b25a",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5e82dfaa-9a18-4db2-8e0e-04ed0f68a203\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5e82dfaa-9a18-4db2-8e0e-04ed0f68a203\"/> На ри­сун­ке изоб­ра­же­ны гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span>  и ка­са­тель­ная к нему в точке с абс­цис­сой <span data-inline-latex=\"x_0\"></span>. Най­ди­те зна­че­ние про­из­вод­ной функ­ции <span data-inline-latex=\"f(x)\"></span>  в точке <span data-inline-latex=\"x_0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1,4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=28882172\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 27.03.2020. Досрочная волна. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"21bbad2b-213f-4cce-8209-36fc7d85b25a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/21bbad2b-213f-4cce-8209-36fc7d85b25a\"/></p><p>Зна­че­ние про­из­вод­ной в точке ка­са­ния равно уг­ло­во­му ко­эф­фи­ци­ен­ту ка­са­тель­ной, ко­то­рый, в свою оче­редь, равен тан­ген­су угла на­кло­на дан­ной ка­са­тель­ной к оси абс­цисс. По­стро­им тре­уголь­ник с вер­ши­на­ми в точ­ках <var data-math-identifier=\"A\">A</var>(8; 8), <var data-math-identifier=\"B\">B</var>(8; 1), <var data-math-identifier=\"C\">C</var>(3; 1). Угол на­кло­на ка­са­тель­ной к оси абс­цисс будет равен <nobr>углу <var data-math-identifier=\"ACB\">ACB</var>:</nobr></p><center><p><span data-inline-latex=\"y'(x_0)=\\tg \\angle ACB=\\frac{AB}{BC}=\\frac{7}{5}=1{,}4\"></span> </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,54 +1,20 @@
 """Read audited graph coordinates and keep the source triangle proof and figure."""
 
-import hashlib
-import json
 import re
 import xml.etree.ElementTree as ET
-from copy import deepcopy
 from fractions import Fraction
-from pathlib import Path
-
-from bs4 import BeautifulSoup
 
 from ..probability import condition_diagram, solution_diagrams
 from ..probability.common import UnsupportedCondition, line
-from .common import answer, read
+from . import graph_input
+from .common import answer
 
-_ASSETS = Path(__file__).with_name("assets")
-_EVIDENCE = json.loads((_ASSETS / "tangent_evidence.json").read_text())
-_KEY = "tangent_triangle"
-_ALT = "Касательная и прямоугольный треугольник для вычисления её наклона"
+_KEY = graph_input.KEY
 _NS = "http://www.w3.org/2000/svg"
 _QUESTION = re.compile(
     r"На рисунке (?:изображен|изображены) график функции y=f\(x\)\s*и касательная к нему "
     r"в точке с абсциссой x_0\. Найдите значение производной функции f\(x\)\s*в точке x_0\."
 )
-
-
-def _read_text(context):
-    prepared = deepcopy(context)
-    condition = next(
-        s for s in prepared["normalized_content"]["sections"] if s["key"] == "condition"
-    )
-    soup = BeautifulSoup(condition["html"], "html.parser")
-    for tag in soup.find_all("sub"):
-        if tag.parent.name == "sub":
-            continue
-        if (
-            tag.attrs
-            or tag.get_text() != "0"
-            or any(
-                child.name != "sub" or child.attrs or child.find(True)
-                for child in tag.find_all(True)
-            )
-        ):
-            raise UnsupportedCondition("only the source x-zero subscript is supported")
-        tag.replace_with("_0")
-    condition["html"] = str(soup)
-    cond, ans, solution, text = read(prepared)
-    text = re.sub(r"\s*([=()])\s*", r"\1", text)
-    text = re.sub(r"x\s*_\{?0\}?", "x_0", text)
-    return prepared["normalized_content"], cond, ans, solution, text
 
 
 def model(entry):
@@ -84,9 +50,7 @@ def model(entry):
 
 
 def _input(context):
-    result = condition_diagram.read(
-        context, _EVIDENCE, _ASSETS, content_reader=_read_text
-    )
+    result = graph_input.read_graph(context)
     if not _QUESTION.fullmatch(result[4]):
         raise UnsupportedCondition(
             "the complete graph-tangent derivative question is required"
@@ -97,18 +61,7 @@ def _input(context):
 
 def required_assets(context):
     *_, entry, _ = _input(context)
-    asset = entry.get("solution_asset")
-    return (
-        (
-            {
-                "source_asset_id": asset["source_id"],
-                "section_id": "solution:1",
-                "alt_text": _ALT,
-            },
-        )
-        if asset
-        else ()
-    )
+    return graph_input.requirements(entry)
 
 
 def render_svg(entry, source):
@@ -175,45 +128,6 @@ def diagram_specs(context):
     )
 
 
-def _figure(content, entry, source, generated):
-    asset = entry.get("solution_asset")
-    svg = None if asset else render_svg(entry, source)
-    if (
-        asset
-        and hashlib.sha256(
-            (_ASSETS / (asset["source_id"] + ".svg")).read_bytes()
-        ).hexdigest()
-        != asset["sha256"]
-    ):
-        raise UnsupportedCondition("the audited solution triangle has changed")
-    allowed = {
-        a["asset_id"]
-        for a in content["assets"]
-        if a["asset_key"]
-        in next(s for s in content["sections"] if s["key"] == "condition")["asset_keys"]
-    }
-    allowed.update(
-        [asset["source_id"]]
-        if asset
-        else [
-            a["source_asset_id"]
-            for a in generated
-            if a.get("asset_key") == _KEY
-            and a.get("sha256") == solution_diagrams.spec(_KEY, svg)["sha256"]
-        ]
-    )
-    if any(a["asset_id"] not in allowed for a in content["assets"]):
-        raise UnsupportedCondition("an unrelated graph solution asset is present")
-    return solution_diagrams.image(
-        content,
-        _KEY,
-        _ALT,
-        source_id=asset["source_id"] if asset else None,
-        svg=svg,
-        generated=generated,
-    )
-
-
 def proof(entry):
     vertices, r, v, h, slope = model(entry)
     vertical, horizontal = "".join(sorted(v + r)), "".join(sorted(h + r))
@@ -258,7 +172,12 @@ def build_context_repair_plan(
     content, condition, ans, solution, _, entry, source = _input(context)
     condition_diagram.verify_download(source, condition_asset_bytes)
     result, html = proof(entry)
-    figure, key, changes = _figure(content, entry, source, generated_solution_assets)
+    figure, key, changes = graph_input.figure(
+        content,
+        entry,
+        svg=None if entry.get("solution_asset") else render_svg(entry, source),
+        generated=generated_solution_assets,
+    )
     return solution_diagrams.repair(
         condition, ans, solution, result, figure + html, (key,), changes
     )
