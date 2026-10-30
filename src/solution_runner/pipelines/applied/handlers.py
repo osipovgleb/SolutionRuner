@@ -4,6 +4,11 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "applied-binary-log-ratio",
+        "solution_runner.pipelines.applied.log_models:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "applied-positive-gas-power",
         "solution_runner.pipelines.applied.gas_models:build_context_repair_plan",
         requires_parent_condition_asset=False,

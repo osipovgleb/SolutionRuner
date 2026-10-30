@@ -17,7 +17,9 @@ def canonical_formula(raw, aliases):
             return token
         raise UnsupportedCondition("an undeclared physical formula variable remains")
 
-    canonical = re.sub(r"\\[a-zA-Z]+(?:_[a-z])?|[A-Za-z](?:_\d)?", substitute, raw)
+    canonical = re.sub(
+        r"\\[a-zA-Z]+(?:_[a-z])?|[A-Za-z](?:_(?:\d|[a-z]+))?", substitute, raw
+    )
     return re.sub(r"([xabde])\s*(?=\\frac|\()", r"\1\\cdot ", canonical)
 
 
