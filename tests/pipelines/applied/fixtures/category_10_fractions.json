@@ -1,0 +1,1325 @@
+{
+  "groups": [
+    {
+      "key": "27971",
+      "uuid": "3020d806-c11b-4950-ae11-6d8d6cd52cad",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 1,
+      "rule": "applied-linear-fraction"
+    },
+    {
+      "key": "27972",
+      "uuid": "911fe4ae-ccb2-4da3-b6a7-0186ef6e9583",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 2,
+      "rule": "applied-linear-fraction"
+    },
+    {
+      "key": "27975",
+      "uuid": "dd766327-4c36-4bb3-80de-6da31d04d564",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 5,
+      "rule": "applied-linear-fraction"
+    },
+    {
+      "key": "27976",
+      "uuid": "8bdce83d-3b2c-41f5-9ec8-10494f094cfa",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 6,
+      "rule": "applied-linear-fraction"
+    },
+    {
+      "key": "27979",
+      "uuid": "00666e11-92fe-4392-a18f-e2d7f9b9f4af",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 9,
+      "rule": "applied-linear-fraction"
+    },
+    {
+      "key": "27980",
+      "uuid": "b256f836-ecc0-4fd2-8596-9cd5035aa155",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 10,
+      "rule": "applied-linear-fraction"
+    },
+    {
+      "key": "27981",
+      "uuid": "79d1d816-9752-4909-9cd2-62fae977ca4b",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 11,
+      "rule": "applied-linear-fraction"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27971",
+      "task": "27971",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Перед от­прав­кой теп­ло­воз издал гудок с ча­сто­той <nobr><span data-inline-latex=\"f_0=440\"></span> Гц.</nobr> Чуть позже издал гудок подъ­ез­жа­ю­щий к плат­фор­ме теп­ло­воз. Из-⁠за эф­фек­та До­пле­ра ча­сто­та вто­ро­го гудка <i>f</i> боль­ше пер­во­го: она за­ви­сит от ско­ро­сти теп­ло­во­за по за­ко­ну <span data-inline-latex=\"f(v)=\\frac{f_0}{1-\\frac{v}{c}}\"></span>  (Гц), где <i>c</i>  — ско­рость звука <nobr>(в м/с).</nobr> Че­ло­век, сто­я­щий на плат­фор­ме, раз­ли­ча­ет сиг­на­лы по тону, если они от­ли­ча­ют­ся не менее чем на 10 Гц. Опре­де­ли­те, с какой ми­ни­маль­ной ско­ро­стью при­бли­жал­ся к плат­фор­ме теп­ло­воз, если че­ло­век смог раз­ли­чить сиг­на­лы, а <nobr><span data-inline-latex=\"c=315\"></span> м/с.</nobr> Ответ вы­ра­зи­те в м/⁠с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"f(v)-f_0\\ge 10\"></span> при из­вест­ном зна­че­нии по­сто­ян­ной <nobr><span data-inline-latex=\"f_0=440\"></span> Гц:</nobr></p><center><p><span><span data-inline-latex=\"f(v)-f_0\\ge 10\\iff \\frac{f_0}{1-\\frac{v}{c}}-f_0\\ge 10\\iff \\frac{440}{1-\\frac{v}{315}}-440\\ge 10\\iff \\frac{315}{315-v}-1\\ge \\frac{1}{44}\\iff \\frac{315}{315-v}\\ge \\frac{45}{44}\\iff \\frac{450(v-7)}{315-v}\\ge 0\\iff 7\\le v\\lt 315\"></span>. </span></p></center><p>Зна­чит, ми­ни­маль­ное зна­че­ние ско­ро­сти теп­ло­во­за 7 м/⁠с.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27971",
+      "task": "28215",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Перед от­прав­кой теп­ло­воз издал гудок с ча­сто­той <span data-inline-latex=\"f_0=267\"></span> Гц. Чуть позже издал гудок подъ­ез­жа­ю­щий к плат­фор­ме теп­ло­воз. Из-за эф­фек­та До­пле­ра ча­сто­та вто­ро­го гудка <i>f</i> боль­ше пер­во­го: она за­ви­сит от ско­ро­сти теп­ло­во­за по за­ко­ну <span data-inline-latex=\"f(v)=\\frac{f_0}{1-\\frac{v}{c}}\"></span>  (Гц), где <i>c</i>  — ско­рость звука (в м/с). Че­ло­век, сто­я­щий на плат­фор­ме, раз­ли­ча­ет сиг­на­лы по тону, если они от­ли­ча­ют­ся не менее чем на 3 Гц. Опре­де­ли­те, с какой ми­ни­маль­ной ско­ро­стью при­бли­жал­ся к плат­фор­ме теп­ло­воз, если че­ло­век смог раз­ли­чить сиг­на­лы, а <span data-inline-latex=\"c=315\"></span> м/с. Ответ вы­ра­зи­те в м/с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"f(v)-f_0\\ge 3\"></span> при из­вест­ном зна­че­нии по­сто­ян­ной <span data-inline-latex=\"f_0=267\"></span> Гц:</p><center><p><span><span data-inline-latex=\"f(v)-f_0\\ge 3\\iff \\frac{f_0}{1-\\frac{v}{c}}-f_0\\ge 3\\iff \\frac{267}{1-\\frac{v}{315}}-267\\ge 3\\iff \\frac{315}{315-v}-1\\ge \\frac{1}{89}\\iff \\frac{315}{315-v}\\ge \\frac{90}{89}\\iff \\frac{90v-315}{315-v}\\ge 0\\iff 3{,}5\\le v\\lt 315\"></span>. </span></p></center><p>Зна­чит, ми­ни­маль­ное зна­че­ние ско­ро­сти теп­ло­во­за 3,5 м/с.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27971",
+      "task": "41955",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Перед от­прав­кой теп­ло­воз издал гудок с ча­сто­той <span data-inline-latex=\"f_0=593\"></span> Гц. Чуть позже издал гудок подъ­ез­жа­ю­щий к плат­фор­ме теп­ло­воз. Из-за эф­фек­та До­пле­ра ча­сто­та вто­ро­го гудка <i>f</i> боль­ше пер­во­го: она за­ви­сит от ско­ро­сти теп­ло­во­за по за­ко­ну <span data-inline-latex=\"f(v)=\\frac{f_0}{1-\\frac{v}{c}}\"></span>  (Гц), где <i>c</i>  — ско­рость звука (в м/с). Че­ло­век, сто­я­щий на плат­фор­ме, раз­ли­ча­ет сиг­на­лы по тону, если они от­ли­ча­ют­ся не менее, чем на 7 Гц. Опре­де­ли­те, с какой ми­ни­маль­ной ско­ро­стью при­бли­жал­ся к плат­фор­ме теп­ло­воз, если че­ло­век смог раз­ли­чить сиг­на­лы, а <span data-inline-latex=\"c=300\"></span> м/с. Ответ вы­ра­зи­те в м/с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"f(v)-f_0\\ge 7\"></span> при из­вест­ном зна­че­нии по­сто­ян­ной <span data-inline-latex=\"f_0=593\"></span> Гц:</p><center><p><span><span data-inline-latex=\"f(v)-f_0\\ge 7\\iff \\frac{f_0}{1-\\frac{v}{c}}-f_0\\ge 7\\iff \\frac{593}{1-\\frac{v}{300}}-593\\ge 7\\iff \\frac{300}{300-v}-1\\ge \\frac{7}{593}\\iff \\frac{300}{300-v}\\ge \\frac{600}{593}\\iff \\frac{600v-7\\cdot 593}{300-v}\\ge 0\\iff 3{,}5\\le v\\lt 300\"></span>. </span></p></center><p>Таким об­ра­зом, ми­ни­маль­ная ско­рость теп­ло­во­за долж­на быть равна 3,5 м/с.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27971",
+      "task": "530821",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Перед от­прав­кой теп­ло­воз издал гудок с ча­сто­той <span data-inline-latex=\"f_0=190\"></span> Гц. Чуть позже издал гудок подъ­ез­жа­ю­щий к плат­фор­ме теп­ло­воз. Из-за эф­фек­та До­пле­ра ча­сто­та вто­ро­го гудка <i>f</i> боль­ше пер­во­го: она за­ви­сит от ско­ро­сти теп­ло­во­за по за­ко­ну <span data-inline-latex=\"f(v)=\\frac{f_0}{1-\\frac{v}{c}}\"></span>  (Гц), где <i>c</i>  — ско­рость звука (в м/с). Че­ло­век, сто­я­щий на плат­фор­ме, раз­ли­ча­ет сиг­на­лы по тону, если они от­ли­ча­ют­ся не менее, чем на 10 Гц. Опре­де­ли­те, с какой ми­ни­маль­ной ско­ро­стью при­бли­жал­ся к плат­фор­ме теп­ло­воз, если че­ло­век смог раз­ли­чить сиг­на­лы, а <span data-inline-latex=\"c=300\"></span> м/с. Ответ вы­ра­зи­те в м/с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"f(v)-f_0\\ge 10\"></span> при из­вест­ном зна­че­нии по­сто­ян­ной <span data-inline-latex=\"f_0=190\"></span> Гц:</p><center><p><span><span data-inline-latex=\"f(v)-f_0\\ge 10\\Leftrightarrow \\frac{f_0}{1-\\frac{v}{c}}-f_0\\ge 10\\Leftrightarrow \\frac{190}{1-\\frac{v}{300}}-190\\ge 10\\Leftrightarrow \\frac{300}{300-v}-1\\ge \\frac{1}{19}\\Leftrightarrow \\frac{300}{300-v}\\ge \\frac{20}{19}\\Leftrightarrow \\frac{20(v-15)}{300-v}\\ge 0\\Leftrightarrow 15\\le v&lt;300.\"></span></span></p></center><p>Таким об­ра­зом, ми­ни­маль­ная ско­рость теп­ло­во­за долж­на быть равна 15 м/с.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27972",
+      "task": "27972",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>По за­ко­ну Ома для пол­ной цепи сила тока, из­ме­ря­е­мая в ам­пе­рах, равна <span data-inline-latex=\"I=\\frac{\\epsilon}{R+r}\"></span> ,  где <span data-inline-latex=\"\\epsilon\"></span>   — ЭДС ис­точ­ни­ка (в воль­тах), <span data-inline-latex=\"r=1\"></span> Ом  — его внут­рен­нее со­про­тив­ле­ние, <var data-math-identifier=\"R\">R</var>  — со­про­тив­ле­ние цепи (в омах). При каком наи­мень­шем со­про­тив­ле­нии цепи сила тока будет со­став­лять не более <span data-inline-latex=\"20\\%\"></span> от силы тока ко­рот­ко­го за­мы­ка­ния <span data-inline-latex=\"I_{\\mathrm{кз}}=\\frac{\\epsilon}{r}\"></span>  ? (Ответ вы­ра­зи­те в омах.)</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"I\\le 0{,}2I_{\\mathrm{кз}}\"></span> при из­вест­ном зна­че­нии внут­рен­не­го со­про­тив­ле­ния <span data-inline-latex=\"r=1\"></span> Ом:</p><center><p><span data-inline-latex=\"I\\le 0{,}2I_{\\mathrm{кз}}\\iff \\frac{\\epsilon}{R+1}\\le 0{,}2\\cdot \\frac{\\epsilon}{1}\\iff R+1\\ge 5\\iff R\\ge 4\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27972",
+      "task": "28225",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>По за­ко­ну Ома для пол­ной цепи сила тока, из­ме­ря­е­мая в ам­пе­рах, равна <span data-inline-latex=\"I=\\frac{\\epsilon}{R+r}\"></span> ,  где <span data-inline-latex=\"\\epsilon\"></span>   — ЭДС ис­точ­ни­ка (в воль­тах), <span data-inline-latex=\"r=1\"></span> Ом  — его внут­рен­нее со­про­тив­ле­ние, <var data-math-identifier=\"R\">R</var>  — со­про­тив­ле­ние цепи (в омах). При каком наи­мень­шем со­про­тив­ле­нии цепи сила тока будет со­став­лять не более <span data-inline-latex=\"20\\%\"></span> от силы тока ко­рот­ко­го за­мы­ка­ния <span data-inline-latex=\"I_{\\mathrm{кз}}=\\frac{\\epsilon}{r}\"></span> ? (Ответ вы­ра­зи­те в омах.)</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"I\\le 0{,}2I_{\\mathrm{кз}}\"></span> при из­вест­ном зна­че­нии внут­рен­не­го со­про­тив­ле­ния <span data-inline-latex=\"r=1\"></span> Ом:</p><center><p><span data-inline-latex=\"I\\le 0{,}2I_{\\mathrm{кз}}\\iff \\frac{\\epsilon}{R+1}\\le 0{,}2\\cdot \\frac{\\epsilon}{1}\\iff R+1\\ge 5\\iff R\\ge 4\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27972",
+      "task": "41971",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>По за­ко­ну Ома для пол­ной цепи сила тока, из­ме­ря­е­мая в ам­пе­рах, равна <span data-inline-latex=\"I=\\frac{\\epsilon}{R+r}\"></span> ,  где <span data-inline-latex=\"\\epsilon\"></span>  — ЭДС ис­точ­ни­ка (в воль­тах), <i>r</i>  =  3 Ом  — его внут­рен­нее со­про­тив­ле­ние, <var data-math-identifier=\"R\">R</var>  — со­про­тив­ле­ние цепи (в омах). При каком наи­мень­шем со­про­тив­ле­нии цепи сила тока будет со­став­лять не более 8% от силы тока ко­рот­ко­го за­мы­ка­ния <span data-inline-latex=\"I_{\\mathrm{кз}}=\\frac{\\epsilon}{r}\"></span> ?  (Ответ вы­ра­зи­те в омах.)</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">34,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"I\\le 0{,}08I_{\\mathrm{кз}}\"></span> при из­вест­ном зна­че­нии внут­рен­не­го со­про­тив­ле­ния <i>r</i>  =  3 Ом:</p><center><p><span data-inline-latex=\"I\\le 0{,}08I_{\\mathrm{кз}}\\iff \\frac{\\epsilon}{R+3}\\le 0{,}08\\cdot \\frac{\\epsilon}{3}\\iff R+3\\ge 37{,}5\\iff R\\ge 34{,}5\\,\\mathrm{Ом}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27972",
+      "task": "41987",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>По за­ко­ну Ома для пол­ной цепи сила тока, из­ме­ря­е­мая в ам­пе­рах, равна <span data-inline-latex=\"I=\\frac{\\epsilon}{R+r}\"></span> ,  где <span data-inline-latex=\"\\epsilon\"></span>  — ЭДС ис­точ­ни­ка (в воль­тах), <span data-inline-latex=\"r=3\"></span> Ом  — его внут­рен­нее со­про­тив­ле­ние, <var data-math-identifier=\"R\">R</var>  — со­про­тив­ле­ние цепи (в омах). При каком наи­мень­шем со­про­тив­ле­нии цепи сила тока будет со­став­лять не более <span data-inline-latex=\"25\\%\"></span> от силы тока ко­рот­ко­го за­мы­ка­ния <span data-inline-latex=\"I_{\\mathrm{кз}}=\\frac{\\epsilon}{r}\"></span> ? (Ответ вы­ра­зи­те в омах.)</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"I\\le 0{,}25I_{\\mathrm{кз}}\"></span> при из­вест­ном зна­че­нии внут­рен­не­го со­про­тив­ле­ния <span data-inline-latex=\"r=3\"></span> Ом:</p><center><p><span data-inline-latex=\"I\\le 0{,}25I_{\\mathrm{кз}}\\iff \\frac{\\epsilon}{R+3}\\le 0{,}25\\cdot \\frac{\\epsilon}{3}\\iff \\frac{1}{R+3}\\le \\frac{1}{12}\\iff R+3\\ge 12\\iff R\\ge 9\"></span>  Ом.</p></center><p>Зна­чит, наи­мень­шее со­про­тив­ле­ние цепи долж­но быть равно 9 Ом.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27975",
+      "task": "27975",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В ро­зет­ку элек­тро­се­ти под­клю­че­ны при­бо­ры, общее со­про­тив­ле­ние ко­то­рых со­став­ля­ет <span data-inline-latex=\"R_1=90\\,\\mathrm{Ом}\"></span>. Па­рал­лель­но с ними в ро­зет­ку пред­по­ла­га­ет­ся под­клю­чить элек­тро­обо­гре­ва­тель. Опре­де­ли­те наи­мень­шее воз­мож­ное со­про­тив­ле­ние <span data-inline-latex=\"R_2\"></span> этого элек­тро­обо­гре­ва­те­ля, если из­вест­но, что при па­рал­лель­ном со­еди­не­нии двух про­вод­ни­ков с со­про­тив­ле­ни­я­ми <span data-inline-latex=\"R_1\\,\\mathrm{Ом}\"></span> и <span data-inline-latex=\"R_2\\,\\mathrm{Ом}\"></span> их общее со­про­тив­ле­ние даeтся фор­му­лой <span data-inline-latex=\"R_{\\mathrm{общ}}=\\frac{R_1R_2}{R_1+R_2}(\\mathrm{Ом})\"></span> ,  а для нор­маль­но­го функ­ци­о­ни­ро­ва­ния элек­тро­се­ти общее со­про­тив­ле­ние в ней долж­но быть не мень­ше 9 Ом. Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=40329152\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 07.06.2021. Основная волна. Подмосковье</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 9\\,\\mathrm{Ом}\"></span> при из­вест­ном зна­че­нии со­про­тив­ле­ния при­бо­ров <nobr><span data-inline-latex=\"R_1=90\\,\\mathrm{Ом}\"></span>:</nobr></p><center><p><span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 9\\iff \\frac{90R_2}{90+R_2}\\ge 9\\iff 81R_2\\ge 810\\iff R_2\\ge 10\\,\\mathrm{Ом}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27975",
+      "task": "28257",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В ро­зет­ку элек­тро­се­ти под­клю­че­ны при­бо­ры, общее со­про­тив­ле­ние ко­то­рых со­став­ля­ет <span data-inline-latex=\"R_1=72\"></span> Ом. Па­рал­лель­но с ними в ро­зет­ку пред­по­ла­га­ет­ся под­клю­чить элек­тро­обо­гре­ва­тель. Опре­де­ли­те наи­мень­шее воз­мож­ное со­про­тив­ле­ние <span data-inline-latex=\"R_2\"></span> этого элек­тро­обо­гре­ва­те­ля, если из­вест­но, что при па­рал­лель­ном со­еди­не­нии двух про­вод­ни­ков с со­про­тив­ле­ни­я­ми <span data-inline-latex=\"R_1\"></span> Ом и <span data-inline-latex=\"R_2\"></span> Ом их общее со­про­тив­ле­ние даeтся фор­му­лой <span data-inline-latex=\"R_{\\mathrm{общ}}=\\frac{R_1R_2}{R_1+R_2}\"></span>  (Ом), а для нор­маль­но­го функ­ци­о­ни­ро­ва­ния элек­тро­се­ти общее со­про­тив­ле­ние в ней долж­но быть не мень­ше 8 Ом. Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=40329450\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 07.06.2021. Основная волна. Санкт-Петербург</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 8\"></span> Ом при из­вест­ном зна­че­нии со­про­тив­ле­ния при­бо­ров <span data-inline-latex=\"R_1=72\"></span> Ом:</p><center><p><span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 8\\iff \\frac{72R_2}{72+R_2}\\ge 8\\iff 64R_2\\ge 576\\iff R_2\\ge 9\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27975",
+      "task": "42107",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В ро­зет­ку элек­тро­се­ти под­клю­че­ны при­бо­ры, общее со­про­тив­ле­ние ко­то­рых со­став­ля­ет <span data-inline-latex=\"R_1=96\"></span> Ом. Па­рал­лель­но с ними в ро­зет­ку пред­по­ла­га­ет­ся под­клю­чить элек­тро­обо­гре­ва­тель. Опре­де­ли­те наи­мень­шее воз­мож­ное со­про­тив­ле­ние <span data-inline-latex=\"R_2\"></span> этого элек­тро­обо­гре­ва­те­ля, если из­вест­но, что при па­рал­лель­ном со­еди­не­нии двух про­вод­ни­ков с со­про­тив­ле­ни­я­ми <span data-inline-latex=\"R_1\"></span> Ом и <span data-inline-latex=\"R_2\"></span> Ом их общее со­про­тив­ле­ние даeтся фор­му­лой <span data-inline-latex=\"R_{\\mathrm{общ}}=\\frac{R_1R_2}{R_1+R_2}\"></span>  (Ом), а для нор­маль­но­го функ­ци­о­ни­ро­ва­ния элек­тро­се­ти общее со­про­тив­ле­ние в ней долж­но быть не мень­ше 24 Ом. Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">32</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 24\"></span> Ом при из­вест­ном зна­че­нии со­про­тив­ле­ния при­бо­ров <span data-inline-latex=\"R_1=96\"></span> Ом:</p><center><p><span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 24\\iff \\frac{96R_2}{96+R_2}\\ge 24\\iff 72R_2\\ge 2304\\iff R_2\\ge 32\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27975",
+      "task": "42111",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В ро­зет­ку элек­тро­се­ти под­клю­че­ны при­бо­ры, общее со­про­тив­ле­ние ко­то­рых со­став­ля­ет <span data-inline-latex=\"R_1=90\"></span> Ом. Па­рал­лель­но с ними в ро­зет­ку пред­по­ла­га­ет­ся под­клю­чить элек­тро­обо­гре­ва­тель. Опре­де­ли­те наи­мень­шее воз­мож­ное со­про­тив­ле­ние <span data-inline-latex=\"R_2\"></span> этого элек­тро­обо­гре­ва­те­ля, если из­вест­но, что при па­рал­лель­ном со­еди­не­нии двух про­вод­ни­ков с со­про­тив­ле­ни­я­ми <span data-inline-latex=\"R_1\"></span> Ом и <span data-inline-latex=\"R_2\"></span> Ом их общее со­про­тив­ле­ние даeтся фор­му­лой <span data-inline-latex=\"R_{\\mathrm{общ}}=\\frac{R_1R_2}{R_1+R_2}\"></span>  (Ом), а для нор­маль­но­го функ­ци­о­ни­ро­ва­ния элек­тро­се­ти общее со­про­тив­ле­ние в ней долж­но быть не мень­ше 15 Ом. Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 15\"></span> Ом при из­вест­ном зна­че­нии со­про­тив­ле­ния при­бо­ров <span data-inline-latex=\"R_1=90\"></span> Ом:</p><center><p><span data-inline-latex=\"R_{\\mathrm{общ}}\\ge 15\\iff \\frac{90R_2}{90+R_2}\\ge 15\\iff 75R_2\\ge 1350\\iff R_2\\ge 18\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27976",
+      "task": "27976",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) не­ко­то­ро­го дви­га­те­ля опре­де­ля­ет­ся фор­му­лой <span data-inline-latex=\"\\eta=\\frac{T_1-T_2}{T_1}\\cdot 100\\%\"></span> ,  где <span data-inline-latex=\"T_1\"></span>  — тем­пе­ра­ту­ра на­гре­ва­те­ля (в гра­ду­сах Кель­ви­на), <span data-inline-latex=\"T_2\"></span>  — тем­пе­ра­ту­ра хо­ло­диль­ни­ка (в гра­ду­сах Кель­ви­на). При какой ми­ни­маль­ной тем­пе­ра­ту­ре на­гре­ва­те­ля <span data-inline-latex=\"T_1\"></span> КПД этого дви­га­те­ля будет не мень­ше <span data-inline-latex=\"15\\%\"></span>, если тем­пе­ра­ту­ра хо­ло­диль­ни­ка <nobr><span data-inline-latex=\"T_2=340\"></span> К?</nobr> Ответ вы­ра­зи­те в гра­ду­сах Кель­ви­на.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">400</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"\\eta\\ge 15\\%\"></span> при из­вест­ном зна­че­нии тем­пе­ра­ту­ры хо­ло­диль­ни­ка <nobr><span data-inline-latex=\"T_2=340\\,\\mathrm{К}\"></span>:\t</nobr> </p><center><p><nobr><span data-inline-latex=\"\\eta\\ge 15\\iff \\frac{T_1-340}{T_1}\\cdot 100\\ge 15\\iff 100T_1-34000\\ge 15T_1\\iff T_1\\ge 400\"></span>  К.</nobr></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27976",
+      "task": "28267",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) не­ко­то­ро­го дви­га­те­ля опре­де­ля­ет­ся фор­му­лой <span data-inline-latex=\"\\eta=\\frac{T_1-T_2}{T_1}\\cdot 100\\%\"></span> ,  где <span data-inline-latex=\"T_1\"></span>  — тем­пе­ра­ту­ра на­гре­ва­те­ля (в гра­ду­сах Кель­ви­на), <span data-inline-latex=\"T_2\"></span>  — тем­пе­ра­ту­ра хо­ло­диль­ни­ка (в гра­ду­сах Кель­ви­на). При какой ми­ни­маль­ной тем­пе­ра­ту­ре на­гре­ва­те­ля <span data-inline-latex=\"T_1\"></span> КПД этого дви­га­те­ля будет не мень­ше <span data-inline-latex=\"25\\%\"></span>, если тем­пе­ра­ту­ра хо­ло­диль­ни­ка <span data-inline-latex=\"T_2=276\"></span> К? Ответ вы­ра­зи­те в гра­ду­сах Кель­ви­на.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">368</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"\\eta\\ge 25\\%\"></span> при из­вест­ном зна­че­нии тем­пе­ра­ту­ры хо­ло­диль­ни­ка <span data-inline-latex=\"T_2=276\\,\\mathrm{К}\"></span>:\t\t</p><center><p><span data-inline-latex=\"\\eta\\ge 25\\iff \\frac{T_1-276}{T_1}\\cdot 100\\ge 25\\iff 100T_1-27600\\ge 25T_1\\iff T_1\\ge 368\"></span>  К.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27976",
+      "task": "54799",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) не­ко­то­ро­го дви­га­те­ля опре­де­ля­ет­ся фор­му­лой <span data-inline-latex=\"\\eta=\\frac{T_1-T_2}{T_1}\\cdot 100\\%\"></span> ,  где <span data-inline-latex=\"T_1\"></span>  — тем­пе­ра­ту­ра на­гре­ва­те­ля (в гра­ду­сах Кель­ви­на), <span data-inline-latex=\"T_2\"></span>  — тем­пе­ра­ту­ра хо­ло­диль­ни­ка (в гра­ду­сах Кель­ви­на). При какой ми­ни­маль­ной тем­пе­ра­ту­ре на­гре­ва­те­ля <span data-inline-latex=\"T_1\"></span> КПД этого дви­га­те­ля будет не мень­ше <span data-inline-latex=\"50\\%\"></span>, если тем­пе­ра­ту­ра хо­ло­диль­ни­ка <span data-inline-latex=\"T_2=250\"></span> К? Ответ вы­ра­зи­те в гра­ду­сах Кель­ви­на.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">500</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"\\eta\\ge 50\\%\"></span> при из­вест­ном зна­че­нии тем­пе­ра­ту­ры хо­ло­диль­ни­ка <span data-inline-latex=\"T_2=250\\,\\mathrm{К}\"></span>:</p><center><p><span data-inline-latex=\"\\eta\\ge 50\\iff \\frac{T_1-250}{T_1}\\cdot 100\\ge 50\\iff 100T_1-25000\\ge 50T_1\\iff T_1\\ge 500\"></span>  К.</p></center><p>Таким об­ра­зом, ми­ни­маль­ная тем­пе­ра­ту­ра на­гре­ва­те­ля равна 500 К.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27976",
+      "task": "525404",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) не­ко­то­ро­го дви­га­те­ля опре­де­ля­ет­ся фор­му­лой <span data-inline-latex=\"\\eta=\\frac{T_1-T_2}{T_1}\\cdot 100\\%\"></span> ,  где <span data-inline-latex=\"T_1\"></span> − тем­пе­ра­ту­ра на­гре­ва­те­ля (в гра­ду­сах Кель­ви­на), <span data-inline-latex=\"T_2\"></span> − тем­пе­ра­ту­ра хо­ло­диль­ни­ка (в гра­ду­сах Кель­ви­на). При какой ми­ни­маль­ной тем­пе­ра­ту­ре на­гре­ва­те­ля <span data-inline-latex=\"T_1\"></span> КПД этого дви­га­те­ля будет не мень­ше <span data-inline-latex=\"80\\%\"></span>, если тем­пе­ра­ту­ра хо­ло­диль­ни­ка <span data-inline-latex=\"T_2=200\"></span> К? Ответ вы­ра­зи­те в гра­ду­сах Кель­ви­на.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=23006323\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ по математике, Санкт-Петербург, 19.03.2019. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"\\eta\\ge 80\\%\"></span> при из­вест­ном зна­че­нии тем­пе­ра­ту­ры хо­ло­диль­ни­ка <span data-inline-latex=\"T_2=200\\,\\mathrm{К}\"></span>:\t\t</p><center><p><span data-inline-latex=\"\\eta\\ge 80\\iff \\frac{T_1-200}{T_1}\\cdot 100\\ge 80\\iff 100T_1-20000\\ge 80T_1\\iff T_1\\ge 1000\"></span>  К.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27979",
+      "task": "27979",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>К ис­точ­ни­ку с ЭДС <nobr><span data-inline-latex=\"\\epsilon=55\"></span> В</nobr> и внут­рен­ним со­про­тив­ле­ни­ем <nobr><span data-inline-latex=\"r=0{,}5\"></span> Ом,</nobr> хотят под­клю­чить на­груз­ку с со­про­тив­ле­ни­ем <nobr><var data-math-identifier=\"R\">R</var> Ом.</nobr> На­пря­же­ние на этой на­груз­ке, вы­ра­жа­е­мое в воль­тах, даeтся фор­му­лой <span data-inline-latex=\"U=\\frac{\\epsilon R}{R+r}\"></span> .  При каком наи­мень­шем зна­че­нии со­про­тив­ле­ния на­груз­ки на­пря­же­ние на ней будет не менее 50 В? Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=54194441\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 01.06.2023. Основная волна. Сибирь/Урал</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"U\\ge 50\"></span> В при из­вест­ных зна­че­ни­ях внут­рен­не­го со­про­тив­ле­ния <nobr><span data-inline-latex=\"r=0{,}5\"></span> Ом,</nobr> ЭДС <nobr><span data-inline-latex=\"\\epsilon=55\"></span> В:</nobr></p><center><p><span data-inline-latex=\"U\\ge 50\\iff \\frac{55R}{R+0{,}5}\\ge 50\\iff R\\ge 5\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27979",
+      "task": "28299",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>К ис­точ­ни­ку с ЭДС <span data-inline-latex=\"\\epsilon=180\"></span> В и внут­рен­ним со­про­тив­ле­ни­ем <span data-inline-latex=\"r=1\"></span> Ом, хотят под­клю­чить на­груз­ку с со­про­тив­ле­ни­ем <var data-math-identifier=\"R\">R</var> Ом. На­пря­же­ние на этой на­груз­ке, вы­ра­жа­е­мое в воль­тах, даeтся фор­му­лой <span data-inline-latex=\"U=\\frac{\\epsilon R}{R+r}\"></span> .  При каком наи­мень­шем зна­че­нии со­про­тив­ле­ния на­груз­ки на­пря­же­ние на ней будет не менее 170 В?  Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=77209292\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 05.07.2024. Основная волна, резервный день. Дальний Восток</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"U\\ge 170\"></span> В при из­вест­ных зна­че­ни­ях внут­рен­не­го со­про­тив­ле­ния <span data-inline-latex=\"r=1\"></span> Ом, ЭДС <span data-inline-latex=\"\\epsilon=180\"></span> В:\t</p><center><p><span data-inline-latex=\"U\\ge 170\\iff \\frac{180R}{R+1}\\ge 170\\iff R\\ge 17\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27979",
+      "task": "42307",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>К ис­точ­ни­ку с ЭДС <span data-inline-latex=\"\\epsilon=60\"></span> В и внут­рен­ним со­про­тив­ле­ни­ем <span data-inline-latex=\"r=0{,}8\"></span> Ом, хотят под­клю­чить на­груз­ку с со­про­тив­ле­ни­ем <var data-math-identifier=\"R\">R</var> Ом. На­пря­же­ние на этой на­груз­ке, вы­ра­жа­е­мое в воль­тах, даeтся фор­му­лой <span data-inline-latex=\"U=\\frac{\\epsilon R}{R+r}\"></span> .  При каком наи­мень­шем зна­че­нии со­про­тив­ле­ния на­груз­ки на­пря­же­ние на ней будет не менее 55 В? Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8,8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"U\\ge 55\"></span> В при из­вест­ных зна­че­ни­ях внут­рен­не­го со­про­тив­ле­ния <span data-inline-latex=\"r=0{,}8\"></span> Ом, ЭДС <span data-inline-latex=\"\\epsilon=60\"></span> В: </p><center><p><span data-inline-latex=\"U\\ge 55\\iff \\frac{60R}{R+0{,}8}\\ge 55\\iff R\\ge 8{,}8\"></span>  Ом.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27979",
+      "task": "42311",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>К ис­точ­ни­ку с ЭДС <span data-inline-latex=\"\\epsilon=75\"></span> В и внут­рен­ним со­про­тив­ле­ни­ем <span data-inline-latex=\"r=0{,}4\"></span> Ом, хотят под­клю­чить на­груз­ку с со­про­тив­ле­ни­ем <var data-math-identifier=\"R\">R</var> Ом. На­пря­же­ние на этой на­груз­ке, вы­ра­жа­е­мое в воль­тах, даeтся фор­му­лой <span data-inline-latex=\"U=\\frac{\\epsilon R}{R+r}\"></span> .  При каком наи­мень­шем зна­че­нии со­про­тив­ле­ния на­груз­ки на­пря­же­ние на ней будет не менее 60 В? Ответ вы­ра­зи­те в омах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1,6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"U\\ge 60\"></span> В при из­вест­ных зна­че­ни­ях внут­рен­не­го со­про­тив­ле­ния <span data-inline-latex=\"r=0{,}4\"></span> Ом, ЭДС <span data-inline-latex=\"\\epsilon=75\"></span> В:\t</p><center><p><span data-inline-latex=\"U\\ge 60\\iff \\frac{75R}{R+0{,}4}\\ge 60\\iff R\\ge 1{,}6\"></span>  Ом.</p></center><p>Таким об­ра­зом, наи­мень­шее зна­че­ние со­про­тив­ле­ния на­груз­ки равно 1,6 Ом.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27980",
+      "task": "27980",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>При сбли­же­нии ис­точ­ни­ка и приёмника зву­ко­вых сиг­на­лов дви­жу­щих­ся в не­ко­то­рой среде по пря­мой нав­стре­чу друг другу ча­сто­та зву­ко­во­го сиг­на­ла, ре­ги­стри­ру­е­мо­го приeмни­ком, не сов­па­да­ет с ча­сто­той ис­ход­но­го сиг­на­ла <nobr><span data-inline-latex=\"f_0=150\"></span> Гц</nobr> и опре­де­ля­ет­ся сле­ду­ю­щим вы­ра­же­ни­ем: <span data-inline-latex=\"f=f_0\\frac{c+u}{c-v}\"></span>  (Гц), где <i>c</i>  — ско­рость рас­про­стра­не­ния сиг­на­ла в среде <nobr>(в м/с),</nobr> а <nobr><span data-inline-latex=\"u=10\"></span> м/с</nobr> и <nobr> <span data-inline-latex=\"v=15\"></span> м/с</nobr>  — ско­ро­сти приeмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но. При какой мак­си­маль­ной ско­ро­сти <i>c</i> <nobr>(в м/с)</nobr> рас­про­стра­не­ния сиг­на­ла в среде ча­сто­та сиг­на­ла в приeмнике <i>f</i> будет не менее 160 Гц?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">390</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=40330632\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике. Основная волна 07.06.2021. Урал</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=24563379\" rel=\"noreferrer noopener\" target=\"_blank\">Основная волна ЕГЭ по математике 29.05.2019. Дальний восток</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"f\\ge 160\"></span> Гц при из­вест­ных зна­че­ни­ях <nobr><span data-inline-latex=\"u=10\"></span> м/с</nobr> и <nobr> <span data-inline-latex=\"v=15\"></span> м/с</nobr>  — ско­ро­сти приёмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но:</p><center><p><span><span data-inline-latex=\"f\\ge 160\\iff 150\\cdot \\frac{c+10}{c-15}\\ge 160\\iff \\frac{15(c+10)-16(c-15)}{c-15}\\ge 0\\iff \\frac{390-c}{c-15}\\ge 0\\iff 15\\lt c\\le 390\"></span>. </span></p></center><p>Зна­чит, мак­си­маль­ная ско­рость равна 390 м/⁠с.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27980",
+      "task": "42377",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>При сбли­же­нии ис­точ­ни­ка и приёмника зву­ко­вых сиг­на­лов дви­жу­щих­ся в не­ко­то­рой среде по пря­мой нав­стре­чу друг другу ча­сто­та зву­ко­во­го сиг­на­ла, ре­ги­стри­ру­е­мо­го приeмни­ком, не сов­па­да­ет с ча­сто­той ис­ход­но­го сиг­на­ла <span data-inline-latex=\"f_0=130\"></span> Гц и опре­де­ля­ет­ся сле­ду­ю­щим вы­ра­же­ни­ем: <span data-inline-latex=\"f=f_0\\frac{c+u}{c-v}\"></span>  (Гц), где <i>c</i>  — ско­рость рас­про­стра­не­ния сиг­на­ла в среде (в м/с), а <span data-inline-latex=\"u=16\"></span> м/с и  <span data-inline-latex=\"v=15\"></span> м/с  — ско­ро­сти приeмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но. При какой мак­си­маль­ной ско­ро­сти <i>c</i> (в м/с) рас­про­стра­не­ния сиг­на­ла в среде ча­сто­та сиг­на­ла в приeмнике <i>f</i> будет не менее 135 Гц?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">821</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=40330674\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 07.06.2021. Основная волна. Сибирь</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"f\\ge 135\"></span> Гц при из­вест­ных зна­че­ни­ях <span data-inline-latex=\"u=16\"></span> м/с и  <span data-inline-latex=\"v=15\"></span> м/с  — ско­ро­сти приёмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но:</p><center><p><span><span data-inline-latex=\"f\\ge 135\\iff 130\\cdot \\frac{c+16}{c-15}\\ge 135\\iff \\frac{26c+416-27c+405}{c-15}\\ge 0\\iff 15\\lt c\\le 821\"></span>. </span></p></center><p>Зна­чит мак­си­маль­ная ско­рость равна 821 м/с.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27980",
+      "task": "42381",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>При сбли­же­нии ис­точ­ни­ка и приёмника зву­ко­вых сиг­на­лов дви­жу­щих­ся в не­ко­то­рой среде по пря­мой нав­стре­чу друг другу ча­сто­та зву­ко­во­го сиг­на­ла, ре­ги­стри­ру­е­мо­го приeмни­ком, не сов­па­да­ет с ча­сто­той ис­ход­но­го сиг­на­ла <span data-inline-latex=\"f_0=110\"></span> Гц и опре­де­ля­ет­ся сле­ду­ю­щим вы­ра­же­ни­ем: <span data-inline-latex=\"f=f_0\\frac{c+u}{c-v}\"></span>  (Гц), где <i>c</i>  — ско­рость рас­про­стра­не­ния сиг­на­ла в среде (в м/с), а <span data-inline-latex=\"u=9\"></span> м/с и  <span data-inline-latex=\"v=15\"></span> м/с  — ско­ро­сти приeмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но. При какой мак­си­маль­ной ско­ро­сти <i>c</i> (в м/с) рас­про­стра­не­ния сиг­на­ла в среде ча­сто­та сиг­на­ла в приeмнике <i>f</i> будет не менее 120 Гц?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">279</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"f\\ge 120\"></span> Гц при из­вест­ных зна­че­ни­ях <span data-inline-latex=\"u=9\"></span> м/с и  <span data-inline-latex=\"v=15\"></span> м/с  — ско­ро­сти приёмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но:</p><center><p><span><span data-inline-latex=\"f\\ge 120\\iff 110\\cdot \\frac{c+9}{c-15}\\ge 120\\iff \\frac{11c+99-12c+180}{c-15}\\ge 0\\iff 15\\lt c\\le 279\"></span>. </span></p></center><p>Зна­чит, макcималь­ная ско­рость рас­про­стра­не­ния сиг­на­ла в среде  — 279 м/с.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27980",
+      "task": "516252",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>При сбли­же­нии ис­точ­ни­ка и приёмника зву­ко­вых сиг­на­лов, дви­жу­щих­ся в не­ко­то­рой среде по пря­мой нав­стре­чу друг другу, ча­сто­та зву­ко­во­го сиг­на­ла, ре­ги­стри­ру­е­мо­го приёмни­ком, не сов­па­да­ет с ча­сто­той ис­ход­но­го сиг­на­ла <span data-inline-latex=\"f_0=160\"></span> Гц и равна: <span data-inline-latex=\"f=f_0\\cdot \\frac{c+u}{c-\\nu}\"></span> ,  где <i>c</i>  — ско­рость рас­про­стра­не­ния сиг­на­ла в среде (в м/с), а <span data-inline-latex=\"u=8\"></span> м/с и <span data-inline-latex=\"\\nu=16\"></span> м/с  — ско­ро­сти приёмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но. При какой ско­ро­сти <i>c</i> (в м/с) рас­про­стра­не­ния сиг­на­ла в среде ча­сто­та <i>f</i> сиг­на­ла в приёмнике будет равна 170 Гц?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">400</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию урав­не­ния <span data-inline-latex=\"f=170\"></span> Гц при из­вест­ных зна­че­ни­ях <span data-inline-latex=\"u=8\"></span> м/с и  <span data-inline-latex=\"v=16\"></span> м/с  — ско­ро­сти приёмника и ис­точ­ни­ка от­но­си­тель­но среды со­от­вет­ствен­но:</p><center><p><span><span data-inline-latex=\"f=170\\iff 160\\cdot \\frac{c+8}{c-16}=170\\iff 170(c-16)=160(c+8)\\iff 10c=160\\cdot 8+170\\cdot 16\\iff 10c=4000\\iff c=400\"></span></span> м/с.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27981",
+      "task": "27981",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ло­ка­тор ба­ти­ска­фа, рав­но­мер­но по­гру­жа­ю­ще­го­ся вер­ти­каль­но вниз, ис­пус­ка­ет уль­тра­зву­ко­вые им­пуль­сы ча­сто­той 749 МГц. Ско­рость по­гру­же­ния ба­ти­ска­фа вы­чис­ля­ет­ся по фор­му­ле  <span data-inline-latex=\"v=c\\cdot \\frac{f-f_0}{f+f_0}\"></span> ,  где <i>c</i>  =  1500 м/с  — ско­рость звука в воде, <i>f</i><sub>0</sub>  — ча­сто­та ис­пус­ка­е­мых им­пуль­сов, <i>f</i>  — ча­сто­та отражённого от дна сиг­на­ла, ре­ги­стри­ру­е­мая приёмни­ком (в МГц). Опре­де­ли­те ча­сто­ту отражённого сиг­на­ла в МГц, если ско­рость по­гру­же­ния ба­ти­ска­фа равна 2 м/с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">751</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=2479053\" rel=\"noreferrer noopener\" target=\"_blank\">Проект демонстрационной версии ЕГЭ—2014 по математике</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=8163627\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2016 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=11672190\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2017 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34177309\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2021 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=41538304\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2022 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47841143\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2023 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=54540650\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2024 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=24868796\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2020 по математике. Профильный уровень</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию урав­не­ния  <span data-inline-latex=\"v=2\\,\\mathrm{м}/\\mathrm{с}\"></span> при из­вест­ных зна­че­ни­ях  <span data-inline-latex=\"c=1500\\,\\mathrm{м}/\\mathrm{с}\"></span> ско­ро­сти звука в воде и  <span data-inline-latex=\"f_0=749\\,\\mathrm{МГц}\"></span> ча­сто­ты ис­пус­ка­е­мых им­пуль­сов:\t</p><center><p><span> <span data-inline-latex=\"v=2\\iff 1500\\cdot \\frac{f-749}{f+749}=2\\iff 750\\cdot \\frac{f-749}{f+749}=1\\iff 750f-750\\cdot 749=f+749\\iff 749f=749\\cdot 751\\iff f=751\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27981",
+      "task": "28321",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ло­ка­тор ба­ти­ска­фа, рав­но­мер­но по­гру­жа­ю­ще­го­ся вер­ти­каль­но вниз, ис­пус­ка­ет ульт-ра­зву­ко­вые им­пуль­сы ча­сто­той 187 МГц. Ско­рость по­гру­же­ния ба­ти­ска­фа  вы­чис­ля­ет­ся по фор­му­ле   <span data-inline-latex=\"v=c\\frac{f-f_0}{f+f_0}\"></span> ,  где <span data-inline-latex=\"c=1500\"></span>  м/с  — ско­рость звука в воде,  <span data-inline-latex=\"f_0\"></span>   — ча­сто­та ис­пус­ка­е­мых им­пуль­сов,  <i>f</i>  — ча­сто­та отражённого от дна сиг­на­ла, ре­ги­стри­ру­е­мая приёмни-ком (в МГц). Опре­де­ли­те ча­сто­ту отражённого сиг­на­ла в МГц, если ско­рость по­гру­же­ния ба­ти­ска­фа равна 4 м/с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">188</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=79903019\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный экзамен Москва, 10.12.2024. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию урав­не­ния  <span data-inline-latex=\"v=4\\,\\mathrm{м}/\\mathrm{с}\"></span> при из­вест­ных зна­че­ни­ях <span data-inline-latex=\"c=1500\"></span> м/с  — ско­ро­сти звука в воде и <span data-inline-latex=\"f_0=187\\,\\mathrm{МГц}\"></span>  — ча­сто­ты ис­пус­ка­е­мых им­пуль­сов:\t</p><center><p><span> <span data-inline-latex=\"v=4\\iff 1500\\cdot \\frac{f-187}{f+187}=4\\iff 375\\cdot \\frac{f-187}{f+187}=1\\iff\"></span> <br/> <span data-inline-latex=\"\\iff 375f-375\\cdot 187=f+187\\iff 374f=187\\cdot 376\\iff f=188\\,\\mathrm{МГц}\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27981",
+      "task": "28325",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ло­ка­тор ба­ти­ска­фа, рав­но­мер­но по­гру­жа­ю­ще­го­ся вер­ти­каль­но вниз, ис­пус­ка­ет уль­тра­зву­ко­вые им­пуль­сы ча­сто­той 124 МГц. Ско­рость по­гру­же­ния ба­ти­ска­фа вы­чис­ля­ет­ся по фор­му­ле  <span data-inline-latex=\"v=c\\cdot \\frac{f-f_0}{f+f_0}\"></span> ,  где <i>c</i>  =  1500 м/с  — ско­рость звука в воде, <i>f</i><sub>0</sub>  — ча­сто­та ис­пус­ка­е­мых им­пуль­сов, <i>f</i>  — ча­сто­та отражённого от дна сиг­на­ла, ре­ги­стри­ру­е­мая приёмни­ком (в МГц). Опре­де­ли­те ча­сто­ту отражённого сиг­на­ла в МГц, если ско­рость по­гру­же­ния ба­ти­ска­фа равна 12 м/с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">126</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию урав­не­ния  <span data-inline-latex=\"v=12\\,\\mathrm{м}/\\mathrm{с}\"></span> при из­вест­ных зна­че­ни­ях  <span data-inline-latex=\"c=1500\\,\\mathrm{м}/\\mathrm{с}\"></span> ско­ро­сти звука в воде и  <span data-inline-latex=\"f_0=124\\,\\mathrm{МГц}\"></span> ча­сто­ты ис­пус­ка­е­мых им­пуль­сов:\t</p><center><p><span> <span data-inline-latex=\"v=12\\iff 1500\\cdot \\frac{f-124}{f+124}=12\\iff 125\\cdot \\frac{f-124}{f+124}=1\\iff 125f-125\\cdot 124=f+124\\iff 124f=124\\cdot 126\\iff f=126\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27981",
+      "task": "42419",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ло­ка­тор ба­ти­ска­фа, рав­но­мер­но по­гру­жа­ю­ще­го­ся вер­ти­каль­но вниз, ис­пус­ка­ет уль­тра­зву­ко­вые им­пуль­сы ча­сто­той 447 МГц. Ско­рость по­гру­же­ния ба­ти­ска­фа  вы­чис­ля­ет­ся по фор­му­ле   <span data-inline-latex=\"v=c\\frac{f-f_0}{f+f_0}\"></span> ,  где <span data-inline-latex=\"c=1500\"></span>  м/с  — ско­рость звука в воде,  <span data-inline-latex=\"f_0\"></span>   — ча­сто­та ис­пус­ка­е­мых им­пуль­сов,  <i>f</i>  — ча­сто­та отражённого от дна сиг­на­ла, ре­ги­стри­ру­е­мая приёмни­ком (в МГц). Опре­де­ли­те ча­сто­ту отражённого сиг­на­ла в МГц, если ско­рость по­гру­же­ния ба­ти­ска­фа равна 10 м/с.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">453</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84855721\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна, резервный день 20.06.2025. Дальний Восток. Вариант Школково (вариант 2)</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию урав­не­ния  <span data-inline-latex=\"v=10\"></span> м/с при из­вест­ных зна­че­ни­ях <span data-inline-latex=\"c=1500\"></span> м/с  — ско­ро­сти звука в воде и <span data-inline-latex=\"f_0=447\"></span> МГц  — ча­сто­ты ис­пус­ка­е­мых им­пуль­сов:\t</p><center><p><span> <span data-inline-latex=\"v=10\\iff 1500\\cdot \\frac{f-447}{f+447}=10\\iff 150\\cdot \\frac{f-447}{f+447}=1\\iff 150f-150\\cdot 447=f+447\\iff 149f=447\\cdot 151\\iff f=453\"></span></span> МГц.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
