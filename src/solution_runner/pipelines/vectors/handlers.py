@@ -52,3 +52,21 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "vector-metric-relations",
+        "solution_runner.pipelines.vectors.metric_relations:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+)
+
+HANDLERS += (
+    HandlerSpec(
+        "vector-endpoint-coordinates",
+        "solution_runner.pipelines.vectors.endpoints:build_context_repair_plan",
+        inputs=(("generated_solution_assets", "generated_solution_assets"),),
+        diagram_builder="solution_runner.pipelines.vectors.endpoints:diagram_specs",
+        requires_parent_condition_asset=False,
+    ),
+)

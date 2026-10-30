@@ -22,7 +22,8 @@ def read(context, evidence, assets_dir):
     asset = assets[0]
     entry = evidence[asset["asset_id"]]
     source = (
-        assets_dir / (asset["asset_id"] + entry.get("extension", ".svg"))
+        assets_dir
+        / entry.get("filename", asset["asset_id"] + entry.get("extension", ".svg"))
     ).read_bytes()
     if hashlib.sha256(source).hexdigest() != entry["sha256"]:
         raise UnsupportedCondition("the audited diagram template has changed")

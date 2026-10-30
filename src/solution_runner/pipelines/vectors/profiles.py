@@ -93,10 +93,64 @@ PROFILES += tuple(
         expected_vertices=None,
         strategy_key=None,
         workflow_kind="content_rule",
-        content_rule_key="vector-coordinate-operations",
+        content_rule_key=rule,
         rewrite_existing_solution=True,
     )
-    for key, source_id, order, title, theme_order, theme_id in (
+    for key, source_id, order, title, theme_order, theme_id, rule in (
+        (
+            "27724",
+            "6be3dbe2-921e-4270-8c92-2be0373b916b",
+            19,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-endpoint-coordinates",
+        ),
+        (
+            "27725",
+            "a2c59baa-8510-4cf8-bbeb-e966ed55fc31",
+            20,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-endpoint-coordinates",
+        ),
+        (
+            "27726",
+            "04c6459f-3b01-4ad9-a39b-5d9524f8a0aa",
+            21,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-endpoint-coordinates",
+        ),
+        (
+            "27727",
+            "116a5fae-63fa-4807-bdac-7a1a84008b94",
+            22,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-endpoint-coordinates",
+        ),
+        (
+            "27728",
+            "9c3efcf6-c294-4c68-bf9e-656c890e788b",
+            23,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-endpoint-coordinates",
+        ),
+        (
+            "27729",
+            "3cdce44a-d0fd-4f0a-afcf-a5b6eaf82dda",
+            24,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-endpoint-coordinates",
+        ),
         (
             "644850",
             "2f65bbdb-e975-4e9b-b177-57b680b34e28",
@@ -104,6 +158,7 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
         ),
         (
             "647124",
@@ -112,6 +167,7 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
         ),
         (
             "649891",
@@ -120,6 +176,16 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
+        ),
+        (
+            "649909",
+            "dfe511ff-c034-4f02-a99b-e5d628489128",
+            47,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-metric-relations",
         ),
         (
             "649915",
@@ -128,6 +194,16 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
+        ),
+        (
+            "649918",
+            "d42c8d39-68d2-4e09-a1b4-3d967d940745",
+            50,
+            "Векторы и операции с ними",
+            0,
+            "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-metric-relations",
         ),
         (
             "660709",
@@ -136,6 +212,7 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
         ),
         (
             "661774",
@@ -144,6 +221,7 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
         ),
         (
             "670261",
@@ -152,6 +230,7 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
         ),
         (
             "672734",
@@ -160,6 +239,7 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
         ),
         (
             "680501",
@@ -168,6 +248,7 @@ PROFILES += tuple(
             "Векторы и операции с ними",
             0,
             "64fdf550-dcad-489a-aea5-0682edf81d76",
+            "vector-coordinate-operations",
         ),
     )
 )

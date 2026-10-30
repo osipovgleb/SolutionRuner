@@ -18,7 +18,17 @@ CASES = DATA["cases"]
 
 def plan(case, context):
     profile = get_group_profile(case["group"])
-    return get_handler(profile.content_rule_key).plan(PlanInput(context))
+    handler = get_handler(profile.content_rule_key)
+    generated = tuple(
+        {
+            "asset_key": s["asset_key"],
+            "sha256": s["sha256"],
+            "source_asset_id": "preview-" + s["sha256"][:16],
+            "url": "/assets/preview-" + s["sha256"][:16],
+        }
+        for s in handler.diagram_specs(context)
+    )
+    return handler.plan(PlanInput(context, generated_solution_assets=generated))
 
 
 @pytest.mark.parametrize("group", DATA["groups"], ids=lambda g: g["key"])
@@ -47,8 +57,11 @@ def test_source_answer_matches_an_independent_plan(case):
     result = plan(case, context)
     assert parse_rational(result.answer) == expected
     assert context == original
+    permitted = ("section:solution", "section:answer")
+    if case["task"] in {"60955", "27727", "27728", "27729"}:
+        permitted += ("asset:image_1", "section:condition")
     assert all(
-        t["transformation_target_id"].startswith(("section:solution", "section:answer"))
+        t["transformation_target_id"].startswith(permitted)
         for t in result.transformations
     )
 
@@ -70,6 +83,14 @@ def test_prepared_vector_content_is_idempotent(case):
     first = plan(case, context)
     sections = context["normalized_content"]["sections"]
     for change in first.transformations:
+        if change["transformation_target_id"].startswith("asset:"):
+            asset = next(
+                a
+                for a in context["normalized_content"]["assets"]
+                if "asset:" + a["asset_key"] == change["transformation_target_id"]
+            )
+            asset.update(change["value"])
+            continue
         section = next(
             (
                 s
