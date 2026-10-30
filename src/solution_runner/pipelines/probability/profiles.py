@@ -234,6 +234,13 @@ GROUPS = (
         (("509303", "e7499819-6d1c-42a4-90e1-57a972640300", 38, 0),),
     ),
     (
+        "probability-conditional-diagrams",
+        (
+            ("509332", "8550c7de-4dc2-4f62-a39e-e42527139cfd", 39, 0),
+            ("509342", "d1c5ae7b-08ce-4fd5-8811-e23fcedb6a26", 40, 0),
+        ),
+    ),
+    (
         "probability-knockout-tournament",
         (("508870", "44deeaa2-6c14-453b-87f3-8b744d73ef14", 9, 1),),
     ),

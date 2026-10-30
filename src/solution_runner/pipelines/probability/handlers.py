@@ -129,3 +129,13 @@ HANDLERS += (
         inputs=(("generated_solution_assets", "generated_solution_assets"),),
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "probability-conditional-diagrams",
+        "solution_runner.pipelines.probability.conditional_diagrams:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+        inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
+    ),
+)

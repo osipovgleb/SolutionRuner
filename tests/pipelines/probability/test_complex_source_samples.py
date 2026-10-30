@@ -32,6 +32,27 @@ def _plan(case, context):
     return handler.plan(
         PlanInput(
             context,
+            condition_asset_bytes=(
+                (
+                    Path(__file__).parents[3]
+                    / "src/solution_runner/pipelines/probability/assets"
+                    / (
+                        next(
+                            a["asset_id"]
+                            for a in context["normalized_content"]["assets"]
+                            if a["asset_key"]
+                            == next(
+                                s
+                                for s in context["normalized_content"]["sections"]
+                                if s["key"] == "condition"
+                            )["asset_keys"][0]
+                        )
+                        + ".svg"
+                    )
+                ).read_bytes()
+                if handler.requires_condition_asset_download
+                else None
+            ),
             parent_solution_html=GROUPS[case["group"]]["parent_solution_html"],
             generated_solution_assets=generated,
         )
