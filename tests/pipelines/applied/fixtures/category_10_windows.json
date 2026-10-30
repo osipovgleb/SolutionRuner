@@ -1,0 +1,360 @@
+{
+  "groups": [
+    {
+      "key": "28014",
+      "uuid": "e24cc851-5b1c-455d-b98c-d4f15e646821",
+      "theme_uuid": "d557c934-3723-4254-9f58-e167491bc384",
+      "theme_title": "Тригонометрические уравнения и неравенства",
+      "theme_order": 6,
+      "order": 6,
+      "rule": "applied-harmonic-window"
+    },
+    {
+      "key": "28000",
+      "uuid": "1493c042-6c56-410f-a5fa-2dc0fa10c329",
+      "theme_uuid": "d557c934-3723-4254-9f58-e167491bc384",
+      "theme_title": "Тригонометрические уравнения и неравенства",
+      "theme_order": 6,
+      "order": 9,
+      "rule": "applied-harmonic-window"
+    }
+  ],
+  "cases": [
+    {
+      "group": "28014",
+      "task": "28014",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ско­рость ко­леб­лю­ще­го­ся на пру­жи­не груза ме­ня­ет­ся по за­ко­ну <nobr> <span data-inline-latex=\"v(t)=5\\sin \\pi t\"></span> (см/с),</nobr> где <i>t</i>  — время в се­кун­дах. Какую долю вре­ме­ни из пер­вой се­кун­ды ско­рость дви­же­ния была не менее 2,5 см/⁠с? Ответ вы­ра­зи­те де­ся­тич­ной дро­бью, если нужно, округ­ли­те до сотых.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,67</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"v\\ge 2{,}5\"></span> cм/с при за­дан­ном за­ко­не из­ме­не­ния ско­ро­сти <nobr> <span data-inline-latex=\"v(t)=5\\sin \\pi t\"></span>:</nobr></p><center><p><span data-inline-latex=\"5\\sin \\pi t\\ge 2{,}5\\iff \\sin \\pi t\\ge \\frac{1}{2}\\underset{0\\lt t\\lt 1}{\\iff}\\frac{\\pi}{6}\\le \\pi t\\le \\frac{5\\pi}{6}\\iff \\frac{1}{6}\\le t\\le \\frac{5}{6}\"></span> . </p></center><p>Таким об­ра­зом,  <span data-inline-latex=\"\\frac{5}{6}-\\frac{1}{6}=\\frac{2}{3}=0{,}666\"></span>...  пер­вой се­кун­ды после на­ча­ла дви­же­ния ско­рость груза была не менее 2,5 см/с. Округ­ляя, по­лу­ча­ем 0,67. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28014",
+      "task": "28697",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ско­рость ко­леб­лю­ще­го­ся на пру­жи­не груза ме­ня­ет­ся по за­ко­ну  <span data-inline-latex=\"v(t)=7\\sin \\frac{\\pi t}{4}\"></span>  (см/с), где <i>t</i>  — время в се­кун­дах. Какую долю вре­ме­ни из пер­вых двух се­кунд ско­рость дви­же­ния пре­вы­ша­ла 3,5 см/с? Ответ вы­ра­зи­те де­ся­тич­ной дро­бью, если нужно, округ­ли­те до сотых.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,67</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"v\\gt 3{,}5\"></span> cм/с при за­дан­ном за­ко­не из­ме­не­ния ско­ро­сти  <span data-inline-latex=\"v(t)=7\\sin \\frac{\\pi t}{4}\"></span>  и усло­вии <span data-inline-latex=\"0\\lt t\\le 2\"></span>:</p><center><p><span><span data-inline-latex=\"\\begin{cases}7\\sin\\frac{\\pi t}{4}&gt;3{,}5,\\\\0&lt;t\\le2\\end{cases}\\Leftrightarrow\\begin{cases}\\sin\\frac{\\pi t}{4}&gt;\\frac12,\\\\0&lt;t\\le2\\end{cases}\\Leftrightarrow\\begin{cases}\\frac{\\pi}{6}&lt;\\frac{\\pi t}{4}&lt;\\frac{5\\pi}{6},\\\\0&lt;t\\le2\\end{cases}\\Leftrightarrow\\begin{cases}\\frac23&lt;t&lt;\\frac{20}{6},\\\\0&lt;t\\le2\\end{cases}\\Leftrightarrow\\frac23&lt;t\\le2.\"></span></span></p></center><p> Таким об­ра­зом, в те­че­ние <span data-inline-latex=\"2-\\frac{2}{3}=\\frac{4}{3}\"></span>  пер­вых двух се­кунд после на­ча­ла дви­же­ния ско­рость груза пре­вы­ша­ла 3,5 см/с. Это со­став­ля­ет  <span data-inline-latex=\"\\frac{4}{3}\\colon 2=\\frac{2}{3}\\approx 0{,}67\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28014",
+      "task": "28709",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ско­рость ко­леб­лю­ще­го­ся на пру­жи­не груза ме­ня­ет­ся по за­ко­ну  <span data-inline-latex=\"v(t)=10\\sin \\frac{\\pi t}{5}\"></span>  (см/с), где <i>t</i>  — время в се­кун­дах. Какую долю вре­ме­ни из пер­вых трех се­кунд ско­рость дви­же­ния пре­вы­ша­ла 5 см/с? Ответ вы­ра­зи­те де­ся­тич­ной дро­бью, если нужно, округ­ли­те до сотых.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,72</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"v\\gt 5\\,\\mathrm{см}/\\mathrm{с}\"></span> при за­дан­ном за­ко­не из­ме­не­ния ско­ро­сти  <span data-inline-latex=\"v(t)=10\\sin \\frac{\\pi t}{5}\"></span>  и усло­вии <span data-inline-latex=\"0\\lt t\\le 3\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}10\\sin \\frac{\\pi t}{5}\\gt 5\\\\0\\lt t\\le 3\\end{cases}\\iff \\begin{cases}\\sin \\frac{\\pi t}{5}\\gt \\frac{1}{2}\\\\0\\lt t\\le 3\\end{cases}\\iff \\begin{cases}\\frac{\\pi}{6}\\lt \\frac{\\pi t}{5}\\lt \\frac{5\\pi}{6}\\\\0\\lt t\\le 3\\end{cases}\\iff \\begin{cases}\\frac{5}{6}\\lt t\\lt \\frac{25}{6}\\\\0\\lt t\\le 3\\end{cases}.\\quad \\iff \\frac{5}{6}\\lt t\\le 3\"></span> . </span></p></center><p> Таким об­ра­зом, в те­че­ние <span data-inline-latex=\"3-\\frac{5}{6}=\\frac{13}{6}\"></span>  пер­вых трех се­кунд после на­ча­ла дви­же­ния ско­рость груза пре­вы­ша­ла 5 см/с. Это со­став­ля­ет  <span data-inline-latex=\"\\frac{13}{6}\\colon 3=\\frac{13}{18}\\approx 0{,}72\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28014",
+      "task": "43971",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ско­рость ко­леб­лю­ще­го­ся на пру­жи­не груза ме­ня­ет­ся по за­ко­ну  <span data-inline-latex=\"v(t)=6\\sin \\frac{\\pi t}{3}\"></span>  (см/с), где <i>t</i>  — время в се­кун­дах. Какую долю вре­ме­ни из пер­вой се­кун­ды ско­рость дви­же­ния пре­вы­ша­ла 3 см/с? Ответ вы­ра­зи­те де­ся­тич­ной дро­бью, если нужно, округ­ли­те до сотых.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"v\\gt 3\"></span> cм/с при за­дан­ном за­ко­не из­ме­не­ния ско­ро­сти  <span data-inline-latex=\"v(t)=6\\sin \\frac{\\pi t}{3}\"></span> :</p><center><p><span data-inline-latex=\"6\\sin \\frac{\\pi t}{3}\\gt 3\\iff \\sin \\frac{\\pi t}{3}\\gt \\frac{1}{2}\\underset{0\\lt t\\le 1}{\\iff}\\frac{\\pi}{6}\\lt \\frac{\\pi t}{3}\\lt \\frac{\\pi}{3}\\iff \\frac{1}{2}\\lt t\\lt 1\"></span>. </p></center><p>Таким об­ра­зом, в первую се­кун­ду ско­рость дви­же­ния пре­вы­ша­ла 3 см/с с 0,5 с до 1,0 с, то есть по­ло­ви­ну пер­вой се­кун­ды дви­же­ния.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28000",
+      "task": "28000",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дат­чик скон­стру­и­ро­ван таким об­ра­зом, что его ан­тен­на ловит ра­дио­сиг­нал, ко­то­рый затем пре­об­ра­зу­ет­ся в элек­три­че­ский сиг­нал, из­ме­ня­ю­щий­ся со вре­ме­нем по за­ко­ну  <span data-inline-latex=\"U=U_0\\sin (\\omega t+\\varphi)\"></span> , где <i>t</i>  — время в се­кун­дах, ам­пли­ту­да <var data-math-identifier=\"U\">U</var><sub>0</sub>  =  2 В, <nobr>ча­сто­та ω  =  120°/с</nobr>, <nobr>фаза φ  =  –30°.</nobr> Дат­чик на­стро­ен так, что если на­пря­же­ние в нeм не ниже чем 1 В, за­го­ра­ет­ся лам­поч­ка. Какую часть вре­ме­ни (в про­цен­тах) на про­тя­же­нии пер­вой се­кун­ды после на­ча­ла ра­бо­ты лам­поч­ка будет го­реть?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">50</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"U_0\\sin (\\omega t+\\varphi)\\ge 1\"></span> при за­дан­ных зна­че­ни­ях ам­пли­ту­ды сиг­на­ла, ча­сто­ты и фазы:</p><center><p><span> <span data-inline-latex=\"2\\sin (120^{\\circ}t-30^{\\circ})\\ge 1\\iff \\sin (120^{\\circ}t-30^{\\circ})\\ge \\frac{1}{2}\\iff \\begin{cases}120^{\\circ}t-30^{\\circ}\\ge 30^{\\circ}+360^{\\circ}n\\\\120^{\\circ}t-30^{\\circ}\\le 150^{\\circ}+360^{\\circ}n\\end{cases}.\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}120^{\\circ}t\\ge 60^{\\circ}+360^{\\circ}n\\\\120^{\\circ}t\\le 180^{\\circ}+360^{\\circ}n\\end{cases}\\iff \\begin{cases}2t\\ge 1+6n\\\\2t\\le 3+6n\\end{cases}.\\quad \\iff 3n+\\frac{1}{2}\\le t\\le \\frac{3}{2}+3n,\\,n\\in\\mathbb{Z}\\underset{0\\le t\\le 1}{\\iff}\\frac{1}{2}\\le t\\le 1\"></span>.</span></p></center><p>На про­тя­же­нии пер­вой се­кун­ды лам­поч­ка будет <nobr>го­реть  <span data-inline-latex=\"1-\\frac{1}{2}=\\frac{1}{2}=0{,}5\\,\\mathrm{с}\"></span>,</nobr> то есть 50% вре­ме­ни. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28000",
+      "task": "28001",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дат­чик скон­стру­и­ро­ван таким об­ра­зом, что его ан­тен­на ловит ра­дио­сиг­нал, ко­то­рый затем пре­об­ра­зу­ет­ся в элек­три­че­ский сиг­нал, из­ме­ня­ю­щий­ся со вре­ме­нем по за­ко­ну <span data-inline-latex=\"U=U_0\\cos (\\omega t+\\varphi)\"></span> , где <i>t</i>  — время в се­кун­дах, ам­пли­ту­да  <span data-inline-latex=\"U_0=2\"></span> В, ча­сто­та  <span data-inline-latex=\"\\omega=240^{\\circ}\"></span>/с, фаза <span data-inline-latex=\"\\varphi=-120^{\\circ}\"></span>. Дат­чик на­стро­ен так, что если на­пря­же­ние в нeм не ниже чем 1 В, за­го­ра­ет­ся лам­поч­ка. Какую часть вре­ме­ни (в про­цен­тах) на про­тя­же­нии пер­вой се­кун­ды после на­ча­ла ра­бо­ты лам­поч­ка будет го­реть?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">50</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"U_0\\cos (\\omega t+\\varphi)\\ge 1\"></span> при за­дан­ных зна­че­ни­ях ам­пли­ту­ды сиг­на­ла, ча­сто­ты и фазы:</p><center><p><span><span data-inline-latex=\"2\\cos(240^\\circ t-120^\\circ)\\ge 1\\Leftrightarrow \\cos(240^\\circ t-120^\\circ)\\ge \\frac{1}{2}\\Leftrightarrow \\begin{cases}240^\\circ t-120^\\circ\\ge -60^\\circ+360^\\circ n,\\\\240^\\circ t-120^\\circ\\le 60^\\circ+360^\\circ n,\\end{cases}\\quad n\\in\\mathbb{Z}\\Leftrightarrow \\begin{cases}240^\\circ t\\ge 60^\\circ+360^\\circ n,\\\\240^\\circ t\\le 180^\\circ+360^\\circ n\\end{cases}\\Leftrightarrow 1{,}5n+\\frac{1}{4}\\le t\\le \\frac{3}{4}+1{,}5n\\underset{0\\le t\\le 1}{\\Leftrightarrow}\\frac{1}{4}\\le t\\le \\frac{3}{4}.\"></span></span></p><p><span></span></p></center><p>На про­тя­же­нии пер­вой се­кун­ды лам­поч­ка будет го­реть  <span data-inline-latex=\"\\frac{3}{4}-\\frac{1}{4}=\\frac{1}{2}=0{,}5\"></span>  с, то есть 50% вре­ме­ни. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28000",
+      "task": "28541",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дат­чик скон­стру­и­ро­ван таким об­ра­зом, что его ан­тен­на ловит ра­дио­сиг­нал, ко­то­рый затем пре­об­ра­зу­ет­ся в элек­три­че­ский сиг­нал, из­ме­ня­ю­щий­ся со вре­ме­нем по за­ко­ну <span data-inline-latex=\"U=U_0\\sin (\\omega t+\\varphi)\"></span> , где <i>t</i>  — время в се­кун­дах, ам­пли­ту­да  <span data-inline-latex=\"U_0=2\"></span> В, ча­сто­та  <span data-inline-latex=\"\\omega=120^{\\circ}\"></span>/с, фаза <span data-inline-latex=\"\\varphi=30^{\\circ}\"></span>. Дат­чик на­стро­ен так, что если на­пря­же­ние в нeм не ниже чем 1 В, за­го­ра­ет­ся лам­поч­ка. Какую часть вре­ме­ни (в про­цен­тах) на про­тя­же­нии пер­вой се­кун­ды после на­ча­ла ра­бо­ты лам­поч­ка будет го­реть?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">100</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"U_0\\sin (\\omega t+\\varphi)\\ge 1\"></span> при за­дан­ных зна­че­ни­ях ам­пли­ту­ды сиг­на­ла, ча­сто­ты и фазы:</p><center><p><span><span data-inline-latex=\"2\\sin(120^\\circ t+30^\\circ)\\geq 1\\Leftrightarrow \\sin(120^\\circ t+30^\\circ)\\geq \\frac{1}{2}\\Leftrightarrow \\begin{cases}120^\\circ t+30^\\circ\\geq 30^\\circ+360^\\circ n,\\\\120^\\circ t+30^\\circ\\leq 150^\\circ+360^\\circ n,\\end{cases}\\quad n\\in\\mathbb{Z}\\Leftrightarrow \\begin{cases}120^\\circ t\\geq 360^\\circ n,\\\\120^\\circ t\\leq 120^\\circ+360^\\circ n\\end{cases}\\Leftrightarrow \\begin{cases}t\\geq 3n,\\\\t\\leq 1+3n\\end{cases}\\Leftrightarrow 3n\\leq t\\leq 3n+1\\underset{0\\leq t\\leq 1}{\\Leftrightarrow} 0\\leq t\\leq 1.\"></span></span></p><p><span></span></p></center><p>На про­тя­же­нии пер­вой се­кун­ды лам­поч­ка будет го­реть <span data-inline-latex=\"1-0=1\"></span> с, то есть <span data-inline-latex=\"100\"></span>% вре­ме­ни. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28000",
+      "task": "525723",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дат­чик скон­стру­и­ро­ван таким об­ра­зом, что его ан­тен­на ловит ра­дио­сиг­нал, ко­то­рый затем пре­об­ра­зу­ет­ся в элек­три­че­ский сиг­нал, из­ме­ня­ю­щий­ся со вре­ме­нем по за­ко­ну <span data-inline-latex=\"U=U_0\\sin (\\omega t+\\varphi)\"></span> , где <i>t</i>  — время в се­кун­дах, ам­пли­ту­да <var data-math-identifier=\"U\">U</var><sub>0</sub>  =  2 В, ча­сто­та <i>ω</i> =150 °/c , фаза <i>φ</i> = 45° . Дат­чик на­стро­ен так, что если на­пря­же­ние в нём не ниже чем 1 В, то за­го­ра­ет­ся лам­поч­ка. Какую часть вре­ме­ни (в про­цен­тах) на про­тя­же­нии пер­вой се­кун­ды после на­ча­ла ра­бо­ты лам­поч­ка будет го­реть?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">70</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"U_0\\sin (\\omega t+\\varphi)\\ge 1\"></span> при за­дан­ных зна­че­ни­ях ам­пли­ту­ды сиг­на­ла, ча­сто­ты и фазы:</p><center><p><span><span data-inline-latex=\"2\\sin(150^{\\circ}t+45^{\\circ})\\ge 1\\Leftrightarrow \\sin(150^{\\circ}t+45^{\\circ})\\ge \\frac{1}{2}\\Leftrightarrow \\begin{cases}150^{\\circ}t+45^{\\circ}\\ge 30^{\\circ}+360^{\\circ}n,\\\\150^{\\circ}t+45^{\\circ}\\le 150^{\\circ}+360^{\\circ}n,\\end{cases}\\quad n\\in\\mathbb{Z}\\Leftrightarrow \\begin{cases}150^{\\circ}t\\ge -15^{\\circ}+360^{\\circ}n,\\\\150^{\\circ}t\\le 105^{\\circ}+360^{\\circ}n\\end{cases}\\Leftrightarrow -0{,}1+2{,}4n\\le t\\le 0{,}7+2{,}4n\\underset{0\\le t\\le 1}{\\Leftrightarrow}0\\le t\\le 0{,}7.\"></span></span></p><p><span></span></p></center><p>На про­тя­же­нии пер­вой се­кун­ды лам­поч­ка будет го­реть 0,7 с, то есть 70% вре­ме­ни. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
