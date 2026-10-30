@@ -6,12 +6,43 @@ from dataclasses import dataclass, replace
 import sympy as sp
 
 from ..probability.common import UnsupportedCondition
+from . import power_units
 from .angle_patterns import PATTERNS
 from .physical_questions import scalar
 from .rational_formula import RationalFormulaParser, canonical_formula
 
 A, B, D, E, X = sp.symbols("a b d e x", real=True)
 _SPECS = {
+    "power": (
+        A * B * X,
+        {"F": "a", "v": "b"},
+        {A: "force", B: "speed"},
+        "cos",
+        1,
+        "eq",
+        False,
+        "N",
+    ),
+    "height": (
+        A**2 * (1 - X) / (4 * B),
+        {"v_0": "a", "g": "b"},
+        {A: "speed", B: "gravity"},
+        "cos",
+        1,
+        "ge",
+        False,
+        "H",
+    ),
+    "range": (
+        A**2 * X / B,
+        {"v_0": "a", "g": "b"},
+        {A: "speed", B: "gravity"},
+        "sin",
+        1,
+        "ge",
+        False,
+        "L",
+    ),
     "collision": (
         A * B**2 * X**2,
         {"m": "a", "v": "b"},
@@ -94,7 +125,7 @@ _SPECS = {
     ),
 }
 _ATOM = re.compile(
-    r"\\(?P<function>sin|cos|ctg)(?:\^(?:\{(?P<braced>[12])\}|(?P<plain>[12])))?\s*(?P<angle>\\(?:alpha|beta|varphi))"
+    r"\\(?P<function>sin|cos|ctg)(?:\^(?:\{(?P<braced>[12])\}|(?P<plain>[12])))?\s*(?P<scale>2\s*)?(?P<angle>\\(?:alpha|beta|varphi))"
 )
 _ACUTE = sp.Interval.open(0, 90)
 _DOMAINS = {
@@ -120,6 +151,7 @@ class Question:
     denominators: tuple
     formula: str
     multiplier: int = 1
+    argument_multiplier: int = 1
 
 
 def normalize(text):
@@ -139,7 +171,8 @@ def normalize(text):
     return text
 
 
-def formula(raw, aliases, expected, function, exponent, angle):
+def formula(raw, aliases, expected, trig_atom):
+    function, exponent, angle, scale = trig_atom
     if "@" in raw:
         raise UnsupportedCondition("a reserved angle marker is not valid source math")
     matches = list(_ATOM.finditer(raw))
@@ -147,9 +180,14 @@ def formula(raw, aliases, expected, function, exponent, angle):
         raise UnsupportedCondition("exactly one trigonometric angle atom is required")
     atom = matches[0]
     power = int(atom["braced"] or atom["plain"] or 1)
-    if atom["function"] != function or atom["angle"] != angle or power != exponent:
+    if (
+        atom["function"] != function
+        or atom["angle"] != angle
+        or power != exponent
+        or int(atom["scale"] or 1) != scale
+    ):
         raise UnsupportedCondition(
-            "the trigonometric function, power and declared angle must agree"
+            "the trigonometric function, power, argument scale and declared angle must agree"
         )
     replaced = raw[: atom.start()] + "@^{" + str(power) + "}" + raw[atom.end() :]
     parser = RationalFormulaParser(
@@ -167,17 +205,27 @@ def make_question(kind, match):
     values = {
         k: scalar(v.replace(" ", ""))
         for k, v in match.groupdict().items()
-        if k not in ["formula", "left", "right", "angle", "order"]
+        if k not in ["formula", "left", "right", "angle", "order", "unit"]
     }
-    if any(v < 0 or v == 0 and key != "target" for key, v in values.items()):
+    if any(
+        v < 0 or v == 0 and key not in ["target", "clearance"]
+        for key, v in values.items()
+    ):
         raise UnsupportedCondition(
             "positive physical parameters and nonnegative target are required"
         )
     angle = match.groupdict().get("angle", r"\alpha")
+    if kind == "height":
+        values["target"] = values["wall"] + values["clearance"]
+    if kind == "power":
+        values["repair_unit"] = power_units.needs_repair(match["unit"])
     if kind == "diffraction":
         values["order"] = {"второй": 2, "третий": 3}[match["order"]]
         _, denominators = formula(
-            match["left"], {"d": "d", "k": "a", r"\lambda": "b"}, D * X, "sin", 1, angle
+            match["left"],
+            {"d": "d", "k": "a", r"\lambda": "b"},
+            D * X,
+            ("sin", 1, angle, 1),
         )
         right = RationalFormulaParser(
             canonical_formula(match["right"], {"k": "a", r"\lambda": "b"}), "ab"
@@ -203,8 +251,9 @@ def make_question(kind, match):
             match["left"] + "=" + match["right"],
         )
     law, aliases, names, function, power, relation, maximum, quantity = _SPECS[kind]
+    argument_multiplier = 2 if kind in ["height", "range"] else 1
     parsed, denominators = formula(
-        match["formula"], aliases, law, function, power, angle
+        match["formula"], aliases, law, (function, power, angle, argument_multiplier)
     )
     bindings = {symbol: values[key] for symbol, key in names.items()}
     if kind == "ampere" and values["turns"].is_Integer is not True:
@@ -224,6 +273,7 @@ def make_question(kind, match):
         tuple(d.subs(bindings) for d in denominators),
         match["formula"],
         2 if kind == "collision" else 1,
+        argument_multiplier,
     )
 
 
@@ -237,8 +287,10 @@ def parse(text):
             question.values["source_values"] = {
                 k: re.sub(r"(?<=\d),(?=\d)", "{,}", v.replace(" ", ""))
                 for k, v in match.groupdict().items()
-                if k not in ["formula", "left", "right", "angle", "order"]
+                if k not in ["formula", "left", "right", "angle", "order", "unit"]
             }
+            if kind == "height":
+                question.values["source_values"]["target"] = sp.latex(question.target)
             return question
     raise UnsupportedCondition("the complete static-angle question must be recognized")
 

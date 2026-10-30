@@ -18,7 +18,7 @@ from test_algebraic_formulas import (
 from test_physical_polynomials import plan, solution
 
 from solution_runner.pipelines.applied import angle_models as model
-from solution_runner.pipelines.applied import angle_questions, common
+from solution_runner.pipelines.applied import angle_proof, angle_questions, common
 from solution_runner.pipelines.applied.angle_questions import X
 
 DATA = json.loads(
@@ -38,7 +38,7 @@ def changed(task, old, new):
 
 
 @pytest.mark.parametrize("group", DATA["groups"], ids=lambda g: g["key"])
-def test_nine_groups_share_one_static_angle_rule(group):
+def test_all_groups_share_one_static_angle_rule(group):
     verify_registration(group)
 
 
@@ -157,3 +157,132 @@ def test_negative_thresholds_and_nonpositive_physical_parameters_are_refused(
 ):
     with pytest.raises(ValueError, match="positive"):
         changed(task, old, new)
+
+
+@pytest.mark.parametrize(
+    "case",
+    [c for c in CASES if c["group"] in {"28003", "28004"}],
+    ids=lambda c: c["task"],
+)
+def test_double_angle_intervals_agree_with_original_laws_on_both_branches(case):
+    _, a = model.calculate(case["context"])
+    q = a.question
+    assert q.argument_multiplier == 2 and q.multiplier == 1
+    assert q.domain == sp.Interval.open(0, 90)
+    assert (
+        q.expression.subs(
+            X, {"sin": sp.sin, "cos": sp.cos}[q.function](2 * a.angle * sp.pi / 180)
+        )
+        == q.target
+    )
+    for angle in [0, 15, 30, 45, 60, 75, 90]:
+        physical = q.domain.contains(angle)
+        quantity = q.expression.subs(
+            X, {"sin": sp.sin, "cos": sp.cos}[q.function](2 * angle * sp.pi / 180)
+        )
+        feasible = physical & sp.Ge(quantity, q.target)
+        assert angle_proof.angular_interval(a).contains(angle) == feasible
+
+
+def test_throw_height_uses_wall_plus_clearance_and_negative_cosines():
+    a = changed("28003", "высотой 4 м", "высотой 14 м")
+    assert a.question.target == 15 and a.angle == a.result == 60
+    assert a.boundary == -sp.Rational(1, 2)
+    assert model.value_domain(a.question) == sp.Interval.open(-1, 1)
+    no_gap = changed(
+        "28003", "высотой 4 м на расстоянии 1 м", "высотой 5 м на расстоянии 0 м"
+    )
+    assert no_gap.question.target == 5 and no_gap.result == 30
+
+
+def test_maximum_range_is_attained_at_forty_five_but_zero_has_no_least_acute_angle():
+    tangent = changed("28004", "шириной 20 м", "шириной 40 м")
+    assert tangent.result == 45 and tangent.feasible_values == sp.FiniteSet(1)
+    assert r"\left\{90\right\}" in angle_proof.proof(tangent)
+    with pytest.raises(ValueError, match="no physical"):
+        changed("28004", "шириной 20 м", "шириной 41 м")
+    with pytest.raises(ValueError, match="attained"):
+        changed("28004", "шириной 20 м", "шириной 0 м")
+    with pytest.raises(ValueError, match="no physical"):
+        changed("28003", "высотой 4 м", "высотой 19 м")
+
+
+@pytest.mark.parametrize("task", ["28003", "28004"])
+def test_argument_scale_is_checked_independently_of_output_scale(task):
+    with pytest.raises(ValueError, match="argument scale"):
+        changed(task, r"2\alpha", r"\alpha")
+    with pytest.raises(ValueError):
+        changed(task, r"2\alpha", r"3\alpha")
+    with pytest.raises(ValueError, match="declared angle"):
+        changed(task, r"2\alpha", r"2\beta")
+
+
+def test_cancelled_pole_in_negative_cosine_half_of_double_angle_is_refused():
+    with pytest.raises(ValueError, match="vanishes"):
+        changed(
+            "28003",
+            r"\cos 2\alpha",
+            r"(\frac{1}{\frac{1}{\cos 2\alpha+\frac{1}{2}}}-\frac{1}{2})",
+        )
+
+
+@pytest.mark.parametrize("task", ["28003", "28004"])
+def test_double_angle_proof_preserves_argument_before_halving_bounds(task):
+    case = sample(task)
+    html = solution(plan(case, case["context"]))
+    formulas = [
+        tag["data-inline-latex"]
+        for tag in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
+    ]
+    assert any(r"2\alpha\in" in formula for formula in formulas)
+    if task == "28003":
+        assert r"\cos 2\alpha\leq\frac{1}{2}" in formulas
+        assert any("4+1=5" in formula for formula in formulas)
+    else:
+        assert any(r"2\alpha\in[30+360n;150+360n]" in formula for formula in formulas)
+        assert r"\alpha\in\left[15, 75\right]\quad(\text{градусы})" in formulas
+    assert "Делим границы промежутка на 2" in html
+
+
+@pytest.mark.parametrize("task", ["28007", "28623"])
+def test_malformed_power_units_are_repaired_locally_without_changing_the_law(task):
+    from solution_runner.pipelines.applied.power_units import UNIT
+
+    case = sample(task)
+    original = next(
+        s["html"]
+        for s in case["context"]["normalized_content"]["sections"]
+        if s["key"] == "condition"
+    )
+    prepared = plan(case, case["context"])
+    repaired = prepared.condition_html
+    assert original != repaired and UNIT in repaired
+    formulas = lambda html: [
+        tag["data-inline-latex"]
+        for tag in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
+    ]
+    assert formulas(original)[:-1] == formulas(repaired)[:-1]
+    assert prepared.answer == "60"
+    assert model.calculate(case["context"])[1].question.values["repair_unit"]
+    if task == "28623":
+        answer = next(
+            s["html"]
+            for s in case["context"]["normalized_content"]["sections"]
+            if s["key"] == "answer"
+        )
+        assert BeautifulSoup(answer, "html.parser").get_text() == "000"
+
+
+@pytest.mark.parametrize(
+    "old,new,error",
+    [
+        ("равна 75 кВт", "равна 0 кВт", "no physical"),
+        ("равна 75 кВт", "равна 150 кВт", "no physical"),
+        ("силой F=50", "силой F=0", "positive"),
+        (r"\mathrm{C}", r"\mathrm{час}", "power unit"),
+        (r"F v\cos", r"F v^2\cos", "physical angle law"),
+    ],
+)
+def test_power_law_units_and_acute_endpoints_are_checked(old, new, error):
+    with pytest.raises(ValueError, match=error):
+        changed("28007", old, new)

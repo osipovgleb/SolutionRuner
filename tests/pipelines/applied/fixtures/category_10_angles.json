@@ -80,6 +80,33 @@
       "theme_order": 6,
       "order": 14,
       "rule": "applied-static-angle-model"
+    },
+    {
+      "key": "28003",
+      "uuid": "4f685066-d6bb-4912-9c0d-71d3e50955ca",
+      "theme_uuid": "d557c934-3723-4254-9f58-e167491bc384",
+      "theme_title": "Тригонометрические уравнения и неравенства",
+      "theme_order": 6,
+      "order": 11,
+      "rule": "applied-static-angle-model"
+    },
+    {
+      "key": "28004",
+      "uuid": "46450323-afbe-45e0-8b07-d8393d40fc05",
+      "theme_uuid": "d557c934-3723-4254-9f58-e167491bc384",
+      "theme_title": "Тригонометрические уравнения и неравенства",
+      "theme_order": 6,
+      "order": 12,
+      "rule": "applied-static-angle-model"
+    },
+    {
+      "key": "28007",
+      "uuid": "1acea7df-d392-4170-963c-36c5ef0dab2f",
+      "theme_uuid": "d557c934-3723-4254-9f58-e167491bc384",
+      "theme_title": "Тригонометрические уравнения и неравенства",
+      "theme_order": 6,
+      "order": 15,
+      "rule": "applied-static-angle-model"
     }
   ],
   "cases": [
@@ -1588,6 +1615,513 @@
           }
         }
       }
+    },
+    {
+      "group": "28003",
+      "task": "28003",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом  <span data-inline-latex=\"\\alpha\"></span>  к плос­кой го­ри­зон­таль­ной по­верх­но­сти земли. Мак­си­маль­ная вы­со­та полeта мя­чи­ка, вы­ра­жен­ная в мет­рах, опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"H=\\frac{v_0^{2}}{4g}(1-\\cos 2\\alpha)\"></span> ,  где <nobr> <span data-inline-latex=\"v_0=20\"></span> м/с</nobr>  — на­чаль­ная ско­рость мя­чи­ка, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те <nobr><span data-inline-latex=\"g=10\"></span> м/с <span data-inline-latex=\"^{2}\"></span> ).</nobr> При каком наи­мень­шем зна­че­нии угла  <span data-inline-latex=\"\\alpha\"></span>  (в гра­ду­сах) мячик про­ле­тит над сте­ной вы­со­той 4 м на рас­сто­я­нии 1 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"H\\ge 5\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=20\\,\\mathrm{м}/\\mathrm{с}\"></span> и уско­ре­ния сво­бод­но­го па­де­ния <nobr><span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{(2)}\"></span> :</nobr></p><center><p> <span data-inline-latex=\"\\frac{20^{2}}{40}(1-\\cos 2\\alpha)\\ge 5\\iff 1-\\cos 2\\alpha\\ge \\frac{1}{2}\\iff \\cos 2\\alpha\\le \\frac{1}{2}\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}\"></span> </p></center><center><p><span data-inline-latex=\"\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}60^{\\circ}\\le 2\\alpha\\lt 180^{\\circ}\\underset{0^{\\circ}\\lt \\alpha\\lt 90^{\\circ}}{\\iff}30^{\\circ}\\le \\alpha\\lt 90^{\\circ}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28003",
+      "task": "28577",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом  <span data-inline-latex=\"\\alpha\"></span>  к плос­кой го­ри­зон­таль­ной по­верх­но­сти земли. Мак­си­маль­ная вы­со­та полeта мя­чи­ка, вы­ра­жен­ная в мет­рах, опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"H=\\frac{v_0^{2}}{4g}(1-\\cos 2\\alpha)\"></span> ,  где  <span data-inline-latex=\"v_0=16\"></span> м/с  — на­чаль­ная ско­рость мя­чи­ка, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те <span data-inline-latex=\"g=10\"></span> м/с <span data-inline-latex=\"^{2}\"></span> ). При каком наи­мень­шем зна­че­нии угла  <span data-inline-latex=\"\\alpha\"></span>  (в гра­ду­сах) мячик про­ле­тит над сте­ной вы­со­той 2,2 м на рас­сто­я­нии 1 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"H\\ge (2{,}2+1)\"></span>  на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=16\\,\\mathrm{м}/\\mathrm{с}\"></span> и уско­ре­ния сво­бод­но­го па­де­ния <span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{(2)}\"></span> :</p><center><p> <span data-inline-latex=\"\\frac{16^{2}}{40}(1-\\cos 2\\alpha)\\ge 3{,}2\\iff 1-\\cos 2\\alpha\\ge \\frac{1}{2}\\iff \\cos 2\\alpha\\le \\frac{1}{2}\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}\"></span> </p></center><center><p><span data-inline-latex=\"\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}60^{\\circ}\\le 2\\alpha\\lt 180^{\\circ}\\underset{0^{\\circ}\\lt \\alpha\\lt 90^{\\circ}}{\\iff}30^{\\circ}\\le \\alpha\\lt 90^{\\circ}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28003",
+      "task": "43297",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом  <span data-inline-latex=\"\\alpha\"></span>  к плос­кой го­ри­зон­таль­ной по­верх­но­сти земли. Мак­си­маль­ная вы­со­та полeта мя­чи­ка, вы­ра­жен­ная в мет­рах, опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"H=\\frac{v_0^{2}}{4g}(1-\\cos 2\\alpha)\"></span> ,  где  <span data-inline-latex=\"v_0=8\"></span> м/с  — на­чаль­ная ско­рость мя­чи­ка, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те <span data-inline-latex=\"g=10\"></span> м/с <span data-inline-latex=\"^{2}\"></span> ). При каком наи­мень­шем зна­че­нии угла  <span data-inline-latex=\"\\alpha\"></span>  (в гра­ду­сах) мячик про­ле­тит над сте­ной вы­со­той 0,6 м на рас­сто­я­нии 1 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"H\\ge 1{,}6\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=8\\,\\mathrm{м}/\\mathrm{с}\"></span>. и уско­ре­ния сво­бод­но­го па­де­ния <span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{(2)}\"></span> :</p><center><p><span data-inline-latex=\"\\frac{8^2}{40}(1-\\cos 2\\alpha)\\ge 1{,}6\\Leftrightarrow 1-\\cos 2\\alpha\\ge 1\\Leftrightarrow \\cos 2\\alpha\\le 0\\underset{0^\\circ&lt;2\\alpha&lt;180^\\circ}{\\Leftrightarrow}90^\\circ\\le 2\\alpha&lt;180^\\circ\\underset{0^\\circ&lt;\\alpha&lt;90^\\circ}{\\Leftrightarrow}45^\\circ\\le\\alpha&lt;90^\\circ.\"></span></p><p></p></center><p>Зна­чит, наи­мень­ший угол, при ко­то­ром мячик про­ле­тит над сте­ной вы­со­той 0,6 м на рас­сто­я­нии 1 м, равно 45 гра­ду­сам.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28003",
+      "task": "624075",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом α к плос­кой го­ри­зон­таль­ной по­верх­но­сти земли. Мак­си­маль­ная вы­со­та полeта мя­чи­ка, вы­ра­жен­ная в мет­рах, опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"H=\\frac{v_0^{2}}{4g}(1-\\cos 2\\alpha)\"></span> ,  где  <span data-inline-latex=\"v_0=24\"></span> м/с  — на­чаль­ная ско­рость мя­чи­ка, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те, что <span data-inline-latex=\"g=10\"></span> м/с <span data-inline-latex=\"^{2}\"></span> ). При каком наи­мень­шем зна­че­нии угла α (в гра­ду­сах) мячик про­ле­тит над сте­ной вы­со­той 13,4 м на рас­сто­я­нии 1 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"H\\ge 14{,}4\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=24\\,\\mathrm{м}/\\mathrm{с}\"></span> и уско­ре­ния сво­бод­но­го па­де­ния <span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{(2)}\"></span> :</p><center><p><span data-inline-latex=\"\\frac{24^2}{40}\\left(1-\\cos 2\\alpha\\right)\\ge 14{,}4\\Leftrightarrow 1-\\cos 2\\alpha\\ge 1\\Leftrightarrow \\cos 2\\alpha\\le 0\\underset{0^\\circ&lt;2\\alpha&lt;180^\\circ}{\\Leftrightarrow}90^\\circ\\le 2\\alpha&lt;180^\\circ\\underset{0^\\circ&lt;\\alpha&lt;90^\\circ}{\\Leftrightarrow}45^\\circ\\le\\alpha&lt;90^\\circ.\"></span></p><p></p></center><p>Зна­чит, наи­мень­ший угол, при ко­то­ром мячик про­ле­тит над сте­ной вы­со­той 13,4 м на рас­сто­я­нии 1 м, равно 45 гра­ду­сам.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28004",
+      "task": "28004",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом  <span data-inline-latex=\"\\alpha\"></span>  к плос­кой го­ри­зон­таль­ной по­верх­но­сти земли.  Рас­сто­я­ние, ко­то­рое про­ле­та­ет мячик, вы­чис­ля­ет­ся по фор­му­ле <nobr><span data-inline-latex=\"L=\\frac{v_0^{2}}{g}\\sin 2\\alpha\"></span>  (м),</nobr> где <nobr> <span data-inline-latex=\"v_0=20\"></span> м/с</nobr>  — на­чаль­ная ско­рость мя­чи­ка, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те <nobr><span data-inline-latex=\"g=10\"></span> м/с <span data-inline-latex=\"^{2}\"></span> ).</nobr> При каком наи­мень­шем зна­че­нии угла (в гра­ду­сах) мячик пе­ре­ле­тит реку ши­ри­ной 20 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"L\\ge 20\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=20\\,\\mathrm{м}/\\mathrm{с}\"></span> и уско­ре­ния сво­бод­но­го па­де­ния <nobr><span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{2}\"></span> :</nobr></p><center><p> <span data-inline-latex=\"\\frac{20^{2}}{10}\\sin 2\\alpha\\ge 20\\iff \\sin 2\\alpha\\ge \\frac{1}{2}\\iff\"></span> </p> <center><p> <span data-inline-latex=\"\\iff 30^{\\circ}+360^{\\circ}n\\le 2\\alpha\\le 150^{\\circ}+360^{\\circ}n\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}\"></span> </p></center> <p><span data-inline-latex=\"\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}30^{\\circ}\\le 2\\alpha\\le 150^{\\circ}\\underset{0^{\\circ}\\lt \\alpha\\lt 90^{\\circ}}{\\iff}15^{\\circ}\\le \\alpha\\le 75^{\\circ}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28004",
+      "task": "28589",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом  <span data-inline-latex=\"\\alpha\"></span>  к плос­кой го­ри­зон­таль­ной по­верх­но­сти земли.  Рас­сто­я­ние, ко­то­рое про­ле­та­ет мячик, вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"L=\\frac{v_0^{2}}{g}\\sin 2\\alpha\"></span>  (м), где  <span data-inline-latex=\"v_0=13\"></span> м/с  — на­чаль­ная ско­рость мяча, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те  <span data-inline-latex=\"g=10\"></span> м/с <span data-inline-latex=\"^{2}\"></span> ). При каком наи­мень­шем зна­че­нии угла (в гра­ду­сах) мяч пе­ре­ле­тит реку ши­ри­ной 8,45 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"L\\ge 8{,}45\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=13\\,\\mathrm{м}/\\mathrm{с}\"></span> и уско­ре­ния сво­бод­но­го па­де­ния <span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{2}\"></span> :</p><center><p> <span data-inline-latex=\"\\frac{13^{2}}{10}\\sin 2\\alpha\\ge 8{,}45\\iff \\sin 2\\alpha\\ge \\frac{1}{2}\\iff\"></span> </p> <center><p> <span data-inline-latex=\"\\iff 30^{\\circ}+360^{\\circ}n\\le 2\\alpha\\le 150^{\\circ}+360^{\\circ}n\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}\"></span> </p></center> <p><span data-inline-latex=\"\\underset{0^{\\circ}\\lt 2\\alpha\\lt 180^{\\circ}}{\\iff}30^{\\circ}\\le 2\\alpha\\le 150^{\\circ}\\underset{0^{\\circ}\\lt \\alpha\\lt 90^{\\circ}}{\\iff}15^{\\circ}\\le \\alpha\\le 75^{\\circ}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28004",
+      "task": "43333",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом  <span data-inline-latex=\"\\alpha\"></span>  к плос­кой го­ри­зон­таль­ной по­верх­но­сти земли.  Рас­сто­я­ние, ко­то­рое про­ле­та­ет мячик, вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"L=\\frac{v_0^{2}}{g}\\sin 2\\alpha\"></span>  (м), где  <span data-inline-latex=\"v_0=12\"></span> м/с  — на­чаль­ная ско­рость мя­чи­ка, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те  <span data-inline-latex=\"g=10\"></span> м/с <span data-inline-latex=\"^{2}\"></span> ). При каком наи­мень­шем зна­че­нии угла (в гра­ду­сах) мячик пе­ре­ле­тит реку ши­ри­ной 14,4 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"L\\ge 14{,}4\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=12\\,\\mathrm{м}/\\mathrm{с}\"></span> и уско­ре­ния сво­бод­но­го па­де­ния <span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{2}\"></span> :</p><center><p><span data-inline-latex=\"\\begin{aligned}\\frac{12^2}{10}\\cdot\\sin 2\\alpha&amp;\\ge 14{,}4\\Leftrightarrow\\sin 2\\alpha\\ge 1\\Leftrightarrow\\sin 2\\alpha=1\\Leftrightarrow 2\\alpha=90^\\circ\\Leftrightarrow\\alpha=45^\\circ.\\\\0^\\circ&amp;&lt;2\\alpha&lt;180^\\circ\\end{aligned}\"></span></p><p></p></center><p>Таким об­ра­зом, наи­мень­ший угол, при ко­то­ром мячик пе­ре­ле­тит через реку, равно 45 гра­ду­сам.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28004",
+      "task": "509439",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Не­боль­шой мячик бро­са­ют под ост­рым углом α к плос­ко­сти го­ри­зон­таль­ной по­верх­но­сти земли. Рас­сто­я­ние, ко­то­рое про­ле­та­ет мячик, вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"L=\\frac{v_0^{2}}{g}\\sin 2\\alpha\"></span>  (м), где υ<sub>0</sub> = 12 м/с  — на­чаль­ная ско­рость мя­чи­ка, а <i>g</i>  — уско­ре­ние сво­бод­но­го па­де­ния (счи­тай­те <i>g</i> = 10 м/с<sup>2</sup>). При каком наи­мень­шем зна­че­нии угла α (в гра­ду­сах) мячик пе­ре­ле­тит через реку ши­ри­ной 7,2 м?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=7051600\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ по математике Кировского района Санкт-Петербурга, 2015. Вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"L\\ge 7{,}2\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях на­чаль­ной ско­ро­сти  <span data-inline-latex=\"v_0=12\\,\\mathrm{м}/\\mathrm{с}\"></span> и уско­ре­ния сво­бод­но­го па­де­ния <span data-inline-latex=\"g=10\\,\\mathrm{м}/\\mathrm{с}^{2}\"></span> :</p><center><p><span data-inline-latex=\"\\frac{12^2}{10}\\sin 2\\alpha \\ge 7.2 \\Leftrightarrow \\sin 2\\alpha \\ge \\frac{1}{2} \\Leftrightarrow 30^\\circ+360^\\circ n \\le 2\\alpha \\le 150^\\circ+360^\\circ n \\Leftrightarrow_{0^\\circ&lt;2\\alpha&lt;180^\\circ} 30^\\circ \\le 2\\alpha \\le 150^\\circ \\Leftrightarrow_{0^\\circ&lt;\\alpha&lt;90^\\circ} 15^\\circ \\le \\alpha \\le 75^\\circ\"></span></p><p></p><p></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28007",
+      "task": "28007",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дви­га­ясь со ско­ро­стью <nobr> <span data-inline-latex=\"v=3\"></span> м/с,</nobr> трак­тор тащит сани с силой <nobr><span data-inline-latex=\"F=50\"></span> кН,</nobr> на­прав­лен­ной под ост­рым <nobr>углом α</nobr> к го­ри­зон­ту. Мощ­ность, раз­ви­ва­е­мая трак­то­ром, вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"N=F v\\cos \\alpha\"></span> . Най­ди­те, при каком угле  <span data-inline-latex=\"\\alpha\"></span>  (в гра­ду­сах) эта мощ­ность будет равна 75 кВт <span data-inline-latex=\"(\"></span>кВт  — это <nobr><span data-inline-latex=\"\\left(\\frac{\\mathrm{kH}\\cdot\\mathrm{M}}{\\mathrm{C}}\\right)\\cdot\"></span></nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию урав­не­ния <span data-inline-latex=\"F v\\cos \\alpha=75\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях силы <nobr><span data-inline-latex=\"F=50\"></span> кН</nobr> и ско­ро­сти <nobr> <span data-inline-latex=\"v=3\"></span> м/с:</nobr></p><center><p> <span data-inline-latex=\"50\\cdot 3\\cos \\alpha=75\\iff \\cos \\alpha=\\frac{1}{2}\\underset{0^{\\circ}\\lt \\alpha\\lt 90^{\\circ}}{\\iff}\\alpha=60^{\\circ}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_condition_edit": true
+    },
+    {
+      "group": "28007",
+      "task": "28621",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дви­га­ясь со ско­ро­стью  <span data-inline-latex=\"v=3\"></span>  м/с, трак­тор тащит сани с силой  <span data-inline-latex=\"F=40\"></span> кН, на­прав­лен-ной под ост­рым углом   <span data-inline-latex=\"\\alpha\"></span>  к го­ри­зон­ту. Мощ­ность, раз­ви­ва­е­мая трак­то­ром, вы­чис­ля­ет­ся по фор­му­ле  <span data-inline-latex=\"N=F v\\cos \\alpha\"></span> . Най­ди­те, при каком угле   <span data-inline-latex=\"\\alpha\"></span> (в гра­ду­сах) эта мощ­ность будет равна 60 кВт (кВт  — это <span data-inline-latex=\"\\frac{\\text{кН}\\cdot\\text{м}}{\\text{с}}\"></span>).</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"F v\\cos \\alpha=60\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях силы <span data-inline-latex=\"F=40\"></span> кН и ско­ро­сти  <span data-inline-latex=\"v=3\"></span> м/с:</p><center><p> <span data-inline-latex=\"40\\cdot 3\\cos \\alpha=60\\iff \\cos \\alpha=\\frac{1}{2}\\underset{0^{\\circ}\\lt \\alpha\\lt 90^{\\circ}}{\\iff}\\alpha=60^{\\circ}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28007",
+      "task": "43495",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дви­га­ясь со ско­ро­стью  <span data-inline-latex=\"v=5\"></span>  м/с, трак­тор тащит сани с силой  <span data-inline-latex=\"F=90\"></span> кН, на­прав­лен­ной под ост­рым углом   <span data-inline-latex=\"\\alpha\"></span>  к го­ри­зон­ту. Мощ­ность, раз­ви­ва­е­мая трак­то­ром, вы­чис­ля­ет­ся по фор­му­ле  <span data-inline-latex=\"N=F v\\cos \\alpha\"></span> . Най­ди­те, при каком угле   <span data-inline-latex=\"\\alpha\"></span>  (в гра­ду­сах) эта мощ­ность будет равна 225 кВт (кВт  — это <span data-inline-latex=\"\\frac{\\text{кН}\\cdot\\text{м}}{\\text{с}}\"></span>).</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"F v\\cos \\alpha=225\"></span> на ин­тер­ва­ле  <span data-inline-latex=\"(0^{\\circ};90^{\\circ})\"></span>  при за­дан­ных зна­че­ни­ях силы <span data-inline-latex=\"F=90\"></span> кН и ско­ро­сти  <span data-inline-latex=\"v=5\"></span> м/с:</p><center><p> <span data-inline-latex=\"90\\cdot 5\\cos \\alpha=225\\iff \\cos \\alpha=\\frac{1}{2}\\underset{0^{\\circ}\\lt \\alpha\\lt 90^{\\circ}}{\\iff}\\alpha=60^{\\circ}\"></span> . </p></center><p>Таким об­ра­зом, угол  <span data-inline-latex=\"\\alpha\"></span>  равен 60 гра­ду­сам.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "28007",
+      "task": "28623",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дви­га­ясь со ско­ро­стью  <span data-inline-latex=\"v=5\"></span>  м/с, трак­тор тащит сани с силой  <span data-inline-latex=\"F=30\"></span> кН, на­прав­лен-ной под ост­рым углом   <span data-inline-latex=\"\\alpha\"></span>  к го­ри­зон­ту. Мощ­ность, раз­ви­ва­е­мая трак­то­ром, вы­чис­ля­ет­ся по фор­му­ле  <span data-inline-latex=\"N=F v\\cos \\alpha\"></span> . Най­ди­те, при каком угле   <span data-inline-latex=\"\\alpha\"></span> (в гра­ду­сах) эта мощ­ность будет равна 75 кВт (кВт  — это <span data-inline-latex=\"\\frac{K_H H\\cdot M}{C}\"></span>).</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_condition_edit": true,
+      "expected_answer": "60"
     }
   ]
 }

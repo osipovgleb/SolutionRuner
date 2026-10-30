@@ -20,6 +20,7 @@ def canonical_formula(raw, aliases):
     canonical = re.sub(
         r"\\[a-zA-Z]+(?:_[a-z])?|[A-Za-z](?:_(?:\d|[a-z]+))?", substitute, raw
     )
+    canonical = re.sub(r"([})])\s*(?=\()", r"\1\\cdot ", canonical)
     return re.sub(r"([xabde])\s*(?=\\frac|\()", r"\1\\cdot ", canonical)
 
 

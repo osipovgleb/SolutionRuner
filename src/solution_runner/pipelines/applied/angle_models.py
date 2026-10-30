@@ -1,12 +1,13 @@
 """Exact attained extrema on reviewed sine, cosine and cotangent branches."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import sympy as sp
 
 from ..calculus.common import answer, real_roots
-from ..probability.common import UnsupportedCondition, finish
-from . import angle_proof, common
+from ..probability.common import UnsupportedCondition, finish, rewrite
+from ..triangles.isosceles.planner import _normalized_content, _section
+from . import angle_proof, common, power_units
 from .angle_questions import Question, X, parse
 
 
@@ -23,12 +24,20 @@ def value_domain(q):
     if q.function == "ctg":
         return sp.Interval.open(0, sp.oo)
     if q.function == "cos":
-        return sp.Interval.open(0, 1)
+        return sp.Interval(
+            sp.cos(q.argument_multiplier * q.domain.end * sp.pi / 180),
+            sp.cos(q.argument_multiplier * q.domain.start * sp.pi / 180),
+            left_open=q.domain.right_open,
+            right_open=q.domain.left_open,
+        )
     return sp.Interval(
         0,
         1,
-        left_open=q.domain.left_open,
-        right_open=q.domain.right_open if q.domain.end == 90 else False,
+        left_open=q.domain.left_open
+        and (q.argument_multiplier * q.domain.end < 180 or q.domain.right_open),
+        right_open=q.domain.right_open
+        if q.argument_multiplier * q.domain.end == 90
+        else False,
     )
 
 
@@ -64,7 +73,7 @@ def analyze(q):
     radians = {"sin": sp.asin, "cos": sp.acos, "ctg": lambda x: sp.atan(1 / x)}[
         q.function
     ](boundary)
-    angle = sp.simplify(180 * radians / sp.pi)
+    angle = sp.simplify(180 * radians / (sp.pi * q.argument_multiplier))
     if angle.is_Rational is not True:
         raise UnsupportedCondition(
             "the exact angle must be rational degrees without rounding"
@@ -82,4 +91,16 @@ def calculate(context):
 def build_context_repair_plan(context):
     data, a = calculate(context)
     condition, ans, solution, _ = data
-    return finish(condition, ans, solution, answer(a.result), angle_proof.proof(a))
+    result = finish(condition, ans, solution, answer(a.result), angle_proof.proof(a))
+    if a.question.values.get("repair_unit"):
+        original = _section(_normalized_content(context), "condition")
+        corrected = power_units.repaired(original["html"])
+        return replace(
+            result,
+            condition_html=corrected,
+            transformations=(
+                rewrite(original, "condition", "Условие", corrected),
+                *result.transformations,
+            ),
+        )
+    return result

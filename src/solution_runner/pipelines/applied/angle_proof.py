@@ -8,8 +8,12 @@ from ..probability.common import line
 from .angle_questions import X, given_symbols
 
 
+def argument(q):
+    return (str(q.argument_multiplier) if q.argument_multiplier != 1 else "") + q.angle
+
+
 def trig(q):
-    return chr(92) + q.function + " " + q.angle
+    return chr(92) + q.function + " " + argument(q)
 
 
 def substituted(q):
@@ -25,8 +29,8 @@ def angular_interval(a):
     q = a.question
     if q.relation == "eq":
         return sp.FiniteSet(a.angle)
-    if q.kind == "lorentz":
-        return sp.Interval(a.angle, 180 - a.angle)
+    if q.function == "sin" and q.domain.end * q.argument_multiplier == 180:
+        return sp.Interval(a.angle, sp.Rational(180, q.argument_multiplier) - a.angle)
     return (
         sp.Interval(q.domain.start, a.angle, left_open=q.domain.left_open)
         if q.maximum
@@ -41,8 +45,25 @@ def proof(a):
     value_relation = (
         "=" if q.relation == "eq" else r"\geq" if q.maximum != increasing else r"\leq"
     )
+    if q.kind == "height":
+        value_relation = r"\leq"
     html = "<p>Подставим известные величины в формулу и учтём допустимые углы:</p>"
-    html += line(q.angle + r"\in" + sp.latex(q.domain) + r"\quad(\text{градусы})")
+    domain = q.angle + r"\in" + sp.latex(q.domain)
+    if q.argument_multiplier != 1:
+        domain += r",\quad " + argument(q) + r"\in" + sp.latex(sp.Interval.open(0, 180))
+    html += line(domain + r"\quad(\text{градусы})")
+    if q.kind == "height":
+        html += "<p>Чтобы мячик прошёл над стеной с указанным запасом, прибавим его к высоте стены:</p>"
+        source = q.values["source_values"]
+        html += line(
+            "H"
+            + r"\geq "
+            + source["wall"]
+            + "+"
+            + source["clearance"]
+            + "="
+            + sp.latex(q.target)
+        )
     html += line(q.formula if q.kind == "diffraction" else q.quantity + "=" + q.formula)
     if q.kind == "diffraction":
         html += "<p>Период решётки положителен. На допустимом промежутке синус положителен, поэтому выражаем период и используем его верхний предел:</p>"
@@ -69,8 +90,16 @@ def proof(a):
         )
     else:
         html += line(trig(q) + value_relation + sp.latex(a.boundary))
+    return html + inverse_proof(a)
+
+
+def inverse_proof(a):
+    q = a.question
+    increasing = q.function == "sin"
+    returning_sine = increasing and q.domain.end * q.argument_multiplier == 180
+    html = ""
     monotonic = "возрастает" if increasing else "убывает"
-    if q.kind == "lorentz":
+    if returning_sine:
         html += "<p>Сначала рассматриваем возрастающую ветвь синуса от 0° до 90°: на ней достигается наименьший допустимый угол.</p>"
     html += (
         "<p>На рассматриваемой ветви тригонометрическая функция "
@@ -82,25 +111,31 @@ def proof(a):
         + "="
         + sp.latex(a.boundary)
         + r"\quad\Longrightarrow\quad "
-        + q.angle
+        + argument(q)
         + "="
-        + sp.latex(a.angle)
+        + sp.latex(a.angle * q.argument_multiplier)
         + "°"
     )
     if q.relation == "eq":
         if q.kind == "flight" and a.angle == 90:
             html += "<p>Получился вертикальный бросок. Условие не исключает прямой угол с горизонтальной поверхностью.</p>"
         return html
-    if q.kind == "lorentz":
+    if returning_sine:
         html += "<p>Для синуса учитываем и вторую ветвь, затем пересекаем общий ответ с заданным промежутком:</p>"
         html += line(
-            q.angle
+            argument(q)
             + r"\in["
-            + sp.latex(a.angle)
+            + sp.latex(a.angle * q.argument_multiplier)
             + "+360n;"
-            + sp.latex(180 - a.angle)
+            + sp.latex(180 - a.angle * q.argument_multiplier)
             + r"+360n],\quad n\in\mathbb Z"
         )
+    if q.argument_multiplier != 1:
+        scaled = sp.imageset(
+            sp.Lambda(X, q.argument_multiplier * X), angular_interval(a)
+        )
+        html += line(argument(q) + r"\in" + sp.latex(scaled) + r"\quad(\text{градусы})")
+        html += "<p>Делим границы промежутка на 2 и выбираем наименьший допустимый угол:</p>"
     html += line(
         q.angle + r"\in" + sp.latex(angular_interval(a)) + r"\quad(\text{градусы})"
     )
