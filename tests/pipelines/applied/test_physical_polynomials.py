@@ -13,6 +13,7 @@ from solution_runner.pipelines.applied import common
 from solution_runner.pipelines.applied import physical_polynomials as model
 from solution_runner.pipelines.applied.physical_questions import Question
 from solution_runner.pipelines.calculus.common import T
+from solution_runner.pipelines.core.content_runtime import _with_required_assets
 from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.core.handlers import PlanInput
@@ -30,7 +31,7 @@ def sample(task):
 
 def plan(case, context):
     handler = get_handler(get_group_profile(case["group"]).content_rule_key)
-    return handler.plan(PlanInput(context))
+    return handler.plan(PlanInput(_with_required_assets(context, handler.key)))
 
 
 def solution(result):

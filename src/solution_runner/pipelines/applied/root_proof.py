@@ -205,6 +205,38 @@ def rocket(a):
     return html + final(a, True)
 
 
+def rise(a):
+    v = a.question.values
+    initial = v["initial_height"]
+    needed = 500 * v["target"] ** 2 / v["radius"]
+    html = "<p>Найдём высоту для каждого из двух расстояний до горизонта. Обе части формулы неотрицательны, поэтому можно возвести их в квадрат:</p>"
+    html += line(r"l=\sqrt{\frac{Rh}{500}}\quad\Longrightarrow\quad h=\frac{500l^2}{R}")
+    for label, distance, height in [
+        ("h_0", v["before"], initial),
+        ("h_1", v["target"], needed),
+    ]:
+        html += line(
+            label
+            + r"=\frac{500\cdot("
+            + sp.latex(distance)
+            + ")^2}{"
+            + sp.latex(v["radius"])
+            + "}="
+            + sp.latex(height)
+            + r"\ \text{м}"
+        )
+    html += "<p>Чтобы видеть горизонт дальше, нужно подняться на разность найденных высот:</p>"
+    html += line(r"\Delta h=h_1-h_0=" + sp.latex(needed) + "-" + sp.latex(initial))
+    html += final(a)
+    html += _UNIT_NOTE.replace("Примечание.", "Примечание Дмитрия Гущина.") + line(
+        r"l=\sqrt{2Rh}"
+    )
+    html += "<p>В инженерных расчётах выбирают удобные единицы. Например, сопротивление проводника находят по формуле:</p>"
+    html += line(r"R=\rho\frac{l}{S}")
+    html += "<p>Если удельное сопротивление выражено в Ом·мм²/м, длину подставляют в метрах, а сечение — в квадратных миллиметрах, и получают сопротивление в омах. Ниже приведён отдельный пример из школьного курса физики; его данные не относятся к задаче о горизонте.</p>"
+    return html
+
+
 PROOFS = {
     "root_acceleration": motion,
     "root_acceleration_min": motion,
@@ -213,4 +245,5 @@ PROOFS = {
     "root_horizon_km": horizon,
     "root_steps": steps,
     "rocket": rocket,
+    "root_rise": rise,
 }

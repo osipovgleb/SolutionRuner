@@ -1,6 +1,7 @@
 """Square-root source replays, exact conversions and discrete minimum checks."""
 
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -16,7 +17,12 @@ from test_algebraic_formulas import (
 )
 from test_physical_polynomials import plan, solution
 
-from solution_runner.pipelines.applied import common, fraction_questions, root_proof
+from solution_runner.pipelines.applied import (
+    common,
+    fraction_questions,
+    horizon_assets,
+    root_proof,
+)
 from solution_runner.pipelines.applied import rational_models as model
 from solution_runner.pipelines.applied.fraction_questions import X
 from solution_runner.pipelines.applied.rational_formula import SquareRootFormulaParser
@@ -154,3 +160,46 @@ def test_root_grammar_keeps_original_denominators_and_rejects_extra_radicals():
     assert parser.parse() == 1 and parser.denominators == [X]
     with pytest.raises(ValueError):
         SquareRootFormulaParser(r"\sqrt{x", "x").parse()
+
+
+def test_horizon_ascent_keeps_the_independent_conductor_example_for_every_child():
+    for task, expected in [
+        ("27985", sp.Rational(7, 5)),
+        ("28365", 6),
+        ("42635", sp.Rational(715, 4)),
+        ("525065", sp.Rational(24, 5)),
+    ]:
+        case = sample(task)
+        result = plan(case, case["context"])
+        assert sp.Rational(result.answer.replace(",", ".")) == expected
+        html = solution(result)
+        assert horizon_assets.ASSET_ID in html and "Примечание Дмитрия Гущина" in html
+        assert "не относятся к задаче о горизонте" in html
+        changes = [
+            t
+            for t in result.transformations
+            if t["transformation_target_id"].startswith("section:solution")
+        ]
+        assert len(changes[0]["value"]["asset_keys"]) == 1
+        assert not any(
+            t["transformation_target_id"].startswith("asset:")
+            for t in result.transformations
+        )
+
+
+def test_horizon_example_rejects_foreign_asset_identity_url_or_placement():
+    for mode in ["identity", "url", "placement"]:
+        context = deepcopy(sample("27985")["context"])
+        content = context["normalized_content"]
+        if mode == "identity":
+            content["assets"][0]["asset_id"] = "foreign"
+        elif mode == "url":
+            content["assets"][0]["url"] = "https://example.org/foreign.png"
+        else:
+            next(s for s in content["sections"] if s["key"] == "condition")[
+                "asset_keys"
+            ] = ["image_1"]
+        with pytest.raises(ValueError):
+            plan(sample("27985"), context)
+    with pytest.raises(ValueError, match="increase"):
+        changed("28365", "до 10,4", "до 5,6")

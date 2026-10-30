@@ -4,9 +4,15 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "applied-positive-gas-power",
+        "solution_runner.pipelines.applied.gas_models:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "applied-rational-physical-model",
         "solution_runner.pipelines.applied.rational_models:build_context_repair_plan",
         requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.applied.rational_models:required_assets",
     ),
     HandlerSpec(
         "applied-algebraic-formula",

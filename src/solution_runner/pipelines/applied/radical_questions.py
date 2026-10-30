@@ -16,6 +16,7 @@ _LAWS = {
     "root_horizon": (sp.sqrt(A * X / 500), {"R": "a", "h": "x"}, A * X / 500),
     "root_horizon_km": (sp.sqrt(2 * A * X), {"R": "a", "h": "x"}, 2 * A * X),
     "root_steps": (sp.sqrt(A * X / 500), {"R": "a", "h": "x"}, A * X / 500),
+    "root_rise": (sp.sqrt(A * X / 500), {"R": "a", "h": "x"}, A * X / 500),
     "rocket": (
         A * sp.sqrt(1 - X**2 / B**2),
         {"l_0": "a", "v": "x", "c": "b"},
@@ -164,11 +165,19 @@ def motion(v, radicand, denominators, formula):
 
 
 def horizon(v, radicand, denominators, formula):
-    if v["kind"] == "root_steps":
+    if v["kind"] in ["root_steps", "root_rise"]:
         v["initial_height"] = 500 * v["before"] ** 2 / v["radius"]
-        v["step_m"] = v["step"] / 100
+        v["step_m"] = v["step"] / 100 if v["kind"] == "root_steps" else sp.Integer(1)
         radicand = radicand.subs(X, v["initial_height"] + v["step_m"] * X)
-        label, unit, relation = "n", "ступенек", "ge"
+        label, unit, relation = (
+            ("n", "ступенек", "ge")
+            if v["kind"] == "root_steps"
+            else (r"\Delta h", "м", "eq")
+        )
+        if v["kind"] == "root_rise" and v["target"] <= v["before"]:
+            raise UnsupportedCondition(
+                "the horizon distance must increase for an ascent"
+            )
     else:
         label, unit, relation = (
             "h",
@@ -206,5 +215,6 @@ _BUILDERS = {
     "root_horizon": horizon,
     "root_horizon_km": horizon,
     "root_steps": horizon,
+    "root_rise": horizon,
     "rocket": rocket,
 }

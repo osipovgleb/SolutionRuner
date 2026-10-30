@@ -5,9 +5,10 @@ from dataclasses import dataclass, replace
 import sympy as sp
 
 from ..calculus.common import answer, real_roots
+from ..probability import solution_diagrams as diagrams
 from ..probability.common import UnsupportedCondition, finish, rewrite
 from ..triangles.isosceles.planner import _normalized_content, _section
-from . import common, fraction_proof, lens_condition
+from . import fraction_proof, horizon_assets, lens_condition
 from .fraction_questions import Question, X, parse
 
 
@@ -88,13 +89,29 @@ def analyze(q):
 
 
 def calculate(context):
-    data = common.read(context)
-    return data, analyze(parse(data[3]))
+    data = horizon_assets.read(context)
+    q = parse(data[3])
+    if _normalized_content(context).get("assets") and q.kind != "root_rise":
+        raise UnsupportedCondition(
+            "the unit illustration is only valid for the horizon ascent model"
+        )
+    return data, analyze(q)
+
+
+def required_assets(context):
+    q = parse(horizon_assets.read(context)[3])
+    return horizon_assets.required_asset() if q.kind == "root_rise" else ()
 
 
 def build_context_repair_plan(context):
     data, a = calculate(context)
     condition, ans, solution, _ = data
+    if a.question.kind == "root_rise":
+        image, key, changes = horizon_assets.image(context)
+        html = fraction_proof.proof(a) + image
+        return diagrams.repair(
+            condition, ans, solution, answer(a.result), html, (key,), changes
+        )
     result = finish(condition, ans, solution, answer(a.result), fraction_proof.proof(a))
     if a.repair_lens_wording:
         original = _section(_normalized_content(context), "condition")
