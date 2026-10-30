@@ -4,8 +4,8 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
-        "applied-linear-fraction",
-        "solution_runner.pipelines.applied.linear_fractions:build_context_repair_plan",
+        "applied-rational-physical-model",
+        "solution_runner.pipelines.applied.rational_models:build_context_repair_plan",
         requires_parent_condition_asset=False,
     ),
     HandlerSpec(

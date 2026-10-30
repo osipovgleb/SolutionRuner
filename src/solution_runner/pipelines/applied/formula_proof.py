@@ -16,7 +16,8 @@ def given(q, key):
 
 def final(a, maximum=False, minimum=False):
     q = a.question
-    label = q.label + (r"_{\max}" if maximum else r"_{\min}" if minimum else "")
+    label = "{" + q.label + "}" if "_" in q.label and (maximum or minimum) else q.label
+    label += r"_{\max}" if maximum else r"_{\min}" if minimum else ""
     unit = q.unit if q.kind == "thermal" else r"\text{" + q.unit + "}"
     fraction = latex(q, a.result)
     decimal = answer(a.result).replace(",", "{,}")

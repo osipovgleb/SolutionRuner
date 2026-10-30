@@ -73,13 +73,14 @@ class Question:
     expression: sp.Expr
     target: sp.Rational
     relation: str
-    domain: sp.Interval
+    domain: sp.Set
     label: str
     unit: str
     values: dict
     denominators: tuple
     formula: str
     maximum: bool = False
+    lower_target: sp.Rational | None = None
 
 
 def normalize(text):
@@ -88,11 +89,12 @@ def normalize(text):
         text = text.replace(r"\mathrm{" + unit + "}", unit)
     text = re.sub(r"(?<=\d)Ом", " Ом", text)
     text = text.replace(r"\nu", "v").replace("ν", "v")
+    text = text.replace("ω", r"\omega")
     text = text.replace("ульт-развуковые", "ультразвуковые").replace(
         "приемни-ком", "приемником"
     )
     text = re.sub(
-        r"([fRT])\s*_(?:\{([012])\}|([012]))",
+        r"([dfRTA])\s*_(?:\{([012])\}|([012]))",
         lambda m: m[1] + "_" + (m[2] or m[3]),
         text,
     )
@@ -104,16 +106,16 @@ def read_formula(raw, aliases, expected):
         token = match[0]
         if token in aliases:
             return aliases[token]
-        if token in [r"\frac", r"\cdot"]:
+        if token in [r"\frac", r"\cdot", r"\left", r"\right"]:
             return token
         raise UnsupportedCondition("an undeclared physical formula variable remains")
 
     canonical = re.sub(
-        r"\\[a-zA-Z]+|[A-Za-z](?:_\d)?",
+        r"\\[a-zA-Z]+(?:_[a-z])?|[A-Za-z](?:_\d)?",
         substitute,
         raw,
     )
-    canonical = re.sub(r"([xabde])\s*(?=\\frac)", r"\1\\cdot ", canonical)
+    canonical = re.sub(r"([xabde])\s*(?=\\frac|\()", r"\1\\cdot ", canonical)
     parser = RationalFormulaParser(canonical, "xabde")
     expression = parser.parse()
     if sp.cancel(expression - expected) != 0:
@@ -178,6 +180,10 @@ def parse(text):
     for kind, pattern in PATTERNS:
         match = pattern.fullmatch(normalize(text))
         if match:
+            if kind in ["lens", "resonance"]:
+                from .bounded_questions import make_question as bounded_question
+
+                return bounded_question(kind, match)
             return make_question(kind, match)
     raise UnsupportedCondition(
         "the complete linear-fraction question must be recognized"

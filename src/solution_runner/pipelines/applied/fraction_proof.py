@@ -6,6 +6,7 @@ import sympy as sp
 
 from ..calculus.common import answer
 from ..probability.common import line
+from . import bounded_proof
 from .fraction_questions import X
 
 _PARAMETERS = {
@@ -55,6 +56,10 @@ def final(a):
 
 
 def proof(a):
+    if a.question.kind in ["lens", "resonance"]:
+        return {"lens": bounded_proof.lens, "resonance": bounded_proof.resonance}[
+            a.question.kind
+        ](a)
     q = a.question
 
     def latex(expression):

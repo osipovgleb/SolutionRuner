@@ -1,5 +1,9 @@
 """Reuse the exact scalar grammar, retaining every original denominator."""
 
+import re
+
+import sympy as sp
+
 from ..equations.power_arithmetic import ScalarParser, balanced
 from ..probability.common import UnsupportedCondition
 
@@ -20,6 +24,29 @@ class RationalFormulaParser(ScalarParser):
         ).parse()
 
     def _factor(self):
+        value = self._operand()
+        if self.text[self.index : self.index + 1] == "^":
+            self.index += 1
+            if self.text[self.index : self.index + 1] == "{":
+                raw, self.index = balanced(self.text, self.index)
+            else:
+                raw = self.text[self.index : self.index + 1]
+                self.index += 1
+            if not re.fullmatch(r"[1-6]", raw):
+                raise UnsupportedCondition(
+                    "a positive integer power at most six is required"
+                )
+            value **= int(raw)
+        return value
+
+    def _operand(self):
+        if self.text[self.index : self.index + 1] == "|":
+            end = self.text.find("|", self.index + 1)
+            if end < 0:
+                raise UnsupportedCondition("an absolute value must have two delimiters")
+            raw = self.text[self.index + 1 : end]
+            self.index = end + 1
+            return sp.Abs(self.nested(raw))
         if self.text[self.index : self.index + 1] == "(":
             text, self.index = balanced(self.text, self.index, "(", ")")
             return self.nested(text)
@@ -33,5 +60,5 @@ class RationalFormulaParser(ScalarParser):
             self.denominators.append(denominator)
             return numerator / denominator
         if self.text.startswith(r"\sqrt", self.index):
-            raise UnsupportedCondition("the linear-fraction formula must be rational")
+            raise UnsupportedCondition("the physical formula must be rational")
         return super()._factor()

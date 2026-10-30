@@ -49,9 +49,11 @@ def test_source_answers_are_computed_without_mutation_and_idempotently(case):
         case.get("expected_answer", BeautifulSoup(expected, "html.parser").get_text())
     )
     assert context == original
+    targets = ("section:answer", "section:solution") + (
+        ("section:condition",) if case.get("expected_condition_edit") else ()
+    )
     assert all(
-        t["transformation_target_id"].startswith(("section:answer", "section:solution"))
-        for t in first.transformations
+        t["transformation_target_id"].startswith(targets) for t in first.transformations
     )
     next(s for s in context["normalized_content"]["sections"] if s["key"] == "answer")[
         "html"
@@ -290,3 +292,42 @@ def test_variable_denominators_need_an_explicit_positive_domain():
     _, a = model.calculate(sample("27988")["context"])
     with pytest.raises(ValueError, match="without rounding"):
         model.analyze(replace(a.question, target=sp.Integer(3)))
+
+
+def test_boiler_uses_temperature_increase_and_positive_wood_mass():
+    case = sample("27977")
+    _, a = model.calculate(case["context"])
+    assert a.expression == 378 / a.question.variable and a.result == 18
+    html = solution(plan(case, case["context"]))
+    assert r"\Delta t=100-10=90" in html
+    assert r"{m_{\mathrm{др}}}_{\min}" in html
+    for target in [sp.Integer(0), sp.Integer(-1), sp.Integer(101)]:
+        with pytest.raises(ValueError):
+            model.analyze(replace(a.question, target=target))
+    at_100 = model.analyze(replace(a.question, target=sp.Integer(100)))
+    assert at_100.result == sp.Rational(189, 50)
+    for key in ["heat", "fuel", "water"]:
+        with pytest.raises(ValueError):
+            model.analyze(
+                replace(a.question, values={**a.question.values, key: sp.Integer(0)})
+            )
+
+
+def test_boiler_rejects_cooling_and_changes_to_the_water_or_wood_subscript():
+    text = common.read(sample("27977")["context"])[3]
+    with pytest.raises(ValueError, match="heating"):
+        model.analyze(
+            formula_questions.parse(
+                text.replace("от 10 °C до 100 °C", "от 100 °C до 10 °C")
+            )
+        )
+    context = deepcopy(sample("27977")["context"])
+    condition = next(
+        s for s in context["normalized_content"]["sections"] if s["key"] == "condition"
+    )
+    condition["html"] = condition["html"].replace("<sub>др</sub>", "<sub>д</sub>")
+    with pytest.raises(ValueError, match="subscripts"):
+        model.calculate(context)
+    condition["html"] = condition["html"].replace("<sub>д</sub>", "<sub>в</sub>")
+    with pytest.raises(ValueError, match="recognized"):
+        model.calculate(context)

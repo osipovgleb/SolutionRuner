@@ -64,6 +64,11 @@ _LAWS = {
         {"m": "mass", "s": "distance"},
         ("mass", "distance"),
     ),
+    "boiler": (
+        100 * _A * _N * (H - sp.Symbol("b", real=True)) / (Q * _M),
+        {"a": "heat", "n": "water", "q": "fuel", "b": "start", "h": "end"},
+        ("heat", "water", "fuel"),
+    ),
 }
 
 
@@ -79,6 +84,10 @@ def expected_expression(q):
         )
     if q.kind == "profit" and (q.values["cost"] < 0 or q.values["overhead"] < 0):
         raise UnsupportedCondition("nonnegative production costs are required")
+    if q.kind == "boiler" and (q.values["end"] <= q.values["start"] or q.target > 100):
+        raise UnsupportedCondition(
+            "heating and a physical efficiency threshold are required"
+        )
     if q.kind == "market":
         demand = sp.Poly(q.demand, P)
         if demand.degree() != 1 or demand.nth(0) <= 0 or demand.nth(1) >= 0:

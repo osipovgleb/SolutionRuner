@@ -1,4 +1,4 @@
-"""Linear-fraction source replays, unattained limits and uncancelled pole checks."""
+"""Rational physical source replays, bounded ranges and uncancelled pole checks."""
 
 import json
 from pathlib import Path
@@ -18,7 +18,7 @@ from test_algebraic_formulas import (
 from test_physical_polynomials import plan, solution
 
 from solution_runner.pipelines.applied import common, fraction_questions
-from solution_runner.pipelines.applied import linear_fractions as model
+from solution_runner.pipelines.applied import rational_models as model
 from solution_runner.pipelines.applied.fraction_questions import X
 from solution_runner.pipelines.applied.rational_formula import RationalFormulaParser
 
@@ -146,9 +146,115 @@ def test_unknown_units_changed_laws_and_malformed_formulas_fail_closed():
         changed("27979", "в омах.", "в килоомах.")
     with pytest.raises(ValueError, match="contradicts"):
         changed("27972", r"\frac{\epsilon}{r}", r"\frac{\epsilon}{R}")
-    for text in [r"\frac{x}{x", r"\sqrt{2}", "__import__('os')", "x^2", "x(1+x)"]:
+    for text in [
+        r"\frac{x}{x",
+        r"\sqrt{2}",
+        "__import__('os')",
+        "x^7",
+        "x(1+x)",
+        "x^0",
+        "x^{-1}",
+        "|x",
+    ]:
         with pytest.raises(ValueError):
             RationalFormulaParser(text, "x").parse()
     parser = RationalFormulaParser(r"\frac{x}{\frac{1}{x-1}}", "x")
     assert parser.parse() == X * (X - 1)
     assert X - 1 in parser.denominators and 1 / (X - 1) in parser.denominators
+
+
+def test_lens_intersects_both_ranges_instead_of_always_using_the_screen_maximum():
+    a = changed("27970", "от 30 до 50", "от 37 до 50")
+    assert a.result == 37
+    assert a.question.expression.subs(X, a.result) == sp.Rational(1110, 7)
+    assert a.feasible == sp.Interval(37, sp.Rational(75, 2))
+    one = changed("27970", "от 30 до 50", "от 36 до 36")
+    assert one.result == 36 and one.feasible == sp.FiniteSet(36)
+    screen_point = changed("27970", "от 150 до 180", "от 180 до 180")
+    assert screen_point.result == 36 and screen_point.feasible == sp.FiniteSet(36)
+
+
+@pytest.mark.parametrize(
+    "old,new",
+    [
+        ("от 30 до 50", "от 30 до 35"),
+        ("от 30 до 50", "от 10 до 20"),
+        ("от 150 до 180", "от 10 до 20"),
+        ("от 30 до 50", "от 50 до 30"),
+        ("f=30", "f=0"),
+    ],
+)
+def test_lens_empty_reversed_or_nonpositive_ranges_are_refused(old, new):
+    with pytest.raises(ValueError):
+        changed("27970", old, new)
+
+
+def test_lens_does_not_cancel_unchecked_distance_poles():
+    left = r"\frac{1}{d_1}+\frac{1}{d_2}"
+    with pytest.raises(ValueError, match="vanishes"):
+        changed("27970", left, "(" + left + r")\cdot\frac{d_1-40}{d_1-40}")
+    with pytest.raises(ValueError, match="screen denominator"):
+        changed("27970", left, "(" + left + r")\cdot\frac{d_2-160}{d_2-160}")
+    with pytest.raises(ValueError, match="contradicts"):
+        changed("27970", r"\frac{1}{f}", r"\frac{2}{f}")
+
+
+def test_enlargement_is_enforced_and_only_an_impossible_qualifier_is_repaired():
+    text = common.read(sample("27970")["context"])[3]
+    wide = text.replace("от 30 до 50", "от 30 до 100").replace(
+        "от 150 до 180", "от 40 до 180"
+    )
+    a = model.analyze(fraction_questions.parse(wide))
+    assert a.feasible == sp.Interval.Ropen(36, 60) and not a.repair_lens_wording
+    case = sample("41895")
+    _, reduced = model.calculate(case["context"])
+    assert reduced.result == 336 and reduced.repair_lens_wording
+    assert reduced.question.expression.subs(X, reduced.result) == 105 < reduced.result
+    result = plan(case, case["context"])
+    repair = next(
+        t
+        for t in result.transformations
+        if t["transformation_target_id"].startswith("section:condition")
+    )
+    corrected = repair["value"]["html"]
+    assert "действительного" in BeautifulSoup(
+        corrected, "html.parser"
+    ).get_text().replace("\u00ad", "")
+    original = next(
+        s["html"]
+        for s in case["context"]["normalized_content"]["sections"]
+        if s["key"] == "condition"
+    )
+    formulas = lambda html: [
+        s["data-inline-latex"]
+        for s in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
+    ]
+    assert formulas(corrected) == formulas(original)
+
+
+def test_resonance_cancels_amplitude_only_on_the_below_resonance_branch():
+    _, a = model.calculate(sample("27974")["context"])
+    assert a.question.target == sp.Rational(9, 8)
+    assert a.feasible == sp.Interval(0, 120)
+    assert a.question.expression.subs(X, 0) == 1
+    assert a.question.domain.contains(360) is sp.S.false
+    assert changed("27974", r"12{,}5\%", r"0\%").result == 0
+    html = solution(plan(sample("27974"), sample("27974")["context"]))
+    assert "Примечание" in html and r"\frac{25}{2}\%" in html
+    with pytest.raises(ValueError, match="rational"):
+        changed("27974", r"12{,}5\%", r"100\%")
+    with pytest.raises(ValueError, match="recognized"):
+        changed("27974", "меньшую резонансной", "большую резонансной")
+    with pytest.raises(ValueError, match="positive resonance"):
+        changed("27974", r"\omega_p=360", r"\omega_p=0")
+
+
+def test_squared_and_absolute_formula_operands_keep_original_poles():
+    parser = RationalFormulaParser(r"\frac{x^2-1}{|x^2-1|}", "x")
+    assert parser.parse() == (X**2 - 1) / sp.Abs(X**2 - 1)
+    assert parser.denominators == [sp.Abs(X**2 - 1)]
+    formula = r"\frac{A_0\omega_p^{2}}{\left|\omega_p^{2}-\omega^{2}\right|}"
+    with pytest.raises(ValueError, match="vanishes"):
+        changed("27974", formula, formula + r"\cdot\frac{\omega-100}{\omega-100}")
+    with pytest.raises(ValueError, match="contradicts"):
+        changed("27974", formula, formula.replace("-", "+"))

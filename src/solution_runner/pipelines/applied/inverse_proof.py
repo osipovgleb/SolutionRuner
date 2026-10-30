@@ -1,45 +1,35 @@
 """Parent-style inverse-power boundaries, with strictly positive denominators."""
 
+from string import Template
+
 from ..probability.common import line
 from .formula_proof import final, given, latex
 
+_FORMULAS = {
+    "boiler": (
+        r"\eta=\frac{c_{\mathrm{в}}m_{\mathrm{в}}(t_2-t_1)}{q_{\mathrm{др}}m_{\mathrm{др}}}\cdot100\%",
+        r"\eta",
+        r"\frac{($heat)\cdot$water\cdot($end-$start)}{($fuel)\cdot m_{\mathrm{др}}}\cdot100",
+    ),
+    "fuse": (r"I=\frac{U}{R}", "I", r"\frac{$voltage}{R}"),
+    "excavator": (
+        r"p=\frac{mg}{2ls}",
+        "p",
+        r"\frac{$mass\cdot$gravity}{2\cdot$length\cdot s}",
+    ),
+    "column": (
+        r"P=\frac{4mg}{\pi D^2}",
+        "P",
+        r"\frac{4\cdot$mass\cdot$gravity}{$pi\cdot D^2}",
+    ),
+    "traction": (r"F=\frac{2mS}{t^2}", "F", r"\frac{2\cdot$mass\cdot$distance}{t^2}"),
+}
+
 
 def substitution(q):
-    if q.kind == "fuse":
-        return r"I=\frac{U}{R}", "I", r"\frac{" + given(q, "voltage") + "}{R}"
-    if q.kind == "excavator":
-        return (
-            r"p=\frac{mg}{2ls}",
-            "p",
-            r"\frac{"
-            + given(q, "mass")
-            + r"\cdot"
-            + given(q, "gravity")
-            + r"}{2\cdot"
-            + given(q, "length")
-            + r"\cdot s}",
-        )
-    if q.kind == "column":
-        return (
-            r"P=\frac{4mg}{\pi D^2}",
-            "P",
-            r"\frac{4\cdot"
-            + given(q, "mass")
-            + r"\cdot"
-            + given(q, "gravity")
-            + "}{"
-            + given(q, "pi")
-            + r"\cdot D^2}",
-        )
-    return (
-        r"F=\frac{2mS}{t^2}",
-        "F",
-        r"\frac{2\cdot"
-        + given(q, "mass")
-        + r"\cdot"
-        + given(q, "distance")
-        + r"}{t^2}",
-    )
+    general, quantity, template = _FORMULAS[q.kind]
+    values = {key: value.replace(" ", "") for key, value in q.source_values.items()}
+    return general, quantity, Template(template).substitute(values)
 
 
 def proof(a):
@@ -50,13 +40,25 @@ def proof(a):
     html = "<p>Подставим данные в формулу. Искомая величина положительна, поэтому знаменатель положителен:</p>"
     html += line(general)
     html += line(q.label + ">0")
+    if q.kind == "boiler":
+        html += line(
+            r"\Delta t="
+            + given(q, "end")
+            + "-"
+            + given(q, "start")
+            + "="
+            + latex(q, q.values["end"] - q.values["start"])
+            + r"\ {}^{\circ}\mathrm{C}"
+        )
     if q.kind == "column":
         html += "<p>Найдём диаметр, при котором давление равно предельному:</p>"
         relation = "="
         reversed_relation = "="
     else:
         html += "<p>Запишем требуемое условие и умножим обе части на положительный знаменатель:</p>"
-    html += line(quantity + relation + given(q, "target"))
+    html += line(
+        quantity + relation + given(q, "target") + (r"\%" if q.kind == "boiler" else "")
+    )
     html += line(substituted + relation + given(q, "target"))
     if q.kind == "fuse":
         html += line(given(q, "voltage") + relation + latex(q, q.target) + q.label)

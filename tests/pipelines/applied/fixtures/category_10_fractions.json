@@ -7,7 +7,7 @@
       "theme_title": "Рациональные уравнения и неравенства",
       "theme_order": 2,
       "order": 1,
-      "rule": "applied-linear-fraction"
+      "rule": "applied-rational-physical-model"
     },
     {
       "key": "27972",
@@ -16,7 +16,7 @@
       "theme_title": "Рациональные уравнения и неравенства",
       "theme_order": 2,
       "order": 2,
-      "rule": "applied-linear-fraction"
+      "rule": "applied-rational-physical-model"
     },
     {
       "key": "27975",
@@ -25,7 +25,7 @@
       "theme_title": "Рациональные уравнения и неравенства",
       "theme_order": 2,
       "order": 5,
-      "rule": "applied-linear-fraction"
+      "rule": "applied-rational-physical-model"
     },
     {
       "key": "27976",
@@ -34,7 +34,7 @@
       "theme_title": "Рациональные уравнения и неравенства",
       "theme_order": 2,
       "order": 6,
-      "rule": "applied-linear-fraction"
+      "rule": "applied-rational-physical-model"
     },
     {
       "key": "27979",
@@ -43,7 +43,7 @@
       "theme_title": "Рациональные уравнения и неравенства",
       "theme_order": 2,
       "order": 9,
-      "rule": "applied-linear-fraction"
+      "rule": "applied-rational-physical-model"
     },
     {
       "key": "27980",
@@ -52,7 +52,7 @@
       "theme_title": "Рациональные уравнения и неравенства",
       "theme_order": 2,
       "order": 10,
-      "rule": "applied-linear-fraction"
+      "rule": "applied-rational-physical-model"
     },
     {
       "key": "27981",
@@ -61,7 +61,25 @@
       "theme_title": "Рациональные уравнения и неравенства",
       "theme_order": 2,
       "order": 11,
-      "rule": "applied-linear-fraction"
+      "rule": "applied-rational-physical-model"
+    },
+    {
+      "key": "27970",
+      "uuid": "0b587bd1-ca80-4325-bf60-5eab26c2f575",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 0,
+      "rule": "applied-rational-physical-model"
+    },
+    {
+      "key": "27974",
+      "uuid": "a5f54e00-4b35-49b3-82ed-3ef87a9afc40",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 4,
+      "rule": "applied-rational-physical-model"
     }
   ],
   "cases": [
@@ -1310,6 +1328,344 @@
               "asset_keys": [],
               "section_id": "solution:1",
               "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27970",
+      "task": "27970",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Для по­лу­че­ния на экра­не уве­ли­чен­но­го изоб­ра­же­ния лам­поч­ки в ла­бо­ра­то­рии ис­поль­зу­ет­ся со­би­ра­ю­щая линза с глав­ным фо­кус­ным рас­сто­я­ни­ем <nobr><span data-inline-latex=\"f=30\"></span> см.</nobr> Рас­сто­я­ние <span data-inline-latex=\"d_1\"></span> от линзы до лам­поч­ки может из­ме­нять­ся в пре­де­лах от 30 до 50 см, а рас­сто­я­ние <span data-inline-latex=\"d_2\"></span> от линзы до экра­на  — в пре­де­лах от 150 до 180 см. Изоб­ра­же­ние на экра­не будет чет­ким, если вы­пол­не­но со­от­но­ше­ние  <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{f}\"></span> .  Ука­жи­те, на каком наи­мень­шем рас­сто­я­нии от линзы можно по­ме­стить лам­поч­ку, чтобы еe изоб­ра­же­ние на экра­не было чeтким. Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">36</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=14962524\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2017. Основная волна 02.06.2017. Вариант 301 (часть 2)</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку <span data-inline-latex=\"f=30\"></span>, имеем: </p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{30}\\iff \\frac{1}{d_1}=\\frac{1}{30}-\\frac{1}{d_2}\"></span> . </p></center><p> Наи­мень­ше­му воз­мож­но­му <span data-inline-latex=\"d_1\"></span> зна­че­нию со­от­вет­ству­ет наи­боль­шее зна­че­ние левой части по­лу­чен­но­го ра­вен­ства, и, со­от­вет­ствен­но, наи­боль­шее воз­мож­ное зна­че­ние пра­вой части ра­вен­ства. Раз­ность  <span data-inline-latex=\"\\frac{1}{30}-\\frac{1}{d_2}\"></span>  в пра­вой части ра­вен­ства до­сти­га­ет наи­боль­ше­го зна­че­ния при наи­мень­шем зна­че­нии вы­чи­та­е­мо­го  <span data-inline-latex=\"\\frac{1}{d_2}\"></span> ,  ко­то­рое до­сти­га­ет­ся при наи­боль­шем воз­мож­ном зна­че­нии зна­ме­на­те­ля <span data-inline-latex=\"d_2\"></span>. По­это­му <span data-inline-latex=\"d_2=180\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}=\\frac{1}{30}-\\frac{1}{180}\\iff \\frac{1}{d_1}=\\frac{5}{180}\\iff \\frac{1}{d_1}=\\frac{1}{36}\\iff d_1=36\"></span>  см.</p></center><p>По усло­вию лам­поч­ка долж­на на­хо­дить­ся на рас­сто­я­нии от 30 до 50 см от линзы. Най­ден­ное зна­че­ние удо­вле­тво­ря­ет усло­вию.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27970",
+      "task": "28205",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Для по­лу­че­ния на экра­не уве­ли­чен­но­го изоб­ра­же­ния лам­поч­ки в ла­бо­ра­то­рии ис­поль­зу­ет­ся со­би­ра­ю­щая линза с глав­ным фо­кус­ным рас­сто­я­ни­ем <span data-inline-latex=\"f=50\"></span> см. Рас­сто­я­ние <span data-inline-latex=\"d_1\"></span> от линзы до лам­поч­ки может из­ме­нять­ся в пре­де­лах от 55 до 70 см, а рас­сто­я­ние <span data-inline-latex=\"d_2\"></span> от линзы до экра­на  — в пре­де­лах от 260 до 300 см. Изоб­ра­же­ние на экра­не будет чет­ким, если вы­пол­не­но со­от­но­ше­ние   <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{f}\"></span> .  Ука­жи­те, на каком наи­мень­шем рас­сто­я­нии от линзы можно по­ме­стить лам­поч­ку, чтобы еe изоб­ра­же­ние на экра­не было чeтким. Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку <span data-inline-latex=\"f=50\"></span> имеем: </p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{50}\\iff \\frac{1}{d_1}=\\frac{1}{50}-\\frac{1}{d_2}\"></span> . </p></center><p> Наи­мень­ше­му воз­мож­но­му <span data-inline-latex=\"d_1\"></span> зна­че­нию со­от­вет­ству­ет наи­боль­шее зна­че­ние левой части по­лу­чен­но­го ра­вен­ства, и, со­от­вет­ствен­но, наи­боль­шее воз­мож­ное зна­че­ние пра­вой части ра­вен­ства. Раз­ность  <span data-inline-latex=\"\\frac{1}{50}-\\frac{1}{d_2}\"></span>  в пра­вой части ра­вен­ства до­сти­га­ет наи­боль­ше­го зна­че­ния при наи­мень­шем зна­че­нии вы­чи­та­е­мо­го  <span data-inline-latex=\"\\frac{1}{d_2}\"></span> ,  ко­то­рое до­сти­га­ет­ся при наи­боль­шем воз­мож­ном зна­че­нии зна­ме­на­те­ля <span data-inline-latex=\"d_2\"></span>. По­это­му <span data-inline-latex=\"d_2=300\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}=\\frac{1}{50}-\\frac{1}{300}\\iff \\frac{1}{d_1}=\\frac{5}{300}\\iff \\frac{1}{d_1}=\\frac{1}{60}\\iff d_1=60\"></span>  см.</p></center><p>По усло­вию лам­поч­ка долж­на на­хо­дить­ся на рас­сто­я­нии от 55 до 70 см от линзы. Най­ден­ное зна­че­ние удо­вле­тво­ря­ет усло­вию.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27970",
+      "task": "41891",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Для по­лу­че­ния на экра­не уве­ли­чен­но­го изоб­ра­же­ния лам­поч­ки в ла­бо­ра­то­рии ис­поль­зу­ет­ся со­би­ра­ю­щая линза с глав­ным фо­кус­ным рас­сто­я­ни­ем <span data-inline-latex=\"f=50\"></span> см. Рас­сто­я­ние <span data-inline-latex=\"d_1\"></span> от линзы до лам­поч­ки может из­ме­нять­ся в пре­де­лах от 60 до 80 см, а рас­сто­я­ние <span data-inline-latex=\"d_2\"></span> от линзы до экра­на  — в пре­де­лах от 150 до 175 см. Изоб­ра­же­ние на экра­не будет чет­ким, если вы­пол­не­но со­от­но­ше­ние   <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{f}\"></span> .  Ука­жи­те, на каком наи­мень­шем рас­сто­я­нии от линзы можно по­ме­стить лам­поч­ку, чтобы еe изоб­ра­же­ние на экра­не было чeтким. Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">70</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку <span data-inline-latex=\"f=50\"></span> имеем: </p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{50}\\iff \\frac{1}{d_1}=\\frac{1}{50}-\\frac{1}{d_2}\"></span> . </p></center><p>Наи­мень­ше­му воз­мож­но­му <span data-inline-latex=\"d_1\"></span> зна­че­нию со­от­вет­ству­ет наи­боль­шее зна­че­ние левой части по­лу­чен­но­го ра­вен­ства, и, со­от­вет­ствен­но, наи­боль­шее воз­мож­ное зна­че­ние пра­вой части ра­вен­ства. Раз­ность  <span data-inline-latex=\"\\frac{1}{50}-\\frac{1}{d_2}\"></span>  в пра­вой части ра­вен­ства до­сти­га­ет наи­боль­ше­го зна­че­ния при наи­мень­шем зна­че­нии вы­чи­та­е­мо­го  <span data-inline-latex=\"\\frac{1}{d_2}\"></span> ,  ко­то­рое до­сти­га­ет­ся при наи­боль­шем воз­мож­ном зна­че­нии зна­ме­на­те­ля <span data-inline-latex=\"d_2\"></span>. По­это­му <span data-inline-latex=\"d_2=175\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}=\\frac{1}{50}-\\frac{1}{175}\\iff \\frac{1}{d_1}=\\frac{5}{350}\\iff \\frac{1}{d_1}=\\frac{1}{70}\\iff d_1=70\"></span>  см.</p></center><p>По усло­вию лам­поч­ка долж­на на­хо­дить­ся на рас­сто­я­нии от 60 до 80 см от линзы. Най­ден­ное зна­че­ние <span data-inline-latex=\"d_1\"></span> см удо­вле­тво­ря­ет усло­вию.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27970",
+      "task": "41895",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Для по­лу­че­ния на экра­не уве­ли­чен­но­го изоб­ра­же­ния лам­поч­ки в ла­бо­ра­то­рии ис­поль­зу­ет­ся со­би­ра­ю­щая линза с глав­ным фо­кус­ным рас­сто­я­ни­ем <span data-inline-latex=\"f=80\"></span> см. Рас­сто­я­ние <span data-inline-latex=\"d_1\"></span> от линзы до лам­поч­ки может из­ме­нять­ся в пре­де­лах от 330 до 350 см, а рас­сто­я­ние <span data-inline-latex=\"d_2\"></span> от линзы до экра­на  — в пре­де­лах от 80 до 105 см. Изоб­ра­же­ние на экра­не будет чет­ким, если вы­пол­не­но со­от­но­ше­ние   <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{f}\"></span> .  Ука­жи­те, на каком наи­мень­шем рас­сто­я­нии от линзы можно по­ме­стить лам­поч­ку, чтобы еe изоб­ра­же­ние на экра­не было чeтким. Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">336</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку <span data-inline-latex=\"f=80\"></span> имеем: </p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}+\\frac{1}{d_2}=\\frac{1}{80}\\iff \\frac{1}{d_1}=\\frac{1}{80}-\\frac{1}{d_2}\"></span> . </p></center><p> Наи­мень­ше­му воз­мож­но­му <span data-inline-latex=\"d_1\"></span> зна­че­нию со­от­вет­ству­ет наи­боль­шее зна­че­ние левой части по­лу­чен­но­го ра­вен­ства, и, со­от­вет­ствен­но, наи­боль­шее воз­мож­ное зна­че­ние пра­вой части ра­вен­ства. Раз­ность  <span data-inline-latex=\"\\frac{1}{80}-\\frac{1}{d_2}\"></span>  в пра­вой части ра­вен­ства до­сти­га­ет наи­боль­ше­го зна­че­ния при наи­мень­шем зна­че­нии вы­чи­та­е­мо­го  <span data-inline-latex=\"\\frac{1}{d_2}\"></span> ,  ко­то­рое до­сти­га­ет­ся при наи­боль­шем воз­мож­ном зна­че­нии зна­ме­на­те­ля <span data-inline-latex=\"d_2\"></span>. По­это­му <span data-inline-latex=\"d_2=105\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"\\frac{1}{d_1}=\\frac{1}{80}-\\frac{1}{105}\\iff \\frac{1}{d_1}=\\frac{5}{1680}\\iff \\frac{1}{d_1}=\\frac{1}{336}\\iff d_1=336\"></span>  см</p></center>По усло­вию лам­поч­ка долж­на на­хо­дить­ся на рас­сто­я­нии от 330 до 350 см от линзы. Най­ден­ное зна­че­ние<span data-inline-latex=\"d_1=336\"></span>см удо­вле­тво­ря­ет усло­вию.",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_condition_edit": true,
+      "condition_issue": "The given ranges require a reduced image; replace enlarged with real before preparing the solution."
+    },
+    {
+      "group": "27974",
+      "task": "27974",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ам­пли­ту­да ко­ле­ба­ний ма­ят­ни­ка за­ви­сит от ча­сто­ты вы­нуж­да­ю­щей силы и опре­де­ля­ет­ся по фор­му­ле  <span data-inline-latex=\"A(\\omega)=\\frac{A_0\\omega_p^{2}}{\\left|\\omega_p^{2}-\\omega^{2}\\right|}\"></span> ,  где  <span data-inline-latex=\"\\omega\"></span>   — ча­сто­та вы­нуж­да­ю­щей силы (в <span data-inline-latex=\"c^{-1}\"></span> ),  <span data-inline-latex=\"A_0\"></span>   — по­сто­ян­ный па­ра­метр, <span data-inline-latex=\"\\omega_p=360c^{-1}\"></span>   — ре­зо­нанс­ная ча­сто­та. Най­ди­те мак­си­маль­ную ча­сто­ту  <span data-inline-latex=\"\\omega\"></span> , мень­шую ре­зо­нанс­ной, для ко­то­рой ам­пли­ту­да ко­ле­ба­ний пре­вос­хо­дит ве­ли­чи­ну <span data-inline-latex=\"A_0\"></span>  не более чем на <span data-inline-latex=\"12{,}5\\%\"></span>. Ответ вы­ра­зи­те в <span data-inline-latex=\"c^{-1}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">120</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"A\\le 1{,}125A_0\"></span> при из­вест­ном зна­че­нии ре­зо­нанс­ной ча­сто­ты <span data-inline-latex=\"\\omega_{\\mathrm{р}}=360\\,\\mathrm{с}^{(-1)}\"></span>  и усло­вии, что ча­сто­та <span data-inline-latex=\"\\omega\"></span>  мень­ше ре­зо­нанс­ной:</p><center><p><span><span data-inline-latex=\"A\\le 1{,}125A_0\\iff \\frac{A_0\\cdot 360^{2}}{360^{2}-\\omega^{2}}\\le 1{,}125A_0\\iff 360^{2}\\le 1{,}125\\cdot 360^{2}-1{,}125\\omega^{2}\\iff\"></span> </span></p></center><center><p> <span data-inline-latex=\"\\iff 1{,}125\\omega^{2}\\le 0{,}125\\cdot 360^{2}\\iff \\omega\\le 120\\,\\mathrm{с}^{(-1)}\"></span> .</p></center><p><b>При­ме­ча­ние.</b></p><p>За­ме­тим, что 12,5%  — это 0,125. Если ам­пли­ту­да ко­ле­ба­ний <var data-math-identifier=\"A\">A</var> пре­вос­хо­дит ам­пли­ту­ду <var data-math-identifier=\"A\">A</var><sub>0</sub> не более чем на 12,5%, то <span data-inline-latex=\"A\\le A_0+0{,}125A_0\"></span>,  упро­стив пра­вую часть не­ра­вен­ства, по­лу­чим <span data-inline-latex=\"A\\le 1{,}125A_0\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27974",
+      "task": "28245",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ам­пли­ту­да ко­ле­ба­ний ма­ят­ни­ка за­ви­сит от ча­сто­ты вы­нуж­да­ю­щей силы, опре­де­ля­е­мой по фор­му­ле  <span data-inline-latex=\"A(\\omega)=\\frac{A_0\\omega_p^{2}}{\\left|\\omega_p^{2}-\\omega^{2}\\right|}\"></span> ,  где  ω  — ча­сто­та вы­нуж­да­ю­щей силы (в <span data-inline-latex=\"c^{-1}\"></span> ),  <span data-inline-latex=\"A_0\"></span>   — по­сто­ян­ный па­ра­метр, <span data-inline-latex=\"\\omega_p=300c^{-1}\"></span>   — ре­зо­нанс­ная ча­сто­та. Най­ди­те мак­си­маль­ную ча­сто­ту  <span data-inline-latex=\"\\omega\"></span> , мень­шую ре­зо­нанс­ной, для ко­то­рой ам­пли­ту­да ко­ле­ба­ний пре­вос­хо­дит ве­ли­чи­ну <span data-inline-latex=\"A_0\"></span>  не более чем на <span data-inline-latex=\"80\\%\"></span>. Ответ вы­ра­зи­те в <span data-inline-latex=\"c^{-1}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">200</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"A\\le 1{,}8A_0\"></span> при из­вест­ном зна­че­нии ре­зо­нанс­ной ча­сто­ты <span data-inline-latex=\"\\omega_{\\mathrm{р}}=300\\,\\mathrm{с}^{(-1)}\"></span>  и усло­вии, что ча­сто­та <span data-inline-latex=\"\\omega\"></span>  мень­ше ре­зо­нанс­ной:</p><center><p><span> <span data-inline-latex=\"\\frac{A_0\\cdot 300^{2}}{300^{2}-\\omega^{2}}\\le 1{,}8A_0\\iff 300^{2}\\le 1{,}8\\cdot 300^{2}-1{,}8\\omega^{2}\\iff 1{,}8\\omega^{2}\\le 72000\\iff \\omega\\le 200\\,\\mathrm{с}^{(-1)}\"></span> . </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27974",
+      "task": "42045",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ам­пли­ту­да ко­ле­ба­ний ма­ят­ни­ка за­ви­сит от ча­сто­ты вы­нуж­да­ю­щей силы, опре­де­ля­е­мой по фор­му­ле  <span data-inline-latex=\"A(\\omega)=\\frac{A_0\\omega_p^{2}}{\\left|\\omega_p^{2}-\\omega^{2}\\right|}\"></span> ,  где  <span data-inline-latex=\"\\omega\"></span>   — ча­сто­та вы­нуж­да­ю­щей силы (в <span data-inline-latex=\"c^{-1}\"></span> ),  <span data-inline-latex=\"A_0\"></span>   — по­сто­ян­ный па­ра­метр, <span data-inline-latex=\"\\omega_p=345c^{-1}\"></span>   — ре­зо­нанс­ная ча­сто­та. Най­ди­те мак­си­маль­ную ча­сто­ту  <span data-inline-latex=\"\\omega\"></span> , мень­шую ре­зо­нанс­ной, для ко­то­рой ам­пли­ту­да ко­ле­ба­ний пре­вос­хо­дит ве­ли­чи­ну <span data-inline-latex=\"A_0\"></span>  не более чем на <span data-inline-latex=\"12{,}5\\%\"></span>. Ответ вы­ра­зи­те в <span data-inline-latex=\"c^{-1}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">115</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства <span data-inline-latex=\"A\\le 1{,}125A_0\"></span> при из­вест­ном зна­че­нии ре­зо­нанс­ной ча­сто­ты <span data-inline-latex=\"\\omega_{\\mathrm{р}}=345\\,\\mathrm{с}^{(-1)}\"></span>  и усло­вии, что ча­сто­та <span data-inline-latex=\"\\omega\"></span>  мень­ше ре­зо­нанс­ной:</p><center><p><span><span data-inline-latex=\"A\\le 1{,}125A_0\\iff \\frac{A_0\\cdot 345^{2}}{345^{2}-\\omega^{2}}\\le 1{,}125A_0\\iff 345^{2}\\le 1{,}125\\cdot 345^{2}-1{,}125\\omega^{2}\\iff\"></span> </span></p></center><center><p> <span data-inline-latex=\"\\iff 1{,}125\\omega^{2}\\le 0{,}125\\cdot 345^{2}\\iff \\omega\\le 115\\,\\mathrm{с}^{(-1)}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27974",
+      "task": "28247",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ам­пли­ту­да ко­ле­ба­ний ма­ят­ни­ка за­ви­сит от ча­сто­ты вы­нуж­да­ю­щей силы, опре­де­ля­е­мой по фор­му­ле  <span data-inline-latex=\"A(\\omega)=\\frac{A_0\\omega_p^{2}}{\\left|\\omega_p^{2}-\\omega^{2}\\right|}\"></span> ,  где  <span data-inline-latex=\"\\omega\"></span>   — ча­сто­та вы­нуж­да­ю­щей силы (в <span data-inline-latex=\"c^{-1}\"></span> ),  <span data-inline-latex=\"A_0\"></span>   — по­сто­ян­ный па­ра­метр, <span data-inline-latex=\"\\omega_p=210c^{-1}\"></span>   — ре­зо­нанс­ная ча­сто­та. Най­ди­те мак­си­маль­ную ча­сто­ту  <span data-inline-latex=\"\\omega\"></span> , мень­шую ре­зо­нанс­ной, для ко­то­рой ам­пли­ту­да ко­ле­ба­ний пре­вос­хо­дит ве­ли­чи­ну <span data-inline-latex=\"A_0\"></span>  не более чем на <span data-inline-latex=\"12{,}5\\%\"></span>. Ответ вы­ра­зи­те в <span data-inline-latex=\"c^{-1}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">70</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
             }
           ],
           "schema_version": 3,

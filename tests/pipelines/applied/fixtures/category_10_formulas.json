@@ -116,6 +116,15 @@
       "theme_order": 2,
       "order": 13,
       "rule": "applied-algebraic-formula"
+    },
+    {
+      "key": "27977",
+      "uuid": "b191a61f-cc9b-4cbb-8aaf-18072411dc10",
+      "theme_uuid": "2b29bf78-2c25-43d5-a783-05d7a19fbb3e",
+      "theme_title": "Рациональные уравнения и неравенства",
+      "theme_order": 2,
+      "order": 7,
+      "rule": "applied-algebraic-formula"
     }
   ],
   "cases": [
@@ -2180,6 +2189,174 @@
             {
               "key": "solution",
               "html": "<p>Най­дем, за какое время ав­то­мо­биль прой­дет путь <span data-inline-latex=\"S=600\"></span> мет­ров, учи­ты­вая, что сила <var data-math-identifier=\"F\">F</var> при за­дан­ном зна­че­нии массы ав­то­мо­би­ля 2000 H. За­да­ча сво­дит­ся к ре­ше­нию урав­не­ния  <span data-inline-latex=\"\\frac{2mS}{t^{2}}=2000\"></span>  при за­дан­ном зна­че­нии массы ав­то­мо­би­ля <span data-inline-latex=\"m=1500\"></span> кг:</p><center><p> <span data-inline-latex=\"\\frac{2\\cdot 1500\\cdot 600}{t^{2}}=2000\\iff t^{2}=900\\underset{t\\gt 0}{\\iff}t=30\"></span>  с.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27977",
+      "task": "27977",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) кор­мо­за­пар­ни­ка равен от­но­ше­нию ко­ли­че­ства теп­ло­ты, за­тра­чен­но­го на на­гре­ва­ние воды мас­сой <i>m</i><sub>в</sub> (в ки­ло­грам­мах) от тем­пе­ра­ту­ры <i>t</i><sub>1</sub> до тем­пе­ра­ту­ры <i>t</i><sub>2</sub> (в гра­ду­сах Цель­сия) к ко­ли­че­ству теп­ло­ты, по­лу­чен­но­му от сжи­га­ния дров массы <i>m</i><sub>др</sub> кг. Он опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"\\eta=\\frac{c_{\\mathrm{в}}m_{\\mathrm{в}}(t_2-t_1)}{q_{\\mathrm{др}}m_{\\mathrm{др}}}\\cdot 100\\%\"></span>,  <nobr>где  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span>   —</nobr> теплоёмкость воды, <nobr> <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>  —</nobr> удель­ная теп­ло­та сго­ра­ния дров. Опре­де­ли­те наи­мень­шее ко­ли­че­ство дров, ко­то­рое по­на­до­бит­ся сжечь в кор­мо­за­пар­ни­ке, чтобы на­греть <i>m</i><sub>в</sub>  =  83 кг воды от 10 °C до 100 °C, если из­вест­но, что КПД кор­мо­за­пар­ни­ка не боль­ше 21%. Ответ вы­ра­зи­те в ки­ло­грам­мах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"\\eta\\le 21\\%\"></span> при из­вест­ных зна­че­ни­ях теплоёмко­сти воды  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span> , удель­ной теп­ло­ты сго­ра­ния дров  <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>, массы воды  <span data-inline-latex=\"m_{\\mathrm{в}}=83\\,\\mathrm{кг}\"></span> и из­ме­не­ния тем­пе­ра­ту­ры  <span data-inline-latex=\"t_2-t_1=100-10=90\\,^{\\circ}\\mathrm{C}\"></span>:</p><center><p> <span data-inline-latex=\"\\frac{4{,}2\\cdot 10^{3}\\cdot 83\\cdot 90}{8{,}3\\cdot 10^{6}\\cdot m_{\\mathrm{др}}}\\cdot 100\\le 21\\iff \\frac{4{,}2\\cdot 90}{m_{\\mathrm{др}}}\\le 21\\iff m_{\\mathrm{др}}\\ge 18\\,\\mathrm{кг}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27977",
+      "task": "28277",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) кор­мо­за­пар­ни­ка равен от­но­ше­нию ко­ли­че­ства теп­ло­ты, за­тра­чен­но­го на на­гре­ва­ние воды мас­сой <i>m</i><sub>в</sub> (в ки­ло­грам­мах) от тем­пе­ра­ту­ры <i>t</i><sub>1</sub> до тем­пе­ра­ту­ры <i>t</i><sub>2</sub> (в гра­ду­сах Цель­сия) к ко­ли­че­ству теп­ло­ты, по­лу­чен­но­му от сжи­га­ния дров массы <i>m</i><sub>др</sub> кг. Он опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"\\eta=\\frac{c_{\\mathrm{в}}m_{\\mathrm{в}}(t_2-t_1)}{q_{\\mathrm{др}}m_{\\mathrm{др}}}\\cdot 100\\%\"></span>,  <nobr>где  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span>   —</nobr> теплоёмкость воды, <nobr> <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>  —</nobr> удель­ная теп­ло­та сго­ра­ния дров. Опре­де­ли­те наи­мень­шее ко­ли­че­ство дров, ко­то­рое по­на­до­бит­ся сжечь в кор­мо­за­пар­ни­ке, чтобы на­греть <i>m</i><sub>в</sub>  =  80 кг воды от 17 °C до 100 °C, если из­вест­но, что КПД кор­мо­за­пар­ни­ка не боль­ше 14%. Ответ вы­ра­зи­те в ки­ло­грам­мах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"\\eta\\le 14\\%\"></span> при из­вест­ных зна­че­ни­ях теплоёмко­сти воды  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span> , удель­ной теп­ло­ты сго­ра­ния дров  <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>, массы воды  <span data-inline-latex=\"m_{\\mathrm{в}}=80\\,\\mathrm{кг}\"></span> и из­ме­не­ния тем­пе­ра­ту­ры  <span data-inline-latex=\"t_2-t_1=100-17=83\\,^{\\circ}\\mathrm{C}\"></span>:</p><center><p> <span data-inline-latex=\"\\frac{4{,}2\\cdot 10^{3}\\cdot 80\\cdot 83}{8{,}3\\cdot 10^{6}\\cdot m_{\\mathrm{др}}}\\cdot 100\\le 14\\iff \\frac{4{,}2\\cdot 80}{m_{\\mathrm{др}}}\\le 14\\iff m_{\\mathrm{др}}\\ge 24\\,\\mathrm{кг}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27977",
+      "task": "42215",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) кор­мо­за­пар­ни­ка равен от­но­ше­нию ко­ли­че­ства теп­ло­ты, за­тра­чен­но­го на на­гре­ва­ние воды мас­сой <i>m</i><sub>в</sub> (в ки­ло­грам­мах) от тем­пе­ра­ту­ры <i>t</i><sub>1</sub> до тем­пе­ра­ту­ры <i>t</i><sub>2</sub> (в гра­ду­сах Цель­сия) к ко­ли­че­ству теп­ло­ты, по­лу­чен­но­му от сжи­га­ния дров массы <i>m</i><sub>др</sub> кг. Он опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"\\eta=\\frac{c_{\\mathrm{в}}m_{\\mathrm{в}}(t_2-t_1)}{q_{\\mathrm{др}}m_{\\mathrm{др}}}\\cdot 100\\%\"></span>,  <nobr>где  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span>   —</nobr> теплоёмкость воды, <nobr> <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>  —</nobr> удель­ная теп­ло­та сго­ра­ния дров. Опре­де­ли­те наи­мень­шее ко­ли­че­ство дров, ко­то­рое по­на­до­бит­ся сжечь в кор­мо­за­пар­ни­ке, чтобы на­греть <i>m</i><sub>в</sub>  =  90 кг воды от 17 °C до 100 °C, если из­вест­но, что КПД кор­мо­за­пар­ни­ка не боль­ше 18%. Ответ вы­ра­зи­те в ки­ло­грам­мах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">21</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"\\eta\\le 18\\%\"></span> при из­вест­ных зна­че­ни­ях теплоёмко­сти воды  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span> , удель­ной теп­ло­ты сго­ра­ния дров  <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>, массы воды  <span data-inline-latex=\"m_{\\mathrm{в}}=90\\,\\mathrm{кг}\"></span> и из­ме­не­ния тем­пе­ра­ту­ры  <span data-inline-latex=\"t_2-t_1=100-17=83\\,^{\\circ}\\mathrm{C}\"></span>:</p><center><p> <span data-inline-latex=\"\\frac{4{,}2\\cdot 10^{3}\\cdot 90\\cdot 83}{8{,}3\\cdot 10^{6}\\cdot m_{\\mathrm{др}}}\\cdot 100\\le 18\\iff \\frac{4{,}2\\cdot 90}{m_{\\mathrm{др}}}\\le 18\\iff m_{\\mathrm{др}}\\ge 21\\,\\mathrm{кг}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27977",
+      "task": "42219",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ко­эф­фи­ци­ент по­лез­но­го дей­ствия (КПД) кор­мо­за­пар­ни­ка равен от­но­ше­нию ко­ли­че­ства теп­ло­ты, за­тра­чен­но­го на на­гре­ва­ние воды мас­сой <i>m</i><sub>в</sub> (в ки­ло­грам­мах) от тем­пе­ра­ту­ры <i>t</i><sub>1</sub> до тем­пе­ра­ту­ры <i>t</i><sub>2</sub> (в гра­ду­сах Цель­сия) к ко­ли­че­ству теп­ло­ты, по­лу­чен­но­му от сжи­га­ния дров массы <i>m</i><sub>др</sub> кг. Он опре­де­ля­ет­ся фор­му­лой  <span data-inline-latex=\"\\eta=\\frac{c_{\\mathrm{в}}m_{\\mathrm{в}}(t_2-t_1)}{q_{\\mathrm{др}}m_{\\mathrm{др}}}\\cdot 100\\%\"></span>,  <nobr>где  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span>   —</nobr> теплоёмкость воды, <nobr> <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>  —</nobr> удель­ная теп­ло­та сго­ра­ния дров. Опре­де­ли­те наи­мень­шее ко­ли­че­ство дров, ко­то­рое по­на­до­бит­ся сжечь в кор­мо­за­пар­ни­ке, чтобы на­греть <i>m</i><sub>в</sub>  =  166 кг воды от 10 °C до 100 °C, если из­вест­но, что КПД кор­мо­за­пар­ни­ка не боль­ше 14%. Ответ вы­ра­зи­те в ки­ло­грам­мах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">54</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к ре­ше­нию не­ра­вен­ства  <span data-inline-latex=\"\\eta\\le 14\\%\"></span> при из­вест­ных зна­че­ни­ях теплоёмко­сти воды  <span data-inline-latex=\"c_{\\mathrm{в}}=4{,}2\\cdot 10^{3}\\,\\mathrm{Дж}\\div (\\mathrm{кг}\\cdot \\circ C)\"></span> , удель­ной теп­ло­ты сго­ра­ния дров  <span data-inline-latex=\"q_{\\mathrm{др}}=8{,}3\\cdot 10^{6}\\,\\mathrm{Дж}/\\mathrm{кг}\"></span>, массы воды  <span data-inline-latex=\"m_{\\mathrm{в}}=166\\,\\mathrm{кг}\"></span> и из­ме­не­ния тем­пе­ра­ту­ры  <span data-inline-latex=\"t_2-t_1=100-10=90\\,^{\\circ}\\mathrm{C}\"></span>:</p><center><p> <span data-inline-latex=\"\\frac{4{,}2\\cdot 10^{3}\\cdot 166\\cdot 90}{8{,}3\\cdot 10^{6}\\cdot m_{\\mathrm{др}}}\\cdot 100\\le 14\\iff \\frac{4{,}2\\cdot 90\\cdot 2}{m_{\\mathrm{др}}}\\le 14\\iff m_{\\mathrm{др}}\\ge 54\\,\\mathrm{кг}\"></span>. </p></center>",
               "title": "Решение",
               "asset_keys": [],
               "section_id": "solution:1",

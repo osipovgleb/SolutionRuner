@@ -90,7 +90,7 @@ class Question:
 
 
 def normalize(text):
-    for unit in ["C", "кг", "см", "Н", "Вт", "К"]:
+    for unit in ["C", "кг", "см", "Н", "Вт", "К", "Дж"]:
         text = text.replace(r"\mathrm{" + unit + "}", unit)
     text = text.replace(r"\,", "").replace("не-которой", "некоторой")
     text = (
@@ -103,11 +103,27 @@ def normalize(text):
     text = text.replace("CM^2", "см^{2}")
     text = re.sub(r"l\s+_0", "l_0", text)
     text = re.sub(r"t\s+°", "t°", text)
+    text = re.sub(r"([cmtq])\s+_(в|др|[12])", r"\1_\2", text)
+    for name, suffix, alias in [
+        ("c", "в", "c_w"),
+        ("m", "в", "m_w"),
+        ("q", "др", "q_d"),
+        ("m", "др", "m_d"),
+    ]:
+        text = text.replace(name + r"_{\mathrm{" + suffix + "}}", alias).replace(
+            name + "_" + suffix, alias
+        )
     return text.replace("π", r"\pi")
 
 
 def bind(formula, variable, values, *, positive_variable=False):
     for alias, name in [
+        ("c_w", "a"),
+        ("m_w", "n"),
+        ("q_d", "q"),
+        ("m_d", "m"),
+        ("t_1", "b"),
+        ("t_2", "h"),
         (r"\alpha", "a"),
         (r"\sigma", "a"),
         (r"\rho", "d"),
@@ -162,6 +178,7 @@ def make_question(kind, match):
         "excavator": (S, "s", "м"),
         "column": (D, "D", "м"),
         "traction": (T, "t", "с"),
+        "boiler": (sp.Symbol("m", real=True), r"m_{\mathrm{др}}", "кг"),
     }[kind]
     names = {
         "thermal": {"length": "q", "alpha": "a"},
@@ -176,6 +193,7 @@ def make_question(kind, match):
         "excavator": {"mass": "m", "length": "l", "gravity": "g"},
         "column": {"mass": "m", "gravity": "g", "pi": "a"},
         "traction": {"mass": "m", "distance": "s"},
+        "boiler": {"heat": "a", "water": "n", "fuel": "q", "start": "b", "end": "h"},
     }[kind]
     bindings = {name: values[key] for key, name in names.items()}
     if kind == "bucket":
