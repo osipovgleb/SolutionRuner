@@ -76,6 +76,16 @@ class TrigonometricParser(LogarithmParser):
             raise UnsupportedCondition(
                 "a small positive trigonometric power is required"
             )
+        angle = self._angle()
+        symbol, atom = self._atom(function[1], angle)
+        if len(self.atoms) >= 24:
+            raise UnsupportedCondition(
+                "the trigonometric expression has too many atoms"
+            )
+        self.atoms[symbol] = atom
+        return Node(symbol**exponent, self.text[start : self.index], "trig")
+
+    def _angle(self):
         angle_start = self.index
         if self.text[self.index : self.index + 1] == "(":
             _, self.index = balanced(self.text, self.index, "(", ")")
@@ -96,9 +106,10 @@ class TrigonometricParser(LogarithmParser):
             if self.text.startswith(suffix, self.index):
                 self.index += len(suffix)
                 break
-        angle = self.text[angle_start : self.index]
+        return self.text[angle_start : self.index]
+
+    def _atom(self, function, angle):
         q, degrees = parse_angle(angle)
-        function = function[1]
         sign = signs(function, q)
         symbol = (
             sp.Symbol("T" + str(len(self.atoms)), zero=True)
@@ -108,9 +119,4 @@ class TrigonometricParser(LogarithmParser):
             )
         )
         text = "\\" + function + "(" + angle + ")"
-        if len(self.atoms) >= 24:
-            raise UnsupportedCondition(
-                "the trigonometric expression has too many atoms"
-            )
-        self.atoms[symbol] = TrigAtom(function, q, degrees, text)
-        return Node(symbol**exponent, self.text[start : self.index], "trig")
+        return symbol, TrigAtom(function, q, degrees, text)

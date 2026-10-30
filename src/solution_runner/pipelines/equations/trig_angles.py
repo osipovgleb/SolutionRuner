@@ -117,7 +117,10 @@ def polynomial(atom, base):
         if atom.q.q not in [1, 2, 3, 4, 6]:
             raise UnsupportedCondition("unsupported unrelated trigonometric angle")
         return atom.actual()
-    k, h = rel
+    return multiple_angle(atom.function, *rel)
+
+
+def multiple_angle(function, k, h):
     sine, cosine = sp.Integer(0), sp.Integer(1)
     for _ in range(abs(k)):
         sine, cosine = (
@@ -134,7 +137,7 @@ def polynomial(atom, base):
         "cos": lambda: cs,
         "tg": lambda: sn / cs,
         "ctg": lambda: cs / sn,
-    }[atom.function]()
+    }[function]()
 
 
 def reduce_polynomial(expression):

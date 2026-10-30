@@ -564,3 +564,49 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+# Symbolic trigonometric methods.
+HANDLERS += (
+    HandlerSpec(
+        "trigonometric-given-value",
+        "solution_runner.pipelines.equations.trig_given:build_context_repair_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "trigonometric-direct-tangent",
+        "solution_runner.pipelines.equations.trig_given:build_context_repair_plan",
+        options=(("direct_tangent", True),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "trigonometric-given-value-via-cotangent",
+        "solution_runner.pipelines.equations.trig_given:build_context_repair_plan",
+        options=(("via_cotangent", True),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "trigonometric-tangent-ratio-two-methods",
+        "solution_runner.pipelines.equations.trig_given:build_context_repair_plan",
+        options=(("two_methods", True),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "trigonometric-square-relation-two-methods",
+        "solution_runner.pipelines.equations.trig_relation:build_square_relation_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "trigonometric-tangent-equation",
+        "solution_runner.pipelines.equations.trig_relation:build_tangent_equation_plan",
+        options=(),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "trigonometric-tangent-equation-divide-first",
+        "solution_runner.pipelines.equations.trig_relation:build_tangent_equation_plan",
+        options=(("divide_first", True),),
+        requires_parent_condition_asset=False,
+    ),
+)
