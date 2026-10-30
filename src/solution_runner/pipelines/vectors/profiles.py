@@ -374,6 +374,12 @@ PROFILES += tuple(
             "vector-geometric-operations",
         ),
         (
+            "654451",
+            "27c60eaa-07c8-4359-9e50-f6bab6484410",
+            52,
+            "vector-grid-triangle-dot-product",
+        ),
+        (
             "660709",
             "53099c83-635b-40ea-afbb-0fdfa01f66fe",
             53,

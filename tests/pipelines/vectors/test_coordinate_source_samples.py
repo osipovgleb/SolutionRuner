@@ -82,6 +82,8 @@ def test_source_answer_matches_an_independent_plan(case):
     permitted = ("section:solution", "section:answer")
     if case["task"] in {"60955", "27727", "27728", "27729"}:
         permitted += ("asset:image_1", "section:condition")
+    if case["task"] == "654463":
+        permitted += ("asset:triangle_coordinates",)
     assert all(
         t["transformation_target_id"].startswith(permitted)
         for t in result.transformations
@@ -106,12 +108,18 @@ def test_prepared_vector_content_is_idempotent(case):
     sections = context["normalized_content"]["sections"]
     for change in first.transformations:
         if change["transformation_target_id"].startswith("asset:"):
-            asset = next(
-                a
-                for a in context["normalized_content"]["assets"]
-                if "asset:" + a["asset_key"] == change["transformation_target_id"]
+            asset = (
+                next(
+                    a
+                    for a in context["normalized_content"]["assets"]
+                    if "asset:" + a["asset_key"] == change["transformation_target_id"]
+                )
+                if change["operation"] != "add"
+                else {}
             )
             asset.update(change["value"])
+            if change["operation"] == "add":
+                context["normalized_content"]["assets"].append(asset)
             continue
         section = next(
             (

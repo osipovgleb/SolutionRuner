@@ -442,6 +442,15 @@
       "rule": "vector-geometric-operations"
     },
     {
+      "key": "654451",
+      "uuid": "27c60eaa-07c8-4359-9e50-f6bab6484410",
+      "order": 52,
+      "theme_uuid": "64fdf550-dcad-489a-aea5-0682edf81d76",
+      "theme_title": "Векторы и операции с ними",
+      "theme_order": 0,
+      "rule": "vector-grid-triangle-dot-product"
+    },
+    {
       "key": "660709",
       "uuid": "53099c83-635b-40ea-afbb-0fdfa01f66fe",
       "order": 53,
@@ -7985,6 +7994,122 @@
             {
               "key": "solution",
               "html": "<p>Пусть угол между ка­те­том <var data-math-identifier=\"AC\">AC</var> и ги­по­те­ну­зой <var data-math-identifier=\"AB\">AB</var> равен α, тогда <span data-inline-latex=\"AB=\\frac{AC}{\\cos \\alpha}\"></span> .  По опре­де­ле­нию ска­ляр­но­го про­из­ве­де­ния по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\overrightarrow{AB}\\cdot \\overrightarrow{AC}=AB\\cdot AC\\cdot \\cos \\alpha=\\frac{AC}{\\cos \\alpha}\\cdot AC\\cos \\alpha=AC^{2}=5\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "654451",
+      "task": "654451",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d113fcb7-3158-4231-afbf-29b1af643c95",
+              "kind": "ordinary_image",
+              "asset_id": "d113fcb7-3158-4231-afbf-29b1af643c95",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/94194ebf-e02b-4659-9eca-34046d101006",
+              "kind": "ordinary_image",
+              "asset_id": "94194ebf-e02b-4659-9eca-34046d101006",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d113fcb7-3158-4231-afbf-29b1af643c95\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d113fcb7-3158-4231-afbf-29b1af643c95\"/> На клет­ча­той бу­ма­ге с раз­ме­ром клет­ки <span data-inline-latex=\"1\\times 1\"></span> изоб­ра­жен тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>. Най­ди­те ска­ляр­ное про­из­ве­де­ние <span data-inline-latex=\"\\overrightarrow{AB}\\cdot \\overrightarrow{AC}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Най­дем сто­ро­ны тре­уголь­ни­ка по тео­ре­ме Пи­фа­го­ра (см. рис.), по­лу­чим: <span data-inline-latex=\"AC=\\sqrt{5}\"></span> , <span data-inline-latex=\"BC=\\sqrt{20}\"></span> , <span data-inline-latex=\"AB=5\"></span>. Квад­рат боль­шей сто­ро­ны равен сумме квад­ра­тов мень­ших сто­рон, по­это­му по тео­ре­ме, об­рат­ной тео­ре­ме Пи­фа­го­ра, тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>  — пря­мо­уголь­ный. </p><p>Пусть угол между ка­те­том <var data-math-identifier=\"AC\">AC</var> и ги­по­те­ну­зой <var data-math-identifier=\"AB\">AB</var> равен α, тогда <span data-inline-latex=\"AB=\\frac{AC}{\\cos \\alpha}\"></span> .  По опре­де­ле­нию ска­ляр­но­го про­из­ве­де­ния по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\overrightarrow{AB}\\cdot \\overrightarrow{AC}=AB\\cdot AC\\cdot \\cos \\alpha=\\frac{AC}{\\cos \\alpha}\\cdot AC\\cos \\alpha=AC^{2}=5\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p><img alt=\"\" data-asset-id=\"94194ebf-e02b-4659-9eca-34046d101006\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/94194ebf-e02b-4659-9eca-34046d101006\"/></p><p>Введём си­сте­му ко­ор­ди­нат как по­ка­за­но на ри­сун­ке. Опре­де­лим ко­ор­ди­на­ты век­то­ров <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и <span data-inline-latex=\"\\overrightarrow{AC}\"></span>:</p><center><p> <span data-inline-latex=\"\\overrightarrow{AB}=(4;3)\"></span> ,<br/><span data-inline-latex=\"\\overrightarrow{AC}=(2;-1)\"></span> .</p><p></p></center><p>Найдём ска­ляр­ное про­из­ве­де­ние век­то­ров через их ко­ор­ди­на­ты:</p><center><p><span data-inline-latex=\"\\overrightarrow{AB}\\cdot \\overrightarrow{AC}=4\\cdot 2+3\\cdot (-1)=5\"></span>.</p></center></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "654451",
+      "task": "654463",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ff169eae-512a-48b6-8ada-4d0d38b7510b",
+              "kind": "ordinary_image",
+              "asset_id": "ff169eae-512a-48b6-8ada-4d0d38b7510b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"ff169eae-512a-48b6-8ada-4d0d38b7510b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ff169eae-512a-48b6-8ada-4d0d38b7510b\"/>На клет­ча­той бу­ма­ге с раз­ме­ром клет­ки <span data-inline-latex=\"1\\times 1\"></span> изоб­ра­жен тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>. Най­ди­те ска­ляр­ное про­из­ве­де­ние <span data-inline-latex=\"\\overrightarrow{AB}\\cdot \\overrightarrow{AC}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Най­дем сто­ро­ны тре­уголь­ни­ка по тео­ре­ме Пи­фа­го­ра (см. рис.), по­лу­чим: <span data-inline-latex=\"AC=\\sqrt{10}\"></span> , <span data-inline-latex=\"BC=2\\sqrt{10}\"></span> , <span data-inline-latex=\"AB=5\\sqrt{2}\"></span> . Квад­рат боль­шей сто­ро­ны равен сумме квад­ра­тов мень­ших сто­рон, по­это­му по тео­ре­ме, об­рат­ной тео­ре­ме Пи­фа­го­ра, тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>  — пря­мо­уголь­ный. </p><p>Обо­зна­чим угол между ка­те­том <var data-math-identifier=\"AC\">AC</var> и ги­по­те­ну­зой <var data-math-identifier=\"AB\">AB</var> равен α, тогда <span data-inline-latex=\"AB=\\frac{AC}{\\cos \\alpha}\"></span> .  По опре­де­ле­нию ска­ляр­но­го про­из­ве­де­ния по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\overrightarrow{AB}\\cdot \\overrightarrow{AC}=AB\\cdot AC\\cdot \\cos \\alpha=\\frac{AC}{\\cos \\alpha}\\cdot AC\\cos \\alpha=AC^{2}=10\"></span>. </p></center>",
               "title": "Решение",
               "asset_keys": [],
               "section_id": "solution:1",

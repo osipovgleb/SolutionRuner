@@ -47,6 +47,18 @@ HANDLERS = (
 
 HANDLERS += (
     HandlerSpec(
+        "vector-grid-triangle-dot-product",
+        "solution_runner.pipelines.vectors.grid_triangles:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        asset_selector="solution_runner.pipelines.vectors.grid_triangles:required_assets",
+        diagram_builder="solution_runner.pipelines.vectors.grid_triangles:diagram_specs",
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+    ),
+    HandlerSpec(
         "vector-geometric-operations",
         "solution_runner.pipelines.vectors.geometric:build_context_repair_plan",
         asset_selector="solution_runner.pipelines.vectors.geometric:required_assets",

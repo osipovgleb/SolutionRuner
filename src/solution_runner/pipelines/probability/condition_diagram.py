@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from .common import UnsupportedCondition, normalize, require_content
 
 
-def read(context, evidence, assets_dir):
+def read(context, evidence, assets_dir, *, identifiers=()):
     content = context.get("normalized_content") or {}
     sections = content.get("sections") or []
     condition = next((s for s in sections if s.get("key") == "condition"), None)
@@ -39,7 +39,7 @@ def read(context, evidence, assets_dir):
     for node in soup.find_all("var"):
         if (
             set(node.attrs) != {"data-math-identifier"}
-            or len(node.get_text()) != 1
+            or (len(node.get_text()) != 1 and node.get_text() not in identifiers)
             or node["data-math-identifier"] != node.get_text()
         ):
             raise UnsupportedCondition("unsupported mathematical identifier markup")
