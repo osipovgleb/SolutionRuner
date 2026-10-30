@@ -1,4 +1,4 @@
-"""Checksum-bound graph evidence shared by tangent and composition questions."""
+"""Checksum-bound graph evidence shared by calculus graph questions."""
 
 import hashlib
 import json
@@ -14,7 +14,7 @@ from ..probability.common import UnsupportedCondition
 from .common import X, polynomial, read
 
 ASSETS = Path(__file__).with_name("assets")
-EVIDENCE = json.loads((ASSETS / "tangent_evidence.json").read_text())
+EVIDENCE = json.loads((ASSETS / "graph_evidence.json").read_text())
 KEY = "tangent_triangle"
 ALT = "Касательная и прямоугольный треугольник для вычисления её наклона"
 

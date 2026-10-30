@@ -41,8 +41,19 @@ def _apply_local(context, transformations):
             content["assets"].append(deepcopy(t["value"]))
             continue
         section = next(
-            s
-            for s in content["sections"]
-            if s["transformation_target_id"] == t["transformation_target_id"]
+            (
+                s
+                for s in content["sections"]
+                if s["transformation_target_id"] == t["transformation_target_id"]
+            ),
+            None,
         )
+        if section is None:
+            key = t["transformation_target_id"].split(":")[1]
+            section = {
+                "key": key,
+                "section_id": key + ":1",
+                "transformation_target_id": t["transformation_target_id"],
+            }
+            content["sections"].append(section)
         section.update(t["value"])
