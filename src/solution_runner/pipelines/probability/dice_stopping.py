@@ -4,6 +4,7 @@ import re
 from dataclasses import replace
 from fractions import Fraction
 
+from . import exceed_figures as figures
 from . import solution_diagrams as diagrams
 from .bernoulli import fmt
 from .common import (
@@ -29,6 +30,9 @@ _INCOMPLETE = re.compile(
 _CLARIFIED = re.compile(
     r"Правильный игральный кубик бросали до первого момента, когда сумма всех выпавших очков стала не меньше (?P<total>\d+)\. Известно, что в этот момент сумма оказалась равна (?P<same>\d+)\. Найдите условную вероятность того, что к этому моменту было сделано ровно (?P<throws>\d+) бросков\. Ответ округлите до сотых\."
 )
+_EXCEED = re.compile(
+    rf"(?:Игральный кубик|Игральную кость) бросали до тех пор, пока сумма всех выпавших очков не превысила число (?P<threshold>\d+)\. Какова вероятность того, что для этого потребовалось (?:ровно )?(?P<throws>{COUNT}) брос(?:ок|ка|ков)\? Ответ округлите до тысячных\."
+)
 _REUSE = {
     (4, 1): "fb5809fb-c1dc-4db5-9d75-4748838fb3c5",
     (4, 3): "9059a0a1-820a-4baa-af74-bdaf310bb43d",
@@ -42,6 +46,15 @@ _ALT = "Дерево бросков до достижения заданной �
 def _input(context):
     content, condition, answer, solution, text = diagrams.read(context)
     text = normalize(text)
+    exceed = _EXCEED.fullmatch(text)
+    if exceed:
+        threshold = int(exceed["threshold"])
+        throws = count(exceed["throws"])
+        if not 1 <= threshold <= 4 or not 1 <= throws <= min(3, threshold + 1):
+            raise UnsupportedCondition(
+                "illustrated crossing supports boundaries 1–4 and at most three throws"
+            )
+        return content, condition, answer, solution, threshold + 1, throws, "exceed", ""
     stopped = _STOPPED.fullmatch(text)
     incomplete = _INCOMPLETE.fullmatch(text)
     clarified = _CLARIFIED.fullmatch(text)
@@ -148,6 +161,16 @@ def render_svg(total, throws):
 
 def required_assets(context):
     *_, total, throws, stopped, _clarification = _input(context)
+    if stopped == "exceed":
+        pair = (total - 1, throws)
+        return tuple(
+            {"source_asset_id": source, "section_id": "solution:1", "alt_text": alt}
+            for source, alt in [
+                (figures.TREE_REUSE.get(pair), figures.TREE_ALT),
+                (figures.TABLE_REUSE.get(pair), figures.TABLE_ALT),
+            ]
+            if source
+        )
     source = _REUSE.get((total, throws)) if stopped else None
     return (
         ({"source_asset_id": source, "section_id": "solution:1", "alt_text": _ALT},)
@@ -158,6 +181,17 @@ def required_assets(context):
 
 def diagram_specs(context):
     *_, total, throws, stopped, _clarification = _input(context)
+    if stopped == "exceed":
+        threshold = total - 1
+        pair = (threshold, throws)
+        return tuple(
+            diagrams.spec(key, renderer(threshold, throws))
+            for mapping, key, renderer in [
+                (figures.TREE_REUSE, figures.TREE_KEY, figures.render_tree),
+                (figures.TABLE_REUSE, figures.TABLE_KEY, figures.render_table),
+            ]
+            if pair not in mapping
+        )
     return (
         (diagrams.spec(_KEY, render_svg(total, throws)),)
         if stopped and (total, throws) not in _REUSE
@@ -201,6 +235,13 @@ def build_context_repair_plan(context, *, generated_solution_assets=()):
         stopped,
         clarification,
     ) = _input(context)
+    if stopped == "exceed":
+        answer, html, keys, changes = _render_exceed(
+            content, total - 1, throws, generated_solution_assets
+        )
+        return diagrams.repair(
+            condition, answer_section, solution, answer, html, keys, changes
+        )
     value, counts, probabilities = conditional_hitting_probability(total, throws)
     prefix = ""
     if stopped:
@@ -263,3 +304,93 @@ def build_context_repair_plan(context, *, generated_solution_assets=()):
         )
         return replace(plan, transformations=(correction,) + plan.transformations)
     return plan
+
+
+def first_exceed_probability(threshold, throws):
+    if (
+        not isinstance(threshold, int)
+        or not 1 <= threshold <= 60
+        or not isinstance(throws, int)
+        or not 1 <= throws <= threshold + 1
+    ):
+        raise UnsupportedCondition("invalid first-crossing boundary or throw count")
+    rows = []
+    for subtotal in range(threshold + 1):
+        ways = (
+            int(subtotal == 0)
+            if throws == 1
+            else (hitting_counts(subtotal)[throws - 2] if subtotal >= throws - 1 else 0)
+        )
+        endings = max(0, min(6, 6 - threshold + subtotal))
+        if ways and endings:
+            rows.append((subtotal, ways, endings))
+    count = sum(ways * endings for _, ways, endings in rows)
+    return Fraction(count, 6**throws), count, tuple(rows)
+
+
+def _render_exceed(content, threshold, throws, generated):
+    value, numerator, rows = first_exceed_probability(threshold, throws)
+    prefixes = figures.eligible_prefixes(threshold, throws)
+    html = f"<p>Способ 1. Сумма должна впервые превысить {threshold} именно на броске {throws}. До него сумма не больше {threshold}. Дополним ранние остановки произвольными результатами до общей длины {throws}: все {6**throws} полных последовательностей равновероятны, но ранние остановки в нужное событие не входят.</p>"
+    html += "<p>Результаты первых бросков и допустимые результаты последнего:</p><table><tbody><tr><th>Первые броски</th><th>Последний бросок</th><th>Число исходов</th></tr>"
+    for prefix in prefixes:
+        faces = tuple(face for face in range(1, 7) if sum(prefix) + face > threshold)
+        if faces:
+            html += (
+                "<tr><td>"
+                + (", ".join(map(str, prefix)) or "нет")
+                + "</td><td>"
+                + ", ".join(map(str, faces))
+                + f"</td><td>{len(faces)}</td></tr>"
+            )
+    html += "</tbody></table>" + line(
+        rf"P=\frac{{{numerator}}}{{6^{{{throws}}}}}={fmt(value)}"
+    )
+    keys = []
+    changes = []
+    html += "<p>Способ 2. Изобразим дерево исходов. Зелёные ветви ведут к первому превышению на нужном броске, красные — к неподходящим исходам. Вероятности вдоль пути перемножаются, несовместные подходящие пути складываются.</p>"
+    for index, (mapping, key, alt, renderer) in enumerate(
+        [
+            (
+                figures.TREE_REUSE,
+                figures.TREE_KEY,
+                figures.TREE_ALT,
+                figures.render_tree,
+            ),
+            (
+                figures.TABLE_REUSE,
+                figures.TABLE_KEY,
+                figures.TABLE_ALT,
+                figures.render_table,
+            ),
+        ]
+    ):
+        figure, key, added = diagrams.image(
+            content,
+            key,
+            alt,
+            source_id=mapping.get((threshold, throws)),
+            svg=renderer(threshold, throws),
+            generated=generated,
+        )
+        keys.append(key)
+        changes.extend(added)
+        if index == 0:
+            html += figure
+            terms = []
+            for _subtotal, ways, endings in rows:
+                term = (
+                    rf"\frac{{{ways}}}{{6^{{{throws - 1}}}}}\cdot\frac{{{endings}}}{{6}}"
+                    if throws > 1
+                    else rf"\frac{{{endings}}}{{6}}"
+                )
+                terms.append(term)
+            html += line("P=" + "+".join(terms) + "=" + fmt(value))
+            html += "<p>Способ 3. Составим таблицу исходов. Зелёные плюсы соответствуют нужному первому превышению. Первые броски, при которых игра закончилась раньше, не дают благоприятных исходов.</p>"
+        else:
+            html += figure + line(
+                rf"P=\frac{{{numerator}}}{{6^{{{throws}}}}}={fmt(value)}"
+            )
+    answer = rounded(value, 3)
+    html += line(rf"P\approx {answer.replace(',', '{,}')}")
+    return answer, html, tuple(keys), changes
