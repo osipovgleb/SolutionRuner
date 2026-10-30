@@ -5,8 +5,9 @@ from dataclasses import dataclass
 import sympy as sp
 
 from ..calculus.common import answer, real_roots
+from ..probability import solution_diagrams as diagrams
 from ..probability.common import UnsupportedCondition, finish
-from . import common, physical_proof
+from . import bridge_assets, bridge_proof, physical_proof
 from .physical_questions import Question, parse
 
 
@@ -156,6 +157,8 @@ def bounded(q, a, b, c, roots):
 def analyze(question):
     a, b, c = coefficients(question)
     validate_parameters(question, a, b, c)
+    if question.kind == "bridge":
+        return bridge(question, a, b, c)
     if question.kind == "well":
         return well(question, a, b, c)
     roots = tuple(real_roots(question.expression - question.target, question.variable))
@@ -166,13 +169,59 @@ def analyze(question):
     return bounded(question, a, b, c, roots)
 
 
+def bridge(q, a, b, c):
+    distance = q.values["distance"]
+    if a <= 0 or b >= 0 or c <= 0 or not 0 <= distance <= -b / a:
+        raise UnsupportedCondition(
+            "a sagging bridge span and a point between its pylons are required"
+        )
+    result = q.expression.subs(q.variable, distance)
+    if result < 0:
+        raise UnsupportedCondition("the requested cable length cannot be negative")
+    vertex = -b / (2 * a)
+    return Analysis(
+        q,
+        (),
+        (),
+        result,
+        physical_end=-b / a,
+        measurements=(vertex, q.expression.subs(q.variable, vertex)),
+    )
+
+
+def read_question(context):
+    data = bridge_assets.read(context)
+    q = parse(data[3])
+    if (q.kind == "bridge") != bool(context["normalized_content"].get("assets")):
+        raise UnsupportedCondition(
+            "only the bridge law may use the required bridge figures"
+        )
+    return data, q
+
+
 def calculate(context):
-    data = common.read(context)
-    return data, analyze(parse(data[3]))
+    data, q = read_question(context)
+    return data, analyze(q)
+
+
+def required_assets(context):
+    _, q = read_question(context)
+    return bridge_assets.required_asset() if q.kind == "bridge" else ()
 
 
 def build_context_repair_plan(context):
     data, analysis = calculate(context)
     condition, ans, solution, _ = data
+    if analysis.question.kind == "bridge":
+        image, key, changes = bridge_assets.image(context)
+        return diagrams.repair(
+            condition,
+            ans,
+            solution,
+            answer(analysis.result),
+            bridge_proof.proof(analysis) + image,
+            (key,),
+            changes,
+        )
     html = physical_proof.proof(analysis)
     return finish(condition, ans, solution, answer(analysis.result), html)

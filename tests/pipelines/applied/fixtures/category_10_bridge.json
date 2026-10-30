@@ -1,0 +1,275 @@
+{
+  "groups": [
+    {
+      "key": "324467",
+      "uuid": "7462ee5c-2cca-4d5f-bf00-7ac6d4627848",
+      "theme_uuid": "aa38ed1e-c0b9-4919-bdda-b517e8a3469e",
+      "theme_title": "Разные задачи",
+      "theme_order": 7,
+      "order": 5,
+      "rule": "applied-polynomial-physical-model"
+    }
+  ],
+  "cases": [
+    {
+      "group": "324467",
+      "task": "324467",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "kind": "ordinary_image",
+              "asset_id": "9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/ba01a676-fef4-4bb1-9c83-8782230bfcba",
+              "kind": "ordinary_image",
+              "asset_id": "ba01a676-fef4-4bb1-9c83-8782230bfcba",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e8f629a-111d-48c4-bd34-b761ed11a5d8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8\"/>На ри­сун­ке изоб­ра­же­на схема ван­то­во­го моста. Вер­ти­каль­ные пи­ло­ны свя­за­ны про­ви­са­ю­щей цепью. Тросы, ко­то­рые сви­са­ют с цепи и под­дер­жи­ва­ют по­лот­но моста, на­зы­ва­ют­ся ван­та­ми.</p><p>Введём си­сте­му ко­ор­ди­нат: <nobr>ось <i>Oy</i></nobr> на­пра­вим вер­ти­каль­но вдоль од­но­го из пи­ло­нов, а <nobr>ось <i>Ox</i></nobr> на­пра­вим вдоль по­лот­на моста, как по­ка­за­но на ри­сун­ке.</p><p>В этой си­сте­ме ко­ор­ди­нат линия, по ко­то­рой про­ви­са­ет цепь моста, имеет урав­не­ние  <span data-inline-latex=\"y=0{,}005x^{2}-0{,}74x+25\"></span>, где <nobr><i>x</i> и <i>y</i></nobr> из­ме­ря­ют­ся в мет­рах. Най­ди­те длину ванты, рас­по­ло­жен­ной в <nobr>30 мет­рах</nobr> от пи­ло­на. Ответ дайте в мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7,3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Най­дем длину ванты, на­хо­дя­щей­ся на рас­сто­я­нии 30 м от ле­во­го пи­ло­на (см. рис.), в силу сим­мет­рии она равна длине ванты, на­хо­дя­щей­ся на рас­сто­я­нии 30 м от пра­во­го пи­ло­на. За­да­ча сво­дит­ся к вы­чис­ле­нию зна­че­ния <span data-inline-latex=\"y(30)\"></span> , найдём его:</p><center><p><span data-inline-latex=\"y(30)=0{,}005\\cdot 30^{2}-0{,}74\\cdot 30+25=4{,}5-22{,}2+25=7{,}3\"></span>. </p></center><p><b>При­ме­ча­ние 1.</b></p><p>Линия, по ко­то­рой про­ви­са­ет тя­же­лая цепь в поле силы тя­же­сти, яв­ля­ет­ся «цеп­ной ли­ни­ей», ко­то­рая по­хо­жа на па­ра­бо­лу, но от­ли­ча­ет­ся от неё. Урав­не­ние цеп­ной линии: <span data-inline-latex=\"y=\\frac{a}{2}(e^{x\\div a}+e^{-x\\div a})\"></span> ,  где <i>a</i>  — па­ра­метр, за­ви­ся­щий от ма­те­ри­а­ла. </p><p>Не­на­гру­жен­ная цепь, под­ве­шен­ная между двумя опо­ра­ми, при­ни­ма­ет форму цеп­ной линии. Если весом цепи можно пре­не­бречь, а вес моста рав­но­мер­но рас­пре­делён вдоль его длины, цепь при­ни­ма­ют форму па­ра­бо­лы. Если же вес цепи срав­ним с весом по­лот­на (ска­жем, для не­боль­ших лег­ких пе­ше­ход­ных мо­стов в горах), то его форма будет про­ме­жу­точ­ной между цеп­ной ли­ни­ей и па­ра­бо­лой.</p><p><b>При­ме­ча­ние 2.</b></p><p>Вни­ма­тель­ный Сер­гей Пе­пе­ля­ев за­ме­тил, что в ниж­ней точке моста, име­ю­щей ко­ор­ди­на­ту <i>х</i>  =  74, ор­ди­на­та от­ри­ца­тель­на: <i>у</i>  =  −2,38 метра. Ока­зы­ва­ет­ся, это груст­ная за­да­ча про мост, ко­то­рый ванты в цен­тре не дер­жат.</p><p><b>При­ме­ча­ние 3.</b></p><p>В ре­ше­нии и при­ме­ча­ни­ях выше мы ис­поль­зо­ва­ли тер­ми­но­ло­гию из усло­вия. Она не яв­ля­ет­ся об­ще­при­ня­той. В учеб­ной и про­фес­си­о­наль­ной ли­те­ра­ту­ре то, что в усло­вии на­зва­но цепью, на­зы­ва­ет­ся нитью, под­дер­жи­ва­ю­щие по­лот­но тросы на­зы­ва­ют­ся под­вес­кой, а вант на пред­став­лен­ном в усло­вии мосту нет (и сам мост  — не ван­то­вый!). Дело в том, что не­су­щий эле­мент ван­то­во­го моста  — пря­мо­ли­ней­ные ванты, при­креп­лен­ные к пи­ло­нам. Ван­то­вые мосты бы­ва­ют двух типов  — «ве­ер­ный» и «ар­фо­вый», на ри­сун­ке ниже они изоб­ра­же­ны слева и спра­ва со­от­вет­ствен­но.  </p><center><p><img alt=\"\" data-asset-id=\"ba01a676-fef4-4bb1-9c83-8782230bfcba\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ba01a676-fef4-4bb1-9c83-8782230bfcba\"/></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "324467",
+      "task": "325722",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "kind": "ordinary_image",
+              "asset_id": "9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e8f629a-111d-48c4-bd34-b761ed11a5d8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8\"/>На ри­сун­ке изоб­ра­же­на схема ван­то­во­го моста. Вер­ти­каль­ные пи­ло­ны свя­за­ны про­ви­са­ю­щей цепью. Тросы, ко­то­рые сви­са­ют с цепи и под­дер­жи­ва­ют по­лот­но моста, на­зы­ва­ют­ся ван­та­ми.</p><p>Введём си­сте­му ко­ор­ди­нат: ось <i>Oy</i> на­пра­вим вер­ти­каль­но вдоль од­но­го из пи­ло­нов, а ось <i>Ox</i> на­пра­вим вдоль по­лот­на моста, как по­ка­за­но на ри­сун­ке.</p><p>В этой си­сте­ме ко­ор­ди­нат линия, по ко­то­рой про­ви­са­ет цепь моста, имеет урав­не­ние  <span data-inline-latex=\"y=0{,}001x^{2}-0{,}29x+25\"></span>, где <i>x</i> и <i>y</i> из­ме­ря­ют­ся в мет­рах. Най­ди­те длину ванты, рас­по­ло­жен­ной в 10 мет­рах от пи­ло­на. Ответ дайте в мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22,2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к вы­чис­ле­нию зна­че­ния <span data-inline-latex=\"y(10)\"></span> , найдём его:</p><center><p><span data-inline-latex=\"y(10)=0{,}001\\cdot 10^{2}-0{,}29\\cdot 10+25=0{,}1-2{,}9+25=22{,}2\"></span>. </p></center><p><b>При­ме­ча­ние 1.</b></p><p>За­ме­тим, что мы вы­чис­ли­ли длину ванты, на­хо­дя­щей­ся на рас­сто­я­нии 10 м от ле­во­го пи­ло­на (см. рис.), в силу сим­мет­рии она равна длине ванты, на­хо­дя­щей­ся на рас­сто­я­нии 10 м от пра­во­го пи­ло­на.</p><p><b>При­ме­ча­ние 2.</b></p><p>На самом деле линия, по ко­то­рой про­ви­са­ет цепь в поле силы тя­же­сти, яв­ля­ет­ся «цеп­ной ли­ни­ей», ко­то­рая по­хо­жа на па­ра­бо­лу, но от­ли­ча­ет­ся от неё. Урав­не­ние цеп­ной линии: <span data-inline-latex=\"y=\\frac{a}{2}(e^{x\\div a}+e^{-x\\div a})\"></span> ,  где <i>a</i>  — па­ра­метр, за­ви­ся­щий от ма­те­ри­а­ла.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "324467",
+      "task": "325723",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "kind": "ordinary_image",
+              "asset_id": "9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e8f629a-111d-48c4-bd34-b761ed11a5d8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8\"/>На ри­сун­ке изоб­ра­же­на схема ван­то­во­го моста. Вер­ти­каль­ные пи­ло­ны свя­за­ны про­ви­са­ю­щей цепью. Тросы, ко­то­рые сви­са­ют с цепи и под­дер­жи­ва­ют по­лот­но моста, на­зы­ва­ют­ся ван­та­ми.</p><p>Введём си­сте­му ко­ор­ди­нат: ось <i>Oy</i> на­пра­вим вер­ти­каль­но вдоль од­но­го из пи­ло­нов, а ось <i>Ox</i> на­пра­вим вдоль по­лот­на моста, как по­ка­за­но на ри­сун­ке.</p><p>В этой си­сте­ме ко­ор­ди­нат линия, по ко­то­рой про­ви­са­ет цепь моста, имеет урав­не­ние  <span data-inline-latex=\"y=0{,}0011x^{2}-0{,}32x+26\"></span>, где <i>x</i> и <i>y</i> из­ме­ря­ют­ся в мет­рах. Най­ди­те длину ванты, рас­по­ло­жен­ной в 20 мет­рах от пи­ло­на. Ответ дайте в мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20,04</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к вы­чис­ле­нию зна­че­ния <span data-inline-latex=\"y(20)\"></span> , найдём его:</p><center><p><span data-inline-latex=\"y(20)=0{,}0011\\cdot 20^{2}-0{,}32\\cdot 20+26=0{,}44-6{,}4+26=20{,}04\"></span>. </p></center><p><b>При­ме­ча­ние 1.</b></p><p>За­ме­тим, что мы вы­чис­ли­ли длину ванты, на­хо­дя­щей­ся на рас­сто­я­нии 20 м от ле­во­го пи­ло­на (см. рис.), в силу сим­мет­рии она равна длине ванты, на­хо­дя­щей­ся на рас­сто­я­нии 20 м от пра­во­го пи­ло­на.</p><p><b>При­ме­ча­ние 2.</b></p><p>На самом деле линия, по ко­то­рой про­ви­са­ет цепь в поле силы тя­же­сти, яв­ля­ет­ся «цеп­ной ли­ни­ей», ко­то­рая по­хо­жа на па­ра­бо­лу, но от­ли­ча­ет­ся от неё. Урав­не­ние цеп­ной линии: <span data-inline-latex=\"y=\\frac{a}{2}(e^{x\\div a}+e^{-x\\div a})\"></span> ,  где <i>a</i>  — па­ра­метр, за­ви­ся­щий от ма­те­ри­а­ла.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "324467",
+      "task": "325724",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "kind": "ordinary_image",
+              "asset_id": "9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e8f629a-111d-48c4-bd34-b761ed11a5d8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8\"/>На ри­сун­ке изоб­ра­же­на схема ван­то­во­го моста. Вер­ти­каль­ные пи­ло­ны свя­за­ны про­ви­са­ю­щей цепью. Тросы, ко­то­рые сви­са­ют с цепи и под­дер­жи­ва­ют по­лот­но моста, на­зы­ва­ют­ся ван­та­ми.</p><p>Введём си­сте­му ко­ор­ди­нат: ось <i>Oy</i> на­пра­вим вер­ти­каль­но вдоль од­но­го из пи­ло­нов, а ось <i>Ox</i> на­пра­вим вдоль по­лот­на моста, как по­ка­за­но на ри­сун­ке.</p><p>В этой си­сте­ме ко­ор­ди­нат линия, по ко­то­рой про­ви­са­ет цепь моста, имеет урав­не­ние  <span data-inline-latex=\"y=0{,}0013x^{2}-0{,}35x+27\"></span>, где <i>x</i> и <i>y</i> из­ме­ря­ют­ся в мет­рах. Най­ди­те длину ванты, рас­по­ло­жен­ной в 30 мет­рах от пи­ло­на. Ответ дайте в мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17,67</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­да­ча сво­дит­ся к вы­чис­ле­нию зна­че­ния <span data-inline-latex=\"y(30)\"></span> , найдём его:</p><center><p><span data-inline-latex=\"y(30)=0{,}0013\\cdot 30^{2}-0{,}35\\cdot 30+27=1{,}17-10{,}5+27=17{,}67\"></span>. </p></center><p><b>При­ме­ча­ние 1.</b></p><p>За­ме­тим, что мы вы­чис­ли­ли длину ванты, на­хо­дя­щей­ся на рас­сто­я­нии 30 м от ле­во­го пи­ло­на (см. рис.), в силу сим­мет­рии она равна длине ванты, на­хо­дя­щей­ся на рас­сто­я­нии 30 м от пра­во­го пи­ло­на.</p><p><b>При­ме­ча­ние 2.</b></p><p>На самом деле линия, по ко­то­рой про­ви­са­ет цепь в поле силы тя­же­сти, яв­ля­ет­ся «цеп­ной ли­ни­ей», ко­то­рая по­хо­жа на па­ра­бо­лу, но от­ли­ча­ет­ся от неё. Урав­не­ние цеп­ной линии: <span data-inline-latex=\"y=\\frac{a}{2}(e^{x\\div a}+e^{-x\\div a})\"></span> ,  где <i>a</i>  — па­ра­метр, за­ви­ся­щий от ма­те­ри­а­ла.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ],
+  "source_assets": [
+    {
+      "asset_id": "9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+      "source_site_id": "4e79360f-d623-4d50-9e85-67858ac1bc85",
+      "canonical_asset_key": "source-url.79367be4e33d58ef086d40c8a95793b7dc1c54257f23cf4e49f4047d7089ceb8",
+      "source_url": "https://math-ege.sdamgia.ru/get_file?id=141032",
+      "revision": 1,
+      "url": "/assets/9e8f629a-111d-48c4-bd34-b761ed11a5d8",
+      "content_type": "image/svg+xml",
+      "sha256": "a50b8738467142c3cb990a423b63c37129931b4b56757f6fd364d104a869af9e",
+      "size_bytes": 67645,
+      "width": null,
+      "height": null,
+      "is_active": true,
+      "supersedes_asset_id": null,
+      "created_by_user_id": null,
+      "created_at": "2026-08-27T02:36:44.377747+00:00",
+      "updated_at": "2026-08-27T02:36:44.377747+00:00"
+    },
+    {
+      "asset_id": "ba01a676-fef4-4bb1-9c83-8782230bfcba",
+      "source_site_id": "4e79360f-d623-4d50-9e85-67858ac1bc85",
+      "canonical_asset_key": "source-url.b545d75d20a5642aebc15bffd29945dc5193727ca097bf927f14deb887e118b2",
+      "source_url": "https://math-ege.sdamgia.ru/get_file?id=89277",
+      "revision": 1,
+      "url": "/assets/ba01a676-fef4-4bb1-9c83-8782230bfcba",
+      "content_type": "image/png",
+      "sha256": "bd59c15be69a383dc87a4694e05df9935e7bb7c1d67c4170aa19fb43ac61825b",
+      "size_bytes": 40605,
+      "width": 835,
+      "height": 314,
+      "is_active": true,
+      "supersedes_asset_id": null,
+      "created_by_user_id": null,
+      "created_at": "2026-08-27T02:36:44.377747+00:00",
+      "updated_at": "2026-08-27T02:36:44.377747+00:00"
+    }
+  ]
+}

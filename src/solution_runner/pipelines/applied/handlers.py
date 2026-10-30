@@ -48,5 +48,6 @@ HANDLERS = (
         "applied-polynomial-physical-model",
         "solution_runner.pipelines.applied.physical_polynomials:build_context_repair_plan",
         requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.applied.physical_polynomials:required_assets",
     ),
 )

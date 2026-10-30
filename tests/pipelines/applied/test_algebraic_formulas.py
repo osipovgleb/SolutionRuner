@@ -12,6 +12,7 @@ from test_physical_polynomials import plan, solution
 
 from solution_runner.pipelines.applied import algebraic_formulas as model
 from solution_runner.pipelines.applied import common, formula_questions
+from solution_runner.pipelines.core.content_runtime import _with_required_assets
 from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.numbers import parse_rational
 
@@ -59,7 +60,9 @@ def test_source_answers_are_computed_without_mutation_and_idempotently(case):
         "html"
     ] = "<p>999999</p>"
     assert plan(case, context).answer == first.answer
-    context = deepcopy(original)
+    context = _with_required_assets(
+        deepcopy(original), get_group_profile(case["group"]).content_rule_key
+    )
     for t in first.transformations:
         sections = context["normalized_content"]["sections"]
         section = next(

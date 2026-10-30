@@ -7,6 +7,13 @@ _GROUPS = (
         "Разные задачи",
         7,
         "aa38ed1e-c0b9-4919-bdda-b517e8a3469e",
+        "applied-polynomial-physical-model",
+        (("324467", "7462ee5c-2cca-4d5f-bf00-7ac6d4627848", 5),),
+    ),
+    (
+        "Разные задачи",
+        7,
+        "aa38ed1e-c0b9-4919-bdda-b517e8a3469e",
         "applied-rating-model",
         (
             ("317096", "1bb08f79-f8a7-4c79-961a-ee1bbb8637aa", 0),
