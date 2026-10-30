@@ -821,3 +821,30 @@ PROFILES += tuple(
         ("348461", "9e682f8d-c17d-4ce8-9d7a-37af7159dba9"),
     ))
 )
+
+
+# Audited single-quadratic choices in the same OGE theme as group 185.
+PROFILES += tuple(
+    _profile(key, source_id, order,
+        catalog_snapshot_id='fd733f80-43d2-4b4a-b903-2423796cbee5', category_key='13',
+        theme_title='Квадратные неравенства', theme_order_index=1,
+        snapshot_theme_id='760bb497-c0ac-4833-b37e-aea079eb9af0',
+        expected_vertices=None, strategy_key=None, workflow_kind='content_rule',
+        content_rule_key='quadratic-single-interval-choices', rewrite_existing_solution=True)
+    for order, (key, source_id) in enumerate((
+        ('311309', 'db140fe5-bb41-4235-ac6a-31c464ade9ed'),
+        ('311310', 'f7cf8a60-1ee4-4b63-859f-6a780b90de31'),
+        ('311311', 'd92efd64-7e18-40d1-bd5f-2d6ca2121ef9'),
+        ('311385', 'cf3000db-56cd-4e87-bd07-0c27e0403413'),
+        ('311751', 'ca38a142-fc46-4794-889a-1ab74c687973'),
+        ('311781', '101353af-121c-416a-add0-7facbb434d3c'),
+        ('338497', '93785c1d-a4f8-4c1d-9915-1068180779f7'),
+        ('338499', '1cf02c85-5cd5-47b0-9cda-11715bf60325'),
+        ('338550', '019da04d-0b7d-44a9-98b7-457b92ff761c'),
+        ('349532', 'ecc96899-2c3e-4bed-8cf1-e8114116103f'),
+        ('350216', '6238e4a0-1f70-4435-98b4-84135b7e70e6'),
+        ('352247', '05f0cf10-a029-422c-b841-8b4badaa17e3'),
+        ('369736', '9b458809-2776-4b87-a5ed-da37e04a6922'),
+        ('471238', '025268dc-a87b-4610-9980-5afe36d31db0'),
+    ), start=1)
+)

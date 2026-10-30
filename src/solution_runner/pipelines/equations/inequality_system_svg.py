@@ -144,6 +144,18 @@ def render_quadratic_sign_chart_svg(roots: tuple[Fraction, ...], intervals: tupl
                      for i in intervals)
         node('circle', cx=f'{coordinate(bound):.3f}', cy=AXIS_Y, r='2.688',
              fill='#000000' if closed else 'white', stroke='#000000', stroke_width='.75')
-        node('text', x=f'{coordinate(bound):.3f}', y='67.5', text_anchor='middle',
-             font_family='Times New Roman,serif', font_size='12', fill='#000000').text = number(bound).replace('{,}', ',')
+        label = number(bound).replace('{,}', ',')
+        if r'\frac' in label:
+            x = coordinate(bound)
+            width = max(len(str(abs(bound.numerator))), len(str(bound.denominator))) * 6 + 2
+            for value, baseline in ((str(abs(bound.numerator)), '63'), (str(bound.denominator), '76')):
+                node('text', data_root_fraction=str(bound), x=f'{x:.3f}', y=baseline, text_anchor='middle',
+                     font_family='Times New Roman,serif', font_size='11', fill='#000000').text = value
+            node('line', x1=f'{x-width/2:.3f}', x2=f'{x+width/2:.3f}', y1='66', y2='66', stroke='#000000', stroke_width='.6')
+            if bound < 0:
+                node('text', x=f'{x-width/2-5:.3f}', y='69', text_anchor='middle',
+                     font_family='Times New Roman,serif', font_size='12', fill='#000000').text = '−'
+        else:
+            node('text', x=f'{coordinate(bound):.3f}', y='67.5', text_anchor='middle',
+                 font_family='Times New Roman,serif', font_size='12', fill='#000000').text = label
     return ET.tostring(root, encoding='utf-8')
