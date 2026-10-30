@@ -15,7 +15,11 @@ def plan(case, context, *, downloaded=None, generated=None):
     asset = next(
         a for a in content["assets"] if a["asset_key"] in condition["asset_keys"]
     )
-    source = (graph_input.ASSETS / (asset["asset_id"] + ".svg")).read_bytes()
+    entry = graph_input.EVIDENCE[asset["asset_id"]]
+    source = (
+        graph_input.ASSETS
+        / entry.get("filename", asset["asset_id"] + entry.get("extension", ".svg"))
+    ).read_bytes()
     if generated is None:
         generated = tuple(
             {

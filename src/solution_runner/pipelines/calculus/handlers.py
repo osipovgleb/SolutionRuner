@@ -4,6 +4,19 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "calculus-graph-monotonic",
+        "solution_runner.pipelines.calculus.graph_monotonic:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        asset_selector="solution_runner.pipelines.calculus.graph_monotonic:required_assets",
+        diagram_builder="solution_runner.pipelines.calculus.graph_monotonic:diagram_specs",
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+        allow_non_svg_condition_asset=True,
+    ),
+    HandlerSpec(
         "calculus-graph-extrema",
         "solution_runner.pipelines.calculus.graph_extrema:build_context_repair_plan",
         inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
