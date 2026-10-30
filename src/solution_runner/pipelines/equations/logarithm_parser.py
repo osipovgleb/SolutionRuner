@@ -62,12 +62,14 @@ class LogarithmParser:
     def _nested(self, text):
         return LogarithmParser(text, self.depth + 1).parse()
 
+    _combine = staticmethod(combined)
+
     def _sum(self):
         value = self._product()
         while self.text[self.index : self.index + 1] in ("+", "-"):
             operator = self.text[self.index]
             self.index += 1
-            value = combined(
+            value = self._combine(
                 "add" if operator == "+" else "subtract", value, self._product()
             )
         return value
@@ -91,7 +93,7 @@ class LogarithmParser:
                     or self.text.startswith((r"\log", r"\sqrt"), self.index)
                 ):
                     break
-            value = combined(kind, value, self._factor())
+            value = self._combine(kind, value, self._factor())
         return value
 
     def _exponent(self):
@@ -167,7 +169,7 @@ class LogarithmParser:
             self.index += 5
             a, self.index = balanced(self.text, self.index)
             b, self.index = balanced(self.text, self.index)
-            return combined("divide", self._nested(a), self._nested(b))
+            return self._combine("divide", self._nested(a), self._nested(b))
         if self.text.startswith(r"\sqrt", self.index):
             self.index += 5
             degree = 2

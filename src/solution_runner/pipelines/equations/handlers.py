@@ -555,3 +555,12 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+# Numeric trigonometric expressions.
+HANDLERS += (
+    HandlerSpec(
+        "numeric-trigonometric-expression",
+        "solution_runner.pipelines.equations.trig_numeric:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+)
