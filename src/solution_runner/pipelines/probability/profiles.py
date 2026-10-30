@@ -241,6 +241,10 @@ GROUPS = (
         ),
     ),
     (
+        "probability-forward-walks",
+        (("562239", "4fd5fc08-dc82-48f7-b15b-245ca0c30e42", 41, 0),),
+    ),
+    (
         "probability-knockout-tournament",
         (("508870", "44deeaa2-6c14-453b-87f3-8b744d73ef14", 9, 1),),
     ),

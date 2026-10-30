@@ -139,3 +139,14 @@ HANDLERS += (
         inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "probability-forward-walks",
+        "solution_runner.pipelines.probability.walk_graphs:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+        asset_selector="solution_runner.pipelines.probability.walk_graphs:required_assets",
+        inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
+    ),
+)

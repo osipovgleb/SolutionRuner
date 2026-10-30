@@ -1,16 +1,14 @@
 """Conditional events on audited point diagrams and weighted experiment trees."""
 
-import hashlib
 import json
 import re
 from fractions import Fraction
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from bs4 import BeautifulSoup
-
+from . import condition_diagram
 from .bernoulli import checked, fmt, result
-from .common import UnsupportedCondition, finish, line, normalize, require_content
+from .common import UnsupportedCondition, finish, line
 
 _ASSETS = Path(__file__).with_name("assets")
 _EVIDENCE = json.loads((_ASSETS / "conditional_diagrams.json").read_text())
@@ -97,54 +95,13 @@ def conditional_probability(weights, want, given):
 
 
 def _input(context):
-    content = context.get("normalized_content") or {}
-    sections = content.get("sections") or []
-    condition = next((s for s in sections if s.get("key") == "condition"), None)
-    if not condition or len(condition.get("asset_keys") or []) != 1:
-        raise UnsupportedCondition("one audited condition diagram is required")
-    key = condition["asset_keys"][0]
-    assets = [a for a in content.get("assets", []) if a.get("asset_key") == key]
-    if (
-        len(assets) != 1
-        or len(content["assets"]) != 1
-        or assets[0].get("asset_id") not in _EVIDENCE
-    ):
+    content, condition, answer, solution, text, entry, source = condition_diagram.read(
+        context, _EVIDENCE, _ASSETS
+    )
+    if len(content["assets"]) != 1:
         raise UnsupportedCondition(
-            "the diagram needs an audited mathematical transcription"
+            "conditional-event rules only support the condition diagram"
         )
-    asset = assets[0]
-    entry = _EVIDENCE[asset["asset_id"]]
-    source = (_ASSETS / (asset["asset_id"] + ".svg")).read_bytes()
-    if hashlib.sha256(source).hexdigest() != entry["sha256"]:
-        raise UnsupportedCondition("the audited diagram template has changed")
-    soup = BeautifulSoup(condition["html"], "html.parser")
-    images = soup.find_all("img")
-    if (
-        len(images) != 1
-        or images[0].get("data-asset-key") != key
-        or images[0].get("data-asset-id") != asset["asset_id"]
-    ):
-        raise UnsupportedCondition("the visible diagram does not match its attachment")
-    images[0].decompose()
-    for node in soup.find_all("var"):
-        if (
-            set(node.attrs) != {"data-math-identifier"}
-            or len(node.get_text()) != 1
-            or node["data-math-identifier"] != node.get_text()
-        ):
-            raise UnsupportedCondition("unsupported mathematical identifier markup")
-        node.unwrap()
-    copied = {**condition, "html": str(soup), "asset_keys": []}
-    clean = {
-        **context,
-        "normalized_content": {
-            **content,
-            "assets": [],
-            "sections": [copied if s is condition else s for s in sections],
-        },
-    }
-    _, _, answer, solution, text = require_content(clean)
-    text = normalize(text)
     if entry["kind"] == "uniform_points":
         match = _UNIFORM.fullmatch(text)
         if match is None:
@@ -180,14 +137,7 @@ def build_context_repair_plan(context, *, condition_asset_bytes=None):
     condition, answer_section, solution, entry, source, weights, events, want, given = (
         _input(context)
     )
-    if (
-        not isinstance(condition_asset_bytes, bytes)
-        or hashlib.sha256(condition_asset_bytes).digest()
-        != hashlib.sha256(source).digest()
-    ):
-        raise UnsupportedCondition(
-            "downloaded diagram bytes do not match the audited source"
-        )
+    condition_diagram.verify_download(source, condition_asset_bytes)
     html = "<p>По рисунку найдём вероятности элементарных событий и событий A и B.</p>"
     if entry["kind"] == "binary_tree":
         branches = entry["branches"]
