@@ -34,14 +34,21 @@ def read(context):
             else str(previous or "")
         )
         force_index = index in ["A", "А"] and bool(re.search(r"F\s*$", previous_text))
-        thermal_index = any(
+        physical_index = any(
             index == suffix and re.search(r"(?:^|\W)" + name + r"\s*$", previous_text)
-            for name, suffix in [("c", "в"), ("m", "в"), ("q", "др"), ("m", "др")]
+            for name, suffix in [
+                ("c", "в"),
+                ("m", "в"),
+                ("q", "др"),
+                ("m", "др"),
+                ("r", "пок"),
+                ("r", "экс"),
+            ]
         )
         if (
             tag.attrs
             or tag.find(True)
-            or not (re.fullmatch(r"\d", index) or force_index or thermal_index)
+            or not (re.fullmatch(r"\d", index) or force_index or physical_index)
         ):
             raise UnsupportedCondition("only plain physical subscripts are supported")
         tag.replace_with("_A" if force_index else "_" + index)
