@@ -4,6 +4,14 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "calculus-graph-integral",
+        "solution_runner.pipelines.calculus.graph_integrals:build_context_repair_plan",
+        inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
+        asset_selector="solution_runner.pipelines.calculus.graph_integrals:required_assets",
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+    ),
+    HandlerSpec(
         "calculus-graph-marked-points",
         "solution_runner.pipelines.calculus.graph_marked_points:build_context_repair_plan",
         inputs=(
