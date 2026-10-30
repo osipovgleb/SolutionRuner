@@ -26,11 +26,21 @@ def read(context):
             raise UnsupportedCondition("one unambiguous physical variable is required")
         tag.unwrap()
     for tag in soup.find_all("sub"):
-        if tag.attrs or tag.find(True) or not re.fullmatch(r"\d", tag.get_text()):
-            raise UnsupportedCondition(
-                "only plain one-digit physical subscripts are supported"
-            )
-        tag.replace_with("_" + tag.get_text())
+        index = tag.get_text()
+        previous = tag.previous_sibling
+        previous_text = (
+            previous.get_text()
+            if hasattr(previous, "get_text")
+            else str(previous or "")
+        )
+        force_index = index in ["A", "А"] and bool(re.search(r"F\s*$", previous_text))
+        if (
+            tag.attrs
+            or tag.find(True)
+            or not (re.fullmatch(r"\d", index) or force_index)
+        ):
+            raise UnsupportedCondition("only plain physical subscripts are supported")
+        tag.replace_with("_A" if force_index else "_" + index)
     condition["html"] = str(soup)
     condition, answer, solution, text = read_calculus(prepared)
     text = text.replace("−", "-").replace("–", "-").replace("υ", "v")
