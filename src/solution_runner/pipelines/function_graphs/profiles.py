@@ -85,3 +85,26 @@ PROFILES += tuple(
         ("564646", "7472b49f-b782-443f-8052-e0433cf8db74", 7),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="12",
+        theme_title="Корни",
+        theme_order_index=3,
+        snapshot_theme_id="2c174e5c-7ad9-45b7-a156-ecd473a586d9",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="square-root-function-graph",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("509113", "623e833c-987f-4646-86ac-87d29d5f20f7", 0),
+        ("509118", "a91d1c0d-4a76-46a1-a3e3-258f3979ef59", 1),
+    )
+)
