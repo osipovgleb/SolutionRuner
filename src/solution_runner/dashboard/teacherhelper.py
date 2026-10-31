@@ -10,25 +10,86 @@ SOURCE_SITE_IDS_BY_SNAPSHOT = {
     "fd733f80-43d2-4b4a-b903-2423796cbee5": "9b8fb96a-649b-494b-afa5-ecdd9a7dca5e",
 }
 CATEGORY_IDS = {
-    ("4073fc7b-2056-4697-b18b-38741c94d0f4", "1"): "c226053c-29e7-4e88-aafb-81896ab0d969",
-    ("4073fc7b-2056-4697-b18b-38741c94d0f4", "9"): "651e7b69-ab21-4d51-9115-7491e0a7f2c9",
-    ("4073fc7b-2056-4697-b18b-38741c94d0f4", "12"): "a0de34d5-e097-4ea9-aabb-eeb2a9f10187",
-    ("4073fc7b-2056-4697-b18b-38741c94d0f4", "14"): "3b936b30-20a4-4793-af65-5a289eb1fa40",
-    ("4073fc7b-2056-4697-b18b-38741c94d0f4", "17"): "6c524e89-b52c-4ef4-873a-1fe6598dd4ef",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "1"): "0255b2f6-ef48-4356-8edf-aec792deb65b",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "2"): "3df2f927-25a9-47b9-8fae-a92dec6005d0",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "4"): "e4690fb3-f826-4384-abbc-9ee961162e21",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "5"): "ba2fb132-ca7d-4cde-aa2b-f1b7a46abbe5",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "6"): "8c999472-c028-4fd6-b02c-154f2a2f57e7",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "7"): "9c34b1ea-0cb8-4dc9-a841-3956f290d786",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "8"): "a912fdaf-5f28-47ac-98fe-78af415e3e43",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "9"): "03dd13d7-0609-4079-a073-fbcee4f775da",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "10"): "3bade31d-c237-409f-9182-2a504908db45",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "11"): "90f1e24c-7179-461a-8b32-8da19760befb",
-    ("41bc4d03-40cd-4407-8dea-df76e3f47ea8", "12"): "771e97cb-a581-4e2e-8c5c-aef6838e366a",
-    ("fd733f80-43d2-4b4a-b903-2423796cbee5", "6"): "9aa43047-42c9-44e7-8944-6b9d225745bd",
-    ("fd733f80-43d2-4b4a-b903-2423796cbee5", "8"): "4f341dd8-08a3-4250-bcca-202b008c7e25",
-    ("fd733f80-43d2-4b4a-b903-2423796cbee5", "18"): "0810de1a-a670-48d7-80b2-e2c585e6675b",
+    (
+        "4073fc7b-2056-4697-b18b-38741c94d0f4",
+        "1",
+    ): "c226053c-29e7-4e88-aafb-81896ab0d969",
+    (
+        "4073fc7b-2056-4697-b18b-38741c94d0f4",
+        "9",
+    ): "651e7b69-ab21-4d51-9115-7491e0a7f2c9",
+    (
+        "4073fc7b-2056-4697-b18b-38741c94d0f4",
+        "12",
+    ): "a0de34d5-e097-4ea9-aabb-eeb2a9f10187",
+    (
+        "4073fc7b-2056-4697-b18b-38741c94d0f4",
+        "14",
+    ): "3b936b30-20a4-4793-af65-5a289eb1fa40",
+    (
+        "4073fc7b-2056-4697-b18b-38741c94d0f4",
+        "17",
+    ): "6c524e89-b52c-4ef4-873a-1fe6598dd4ef",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "1",
+    ): "0255b2f6-ef48-4356-8edf-aec792deb65b",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "2",
+    ): "3df2f927-25a9-47b9-8fae-a92dec6005d0",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "4",
+    ): "e4690fb3-f826-4384-abbc-9ee961162e21",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "5",
+    ): "ba2fb132-ca7d-4cde-aa2b-f1b7a46abbe5",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "6",
+    ): "8c999472-c028-4fd6-b02c-154f2a2f57e7",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "7",
+    ): "9c34b1ea-0cb8-4dc9-a841-3956f290d786",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "8",
+    ): "a912fdaf-5f28-47ac-98fe-78af415e3e43",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "9",
+    ): "03dd13d7-0609-4079-a073-fbcee4f775da",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "10",
+    ): "3bade31d-c237-409f-9182-2a504908db45",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "11",
+    ): "90f1e24c-7179-461a-8b32-8da19760befb",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "12",
+    ): "771e97cb-a581-4e2e-8c5c-aef6838e366a",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "13",
+    ): "a70d7a87-89ad-4990-b55f-fd2497447a68",
+    (
+        "fd733f80-43d2-4b4a-b903-2423796cbee5",
+        "6",
+    ): "9aa43047-42c9-44e7-8944-6b9d225745bd",
+    (
+        "fd733f80-43d2-4b4a-b903-2423796cbee5",
+        "8",
+    ): "4f341dd8-08a3-4250-bcca-202b008c7e25",
+    (
+        "fd733f80-43d2-4b4a-b903-2423796cbee5",
+        "18",
+    ): "0810de1a-a670-48d7-80b2-e2c585e6675b",
 }
 
 
@@ -47,12 +108,16 @@ def teacherhelper_navigation(profile: Any) -> dict[str, str] | None:
     }
 
 
-def teacherhelper_match_navigation(snapshot_id: str, match: Any) -> dict[str, str] | None:
+def teacherhelper_match_navigation(
+    snapshot_id: str, match: Any
+) -> dict[str, str] | None:
     if not isinstance(match, dict):
         return None
     category, theme, group = (match.get(key) for key in ("category", "theme", "group"))
     source_site_id = SOURCE_SITE_IDS_BY_SNAPSHOT.get(snapshot_id)
-    if not source_site_id or not all(isinstance(item, dict) for item in (category, theme, group)):
+    if not source_site_id or not all(
+        isinstance(item, dict) for item in (category, theme, group)
+    ):
         return None
     navigation = {
         "source_site_id": source_site_id,

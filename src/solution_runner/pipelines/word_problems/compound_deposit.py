@@ -31,6 +31,12 @@ def calculate(context):
     data = math_common.read(context)
     match = _PATTERN.fullmatch(data[3])
     if not match:
+        if re.match(r"В \d{4} году был открыт вклад", data[3]) or data[3].startswith(
+            "При открытии вклада"
+        ):
+            from .deposit_schedules import analyze
+
+            return data, analyze(data[3])
         from .yearly_growth import analyze
 
         return data, analyze(data[3])
@@ -54,9 +60,13 @@ def calculate(context):
 
 
 def proof(a):
+    from .deposit_schedule_proof import proof as schedule_proof
+    from .deposit_schedules import Analysis as Schedule
     from .yearly_growth import Analysis as Growth
     from .yearly_growth_proof import proof as growth_proof
 
+    if isinstance(a, Schedule):
+        return schedule_proof(a)
     if isinstance(a, Growth):
         return growth_proof(a)
     html = "<p>Пусть банк начисляет p процентов годовых. Первый вклад работает два года, а второй — один год. Введём общий годовой множитель:</p>"

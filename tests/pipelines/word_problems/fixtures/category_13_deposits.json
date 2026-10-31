@@ -1,0 +1,266 @@
+{
+  "groups": [
+    {
+      "key": "704682",
+      "uuid": "14f40986-c372-42ff-99e5-3beb8aeb1de5",
+      "theme_uuid": "6cbc7919-2d53-4d47-9103-6d9636aca9b3",
+      "theme_title": "Вклады",
+      "theme_order": 0,
+      "order": 0,
+      "rule": "word-compound-deposit",
+      "source_key": "704682"
+    },
+    {
+      "key": "704683",
+      "uuid": "8b9c0395-9820-49fe-b11e-8f5f9ccde0b7",
+      "theme_uuid": "6cbc7919-2d53-4d47-9103-6d9636aca9b3",
+      "theme_title": "Вклады",
+      "theme_order": 0,
+      "order": 1,
+      "rule": "word-compound-deposit",
+      "source_key": "704683"
+    },
+    {
+      "key": "704684",
+      "uuid": "96e7c409-e211-4f2e-ba3e-f5fa2ecd8e75",
+      "theme_uuid": "6cbc7919-2d53-4d47-9103-6d9636aca9b3",
+      "theme_title": "Вклады",
+      "theme_order": 0,
+      "order": 2,
+      "rule": "word-compound-deposit",
+      "source_key": "704684"
+    },
+    {
+      "key": "704685",
+      "uuid": "7dbd8687-b96e-48e3-bc34-690b941c2d1e",
+      "theme_uuid": "6cbc7919-2d53-4d47-9103-6d9636aca9b3",
+      "theme_title": "Вклады",
+      "theme_order": 0,
+      "order": 3,
+      "rule": "word-compound-deposit",
+      "source_key": "704685"
+    },
+    {
+      "key": "704686",
+      "uuid": "4a92d288-066f-4ca9-9120-3d7b3be2fb37",
+      "theme_uuid": "6cbc7919-2d53-4d47-9103-6d9636aca9b3",
+      "theme_title": "Вклады",
+      "theme_order": 0,
+      "order": 4,
+      "rule": "word-compound-deposit",
+      "source_key": "704686"
+    }
+  ],
+  "cases": [
+    {
+      "group": "704682",
+      "task": "704682",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2026 году был от­крыт вклад на сумму 120 мил­ли­о­нов руб­лей, срок  — 3 года. В конце каж­до­го года банк уве­ли­чи­ва­ет раз­мер вкла­да на 15%. Кроме того, в на­ча­ле каж­до­го года, на­чи­ная со вто­ро­го, вклад по­пол­ня­ет­ся на 10 мил­ли­о­нов руб­лей. Опре­де­ли­те сумму, ко­то­рая будет на­хо­дит­ся на вкла­де к концу тре­тье­го года раз­ме­ще­ния де­неж­ных средств. Ответ дайте в мил­ли­о­нах руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">207,23</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Так как вклад еже­год­но по­пол­ня­ет­ся на 10 млн руб., а банк еже­год­но на­чис­ля­ет 15%, най­дем сумму, ко­то­рая будет на­хо­дить­ся на вкла­де в конце тре­тье­го года:</p><center><p><span> <span data-inline-latex=\"((120\\cdot 1{,}15+10)\\cdot 1{,}15+10)\\cdot 1{,}15=(148\\cdot 1{,}15+10)\\cdot 1{,}15=180{,}2\\cdot 1{,}15=207{,}23\\,\\mathrm{млн руб.}\"></span></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "704683",
+      "task": "704683",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2026 году был от­крыт вклад на сумму 100 тысяч руб­лей, срок  — 4 года. В конце каж­до­го года банк уве­ли­чи­ва­ет раз­мер вкла­да на 10%. Кроме того, в на­ча­ле каж­до­го года, на­чи­ная со вто­ро­го, со вкла­да сни­ма­ет­ся 5 тысяч руб­лей. Опре­де­ли­те сумму, ко­то­рая будет на­хо­дит­ся на вкла­де к концу чет­вер­то­го года раз­ме­ще­ния де­неж­ных средств. Ответ дайте в руб­лях.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">128205</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Опре­де­лим сумму, ко­то­рая будет на­хо­дить­ся на вкла­де к концу чет­вер­то­го года:</p><center><p><span><span data-inline-latex=\"(((100\\cdot1{,}1-5)\\cdot1{,}1-5)\\cdot1{,}1-5)\\cdot1{,}1=((105\\cdot1{,}1-5)\\cdot1{,}1-5)\\cdot1{,}1=(110{,}5\\cdot1{,}1-5)\\cdot1{,}1=116{,}55\\cdot1{,}1=128{,}205\\text{ тыс. руб.}=128205\\text{ руб.}\"></span></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "704684",
+      "task": "704684",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2026 году был от­крыт вклад на 3 года не­ко­то­рую сумму под 20% го­до­вых. Опре­де­ли­те из­на­чаль­ную ве­ли­чи­ну вкла­да (в ты­ся­чах руб­лей), если из­вест­но, что в на­ча­ле вто­ро­го и тре­тье­го года вклад по­пол­нял­ся на 10 тысяч руб­лей, а в конце тре­тье­го года сумма на вкла­де со­ста­ви­ла 173,28 тысяч руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">85</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>x</i>  — раз­мер вкла­да. Так как из­вест­но, что вклад еже­год­но по­пол­нял­ся на 10 тыс. руб., а в конце тре­тье­го года его ве­ли­чи­на со­ста­ви­ла 173,28 тыс. руб., со­ста­вим урав­не­ние:</p><center><p><span> <span data-inline-latex=\"((1{,}2x+10)\\cdot 1{,}2+10)\\cdot 1{,}2=173{,}28\\iff (1{,}44x+22)\\cdot 1{,}2=173{,}28\\iff 1{,}728x+26{,}4=173{,}28\\iff 1{,}728x=146{,}88\\iff x=85\"></span>.</span></p></center><p> Таким об­ра­зом, пер­во­на­чаль­ный раз­мер вкла­да со­став­лял 85 тыс. руб.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "704685",
+      "task": "704685",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2026 году был от­крыт вклад на сумму 500 тысяч руб­лей сро­ком на 3 года. В конце каж­до­го года банк уве­ли­чи­ва­ет раз­мер вкла­да на <i>r</i>%. Из­вест­но, что в конце тре­тье­го года сумма на вкла­де со­ста­вит 665,5 тысяч руб­лей. Най­ди­те <i>r</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <span data-inline-latex=\"k=1+\\frac{r}{100}\"></span> .  Так как пер­во­на­чаль­ный раз­мер вкла­да равен 500 тыс. руб., а к концу тре­тье­го года сумма вкла­да будет равна 665,5 тыс. руб., имеем:</p><center><p><span data-inline-latex=\"500\\cdot k^{3}=665{,}5\\iff k^{3}=1{,}331\\iff k=1{,}1\"></span>,</p></center><p>от­ку­да <span data-inline-latex=\"r=10\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "704686",
+      "task": "704686",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>При от­кры­тии вкла­да на сумму 1000 тысяч руб­лей на 3 года банк пред­ла­га­ет два ва­ри­ан­та. Пер­вый ва­ри­ант  — фик­си­ро­ван­ная став­ка 10% го­до­вых на весь срок. При вто­ром ва­ри­ан­те став­ка в пер­вый год со­став­ля­ет 8% го­до­вых, а каж­дый сле­ду­ю­щий год уве­ли­чи­ва­ет­ся на 2%. Опре­де­ли­те, при вы­бо­ре ка­ко­го из ва­ри­ан­тов к концу тре­тье­го года сумма на вкла­де ока­жет­ся наи­боль­шей. В от­ве­те ука­жи­те раз­ни­цу между сум­ма­ми вкла­дов к концу тре­тье­го года в руб­лях.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">440</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>При вы­бо­ре пер­во­го ва­ри­ан­та сумма на вкла­де к концу тре­тье­го года будет равна <span data-inline-latex=\"1000\\cdot 1{,}1^{3}=1331\\,\\mathrm{тыс. руб.}\"></span> При вы­бо­ре вто­ро­го ва­ри­ан­та сумма на вкла­де к концу тре­тье­го года будет равна <span data-inline-latex=\"1000\\cdot 1{,}08\\cdot 1{,}1\\cdot 1{,}12=1330{,}56\\,\\mathrm{тыс. руб.}\"></span> Раз­ни­ца между сум­ма­ми вкла­дов равна <span data-inline-latex=\"1331-1330{,}56=0{,}44\\,\\mathrm{тыс. руб.}=440\\,\\mathrm{руб}\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
