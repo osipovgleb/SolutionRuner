@@ -1,0 +1,1106 @@
+{
+  "groups": [
+    {
+      "key": "ege-profile-99565",
+      "uuid": "0161fad7-7b9c-446c-a2f1-5fefce5f5acf",
+      "theme_uuid": "c6467e7e-a271-4928-819a-ab0ba2a62b1d",
+      "theme_title": "Задачи на проценты, сплавы и смеси",
+      "theme_order": 0,
+      "order": 0,
+      "source_key": "99565",
+      "rule": "word-problem-99565-successive-population-change"
+    },
+    {
+      "key": "ege-profile-99566",
+      "uuid": "63d84341-4b56-490a-8340-1769dddc98e8",
+      "theme_uuid": "c6467e7e-a271-4928-819a-ab0ba2a62b1d",
+      "theme_title": "Задачи на проценты, сплавы и смеси",
+      "theme_order": 0,
+      "order": 1,
+      "source_key": "99566",
+      "rule": "word-problem-99566-equal-rise-fall-percent"
+    },
+    {
+      "key": "ege-profile-99567",
+      "uuid": "1524e7cf-3c23-401b-8a88-b3c50adcf89c",
+      "theme_uuid": "c6467e7e-a271-4928-819a-ab0ba2a62b1d",
+      "theme_title": "Задачи на проценты, сплавы и смеси",
+      "theme_order": 0,
+      "order": 2,
+      "source_key": "99567",
+      "rule": "word-problem-99567-shirt-jacket-percent"
+    },
+    {
+      "key": "ege-profile-99568",
+      "uuid": "cf7d2aaa-c45c-414a-9c3b-3d8a814769cf",
+      "theme_uuid": "c6467e7e-a271-4928-819a-ab0ba2a62b1d",
+      "theme_title": "Задачи на проценты, сплавы и смеси",
+      "theme_order": 0,
+      "order": 3,
+      "source_key": "99568",
+      "rule": "word-problem-99568-family-income-system"
+    },
+    {
+      "key": "ege-profile-99569",
+      "uuid": "52572cf4-73c7-43a6-ae9b-299ae8a7bca4",
+      "theme_uuid": "c6467e7e-a271-4928-819a-ab0ba2a62b1d",
+      "theme_title": "Задачи на проценты, сплавы и смеси",
+      "theme_order": 0,
+      "order": 4,
+      "source_key": "99569",
+      "rule": "word-problem-99569-refrigerator-price-decline"
+    },
+    {
+      "key": "ege-profile-99570",
+      "uuid": "681eb28d-37f8-4cdb-adb2-718a91c8d754",
+      "theme_uuid": "c6467e7e-a271-4928-819a-ab0ba2a62b1d",
+      "theme_title": "Задачи на проценты, сплавы и смеси",
+      "theme_order": 0,
+      "order": 5,
+      "source_key": "99570",
+      "rule": "word-problem-99570-company-capital-profit-tables"
+    }
+  ],
+  "cases": [
+    {
+      "group": "ege-profile-99565",
+      "task": "99565",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2008 году в го­род­ском квар­та­ле про­жи­ва­ло <span data-inline-latex=\"40000\"></span> че­ло­век. <nobr>В 2009 году,</nobr> в ре­зуль­та­те стро­и­тель­ства новых домов, число жи­те­лей вы­рос­ло на <span data-inline-latex=\"8\\%\"></span>, а в <nobr>2010 году</nobr> на <span data-inline-latex=\"9\\%\"></span> по срав­не­нию с <nobr>2009 годом.</nobr> Сколь­ко че­ло­век стало про­жи­вать в квар­та­ле в <nobr>2010 году?</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">47088</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Если величина изменяется на <span data-inline-latex=\"r\\%\"></span> каждый год в течение <span data-inline-latex=\"n\"></span> лет, её можно найти по формуле <span data-inline-latex=\"S\\left(1\\pm\\frac{r}{100}\\right)^n\"></span>: знак «+» используют при увеличении, знак «−» — при уменьшении.</p><p>Здесь проценты за годы различаются, поэтому считаем последовательно.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Год</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Число жителей</th></tr><tr><td data-align=\"center\" data-valign=\"middle\">2008</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2009</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\\cdot\\left(1+\\frac{8}{100}\\right)=43200\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2010</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"43200\\cdot\\left(1+\\frac{9}{100}\\right)=47088\"></span></td></tr></tbody></table>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99565"
+    },
+    {
+      "group": "ege-profile-99565",
+      "task": "106893",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2008 году в го­род­ском квар­та­ле про­жи­ва­ло 40000 че­ло­век. В 2009 году, в ре­зуль­та­те стро­и­тель­ства новых домов, число жи­те­лей вы­рос­ло на 1%, а в 2010 году  — на 9% по срав­не­нию с 2009 годом. Сколь­ко че­ло­век стало про­жи­вать в квар­та­ле в 2010 году?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">44036</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Если величина изменяется на <span data-inline-latex=\"r\\%\"></span> каждый год в течение <span data-inline-latex=\"n\"></span> лет, её можно найти по формуле <span data-inline-latex=\"S\\left(1\\pm\\frac{r}{100}\\right)^n\"></span>: знак «+» используют при увеличении, знак «−» — при уменьшении.</p><p>Здесь проценты за годы различаются, поэтому считаем последовательно.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Год</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Число жителей</th></tr><tr><td data-align=\"center\" data-valign=\"middle\">2008</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2009</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\\cdot\\left(1+\\frac{1}{100}\\right)=40400\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2010</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40400\\cdot\\left(1+\\frac{9}{100}\\right)=44036\"></span></td></tr></tbody></table>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99565"
+    },
+    {
+      "group": "ege-profile-99565",
+      "task": "107387",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2008 году в го­род­ском квар­та­ле про­жи­ва­ло 40 000 че­ло­век. В 2009 году, в ре­зуль­та­те стро­и­тель­ства новых домов, число жи­те­лей вы­рос­ло на 3%, а в 2010 году  — на 9% по срав­не­нию с 2009 годом. Сколь­ко че­ло­век стало про­жи­вать в квар­та­ле в 2010 году?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">44908</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Если величина изменяется на <span data-inline-latex=\"r\\%\"></span> каждый год в течение <span data-inline-latex=\"n\"></span> лет, её можно найти по формуле <span data-inline-latex=\"S\\left(1\\pm\\frac{r}{100}\\right)^n\"></span>: знак «+» используют при увеличении, знак «−» — при уменьшении.</p><p>Здесь проценты за годы различаются, поэтому считаем последовательно.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Год</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Число жителей</th></tr><tr><td data-align=\"center\" data-valign=\"middle\">2008</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2009</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\\cdot\\left(1+\\frac{3}{100}\\right)=41200\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2010</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"41200\\cdot\\left(1+\\frac{9}{100}\\right)=44908\"></span></td></tr></tbody></table>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99565"
+    },
+    {
+      "group": "ege-profile-99565",
+      "task": "107391",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В 2008 году в го­род­ском квар­та­ле про­жи­ва­ло 40000 че­ло­век. В 2009 году, в ре­зуль­та­те стро­и­тель­ства новых домов, число жи­те­лей вы­рос­ло на 7%, а в 2010 году  — на 8% по срав­не­нию с 2009 годом. Сколь­ко че­ло­век стало про­жи­вать в квар­та­ле в 2010 году?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">46224</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Если величина изменяется на <span data-inline-latex=\"r\\%\"></span> каждый год в течение <span data-inline-latex=\"n\"></span> лет, её можно найти по формуле <span data-inline-latex=\"S\\left(1\\pm\\frac{r}{100}\\right)^n\"></span>: знак «+» используют при увеличении, знак «−» — при уменьшении.</p><p>Здесь проценты за годы различаются, поэтому считаем последовательно.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Год</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Число жителей</th></tr><tr><td data-align=\"center\" data-valign=\"middle\">2008</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2009</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"40000\\cdot\\left(1+\\frac{7}{100}\\right)=42800\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2010</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"42800\\cdot\\left(1+\\frac{8}{100}\\right)=46224\"></span></td></tr></tbody></table>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99565"
+    },
+    {
+      "group": "ege-profile-99566",
+      "task": "99566",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В по­не­дель­ник акции ком­па­нии по­до­ро­жа­ли на не­ко­то­рое ко­ли­че­ство про­цен­тов, а во втор­ник по­де­ше­ве­ли на то же самое ко­ли­че­ство про­цен­тов. В ре­зуль­та­те они стали сто­ить на <span data-inline-latex=\"4\\%\"></span> де­шев­ле, чем при от­кры­тии тор­гов в по­не­дель­ник. На сколь­ко про­цен­тов по­до­ро­жа­ли акции ком­па­нии в по­не­дель­ник?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=634701\" rel=\"noreferrer noopener\" target=\"_blank\">Яндекс: Тренировочная работа ЕГЭ по математике</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>При увеличении первоначальной стоимости <span data-inline-latex=\"S\"></span> на <span data-inline-latex=\"x\\%\"></span> она становится равной <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\"></span>. После уменьшения на столько же процентов стоимость равна <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)\"></span>.</p><p>По условию итоговая стоимость на <span data-inline-latex=\"4\\%\"></span> меньше первоначальной:</p><center><p><span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)=S\\left(1-\\frac{4}{100}\\right)\"></span>.</p></center><p>Так как <span data-inline-latex=\"S\\ne0\"></span>, сократим обе части равенства на <span data-inline-latex=\"S\"></span> и решим уравнение:</p><center><p><span data-inline-latex=\"1-\\frac{x^2}{10000}=1-\\frac{4}{100}\\iff \\frac{x^2}{10000}=\\frac{4}{100}\\iff x^2=400\\iff x=20\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"ЛАЙФХАК\"><p>Во всех задачах этого вида решение получается одинаковым:</p><ul><li>берём единственное число <span data-inline-latex=\"r\"></span> из условия — процент итогового удешевления;</li><li>считаем <span data-inline-latex=\"\\sqrt{r}\\cdot10\"></span>.</li></ul><p>Здесь <span data-inline-latex=\"\\sqrt{4}\\cdot10=2\\cdot10=20\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99566"
+    },
+    {
+      "group": "ege-profile-99566",
+      "task": "107393",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В по­не­дель­ник акции ком­па­нии по­до­ро­жа­ли на не­ко­то­рое ко­ли­че­ство про­цен­тов, а во втор­ник по­де­ше­ве­ли на то же самое ко­ли­че­ство про­цен­тов. В ре­зуль­та­те они стали сто­ить на 1% де­шев­ле, чем при от­кры­тии тор­гов в по­не­дель­ник. На сколь­ко про­цен­тов по­до­ро­жа­ли акции ком­па­нии в по­не­дель­ник?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>При увеличении первоначальной стоимости <span data-inline-latex=\"S\"></span> на <span data-inline-latex=\"x\\%\"></span> она становится равной <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\"></span>. После уменьшения на столько же процентов стоимость равна <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)\"></span>.</p><p>По условию итоговая стоимость на <span data-inline-latex=\"1\\%\"></span> меньше первоначальной:</p><center><p><span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)=S\\left(1-\\frac{1}{100}\\right)\"></span>.</p></center><p>Так как <span data-inline-latex=\"S\\ne0\"></span>, сократим обе части равенства на <span data-inline-latex=\"S\"></span> и решим уравнение:</p><center><p><span data-inline-latex=\"1-\\frac{x^2}{10000}=1-\\frac{1}{100}\\iff \\frac{x^2}{10000}=\\frac{1}{100}\\iff x^2=100\\iff x=10\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"ЛАЙФХАК\"><p>Во всех задачах этого вида решение получается одинаковым:</p><ul><li>берём единственное число <span data-inline-latex=\"r\"></span> из условия — процент итогового удешевления;</li><li>считаем <span data-inline-latex=\"\\sqrt{r}\\cdot10\"></span>.</li></ul><p>Здесь <span data-inline-latex=\"\\sqrt{1}\\cdot10=1\\cdot10=10\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99566"
+    },
+    {
+      "group": "ege-profile-99566",
+      "task": "107399",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В среду акции ком­па­нии по­до­ро­жа­ли на не­ко­то­рое ко­ли­че­ство про­цен­тов, а в чет­верг по­де­ше­ве­ли на то же самое ко­ли­че­ство про­цен­тов. В ре­зуль­та­те они стали сто­ить на 4% де­шев­ле, чем при от­кры­тии тор­гов в среду. На сколь­ко про­цен­тов по­до­ро­жа­ли акции ком­па­нии в среду?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>При увеличении первоначальной стоимости <span data-inline-latex=\"S\"></span> на <span data-inline-latex=\"x\\%\"></span> она становится равной <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\"></span>. После уменьшения на столько же процентов стоимость равна <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)\"></span>.</p><p>По условию итоговая стоимость на <span data-inline-latex=\"4\\%\"></span> меньше первоначальной:</p><center><p><span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)=S\\left(1-\\frac{4}{100}\\right)\"></span>.</p></center><p>Так как <span data-inline-latex=\"S\\ne0\"></span>, сократим обе части равенства на <span data-inline-latex=\"S\"></span> и решим уравнение:</p><center><p><span data-inline-latex=\"1-\\frac{x^2}{10000}=1-\\frac{4}{100}\\iff \\frac{x^2}{10000}=\\frac{4}{100}\\iff x^2=400\\iff x=20\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"ЛАЙФХАК\"><p>Во всех задачах этого вида решение получается одинаковым:</p><ul><li>берём единственное число <span data-inline-latex=\"r\"></span> из условия — процент итогового удешевления;</li><li>считаем <span data-inline-latex=\"\\sqrt{r}\\cdot10\"></span>.</li></ul><p>Здесь <span data-inline-latex=\"\\sqrt{4}\\cdot10=2\\cdot10=20\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99566"
+    },
+    {
+      "group": "ege-profile-99566",
+      "task": "530822",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В среду акции ком­па­нии по­до­ро­жа­ли на не­ко­то­рое ко­ли­че­ство про­цен­тов, а в чет­верг по­де­ше­ве­ли на то же самое ко­ли­че­ство про­цен­тов. В ре­зуль­та­те они стали сто­ить на 64% де­шев­ле, чем при от­кры­тии тор­гов в среду. На сколь­ко про­цен­тов по­до­ро­жа­ли акции ком­па­нии в среду?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">80</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>При увеличении первоначальной стоимости <span data-inline-latex=\"S\"></span> на <span data-inline-latex=\"x\\%\"></span> она становится равной <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\"></span>. После уменьшения на столько же процентов стоимость равна <span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)\"></span>.</p><p>По условию итоговая стоимость на <span data-inline-latex=\"64\\%\"></span> меньше первоначальной:</p><center><p><span data-inline-latex=\"S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)=S\\left(1-\\frac{64}{100}\\right)\"></span>.</p></center><p>Так как <span data-inline-latex=\"S\\ne0\"></span>, сократим обе части равенства на <span data-inline-latex=\"S\"></span> и решим уравнение:</p><center><p><span data-inline-latex=\"1-\\frac{x^2}{10000}=1-\\frac{64}{100}\\iff \\frac{x^2}{10000}=\\frac{64}{100}\\iff x^2=6400\\iff x=80\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"ЛАЙФХАК\"><p>Во всех задачах этого вида решение получается одинаковым:</p><ul><li>берём единственное число <span data-inline-latex=\"r\"></span> из условия — процент итогового удешевления;</li><li>считаем <span data-inline-latex=\"\\sqrt{r}\\cdot10\"></span>.</li></ul><p>Здесь <span data-inline-latex=\"\\sqrt{64}\\cdot10=8\\cdot10=80\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99566"
+    },
+    {
+      "group": "ege-profile-99567",
+      "task": "99567",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Че­ты­ре оди­на­ко­вые ру­баш­ки де­шев­ле курт­ки на 8%. На сколь­ко про­цен­тов пять таких же ру­ба­шек до­ро­же курт­ки?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Стоимость четырёх рубашек составляет <span data-inline-latex=\"92\\%\"></span> стоимости куртки. Значит, стоимость одной рубашки составляет <span data-inline-latex=\"\\frac{92}{4}\\%=23\\%\"></span> стоимости куртки. Поэтому стоимость пяти рубашек составляет <span data-inline-latex=\"5\\cdot23\\%=115\\%\"></span> стоимости куртки. Это превышает стоимость куртки на <span data-inline-latex=\"115\\%-100\\%=15\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Примем стоимость куртки за <span data-inline-latex=\"100\"></span> рублей. Тогда четырёх рубашек стоят <span data-inline-latex=\"100-8=92\"></span> рублей, а одна рубашка стоит <span data-inline-latex=\"\\frac{92}{4}=23\"></span> рубля.</p><p>Стоимость пяти рубашек равна <span data-inline-latex=\"5\\cdot23=115\"></span> рублей. Она больше стоимости куртки на <span data-inline-latex=\"115-100=15\"></span> рублей, то есть на <span data-inline-latex=\"15\\%\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99567"
+    },
+    {
+      "group": "ege-profile-99567",
+      "task": "107401",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Семь оди­на­ко­вых ру­ба­шек де­шев­ле курт­ки на 2%. На сколь­ко про­цен­тов де­сять таких же ру­ба­шек до­ро­же курт­ки?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">40</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Стоимость семи рубашек составляет <span data-inline-latex=\"98\\%\"></span> стоимости куртки. Значит, стоимость одной рубашки составляет <span data-inline-latex=\"\\frac{98}{7}\\%=14\\%\"></span> стоимости куртки. Поэтому стоимость десяти рубашек составляет <span data-inline-latex=\"10\\cdot14\\%=140\\%\"></span> стоимости куртки. Это превышает стоимость куртки на <span data-inline-latex=\"140\\%-100\\%=40\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Примем стоимость куртки за <span data-inline-latex=\"100\"></span> рублей. Тогда семи рубашек стоят <span data-inline-latex=\"100-2=98\"></span> рублей, а одна рубашка стоит <span data-inline-latex=\"\\frac{98}{7}=14\"></span> рубля.</p><p>Стоимость десяти рубашек равна <span data-inline-latex=\"10\\cdot14=140\"></span> рублей. Она больше стоимости куртки на <span data-inline-latex=\"140-100=40\"></span> рублей, то есть на <span data-inline-latex=\"40\\%\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99567"
+    },
+    {
+      "group": "ege-profile-99567",
+      "task": "107467",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Один­на­дцать оди­на­ко­вых ру­ба­шек де­шев­ле курт­ки на 1%. На сколь­ко про­цен­тов три­на­дцать таких же ру­ба­шек до­ро­же курт­ки?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Стоимость одиннадцати рубашек составляет <span data-inline-latex=\"99\\%\"></span> стоимости куртки. Значит, стоимость одной рубашки составляет <span data-inline-latex=\"\\frac{99}{11}\\%=9\\%\"></span> стоимости куртки. Поэтому стоимость тринадцати рубашек составляет <span data-inline-latex=\"13\\cdot9\\%=117\\%\"></span> стоимости куртки. Это превышает стоимость куртки на <span data-inline-latex=\"117\\%-100\\%=17\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Примем стоимость куртки за <span data-inline-latex=\"100\"></span> рублей. Тогда одиннадцати рубашек стоят <span data-inline-latex=\"100-1=99\"></span> рублей, а одна рубашка стоит <span data-inline-latex=\"\\frac{99}{11}=9\"></span> рубля.</p><p>Стоимость тринадцати рубашек равна <span data-inline-latex=\"13\\cdot9=117\"></span> рублей. Она больше стоимости куртки на <span data-inline-latex=\"117-100=17\"></span> рублей, то есть на <span data-inline-latex=\"17\\%\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99567"
+    },
+    {
+      "group": "ege-profile-99567",
+      "task": "519807",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Че­ты­ре оди­на­ко­вые ру­баш­ки де­шев­ле курт­ки на 4%. На сколь­ко про­цен­тов шесть таких же ру­ба­шек до­ро­же курт­ки?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">44</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Стоимость четырёх рубашек составляет <span data-inline-latex=\"96\\%\"></span> стоимости куртки. Значит, стоимость одной рубашки составляет <span data-inline-latex=\"\\frac{96}{4}\\%=24\\%\"></span> стоимости куртки. Поэтому стоимость шести рубашек составляет <span data-inline-latex=\"6\\cdot24\\%=144\\%\"></span> стоимости куртки. Это превышает стоимость куртки на <span data-inline-latex=\"144\\%-100\\%=44\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Примем стоимость куртки за <span data-inline-latex=\"100\"></span> рублей. Тогда четырёх рубашек стоят <span data-inline-latex=\"100-4=96\"></span> рублей, а одна рубашка стоит <span data-inline-latex=\"\\frac{96}{4}=24\"></span> рубля.</p><p>Стоимость шести рубашек равна <span data-inline-latex=\"6\\cdot24=144\"></span> рублей. Она больше стоимости куртки на <span data-inline-latex=\"144-100=44\"></span> рублей, то есть на <span data-inline-latex=\"44\\%\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99567"
+    },
+    {
+      "group": "ege-profile-99568",
+      "task": "99568",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Семья со­сто­ит из мужа, жены и их до­че­ри сту­дент­ки. Если бы зар­пла­та мужа уве­ли­чи­лась вдвое, общий доход семьи вырос бы на 67%. Если бы сти­пен­дия до­че­ри умень­ши­лась втрое, общий доход семьи со­кра­тил­ся бы на 4%. Сколь­ко про­цен­тов от об­ще­го до­хо­да семьи со­став­ля­ет зар­пла­та жены?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">27</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Увеличение зарплаты мужа в 2 раз добавляет к доходу семьи <span data-inline-latex=\"1\"></span> его зарплаты. Поэтому зарплата мужа составляет <span data-inline-latex=\"\\frac{67}{1}=67\\%\"></span> общего дохода.</p><p>При уменьшении стипендии дочери в 3 раз доход семьи уменьшается на <span data-inline-latex=\"\\frac{2}{3}\"></span> её стипендии. Значит, стипендия дочери составляет <span data-inline-latex=\"\\frac{4\\cdot 3}{2}=6\\%\"></span> общего дохода.</p><p>Тогда зарплата жены составляет <span data-inline-latex=\"100\\%-67\\%-6\\%=27\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Пусть <span data-inline-latex=\"М\"></span> — зарплата мужа, <span data-inline-latex=\"Ж\"></span> — зарплата жены, <span data-inline-latex=\"Д\"></span> — стипендия дочери в процентах от общего дохода. Составим систему по условию:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\2М+Ж+Д=100+67\\\\М+Ж+\\frac{Д}{3}=100-4\\end{cases}\"></span>.</p></center><p>Поочередно вычтем из первого уравнения два других. Получим новую систему:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\1М=67\\\\\\frac{2}{3}Д=4\\end{cases}\"></span>.</p></center><p>Отсюда <span data-inline-latex=\"М=67\"></span>, <span data-inline-latex=\"Д=6\"></span>. Тогда <span data-inline-latex=\"Ж=100-67-6=27\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99568"
+    },
+    {
+      "group": "ege-profile-99568",
+      "task": "107469",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Семья со­сто­ит из мужа, жены и их до­че­ри сту­дент­ки. Если бы зар­пла­та мужа уве­ли­чи­лась втрое, общий доход семьи вырос бы на 112%. Если бы сти­пен­дия до­че­ри умень­ши­лась вдвое, общий доход семьи со­кра­тил­ся бы на 3%. Сколь­ко про­цен­тов от об­ще­го до­хо­да семьи со­став­ля­ет зар­пла­та жены?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">38</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Увеличение зарплаты мужа в 3 раз добавляет к доходу семьи <span data-inline-latex=\"2\"></span> его зарплаты. Поэтому зарплата мужа составляет <span data-inline-latex=\"\\frac{112}{2}=56\\%\"></span> общего дохода.</p><p>При уменьшении стипендии дочери в 2 раз доход семьи уменьшается на <span data-inline-latex=\"\\frac{1}{2}\"></span> её стипендии. Значит, стипендия дочери составляет <span data-inline-latex=\"\\frac{3\\cdot 2}{1}=6\\%\"></span> общего дохода.</p><p>Тогда зарплата жены составляет <span data-inline-latex=\"100\\%-56\\%-6\\%=38\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Пусть <span data-inline-latex=\"М\"></span> — зарплата мужа, <span data-inline-latex=\"Ж\"></span> — зарплата жены, <span data-inline-latex=\"Д\"></span> — стипендия дочери в процентах от общего дохода. Составим систему по условию:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\3М+Ж+Д=100+112\\\\М+Ж+\\frac{Д}{2}=100-3\\end{cases}\"></span>.</p></center><p>Поочередно вычтем из первого уравнения два других. Получим новую систему:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\2М=112\\\\\\frac{1}{2}Д=3\\end{cases}\"></span>.</p></center><p>Отсюда <span data-inline-latex=\"М=56\"></span>, <span data-inline-latex=\"Д=6\"></span>. Тогда <span data-inline-latex=\"Ж=100-56-6=38\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99568"
+    },
+    {
+      "group": "ege-profile-99568",
+      "task": "107947",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Семья со­сто­ит из мужа, жены и их до­че­ри сту­дент­ки. Если бы зар­пла­та мужа уве­ли­чи­лась вдвое, общий доход семьи вырос бы на 58%. Если бы сти­пен­дия до­че­ри умень­ши­лась вчет­ве­ро, общий доход семьи со­кра­тил­ся бы на 6%. Сколь­ко про­цен­тов от об­ще­го до­хо­да семьи со­став­ля­ет зар­пла­та жены?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">34</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Увеличение зарплаты мужа в 2 раз добавляет к доходу семьи <span data-inline-latex=\"1\"></span> его зарплаты. Поэтому зарплата мужа составляет <span data-inline-latex=\"\\frac{58}{1}=58\\%\"></span> общего дохода.</p><p>При уменьшении стипендии дочери в 4 раз доход семьи уменьшается на <span data-inline-latex=\"\\frac{3}{4}\"></span> её стипендии. Значит, стипендия дочери составляет <span data-inline-latex=\"\\frac{6\\cdot 4}{3}=8\\%\"></span> общего дохода.</p><p>Тогда зарплата жены составляет <span data-inline-latex=\"100\\%-58\\%-8\\%=34\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Пусть <span data-inline-latex=\"М\"></span> — зарплата мужа, <span data-inline-latex=\"Ж\"></span> — зарплата жены, <span data-inline-latex=\"Д\"></span> — стипендия дочери в процентах от общего дохода. Составим систему по условию:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\2М+Ж+Д=100+58\\\\М+Ж+\\frac{Д}{4}=100-6\\end{cases}\"></span>.</p></center><p>Поочередно вычтем из первого уравнения два других. Получим новую систему:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\1М=58\\\\\\frac{3}{4}Д=6\\end{cases}\"></span>.</p></center><p>Отсюда <span data-inline-latex=\"М=58\"></span>, <span data-inline-latex=\"Д=8\"></span>. Тогда <span data-inline-latex=\"Ж=100-58-8=34\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99568"
+    },
+    {
+      "group": "ege-profile-99568",
+      "task": "107471",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Семья со­сто­ит из мужа, жены и их до­че­ри сту­дент­ки. Если бы зар­пла­та мужа уве­ли­чи­лась вдвое, общий доход семьи вырос бы на 65%. Если бы сти­пен­дия до­че­ри умень­ши­лась вдвое, общий доход семьи со­кра­тил­ся бы на 2%. Сколь­ко про­цен­тов от об­ще­го до­хо­да семьи со­став­ля­ет зар­пла­та жены?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Увеличение зарплаты мужа в 2 раз добавляет к доходу семьи <span data-inline-latex=\"1\"></span> его зарплаты. Поэтому зарплата мужа составляет <span data-inline-latex=\"\\frac{65}{1}=65\\%\"></span> общего дохода.</p><p>При уменьшении стипендии дочери в 2 раз доход семьи уменьшается на <span data-inline-latex=\"\\frac{1}{2}\"></span> её стипендии. Значит, стипендия дочери составляет <span data-inline-latex=\"\\frac{2\\cdot 2}{1}=4\\%\"></span> общего дохода.</p><p>Тогда зарплата жены составляет <span data-inline-latex=\"100\\%-65\\%-4\\%=31\\%\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Пусть <span data-inline-latex=\"М\"></span> — зарплата мужа, <span data-inline-latex=\"Ж\"></span> — зарплата жены, <span data-inline-latex=\"Д\"></span> — стипендия дочери в процентах от общего дохода. Составим систему по условию:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\2М+Ж+Д=100+65\\\\М+Ж+\\frac{Д}{2}=100-2\\end{cases}\"></span>.</p></center><p>Поочередно вычтем из первого уравнения два других. Получим новую систему:</p><center><p><span data-inline-latex=\"\\begin{cases}М+Ж+Д=100\\\\1М=65\\\\\\frac{1}{2}Д=2\\end{cases}\"></span>.</p></center><p>Отсюда <span data-inline-latex=\"М=65\"></span>, <span data-inline-latex=\"Д=4\"></span>. Тогда <span data-inline-latex=\"Ж=100-65-4=31\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">31</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99568"
+    },
+    {
+      "group": "ege-profile-99569",
+      "task": "99569",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Цена хо­ло­диль­ни­ка в ма­га­зи­не еже­год­но умень­ша­ет­ся на одно и то же число про­цен­тов от преды­ду­щей цены. Опре­де­ли­те, на сколь­ко про­цен­тов каж­дый год умень­ша­лась цена хо­ло­диль­ни­ка, если, вы­став­лен­ный на про­да­жу за 20 000 руб­лей, через два года был про­дан за 15 842 руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">11</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть цена холодильника ежегодно уменьшается на <span data-inline-latex=\"p\\%\"></span>. Тогда через 2 года цена составит <span data-inline-latex=\"20000\\left(1-\\frac{p}{100}\\right)^{2}\"></span> рублей. По условию:</p><center><p><span data-inline-latex=\"20000\\left(1-\\frac{p}{100}\\right)^{2}=15842\"></span>.</p></center><p>Разделим обе части равенства на первоначальную цену и сократим дробь:</p><center><p><span data-inline-latex=\"\\left(1-\\frac{p}{100}\\right)^{2}=\\frac{15842}{20000}=\\frac{7921}{10000}=\\frac{89^2}{100^2}\"></span>.</p></center><p>Так как <span data-inline-latex=\"1-\\frac{p}{100}&gt;0\"></span>, получаем:</p><center><p><span data-inline-latex=\"1-\\frac{p}{100}=\\frac{89}{100}\\iff \\frac{p}{100}=1-\\frac{89}{100}=\\frac{11}{100}\\iff p=11\"></span>.</p></center><p>Значит, цена ежегодно уменьшалась на <span data-inline-latex=\"11\\%\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99569"
+    },
+    {
+      "group": "ege-profile-99569",
+      "task": "107949",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Цена хо­ло­диль­ни­ка в ма­га­зи­не еже­год­но умень­ша­ет­ся на одно и то же число про­цен­тов от преды­ду­щей цены. Опре­де­ли­те, на сколь­ко про­цен­тов каж­дый год умень­ша­лась цена хо­ло­диль­ни­ка, если, вы­став­лен­ный на про­да­жу за 20 900 руб­лей, через два года был про­дан за 16 929 руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть цена холодильника ежегодно уменьшается на <span data-inline-latex=\"p\\%\"></span>. Тогда через 2 года цена составит <span data-inline-latex=\"20900\\left(1-\\frac{p}{100}\\right)^{2}\"></span> рублей. По условию:</p><center><p><span data-inline-latex=\"20900\\left(1-\\frac{p}{100}\\right)^{2}=16929\"></span>.</p></center><p>Разделим обе части равенства на первоначальную цену и сократим дробь:</p><center><p><span data-inline-latex=\"\\left(1-\\frac{p}{100}\\right)^{2}=\\frac{16929}{20900}=\\frac{81}{100}=\\frac{9^2}{10^2}\"></span>.</p></center><p>Так как <span data-inline-latex=\"1-\\frac{p}{100}&gt;0\"></span>, получаем:</p><center><p><span data-inline-latex=\"1-\\frac{p}{100}=\\frac{9}{10}\\iff \\frac{p}{100}=1-\\frac{9}{10}=\\frac{10}{100}\\iff p=10\"></span>.</p></center><p>Значит, цена ежегодно уменьшалась на <span data-inline-latex=\"10\\%\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99569"
+    },
+    {
+      "group": "ege-profile-99569",
+      "task": "107953",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Цена хо­ло­диль­ни­ка в ма­га­зи­не еже­год­но умень­ша­ет­ся на одно и то же число про­цен­тов от преды­ду­щей цены. Опре­де­ли­те, на сколь­ко про­цен­тов каж­дый год умень­ша­лась цена хо­ло­диль­ни­ка, если, вы­став­лен­ный на про­да­жу за 19 800 руб­лей, через два года был про­дан за 16 038 руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть цена холодильника ежегодно уменьшается на <span data-inline-latex=\"p\\%\"></span>. Тогда через 2 года цена составит <span data-inline-latex=\"19800\\left(1-\\frac{p}{100}\\right)^{2}\"></span> рублей. По условию:</p><center><p><span data-inline-latex=\"19800\\left(1-\\frac{p}{100}\\right)^{2}=16038\"></span>.</p></center><p>Разделим обе части равенства на первоначальную цену и сократим дробь:</p><center><p><span data-inline-latex=\"\\left(1-\\frac{p}{100}\\right)^{2}=\\frac{16038}{19800}=\\frac{81}{100}=\\frac{9^2}{10^2}\"></span>.</p></center><p>Так как <span data-inline-latex=\"1-\\frac{p}{100}&gt;0\"></span>, получаем:</p><center><p><span data-inline-latex=\"1-\\frac{p}{100}=\\frac{9}{10}\\iff \\frac{p}{100}=1-\\frac{9}{10}=\\frac{10}{100}\\iff p=10\"></span>.</p></center><p>Значит, цена ежегодно уменьшалась на <span data-inline-latex=\"10\\%\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99569"
+    },
+    {
+      "group": "ege-profile-99569",
+      "task": "107981",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Цена хо­ло­диль­ни­ка в ма­га­зи­не еже­год­но умень­ша­ет­ся на одно и то же число про­цен­тов от преды­ду­щей цены. Опре­де­ли­те, на сколь­ко про­цен­тов каж­дый год умень­ша­лась цена хо­ло­диль­ни­ка, если, вы­став­лен­ный на про­да­жу за 19 100 руб­лей, через два года был про­дан за 15 471 рубль.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть цена холодильника ежегодно уменьшается на <span data-inline-latex=\"p\\%\"></span>. Тогда через 2 года цена составит <span data-inline-latex=\"19100\\left(1-\\frac{p}{100}\\right)^{2}\"></span> рублей. По условию:</p><center><p><span data-inline-latex=\"19100\\left(1-\\frac{p}{100}\\right)^{2}=15471\"></span>.</p></center><p>Разделим обе части равенства на первоначальную цену и сократим дробь:</p><center><p><span data-inline-latex=\"\\left(1-\\frac{p}{100}\\right)^{2}=\\frac{15471}{19100}=\\frac{81}{100}=\\frac{9^2}{10^2}\"></span>.</p></center><p>Так как <span data-inline-latex=\"1-\\frac{p}{100}&gt;0\"></span>, получаем:</p><center><p><span data-inline-latex=\"1-\\frac{p}{100}=\\frac{9}{10}\\iff \\frac{p}{100}=1-\\frac{9}{10}=\\frac{10}{100}\\iff p=10\"></span>.</p></center><p>Значит, цена ежегодно уменьшалась на <span data-inline-latex=\"10\\%\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99569"
+    },
+    {
+      "group": "ege-profile-99570",
+      "task": "99570",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Митя, Антон, Гоша и Борис учре­ди­ли ком­па­нию с устав­ным ка­пи­та­лом 200 000 руб­лей. Митя внес 14% устав­но­го ка­пи­та­ла, Антон  — 42 000 руб­лей, Гоша  — 0,12 устав­но­го ка­пи­та­ла, а остав­шу­ю­ся часть ка­пи­та­ла внес Борис. Учре­ди­те­ли до­го­во­ри­лись де­лить еже­год­ную при­быль про­пор­ци­о­наль­но вне­сен­но­му в устав­ной ка­пи­тал вкла­ду. Какая сумма от при­бы­ли 1 000 000 руб­лей при­чи­та­ет­ся Бо­ри­су? Ответ дайте в руб­лях.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">530000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сначала заполним таблицу данными из условия.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Митя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Антон</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Гоша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Борис</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"42000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"200000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}12\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"14\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1000000\"></span></td></tr></tbody></table><p>Вычислим доли учредителей в процентах:</p><p><b>Митя:</b> <span data-inline-latex=\"14\\%\"></span> — дано по условию. Следовательно, <nobr><span data-inline-latex=\"14\\%\\cdot1000000=140000\"></span></nobr>.</p><p><b>Антон:</b> <nobr><span data-inline-latex=\"\\frac{42000}{200000}\\cdot100\\%=21\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"21\\%\\cdot1000000=210000\"></span></nobr>.</p><p><b>Гоша:</b> <nobr><span data-inline-latex=\"0{,}12\\cdot100\\%=12\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"12\\%\\cdot1000000=120000\"></span></nobr>.</p><p><b>Борис:</b> <nobr><span data-inline-latex=\"100\\%-14\\%-21\\%-12\\%=53\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"53\\%\\cdot1000000=530000\"></span></nobr>.</p><p>Заполним вторую таблицу. Прибыль распределяется в тех же долях.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Митя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Антон</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Гоша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Борис</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"42000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"200000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}12\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"14\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"21\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"12\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"53\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"140000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"210000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"120000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"530000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1000000\"></span></td></tr></tbody></table><p>Значит, <b>Борис</b> причитается <span data-inline-latex=\"530000\"></span> рублей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99570"
+    },
+    {
+      "group": "ege-profile-99570",
+      "task": "107987",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Митя, Артем, Паша и Женя учре­ди­ли ком­па­нию с устав­ным ка­пи­та­лом 200000 руб­лей. Митя внес 18% устав­но­го ка­пи­та­ла, Артем  — 60000 руб­лей, Паша  — 0,18 устав­но­го ка­пи­та­ла, а остав­шу­ю­ся часть ка­пи­та­ла внес Женя. Учре­ди­те­ли до­го­во­ри­лись де­лить еже­год­ную при­быль про­пор­ци­о­наль­но вне­сен­но­му в устав­ной ка­пи­тал вкла­ду. Какая сумма от при­бы­ли 1100000 руб­лей при­чи­та­ет­ся Жене? Ответ дайте в руб­лях.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">374000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сначала заполним таблицу данными из условия.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Митя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Артем</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Паша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Женя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"60000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"200000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}18\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"18\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1100000\"></span></td></tr></tbody></table><p>Вычислим доли учредителей в процентах:</p><p><b>Митя:</b> <span data-inline-latex=\"18\\%\"></span> — дано по условию. Следовательно, <nobr><span data-inline-latex=\"18\\%\\cdot1100000=198000\"></span></nobr>.</p><p><b>Артем:</b> <nobr><span data-inline-latex=\"\\frac{60000}{200000}\\cdot100\\%=30\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"30\\%\\cdot1100000=330000\"></span></nobr>.</p><p><b>Паша:</b> <nobr><span data-inline-latex=\"0{,}18\\cdot100\\%=18\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"18\\%\\cdot1100000=198000\"></span></nobr>.</p><p><b>Женя:</b> <nobr><span data-inline-latex=\"100\\%-18\\%-30\\%-18\\%=34\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"34\\%\\cdot1100000=374000\"></span></nobr>.</p><p>Заполним вторую таблицу. Прибыль распределяется в тех же долях.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Митя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Артем</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Паша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Женя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"60000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"200000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}18\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"18\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"30\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"18\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"34\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"198000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"330000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"198000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"374000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1100000\"></span></td></tr></tbody></table><p>Значит, <b>Женя</b> причитается <span data-inline-latex=\"374000\"></span> рублей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99570"
+    },
+    {
+      "group": "ege-profile-99570",
+      "task": "107991",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Митя, Антон, Паша и Гоша учре­ди­ли ком­па­нию с устав­ным ка­пи­та­лом 100 000 руб­лей. Митя внес 24% устав­но­го ка­пи­та­ла, Антон  — 55000 руб­лей, Паша  — 0,18 устав­но­го ка­пи­та­ла, а остав­шу­ю­ся часть ка­пи­та­ла внес Гоша. Учре­ди­те­ли до­го­во­ри­лись де­лить еже­год­ную при­быль про­пор­ци­о­наль­но вне­сен­но­му в устав­ной ка­пи­тал вкла­ду. Какая сумма от при­бы­ли 600 000 руб­лей при­чи­та­ет­ся Гоше? Ответ дайте в руб­лях.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сначала заполним таблицу данными из условия.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Митя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Антон</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Паша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Гоша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"55000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}18\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"24\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"600000\"></span></td></tr></tbody></table><p>Вычислим доли учредителей в процентах:</p><p><b>Митя:</b> <span data-inline-latex=\"24\\%\"></span> — дано по условию. Следовательно, <nobr><span data-inline-latex=\"24\\%\\cdot600000=144000\"></span></nobr>.</p><p><b>Антон:</b> <nobr><span data-inline-latex=\"\\frac{55000}{100000}\\cdot100\\%=55\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"55\\%\\cdot600000=330000\"></span></nobr>.</p><p><b>Паша:</b> <nobr><span data-inline-latex=\"0{,}18\\cdot100\\%=18\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"18\\%\\cdot600000=108000\"></span></nobr>.</p><p><b>Гоша:</b> <nobr><span data-inline-latex=\"100\\%-24\\%-55\\%-18\\%=3\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"3\\%\\cdot600000=18000\"></span></nobr>.</p><p>Заполним вторую таблицу. Прибыль распределяется в тех же долях.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Митя</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Антон</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Паша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Гоша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"55000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}18\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"24\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"55\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"18\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"3\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"144000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"330000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"108000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"18000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"600000\"></span></td></tr></tbody></table><p>Значит, <b>Гоша</b> причитается <span data-inline-latex=\"18000\"></span> рублей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99570"
+    },
+    {
+      "group": "ege-profile-99570",
+      "task": "107995",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дима, Артем, Гриша и Вова учре­ди­ли ком­па­нию с устав­ным ка­пи­та­лом 150000 руб­лей. Дима внес 17% устав­но­го ка­пи­та­ла, Артем  — 50000 руб­лей, Гриша  — 0,24 устав­но­го ка­пи­та­ла, а остав­шу­ю­ся часть ка­пи­та­ла внес Вова. Учре­ди­те­ли до­го­во­ри­лись де­лить еже­год­ную при­быль про­пор­ци­о­наль­но вне­сен­но­му в устав­ной ка­пи­тал вкла­ду. Какая сумма от при­бы­ли 900000 руб­лей при­чи­та­ет­ся Вове? Ответ дайте в руб­лях.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">231000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сначала заполним таблицу данными из условия.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Дима</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Артем</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Гриша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Вова</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"50000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"150000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}24\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"17\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"900000\"></span></td></tr></tbody></table><p>Вычислим доли учредителей в процентах:</p><p><b>Дима:</b> <span data-inline-latex=\"17\\%\"></span> — дано по условию. Следовательно, <nobr><span data-inline-latex=\"17\\%\\cdot900000=153000\"></span></nobr>.</p><p><b>Артем:</b> <nobr><span data-inline-latex=\"\\frac{50000}{150000}\\cdot100\\%=\\frac{100}{3}\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"\\frac{100}{3}\\%\\cdot900000=300000\"></span></nobr>.</p><p><b>Гриша:</b> <nobr><span data-inline-latex=\"0{,}24\\cdot100\\%=24\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"24\\%\\cdot900000=216000\"></span></nobr>.</p><p><b>Вова:</b> <nobr><span data-inline-latex=\"100\\%-17\\%-\\frac{100}{3}\\%-24\\%=\\frac{77}{3}\\%\"></span></nobr>. Следовательно, <nobr><span data-inline-latex=\"\\frac{77}{3}\\%\\cdot900000=231000\"></span></nobr>.</p><p>Заполним вторую таблицу. Прибыль распределяется в тех же долях.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\"></th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Дима</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Артем</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Гриша</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Вова</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Всего</th></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Рубли</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"50000\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"150000\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Дроби</b></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"0{,}24\"></span></td><td data-align=\"center\" data-valign=\"middle\">—</td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Проценты</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"17\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"\\frac{100}{3}\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"24\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"\\frac{77}{3}\\%\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"100\\%\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\"><b>Прибыль</b></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"153000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"300000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"216000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"231000\"></span></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"900000\"></span></td></tr></tbody></table><p>Значит, <b>Вова</b> причитается <span data-inline-latex=\"231000\"></span> рублей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "source_group": "99570"
+    }
+  ]
+}

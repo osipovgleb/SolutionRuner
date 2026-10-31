@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from math import isqrt
 import re
+from math import isqrt
 from typing import Any
 
 from .common import UnsupportedCondition, finalize, require_content
-
 
 RULE = "word-problem-99566-equal-rise-fall-percent"
 _CONDITION = re.compile(
@@ -19,12 +18,16 @@ _CONDITION = re.compile(
 
 
 def build_context_repair_plan(context: dict[str, Any]):
-    _, condition, answer_section, solution_section, text = require_content(context, allow_inline_latex=True)
+    _, condition, answer_section, solution_section, text = require_content(
+        context, allow_inline_latex=True, allow_solution_asset_references=False
+    )
     match = _CONDITION.fullmatch(text)
     if match is None:
         raise UnsupportedCondition("condition does not match group 99566 template")
 
     loss = int(match["loss"])
+    if loss > 100:
+        raise UnsupportedCondition("a price loss cannot exceed one hundred percent")
     root = isqrt(loss)
     if root * root != loss:
         raise UnsupportedCondition("the loss percentage must be a perfect square")
@@ -37,21 +40,25 @@ def build_context_repair_plan(context: dict[str, Any]):
         '<span data-inline-latex="S\\left(1+\\frac{x}{100}\\right)\\left(1-\\frac{x}{100}\\right)"></span>.</p>'
         f'<p>По условию итоговая стоимость на <span data-inline-latex="{loss}\\%"></span> меньше первоначальной:</p>'
         '<center><p><span data-inline-latex="'
-        f'S\\left(1+\\frac{{x}}{{100}}\\right)\\left(1-\\frac{{x}}{{100}}\\right)=S\\left(1-\\frac{{{loss}}}{{100}}\\right)'
+        f"S\\left(1+\\frac{{x}}{{100}}\\right)\\left(1-\\frac{{x}}{{100}}\\right)=S\\left(1-\\frac{{{loss}}}{{100}}\\right)"
         '"></span>.</p></center>'
         '<p>Так как <span data-inline-latex="S\\ne0"></span>, сократим обе части равенства на <span data-inline-latex="S"></span> и решим уравнение:</p>'
         '<center><p><span data-inline-latex="'
-        f'1-\\frac{{x^2}}{{10000}}=1-\\frac{{{loss}}}{{100}}\\iff \\frac{{x^2}}{{10000}}=\\frac{{{loss}}}{{100}}\\iff x^2={100 * loss}\\iff x={answer}'
+        f"1-\\frac{{x^2}}{{10000}}=1-\\frac{{{loss}}}{{100}}\\iff \\frac{{x^2}}{{10000}}=\\frac{{{loss}}}{{100}}\\iff x^2={100 * loss}\\iff x={answer}"
         '"></span>.</p></center>'
-        '</section>'
+        "</section>"
         '<section data-content-kind="solution" data-solution-title="ЛАЙФХАК">'
-        '<p>Во всех задачах этого вида решение получается одинаковым:</p>'
+        "<p>Во всех задачах этого вида решение получается одинаковым:</p>"
         '<ul><li>берём единственное число <span data-inline-latex="r"></span> из условия — процент итогового удешевления;</li>'
         '<li>считаем <span data-inline-latex="\\sqrt{r}\\cdot10"></span>.</li></ul>'
         f'<p>Здесь <span data-inline-latex="\\sqrt{{{loss}}}\\cdot10={root}\\cdot10={answer}"></span>.</p>'
-        '</section>'
+        "</section>"
     )
     return finalize(
-        condition, answer_section, solution_section, answer, solution_html,
+        condition,
+        answer_section,
+        solution_section,
+        answer,
+        solution_html,
         rewrite_existing_solution=True,
     )

@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
 from .common import UnsupportedCondition, finalize, require_content
-
 
 RULE = "word-problem-99569-refrigerator-price-decline"
 _CONDITION = re.compile(
@@ -33,7 +32,9 @@ def _integer_nth_root(value: int, degree: int) -> int | None:
 
 
 def build_context_repair_plan(context: dict[str, Any]):
-    _, condition, answer_section, solution_section, text = require_content(context, allow_inline_latex=True)
+    _, condition, answer_section, solution_section, text = require_content(
+        context, allow_inline_latex=True, allow_solution_asset_references=False
+    )
     match = _CONDITION.fullmatch(text)
     if match is None:
         raise UnsupportedCondition("condition does not match group 99569 template")
@@ -45,7 +46,9 @@ def build_context_repair_plan(context: dict[str, Any]):
     numerator_root = _integer_nth_root(ratio.numerator, years)
     denominator_root = _integer_nth_root(ratio.denominator, years)
     if numerator_root is None or denominator_root is None:
-        raise UnsupportedCondition("price ratio is not an exact yearly integer-percent power")
+        raise UnsupportedCondition(
+            "price ratio is not an exact yearly integer-percent power"
+        )
 
     yearly_factor = Fraction(numerator_root, denominator_root)
     decrease = (1 - yearly_factor) * 100
@@ -55,23 +58,27 @@ def build_context_repair_plan(context: dict[str, Any]):
 
     solution_html = (
         '<p>Пусть цена холодильника ежегодно уменьшается на <span data-inline-latex="p\\%"></span>. '
-        f'Тогда через {years} года цена составит '
+        f"Тогда через {years} года цена составит "
         f'<span data-inline-latex="{initial}\\left(1-\\frac{{p}}{{100}}\\right)^{{{years}}}"></span> рублей. По условию:</p>'
         '<center><p><span data-inline-latex="'
-        f'{initial}\\left(1-\\frac{{p}}{{100}}\\right)^{{{years}}}={final}'
+        f"{initial}\\left(1-\\frac{{p}}{{100}}\\right)^{{{years}}}={final}"
         '"></span>.</p></center>'
-        '<p>Разделим обе части равенства на первоначальную цену и сократим дробь:</p>'
+        "<p>Разделим обе части равенства на первоначальную цену и сократим дробь:</p>"
         '<center><p><span data-inline-latex="'
-        f'\\left(1-\\frac{{p}}{{100}}\\right)^{{{years}}}=\\frac{{{final}}}{{{initial}}}=\\frac{{{ratio.numerator}}}{{{ratio.denominator}}}=\\frac{{{numerator_root}^{years}}}{{{denominator_root}^{years}}}'
+        f"\\left(1-\\frac{{p}}{{100}}\\right)^{{{years}}}=\\frac{{{final}}}{{{initial}}}=\\frac{{{ratio.numerator}}}{{{ratio.denominator}}}=\\frac{{{numerator_root}^{years}}}{{{denominator_root}^{years}}}"
         '"></span>.</p></center>'
         '<p>Так как <span data-inline-latex="1-\\frac{p}{100}>0"></span>, получаем:</p>'
         '<center><p><span data-inline-latex="'
-        f'1-\\frac{{p}}{{100}}=\\frac{{{numerator_root}}}{{{denominator_root}}}\\iff '
-        f'\\frac{{p}}{{100}}=1-\\frac{{{numerator_root}}}{{{denominator_root}}}=\\frac{{{decrease.numerator}}}{{100}}\\iff p={answer}'
+        f"1-\\frac{{p}}{{100}}=\\frac{{{numerator_root}}}{{{denominator_root}}}\\iff "
+        f"\\frac{{p}}{{100}}=1-\\frac{{{numerator_root}}}{{{denominator_root}}}=\\frac{{{decrease.numerator}}}{{100}}\\iff p={answer}"
         '"></span>.</p></center>'
         f'<p>Значит, цена ежегодно уменьшалась на <span data-inline-latex="{answer}\\%"></span>.</p>'
     )
     return finalize(
-        condition, answer_section, solution_section, answer, solution_html,
+        condition,
+        answer_section,
+        solution_section,
+        answer,
+        solution_html,
         rewrite_existing_solution=True,
     )

@@ -167,7 +167,7 @@ def test_family_income_has_requested_system_method() -> None:
     plan = family_plan(_context("Семья состоит из мужа, жены и их дочери студентки. Если бы зарплата мужа увеличилась вдвое, общий доход семьи вырос бы на 67%. Если бы стипендия дочери уменьшилась втрое, общий доход семьи сократился бы на 4%. Сколько процентов от общего дохода семьи составляет зарплата жены?"))
     assert plan.answer == "27"
     assert 'М+Ж+Д=100' in plan.solution_html
-    assert 'Поочередно вычтем из первого уравнения два других' in plan.solution_html
+    assert 'Вычтем первое уравнение из второго, а третье — из первого' in plan.solution_html
     assert 'Ж=100-67-6=27' in plan.solution_html
 
 
