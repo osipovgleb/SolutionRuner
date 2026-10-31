@@ -124,7 +124,12 @@ def polynomial(
             + n(sp.simplify(B * B - 4 * A * D0))
         )
     elif degree > 2:
-        html += line(formula(sp.factor(p), angle) + "=0")
+        if branch.grouping:
+            from .exam_trigonometric_cubic import grouped
+
+            html += grouped(p, variable, symbol, angle)
+        else:
+            html += line(formula(sp.factor(p), angle) + "=0")
         for factor, _ in sp.factor_list(p, variable, extension=True)[1]:
             poly = sp.Poly(factor, variable)
             if poly.degree() == 2:
@@ -170,6 +175,10 @@ def candidate_lines(
 
 
 def method_proof(a):
+    if a.affine is not None:
+        from .exam_trigonometric_affine_proof import proof
+
+        return proof(a)
     if len(a.branches) > 1 and all(
         b.original is not None and not b.impossible for b in a.branches
     ):
@@ -205,6 +214,8 @@ def method_proof(a):
 
         return proof(a)
     if a.preferred == T:
+        if any(b.variable != T for b in a.branches):
+            return None
         from .exam_trigonometric_ratios import tangent_proof
 
         return tangent_proof(a)
@@ -256,6 +267,9 @@ def first(a):
         return intro, html
     for text, value in a.identities:
         html += line(text + "=" + formula(value))
+    if a.factored_source is not None:
+        html += line(formula(a.factored_source) + "=0")
+        html += line(formula(S * S + C * C) + "=1")
     html += line(formula(a.raw) + "=0")
     if a.raw != a.reduced:
         other = S if a.preferred == C else C
@@ -343,7 +357,11 @@ def render(a, image):
         + steps
         + (image if a.image_position == "after-steps" else "")
     )
-    if a.selection_method == "inequalities":
+    if a.selection_method == "number_line":
+        from .exam_trigonometric_affine_proof import selection
+
+        second = selection(a)
+    elif a.selection_method == "inequalities":
         second = inequality_selection(a)
     elif a.selection_method == "progressions":
         from .exam_trigonometric_selection import progressions
@@ -384,6 +402,10 @@ def render(a, image):
     all_roots = (
         r";\ ".join(families(a)) + r",\ k\in\mathbb Z" if a.series else r"\varnothing"
     )
+    if a.affine is not None:
+        from .exam_trigonometric_affine_selection import all_roots as affine_roots
+
+        all_roots = affine_roots(a)
     selected = r";\ ".join(pi(q) for q in a.selected) or r"\varnothing"
     return (
         "а) " + all_roots + "; б) " + selected,

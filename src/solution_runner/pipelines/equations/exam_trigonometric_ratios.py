@@ -63,9 +63,13 @@ def tangent_proof(a):
     if a.substitution:
         html += "<p>Введём обозначение:</p>" + line(a.substitution + "=" + formula(T))
     html += polynomial(
-        a.branches[0], substitution=a.substitution, factorization=a.factorization
+        a.branches[0],
+        substitution=a.substitution,
+        factorization=a.factorization,
     )
-    return "<p>Решим квадратное уравнение относительно тангенса:</p>", html
+    degree = sp.degree(a.branches[0].polynomial, T)
+    title = "кубическое" if degree == 3 else "квадратное"
+    return "<p>Решим " + title + " уравнение относительно тангенса:</p>", html
 
 
 def compile_cotangent(values, atoms, denominators):
@@ -179,3 +183,21 @@ def linear_proof(branch, angle):
         + "<p>При нулевом косинусе этот множитель не равен нулю: синус равен 1 или −1, а его коэффициент ненулевой. Поэтому только в этой ветви можно разделить на косинус:</p>"
         + line(r"\cos(" + angle + r")\ne0")
     )
+
+
+def compile_ratio_method(values, atoms, denominators, preferred, constants):
+    from dataclasses import replace
+
+    if (
+        preferred == T
+        and denominators
+        and all(
+            a.function in ("tg", "cos") and a.shift.is_Integer for a in atoms.values()
+        )
+    ):
+        equation = compile_tangent_identity(values, atoms, denominators)
+        return replace(equation, identities=constants + equation.identities)
+    from .exam_trigonometric_poles import compile_quotients
+
+    equation = compile_quotients(values, atoms, denominators)
+    return replace(equation, identities=constants + equation.identities)

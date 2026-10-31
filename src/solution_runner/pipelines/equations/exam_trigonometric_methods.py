@@ -2,6 +2,7 @@
 
 import re
 from dataclasses import dataclass, replace
+from typing import TYPE_CHECKING
 
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -18,6 +19,9 @@ from .trig_symbolic_parser import (
     SymbolicAtom,
     SymbolicTrigonometricParser,
 )
+
+if TYPE_CHECKING:
+    from .exam_trigonometric_affine import AffineFactor
 
 
 class ExamAngleParser(SymbolicTrigonometricParser):
@@ -87,6 +91,8 @@ class Equation:
     absolute: tuple | None = None
     homogeneous: Reduction | None = None
     power_angle: sp.Rational | None = None
+    affine: "AffineFactor | None" = None
+    factored_source: sp.Expr | None = None
 
 
 def shifted_atom(atom):
@@ -114,6 +120,15 @@ def parse_equation(formula):
 
 
 def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero):
+    from .exam_trigonometric_affine import compile_affine
+
+    affine = compile_affine(formula)
+    if affine is not None:
+        if translation or preferred_scale != 1:
+            raise UnsupportedCondition(
+                "mixed affine equations require the original unit angle"
+            )
+        return affine
     from .exam_trigonometric_folding import fold
 
     values, atoms, denominators = parse_equation(formula)
@@ -125,22 +140,9 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
 
         atoms = translated_atoms(atoms, translation)
     if any(a.function in ("tg", "ctg") for a in atoms.values()):
-        if (
-            preferred == T
-            and denominators
-            and all(
-                a.function in ("tg", "cos") and a.shift.is_Integer
-                for a in atoms.values()
-            )
-        ):
-            from .exam_trigonometric_ratios import compile_tangent_identity
+        from .exam_trigonometric_ratios import compile_ratio_method
 
-            equation = compile_tangent_identity(values, atoms, denominators)
-            return replace(equation, identities=constants + equation.identities)
-        from .exam_trigonometric_poles import compile_quotients
-
-        equation = compile_quotients(values, atoms, denominators)
-        return replace(equation, identities=constants + equation.identities)
+        return compile_ratio_method(values, atoms, denominators, preferred, constants)
     if not atoms or any(a.function not in ("sin", "cos") for a in atoms.values()):
         raise UnsupportedCondition(
             "scaled rational equations require only sine and cosine"

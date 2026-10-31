@@ -78,6 +78,11 @@ def mixed_branches(raw):
     grouped = branches(raw)
     if grouped is not None:
         return grouped
+    from .exam_trigonometric_factors import separated
+
+    separate = separated(raw, S, False)
+    if separate is not None:
+        return separate
     from .exam_trigonometric_combination import branches as combination_branches
 
     return combination_branches(raw)

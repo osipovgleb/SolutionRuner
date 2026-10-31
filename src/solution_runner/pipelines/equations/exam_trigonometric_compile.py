@@ -13,7 +13,7 @@ from .trig_symbolic_parser import SymbolicTrigonometricParser, compile_atoms
 S, C, T, U = sp.symbols("s c tangent cotangent", real=True)
 
 
-def compile_equation(formula):
+def compile_equation(formula, *, allow_cubic=False):
     text = clean(formula).removesuffix(".")
     if text.count("=") != 1:
         raise UnsupportedCondition("one complete trigonometric equation is required")
@@ -38,10 +38,21 @@ def compile_equation(formula):
             )
         compiled = {symbol: a.coefficient * T for symbol, a in atoms.items()}
         raw = sp.expand((values[0] - values[1]).xreplace(compiled))
-        if not raw.is_polynomial(T) or raw == 0 or sp.degree(raw, T) > 2:
+        if (
+            not raw.is_polynomial(T)
+            or raw == 0
+            or sp.degree(raw, T) > (3 if allow_cubic else 2)
+        ):
             raise UnsupportedCondition(
-                "a nonzero tangent polynomial of degree at most two is required"
+                "a nonzero tangent polynomial in the reviewed degree range is required"
             )
+        if sp.degree(raw, T) == 3:
+            from .exam_trigonometric_cubic import groupable
+
+            if not groupable(raw, T):
+                raise UnsupportedCondition(
+                    "the reviewed tangent cubic needs an affine factor and an even quadratic"
+                )
         return raw, ()
     base, _, compiled, poles = compile_atoms(parser)
     if (

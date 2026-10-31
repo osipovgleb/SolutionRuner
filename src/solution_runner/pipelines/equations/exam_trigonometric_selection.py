@@ -48,3 +48,48 @@ def progressions(a):
             for root in values:
                 html += line("x=" + pi(root))
     return html
+
+
+def finish(a):
+    from dataclasses import replace
+
+    from .exam_inverse_bounds import validate
+    from .exam_trigonometric import select
+    from .exam_trigonometric_affine_selection import combine
+    from .exam_trigonometric_inverse import centred
+
+    series = tuple((q / a.scale - a.translation, p / a.scale) for q, p in a.series)
+    if a.shifted_notation:
+        series = tuple(s for item in series for s in centred((item,)))
+    elif a.selection_method == "inequalities":
+        series = centred(series)
+    for bound in a.bounds[:2]:
+        validate(bound)
+    selected, trace = select(series, a.bounds)
+    if a.affine is not None:
+        selected = combine(selected, a.affine.roots, a.bounds)
+    return replace(a, series=series, selected=selected, selections=trace)
+
+
+def periodic(residues):
+    residues = set(residues)
+    if not residues:
+        return ()
+    shifts = sorted(
+        {
+            sp.Integer(2),
+            *((b - a) % 2 for a in residues for b in residues if (b - a) % 2),
+        }
+    )
+    period = next(p for p in shifts if {(q + p) % 2 for q in residues} == residues)
+    return tuple((q, period) for q in sorted({q % period for q in residues}))
+
+
+def canonical(series):
+    from .exam_trigonometric import select
+
+    if any(q.is_Rational is not True or p.is_Rational is not True for q, p in series):
+        raise UnsupportedCondition(
+            "multiple methods require reviewed rational-pi series"
+        )
+    return select(series, (sp.Integer(0), sp.Integer(2), True, False))[0]

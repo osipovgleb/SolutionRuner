@@ -216,6 +216,11 @@ def select_inverse(series, bounds):
 
 
 def decode(value):
+    if isinstance(value, dict) and set(value) == {"scalar"}:
+        scalar = sp.Rational(value["scalar"])
+        if abs(scalar) > 1000:
+            raise UnsupportedCondition("the isolated scalar exceeds the reviewed range")
+        return scalar / sp.pi
     if isinstance(value, str):
         return sp.Rational(value)
     if (

@@ -13,6 +13,7 @@ from .exam_trigonometric_prepared_circle import recipe, source_less
 
 DIRECTORY = Path(__file__).parent / "assets/exam-trigonometry"
 CIRCLES = json.loads((DIRECTORY / "source-circles.json").read_text())
+LINES = json.loads((DIRECTORY / "source-lines.json").read_text())
 KEY = "exam_trig_circle"
 
 
@@ -24,13 +25,13 @@ def source(context):
     if (
         len(originals) != 1
         or len(generated) > 1
-        or originals[0].get("asset_id") not in CIRCLES
+        or originals[0].get("asset_id") not in (CIRCLES.keys() | LINES.keys())
     ):
         raise UnsupportedCondition(
             "one mathematically audited source circle is required"
         )
     asset = originals[0]
-    entry = CIRCLES[asset["asset_id"]]
+    entry = (CIRCLES | LINES)[asset["asset_id"]]
     if (
         asset.get("asset_key") != "image_1"
         or asset.get("url") != "/assets/" + asset["asset_id"]
@@ -70,6 +71,17 @@ def read(context):
 
 
 def validate(entry, a):
+    if (
+        entry.get("prepared_kind") == "number_line"
+        and a.selection_method != "number_line"
+    ):
+        raise UnsupportedCondition(
+            "the prepared number line requires its reviewed selection method"
+        )
+    if entry.get("figure_kind") == "number_line":
+        from .exam_trigonometric_number_line import validate as validate_line
+
+        return validate_line(entry, a)
     from .exam_trigonometric_inverse import decode
 
     expected = tuple(decode(q) for q in entry["residues"])
@@ -88,6 +100,12 @@ def validate(entry, a):
         )[0]
         actual_bounds = tuple(q * multiplier for q in a.bounds[:2]) + a.bounds[2:]
         selected = tuple(q * multiplier for q in a.selected)
+    if entry.get("label_scope") == "periodic":
+        from .exam_trigonometric import select
+        from .exam_trigonometric_number_line import validate_isolated
+
+        validate_isolated(entry, a)
+        selected = select(a.series, a.bounds)[0]
     scope = entry.get("point_scope", "all")
     if scope == "selected":
         from .exam_inverse_bounds import validate as validate_bound
@@ -141,11 +159,16 @@ def image(context, a, generated):
         return "", "", []
     asset, entry = source(context)
     validate(entry, a)
+    alt = (
+        "Числовая прямая для отбора корней"
+        if entry.get("prepared_kind", entry.get("figure_kind")) == "number_line"
+        else "Окружность для отбора корней"
+    )
     if entry.get("corrected_file"):
         markup, key, changes = solution_diagrams.image(
             context["normalized_content"],
             KEY,
-            "Окружность для отбора корней",
+            alt,
             svg=(DIRECTORY / entry["corrected_file"]).read_text(),
             generated=generated,
         )
@@ -157,7 +180,7 @@ def image(context, a, generated):
     markup, key, changes = solution_diagrams.image(
         context["normalized_content"],
         "image_1",
-        "Окружность для отбора корней",
+        alt,
         source_id=asset["asset_id"],
     )
     return (

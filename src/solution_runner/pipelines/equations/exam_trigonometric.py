@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass, replace
 from functools import cmp_to_key
+from typing import TYPE_CHECKING
 
 import sympy as sp
 
@@ -14,17 +15,21 @@ from .exam_trigonometric_compile import C, S, T, U, compile_equation, table
 from .exam_trigonometric_homogeneous import Reduction, convert
 from .exam_trigonometric_inverse import (
     angles,
-    centred,
     level_series,
     ordered,
     select_inverse,
 )
+from .exam_trigonometric_selection import canonical, periodic
 from .exam_trigonometric_style import (
     cotangent_method,
     division,
+    grouping_method,
     homogeneous_method,
     parent_style,
 )
+
+if TYPE_CHECKING:
+    from .exam_trigonometric_affine import AffineFactor
 
 
 @dataclass(frozen=True)
@@ -37,6 +42,7 @@ class Branch:
     original: sp.Expr | None = None
     excluded: tuple = ()
     impossible: bool = False
+    grouping: bool = False
 
 
 @dataclass(frozen=True)
@@ -76,23 +82,11 @@ class Analysis:
     shifted_notation: bool = False
     homogeneous: Reduction | None = None
     power_angle: sp.Rational | None = None
+    factored_source: sp.Expr | None = None
+    affine: "AffineFactor | None" = None
 
 
-def periodic(residues):
-    residues = set(residues)
-    if not residues:
-        return ()
-    shifts = sorted(
-        {
-            sp.Integer(2),
-            *((b - a) % 2 for a in residues for b in residues if (b - a) % 2),
-        }
-    )
-    period = next(p for p in shifts if {(q + p) % 2 for q in residues} == residues)
-    return tuple((q, period) for q in sorted({q % period for q in residues}))
-
-
-def solve_branches(raw, preferred, allow_inverse=False):
+def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
     from .exam_trigonometric_factors import project, separated
     from .exam_trigonometric_grouping import mixed_branches
     from .exam_trigonometric_ratios import linear_branch, ratio_branch
@@ -101,7 +95,12 @@ def solve_branches(raw, preferred, allow_inverse=False):
         return ratio_branch(raw, U if raw.has(U) else T)
     if preferred in (T, U):
         return mixed_branches(raw)
-    reduced, expressions = project(raw, preferred)
+    if factored:
+        from .exam_trigonometric_factors import source_factors
+
+        reduced, expressions = raw, source_factors(raw)
+    else:
+        reduced, expressions = project(raw, preferred)
     branches = []
     for expression in expressions:
         variables = expression.free_symbols & {S, C}
@@ -130,6 +129,9 @@ def solve_branches(raw, preferred, allow_inverse=False):
         branches.append(Branch(variable, p, values, accepted, residues))
     if any(b.original is not None for b in branches):
         reduced = raw
+    if factored:
+        zero = S if sp.rem(raw, S * S, S) == 0 else C
+        branches.sort(key=lambda b: b.variable != zero)
     return reduced, tuple(sorted(branches, key=lambda b: b.original is not None))
 
 
@@ -199,14 +201,6 @@ def analyze(formula, interval, bounds, parent_html):
     return result
 
 
-def canonical(series):
-    if any(q.is_Rational is not True or p.is_Rational is not True for q, p in series):
-        raise UnsupportedCondition(
-            "multiple methods require reviewed rational-pi series"
-        )
-    return select(series, (sp.Integer(0), sp.Integer(2), True, False))[0]
-
-
 def root_series(branches, residues, domain, allow_inverse):
     if domain is not None:
         series = tuple(s for branch in branches for s in periodic(branch.residues))
@@ -233,7 +227,7 @@ def root_series(branches, residues, domain, allow_inverse):
     return series
 
 
-def method_equation(formula, preferred, scale, translation):
+def method_equation(formula, preferred, scale, translation, *, grouping=False):
     from .exam_trigonometric_absolute import compile_absolute
     from .exam_trigonometric_domain import radical_product
     from .exam_trigonometric_methods import Equation, compile_reviewed
@@ -258,7 +252,7 @@ def method_equation(formula, preferred, scale, translation):
     if scale != 1 or translation:
         return compile_reviewed(formula, preferred, scale, translation), None
     try:
-        raw, identities = compile_equation(formula)
+        raw, identities = compile_equation(formula, allow_cubic=grouping)
     except UnsupportedCondition:
         return compile_reviewed(formula, preferred, scale, translation), None
     return Equation(raw, identities, sp.S.One), None
@@ -289,15 +283,28 @@ def analyze_method(
     if homogeneous_method(parent_html):
         preferred, preferred_scale = T, sp.S.One
     allow_inverse = method == "inequalities" or r"\arccos" in parent_html
-    compiled, domain = method_equation(formula, preferred, preferred_scale, translation)
+    compiled, domain = method_equation(
+        formula,
+        preferred,
+        preferred_scale,
+        translation,
+        grouping=grouping_method(parent_html),
+    )
     if not compiled.raw.has(T, U) and cotangent_method(parent_html):
         preferred = U
     compiled = convert(compiled, preferred)
+    from .exam_trigonometric_factors import preserve_zero_square
+
+    compiled = preserve_zero_square(compiled, parent_html)
     raw, identities = compiled.raw, compiled.identities
-    reduced, branches = solve_branches(raw, preferred, allow_inverse)
+    reduced, branches = solve_branches(
+        raw, preferred, allow_inverse, factored=compiled.factored_source is not None
+    )
     if domain is not None:
         branches = restrict(branches, domain, compiled.strict_domain)
     branches = without_poles(branches, compiled.poles)
+    if grouping_method(parent_html) and domain is None and not compiled.poles:
+        branches = tuple(replace(b, grouping=True) for b in branches)
     if len(branches) == 1:
         preferred = branches[0].variable
     residues = ordered(q for b in branches for q in b.residues)
@@ -309,55 +316,49 @@ def analyze_method(
         parent_html,
         (preferred, method),
     )
-    series = tuple(
-        (q / compiled.scale - translation, p / compiled.scale) for q, p in series
-    )
-    if shifted_notation:
-        series = tuple(s for item in series for s in centred((item,)))
-    elif method == "inequalities":
-        series = centred(series)
     qbounds = tuple(sp.cancel(b / sp.pi) for b in bounds[:2]) + bounds[2:]
-    from .exam_inverse_bounds import validate as validate_bound
+    from .exam_trigonometric_selection import finish
 
-    for bound in qbounds[:2]:
-        validate_bound(bound)
-    selected, trace = select(series, qbounds)
-    return Analysis(
-        formula,
-        raw,
-        identities,
-        reduced,
-        branches,
-        residues,
-        series,
-        selected,
-        trace,
-        interval,
-        qbounds,
-        preferred,
-        square,
-        alternating,
-        position,
-        substitution,
-        method,
-        factorized(parent_html),
-        domain,
-        compiled.scale,
-        compiled.poles,
-        compiled.reciprocal,
-        compiled.doubled,
-        None,
-        allow_inverse,
-        compiled.rewritten,
-        merged,
-        translation,
-        compiled.strict_domain,
-        compiled.fraction,
-        compiled.absolute,
-        dividing,
-        shifted_notation,
-        compiled.homogeneous,
-        compiled.power_angle,
+    return finish(
+        Analysis(
+            formula,
+            raw,
+            identities,
+            reduced,
+            branches,
+            residues,
+            series,
+            (),
+            (),
+            interval,
+            qbounds,
+            preferred,
+            square,
+            alternating,
+            position,
+            substitution,
+            method,
+            factorized(parent_html),
+            domain,
+            compiled.scale,
+            compiled.poles,
+            compiled.reciprocal,
+            compiled.doubled,
+            None,
+            allow_inverse,
+            compiled.rewritten,
+            merged,
+            translation,
+            compiled.strict_domain,
+            compiled.fraction,
+            compiled.absolute,
+            dividing,
+            shifted_notation,
+            compiled.homogeneous,
+            compiled.power_angle,
+            compiled.factored_source,
+            compiled.affine,
+        )
     )
 
 

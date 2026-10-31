@@ -21,6 +21,9 @@ def parent_style(parent_html):
         or (len(images) == 1 and "удовлетворяют числа" in text)
         or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
         or (len(images) == 1 and "отрезку" in text and "принадлежат корни" in text)
+        or (len(images) == 1 and "получим точку" in text)
+        else "number_line"
+        if len(images) == 1 and ("числовой оси" in text or "числовой прямой" in text)
         else "inequalities"
         if "решим неравенства" in text
         or "решив неравенство" in text
@@ -42,7 +45,7 @@ def parent_style(parent_html):
     from .exam_trigonometric_methods import preference
 
     function, _ = preference(parent_html)
-    if len(images) != (1 if selection_method == "circle" else 0):
+    if len(images) != (1 if selection_method in ("circle", "number_line") else 0):
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
         )
@@ -108,3 +111,21 @@ def cotangent_method(parent_html):
         for name in re.findall(r"\\(tg|ctg)(?:\d*)x=", "".join(formula.split()))
     ]
     return bool(ratios) and ratios[-1] == "ctg"
+
+
+def zero_square_method(parent_html):
+    formulas = [
+        "".join(s["data-inline-latex"].split())
+        for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    ]
+    return any(re.search(r"\\(?:sin|cos)\^\{?2\}?x(?:\\cdot)?\(", f) for f in formulas)
+
+
+def grouping_method(parent_html):
+    formulas = [
+        "".join(s["data-inline-latex"].split())
+        for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    ]
+    return any(
+        re.search(r"\\(?:sin|cos|tg|ctg)\^\{?2\}?x\([^()]+\)[+-]", f) for f in formulas
+    )

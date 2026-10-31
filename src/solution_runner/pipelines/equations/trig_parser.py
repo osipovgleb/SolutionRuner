@@ -12,6 +12,7 @@ from .trig_angles import TrigAtom, parse_angle, signs
 
 class TrigonometricParser(LogarithmParser):
     allowed_powers = (1, 2, 3, 4)
+    implicit_prefixes = (r"\sin", r"\cos", r"\tg", r"\ctg", r"\sqrt")
 
     def __init__(self, text, atoms=None, denominators=None, depth=0):
         super().__init__(text, depth)
@@ -51,9 +52,7 @@ class TrigonometricParser(LogarithmParser):
             else:
                 if not (
                     self.text[self.index] == "("
-                    or self.text.startswith(
-                        (r"\sin", r"\cos", r"\tg", r"\ctg", r"\sqrt"), self.index
-                    )
+                    or self.text.startswith(self.implicit_prefixes, self.index)
                 ):
                     break
             value = self._combine(kind, value, self._factor())
