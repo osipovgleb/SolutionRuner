@@ -20,6 +20,7 @@ _PATTERNS = {
     "equal_distance": rf"Первую треть трассы автомобиль ехал со скоростью (?P<v1>{VALUE}) км/ч, вторую треть — со скоростью (?P<v2>{VALUE}) км/ч, а последнюю — со скоростью (?P<v3>{VALUE}) км/ч\.",
     "time": rf"Перв(?:ые|ый) (?P<t1>{HOUR}) автомобиль ехал со скоростью (?P<v1>{VALUE}) км/ч, следующ(?:ий|ие) (?P<t2>{HOUR}) — со скоростью (?P<v2>{VALUE}) км/ч, а затем (?P<t3>{HOUR}) — со скоростью (?P<v3>{VALUE}) км/ч\.",
     "distance": rf"Первые (?P<s1>{VALUE}) км автомобиль ехал со скоростью (?P<v1>{VALUE}) км/ч, следующие (?P<s2>{VALUE}) км — со скоростью (?P<v2>{VALUE}) км/ч, а затем (?P<s3>{VALUE}) км — со скоростью (?P<v3>{VALUE}) км/ч\.",
+    "sea_return": rf"Путешественник переплыл море на яхте со средней скоростью (?P<v1>{VALUE}) км/ч\. Обратно он летел на спортивном самолете со скоростью (?P<v2>{VALUE}) км/ч\.",
 }
 
 
@@ -36,9 +37,14 @@ class Question:
 
 def parse(text):
     for kind, pattern in _PATTERNS.items():
-        match = re.fullmatch(pattern + _END, text)
+        ending = (
+            r" Найдите среднюю скорость путешественника на протяжении всего пути\. Ответ дайте в км/ ?ч\."
+            if kind == "sea_return"
+            else _END
+        )
+        match = re.fullmatch(pattern + ending, text)
         if match:
-            size = 2 if kind == "equal_time" else 3
+            size = 2 if kind in {"equal_time", "sea_return"} else 3
             speeds = tuple(scalar(match[f"v{i}"]) for i in range(1, size + 1))
             if kind == "time":
                 weights = tuple(
@@ -94,14 +100,20 @@ def equal_parts(a):
             + "="
             + n(a.result)
         )
-    html = "<p>Пусть 3S км — весь путь автомобиля. Каждая треть равна S км; время прохождения каждого участка найдём по формуле t=S/v:</p>"
+    size = len(q.speeds)
+    html = (
+        "<p>Пусть 3S км — весь путь автомобиля. Каждая треть равна S км; время прохождения каждого участка найдём по формуле t=S/v:</p>"
+        if size == 3
+        else "<p>Пусть 2S км — весь путь путешественника. Путь туда и обратно одинаков и равен S км. Найдём время каждого участка по формуле t=S/v:</p>"
+    )
     html += line(r"t_{\mathrm{общ}}=" + "+".join(frac("S", n(v)) for v in q.speeds))
     html += line(
-        r"v_{\mathrm{ср}}=" + frac("3S", "+".join(frac("S", n(v)) for v in q.speeds))
+        r"v_{\mathrm{ср}}="
+        + frac(str(size) + "S", "+".join(frac("S", n(v)) for v in q.speeds))
     )
     html += line("+".join(frac("1", n(v)) for v in q.speeds) + "=" + n(sum(a.times)))
     return html + line(
-        r"v_{\mathrm{ср}}=" + frac("3", n(sum(a.times))) + "=" + n(a.result)
+        r"v_{\mathrm{ср}}=" + frac(str(size), n(sum(a.times))) + "=" + n(a.result)
     )
 
 
@@ -137,7 +149,9 @@ def proof(a):
     html = "<p>Чтобы найти среднюю скорость на протяжении пути, нужно весь путь разделить на всё время движения:</p>"
     html += line(r"v_{\mathrm{ср}}=\frac{S_{\mathrm{общ}}}{t_{\mathrm{общ}}}")
     return html + (
-        equal_parts(a) if a.question.kind.startswith("equal_") else specified_parts(a)
+        equal_parts(a)
+        if a.question.kind.startswith("equal_") or a.question.kind == "sea_return"
+        else specified_parts(a)
     )
 
 

@@ -39,7 +39,10 @@ def half_trip(q):
 def different_speeds(q):
     distance, gap = q.values["distance"], q.values["gap"]
     delay = q.durations["delay"].total
-    if q.kind in {"race", "return"} and q.target_fast:
+    if (
+        q.kind in {"race", "return", "water_follow", "water_lake_return"}
+        and q.target_fast
+    ):
         return Balance(
             distance / X + delay,
             distance / (X - gap),
@@ -186,6 +189,12 @@ def midpoint(q):
     return replace(different_speeds(half), output=X + q.values["gap"])
 
 
+def water(q):
+    from .water_balances import balance
+
+    return balance(q)
+
+
 BUILDERS = {
     "half_gain": half_trip,
     "half_loss": half_trip,
@@ -208,6 +217,19 @@ BUILDERS = {
     "stopped": stopped,
     "named_stop": stopped,
     "midpoint": midpoint,
+    "water_follow": different_speeds,
+    "water_lake_return": different_speeds,
+    "water_upgrade": different_speeds,
+    "water_current_difference": water,
+    "water_boat_difference": water,
+    "water_current_stay": water,
+    "water_boat_stay": water,
+    "water_current_clock": water,
+    "water_boat_clock": water,
+    "water_distance": water,
+    "water_raft": water,
+    "water_season_current": water,
+    "water_season_boat": water,
 }
 
 

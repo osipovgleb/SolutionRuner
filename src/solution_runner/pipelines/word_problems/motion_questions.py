@@ -109,6 +109,12 @@ class Question:
 
     @property
     def symbol(self):
+        if self.kind == "water_distance":
+            return "S"
+        if self.kind in {"water_season_current", "water_season_boat"}:
+            return "y"
+        if self.kind.startswith("water_"):
+            return "u"
         return {
             "meeting": "t",
             "delayed_point": "S",
@@ -171,4 +177,6 @@ def parse(text):
                 data.get("route") == "В в А" or data.get("place") == "первым",
                 "автомобиля" if "автомобиля отправляются" in text else "велосипедиста",
             )
-    raise UnsupportedCondition("the complete road-motion question must be recognized")
+    from .water_questions import parse_water
+
+    return parse_water(text)

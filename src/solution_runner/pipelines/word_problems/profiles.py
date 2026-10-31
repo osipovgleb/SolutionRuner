@@ -246,107 +246,125 @@ PROFILES += tuple(
         order,
         catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
         category_key="11",
-        theme_title="Задачи на движение по прямой",
-        theme_order_index=1,
-        snapshot_theme_id="bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+        theme_title=theme_title,
+        theme_order_index=theme_order,
+        snapshot_theme_id=theme_id,
         expected_vertices=None,
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key=rule,
         rewrite_existing_solution=True,
     )
-    for rule, groups in (
+    for theme_title, theme_id, theme_order, families in (
         (
-            "word-motion-time-balance",
-            (
-                ("26578", "fa37c648-96e0-4b2c-9673-4607144ea5d2", 0),
-                ("26579", "dc71b414-72b9-45a4-b6b1-ce768dea57df", 1),
-                ("26580", "2f330157-7e9d-4424-8a47-48642d70109d", 2),
-                ("26581", "fe66bb25-a99e-41da-97a3-c17b3b39c728", 3),
-                ("26582", "b98f7cf2-874a-4441-b95b-b4338502190c", 4),
-                ("26583", "035d2634-f2da-4fee-bc95-715bb1106d52", 5),
-                ("26584", "08a902ca-8916-4121-8150-0401231a15aa", 6),
-                ("99588", "126bc7f8-279c-4595-a259-4209ef0b8e63", 7),
-                ("99589", "6c400b5e-9691-406a-b1b4-df2d6c0f9379", 8),
-                ("99590", "372bdfa1-91a7-4320-a0cb-0e57440a242c", 9),
-                ("99591", "4e668db5-076b-4ef8-bcae-d0fe544ac92f", 10),
-                ("99592", "466fe2a5-9437-4b38-bf5d-d34c2482a275", 11),
-                ("99593", "5e64b5e3-a609-4017-a5ef-ce3521d898c3", 12),
-                ("99594", "4bf8a491-a245-43e7-8191-a54a75d7185b", 13),
-                ("99597", "13abf819-9840-4960-bd29-a27068d4a661", 15),
-                ("323849", "9915329d-214f-4f20-9bd0-d2b6a485aec5", 24),
-                ("323850", "2cd00de1-75b0-4bf9-ac08-958dfa0c30d7", 25),
-                ("323853", "d14a1a6b-85e6-482f-aa04-800252e0368a", 26),
-                ("502291", "cd9c8e3b-31e3-4dd5-ab75-7de1b4af5b22", 27),
-                ("635151", "505de21a-e276-4577-8189-5fe4f7430fc6", 29),
-            ),
-        ),
-        (
-            "word-average-speed",
-            (
-                ("99603", "c92f9975-6b8d-4753-a7b2-5509fb7b5a70", 16),
-                ("99605", "20569b24-8e31-4b71-858a-9f5d9df38347", 17),
-                ("99606", "7dc30f3c-c80f-40f2-a592-77fad479bc73", 18),
-                ("99607", "1957bb77-e896-488f-a70a-5d9866d83ecd", 19),
-            ),
-        ),
-        (
-            "word-relative-displacement",
-            (
-                ("99595", "da9962d4-c0eb-4980-9b79-99677e5365e7", 14),
-                ("99608", "862cb4c3-1de2-434e-992f-13585bfae289", 20),
-                ("99609", "2f9722ee-081e-4881-9ea9-fae2fe9785c1", 21),
-                ("99611", "77b7da76-9933-465e-bfcb-bad401b219e2", 22),
-                ("99612", "467297e5-d0c2-4171-bea7-f1bcfaf4b539", 23),
-                ("549340", "220c2e59-5b34-4860-9334-02ff1d464487", 28),
-            ),
-        ),
-    )
-    for key, source_id, order in groups
-)
-
-
-PROFILES += tuple(
-    _profile(
-        key,
-        source_id,
-        order,
-        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
-        category_key="11",
-        theme_title="Задачи на движение по окружности",
-        theme_order_index=2,
-        snapshot_theme_id="48525372-6b73-4d8f-82cb-274049709ab2",
-        expected_vertices=None,
-        strategy_key=None,
-        workflow_kind="content_rule",
-        content_rule_key=rule,
-        rewrite_existing_solution=True,
-    )
-    for key, source_id, order, rule in (
-        (
-            "99596",
-            "a81365bb-ed2c-4b70-9e89-347b3c1e74e3",
-            0,
-            "word-relative-displacement",
-        ),
-        (
-            "99598",
-            "96345021-8e6b-41d1-a09d-75d763192eca",
+            "Задачи на движение по прямой",
+            "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
             1,
-            "word-relative-displacement",
+            (
+                (
+                    "word-motion-time-balance",
+                    (
+                        ("26578", "fa37c648-96e0-4b2c-9673-4607144ea5d2", 0),
+                        ("26579", "dc71b414-72b9-45a4-b6b1-ce768dea57df", 1),
+                        ("26580", "2f330157-7e9d-4424-8a47-48642d70109d", 2),
+                        ("26581", "fe66bb25-a99e-41da-97a3-c17b3b39c728", 3),
+                        ("26582", "b98f7cf2-874a-4441-b95b-b4338502190c", 4),
+                        ("26583", "035d2634-f2da-4fee-bc95-715bb1106d52", 5),
+                        ("26584", "08a902ca-8916-4121-8150-0401231a15aa", 6),
+                        ("99588", "126bc7f8-279c-4595-a259-4209ef0b8e63", 7),
+                        ("99589", "6c400b5e-9691-406a-b1b4-df2d6c0f9379", 8),
+                        ("99590", "372bdfa1-91a7-4320-a0cb-0e57440a242c", 9),
+                        ("99591", "4e668db5-076b-4ef8-bcae-d0fe544ac92f", 10),
+                        ("99592", "466fe2a5-9437-4b38-bf5d-d34c2482a275", 11),
+                        ("99593", "5e64b5e3-a609-4017-a5ef-ce3521d898c3", 12),
+                        ("99594", "4bf8a491-a245-43e7-8191-a54a75d7185b", 13),
+                        ("99597", "13abf819-9840-4960-bd29-a27068d4a661", 15),
+                        ("323849", "9915329d-214f-4f20-9bd0-d2b6a485aec5", 24),
+                        ("323850", "2cd00de1-75b0-4bf9-ac08-958dfa0c30d7", 25),
+                        ("323853", "d14a1a6b-85e6-482f-aa04-800252e0368a", 26),
+                        ("502291", "cd9c8e3b-31e3-4dd5-ab75-7de1b4af5b22", 27),
+                        ("635151", "505de21a-e276-4577-8189-5fe4f7430fc6", 29),
+                    ),
+                ),
+                (
+                    "word-relative-displacement",
+                    (
+                        ("99595", "da9962d4-c0eb-4980-9b79-99677e5365e7", 14),
+                        ("99608", "862cb4c3-1de2-434e-992f-13585bfae289", 20),
+                        ("99609", "2f9722ee-081e-4881-9ea9-fae2fe9785c1", 21),
+                        ("99611", "77b7da76-9933-465e-bfcb-bad401b219e2", 22),
+                        ("99612", "467297e5-d0c2-4171-bea7-f1bcfaf4b539", 23),
+                        ("549340", "220c2e59-5b34-4860-9334-02ff1d464487", 28),
+                    ),
+                ),
+                (
+                    "word-average-speed",
+                    (
+                        ("99603", "c92f9975-6b8d-4753-a7b2-5509fb7b5a70", 16),
+                        ("99605", "20569b24-8e31-4b71-858a-9f5d9df38347", 17),
+                        ("99606", "7dc30f3c-c80f-40f2-a592-77fad479bc73", 18),
+                        ("99607", "1957bb77-e896-488f-a70a-5d9866d83ecd", 19),
+                    ),
+                ),
+            ),
         ),
         (
-            "99599",
-            "61b861bd-e4a8-44f6-abaf-a44a1a4c9040",
+            "Задачи на движение по окружности",
+            "48525372-6b73-4d8f-82cb-274049709ab2",
             2,
-            "word-relative-displacement",
+            (
+                (
+                    "word-relative-displacement",
+                    (
+                        ("99596", "a81365bb-ed2c-4b70-9e89-347b3c1e74e3", 0),
+                        ("99598", "96345021-8e6b-41d1-a09d-75d763192eca", 1),
+                        ("99599", "61b861bd-e4a8-44f6-abaf-a44a1a4c9040", 2),
+                    ),
+                ),
+                (
+                    "word-clock-meetings",
+                    (("99600", "0b494ec6-84fd-4945-a713-42b0bb086ab9", 3),),
+                ),
+                (
+                    "word-motion-time-balance",
+                    (("323856", "b11886ee-8b16-468d-a24a-60d6e6d1595a", 4),),
+                ),
+            ),
         ),
-        ("99600", "0b494ec6-84fd-4945-a713-42b0bb086ab9", 3, "word-clock-meetings"),
         (
-            "323856",
-            "b11886ee-8b16-468d-a24a-60d6e6d1595a",
-            4,
-            "word-motion-time-balance",
+            "Задачи на движение по воде",
+            "76adc7a5-a072-4b88-92aa-2a3589801d83",
+            3,
+            (
+                (
+                    "word-motion-time-balance",
+                    (
+                        ("26585", "3ffc974d-9104-4896-9e80-7f8cd55acd2d", 0),
+                        ("26586", "8b3032e0-0b61-4635-89a2-6f8b66146bbf", 1),
+                        ("26587", "cf261915-9f87-490c-a413-b92b3332cb25", 2),
+                        ("26588", "41ee30a9-f081-4d25-bd5e-2bfd2184652b", 3),
+                        ("26589", "d80b484f-0840-4969-ad6f-a137acd785f5", 4),
+                        ("26590", "35729d72-cfea-4673-b4dc-e1e662af9e7c", 5),
+                        ("26591", "2b0ca6f6-bded-42e0-aeea-197cf56befab", 6),
+                        ("26610", "cce453c1-82c5-4665-b982-83801739eaf1", 7),
+                        ("27482", "0b5d6171-9d62-4088-8b76-61d943133ca7", 8),
+                        ("99601", "a9f24044-f7bb-4dc6-94bf-a1229f265d79", 9),
+                        ("99602", "9d5dd52f-0fc7-4b5c-b1a9-10550bbed325", 10),
+                        ("500253", "80013aa1-5c05-48ac-9b9f-de35cea5b4b6", 13),
+                        ("680570", "bb4ff1c9-fce3-4294-8b4d-0503d73ea5ac", 14),
+                    ),
+                ),
+                (
+                    "word-average-speed",
+                    (("99604", "2cf0c9c1-523d-423e-9357-7b42b237b23d", 11),),
+                ),
+                (
+                    "word-relative-displacement",
+                    (("99610", "73ffbbd3-6e33-40f3-84ca-e9a9990f3d29", 12),),
+                ),
+            ),
         ),
     )
+    for rule, members in families
+    for key, source_id, order in members
 )

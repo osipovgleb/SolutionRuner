@@ -20,29 +20,45 @@ class Analysis:
     result: sp.Rational
 
 
-def analyze(q):
+def cargo_analysis(q):
+    displacement = sum(q.values.values()) / 1000
+    rate = displacement * 3600 / q.time.total_seconds
+    return Analysis(q, rate, displacement, rate)
+
+
+def lap_speed_analysis(q):
+    rate = q.values["distance"] * 3600 / q.time.total_seconds
+    result = q.values["first"] - rate
+    if result <= 0:
+        raise UnsupportedCondition("positive speed for the overtaken car is required")
+    return Analysis(q, rate, q.values["distance"], result)
+
+
+def lap_chase_analysis(q):
     v = q.values
-    if q.kind == "opposite_points":
-        return Analysis(q, v["gap"], v["distance"] / 2, 30 * v["distance"] / v["gap"])
-    if q.kind == "lap_speed":
-        rate = v["distance"] * 3600 / q.time.total_seconds
-        result = v["first"] - rate
-        if result <= 0:
-            raise UnsupportedCondition(
-                "positive speed for the overtaken car is required"
-            )
-        return Analysis(q, rate, v["distance"], result)
-    if q.kind == "lap_chase":
-        rate = 60 * v["distance"] / v["lap_minutes"]
-        bicycle = rate * v["catch_minutes"] / v["lag_minutes"]
-        if bicycle * v["lag_minutes"] / 60 >= v["distance"]:
-            raise UnsupportedCondition(
-                "the cyclist must not have completed a lap before the motorcycle starts"
-            )
-        return Analysis(q, rate, v["distance"], bicycle + rate)
+    rate = 60 * v["distance"] / v["lap_minutes"]
+    bicycle = rate * v["catch_minutes"] / v["lag_minutes"]
+    if bicycle * v["lag_minutes"] / 60 >= v["distance"]:
+        raise UnsupportedCondition(
+            "the cyclist must not have completed a lap before the motorcycle starts"
+        )
+    return Analysis(q, rate, v["distance"], bicycle + rate)
+
+
+DIRECT_ANALYSES = {
+    "cargo_pass": cargo_analysis,
+    "lap_speed": lap_speed_analysis,
+    "lap_chase": lap_chase_analysis,
+}
+
+
+def analyze(q):
+    if q.kind in DIRECT_ANALYSES:
+        return DIRECT_ANALYSES[q.kind](q)
+    v = q.values
     if q.kind in {"pole", "forest"}:
         rate = v["speed"]
-    elif q.kind == "walk_gap":
+    elif q.kind in {"walk_gap", "opposite_points"}:
         rate = v["gap"]
     elif q.kind == "opposite_trains":
         rate = v["first"] + v["second"]
@@ -52,8 +68,8 @@ def analyze(q):
         raise UnsupportedCondition(
             "positive relative speed in the stated direction is required"
         )
-    if q.kind == "walk_gap":
-        displacement = v["distance"] / 1000
+    if q.kind in {"walk_gap", "opposite_points"}:
+        displacement = v["distance"] / (1000 if q.kind == "walk_gap" else 2)
         result = 60 * displacement / rate
     else:
         displacement = rate * q.time.total_seconds / 3600
@@ -240,8 +256,11 @@ def car_proof(a):
 
 def proof(a):
     from .relative_circle_proof import PROOFS
+    from .water_relative_proof import cargo_pass
 
     kind = a.question.kind
+    if kind == "cargo_pass":
+        return cargo_pass(a)
     if kind in PROOFS:
         return PROOFS[kind](a)
     if kind == "walk_gap":

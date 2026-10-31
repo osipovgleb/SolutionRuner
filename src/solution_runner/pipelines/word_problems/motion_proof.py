@@ -76,6 +76,8 @@ def conversions(q):
                 "total": "Всё время пути",
                 "down": "Время спуска",
                 "lap_time": "Время до первого обгона",
+                "stop": "Время стоянки",
+                "elapsed": "Всё время рейса",
             }.get(key, "Указанное время")
             html += f"<p>{purpose} переведём в часы:</p>"
             html += line(
@@ -219,6 +221,10 @@ def proof(a):
     from .motion_extended_proof import PROOFS
 
     q = a.question
+    if q.kind.startswith("water_"):
+        from .water_proof import proof as water
+
+        return water(a)
     if q.kind in PROOFS:
         return PROOFS[q.kind](a)
     html = conversions(q)
