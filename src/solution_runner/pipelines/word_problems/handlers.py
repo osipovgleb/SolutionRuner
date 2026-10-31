@@ -2,8 +2,17 @@
 
 from solution_runner.pipelines.core.handlers import HandlerSpec
 
-
 HANDLERS = (
+    HandlerSpec(
+        "word-mixture-balance",
+        "solution_runner.pipelines.word_problems.mixture_models:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "word-compound-deposit",
+        "solution_runner.pipelines.word_problems.compound_deposit:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
     HandlerSpec(
         "word-problem-77331-mobile-call-duration",
         "solution_runner.pipelines.word_problems.group_77331:build_context_repair_plan",
@@ -64,7 +73,19 @@ HANDLERS = (
         "solution_runner.pipelines.word_problems.group_99567:build_context_repair_plan",
         requires_parent_condition_asset=False,
     ),
-    HandlerSpec("word-problem-99568-family-income-system", "solution_runner.pipelines.word_problems.group_99568:build_context_repair_plan", requires_parent_condition_asset=False),
-    HandlerSpec("word-problem-99569-refrigerator-price-decline", "solution_runner.pipelines.word_problems.group_99569:build_context_repair_plan", requires_parent_condition_asset=False),
-    HandlerSpec("word-problem-99570-company-capital-profit-tables", "solution_runner.pipelines.word_problems.group_99570:build_context_repair_plan", requires_parent_condition_asset=False),
+    HandlerSpec(
+        "word-problem-99568-family-income-system",
+        "solution_runner.pipelines.word_problems.group_99568:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "word-problem-99569-refrigerator-price-decline",
+        "solution_runner.pipelines.word_problems.group_99569:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "word-problem-99570-company-capital-profit-tables",
+        "solution_runner.pipelines.word_problems.group_99570:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
 )

@@ -79,11 +79,23 @@ def test_source_answer_is_computed_without_mutation_and_replay_has_no_more_chang
         assert t["transformation_target_id"].startswith(
             ("section:answer", "section:solution")
         )
+        sections = context["normalized_content"]["sections"]
         section = next(
-            s
-            for s in context["normalized_content"]["sections"]
-            if s["transformation_target_id"] == t["transformation_target_id"]
+            (
+                s
+                for s in sections
+                if s["transformation_target_id"] == t["transformation_target_id"]
+            ),
+            None,
         )
+        if section is None:
+            key = t["transformation_target_id"].split(":")[1]
+            section = {
+                "key": key,
+                "section_id": key + ":1",
+                "transformation_target_id": t["transformation_target_id"],
+            }
+            sections.append(section)
         section.update(t["value"])
     assert plan(case, context).transformations == ()
 
@@ -104,9 +116,13 @@ def test_unknown_instructions_and_assets_fail_closed(case, mode):
     elif mode == "asset":
         content["assets"] = [{"asset_id": "foreign", "asset_key": "image_1"}]
     else:
-        next(s for s in content["sections"] if s["key"] == "solution")["asset_keys"] = [
-            "foreign"
-        ]
+        solution = next(
+            (s for s in content["sections"] if s["key"] == "solution"), None
+        )
+        if solution is None:
+            solution = {"key": "solution", "html": "<p></p>"}
+            content["sections"].append(solution)
+        solution["asset_keys"] = ["foreign"]
     with pytest.raises(ValueError):
         plan(case, context)
 
