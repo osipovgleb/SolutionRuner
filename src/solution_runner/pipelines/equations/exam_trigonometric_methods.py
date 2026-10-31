@@ -112,6 +112,7 @@ class Equation:
     cleared_denominator: sp.Expr | None = None
     square_difference: "SquareDifference | None" = None
     symmetric: "SumReduction | None" = None
+    square_product: tuple | None = None
 
 
 def shifted_atom(atom):

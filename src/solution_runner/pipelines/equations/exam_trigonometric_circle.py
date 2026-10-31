@@ -71,6 +71,13 @@ def read(context):
 
 
 def validate(entry, a):
+    if "complete_residues" in entry:
+        from .exam_trigonometric_inverse import decode
+
+        if tuple(decode(q) for q in entry["complete_residues"]) != a.residues:
+            raise UnsupportedCondition(
+                "the prepared figure must preserve the complete root set"
+            )
     if (
         entry.get("prepared_kind") == "number_line"
         and a.selection_method != "number_line"
@@ -147,13 +154,18 @@ def image(context, a, generated):
                     "the prepared circle requires the reviewed circle-selection method"
                 )
             validate(entry, a)
-            return solution_diagrams.image(
+            markup, key, changes = solution_diagrams.image(
                 context["normalized_content"],
                 KEY,
                 "Окружность для отбора корней",
                 svg=(DIRECTORY / entry["file"]).read_text(),
                 generated=generated,
             )
+            if entry.get("point_scope") == "selected":
+                markup += (
+                    "<p>На окружности отмечены только корни указанного промежутка.</p>"
+                )
+            return markup + point_caption(entry, a), key, changes
         if a.selection_method not in ("inequalities", "progressions"):
             raise UnsupportedCondition("circle selection requires its source figure")
         return "", "", []

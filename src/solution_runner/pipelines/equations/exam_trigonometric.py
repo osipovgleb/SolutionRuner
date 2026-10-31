@@ -7,10 +7,13 @@ import sympy as sp
 
 from ..word_problems.common import UnsupportedCondition
 from ..word_problems.math_common import primitive
+from . import exam_trigonometric_compile
 from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
-from .exam_trigonometric_compile import C, S, T, U, compile_equation, table
+from .exam_trigonometric_angle_product import reviewed as angle_product_method
+from .exam_trigonometric_compile import C, S, T, U, table
+from .exam_trigonometric_equation import method_equation
 from .exam_trigonometric_homogeneous import Reduction
 from .exam_trigonometric_inverse import (
     angles,
@@ -25,6 +28,8 @@ from .exam_trigonometric_style import (
     homogeneous_method,
     parent_style,
 )
+
+compile_equation = exam_trigonometric_compile.compile_equation
 
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
@@ -47,6 +52,8 @@ class Branch:
     angle_shift: sp.Rational = sp.S.Zero
     angle_scale: sp.Rational = sp.S.One
     quadratic_common: bool = False
+    square_factor: bool = False
+    square_discriminant: bool = False
 
 
 @dataclass(frozen=True)
@@ -92,6 +99,7 @@ class Analysis:
     cleared_denominator: sp.Expr | None = None
     square_difference: "SquareDifference | None" = None
     symmetric: "SumReduction | None" = None
+    square_product: tuple | None = None
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -210,43 +218,6 @@ def analyze(formula, interval, bounds, parent_html):
     return result
 
 
-def method_equation(
-    formula, preferred, scale, translation, *, grouping=False, difference=False
-):
-    from .exam_trigonometric_absolute import compile_absolute
-    from .exam_trigonometric_domain import radical_product
-    from .exam_trigonometric_methods import Equation, compile_reviewed
-    from .exam_trigonometric_radical_quotient import compile_quotient
-
-    absolute = compile_absolute(formula)
-    if absolute is not None:
-        return absolute, None
-
-    quotient = compile_quotient(formula)
-    if quotient is not None:
-        return quotient, quotient.domain
-
-    product = radical_product(formula)
-    if product is not None:
-        if translation:
-            raise UnsupportedCondition(
-                "translated radical products need a reviewed domain"
-            )
-        raw, identities, domain = product
-        return Equation(raw, identities, sp.S.One), domain
-    if scale != 1 or translation or difference:
-        return compile_reviewed(
-            formula, preferred, scale, translation, difference=difference
-        ), None
-    try:
-        raw, identities = compile_equation(formula, allow_cubic=grouping)
-    except UnsupportedCondition:
-        return compile_reviewed(
-            formula, preferred, scale, translation, difference=difference
-        ), None
-    return Equation(raw, identities, sp.S.One), None
-
-
 def analyze_method(
     formula,
     interval,
@@ -278,6 +249,7 @@ def analyze_method(
         translation,
         grouping=grouping_method(parent_html),
         difference=difference_method(parent_html),
+        product=angle_product_method(parent_html),
     )
     from .exam_trigonometric_factors import method_branches
 
@@ -342,6 +314,7 @@ def analyze_method(
             compiled.cleared_denominator,
             compiled.square_difference,
             compiled.symmetric,
+            compiled.square_product,
         )
     )
 

@@ -111,7 +111,11 @@ def polynomial(
         formula(p.subs(variable, symbol), angle) + "=0"
     )
     degree = sp.Poly(p, variable).degree()
-    if degree == 2 and factorization:
+    if branch.square_factor:
+        from .exam_trigonometric_square_factor import polynomial_proof
+
+        html += polynomial_proof(branch, symbol, angle)
+    elif degree == 2 and factorization:
         html += (
             "<p>Вынесем общий множитель. Произведение равно нулю, когда хотя бы один множитель равен нулю; на тригонометрический множитель не делим:</p>"
             if p.subs(variable, 0) == 0
@@ -194,6 +198,10 @@ def first(a):
         intro = (
             "<p>Сделаем замену переменной и решим полученное квадратное уравнение:</p>"
         )
+        if any(b.square_factor for b in a.branches):
+            intro = (
+                "<p>Сделаем замену переменной и разложим многочлен на множители:</p>"
+            )
         for text, value in a.identities:
             if value in (S, C):
                 continue

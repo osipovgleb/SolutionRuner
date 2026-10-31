@@ -108,10 +108,7 @@ def canonical(series):
 
 
 def root_series(branches, residues, domain, allow_inverse):
-    from functools import cmp_to_key
 
-    from .exam_scalar import compare
-    from .exam_trigonometric_compile import C
     from .exam_trigonometric_inverse import level_series
 
     if domain is not None:
@@ -130,10 +127,20 @@ def root_series(branches, residues, domain, allow_inverse):
             dict.fromkeys(
                 ((q - b.angle_shift) / b.angle_scale, period / b.angle_scale)
                 for b in branches
-                for v in sorted(
-                    b.values, key=cmp_to_key(compare), reverse=(b.variable == C)
-                )
+                for v in branch_values(b)
                 for q, period in level_series(b.variable, v, allow_inverse)
             )
         )
     return series
+
+
+def branch_values(branch):
+    from functools import cmp_to_key
+
+    from .exam_scalar import compare
+    from .exam_trigonometric_compile import C
+
+    values = sorted(
+        branch.values, key=cmp_to_key(compare), reverse=branch.variable == C
+    )
+    return sorted(values, key=lambda v: v != 0) if branch.square_factor else values

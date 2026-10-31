@@ -108,8 +108,11 @@ def method_branches(
         retain_order,
     )
     from .exam_trigonometric_homogeneous import convert
+    from .exam_trigonometric_square_factor import mark as mark_squares
+    from .exam_trigonometric_square_factor import prepare as square_product
     from .exam_trigonometric_style import cotangent_method
 
+    compiled = square_product(compiled, parent_html) if domain is None else compiled
     if compiled.square_difference is not None:
         from .exam_trigonometric_square_difference import parameter
 
@@ -134,7 +137,8 @@ def method_branches(
         compiled.raw,
         preferred,
         allow_inverse,
-        factored=compiled.factored_source is not None,
+        factored=compiled.factored_source is not None
+        or compiled.square_product is not None,
     )
     compiled, branches = retain_order(compiled, reduced, branches, parent_html, domain)
     if domain is not None:
@@ -144,10 +148,13 @@ def method_branches(
 
         branches = notation(branches, parent_html)
     branches = without_poles(branches, compiled.poles)
+    if compiled.cleared_denominator is not None and preferred == T:
+        branches = tuple(sorted(branches, key=lambda b: b.variable != T))
     if any(b.angle_shift for b in branches) and domain is not None:
         raise UnsupportedCondition(
             "shifted linear factors require a denominator-free equation"
         )
     if domain is None and not compiled.poles:
         branches = mark_grouping(branches, parent_html)
+    branches = mark_squares(branches, parent_html, compiled.square_product)
     return compiled, reduced, branches, preferred

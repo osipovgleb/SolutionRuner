@@ -34,6 +34,12 @@ def parent_style(parent_html):
         or "двойное неравенство" in text
         else "progressions"
         if "разность между соседними членами" in text
+        or "расстояние между соседними членами" in text
+        or (
+            "длина" in text
+            and "серии" in text
+            and any(s in text for s in ("не более", "не больше"))
+        )
         else None
     )
     if selection_method is None or any(
@@ -47,7 +53,14 @@ def parent_style(parent_html):
     from .exam_trigonometric_methods import preference
 
     function, _ = preference(parent_html)
-    if len(images) != (1 if selection_method in ("circle", "number_line") else 0):
+    allowed_images = (
+        (0, 1)
+        if selection_method == "progressions"
+        else (1,)
+        if selection_method in ("circle", "number_line")
+        else (0,)
+    )
+    if len(images) not in allowed_images:
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
         )

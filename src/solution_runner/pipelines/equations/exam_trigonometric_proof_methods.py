@@ -4,6 +4,10 @@ from .exam_trigonometric_compile import C, S, T, U
 
 
 def method_proof(a):
+    if a.square_product is not None:
+        from .exam_trigonometric_square_product_proof import proof
+
+        return proof(a)
     if a.square_difference is not None:
         from .exam_trigonometric_square_difference import proof
 
@@ -64,7 +68,9 @@ def method_proof(a):
         return proof(a)
     if a.preferred == T:
         if any(b.variable != T for b in a.branches):
-            return None
+            from .exam_trigonometric_ratio_grouping import proof
+
+            return proof(a)
         from .exam_trigonometric_ratios import tangent_proof
 
         return tangent_proof(a)
