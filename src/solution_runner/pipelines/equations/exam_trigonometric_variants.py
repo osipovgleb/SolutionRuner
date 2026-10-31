@@ -40,6 +40,9 @@ def proof(a):
                 formula(other**2, theta) + "=" + formula(1 - a.preferred**2, theta)
             )
             html += line(formula(a.reduced, theta) + "=0")
+    if a.factorization and len(a.branches) > 1:
+        html += "<p>Вынесем общий множитель и приравняем каждый множитель к нулю:</p>"
+        html += line(formula(sp.factor(a.reduced, extension=True), theta) + "=0")
     for branch in a.branches:
         if a.division:
             from .exam_trigonometric_division import proof as divide

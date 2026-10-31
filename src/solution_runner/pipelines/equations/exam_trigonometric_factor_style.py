@@ -48,7 +48,7 @@ def local_cotangent(parent_html):
     if not cotangent_method(parent_html):
         return False
     return any(
-        r"\cosx=0" in "".join(n["data-inline-latex"].split())
+        re.search(r"\\cosx&?=0", "".join(n["data-inline-latex"].split()))
         for n in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
     )
 

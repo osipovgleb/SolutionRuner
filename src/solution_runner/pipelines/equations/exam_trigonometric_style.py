@@ -34,6 +34,15 @@ def parent_style(parent_html):
         or "двойное неравенство" in text
         or (
             not images
+            and "найдем корни этого уравнения" in text.replace("ё", "е")
+            and "имеем" in text
+            and any(
+                n.get("data-inline-latex", "").count(r"\le") >= 2
+                for n in soup.select("[data-inline-latex]")
+            )
+        )
+        or (
+            not images
             and "отберем корни" in text
             and any(
                 r"\le" in n.get("data-inline-latex", "")
@@ -137,7 +146,10 @@ def cotangent_method(parent_html):
     ratios = [
         name
         for formula in formulas
-        for name in re.findall(r"\\(tg|ctg)(?:\d*)x=", "".join(formula.split()))
+        for name in re.findall(
+            r"\\(tg|ctg)(?:\d*)x&?=",
+            re.sub(r"\\operatorname\{(tg|ctg)\}", r"\\\1", "".join(formula.split())),
+        )
     ]
     return bool(ratios) and ratios[-1] == "ctg"
 

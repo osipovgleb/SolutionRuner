@@ -251,7 +251,7 @@ def first(a):
         html += line(formula(factorization) + "=0")
     elif len(a.branches) > 1:
         html += "<p>Произведение равно нулю, когда хотя бы один множитель равен нулю. На тригонометрический множитель не делим, чтобы сохранить все ветви:</p>"
-        html += line(formula(sp.factor(a.raw)) + "=0")
+        html += line(formula(sp.factor(a.reduced, extension=True)) + "=0")
     html += line(r"-1\le\sin x\le1,\quad-1\le\cos x\le1")
     for branch in a.branches:
         html += polynomial(
