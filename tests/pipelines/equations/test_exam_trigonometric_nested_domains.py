@@ -1,8 +1,12 @@
-"""Nested roots, original ratio poles and explicit pending SVG verification."""
+"""Nested roots, original ratio poles and audited source circles."""
 
+import gzip
+import hashlib
 import json
+import math
 from copy import deepcopy
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 import pytest
 import sympy as sp
@@ -12,7 +16,11 @@ from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.core.handlers import PlanInput
 from solution_runner.pipelines.equations.exam_trigonometric import analyze, select
-from solution_runner.pipelines.equations.exam_trigonometric_circle import read
+from solution_runner.pipelines.equations.exam_trigonometric_circle import (
+    CIRCLES,
+    DIRECTORY,
+    read,
+)
 from solution_runner.pipelines.equations.exam_trigonometric_compile import C
 from solution_runner.pipelines.equations.exam_trigonometric_proof import render
 from solution_runner.pipelines.word_problems.common import UnsupportedCondition
@@ -23,8 +31,7 @@ DATA = json.loads(
     ).read_text()
 )
 CASES = DATA["cases"]
-PENDING = DATA["pending_cases"]
-ALL = [*CASES, *PENDING]
+FIGURES = [c for c in CASES if c["context"]["normalized_content"]["assets"]]
 X = sp.Symbol("x", real=True)
 s, c = sp.sin(X), sp.cos(X)
 SELECTED = {
@@ -67,13 +74,13 @@ POLES = {
 
 
 def case(task):
-    return next(c for c in ALL if c["task"] == task)
+    return next(c for c in CASES if c["task"] == task)
 
 
 def parent(example):
     return next(
         s["html"]
-        for c in ALL
+        for c in CASES
         if c["task"] == example["group"]
         for s in c["context"]["normalized_content"]["sections"]
         if s["key"] == "solution"
@@ -81,11 +88,7 @@ def parent(example):
 
 
 def analysis(example):
-    prepared = deepcopy(example["context"])
-    prepared["normalized_content"]["assets"] = []
-    for section in prepared["normalized_content"]["sections"]:
-        section["asset_keys"] = []
-    _, f, i, b = read(prepared)
+    _, f, i, b = read(example["context"])
     return analyze(f, i, b, parent(example))
 
 
@@ -97,7 +100,7 @@ def plan(example, context=None):
 
 
 @pytest.mark.parametrize("g", DATA["groups"], ids=lambda g: g["key"])
-def test_registration_reuses_one_rule_without_claiming_unverified_figures_are_ready(g):
+def test_registration_reuses_one_rule_with_exact_catalog_coordinates(g):
     p = get_group_profile(g["key"])
     assert p.content_rule_key == "exam-trigonometric-polynomial-circle"
     assert (
@@ -109,8 +112,8 @@ def test_registration_reuses_one_rule_without_claiming_unverified_figures_are_re
     ) == (g["uuid"], g["theme_uuid"], 7, g["order"], "14")
 
 
-@pytest.mark.parametrize("example", ALL, ids=lambda c: c["task"])
-def test_math_only_full_and_selected_roots_are_independent_of_saved_content(example):
+@pytest.mark.parametrize("example", CASES, ids=lambda c: c["task"])
+def test_complete_and_selected_roots_are_independent_of_saved_content(example):
     task = example["task"]
     a = analysis(example)
     assert select(a.series, (0, 2, True, False))[0] == tuple(
@@ -150,7 +153,14 @@ def test_saved_answers_are_unused_and_replay_preserves_conditions_and_sources(ex
         )
         item.update(t["value"])
     assert plan(example, changed).transformations == ()
-    assert not original["normalized_content"]["assets"]
+    assert (
+        changed["normalized_content"]["assets"]
+        == original["normalized_content"]["assets"]
+    )
+    images = BeautifulSoup(p.solution_html, "html.parser").find_all("img")
+    assets = original["normalized_content"]["assets"]
+    assert [i["data-asset-key"] for i in images] == [a["asset_key"] for a in assets]
+    assert [i["src"] for i in images] == [a["url"] for a in assets]
     assert (
         get_handler(get_group_profile(example["group"]).content_rule_key).diagram_specs(
             original
@@ -159,13 +169,15 @@ def test_saved_answers_are_unused_and_replay_preserves_conditions_and_sources(ex
     )
 
 
-@pytest.mark.parametrize("example", PENDING, ids=lambda c: c["task"])
-def test_real_context_is_blocked_until_its_original_svg_has_been_audited(example):
+@pytest.mark.parametrize("example", FIGURES, ids=lambda c: c["task"])
+def test_unknown_source_circle_cannot_reuse_the_audited_geometry(example):
+    changed = deepcopy(example["context"])
+    changed["normalized_content"]["assets"][0]["asset_id"] = "unreviewed-circle"
     handler = get_handler(get_group_profile(example["group"]).content_rule_key)
     with pytest.raises(UnsupportedCondition, match="audited source circle"):
-        handler.diagram_specs(example["context"])
+        handler.diagram_specs(changed)
     with pytest.raises(UnsupportedCondition, match="audited source circle"):
-        plan(example)
+        plan(example, changed)
 
 
 def test_equal_product_split_preserves_zero_tangent_and_excludes_zero_cosine_branch():
@@ -226,3 +238,70 @@ def test_integer_n_is_preserved_in_all_rendered_math_without_changing_source_ide
         n["data-inline-latex"]
         for n in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
     )
+
+
+@pytest.mark.parametrize("example", FIGURES, ids=lambda c: c["task"])
+def test_original_svg_bytes_markers_and_crosses_match_the_equation_domain(example):
+    asset = example["context"]["normalized_content"]["assets"][0]
+    entry = CIRCLES[asset["asset_id"]]
+    raw = gzip.decompress((DIRECTORY / (asset["asset_id"] + ".svgz")).read_bytes())
+    assert hashlib.sha256(raw).hexdigest() == entry["sha256"]
+    svg = ET.fromstring(raw)
+    paths = {n.get("d") for n in svg.iter() if n.tag.endswith("path")}
+    ellipse = entry["native_ellipse"]
+    assert ellipse["path_d"] in paths
+    cx, cy = ellipse["center"]
+    rx, ry = ellipse["radii"]
+    green = {sp.Rational(p["angle"]) for p in entry["green_markers"]}
+    crossed = {sp.Rational(p["angle"]) for p in entry["excluded_markers"]}
+    assert green - crossed == set(map(sp.Rational, RESIDUES[example["task"]].split()))
+    for p in entry["green_markers"]:
+        assert p["path_d"] in paths
+        angle = float(sp.Rational(p["angle"])) * math.pi
+        assert (
+            math.hypot(
+                p["x"] - cx - rx * math.cos(angle),
+                p["y"] - cy + ry * math.sin(angle),
+            )
+            < 5
+        )
+    lines = [dict(n.attrib) for n in svg.iter() if n.tag.endswith("line")]
+    for p in entry["excluded_markers"]:
+        q = sp.Rational(p["angle"])
+        assert any(
+            sp.simplify(pole.subs(X, q * sp.pi)) == 0 for pole in POLES[example["task"]]
+        )
+        assert len(p["segments"]) == 2
+        for segment in p["segments"]:
+            assert any(
+                all(float(line.get(k, "nan")) == v for k, v in segment.items())
+                for line in lines
+            )
+        angle = float(q) * math.pi
+        assert (
+            math.hypot(
+                p["x"] - cx - rx * math.cos(angle),
+                p["y"] - cy + ry * math.sin(angle),
+            )
+            < 2
+        )
+    assert tuple(map(sp.Rational, entry["labels"])) == analysis(example).selected
+    assert "corrected_file" not in entry
+
+
+@pytest.mark.parametrize("example", FIGURES, ids=lambda c: c["task"])
+def test_original_circle_cannot_be_reused_for_a_changed_selection_interval(example):
+    changed = deepcopy(example["context"])
+    condition = next(
+        s for s in changed["normalized_content"]["sections"] if s["key"] == "condition"
+    )
+    soup = BeautifulSoup(condition["html"], "html.parser")
+    interval = next(
+        n for n in soup.select("[data-inline-latex]") if ";" in n["data-inline-latex"]
+    )
+    interval["data-inline-latex"] = r"[100\pi;101\pi]"
+    condition["html"] = str(soup)
+    with pytest.raises(
+        UnsupportedCondition, match="circle points, interval and labels"
+    ):
+        plan(example, changed)
