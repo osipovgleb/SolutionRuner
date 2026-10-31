@@ -128,8 +128,35 @@ def stopped(a):
     return html + line("v=" + frac(n(v["distance"]), n(moving)) + "=" + n(a.result))
 
 
+def lap_race(a):
+    q, v = a.question, a.question.values
+    time = q.durations["lap_time"].total
+    html = "<p>Найдём общий путь гонки и переведём время первого обгона на круг в часы:</p>"
+    html += line(
+        "S=" + n(v["laps"]) + r"\cdot" + n(v["circumference"]) + "=" + n(v["distance"])
+    )
+    html += line("T=" + n(time) + r"\,\mathrm{ч}")
+    html += "<p>За это время первый гонщик прошёл на один круг больше второго. Скорость удаления равна:</p>"
+    html += line("u=" + frac(n(v["circumference"]), n(time)) + "=" + n(v["gap"]))
+    html += (
+        "<p>Пусть v км/ч — скорость второго гонщика, тогда скорость первого равна:</p>"
+    )
+    html += line("v+" + n(v["gap"])) + line("v>0")
+    html += conversions(q)
+    html += "<p>Первый гонщик затратил на тот же путь меньше времени на указанную разность:</p>"
+    html += line(
+        frac(n(v["distance"]), "v")
+        + "-"
+        + frac(n(v["distance"]), "v+" + n(v["gap"]))
+        + "="
+        + n(q.durations["delay"].total)
+    )
+    return html + quadratic_steps(a)
+
+
 PROOFS = {
     "freight": freight,
+    "lap_race": lap_race,
     "midpoint": midpoint,
     "downhill": downhill,
     "stopped": stopped,

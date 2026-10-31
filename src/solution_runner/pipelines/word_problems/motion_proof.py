@@ -75,6 +75,7 @@ def conversions(q):
                 "meeting": "Время до встречи",
                 "total": "Всё время пути",
                 "down": "Время спуска",
+                "lap_time": "Время до первого обгона",
             }.get(key, "Указанное время")
             html += f"<p>{purpose} переведём в часы:</p>"
             html += line(

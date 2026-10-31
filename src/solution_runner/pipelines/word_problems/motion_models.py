@@ -198,6 +198,7 @@ BUILDERS = {
     "delayed_speed": meeting,
     "trip_time": trip_time,
     "freight": different_speeds,
+    "lap_race": different_speeds,
     "catch_return": catch_return,
     "catch_return_speed": catch_return,
     "third_cyclist": third_cyclist,
@@ -247,6 +248,10 @@ def analyze(q):
         raise UnsupportedCondition(
             "the meeting must occur before either traveler finishes"
         )
+    if q.kind == "lap_race" and q.durations["lap_time"].total >= q.values[
+        "distance"
+    ] / (root + q.values["gap"]):
+        raise UnsupportedCondition("the first lap catch must precede the finish")
     result = sp.cancel(b.output.subs(X, root))
     if result.is_Rational is not True or result <= 0:
         raise UnsupportedCondition(

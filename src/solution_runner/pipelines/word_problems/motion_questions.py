@@ -59,6 +59,7 @@ PATTERNS = {
     "named_stop": rf"Иван и Алексей договорились встретиться в Н-ске\. Они едут к Н-ску разными дорогами\. Иван звонит Алексею и узнает, что тот находится в (?P<reference_distance>{VALUE}) км от Н-ска и едет с постоянной скоростью (?P<known>{VALUE}) км/ч\. Иван в момент звонка находится в (?P<distance>{VALUE}) км от Н-ска и еще должен по дороге сделать (?P<stop_minutes>{VALUE})-минутную остановку\. С какой скоростью должен ехать Иван, чтобы прибыть в Н-ск одновременно с Алексеем\?",
     "midpoint": rf"Из двух городов, расстояние между которыми (?P<distance>{VALUE}) км, по параллельным путям отправляются навстречу друг другу два поезда и встречаются на середине пути\. Второй поезд вышел на (?P<lag_hours>{VALUE}) ч позже первого со скоростью, на (?P<gap>{VALUE}) км/ч большей, чем скорость первого поезда\. Найдите скорость второго поезда\."
     + SPEED_ANSWER,
+    "lap_race": rf"Два гонщика участвуют в гонках\. Им предстоит проехать (?P<laps>{VALUE}) кругов по кольцевой трассе протяженностью (?P<circumference>{VALUE}) км\. Оба гонщика стартовали одновременно, а на финиш первый пришел раньше второго на (?P<delay>{DURATION})\. Чему равнялась средняя скорость второго гонщика, если известно, что первый гонщик в первый раз обогнал второго на круг через (?P<lap_time>{DURATION})\? Ответ дайте в км/ч\.",
 }
 
 
@@ -129,13 +130,22 @@ def parse(text):
             data = match.groupdict()
             times = {
                 key: duration(data[key])
-                for key in ("delay", "meeting", "total", "down")
+                for key in ("delay", "meeting", "total", "down", "lap_time")
                 if key in data
             }
             values = {
                 key: scalar(value)
                 for key, value in data.items()
-                if key not in {"delay", "meeting", "total", "down", "route", "place"}
+                if key
+                not in {
+                    "delay",
+                    "meeting",
+                    "total",
+                    "down",
+                    "lap_time",
+                    "route",
+                    "place",
+                }
             }
             if any(value <= 0 for value in values.values()):
                 raise UnsupportedCondition(
@@ -147,6 +157,13 @@ def parse(text):
                 times["delay"] = Duration(values["lag_hours"], sp.Integer(0))
             if "metres_per_minute" in values:
                 values["gap"] = values["metres_per_minute"] * sp.Rational(3, 50)
+            if kind == "lap_race":
+                if values["laps"].is_Integer is not True:
+                    raise UnsupportedCondition(
+                        "an integral number of complete race laps is required"
+                    )
+                values["distance"] = values["laps"] * values["circumference"]
+                values["gap"] = values["circumference"] / times["lap_time"].total
             return Question(
                 kind,
                 values,

@@ -304,3 +304,49 @@ PROFILES += tuple(
     )
     for key, source_id, order in groups
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        source_id,
+        order,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="11",
+        theme_title="Задачи на движение по окружности",
+        theme_order_index=2,
+        snapshot_theme_id="48525372-6b73-4d8f-82cb-274049709ab2",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, source_id, order, rule in (
+        (
+            "99596",
+            "a81365bb-ed2c-4b70-9e89-347b3c1e74e3",
+            0,
+            "word-relative-displacement",
+        ),
+        (
+            "99598",
+            "96345021-8e6b-41d1-a09d-75d763192eca",
+            1,
+            "word-relative-displacement",
+        ),
+        (
+            "99599",
+            "61b861bd-e4a8-44f6-abaf-a44a1a4c9040",
+            2,
+            "word-relative-displacement",
+        ),
+        ("99600", "0b494ec6-84fd-4945-a713-42b0bb086ab9", 3, "word-clock-meetings"),
+        (
+            "323856",
+            "b11886ee-8b16-468d-a24a-60d6e6d1595a",
+            4,
+            "word-motion-time-balance",
+        ),
+    )
+)

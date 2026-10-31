@@ -22,6 +22,24 @@ class Analysis:
 
 def analyze(q):
     v = q.values
+    if q.kind == "opposite_points":
+        return Analysis(q, v["gap"], v["distance"] / 2, 30 * v["distance"] / v["gap"])
+    if q.kind == "lap_speed":
+        rate = v["distance"] * 3600 / q.time.total_seconds
+        result = v["first"] - rate
+        if result <= 0:
+            raise UnsupportedCondition(
+                "positive speed for the overtaken car is required"
+            )
+        return Analysis(q, rate, v["distance"], result)
+    if q.kind == "lap_chase":
+        rate = 60 * v["distance"] / v["lap_minutes"]
+        bicycle = rate * v["catch_minutes"] / v["lag_minutes"]
+        if bicycle * v["lag_minutes"] / 60 >= v["distance"]:
+            raise UnsupportedCondition(
+                "the cyclist must not have completed a lap before the motorcycle starts"
+            )
+        return Analysis(q, rate, v["distance"], bicycle + rate)
     if q.kind in {"pole", "forest"}:
         rate = v["speed"]
     elif q.kind == "walk_gap":
@@ -221,7 +239,11 @@ def car_proof(a):
 
 
 def proof(a):
+    from .relative_circle_proof import PROOFS
+
     kind = a.question.kind
+    if kind in PROOFS:
+        return PROOFS[kind](a)
     if kind == "walk_gap":
         return walking_proof(a)
     if kind == "car_gap":
