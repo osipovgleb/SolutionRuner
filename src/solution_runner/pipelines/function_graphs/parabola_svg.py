@@ -13,6 +13,17 @@ COLORS = ("#143B8F", "#007EA5")
 _TOKEN = r"[A-Za-z]|[-+]?(?:\d*\.\d+|\d+\.?\d*)(?:[eE][-+]?\d+)?"
 
 
+def straight(start, end):
+    return [
+        list(start),
+        *[
+            [a + (b - a) * part / 3 for a, b in zip(start, end, strict=True)]
+            for part in (1, 2)
+        ],
+        list(end),
+    ]
+
+
 def segments(raw):
     if re.sub(_TOKEN, "", raw).strip(" ,\t\n\r"):
         raise ContentPlanError("unsupported source curve path syntax")
@@ -39,19 +50,7 @@ def segments(raw):
             points = [(x + current[0], y + current[1]) for x, y in points]
         if command in {"L", "l"}:
             end = points[-1]
-            result.append(
-                [
-                    list(current),
-                    *[
-                        [
-                            a + (b - a) * part / 3
-                            for a, b in zip(current, end, strict=True)
-                        ]
-                        for part in (1, 2)
-                    ],
-                    list(end),
-                ]
-            )
+            result.append(straight(current, end))
             control = None
         if size == 4:
             reflected = tuple(

@@ -47,23 +47,29 @@ def evaluate(a):
     )
 
 
-def intersections(a):
-    p = sp.Poly(primitive(a.question.given - a.expression, (X,)), X)
+def quadratic_steps(expression, variable, roots):
+    p = sp.Poly(primitive(expression, (variable,)), variable)
     aa, bb, cc = (p.nth(i) for i in (2, 1, 0))
     d = bb**2 - 4 * aa * cc
-    html = "<p>В точках пересечения значения функций равны. Составим и решим квадратное уравнение:</p>"
-    html += line(sp.latex(a.question.given) + "=" + sp.latex(a.expression))
-    html += line(sp.latex(p.as_expr()) + "=0")
+    html = line(sp.latex(p.as_expr()) + "=0")
     html += line(
         "D=(" + n(bb) + ")^2-4\\cdot(" + n(aa) + r")\cdot(" + n(cc) + ")=" + n(d)
     )
     html += line(
-        "x="
+        sp.latex(variable)
+        + "="
         + frac("-(" + n(bb) + r")\pm\sqrt{" + n(d) + "}", "2\\cdot(" + n(aa) + ")")
         + r"\in\left\{"
-        + ";".join(n(r) for r in a.roots)
+        + ";".join(n(r) for r in roots)
         + r"\right\}"
     )
+    return html
+
+
+def intersections(a):
+    html = "<p>В точках пересечения значения функций равны. Составим и решим квадратное уравнение:</p>"
+    html += line(sp.latex(a.question.given) + "=" + sp.latex(a.expression))
+    html += quadratic_steps(a.question.given - a.expression, X, a.roots)
     html += "<p>На рисунке отмечена точка A. Соответствующий ей корень известен по её абсциссе, поэтому второй корень относится к B:</p>"
     html += line("x_A=" + n(a.visible_a) + r",\qquad x_B=" + n(a.root))
     if a.question.kind == "intersection_y":

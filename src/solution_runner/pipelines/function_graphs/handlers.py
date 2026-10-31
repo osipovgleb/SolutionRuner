@@ -127,3 +127,19 @@ HANDLERS += (
         requires_condition_asset_download=True,
     ),
 )
+
+
+HANDLERS += (
+    HandlerSpec(
+        key="mixed-function-intersection",
+        target="solution_runner.pipelines.function_graphs.mixed_models:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("current_asset_content_type", "current_asset_content_type"),
+        ),
+        requires_parent_condition_asset=False,
+        inspect_current_asset_type=True,
+        requires_condition_asset_download=True,
+        allow_non_svg_condition_asset=True,
+    ),
+)

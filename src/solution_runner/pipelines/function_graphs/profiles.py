@@ -169,3 +169,33 @@ PROFILES += tuple(
         ("676931", "38e1398b-00ef-48c6-b4c4-e5fac35b598c", 7),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="12",
+        theme_title="Комбинированные задачи",
+        theme_order_index=6,
+        snapshot_theme_id="57b3ab9c-eb47-4a5e-bdbc-76a596696889",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="mixed-function-intersection",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("509149", "2d498fc2-d247-4e01-9e92-f088a0775254", 0),
+        ("509158", "c3467e04-91dd-4112-b6ba-e1ab319c57bd", 1),
+        ("509167", "06a0383d-5d90-4326-87fa-0b5213314992", 2),
+        ("509182", "482f829e-9575-4765-a074-5e233662cfe1", 3),
+        ("509271", "ebc21c36-881f-482c-b229-fe4c05024aad", 4),
+        ("509280", "75565e3e-b067-45e6-91e6-03eca55f5bc8", 5),
+        ("642371", "33cee078-0454-4a5c-8755-cc35762a865b", 6),
+        ("642407", "43b9d96e-a857-4612-bcd0-5f6fe0ca281c", 7),
+        ("661823", "ed94ec9f-7c71-413c-a9fb-de4b9484361e", 8),
+    )
+)

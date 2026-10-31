@@ -84,18 +84,23 @@ def marked_point(data, mime):
     return tuple(map(sp.Integer, point))
 
 
-def proof(mode, target, point, k, result):
+def n(value):
+    return decimal(value) if value.is_Rational else sp.latex(value)
+
+
+def coefficient_proof(point, k, *, name="k"):
     x, y = point
-
-    def n(value):
-        return decimal(value) if value.is_Rational else sp.latex(value)
-
-    html = "<p>По графику найдём значение функции в отмеченной точке и подставим его в формулу, чтобы определить коэффициент k:</p>"
+    html = f"<p>По графику найдём значение функции в отмеченной точке и подставим его в формулу, чтобы определить коэффициент {name}:</p>"
     html += line("f(" + n(x) + ")=" + n(y))
-    html += line(r"k\cdot\sqrt{" + n(x) + "}=" + n(y))
+    html += line(name + r"\cdot\sqrt{" + n(x) + "}=" + n(y))
     if sp.sqrt(x).is_Integer:
-        html += line(n(sp.sqrt(x)) + "k=" + n(y))
-    html += line("k=" + r"\frac{" + n(y) + r"}{\sqrt{" + n(x) + "}}=" + n(k))
+        html += line(n(sp.sqrt(x)) + name + "=" + n(y))
+    html += line(name + "=" + r"\frac{" + n(y) + r"}{\sqrt{" + n(x) + "}}=" + n(k))
+    return html
+
+
+def proof(mode, target, point, k, result):
+    html = coefficient_proof(point, k)
     if mode == "value":
         html += (
             "<p>Таким образом, вычислим значение функции при указанном аргументе:</p>"
