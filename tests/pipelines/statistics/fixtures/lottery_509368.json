@@ -1,0 +1,43 @@
+{
+  "group": "509353",
+  "task": "509368",
+  "context": {
+    "problem_id": "74e73637-c929-42f6-901d-daf110534b4c",
+    "normalized_content": {
+      "assets": [],
+      "format": "teacherhelper-normalized",
+      "sections": [
+        {
+          "key": "condition",
+          "html": "<p>В таб­ли­це по­ка­за­но ко­ли­че­ство би­ле­тов и воз­мож­ные вы­иг­ры­ши бес­про­иг­рыш­ной де­неж­ной ло­те­реи. Цена би­ле­та ло­те­реи равна 215 руб­лей. Всего би­ле­тов вы­пу­ще­но 1000 штук. Участ­ник по­ку­па­ет один слу­чай­ный билет. На сколь­ко руб­лей цена би­ле­та выше, чем ма­те­ма­ти­че­ское ожи­да­ние вы­иг­ры­ша? </p><table width=\"50%\"><tbody><tr><td data-align=\"left\">Вы­иг­рыш, руб.</td><td data-align=\"center\" data-valign=\"middle\" width=\"18%\">100</td><td data-align=\"center\" data-valign=\"middle\" width=\"18%\">600</td><td data-align=\"center\" data-valign=\"middle\" width=\"18%\">2000</td><td data-align=\"center\" data-valign=\"middle\" width=\"18%\">10 000</td></tr><tr><td data-align=\"left\">Ко­ли­че­ство<br/>би­ле­тов</td><td data-align=\"center\" data-valign=\"middle\">985</td><td data-align=\"center\" data-valign=\"middle\">10</td><td data-align=\"center\" data-valign=\"middle\">4</td><td data-align=\"center\" data-valign=\"middle\">1</td></tr></tbody></table>",
+          "title": "Условие",
+          "asset_keys": [],
+          "section_id": "condition:1",
+          "transformation_target_id": "section:condition:1"
+        },
+        {
+          "key": "answer",
+          "html": "<p><span data-effect=\"spaced\">92,5</span></p>",
+          "title": "Ответ",
+          "asset_keys": [],
+          "section_id": "answer:1",
+          "transformation_target_id": "section:answer:1"
+        },
+        {
+          "key": "solution",
+          "html": "<p>Ма­те­ма­ти­че­ское ожи­да­ние E слу­чай­ной дис­крет­ной ве­ли­чи­ны <var data-math-identifier=\"X\">X</var>, ко­то­рая может при­ни­мать че­ты­ре воз­мож­ных зна­че­ния, равно</p><center><p> <span data-inline-latex=\"EX=x_1p_1+x_2p_2+x_3p_3+x_4p_4\"></span>.</p></center><p>По усло­вию:</p><p> <span data-inline-latex=\"x_1=100,\\quad p_1=\\frac{985}{1000}\"></span> , <br/> <span data-inline-latex=\"x_2=600,\\quad p_2=\\frac{10}{1000}\"></span> , <br/> <span data-inline-latex=\"x_3=2000,\\quad p_3=\\frac{4}{1000}\"></span> , <br/> <span data-inline-latex=\"x_4=10000,\\quad p_4=\\frac{1}{1000}\"></span> .  </p><p> </p><p></p><p></p><p> Тогда для ма­те­ма­ти­че­ско­го ожи­да­ния вы­иг­ры­ша по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EX=100\\cdot 0{,}985+600\\cdot 0{,}01+2000\\cdot 0{,}004+10000\\cdot 0{,}001=122{,}5\"></span>,</p></center><p>что <nobr>на  <span data-inline-latex=\"215-122{,}5=92{,}5\"></span> рубля</nobr> мень­ше сто­и­мо­сти би­ле­та.</p><p><b>При­ме­ча­ние</b>.</p><p>По­ня­тие ма­то­жи­да­ния яв­ля­ет­ся от­но­си­тель­но новым для рос­сий­ской школы, по­это­му сде­ла­ем не­боль­шое за­ме­ча­ние. Ма­то­жи­да­ние вы­иг­ры­ша это ха­рак­те­ри­сти­ка, по­ка­зы­ва­ю­щая сколь­ко в сред­нем по­лу­чит или по­те­ря­ет игрок, если при не­из­мен­ных усло­ви­ях будет иг­рать до­ста­точ­но долго. По­лу­чен­ный выше ре­зуль­тат го­во­рит о том, что каж­дый раз вы­иг­ры­вая (ло­те­рея  — бес­про­иг­рыш­ная) ку­пив­ший билет, тем не менее, в сред­нем будет те­рять 92,5 рубля за игру.</p>",
+          "title": "Решение",
+          "asset_keys": [],
+          "section_id": "solution:1",
+          "transformation_target_id": "section:solution:1"
+        }
+      ],
+      "schema_version": 3,
+      "problem_reference_ids": {
+        "prototype_problem_id": null,
+        "group_parent_problem_id": null,
+        "adjacent_group_parent_problem_id": null
+      }
+    }
+  }
+}

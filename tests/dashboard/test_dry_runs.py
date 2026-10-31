@@ -1,4 +1,5 @@
 import json
+import pytest
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -25,6 +26,58 @@ def _profile():
         workflow_kind="content_rule",
         solution_scope="all",
     )
+
+
+@pytest.mark.parametrize("mode", ["all", "random", "parent", "problem"])
+def test_dry_run_initializes_before_any_selection_or_launch(tmp_path, mode):
+    from solution_runner.dashboard.initialization import GroupInitializer
+    from test_initialization import FakeGateway
+
+    inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    initializer = GroupInitializer(
+        profiles={"123": _profile()}, inventory_store=inventory,
+        gateway_factory=FakeGateway,
+    )
+    launched = []
+
+    def launch(command):
+        assert inventory.get("123").status == "ready"
+        assert "--apply" not in command
+        launched.append(command)
+        return 1
+
+    manager = DryRunManager(
+        var_dir=tmp_path, profiles={"123": _profile()},
+        inventory_store=inventory, initializer=initializer,
+        gateway_factory=FakeGateway, launcher=launch,
+    )
+    manager.run_now("123", mode, requested_problem_id="child" if mode == "problem" else None)
+    assert len(launched) == 1
+    initializer._executor.shutdown()
+
+
+def test_failed_automatic_initialization_never_launches_a_runner(tmp_path):
+    from solution_runner.dashboard.initialization import GroupInitializer
+
+    inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    initializer = GroupInitializer(
+        profiles={"123": _profile()}, inventory_store=inventory,
+        gateway_factory=lambda: SimpleNamespace(
+            get_source_catalog_children=lambda *_: {"items": []},
+        ),
+    )
+    launched = []
+    manager = DryRunManager(
+        var_dir=tmp_path, profiles={"123": _profile()},
+        inventory_store=inventory, initializer=initializer,
+        gateway_factory=lambda: None,
+        launcher=lambda command: launched.append(command) or 0,
+    )
+    state = manager.run_now("123", "all")
+    assert state["status"] == "failed"
+    assert "source group has no problems" in state["error"]
+    assert launched == []
+    initializer._executor.shutdown()
 
 
 def test_launcher_command_has_three_scopes_and_never_applies():

@@ -10,6 +10,12 @@ section flags, and image metadata through MCP once and stores no problem HTML.
 Dashboard dry-runs use that SQLite index through the one common launcher and
 never add `--apply`; real writes remain a separate, explicit step.
 
+Dry-runs automatically initialize missing, partial, failed or outdated local
+indexes before selecting a task or invoking the launcher. Existing initialization
+jobs are awaited rather than duplicated, and a matching ready index is reused.
+This covers registered groups arriving through Git without copying another
+machine's SQLite database. Initialization errors stop the dry-run before launch.
+
 After initialization, registration can reuse an existing Codex task for this
 repository or create a new `gpt-6.1-sol` task with medium reasoning. A clean
 full-group dry-run moves the card to review and enables Apply; a failed one moves

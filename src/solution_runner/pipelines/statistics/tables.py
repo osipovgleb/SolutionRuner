@@ -15,11 +15,16 @@ _WINNING = re.compile(
 )
 
 
-def _rows(tables, headers):
+def _rows(tables, headers, *, first_header_aliases=()):
     if len(tables) != 1 or len(tables[0]) != 2:
         raise UnsupportedCondition("exactly one two-row distribution table is required")
     a, b = tables[0]
-    if len(a) != len(b) or len(a) < 3 or (a[0], b[0]) != headers:
+    if (
+        len(a) != len(b)
+        or len(a) < 3
+        or a[0] not in (headers[0], *first_header_aliases)
+        or b[0] != headers[1]
+    ):
         raise UnsupportedCondition(
             "the distribution table labels or columns are invalid"
         )
@@ -92,6 +97,7 @@ def solve(text, tables):
         ("Выигрыш", "Количество билетов")
         if all_tickets
         else ("Выигрыш (в рублях)", "Число выигрышных билетов"),
+        first_header_aliases=("Выигрыш, руб.",) if all_tickets else (),
     )
     if (
         total <= 0

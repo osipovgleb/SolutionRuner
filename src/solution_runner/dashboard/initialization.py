@@ -235,6 +235,27 @@ class GroupInitializer:
             "rejected": 0,
         }
 
+    def ensure_ready(self, group_key: str) -> dict[str, Any]:
+        """Reuse a current index or await the shared read-only initialization."""
+        source = self._source(group_key)
+        snapshot = self.inventory_store.get(group_key)
+        if (
+            snapshot is not None
+            and snapshot.status == "ready"
+            and snapshot.catalog_snapshot_id == source.catalog_snapshot_id
+            and snapshot.source_group_id == source.source_group_id
+        ):
+            return self.get(group_key)
+        self.start(group_key)
+        with self._lock:
+            future = self._futures[group_key]
+        state = future.result()
+        if state.get("status") != "ready":
+            raise GroupInitializationError(
+                f"group {group_key} initialization failed: {state.get('error')}"
+            )
+        return state
+
     def run_now(self, group_key: str) -> dict[str, Any]:
         gateway = self.gateway_factory()
         self.inventory_store.set_status(group_key, "running")

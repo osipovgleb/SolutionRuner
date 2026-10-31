@@ -170,6 +170,7 @@ class DryRunManager:
         gateway_factory: Callable[[], Any],
         store: Any | None = None,
         inventory_store: GroupInventoryStore | None = None,
+        initializer: Any | None = None,
         launcher: Callable[[list[str]], int] = _run_launcher,
         choose: Callable[[Sequence[Mapping[str, Any]]], Mapping[str, Any]] = secrets.choice,
         on_complete: Callable[[str, Mapping[str, Any]], None] | None = None,
@@ -180,6 +181,7 @@ class DryRunManager:
         self.gateway_factory = gateway_factory
         self.store = store
         self.inventory_store = inventory_store
+        self.initializer = initializer
         self.launcher = launcher
         self.choose = choose
         self.on_complete = on_complete
@@ -306,6 +308,8 @@ class DryRunManager:
         }
         gateway = None
         try:
+            if self.inventory_store is not None and self.initializer is not None:
+                self.initializer.ensure_ready(group_key)
             if mode == "all":
                 selected = None
             elif self.inventory_store is not None:

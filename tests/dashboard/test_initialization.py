@@ -1,7 +1,65 @@
 from types import SimpleNamespace
 
+import pytest
+
 from solution_runner.dashboard.initialization import GroupInitializer
 from solution_runner.group_inventory_store import GroupInventoryStore
+
+
+@pytest.mark.parametrize("status", [None, "partial", "failed"])
+def test_ensure_ready_completes_missing_inventory_and_reuses_it(tmp_path, status):
+    store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    if status:
+        store.set_status("123", status)
+    reads = []
+    initializer = GroupInitializer(
+        profiles={"123": _profile()}, inventory_store=store,
+        gateway_factory=lambda: reads.append("read") or FakeGateway(),
+    )
+    assert initializer.ensure_ready("123")["status"] == "ready"
+    assert initializer.ensure_ready("123")["total"] == 2
+    assert reads == ["read"]
+    initializer._executor.shutdown()
+
+
+def test_ensure_ready_waits_for_existing_initialization_without_duplicate_reads(tmp_path):
+    from threading import Event
+
+    entered, release = Event(), Event()
+    reads = []
+
+    def gateway():
+        reads.append("read")
+        entered.set()
+        assert release.wait(5)
+        return FakeGateway()
+
+    initializer = GroupInitializer(
+        profiles={"123": _profile()},
+        inventory_store=GroupInventoryStore(tmp_path / "dashboard.sqlite3"),
+        gateway_factory=gateway,
+    )
+    initializer.start("123")
+    assert entered.wait(5)
+    release.set()
+    assert initializer.ensure_ready("123")["status"] == "ready"
+    assert reads == ["read"]
+    initializer._executor.shutdown()
+
+
+def test_ensure_ready_rebuilds_an_index_from_previous_profile_coordinates(tmp_path):
+    from dataclasses import replace
+
+    store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
+    initializer = GroupInitializer(
+        profiles={"123": _profile()}, inventory_store=store,
+        gateway_factory=FakeGateway,
+    )
+    initializer.ensure_ready("123")
+    store.replace(replace(store.get("123"), source_group_id="old-source-group"))
+    assert initializer.ensure_ready("123")["status"] == "ready"
+    assert store.get("123").source_group_id == "source-group"
+    initializer._executor.shutdown()
 
 
 class FakeGateway:

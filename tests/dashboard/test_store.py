@@ -28,6 +28,28 @@ def _write_json(path, payload):
     path.write_text(json.dumps(payload), encoding="utf-8")
 
 
+@pytest.mark.parametrize("initialized", [False, True])
+def test_pulled_profile_without_local_runs_stays_in_registration(tmp_path, initialized):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    inventory = GroupInventoryStore(store.path)
+    if initialized:
+        inventory.replace(GroupInventorySnapshot(
+            group_key="123", catalog_snapshot_id="catalog-1", source_group_id="source-group",
+            parent_problem_id="parent", parent_source_problem_id="10",
+            items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+        ))
+    sync_groups(store, {"123": _profile("123")}, tmp_path / "var", inventory_store=inventory)
+    assert store.get_group("123")["registered"] is True
+    assert store.get_group("123")["column"] == "queue"
+
+    # A local dry-run supplies evidence independently of the checked-in profile.
+    run = tmp_path / "var/equations/runs/20260101T000000Z-group-123"
+    _write_json(run / "summary.json", {"group_key": "123", "targets": 1, "apply": False})
+    _write_json(run / "solution-results.json", [{"status": "planned"}])
+    sync_groups(store, {"123": _profile("123")}, tmp_path / "var", inventory_store=inventory)
+    assert store.get_group("123")["column"] == "review"
+
+
 def test_sync_uses_latest_run_and_preserves_manual_state(tmp_path):
     runs = tmp_path / "var" / "equations" / "runs"
     old = runs / "20260101T000000Z-group-123"

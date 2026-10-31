@@ -100,6 +100,9 @@ def _source_label(source_id: str) -> str:
 def _system_column(*, registered: bool, has_run: bool, total: int, transformed: int, helpers: int, errors: int, blocked: int) -> str:
     if errors or blocked:
         return "issues"
+    # A profile arriving through Git does not establish local runner readiness.
+    if not has_run:
+        return "queue"
     if 0 < total <= 5 and transformed >= total and helpers >= total:
         return "review"
     if total > 0 and helpers >= total:
@@ -108,7 +111,7 @@ def _system_column(*, registered: bool, has_run: bool, total: int, transformed: 
         return "work"
     if has_run:
         return "review"
-    return "work" if registered else "queue"
+    return "queue"
 
 
 def discover_latest_runs(var_dir: Path) -> tuple[dict[str, dict[str, Any]], int]:

@@ -932,6 +932,8 @@ def main(argv: list[str] | None = None) -> int:
             store, inventory_store, codex_tasks, group_key, state
         ),
     ) if api_key else None
+    if dry_runs is not None:
+        dry_runs.initializer = initializer
     server = make_server(store=store, var_dir=args.var, profiles=profiles, static_dir=args.static, preview_dir=args.previews, dry_runs=dry_runs, applies=applies, initializer=initializer, inventory_store=inventory_store, preview_gateway_factory=gateway_factory if api_key else None, codex_tasks=codex_tasks, host=args.host, port=args.port, auth=auth, job_queue=runner_executor)
     runner_executor.start()
     Thread(
