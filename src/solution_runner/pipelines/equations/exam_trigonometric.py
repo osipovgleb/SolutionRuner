@@ -1,5 +1,6 @@
 """Reduce reviewed identities, keep zero factors and select exact periodic roots."""
 
+import re
 from dataclasses import dataclass, replace
 from functools import cmp_to_key, lru_cache
 
@@ -54,6 +55,7 @@ class Analysis:
     image_position: str
     substitution: str | None = None
     selection_method: str = "circle"
+    factorization: bool = False
 
 
 def compile_equation(formula):
@@ -161,13 +163,13 @@ def solve_branches(raw, preferred, allow_inverse=False):
 
 
 def parent_style(parent_html):
-    import re
-
     soup = BeautifulSoup(parent_html, "html.parser")
     text = soup.get_text(" ", strip=True).replace("\xad", "").lower()
+    images = soup.find_all("img")
     selection_method = (
         "circle"
         if "окружност" in text
+        or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
         else "inequalities"
         if "решим неравенства" in text
         else None
@@ -183,7 +185,6 @@ def parent_style(parent_html):
         for s in soup.select("[data-inline-latex]")
     ]
     matches = [m for f in formulas for m in re.findall(r"\\(sin|cos)x&?=", f)]
-    images = soup.find_all("img")
     if not matches or len(images) != (1 if selection_method == "circle" else 0):
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
@@ -293,6 +294,12 @@ def analyze(formula, interval, bounds, parent_html):
         position,
         substitution,
         method,
+        any(
+            re.search(r"\\(?:sin|cos)x\(", "".join(s["data-inline-latex"].split()))
+            for s in BeautifulSoup(parent_html, "html.parser").select(
+                "[data-inline-latex]"
+            )
+        ),
     )
 
 

@@ -74,13 +74,16 @@ def families(a):
     return series_lines(a.series)
 
 
-def polynomial(branch, substitution=None, allow_inverse=False):
+def polynomial(branch, substitution=None, allow_inverse=False, factorization=False):
     p = branch.polynomial
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable
     html = line(formula(p.subs(variable, symbol)) + "=0")
     degree = sp.Poly(p, variable).degree()
-    if degree == 2:
+    if degree == 2 and factorization and p.subs(variable, 0) == 0:
+        html += "<p>Вынесем общий множитель. Произведение равно нулю, когда хотя бы один множитель равен нулю; на тригонометрический множитель не делим:</p>"
+        html += line(formula(sp.factor(p).subs(variable, symbol)) + "=0")
+    elif degree == 2:
         A, B, D0 = sp.Poly(p, variable).all_coeffs()
         html += line(
             "D=("
@@ -168,7 +171,11 @@ def first(a):
         html += line(formula(sp.factor(a.raw)) + "=0")
     html += line(r"-1\le\sin x\le1,\quad-1\le\cos x\le1")
     for branch in a.branches:
-        html += polynomial(branch, allow_inverse=a.selection_method == "inequalities")
+        html += polynomial(
+            branch,
+            allow_inverse=a.selection_method == "inequalities",
+            factorization=a.factorization,
+        )
     if any(sp.Poly(b.polynomial, b.variable).degree() > 1 for b in a.branches):
         html += "<p>Объединим полученные серии, учитывая периодичность:</p>"
         for text in families(a):
