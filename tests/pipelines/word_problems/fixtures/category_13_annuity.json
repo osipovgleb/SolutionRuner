@@ -1,0 +1,402 @@
+{
+  "groups": [
+    {
+      "key": "517503",
+      "uuid": "1d74a9bd-5f52-43d8-a669-1fb8b11c83ea",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 3
+    },
+    {
+      "key": "561179",
+      "uuid": "1fa7c679-3ff5-4414-8ec5-30513758f059",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 10
+    },
+    {
+      "key": "628752",
+      "uuid": "8366c09e-3133-496a-86a0-807f3868ebf0",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 11
+    },
+    {
+      "key": "660699",
+      "uuid": "55000c5f-7586-4839-97ff-a3f946dcd467",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 18
+    },
+    {
+      "key": "704627",
+      "uuid": "e98ae5de-9600-401a-a129-2a4a1ac0f4f8",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 22
+    }
+  ],
+  "cases": [
+    {
+      "group": "517503",
+      "task": "517503",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2020 года пла­ни­ру­ет­ся взять кре­дит в банке на сумму 147 000 руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга.</p><p>Сколь­ко руб­лей будет вы­пла­че­но банку, если из­вест­но, что кре­дит будет пол­но­стью по­га­шен двумя рав­ны­ми пла­те­жа­ми, то есть за два года.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">169400</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=14988990\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2017. Основная волна 02.06.2017. Вариант 991 (часть 2)</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=15014745\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 (С5) ЕГЭ 2017</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В июле 2020 года долг со­став­лял 147 тыс. руб. После на­чис­ле­ния 10% он стал со­став­лять 147 + 14,7  =  161,7 тыс. руб. Пусть пер­вая вы­пла­та была равна <i>x</i> тыс. руб. Тогда долг на июль 2021 года стал со­став­лять 161,7 − <i>x</i> тыс. руб.</p><p>После вто­ро­го на­чис­ле­ния про­цен­тов сумма долга со­ста­ви­ла (161,7 − <i>x</i>)1,1  =  177,87 − 1,1<i>x</i>. Этот долг был по­га­шен вто­рым пла­те­жом, рав­ным <i>x</i>, от­ку­да по­лу­ча­ем урав­не­ние <nobr>177,87 − 1,1<i>x</i>  =  <i>x</i>.</nobr> Из этого урав­не­ния на­хо­дим <i>x</i>  =  84,7 тыс. руб. По­это­му банку было вы­пла­че­но 2<i>x</i>  =  169,4 тыс. руб.</p><p><b>При­ведём ре­ше­ние в общем слу­чае.</b></p><p>Пусть сумма кре­ди­та равна <var data-math-identifier=\"S\">S</var>, а го­до­вые со­став­ля­ют <i>а</i>%. Тогда остав­ша­я­ся сумма долга умно­жа­ет­ся на ко­эф­фи­ци­ент <i>b</i>  =  1 + 0,01<i>а</i>. После пер­вой вы­пла­ты сумма долга со­ста­вит <var data-math-identifier=\"S\">S</var><sub>1</sub>  =  <i>Sb − X</i>. После вто­рой вы­пла­ты сумма долга со­ста­вит</p><center><p><span data-inline-latex=\"S_2=S_1b-X=(Sb-X)b-X=Sb^{2}-(1+b)X\"></span>.</p></center><p>По усло­вию кре­дит будет по­га­шен двумя пла­те­жа­ми, по­это­му <span data-inline-latex=\"Sb^{2}-(1+b)X=0\"></span>, от­ку­да <span data-inline-latex=\"X=\\frac{Sb^{2}}{b+1}\"></span> . </p><p>При <var data-math-identifier=\"S\">S</var>  =  147 000 и <i>а</i>  =  10 по­лу­ча­ем: <i>b</i>  =  1,1 и</p><center><p><nobr><span data-inline-latex=\"2X=2\\cdot \\frac{147000\\cdot 1{,}21}{2{,}1}=169{,}4\"></span>  (тыс. руб­лей).</nobr></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "517503",
+      "task": "548482",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Был выдан кре­дит на 550000 руб­лей. Из­вест­но, что банк каж­дый год уве­ли­чи­ва­ет сумму кре­ди­та на 20 про­цен­тов, после чего про­ис­хо­дит пла­теж. Кре­дит был пол­но­стью вы­пла­чен за 2 года, при­чем пла­те­жи были рав­ны­ми. Най­ди­те общую сумму, вы­пла­чен­ную кли­ен­том банку.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">...</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34012443\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 10.07.2020. Основная волна. Вариант 991</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34043000\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 ЕГЭ–2020</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "720000",
+      "source_answer_note": "Сохранённая заглушка «...» заменена расчётом: 2·550000·1,2²/2,2 = 720000 рублей."
+    },
+    {
+      "group": "561179",
+      "task": "561179",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В ян­ва­ре 2020 года Борис взял кре­дит в банке на сумму <nobr>4 200 000</nobr> руб­лей. По до­го­во­ру с бан­ком Борис дол­жен был по­га­сить долг двумя рав­ны­ми пла­те­жа­ми в фев­ра­ле <nobr>2021 года</nobr> и фев­ра­ле <nobr>2022 года,</nobr> при усло­вии, что в ян­ва­ре <nobr>2021 года</nobr> и ян­ва­ре <nobr>2022 года</nobr> сумма остав­ше­го­ся долга уве­ли­чи­ва­ет­ся на 10%. В фев­ра­ле <nobr>2021 года</nobr> Борис сде­лал первую вы­пла­ту в со­от­вет­ствии с до­го­во­ром. После этого ему уда­лось до­го­во­рить­ся с бан­ком о ре­фи­нан­си­ро­ва­нии кре­ди­та и умень­шить про­цент, на ко­то­рый сумма долга вы­рас­тет в ян­ва­ре <nobr>2022 года,</nobr> до 7%. Сколь­ко руб­лей сэко­но­мит Борис на ре­фи­нан­си­ро­ва­нии сво­е­го кре­ди­та?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">66000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=37845506\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный вариант ЕГЭ по математике 18.03.21 Санкт-Петербург. Вариант №1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>x</i> мил­ли­о­нов руб­лей со­став­ля­ла еже­год­ная вы­пла­та по из­на­чаль­но­му до­го­во­ру, тогда по усло­вию за­да­чи</p><center><p> <span data-inline-latex=\"(4{,}2\\cdot 1{,}1-x)\\cdot 1{,}1-x=0\\iff x=2{,}42\"></span>.</p></center><p>Ве­ли­чи­на долга после пер­вой вы­пла­ты со­став­ля­ет 4,2 · 1,1 − 2,42  =  2,2 мил­ли­о­нов руб­лей. Со­глас­но усло­вию, вы­го­да от ре­фи­нан­си­ро­ва­ния со­став­ля­ет 3% этой суммы, что со­став­ля­ет <nobr>0,03 · 2 200 000  =  66 000</nobr> руб­лей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "561179",
+      "task": "561231",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В ян­ва­ре 2020 года Ва­си­лий взял кре­дит в банке на сумму <nobr>3 300 000</nobr> руб­лей. По до­го­во­ру с бан­ком Ва­си­лий дол­жен был по­га­сить долг двумя рав­ны­ми пла­те­жа­ми в фев­ра­ле 2021 года и фев­ра­ле 2022 года, при усло­вии, что в ян­ва­ре 2021 года и ян­ва­ре 2022 года сумма остав­ше­го­ся долга уве­ли­чи­ва­ет­ся на 20%. В фев­ра­ле 2021 года Ва­си­лий сде­лал первую вы­пла­ту в со­от­вет­ствии с до­го­во­ром. После этого ему уда­лось до­го­во­рить­ся с бан­ком о ре­фи­нан­си­ро­ва­нии кре­ди­та и умень­шить про­цент, на ко­то­рый сумма долга вы­рас­тет в ян­ва­ре 2022 года, до 16%. Какую сумму сэко­но­мит Ва­си­лий на ре­фи­нан­си­ро­ва­нии сво­е­го кре­ди­та?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">72 000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=37999127\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный вариант ЕГЭ по математике 18.03.21 Санкт-Петербург. Вариант №2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "628752",
+      "task": "628752",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять в банке не­ко­то­рую сумму в кре­дит на три года. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг воз­рас­та­ет на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года нужно вне­сти платёж, рав­ный 2,662 млн руб­лей.</p><p>Сколь­ко руб­лей было взято в банке, если из­вест­но, что долг был пол­но­стью по­га­шен тремя рав­ны­ми пла­те­жа­ми (то есть за три года)?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6620000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть сумма кре­ди­та со­став­ля­ет <var data-math-identifier=\"S\">S</var> млн руб­лей, а еже­год­ные вы­пла­ты со­став­ля­ют <i>x</i>  =  2,662  млн руб­лей. По усло­вию долг перед бан­ком (в млн руб­лей) по со­сто­я­нию на июль дол­жен умень­шать­ся сле­ду­ю­щим об­ра­зом:</p><center><p><span><span data-inline-latex=\"S;1{,}1S-x;1{,}1^{2}S-(1{,}1x+x);1{,}1^{3}S-(1{,}1^{2}x+1{,}1x+x)=0\"></span>,</span></p></center><p> и тогда <span data-inline-latex=\"S=\\frac{(1{,}1^{3}-1)x}{1{,}1^{3}\\cdot (1{,}1-1)}=\\frac{331\\cdot 2{,}662}{1331\\cdot 0{,}1}=6{,}62\"></span>  млн руб­лей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "628752",
+      "task": "628778",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять в банке не­ко­то­рую сумму в кре­дит на три года. Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг воз­рас­та­ет на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года нужно вне­сти платёж, рав­ный 2,592 млн руб­лей.</p><p>Сколь­ко руб­лей было взято в банке, если из­вест­но, что долг был пол­но­стью по­га­шен тремя рав­ны­ми пла­те­жа­ми (то есть за три года)?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">..</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "5460000",
+      "source_answer_note": "Сохранённая заглушка «..» заменена обратным расчётом: 2,592·(1,2²+1,2+1)/1,2³ = 5,46 млн рублей."
+    },
+    {
+      "group": "660699",
+      "task": "660699",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 545 000 руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на 40% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга.</p><p>Сколь­ко руб­лей будет вы­пла­че­но банку, если из­вест­но, что кре­дит будет пол­но­стью по­га­шен тремя рав­ны­ми пла­те­жа­ми (то есть за три года)?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1029000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=74936592\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 16 ЕГЭ–2024</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=76963436\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 31.05.2024. Основная волна. Дальний Восток</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <span data-inline-latex=\"S=545000\"></span> руб.  —  сумма кре­ди­та, <i>x</i> руб.  — еже­год­ный пла­теж, <span data-inline-latex=\"k=1+\\frac{40}{100}=1{,}4\"></span>.  Тогда схема вы­пла­ты кре­ди­та вы­гля­дит так:</p><center><p><span data-inline-latex=\"k\\cdot (k\\cdot (k\\cdot S-x)-x)-x=0\\iff k^{3}S-k^{2}x-kx-x=0\"></span>.</p></center><p>Тогда </p><center><p><span data-inline-latex=\"x=\\frac{k^{3}S}{k^{2}+k+1}\\iff x=\\frac{545000\\cdot 1{,}4^{3}}{1{,}4^{2}+1{,}4+1}\\iff x=343000\"></span>. </p></center><p>Таким об­ра­зом, общая сумма вы­плат банку будет равна <span data-inline-latex=\"3\\cdot 343000=1029000\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "704627",
+      "task": "704627",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2030 года пла­ни­ру­ет­ся взять кре­дит 182 000 руб­лей в банке на три года.</p><p>Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга.</p><p>Сколь­ко руб­лей со­ста­вит общая сумма пла­те­жей после пол­но­го по­га­ше­ния кре­ди­та, если из­вест­но, что кре­дит будет пол­но­стью по­га­шен тремя рав­ны­ми пла­те­жа­ми?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">259200</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть сумма кре­ди­та равна <var data-math-identifier=\"S\">S</var> руб­лей, а еже­год­ная вы­пла­та равна <i>x</i> руб­лей. Каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на 20%, то есть в 1,2 раза. За­пол­ним таб­ли­цу.</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Год<br/>(номер года)</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Долг в ян­ва­ре (в руб.)</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Вы­пла­та (в руб.)</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Долг в июле (в руб.)</th></tr><tr><td data-align=\"center\" data-valign=\"middle\">2030</td><td data-align=\"center\" data-valign=\"middle\"></td><td data-align=\"center\" data-valign=\"middle\"></td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2031</td><td data-align=\"center\" data-valign=\"middle\"> <span data-inline-latex=\"1{,}2S\"></span></td><td data-align=\"center\" data-valign=\"middle\"><i>x</i></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1{,}2S-x\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2032</td><td data-align=\"center\" data-valign=\"middle\"> <span data-inline-latex=\"1{,}44S-1{,}2x\"></span></td><td data-align=\"center\" data-valign=\"middle\"><i>x</i></td><td data-align=\"center\" data-valign=\"middle\"> <span data-inline-latex=\"1{,}44S-2{,}2x\"></span></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2033</td><td data-align=\"center\" data-valign=\"middle\"> <span data-inline-latex=\"1{,}728S-2{,}64x\"></span></td><td data-align=\"center\" data-valign=\"middle\"><i>x</i></td><td data-align=\"center\" data-valign=\"middle\"><span data-inline-latex=\"1{,}728S-3{,}64x=0\"></span></td></tr></tbody></table><p>Тогда</p><center><p><span data-inline-latex=\"1{,}728S-3{,}64x=0\\iff x=\\frac{1{,}728S}{3{,}64}\"></span> . </p></center><p> Сле­до­ва­тель­но, общая сумма пла­те­жей равна</p><center><p><span data-inline-latex=\"3x=\\frac{3\\cdot 1{,}728\\cdot 182000}{3{,}64}=259200\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

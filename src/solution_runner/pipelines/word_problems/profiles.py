@@ -283,3 +283,29 @@ PROFILES += tuple(
         ("517569", "c58722c2-5feb-42f3-b6a1-52dd2b5841a0", 4),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="13",
+        theme_title="Кредиты",
+        theme_order_index=1,
+        snapshot_theme_id="87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="word-annuity-credit",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("517503", "1d74a9bd-5f52-43d8-a669-1fb8b11c83ea", 3),
+        ("561179", "1fa7c679-3ff5-4414-8ec5-30513758f059", 10),
+        ("628752", "8366c09e-3133-496a-86a0-807f3868ebf0", 11),
+        ("660699", "55000c5f-7586-4839-97ff-a3f946dcd467", 18),
+        ("704627", "e98ae5de-9600-401a-a129-2a4a1ac0f4f8", 22),
+    )
+)
