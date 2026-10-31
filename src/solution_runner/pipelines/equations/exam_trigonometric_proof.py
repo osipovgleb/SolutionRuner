@@ -7,14 +7,14 @@ import sympy as sp
 from ..probability.common import line
 from ..word_problems.water_season_proof import inline
 from .exam_exponential_proof import n
-from .exam_trigonometric import C, S, table
+from .exam_trigonometric import C, S, T, periodic, table
 from .exam_trigonometric_inverse import compare_q, level_series
 
 K = sp.Symbol("k", integer=True)
 
 
 def formula(value):
-    return sp.latex(value, symbol_names={S: r"(\sin x)", C: r"(\cos x)"})
+    return sp.latex(value, symbol_names={S: r"(\sin x)", C: r"(\cos x)", T: r"(\tg x)"})
 
 
 def pi(q):
@@ -74,7 +74,13 @@ def families(a):
     return series_lines(a.series)
 
 
-def polynomial(branch, substitution=None, allow_inverse=False, factorization=False):
+def polynomial(
+    branch,
+    substitution=None,
+    allow_inverse=False,
+    factorization=False,
+    allowed_residues=None,
+):
     p = branch.polynomial
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable
@@ -113,14 +119,25 @@ def polynomial(branch, substitution=None, allow_inverse=False, factorization=Fal
         if value not in branch.values:
             html += "<p>Это значение не входит в отрезок от −1 до 1, поэтому соответствующее тригонометрическое уравнение корней не имеет.</p>"
         else:
-            for text in series_lines(level_series(variable, value, allow_inverse)):
+            series = level_series(variable, value, allow_inverse)
+            if allowed_residues is not None:
+                series = periodic(set(allowed_residues) & set(table(variable, value)))
+            for text in series_lines(series):
                 html += line(text + r",\quad k\in\mathbb Z")
     return html
 
 
 def first(a):
+    if a.domain is not None:
+        from .exam_trigonometric_domain import proof
+
+        return proof(a)
     intro = "<p>Преобразуем уравнение с помощью формул приведения и двойного угла:</p>"
     html = ""
+    if a.preferred == T:
+        html = "<p>Тангенс определён при условии:</p>" + line(r"\cos x\ne0")
+        html += polynomial(a.branches[0])
+        return "<p>Решим квадратное уравнение относительно тангенса:</p>", html
     if a.substitution:
         intro = (
             "<p>Сделаем замену переменной и решим полученное квадратное уравнение:</p>"

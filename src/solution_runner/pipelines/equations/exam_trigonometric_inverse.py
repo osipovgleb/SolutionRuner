@@ -1,4 +1,4 @@
-"""Compare principal inverse cosine angles by monotonicity, without approximations."""
+"""Compare principal inverse angles by monotonicity, without approximations."""
 
 from functools import cmp_to_key, lru_cache
 
@@ -12,6 +12,9 @@ def compare_q(a, b):
     difference = sp.expand(sp.simplify(a - b))
     if difference.is_Rational:
         return 1 if difference > 0 else -1 if difference < 0 else 0
+    tangents = list(difference.atoms(sp.atan))
+    if tangents:
+        return compare_tangents(difference, tangents)
     inverse = list(difference.atoms(sp.acos))
     if len(inverse) != 1:
         raise UnsupportedCondition(
@@ -40,13 +43,60 @@ def compare_q(a, b):
     return order * (1 if multiplier > 0 else -1)
 
 
+def compare_tangents(difference, angles):
+    coefficients = [sp.simplify(difference.coeff(a) * sp.pi) for a in angles]
+    constant = sp.simplify(
+        difference - sum(c * a / sp.pi for c, a in zip(coefficients, angles))
+    )
+    if constant.is_Rational is not True or any(
+        c.is_Rational is not True or c == 0 for c in coefficients
+    ):
+        raise UnsupportedCondition(
+            "rational shifts of principal arctangents are required"
+        )
+    if len(angles) == 1:
+        boundary = -constant / coefficients[0]
+        order = (
+            1
+            if boundary <= -sp.Rational(1, 2)
+            else -1
+            if boundary >= sp.Rational(1, 2)
+            else compare(angles[0].args[0], sp.tan(sp.pi * boundary))
+        )
+        return order * (1 if coefficients[0] > 0 else -1)
+    if len(angles) == 2 and coefficients[0] == -coefficients[1]:
+        if constant == 0:
+            return compare(angles[0].args[0], angles[1].args[0]) * (
+                1 if coefficients[0] > 0 else -1
+            )
+        if abs(constant) >= abs(coefficients[0]):
+            return 1 if constant > 0 else -1
+    if constant == 0:
+        signs = [
+            compare(a.args[0], sp.Integer(0)) * (1 if c > 0 else -1)
+            for a, c in zip(angles, coefficients)
+        ]
+        if all(s >= 0 for s in signs):
+            return 1 if any(signs) else 0
+        if all(s <= 0 for s in signs):
+            return -1
+    raise UnsupportedCondition(
+        "the arctangent difference is outside the reviewed exact comparison"
+    )
+
+
 def ordered(values):
     return tuple(sorted(set(values), key=cmp_to_key(compare_q)))
 
 
 @lru_cache(maxsize=128)
 def angles(variable, value, allow_inverse=False):
-    from .exam_trigonometric import S, table
+    from .exam_trigonometric import S, T, table
+
+    if variable == T:
+        q = sp.atan(value) / sp.pi
+        offset = q + 1 if compare(value, sp.Integer(0)) < 0 else q
+        return ordered((offset, offset + 1))
 
     try:
         return table(variable, value)
@@ -67,7 +117,10 @@ def angles(variable, value, allow_inverse=False):
 
 
 def level_series(variable, value, allow_inverse=False):
-    from .exam_trigonometric import periodic
+    from .exam_trigonometric import T, periodic
+
+    if variable == T:
+        return ((sp.atan(value) / sp.pi, sp.Integer(1)),)
 
     residues = angles(variable, value, allow_inverse)
     if all(q.is_Rational for q in residues):
@@ -119,16 +172,21 @@ def decode(value):
         return sp.Rational(value)
     if (
         not isinstance(value, dict)
-        or set(value) != {"rational", "acos", "coefficient"}
+        or set(value)
+        not in (
+            {"rational", "acos", "coefficient"},
+            {"rational", "atan", "coefficient"},
+        )
         or value["coefficient"] not in (-1, 1)
     ):
         raise UnsupportedCondition("unknown audited inverse-angle label")
-    argument = sp.Rational(value["acos"])
-    if not -1 < argument < 1:
+    function = sp.atan if "atan" in value else sp.acos
+    argument = sp.Rational(value["atan"] if "atan" in value else value["acos"])
+    if function == sp.acos and not -1 < argument < 1:
         raise UnsupportedCondition(
             "the audited inverse angle needs a value strictly inside the unit range"
         )
     return (
         sp.Rational(value["rational"])
-        + value["coefficient"] * sp.acos(argument) / sp.pi
+        + value["coefficient"] * function(argument) / sp.pi
     )

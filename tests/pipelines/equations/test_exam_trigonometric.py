@@ -273,13 +273,14 @@ def test_source_svg_bytes_and_marker_positions_match_the_audited_geometry(
         assert point["path_d"] in paths
         angle = float(decode(point["angle"])) * math.pi
         radius = point.get("radius", entry["circle"][2])
-        assert (
-            math.hypot(
-                point["x"] - (cx + radius * math.cos(angle)),
-                point["y"] - (cy - radius * math.sin(angle)),
-            )
-            < 5
+        distance = math.hypot(
+            point["x"] - (cx + radius * math.cos(angle)),
+            point["y"] - (cy - radius * math.sin(angle)),
         )
+        if point.get("inaccurate"):
+            assert entry.get("corrected_file") and distance > 5
+        else:
+            assert distance < 5
 
 
 def test_corrected_circle_removes_only_the_nonroot_marker_without_altering_labels():

@@ -24,7 +24,7 @@ from .trig_angles import C as NUMERIC_C
 from .trig_angles import S as NUMERIC_S
 from .trig_symbolic_parser import SymbolicTrigonometricParser, compile_atoms
 
-S, C = sp.symbols("s c", real=True)
+S, C, T = sp.symbols("s c tangent", real=True)
 
 
 @dataclass(frozen=True)
@@ -56,6 +56,7 @@ class Analysis:
     substitution: str | None = None
     selection_method: str = "circle"
     factorization: bool = False
+    domain: sp.Expr | None = None
 
 
 def compile_equation(formula):
@@ -70,6 +71,20 @@ def compile_equation(formula):
             side.replace("x", r"\alpha"), atoms, denominators
         )
         values.append(parser.parse().value)
+    if atoms and all(a.function == "tg" for a in atoms.values()):
+        if any(
+            abs(a.coefficient) != 1 or not a.shift.is_Integer for a in atoms.values()
+        ) or any(d.free_symbols for d in denominators):
+            raise UnsupportedCondition(
+                "reviewed tangent polynomials require one angle and no added denominators"
+            )
+        compiled = {symbol: a.coefficient * T for symbol, a in atoms.items()}
+        raw = sp.expand((values[0] - values[1]).xreplace(compiled))
+        if not raw.is_polynomial(T) or raw == 0 or sp.degree(raw, T) > 2:
+            raise UnsupportedCondition(
+                "a nonzero tangent polynomial of degree at most two is required"
+            )
+        return raw, ()
     base, _, compiled, poles = compile_atoms(parser)
     if (
         base != 1
@@ -128,6 +143,11 @@ def periodic(residues):
 
 
 def solve_branches(raw, preferred, allow_inverse=False):
+    if raw.has(T):
+        p = primitive(raw, (T,))
+        values = roots(p.subs(T, X))
+        residues = ordered(q for v in values for q in angles(T, v))
+        return raw, (Branch(T, p, values, values, residues),)
     other = S if preferred == C else C
     reduced = sp.expand(sp.rem(raw, S * S + C * C - 1, other))
     if not reduced.has(other):
@@ -170,6 +190,8 @@ def parent_style(parent_html):
         "circle"
         if "окружност" in text
         or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
+        or (len(images) == 1 and "среди представленных корней отберём" in text)
+        or (len(images) == 1 and "изображается жирной дугой" in text)
         else "inequalities"
         if "решим неравенства" in text
         else None
@@ -184,7 +206,7 @@ def parent_style(parent_html):
         "".join(s["data-inline-latex"].split())
         for s in soup.select("[data-inline-latex]")
     ]
-    matches = [m for f in formulas for m in re.findall(r"\\(sin|cos)x&?=", f)]
+    matches = [m for f in formulas for m in re.findall(r"\\(sin|cos|tg)x&?=", f)]
     if not matches or len(images) != (1 if selection_method == "circle" else 0):
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
@@ -207,7 +229,7 @@ def parent_style(parent_html):
     ]
     substitution = next((left or right for left, right in substitutions), None)
     return (
-        (S if matches[0] == "sin" else C),
+        {"sin": S, "cos": C, "tg": T}[matches[0]],
         ("полный квадрат" in text),
         any(re.search(r"\(-\d+\)\^\{?k", f) for f in formulas),
         position,
@@ -240,15 +262,26 @@ def select(series, bounds):
 
 
 def analyze(formula, interval, bounds, parent_html):
+    from .exam_trigonometric_domain import radical_product, restrict
+
     preferred, square, alternating, position, substitution, method = parent_style(
         parent_html
     )
-    raw, identities = compile_equation(formula)
+    product = radical_product(formula)
+    if product is None:
+        raw, identities = compile_equation(formula)
+        domain = None
+    else:
+        raw, identities, domain = product
     reduced, branches = solve_branches(raw, preferred, method == "inequalities")
+    if domain is not None:
+        branches = restrict(branches, domain)
     if len(branches) == 1:
         preferred = branches[0].variable
     residues = ordered(q for b in branches for q in b.residues)
-    if (
+    if domain is not None:
+        series = tuple(s for branch in branches for s in periodic(branch.residues))
+    elif (
         all(q.is_Rational for q in residues)
         and len(branches) == 1
         and all(
@@ -300,6 +333,7 @@ def analyze(formula, interval, bounds, parent_html):
                 "[data-inline-latex]"
             )
         ),
+        domain,
     )
 
 

@@ -1,4 +1,4 @@
-"""Reuse audited circle geometry and labels; prepare the one corrected source SVG."""
+"""Reuse audited circles and labels; prepare verified local figure corrections."""
 
 import json
 from copy import deepcopy
@@ -102,9 +102,42 @@ def image(context, a, generated):
             svg=(DIRECTORY / entry["corrected_file"]).read_text(),
             generated=generated,
         )
-    return solution_diagrams.image(
+    markup, key, changes = solution_diagrams.image(
         context["normalized_content"],
         "image_1",
         "Окружность для отбора корней",
         source_id=asset["asset_id"],
+    )
+    return markup + point_caption(entry, a), key, changes
+
+
+def point_caption(entry, a):
+    from ..word_problems.water_season_proof import inline
+    from .exam_trigonometric import S
+    from .exam_trigonometric_inverse import decode, ordered
+    from .exam_trigonometric_proof import formula
+
+    letters = entry.get("point_letters")
+    if not letters:
+        return ""
+    if (
+        len(a.branches) != 1
+        or ordered(decode(q) for q in letters.values()) != a.residues
+    ):
+        raise UnsupportedCondition(
+            "the lettered circle must describe all computed roots"
+        )
+    variable = a.branches[0].variable
+    function = sp.sin if variable == S else sp.cos
+    groups = {}
+    for letter, q in letters.items():
+        value = sp.simplify(function(decode(q) * sp.pi))
+        groups.setdefault(value, []).append(letter)
+    return "".join(
+        "<p>Корни уравнения "
+        + inline(formula(variable) + "=" + sp.latex(value))
+        + "изображаются точками "
+        + " и ".join(names)
+        + ".</p>"
+        for value, names in groups.items()
     )
