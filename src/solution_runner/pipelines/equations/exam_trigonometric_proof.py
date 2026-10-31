@@ -1,11 +1,14 @@
 """Keep the parent's identities, full square and exact circle selection in order."""
 
+from functools import cmp_to_key
+
 import sympy as sp
 
 from ..probability.common import line
 from ..word_problems.water_season_proof import inline
 from .exam_exponential_proof import n
-from .exam_trigonometric import C, S, periodic, table
+from .exam_trigonometric import C, S, table
+from .exam_trigonometric_inverse import compare_q, level_series
 
 K = sp.Symbol("k", integer=True)
 
@@ -15,7 +18,7 @@ def formula(value):
 
 
 def pi(q):
-    return sp.latex(q * sp.pi)
+    return sp.latex(sp.expand(q * sp.pi), inv_trig_style="full")
 
 
 def series_lines(series):
@@ -24,16 +27,27 @@ def series_lines(series):
     while remaining:
         offset, period = remaining.pop(0)
         pair = next(
-            ((a, p) for a, p in remaining if p == period and a + offset == period), None
+            (
+                (a, p)
+                for a, p in remaining
+                if p == period and (a + offset == period or a + offset == 0)
+            ),
+            None,
         )
         if pair:
             remaining.remove(pair)
-            angle = min(offset, pair[0])
+            angle = min((abs(offset), abs(pair[0])), key=cmp_to_key(compare_q))
             result.append(
                 "x=" + r"\pm" + pi(angle) + "+" + sp.latex(period * sp.pi * K)
             )
         else:
-            result.append("x=" + sp.latex(offset * sp.pi + period * sp.pi * K))
+            result.append(
+                "x="
+                + sp.latex(
+                    sp.expand(offset * sp.pi + period * sp.pi * K),
+                    inv_trig_style="full",
+                )
+            )
     return tuple(result)
 
 
@@ -60,10 +74,11 @@ def families(a):
     return series_lines(a.series)
 
 
-def polynomial(branch):
+def polynomial(branch, substitution=None, allow_inverse=False):
     p = branch.polynomial
     variable = branch.variable
-    html = line(formula(p) + "=0")
+    symbol = sp.Symbol(substitution, real=True) if substitution else variable
+    html = line(formula(p.subs(variable, symbol)) + "=0")
     degree = sp.Poly(p, variable).degree()
     if degree == 2:
         A, B, D0 = sp.Poly(p, variable).all_coeffs()
@@ -88,11 +103,14 @@ def polynomial(branch):
                     html += line(formula(factor) + ">0")
                     html += "<p>Квадратный множитель имеет положительный старший коэффициент и отрицательный дискриминант, поэтому не обращается в нуль.</p>"
     for value in branch.candidates:
-        html += line(formula(variable) + "=" + sp.latex(value))
+        html += line(formula(symbol) + "=" + sp.latex(value))
+        if substitution and value in branch.values:
+            html += "<p>Вернёмся к исходной переменной:</p>"
+            html += line(formula(variable) + "=" + sp.latex(value))
         if value not in branch.values:
             html += "<p>Это значение не входит в отрезок от −1 до 1, поэтому соответствующее тригонометрическое уравнение корней не имеет.</p>"
         else:
-            for text in series_lines(periodic(table(variable, value))):
+            for text in series_lines(level_series(variable, value, allow_inverse)):
                 html += line(text + r",\quad k\in\mathbb Z")
     return html
 
@@ -100,6 +118,33 @@ def polynomial(branch):
 def first(a):
     intro = "<p>Преобразуем уравнение с помощью формул приведения и двойного угла:</p>"
     html = ""
+    if a.substitution:
+        intro = (
+            "<p>Сделаем замену переменной и решим полученное квадратное уравнение:</p>"
+        )
+        for text, value in a.identities:
+            if value in (S, C):
+                continue
+            other = S if a.preferred == C else C
+            html += line(text + "=" + formula(sp.rem(value, S * S + C * C - 1, other)))
+        for branch in a.branches:
+            html += "<p>Введём обозначение:</p>" + line(
+                a.substitution + "=" + formula(branch.variable)
+            )
+            html += line("-1\\le " + a.substitution + "\\le1")
+            if len(a.branches) == 1 and sp.expand(a.reduced - branch.polynomial) != 0:
+                html += line(
+                    formula(
+                        a.reduced.subs(
+                            branch.variable, sp.Symbol(a.substitution, real=True)
+                        )
+                    )
+                    + "=0"
+                )
+            html += polynomial(
+                branch, a.substitution, a.selection_method == "inequalities"
+            )
+        return intro, html
     for text, value in a.identities:
         html += line(text + "=" + formula(value))
     html += line(formula(a.raw) + "=0")
@@ -123,7 +168,7 @@ def first(a):
         html += line(formula(sp.factor(a.raw)) + "=0")
     html += line(r"-1\le\sin x\le1,\quad-1\le\cos x\le1")
     for branch in a.branches:
-        html += polynomial(branch)
+        html += polynomial(branch, allow_inverse=a.selection_method == "inequalities")
     if any(sp.Poly(b.polynomial, b.variable).degree() > 1 for b in a.branches):
         html += "<p>Объединим полученные серии, учитывая периодичность:</p>"
         for text in families(a):
@@ -131,27 +176,79 @@ def first(a):
     return intro, html
 
 
+def inequality_selection(a):
+    html = (
+        "<p>Найдём корни на промежутке "
+        + inline(a.interval)
+        + ". Решим неравенства для целого параметра каждой серии:</p>"
+    )
+    inverse = (
+        set().union(*(q.atoms(sp.acos) for q in a.residues)) if a.residues else set()
+    )
+    for angle in inverse:
+        html += (
+            "<p>Для главного значения арккосинуса используем его область значений:</p>"
+        )
+        html += line("0<" + sp.latex(angle, inv_trig_style="full") + r"<\pi")
+    lo, hi, lc, uc = a.bounds
+    for offset, period, start, end, values in a.selections:
+        html += line(
+            pi(lo)
+            + (r"\le" if lc else "<")
+            + sp.latex(
+                sp.expand(offset * sp.pi + period * sp.pi * K), inv_trig_style="full"
+            )
+            + (r"\le" if uc else "<")
+            + pi(hi)
+        )
+        html += line(
+            sp.latex(sp.simplify((lo - offset) / period), inv_trig_style="full")
+            + (r"\le" if lc else "<")
+            + "k"
+            + (r"\le" if uc else "<")
+            + sp.latex(sp.simplify((hi - offset) / period), inv_trig_style="full")
+        )
+        if start > end:
+            html += "<p>Подходящих целых значений k нет.</p>"
+        else:
+            html += line(
+                r"k\in\{" + ";".join(str(k) for k in range(start, end + 1)) + r"\}"
+            )
+            for root in values:
+                html += line("x=" + pi(root))
+    return html
+
+
 def render(a, image):
     intro, steps = first(a)
     before = image if a.image_position == "before-intro" else ""
     after = image if a.image_position == "after-intro" else ""
-    first_html = before + intro + after + steps
-    second = (
-        "<p>С помощью числовой окружности отберём корни, принадлежащие промежутку "
-        + inline(a.interval)
-        + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
+    first_html = (
+        before
+        + intro
+        + after
+        + steps
+        + (image if a.image_position == "after-steps" else "")
     )
-    lo, hi, lc, uc = a.bounds
-    for root in a.selected:
-        second += line(
-            pi(lo)
-            + (r"\le" if lc else "<")
-            + pi(root)
-            + (r"\le" if uc else "<")
-            + pi(hi)
+    if a.selection_method == "inequalities":
+        second = inequality_selection(a)
+    else:
+        second = (
+            "<p>С помощью числовой окружности отберём корни, принадлежащие промежутку "
+            + inline(a.interval)
+            + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
         )
-    if not a.selected:
-        second += "<p>На указанной дуге точек решения нет.</p>"
+        lo, hi, lc, uc = a.bounds
+        for root in a.selected:
+            second += line(
+                pi(lo)
+                + (r"\le" if lc else "<")
+                + pi(root)
+                + (r"\le" if uc else "<")
+                + pi(hi)
+            )
+        if not a.selected:
+            second += "<p>На указанной дуге точек решения нет.</p>"
     html = (
         (image if a.image_position == "outside" else "")
         + '<ol data-layout="source-subparts" type="a"><li data-list-marker="а)">'

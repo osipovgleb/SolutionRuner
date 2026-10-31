@@ -22,6 +22,7 @@ from solution_runner.pipelines.equations.exam_trigonometric_circle import (
     DIRECTORY,
     read,
 )
+from solution_runner.pipelines.equations.exam_trigonometric_inverse import decode
 from solution_runner.pipelines.word_problems.common import UnsupportedCondition
 
 DATA = json.loads(
@@ -270,7 +271,8 @@ def test_source_svg_bytes_and_marker_positions_match_the_audited_geometry(
     cx, cy, radius = entry["circle"]
     for point in entry["green_markers"]:
         assert point["path_d"] in paths
-        angle = float(sp.Rational(point["angle"])) * math.pi
+        angle = float(decode(point["angle"])) * math.pi
+        radius = point.get("radius", entry["circle"][2])
         assert (
             math.hypot(
                 point["x"] - (cx + radius * math.cos(angle)),

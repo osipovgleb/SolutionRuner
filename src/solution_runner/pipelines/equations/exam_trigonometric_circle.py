@@ -44,6 +44,8 @@ def source(context):
 
 
 def read(context):
+    if not (context.get("normalized_content") or {}).get("assets"):
+        return read_exam(context)
     source(context)
     content = context["normalized_content"]
     prepared = deepcopy(context)
@@ -61,11 +63,13 @@ def read(context):
 
 
 def validate(entry, a):
-    expected = tuple(sp.Rational(q) for q in entry["residues"])
+    from .exam_trigonometric_inverse import decode
+
+    expected = tuple(decode(q) for q in entry["residues"])
     bounds = tuple(sp.Rational(q) for q in entry["bounds"][:2]) + tuple(
         entry["bounds"][2:]
     )
-    labels = tuple(sp.Rational(q) for q in entry["labels"])
+    labels = tuple(decode(q) for q in entry["labels"])
     if a.residues != expected or a.bounds != bounds or a.selected != labels:
         raise UnsupportedCondition(
             "the circle points, interval and labels must match the computed equation exactly"
@@ -73,6 +77,8 @@ def validate(entry, a):
 
 
 def diagram_specs(context):
+    if not (context.get("normalized_content") or {}).get("assets"):
+        return ()
     _, entry = source(context)
     if not entry.get("corrected_file"):
         return ()
@@ -82,6 +88,10 @@ def diagram_specs(context):
 
 
 def image(context, a, generated):
+    if not context["normalized_content"].get("assets"):
+        if a.selection_method != "inequalities":
+            raise UnsupportedCondition("circle selection requires its source figure")
+        return "", "", []
     asset, entry = source(context)
     validate(entry, a)
     if entry.get("corrected_file"):

@@ -1,6 +1,6 @@
 """Reduce reviewed identities, keep zero factors and select exact periodic roots."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from functools import cmp_to_key, lru_cache
 
 import sympy as sp
@@ -11,6 +11,13 @@ from ..word_problems.math_common import primitive
 from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
+from .exam_trigonometric_inverse import (
+    angles,
+    centred,
+    level_series,
+    ordered,
+    select_inverse,
+)
 from .power_arithmetic import clean
 from .trig_angles import C as NUMERIC_C
 from .trig_angles import S as NUMERIC_S
@@ -45,6 +52,8 @@ class Analysis:
     square: bool
     alternating: bool
     image_position: str
+    substitution: str | None = None
+    selection_method: str = "circle"
 
 
 def compile_equation(formula):
@@ -116,14 +125,19 @@ def periodic(residues):
     return tuple((q, period) for q in sorted({q % period for q in residues}))
 
 
-def solve_branches(raw, preferred):
+def solve_branches(raw, preferred, allow_inverse=False):
     other = S if preferred == C else C
     reduced = sp.expand(sp.rem(raw, S * S + C * C - 1, other))
     if not reduced.has(other):
         expressions = [reduced]
     else:
-        _, factors = sp.factor_list(raw, S, C)
-        expressions = [p for p, _ in factors]
+        alternative = sp.expand(sp.rem(raw, S * S + C * C - 1, preferred))
+        if not alternative.has(preferred):
+            reduced = alternative
+            expressions = [reduced]
+        else:
+            _, factors = sp.factor_list(raw, S, C)
+            expressions = [p for p, _ in factors]
     branches = []
     for expression in expressions:
         variables = expression.free_symbols & {S, C}
@@ -139,7 +153,9 @@ def solve_branches(raw, preferred):
             for v in values
             if compare(v, -sp.Integer(1)) >= 0 and compare(v, sp.Integer(1)) <= 0
         )
-        residues = tuple(sorted({q for v in accepted for q in table(variable, v)}))
+        residues = ordered(
+            q for v in accepted for q in angles(variable, v, allow_inverse)
+        )
         branches.append(Branch(variable, p, values, accepted, residues))
     return reduced, tuple(branches)
 
@@ -149,36 +165,53 @@ def parent_style(parent_html):
 
     soup = BeautifulSoup(parent_html, "html.parser")
     text = soup.get_text(" ", strip=True).replace("\xad", "").lower()
-    if "окружност" not in text or any(
+    selection_method = (
+        "circle"
+        if "окружност" in text
+        else "inequalities"
+        if "решим неравенства" in text
+        else None
+    )
+    if selection_method is None or any(
         s in text for s in ("другое решение", "еще одно решение")
     ):
         raise UnsupportedCondition(
-            "one reviewed parent method with circle selection is required"
+            "one reviewed circle or inequality selection method is required"
         )
     formulas = [
         "".join(s["data-inline-latex"].split())
         for s in soup.select("[data-inline-latex]")
     ]
-    matches = [m for f in formulas for m in re.findall(r"\\(sin|cos)x=", f)]
+    matches = [m for f in formulas for m in re.findall(r"\\(sin|cos)x&?=", f)]
     images = soup.find_all("img")
-    if not matches or len(images) != 1:
+    if not matches or len(images) != (1 if selection_method == "circle" else 0):
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
         )
-    image = images[0]
-    part = image.find_parent("li")
-    position = (
-        "outside"
-        if part is None
-        else "after-intro"
-        if any(str(n).strip() for n in image.previous_siblings)
-        else "before-intro"
-    )
+    position = "none"
+    if images:
+        image = images[0]
+        part = image.find_parent("li")
+        position = (
+            "outside"
+            if part is None
+            else "after-intro"
+            if any(str(n).strip() for n in image.previous_siblings)
+            else "before-intro"
+        )
+    substitutions = [
+        m
+        for f in formulas
+        for m in re.findall(r"(?:([ty])=\\(?:sin|cos)x|\\(?:sin|cos)x=([ty]))", f)
+    ]
+    substitution = next((left or right for left, right in substitutions), None)
     return (
         (S if matches[0] == "sin" else C),
         ("полный квадрат" in text),
         any(re.search(r"\(-\d+\)\^\{?k", f) for f in formulas),
         position,
+        substitution,
+        selection_method,
     )
 
 
@@ -188,6 +221,8 @@ def select(series, bounds):
         raise UnsupportedCondition(
             "the reviewed interval must have bounded rational multiples of pi"
         )
+    if any(not isinstance(q, int) and q.is_Rational is not True for q, _ in series):
+        return select_inverse(series, bounds)
     selected = set()
     trace = []
     for offset, period in series:
@@ -204,13 +239,21 @@ def select(series, bounds):
 
 
 def analyze(formula, interval, bounds, parent_html):
-    preferred, square, alternating, position = parent_style(parent_html)
+    preferred, square, alternating, position, substitution, method = parent_style(
+        parent_html
+    )
     raw, identities = compile_equation(formula)
-    reduced, branches = solve_branches(raw, preferred)
-    residues = tuple(sorted({q for b in branches for q in b.residues}))
-    if len(branches) == 1 and all(
-        power[0] % 2 == 0
-        for power in sp.Poly(branches[0].polynomial, branches[0].variable).monoms()
+    reduced, branches = solve_branches(raw, preferred, method == "inequalities")
+    if len(branches) == 1:
+        preferred = branches[0].variable
+    residues = ordered(q for b in branches for q in b.residues)
+    if (
+        all(q.is_Rational for q in residues)
+        and len(branches) == 1
+        and all(
+            power[0] % 2 == 0
+            for power in sp.Poly(branches[0].polynomial, branches[0].variable).monoms()
+        )
     ):
         series = periodic(residues)
     else:
@@ -221,9 +264,11 @@ def analyze(formula, interval, bounds, parent_html):
                 for v in sorted(
                     b.values, key=cmp_to_key(compare), reverse=(b.variable == C)
                 )
-                for s in periodic(table(b.variable, v))
+                for s in level_series(b.variable, v, method == "inequalities")
             )
         )
+    if method == "inequalities":
+        series = centred(series)
     qbounds = tuple(sp.cancel(b / sp.pi) for b in bounds[:2]) + bounds[2:]
     if any(q.is_Rational is not True for q in qbounds[:2]):
         raise UnsupportedCondition(
@@ -246,6 +291,8 @@ def analyze(formula, interval, bounds, parent_html):
         square,
         alternating,
         position,
+        substitution,
+        method,
     )
 
 
@@ -258,18 +305,23 @@ def build_context_repair_plan(
 
     parts, formula, interval, bounds = read(context)
     a = analyze(formula, interval, bounds, parent_solution_html)
+    if a.image_position == "none" and context["normalized_content"].get("assets"):
+        a = replace(a, image_position="after-steps")
     markup, key, asset_changes = image(context, a, generated_solution_assets)
+    keys = [key] if key else []
     plan = repair(parts, *render(a, markup))
     changes = list(plan.transformations)
-    if not any(
-        t["transformation_target_id"].startswith("section:solution") for t in changes
-    ) and (parts[2] or {}).get("asset_keys") != [key]:
+    if (
+        not any(
+            t["transformation_target_id"].startswith("section:solution")
+            for t in changes
+        )
+        and (parts[2] or {}).get("asset_keys") != keys
+    ):
         from ..word_problems.common import rewrite
 
         changes.append(rewrite(parts[2], "solution", "Решение", plan.solution_html))
     for t in changes:
         if t["transformation_target_id"].startswith("section:solution"):
-            t["value"]["asset_keys"] = [key]
-    from dataclasses import replace
-
+            t["value"]["asset_keys"] = keys
     return replace(plan, transformations=tuple(asset_changes) + tuple(changes))
