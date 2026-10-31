@@ -8,6 +8,7 @@ from ..calculus.common import answer
 from ..probability.solution_diagrams import repair
 from .annuity_questions import Question, parse
 from .common import UnsupportedCondition
+from .loan_schedule import balances
 from .math_common import read
 
 
@@ -26,14 +27,7 @@ def analyze(q):
     weights = sum(k**j for j in range(periods))
     capital = q.capital if q.capital is not None else q.payment * weights / k**periods
     payment = q.payment if q.payment is not None else capital * k**periods / weights
-    debt, debts = capital, [capital]
-    for _ in range(periods):
-        debt = sp.simplify(debt * k - payment)
-        debts.append(debt)
-    if debts[-1] != 0 or any(d <= 0 for d in debts[:-1]) or payment <= 0:
-        raise UnsupportedCondition(
-            "positive annual payments must close the debt exactly at maturity"
-        )
+    debts = balances(capital, k, (payment,) * periods)
     if q.style == "principal":
         result = capital * 1_000_000
     elif q.style == "refinance":

@@ -1,0 +1,660 @@
+{
+  "groups": [
+    {
+      "key": "630122",
+      "uuid": "0947076f-f90a-4e5d-a3da-d310611e79ef",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 13
+    },
+    {
+      "key": "630129",
+      "uuid": "e1f00380-76e4-4eb2-80ef-5b8a7cfc6683",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 14
+    },
+    {
+      "key": "630197",
+      "uuid": "5a1a99ec-a432-4bb7-a8bb-2a70bfa3ed18",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 15
+    },
+    {
+      "key": "630219",
+      "uuid": "7c15ce9a-a604-484c-aca3-ee7a22278d5c",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 16
+    },
+    {
+      "key": "672873",
+      "uuid": "3be13af6-3da9-403d-861c-b3b4ce90d992",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 19
+    },
+    {
+      "key": "697032",
+      "uuid": "210fa887-bea6-4184-a196-fe231fc4fceb",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 20
+    }
+  ],
+  "cases": [
+    {
+      "group": "630122",
+      "task": "630122",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 800 тыс. руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>—  пла­те­жи в 2027 и 2028 годах долж­ны быть равны;</p><p>—  к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Из­вест­но, что платёж в 2029 году со­ста­вит 833,8 тыс. руб­лей. Сколь­ко руб­лей со­ста­вит платёж <nobr>в 2027 году?</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">100000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47351982\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург. Вариант 319</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть вы­пла­та в 2027 году будет равна <i>x</i> тыс. руб­лей. За­пол­ним таб­ли­цу в со­от­вет­ствии с усло­ви­ем за­да­чи:</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Год</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Долг в ян­ва­ре,<br/>тыс. руб.</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Вы­пла­та,<br/>тыс. руб.</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Долг в июле,<br/>тыс. руб.</th></tr><tr><td data-align=\"center\" data-valign=\"middle\">2026</td><td data-align=\"center\" data-valign=\"middle\"></td><td data-align=\"center\" data-valign=\"middle\"></td><td data-align=\"center\" data-valign=\"middle\">800</td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2027</td><td data-align=\"center\" data-valign=\"middle\">800 · 1,1</td><td data-align=\"center\" data-valign=\"middle\"><i>x</i></td><td data-align=\"center\" data-valign=\"middle\">880 − <i>x</i></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2028</td><td data-align=\"center\" data-valign=\"middle\">(880 − <i>x</i>) · 1,1</td><td data-align=\"center\" data-valign=\"middle\"><i>x</i></td><td data-align=\"center\" data-valign=\"middle\">968 − 2,1<i>x</i></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2029</td><td data-align=\"center\" data-valign=\"middle\">(968 − 2,1<i>x</i>) · 1,1</td><td data-align=\"center\" data-valign=\"middle\">833,8</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr></tbody></table><p>Из по­след­ней стро­ки таб­ли­цы по­лу­ча­ем  урав­не­ние:</p><center><p><span> <span data-inline-latex=\"(968-2{,}1x)\\cdot 1{,}1-833{,}8=0\\iff 1064{,}8-2{,}31x=833{,}8\\iff 2{,}31x=231\\iff x=100\"></span>.</span></p></center><p>Зна­чит, платёж в 2027 году со­ста­вит 100 тыс. руб­лей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "630122",
+      "task": "630158",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 900 тыс. руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг будет воз­рас­тать на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— пла­те­жи в 2027 и 2028 годах долж­ны быть равны;</p><p>— к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Из­вест­но, что платёж в 2029 году со­ста­вит 499,2 тыс. руб­лей. Сколь­ко руб­лей со­ста­вит платёж <nobr>в 2027 году?</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">в</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47365432\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург. Вариант 321</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "400000",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. (900·1,2³−499,2)/(1,2²+1,2)=400 тыс. руб."
+    },
+    {
+      "group": "630122",
+      "task": "630187",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит в банке в раз­ме­ре <nobr>300 тыс. руб­лей.</nobr> Усло­вия его воз­вра­та та­ко­вы: </p><p>— каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на 30% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга; </p><p>— вы­пла­ты в 2027 и 2028 годах равны; </p><p>— в июле 2029 долг дол­жен быть пол­но­стью по­га­шен. </p><p>Сумма всех вы­плат равна 560,1 тыс. руб­лей. Сколь­ко руб­лей со­ста­вит платёж в 2027 году?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">в</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47368121\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Краснодарский край</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "100000",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. (300·1,3³−560,1)/(1,3²+1,3−2)=100 тыс. руб."
+    },
+    {
+      "group": "630129",
+      "task": "630129",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 700 тысяч руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>—  платёж в 2027 и 2028 годах дол­жен быть по 400 тыс. руб­лей;</p><p>—  к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Най­ди­те сумму всех пла­те­жей после пол­но­го по­га­ше­ния кре­ди­та. Ответ дайте в руб­лях.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">953500</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47352032\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 401</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47380227\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 405</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47380295\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 406</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В ян­ва­ре 2027 года долг со­ста­вит <span data-inline-latex=\"700\\cdot 1{,}2=840\"></span> тыс. руб. После пер­во­го пла­те­жа долг со­ста­вит <nobr><span data-inline-latex=\"840-400=440\"></span> тыс. руб.</nobr> В ян­ва­ре <nobr>2028 года</nobr> долг со­ста­вит <nobr><span data-inline-latex=\"440\\cdot 1{,}2=528\"></span> тыс. руб.</nobr> После вто­ро­го пла­те­жа долг со­ста­вит <nobr><span data-inline-latex=\"528-400=128\"></span> тыс. руб.</nobr> В ян­ва­ре 2029 года долг со­ста­вит <nobr><span data-inline-latex=\"128\\cdot 1{,}2=153{,}6\"></span> тыс. руб.</nobr> Зна­чит, тре­тий пла­теж дол­жен рав­нять­ся остав­шей­ся сумме долга, <nobr>153,6 тыс. руб.</nobr> Таким об­ра­зом, сумма всех пла­те­жей после пол­но­го по­га­ше­ния со­ста­вит <nobr><span data-inline-latex=\"400+400+153{,}6=953{,}6\"></span> тыс. руб.,</nobr> или 953 600 руб.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "953600",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. Последний платёж 700·1,2³−400·(1,2²+1,2)=153,6 тыс. руб.; всего 953,6 тыс. руб."
+    },
+    {
+      "group": "630129",
+      "task": "630165",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 634,5 тыс. руб.. Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг будет воз­рас­тать на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— платёж в 2027 и 2028 годах дол­жен быть по 100 тыс. руб.;</p><p>— к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Най­ди­те сумму всех пла­те­жей после пол­но­го по­га­ше­ния кре­ди­та.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">813519,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "630129",
+      "task": "630261",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 500 тыс. руб. Усло­вия его воз­вра­та та­ко­вы: </p><p>— каж­дый ян­варь долг будет воз­рас­тать на 10% по срав­не­нию с кон­цом преды­ду­ще­го года; </p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга; </p><p>— пла­те­жи в 2027 и в 2028 годах долж­ны быть по 100 тыс. руб.; </p><p>— к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью. </p><p>Най­ди­те сумму всех пла­те­жей после пол­но­го по­га­ше­ния кре­ди­та.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">м</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47379824\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2022. Основная волна 02.06.2022. Вариант 402</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47365640\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 402</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47379954\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 403</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47380143\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 404</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "634500",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. Последний платёж 500·1,1³−100·(1,1²+1,1)=434,5 тыс. руб.; всего 634,5 тыс. руб."
+    },
+    {
+      "group": "630197",
+      "task": "630197",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 500 тыс. руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жам часть долга;</p><p>—  пла­те­жи в 2027 и 2028 годах долж­ны быть 200 тыс. руб.;</p><p>—  к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Сколь­ко тысяч руб­лей со­ста­вит платёж <nobr>в 2029 году?</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">336</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47368696\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург. Вариант 991</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В ян­ва­ре 2027 года долг (в тыс. руб.) будет равен 600, а в июле равен 400.</p><p>В ян­ва­ре 2028 года долг будет равен 480, а в июле равен 280.</p><p>В ян­ва­ре 2029 года долг будет равен 336. </p><p>По усло­вию к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью, зна­чит, платёж в 2029 году будет со­став­лять 336 тыс. руб.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "630219",
+      "task": "630219",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга;</p><p>—  пла­те­жи в 2027 и в 2028 годах долж­ны быть по 300 тыс. руб.;</p><p>—  к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью. </p><p>Из­вест­но, что платёж в 2029 году будет равен 417,6 тыс. руб. Какую сумму (в ты­ся­чах руб­лей) пла­ни­ру­ет­ся взять в кре­дит?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">700</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47379067\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 337</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47368811\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2022. Основная волна 02.06.2022. Москва. Вариант 338</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47379525\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2022. Основная волна 02.06.2022. Разные задачи</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть сумма кре­ди­та равна <var data-math-identifier=\"S\">S</var> тыс. руб.</p><p>В ян­ва­ре 2027 года долг (в тыс. руб.) будет равен 1,2S, а в июле равен <span data-inline-latex=\"1{,}2S-300\"></span>. </p><p>В ян­ва­ре 2028 года долг будет равен <span data-inline-latex=\"1{,}44S-360\"></span>, а в июле равен <span data-inline-latex=\"1{,}44S-660\"></span>. </p><p>В ян­ва­ре 2029 года долг будет равен <span data-inline-latex=\"1{,}728S-792\"></span>. </p><p>По усло­вию, к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью, зна­чит, платёж в 2029 году дол­жен быть равен <nobr> <span data-inline-latex=\"(1{,}728S-792)\"></span>  тыс. руб.</nobr> По­лу­ча­ем:</p><center><p><span data-inline-latex=\"1{,}728S-792=417{,}6\\iff 1{,}728S=1209{,}6\\iff S=700\"></span>.</p></center><p>Пла­ни­ру­ет­ся взять кре­дит в раз­ме­ре 700 тыс. руб. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "630219",
+      "task": "630226",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 30% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга;</p><p>—  пла­те­жи в 2027 и в 2028 годах долж­ны быть по 300 тыс. руб.;</p><p>—  к июлю 2029  года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Из­вест­но, что платёж в 2029 году будет равен 860,6 тыс. руб. Какую сумму пла­ни­ру­ет­ся взять в кре­дит? Ответ дайте в ты­ся­чах руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">800</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47379323\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Санкт-Петербург, Москва, центр. Вариант 338</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть сумма кре­ди­та равна <var data-math-identifier=\"S\">S</var> тысяч руб­лей.</p><p>В ян­ва­ре 2027 года долг в ты­ся­чах руб­лей будет равен 1,3<var data-math-identifier=\"S\">S</var>, a в июле  —  <span data-inline-latex=\"1{,}3S-300\"></span>. </p><p>В ян­ва­ре 2028 года долг будет равен  <span data-inline-latex=\"1{,}69S-390\"></span>, а в июле  —  <span data-inline-latex=\"1{,}69S-690\"></span>. </p><p>В ян­ва­ре 2029 года долг будет равен  <span data-inline-latex=\"2{,}197S-897\"></span>. </p><p>По усло­вию, к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью, тогда платёж в 2029 году дол­жен быть равен  <span data-inline-latex=\"2{,}197S-897\"></span> тысяч руб­лей. По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"2{,}197S-897=860{,}6\\iff 2{,}197S=1757{,}6\\iff S=800\"></span>.</p></center><p> Пла­ни­ру­ет­ся взять кре­дит в раз­ме­ре 800 тысяч руб­лей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "630219",
+      "task": "672902",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года. Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг будет воз­рас­тать на 30% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга;</p><p>— пла­те­жи в 2027 и в 2028 годах долж­ны быть по 500 тыс. руб.;</p><p>— к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Из­вест­но, что платёж в 2029 году будет равен 482,3 тыс. руб. Какую сумму пла­ни­ру­ет­ся взять в кре­дит?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=79960229\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 19.12.2024 вариант МА2410210</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "900",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. (482,3+500·(1,3²+1,3))/1,3³=900 тыс. руб."
+    },
+    {
+      "group": "672873",
+      "task": "672873",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года. Усло­вия его воз­вра­та та­ко­вы: </p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 10% по срав­не­нию с кон­цом преды­ду­ще­го года; </p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга; </p><p>—  пла­те­жи в 2027 и в 2028 годах долж­ны быть по 150 тыс. руб.; </p><p>—  к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью. </p><p>Из­вест­но, что платёж в 2029 году будет равен 185,9 тыс. руб. Какую сумму <nobr>(в тыс. руб.)</nobr> пла­ни­ру­ет­ся взять в кре­дит?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">400</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=79954718\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 19.12.2024 вариант МА2410209</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть сумма кре­ди­та равна <var data-math-identifier=\"S\">S</var> тыс. руб. В ян­ва­ре 2027 года долг (в тыс. руб.) будет равен 1,1<var data-math-identifier=\"S\">S</var>, а в июле будет равен  <span data-inline-latex=\"1{,}1S-150\"></span>. В ян­ва­ре <nobr>2028 года</nobr> долг будет равен  <span data-inline-latex=\"1{,}21S-165\"></span>, а в июле будет равен  <span data-inline-latex=\"1{,}21S-315\"></span>. В ян­ва­ре <nobr>2029 года</nobr> долг будет равен  <span data-inline-latex=\"1{,}331S-346{,}5\"></span>. По усло­вию к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью, зна­чит, платёж в <nobr>2029 году</nobr> дол­жен быть равен  <span data-inline-latex=\"1{,}331S-346{,}5\"></span> тыс. руб. По­лу­ча­ем </p><center><p> <span data-inline-latex=\"1{,}331S-346{,}5=185{,}9\\iff 1{,}331S=532{,}4\"></span>,</p></center><p> от­ку­да на­хо­дим <var data-math-identifier=\"S\">S</var>  =  400. Пла­ни­ру­ет­ся взять кре­дит в раз­ме­ре 400 тыс. руб.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "697032",
+      "task": "697032",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 800 тысяч руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга;</p><p>—  пла­те­жи в 2027 и 2028 годах долж­ны быть рав­ны­ми;</p><p>—  к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Из­вест­но, что платёж в 2029 году со­ста­вит 590,4 тысяч руб­лей. Най­ди­те сумму всех пла­те­жей после пол­но­го по­га­ше­ния кре­ди­та.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1190,4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть пла­те­жи в 2027 и 2028 годах со­ста­вят по <i>x</i> тыс. руб. В ян­ва­ре 2027 года долг в тыс. руб будет равен 960, а в июле будет <nobr>равен  <span data-inline-latex=\"960-x\"></span>.</nobr> В ян­ва­ре 2028 года долг будет <nobr>равен  <span data-inline-latex=\"1152-1{,}2x\"></span>,</nobr> а в июле будет <nobr>равен  <span data-inline-latex=\"1152-2{,}2x\"></span>.</nobr> В ян­ва­ре 2029 года долг будет <nobr>равен  <span data-inline-latex=\"1382{,}4-2{,}64x\"></span>.</nobr> По усло­вию к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью, зна­чит, пла­теж в 2029 году дол­жен быть <nobr>равен  <span data-inline-latex=\"1382{,}4-2{,}64x\"></span> тыс. руб.</nobr> По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"1382{,}4-2{,}64x=590{,}4\\iff 2{,}64x=792\\iff x=300\"></span>.</p></center><p> Сле­до­ва­тель­но, сумма всех пла­те­жей будет <nobr>со­став­лять  <span data-inline-latex=\"2\\cdot 300+590{,}4=1190{,}4\"></span> тыс. руб.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "697032",
+      "task": "697052",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на три года в раз­ме­ре 700 тысяч руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга;</p><p>—  пла­те­жи в 2027 и 2028 годах долж­ны быть рав­ны­ми;</p><p>—  к июлю 2029 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Из­вест­но, что платёж в 2029 году со­ста­вит 549,6 тысяч руб­лей. Най­ди­те сумму всех пла­те­жей после пол­но­го по­га­ше­ния кре­ди­та.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">..</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=89732668\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 17.03.2026 вариант МА2510410</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "1049,6",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. Первые платежи (700·1,2³−549,6)/(1,2²+1,2)=250 тыс. руб.; всего 1049,6 тыс. руб."
+    }
+  ]
+}
