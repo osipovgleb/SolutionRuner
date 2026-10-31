@@ -94,3 +94,16 @@ def homogeneous_method(parent_html):
         .split()
     )
     return "однородн" in text or "относительно тангенса" in text
+
+
+def cotangent_method(parent_html):
+    formulas = [
+        s["data-inline-latex"]
+        for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    ]
+    ratios = [
+        name
+        for formula in formulas
+        for name in re.findall(r"\\(tg|ctg)(?:\d*)x=", "".join(formula.split()))
+    ]
+    return bool(ratios) and ratios[-1] == "ctg"

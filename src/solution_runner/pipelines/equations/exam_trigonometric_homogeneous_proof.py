@@ -3,7 +3,7 @@
 import sympy as sp
 
 from ..probability.common import line
-from .exam_trigonometric_compile import C, S, T
+from .exam_trigonometric_compile import C, S, T, U
 from .exam_trigonometric_variants import argument
 
 
@@ -36,6 +36,10 @@ def proof(a):
     source_angle, angle = argument(reduction.source_scale), argument(a.scale)
     intro = "<p>Используем тригонометрические тождества и приведём уравнение к однородному:</p>"
     html = ""
+    if a.power_angle is not None:
+        from .exam_trigonometric_power_identity import proof as power_proof
+
+        html += power_proof(a.power_angle)
     if a.poles:
         html += "<p>Знаменатель исходного уравнения должен быть ненулевым:</p>"
         for pole in a.poles:
@@ -51,10 +55,14 @@ def proof(a):
         html += line(formula(S, angle) + "=" + formula(2 * S * C, source_angle))
         html += line(formula(C, angle) + "=" + formula(C * C - S * S, source_angle))
     html += line(formula(reduction.polynomial, angle) + "=0")
-    html += "<p>Если косинус равен нулю, синус равен 1 или −1. Тогда однородный многочлен равен ненулевому коэффициенту при старшей степени синуса, умноженному на эту степень, поэтому решений нет. Следовательно, косинус ненулевой; разделим уравнение на его степень:</p>"
-    html += line(formula(C**reduction.degree, angle) + r"\ne0")
+    if reduction.variable == U:
+        html += "<p>Если синус равен нулю, косинус равен 1 или −1, и однородный многочлен ненулевой. Поэтому на множестве решений синус ненулевой; разделим уравнение на его степень:</p>"
+    else:
+        html += "<p>Если косинус равен нулю, синус равен 1 или −1. Тогда однородный многочлен равен ненулевому коэффициенту при старшей степени синуса, умноженному на эту степень, поэтому решений нет. Следовательно, косинус ненулевой; разделим уравнение на его степень:</p>"
+    denominator = S if reduction.variable == U else C
+    html += line(formula(denominator**reduction.degree, angle) + r"\ne0")
     if a.substitution:
-        html += line(a.substitution + "=" + formula(T, angle))
+        html += line(a.substitution + "=" + formula(reduction.variable, angle))
     branch = a.branches[0]
     if reduction.degree == 3 and any(v.is_Integer and v < 0 for v in branch.candidates):
         html += grouped(branch, a.substitution, angle, a.scale)

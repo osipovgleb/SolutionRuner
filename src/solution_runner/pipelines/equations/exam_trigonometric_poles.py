@@ -1,5 +1,7 @@
 """Cancel ratio products only on the full original nonzero domain."""
 
+from dataclasses import replace
+
 import sympy as sp
 
 from ..probability.common import line
@@ -16,13 +18,25 @@ def compile_quotients(values, atoms, denominators):
     poles = set()
     for symbol, atom in atoms.items():
         if atom.function in ("tg", "ctg"):
-            if abs(atom.coefficient) != 1 or not atom.shift.is_Integer:
+            if abs(atom.coefficient) != 1 or (2 * atom.shift).is_Integer is not True:
                 raise UnsupportedCondition(
-                    "ratio products require one angle and integer-pi shifts"
+                    "ratio products require unit angles and half-pi shifts"
                 )
-            numerator, denominator = (S, C) if atom.function == "tg" else (C, S)
-            compiled[symbol] = atom.coefficient * numerator / denominator
-            poles.add(denominator)
+            sine = shifted_atom(replace(atom, function="sin")).xreplace(
+                {NUMERIC_S: S, NUMERIC_C: C}
+            )
+            cosine = shifted_atom(replace(atom, function="cos")).xreplace(
+                {NUMERIC_S: S, NUMERIC_C: C}
+            )
+            numerator, denominator = (
+                (sine, cosine) if atom.function == "tg" else (cosine, sine)
+            )
+            if denominator.free_symbols not in ({S}, {C}):
+                raise UnsupportedCondition(
+                    "the ratio denominator must be sine or cosine"
+                )
+            compiled[symbol] = sp.cancel(numerator / denominator)
+            poles.update(denominator.free_symbols)
         elif (
             atom.function in ("sin", "cos")
             and atom.coefficient.is_Integer

@@ -19,7 +19,12 @@ from .exam_trigonometric_inverse import (
     ordered,
     select_inverse,
 )
-from .exam_trigonometric_style import division, homogeneous_method, parent_style
+from .exam_trigonometric_style import (
+    cotangent_method,
+    division,
+    homogeneous_method,
+    parent_style,
+)
 
 
 @dataclass(frozen=True)
@@ -70,6 +75,7 @@ class Analysis:
     division: bool = False
     shifted_notation: bool = False
     homogeneous: Reduction | None = None
+    power_angle: sp.Rational | None = None
 
 
 def periodic(residues):
@@ -87,14 +93,13 @@ def periodic(residues):
 
 
 def solve_branches(raw, preferred, allow_inverse=False):
+    from .exam_trigonometric_grouping import mixed_branches
     from .exam_trigonometric_ratios import linear_branch, ratio_branch
 
     if raw.has(T, U):
         return ratio_branch(raw, U if raw.has(U) else T)
     if preferred in (T, U):
-        from .exam_trigonometric_combination import branches
-
-        return branches(raw)
+        return mixed_branches(raw)
     other = S if preferred == C else C
     reduced = sp.expand(sp.rem(raw, S * S + C * C - 1, other))
     if not reduced.has(other):
@@ -115,9 +120,7 @@ def solve_branches(raw, preferred, allow_inverse=False):
             if mixed is not None:
                 branches.append(mixed)
                 continue
-            from .exam_trigonometric_combination import branches as combination_branches
-
-            return combination_branches(raw)
+            return mixed_branches(raw)
         variable = variables.pop()
         p = primitive(expression, (variable,))
         values = roots(p.subs(variable, X))
@@ -294,6 +297,8 @@ def analyze_method(
         preferred, preferred_scale = T, sp.S.One
     allow_inverse = method == "inequalities" or r"\arccos" in parent_html
     compiled, domain = method_equation(formula, preferred, preferred_scale, translation)
+    if not compiled.raw.has(T, U) and cotangent_method(parent_html):
+        preferred = U
     compiled = convert(compiled, preferred)
     raw, identities = compiled.raw, compiled.identities
     reduced, branches = solve_branches(raw, preferred, allow_inverse)
@@ -359,6 +364,7 @@ def analyze_method(
         dividing,
         shifted_notation,
         compiled.homogeneous,
+        compiled.power_angle,
     )
 
 

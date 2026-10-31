@@ -11,6 +11,8 @@ from .trig_angles import TrigAtom, parse_angle, signs
 
 
 class TrigonometricParser(LogarithmParser):
+    allowed_powers = (1, 2, 3, 4)
+
     def __init__(self, text, atoms=None, denominators=None, depth=0):
         super().__init__(text, depth)
         self.atoms = {} if atoms is None else atoms
@@ -72,7 +74,7 @@ class TrigonometricParser(LogarithmParser):
             if self.text[self.index : self.index + 1] == "^"
             else sp.Integer(1)
         )
-        if exponent.is_Integer is not True or not 1 <= exponent <= 4:
+        if exponent.is_Integer is not True or exponent not in self.allowed_powers:
             raise UnsupportedCondition(
                 "a small positive trigonometric power is required"
             )

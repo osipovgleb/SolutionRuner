@@ -145,6 +145,7 @@ def endpoint(text):
     from .exam_inverse_bounds import endpoint as inverse_endpoint
     from .power_arithmetic import balanced, clean
 
+    text = text.replace("π", r"\pi")
     inverse = inverse_endpoint(text)
     if inverse is not None:
         return inverse

@@ -21,6 +21,8 @@ from .trig_symbolic_parser import (
 
 
 class ExamAngleParser(SymbolicTrigonometricParser):
+    allowed_powers = (1, 2, 3, 4, 6)
+
     def _nested(self, text):
         return ExamAngleParser(
             text, self.atoms, self.denominators, self.depth + 1
@@ -84,6 +86,7 @@ class Equation:
     fraction: sp.Expr | None = None
     absolute: tuple | None = None
     homogeneous: Reduction | None = None
+    power_angle: sp.Rational | None = None
 
 
 def shifted_atom(atom):
@@ -122,7 +125,14 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
 
         atoms = translated_atoms(atoms, translation)
     if any(a.function in ("tg", "ctg") for a in atoms.values()):
-        if preferred == T and denominators:
+        if (
+            preferred == T
+            and denominators
+            and all(
+                a.function in ("tg", "cos") and a.shift.is_Integer
+                for a in atoms.values()
+            )
+        ):
             from .exam_trigonometric_ratios import compile_tangent_identity
 
             equation = compile_tangent_identity(values, atoms, denominators)
@@ -135,7 +145,9 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         raise UnsupportedCondition(
             "scaled rational equations require only sine and cosine"
         )
-    values, atoms, rewritten = fold(values, atoms, denominators, preferred_scale)
+    values, atoms, rewritten, power_angle = fold(
+        values, atoms, denominators, preferred_scale
+    )
     scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
     for symbol, atom in tuple(atoms.items()):
         atoms[symbol] = replace(atom, coefficient=int(atom.coefficient / scale))
@@ -192,6 +204,7 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         reciprocal,
         doubled,
         rewritten,
+        power_angle=power_angle,
     )
 
 

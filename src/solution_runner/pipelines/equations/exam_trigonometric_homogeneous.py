@@ -14,9 +14,10 @@ class Reduction:
     source_scale: sp.Rational
     polynomial: sp.Expr
     degree: int
+    variable: sp.Symbol = T
 
 
-def lift(raw):
+def lift(raw, variable=T):
     if not raw.is_polynomial(S, C):
         return None
     source = raw
@@ -39,7 +40,7 @@ def lift(raw):
     )
     if sp.rem(homogeneous - source, S * S + C * C - 1, S) != 0:
         return None
-    if homogeneous.coeff(S, degree) == 0:
+    if homogeneous.coeff(C if variable == U else S, degree) == 0:
         return None
     return primitive(homogeneous, (S, C)), degree
 
@@ -48,14 +49,20 @@ def convert(equation, preferred):
     raw = equation.raw
     if raw.has(T, U) or equation.reciprocal is not None:
         return equation
+    if equation.poles:
+        from .exam_trigonometric_grouping import branches
+
+        if branches(raw) is not None:
+            return equation
     linear = (
         raw.free_symbols == {S, C}
         and sp.Poly(raw, S, C).total_degree() == 1
         and raw.subs({S: 0, C: 0}) == 0
     )
-    if preferred != T and not linear:
+    if preferred not in (T, U) and not linear:
         return equation
-    lifted = lift(raw)
+    variable = U if preferred == U else T
+    lifted = lift(raw, variable)
     if lifted is None:
         return equation
     homogeneous, degree = lifted
@@ -66,10 +73,12 @@ def convert(equation, preferred):
             homogeneous = sp.expand(homogeneous.coeff(S).coeff(C) * S / 2 - a * C)
             scale *= 2
             degree = 1
-    reduction = Reduction(raw, equation.scale, homogeneous, degree)
+    reduction = Reduction(raw, equation.scale, homogeneous, degree, variable)
     return replace(
         equation,
-        raw=sp.expand(homogeneous.subs({S: T, C: 1})),
+        raw=sp.expand(
+            homogeneous.subs({C: U, S: 1} if variable == U else {S: T, C: 1})
+        ),
         scale=scale,
         homogeneous=reduction,
     )

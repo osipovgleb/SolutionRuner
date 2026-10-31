@@ -10,7 +10,7 @@ X = sp.Symbol("x", real=True)
 
 def fold(values, atoms, denominators, preferred_scale):
     if any(d.free_symbols for d in denominators):
-        return values, atoms, None
+        return values, atoms, None, None
     expression = values[0] - values[1]
     symbols = tuple(atoms)
     poly = sp.Poly(expression, *symbols)
@@ -26,7 +26,7 @@ def fold(values, atoms, denominators, preferred_scale):
             if coefficient == base
         )
     ):
-        return values, atoms, None
+        return values, atoms, None, None
     mixed = any(
         len({c for c, power in zip(coefficients, powers) if power}) > 1
         for powers in poly.monoms()
@@ -40,8 +40,8 @@ def fold(values, atoms, denominators, preferred_scale):
             for c, power in zip(coefficients, powers)
         )
     )
-    if not (mixed or square_difference):
-        return values, atoms, None
+    if not (mixed or square_difference or poly.total_degree() == 6):
+        return values, atoms, None, None
     actual = expression.xreplace(
         {
             s: (sp.sin if a.function == "sin" else sp.cos)(
@@ -50,7 +50,14 @@ def fold(values, atoms, denominators, preferred_scale):
             for s, a in atoms.items()
         }
     )
-    rewritten = sp.expand(sp.trigsimp(actual, method="fu"))
+    from .exam_trigonometric_power_identity import fold_sixth
+
+    folded_actual, power_angle = fold_sixth(actual)
+    rewritten = sp.expand(
+        folded_actual
+        if power_angle is not None
+        else sp.trigsimp(folded_actual, method="fu")
+    )
     difference = sp.trigsimp(actual - rewritten)
     if difference != 0:
         difference = sp.trigsimp(sp.expand(sp.expand_trig(difference)))
@@ -85,4 +92,9 @@ def fold(values, atoms, denominators, preferred_scale):
             r"\alpha",
             "\\" + name + "(" + sp.latex(argument) + ")",
         )
-    return [rewritten.xreplace(substitutions), sp.Integer(0)], folded, rewritten
+    return (
+        [rewritten.xreplace(substitutions), sp.Integer(0)],
+        folded,
+        rewritten,
+        power_angle,
+    )
