@@ -86,3 +86,29 @@ def mixed_branches(raw):
     from .exam_trigonometric_combination import branches as combination_branches
 
     return combination_branches(raw)
+
+
+def pure_proof(a):
+    from .exam_trigonometric_proof import formula, polynomial
+
+    common = next(b.polynomial for b in a.branches if b.grouping)
+    quotient = sp.cancel(a.raw / common, extension=True)
+    if not quotient.is_polynomial(S, C) or sp.Poly(quotient, S, C).total_degree() != 1:
+        raise UnsupportedCondition(
+            "the common affine factor must divide the source polynomial"
+        )
+    expression = sp.Add(
+        *(
+            sp.Mul(coef * S ** powers[0] * C ** powers[1], common, evaluate=False)
+            for powers, coef in sp.Poly(quotient, S, C).terms()
+        ),
+        evaluate=False,
+    )
+    html = "".join(line(text + "=" + formula(value)) for text, value in a.identities)
+    html += line(formula(a.raw) + "=0")
+    html += "<p>Сгруппируем слагаемые и вынесем общий множитель:</p>"
+    html += line(formula(expression) + "=0") + line(formula(common * quotient) + "=0")
+    html += "<p>Произведение равно нулю, когда хотя бы один множитель равен нулю:</p>"
+    for branch in a.branches:
+        html += polynomial(branch)
+    return "<p>Применим формулу двойного угла и сгруппируем слагаемые:</p>", html

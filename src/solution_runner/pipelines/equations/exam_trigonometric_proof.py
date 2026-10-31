@@ -95,7 +95,7 @@ def polynomial(
     if branch.angle_shift:
         from .exam_trigonometric_linear_phase import proof
 
-        return proof(branch, angle, root_scale)
+        return proof(branch, angle, root_scale, allowed_residues)
     p = branch.polynomial
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable
@@ -131,7 +131,7 @@ def polynomial(
         if branch.grouping:
             from .exam_trigonometric_cubic import grouped
 
-            html += grouped(p, variable, symbol, angle)
+            html += grouped(p, variable, symbol, angle, branch.quadratic_common)
         else:
             html += line(formula(sp.factor(p), angle) + "=0")
         for factor, _ in sp.factor_list(p, variable, extension=True)[1]:
@@ -179,6 +179,18 @@ def candidate_lines(
 
 
 def method_proof(a):
+    if a.angle_product is not None:
+        from .exam_trigonometric_angle_product import proof
+
+        return proof(a)
+    if (
+        len(a.branches) == 2
+        and {b.variable for b in a.branches} == {S, C}
+        and any(b.grouping for b in a.branches)
+    ):
+        from .exam_trigonometric_grouping import pure_proof
+
+        return pure_proof(a)
     if a.affine is not None:
         from .exam_trigonometric_affine_proof import proof
 

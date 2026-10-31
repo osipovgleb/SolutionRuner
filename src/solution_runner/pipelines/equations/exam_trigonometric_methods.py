@@ -22,6 +22,7 @@ from .trig_symbolic_parser import (
 
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
+    from .exam_trigonometric_angle_product import AngleProduct
 
 
 class ExamAngleParser(SymbolicTrigonometricParser):
@@ -105,6 +106,8 @@ class Equation:
     power_angle: sp.Rational | None = None
     affine: "AffineFactor | None" = None
     factored_source: sp.Expr | None = None
+    angle_product: "AngleProduct | None" = None
+    cleared_denominator: sp.Expr | None = None
 
 
 def shifted_atom(atom):
@@ -132,25 +135,16 @@ def parse_equation(formula):
 
 
 def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero):
-    from .exam_trigonometric_affine import compile_affine
+    from .exam_trigonometric_affine import reviewed as affine_equation
 
-    affine = compile_affine(formula)
+    affine = affine_equation(formula, preferred_scale, translation)
     if affine is not None:
-        if translation or preferred_scale != 1:
-            raise UnsupportedCondition(
-                "mixed affine equations require the original unit angle"
-            )
         return affine
     from .exam_trigonometric_folding import fold
 
-    values, atoms, denominators = parse_equation(formula)
-    values, atoms, denominators, constants = constant_angles(
-        values, atoms, denominators
+    values, atoms, denominators, constants = read_translated_equation(
+        formula, translation
     )
-    if translation:
-        from .exam_trigonometric_translation import translated_atoms
-
-        atoms = translated_atoms(atoms, translation)
     if any(a.function in ("tg", "ctg") for a in atoms.values()):
         from .exam_trigonometric_ratios import compile_ratio_method
 
@@ -170,7 +164,13 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
     for symbol, atom in tuple(atoms.items()):
         atoms[symbol] = replace(atom, coefficient=int(atom.coefficient / scale))
     if any(abs(a.coefficient) > 4 for a in atoms.values()):
-        raise UnsupportedCondition("the base-angle multiple exceeds the reviewed range")
+        if translation or unit != 1:
+            raise UnsupportedCondition(
+                "separate angle factors require the original radian variable"
+            )
+        from .exam_trigonometric_angle_product import compile_product
+
+        return compile_product(formula)
     compiled = {symbol: shifted_atom(atom) for symbol, atom in atoms.items()}
     convert = lambda v: sp.cancel(
         v.xreplace(compiled).xreplace({NUMERIC_S: S, NUMERIC_C: C})
@@ -224,6 +224,18 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         rewritten,
         power_angle=power_angle,
     )
+
+
+def read_translated_equation(formula, translation):
+    values, atoms, denominators = parse_equation(formula)
+    values, atoms, denominators, constants = constant_angles(
+        values, atoms, denominators
+    )
+    if translation:
+        from .exam_trigonometric_translation import translated_atoms
+
+        atoms = translated_atoms(atoms, translation)
+    return values, atoms, denominators, constants
 
 
 def reciprocal_polynomial(expression, original_poles, scale, preferred):

@@ -1,4 +1,6 @@
-"""Recognize a shifted sine at its exact extreme in a linear factor."""
+"""Recognize reviewed shifted functions in an affine sine/cosine factor."""
+
+from dataclasses import replace
 
 import sympy as sp
 
@@ -16,7 +18,7 @@ def branch(expression):
         return None
     a, b = expression.coeff(S), expression.coeff(C)
     constant = expression.subs({S: 0, C: 0})
-    if not a or not b or not constant or sp.simplify(a * a + b * b - constant**2) != 0:
+    if not a or not b or not constant:
         return None
     amplitude = sp.sqrt(sp.simplify(a * a + b * b))
     phases = [
@@ -29,7 +31,13 @@ def branch(expression):
         return None
     phase = phases[0]
     value = sp.simplify(-constant / amplitude)
-    residues = ordered((q - phase) % 2 for q in angles(S, value))
+    from ..word_problems.common import UnsupportedCondition
+
+    try:
+        roots = angles(S, value)
+    except UnsupportedCondition:
+        return None
+    residues = ordered((q - phase) % 2 for q in roots)
     return Branch(
         S,
         S - value,
@@ -41,7 +49,32 @@ def branch(expression):
     )
 
 
-def proof(branch, angle, root_scale):
+def notation(branches, parent_html):
+    from bs4 import BeautifulSoup
+
+    from .exam_trigonometric_shifted import candidates, formula
+
+    functions = {
+        name
+        for node in BeautifulSoup(parent_html, "html.parser").select(
+            "[data-inline-latex]"
+        )
+        for name, _, _ in candidates(formula(node["data-inline-latex"]))
+    }
+    if functions != {"cos"}:
+        return branches
+    result = []
+    for b in branches:
+        if b.angle_shift:
+            phase = (b.angle_shift - sp.Rational(1, 2) + 1) % 2 - 1
+            b = replace(
+                b, variable=C, polynomial=C - b.candidates[0], angle_shift=phase
+            )
+        result.append(b)
+    return tuple(result)
+
+
+def proof(branch, angle, root_scale, allowed_residues=None):
     from .exam_trigonometric_inverse import level_series
     from .exam_trigonometric_proof import formula, series_lines
 
@@ -54,17 +87,30 @@ def proof(branch, angle, root_scale):
         r"\left(" + angle + "+(" + sp.latex(branch.angle_shift * sp.pi) + r")\right)"
     )
     html = line(formula(expression, angle) + "=0")
+    name = "синуса" if branch.variable == S else "косинуса"
     html += (
-        "<p>Применим формулу синуса суммы и получим уравнение для сдвинутого угла:</p>"
+        "<p>Применим формулу "
+        + name
+        + " суммы и получим уравнение для сдвинутого угла:</p>"
     )
     html += line(
-        formula(expression, angle) + "=" + formula(amplitude * S + constant, shifted)
+        formula(expression, angle)
+        + "="
+        + formula(amplitude * branch.variable + constant, shifted)
     )
-    html += line(formula(S, shifted) + "=" + sp.latex(branch.values[0]))
+    html += line(
+        formula(branch.variable, shifted) + "=" + sp.latex(branch.candidates[0])
+    )
     series = tuple(
         ((q - branch.angle_shift) / root_scale, period / root_scale)
-        for q, period in level_series(S, branch.values[0])
+        for q, period in level_series(branch.variable, branch.candidates[0])
     )
     for text in series_lines(series):
         html += line(text + r",\quad k\in\mathbb Z")
+    if allowed_residues is not None:
+        html += "<p>После проверки исходной области определения оставляем серии:</p>"
+        for text in series_lines(
+            tuple((q / root_scale, 2 / root_scale) for q in allowed_residues)
+        ):
+            html += line(text + r",\quad k\in\mathbb Z")
     return html

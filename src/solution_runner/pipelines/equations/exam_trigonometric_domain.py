@@ -120,7 +120,10 @@ def without_poles(branches, poles):
         values = tuple(
             v
             for v in branch.values
-            if any(q in residues for q in angles(branch.variable, v, True))
+            if any(
+                ((q - branch.angle_shift) % 2 if branch.angle_shift else q) in residues
+                for q in angles(branch.variable, v, True)
+            )
         )
         excluded = tuple(v for v in branch.values if v not in values)
         result.append(

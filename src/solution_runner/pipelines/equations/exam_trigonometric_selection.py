@@ -121,7 +121,7 @@ def root_series(branches, residues, domain, allow_inverse):
     else:
         series = tuple(
             dict.fromkeys(
-                (q - b.angle_shift, period)
+                ((q - b.angle_shift) / b.angle_scale, period / b.angle_scale)
                 for b in branches
                 for v in sorted(
                     b.values, key=cmp_to_key(compare), reverse=(b.variable == C)

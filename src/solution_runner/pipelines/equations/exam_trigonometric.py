@@ -27,6 +27,7 @@ from .exam_trigonometric_style import (
 
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
+    from .exam_trigonometric_angle_product import AngleProduct
 
 
 @dataclass(frozen=True)
@@ -41,6 +42,8 @@ class Branch:
     impossible: bool = False
     grouping: bool = False
     angle_shift: sp.Rational = sp.S.Zero
+    angle_scale: sp.Rational = sp.S.One
+    quadratic_common: bool = False
 
 
 @dataclass(frozen=True)
@@ -82,6 +85,8 @@ class Analysis:
     power_angle: sp.Rational | None = None
     factored_source: sp.Expr | None = None
     affine: "AffineFactor | None" = None
+    angle_product: "AngleProduct | None" = None
+    cleared_denominator: sp.Expr | None = None
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -321,6 +326,8 @@ def analyze_method(
             compiled.power_angle,
             compiled.factored_source,
             compiled.affine,
+            compiled.angle_product,
+            compiled.cleared_denominator,
         )
     )
 

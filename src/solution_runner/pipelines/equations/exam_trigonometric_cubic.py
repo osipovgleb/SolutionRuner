@@ -15,7 +15,7 @@ def groupable(p, variable):
     return len(quadratic) == 1 and quadratic[0].coeff(variable) == 0
 
 
-def grouped(p, variable, symbol, angle):
+def grouped(p, variable, symbol, angle, quadratic_common=False):
     from .exam_trigonometric_proof import formula
 
     _, factors = sp.factor_list(p, variable, extension=True)
@@ -30,6 +30,8 @@ def grouped(p, variable, symbol, angle):
         raise UnsupportedCondition(
             "the cubic must split into an affine and quadratic factor"
         )
+    if quadratic_common:
+        affine, quotient = quotient, affine
     terms = [
         sp.Mul(coef * variable ** power[0], affine, evaluate=False)
         for power, coef in sp.Poly(quotient, variable).terms()

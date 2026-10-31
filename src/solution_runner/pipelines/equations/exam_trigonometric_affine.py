@@ -100,3 +100,12 @@ def compile_affine(formula):
     return Equation(
         trig[0], (), sp.S.One, affine=AffineFactor(raw, algebraic[0], (root,))
     )
+
+
+def reviewed(formula, scale, translation):
+    equation = compile_affine(formula)
+    if equation is not None and (translation or scale != 1):
+        raise UnsupportedCondition(
+            "mixed affine equations require the original unit angle"
+        )
+    return equation

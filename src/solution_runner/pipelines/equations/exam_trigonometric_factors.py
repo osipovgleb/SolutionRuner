@@ -100,11 +100,20 @@ def method_branches(compiled, preferred, allow_inverse, domain, parent_html):
     from .exam_trigonometric import solve_branches
     from .exam_trigonometric_compile import T, U
     from .exam_trigonometric_domain import restrict, without_poles
+    from .exam_trigonometric_factor_style import (
+        cotangent_branches,
+        local_cotangent,
+        mark_grouping,
+    )
     from .exam_trigonometric_homogeneous import convert
-    from .exam_trigonometric_style import cotangent_method, grouping_method
+    from .exam_trigonometric_style import cotangent_method
 
+    if compiled.angle_product is not None:
+        from .exam_trigonometric_angle_product import branches as angle_branches
+
+        return compiled, compiled.raw, angle_branches(compiled.angle_product), preferred
     if not compiled.raw.has(T, U) and cotangent_method(parent_html):
-        preferred = U
+        preferred = C if local_cotangent(parent_html) else U
     compiled = convert(compiled, preferred)
     compiled = preserve_zero_square(compiled, parent_html)
     reduced, branches = solve_branches(
@@ -113,13 +122,19 @@ def method_branches(compiled, preferred, allow_inverse, domain, parent_html):
         allow_inverse,
         factored=compiled.factored_source is not None,
     )
+    if local_cotangent(parent_html):
+        branches = cotangent_branches(branches)
     if domain is not None:
         branches = restrict(branches, domain, compiled.strict_domain)
+    if any(b.angle_shift for b in branches):
+        from .exam_trigonometric_linear_phase import notation
+
+        branches = notation(branches, parent_html)
     branches = without_poles(branches, compiled.poles)
-    if any(b.angle_shift for b in branches) and (domain is not None or compiled.poles):
+    if any(b.angle_shift for b in branches) and domain is not None:
         raise UnsupportedCondition(
             "shifted linear factors require a denominator-free equation"
         )
-    if grouping_method(parent_html) and domain is None and not compiled.poles:
-        branches = tuple(replace(b, grouping=True) for b in branches)
+    if domain is None and not compiled.poles:
+        branches = mark_grouping(branches, parent_html)
     return compiled, reduced, branches, preferred

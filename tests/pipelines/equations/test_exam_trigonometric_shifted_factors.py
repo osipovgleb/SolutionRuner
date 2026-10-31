@@ -285,9 +285,16 @@ def test_phase_extremes_keep_one_full_two_pi_series(n, value):
 
 @pytest.mark.parametrize(
     "expression",
-    [S + C - 1, S + C - 3, S * C - 1, S + 1, S + C, S + sp.sqrt(2) * C - sp.sqrt(3)],
+    [
+        S + C - sp.Rational(1, 3),
+        S + C - 3,
+        S * C - 1,
+        S + 1,
+        S + C,
+        S + sp.sqrt(2) * C - sp.sqrt(3),
+    ],
 )
-def test_unreviewed_phases_and_nonextreme_linear_levels_fail_closed(expression):
+def test_unreviewed_phases_and_linear_levels_fail_closed(expression):
     assert branch(expression) is None
 
 

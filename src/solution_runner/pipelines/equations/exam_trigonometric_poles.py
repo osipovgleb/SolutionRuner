@@ -56,22 +56,36 @@ def compile_quotients(values, atoms, denominators):
             poles.update(numerator.free_symbols)
     expression = sp.cancel((values[0] - values[1]).xreplace(compiled))
     raw, denominator = sp.fraction(expression)
-    if (
-        denominator.free_symbols
-        or not raw.is_polynomial(S, C)
-        or raw == 0
-        or sp.Poly(raw, S, C).total_degree() > 4
-    ):
+    if not raw.is_polynomial(S, C) or raw == 0 or sp.Poly(raw, S, C).total_degree() > 4:
         raise UnsupportedCondition(
             "the reviewed ratio products must cancel to a nonzero polynomial"
         )
+    cleared = None
+    source = None
+    if denominator.free_symbols:
+        if (
+            not denominator.is_polynomial(S, C)
+            or sp.Poly(denominator, S, C).length() != 1
+            or sp.Poly(denominator, S, C).total_degree() != 1
+            or not denominator.free_symbols <= poles
+        ):
+            raise UnsupportedCondition(
+                "cleared denominators must be first powers covered by the original domain"
+            )
+        cleared, source = denominator, raw
+        raw = sp.expand(sp.rem(raw, S * S + C * C - 1, S if S in poles else C))
     identities = tuple(
         dict.fromkeys(
             (a.text.replace(r"\alpha", "x"), compiled[s]) for s, a in atoms.items()
         )
     )
     return Equation(
-        sp.expand(raw), identities, sp.Integer(1), tuple(sorted(poles, key=str))
+        sp.expand(raw),
+        identities,
+        sp.Integer(1),
+        tuple(sorted(poles, key=str)),
+        factored_source=source,
+        cleared_denominator=cleared,
     )
 
 
@@ -79,19 +93,32 @@ def proof(a):
     from .exam_trigonometric_proof import formula, polynomial
 
     html = "<p>Запишем область определения исходных тангенса и котангенса до сокращения:</p>"
+    if a.cleared_denominator is not None:
+        html = "<p>Запишем область определения исходного уравнения:</p>"
     for pole in a.poles:
         html += line(formula(pole) + r"\ne0")
     html += "<p>В этой области используем определения тригонометрических отношений:</p>"
     for text, value in a.identities:
         if value not in (S, C):
             html += line(text + "=" + formula(value))
+    if a.cleared_denominator is not None:
+        html += "<p>Умножим уравнение на знаменатель, ненулевой в исходной области определения:</p>"
+        html += line(formula(a.cleared_denominator) + r"\ne0")
+        html += line(formula(a.factored_source) + "=0")
+        html += line(formula(S * S + C * C) + "=1")
     html += line(formula(a.raw) + "=0")
     if a.raw != a.reduced:
         html += line(formula(a.reduced) + "=0")
+    if a.cleared_denominator is not None:
+        html += line(formula(sp.factor(a.reduced, extension=True)) + "=0")
     for branch in a.branches:
         html += polynomial(
             branch, allowed_residues=branch.residues, factorization=a.factorization
         )
+        if branch.angle_shift:
+            from .exam_trigonometric_phase_domain import proof as excluded_phases
+
+            html += excluded_phases(branch, a.poles)
         for value in branch.excluded:
             if abs(value) == 1:
                 other = C if branch.variable == S else S
@@ -106,7 +133,9 @@ def proof(a):
                     + r")^2=0"
                 )
                 html += "<p>Нулевая величина в знаменателе нарушает исходную область определения; эта ветвь исключается.</p>"
-    return (
-        "<p>Упростим произведение тригонометрических отношений с сохранением ОДЗ:</p>",
-        html,
+    intro = (
+        "<p>Решим уравнение, сохраняя исходную область определения:</p>"
+        if a.cleared_denominator is not None
+        else "<p>Упростим произведение тригонометрических отношений с сохранением ОДЗ:</p>"
     )
+    return intro, html

@@ -177,6 +177,13 @@ def linear_proof(branch, angle):
 
     if branch.original is None:
         return ""
+    if branch.variable == U:
+        return (
+            "<p>Рассмотрим линейный множитель отдельно:</p>"
+            + line(formula(branch.original, angle) + "=0")
+            + "<p>Если синус равен нулю, косинус равен 1 или −1 и этот множитель ненулевой. Поэтому только в этой ветви разделим на синус:</p>"
+            + line(r"\sin(" + angle + r")\ne0")
+        )
     return (
         "<p>Рассмотрим линейный множитель отдельно:</p>"
         + line(formula(branch.original, angle) + "=0")
