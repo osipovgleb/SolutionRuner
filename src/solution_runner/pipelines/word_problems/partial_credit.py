@@ -1,4 +1,4 @@
-"""Solve one three-year debt equation for any single missing loan amount."""
+"""Solve exact annual loan equations for a missing amount or interest rate."""
 
 from dataclasses import dataclass
 
@@ -22,9 +22,14 @@ class Analysis:
     debts: tuple
     total: sp.Rational
     result: sp.Rational
+    roots: tuple = ()
 
 
 def analyze(q):
+    if q.target == "rate":
+        from .loan_rate import analyze as analyze_rate
+
+        return analyze_rate(q)
     k = 1 + q.rate / 100
     weight = k**2 + k
     capital, payment, last = q.capital, q.payment, q.last

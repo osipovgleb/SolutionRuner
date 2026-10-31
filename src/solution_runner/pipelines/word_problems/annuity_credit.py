@@ -1,4 +1,4 @@
-"""One exact annuity equation for principal, total payments and refinancing."""
+"""Exact annuity payments, interest-only years and final-year refinancing."""
 
 from dataclasses import dataclass
 
@@ -27,7 +27,8 @@ def analyze(q):
     weights = sum(k**j for j in range(periods))
     capital = q.capital if q.capital is not None else q.payment * weights / k**periods
     payment = q.payment if q.payment is not None else capital * k**periods / weights
-    debts = balances(capital, k, (payment,) * periods)
+    initial = capital * (k - 1)
+    debts = balances(capital, k, (initial,) * q.grace + (payment,) * periods)
     if q.style == "principal":
         result = capital * 1_000_000
     elif q.style == "refinance":
@@ -36,6 +37,12 @@ def analyze(q):
         if result != debts[1] * (q.rate - q.new_rate) / 100 or result <= 0:
             raise UnsupportedCondition(
                 "savings must equal the reduced interest on the remaining debt"
+            )
+    elif q.style == "grace":
+        result = (payment - initial) * q.scale
+        if result <= 0 or payment - initial != capital / (k + 1):
+            raise UnsupportedCondition(
+                "the final payment must exceed the initial interest-only payment"
             )
     else:
         result = periods * payment

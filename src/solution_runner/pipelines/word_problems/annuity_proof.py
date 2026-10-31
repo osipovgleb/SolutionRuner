@@ -193,6 +193,10 @@ def table_method(a):
 
 
 def proof(a):
+    if a.question.style == "grace":
+        from .grace_proof import proof as grace_proof
+
+        return section(grace_proof(a), "Решение")
     methods = {
         "two": two_years,
         "three": three_years,

@@ -364,3 +364,26 @@ PROFILES += tuple(
         ("701456", "975c3bc4-469a-4427-97fa-600caf3434f5", 21),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="13",
+        theme_title="Кредиты",
+        theme_order_index=1,
+        snapshot_theme_id="87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index, rule in (
+        ("517574", "46b6f812-841c-47a8-b692-eb6729461075", 5, "word-partial-credit"),
+        ("630110", "889443c2-cc21-4196-acff-44b1b98d1dc4", 12, "word-annuity-credit"),
+    )
+)

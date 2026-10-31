@@ -195,6 +195,10 @@ def requested(a):
 
 
 def proof(a):
+    if a.question.target == "rate":
+        from .loan_rate import proof as rate_proof
+
+        return section(rate_proof(a), "Решение")
     if a.question.target == "capital":
         html = unknown_capital(a)
     elif a.question.payment is None:

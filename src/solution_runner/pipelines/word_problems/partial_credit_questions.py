@@ -1,4 +1,4 @@
-"""Read complete three-year loans with equal first and second payments."""
+"""Read complete loans with equal initial payments or two specified payments."""
 
 import re
 from dataclasses import dataclass
@@ -23,7 +23,7 @@ CAPITAL = r"Какую сумму(?:\(в (?:тысячах рублей|тыс\.
 class Question:
     target: str
     year: int
-    rate: sp.Rational
+    rate: sp.Rational | None
     capital: sp.Rational | None
     payment: sp.Rational | None
     last: sp.Rational | None
@@ -32,6 +32,10 @@ class Question:
 
 
 def parse(text):
+    from .loan_rate import parse as parse_rate
+
+    if rate := parse_rate(text):
+        return rate
     m = re.fullmatch(HEADER, text)
     if not m:
         raise UnsupportedCondition(

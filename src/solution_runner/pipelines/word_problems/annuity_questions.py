@@ -1,4 +1,4 @@
-"""Complete equal-payment loan questions, including one final-year refinancing."""
+"""Complete equal-payment loans with refinancing or an interest-only prefix."""
 
 import re
 from dataclasses import dataclass
@@ -34,9 +34,16 @@ class Question:
     periods: int
     year: int | None = None
     new_rate: sp.Rational | None = None
+    grace: int = 0
+    scale: sp.Rational | int = 1
+    unit: str = "руб."
 
 
 def parse(text):
+    from .grace_credit import parse as parse_grace
+
+    if grace := parse_grace(text):
+        return grace
     patterns = {
         "total": TOTAL,
         "two": SHORT,

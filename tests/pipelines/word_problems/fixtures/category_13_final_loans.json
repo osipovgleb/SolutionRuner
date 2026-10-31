@@ -1,0 +1,332 @@
+{
+  "groups": [
+    {
+      "key": "517574",
+      "uuid": "46b6f812-841c-47a8-b692-eb6729461075",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 5
+    },
+    {
+      "key": "630110",
+      "uuid": "889443c2-cc21-4196-acff-44b1b98d1dc4",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 12
+    }
+  ],
+  "cases": [
+    {
+      "group": "517574",
+      "task": "517574",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2020 года пла­ни­ру­ет­ся взять кре­дит в банке на сумму 200 000 руб­лей. Усло­вия воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на <i>r</i>% по срав­не­нию с кон­цом преды­ду­ще­го года; </p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга.</p><p>Най­ди­те <i>r</i>, если из­вест­но, что кре­дит будет пол­но­стью по­га­шен за два года, причём в пер­вый год будет вы­пла­че­но 130 000 руб­лей, а вто­рой год  —  150 000 руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=15014745\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 (С5) ЕГЭ 2017</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Каж­дый год долг уве­ли­чи­ва­ет­ся на <i>r</i>% или в  <span data-inline-latex=\"(1+\\frac{r}{100})\"></span>  раз и умень­ша­ет­ся на ве­ли­чи­ну еже­год­но­го пла­те­жа. Для удоб­ства вы­чис­ле­ний обо­зна­чим <span data-inline-latex=\"b=(1+\\frac{r}{100})\"></span> . </p><p>Тогда в пер­вый год долг со­ста­вит: <span data-inline-latex=\"200000b\"></span>. </p><p>Оста­ток будет равен: <span data-inline-latex=\"200000b-130000\"></span>.</p><p>После вто­ро­го года оста­ток по кре­ди­ту со­ста­вит: <span data-inline-latex=\"(200000b-130000)b-150000\"></span>. </p><p>По усло­вию кре­дит был по­га­шен за 2 года, а это зна­чит, что оста­ток за вто­рой год равен 0, то есть:</p><center><p><span> <span data-inline-latex=\"(200000b-130000)b-150000=0\\iff 200000b^{2}-130000b-150000=0\\iff \\left[\\begin{aligned}b=1{,}25\\\\b=-0{,}6\\end{aligned}\\right.\"></span> .</span></p></center><p>По усло­вию за­да­чи <span data-inline-latex=\"b\\gt 0\"></span>, зна­чит, <span data-inline-latex=\"b=1{,}25\"></span>, от­ку­да сле­ду­ет, что <span data-inline-latex=\"r=25\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "517574",
+      "task": "507275",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>31 де­каб­ря 2014 года Ва­ле­рий взял в банке <nobr>1 млн</nobr> руб­лей в кре­дит. Схема вы­пла­ты кре­ди­та сле­ду­ю­щая: 31 де­каб­ря каж­до­го сле­ду­ю­ще­го года банк на­чис­ля­ет про­цен­ты на остав­шу­ю­ся сумму долга (то есть уве­ли­чи­ва­ет долг на опре­делённое ко­ли­че­ство про­цен­тов), затем Ва­ле­рий пе­ре­во­дит оче­ред­ной пла­теж. Ва­ле­рий вы­пла­тил кре­дит за два пла­те­жа, пе­ре­во­дя в пер­вый раз 660 тыс. руб­лей, во вто­рой  — 484 тыс. руб­лей. Под какой про­цент банк выдал кре­дит Ва­ле­рию?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "517574",
+      "task": "517575",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2020 года пла­ни­ру­ет­ся взять кре­дит в банке на сумму 250 000 руб­лей. Усло­вия воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на <i>r</i>% по срав­не­нию с кон­цом преды­ду­ще­го года; </p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга.</p><p>Най­ди­те <i>r</i>, если из­вест­но, что кре­дит будет пол­но­стью по­га­шен за два года, причём в пер­вый год будет вы­пла­че­но 150 000 руб­лей, а вто­рой год  —  180 000 руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=15014745\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 (С5) ЕГЭ 2017</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=89892728\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 27.03.2026. Досрочная волна. Разные города. Вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "20",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. Положительный множитель равен 1,2: (250000·1,2−150000)·1,2−180000=0."
+    },
+    {
+      "group": "517574",
+      "task": "548489",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2020 года пла­ни­ру­ет­ся взять кре­дит в банке на сумму 300 000 руб­лей. Усло­вия воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг уве­ли­чи­ва­ет­ся на <i>r</i>% по срав­не­нию с кон­цом преды­ду­ще­го года; </p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга.</p><p>Най­ди­те <i>r</i>, если из­вест­но, что кре­дит будет пол­но­стью по­га­шен за два года, причём в пер­вый год будет вы­пла­че­но 260 000 руб­лей, а вто­рой год  — 169 000 руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">..</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34043000\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 ЕГЭ–2020</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34012523\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 10.07.2020. Основная волна. Разные задачи</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=77213401\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 05.07.2024. Добровольная пересдача. Санкт-Петербург. Вариант 402</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "30",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. Положительный множитель равен 1,3: (300000·1,3−260000)·1,3−169000=0."
+    },
+    {
+      "group": "630110",
+      "task": "630110",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на пять лет в раз­ме­ре <nobr>3,3 млн руб.</nobr> Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг будет воз­рас­тать на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>—  в июле 2027, 2028 и 2029 годах долг остаётся равен <nobr>3,3 млн руб.;</nobr></p><p>—  пла­те­жи в 2030 и 2031 годах долж­ны быть равны;</p><p>—  к июлю 2031 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Сколь­ко млн руб­лей со­ста­вит раз­ни­ца между пер­вым и по­след­ним пла­те­жа­ми.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47341251\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Восток</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть пла­теж в 2030 и 2031 годах будет равен <i>x</i> млн руб., а сумма кре­ди­та <span data-inline-latex=\"S=3{,}3\"></span> млн руб. За­пол­ним таб­ли­цу в со­от­вет­ствии с усло­ви­ем за­да­чи:</p><table><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Год</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Долг в ян­ва­ре,<br/>млн руб.</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Вы­пла­та,<br/>млн руб.</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Долг в июле,<br/>млн руб.</th></tr><tr><td data-align=\"center\" data-valign=\"middle\">2026</td><td data-align=\"center\" data-valign=\"middle\"></td><td data-align=\"center\" data-valign=\"middle\"></td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2027</td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var> · 1,2</td><td data-align=\"center\" data-valign=\"middle\">0,2<var data-math-identifier=\"S\">S</var></td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2028</td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var> · 1,2</td><td data-align=\"center\" data-valign=\"middle\">0,2<var data-math-identifier=\"S\">S</var></td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2029</td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var> · 1,2</td><td data-align=\"center\" data-valign=\"middle\">0,2<var data-math-identifier=\"S\">S</var></td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2030</td><td data-align=\"center\" data-valign=\"middle\"><var data-math-identifier=\"S\">S</var> · 1,2</td><td data-align=\"center\" data-valign=\"middle\"><i>x</i></td><td data-align=\"center\" data-valign=\"middle\">1,2<var data-math-identifier=\"S\">S</var> – <i>x</i></td></tr><tr><td data-align=\"center\" data-valign=\"middle\">2031</td><td data-align=\"center\" data-valign=\"middle\">(1,2<var data-math-identifier=\"S\">S</var> – <i>x</i>) · 1,2</td><td data-align=\"center\" data-valign=\"middle\"><i>x</i></td><td data-align=\"center\" data-valign=\"middle\">0</td></tr></tbody></table><p>Из по­след­ней стро­ки таб­ли­цы по­лу­ча­ем  урав­не­ние:</p><center><p><span> <span data-inline-latex=\"(1{,}2S-x)\\cdot 1{,}2-x=0\\iff 1{,}44S-1{,}2x-x=0\\iff 2{,}2x=1{,}44S\\iff x=\\frac{0{,}72S}{1{,}1}\"></span> . </span></p></center><p>Пер­вый платёж мень­ше по­след­не­го, зна­чит, раз­ни­ца между пер­вым и по­след­ним пла­те­жом равна </p><center><p> <span data-inline-latex=\"\\frac{0{,}72S}{1{,}1}-0{,}2S=\\frac{0{,}5S}{1{,}1}=\\frac{0{,}5\\cdot 3{,}3}{1{,}1}=1{,}5\"></span>  млн руб.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "630110",
+      "task": "630111",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2022 года пла­ни­ру­ет­ся взять кре­дит на пять лет в раз­ме­ре 1050 тыс. руб­лей. Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг воз­рас­та­ет на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года, не­об­хо­ди­мо вы­пла­тить одним пла­те­жом часть долга;</p><p>— в июле 2023, 2024 и 2025 годах сумма долга оста­ет­ся рав­ной 1050 тыс. руб.;</p><p>— вы­пла­ты в 2026 и 2027 годах равны;</p><p>— к июлю 2027 года долг будет вы­пла­чен пол­но­стью.</p><p>На сколь­ко руб­лей по­след­няя вы­пла­та будет боль­ше пер­вой?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">с</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=45395014\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2022</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "500000",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. Два последних равных платежа — 605 тыс. руб.; первый — 105 тыс. руб.; разница 500000 руб."
+    },
+    {
+      "group": "630110",
+      "task": "660454",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле 2026 года пла­ни­ру­ет­ся взять кре­дит на пять лет в раз­ме­ре 540 тыс. руб. Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг будет воз­рас­тать на 25% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— в июле 2027, 2028 и 2029 годах долг остаётся равен 540 тыс. руб.;</p><p>— пла­те­жи в 2030 и 2031 годах долж­ны быть равны;</p><p>— к июлю 2031 года долг дол­жен быть вы­пла­чен пол­но­стью.</p><p>Най­ди­те раз­ни­цу между пер­вым и по­след­ним пла­те­жа­ми.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34043000\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 ЕГЭ–2020</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "240",
+      "source_answer_note": "Сохранённый ответ неверен или является заглушкой. Два последних платежа — 375 тыс. руб.; первый — 135 тыс. руб.; разница 240 тыс. руб. Единицы подтверждены https://ege.sdamgia.ru/problem?id=660454 ."
+    }
+  ]
+}
