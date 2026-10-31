@@ -3949,3 +3949,29 @@ PROFILES += tuple(
         ("562757", "0246aad8-476b-4f08-abbc-df34cb6f4dc4", 10),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Показательные уравнения",
+        theme_order_index=0,
+        snapshot_theme_id="a55db974-0491-4d22-b9c0-b9da72748cb1",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-exponential-factor-interval",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("513605", "5ffc5f69-4510-4944-8d12-ec2606a2d5a7", 2),
+        ("503127", "24d1d62a-527a-4cc3-87c6-f9141cafa00f", 3),
+        ("555583", "19b41c28-547a-4bd3-aaa9-cee084e25ca6", 8),
+        ("562032", "f8a7aa38-3466-4b8b-b8f3-3ea580ffd5e7", 9),
+        ("640910", "9b1ab182-42a0-4418-a1ee-b4e5b05b567f", 11),
+    )
+)

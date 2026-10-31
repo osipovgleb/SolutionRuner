@@ -5,7 +5,7 @@ import sympy as sp
 from ..word_problems.common import UnsupportedCondition
 
 
-def normalize(powers, shifted):
+def normalize(powers, shifted, *, anchor="middle"):
     high, middle, last = powers
     first_base, middle_base = high[1], middle[1]
     divisor = sp.cancel(middle_base**2 / first_base)
@@ -21,7 +21,11 @@ def normalize(powers, shifted):
         raise UnsupportedCondition("the third power must have the exact divisor base")
     from .exam_exponential import X
 
-    g = middle[2] if shifted else middle[2] - middle[2].subs(X, 0)
+    g = (
+        sp.expand(conversion * last[2])
+        if anchor == "last"
+        else (middle[2] if shifted else middle[2] - middle[2].subs(X, 0))
+    )
     offsets = (
         sp.expand(high[2] - g),
         sp.expand(middle[2] - g),

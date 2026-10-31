@@ -1,6 +1,5 @@
 """Positive exponential substitution and exact root selection for exam subparts."""
 
-import re
 from dataclasses import dataclass
 
 import sympy as sp
@@ -9,7 +8,6 @@ from ..calculus.common import real_roots
 from ..word_problems.common import UnsupportedCondition
 from .laurent_arithmetic import symbolic
 from .laurent_parser import LaurentParser
-from .power_arithmetic import ScalarParser, balanced, clean
 
 X = sp.Symbol("x", real=True)
 T = sp.Symbol("t", real=True)
@@ -31,44 +29,9 @@ def polynomial(text):
 
 
 def terms(formula):
-    text = clean(formula)
-    if text.count("=") != 1 or not text.endswith("=0"):
-        raise UnsupportedCondition(
-            "a complete exponential equation equal to zero is required"
-        )
-    text = text[:-2]
-    pieces = []
-    start = 0
-    depth = 0
-    for i, ch in enumerate(text):
-        if ch in "{(":
-            depth += 1
-        elif ch in "})":
-            depth -= 1
-        elif ch in "+-" and depth == 0 and i > start:
-            pieces.append(text[start:i])
-            start = i
-    pieces.append(text[start:])
-    powers = []
-    constant = sp.Integer(0)
-    for piece in pieces:
-        sign = -1 if piece.startswith("-") else 1
-        piece = piece.lstrip("+-")
-        m = re.match(r"(?:(\d+(?:\.\d+)?)\\cdot)?(\d+)\^", piece)
-        if m:
-            raw, end = balanced(piece, m.end())
-            if end != len(piece):
-                raise UnsupportedCondition("extra factors after an exponential term")
-            coefficient = sign * ScalarParser(m[1] or "1").parse()
-            base = sp.Integer(m[2])
-            exponent = polynomial(raw)
-            if not 1 < base <= 1000:
-                raise UnsupportedCondition(
-                    "a bounded base greater than one is required"
-                )
-            powers.append((coefficient, base, exponent))
-        else:
-            constant += sign * ScalarParser(piece).parse()
+    from .exam_power_terms import read
+
+    powers, constant = read(formula)
     if len(powers) not in (2, 3):
         raise UnsupportedCondition("two or three exponential terms are required")
     return powers, constant
@@ -91,7 +54,6 @@ class Analysis:
 
 
 def analyze(formula, interval, bounds, parent_html):
-    from .exam_scalar import compare
 
     powers, c = terms(formula)
     from .exam_exponential_parent import style
@@ -127,6 +89,36 @@ def analyze(formula, interval, bounds, parent_html):
             "the transformed quadratic must have exact rational coefficients"
         )
     tr = tuple(real_roots(a * T * T + b * T + c, T))
+    roots, back = back_substitute(base, g, tr)
+    roots, selected = select_roots(roots, bounds)
+    return Analysis(
+        formula,
+        base,
+        g,
+        (a, b, c),
+        tr,
+        roots,
+        selected,
+        interval,
+        bounds,
+        tuple(back),
+        divisor,
+        explicit,
+    )
+
+
+def build_context_repair_plan(context, *, parent_solution_html=""):
+    from .exam_exponential_proof import render
+    from .exam_input import read, repair
+
+    parts, formula, interval, bounds = read(context)
+    a = analyze(formula, interval, bounds, parent_solution_html)
+    return repair(parts, *render(a))
+
+
+def back_substitute(base, g, tr):
+    from .exam_scalar import compare
+
     roots = []
     back = []
     for t in tr:
@@ -145,7 +137,13 @@ def analyze(formula, interval, bounds, parent_html):
                 "the back-substitution must be affine or an exact rational quadratic"
             )
         back.append((t, value, branch))
+    return roots, back
+
+
+def select_roots(roots, bounds):
     from functools import cmp_to_key
+
+    from .exam_scalar import compare
 
     roots = tuple(sorted(set(roots), key=cmp_to_key(compare)))
     lo, hi, lc, uc = bounds
@@ -155,35 +153,4 @@ def analyze(formula, interval, bounds, parent_html):
         if (compare(r, lo) > 0 or (lc and compare(r, lo) == 0))
         and (compare(r, hi) < 0 or (uc and compare(r, hi) == 0))
     )
-    return Analysis(
-        formula,
-        base,
-        g,
-        (a, b, c),
-        tr,
-        roots,
-        selected,
-        interval,
-        bounds,
-        tuple(back),
-        divisor,
-        explicit,
-    )
-
-
-def build_context_repair_plan(context, *, parent_solution_html=""):
-    from ..word_problems.common import RepairPlan, rewrite
-    from .exam_exponential_proof import render
-    from .exam_input import read
-
-    (condition, ans, solution), formula, interval, bounds = read(context)
-    a = analyze(formula, interval, bounds, parent_solution_html)
-    answer, answer_html, html = render(a)
-    transformations = []
-    for item, key, title, expected in (
-        (ans, "answer", "Ответ", answer_html),
-        (solution, "solution", "Решение", html),
-    ):
-        if item is None or item.get("html") != expected:
-            transformations.append(rewrite(item, key, title, expected))
-    return RepairPlan(answer, condition["html"], html, tuple(transformations))
+    return roots, selected

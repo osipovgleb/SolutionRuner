@@ -8,7 +8,7 @@ from ..word_problems.common import UnsupportedCondition, section
 from .power_arithmetic import ScalarParser
 
 FIRST = r"Решите уравнение:? ФОРМУЛА\.?"
-SECOND = r"(?:Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие отрезку|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
+SECOND = r"(?:Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
 
 
 def read(context):
@@ -94,8 +94,18 @@ def read_interval(second):
             "the entire interval-selection instruction must match"
         )
     interval = match[2]
+    lower, upper = (endpoint(v) for v in endpoint_texts(interval))
+    from .exam_scalar import compare
+
+    ordering = compare(lower, upper)
+    if ordering > 0 or (ordering == 0 and (interval[0] != "[" or interval[-1] != "]")):
+        raise UnsupportedCondition("a nonempty ordered interval is required")
+    return interval, (lower, upper, interval[0] == "[", interval[-1] == "]")
+
+
+def endpoint_texts(interval):
     inner = interval[1:-1]
-    # A comma separates endpoints only when it is outside a braced decimal.
+    # Semicolons leave unbraced decimal commas inside their scalar endpoints.
     depth = 0
     separators = []
     for i, ch in enumerate(inner):
@@ -105,21 +115,22 @@ def read_interval(second):
             depth -= 1
         elif ch in ";," and depth == 0:
             separators.append(i)
+    semicolons = [i for i in separators if inner[i] == ";"]
+    separators = semicolons or separators
     if len(separators) != 1:
         raise UnsupportedCondition("the interval must have two unambiguous endpoints")
     i = separators[0]
-    lower, upper = (endpoint(v) for v in (inner[:i], inner[i + 1 :]))
-    from .exam_scalar import compare
-
-    ordering = compare(lower, upper)
-    if ordering > 0 or (ordering == 0 and (interval[0] != "[" or interval[-1] != "]")):
-        raise UnsupportedCondition("a nonempty ordered interval is required")
-    return interval, (lower, upper, interval[0] == "[", interval[-1] == "]")
+    return inner[:i], inner[i + 1 :]
 
 
 def endpoint(text):
     import sympy as sp
 
+    if r"\pi" not in text:
+        from .logarithm_arithmetic import actual
+        from .logarithm_parser import LogarithmParser
+
+        return actual(LogarithmParser(text).parse().value)
     if "p" in text.replace(r"\pi", ""):
         raise UnsupportedCondition(
             "an interval endpoint cannot contain an undeclared variable"
@@ -129,3 +140,17 @@ def endpoint(text):
         .parse()
         .subs(sp.Symbol("p", real=True), sp.pi)
     )
+
+
+def repair(parts, answer, answer_html, html):
+    from ..word_problems.common import RepairPlan, rewrite
+
+    condition, ans, solution = parts
+    transformations = []
+    for item, key, title, expected in (
+        (ans, "answer", "Ответ", answer_html),
+        (solution, "solution", "Решение", html),
+    ):
+        if item is None or item.get("html") != expected:
+            transformations.append(rewrite(item, key, title, expected))
+    return RepairPlan(answer, condition["html"], html, tuple(transformations))

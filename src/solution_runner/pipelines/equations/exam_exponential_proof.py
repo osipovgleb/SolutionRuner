@@ -131,6 +131,11 @@ def first_part(a, rendered):
             if a.explicit
             else "<p>Неположительные правые части не подходят, поскольку показательная функция строго положительна.</p>"
         )
+    return html + back_substitution(a, rendered)
+
+
+def back_substitution(a, rendered):
+    html = ""
     for t, value, branch in a.back:
         html += (
             "<p>Вернёмся к исходной переменной при " + inline("t=" + n(t)) + ":</p>"
