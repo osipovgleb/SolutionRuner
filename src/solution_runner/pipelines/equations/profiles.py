@@ -3999,3 +3999,35 @@ PROFILES += tuple(
         ("627406", "2196854a-5d58-4a09-89d7-5409f71d10ee", 2),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Иррациональные уравнения",
+        theme_order_index=2,
+        snapshot_theme_id="44135092-4f14-4c2f-b6a4-ea493f74f47a",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index, rule in (
+        ("521850", "8e6c137b-3551-4b7d-81ef-3ae824d6f0d4", 0, "exam-radical-interval"),
+        ("520994", "3f749430-7c46-4bb2-bbbd-b80b574198db", 1, "exam-radical-interval"),
+        ("519658", "3fdc7d89-728d-437e-a9e4-ce21d4f7d1b3", 2, "exam-radical-interval"),
+        (
+            "507572",
+            "bab6cffa-ae6c-4355-a8e6-80eb23292bfa",
+            3,
+            "exam-nested-radical-interval",
+        ),
+        ("549170", "0aba816a-019f-4f32-8b63-9d4c6ce66326", 4, "exam-radical-interval"),
+        ("639112", "1cc36301-e0e1-4d40-a292-7a9a005dbd72", 5, "exam-radical-interval"),
+    )
+)

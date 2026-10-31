@@ -8,10 +8,10 @@ from ..word_problems.common import UnsupportedCondition, section
 from .power_arithmetic import ScalarParser
 
 FIRST = r"Решите уравнение:? ФОРМУЛА\.?"
-SECOND = r"(?:Найдите его корни, принадлежащие отрезку|Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
+SECOND = r"(?:Найдите(?: все)? корни уравнения, принадлежащие отрезку|Укажите все корни этого уравнения, принадлежащие промежутку|Найдите решения уравнения, принадлежащие отрезку|Найдите его корни, принадлежащие отрезку|Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
 
 
-def read(context):
+def read_parts(context):
     content = context.get("normalized_content") or {}
     parts = tuple(section(content, key) for key in ("condition", "answer", "solution"))
     if (
@@ -43,6 +43,22 @@ def read(context):
         for r, marker, alias in zip(rows, ("а)", "б)"), ("a)", "b)"))
     ):
         raise UnsupportedCondition("the two exam markers must be a and b in order")
+    for sub in rows[1].find_all("sub"):
+        before, after = sub.previous_sibling, sub.next_sibling
+        if (
+            sub.attrs
+            or sub.find(True)
+            or not re.fullmatch(r"[2-9]\d{0,2}", sub.get_text())
+            or not isinstance(before, NavigableString)
+            or not str(before).endswith("log")
+            or not isinstance(after, NavigableString)
+            or not re.match(r"\d", str(after))
+        ):
+            raise UnsupportedCondition(
+                "only explicit numeric logarithm subscripts are supported"
+            )
+        before.replace_with(str(before)[:-3] + r"\log_")
+        sub.replace_with("{" + sub.get_text() + "}")
     for node in soup.find_all(True):
         if node not in [lists[0], *rows] and (
             node.name not in {"span", "nobr"}
@@ -83,6 +99,11 @@ def read(context):
     second = re.sub(r"\s+([.,:])", r"\1", second)
     if not re.fullmatch(FIRST, first):
         raise UnsupportedCondition("the entire equation instruction must match")
+    return parts, equation, second
+
+
+def read(context):
+    parts, equation, second = read_parts(context)
     interval, bounds = read_interval(second)
     return parts, equation, interval, bounds
 
