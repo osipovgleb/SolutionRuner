@@ -40,6 +40,11 @@ def branches(raw):
         )
     constant = raw.subs({S: 0, C: 0})
     lifted = sp.expand(raw + constant * (S * S + C * C - 1))
+    from .exam_trigonometric_factors import separated
+
+    separate = separated(lifted, S, False)
+    if separate is not None:
+        return separate
     factors = sp.factor_list(lifted, S, C, extension=True)[1]
     if len(factors) != 2 or any(power != 1 for _, power in factors):
         raise UnsupportedCondition(

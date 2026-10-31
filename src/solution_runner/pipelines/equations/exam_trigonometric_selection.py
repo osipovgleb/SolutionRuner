@@ -67,7 +67,14 @@ def finish(a):
     if a.shifted_notation:
         series = tuple(s for item in series for s in centred((item,)))
     elif a.selection_method == "inequalities":
-        series = centred(series)
+        if (
+            a.factored_source is not None
+            and any(b.original is not None for b in a.branches)
+            and not a.poles
+        ):
+            series = tuple(s for item in series for s in centred((item,)))
+        else:
+            series = centred(series)
     for bound in a.bounds[:2]:
         validate(bound)
     selected, trace = select(series, a.bounds)

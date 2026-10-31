@@ -3,12 +3,13 @@
 import sympy as sp
 
 from ..word_problems.common import UnsupportedCondition
+from .exam_trigonometric_power_identity import paired_sixths
 from .trig_symbolic_parser import SymbolicAtom
 
 X = sp.Symbol("x", real=True)
 
 
-def fold(values, atoms, denominators, preferred_scale):
+def fold(values, atoms, denominators, preferred_scale, *, sine_square=False):
     if any(d.free_symbols for d in denominators):
         return values, atoms, None, None
     expression = values[0] - values[1]
@@ -19,6 +20,7 @@ def fold(values, atoms, denominators, preferred_scale):
     if (
         preferred_scale == 2 * base
         and poly.total_degree() > 2
+        and not (sine_square and paired_sixths(expression, atoms))
         and all(
             power % 2 == 0
             for powers in poly.monoms()
@@ -58,11 +60,7 @@ def fold(values, atoms, denominators, preferred_scale):
         if power_angle is not None
         else sp.trigsimp(folded_actual, method="fu")
     )
-    difference = sp.trigsimp(actual - rewritten)
-    if difference != 0:
-        difference = sp.trigsimp(sp.expand(sp.expand_trig(difference)))
-    if difference != 0:
-        raise UnsupportedCondition("the product identity must be verified exactly")
+    verify_identity(actual, rewritten)
     functions = sorted(rewritten.atoms(sp.sin, sp.cos), key=sp.default_sort_key)
     if not functions:
         raise UnsupportedCondition("the folded equation must retain a variable angle")
@@ -98,3 +96,11 @@ def fold(values, atoms, denominators, preferred_scale):
         rewritten,
         power_angle,
     )
+
+
+def verify_identity(actual, rewritten):
+    difference = sp.trigsimp(actual - rewritten)
+    if difference != 0:
+        difference = sp.trigsimp(sp.expand(sp.expand_trig(difference)))
+    if difference != 0:
+        raise UnsupportedCondition("the product identity must be verified exactly")

@@ -71,3 +71,27 @@ def cotangent_branches(branches):
             )
         result.append(b)
     return tuple(sorted(result, key=lambda b: b.original is not None))
+
+
+def homogeneous_first(parent_html):
+    for node in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]"):
+        text = "".join(node["data-inline-latex"].split())
+        match = re.search(r"\\(?:sin|cos)x(?:[+-]\\(?:sin|cos)x)?&?=", text)
+        if match:
+            return "+" in match[0] or "-" in match[0]
+    return False
+
+
+def retain_order(compiled, reduced, branches, parent_html, domain):
+    if local_cotangent(parent_html):
+        branches = cotangent_branches(branches)
+    if (
+        reduced != compiled.raw
+        and any(b.original is None for b in branches)
+        and domain is None
+        and not compiled.poles
+        and homogeneous_first(parent_html)
+    ):
+        branches = tuple(sorted(branches, key=lambda b: b.original is None))
+        compiled = replace(compiled, raw=reduced, factored_source=compiled.raw)
+    return compiled, branches

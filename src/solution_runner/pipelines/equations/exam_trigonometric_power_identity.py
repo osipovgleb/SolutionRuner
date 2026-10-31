@@ -9,6 +9,24 @@ from .exam_trigonometric_compile import C, S
 X = sp.Symbol("x", real=True)
 
 
+def paired_sixths(expression, atoms):
+    symbols = [
+        p.base for p in expression.atoms(sp.Pow) if p.exp == 6 and p.base in atoms
+    ]
+    if len(symbols) != 2:
+        return False
+    first, second = (atoms[s] for s in symbols)
+    coefficients = [sp.expand(expression).coeff(s, 6) for s in symbols]
+    return (
+        {first.function, second.function} == {"sin", "cos"}
+        and first.coefficient == second.coefficient
+        and first.shift == second.shift
+        and coefficients[0] != 0
+        and not coefficients[0].free_symbols
+        and coefficients[0] == coefficients[1]
+    )
+
+
 def fold_sixth(actual):
     powers = {
         p
@@ -43,7 +61,7 @@ def fold_sixth(actual):
     ), multiple
 
 
-def proof(multiple):
+def proof(multiple, fourth_angle=True):
     from .exam_trigonometric_proof import formula
     from .exam_trigonometric_variants import argument
 
@@ -64,10 +82,11 @@ def proof(multiple):
         + r"=1-\frac{3}{4}"
         + formula(S * S, argument(2 * multiple))
     )
-    html += line(
-        formula(S**6 + C**6, angle)
-        + r"=\frac{5+3"
-        + formula(C, argument(4 * multiple))
-        + "}{8}"
-    )
+    if fourth_angle:
+        html += line(
+            formula(S**6 + C**6, angle)
+            + r"=\frac{5+3"
+            + formula(C, argument(4 * multiple))
+            + "}{8}"
+        )
     return html

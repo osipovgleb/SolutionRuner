@@ -18,6 +18,7 @@ from .exam_trigonometric_inverse import (
     select_inverse,
 )
 from .exam_trigonometric_selection import canonical, periodic, root_series
+from .exam_trigonometric_square_difference import reviewed as difference_method
 from .exam_trigonometric_style import (
     division,
     grouping_method,
@@ -28,6 +29,8 @@ from .exam_trigonometric_style import (
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
+    from .exam_trigonometric_square_difference import SquareDifference
+    from .exam_trigonometric_symmetric import SumReduction
 
 
 @dataclass(frozen=True)
@@ -87,6 +90,8 @@ class Analysis:
     affine: "AffineFactor | None" = None
     angle_product: "AngleProduct | None" = None
     cleared_denominator: sp.Expr | None = None
+    square_difference: "SquareDifference | None" = None
+    symmetric: "SumReduction | None" = None
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -205,7 +210,9 @@ def analyze(formula, interval, bounds, parent_html):
     return result
 
 
-def method_equation(formula, preferred, scale, translation, *, grouping=False):
+def method_equation(
+    formula, preferred, scale, translation, *, grouping=False, difference=False
+):
     from .exam_trigonometric_absolute import compile_absolute
     from .exam_trigonometric_domain import radical_product
     from .exam_trigonometric_methods import Equation, compile_reviewed
@@ -227,12 +234,16 @@ def method_equation(formula, preferred, scale, translation, *, grouping=False):
             )
         raw, identities, domain = product
         return Equation(raw, identities, sp.S.One), domain
-    if scale != 1 or translation:
-        return compile_reviewed(formula, preferred, scale, translation), None
+    if scale != 1 or translation or difference:
+        return compile_reviewed(
+            formula, preferred, scale, translation, difference=difference
+        ), None
     try:
         raw, identities = compile_equation(formula, allow_cubic=grouping)
     except UnsupportedCondition:
-        return compile_reviewed(formula, preferred, scale, translation), None
+        return compile_reviewed(
+            formula, preferred, scale, translation, difference=difference
+        ), None
     return Equation(raw, identities, sp.S.One), None
 
 
@@ -266,11 +277,12 @@ def analyze_method(
         preferred_scale,
         translation,
         grouping=grouping_method(parent_html),
+        difference=difference_method(parent_html),
     )
     from .exam_trigonometric_factors import method_branches
 
     compiled, reduced, branches, preferred = method_branches(
-        compiled, preferred, allow_inverse, domain, parent_html
+        compiled, preferred, allow_inverse, domain, parent_html, translation=translation
     )
     raw, identities = compiled.raw, compiled.identities
     if len(branches) == 1:
@@ -328,6 +340,8 @@ def analyze_method(
             compiled.affine,
             compiled.angle_product,
             compiled.cleared_denominator,
+            compiled.square_difference,
+            compiled.symmetric,
         )
     )
 
@@ -345,7 +359,13 @@ def method_series(
     preferred, method = style
     allow_inverse = method == "inequalities" or r"\arccos" in parent_html
     merged = (
-        method == "inequalities" and compiled.scale != 1 and merges_series(parent_html)
+        (
+            method == "inequalities"
+            and compiled.scale != 1
+            and merges_series(parent_html)
+        )
+        or compiled.square_difference is not None
+        or compiled.symmetric is not None
     )
     dividing = (
         division(parent_html)

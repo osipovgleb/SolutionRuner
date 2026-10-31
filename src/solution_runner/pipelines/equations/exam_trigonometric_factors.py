@@ -95,19 +95,33 @@ def preserve_zero_square(compiled, parent_html):
     )
 
 
-def method_branches(compiled, preferred, allow_inverse, domain, parent_html):
+def method_branches(
+    compiled, preferred, allow_inverse, domain, parent_html, *, translation=sp.S.Zero
+):
     from ..word_problems.common import UnsupportedCondition
     from .exam_trigonometric import solve_branches
     from .exam_trigonometric_compile import T, U
     from .exam_trigonometric_domain import restrict, without_poles
     from .exam_trigonometric_factor_style import (
-        cotangent_branches,
         local_cotangent,
         mark_grouping,
+        retain_order,
     )
     from .exam_trigonometric_homogeneous import convert
     from .exam_trigonometric_style import cotangent_method
 
+    if compiled.square_difference is not None:
+        from .exam_trigonometric_square_difference import parameter
+
+        data = replace(compiled.square_difference, parameter=parameter(parent_html))
+        compiled = replace(compiled, square_difference=data)
+    from .exam_trigonometric_symmetric import branches as sum_branches
+    from .exam_trigonometric_symmetric import prepare
+
+    symmetric = prepare(compiled, parent_html, translation) if domain is None else None
+    if symmetric is not None:
+        result = sum_branches(symmetric.symmetric, parent_html)
+        return symmetric, symmetric.raw, result, preferred
     if compiled.angle_product is not None:
         from .exam_trigonometric_angle_product import branches as angle_branches
 
@@ -122,8 +136,7 @@ def method_branches(compiled, preferred, allow_inverse, domain, parent_html):
         allow_inverse,
         factored=compiled.factored_source is not None,
     )
-    if local_cotangent(parent_html):
-        branches = cotangent_branches(branches)
+    compiled, branches = retain_order(compiled, reduced, branches, parent_html, domain)
     if domain is not None:
         branches = restrict(branches, domain, compiled.strict_domain)
     if any(b.angle_shift for b in branches):

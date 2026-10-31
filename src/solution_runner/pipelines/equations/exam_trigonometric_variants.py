@@ -20,6 +20,10 @@ def proof(a):
         return reciprocal(a)
     intro = "<p>Используем формулы приведения и решим уравнение относительно тригонометрической функции:</p>"
     html = ""
+    if a.power_angle is not None and a.preferred == S and a.scale == 2 * a.power_angle:
+        from .exam_trigonometric_sixth_proof import proof as sixth_proof
+
+        return sixth_proof(a)
     if a.rewritten is not None:
         html += "<p>Свернём произведения и разность квадратов по тригонометрическим тождествам:</p>"
         html += line(sp.latex(a.rewritten) + "=0")

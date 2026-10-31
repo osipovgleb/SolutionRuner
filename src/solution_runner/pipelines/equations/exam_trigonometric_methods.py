@@ -23,6 +23,8 @@ from .trig_symbolic_parser import (
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
+    from .exam_trigonometric_square_difference import SquareDifference
+    from .exam_trigonometric_symmetric import SumReduction
 
 
 class ExamAngleParser(SymbolicTrigonometricParser):
@@ -108,6 +110,8 @@ class Equation:
     factored_source: sp.Expr | None = None
     angle_product: "AngleProduct | None" = None
     cleared_denominator: sp.Expr | None = None
+    square_difference: "SquareDifference | None" = None
+    symmetric: "SumReduction | None" = None
 
 
 def shifted_atom(atom):
@@ -134,7 +138,9 @@ def parse_equation(formula):
     return values, atoms, denominators
 
 
-def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero):
+def compile_reviewed(
+    formula, preferred, preferred_scale, translation=sp.S.Zero, difference=False
+):
     from .exam_trigonometric_affine import reviewed as affine_equation
 
     affine = affine_equation(formula, preferred_scale, translation)
@@ -145,6 +151,19 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
     values, atoms, denominators, constants = read_translated_equation(
         formula, translation
     )
+    from .exam_trigonometric_square_difference import compile_difference
+
+    squared = (
+        compile_difference(values, atoms, denominators)
+        if difference and not translation
+        else None
+    )
+    if squared is not None:
+        return squared
+    if difference:
+        raise UnsupportedCondition(
+            "the parent's square-difference method requires two compatible nondegenerate squares"
+        )
     if any(a.function in ("tg", "ctg") for a in atoms.values()):
         from .exam_trigonometric_ratios import compile_ratio_method
 
@@ -158,7 +177,7 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
     atoms, unit = normalize(atoms, denominators)
     preferred_scale /= unit
     values, atoms, rewritten, power_angle = fold(
-        values, atoms, denominators, preferred_scale
+        values, atoms, denominators, preferred_scale, sine_square=(preferred == S)
     )
     scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
     for symbol, atom in tuple(atoms.items()):
@@ -203,15 +222,7 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
             )
     elif denominator.free_symbols:
         raise UnsupportedCondition("an original denominator must not be lost")
-    if not raw.is_polynomial(S, C) or sp.Poly(raw, S, C).total_degree() > 8 or raw == 0:
-        raise UnsupportedCondition(
-            "a nonzero bounded polynomial is required before base-angle reduction"
-        )
-    raw, scale, doubled = double_angle(raw, scale, preferred, preferred_scale)
-    if sp.Poly(raw, S, C).total_degree() > 4:
-        raise UnsupportedCondition(
-            "the final base-angle polynomial exceeds degree four"
-        )
+    raw, scale, doubled = reduce_base_angle(raw, scale, preferred, preferred_scale)
     if doubled:
         identities = ()
     return Equation(
@@ -276,6 +287,19 @@ def constant_angles(values, atoms, denominators):
         denominators,
         identities,
     )
+
+
+def reduce_base_angle(raw, scale, preferred, preferred_scale):
+    if not raw.is_polynomial(S, C) or sp.Poly(raw, S, C).total_degree() > 8 or raw == 0:
+        raise UnsupportedCondition(
+            "a nonzero bounded polynomial is required before base-angle reduction"
+        )
+    raw, scale, doubled = double_angle(raw, scale, preferred, preferred_scale)
+    if sp.Poly(raw, S, C).total_degree() > 4:
+        raise UnsupportedCondition(
+            "the final base-angle polynomial exceeds degree four"
+        )
+    return raw, scale, doubled
 
 
 def double_angle(raw, scale, preferred, preferred_scale):
