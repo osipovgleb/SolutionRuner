@@ -4,6 +4,10 @@ from .exam_trigonometric_compile import C, S, T, U
 
 
 def method_proof(a):
+    if a.triple_angle is not None:
+        from .exam_trigonometric_triple_angle import proof
+
+        return proof(a)
     if a.sum_product is not None:
         from .exam_trigonometric_sum_product import proof
 

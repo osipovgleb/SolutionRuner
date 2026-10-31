@@ -17,6 +17,8 @@ def method_equation(
     product=False,
     preserve_products=False,
     square_sum=False,
+    sum_identity=None,
+    triple_angle=None,
 ):
     from .exam_trigonometric_absolute import compile_absolute
     from .exam_trigonometric_domain import radical_product
@@ -24,6 +26,20 @@ def method_equation(
     from .exam_trigonometric_radical_quotient import compile_quotient
     from .exam_trigonometric_sum_product import compile_reciprocal, compile_square
 
+    if triple_angle and triple_angle[0]:
+        from .exam_trigonometric_triple_angle import compile_triple
+
+        if translation:
+            raise UnsupportedCondition(
+                "the triple-angle identity requires the original variable"
+            )
+        return compile_triple(formula, triple_angle[1]), None
+    if sum_identity:
+        from .exam_trigonometric_sum_identities import compile_identity
+
+        if translation:
+            raise UnsupportedCondition("sum identities require the original variable")
+        return compile_identity(formula, sum_identity), None
     if square_sum:
         if translation:
             raise UnsupportedCondition(
@@ -101,4 +117,5 @@ def analysis_fields(equation):
         "square_product": equation.square_product,
         "unit_factors": equation.unit_factors,
         "sum_product": equation.sum_product,
+        "triple_angle": equation.triple_angle,
     }

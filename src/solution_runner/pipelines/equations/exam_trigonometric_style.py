@@ -147,7 +147,10 @@ def zero_square_method(parent_html):
         "".join(s["data-inline-latex"].split())
         for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
     ]
-    return any(re.search(r"\\(?:sin|cos)\^\{?2\}?x(?:\\cdot)?\(", f) for f in formulas)
+    return any(
+        re.search(r"\\(?:sin|cos)\^\{?2\}?x(?:\\cdot)?\([^()]*\)=0", f)
+        for f in formulas
+    )
 
 
 def grouping_method(parent_html):
@@ -157,4 +160,19 @@ def grouping_method(parent_html):
     ]
     return any(
         re.search(r"\\(?:sin|cos|tg|ctg)\^\{?2\}?x\([^()]+\)[+-]", f) for f in formulas
+    )
+
+
+def selection_note(parent_html):
+    text = (
+        BeautifulSoup(parent_html, "html.parser")
+        .get_text(" ")
+        .replace("\xad", "")
+        .lower()
+    )
+    return (
+        "пункт" in text
+        and "б)" in text
+        and "двойных неравенств" in text
+        and "примечание" in text
     )

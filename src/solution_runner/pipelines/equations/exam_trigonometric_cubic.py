@@ -19,8 +19,16 @@ def grouped(p, variable, symbol, angle, quadratic_common=False):
     from .exam_trigonometric_proof import formula
 
     _, factors = sp.factor_list(p, variable, extension=True)
+    candidates = [
+        f for f, power in factors if power == 1 and sp.degree(f, variable) == 1
+    ]
     affine = next(
-        (f for f, power in factors if power == 1 and sp.degree(f, variable) == 1), None
+        (
+            f
+            for f in candidates
+            if sp.simplify(sp.div(p, f, variable)[0].coeff(variable)) == 0
+        ),
+        candidates[0] if candidates else None,
     )
     if affine is None:
         raise UnsupportedCondition("a cubic grouping needs an affine common factor")

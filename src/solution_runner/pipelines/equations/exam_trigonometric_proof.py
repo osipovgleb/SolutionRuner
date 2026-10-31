@@ -347,6 +347,11 @@ def render(a, image):
             )
         if not a.selected:
             second += "<p>На указанной дуге точек решения нет.</p>"
+    if a.selection_note:
+        second += (
+            "<p><b>Примечание.</b> Пункт б) можно решить при помощи двойных неравенств.</p>"
+            + inequality_selection(a)
+        )
     html = (
         (image if a.image_position == "outside" else "")
         + '<ol data-layout="source-subparts" type="a"><li data-list-marker="а)">'
@@ -355,6 +360,10 @@ def render(a, image):
         + second
         + "</li></ol>"
     )
+    if a.triple_angle is not None and a.triple_angle.note:
+        from .exam_trigonometric_triple_angle import note
+
+        html += note(a)
     if a.alternative is not None:
         alternative_intro, alternative_steps = first(a.alternative)
         html += (

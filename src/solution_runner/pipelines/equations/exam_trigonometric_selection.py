@@ -109,8 +109,6 @@ def canonical(series):
 
 def root_series(branches, residues, domain, allow_inverse):
 
-    from .exam_trigonometric_inverse import level_series
-
     if domain is not None:
         series = tuple(s for branch in branches for s in square_series(branch))
     elif (
@@ -125,10 +123,7 @@ def root_series(branches, residues, domain, allow_inverse):
     else:
         series = tuple(
             dict.fromkeys(
-                ((q - b.angle_shift) / b.angle_scale, period / b.angle_scale)
-                for b in branches
-                for v in branch_values(b)
-                for q, period in level_series(b.variable, v, allow_inverse)
+                item for b in branches for item in branch_series(b, allow_inverse)
             )
         )
     return series
@@ -169,3 +164,26 @@ def square_series(branch):
     if not branch.square_level or len(branch.values) != 2 or sum(branch.values) != 0:
         return periodic(branch.residues)
     return tuple((q, sp.S.One) for q in sorted({r % 1 for r in branch.residues}))
+
+
+def branch_series(branch, allow_inverse):
+    from .exam_trigonometric_compile import C
+    from .exam_trigonometric_inverse import level_series
+
+    values = branch_values(branch)
+    result = []
+    if (
+        branch.grouping
+        and branch.variable == C
+        and {-sp.S.One, sp.S.One} <= set(values)
+    ):
+        result.append(
+            (-branch.angle_shift / branch.angle_scale, 1 / branch.angle_scale)
+        )
+        values = [v for v in values if abs(v) != 1]
+    result.extend(
+        ((q - branch.angle_shift) / branch.angle_scale, p / branch.angle_scale)
+        for v in values
+        for q, p in level_series(branch.variable, v, allow_inverse)
+    )
+    return tuple(result)

@@ -22,6 +22,8 @@ class SumProduct:
     squared: bool
     poles: tuple = ()
     normalizer: sp.Expr = sp.S.One
+    kind: str = ""
+    identities: tuple = ()
 
 
 def square_style(html):
@@ -135,8 +137,11 @@ def compile_reciprocal(formula):
 def equation(data):
     from .exam_trigonometric_methods import Equation
 
-    functions = data.product.atoms(sp.sin, sp.cos)
-    if len(functions) != 2 or not data.product.is_Mul:
+    functions = {f for f in data.product.atoms(sp.sin, sp.cos) if f.has(X)}
+    if (
+        len(functions) not in ((1,) if data.kind == "constant_sum" else (2,))
+        or not data.product.is_Mul
+    ):
         raise UnsupportedCondition("the sum must factor into exactly two functions")
     scale = sp.gcd_list([sp.expand(f.args[0]).coeff(X) for f in functions])
     if scale <= 0 or scale.is_Rational is not True or scale.q > 12:
@@ -151,7 +156,15 @@ def equation(data):
         raise UnsupportedCondition(
             "the reduced sum must preserve the original equation"
         )
-    if sp.trigsimp(data.root - data.product, method="fu") != 0:
+    certificate = data.root - data.product
+    certificate = certificate.xreplace(
+        {
+            f: f.func(f.args[0])
+            for f in certificate.atoms(sp.sin, sp.cos)
+            if not f.has(X)
+        }
+    )
+    if sp.simplify(sp.trigsimp(certificate, method="fu")) != 0:
         raise UnsupportedCondition("the sum-to-product identity must hold exactly")
     return Equation(data.root, (), scale, sum_product=data)
 
@@ -162,7 +175,12 @@ def branches(a):
 
     data = a.sum_product
     result = []
-    for function in sorted(data.product.atoms(sp.sin, sp.cos), key=sp.default_sort_key):
+    for function in sorted(
+        (f for f in data.product.atoms(sp.sin, sp.cos) if f.has(X)),
+        key=(lambda f: -abs(sp.expand(f.args[0]).coeff(X)))
+        if data.kind == "auxiliary_cosine"
+        else sp.default_sort_key,
+    ):
         angle = sp.expand(function.args[0])
         multiple, phase = (
             angle.coeff(X) / a.scale,
@@ -208,6 +226,10 @@ def branches(a):
 
 
 def proof(a):
+    if a.sum_product.kind:
+        from .exam_trigonometric_sum_identities import proof as identity_proof
+
+        return identity_proof(a)
     from .exam_trigonometric_inverse import level_series
     from .exam_trigonometric_proof import series_lines
 

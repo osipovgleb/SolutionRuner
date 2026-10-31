@@ -112,6 +112,8 @@ def method_branches(
     from .exam_trigonometric_square_factor import prepare as square_product
     from .exam_trigonometric_style import cotangent_method
 
+    if compiled.triple_angle is not None and compiled.triple_angle.remainder != 0:
+        return compiled, compiled.raw, compiled.triple_angle.branches, preferred
     if compiled.sum_product is not None:
         from .exam_trigonometric_sum_product import branches as sum_product_branches
 

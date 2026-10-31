@@ -34,8 +34,11 @@ from .exam_trigonometric_style import (
     grouping_method,
     homogeneous_method,
     parent_style,
+    selection_note,
 )
+from .exam_trigonometric_sum_identities import style as sum_identity_style
 from .exam_trigonometric_sum_product import square_style
+from .exam_trigonometric_triple_angle import style as triple_angle_style
 
 compile_equation = exam_trigonometric_compile.compile_equation
 
@@ -45,6 +48,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
+    from .exam_trigonometric_triple_angle import TripleAngle
 
 
 @dataclass(frozen=True)
@@ -112,6 +116,8 @@ class Analysis:
     square_product: tuple | None = None
     unit_factors: tuple | None = None
     sum_product: "SumProduct | None" = None
+    triple_angle: "TripleAngle | None" = None
+    selection_note: bool = False
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -191,7 +197,10 @@ def analyze(formula, interval, bounds, parent_html):
     from .exam_trigonometric_methods import methods, preference
     from .exam_trigonometric_translation import read_method
 
-    parent_html, translation, shifted_notation = read_method(parent_html)
+    if sum_identity_style(parent_html):
+        translation, shifted_notation = sp.S.Zero, False
+    else:
+        parent_html, translation, shifted_notation = read_method(parent_html)
     primary, alternative = methods(parent_html)
     result = analyze_method(
         formula,
@@ -265,6 +274,8 @@ def analyze_method(
         product=angle_product_method(parent_html),
         preserve_products=square_method(parent_html) or base_angle_product(parent_html),
         square_sum=square_style(parent_html),
+        sum_identity=sum_identity_style(parent_html),
+        triple_angle=triple_angle_style(parent_html),
     )
     from .exam_trigonometric_factors import method_branches
 
@@ -312,6 +323,7 @@ def analyze_method(
             translation=translation,
             division=dividing,
             shifted_notation=shifted_notation,
+            selection_note=selection_note(parent_html),
             **analysis_fields(compiled),
         )
     )

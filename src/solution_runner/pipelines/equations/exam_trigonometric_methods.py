@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
+    from .exam_trigonometric_triple_angle import TripleAngle
 
 
 class ExamAngleParser(SymbolicTrigonometricParser):
@@ -116,6 +117,7 @@ class Equation:
     square_product: tuple | None = None
     unit_factors: tuple | None = None
     sum_product: "SumProduct | None" = None
+    triple_angle: "TripleAngle | None" = None
 
 
 def shifted_atom(atom):
@@ -396,6 +398,10 @@ def preference(parent_html):
                     scale *= sp.pi
                 matches.append((bool(power), function, scale))
     if not matches:
+        from .exam_trigonometric_sum_identities import style as sum_style
+
+        if sum_style(parent_html) == "constant_sum":
+            return "sin", sp.S.One
         raise UnsupportedCondition(
             "a trigonometric equation for the parent method is required"
         )
