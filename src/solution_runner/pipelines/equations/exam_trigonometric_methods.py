@@ -107,6 +107,9 @@ def compile_reviewed(formula, preferred, preferred_scale):
         raw = expression
     reciprocal = None
     if original_poles:
+        variables = set().union(*(p.free_symbols for p in original_poles))
+        if len(variables) == 1 and variables <= {S, C}:
+            preferred = next(iter(variables))
         if scale != 1 or any(
             p.free_symbols != {preferred}
             or sp.Poly(p, preferred).degree() > 2
@@ -191,7 +194,9 @@ def preference(parent_html):
     ]
     matches = []
     for formula in formulas:
-        for match in re.finditer(r"\\(sin|cos|tg)(?:\^\{?(\d+)\}?)?(\d*)x&?=", formula):
+        for match in re.finditer(
+            r"\\(sin|cos|tg|ctg)(?:\^\{?(\d+)\}?)?(\d*)x&?=", formula
+        ):
             right = re.split(
                 r"\\\\|\\(?:iff|Leftrightarrow|end|quad|implies)",
                 formula[match.end() :],

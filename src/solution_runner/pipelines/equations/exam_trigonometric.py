@@ -12,7 +12,7 @@ from ..word_problems.math_common import primitive
 from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
-from .exam_trigonometric_compile import C, S, T, compile_equation, table
+from .exam_trigonometric_compile import C, S, T, U, compile_equation, table
 from .exam_trigonometric_inverse import (
     angles,
     centred,
@@ -29,6 +29,7 @@ class Branch:
     candidates: tuple
     values: tuple
     residues: tuple
+    original: sp.Expr | None = None
 
 
 @dataclass(frozen=True)
@@ -75,11 +76,10 @@ def periodic(residues):
 
 
 def solve_branches(raw, preferred, allow_inverse=False):
-    if raw.has(T):
-        p = primitive(raw, (T,))
-        values = roots(p.subs(T, X))
-        residues = ordered(q for v in values for q in angles(T, v))
-        return raw, (Branch(T, p, values, values, residues),)
+    from .exam_trigonometric_ratios import linear_branch, ratio_branch
+
+    if raw.has(T, U):
+        return ratio_branch(raw, U if raw.has(U) else T)
     other = S if preferred == C else C
     reduced = sp.expand(sp.rem(raw, S * S + C * C - 1, other))
     if not reduced.has(other):
@@ -96,6 +96,10 @@ def solve_branches(raw, preferred, allow_inverse=False):
     for expression in expressions:
         variables = expression.free_symbols & {S, C}
         if len(variables) != 1:
+            mixed = linear_branch(expression)
+            if mixed is not None:
+                branches.append(mixed)
+                continue
             raise UnsupportedCondition(
                 "each factor must reduce to one sine or cosine without division"
             )
@@ -115,7 +119,7 @@ def solve_branches(raw, preferred, allow_inverse=False):
             )
         )
         branches.append(Branch(variable, p, values, accepted, residues))
-    return reduced, tuple(branches)
+    return reduced, tuple(sorted(branches, key=lambda b: b.original is not None))
 
 
 def parent_style(parent_html):
@@ -165,11 +169,13 @@ def parent_style(parent_html):
     substitutions = [
         m
         for f in formulas
-        for m in re.findall(r"(?:([ty])=\\(?:sin|cos|tg)x|\\(?:sin|cos|tg)x=([ty]))", f)
+        for m in re.findall(
+            r"(?:([ty])=\\(?:sin|cos|tg|ctg)x|\\(?:sin|cos|tg|ctg)x=([ty]))", f
+        )
     ]
     substitution = next((left or right for left, right in substitutions), None)
     return (
-        {"sin": S, "cos": C, "tg": T}[function],
+        {"sin": S, "cos": C, "tg": T, "ctg": U}[function],
         ("полный квадрат" in text),
         any(re.search(r"\(-\d+\)\^\{?k", f) for f in formulas),
         position,
@@ -209,7 +215,7 @@ def analyze(formula, interval, bounds, parent_html):
     if alternative is not None:
         function, multiple = preference(alternative)
         style = (
-            {"sin": S, "cos": C, "tg": T}[function],
+            {"sin": S, "cos": C, "tg": T, "ctg": U}[function],
             False,
             False,
             "none",

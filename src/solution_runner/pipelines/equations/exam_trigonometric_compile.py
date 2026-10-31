@@ -10,7 +10,7 @@ from .trig_angles import C as NUMERIC_C
 from .trig_angles import S as NUMERIC_S
 from .trig_symbolic_parser import SymbolicTrigonometricParser, compile_atoms
 
-S, C, T = sp.symbols("s c tangent", real=True)
+S, C, T, U = sp.symbols("s c tangent cotangent", real=True)
 
 
 def compile_equation(formula):
@@ -25,6 +25,10 @@ def compile_equation(formula):
             side.replace("x", r"\alpha"), atoms, denominators
         )
         values.append(parser.parse().value)
+    if any(a.function == "ctg" for a in atoms.values()):
+        from .exam_trigonometric_ratios import compile_cotangent
+
+        return compile_cotangent(values, atoms, denominators)
     if atoms and all(a.function == "tg" for a in atoms.values()):
         if any(
             abs(a.coefficient) != 1 or not a.shift.is_Integer for a in atoms.values()

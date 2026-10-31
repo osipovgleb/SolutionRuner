@@ -7,7 +7,7 @@ import sympy as sp
 from ..probability.common import line
 from ..word_problems.water_season_proof import inline
 from .exam_exponential_proof import n
-from .exam_trigonometric import C, S, T, periodic, table
+from .exam_trigonometric import C, S, T, U, periodic, table
 from .exam_trigonometric_inverse import compare_q, level_series
 
 K = sp.Symbol("k", integer=True)
@@ -20,6 +20,7 @@ def formula(value, angle="x"):
             S: r"(\sin " + angle + ")",
             C: r"(\cos " + angle + ")",
             T: r"(\tg " + angle + ")",
+            U: r"(\ctg " + angle + ")",
         },
     )
 
@@ -94,7 +95,11 @@ def polynomial(
     p = branch.polynomial
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable
-    html = line(formula(p.subs(variable, symbol), angle) + "=0")
+    from .exam_trigonometric_ratios import linear_proof
+
+    html = linear_proof(branch, angle) + line(
+        formula(p.subs(variable, symbol), angle) + "=0"
+    )
     degree = sp.Poly(p, variable).degree()
     if degree == 2 and factorization:
         html += (
@@ -173,6 +178,10 @@ def first(a):
         return proof(a)
     intro = "<p>Преобразуем уравнение с помощью формул приведения и двойного угла:</p>"
     html = ""
+    if a.preferred == U:
+        from .exam_trigonometric_ratios import cotangent_proof
+
+        return cotangent_proof(a)
     if a.preferred == T:
         html = "<p>Тангенс определён при условии:</p>" + line(r"\cos x\ne0")
         if a.substitution:

@@ -91,8 +91,11 @@ def ordered(values):
 
 @lru_cache(maxsize=128)
 def angles(variable, value, allow_inverse=False):
-    from .exam_trigonometric import S, T, table
+    from .exam_trigonometric import S, T, U, table
 
+    if variable == U:
+        offset = cotangent_angle(value)
+        return ordered((offset, offset + 1))
     if variable == T:
         q = sp.atan(value) / sp.pi
         offset = q + 1 if compare(value, sp.Integer(0)) < 0 else q
@@ -119,8 +122,10 @@ def angles(variable, value, allow_inverse=False):
 
 
 def level_series(variable, value, allow_inverse=False):
-    from .exam_trigonometric import T, periodic
+    from .exam_trigonometric import T, U, periodic
 
+    if variable == U:
+        return ((cotangent_angle(value), sp.Integer(1)),)
     if variable == T:
         return ((sp.atan(value) / sp.pi, sp.Integer(1)),)
 
@@ -128,6 +133,13 @@ def level_series(variable, value, allow_inverse=False):
     if all(q.is_Rational for q in residues):
         return periodic(residues)
     return tuple((q, sp.Integer(2)) for q in residues)
+
+
+def cotangent_angle(value):
+    if value == 0:
+        return sp.Rational(1, 2)
+    q = sp.atan(1 / value) / sp.pi
+    return q + 1 if compare(value, sp.Integer(0)) < 0 else q
 
 
 def centred(series):
