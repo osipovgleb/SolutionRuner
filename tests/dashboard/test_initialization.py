@@ -47,6 +47,43 @@ def test_ensure_ready_waits_for_existing_initialization_without_duplicate_reads(
     initializer._executor.shutdown()
 
 
+def test_ensure_ready_reuses_initialization_finishing_just_before_start(tmp_path, monkeypatch):
+    from threading import Event
+
+    release = Event()
+    reads = []
+
+    def gateway():
+        reads.append("read")
+        assert release.wait(5)
+        return FakeGateway()
+
+    initializer = GroupInitializer(
+        profiles={"123": _profile()},
+        inventory_store=GroupInventoryStore(tmp_path / "dashboard.sqlite3"),
+        gateway_factory=gateway,
+    )
+    try:
+        initializer.start("123")
+        start = initializer.start
+
+        def finish_then_start(group_key, **kwargs):
+            release.set()
+            initializer._futures[group_key].result(timeout=5)
+            return start(group_key, **kwargs)
+
+        monkeypatch.setattr(initializer, "start", finish_then_start)
+        assert initializer.ensure_ready("123")["status"] == "ready"
+        assert reads == ["read"]
+        # Explicit refresh still reads again after ensure_ready reused the index.
+        start("123")
+        initializer._futures["123"].result(timeout=5)
+        assert reads == ["read", "read"]
+    finally:
+        release.set()
+        initializer._executor.shutdown()
+
+
 def test_ensure_ready_rebuilds_an_index_from_previous_profile_coordinates(tmp_path):
     from dataclasses import replace
 

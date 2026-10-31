@@ -10,7 +10,7 @@ from .motion_chase_proof import section
 
 def conversions(q):
     html = ""
-    minutes = q.kind in {"work_sum_three", "work_measured_sum"}
+    minutes = q.kind in {"work_sum_three", "work_measured_sum", "work_pairs_pumps"}
     for key, time in q.durations.items():
         if minutes and time.hours:
             html += "<p>Переведём время в минуты:</p>" + line(

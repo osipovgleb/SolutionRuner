@@ -6,9 +6,13 @@ from .math_common import number as n
 from .motion_proof import conversions, quadratic_steps
 
 
-def proof(a):
+def proof(a, *, diagram=""):
     from .work_combined_proof import PROOFS
 
+    if a.question.kind == "work_pairs_boys":
+        from .work_pair_proof import boys
+
+        return boys(a, diagram)
     if a.question.kind in PROOFS:
         return PROOFS[a.question.kind](a)
     q, v = a.question, a.question.values

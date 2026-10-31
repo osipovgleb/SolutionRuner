@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping
 from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass
 from threading import Lock
-from typing import Any, Callable, Mapping
+from typing import Any
 
 from solution_runner.group_inventory_store import (
     GroupInventoryAsset,
@@ -13,6 +14,7 @@ from solution_runner.group_inventory_store import (
     GroupInventorySnapshot,
     GroupInventoryStore,
 )
+
 from .teacherhelper import teacherhelper_match_navigation
 
 
@@ -34,7 +36,9 @@ def _items(payload: Any) -> list[dict[str, Any]]:
     else:
         values = None
     if not isinstance(values, list):
-        raise GroupInitializationError("source group children response has no item list")
+        raise GroupInitializationError(
+            "source group children response has no item list"
+        )
     if not all(isinstance(value, dict) for value in values):
         raise GroupInitializationError("source group contains an invalid child")
     return values
@@ -63,8 +67,10 @@ def _normalized(context: Any) -> dict[str, Any]:
 def _sections(content: Mapping[str, Any]) -> list[dict[str, Any]]:
     values = content.get("sections", [])
     if isinstance(values, dict):
-        return [dict(value, key=key) if isinstance(value, dict) else {"key": key}
-                for key, value in values.items()]
+        return [
+            dict(value, key=key) if isinstance(value, dict) else {"key": key}
+            for key, value in values.items()
+        ]
     if not isinstance(values, list):
         return []
     return [value for value in values if isinstance(value, dict)]
@@ -93,7 +99,9 @@ def _batched_contexts(
         errors: dict[str, str] = {}
         for problem_id in problem_ids:
             try:
-                contexts[problem_id] = _normalized(gateway.get_problem_context(problem_id))
+                contexts[problem_id] = _normalized(
+                    gateway.get_problem_context(problem_id)
+                )
             except Exception as exc:  # noqa: BLE001 - one unavailable task is local.
                 errors[problem_id] = " ".join(str(exc).split())[:500]
         return contexts, errors, set()
@@ -114,7 +122,11 @@ def _batched_contexts(
                 state_reader = getattr(gateway, "get_problem_pipeline_state", None)
                 state = state_reader(problem_id) if callable(state_reader) else {}
                 statuses = state.get("statuses") if isinstance(state, dict) else None
-                normalized = str(statuses.get("normalized") or "") if isinstance(statuses, dict) else ""
+                normalized = (
+                    str(statuses.get("normalized") or "")
+                    if isinstance(statuses, dict)
+                    else ""
+                )
                 if normalized == "rejected":
                     rejected.add(problem_id)
                 else:
@@ -124,18 +136,22 @@ def _batched_contexts(
         if not isinstance(rows, list):
             raise GroupInitializationError("problem batch response has no item list")
         for row in rows:
-            problem_id = str(row.get("problem_id") or "") if isinstance(row, dict) else ""
+            problem_id = (
+                str(row.get("problem_id") or "") if isinstance(row, dict) else ""
+            )
             if problem_id:
                 contexts[problem_id] = _normalized(row)
         for problem_id in set(requested) - contexts.keys():
             errors[problem_id] = "problem batch response omitted this task"
 
     for offset in range(0, len(problem_ids), 30):
-        read(problem_ids[offset:offset + 30])
+        read(problem_ids[offset : offset + 30])
     return contexts, errors, rejected
 
 
-def _group_image_types(gateway: Any, source_group_id: str) -> dict[tuple[str, str, str, str], str]:
+def _group_image_types(
+    gateway: Any, source_group_id: str
+) -> dict[tuple[str, str, str, str], str]:
     reader = getattr(gateway, "get_source_catalog_section_images", None)
     if not callable(reader):
         return {}
@@ -155,7 +171,9 @@ def _group_image_types(gateway: Any, source_group_id: str) -> dict[tuple[str, st
                 asset_id = str(image.get("asset_id") or "")
                 asset_key = str(image.get("asset_key") or "")
                 if source_problem_id and asset_id and asset_key:
-                    result[(source_problem_id, section_key, asset_key, asset_id)] = _content_type(image)
+                    result[(source_problem_id, section_key, asset_key, asset_id)] = (
+                        _content_type(image)
+                    )
     return result
 
 
@@ -189,32 +207,56 @@ class GroupInitializer:
                 catalog_snapshot_id=str(profile.catalog_snapshot_id),
                 source_group_id=str(profile.source_group_id),
             )
-        group = self.group_source_lookup(group_key) if self.group_source_lookup else None
+        group = (
+            self.group_source_lookup(group_key) if self.group_source_lookup else None
+        )
         catalog_id = str(group.get("source_id") or "").strip() if group else ""
         if not catalog_id:
-            raise GroupInitializationError(f"group {group_key} has no source coordinates")
+            raise GroupInitializationError(
+                f"group {group_key} has no source coordinates"
+            )
         if gateway is None:
             return _GroupSource(catalog_snapshot_id=catalog_id, source_group_id="")
         resolved = gateway.find_source_catalog_path(catalog_id, group_key, "group")
         target = resolved.get("target") if isinstance(resolved, dict) else None
         matches = resolved.get("matches") if isinstance(resolved, dict) else None
-        if not isinstance(target, dict) and isinstance(matches, list) and len(matches) == 1:
+        if (
+            not isinstance(target, dict)
+            and isinstance(matches, list)
+            and len(matches) == 1
+        ):
             match = matches[0]
             target = match.get("group") if isinstance(match, dict) else None
             navigation = teacherhelper_match_navigation(catalog_id, match)
             if navigation and self.on_resolved:
                 self.on_resolved(group_key, navigation)
-        source_group_id = str(target.get("id") or target.get("uuid") or "").strip() if isinstance(target, dict) else ""
+        source_group_id = (
+            str(target.get("id") or target.get("uuid") or "").strip()
+            if isinstance(target, dict)
+            else ""
+        )
         if not source_group_id:
-            raise GroupInitializationError(f"group {group_key} was not found in catalog")
-        return _GroupSource(catalog_snapshot_id=catalog_id, source_group_id=source_group_id)
+            raise GroupInitializationError(
+                f"group {group_key} was not found in catalog"
+            )
+        return _GroupSource(
+            catalog_snapshot_id=catalog_id, source_group_id=source_group_id
+        )
 
-    def start(self, group_key: str) -> dict[str, Any]:
+    def start(self, group_key: str, *, reuse_ready: bool = False) -> dict[str, Any]:
         with self._lock:
             future = self._futures.get(group_key)
             if future is not None and not future.done():
                 return self.get(group_key)
-            self._source(group_key)
+            source = self._source(group_key)
+            snapshot = self.inventory_store.get(group_key) if reuse_ready else None
+            if (
+                snapshot is not None
+                and snapshot.status == "ready"
+                and snapshot.catalog_snapshot_id == source.catalog_snapshot_id
+                and snapshot.source_group_id == source.source_group_id
+            ):
+                return self.get(group_key)
             self.inventory_store.set_status(group_key, "pending")
             self._futures[group_key] = self._executor.submit(self.run_now, group_key)
         return self.get(group_key)
@@ -222,7 +264,12 @@ class GroupInitializer:
     def get(self, group_key: str) -> dict[str, Any]:
         snapshot = self.inventory_store.get(group_key)
         if snapshot is None:
-            return {"group_id": group_key, "status": "not_started", "error": None, "total": 0}
+            return {
+                "group_id": group_key,
+                "status": "not_started",
+                "error": None,
+                "total": 0,
+            }
         return {
             "group_id": group_key,
             "status": snapshot.status,
@@ -237,16 +284,9 @@ class GroupInitializer:
 
     def ensure_ready(self, group_key: str) -> dict[str, Any]:
         """Reuse a current index or await the shared read-only initialization."""
-        source = self._source(group_key)
-        snapshot = self.inventory_store.get(group_key)
-        if (
-            snapshot is not None
-            and snapshot.status == "ready"
-            and snapshot.catalog_snapshot_id == source.catalog_snapshot_id
-            and snapshot.source_group_id == source.source_group_id
-        ):
-            return self.get(group_key)
-        self.start(group_key)
+        state = self.start(group_key, reuse_ready=True)
+        if state["status"] == "ready":
+            return state
         with self._lock:
             future = self._futures[group_key]
         state = future.result()
@@ -269,7 +309,9 @@ class GroupInitializer:
             identities = [_identity(child) for child in children]
             problem_ids = [problem_id for problem_id, _ in identities]
             if len(problem_ids) != len(set(problem_ids)):
-                raise GroupInitializationError("source group contains duplicate problem ids")
+                raise GroupInitializationError(
+                    "source group contains duplicate problem ids"
+                )
 
             contexts, context_errors, rejected_problem_ids = _batched_contexts(
                 gateway, problem_ids
@@ -299,7 +341,9 @@ class GroupInitializer:
                         has_solution="solution" in section_keys,
                         has_answer="answer" in section_keys,
                         content_status=(
-                            "unavailable" if problem_id in context_errors else "available"
+                            "unavailable"
+                            if problem_id in context_errors
+                            else "available"
                         ),
                         inventory_error=context_errors.get(problem_id),
                     )
@@ -322,19 +366,26 @@ class GroupInitializer:
                     )
                     if not content_type and asset_id not in metadata_by_id:
                         metadata = gateway.get_asset_metadata(asset_id)
-                        metadata_by_id[asset_id] = metadata if isinstance(metadata, dict) else {}
+                        metadata_by_id[asset_id] = (
+                            metadata if isinstance(metadata, dict) else {}
+                        )
                     inventory_assets.append(
                         GroupInventoryAsset(
                             problem_id=problem_id,
                             asset_id=asset_id,
                             asset_key=asset_key,
                             section_key=section_key,
-                            content_type=content_type or _content_type(metadata_by_id[asset_id]),
+                            content_type=content_type
+                            or _content_type(metadata_by_id[asset_id]),
                         )
                     )
 
             parent = next(
-                (identity for identity in identities if identity[0] not in rejected_problem_ids),
+                (
+                    identity
+                    for identity in identities
+                    if identity[0] not in rejected_problem_ids
+                ),
                 ("", ""),
             )
             parent_problem_id, parent_source_problem_id = parent
@@ -357,7 +408,9 @@ class GroupInitializer:
             if callable(close):
                 close()
         state = self.get(group_key)
-        state["rejected"] = len(rejected_problem_ids) if "rejected_problem_ids" in locals() else 0
+        state["rejected"] = (
+            len(rejected_problem_ids) if "rejected_problem_ids" in locals() else 0
+        )
         if self.on_complete:
             self.on_complete(group_key, state)
         return state

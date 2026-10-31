@@ -138,6 +138,14 @@ class Question:
             "work_measured_sum": "x",
             "work_ratio_workers": "x",
             "work_apprentice": "b",
+            "work_pairs_boys": "x",
+            "work_pairs_pumps": "x",
+            "work_test_count": "N",
+            "work_tile": "y",
+            "work_tile_product": "x",
+            "work_tile_difference": "x",
+            "work_crews": "y",
+            "work_integer_solver": "n",
         }.get(self.kind, "v")
 
 

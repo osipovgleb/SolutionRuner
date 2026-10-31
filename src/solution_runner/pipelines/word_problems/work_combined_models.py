@@ -4,6 +4,7 @@ import sympy as sp
 
 from .common import UnsupportedCondition
 from .time_balance import Balance, X
+from .work_extra_models import BUILDERS as EXTRA_BUILDERS
 
 
 def summed(q):
@@ -90,3 +91,5 @@ BUILDERS = {
     "work_ratio_workers": ratio_workers,
     "work_apprentice": apprentice,
 }
+
+BUILDERS.update(EXTRA_BUILDERS)

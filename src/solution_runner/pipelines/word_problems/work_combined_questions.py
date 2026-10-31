@@ -82,4 +82,6 @@ def parse(text):
         match = re.fullmatch(pattern, text)
         if match:
             return prepare(kind, match.groupdict())
-    raise UnsupportedCondition("the complete work-rate question must be recognized")
+    from .work_extra_questions import parse as extra
+
+    return extra(text)
