@@ -4406,3 +4406,30 @@ PROFILES += tuple(
         ("633390", "7e1ac067-fc5c-4a7e-a30e-4dda3caea143", 33),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, разные задачи",
+        theme_order_index=8,
+        snapshot_theme_id="81adff3f-4a92-408f-abf4-4881018613e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("634242", "a1e8ddc7-0833-4448-b0fd-38a5a112ea6d", 34),
+        ("634873", "70f49852-d577-4289-92c7-f90bd9edb812", 35),
+        ("635747", "6f621df8-0e85-4b4a-acd0-53da28663733", 36),
+        ("636742", "d90c1162-44e1-48be-8116-21da3647612e", 37),
+        ("639768", "625e3144-7567-4e2a-9d7f-84a093400fcf", 40),
+        ("645371", "9b349024-712b-4354-8a3e-739b9f6397b8", 48),
+    )
+)

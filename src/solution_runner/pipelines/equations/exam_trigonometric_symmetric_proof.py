@@ -10,6 +10,10 @@ from .exam_trigonometric_symmetric import V
 
 
 def proof(a):
+    if a.symmetric.sign == -1:
+        from .exam_trigonometric_signed_sum_proof import proof as signed_proof
+
+        return signed_proof(a)
     if a.symmetric.nonpositive:
         return nonpositive(a)
     from .exam_trigonometric_proof import families, formula, polynomial

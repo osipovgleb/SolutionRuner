@@ -127,15 +127,23 @@ def align_affine(result, html):
     from .exam_trigonometric import select
     from .exam_trigonometric_selection import equivalent_series
 
+    source = affine_families(html)
     if (
         result.signed_series
-        or result.poles
+        or (result.poles and result.absolute_fraction is None)
         or not (
-            result.selection_method == "neighbors" or result.angle_product is not None
+            result.selection_method == "neighbors"
+            or result.angle_product is not None
+            or result.cosine_equality is not None
+            or result.absolute_fraction is not None
+            or (
+                len(result.branches) > 1
+                and any(b.original is not None for b in result.branches)
+                and len({letter for _, _, letter in source}) > 1
+            )
         )
     ):
         return result
-    source = affine_families(html)
     if len(source) != len(result.series) or any(
         q.is_Rational is not True for q, _ in result.series
     ):

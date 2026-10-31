@@ -81,6 +81,18 @@ def method_proof(a):
 
 
 def school_proof(a):
+    if a.cosine_equality is not None:
+        from .exam_trigonometric_cosine_equality import proof
+
+        return proof(a)
+    if a.absolute_fraction is not None:
+        from .exam_trigonometric_absolute_fraction import proof
+
+        return proof(a)
+    if a.positive_factorization is not None:
+        from .exam_trigonometric_positive_factors import proof
+
+        return proof(a)
     if a.sine_double is not None:
         from .exam_trigonometric_sine_double import proof
 

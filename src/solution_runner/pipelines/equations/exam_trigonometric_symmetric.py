@@ -20,6 +20,7 @@ class SumReduction:
     polynomial: sp.Expr
     variable: str
     nonpositive: bool
+    sign: int = 1
 
 
 def style(parent_html):
@@ -29,7 +30,7 @@ def style(parent_html):
     names = []
     for node in soup.select("[data-inline-latex]"):
         formula = "".join(node["data-inline-latex"].split())
-        match = re.fullmatch(r"([ty])=\\(?:sinx\+\\cosx|cosx\+\\sinx)", formula)
+        match = re.fullmatch(r"([ty])=\\(?:sinx[+-]\\cosx|cosx\+\\sinx)", formula)
         if match:
             names.append(match[1])
     if len(set(names)) > 1:
@@ -51,7 +52,14 @@ def prepare(compiled, parent_html, translation):
     variable, nonpositive, reviewed = style(parent_html)
     if not reviewed:
         return None
-    symmetric, remainder, pairs = sp.symmetrize(raw, [S, C], formal=True)
+    formulas = "".join(
+        "".join(n["data-inline-latex"].split())
+        for n in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    )
+    sign = -1 if re.search(r"[ty]=\\sinx-\\cosx", formulas) else 1
+    symmetric, remainder, pairs = sp.symmetrize(
+        raw.subs(C, sign * C), [S, C], formal=True
+    )
     if remainder != 0:
         raise UnsupportedCondition("the combined-function polynomial must be symmetric")
     polynomial = sp.expand(
@@ -61,7 +69,7 @@ def prepare(compiled, parent_html, translation):
     )
     if (
         sp.degree(polynomial, V) != 3
-        or sp.rem(raw - polynomial.subs(V, S + C), S * S + C * C - 1, S) != 0
+        or sp.rem(raw - polynomial.subs(V, S + sign * C), S * S + C * C - 1, S) != 0
     ):
         raise UnsupportedCondition(
             "the symmetric substitution must preserve the unit-circle equation"
@@ -72,7 +80,11 @@ def prepare(compiled, parent_html, translation):
             raise UnsupportedCondition(
                 "the nonpositive-summand method requires the reviewed cubic equality"
             )
-    return replace(compiled, symmetric=SumReduction(polynomial, variable, nonpositive))
+    if sign == -1 and sp.Poly(polynomial, V).LC().is_negative:
+        polynomial = -polynomial
+    return replace(
+        compiled, symmetric=SumReduction(polynomial, variable, nonpositive, sign)
+    )
 
 
 def branches(reduction, parent_html):
@@ -82,7 +94,7 @@ def branches(reduction, parent_html):
 
     result = []
     for value in roots(reduction.polynomial.subs(V, X)):
-        expression = S + C - value
+        expression = S + reduction.sign * C - value
         if compare(value, -sp.sqrt(2)) < 0 or compare(value, sp.sqrt(2)) > 0:
             result.append(
                 Branch(T, sp.S.One, (), (), (), original=expression, impossible=True)

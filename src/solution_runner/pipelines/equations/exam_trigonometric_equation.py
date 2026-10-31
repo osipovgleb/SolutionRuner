@@ -119,9 +119,12 @@ def analysis_fields(equation):
         "fraction": equation.fraction,
         "absolute": equation.absolute,
         "absolute_square": equation.absolute_square,
+        "absolute_fraction": equation.absolute_fraction,
         "extremum": equation.extremum,
         "sine_pair": equation.sine_pair,
+        "cosine_equality": equation.cosine_equality,
         "sine_double": equation.sine_double,
+        "positive_factorization": equation.positive_factorization,
         "homogeneous": equation.homogeneous,
         "power_angle": equation.power_angle,
         "factored_source": equation.factored_source,
@@ -160,7 +163,36 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
         raise UnsupportedCondition(
             "these reviewed methods require the original angle variable"
         )
-    if square_absolute(parent_html):
+    from .exam_trigonometric_absolute_fraction import reviewed as absolute_fraction
+    from .exam_trigonometric_cosine_equality import reviewed as cosine_equality
+    from .exam_trigonometric_positive_factors import reviewed as positive_factors
+
+    if cosine_equality(parent_html):
+        from .exam_trigonometric_cosine_equality import compile_equality
+
+        if translation:
+            raise UnsupportedCondition(
+                "cosine argument equality requires the original variable"
+            )
+        compiled, domain = compile_equality(formula), None
+    elif absolute_fraction(parent_html):
+        from .exam_trigonometric_absolute_fraction import compile_fraction
+
+        if translation:
+            raise UnsupportedCondition(
+                "absolute-denominator cases require the original angle"
+            )
+        compiled = compile_fraction(formula)
+        domain = compiled.domain
+    elif positive_factors(parent_html):
+        from .exam_trigonometric_positive_factors import compile_factor
+
+        if translation:
+            raise UnsupportedCondition(
+                "positive-factor identities require the original angle"
+            )
+        compiled, domain = compile_factor(formula), None
+    elif square_absolute(parent_html):
         from .exam_trigonometric_absolute_square import compile_square
 
         compiled = compile_square(formula, preferred, preferred_scale)

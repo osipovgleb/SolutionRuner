@@ -112,9 +112,12 @@ class Equation:
     fraction: sp.Expr | None = None
     absolute: tuple | None = None
     absolute_square: tuple | None = None
+    absolute_fraction: tuple | None = None
     extremum: tuple | None = None
     sine_pair: tuple | None = None
+    cosine_equality: tuple | None = None
     sine_double: tuple | None = None
+    positive_factorization: tuple | None = None
     homogeneous: Reduction | None = None
     power_angle: sp.Rational | None = None
     affine: "AffineFactor | None" = None

@@ -134,6 +134,10 @@ def method_branches(
     from .exam_trigonometric_square_factor import mark as mark_squares
     from .exam_trigonometric_square_factor import prepare as square_product
 
+    if compiled.cosine_equality is not None:
+        from .exam_trigonometric_cosine_equality import branches
+
+        return compiled, compiled.raw, branches(compiled.cosine_equality), preferred
     identity = identity_branches(compiled, allow_inverse, domain)
     if identity is not None:
         factored, branches = identity

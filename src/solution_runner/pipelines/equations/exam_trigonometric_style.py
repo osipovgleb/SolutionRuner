@@ -201,6 +201,14 @@ def preference(parent_html):
                     scale *= sp.pi
                 matches.append((bool(power), function, scale))
     if not matches:
+        from .exam_trigonometric_symmetric import style as combined_style
+
+        if combined_style(parent_html)[2]:
+            return "sin", sp.S.One
+        from .exam_trigonometric_cosine_equality import reviewed as cosine_equality
+
+        if cosine_equality(parent_html):
+            return "cos", sp.S.One
         from .exam_trigonometric_sine_pair import reviewed as equal_sines
 
         if equal_sines(parent_html):
@@ -260,6 +268,14 @@ def selection_style(soup, text, images):
         or "двойного неравенства" in text
         or "двойных неравенств" in text
         or "двойное неравенство" in text
+        or (
+            not images
+            and "определим корни" in text
+            and any(
+                n.get("data-inline-latex", "").count(r"\le") >= 2
+                for n in soup.select("[data-inline-latex]")
+            )
+        )
         or (
             not images
             and "найдем корни этого уравнения" in text.replace("ё", "е")

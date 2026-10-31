@@ -107,9 +107,12 @@ class Analysis:
     fraction: sp.Expr | None = None
     absolute: tuple | None = None
     absolute_square: tuple | None = None
+    absolute_fraction: tuple | None = None
     extremum: tuple | None = None
     sine_pair: tuple | None = None
+    cosine_equality: tuple | None = None
     sine_double: tuple | None = None
+    positive_factorization: tuple | None = None
     centered_power: tuple | None = None
     division: bool = False
     shifted_notation: bool = False
@@ -131,6 +134,7 @@ class Analysis:
     sine_inverse: bool = False
     circle_note: bool = False
     auxiliary_notes: bool = False
+    four_methods: tuple | None = None
     parameter: str = "k"
     series_aligned: bool = False
     signed_series: tuple = ()
@@ -220,7 +224,9 @@ def analyze(formula, interval, bounds, parent_html):
             result, single_part=True, interval="", selected=(), selections=()
         )
     from .exam_trigonometric_auxiliary_notes import half_angle, split
+    from .exam_trigonometric_four_methods import split as split_four
 
+    parent_html, four_methods = split_four(parent_html)
     parent_html, auxiliary_notes = split(parent_html)
     from .exam_trigonometric_methods import methods, preference
     from .exam_trigonometric_translation import read_method
@@ -280,6 +286,10 @@ def analyze(formula, interval, bounds, parent_html):
         )
         half_angle(result)
         result = replace(result, auxiliary_notes=True, image_position="after-steps")
+    if four_methods:
+        from .exam_trigonometric_four_methods import certify
+
+        result = certify(result)
     return result
 
 

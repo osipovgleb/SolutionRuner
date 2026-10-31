@@ -234,6 +234,10 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.cosine_equality is not None:
+        from .exam_trigonometric_cosine_equality import series
+
+        return series(compiled.cosine_equality), False, False
     if domain is not None and compiled.poles:
         from .exam_trigonometric_inverse import centred
         from .exam_trigonometric_selection import restricted_series

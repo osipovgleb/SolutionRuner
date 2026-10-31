@@ -1,0 +1,185 @@
+"""Discard a factor only after a strict positivity certificate on the unit circle."""
+
+import sympy as sp
+from bs4 import BeautifulSoup
+
+from ..probability.common import line
+from ..word_problems.common import UnsupportedCondition
+from .exam_scalar import compare
+from .exam_trigonometric_compile import C, S
+
+
+def reviewed(html):
+    text = " ".join(
+        BeautifulSoup(html, "html.parser")
+        .get_text(" ")
+        .replace("\xad", "")
+        .lower()
+        .split()
+    )
+    return ("сумма" in text and "не обращается в нуль" in text) or (
+        "решений не имеет" in text and "одновременно" in text
+    )
+
+
+def positive(poly):
+    p = sp.Poly(poly, S, C)
+    if p.total_degree() == 1:
+        a, b, d = poly.coeff(S), poly.coeff(C), poly.subs({S: 0, C: 0})
+        bound = sp.simplify(d - abs(a) - abs(b))
+        if compare(bound, sp.S.Zero) > 0:
+            return "linear_bound"
+        if bound == 0 and a != 0 and b != 0:
+            return "linear_corner"
+    if all(
+        coef.is_positive is True and all(k % 2 == 0 for k in powers)
+        for powers, coef in p.terms()
+    ):
+        pure = [
+            any(powers[i] > 0 and powers[1 - i] == 0 for powers, _ in p.terms())
+            for i in (0, 1)
+        ]
+        if p.coeff_monomial(1) > 0:
+            return "constant"
+        if all(pure):
+            return "even"
+    return None
+
+
+def compile_factor(formula):
+    from .exam_trigonometric_methods import Equation, constant_angles, parse_equation
+    from .exam_trigonometric_poles import compile_atoms
+
+    values, atoms, denominators = parse_equation(formula)
+    values, atoms, denominators, _constants = constant_angles(
+        values, atoms, denominators
+    )
+    compiled, poles = compile_atoms(atoms)
+    for d in denominators:
+        if d.free_symbols:
+            pole = sp.fraction(sp.cancel(d.xreplace(compiled)))[0]
+            if not pole.is_polynomial(S, C) or sp.Poly(pole, S, C).length() != 1:
+                raise UnsupportedCondition(
+                    "the original pole must be a sine/cosine monomial"
+                )
+            poles.update(pole.free_symbols)
+    numerator, denominator = sp.fraction(
+        sp.cancel((values[0] - values[1]).xreplace(compiled))
+    )
+    if (
+        not numerator.is_polynomial(S, C)
+        or sp.Poly(numerator, S, C).total_degree() > 8
+        or numerator == 0
+    ):
+        raise UnsupportedCondition(
+            "a nonzero numerator of degree at most eight is required"
+        )
+    if denominator.free_symbols and (
+        not denominator.is_polynomial(S, C)
+        or sp.Poly(denominator, S, C).length() != 1
+        or not denominator.free_symbols <= poles
+    ):
+        raise UnsupportedCondition(
+            "clearing the denominator requires all its original nonzero factors"
+        )
+    candidates = [
+        numerator,
+        sp.expand(sp.rem(numerator, S * S + C * C - 1, S)),
+        sp.expand(sp.rem(numerator, S * S + C * C - 1, C)),
+    ]
+    poly = sp.Poly(numerator, S, C)
+    for powers, coefficient in poly.terms():
+        difference = poly.total_degree() - sum(powers)
+        if coefficient.is_positive is True and difference > 0 and difference % 2 == 0:
+            term = coefficient * S ** powers[0] * C ** powers[1]
+            candidates.append(
+                sp.expand(
+                    numerator - term + term * (S * S + C * C) ** (difference // 2)
+                )
+            )
+    for candidate in candidates:
+        if sp.rem(candidate - numerator, S * S + C * C - 1, S) != 0:
+            raise UnsupportedCondition(
+                "the positive-factor rewrite must preserve the unit-circle equation"
+            )
+        coefficient, factors = sp.factor_list(candidate, S, C, extension=True)
+        if len(factors) != 2:
+            continue
+        for i, (factor, power) in enumerate(factors):
+            kind = positive(factor)
+            other, other_power = factors[1 - i]
+            if (
+                kind
+                and other.free_symbols in ({S}, {C})
+                and sp.degree(other, next(iter(other.free_symbols))) <= 2
+            ):
+                raw = sp.expand(other**other_power)
+                return Equation(
+                    raw,
+                    tuple(
+                        (atoms[s].text.replace(r"\alpha", "x"), value)
+                        for s, value in compiled.items()
+                        if value not in (S, C)
+                    ),
+                    sp.S.One,
+                    poles=tuple(sorted(poles, key=str)),
+                    positive_factorization=(
+                        numerator,
+                        sp.factor(candidate, extension=True),
+                        factor,
+                        power,
+                        denominator,
+                        kind,
+                    ),
+                )
+    raise UnsupportedCondition(
+        "one strictly positive factor and one reviewed function factor are required"
+    )
+
+
+def proof(a):
+    from .exam_trigonometric_proof import formula, polynomial
+
+    _numerator, factored, factor, _power, denominator, kind = a.positive_factorization
+    html = line(a.original)
+    if a.poles:
+        html += "<p>Сохраним исходную область определения перед умножением на знаменатель:</p>"
+        for pole in a.poles:
+            html += line(formula(pole) + r"\ne0")
+        html += line(formula(denominator) + r"\ne0")
+    for text, value in a.identities:
+        html += line(text + "=" + formula(value))
+    html += "<p>Используем основное тождество и разложим полученную левую часть на множители:</p>"
+    html += (
+        line(formula(S * S + C * C) + "=1")
+        + line(formula(sp.expand(factored)) + "=0")
+        + line(formula(factored) + "=0")
+    )
+    if kind == "even":
+        html += "<p>Все слагаемые выделенного множителя неотрицательны. Для равенства нулю синус и косинус должны были бы одновременно равняться нулю, что противоречит основному тождеству.</p>"
+    elif kind == "constant":
+        html += "<p>Все слагаемые неотрицательны и есть положительное постоянное слагаемое. Поэтому множитель строго положителен.</p>"
+    else:
+        html += line(r"-1\le\sin x\le1,\quad -1\le\cos x\le1")
+        if kind == "linear_corner":
+            html += "<p>Для нулевого значения множителя синус и косинус должны одновременно достичь своих крайних значений:</p>"
+            html += line(
+                formula(S)
+                + "="
+                + sp.latex(-sp.sign(factor.coeff(S)))
+                + r",\quad "
+                + formula(C)
+                + "="
+                + sp.latex(-sp.sign(factor.coeff(C)))
+            )
+            html += "<p>Но тогда сумма их квадратов равна 2 вместо 1. Поэтому этот множитель не обращается в нуль.</p>"
+        else:
+            lower = (
+                factor.subs({S: 0, C: 0}) - abs(factor.coeff(S)) - abs(factor.coeff(C))
+            )
+            html += line(formula(factor) + r"\ge " + sp.latex(lower) + ">0")
+    html += line(formula(factor) + ">0")
+    html += "<p>Поэтому нули даёт только оставшийся множитель:</p>"
+    for b in a.branches:
+        html += polynomial(b, allowed_residues=b.residues)
+    return "<p>Разложим на множители и проверим знак каждого множителя:</p>", html

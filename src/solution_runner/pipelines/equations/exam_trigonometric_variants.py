@@ -217,6 +217,10 @@ def selection_notes(a, system_image=""):
         from .exam_trigonometric_auxiliary_notes import notes
 
         html += notes(a, system_image)
+    if a.four_methods is not None:
+        from .exam_trigonometric_four_notes import notes
+
+        html += notes(a)
     if a.angle_product is not None and a.angle_product.note:
         from .exam_trigonometric_angle_domain import note
 
