@@ -7,7 +7,7 @@ import sympy as sp
 from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
-from .exam_trigonometric_compile import C, S
+from .exam_trigonometric_compile import C, S, T
 from .power_arithmetic import ScalarParser, clean
 from .trig_angles import PI, multiple_angle
 from .trig_angles import C as NUMERIC_C
@@ -87,11 +87,19 @@ def parse_equation(formula):
     return values, atoms, denominators
 
 
-def compile_reviewed(formula, preferred, preferred_scale):
+def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero):
     from .exam_trigonometric_folding import fold
 
     values, atoms, denominators = parse_equation(formula)
+    if translation:
+        from .exam_trigonometric_translation import translated_atoms
+
+        atoms = translated_atoms(atoms, translation)
     if any(a.function in ("tg", "ctg") for a in atoms.values()):
+        if preferred == T and denominators:
+            from .exam_trigonometric_ratios import compile_tangent_identity
+
+            return compile_tangent_identity(values, atoms, denominators)
         from .exam_trigonometric_poles import compile_quotients
 
         return compile_quotients(values, atoms, denominators)
@@ -146,6 +154,21 @@ def compile_reviewed(formula, preferred, preferred_scale):
         raise UnsupportedCondition(
             "a nonzero reviewed polynomial of degree at most four is required"
         )
+    raw, scale, doubled = double_angle(raw, scale, preferred, preferred_scale)
+    if doubled:
+        identities = ()
+    return Equation(
+        sp.expand(raw),
+        identities,
+        scale,
+        original_poles,
+        reciprocal,
+        doubled,
+        rewritten,
+    )
+
+
+def double_angle(raw, scale, preferred, preferred_scale):
     doubled = (
         preferred_scale == 2 * scale
         and preferred == C
@@ -166,16 +189,7 @@ def compile_reviewed(formula, preferred, preferred_scale):
             )
         )
         scale *= 2
-        identities = ()
-    return Equation(
-        sp.expand(raw),
-        identities,
-        scale,
-        original_poles,
-        reciprocal,
-        doubled,
-        rewritten,
-    )
+    return raw, scale, doubled
 
 
 def methods(parent_html):
@@ -275,7 +289,7 @@ def factorized(parent_html):
     return any(
         re.search(r"\\(?:sin|cos)x(?:\\cdot)?\(", f)
         or re.search(
-            r"\([^()]*\\(?:sin|cos)(?:\^\{?\d+\}?)?x[^()]*\)\([^()]*\\(?:sin|cos)(?:\^\{?\d+\}?)?x",
+            r"\([^()]*\\(?:sin|cos|tg)(?:\^\{?\d+\}?)?x[^()]*\)\([^()]*\\(?:sin|cos|tg)(?:\^\{?\d+\}?)?x",
             f,
         )
         for f in formulas

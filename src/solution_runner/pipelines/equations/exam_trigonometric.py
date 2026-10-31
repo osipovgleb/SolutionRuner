@@ -62,6 +62,7 @@ class Analysis:
     allow_inverse: bool = False
     rewritten: sp.Expr | None = None
     merged: bool = False
+    translation: sp.Rational = sp.S.Zero
 
 
 def periodic(residues):
@@ -212,9 +213,11 @@ def select(series, bounds):
 
 def analyze(formula, interval, bounds, parent_html):
     from .exam_trigonometric_methods import methods, preference
+    from .exam_trigonometric_translation import parent_method
 
+    parent_html, translation = parent_method(parent_html)
     primary, alternative = methods(parent_html)
-    result = analyze_method(formula, interval, bounds, primary)
+    result = analyze_method(formula, interval, bounds, primary, translation=translation)
     if alternative is not None:
         function, multiple = preference(alternative)
         style = (
@@ -278,13 +281,39 @@ def root_series(branches, residues, domain, allow_inverse):
     return series
 
 
+def method_equation(formula, preferred, scale, translation):
+    from .exam_trigonometric_domain import radical_product
+    from .exam_trigonometric_methods import Equation, compile_reviewed
+
+    product = radical_product(formula)
+    if product is not None:
+        if translation:
+            raise UnsupportedCondition(
+                "translated radical products need a reviewed domain"
+            )
+        raw, identities, domain = product
+        return Equation(raw, identities, sp.S.One), domain
+    if scale != 1 or translation:
+        return compile_reviewed(formula, preferred, scale, translation), None
+    try:
+        raw, identities = compile_equation(formula)
+    except UnsupportedCondition:
+        return compile_reviewed(formula, preferred, scale, translation), None
+    return Equation(raw, identities, sp.S.One), None
+
+
 def analyze_method(
-    formula, interval, bounds, parent_html, *, style=None, preferred_scale=None
+    formula,
+    interval,
+    bounds,
+    parent_html,
+    *,
+    style=None,
+    preferred_scale=None,
+    translation=sp.S.Zero,
 ):
-    from .exam_trigonometric_domain import radical_product, restrict, without_poles
+    from .exam_trigonometric_domain import restrict, without_poles
     from .exam_trigonometric_methods import (
-        Equation,
-        compile_reviewed,
         factorized,
         merges_series,
         preference,
@@ -296,17 +325,8 @@ def analyze_method(
     if preferred_scale is None:
         _, preferred_scale = preference(parent_html)
     allow_inverse = method == "inequalities" or r"\arccos" in parent_html
-    compiled = Equation(sp.Integer(0), (), sp.Integer(1))
-    product = radical_product(formula)
-    if product is None:
-        try:
-            raw, identities = compile_equation(formula)
-        except UnsupportedCondition:
-            compiled = compile_reviewed(formula, preferred, preferred_scale)
-            raw, identities = compiled.raw, compiled.identities
-        domain = None
-    else:
-        raw, identities, domain = product
+    compiled, domain = method_equation(formula, preferred, preferred_scale, translation)
+    raw, identities = compiled.raw, compiled.identities
     reduced, branches = solve_branches(raw, preferred, allow_inverse)
     if domain is not None:
         branches = restrict(branches, domain)
@@ -321,12 +341,14 @@ def analyze_method(
         series = periodic(residues)
     else:
         filtered = domain is not None or (
-            compiled.poles and compiled.reciprocal is None
+            compiled.poles and compiled.reciprocal is None and preferred not in (T, U)
         )
         series = root_series(
             branches, residues, filtered if filtered else None, allow_inverse
         )
-    series = tuple((q / compiled.scale, p / compiled.scale) for q, p in series)
+    series = tuple(
+        (q / compiled.scale - translation, p / compiled.scale) for q, p in series
+    )
     if method == "inequalities":
         series = centred(series)
     qbounds = tuple(sp.cancel(b / sp.pi) for b in bounds[:2]) + bounds[2:]
@@ -363,6 +385,7 @@ def analyze_method(
         allow_inverse,
         compiled.rewritten,
         merged,
+        translation,
     )
 
 

@@ -170,10 +170,18 @@ def candidate_lines(
 
 
 def first(a):
+    if a.translation:
+        from .exam_trigonometric_translation import proof
+
+        return proof(a)
     if a.domain is not None:
         from .exam_trigonometric_domain import proof
 
         return proof(a)
+    if a.preferred == T:
+        from .exam_trigonometric_ratios import tangent_proof
+
+        return tangent_proof(a)
     if a.poles and a.reciprocal is None:
         from .exam_trigonometric_poles import proof
 
@@ -188,14 +196,6 @@ def first(a):
         from .exam_trigonometric_ratios import cotangent_proof
 
         return cotangent_proof(a)
-    if a.preferred == T:
-        html = "<p>Тангенс определён при условии:</p>" + line(r"\cos x\ne0")
-        if a.substitution:
-            html += "<p>Введём обозначение:</p>" + line(
-                a.substitution + "=" + formula(T)
-            )
-        html += polynomial(a.branches[0], substitution=a.substitution)
-        return "<p>Решим квадратное уравнение относительно тангенса:</p>", html
     if a.substitution:
         intro = (
             "<p>Сделаем замену переменной и решим полученное квадратное уравнение:</p>"

@@ -13,6 +13,61 @@ from .trig_angles import S as NUMERIC_S
 from .trig_angles import multiple_angle
 
 
+def compile_tangent_identity(values, atoms, denominators):
+    from .exam_trigonometric_methods import Equation
+
+    compiled = {}
+    identities = []
+    for symbol, atom in atoms.items():
+        if abs(atom.coefficient) != 1 or not atom.shift.is_Integer:
+            raise UnsupportedCondition(
+                "the reciprocal cosine identity requires unit angles"
+            )
+        if atom.function == "tg":
+            value = atom.coefficient * T
+        elif atom.function == "cos":
+            value = (-1) ** atom.shift * C
+        else:
+            raise UnsupportedCondition(
+                "only tangent and reciprocal cosine are reviewed"
+            )
+        compiled[symbol] = value
+        if atom.function == "tg":
+            identities.append((atom.text.replace(r"\alpha", "x"), value))
+    for denominator in denominators:
+        pole = sp.expand(denominator.xreplace(compiled))
+        if pole.free_symbols and (
+            pole.free_symbols != {C}
+            or sp.Poly(pole, C).length() != 1
+            or sp.degree(pole, C) != 2
+        ):
+            raise UnsupportedCondition(
+                "the original denominator must be a nonzero cosine square"
+            )
+    expression = sp.expand((values[0] - values[1]).xreplace(compiled))
+    raw = sp.expand(expression.subs(C**-2, 1 + T * T))
+    if raw.free_symbols != {T} or not raw.is_polynomial(T) or sp.degree(raw, T) > 2:
+        raise UnsupportedCondition(
+            "the cosine reciprocal must reduce to a tangent quadratic"
+        )
+    identities.insert(0, (r"\frac{1}{\cos^2x}", 1 + T * T))
+    return Equation(raw, tuple(dict.fromkeys(identities)), sp.S.One, (C,))
+
+
+def tangent_proof(a):
+    from .exam_trigonometric_proof import formula, polynomial
+
+    html = "<p>Тангенс определён при условии:</p>" + line(r"\cos x\ne0")
+    for text, value in a.identities:
+        html += line(text + "=" + formula(value))
+    if a.substitution:
+        html += "<p>Введём обозначение:</p>" + line(a.substitution + "=" + formula(T))
+    html += polynomial(
+        a.branches[0], substitution=a.substitution, factorization=a.factorization
+    )
+    return "<p>Решим квадратное уравнение относительно тангенса:</p>", html
+
+
 def compile_cotangent(values, atoms, denominators):
     if any(d.free_symbols for d in denominators):
         raise UnsupportedCondition("additional cotangent denominators are not reviewed")

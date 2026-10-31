@@ -71,7 +71,7 @@ def validate(entry, a):
     )
     labels = tuple(decode(q) for q in entry["labels"])
     residues, actual_bounds, selected = a.residues, a.bounds, a.selected
-    if a.scale != 1:
+    if a.scale != 1 or a.translation:
         from .exam_trigonometric import select
 
         multiplier = sp.Rational(entry.get("circle_scale", "1"))
