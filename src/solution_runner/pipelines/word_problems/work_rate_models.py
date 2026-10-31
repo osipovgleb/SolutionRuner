@@ -7,9 +7,13 @@ from ..probability.common import finish
 from . import math_common, work_rate_questions
 from .motion_models import Analysis
 from .time_balance import Balance, X, solve
+from .work_combined_models import BUILDERS
 
 
 def analyze(q):
+    if q.kind in BUILDERS:
+        b = BUILDERS[q.kind](q)
+        return Analysis(q, b, *solve(b))
     v = q.values
     slow, fast = (X - v["gap"], X) if q.target_fast else (X, X + v["gap"])
     domain = sp.Interval.open(v["gap"] if q.target_fast else 0, sp.oo)

@@ -9,7 +9,7 @@ from ..applied.physical_questions import VALUE, scalar
 from .common import UnsupportedCondition
 
 HOUR = rf"(?:(?:{VALUE}|один|два|три|четыре) )?час(?:а|ов)?"
-DURATION = rf"(?:{HOUR}(?: {VALUE} минут(?:а|ы)?)?|{VALUE} минут(?:а|ы)?)"
+DURATION = rf"(?:{HOUR}(?: {VALUE} минут(?:а|ы|у)?)?|{VALUE} минут(?:а|ы|у)?)"
 SPEED_ANSWER = r" Ответ (?:дайте в км/ч|запишите в километрах в час)\."
 HALF_START = r"Из (?:пункта )?А в (?:пункт )?В одновременно выехали два (?:автомобиля|автомобилиста)\. Первый проехал с постоянной скоростью весь путь\. Второй проехал первую половину пути со скоростью"
 HALF_END = r", в результате чего прибыл в (?:пункт )?В одновременно с первым (?:автомобилем|автомобилистом)\. Найдите скорость первого (?:автомобиля|автомобилиста)"
@@ -75,7 +75,7 @@ class Duration:
 
 def duration(text):
     match = re.fullmatch(
-        rf"(?:(?P<h>{VALUE}|один|два|три|четыре)? ?час(?:а|ов)?(?: (?P<m>{VALUE}) минут(?:а|ы)?)?|(?P<only>{VALUE}) минут(?:а|ы)?)",
+        rf"(?:(?P<h>{VALUE}|один|два|три|четыре)? ?час(?:а|ов)?(?: (?P<m>{VALUE}) минут(?:а|ы|у)?)?|(?P<only>{VALUE}) минут(?:а|ы|у)?)",
         text,
     )
     if not match:
@@ -127,6 +127,17 @@ class Question:
             "downhill": "x",
             "work_worker_rates": "n",
             "work_pipe_rates": "x",
+            "work_equal_join": "x",
+            "work_sum_two": "x",
+            "work_sum_three": "x",
+            "work_known_girl": "x",
+            "work_known_pipe": "x",
+            "work_gap_pipes": "x",
+            "work_gap_filter": "t",
+            "work_gap_printer": "t",
+            "work_measured_sum": "x",
+            "work_ratio_workers": "x",
+            "work_apprentice": "b",
         }.get(self.kind, "v")
 
 

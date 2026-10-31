@@ -77,4 +77,6 @@ def parse(text):
                     "positive job amounts, rates and time differences are required"
                 )
             return q
-    raise UnsupportedCondition("the complete work-rate question must be recognized")
+    from .work_combined_questions import parse as combined
+
+    return combined(text)

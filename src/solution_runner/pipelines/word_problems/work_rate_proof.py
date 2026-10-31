@@ -7,6 +7,10 @@ from .motion_proof import conversions, quadratic_steps
 
 
 def proof(a):
+    from .work_combined_proof import PROOFS
+
+    if a.question.kind in PROOFS:
+        return PROOFS[a.question.kind](a)
     q, v = a.question, a.question.values
     symbol = q.symbol
     workers = q.kind == "work_worker_rates"
