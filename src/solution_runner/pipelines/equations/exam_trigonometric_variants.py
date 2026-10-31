@@ -1,5 +1,7 @@
 """Explain scaled angles, reciprocal substitutions and the parent's second method."""
 
+import re
+
 import sympy as sp
 
 from ..probability.common import line
@@ -198,3 +200,34 @@ def method_notes(a):
             + alternative_steps
         )
     return html
+
+
+def selection_notes(a, system_image=""):
+    from .exam_trigonometric_proof import inequality_selection
+
+    html = ""
+    if a.selection_note:
+        html += (
+            "<p><b>Примечание.</b> Пункт б) можно решить при помощи двойных неравенств.</p>"
+            + inequality_selection(a)
+        )
+    if a.circle_note:
+        html += "<p><b>Примечание.</b> Отобрать корни можно, используя тригонометрическую окружность (см. рис.).</p>"
+    if a.auxiliary_notes:
+        from .exam_trigonometric_auxiliary_notes import notes
+
+        html += notes(a, system_image)
+    if a.angle_product is not None and a.angle_product.note:
+        from .exam_trigonometric_angle_domain import note
+
+        html += note(a)
+    return html
+
+
+def root_notation(a, rendered):
+    if a.parameter == "k":
+        return rendered
+    return tuple(
+        re.sub(r"(?<![A-Za-z_-])k(?![A-Za-z_-])", a.parameter, text)
+        for text in rendered
+    )

@@ -155,6 +155,9 @@ def method_branches(
         result = sum_branches(symmetric.symmetric, parent_html)
         return symmetric, symmetric.raw, result, preferred
     if compiled.angle_product is not None:
+        from .exam_trigonometric_angle_domain import review
+
+        compiled = review(compiled, parent_html)
         from .exam_trigonometric_angle_product import branches as angle_branches
 
         result = angle_branches(compiled.angle_product)

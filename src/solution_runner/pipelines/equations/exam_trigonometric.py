@@ -30,6 +30,7 @@ from .exam_trigonometric_selection import (
     canonical,
     equivalent_series,
 )
+from .exam_trigonometric_square_difference import parameter as integer_parameter
 from .exam_trigonometric_square_difference import reviewed as difference_method
 from .exam_trigonometric_square_factor import reviewed as square_method
 from .exam_trigonometric_style import (
@@ -131,6 +132,7 @@ class Analysis:
     sine_inverse: bool = False
     circle_note: bool = False
     auxiliary_notes: bool = False
+    parameter: str = "k"
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -367,6 +369,7 @@ def analyze_method(
             selection_note=selection_note(parent_html),
             sine_inverse=r"\arcsin" in parent_html,
             circle_note=circle_note(parent_html),
+            parameter=integer_parameter(parent_html),
             **analysis_fields(compiled),
         )
     )

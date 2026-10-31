@@ -17,7 +17,11 @@ def compile_fraction(values, atoms, denominators, preferred):
     original = [d for d in denominators if d.free_symbols]
     compiled, intrinsic = compile_atoms(atoms)
     converted = [sp.fraction(sp.cancel(d.xreplace(compiled)))[0] for d in original]
-    if all(sp.Poly(d, S, C).length() == 1 for d in converted):
+    ratios = {s for s, a in atoms.items() if a.function in ("tg", "ctg")}
+    ratio_denominator = bool(
+        ratios and denominator.has(*ratios) and not numerator.has(*ratios)
+    )
+    if all(sp.Poly(d, S, C).length() == 1 for d in converted) and not ratio_denominator:
         return None
     if len(original) != 1 or any(
         not d.is_polynomial(S, C) or sp.Poly(d, S, C).total_degree() > 2

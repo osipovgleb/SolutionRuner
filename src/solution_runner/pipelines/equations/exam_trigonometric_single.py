@@ -77,13 +77,16 @@ def validate_circle(entry, a):
 def render(a, image, intro, steps):
     from ..word_problems.water_season_proof import inline
     from .exam_trigonometric_proof import families, method_notes
+    from .exam_trigonometric_variants import root_notation
 
     if a.image_position == "selection":
         raise UnsupportedCondition(
             "single-part equations have no interval-selection figure"
         )
     parameter = (
-        a.square_difference.parameter if a.square_difference is not None else "k"
+        a.square_difference.parameter
+        if a.square_difference is not None
+        else a.parameter
     )
     all_roots = (
         r";\ ".join(families(a)) + r",\ " + parameter + r"\in\mathbb Z"
@@ -98,4 +101,4 @@ def render(a, image, intro, steps):
         + (image if a.image_position == "after-steps" else "")
         + method_notes(a)
     )
-    return all_roots, "<p>" + inline(all_roots) + ".</p>", html
+    return root_notation(a, (all_roots, "<p>" + inline(all_roots) + ".</p>", html))

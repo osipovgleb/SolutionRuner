@@ -284,7 +284,7 @@ def test_shifted_linear_table_levels_reconstruct_every_root(level):
     [
         r"\cos 3x+\cos 7x+1=0",
         r"\cos 13x+\cos 3x=0",
-        r"\frac{\cos 3x+\cos 7x}{\sin x}=0",
+        r"\frac{\cos 3x+\cos 7x}{\sin 2x}=0",
         r"\cos 3x+\sin 7x=0",
     ],
 )

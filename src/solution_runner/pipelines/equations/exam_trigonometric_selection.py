@@ -244,6 +244,10 @@ def method_series(
             False,
         )
 
+    if compiled.angle_product is not None and compiled.angle_product.nested:
+        from .exam_trigonometric_angle_domain import series as nested_series
+
+        return nested_series(compiled.angle_product, residues), False, False
     if compiled.ratio_product is not None:
         from .exam_trigonometric_ratio_product import series
 

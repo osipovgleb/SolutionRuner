@@ -12,7 +12,7 @@ from .exam_trigonometric import C, S, T, U, periodic, table
 from .exam_trigonometric_inverse import compare_q, level_series
 from .exam_trigonometric_inverse import display_angle as complementary_angle
 from .exam_trigonometric_proof_methods import method_proof
-from .exam_trigonometric_variants import method_notes
+from .exam_trigonometric_variants import method_notes, root_notation, selection_notes
 
 K = sp.Symbol("k", integer=True)
 
@@ -397,17 +397,7 @@ def render(a, image):
             )
         if not a.selected:
             second += "<p>На указанной дуге точек решения нет.</p>"
-    if a.selection_note:
-        second += (
-            "<p><b>Примечание.</b> Пункт б) можно решить при помощи двойных неравенств.</p>"
-            + inequality_selection(a)
-        )
-    if a.circle_note:
-        second += "<p><b>Примечание.</b> Отобрать корни можно, используя тригонометрическую окружность (см. рис.).</p>"
-    if a.auxiliary_notes:
-        from .exam_trigonometric_auxiliary_notes import notes
-
-        second += notes(a, system_image)
+    second += selection_notes(a, system_image)
     html = (
         (image if a.image_position == "outside" else "")
         + '<ol data-layout="source-subparts" type="a"><li data-list-marker="а)">'
@@ -418,7 +408,9 @@ def render(a, image):
     )
     html += method_notes(a)
     parameter = (
-        a.square_difference.parameter if a.square_difference is not None else "k"
+        a.square_difference.parameter
+        if a.square_difference is not None
+        else a.parameter
     )
     all_roots = (
         r";\ ".join(families(a)) + r",\ " + parameter + r"\in\mathbb Z"
@@ -433,8 +425,11 @@ def render(a, image):
         r";\ ".join(pi(q, sine_inverse=a.sine_inverse) for q in a.selected)
         or r"\varnothing"
     )
-    return (
-        "а) " + all_roots + "; б) " + selected,
-        "<p>а) " + inline(all_roots) + "; б) " + inline(selected) + ".</p>",
-        html,
+    return root_notation(
+        a,
+        (
+            "а) " + all_roots + "; б) " + selected,
+            "<p>а) " + inline(all_roots) + "; б) " + inline(selected) + ".</p>",
+            html,
+        ),
     )

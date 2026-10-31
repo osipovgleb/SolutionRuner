@@ -1,5 +1,6 @@
 """Read a nondegenerate square difference and retain the parent's product method."""
 
+import re
 from dataclasses import dataclass
 
 import sympy as sp
@@ -61,14 +62,15 @@ def parameter(parent_html):
         n["data-inline-latex"]
         for n in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
     ]
-    return (
-        "n"
-        if any(
-            "".join(text.split()).startswith("x=") and "n" in text and "k" not in text
-            for text in expressions
-        )
-        else "k"
-    )
+    families = [
+        text for text in expressions if re.search(r"x&?=", "".join(text.split()))
+    ]
+    used = {
+        symbol
+        for text in families
+        for symbol in re.findall(r"(?<![A-Za-z\\])([kn])(?![A-Za-z])", text)
+    }
+    return "n" if used == {"n"} else "k"
 
 
 def reviewed(parent_html):

@@ -22,6 +22,9 @@ class AngleProduct:
     identities: tuple = ()
     reduced: sp.Expr | None = None
     summed: bool = True
+    nested: bool = False
+    note: bool = False
+    addition: bool = False
 
 
 def reviewed(parent_html):
@@ -125,18 +128,14 @@ def compile_product(formula):
     )
     if any(a.function in ("tg", "ctg") for a in atoms.values()):
         return compile_ratio_factor(values, atoms, denominators, constants)
-    if (
-        denominators
-        or not atoms
-        or any(
-            a.function not in ("sin", "cos")
-            or a.coefficient.is_Integer is not True
-            or not 1 <= abs(a.coefficient) <= 12
-            for a in atoms.values()
-        )
+    if not atoms or any(
+        a.function not in ("sin", "cos")
+        or a.coefficient.is_Integer is not True
+        or not 1 <= abs(a.coefficient) <= 12
+        for a in atoms.values()
     ):
         raise UnsupportedCondition(
-            "separate angle factors require denominator-free bounded integer angles"
+            "separate angle factors require bounded integer angles"
         )
     compiled = {
         symbol: (sp.sin if a.function == "sin" else sp.cos)(
@@ -144,7 +143,14 @@ def compile_product(formula):
         )
         for symbol, a in atoms.items()
     }
-    raw = (values[0] - values[1]).xreplace(compiled)
+    from .exam_trigonometric_angle_domain import (
+        addition_identity,
+        equivalent,
+        fraction_input,
+        nested,
+    )
+
+    raw, poles, cleared = fraction_input(values, atoms, denominators, compiled)
     reduced, identities = reduce_squares(raw)
     for summed, candidate in [
         (False, reduced),
@@ -158,14 +164,24 @@ def compile_product(formula):
         raise UnsupportedCondition(
             "the identities must yield exactly two distinct affine angle factors"
         )
-    if sp.trigsimp(sp.expand_trig(raw - factored)) != 0:
+    if not equivalent(raw, factored):
         raise UnsupportedCondition("the angle product must equal the original equation")
+    addition = addition_identity(raw, factored, factors)
     return Equation(
         raw,
         (),
         sp.S.One,
+        poles=poles,
+        factored_source=raw if poles else None,
+        cleared_denominator=cleared,
         angle_product=AngleProduct(
-            factored, factors, constants + identities, reduced, summed
+            factored,
+            factors,
+            constants + identities + addition,
+            reduced,
+            summed,
+            nested=nested(poles, factors),
+            addition=bool(addition),
         ),
     )
 
@@ -173,6 +189,7 @@ def compile_product(formula):
 def compile_ratio_factor(values, atoms, denominators, constants):
     from dataclasses import replace
 
+    from .exam_trigonometric_angle_domain import equivalent
     from .exam_trigonometric_poles import compile_quotients
 
     equation = compile_quotients(values, atoms, denominators)
@@ -184,7 +201,7 @@ def compile_ratio_factor(values, atoms, denominators, constants):
     raw = numerator.xreplace({S: sp.sin(X), C: sp.cos(X)})
     factored = sp.Mul(*(TR8(factor) for factor in sp.Mul.make_args(sp.factor(raw))))
     factors = factor_angles(factored)
-    if factors is None or sp.trigsimp(sp.expand_trig(raw - factored)) != 0:
+    if factors is None or not equivalent(raw, factored):
         raise UnsupportedCondition(
             "the cleared ratio must give two exact affine angle factors"
         )
@@ -207,6 +224,16 @@ def sum_products(expression):
         raise UnsupportedCondition(
             "the reviewed sum-to-product expression has at most eight terms"
         )
+    if all(
+        sum(
+            power
+            for factor, power in term.as_powers_dict().items()
+            if factor.func in (sp.sin, sp.cos) and factor.has(X)
+        )
+        <= 2
+        for term in terms
+    ):
+        yield TR9(TR8(expression))
     for i, first in enumerate(terms):
         for second in terms[i + 1 :]:
             paired = TR9(first + second)
@@ -248,7 +275,9 @@ def proof(a):
     html += line(a.original)
     if data.identities:
         html += (
-            "<p>Используем определение тригонометрического отношения и формулу двойного угла:</p>"
+            "<p>Применим формулу косинуса суммы:</p>"
+            if data.addition
+            else "<p>Используем определение тригонометрического отношения и формулу двойного угла:</p>"
             if a.poles
             else "<p>Применим формулы приведения и понижения степени:</p>"
         )
@@ -258,7 +287,7 @@ def proof(a):
                 + "="
                 + sp.latex(right)
             )
-    if data.summed:
+    if data.summed and not data.addition:
         name = (
             "косинусов"
             if not a.raw.has(sp.sin)
@@ -267,12 +296,15 @@ def proof(a):
             else "тригонометрических функций"
         )
         html += "<p>Применим формулу приведения, затем формулу суммы " + name + ":</p>"
-    else:
+    elif not data.addition:
         html += "<p>Вынесем общий множитель:</p>"
     if a.poles:
         html += "<p>Умножаем только на ненулевой в исходной области определения знаменатель:</p>"
-    html += line(sp.latex(data.reduced if data.identities else a.raw) + "=0")
-    html += line(sp.latex(sp.expand(data.factored)) + "=0")
+    if data.addition:
+        html += "<p>После применения формулы одинаковые слагаемые числителя сокращаются:</p>"
+    else:
+        html += line(sp.latex(data.reduced if data.identities else a.raw) + "=0")
+        html += line(sp.latex(sp.expand(data.factored)) + "=0")
     html += line(sp.latex(data.factored) + "=0")
     html += "<p>Произведение равно нулю, когда хотя бы один множитель равен нулю. Решим каждое уравнение со своим углом:</p>"
     nominal = branches(data) if a.poles else a.branches
