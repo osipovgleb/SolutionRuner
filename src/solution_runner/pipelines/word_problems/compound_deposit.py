@@ -1,4 +1,4 @@
-"""Two identical deposits opened one year apart, with annual capitalization."""
+"""Annual capitalization: known growth factors or a rate inferred from deposits."""
 
 import re
 from dataclasses import dataclass
@@ -31,9 +31,9 @@ def calculate(context):
     data = math_common.read(context)
     match = _PATTERN.fullmatch(data[3])
     if not match:
-        raise UnsupportedCondition(
-            "the complete two-deposit capitalization question must be recognized"
-        )
+        from .yearly_growth import analyze
+
+        return data, analyze(data[3])
     capital, difference = (
         scalar(match[key].replace(" ", "")) for key in ["capital", "difference"]
     )
@@ -54,6 +54,11 @@ def calculate(context):
 
 
 def proof(a):
+    from .yearly_growth import Analysis as Growth
+    from .yearly_growth_proof import proof as growth_proof
+
+    if isinstance(a, Growth):
+        return growth_proof(a)
     html = "<p>Пусть банк начисляет p процентов годовых. Первый вклад работает два года, а второй — один год. Введём общий годовой множитель:</p>"
     html += line(
         r"S_{\mathrm{А}}="

@@ -401,6 +401,32 @@ PROFILES += tuple(
                 ),
             ),
         ),
+        (
+            "Задачи на прогрессии",
+            "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+            5,
+            (
+                (
+                    "word-arithmetic-progression",
+                    (
+                        ("99579", "ba3c7a8f-7439-4310-9941-0b5580e5f255", 0),
+                        ("99580", "fca8c50d-b6df-4a01-8aa7-b2e8cc2870f8", 1),
+                        ("99581", "74a10fb8-4360-4864-b4ac-d9e7706593a1", 2),
+                        ("99582", "b2302cfc-3cb1-48bc-b317-2f81fb6aea3d", 3),
+                        ("99583", "f459bc40-fc29-44a7-bd64-ae731be8f556", 4),
+                        ("99584", "2f57bb9c-2d70-4125-8ff8-48502fd21c1d", 5),
+                        ("99585", "af26fae7-e4a5-4d70-8114-73c8b117f3d4", 6),
+                    ),
+                ),
+                (
+                    "word-compound-deposit",
+                    (
+                        ("99586", "e3cf59b0-7aa2-4e79-87d3-0125ca9c6156", 7),
+                        ("99587", "1d201665-38d4-4979-8c66-c49581504de6", 8),
+                    ),
+                ),
+            ),
+        ),
     )
     for rule, members in families
     for key, source_id, order in members

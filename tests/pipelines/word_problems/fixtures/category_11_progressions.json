@@ -1,0 +1,1575 @@
+{
+  "groups": [
+    {
+      "key": "99579",
+      "uuid": "ba3c7a8f-7439-4310-9941-0b5580e5f255",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 0,
+      "rule": "word-arithmetic-progression"
+    },
+    {
+      "key": "99580",
+      "uuid": "fca8c50d-b6df-4a01-8aa7-b2e8cc2870f8",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 1,
+      "rule": "word-arithmetic-progression"
+    },
+    {
+      "key": "99581",
+      "uuid": "74a10fb8-4360-4864-b4ac-d9e7706593a1",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 2,
+      "rule": "word-arithmetic-progression"
+    },
+    {
+      "key": "99582",
+      "uuid": "b2302cfc-3cb1-48bc-b317-2f81fb6aea3d",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 3,
+      "rule": "word-arithmetic-progression"
+    },
+    {
+      "key": "99583",
+      "uuid": "f459bc40-fc29-44a7-bd64-ae731be8f556",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 4,
+      "rule": "word-arithmetic-progression"
+    },
+    {
+      "key": "99584",
+      "uuid": "2f57bb9c-2d70-4125-8ff8-48502fd21c1d",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 5,
+      "rule": "word-arithmetic-progression"
+    },
+    {
+      "key": "99585",
+      "uuid": "af26fae7-e4a5-4d70-8114-73c8b117f3d4",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 6,
+      "rule": "word-arithmetic-progression"
+    },
+    {
+      "key": "99586",
+      "uuid": "e3cf59b0-7aa2-4e79-87d3-0125ca9c6156",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 7,
+      "rule": "word-compound-deposit"
+    },
+    {
+      "key": "99587",
+      "uuid": "1d201665-38d4-4979-8c66-c49581504de6",
+      "theme_uuid": "01803e02-f4c9-4ba0-b53f-e215bfb58c55",
+      "theme_title": "Задачи на прогрессии",
+      "theme_order": 5,
+      "order": 8,
+      "rule": "word-compound-deposit"
+    }
+  ],
+  "cases": [
+    {
+      "group": "99579",
+      "task": "99579",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Бри­га­да ма­ля­ров кра­сит забор дли­ной 240 мет­ров, еже­днев­но уве­ли­чи­вая норму по­крас­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый и по­след­ний день в сумме бри­га­да по­кра­си­ла 60 мет­ров за­бо­ра. Опре­де­ли­те, сколь­ко дней бри­га­да ма­ля­ров кра­си­ла весь забор.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть бри­га­да в пер­вый день по­кра­си­ла <i>a</i><sub>1</sub> мет­ров за­бо­ра, во вто­рой  — <i>a</i><sub>2</sub> мет­ров и так далее, в по­след­ний день  — <i>a</i><sub><i>n</i></sub> мет­ров за­бо­ра. Тогда  <span data-inline-latex=\"a_1+a_n=60\\,\\mathrm{м}\"></span>, а за <nobr><i>n</i> дней</nobr> было по­кра­ше­но</p><center><p> <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}\\cdot n=30n\\,\\mathrm{м}\"></span>. </p></center><p>Всего было по­кра­ше­но 240 мет­ров за­бо­ра, по­это­му имеем: <span data-inline-latex=\"30n=240\"></span>, от­ку­да  <span data-inline-latex=\"n=8\"></span>. Таким об­ра­зом, бри­га­да кра­си­ла забор в те­че­ние 8 дней. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99579",
+      "task": "110211",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Бри­га­да ма­ля­ров кра­сит забор дли­ной 810 мет­ров, еже­днев­но уве­ли­чи­вая норму по­крас­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый и по­след­ний день в сумме бри­га­да по­кра­си­ла 180 мет­ров за­бо­ра. Опре­де­ли­те, сколь­ко дней бри­га­да ма­ля­ров кра­си­ла весь забор.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть бри­га­да в пер­вый день бри­га­да по­кра­си­ла <span data-inline-latex=\"a_1\"></span> мет­ров за­бо­ра, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, … , в по­след­ний  — <span data-inline-latex=\"a_n\"></span> мет­ров за­бо­ра. Тогда <span data-inline-latex=\"a_1+a_n=180\"></span> м, а за <i>n</i> дней было по­кра­ше­но</p><center><p><span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n=90n\"></span>  мет­ров за­бо­ра.</p></center><p>По­сколь­ку всего было по­кра­ше­но 810 мет­ров за­бо­ра, имеем: <span data-inline-latex=\"90n=810\\iff n=9\"></span>. Таким об­ра­зом, бри­га­да кра­си­ла забор в те­че­ние 9 дней. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99579",
+      "task": "110307",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Бри­га­да ма­ля­ров кра­сит забор дли­ной 270 мет­ров, еже­днев­но уве­ли­чи­вая норму по­крас­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый и по­след­ний день в сумме бри­га­да по­кра­си­ла 90 мет­ров за­бо­ра. Опре­де­ли­те, сколь­ко дней бри­га­да ма­ля­ров кра­си­ла весь забор.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть бри­га­да в пер­вый день бри­га­да по­кра­си­ла <span data-inline-latex=\"a_1\"></span> мет­ров за­бо­ра, во вто­рой − <span data-inline-latex=\"a_2\"></span>, … , в по­след­ний − <span data-inline-latex=\"a_n\"></span> мет­ров за­бо­ра. Тогда <span data-inline-latex=\"a_1+a_n=90\"></span> м, а за <i>n</i> дней было по­кра­ше­но</p><center><p><span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n=45n\"></span>  мет­ров за­бо­ра.</p></center><p>По­сколь­ку всего было по­кра­ше­но 270 мет­ров за­бо­ра, имеем: <span data-inline-latex=\"45n=270\\iff n=6\"></span>. Таким об­ра­зом, бри­га­да кра­си­ла забор в те­че­ние 6 дней.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99579",
+      "task": "110309",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Бри­га­да ма­ля­ров кра­сит забор дли­ной 150 мет­ров, еже­днев­но уве­ли­чи­вая норму по­крас­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый и по­след­ний день в сумме бри­га­да по­кра­си­ла 75 мет­ров за­бо­ра. Опре­де­ли­те, сколь­ко дней бри­га­да ма­ля­ров кра­си­ла весь забор.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть в пер­вый день бри­га­да по­кра­си­ла <span data-inline-latex=\"a_1\"></span> мет­ров за­бо­ра, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, … , в по­след­ний  — <span data-inline-latex=\"a_n\"></span> мет­ров за­бо­ра. Тогда <span data-inline-latex=\"a_1+a_n=75\"></span> м, а за <i>n</i> дней было по­кра­ше­но</p><center><p><span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n=37{,}5n\"></span>  мет­ров за­бо­ра.</p></center><p>По­сколь­ку всего было по­кра­ше­но 150 мет­ров за­бо­ра, имеем: <span data-inline-latex=\"37{,}5n=150\"></span>, от­ку­да  <span data-inline-latex=\"n=4\"></span>. Таким об­ра­зом, бри­га­да кра­си­ла забор в те­че­ние 4 дней.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99580",
+      "task": "99580",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­бо­чие про­кла­ды­ва­ют тон­нель дли­ной <nobr>500 мет­ров,</nobr> еже­днев­но уве­ли­чи­вая норму про­клад­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый день ра­бо­чие про­ло­жи­ли <nobr>3 метра</nobr> тон­не­ля. Опре­де­ли­те, сколь­ко мет­ров тон­не­ля про­ло­жи­ли ра­бо­чие в по­след­ний день, если вся ра­бо­та была вы­пол­не­на за <nobr>10 дней.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">97</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть ра­бо­чие в пер­вый день про­ло­жи­ли <span data-inline-latex=\"a_1\"></span> мет­ров тон­не­ля, во вто­рой  — <span data-inline-latex=\"a_2\"></span> , …, в по­след­ний  — <span data-inline-latex=\"a_{10}\"></span> мет­ров тон­не­ля. Длина тон­не­ля <span data-inline-latex=\"S_n=500\"></span>  мет­ров. <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>,  <span data-inline-latex=\"n=10\"></span> дней. Тогда в по­след­ний день ра­бо­чие про­ло­жи­ли</p><center><p><span data-inline-latex=\"a_{10}=\\frac{2S_n}{n}-a_1=\\frac{1000}{10}-3=97\"></span>  мет­ров.</p></center><p>Таким об­ра­зом, ра­бо­чие в по­след­ний день про­ло­жи­ли <nobr>97 мет­ров</nobr> тон­не­ля.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99580",
+      "task": "110311",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­бо­чие про­кла­ды­ва­ют тон­нель дли­ной 99 мет­ров, еже­днев­но уве­ли­чи­вая норму про­клад­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый день ра­бо­чие про­ло­жи­ли 7 мет­ров тун­не­ля. Опре­де­ли­те, сколь­ко мет­ров тун­не­ля про­ло­жи­ли ра­бо­чие в по­след­ний день, если вся ра­бо­та была вы­пол­не­на за 9 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть ра­бо­чие в пер­вый день про­ло­жи­ли <span data-inline-latex=\"a_1\"></span> мет­ров тон­не­ля, во вто­рой  — <span data-inline-latex=\"a_2\"></span> , …, в по­след­ний  — <span data-inline-latex=\"a_9\"></span>  мет­ров тон­не­ля. Длина тон­не­ля <span data-inline-latex=\"S_9=99\"></span>  мет­ров. Под­став­ляя в фор­му­лу суммы чле­нов ариф­ме­ти­че­ской про­грес­сии <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>  и дан­ные из усло­вия по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\frac{7+a_9}{2}\\cdot 9=99\\iff 7+a_9=22\\iff a_9=15\"></span>. </p></center><p>Таким об­ра­зом, ра­бо­чие в по­след­ний день про­ло­жи­ли 15 мет­ров тун­не­ля.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99580",
+      "task": "110543",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­бо­чие про­кла­ды­ва­ют тон­нель дли­ной 39 мет­ров, еже­днев­но уве­ли­чи­вая норму про­клад­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый день ра­бо­чие про­ло­жи­ли 4 метра тун­не­ля. Опре­де­ли­те, сколь­ко мет­ров тун­не­ля про­ло­жи­ли ра­бо­чие в по­след­ний день, если вся ра­бо­та была вы­пол­не­на за 6 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть ра­бо­чие в пер­вый день про­ло­жи­ли <span data-inline-latex=\"a_1\"></span> мет­ров тон­не­ля, во вто­рой  — <span data-inline-latex=\"a_2\"></span> , …, в по­след­ний  — <span data-inline-latex=\"a_6\"></span>  мет­ров тон­не­ля. Длина тон­не­ля <span data-inline-latex=\"S_n=39\"></span>  мет­ров. <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>,  <span data-inline-latex=\"n=6\"></span> дней. Тогда в по­след­ний день ра­бо­чие про­ло­жи­ли</p><center><p><span data-inline-latex=\"a_6=\\frac{2S_n}{n}-a_1=\\frac{78}{6}-4=9\"></span>  мет­ров.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99580",
+      "task": "110549",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­бо­чие про­кла­ды­ва­ют тон­нель дли­ной 87 мет­ров, еже­днев­но уве­ли­чи­вая норму про­клад­ки на одно и то же число мет­ров. Из­вест­но, что за пер­вый день ра­бо­чие про­ло­жи­ли 7 мет­ров тун­не­ля. Опре­де­ли­те, сколь­ко мет­ров тун­не­ля про­ло­жи­ли ра­бо­чие в по­след­ний день, если вся ра­бо­та была вы­пол­не­на за 6 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть ра­бо­чие в пер­вый день про­ло­жи­ли <span data-inline-latex=\"a_1\"></span> мет­ров тон­не­ля, во вто­рой  — <span data-inline-latex=\"a_2\"></span> , …, в по­след­ний  — <span data-inline-latex=\"a_6\"></span> мет­ров тон­не­ля. Длина тон­не­ля <span data-inline-latex=\"S_n=87\"></span>  мет­ров, при­чем <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>,  где <span data-inline-latex=\"a_1=7,\\quad n=6\"></span> дней. Тогда имеем:</p><center><p> <span data-inline-latex=\"\\frac{7+a_6}{2}\\cdot 6=87\\iff 7+a_6=29\\iff a_6=22\"></span>. </p></center><p>Сле­до­ва­тель­но,  в по­след­ний день ра­бо­чие про­ло­жи­ли 22 метра тон­не­ля.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99581",
+      "task": "99581",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Васе надо ре­шить 434 за­да­чи. Еже­днев­но он ре­ша­ет на одно и то же ко­ли­че­ство задач боль­ше по срав­не­нию с преды­ду­щим днем. Из­вест­но, что за пер­вый день Вася решил <nobr>5 задач.</nobr> Опре­де­ли­те, сколь­ко задач решил Вася в по­след­ний день, если со всеми за­да­ча­ми он спра­вил­ся за <nobr>14 дней.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">57</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день Вася решил <span data-inline-latex=\"a_1=5\"></span> задач, в по­след­ний  — <span data-inline-latex=\"a_{14}\"></span> задач. Всего надо ре­шить <span data-inline-latex=\"S_{14}=434\"></span> задач. По­сколь­ку <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>,  где <span data-inline-latex=\"a_1=5,\\quad n=14\"></span> имеем: </p><center><p><span data-inline-latex=\"S_{14}=\\frac{a_1+a_{14}}{2}\\cdot 14=7(5+a_{14})\"></span> . </p></center><p>Тогда </p><center><p><span data-inline-latex=\"7(5+a_{14})=434\\iff 5+a_{14}=62\\iff a_{14}=57\"></span> задач.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99581",
+      "task": "110551",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пете надо ре­шить 333 за­да­чи. Еже­днев­но он ре­ша­ет на одно и то же ко­ли­че­ство задач боль­ше по срав­не­нию с преды­ду­щим днем. Из­вест­но, что за пер­вый день Петя решил 5 задач. Опре­де­ли­те, сколь­ко задач решил Петя в по­след­ний день, если со всеми за­да­ча­ми он спра­вил­ся за 9 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">69</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день Петя решил <span data-inline-latex=\"a_1=5\"></span> задач, в по­след­ний  — <span data-inline-latex=\"a_9\"></span> задач. Всего надо ре­шить <span data-inline-latex=\"S_9=333\"></span> задач. По­сколь­ку <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>,  где <span data-inline-latex=\"a_1=5,\\quad n=9\"></span> имеем: </p><center><p><span data-inline-latex=\"S_9=\\frac{a_1+a_9}{2}\\cdot 9=4{,}5(5+a_9)\"></span> . </p></center><p> Тогда </p><center><p><span data-inline-latex=\"4{,}5(5+a_9)=333\\iff 5+a_9=74\\iff a_9=69\"></span> задач.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99581",
+      "task": "110997",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Васе надо ре­шить 140 задач. Еже­днев­но он ре­ша­ет на одно и то же ко­ли­че­ство задач боль­ше по срав­не­нию с преды­ду­щим днем. Из­вест­но, что за пер­вый день Вася решил 8 задач. Опре­де­ли­те, сколь­ко задач решил Вася в по­след­ний день, если со всеми за­да­ча­ми он спра­вил­ся за 7 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">32</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день Вася решил <span data-inline-latex=\"a_1=8\"></span> задач, в по­след­ний  — <span data-inline-latex=\"a_7\"></span> задач. Всего надо ре­шить <span data-inline-latex=\"S_7=140\"></span> задач. По­сколь­ку <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>,  где <span data-inline-latex=\"a_1=8,\\quad n=7\"></span> имеем:</p><center><p> <span data-inline-latex=\"\\frac{8+a_7}{2}\\cdot 7=140\\iff 8+a_7=40\\iff a_7=32\"></span>. </p></center><p>Сле­до­ва­тель­но, в по­след­ний день Вася решил 32 за­да­чи.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99581",
+      "task": "518909",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Васе надо ре­шить 245 задач. Еже­днев­но он ре­ша­ет на одно и то же ко­ли­че­ство задач боль­ше по срав­не­нию с преды­ду­щим днём. Из­вест­но, что за пер­вый день Вася решил 11 задач. Опре­де­ли­те, сколь­ко задач решил Вася в по­след­ний день, если со всеми за­да­ча­ми он спра­вил­ся за 7 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">59</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день Вася решил <span data-inline-latex=\"a_1=11\"></span> задач, в по­след­ний  — <span data-inline-latex=\"a_7\"></span> задач. Всего надо ре­шить <span data-inline-latex=\"S_7=245\"></span> задач. По­сколь­ку <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n\"></span>,  где <span data-inline-latex=\"a_1=11,\\quad n=7\"></span> имеем: </p><center><p><span data-inline-latex=\"S_7=\\frac{a_1+a_7}{2}\\cdot 7=3{,}5(11+a_7)\"></span> . </p></center><p> Тогда </p><center><p><span data-inline-latex=\"3{,}5(11+a_7)=245\\iff 11+a_7=70\\iff a_7=59\"></span> задач.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99582",
+      "task": "99582",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ту­рист идет из од­но­го го­ро­да в дру­гой, каж­дый день про­хо­дя боль­ше, чем в преды­ду­щий день, на одно и то же рас­сто­я­ние. Из­вест­но, что за пер­вый день ту­рист про­шел 10 ки­ло­мет­ров. Опре­де­ли­те, сколь­ко ки­ло­мет­ров про­шел ту­рист за тре­тий день, если весь путь он про­шел за 6 дней, а рас­сто­я­ние между го­ро­да­ми со­став­ля­ет 120 ки­ло­мет­ров.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день ту­рист про­шел <nobr><span data-inline-latex=\"a_1=10\"></span> км,</nobr> во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <nobr><span data-inline-latex=\"a_6\"></span> км.</nobr> Всего он про­шел <nobr><span data-inline-latex=\"S_n=120\"></span> км.</nobr> Если каж­дый день ту­рист про­хо­дил боль­ше, чем в преды­ду­щий день, на  <i>d</i> км, то </p><center><p><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\"></span>, </p></center><p>где <nobr><span data-inline-latex=\"n=6\"></span> дней,</nobr> <nobr><span data-inline-latex=\"a_1=10\"></span> км.</nobr> Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"\\frac{2\\cdot 10+5d}{2}\\cdot 6=120\\iff 5d=20\\iff d=4\"></span>. </p></center><p>Тогда за тре­тий день ту­рист про­шел</p><center><p><span data-inline-latex=\"a_3=a_1+2d=10+2\\cdot 4=18\\,\\mathrm{км}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99582",
+      "task": "110999",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ту­рист идет из од­но­го го­ро­да в дру­гой, каж­дый день про­хо­дя боль­ше, чем в преды­ду­щий день, на одно и то же рас­сто­я­ние. Из­вест­но, что за пер­вый день ту­рист про­шел 8 ки­ло­мет­ров. Опре­де­ли­те, сколь­ко ки­ло­мет­ров про­шел ту­рист за чет­вер­тый день, если весь путь он про­шел за 10 дней, а рас­сто­я­ние между го­ро­да­ми со­став­ля­ет 215 ки­ло­мет­ров.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день ту­рист про­шел <span data-inline-latex=\"a_1=8\"></span> км, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_{10}\"></span> км. Всего он про­шел <span data-inline-latex=\"S_n=215\"></span> км. Если каж­дый день ту­рист про­хо­дил боль­ше, чем в преды­ду­щий день, на  <i>d</i> км, то </p><center><p><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\"></span>, </p></center><p>где <span data-inline-latex=\"n=10\"></span> дней, <span data-inline-latex=\"a_1=8\"></span> км. Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"\\frac{2\\cdot 8+9d}{2}\\cdot 10=215\\iff 9d=27\\iff d=3\"></span>. </p></center><p>Тогда за чет­вер­тый день ту­рист про­шел</p><center><p><span data-inline-latex=\"a_4=a_1+3d=8+3\\cdot 3=17\\,\\mathrm{км}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99582",
+      "task": "111005",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ту­рист идет из од­но­го го­ро­да в дру­гой, каж­дый день про­хо­дя боль­ше, чем в преды­ду­щий день, на одно и то же рас­сто­я­ние. Из­вест­но, что за пер­вый день ту­рист про­шел 9 ки­ло­мет­ров. Опре­де­ли­те, сколь­ко ки­ло­мет­ров про­шел ту­рист за чет­вер­тый день, если весь путь он про­шел за 10 дней, а рас­сто­я­ние между го­ро­да­ми со­став­ля­ет 180 ки­ло­мет­ров.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день ту­рист про­шел <span data-inline-latex=\"a_1=9\"></span> км, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_6\"></span> км. Всего он про­шел <span data-inline-latex=\"S_n=180\"></span> км. Если каж­дый день ту­рист про­хо­дил боль­ше, чем в преды­ду­щий день, на  <i>d</i> км, то </p><center><p><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\"></span>, </p></center><p>где <span data-inline-latex=\"n=10\"></span> дней, <span data-inline-latex=\"a_1=9\"></span> км. Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"\\frac{2\\cdot 9+9d}{2}\\cdot 10=180\\iff 9d=18\\iff d=2\"></span>. </p></center><p>Тогда за чет­вер­тый день ту­рист про­шел</p><center><p><span data-inline-latex=\"a_4=a_1+3d=9+3\\cdot 2=15\\,\\mathrm{км}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99582",
+      "task": "111013",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ту­рист идет из од­но­го го­ро­да в дру­гой, каж­дый день про­хо­дя боль­ше, чем в преды­ду­щий день, на одно и то же рас­сто­я­ние. Из­вест­но, что за пер­вый день ту­рист про­шел 11 ки­ло­мет­ров. Опре­де­ли­те, сколь­ко ки­ло­мет­ров про­шел ту­рист за седь­мой день, если весь путь он про­шел за 10 дней, а рас­сто­я­ние между го­ро­да­ми со­став­ля­ет 245 ки­ло­мет­ров.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">29</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день ту­рист про­шел  <span data-inline-latex=\"a_1=11\\,\\mathrm{км}\"></span>, во вто­рой  —  <span data-inline-latex=\"a_2,\\,\\dots\"></span>, в по­след­ний  —  <span data-inline-latex=\"a_{10}\\,\\mathrm{км}\"></span>. Всего он про­шел  <span data-inline-latex=\"S_n=245\\,\\mathrm{км}\"></span>. Если каж­дый день ту­рист про­хо­дил боль­ше, чем в преды­ду­щий день, на <i>d</i> км, то</p><center><p> <span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}\\cdot n\"></span>, </p></center><p><nobr>где  <span data-inline-latex=\"n=10\"></span> дней,</nobr> <span data-inline-latex=\"a_1=11\\,\\mathrm{км}\"></span>. Таким об­ра­зом,</p><center><p><span> <span data-inline-latex=\"\\frac{2\\cdot 11+9d}{2}\\cdot 10=245\\iff 5(22+9d)=245\\iff 22+9d=49\\iff 9d=27\\iff d=3\"></span>. </span></p></center><p>Сле­до­ва­тель­но, за седь­мой день ту­рист про­шел</p><center><p> <span data-inline-latex=\"a_7=a_1+6d=11+6\\cdot 3=29\\,\\mathrm{км}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99583",
+      "task": "99583",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Гру­зо­вик пе­ре­во­зит пар­тию щебня мас­сой <nobr>210 тонн,</nobr> еже­днев­но уве­ли­чи­вая норму пе­ре­воз­ки на одно и то же число тонн. Из­вест­но, что за пер­вый день было пе­ре­ве­зе­но <nobr>2 тонны</nobr> щебня. Опре­де­ли­те, сколь­ко тонн щебня было пе­ре­ве­зе­но за де­вя­тый день, если вся ра­бо­та была вы­пол­не­на за <nobr>14 дней.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть в пер­вый день гру­зо­вик пе­ре­вез <nobr><span data-inline-latex=\"a_1=2\"></span> тонны</nobr> щебня, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <nobr><span data-inline-latex=\"a_{14}\"></span> тонн;</nobr> всего было пе­ре­ве­зе­но <nobr><span data-inline-latex=\"S_{14}=210\"></span> тонн;</nobr> норма пе­ре­воз­ки уве­ли­чи­ва­лась еже­днев­но на <nobr><i>d</i> тонн.</nobr> Таким об­ра­зом,</p><center><p><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}\\cdot n\"></span> <br/><span data-inline-latex=\"S_{14}=\\frac{2a_1+d\\cdot (14-1)}{2}\\cdot 14\\iff 210=\\frac{2\\cdot 2+13d}{2}\\cdot 14\\iff 30=4+13d\\iff d=2\"></span>. </p><p><span></span></p></center><p>Имеем:</p><center><p><span data-inline-latex=\"a_9=a_1+8d=2+8\\cdot 2=18\"></span>.</p></center><p>Сле­до­ва­тель­но, за де­вя­тый день было пе­ре­ве­зе­но <nobr>18 тонн</nobr> щебня.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99583",
+      "task": "111359",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Гру­зо­вик пе­ре­во­зит пар­тию щебня мас­сой 360 тонн, еже­днев­но уве­ли­чи­вая норму пе­ре­воз­ки на одно и то же число тонн. Из­вест­но, что за пер­вый день было пе­ре­ве­зе­но 3 тонны щебня. Опре­де­ли­те, сколь­ко тонн щебня было пе­ре­ве­зе­но за де­вя­тый день, если вся ра­бо­та была вы­пол­не­на за 18 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">19</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть в пер­вый день гру­зо­вик пе­ре­вез <span data-inline-latex=\"a_1=3\"></span> тонны щебня, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_{18}\"></span> тонн; всего было пе­ре­ве­зе­но <span data-inline-latex=\"S_n=360\"></span> тонн; норма пе­ре­воз­ки уве­ли­чи­ва­лась еже­днев­но на <i>d</i> тонн. Таким об­ра­зом,</p><center><p><span><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\\iff 360=\\frac{2\\cdot 3+17d}{2}\\cdot 18\\iff 40=6+17d\\iff d=2\"></span>. </span></p></center><p>Имеем:</p><center><p><span data-inline-latex=\"a_9=a_1+8d=3+8\\cdot 2=19\"></span>.</p></center><p>Сле­до­ва­тель­но, за де­вя­тый день было пе­ре­ве­зе­но 19 тонн щебня.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99583",
+      "task": "111867",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Гру­зо­вик пе­ре­во­зит пар­тию щебня мас­сой 60 тонн, еже­днев­но уве­ли­чи­вая норму пе­ре­воз­ки на одно и то же число тонн. Из­вест­но, что за пер­вый день было пе­ре­ве­зе­но 4 тонны щебня. Опре­де­ли­те, сколь­ко тонн щебня было пе­ре­ве­зе­но за пятый день, если вся ра­бо­та была вы­пол­не­на за 8 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть в пер­вый день гру­зо­вик пе­ре­вез <span data-inline-latex=\"a_1=4\"></span> тонны щебня, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_8\"></span> тонн; всего было пе­ре­ве­зе­но <span data-inline-latex=\"S_n=60\"></span> тонн; норма пе­ре­воз­ки уве­ли­чи­ва­лась еже­днев­но на <i>d</i> тонн. Таким об­ра­зом,</p><center><p><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\\iff 60=\\frac{2\\cdot 4+7d}{2}\\cdot 8\\iff 15=8+7d\\iff d=1\"></span>. </p></center><p>Имеем:</p><center><p><span data-inline-latex=\"a_5=a_1+4d=4+4\\cdot 1=8\"></span>.</p></center><p>Сле­до­ва­тель­но, за пятый день было пе­ре­ве­зе­но 8 тонн щебня.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99583",
+      "task": "541053",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Гру­зо­вик пе­ре­во­зит пар­тию щебня мас­сой 224 тонны, еже­днев­но уве­ли­чи­вая норму пе­ре­воз­ки на одно и то же число тонн. Из­вест­но, что за пер­вый день было пе­ре­ве­зе­но 3 тонны щебня. Опре­де­ли­те, сколь­ко тонн щебня было пе­ре­ве­зе­но за де­вя­тый день, если вся ра­бо­та была вы­пол­не­на за 14 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">19</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть в пер­вый день гру­зо­вик пе­ре­вез <span data-inline-latex=\"a_1=3\"></span> тонны щебня, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_{14}\"></span> тонн; всего было пе­ре­ве­зе­но <span data-inline-latex=\"S_n=224\"></span> тонны; норма пе­ре­воз­ки уве­ли­чи­ва­лась еже­днев­но на <i>d</i> тонн. Таким об­ра­зом,</p><center><p><span><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\\iff 224=\\frac{2\\cdot 3+13d}{2}\\cdot 14\\iff 32=6+13d\\iff d=2\"></span>. </span></p></center><p>Имеем:</p><center><p><span data-inline-latex=\"a_9=a_1+8d=3+8\\cdot 2=19\"></span>.</p></center><p>Сле­до­ва­тель­но, за де­вя­тый день было пе­ре­ве­зе­но 19 тонн щебня.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99584",
+      "task": "99584",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Улит­ка пол­зет от од­но­го де­ре­ва до дру­го­го. Каж­дый день она про­пол­за­ет на одно и то же рас­сто­я­ние боль­ше, чем в преды­ду­щий день. Из­вест­но, что за пер­вый и по­след­ний дни улит­ка про­полз­ла в общей слож­но­сти <nobr>10 мет­ров.</nobr> Опре­де­ли­те, сколь­ко дней улит­ка по­тра­ти­ла на весь путь, если рас­сто­я­ние между де­ре­вья­ми равно <nobr>150 мет­рам.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть улит­ка про­полз­ла в пер­вый день <span data-inline-latex=\"a_1\"></span> мет­ров, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_n\"></span> мет­ров. Тогда <nobr><span data-inline-latex=\"a_1+a_n=10\"></span> мет­ров,</nobr> а за <nobr><i>n</i> дней</nobr> про­полз­ла <nobr><span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n=5n\"></span>  мет­ров.</nobr> По­сколь­ку всего она про­полз­ла <nobr>150 мет­ров,</nobr> имеем: <span data-inline-latex=\"5n=150\"></span>, от­ку­да <span data-inline-latex=\"n=30\"></span>. Таким об­ра­зом, улит­ка по­тра­ти­ла на весь путь <nobr>30 дней.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99584",
+      "task": "111869",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Улит­ка пол­зет от од­но­го де­ре­ва до дру­го­го. Каж­дый день она про­пол­за­ет на одно и то же рас­сто­я­ние боль­ше, чем в преды­ду­щий день. Из­вест­но, что за пер­вый и по­след­ний дни улит­ка про­полз­ла в общей слож­но­сти 11 мет­ров. Опре­де­ли­те, сколь­ко дней улит­ка по­тра­ти­ла на весь путь, если рас­сто­я­ние между де­ре­вья­ми равно 33 мет­рам.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть улит­ка про­полз­ла в пер­вый день <span data-inline-latex=\"a_1\"></span> мет­ров, во вто­рой − <span data-inline-latex=\"a_2\"></span>, … , в по­след­ний − <span data-inline-latex=\"a_n\"></span> мет­ров. Тогда <span data-inline-latex=\"a_1+a_n=11\"></span> м, а за <i>n</i> дней про­полз­ла <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n=5{,}5n\"></span>  мет­ров. По­сколь­ку всего она про­полз­ла 33 метра, имеем: <span data-inline-latex=\"5{,}5n=33\"></span>, от­ку­да <span data-inline-latex=\"n=6\"></span>. Таким об­ра­зом, улит­ка по­тра­ти­ла на весь путь 6 дней.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99584",
+      "task": "111911",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Улит­ка пол­зет от од­но­го де­ре­ва до дру­го­го. Каж­дый день она про­пол­за­ет на одно и то же рас­сто­я­ние боль­ше, чем в преды­ду­щий день. Из­вест­но, что за пер­вый и по­след­ний дни улит­ка про­полз­ла в общей слож­но­сти 9 мет­ров. Опре­де­ли­те, сколь­ко дней улит­ка по­тра­ти­ла на весь путь, если рас­сто­я­ние между де­ре­вья­ми равно 18 мет­рам.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть улит­ка про­полз­ла в пер­вый день <span data-inline-latex=\"a_1\"></span> мет­ров, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, … , в по­след­ний  — <span data-inline-latex=\"a_n\"></span> мет­ров. Тогда <span data-inline-latex=\"a_1+a_n=9\"></span> м, а за <i>n</i> дней про­полз­ла <span data-inline-latex=\"S_n=\\frac{a_1+a_n}{2}n=4{,}5n\"></span>  мет­ров. По­сколь­ку всего она про­полз­ла 18 мет­ров, имеем: <span data-inline-latex=\"4{,}5n=18\"></span>, от­ку­да <span data-inline-latex=\"n=4\"></span>. Таким об­ра­зом, улит­ка по­тра­ти­ла на весь путь 4 дня.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99584",
+      "task": "111871",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Улит­ка пол­зет от од­но­го де­ре­ва до дру­го­го. Каж­дый день она про­пол­за­ет на одно и то же рас­сто­я­ние боль­ше, чем в преды­ду­щий день. Из­вест­но, что за пер­вый и по­след­ний дни улит­ка про­полз­ла в общей слож­но­сти 10 мет­ров. Опре­де­ли­те, сколь­ко дней улит­ка по­тра­ти­ла на весь путь, если рас­сто­я­ние между де­ре­вья­ми равно 15 мет­рам.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99585",
+      "task": "99585",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Вере надо под­пи­сать 640 от­кры­ток. Еже­днев­но она под­пи­сы­ва­ет на одно и то же ко­ли­че­ство от­кры­ток боль­ше по срав­не­нию с преды­ду­щим днем. Из­вест­но, что за пер­вый день Вера под­пи­са­ла <nobr>10 от­кры­ток.</nobr> Опре­де­ли­те, сколь­ко от­кры­ток было под­пи­са­но за чет­вер­тый день, если вся ра­бо­та была вы­пол­не­на за <nobr>16 дней.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день Вера под­пи­са­ла <span data-inline-latex=\"a_1=10\"></span> от­кры­ток, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <nobr><span data-inline-latex=\"a_{16}\"></span> от­кры­ток.</nobr> Всего было под­пи­са­но <nobr><span data-inline-latex=\"S_n=640\"></span> от­кры­ток.</nobr> Если ко­ли­че­ство под­пи­сы­ва­е­мых от­кры­ток уве­ли­чи­ва­лось на <i>d</i> каж­дый день, то </p><center><p><span><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\\iff 640=\\frac{2\\cdot 10+15d}{2}\\cdot 16\\iff 80=20+15d\\iff d=4\"></span>. </span></p></center><p>Тогда </p><center><p><span data-inline-latex=\"a_4=a_1+3d=10+3\\cdot 4=22\"></span>.</p></center><p>Сле­до­ва­тель­но, за чет­вер­тый день было под­пи­са­но 22 от­крыт­ки.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99585",
+      "task": "111913",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Лене надо под­пи­сать 972 от­крыт­ки. Еже­днев­но она под­пи­сы­ва­ет на одно и то же ко­ли­че­ство от­кры­ток боль­ше по срав­не­нию с преды­ду­щим днем. Из­вест­но, что за пер­вый день Лена под­пи­са­ла 20 от­кры­ток. Опре­де­ли­те, сколь­ко от­кры­ток было под­пи­са­но за седь­мой день, если вся ра­бо­та была вы­пол­не­на за 18 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">44</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день Лена под­пи­са­ла <span data-inline-latex=\"a_1=20\"></span> от­кры­ток, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_{18}\"></span> от­кры­ток. Всего было под­пи­са­но <span data-inline-latex=\"S_n=972\"></span> от­кры­ток. Если ко­ли­че­ство под­пи­сы­ва­е­мых от­кры­ток уве­ли­чи­ва­лось на <i>d</i> каж­дый день, то </p><center><p><span><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\\iff 972=\\frac{2\\cdot 20+17d}{2}\\cdot 18\\iff 108=40+17d\\iff d=4\"></span>. </span></p></center><p>Тогда </p><center><p><span data-inline-latex=\"a_7=a_1+6d=20+6\\cdot 4=44\"></span>.</p></center><p>Сле­до­ва­тель­но, за седь­мой день было под­пи­са­но 44 от­крыт­ки.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99585",
+      "task": "112205",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ире надо под­пи­сать 880 от­кры­ток. Еже­днев­но она под­пи­сы­ва­ет на одно и то же ко­ли­че­ство от­кры­ток боль­ше по срав­не­нию с преды­ду­щим днем. Из­вест­но, что за пер­вый день Ира под­пи­са­ла 10 от­кры­ток. Опре­де­ли­те, сколь­ко от­кры­ток было под­пи­са­но за вось­мой день, если вся ра­бо­та была вы­пол­не­на за 16 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">52</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вый день Ира под­пи­са­ла <span data-inline-latex=\"a_1=10\"></span> от­кры­ток, во вто­рой  — <span data-inline-latex=\"a_2\"></span>, …, в по­след­ний  — <span data-inline-latex=\"a_{16}\"></span> от­кры­ток. Всего было под­пи­са­но <span data-inline-latex=\"S_n=880\"></span> от­кры­ток. Если ко­ли­че­ство под­пи­сы­ва­е­мых от­кры­ток уве­ли­чи­ва­лось на <i>d</i> каж­дый день, то </p><center><p><span><span data-inline-latex=\"S_n=\\frac{2a_1+d\\cdot (n-1)}{2}n\\iff 880=\\frac{2\\cdot 10+15d}{2}\\cdot 16\\iff 110=20+15d\\iff d=6\"></span>. </span></p></center><p>Тогда </p><center><p><span data-inline-latex=\"a_8=a_1+7d=10+7\\cdot 6=52\"></span>.</p></center><p>Сле­до­ва­тель­но, за вось­мой день было под­пи­са­но 52 от­крыт­ки.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99585",
+      "task": "111915",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Насте надо под­пи­сать 799 от­кры­ток. Еже­днев­но она под­пи­сы­ва­ет на одно и то же ко­ли­че­ство от­кры­ток боль­ше по срав­не­нию с преды­ду­щим днем. Из­вест­но, что за пер­вый день Настя под­пи­са­ла 15 от­кры­ток. Опре­де­ли­те, сколь­ко от­кры­ток было под­пи­са­но за ше­стой день, если вся ра­бо­та была вы­пол­не­на за 17 дней.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">35</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99586",
+      "task": "99586",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Биз­не­смен Буб­ли­ков по­лу­чил в <nobr>2000 году</nobr> при­быль в раз­ме­ре <nobr>5000 руб­лей.</nobr> Каж­дый сле­ду­ю­щий год его при­быль уве­ли­чи­ва­лась на 300% по срав­не­нию с преды­ду­щим годом. Сколь­ко руб­лей за­ра­бо­тал Буб­ли­ков за <nobr>2003 год?</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">320000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку каж­дый год при­быль уве­ли­чи­ва­лась на 300%, она уве­ли­чи­ва­лась в <nobr>4 раза</nobr> по срав­не­нию с преды­ду­щим годом. Ищем чет­вер­тый член гео­мет­ри­че­ской про­грес­сии: за <nobr>2003 год</nobr> Буб­ли­ков за­ра­бо­тал <nobr><span data-inline-latex=\"5000\\cdot 4^{3}=320000\"></span> руб.</nobr></p><p><b>При­ме­ча­ние.</b></p><p>При­бы­ли можно было найти по­сле­до­ва­тель­но: за <nobr>2001 год</nobr>  — 20 тыс. руб., за <nobr>2002 год</nobr>  — 80 тыс. руб., за <nobr>2003 год</nobr>  — 320 тыс. руб.</p><p><b>При­ме­ча­ние.</b></p><p>В за­да­че речь идет о при­бы­ли, то есть о сумме, за­ра­бо­тан­ной за год, а не о ка­пи­та­ле на конец года. По­это­му не сле­ду­ет от­ни­мать о суммы, за­ра­бо­тан­ной в те­ку­щем году, сумму, за­ра­бо­тан­ную в преды­ду­щем году.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99586",
+      "task": "112207",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Биз­не­смен Пе­че­нов по­лу­чил в 2000 году при­быль в раз­ме­ре 1 000 000 руб­лей. Каж­дый сле­ду­ю­щий год его при­быль уве­ли­чи­ва­лась на 16% по срав­не­нию с преды­ду­щим годом. Сколь­ко руб­лей за­ра­бо­тал Пе­че­нов за 2002 год?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1345600</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Биз­не­смен Пе­че­нов по­лу­чил в 2000 году при­быль в раз­ме­ре <span data-inline-latex=\"b_1=1000000\"></span> руб­лей. Каж­дый сле­ду­ю­щий год его при­быль уве­ли­чи­ва­лась на 16%, сле­до­ва­тель­но, она со­став­ля­ла 116% от при­бы­ли преды­ду­ще­го года, то есть уве­ли­чи­ва­лась в <span data-inline-latex=\"q=1{,}16\"></span> раза, по срав­не­нию с преды­ду­щим годом. В 2002 году при­быль со­ста­ви­ла </p><center><p><span data-inline-latex=\"b_3=b_1\\cdot q^{2}=1000000\\cdot 1{,}16^{2}=1345600\"></span>  руб­лей.</p></center><p>Сумма, за­ра­бо­тан­ная биз­не­сме­ном Пе­че­но­вым за год, равна его при­бы­ли за этот год, сле­до­ва­тель­но, в 2002 году Пе­че­нов за­ра­бо­тал 1 345 600 руб­лей.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99586",
+      "task": "112211",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Биз­не­смен Ола­дьев по­лу­чил в 2000 году при­быль в раз­ме­ре 1100000 руб­лей. Каж­дый сле­ду­ю­щий год его при­быль уве­ли­чи­ва­лась на 7% по срав­не­нию с преды­ду­щим годом. Сколь­ко руб­лей за­ра­бо­тал Ола­дьев за 2002 год?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1259390</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сколь­ку каж­дый год при­быль уве­ли­чи­ва­лась на 7%, она уве­ли­чи­ва­лась в 1,07 раза по срав­не­нию с преды­ду­щим годом. Ищем тре­тий член гео­мет­ри­че­ской про­грес­сии: за 2002 год Буб­ли­ков за­ра­бо­тал <span data-inline-latex=\"1100000\\cdot 1{,}07^{(3-1)}=1259390\"></span> руб.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99586",
+      "task": "112275",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Биз­не­смен Кор­жов по­лу­чил в 2000 году при­быль в раз­ме­ре 1 400 000 руб­лей. Каж­дый сле­ду­ю­щий год его при­быль уве­ли­чи­ва­лась на 20% по срав­не­нию с преды­ду­щим годом. Сколь­ко руб­лей со­ста­ви­ла при­быль Кор­жо­ва за 2004 год?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2903040</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Каж­дый год при­быль уве­ли­чи­ва­лась на 20%, т. е. есть в 1,2 раза. Сле­до­ва­тель­но, ве­ли­чи­ны при­бы­лей об­ра­зу­ют гео­мет­ри­че­скую про­грес­сию с пер­вым чле­ном <span data-inline-latex=\"b_1=1400000\"></span> и зна­ме­на­те­лем <span data-inline-latex=\"q=1{,}2\"></span>. За 2004 год Кор­жов за­ра­бо­тал </p><center><p><span data-inline-latex=\"b_5=b_1\\cdot q^4=1400000\\cdot 1{,}2^4=2903040\"></span>  руб­лей.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99587",
+      "task": "99587",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ком­па­ния «Альфа» на­ча­ла ин­ве­сти­ро­вать сред­ства в пер­спек­тив­ную от­расль в <nobr>2001 году,</nobr> имея ка­пи­тал в раз­ме­ре 5000 дол­ла­ров. Каж­дый год, на­чи­ная с <nobr>2002 года,</nobr> она по­лу­ча­ла при­быль, ко­то­рая со­став­ля­ла 200% от ка­пи­та­ла преды­ду­ще­го года. А ком­па­ния «Бета» на­ча­ла ин­ве­сти­ро­вать сред­ства в дру­гую от­расль в <nobr>2003 году,</nobr> имея ка­пи­тал в раз­ме­ре 10 000 дол­ла­ров, и, на­чи­ная с <nobr>2004 года,</nobr> еже­год­но по­лу­ча­ла при­быль, со­став­ля­ю­щую 400% от ка­пи­та­ла преды­ду­ще­го года. На сколь­ко дол­ла­ров ка­пи­тал одной из ком­па­ний был боль­ше ка­пи­та­ла дру­гой к концу <nobr>2006 года,</nobr> если при­быль из обо­ро­та не изы­ма­лась?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">35000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Каж­дый год при­быль ком­па­нии «Альфа» со­став­ля­ла 200% от ка­пи­та­ла преды­ду­ще­го года, зна­чит, ка­пи­тал каж­дый год со­став­лял 300% от ка­пи­та­ла преды­ду­ще­го года. В конце <nobr>2006 года</nobr> на счёте ком­па­нии «Альфа» была сумма</p><center><p><span data-inline-latex=\"5000\\cdot 3^{2006-2001}=5000\\cdot 3^{5}=5000\\cdot 243=1215000\"></span> дол­ла­ров.</p></center><p>Каж­дый год при­быль ком­па­нии «Бета» со­ста­ви­ла 400% от ка­пи­та­ла преды­ду­ще­го года, зна­чит, ка­пи­тал каж­дый год со­став­лял 500% от ка­пи­та­ла преды­ду­ще­го года. В конце <nobr>2006 года</nobr> на счёте ком­па­нии «Бета» была сумма </p><center><p><span data-inline-latex=\"10000\\cdot 5^{2006-2003}=10000\\cdot 5^{3}=10000\\cdot 125=1250000\"></span>.</p></center><p>Таким об­ра­зом, ка­пи­тал ком­па­нии «Бета» был на 35 000 дол­ла­ров боль­ше. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99587",
+      "task": "112277",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ком­па­ния «Альфа» на­ча­ла ин­ве­сти­ро­вать сред­ства в пер­спек­тив­ную от­расль в 2001 году, имея ка­пи­тал в раз­ме­ре 4000 дол­ла­ров. Каж­дый год, на­чи­ная с 2002 года, она по­лу­ча­ла при­быль, ко­то­рая со­став­ля­ла 100% от ка­пи­та­ла преды­ду­ще­го года. А ком­па­ния «Бета» на­ча­ла ин­ве­сти­ро­вать сред­ства в дру­гую от­расль в 2004 году, имея ка­пи­тал в раз­ме­ре 4500 дол­ла­ров, и, на­чи­ная с 2005 года, еже­год­но по­лу­ча­ла при­быль, со­став­ля­ю­щую 200% от ка­пи­та­ла преды­ду­ще­го года. На сколь­ко дол­ла­ров ка­пи­тал одной из ком­па­ний был боль­ше ка­пи­та­ла дру­гой к концу 2007 года, если при­быль из обо­ро­та не изы­ма­лась?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">134500</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Каж­дый год при­быль ком­па­нии «Альфа» со­став­ля­ла 100% от ка­пи­та­ла преды­ду­ще­го года, зна­чит, ка­пи­тал каж­дый год со­став­лял 200% от ка­пи­та­ла преды­ду­ще­го года. В конце 2007 года на счёте ком­па­нии «Альфа» была сумма</p><center><p><span data-inline-latex=\"4000\\cdot 2^{2007-2001}=4000\\cdot 2^{6}=4000\\cdot 64=256000\"></span>.</p></center><p>Каж­дый год при­быль ком­па­нии «Бета» со­ста­ви­ла 200% от ка­пи­та­ла преды­ду­ще­го года, зна­чит, ка­пи­тал каж­дый год со­став­лял 300% от ка­пи­та­ла преды­ду­ще­го года. В конце 2007 года на счёте ком­па­нии «Бета» была сумма </p><center><p><span data-inline-latex=\"4500\\cdot 3^{2007-2004}=4500\\cdot 3^{3}=4500\\cdot 27=121500\"></span>.</p></center><p>Таким об­ра­зом, ка­пи­тал ком­па­нии «Альфа» был на 134 500 дол­ла­ров боль­ше. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99587",
+      "task": "112397",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ком­па­ния «Альфа» на­ча­ла ин­ве­сти­ро­вать сред­ства в пер­спек­тив­ную от­расль в 2001 году, имея ка­пи­тал в раз­ме­ре 3000 дол­ла­ров. Каж­дый год, на­чи­ная с 2002 года, она по­лу­ча­ла при­быль, ко­то­рая со­став­ля­ла 100% от ка­пи­та­ла преды­ду­ще­го года. А ком­па­ния «Бета» на­ча­ла ин­ве­сти­ро­вать сред­ства в дру­гую от­расль в 2003 году, имея ка­пи­тал в раз­ме­ре 6000 дол­ла­ров, и, на­чи­ная с 2004 года, еже­год­но по­лу­ча­ла при­быль, со­став­ля­ю­щую 200% от ка­пи­та­ла преды­ду­ще­го года. На сколь­ко дол­ла­ров ка­пи­тал одной из ком­па­ний был боль­ше ка­пи­та­ла дру­гой к концу 2006 года, если при­быль из обо­ро­та не изы­ма­лась?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">66000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Каж­дый год при­быль ком­па­нии «Альфа» со­став­ля­ла 100% от ка­пи­та­ла преды­ду­ще­го года, зна­чит, ка­пи­тал каж­дый год со­став­лял 200% от ка­пи­та­ла преды­ду­ще­го года. В конце 2006 года на счёте ком­па­нии «Альфа» была сумма</p><center><p><span data-inline-latex=\"3000\\cdot 2^{2006-2001}=3000\\cdot 2^{5}=3000\\cdot 32=96000\"></span>.</p></center><p>Каж­дый год при­быль ком­па­нии «Бета» со­ста­ви­ла 200% от ка­пи­та­ла преды­ду­ще­го года, зна­чит, ка­пи­тал каж­дый год со­став­лял 300% от ка­пи­та­ла преды­ду­ще­го года. В конце 2006 года на счёте ком­па­нии «Бета» была сумма </p><center><p><span data-inline-latex=\"6000\\cdot 3^{2006-2003}=6000\\cdot 3^{3}=162000\"></span>.</p></center><p>Таким об­ра­зом, ка­пи­тал ком­па­нии «Бета» был на 66 000 дол­ла­ров боль­ше. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99587",
+      "task": "112279",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ком­па­ния \"Альфа\" на­ча­ла ин­ве­сти­ро­вать сред­ства в пер­спек­тив­ную от­расль в 2001 году, имея ка­пи­тал в раз­ме­ре 3000 дол­ла­ров. Каж­дый год, на­чи­ная с 2002 года, она по­лу­ча­ла при­быль, ко­то­рая со­став­ля­ла 100% от ка­пи­та­ла преды­ду­ще­го года. А ком­па­ния \"Бета\" на­ча­ла ин­ве­сти­ро­вать сред­ства в дру­гую от­расль в 2004 году, имея ка­пи­тал в раз­ме­ре 4500 дол­ла­ров, и, на­чи­ная с 2005 года, еже­год­но по­лу­ча­ла при­быль, со­став­ля­ю­щую 300% от ка­пи­та­ла преды­ду­ще­го года. На сколь­ко дол­ла­ров ка­пи­тал одной из ком­па­ний был боль­ше ка­пи­та­ла дру­гой к концу 2008 года, если при­быль из обо­ро­та не изы­ма­лась?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">768000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
