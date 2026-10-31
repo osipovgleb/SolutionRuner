@@ -24,19 +24,8 @@ def proof(a):
         html += "<p>Свернём произведения и разность квадратов по тригонометрическим тождествам:</p>"
         html += line(sp.latex(a.rewritten) + "=0")
     if a.doubled:
-        half = argument(a.scale / 2)
-        intro = "<p>Воспользуемся формулой понижения степени:</p>"
-        intro += line(r"\sin^2(" + half + r")=\frac{1-\cos(" + theta + ")}{2}")
-        intro += line(
-            r"\sin^4("
-            + half
-            + r")=\frac{1}{4}(\cos^2("
-            + theta
-            + r")-2\cos("
-            + theta
-            + ")+1)"
-        )
-        html += line(formula(a.raw, theta) + "=0")
+        intro, reduced = power_reduction(a, theta)
+        html += reduced
     else:
         for text, value in a.identities:
             html += line(text + "=" + formula(value, theta))
@@ -48,6 +37,17 @@ def proof(a):
             )
             html += line(formula(a.reduced, theta) + "=0")
     for branch in a.branches:
+        if a.division:
+            from .exam_trigonometric_division import proof as divide
+
+            if len(a.branches) != 1:
+                from ..word_problems.common import UnsupportedCondition
+
+                raise UnsupportedCondition(
+                    "one polynomial factor is required for guarded division"
+                )
+            html += divide(branch, theta, a.scale)
+            continue
         p = sp.Poly(branch.polynomial, branch.variable)
         if (
             p.degree() == 4
@@ -96,6 +96,28 @@ def proof(a):
         for text in families(a):
             html += line(text + r",\quad k\in\mathbb Z")
     return intro, html
+
+
+def power_reduction(a, theta):
+    from .exam_trigonometric_proof import formula
+
+    half = argument(a.scale / 2)
+    if a.division:
+        intro = "<p>Применим формулу приведения и косинуса двойного угла:</p>"
+        intro += line(r"\cos(" + theta + r")=1-2\sin^2(" + half + ")")
+    else:
+        intro = "<p>Воспользуемся формулой понижения степени:</p>"
+        intro += line(r"\sin^2(" + half + r")=\frac{1-\cos(" + theta + ")}{2}")
+        intro += line(
+            r"\sin^4("
+            + half
+            + r")=\frac{1}{4}(\cos^2("
+            + theta
+            + r")-2\cos("
+            + theta
+            + ")+1)"
+        )
+    return intro, line(formula(a.raw, theta) + "=0")
 
 
 def reciprocal(a):

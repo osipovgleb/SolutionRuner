@@ -170,8 +170,20 @@ def candidate_lines(
 
 
 def first(a):
+    if a.absolute is not None:
+        from .exam_trigonometric_absolute import proof
+
+        return proof(a)
     if a.translation:
         from .exam_trigonometric_translation import proof
+
+        return proof(a)
+    if a.strict_domain:
+        from .exam_trigonometric_radical_quotient import proof
+
+        return proof(a)
+    if a.fraction is not None:
+        from .exam_trigonometric_rational import proof
 
         return proof(a)
     if a.domain is not None:
@@ -186,7 +198,7 @@ def first(a):
         from .exam_trigonometric_poles import proof
 
         return proof(a)
-    if a.scale != 1 or a.reciprocal is not None:
+    if a.scale != 1 or a.reciprocal is not None or a.division:
         from .exam_trigonometric_variants import proof
 
         return proof(a)

@@ -49,7 +49,7 @@ def radical_product(formula):
     return sp.expand(factor * domain), identities + domain_identities, domain
 
 
-def restrict(branches, domain):
+def restrict(branches, domain, strict=False):
     from .exam_trigonometric import C, S
 
     result = []
@@ -61,7 +61,7 @@ def restrict(branches, domain):
                 sp.simplify(domain.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)})),
                 sp.Integer(0),
             )
-            >= 0
+            >= (1 if strict else 0)
         )
         result.append(replace(branch, residues=residues))
     return tuple(result)

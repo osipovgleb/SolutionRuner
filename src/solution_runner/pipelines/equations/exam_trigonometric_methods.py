@@ -78,6 +78,10 @@ class Equation:
     reciprocal: sp.Expr | None = None
     doubled: bool = False
     rewritten: sp.Expr | None = None
+    domain: sp.Expr | None = None
+    strict_domain: bool = False
+    fraction: sp.Expr | None = None
+    absolute: tuple | None = None
 
 
 def shifted_atom(atom):
@@ -147,36 +151,34 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         )
     )
     original_poles = tuple(convert(d) for d in denominators if d.free_symbols)
+    if original_poles and any(
+        len(p.free_symbols) != 1 or sp.Poly(p, *p.free_symbols).length() != 1
+        for p in original_poles
+    ):
+        from .exam_trigonometric_rational import compile_fraction
+
+        return compile_fraction(
+            values, compiled, original_poles, scale, constants + identities
+        )
     raw, denominator = sp.fraction(expression)
     if not original_poles and not denominator.free_symbols:
         raw = expression
     reciprocal = None
     if original_poles:
-        variables = set().union(*(p.free_symbols for p in original_poles))
-        if len(variables) == 1 and variables <= {S, C}:
-            preferred = next(iter(variables))
-        if scale != 1 or any(
-            p.free_symbols != {preferred}
-            or sp.Poly(p, preferred).degree() > 2
-            or sp.Poly(p, preferred).length() != 1
-            for p in original_poles
-        ):
-            raise UnsupportedCondition(
-                "reciprocal substitution requires nonzero powers of one function"
-            )
-        t = sp.Symbol("t", real=True)
-        reciprocal = sp.cancel(expression.subs(preferred, 1 / t))
-        if not reciprocal.is_polynomial(t) or sp.degree(reciprocal, t) != 2:
-            raise UnsupportedCondition(
-                "the reciprocal substitution must produce a quadratic"
-            )
+        reciprocal, preferred = reciprocal_polynomial(
+            expression, original_poles, scale, preferred
+        )
     elif denominator.free_symbols:
         raise UnsupportedCondition("an original denominator must not be lost")
-    if not raw.is_polynomial(S, C) or sp.Poly(raw, S, C).total_degree() > 4 or raw == 0:
+    if not raw.is_polynomial(S, C) or sp.Poly(raw, S, C).total_degree() > 8 or raw == 0:
         raise UnsupportedCondition(
-            "a nonzero reviewed polynomial of degree at most four is required"
+            "a nonzero bounded polynomial is required before base-angle reduction"
         )
     raw, scale, doubled = double_angle(raw, scale, preferred, preferred_scale)
+    if sp.Poly(raw, S, C).total_degree() > 4:
+        raise UnsupportedCondition(
+            "the final base-angle polynomial exceeds degree four"
+        )
     if doubled:
         identities = ()
     return Equation(
@@ -188,6 +190,28 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         doubled,
         rewritten,
     )
+
+
+def reciprocal_polynomial(expression, original_poles, scale, preferred):
+    variables = set().union(*(p.free_symbols for p in original_poles))
+    if len(variables) == 1 and variables <= {S, C}:
+        preferred = next(iter(variables))
+    if scale != 1 or any(
+        p.free_symbols != {preferred}
+        or sp.Poly(p, preferred).degree() > 2
+        or sp.Poly(p, preferred).length() != 1
+        for p in original_poles
+    ):
+        raise UnsupportedCondition(
+            "reciprocal substitution requires nonzero powers of one function"
+        )
+    t = sp.Symbol("t", real=True)
+    reciprocal = sp.cancel(expression.subs(preferred, 1 / t))
+    if not reciprocal.is_polynomial(t) or sp.degree(reciprocal, t) != 2:
+        raise UnsupportedCondition(
+            "the reciprocal substitution must produce a quadratic"
+        )
+    return reciprocal, preferred
 
 
 def constant_angles(values, atoms, denominators):

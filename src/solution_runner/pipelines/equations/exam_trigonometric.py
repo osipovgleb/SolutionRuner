@@ -1,11 +1,9 @@
 """Reduce reviewed identities, keep zero factors and select exact periodic roots."""
 
-import re
 from dataclasses import dataclass, replace
 from functools import cmp_to_key
 
 import sympy as sp
-from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
 from ..word_problems.math_common import primitive
@@ -20,6 +18,7 @@ from .exam_trigonometric_inverse import (
     ordered,
     select_inverse,
 )
+from .exam_trigonometric_style import division, parent_style
 
 
 @dataclass(frozen=True)
@@ -63,6 +62,10 @@ class Analysis:
     rewritten: sp.Expr | None = None
     merged: bool = False
     translation: sp.Rational = sp.S.Zero
+    strict_domain: bool = False
+    fraction: sp.Expr | None = None
+    absolute: tuple | None = None
+    division: bool = False
 
 
 def periodic(residues):
@@ -124,71 +127,6 @@ def solve_branches(raw, preferred, allow_inverse=False):
         )
         branches.append(Branch(variable, p, values, accepted, residues))
     return reduced, tuple(sorted(branches, key=lambda b: b.original is not None))
-
-
-def parent_style(parent_html):
-    soup = BeautifulSoup(parent_html, "html.parser")
-    text = " ".join(soup.get_text(" ", strip=True).replace("\xad", "").lower().split())
-    images = soup.find_all("img")
-    selection_method = (
-        "circle"
-        if "окружност" in text
-        or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
-        or (len(images) == 1 and "среди представленных корней отберём" in text)
-        or (len(images) == 1 and "изображается жирной дугой" in text)
-        or (len(images) == 1 and "удовлетворяют числа" in text)
-        or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
-        else "inequalities"
-        if "решим неравенства" in text
-        or "решив неравенство" in text
-        or "двойного неравенства" in text
-        else "progressions"
-        if "разность между соседними членами" in text
-        else None
-    )
-    if selection_method is None or any(
-        s in text for s in ("другое решение", "еще одно решение", "ещё одно решение")
-    ):
-        raise UnsupportedCondition("one reviewed interval selection method is required")
-    formulas = [
-        "".join(s["data-inline-latex"].split())
-        for s in soup.select("[data-inline-latex]")
-    ]
-    from .exam_trigonometric_methods import preference
-
-    function, _ = preference(parent_html)
-    if len(images) != (1 if selection_method == "circle" else 0):
-        raise UnsupportedCondition(
-            "the parent must identify its trigonometric function and one circle"
-        )
-    position = "none"
-    if images:
-        image = images[0]
-        part = image.find_parent("li")
-        position = (
-            "outside"
-            if part is None
-            else "after-intro"
-            if any(str(n).strip() for n in image.previous_siblings)
-            else "before-intro"
-        )
-    substitutions = [
-        m
-        for f in formulas
-        for m in re.findall(
-            r"(?:([ty])=(?:\\(?:sin|cos|tg|ctg)x|\\frac\{1\}\{\\(?:sin|cos)x\})|\\(?:sin|cos|tg|ctg)x=([ty]))",
-            f,
-        )
-    ]
-    substitution = next((left or right for left, right in substitutions), None)
-    return (
-        {"sin": S, "cos": C, "tg": T, "ctg": U}[function],
-        ("полный квадрат" in text),
-        any(re.search(r"\(-\d+\)\^\{?k", f) for f in formulas),
-        position,
-        substitution,
-        selection_method,
-    )
 
 
 def select(series, bounds):
@@ -285,8 +223,18 @@ def root_series(branches, residues, domain, allow_inverse):
 
 
 def method_equation(formula, preferred, scale, translation):
+    from .exam_trigonometric_absolute import compile_absolute
     from .exam_trigonometric_domain import radical_product
     from .exam_trigonometric_methods import Equation, compile_reviewed
+    from .exam_trigonometric_radical_quotient import compile_quotient
+
+    absolute = compile_absolute(formula)
+    if absolute is not None:
+        return absolute, None
+
+    quotient = compile_quotient(formula)
+    if quotient is not None:
+        return quotient, quotient.domain
 
     product = radical_product(formula)
     if product is not None:
@@ -332,7 +280,7 @@ def analyze_method(
     raw, identities = compiled.raw, compiled.identities
     reduced, branches = solve_branches(raw, preferred, allow_inverse)
     if domain is not None:
-        branches = restrict(branches, domain)
+        branches = restrict(branches, domain, compiled.strict_domain)
     branches = without_poles(branches, compiled.poles)
     if len(branches) == 1:
         preferred = branches[0].variable
@@ -340,7 +288,16 @@ def analyze_method(
     merged = (
         method == "inequalities" and compiled.scale != 1 and merges_series(parent_html)
     )
-    if merged:
+    dividing = division(parent_html)
+    if compiled.absolute is not None:
+        from .exam_trigonometric_absolute import series as absolute_series
+
+        series = absolute_series(branches[0].values)
+    elif dividing:
+        from .exam_trigonometric_division import series as division_series
+
+        series = division_series(branches)
+    elif merged:
         series = periodic(residues)
     else:
         filtered = domain is not None or (
@@ -389,6 +346,10 @@ def analyze_method(
         compiled.rewritten,
         merged,
         translation,
+        compiled.strict_domain,
+        compiled.fraction,
+        compiled.absolute,
+        dividing,
     )
 
 

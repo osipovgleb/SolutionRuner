@@ -16,6 +16,17 @@ def fold(values, atoms, denominators, preferred_scale):
     poly = sp.Poly(expression, *symbols)
     base = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
     coefficients = [abs(atoms[s].coefficient) for s in symbols]
+    if (
+        preferred_scale == 2 * base
+        and poly.total_degree() > 2
+        and all(
+            power % 2 == 0
+            for powers in poly.monoms()
+            for coefficient, power in zip(coefficients, powers)
+            if coefficient == base
+        )
+    ):
+        return values, atoms, None
     mixed = any(
         len({c for c, power in zip(coefficients, powers) if power}) > 1
         for powers in poly.monoms()
@@ -40,7 +51,10 @@ def fold(values, atoms, denominators, preferred_scale):
         }
     )
     rewritten = sp.expand(sp.trigsimp(actual, method="fu"))
-    if sp.trigsimp(actual - rewritten) != 0:
+    difference = sp.trigsimp(actual - rewritten)
+    if difference != 0:
+        difference = sp.trigsimp(sp.expand(sp.expand_trig(difference)))
+    if difference != 0:
         raise UnsupportedCondition("the product identity must be verified exactly")
     functions = sorted(rewritten.atoms(sp.sin, sp.cos), key=sp.default_sort_key)
     if not functions:
