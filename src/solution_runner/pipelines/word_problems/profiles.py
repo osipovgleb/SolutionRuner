@@ -336,3 +336,31 @@ PROFILES += tuple(
         ("697032", "210fa887-bea6-4184-a196-fe231fc4fceb", 20),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="13",
+        theme_title="Кредиты",
+        theme_order_index=1,
+        snapshot_theme_id="87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="word-debt-schedule",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("513106", "8da8419a-8975-4c63-be63-7bc9b3a09ad1", 0),
+        ("525142", "7632dfa9-532d-4c36-a618-796805020929", 6),
+        ("525414", "1108b54c-12bb-45b1-a775-7c208ed04bf4", 7),
+        ("526017", "10381636-d007-4f7e-945f-2e7594847a84", 8),
+        ("548818", "ea817254-6536-4479-938b-b8718a7dbd03", 9),
+        ("643163", "12d5f98a-f5ef-4986-9fda-fce44be353a2", 17),
+        ("701456", "975c3bc4-469a-4427-97fa-600caf3434f5", 21),
+    )
+)

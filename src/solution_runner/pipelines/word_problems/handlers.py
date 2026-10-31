@@ -123,6 +123,11 @@ HANDLERS = (
 
 HANDLERS += (
     HandlerSpec(
+        "word-debt-schedule",
+        "solution_runner.pipelines.word_problems.debt_schedule:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "word-partial-credit",
         "solution_runner.pipelines.word_problems.partial_credit:build_context_repair_plan",
         requires_parent_condition_asset=False,
