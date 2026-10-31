@@ -148,7 +148,8 @@ def line(formula: str) -> str:
 
 
 def probability(
-    favorable: int, total: int, places: int | None = None, *, symbol: str = "P"
+    favorable: int, total: int, places: int | None = None, *, symbol: str = "P",
+    combine_steps: bool = False,
 ) -> tuple[str, str]:
     if total <= 0 or not 0 <= favorable <= total:
         raise UnsupportedCondition("invalid counts for a probability space")
@@ -159,6 +160,10 @@ def probability(
         rf"{symbol}=\frac{{{favorable}}}{{{total}}}",
         f"{symbol}={format_latex_fraction(value)}",
     ]
+    if combine_steps and "," in answer and Fraction(answer.replace(",", ".")) == value:
+        scale = 10 ** len(answer.split(",")[1])
+        numerator = value * scale
+        steps.append(rf"{symbol}=\frac{{{numerator.numerator}}}{{{scale}}}")
     final = f"{symbol}{'=' if places is None or Fraction(answer.replace(',', '.')) == value else r'\approx '}{answer.replace(',', '{,}')}"
     steps.append(final)
     unique = [
@@ -166,6 +171,9 @@ def probability(
         for index, step in enumerate(steps)
         if index == 0 or step != steps[index - 1]
     ]
+    if combine_steps:
+        calculation = unique[1] + "".join(step.removeprefix(symbol) for step in unique[2:])
+        return answer, line(calculation)
     return answer, "".join(line(step) for step in unique)
 
 

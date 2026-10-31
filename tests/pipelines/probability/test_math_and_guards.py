@@ -54,6 +54,22 @@ def test_invalid_probability_counts_fail_closed(m, n):
         probability(m, n)
 
 
+@pytest.mark.parametrize(("m", "n", "decimal_fraction"), [
+    (42, 48, r"\frac{875}{1000}"),
+    (57, 60, r"\frac{95}{100}"),
+    (36, 45, r"\frac{8}{10}"),
+])
+def test_combined_probability_shows_decimal_denominator(m, n, decimal_fraction):
+    _, html = probability(m, n, combine_steps=True)
+    assert decimal_fraction in html
+
+
+def test_rounded_probability_does_not_claim_exact_decimal_equivalence():
+    _, html = probability(1, 3, 2, combine_steps=True)
+    assert r"\frac{33}{100}" not in html
+    assert r"\approx" in html
+
+
 def test_two_dice_use_ordered_pairs_and_the_correct_sum_distribution():
     counts = [
         len(dice_outcomes(DiceCase(2, "sum", total))[1]) for total in range(2, 13)

@@ -145,13 +145,16 @@ def solve(text):
         result = parser(text)
         if result is not None:
             n, m, html, symbol = result
-            answer, calculation = probability(m, n, places, symbol=symbol)
+            answer, calculation = probability(m, n, places, symbol=symbol, combine_steps=True)
+            for old, new in ((r"\mathrm{благ}", r"\mathrm{подх}"), (r"\mathrm{общ}", r"\mathrm{всех}")):
+                html = html.replace(old, new)
+                calculation = calculation.replace(old, new)
             return (
                 answer,
                 html
                 + "<p>По классическому определению вероятность события считается по формуле:</p>"
                 + line(
-                    rf"{symbol}=\frac{{\text{{Число благоприятных исходов}}}}{{\text{{Число всех равновозможных исходов}}}}"
+                    rf"{symbol}=\frac{{\text{{Число подходящих исходов}}}}{{\text{{Число всех исходов}}}}"
                 )
                 + "<p>Поэтому, подставляя найденные количества, получаем:</p>"
                 + calculation,
