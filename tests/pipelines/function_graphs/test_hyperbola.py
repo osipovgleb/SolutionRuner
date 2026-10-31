@@ -117,11 +117,13 @@ def test_missing_graph_marker_fails_closed():
             current_asset_content_type='image/svg+xml', mode='value')
 
 
-def test_non_svg_without_numerical_evidence_fails_closed():
+def test_audited_non_svg_does_not_need_saved_solution_evidence():
     ctx = context(508951)
     next(s for s in ctx['normalized_content']['sections'] if s['key']=='solution')['html'] = '<p>Нет данных</p>'
+    assert plan(ctx, 508951, 'image/png').answer == '0,75'
     with pytest.raises(ContentPlanError, match='verified numerical evidence'):
-        plan(ctx, 508951, 'image/png')
+        build_context_repair_plan(ctx, condition_asset_bytes=b'unknown image',
+            current_asset_content_type='image/png', mode='value')
 
 
 @pytest.mark.parametrize('source_id,value', [(508951,'f(0)'), (508961, '1')])

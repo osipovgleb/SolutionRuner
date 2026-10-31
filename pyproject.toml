@@ -44,6 +44,7 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
+"solution_runner.pipelines.function_graphs" = ["assets/*/*.json", "assets/*/*.svg", "assets/*/*.png"]
 "solution_runner.pipelines.word_problems" = ["assets/*.svg"]
 "solution_runner.converters" = ["*.js", "*.svg"]
 "solution_runner.pipelines.probability" = ["*.svg", "assets/*.svg", "assets/*.png", "assets/*.json"]
