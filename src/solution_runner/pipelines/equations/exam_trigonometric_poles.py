@@ -12,39 +12,9 @@ from .trig_angles import S as NUMERIC_S
 
 
 def compile_quotients(values, atoms, denominators, *, preferred=None):
-    from .exam_trigonometric_methods import Equation, shifted_atom
+    from .exam_trigonometric_methods import Equation
 
-    compiled = {}
-    poles = set()
-    for symbol, atom in atoms.items():
-        if atom.function in ("tg", "ctg"):
-            if abs(atom.coefficient) != 1 or (2 * atom.shift).is_Integer is not True:
-                raise UnsupportedCondition(
-                    "ratio products require unit angles and half-pi shifts"
-                )
-            sine = shifted_atom(replace(atom, function="sin")).xreplace(
-                {NUMERIC_S: S, NUMERIC_C: C}
-            )
-            cosine = shifted_atom(replace(atom, function="cos")).xreplace(
-                {NUMERIC_S: S, NUMERIC_C: C}
-            )
-            numerator, denominator = (
-                (sine, cosine) if atom.function == "tg" else (cosine, sine)
-            )
-            if denominator.free_symbols not in ({S}, {C}):
-                raise UnsupportedCondition(
-                    "the ratio denominator must be sine or cosine"
-                )
-            compiled[symbol] = sp.cancel(numerator / denominator)
-            poles.update(denominator.free_symbols)
-        elif (
-            atom.function in ("sin", "cos")
-            and atom.coefficient.is_Integer
-            and abs(atom.coefficient) <= 4
-        ):
-            compiled[symbol] = shifted_atom(atom).xreplace({NUMERIC_S: S, NUMERIC_C: C})
-        else:
-            raise UnsupportedCondition("unreviewed ratio-product angle")
+    compiled, poles = compile_atoms(atoms)
     for d in denominators:
         numerator, _ = sp.fraction(sp.cancel(d.xreplace(compiled)))
         if numerator.free_symbols:
@@ -97,6 +67,43 @@ def compile_quotients(values, atoms, denominators, *, preferred=None):
         factored_source=source,
         cleared_denominator=cleared,
     )
+
+
+def compile_atoms(atoms):
+    from .exam_trigonometric_methods import shifted_atom
+
+    compiled = {}
+    poles = set()
+    for symbol, atom in atoms.items():
+        if atom.function in ("tg", "ctg"):
+            if abs(atom.coefficient) != 1 or (2 * atom.shift).is_Integer is not True:
+                raise UnsupportedCondition(
+                    "ratio products require unit angles and half-pi shifts"
+                )
+            sine = shifted_atom(replace(atom, function="sin")).xreplace(
+                {NUMERIC_S: S, NUMERIC_C: C}
+            )
+            cosine = shifted_atom(replace(atom, function="cos")).xreplace(
+                {NUMERIC_S: S, NUMERIC_C: C}
+            )
+            numerator, denominator = (
+                (sine, cosine) if atom.function == "tg" else (cosine, sine)
+            )
+            if denominator.free_symbols not in ({S}, {C}):
+                raise UnsupportedCondition(
+                    "the ratio denominator must be sine or cosine"
+                )
+            compiled[symbol] = sp.cancel(numerator / denominator)
+            poles.update(denominator.free_symbols)
+        elif (
+            atom.function in ("sin", "cos")
+            and atom.coefficient.is_Integer
+            and abs(atom.coefficient) <= 4
+        ):
+            compiled[symbol] = shifted_atom(atom).xreplace({NUMERIC_S: S, NUMERIC_C: C})
+        else:
+            raise UnsupportedCondition("unreviewed ratio-product angle")
+    return compiled, poles
 
 
 def proof(a):

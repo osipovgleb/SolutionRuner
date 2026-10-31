@@ -20,7 +20,7 @@ def formula(text):
     )
 
 
-def candidates(text):
+def candidates(text, *, argument_scale=sp.S.One):
     for match in re.finditer(r"\\(sin|cos)\(", text):
         argument, end = balanced(text, match.end() - 1, "(", ")")
         if text[end : end + 1] != "=":
@@ -48,7 +48,7 @@ def candidates(text):
         if shift == 0:
             continue
         if (
-            coefficient != 1
+            coefficient != argument_scale
             or shift.is_Rational is not True
             or (12 * shift).is_Integer is not True
             or abs(shift) > 2

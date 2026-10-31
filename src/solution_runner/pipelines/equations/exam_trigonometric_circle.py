@@ -19,6 +19,11 @@ KEY = "exam_trig_circle"
 
 
 def source(context):
+    from .exam_trigonometric_auxiliary_figures import sources
+
+    figures = sources(context)
+    if figures is not None:
+        return figures[0]
     content = context.get("normalized_content") or {}
     assets = content.get("assets", [])
     generated = [a for a in assets if a.get("asset_key") == KEY]
@@ -165,6 +170,12 @@ def diagram_specs(context):
 
 
 def image(context, a, generated):
+    from .exam_trigonometric_auxiliary_figures import image as auxiliary_image
+    from .exam_trigonometric_auxiliary_figures import sources
+
+    auxiliary = sources(context)
+    if auxiliary is not None:
+        return auxiliary_image(context, a, generated, auxiliary)
     panels = panel_sources(context)
     if panels is not None:
         from .exam_trigonometric_panels import image as panel_image

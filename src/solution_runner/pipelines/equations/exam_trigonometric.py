@@ -130,6 +130,7 @@ class Analysis:
     single_part: bool = False
     sine_inverse: bool = False
     circle_note: bool = False
+    auxiliary_notes: bool = False
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -213,6 +214,9 @@ def analyze(formula, interval, bounds, parent_html):
         return replace(
             result, single_part=True, interval="", selected=(), selections=()
         )
+    from .exam_trigonometric_auxiliary_notes import half_angle, split
+
+    parent_html, auxiliary_notes = split(parent_html)
     from .exam_trigonometric_methods import methods, preference
     from .exam_trigonometric_translation import read_method
 
@@ -256,6 +260,21 @@ def analyze(formula, interval, bounds, parent_html):
                 "the parent methods must yield identical complete root sets"
             )
         result = replace(result, alternative=second, image_position="after-intro")
+    if auxiliary_notes:
+        from .exam_trigonometric_inverse import centred
+
+        centred_series = tuple(
+            (q / result.scale, p / result.scale)
+            for q, p in centred(
+                tuple((q * result.scale, p * result.scale) for q, p in result.series)
+            )
+        )
+        selected, selections = select(centred_series, result.bounds)
+        result = replace(
+            result, series=centred_series, selected=selected, selections=selections
+        )
+        half_angle(result)
+        result = replace(result, auxiliary_notes=True, image_position="after-steps")
     return result
 
 

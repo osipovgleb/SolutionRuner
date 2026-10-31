@@ -220,6 +220,13 @@ def compile_ratio_method(values, atoms, denominators, preferred, constants):
         return replace(
             reciprocal, identities=constants + reciprocal.identities, scale=scale
         )
+    from .exam_trigonometric_ratio_fraction import compile_fraction
+
+    fraction = compile_fraction(values, atoms, denominators, preferred)
+    if fraction is not None:
+        return replace(
+            fraction, identities=constants + fraction.identities, scale=scale
+        )
     if (
         preferred == T
         and denominators

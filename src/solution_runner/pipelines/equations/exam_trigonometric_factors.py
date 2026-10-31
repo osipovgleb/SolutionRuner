@@ -162,7 +162,12 @@ def method_branches(
             result = restrict(result, domain, compiled.strict_domain)
         result = without_poles(result, compiled.poles)
         return compiled, compiled.raw, result, preferred
-    if not compiled.raw.has(T, U) and cotangent_method(parent_html):
+    auxiliary = (
+        compiled.raw.free_symbols == {S, C}
+        and sp.Poly(compiled.raw, S, C).total_degree() == 1
+        and compiled.raw.subs({S: 0, C: 0}) != 0
+    )
+    if not compiled.raw.has(T, U) and cotangent_method(parent_html) and not auxiliary:
         preferred = C if local_cotangent(parent_html) else U
     compiled = convert(compiled, preferred)
     compiled = preserve_zero_square(compiled, parent_html)
@@ -179,7 +184,7 @@ def method_branches(
     if any(b.angle_shift for b in branches):
         from .exam_trigonometric_linear_phase import notation
 
-        branches = notation(branches, parent_html)
+        branches = notation(branches, parent_html, scale=compiled.scale)
     branches = without_poles(branches, compiled.poles)
     if (
         compiled.cleared_denominator is not None

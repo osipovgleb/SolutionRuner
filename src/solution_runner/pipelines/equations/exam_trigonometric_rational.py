@@ -9,7 +9,7 @@ from .trig_angles import C as NUMERIC_C
 from .trig_angles import S as NUMERIC_S
 
 
-def compile_fraction(values, compiled, poles, scale, identities):
+def compile_fraction(values, compiled, poles, scale, identities, preferred=None):
     from .exam_trigonometric_methods import Equation
 
     variables = set().union(*(p.free_symbols for p in poles))
@@ -30,19 +30,35 @@ def compile_fraction(values, compiled, poles, scale, identities):
     identities += complements
     expression = sp.together(expression)
     numerator, denominator = sp.fraction(expression)
-    functions = numerator.free_symbols
+    if denominator.free_symbols - {S, C}:
+        raise UnsupportedCondition("the original fraction must use sine and cosine")
+    raw = reviewed_numerator(numerator, preferred)
+    return Equation(raw, identities, scale, poles, fraction=expression)
+
+
+def reviewed_numerator(numerator, preferred):
+    from .exam_trigonometric_factors import project
+
+    if not numerator.is_polynomial(S, C) or sp.Poly(numerator, S, C).total_degree() > 4:
+        raise UnsupportedCondition("a bounded polynomial numerator is required")
+    raw, factors = project(numerator, preferred)
+    functions = raw.free_symbols
+    if functions == {S, C}:
+        _, factored = sp.factor_list(raw, S, C, extension=True)
+        factors = [f for f, _ in factored]
     if (
-        numerator == 0
-        or len(functions) != 1
+        raw == 0
         or not functions <= {S, C}
-        or not numerator.is_polynomial(*functions)
-        or sp.degree(numerator, next(iter(functions))) not in (1, 2)
-        or denominator.free_symbols - {S, C}
+        or any(
+            len(f.free_symbols) != 1
+            or sp.degree(f, next(iter(f.free_symbols))) not in (1, 2)
+            for f in factors
+        )
     ):
         raise UnsupportedCondition(
-            "the uncancelled numerator must be linear or quadratic in one function"
+            "the uncancelled numerator must split into linear or quadratic function factors"
         )
-    return Equation(sp.expand(numerator), identities, scale, poles, fraction=expression)
+    return sp.expand(raw)
 
 
 def complement_denominators(expression, scale):
@@ -70,7 +86,7 @@ def proof(a):
     from .exam_trigonometric_proof import formula, polynomial
 
     if len(a.branches) != 1:
-        raise UnsupportedCondition("one rational function substitution is required")
+        return direct_proof(a)
     branch = a.branches[0]
     if (
         len(a.fraction.free_symbols) > 1
@@ -112,7 +128,7 @@ def proof(a):
     )
 
 
-def direct_proof(a, branch):
+def direct_proof(a, branch=None):
     from .exam_trigonometric_proof import formula, polynomial
     from .exam_trigonometric_variants import argument
 
@@ -127,15 +143,25 @@ def direct_proof(a, branch):
     html += "<p>На этой области определения используем формулы приведения и сокращаем только ненулевые множители:</p>"
     html += line(formula(a.fraction, angle) + "=0")
     html += "<p>Числитель должен равняться нулю, а исходный знаменатель — оставаться ненулевым:</p>"
+    numerator, _ = sp.fraction(a.fraction)
+    if (
+        numerator != a.raw
+        and numerator.is_polynomial(S, C)
+        and a.raw.is_polynomial(S, C)
+        and sp.rem(numerator - a.raw, S * S + C * C - 1, S) == 0
+    ):
+        html += line(formula(S * S + C * C, angle) + "=1")
+        html += line(formula(a.raw, angle) + "=0")
     html += line(formula(sp.factor(a.raw, extension=True), angle) + "=0")
-    html += polynomial(
-        branch,
-        angle=angle,
-        root_scale=a.scale,
-        allowed_residues=branch.residues,
-        allow_inverse=a.allow_inverse,
-        factorization=a.factorization,
-        sine_inverse=a.sine_inverse,
-    )
+    for item in (branch,) if branch is not None else a.branches:
+        html += polynomial(
+            item,
+            angle=angle,
+            root_scale=a.scale,
+            allowed_residues=item.residues,
+            allow_inverse=a.allow_inverse,
+            factorization=a.factorization,
+            sine_inverse=a.sine_inverse,
+        )
     html += "<p>В каждой серии оставлены только корни, не обращающие исходный знаменатель в нуль.</p>"
     return "<p>Решим уравнение с сохранением области определения дроби:</p>", html

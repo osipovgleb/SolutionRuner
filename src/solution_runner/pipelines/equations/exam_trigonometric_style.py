@@ -2,6 +2,7 @@
 
 import re
 
+import sympy as sp
 from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
@@ -24,6 +25,17 @@ def parent_style(parent_html):
         or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
         or (len(images) == 1 and "отрезку" in text and "принадлежат корни" in text)
         or (len(images) == 1 and "получим точку" in text)
+        or (
+            len(images) == 1
+            and "из решений, найденных в пункте а)" in text
+            and "принадлежит" in text
+        )
+        or (
+            len(images) == 1
+            and "из первой серии" in text
+            and "из второй" in text
+            and "указанному промежутку" in text
+        )
         or (
             len(images) == 1
             and "из найденных решений промежутку" in text
@@ -222,3 +234,45 @@ def selection_note(parent_html):
         and "двойных неравенств" in text
         and "примечание" in text
     )
+
+
+def preference(parent_html):
+    formulas = [
+        "".join(s["data-inline-latex"].split())
+        for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    ]
+    matches = []
+    for formula in formulas:
+        for match in re.finditer(
+            r"\\(sin|cos|tg|ctg)(?:\^\{?(\d+)\}?)?(?:(\d*)(\\pi)?x|\\frac\{(\d*)x\}\{(\d+)\})&?=",
+            formula,
+        ):
+            right = re.split(
+                r"\\\\|\\(?:iff|Leftrightarrow|end|quad|implies)",
+                formula[match.end() :],
+                maxsplit=1,
+            )[0]
+            if not re.search(r"\\(?:sin|cos|tg)", right):
+                function, power, multiple, pi_unit, numerator, denominator = (
+                    match.groups()
+                )
+                scale = (
+                    sp.Rational(numerator or 1, denominator)
+                    if denominator
+                    else sp.Rational(multiple or 1)
+                )
+                if pi_unit:
+                    scale *= sp.pi
+                matches.append((bool(power), function, scale))
+    if not matches:
+        from .exam_trigonometric_sum_identities import style as sum_style
+
+        if sum_style(parent_html) == "constant_sum":
+            return "sin", sp.S.One
+        raise UnsupportedCondition(
+            "a trigonometric equation for the parent method is required"
+        )
+    _, function, multiple = min(
+        enumerate(matches), key=lambda item: (item[1][0], item[0])
+    )[1]
+    return function, multiple

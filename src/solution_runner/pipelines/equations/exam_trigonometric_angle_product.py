@@ -57,7 +57,25 @@ def reviewed(parent_html):
                     and any(scale > 1 for _, scale in angles)
                 ):
                     return True
-    return False
+    zero_base = any(
+        re.search(r"\\(?:sin|cos)x=0", "".join(n["data-inline-latex"].split()))
+        for n in nodes
+    )
+    text = (
+        BeautifulSoup(parent_html, "html.parser")
+        .get_text(" ")
+        .replace("\xad", "")
+        .lower()
+    )
+    return bool(
+        zero_base
+        and len(solved) == 2
+        and any(scale > 1 for _, scale in solved)
+        and nodes
+        and re.search(r"\\(?:tg|ctg)", nodes[0]["data-inline-latex"])
+        and "из первой серии" in text
+        and "из второй" in text
+    )
 
 
 def reduce_squares(expression):

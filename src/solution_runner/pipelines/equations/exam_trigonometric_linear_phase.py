@@ -49,7 +49,7 @@ def branch(expression):
     )
 
 
-def notation(branches, parent_html):
+def notation(branches, parent_html, *, scale=sp.S.One):
     from bs4 import BeautifulSoup
 
     from .exam_trigonometric_shifted import candidates, formula
@@ -59,7 +59,9 @@ def notation(branches, parent_html):
         for node in BeautifulSoup(parent_html, "html.parser").select(
             "[data-inline-latex]"
         )
-        for name, _, _ in candidates(formula(node["data-inline-latex"]))
+        for name, _, _ in candidates(
+            formula(node["data-inline-latex"]), argument_scale=scale
+        )
     }
     if functions != {"cos"}:
         return branches

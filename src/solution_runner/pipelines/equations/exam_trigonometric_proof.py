@@ -351,6 +351,9 @@ def inequality_selection(a):
 
 
 def render(a, image):
+    system_image = ""
+    if a.auxiliary_notes:
+        image, system_image = image
     intro, steps = first(a)
     if a.single_part:
         from .exam_trigonometric_single import render as render_single
@@ -401,6 +404,10 @@ def render(a, image):
         )
     if a.circle_note:
         second += "<p><b>Примечание.</b> Отобрать корни можно, используя тригонометрическую окружность (см. рис.).</p>"
+    if a.auxiliary_notes:
+        from .exam_trigonometric_auxiliary_notes import notes
+
+        second += notes(a, system_image)
     html = (
         (image if a.image_position == "outside" else "")
         + '<ol data-layout="source-subparts" type="a"><li data-list-marker="а)">'
