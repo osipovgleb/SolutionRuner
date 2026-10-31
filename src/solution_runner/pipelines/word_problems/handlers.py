@@ -4,6 +4,11 @@ from solution_runner.pipelines.core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "word-motion-time-balance",
+        "solution_runner.pipelines.word_problems.motion_models:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "word-mixture-balance",
         "solution_runner.pipelines.word_problems.mixture_models:build_context_repair_plan",
         requires_parent_condition_asset=False,

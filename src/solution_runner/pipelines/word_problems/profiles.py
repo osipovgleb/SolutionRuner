@@ -237,3 +237,36 @@ PROFILES += tuple(
         ("676853", "52f27c57-e9d0-4d08-b32a-55e3fd0e6fa6", 16, "word-mixture-balance"),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        source_id,
+        order,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="11",
+        theme_title="Задачи на движение по прямой",
+        theme_order_index=1,
+        snapshot_theme_id="bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="word-motion-time-balance",
+        rewrite_existing_solution=True,
+    )
+    for key, source_id, order in (
+        ("26578", "fa37c648-96e0-4b2c-9673-4607144ea5d2", 0),
+        ("26579", "dc71b414-72b9-45a4-b6b1-ce768dea57df", 1),
+        ("26580", "2f330157-7e9d-4424-8a47-48642d70109d", 2),
+        ("26581", "fe66bb25-a99e-41da-97a3-c17b3b39c728", 3),
+        ("26582", "b98f7cf2-874a-4441-b95b-b4338502190c", 4),
+        ("26583", "035d2634-f2da-4fee-bc95-715bb1106d52", 5),
+        ("26584", "08a902ca-8916-4121-8150-0401231a15aa", 6),
+        ("99588", "126bc7f8-279c-4595-a259-4209ef0b8e63", 7),
+        ("99589", "6c400b5e-9691-406a-b1b4-df2d6c0f9379", 8),
+        ("99590", "372bdfa1-91a7-4320-a0cb-0e57440a242c", 9),
+        ("99591", "4e668db5-076b-4ef8-bcae-d0fe544ac92f", 10),
+        ("99592", "466fe2a5-9437-4b38-bf5d-d34c2482a275", 11),
+    )
+)
