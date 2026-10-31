@@ -4031,3 +4031,29 @@ PROFILES += tuple(
         ("639112", "1cc36301-e0e1-4d40-a292-7a9a005dbd72", 5, "exam-radical-interval"),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Ло га риф ми че ские уравнения",
+        theme_order_index=3,
+        snapshot_theme_id="7824b997-6388-471c-8e7b-7d796c7a7bca",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithmic-interval",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("514082", "0faa7354-dfa7-4c49-ad42-19b0c07fbe4b", 0),
+        ("517739", "bb6ef5e4-bb8c-4f73-9016-2fa230f18d45", 1),
+        ("514623", "61aeb52c-6b40-4b9a-a2a2-e416b195d7fd", 2),
+        ("502053", "79666940-ac16-4d76-93b9-43eca05949a1", 3),
+        ("525377", "3c8b455f-ae67-4e7c-83e3-e1335da29360", 4),
+    )
+)

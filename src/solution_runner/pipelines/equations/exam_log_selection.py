@@ -11,13 +11,20 @@ from .logarithm_arithmetic import actual
 from .logarithm_parser import LogarithmParser
 
 
-def selection(a, rendered):
+def selection(
+    a,
+    rendered,
+    *,
+    explanation="Сравнения с логарифмическими границами выполним по монотонности показательной функции:",
+):
     lower, upper, _lc, _uc = a.bounds
     texts = endpoint_texts(a.interval)
     html = (
         "<p>Отберём корни на промежутке "
         + inline(a.interval)
-        + ". Сравнения с логарифмическими границами выполним по монотонности показательной функции:</p>"
+        + ". "
+        + explanation
+        + "</p>"
     )
     for text, bound in zip(texts, (lower, upper)):
         if bound.is_Rational and r"\log_" in text:

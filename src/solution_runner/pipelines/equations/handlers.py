@@ -656,3 +656,13 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithmic-interval",
+        "solution_runner.pipelines.equations.exam_logarithmic:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)
