@@ -113,6 +113,8 @@ class Equation:
     absolute: tuple | None = None
     absolute_square: tuple | None = None
     absolute_fraction: tuple | None = None
+    sum_squares: tuple | None = None
+    argument_pair: tuple | None = None
     extremum: tuple | None = None
     sine_pair: tuple | None = None
     cosine_equality: tuple | None = None

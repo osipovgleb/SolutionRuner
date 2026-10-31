@@ -269,8 +269,21 @@ def test_source_svg_bytes_and_marker_positions_match_the_audited_geometry(
     root = ET.fromstring(svg)
     paths = {e.attrib.get("d") for e in root.iter() if e.tag.endswith("path")}
     cx, cy, radius = entry["circle"]
-    for point in entry["green_markers"]:
-        assert point["path_d"] in paths
+    points = entry.get("selected_markers", entry.get("green_markers"))
+    assert points is not None
+    for point in points:
+        if "path_d" in point:
+            assert point["path_d"] in paths
+        else:
+            native = point["element"]
+            assert any(
+                e.tag.endswith("circle") and dict(e.attrib) == native
+                for e in root.iter()
+            )
+            assert (point["x"], point["y"]) == (
+                float(native["cx"]),
+                float(native["cy"]),
+            )
         angle = float(decode(point["angle"])) * math.pi
         radius = point.get("radius", entry["circle"][2])
         distance = math.hypot(

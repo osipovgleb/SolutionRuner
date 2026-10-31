@@ -18,6 +18,8 @@ def reviewed(html):
         "".join(n["data-inline-latex"].split())
         for n in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
     )
+    if r"=\pi-(" in formulas and r"+2\pik" in formulas and r"\sin(" in formulas:
+        return True
     for m in re.finditer(r"(\d+)x=(\d+)x\+2\\pik", formulas):
         low, high = map(int, m.groups())
         if (
@@ -32,8 +34,14 @@ def reviewed(html):
 def compile_pair(formula):
     from .exam_trigonometric_methods import Equation
 
-    polynomial, _, functions = literal(formula)
+    polynomial, atoms, functions = literal(formula)
     raw = polynomial.xreplace(functions)
+    if (
+        len(atoms) == 2
+        and all(a.function == "sin" for a in atoms.values())
+        and any(a.shift or a.coefficient < 0 for a in atoms.values())
+    ):
+        return compile_arguments(polynomial, atoms, functions)
     canonical = raw.xreplace({f: f.func(*f.args) for f in raw.atoms(sp.sin, sp.cos)})
     reduced = sp.expand(TR8(canonical))
     sines = tuple(reduced.atoms(sp.sin, sp.cos))
@@ -111,3 +119,100 @@ def proof(a):
                 b, angle=argument(b.angle_scale), root_scale=b.angle_scale
             )
     return "<p>Применим формулы приведения и двойного угла:</p>", html
+
+
+def compile_arguments(polynomial, atoms, functions):
+    from .exam_trigonometric_methods import Equation
+
+    symbols = tuple(atoms)
+    if len(symbols) != 2 or any(
+        a.function != "sin"
+        or a.coefficient.is_Integer is not True
+        or abs(a.coefficient) > 12
+        for a in atoms.values()
+    ):
+        raise UnsupportedCondition("two bounded affine sine arguments are required")
+    first, second = symbols
+    weight = polynomial.coeff(first)
+    if (
+        weight == 0
+        or weight.free_symbols
+        or sp.expand(polynomial - weight * (first - second)) != 0
+    ):
+        raise UnsupportedCondition(
+            "the two sine coefficients must be nonzero and opposite"
+        )
+    left, right = functions[first].args[0], functions[second].args[0]
+    data = (left, right)
+    argument_series(data)
+    raw = polynomial.xreplace(functions)
+    product = 2 * weight * sp.cos((left + right) / 2) * sp.sin((left - right) / 2)
+    if not equivalent(raw.subs(X, 2 * X), product.subs(X, 2 * X)):
+        raise UnsupportedCondition(
+            "the affine sine equality requires an exact identity certificate"
+        )
+    return Equation(raw, (), sp.S.One, argument_pair=data)
+
+
+def argument_series(data):
+    left, right = data
+    result = []
+    for expression in (left - right, left + right - sp.pi):
+        coefficient = sp.expand(expression).coeff(X)
+        shift = sp.simplify((expression - coefficient * X) / sp.pi)
+        if (
+            coefficient == 0
+            or coefficient.is_Integer is not True
+            or shift.is_Rational is not True
+        ):
+            raise UnsupportedCondition(
+                "both argument equations must have nonzero bounded slopes"
+            )
+        result.append((sp.cancel(-shift / coefficient), 2 / abs(coefficient)))
+    return tuple(result)
+
+
+def argument_branches(data):
+    from .exam_trigonometric import Branch
+    from .exam_trigonometric_compile import S
+
+    result = []
+    for (q, p), expression in zip(
+        argument_series(data), (data[0] - data[1], data[0] + data[1] - sp.pi)
+    ):
+        coefficient = sp.expand(expression).coeff(X)
+        shift = sp.simplify((expression - coefficient * X) / sp.pi)
+        residues = tuple(
+            sorted({(q + k * p) % 2 for k in range(int(abs(coefficient)))})
+        )
+        result.append(
+            Branch(
+                S,
+                S,
+                (sp.S.Zero,),
+                (sp.S.Zero,),
+                residues,
+                angle_scale=abs(coefficient) / 2,
+                angle_shift=sp.sign(coefficient) * shift / 2,
+            )
+        )
+    return tuple(result)
+
+
+def argument_proof(a):
+    from .exam_trigonometric_proof import families
+
+    left, right = a.argument_pair
+    html = line(a.original) + line(
+        sp.latex(sp.sin(left, evaluate=False))
+        + "="
+        + sp.latex(sp.sin(right, evaluate=False))
+    )
+    html += "<p>Синусы равны, когда аргументы отличаются на целое число полных оборотов либо в сумме дают π с точностью до полного оборота:</p>"
+    html += line(sp.latex(left) + "=" + sp.latex(right) + r"+2\pi k")
+    html += line(sp.latex(left) + r"=\pi-\left(" + sp.latex(right) + r"\right)+2\pi k")
+    html += "<p>В каждой ветви решим линейное уравнение. При отрицательном коэффициенте заменим целый параметр на противоположный; сдвиг на целое число периодов также не меняет серию:</p>"
+    for expression, text in zip((left - right, left + right - sp.pi), families(a)):
+        html += line(sp.latex(sp.expand(expression)) + r"=2\pi k")
+        html += line(text + r",\quad k\in\mathbb Z")
+    return "<p>Применим условия равенства синусов:</p>", html

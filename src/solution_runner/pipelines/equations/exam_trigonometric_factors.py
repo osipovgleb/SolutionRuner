@@ -123,17 +123,20 @@ def identity_branches(compiled, allow_inverse, domain):
 def method_branches(
     compiled, preferred, allow_inverse, domain, parent_html, *, translation=sp.S.Zero
 ):
-    from ..word_problems.common import UnsupportedCondition
     from .exam_trigonometric import solve_branches
-    from .exam_trigonometric_compile import T
     from .exam_trigonometric_domain import restrict, without_poles
-    from .exam_trigonometric_factor_style import (
-        mark_grouping,
-        retain_order,
-    )
-    from .exam_trigonometric_square_factor import mark as mark_squares
+    from .exam_trigonometric_factor_style import retain_order
     from .exam_trigonometric_square_factor import prepare as square_product
 
+    if compiled.argument_pair is not None:
+        from .exam_trigonometric_sine_pair import argument_branches
+
+        return (
+            compiled,
+            compiled.raw,
+            argument_branches(compiled.argument_pair),
+            preferred,
+        )
     if compiled.cosine_equality is not None:
         from .exam_trigonometric_cosine_equality import branches
 
@@ -188,6 +191,16 @@ def method_branches(
 
         branches = notation(branches, parent_html, scale=compiled.scale)
     branches = without_poles(branches, compiled.poles)
+    branches = finish_branches(compiled, branches, preferred, parent_html, domain)
+    return compiled, reduced, branches, preferred
+
+
+def finish_branches(compiled, branches, preferred, parent_html, domain):
+    from ..word_problems.common import UnsupportedCondition
+    from .exam_trigonometric_compile import T
+    from .exam_trigonometric_factor_style import mark_grouping
+    from .exam_trigonometric_square_factor import mark as mark_squares
+
     if (
         compiled.cleared_denominator is not None
         and sp.total_degree(compiled.cleared_denominator) == 2
@@ -211,7 +224,7 @@ def method_branches(
     if domain is None and not compiled.poles:
         branches = mark_grouping(branches, parent_html)
     branches = mark_squares(branches, parent_html, compiled.square_product)
-    return compiled, reduced, branches, preferred
+    return branches
 
 
 def homogeneous(compiled, preferred, parent_html):

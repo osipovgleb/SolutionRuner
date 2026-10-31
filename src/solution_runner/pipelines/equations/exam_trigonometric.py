@@ -71,6 +71,7 @@ class Branch:
     square_factor: bool = False
     square_discriminant: bool = False
     square_level: bool = False
+    phase_series: tuple = ()
 
 
 @dataclass(frozen=True)
@@ -108,6 +109,8 @@ class Analysis:
     absolute: tuple | None = None
     absolute_square: tuple | None = None
     absolute_fraction: tuple | None = None
+    sum_squares: tuple | None = None
+    argument_pair: tuple | None = None
     extremum: tuple | None = None
     sine_pair: tuple | None = None
     cosine_equality: tuple | None = None
@@ -229,9 +232,10 @@ def analyze(formula, interval, bounds, parent_html):
     parent_html, four_methods = split_four(parent_html)
     parent_html, auxiliary_notes = split(parent_html)
     from .exam_trigonometric_methods import methods, preference
+    from .exam_trigonometric_sine_pair import reviewed as equal_sines
     from .exam_trigonometric_translation import read_method
 
-    if sum_identity_style(parent_html):
+    if sum_identity_style(parent_html) or equal_sines(parent_html):
         translation, shifted_notation = sp.S.Zero, False
     else:
         parent_html, translation, shifted_notation = read_method(parent_html)

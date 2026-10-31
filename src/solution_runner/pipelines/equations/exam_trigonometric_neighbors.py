@@ -18,11 +18,17 @@ def reviewed(html):
         for n in soup.select("[data-inline-latex]")
     )
     return (
-        "рассмотрим" in text and "оценим эти корни" in text and "k" in formulas
-    ) or (
-        "при таких" in text
-        and "решений на отрезке" in text
-        and all(token in formulas for token in (r"k\le", "k=", r"k\ge"))
+        ("рассмотрим" in text and "оценим эти корни" in text and "k" in formulas)
+        or (
+            "левее отрезка" in text
+            and "правее отрезка" in text
+            and all(token in formulas for token in (r"k\le", "k=", r"k\ge"))
+        )
+        or (
+            "при таких" in text
+            and "решений на отрезке" in text
+            and all(token in formulas for token in (r"k\le", "k=", r"k\ge"))
+        )
     )
 
 

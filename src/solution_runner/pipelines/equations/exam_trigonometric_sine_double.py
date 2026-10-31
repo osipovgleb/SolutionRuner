@@ -48,6 +48,8 @@ def prepare(equation, preferred, scale):
         equation.positive_factorization,
         equation.absolute_fraction,
         equation.cosine_equality,
+        equation.argument_pair,
+        equation.sum_squares,
     )
     if any(value is not None for value in specialized):
         return equation

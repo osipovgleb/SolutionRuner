@@ -186,6 +186,14 @@ def square_series(branch):
 def restricted_series(branch, value=None):
     from .exam_trigonometric_inverse import angles, level_series
 
+    if branch.angle_scale == 1 and branch.angle_shift:
+        return tuple(
+            (q - branch.angle_shift, p)
+            for v in branch.values
+            if value is None or v == value
+            for q, p in level_series(branch.variable, v, True)
+            if (q - branch.angle_shift) % 2 in branch.residues
+        )
     if branch.angle_scale != 1 or branch.angle_shift:
         raise UnsupportedCondition(
             "inverse pole filtering requires one unshifted base angle"
@@ -234,6 +242,10 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.argument_pair is not None:
+        from .exam_trigonometric_sine_pair import argument_series
+
+        return argument_series(compiled.argument_pair), False, False
     if compiled.cosine_equality is not None:
         from .exam_trigonometric_cosine_equality import series
 

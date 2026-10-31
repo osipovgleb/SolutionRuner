@@ -4433,3 +4433,51 @@ PROFILES += tuple(
         ("645371", "9b349024-712b-4354-8a3e-739b9f6397b8", 48),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, исследование ОДЗ",
+        theme_order_index=7,
+        snapshot_theme_id="7a3eb443-be07-4933-96c3-2b90566979f4",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("635141", "2c6a620e-8c67-47b8-9317-e81b16f262fb", 36),
+    )
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, разные задачи",
+        theme_order_index=8,
+        snapshot_theme_id="81adff3f-4a92-408f-abf4-4881018613e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("647805", "142049c2-02a2-43c1-9e5e-5f8aa2674060", 50),
+        ("672849", "e99c0ec3-1875-4e79-aeef-7f4f261edb66", 55),
+        ("680457", "ba5dd589-3429-4efa-9131-2b83a15be5f9", 56),
+        ("681577", "fcc95aae-c91c-41e4-8ddb-e266ce12cd97", 58),
+        ("694272", "e67b9de9-2e64-4058-92b1-d95b5a9a0cd3", 60),
+    )
+)

@@ -65,6 +65,15 @@ def notation(branches, parent_html, *, scale=sp.S.One):
     }
     if functions != {"cos"}:
         return branches
+    source_forms = {
+        (name, shift)
+        for node in BeautifulSoup(parent_html, "html.parser").select(
+            "[data-inline-latex]"
+        )
+        for name, _, shift in candidates(
+            formula(node["data-inline-latex"]), argument_scale=scale
+        )
+    }
     result = []
     for b in branches:
         if b.angle_shift:
@@ -72,8 +81,53 @@ def notation(branches, parent_html, *, scale=sp.S.One):
             b = replace(
                 b, variable=C, polynomial=C - b.candidates[0], angle_shift=phase
             )
+        b = orient(b, source_forms, parent_html, scale)
         result.append(b)
     return tuple(result)
+
+
+def orient(b, forms, html, scale):
+    from .exam_trigonometric_inverse import level_series
+    from .exam_trigonometric_parameters import affine_families
+    from .exam_trigonometric_selection import equivalent_series
+
+    if len(forms) != 1 or b.original is None:
+        return b
+    name, shift = next(iter(forms))
+    variable = S if name == "sin" else C
+    basis = (
+        S * sp.cos(shift * sp.pi) + C * sp.sin(shift * sp.pi)
+        if variable == S
+        else C * sp.cos(shift * sp.pi) - S * sp.sin(shift * sp.pi)
+    )
+    coefficient = next(v for v in (S, C) if basis.coeff(v) != 0)
+    weight = sp.simplify(b.original.coeff(coefficient) / basis.coeff(coefficient))
+    constant = b.original.subs({S: 0, C: 0})
+    if (
+        weight.is_negative is not True
+        or sp.simplify(b.original - weight * basis - constant) != 0
+    ):
+        return b
+    value = sp.simplify(-constant / weight)
+    actual = tuple(
+        ((q - shift) / scale, p / scale) for q, p in level_series(variable, value)
+    )
+    source = tuple((q, p) for q, p, _ in affine_families(html))
+    source = (
+        source
+        if len(source) == len(actual) and equivalent_series(source, actual)
+        else actual
+    )
+    return replace(
+        b,
+        variable=variable,
+        original=-b.original,
+        polynomial=variable - value,
+        candidates=(value,),
+        values=(value,),
+        angle_shift=shift,
+        phase_series=source,
+    )
 
 
 def proof(branch, angle, root_scale, allowed_residues=None):
@@ -107,12 +161,15 @@ def proof(branch, angle, root_scale, allowed_residues=None):
         ((q - branch.angle_shift) / root_scale, period / root_scale)
         for q, period in level_series(branch.variable, branch.candidates[0])
     )
+    series = branch.phase_series or series
     for text in series_lines(series):
         html += line(text + r",\quad k\in\mathbb Z")
     if allowed_residues is not None:
         html += "<p>После проверки исходной области определения оставляем серии:</p>"
         for text in series_lines(
-            tuple((q / root_scale, 2 / root_scale) for q in allowed_residues)
+            tuple((q, p) for q, p in series if (q * root_scale) % 2 in allowed_residues)
+            if branch.phase_series
+            else tuple((q / root_scale, 2 / root_scale) for q in allowed_residues)
         ):
             html += line(text + r",\quad k\in\mathbb Z")
     return html

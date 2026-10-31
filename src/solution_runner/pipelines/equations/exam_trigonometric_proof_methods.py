@@ -81,6 +81,14 @@ def method_proof(a):
 
 
 def school_proof(a):
+    if a.sum_squares is not None:
+        from .exam_trigonometric_sum_squares import proof
+
+        return proof(a)
+    if a.argument_pair is not None:
+        from .exam_trigonometric_sine_pair import argument_proof
+
+        return argument_proof(a)
     if a.cosine_equality is not None:
         from .exam_trigonometric_cosine_equality import proof
 

@@ -17,6 +17,8 @@ def root_rights(parent_html):
             node["data-inline-latex"],
         )
         for match in re.finditer(r"(?<![A-Za-z0-9])x\s*&?=", text):
+            if re.search(r"-\s*$", text[: match.start()]):
+                continue
             yield (
                 re.split(
                     r",|;|\\\\|\\(?:quad|end|iff|Leftrightarrow)",
@@ -130,11 +132,17 @@ def align_affine(result, html):
     source = affine_families(html)
     if (
         result.signed_series
-        or (result.poles and result.absolute_fraction is None)
+        or (
+            result.poles
+            and result.absolute_fraction is None
+            and not any(b.phase_series for b in result.branches)
+        )
         or not (
-            result.selection_method == "neighbors"
+            any(b.phase_series for b in result.branches)
+            or result.selection_method == "neighbors"
             or result.angle_product is not None
             or result.cosine_equality is not None
+            or result.argument_pair is not None
             or result.absolute_fraction is not None
             or (
                 len(result.branches) > 1

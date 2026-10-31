@@ -38,6 +38,7 @@ def compile_fraction(values, compiled, poles, scale, identities, preferred=None)
 
 def reviewed_numerator(numerator, preferred):
     from .exam_trigonometric_factors import project
+    from .exam_trigonometric_linear_phase import branch as phased_branch
 
     if not numerator.is_polynomial(S, C) or sp.Poly(numerator, S, C).total_degree() > 4:
         raise UnsupportedCondition("a bounded polynomial numerator is required")
@@ -50,8 +51,11 @@ def reviewed_numerator(numerator, preferred):
         raw == 0
         or not functions <= {S, C}
         or any(
-            len(f.free_symbols) != 1
-            or sp.degree(f, next(iter(f.free_symbols))) not in (1, 2)
+            phased_branch(f) is None
+            and (
+                len(f.free_symbols) != 1
+                or sp.degree(f, next(iter(f.free_symbols))) not in (1, 2)
+            )
             for f in factors
         )
     ):
