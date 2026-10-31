@@ -35,11 +35,11 @@ def grid_axis(values, origin, step, sign):
     return [(pixel, (index - zero) * sign) for index, pixel in enumerate(coordinates)]
 
 
-def frame(root):
+def frame(root, *, grid_color="#ADAAAA"):
     if any(n.get("transform") for n in root.iter()):
         raise ContentPlanError("transformed linear graphs require separate inspection")
     lines = list(root.iter(NS + "line"))
-    grid = [n for n in lines if n.get("stroke", "").upper() == "#ADAAAA"]
+    grid = [n for n in lines if n.get("stroke", "").upper() == grid_color]
     xs = sorted({float(n.get("x1")) for n in grid if vertical(n)})
     ys = sorted({float(n.get("y1")) for n in grid if horizontal(n)})
     if len(xs) < 4 or len(ys) < 4:
@@ -51,6 +51,7 @@ def frame(root):
         n
         for n in lines
         if n.get("stroke", "").upper() in {"#000000", "#0D0F0F", "#231F20"}
+        and not n.get("stroke-dasharray")
     ]
     vx = [
         n

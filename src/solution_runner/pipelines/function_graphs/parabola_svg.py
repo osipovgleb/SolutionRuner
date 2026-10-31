@@ -23,10 +23,12 @@ def segments(raw):
         if tokens[index].isalpha():
             command = tokens[index]
             index += 1
-        size = {"M": 2, "m": 2, "C": 6, "c": 6, "S": 4, "s": 4}.get(command)
+        size = {"M": 2, "m": 2, "C": 6, "c": 6, "S": 4, "s": 4, "L": 2, "l": 2}.get(
+            command
+        )
         if size is None or index + size > len(tokens):
             raise ContentPlanError(
-                "only inspected M/C/c/S/s source curve commands are supported"
+                "only inspected M/C/c/S/s/L/l source curve commands are supported"
             )
         try:
             values = list(map(float, tokens[index : index + size]))
@@ -35,6 +37,22 @@ def segments(raw):
         points = list(zip(values[::2], values[1::2], strict=True))
         if command.islower():
             points = [(x + current[0], y + current[1]) for x, y in points]
+        if command in {"L", "l"}:
+            end = points[-1]
+            result.append(
+                [
+                    list(current),
+                    *[
+                        [
+                            a + (b - a) * part / 3
+                            for a, b in zip(current, end, strict=True)
+                        ]
+                        for part in (1, 2)
+                    ],
+                    list(end),
+                ]
+            )
+            control = None
         if size == 4:
             reflected = tuple(
                 2 * x - y for x, y in zip(current, control or current, strict=True)
@@ -45,7 +63,7 @@ def segments(raw):
             result.append([list(current)] + [list(p) for p in points])
         current = points[-1]
         index += size
-        if size == 2:
+        if command in {"M", "m"}:
             command = None
             control = None
     return result

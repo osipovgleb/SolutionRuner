@@ -140,3 +140,32 @@ PROFILES += tuple(
         ("660992", "a7fef2f7-2b5e-4ec3-99dc-468ab6f2b058", 10),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="12",
+        theme_title="Тригонометрические функции",
+        theme_order_index=5,
+        snapshot_theme_id="02cd0ffc-cae6-440e-a7ac-f871005481cd",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="trigonometric-function-graph",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("509123", "3f9a9b12-ae6e-4a41-a4e3-33b0ddde6d7e", 0),
+        ("509130", "78d1644e-e731-41e3-a520-09c74f7778aa", 1),
+        ("509137", "e33fe014-4f84-487c-b1e2-3bf1ff61d8f7", 2),
+        ("509143", "2afd4f31-6828-4bf4-89d0-d5c87d75c334", 3),
+        ("509287", "62dfad83-e285-49c6-8d35-45529737fbfb", 4),
+        ("509295", "b5af23a7-522c-44d5-8059-f0ee821154ec", 5),
+        ("676854", "4bbcf71d-b730-4734-9bec-7fdd759f9de6", 6),
+        ("676931", "38e1398b-00ef-48c6-b4c4-e5fac35b598c", 7),
+    )
+)

@@ -275,7 +275,9 @@ def test_smooth_svg_cubic_reflects_previous_control_point(raw, expected):
     assert parabola_svg.segments(raw) == expected
 
 
-@pytest.mark.parametrize("raw", ["M0 0 L1 1", "M0 0 Q1 1 2 2", "M0 0 S1 2", "M0 0 Z"])
+@pytest.mark.parametrize(
+    "raw", ["M0 0 A1 1 0 0 0 2 2", "M0 0 Q1 1 2 2", "M0 0 S1 2", "M0 0 Z"]
+)
 def test_uninspected_curve_commands_still_fail_closed(raw):
     with pytest.raises(ContentPlanError):
         parabola_svg.segments(raw)
