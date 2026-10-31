@@ -312,6 +312,10 @@ def render(a, image):
     )
     if a.selection_method == "inequalities":
         second = inequality_selection(a)
+    elif a.selection_method == "progressions":
+        from .exam_trigonometric_selection import progressions
+
+        second = progressions(a)
     else:
         second = (
             "<p>С помощью числовой окружности отберём корни, принадлежащие промежутку "

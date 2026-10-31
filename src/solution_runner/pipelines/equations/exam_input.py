@@ -5,10 +5,11 @@ import re
 from bs4 import BeautifulSoup, NavigableString
 
 from ..word_problems.common import UnsupportedCondition, section
+from .exam_input_layout import subparts
 from .power_arithmetic import ScalarParser
 
 FIRST = r"Решите уравнение:? ФОРМУЛА[.;]?"
-SECOND = r"(?:Найдите все его корни этого уравнения, принадлежащие отрезку|Найдите все его корни, принадлежащие отрезку|Найдите его корни на промежутке|Укажите корни, принадлежащие отрезку|Укажите корни этого уравнения, принадлежащее отрезку|Найдите(?: все)? корни уравнения, принадлежащие отрезку|Укажите все корни этого уравнения, принадлежащие промежутку|Найдите решения уравнения, принадлежащие отрезку|Найдите его корни, принадлежащие отрезку|Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
+SECOND = r"(?:Найдите все его корни этого уравнения, принадлежащие отрезку|Найдите все его корни, принадлежащие отрезку|Найдите его корни на промежутке|Укажите корни, принадлежащие отрезку|Укажите корни уравнения, принадлежащие отрезку|Укажите корни этого уравнения, принадлежащее отрезку|Найдите(?: все)? корни уравнения, принадлежащие отрезку|Укажите все корни этого уравнения, принадлежащие промежутку|Найдите решения уравнения, принадлежащие отрезку|Найдите его корни, принадлежащие отрезку|Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
 
 
 def read_parts(context):
@@ -21,28 +22,7 @@ def read_parts(context):
     ):
         raise UnsupportedCondition("canonical exam text without assets is required")
     soup = BeautifulSoup(parts[0]["html"], "html.parser")
-    lists = soup.find_all("ol")
-    if len(lists) != 1 or lists[0].attrs != {
-        "data-layout": "source-subparts",
-        "type": "a",
-    }:
-        raise UnsupportedCondition(
-            "exactly one canonical two-part exam list is required"
-        )
-    if any(
-        (isinstance(node, NavigableString) and node.strip())
-        or (getattr(node, "name", None) and node.name != "li")
-        for node in lists[0].children
-    ):
-        raise UnsupportedCondition(
-            "instructions outside the two subparts are not discarded"
-        )
-    rows = lists[0].find_all("li", recursive=False)
-    if len(rows) != 2 or any(
-        r.attrs not in ({"data-list-marker": marker}, {"data-list-marker": alias})
-        for r, marker, alias in zip(rows, ("а)", "б)"), ("a)", "b)"))
-    ):
-        raise UnsupportedCondition("the two exam markers must be a and b in order")
+    ordered, rows = subparts(soup)
     for sub in rows[1].find_all("sub"):
         before, after = sub.previous_sibling, sub.next_sibling
         if (
@@ -60,7 +40,7 @@ def read_parts(context):
         before.replace_with(str(before)[:-3] + r"\log_")
         sub.replace_with("{" + sub.get_text() + "}")
     for node in soup.find_all(True):
-        if node not in [lists[0], *rows] and (
+        if node not in [ordered, *rows] and (
             node.name not in {"span", "nobr"}
             or (node.name == "nobr" and node.attrs)
             or (
@@ -72,7 +52,7 @@ def read_parts(context):
             )
         ):
             raise UnsupportedCondition("unknown exam condition markup")
-    if any(str(x).strip() and x is not lists[0] for x in soup.contents):
+    if any(str(x).strip() and x is not ordered for x in soup.contents):
         raise UnsupportedCondition(
             "instructions outside the exam list are not discarded"
         )

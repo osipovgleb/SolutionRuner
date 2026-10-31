@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_compile import C, S, T
 from .power_arithmetic import ScalarParser, clean
-from .trig_angles import PI, multiple_angle
+from .trig_angles import PI, multiple_angle, parse_angle
 from .trig_angles import C as NUMERIC_C
 from .trig_angles import S as NUMERIC_S
 from .trig_symbolic_parser import (
@@ -27,6 +27,23 @@ class ExamAngleParser(SymbolicTrigonometricParser):
 
     def _atom(self, function, angle):
         variables = set(re.findall(r"\\(?:alpha|beta|gamma)", angle))
+        if not variables:
+            shift, degrees = parse_angle(angle)
+            if (
+                degrees
+                or (12 * shift).is_Integer is not True
+                or function not in ("sin", "cos")
+            ):
+                raise UnsupportedCondition(
+                    "a reviewed constant sine or cosine coefficient is required"
+                )
+            return sp.Symbol("T" + str(len(self.atoms)), real=True), SymbolicAtom(
+                function,
+                sp.S.Zero,
+                shift,
+                r"\alpha",
+                "\\" + function + "(" + angle + ")",
+            )
         if len(variables) != 1:
             raise UnsupportedCondition("one variable is required in each exam angle")
         variable = variables.pop()
@@ -91,6 +108,9 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
     from .exam_trigonometric_folding import fold
 
     values, atoms, denominators = parse_equation(formula)
+    values, atoms, denominators, constants = constant_angles(
+        values, atoms, denominators
+    )
     if translation:
         from .exam_trigonometric_translation import translated_atoms
 
@@ -99,10 +119,12 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         if preferred == T and denominators:
             from .exam_trigonometric_ratios import compile_tangent_identity
 
-            return compile_tangent_identity(values, atoms, denominators)
+            equation = compile_tangent_identity(values, atoms, denominators)
+            return replace(equation, identities=constants + equation.identities)
         from .exam_trigonometric_poles import compile_quotients
 
-        return compile_quotients(values, atoms, denominators)
+        equation = compile_quotients(values, atoms, denominators)
+        return replace(equation, identities=constants + equation.identities)
     if not atoms or any(a.function not in ("sin", "cos") for a in atoms.values()):
         raise UnsupportedCondition(
             "scaled rational equations require only sine and cosine"
@@ -159,12 +181,30 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         identities = ()
     return Equation(
         sp.expand(raw),
-        identities,
+        constants + identities,
         scale,
         original_poles,
         reciprocal,
         doubled,
         rewritten,
+    )
+
+
+def constant_angles(values, atoms, denominators):
+    constants = {
+        s: (sp.sin if a.function == "sin" else sp.cos)(a.shift * sp.pi)
+        for s, a in atoms.items()
+        if a.coefficient == 0
+    }
+    identities = tuple((atoms[s].text, value) for s, value in constants.items())
+    denominators = [value.xreplace(constants) for value in denominators]
+    if any(value == 0 for value in denominators):
+        raise UnsupportedCondition("a constant trigonometric denominator is zero")
+    return (
+        [value.xreplace(constants) for value in values],
+        {s: a for s, a in atoms.items() if s not in constants},
+        denominators,
+        identities,
     )
 
 

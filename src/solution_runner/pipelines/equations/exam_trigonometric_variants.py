@@ -104,18 +104,19 @@ def reciprocal(a):
 
     variable = a.branches[0].variable
     t = sp.Symbol("t", real=True)
+    name = a.substitution or "t"
     html = "<p>Знаменатели исходного уравнения не должны обращаться в нуль:</p>"
     html += line(formula(variable) + r"\ne0")
     for text, value in a.identities:
         html += line(text + "=" + formula(value))
     html += "<p>Введём обозначение:</p>" + line(
-        "t=" + formula(1 / variable) + r",\quad t\ne0"
+        name + "=" + formula(1 / variable) + r",\quad " + name + r"\ne0"
     )
-    html += line(sp.latex(a.reciprocal) + "=0")
+    html += line(sp.latex(a.reciprocal, symbol_names={t: name}) + "=0")
     A, B, C0 = sp.Poly(a.reciprocal, t).all_coeffs()
     html += line("D=" + sp.latex(sp.simplify(B * B - 4 * A * C0)))
     for value in roots(a.reciprocal.subs(t, X)):
-        html += line("t=" + sp.latex(value))
+        html += line(name + "=" + sp.latex(value))
         if value == 0:
             html += "<p>Нулевая величина невозможна для обратной функции.</p>"
             continue

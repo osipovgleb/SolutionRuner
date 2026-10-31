@@ -113,7 +113,7 @@ def diagram_specs(context):
 
 def image(context, a, generated):
     if not context["normalized_content"].get("assets"):
-        if a.selection_method != "inequalities":
+        if a.selection_method not in ("inequalities", "progressions"):
             raise UnsupportedCondition("circle selection requires its source figure")
         return "", "", []
     asset, entry = source(context)

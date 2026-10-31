@@ -139,15 +139,17 @@ def parent_style(parent_html):
         or (len(images) == 1 and "удовлетворяют числа" in text)
         or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
         else "inequalities"
-        if "решим неравенства" in text or "решив неравенство" in text
+        if "решим неравенства" in text
+        or "решив неравенство" in text
+        or "двойного неравенства" in text
+        else "progressions"
+        if "разность между соседними членами" in text
         else None
     )
     if selection_method is None or any(
         s in text for s in ("другое решение", "еще одно решение", "ещё одно решение")
     ):
-        raise UnsupportedCondition(
-            "one reviewed circle or inequality selection method is required"
-        )
+        raise UnsupportedCondition("one reviewed interval selection method is required")
     formulas = [
         "".join(s["data-inline-latex"].split())
         for s in soup.select("[data-inline-latex]")
@@ -174,7 +176,8 @@ def parent_style(parent_html):
         m
         for f in formulas
         for m in re.findall(
-            r"(?:([ty])=\\(?:sin|cos|tg|ctg)x|\\(?:sin|cos|tg|ctg)x=([ty]))", f
+            r"(?:([ty])=(?:\\(?:sin|cos|tg|ctg)x|\\frac\{1\}\{\\(?:sin|cos)x\})|\\(?:sin|cos|tg|ctg)x=([ty]))",
+            f,
         )
     ]
     substitution = next((left or right for left, right in substitutions), None)
