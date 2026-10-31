@@ -4,6 +4,14 @@ from .exam_trigonometric_compile import C, S, T, U
 
 
 def method_proof(a):
+    if a.sum_product is not None:
+        from .exam_trigonometric_sum_product import proof
+
+        return proof(a)
+    if a.unit_factors is not None:
+        from .exam_trigonometric_unit_factors import proof
+
+        return proof(a)
     if a.square_product is not None:
         from .exam_trigonometric_square_product_proof import proof
 

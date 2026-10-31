@@ -111,7 +111,12 @@ def polynomial(
         formula(p.subs(variable, symbol), angle) + "=0"
     )
     degree = sp.Poly(p, variable).degree()
-    if branch.square_factor:
+    if branch.square_level:
+        level = sp.simplify(-p.subs(variable, 0) / p.coeff(variable, 2))
+        html += "<p>Выразим квадрат функции:</p>" + line(
+            formula(symbol**2, angle) + "=" + sp.latex(level)
+        )
+    elif branch.square_factor:
         from .exam_trigonometric_square_factor import polynomial_proof
 
         html += polynomial_proof(branch, symbol, angle)

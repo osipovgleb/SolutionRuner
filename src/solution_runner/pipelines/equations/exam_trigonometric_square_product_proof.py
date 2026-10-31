@@ -12,7 +12,7 @@ def proof(a):
     from .exam_trigonometric_variants import argument
 
     zero, quadratic = a.square_product
-    variable = C if zero == S else S
+    variable = C if zero.has(S) else S
     angle = argument(a.scale)
     html = "".join(
         line(text + "=" + formula(value, angle)) for text, value in a.identities

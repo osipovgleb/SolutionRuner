@@ -6,7 +6,7 @@ from ..probability.common import line
 from .exam_trigonometric_compile import C, S
 
 
-def proof(branch, poles):
+def proof(branch, poles, *, scale=sp.S.One):
     from .exam_trigonometric_inverse import angles, ordered
     from .exam_trigonometric_proof import formula, series_lines
 
@@ -23,7 +23,8 @@ def proof(branch, poles):
             if value == 0:
                 html += "<p>Эта серия нарушает исходную область определения и исключается:</p>"
                 html += line(
-                    series_lines(((q, sp.Integer(2)),))[0] + r",\quad k\in\mathbb Z"
+                    series_lines(((q / scale, sp.Integer(2) / scale),))[0]
+                    + r",\quad k\in\mathbb Z"
                 )
                 html += line(
                     formula(pole, "(" + sp.latex(q * sp.pi) + r"+2\pi k)") + "=0"

@@ -95,3 +95,34 @@ def retain_order(compiled, reduced, branches, parent_html, domain):
         branches = tuple(sorted(branches, key=lambda b: b.original is None))
         compiled = replace(compiled, raw=reduced, factored_source=compiled.raw)
     return compiled, branches
+
+
+def base_angle_product(parent_html):
+    for node in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]"):
+        text = "".join(node["data-inline-latex"].split())
+        for match in re.finditer(r"\\(sin|cos)(\d*)x\(([^()]*)\)=0", text):
+            function, multiple, body = match.groups()
+            if re.search(r"\\" + function + r"\^\{?2\}?" + multiple + "x", body):
+                return True
+    return False
+
+
+def merges_series(parent_html):
+    formulas = [
+        "".join(s["data-inline-latex"].split())
+        for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    ]
+    formulas = [re.split(r"\\(?:iff|Leftrightarrow)", f)[-1] for f in formulas]
+    return (
+        len(
+            [
+                f
+                for f in formulas
+                if f.startswith("x=")
+                and f.count("x=") == 1
+                and "k" in f
+                and "\\\\" not in f
+            ]
+        )
+        == 1
+    )

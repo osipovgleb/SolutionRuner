@@ -66,14 +66,15 @@ def compile_quotients(values, atoms, denominators):
         if (
             not denominator.is_polynomial(S, C)
             or sp.Poly(denominator, S, C).length() != 1
-            or sp.Poly(denominator, S, C).total_degree() != 1
+            or sp.Poly(denominator, S, C).total_degree() not in (1, 2)
             or not denominator.free_symbols <= poles
         ):
             raise UnsupportedCondition(
-                "cleared denominators must be first powers covered by the original domain"
+                "cleared denominators must be bounded powers covered by the original domain"
             )
         cleared, source = denominator, raw
-        raw = sp.expand(sp.rem(raw, S * S + C * C - 1, S if S in poles else C))
+        if sp.Poly(denominator, S, C).total_degree() == 1:
+            raw = sp.expand(sp.rem(raw, S * S + C * C - 1, S if S in poles else C))
     identities = tuple(
         dict.fromkeys(
             (a.text.replace(r"\alpha", "x"), compiled[s]) for s, a in atoms.items()
@@ -90,7 +91,14 @@ def compile_quotients(values, atoms, denominators):
 
 
 def proof(a):
-    from .exam_trigonometric_proof import formula, polynomial
+    from functools import partial
+
+    from .exam_trigonometric_proof import formula as format_formula
+    from .exam_trigonometric_proof import polynomial
+    from .exam_trigonometric_variants import argument
+
+    theta = argument(a.scale)
+    formula = partial(format_formula, angle=theta)
 
     html = "<p>Запишем область определения исходных тангенса и котангенса до сокращения:</p>"
     if a.cleared_denominator is not None:
@@ -113,12 +121,16 @@ def proof(a):
         html += line(formula(sp.factor(a.reduced, extension=True)) + "=0")
     for branch in a.branches:
         html += polynomial(
-            branch, allowed_residues=branch.residues, factorization=a.factorization
+            branch,
+            allowed_residues=branch.residues,
+            factorization=a.factorization,
+            angle=theta,
+            root_scale=a.scale,
         )
         if branch.angle_shift:
             from .exam_trigonometric_phase_domain import proof as excluded_phases
 
-            html += excluded_phases(branch, a.poles)
+            html += excluded_phases(branch, a.poles, scale=a.scale)
         for value in branch.excluded:
             if abs(value) == 1:
                 other = C if branch.variable == S else S

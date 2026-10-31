@@ -17,12 +17,18 @@ def reviewed(parent_html):
     text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
     if "полный квадрат" in text or "полного квадрата" in text:
         return True
-    return any(
-        re.search(
-            r"(?:[ty]|\\(?:sin|cos)x)\([^()]+\)\^\{?2",
-            "".join(n["data-inline-latex"].split()),
+    formulas = [
+        re.sub(
+            r"\\frac\{(?:\d*)x\}\{\d+\}", "x", "".join(n["data-inline-latex"].split())
         )
         for n in soup.select("[data-inline-latex]")
+    ]
+    return any(
+        re.search(
+            r"(?:[ty]|\\(?:sin|cos)(?:\^\{?2\}?)?x)\([^()]+\)\^\{?2",
+            formula,
+        )
+        for formula in formulas
     )
 
 
@@ -51,24 +57,31 @@ def prepare(compiled, parent_html):
         or not reviewed(parent_html)
         or raw.free_symbols != {S, C}
         or not raw.is_polynomial(S, C)
-        or sp.Poly(raw, S, C).total_degree() != 3
+        or sp.Poly(raw, S, C).total_degree() not in (3, 4)
     ):
         return compiled
     for zero in (S, C):
-        if raw.subs(zero, 0) != 0:
-            continue
-        quotient = sp.cancel(raw / zero)
-        reduced = sp.expand(sp.rem(quotient, S * S + C * C - 1, zero))
         other = C if zero == S else S
-        if reduced.free_symbols != {other} or square(reduced, other) is None:
-            continue
-        projected = sp.expand(zero * reduced)
-        return replace(
-            compiled,
-            raw=projected,
-            factored_source=raw if projected != raw else compiled.factored_source,
-            square_product=(zero, reduced),
-        )
+        for power in (1, 2):
+            quotient, remainder = sp.div(raw, zero**power, zero)
+            projected = sp.expand(
+                quotient * zero**power + sp.rem(remainder, S * S + C * C - 1, other)
+            )
+            q, rest = sp.div(projected, zero**power, zero)
+            q = sp.expand(sp.rem(q, S * S + C * C - 1, zero))
+            if rest != 0 or q.free_symbols != {other} or square(q, other) is None:
+                continue
+            projected = sp.expand(zero**power * q)
+            if sp.rem(projected - raw, S * S + C * C - 1, S) != 0:
+                raise UnsupportedCondition(
+                    "the square product must preserve the unit-circle equation"
+                )
+            return replace(
+                compiled,
+                raw=projected,
+                factored_source=raw if projected != raw else compiled.factored_source,
+                square_product=(zero**power, q),
+            )
     return compiled
 
 
@@ -102,7 +115,7 @@ def mark(branches, parent_html, product):
             )
         result.append(b)
     if product is not None:
-        result.sort(key=lambda b: b.variable != product[0])
+        result.sort(key=lambda b: b.variable not in product[0].free_symbols)
     return tuple(result)
 
 

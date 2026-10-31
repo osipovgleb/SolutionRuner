@@ -32,6 +32,14 @@ def parent_style(parent_html):
         or "двойного неравенства" in text
         or "двойных неравенств" in text
         or "двойное неравенство" in text
+        or (
+            not images
+            and "отберем корни" in text
+            and any(
+                r"\le" in n.get("data-inline-latex", "")
+                for n in soup.select("[data-inline-latex]")
+            )
+        )
         else "progressions"
         if "разность между соседними членами" in text
         or "расстояние между соседними членами" in text
@@ -46,13 +54,26 @@ def parent_style(parent_html):
         s in text for s in ("другое решение", "еще одно решение", "ещё одно решение")
     ):
         raise UnsupportedCondition("one reviewed interval selection method is required")
-    formulas = [
-        "".join(s["data-inline-latex"].split())
-        for s in soup.select("[data-inline-latex]")
-    ]
     from .exam_trigonometric_methods import preference
 
     function, _ = preference(parent_html)
+    formulas = [
+        "".join(n["data-inline-latex"].split())
+        for n in soup.select("[data-inline-latex]")
+    ]
+    position, substitution = presentation(soup, selection_method, formulas)
+    return (
+        {"sin": S, "cos": C, "tg": T, "ctg": U}[function],
+        ("полный квадрат" in text),
+        any(re.search(r"\(-\d+\)\^\{?k", f) for f in formulas),
+        position,
+        substitution,
+        selection_method,
+    )
+
+
+def presentation(soup, selection_method, formulas):
+    images = soup.find_all("img")
     allowed_images = (
         (0, 1)
         if selection_method == "progressions"
@@ -84,14 +105,7 @@ def parent_style(parent_html):
         )
     ]
     substitution = next((left or right for left, right in substitutions), None)
-    return (
-        {"sin": S, "cos": C, "tg": T, "ctg": U}[function],
-        ("полный квадрат" in text),
-        any(re.search(r"\(-\d+\)\^\{?k", f) for f in formulas),
-        position,
-        substitution,
-        selection_method,
-    )
+    return position, substitution
 
 
 def division(parent_html):

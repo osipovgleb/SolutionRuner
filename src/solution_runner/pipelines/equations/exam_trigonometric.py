@@ -13,21 +13,29 @@ from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
 from .exam_trigonometric_angle_product import reviewed as angle_product_method
 from .exam_trigonometric_compile import C, S, T, U, table
-from .exam_trigonometric_equation import method_equation
+from .exam_trigonometric_equation import analysis_fields, method_equation
+from .exam_trigonometric_factor_style import base_angle_product
 from .exam_trigonometric_homogeneous import Reduction
 from .exam_trigonometric_inverse import (
     angles,
     ordered,
     select_inverse,
 )
-from .exam_trigonometric_selection import canonical, periodic, root_series
+from .exam_trigonometric_selection import (
+    canonical,
+    equivalent_series,
+    periodic,
+    root_series,
+)
 from .exam_trigonometric_square_difference import reviewed as difference_method
+from .exam_trigonometric_square_factor import reviewed as square_method
 from .exam_trigonometric_style import (
     division,
     grouping_method,
     homogeneous_method,
     parent_style,
 )
+from .exam_trigonometric_sum_product import square_style
 
 compile_equation = exam_trigonometric_compile.compile_equation
 
@@ -35,6 +43,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
     from .exam_trigonometric_square_difference import SquareDifference
+    from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
 
 
@@ -54,6 +63,7 @@ class Branch:
     quadratic_common: bool = False
     square_factor: bool = False
     square_discriminant: bool = False
+    square_level: bool = False
 
 
 @dataclass(frozen=True)
@@ -100,6 +110,8 @@ class Analysis:
     square_difference: "SquareDifference | None" = None
     symmetric: "SumReduction | None" = None
     square_product: tuple | None = None
+    unit_factors: tuple | None = None
+    sum_product: "SumProduct | None" = None
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -209,6 +221,7 @@ def analyze(formula, interval, bounds, parent_html):
         )
         if (
             canonical(result.series) != canonical(second.series)
+            or not equivalent_series(result.series, second.series)
             or result.selected != second.selected
         ):
             raise UnsupportedCondition(
@@ -250,6 +263,8 @@ def analyze_method(
         grouping=grouping_method(parent_html),
         difference=difference_method(parent_html),
         product=angle_product_method(parent_html),
+        preserve_products=square_method(parent_html) or base_angle_product(parent_html),
+        square_sum=square_style(parent_html),
     )
     from .exam_trigonometric_factors import method_branches
 
@@ -292,29 +307,12 @@ def analyze_method(
             method,
             factorized(parent_html),
             domain,
-            compiled.scale,
-            compiled.poles,
-            compiled.reciprocal,
-            compiled.doubled,
-            None,
-            allow_inverse,
-            compiled.rewritten,
-            merged,
-            translation,
-            compiled.strict_domain,
-            compiled.fraction,
-            compiled.absolute,
-            dividing,
-            shifted_notation,
-            compiled.homogeneous,
-            compiled.power_angle,
-            compiled.factored_source,
-            compiled.affine,
-            compiled.angle_product,
-            compiled.cleared_denominator,
-            compiled.square_difference,
-            compiled.symmetric,
-            compiled.square_product,
+            allow_inverse=allow_inverse,
+            merged=merged,
+            translation=translation,
+            division=dividing,
+            shifted_notation=shifted_notation,
+            **analysis_fields(compiled),
         )
     )
 
@@ -327,7 +325,7 @@ def method_series(
     parent_html,
     style,
 ):
-    from .exam_trigonometric_methods import merges_series
+    from .exam_trigonometric_factor_style import merges_series
 
     preferred, method = style
     allow_inverse = method == "inequalities" or r"\arccos" in parent_html
@@ -339,6 +337,7 @@ def method_series(
         )
         or compiled.square_difference is not None
         or compiled.symmetric is not None
+        or (compiled.sum_product is not None and bool(compiled.sum_product.poles))
     )
     dividing = (
         division(parent_html)

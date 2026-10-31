@@ -9,7 +9,14 @@ from .exam_trigonometric_compile import C, S, T
 
 
 def proof(a):
-    from .exam_trigonometric_proof import formula, polynomial
+    from functools import partial
+
+    from .exam_trigonometric_proof import formula as format_formula
+    from .exam_trigonometric_proof import polynomial
+    from .exam_trigonometric_variants import argument
+
+    theta = argument(a.scale)
+    formula = partial(format_formula, angle=theta)
 
     if a.cleared_denominator != C or a.preferred != T or a.poles != (C,):
         return None
@@ -24,15 +31,19 @@ def proof(a):
         for f, power in factors
     ):
         return None
-    html = "<p>Запишем область определения тангенса:</p>" + line(r"\cos x\ne0")
+    html = "<p>Запишем область определения тангенса:</p>" + line(
+        r"\cos " + theta + r"\ne0"
+    )
     html += line(a.original)
     html += "<p>В этой области выразим синус через тангенс и сгруппируем слагаемые:</p>"
-    html += line(r"\sin x=\cos x\cdot\tg x")
+    html += line(r"\sin " + theta + r"=\cos " + theta + r"\cdot\tg " + theta)
     html += line(formula(expression) + "=0")
     html += line(formula(sp.factor(expression, extension=True)) + "=0")
     html += "<p>Решим каждое уравнение отдельно, сохраняя обе ветви:</p>"
     for branch in a.branches:
-        html += polynomial(replace(branch, original=None))
+        html += polynomial(
+            replace(branch, original=None), angle=theta, root_scale=a.scale
+        )
     return (
         "<p>Разложим на множители без деления на потенциально нулевой множитель:</p>",
         html,

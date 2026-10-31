@@ -112,7 +112,7 @@ def root_series(branches, residues, domain, allow_inverse):
     from .exam_trigonometric_inverse import level_series
 
     if domain is not None:
-        series = tuple(s for branch in branches for s in periodic(branch.residues))
+        series = tuple(s for branch in branches for s in square_series(branch))
     elif (
         all(q.is_Rational for q in residues)
         and len(branches) == 1
@@ -144,3 +144,28 @@ def branch_values(branch):
         branch.values, key=cmp_to_key(compare), reverse=branch.variable == C
     )
     return sorted(values, key=lambda v: v != 0) if branch.square_factor else values
+
+
+def equivalent_series(first, second):
+    from .exam_trigonometric import select
+
+    periods = [sp.Rational(p) for _, p in (*first, *second)]
+    if not periods or any(p <= 0 for p in periods):
+        raise UnsupportedCondition("the methods require positive rational periods")
+    period = sp.Rational(
+        sp.ilcm(*[p.p for p in periods]), sp.igcd(*[p.q for p in periods])
+    )
+    if period > 20:
+        raise UnsupportedCondition(
+            "the common verification period exceeds the reviewed bound"
+        )
+    return (
+        select(first, (0, period, True, False))[0]
+        == select(second, (0, period, True, False))[0]
+    )
+
+
+def square_series(branch):
+    if not branch.square_level or len(branch.values) != 2 or sum(branch.values) != 0:
+        return periodic(branch.residues)
+    return tuple((q, sp.S.One) for q in sorted({r % 1 for r in branch.residues}))

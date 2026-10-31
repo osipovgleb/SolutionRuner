@@ -3,6 +3,7 @@
 import sympy as sp
 
 from ..word_problems.common import UnsupportedCondition
+from .exam_trigonometric_compile import S
 from .exam_trigonometric_power_identity import paired_sixths
 from .trig_symbolic_parser import SymbolicAtom
 
@@ -104,3 +105,23 @@ def verify_identity(actual, rewritten):
         difference = sp.trigsimp(sp.expand(sp.expand_trig(difference)))
     if difference != 0:
         raise UnsupportedCondition("the product identity must be verified exactly")
+
+
+def normalize_base(
+    values, atoms, denominators, preferred, preferred_scale, preserve_products
+):
+    from dataclasses import replace
+
+    from .exam_trigonometric_pi_scale import normalize
+
+    atoms, unit = normalize(atoms, denominators)
+    preferred_scale /= unit
+    rewritten, power_angle = None, None
+    if not preserve_products:
+        values, atoms, rewritten, power_angle = fold(
+            values, atoms, denominators, preferred_scale, sine_square=(preferred == S)
+        )
+    scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
+    for symbol, atom in tuple(atoms.items()):
+        atoms[symbol] = replace(atom, coefficient=int(atom.coefficient / scale))
+    return values, atoms, scale, unit, preferred_scale, rewritten, power_angle

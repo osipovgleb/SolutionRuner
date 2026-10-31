@@ -55,9 +55,16 @@ def compile_tangent_identity(values, atoms, denominators):
 
 
 def tangent_proof(a):
-    from .exam_trigonometric_proof import formula, polynomial
+    from functools import partial
 
-    html = "<p>Тангенс определён при условии:</p>" + line(r"\cos x\ne0")
+    from .exam_trigonometric_proof import formula as format_formula
+    from .exam_trigonometric_proof import polynomial
+    from .exam_trigonometric_variants import argument
+
+    theta = argument(a.scale)
+    formula = partial(format_formula, angle=theta)
+
+    html = "<p>Тангенс определён при условии:</p>" + line(r"\cos " + theta + r"\ne0")
     for text, value in a.identities:
         html += line(text + "=" + formula(value))
     if a.substitution:
@@ -66,6 +73,8 @@ def tangent_proof(a):
         a.branches[0],
         substitution=a.substitution,
         factorization=a.factorization,
+        angle=theta,
+        root_scale=a.scale,
     )
     degree = sp.degree(a.branches[0].polynomial, T)
     title = "кубическое" if degree == 3 else "квадратное"
@@ -195,6 +204,15 @@ def linear_proof(branch, angle):
 def compile_ratio_method(values, atoms, denominators, preferred, constants):
     from dataclasses import replace
 
+    scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
+    if scale.is_Rational is not True or scale <= 0 or scale > 100 or scale.q > 4:
+        raise UnsupportedCondition(
+            "ratio products require a bounded common rational angle"
+        )
+    atoms = {
+        symbol: replace(atom, coefficient=atom.coefficient / scale)
+        for symbol, atom in atoms.items()
+    }
     if (
         preferred == T
         and denominators
@@ -203,8 +221,10 @@ def compile_ratio_method(values, atoms, denominators, preferred, constants):
         )
     ):
         equation = compile_tangent_identity(values, atoms, denominators)
-        return replace(equation, identities=constants + equation.identities)
+        return replace(
+            equation, identities=constants + equation.identities, scale=scale
+        )
     from .exam_trigonometric_poles import compile_quotients
 
     equation = compile_quotients(values, atoms, denominators)
-    return replace(equation, identities=constants + equation.identities)
+    return replace(equation, identities=constants + equation.identities, scale=scale)

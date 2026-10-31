@@ -112,6 +112,20 @@ def method_branches(
     from .exam_trigonometric_square_factor import prepare as square_product
     from .exam_trigonometric_style import cotangent_method
 
+    if compiled.sum_product is not None:
+        from .exam_trigonometric_sum_product import branches as sum_product_branches
+
+        return compiled, compiled.raw, sum_product_branches(compiled), preferred
+    from .exam_trigonometric_unit_factors import (
+        branches as unit_branches,
+    )
+    from .exam_trigonometric_unit_factors import (
+        prepare as unit_factors,
+    )
+
+    factored = unit_factors(compiled) if domain is None else None
+    if factored is not None:
+        return factored, factored.raw, unit_branches(factored, allow_inverse), preferred
     compiled = square_product(compiled, parent_html) if domain is None else compiled
     if compiled.square_difference is not None:
         from .exam_trigonometric_square_difference import parameter
@@ -148,6 +162,20 @@ def method_branches(
 
         branches = notation(branches, parent_html)
     branches = without_poles(branches, compiled.poles)
+    if (
+        compiled.cleared_denominator is not None
+        and sp.total_degree(compiled.cleared_denominator) == 2
+    ):
+        branches = tuple(
+            replace(
+                b,
+                square_level=(
+                    sp.degree(b.polynomial, b.variable) == 2
+                    and b.polynomial.coeff(b.variable) == 0
+                ),
+            )
+            for b in branches
+        )
     if compiled.cleared_denominator is not None and preferred == T:
         branches = tuple(sorted(branches, key=lambda b: b.variable != T))
     if any(b.angle_shift for b in branches) and domain is not None:

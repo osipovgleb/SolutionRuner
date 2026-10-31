@@ -29,7 +29,17 @@ def reviewed(parent_html):
         FUNCTION + r"(?:\\cdot)?\([^()]*" + FUNCTION + r"[^()]*\)",
         r"\([^()]*" + FUNCTION + r"[^()]*\)(?:\\cdot)?" + FUNCTION,
     )
-    for node in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]"):
+    nodes = BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    solved = set()
+    for node in nodes:
+        text = "".join(node["data-inline-latex"].split())
+        for m in re.finditer(r"\\(sin|cos)(\d*)x&?=", text):
+            right = re.split(
+                r"\\\\|\\(?:iff|Leftrightarrow|end|quad)", text[m.end() :], maxsplit=1
+            )[0]
+            if not re.search(r"\\(?:sin|cos)", right):
+                solved.add((m[1], int(m[2] or 1)))
+    for node in nodes:
         text = (
             "".join(node["data-inline-latex"].split())
             .replace(r"\left", "")
@@ -41,7 +51,11 @@ def reviewed(parent_html):
                     (name, int(coefficient or 1))
                     for name, coefficient in re.findall(r"\\(sin|cos)(\d*)x", match[0])
                 }
-                if len(angles) > 1 and any(scale > 1 for _, scale in angles):
+                if (
+                    len(angles) > 1
+                    and angles <= solved
+                    and any(scale > 1 for _, scale in angles)
+                ):
                     return True
     return False
 

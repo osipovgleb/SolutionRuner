@@ -1,7 +1,7 @@
 """Read parent methods and compile rational equations in a reviewed base angle."""
 
 import re
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 import sympy as sp
@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
     from .exam_trigonometric_square_difference import SquareDifference
+    from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
 
 
@@ -113,6 +114,8 @@ class Equation:
     square_difference: "SquareDifference | None" = None
     symmetric: "SumReduction | None" = None
     square_product: tuple | None = None
+    unit_factors: tuple | None = None
+    sum_product: "SumProduct | None" = None
 
 
 def shifted_atom(atom):
@@ -140,15 +143,18 @@ def parse_equation(formula):
 
 
 def compile_reviewed(
-    formula, preferred, preferred_scale, translation=sp.S.Zero, difference=False
+    formula,
+    preferred,
+    preferred_scale,
+    translation=sp.S.Zero,
+    difference=False,
+    preserve_products=False,
 ):
     from .exam_trigonometric_affine import reviewed as affine_equation
 
     affine = affine_equation(formula, preferred_scale, translation)
     if affine is not None:
         return affine
-    from .exam_trigonometric_folding import fold
-
     values, atoms, denominators, constants = read_translated_equation(
         formula, translation
     )
@@ -173,16 +179,13 @@ def compile_reviewed(
         raise UnsupportedCondition(
             "scaled rational equations require only sine and cosine"
         )
-    from .exam_trigonometric_pi_scale import normalize
+    from .exam_trigonometric_folding import normalize_base
 
-    atoms, unit = normalize(atoms, denominators)
-    preferred_scale /= unit
-    values, atoms, rewritten, power_angle = fold(
-        values, atoms, denominators, preferred_scale, sine_square=(preferred == S)
+    values, atoms, scale, unit, preferred_scale, rewritten, power_angle = (
+        normalize_base(
+            values, atoms, denominators, preferred, preferred_scale, preserve_products
+        )
     )
-    scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
-    for symbol, atom in tuple(atoms.items()):
-        atoms[symbol] = replace(atom, coefficient=int(atom.coefficient / scale))
     if any(abs(a.coefficient) > 4 for a in atoms.values()):
         if translation or unit != 1:
             raise UnsupportedCondition(
@@ -191,18 +194,9 @@ def compile_reviewed(
         from .exam_trigonometric_angle_product import compile_product
 
         return compile_product(formula)
-    compiled = {symbol: shifted_atom(atom) for symbol, atom in atoms.items()}
-    convert = lambda v: sp.cancel(
-        v.xreplace(compiled).xreplace({NUMERIC_S: S, NUMERIC_C: C})
+    compiled, expression, identities, original_poles = polynomial_input(
+        values, atoms, denominators
     )
-    expression = convert(values[0] - values[1])
-    identities = tuple(
-        dict.fromkeys(
-            (a.text.replace(r"\alpha", "x"), convert(symbol))
-            for symbol, a in atoms.items()
-        )
-    )
-    original_poles = tuple(convert(d) for d in denominators if d.free_symbols)
     if original_poles and any(
         len(p.free_symbols) != 1 or sp.Poly(p, *p.free_symbols).length() != 1
         for p in original_poles
@@ -236,6 +230,22 @@ def compile_reviewed(
         rewritten,
         power_angle=power_angle,
     )
+
+
+def polynomial_input(values, atoms, denominators):
+    compiled = {symbol: shifted_atom(atom) for symbol, atom in atoms.items()}
+    convert = lambda v: sp.cancel(
+        v.xreplace(compiled).xreplace({NUMERIC_S: S, NUMERIC_C: C})
+    )
+    expression = convert(values[0] - values[1])
+    identities = tuple(
+        dict.fromkeys(
+            (a.text.replace(r"\alpha", "x"), convert(symbol))
+            for symbol, a in atoms.items()
+        )
+    )
+    original_poles = tuple(convert(d) for d in denominators if d.free_symbols)
+    return compiled, expression, identities, original_poles
 
 
 def read_translated_equation(formula, translation):
@@ -393,27 +403,6 @@ def preference(parent_html):
         enumerate(matches), key=lambda item: (item[1][0], item[0])
     )[1]
     return function, multiple
-
-
-def merges_series(parent_html):
-    formulas = [
-        "".join(s["data-inline-latex"].split())
-        for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
-    ]
-    formulas = [re.split(r"\\(?:iff|Leftrightarrow)", f)[-1] for f in formulas]
-    return (
-        len(
-            [
-                f
-                for f in formulas
-                if f.startswith("x=")
-                and f.count("x=") == 1
-                and "k" in f
-                and "\\\\" not in f
-            ]
-        )
-        == 1
-    )
 
 
 def factorized(parent_html):
