@@ -48,9 +48,9 @@ def translated_atoms(atoms, shift):
     result = {}
     for symbol, atom in atoms.items():
         new_shift = atom.shift - atom.coefficient * shift
-        if (2 * new_shift).is_Integer is not True:
+        if (12 * new_shift).is_Integer is not True:
             raise UnsupportedCondition(
-                "the translated equation needs reviewed half-pi shifts"
+                "the translated equation needs reviewed twelfth-pi shifts"
             )
         argument = sp.latex(
             atom.coefficient * sp.Symbol("x", real=True) + new_shift * sp.pi
@@ -59,6 +59,21 @@ def translated_atoms(atoms, shift):
             atom, shift=new_shift, text="\\" + atom.function + "(" + argument + ")"
         )
     return result
+
+
+def read_method(html):
+    from .exam_trigonometric_methods import preference
+    from .exam_trigonometric_shifted import parent_angle
+
+    normalized, shift = parent_method(html)
+    if shift:
+        return normalized, shift, False
+    try:
+        preference(html)
+    except UnsupportedCondition:
+        normalized, shift = parent_angle(html)
+        return normalized, shift, bool(shift)
+    return html, sp.S.Zero, False
 
 
 def proof(a):
@@ -71,12 +86,40 @@ def proof(a):
     )
     intro, steps = first(inner)
     soup = BeautifulSoup(intro + steps, "html.parser")
+    notation = (
+        r"\left("
+        + sp.latex(sp.Symbol("x", real=True) + a.translation * sp.pi)
+        + r"\right)"
+        if a.shifted_notation
+        else "t"
+    )
+    identities = {}
+    if a.shifted_notation:
+        from .exam_trigonometric_shifted import identity_arguments
+
+        identities = identity_arguments(a)
     for node in soup.select("[data-inline-latex]"):
-        node["data-inline-latex"] = re.sub(
-            r"(?<![A-Za-z])x(?![A-Za-z])", "t", node["data-inline-latex"]
+        text = node["data-inline-latex"]
+        left, separator, right = text.partition("=")
+        if separator and left in identities:
+            text = right
+        transformed = re.sub(r"(?<![A-Za-z])x(?![A-Za-z])", lambda _: notation, text)
+        node["data-inline-latex"] = (
+            identities[left] + "=" + transformed
+            if separator and left in identities
+            else transformed
         )
-    html = str(soup) + "<p>Сделаем обратную замену:</p>"
-    html += line("x=t-(" + pi(a.translation) + ")")
+    html = str(soup)
+    if a.shifted_notation:
+        html += "<p>Выразим исходную переменную из найденных равенств для сдвинутого угла:</p>"
+    else:
+        html += "<p>Сделаем обратную замену:</p>"
+        html += line("x=t-(" + pi(a.translation) + ")")
     for text in series_lines(a.series):
         html += line(text + r",\quad k\in\mathbb Z")
+    if a.shifted_notation:
+        return (
+            "<p>Сведём уравнение к квадратному относительно функции сдвинутого угла:</p>",
+            html,
+        )
     return "<p>Сделаем замену угла:</p>" + line("t=x+(" + pi(a.translation) + ")"), html

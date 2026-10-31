@@ -66,6 +66,7 @@ class Analysis:
     fraction: sp.Expr | None = None
     absolute: tuple | None = None
     division: bool = False
+    shifted_notation: bool = False
 
 
 def periodic(residues):
@@ -154,11 +155,18 @@ def select(series, bounds):
 
 def analyze(formula, interval, bounds, parent_html):
     from .exam_trigonometric_methods import methods, preference
-    from .exam_trigonometric_translation import parent_method
+    from .exam_trigonometric_translation import read_method
 
-    parent_html, translation = parent_method(parent_html)
+    parent_html, translation, shifted_notation = read_method(parent_html)
     primary, alternative = methods(parent_html)
-    result = analyze_method(formula, interval, bounds, primary, translation=translation)
+    result = analyze_method(
+        formula,
+        interval,
+        bounds,
+        primary,
+        translation=translation,
+        shifted_notation=shifted_notation,
+    )
     if alternative is not None:
         function, multiple = preference(alternative)
         style = (
@@ -262,6 +270,7 @@ def analyze_method(
     style=None,
     preferred_scale=None,
     translation=sp.S.Zero,
+    shifted_notation=False,
 ):
     from .exam_trigonometric_domain import restrict, without_poles
     from .exam_trigonometric_methods import (
@@ -309,7 +318,9 @@ def analyze_method(
     series = tuple(
         (q / compiled.scale - translation, p / compiled.scale) for q, p in series
     )
-    if method == "inequalities":
+    if shifted_notation:
+        series = tuple(s for item in series for s in centred((item,)))
+    elif method == "inequalities":
         series = centred(series)
     qbounds = tuple(sp.cancel(b / sp.pi) for b in bounds[:2]) + bounds[2:]
     if any(q.is_Rational is not True for q in qbounds[:2]):
@@ -350,6 +361,7 @@ def analyze_method(
         compiled.fraction,
         compiled.absolute,
         dividing,
+        shifted_notation,
     )
 
 
