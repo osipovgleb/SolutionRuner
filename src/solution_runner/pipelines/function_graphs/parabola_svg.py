@@ -18,14 +18,15 @@ def segments(raw):
         raise ContentPlanError("unsupported source curve path syntax")
     tokens = re.findall(_TOKEN, raw)
     current, result, index, command = (0.0, 0.0), [], 0, None
+    control = None
     while index < len(tokens):
         if tokens[index].isalpha():
             command = tokens[index]
             index += 1
-        size = 2 if command in {"M", "m"} else 6 if command in {"C", "c"} else None
+        size = {"M": 2, "m": 2, "C": 6, "c": 6, "S": 4, "s": 4}.get(command)
         if size is None or index + size > len(tokens):
             raise ContentPlanError(
-                "only inspected M/C/c source curve commands are supported"
+                "only inspected M/C/c/S/s source curve commands are supported"
             )
         try:
             values = list(map(float, tokens[index : index + size]))
@@ -34,12 +35,19 @@ def segments(raw):
         points = list(zip(values[::2], values[1::2], strict=True))
         if command.islower():
             points = [(x + current[0], y + current[1]) for x, y in points]
-        if size == 6:
+        if size == 4:
+            reflected = tuple(
+                2 * x - y for x, y in zip(current, control or current, strict=True)
+            )
+            points.insert(0, reflected)
+        if size in (4, 6):
+            control = points[-2]
             result.append([list(current)] + [list(p) for p in points])
         current = points[-1]
         index += size
         if size == 2:
             command = None
+            control = None
     return result
 
 

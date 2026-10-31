@@ -108,3 +108,35 @@ PROFILES += tuple(
         ("509118", "a91d1c0d-4a76-46a1-a3e3-258f3979ef59", 1),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="12",
+        theme_title="Показательные и логарифмические функции",
+        theme_order_index=4,
+        snapshot_theme_id="723e5f49-44e9-42c7-a8ca-fb36e5f1b020",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exponential-logarithmic-function-graph",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("509009", "324926c8-52c0-465b-8641-d3f51fa885b2", 0),
+        ("509026", "00acdb28-fb44-4d31-ac72-568b56e142d3", 1),
+        ("509042", "98eaf7b1-86a0-4cad-a8f7-a101d7677b27", 2),
+        ("509060", "90d6c8e1-bcaf-495a-8ca8-f983c0ee83b0", 3),
+        ("509089", "094fd911-e396-4404-81a8-149ec7570468", 4),
+        ("509095", "208e5358-dd99-4be7-8923-c22009ebc956", 5),
+        ("509101", "eb24ec93-513e-4eb7-803c-4fdd262cebfd", 6),
+        ("509107", "b6671477-8b0e-45cd-a1ee-d9631ab46b73", 7),
+        ("639480", "6da4137a-9f0c-40d0-9e4f-56b9e5568975", 8),
+        ("639672", "c9e9525f-56ff-4af2-abd0-50aebdce894b", 9),
+        ("660992", "a7fef2f7-2b5e-4ec3-99dc-468ab6f2b058", 10),
+    )
+)
