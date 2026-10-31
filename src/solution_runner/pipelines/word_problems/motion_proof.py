@@ -71,7 +71,11 @@ def conversions(q):
     html = ""
     for key, duration in q.durations.items():
         if duration.minutes:
-            purpose = "Время до встречи" if key == "meeting" else "Указанное время"
+            purpose = {
+                "meeting": "Время до встречи",
+                "total": "Всё время пути",
+                "down": "Время спуска",
+            }.get(key, "Указанное время")
             html += f"<p>{purpose} переведём в часы:</p>"
             html += line(
                 n(duration.hours)
@@ -211,7 +215,11 @@ def linear_proof(a):
 
 
 def proof(a):
+    from .motion_extended_proof import PROOFS
+
     q = a.question
+    if q.kind in PROOFS:
+        return PROOFS[q.kind](a)
     html = conversions(q)
     if q.kind in {"meeting", "meeting_point", "delayed_point", "delayed_speed"}:
         return html + (

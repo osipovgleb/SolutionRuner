@@ -1,6 +1,6 @@
 """One exact rational time balance for half trips, races and meetings."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import sympy as sp
 
@@ -18,6 +18,7 @@ class Balance:
     right: sp.Expr
     domain: sp.Set
     denominators: tuple
+    output: sp.Expr = X
 
 
 def half_trip(q):
@@ -104,6 +105,87 @@ def trip_time(q):
     )
 
 
+def catch_return(q):
+    v = q.values
+    delay = q.durations["delay"].total
+    if q.kind == "catch_return":
+        return Balance(
+            (X + delay) / (2 * X + delay),
+            v["known"] * X / v["distance"],
+            sp.Interval.open(0, sp.oo),
+            (2 * X + delay,),
+            v["known"] * X,
+        )
+    catch_time = delay * X / (v["known"] - X)
+    return Balance(
+        (2 * catch_time + delay) * X,
+        v["distance"],
+        sp.Interval.open(0, v["known"]),
+        (v["known"] - X,),
+        v["known"] * catch_time,
+    )
+
+
+def third_cyclist(q):
+    first, second = q.values["first"], q.values["second"]
+    delay = q.durations["delay"].total
+    if q.kind == "third_cyclist":
+        speed = second * (X + 1) / X
+        return Balance(
+            speed * (X + delay),
+            first * (X + delay + 2),
+            sp.Interval.open(0, sp.oo),
+            (X,),
+            speed,
+        )
+    return Balance(
+        second / (X - second) + delay,
+        2 * first / (X - first),
+        sp.Interval.open(max(first, second), sp.oo),
+        (X - second, X - first),
+    )
+
+
+def walk_return(q):
+    v = q.values
+    if v["fast"] <= v["slow"]:
+        raise UnsupportedCondition("the returning second walker must be faster")
+    return Balance(
+        X / v["slow"],
+        (2 * v["distance"] - X) / v["fast"],
+        sp.Interval.open(0, v["distance"]),
+        (),
+    )
+
+
+def downhill(q):
+    total, down = (q.durations[key].total for key in ("total", "down"))
+    if down >= total:
+        raise UnsupportedCondition(
+            "positive time for both ascent and descent is required"
+        )
+    return Balance(
+        down * X + (total - down) * (X - q.values["gap"]),
+        q.values["distance"],
+        sp.Interval.open(q.values["gap"], sp.oo),
+        (),
+    )
+
+
+def stopped(q):
+    v = q.values
+    total = v["reference_distance"] / v["known"]
+    delay = q.durations["delay"].total
+    if delay >= total:
+        raise UnsupportedCondition("the stop must leave positive riding time")
+    return Balance(v["distance"] / X + delay, total, sp.Interval.open(0, sp.oo), (X,))
+
+
+def midpoint(q):
+    half = replace(q, values={**q.values, "distance": q.values["distance"] / 2})
+    return replace(different_speeds(half), output=X + q.values["gap"])
+
+
 BUILDERS = {
     "half_gain": half_trip,
     "half_loss": half_trip,
@@ -115,6 +197,16 @@ BUILDERS = {
     "delayed_point": delayed_point,
     "delayed_speed": meeting,
     "trip_time": trip_time,
+    "freight": different_speeds,
+    "catch_return": catch_return,
+    "catch_return_speed": catch_return,
+    "third_cyclist": third_cyclist,
+    "third_cyclist_speed": third_cyclist,
+    "walk_return": walk_return,
+    "downhill": downhill,
+    "stopped": stopped,
+    "named_stop": stopped,
+    "midpoint": midpoint,
 }
 
 
@@ -155,7 +247,20 @@ def analyze(q):
         raise UnsupportedCondition(
             "the meeting must occur before either traveler finishes"
         )
-    return Analysis(q, b, polynomial, roots, root, root)
+    result = sp.cancel(b.output.subs(X, root))
+    if result.is_Rational is not True or result <= 0:
+        raise UnsupportedCondition(
+            "one positive exact rational requested quantity is required"
+        )
+    return Analysis(q, b, polynomial, roots, root, result)
+
+
+def alternate(q):
+    kind = {
+        "catch_return": "catch_return_speed",
+        "third_cyclist": "third_cyclist_speed",
+    }[q.kind]
+    return analyze(replace(q, kind=kind))
 
 
 def calculate(context):

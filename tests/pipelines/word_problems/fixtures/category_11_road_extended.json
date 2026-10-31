@@ -1,0 +1,1179 @@
+{
+  "groups": [
+    {
+      "key": "99593",
+      "uuid": "5e64b5e3-a609-4017-a5ef-ce3521d898c3",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 12,
+      "rule": "word-motion-time-balance"
+    },
+    {
+      "key": "99594",
+      "uuid": "4bf8a491-a245-43e7-8191-a54a75d7185b",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 13,
+      "rule": "word-motion-time-balance"
+    },
+    {
+      "key": "99597",
+      "uuid": "13abf819-9840-4960-bd29-a27068d4a661",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 15,
+      "rule": "word-motion-time-balance"
+    },
+    {
+      "key": "323849",
+      "uuid": "9915329d-214f-4f20-9bd0-d2b6a485aec5",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 24,
+      "rule": "word-motion-time-balance"
+    },
+    {
+      "key": "323850",
+      "uuid": "2cd00de1-75b0-4bf9-ac08-958dfa0c30d7",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 25,
+      "rule": "word-motion-time-balance"
+    },
+    {
+      "key": "323853",
+      "uuid": "d14a1a6b-85e6-482f-aa04-800252e0368a",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 26,
+      "rule": "word-motion-time-balance"
+    },
+    {
+      "key": "502291",
+      "uuid": "cd9c8e3b-31e3-4dd5-ab75-7de1b4af5b22",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 27,
+      "rule": "word-motion-time-balance"
+    },
+    {
+      "key": "635151",
+      "uuid": "505de21a-e276-4577-8189-5fe4f7430fc6",
+      "theme_uuid": "bffa0d2a-bf9f-451e-a85f-b591729d69f3",
+      "theme_title": "Задачи на движение по прямой",
+      "theme_order": 1,
+      "order": 29,
+      "rule": "word-motion-time-balance"
+    }
+  ],
+  "cases": [
+    {
+      "group": "99593",
+      "task": "99593",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>То­вар­ный поезд каж­дую ми­ну­ту про­ез­жа­ет на 750 мет­ров мень­ше, чем ско­рый, и на путь в 180 км тра­тит вре­ме­ни на 2 часа боль­ше, чем ско­рый. Най­ди­те ско­рость то­вар­но­го по­ез­да. Ответ дайте в км/⁠ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ско­рость то­вар­но­го по­ез­да мень­ше, чем ско­ро­го, на 750 м/⁠мин, или на </p><center><p> <span data-inline-latex=\"\\frac{0{,}75\\,\\mathrm{км}}{\\frac{1}{60}\\,\\mathrm{ч}}=45\\,\\mathrm{км}/\\mathrm{ч}\"></span>. </p></center><p>Пусть υ км/ч  — ско­рость то­вар­но­го по­ез­да, тогда ско­рость ско­ро­го по­ез­да  — <nobr> <span data-inline-latex=\"v+45\"></span> км/ч.</nobr> На путь в 180 км то­вар­ный поезд тра­тит вре­ме­ни на 2 часа боль­ше, чем ско­рый, от­сю­да имеем: </p><center><p><span><span data-inline-latex=\"\\frac{180}{v}=\\frac{180}{v+45}+2\\Leftrightarrow\\frac{180}{v}=\\frac{180+2v+90}{v+45}\\Leftrightarrow180v+180\\cdot45=270v+2v^2\\Leftrightarrow2v^2+90v-180\\cdot45=0\\Leftrightarrow v^2+45v-90\\cdot45=0\\Leftrightarrow\\left[\\begin{aligned}v&amp;=45;\\\\v&amp;=-90\\end{aligned}\\right.\\quad v&gt;0\\Leftrightarrow v=45.\"></span></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99593",
+      "task": "113153",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>То­вар­ный поезд каж­дую ми­ну­ту про­ез­жа­ет на 300 мет­ров мень­ше, чем ско­рый, и на путь в 420 км тра­тит вре­ме­ни на 3 часа боль­ше, чем ско­рый. Най­ди­те ско­рость то­вар­но­го по­ез­да. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">42</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ско­рость то­вар­но­го по­ез­да мень­ше, чем ско­ро­го на 300 м/мин или  на  <span data-inline-latex=\"\\frac{0{,}3\\,\\mathrm{км}}{\\frac{1}{60}\\,\\mathrm{ч}}=18\\,\\mathrm{км}/\\mathrm{ч}\"></span>.  Пусть  <span data-inline-latex=\"v\"></span>  км/ч  — ско­рость то­вар­но­го по­ез­да, тогда ско­рость ско­ро­го по­ез­да  <span data-inline-latex=\"v+18\"></span> км/ч. На путь в 420 км то­вар­ный поезд тра­тит вре­ме­ни на 3 часа боль­ше, чем ско­рый, от­сю­да имеем: </p><center><p><span data-inline-latex=\"\\frac{420}{v}=\\frac{420}{v+18}+3\\Leftrightarrow\\frac{140}{v}=\\frac{158+v}{v+18}\\underset{v&gt;0}{\\Leftrightarrow}140(v+18)=(158+v)v\\Leftrightarrow v^2+18v-2520=0\\Leftrightarrow\\left[\\begin{aligned}v&amp;=42;\\\\v&amp;=-60\\end{aligned}\\right.\\quad v&gt;0\\Leftrightarrow v=42.\"></span></p><p></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99593",
+      "task": "628745",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>То­вар­ный поезд каж­дую ми­ну­ту про­ез­жа­ет на 450 мет­ров мень­ше, чем ско­рый, и на путь в 630 км тра­тит вре­ме­ни на 3 часа боль­ше, чем ско­рый. Най­ди­те ско­рость то­вар­но­го по­ез­да. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">63</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ско­рость то­вар­но­го по­ез­да мень­ше, чем ско­ро­го, на 450 м/мин или  на </p><center><p> <span data-inline-latex=\"\\frac{0{,}45\\,\\mathrm{км}}{\\frac{1}{60}\\,\\mathrm{ч}}=27\"></span>  км/ч.</p></center><p> Пусть υ км/ч  — ско­рость то­вар­но­го по­ез­да, тогда ско­рость ско­ро­го по­ез­да  <span data-inline-latex=\"v+27\"></span> км/ч. На путь в 630 км то­вар­ный поезд тра­тит вре­ме­ни на 3 часа боль­ше, чем ско­рый, от­сю­да имеем: </p><center><p><span><span data-inline-latex=\"\\frac{630}{v}=\\frac{630}{v+27}+3\\Leftrightarrow\\frac{630}{v}=\\frac{630+3v+81}{v+27}\\Leftrightarrow630v+630\\cdot27=711v+3v^2\\Leftrightarrow3v^2+81v-630\\cdot27=0\\Leftrightarrow v^2+27v-210\\cdot27=0\\Leftrightarrow\\left[\\begin{aligned}v&amp;=63;\\\\v&amp;=-90\\quad v&gt;0\\end{aligned}\\right.\\Leftrightarrow v=63\"></span></span><span></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99593",
+      "task": "628771",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>То­вар­ный поезд каж­дую ми­ну­ту про­ез­жа­ет на 750 мет­ров мень­ше, чем ско­рый, и на путь в 560 км тра­тит вре­ме­ни на 4 часа боль­ше, чем ско­рый. Най­ди­те ско­рость то­вар­но­го по­ез­да. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ско­рость то­вар­но­го по­ез­да мень­ше, чем ско­ро­го, на 750 м/мин или  на </p><center><p> <span data-inline-latex=\"\\frac{0{,}75\\,\\mathrm{км}}{\\frac{1}{60}\\,\\mathrm{ч}}=45\\,\\mathrm{км}/\\mathrm{ч}\"></span>. </p></center><p> Пусть υ км/ч  — ско­рость то­вар­но­го по­ез­да, тогда ско­рость ско­ро­го по­ез­да  <span data-inline-latex=\"v+45\"></span> км/ч. На путь в 560 км то­вар­ный поезд тра­тит вре­ме­ни на 4 часа боль­ше, чем ско­рый, от­сю­да имеем: </p><center><p><span><span data-inline-latex=\"\\frac{560}{v}=\\frac{560}{v+45}+4\\Leftrightarrow\\frac{560}{v}=\\frac{560+45v+180}{v+45}\\Leftrightarrow560v+560\\cdot45=740v+4v^2\\Leftrightarrow4v^2+180v-560\\cdot45=0\\Leftrightarrow\\left[\\begin{aligned}v&amp;=60;\\\\v&amp;=-105\\end{aligned}\\right.\\underset{v&gt;0}{\\Leftrightarrow}v=60.\"></span></span></p><p></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99594",
+      "task": "99594",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Рас­сто­я­ние между го­ро­да­ми <var data-math-identifier=\"A\">A</var> и <var data-math-identifier=\"B\">B</var> равно 150 км. Из го­ро­да <var data-math-identifier=\"A\">A</var> в город <var data-math-identifier=\"B\">B</var> вы­ехал ав­то­мо­биль, а через <nobr>30 минут</nobr> сле­дом за ним со ско­ро­стью 90 км/⁠ч вы­ехал мо­то­цик­лист, до­гнал ав­то­мо­биль в го­ро­де <var data-math-identifier=\"C\">C</var> и по­вер­нул об­рат­но. Когда он вер­нул­ся <nobr>в <var data-math-identifier=\"A\">A</var>,</nobr> ав­то­мо­биль при­был <nobr>в <var data-math-identifier=\"B\">B</var>.</nobr> Най­ди­те рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">90</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Обо­зна­чим <var data-math-identifier=\"S\">S</var> км  — рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>, <nobr> <span data-inline-latex=\"v\"></span>  км/ч</nobr>  — ско­рость ав­то­мо­би­ля, <nobr><i>t</i> ч</nobr>  — время дви­же­ния мо­то­цик­ли­ста от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Тогда  <span data-inline-latex=\"(t+\\frac{1}{2})v=90t\"></span> и  <span data-inline-latex=\"(2t+\\frac{1}{2})v=150\"></span>. Далее на­хо­дим: </p><center><p><span> <span data-inline-latex=\"\\begin{cases}(t+\\frac{1}{2})v=90t\\\\(2t+\\frac{1}{2})v=150\\end{cases}\\iff \\begin{cases}\\frac{(t+\\frac{1}{2})v}{(2t+\\frac{1}{2})v}=\\frac{90t}{150}\\\\(2t+\\frac{1}{2})v=150\\end{cases}\\iff \\begin{cases}\\frac{2t+1}{2t+\\frac{1}{2}}=\\frac{6t}{5}\\\\(2t+\\frac{1}{2})v=150\\end{cases}\\iff \\begin{cases}t=1\\\\v=60\\end{cases}\"></span> . </span></p></center><p>По смыс­лу за­да­чи <span data-inline-latex=\"t\\gt 0\"></span>. Решим при этом усло­вии урав­не­ние:</p><center><p><span> <span data-inline-latex=\"\\frac{2t+1}{2t+\\frac{1}{2}}=\\frac{6t}{5}\\underset{t\\gt 0}{\\iff}10t+5=12t^{2}+3t\\iff 12t^{2}-7t-5=0\\iff \\left[\\begin{aligned}t=1\\\\t=-\\frac{2}{12}\\end{aligned}\\right..\\quad \\underset{t\\gt 0}{\\iff}t=1\"></span>. </span></p></center><p>Таким об­ра­зом, <nobr> <span data-inline-latex=\"S=90t=90\"></span> км.</nobr></p><p><b>При­ведём дру­гой спо­соб ре­ше­ния.</b></p><p>Обо­зна­чим υ км  — ско­рость ав­то­мо­би­ля. В мо­мент вы­ез­да мо­то­цик­ли­ста между ав­то­мо­би­лем и мо­то­цик­лом было 0,5υ км, и мо­то­цик­лист до­го­нит ав­то­мо­биль в го­ро­де <var data-math-identifier=\"C\">C</var> за <nobr> <span data-inline-latex=\"\\frac{0{,}5v}{90-v}\"></span>  ч.</nobr> За это же время мо­то­цикл вернётся <nobr>в <var data-math-identifier=\"A\">A</var>,</nobr> а ав­то­мо­биль до­едет <nobr>до <var data-math-identifier=\"B\">B</var>.</nobr> </p><p>Всего ав­то­мо­биль за­тра­тит вре­ме­ни <span data-inline-latex=\"2\\cdot \\frac{0{,}5v}{90-v}+0{,}5\"></span>.  За это время он со ско­ро­стью υ про­едет 150 км. По­лу­чим урав­не­ние:</p><center><p><span> <span data-inline-latex=\"(\\frac{v}{90-v}+0{,}5)\\cdot v=150\\iff 0{,}5v^{2}+45v=150\\cdot 90-150v\\iff v^{2}+390v-300\\cdot 90=0\"></span>. </span></p></center><p>По­ло­жи­тель­ный ко­рень урав­не­ния  <span data-inline-latex=\"v=60\"></span>. Тогда мо­то­цикл за­тра­тит на до­ро­гу <nobr>до <var data-math-identifier=\"C\">C</var></nobr> <nobr> <span data-inline-latex=\"\\frac{30}{30}=1\"></span>  час,</nobr> а по­сколь­ку его ско­рость равна 90, то рас­сто­я­ние <nobr>до <var data-math-identifier=\"C\">C</var></nobr> равно 90 км.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99594",
+      "task": "520493",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Рас­сто­я­ние между го­ро­да­ми <var data-math-identifier=\"A\">A</var> и <var data-math-identifier=\"B\">B</var> равно 403 км. Из го­ро­да <var data-math-identifier=\"A\">A</var> в город <var data-math-identifier=\"B\">B</var> вы­ехал ав­то­мо­биль, а через 1 час сле­дом за ним со ско­ро­стью 90 км/ч вы­ехал мо­то­цикл, до­гнал ав­то­мо­биль в го­ро­де <var data-math-identifier=\"C\">C</var> и по­вер­нул об­рат­но. Когда мо­то­цикл вер­нул­ся в <var data-math-identifier=\"A\">A</var>, ав­то­мо­биль при­был в <var data-math-identifier=\"B\">B</var>. Най­ди­те рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">234</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Обо­зна­чим <span data-inline-latex=\"S\"></span>  км  — рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>,  <span data-inline-latex=\"v\"></span>  км/ч  — ско­рость ав­то­мо­би­ля, <i>t</i> ч  — время дви­же­ния мо­то­цик­ли­ста от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Тогда  <span data-inline-latex=\"(t+1)v=90t\"></span> и  <span data-inline-latex=\"(2t+1)v=403\"></span>. На­хо­дим: </p><center><p> <span data-inline-latex=\"\\begin{cases}(t+1)v=90t\\\\(2t+1)v=403\\end{cases}\\iff \\begin{cases}\\frac{(t+1)v}{(2t+1)v}=\\frac{90t}{403}\\\\(2t+1)v=403\\end{cases}\\iff \\begin{cases}\\frac{t+1}{2t+1}=\\frac{90t}{403}\\\\(2t+1)v=403\\end{cases}\"></span> . </p></center><p>По смыс­лу за­да­чи <span data-inline-latex=\"t\\gt 0\"></span>. Решим при этом усло­вии урав­не­ние:</p><center><p><span><span data-inline-latex=\"\\frac{t+1}{2t+1}=\\underset{t&gt;0}{\\frac{90t}{403}}\\Leftrightarrow 403(t+1)=90t(2t+1)\\Leftrightarrow 180t^2-313t-403=0\\Leftrightarrow \\left[\\begin{aligned}t&amp;=\\frac{13}{5};\\\\t&amp;=-\\frac{31}{36}\\end{aligned}\\right.\\underset{t&gt;0}{\\Leftrightarrow}t=\\frac{13}{5}.\"></span></span></p></center><p> Таким об­ра­зом,  <span data-inline-latex=\"S=90t=234\"></span> км.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99594",
+      "task": "520513",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Рас­сто­я­ние между го­ро­да­ми <var data-math-identifier=\"A\">A</var> и <var data-math-identifier=\"B\">B</var> равно 798 км. Из го­ро­да <var data-math-identifier=\"A\">A</var> в город <var data-math-identifier=\"B\">B</var> вы­ехал ав­то­мо­биль, а через 3 часа сле­дом за ним со ско­ро­стью 120 км/ч вы­ехал мо­то­цикл, до­гнал ав­то­мо­биль в го­ро­де <var data-math-identifier=\"C\">C</var> и по­вер­нул об­рат­но. Когда мо­то­цикл вер­нул­ся в <var data-math-identifier=\"A\">A</var>, ав­то­мо­биль при­был в <var data-math-identifier=\"B\">B</var>. Най­ди­те рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">504</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Обо­зна­чим <var data-math-identifier=\"S\">S</var> км  — рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>,  <span data-inline-latex=\"v\"></span>  км/ч  — ско­рость ав­то­мо­би­ля, <i>t</i> ч  — время дви­же­ния мо­то­цик­ли­ста от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Тогда  <span data-inline-latex=\"(t+3)v=120t\"></span> и  <span data-inline-latex=\"(2t+3)v=798\"></span>. Решим си­сте­му по­лу­чен­ных урав­не­ний: </p><center><p><span> <span data-inline-latex=\"\\begin{cases}(t+3)v=120t\\\\(2t+3)v=798\\end{cases}\\iff \\begin{cases}\\frac{(t+3)v}{(2t+3)v}=\\frac{120t}{798}\\\\(2t+3)v=798\\end{cases}\\iff \\begin{cases}\\frac{2t+6}{2t+3}=\\frac{40t}{133}\\\\(2t+3)v=798\\end{cases}\\iff \\begin{cases}t=4{,}2\\\\v=70\\end{cases}\"></span> . </span></p></center><p>Тогда  <span data-inline-latex=\"S=120t=504\"></span> км.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99594",
+      "task": "642000",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Рас­сто­я­ние между го­ро­да­ми <var data-math-identifier=\"A\">A</var> и <var data-math-identifier=\"B\">B</var> равно 420 км. Из го­ро­да <var data-math-identifier=\"A\">A</var> в город <var data-math-identifier=\"B\">B</var> вы­ехал ав­то­мо­биль, а через 1 час сле­дом за ним со ско­ро­стью 80 км/ч вы­ехал мо­то­цик­лист, до­гнал ав­то­мо­биль в го­ро­де <var data-math-identifier=\"C\">C</var> и по­вер­нул об­рат­но. Когда он вер­нул­ся в <var data-math-identifier=\"A\">A</var>, ав­то­мо­биль при­был в <var data-math-identifier=\"B\">B</var>. Най­ди­те рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">240</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Обо­зна­чим <var data-math-identifier=\"S\">S</var> км  — рас­сто­я­ние от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>, υ км/ч  — ско­рость ав­то­мо­би­ля, <i>t</i> ч  — время дви­же­ния мо­то­цик­ли­ста от <var data-math-identifier=\"A\">A</var> до <var data-math-identifier=\"C\">C</var>. Тогда  <span data-inline-latex=\"(t+1)v=80t\"></span> и  <span data-inline-latex=\"(2t+1)v=420\"></span>. Решим си­сте­му по­лу­чен­ных урав­не­ний: </p><center><p><span> <span data-inline-latex=\"\\begin{cases}(t+1)v=80t\\\\(2t+1)v=420\\end{cases}\\iff \\begin{cases}\\frac{(t+1)v}{(2t+1)v}=\\frac{80t}{420}\\\\(2t+1)v=420\\end{cases}\\iff \\begin{cases}\\frac{2t+2}{2t+1}=\\frac{8t}{21}\\\\(2t+1)v=420\\end{cases}\\iff \\begin{cases}t=3\\\\v=60\\end{cases}\"></span> . </span></p></center><p> Тогда  <span data-inline-latex=\"S=80t=240\\,\\mathrm{км}\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99597",
+      "task": "99597",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пер­вый ве­ло­си­пе­дист вы­ехал из по­сел­ка по шоссе со ско­ро­стью 15 км/⁠ч. Через час после него со ско­ро­стью 10 км/⁠ч из того же по­сел­ка в том же на­прав­ле­нии вы­ехал вто­рой ве­ло­си­пе­дист, а еще через час после этого  — тре­тий. Най­ди­те ско­рость тре­тье­го ве­ло­си­пе­ди­ста, если сна­ча­ла он до­гнал вто­ро­го, а через 2 часа 20 минут после этого до­гнал пер­во­го. Ответ дайте в км/⁠ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Пусть <nobr> <span data-inline-latex=\"v\"></span>  км/ч</nobr>  — ско­рость тре­тье­го ве­ло­си­пе­ди­ста, а <nobr><i>t</i> ч</nobr>  — время, ко­то­рое по­на­до­би­лось ему, чтобы до­гнать вто­ро­го ве­ло­си­пе­ди­ста. Таким об­ра­зом, </p><center><p> <span data-inline-latex=\"v t=10\\cdot (t+1)\\iff v=\\frac{10\\cdot (t+1)}{t}\"></span> . </p></center><p>А через 2 часа 20 минут после этого тре­тий ве­ло­си­пе­дист до­гнал пер­во­го. Таким об­ра­зом,</p><center><p><span> <span data-inline-latex=\"v\\cdot (t+\\frac{7}{3})=15\\cdot (t+\\frac{7}{3}+2)\\iff \\frac{10\\cdot (t+1)\\cdot (3t+7)}{3t}=\\frac{15}{3}\\cdot (3t+13)\\iff\"></span> </span></p></center><center><p> <span data-inline-latex=\"\\iff 6t^{2}+20t+14=9t^{2}+39t\\iff 3t^{2}+19t-14=0\\iff\"></span> </p></center><center><p> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}t=\\frac{-19+\\sqrt{19^{2}+4\\cdot 3\\cdot 14}}{6}=\\frac{2}{3}\\\\t=\\frac{-19-\\sqrt{19^{2}+4\\cdot 3\\cdot 14}}{6}=-7\\end{aligned}\\right..\\quad \\underset{t\\gt 0}{\\iff}t=\\frac{2}{3}\"></span> . </p></center><p>Таким об­ра­зом,  <span data-inline-latex=\"v=\\frac{10\\cdot \\frac{5}{3}}{\\frac{2}{3}}=25\"></span>.  </p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>При­мем за <nobr><i>х</i> км/⁠ч</nobr> ско­рость тре­тье­го ве­ло­си­пе­ди­ста. Тогда ско­рость сбли­же­ния вто­ро­го и тре­тье­го  ве­ло­си­пе­ди­стов равна <nobr><span data-inline-latex=\"x-10\"></span> км/ч,</nobr> а ско­рость сбли­же­ния пер­во­го и тре­тье­го ве­ло­си­пе­ди­стов равна <nobr><span data-inline-latex=\"x-15\"></span> км/ч.</nobr> Вто­рой ве­ло­си­пе­дист вы­ехал на час рань­ше тре­тье­го, по­это­му из­на­чаль­но их раз­де­ля­ло 10 км. Чтобы пре­одо­леть это рас­сто­я­ние, тре­тье­му ве­ло­си­пе­ди­сту по­на­до­би­лось <nobr> <span data-inline-latex=\"\\frac{10}{x-10}\"></span>  часа.</nobr> Пер­вый ве­ло­си­пе­дист вы­ехал на два часа рань­ше тре­тье­го, по­это­му из­на­чаль­но их раз­де­ля­ло 30 км. Сле­до­ва­тель­но, тре­тий ве­ло­си­пе­дист до­гнал пер­во­го за <nobr> <span data-inline-latex=\"\\frac{30}{x-15}\"></span>  часа.</nobr> Тре­тий ве­ло­си­пе­дист до­гнал пер­во­го через 7/⁠3 часа после того, как он до­гнал вто­ро­го, по­это­му можно со­ста­вить урав­не­ние:</p><center><p> <span data-inline-latex=\"\\frac{10}{x-10}+\\frac{7}{3}=\\frac{30}{x-15}\"></span> . </p></center><p>При усло­вии <span data-inline-latex=\"x\\gt 15\"></span>, из­бав­ля­ясь от зна­ме­на­те­лей, по­лу­ча­ем:</p><center><p><span data-inline-latex=\"30(x-15)+7(x-10)(x-15)=90(x-10)\\iff 7x^{2}-235x+1500=0\"></span>.</p></center><p>Най­дем дис­кри­ми­нант:</p><center><p><span><span data-inline-latex=\"235^{2}-4\\cdot 7\\cdot 1500=(47\\cdot 5)^{2}-4\\cdot 7\\cdot (25\\cdot 60)=25\\cdot (47^{2}-4\\cdot 7\\cdot 60)=25\\cdot (2209-1680)=25\\cdot 529=(5\\cdot 23)^{2}=115^{2}\"></span> .</span></p></center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"x=\\frac{235\\pm 115}{14}\"></span> .  </p><p>Мень­ший ко­рень <span data-inline-latex=\"x=\\frac{60}{7}\"></span>  мень­ше 15, а по­то­му не под­хо­дит. Боль­ший ко­рень, рав­ный 25, под­хо­дит. Ско­рость тре­тье­го ве­ло­си­пе­ди­ста равна 25 км/⁠ч.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99597",
+      "task": "113603",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пер­вый ве­ло­си­пе­дист вы­ехал из по­сел­ка по шоссе со ско­ро­стью 14 км/ч. Через час после него со ско­ро­стью 13 км/ч из того же по­сел­ка в том же на­прав­ле­нии вы­ехал вто­рой ве­ло­си­пе­дист, а еще через час после этого  — тре­тий. Най­ди­те ско­рость тре­тье­го ве­ло­си­пе­ди­ста, если сна­ча­ла он до­гнал вто­ро­го, а через 4 часа 24 ми­ну­ты после этого до­гнал пер­во­го. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть  <span data-inline-latex=\"v\"></span>  км/ч  — ско­рость тре­тье­го ве­ло­си­пе­ди­ста, а <i>t</i> ч  — время, ко­то­рое по­на­до­би­лось ему, чтобы до­гнать вто­ро­го ве­ло­си­пе­ди­ста. Таким об­ра­зом, </p><center><p> <span data-inline-latex=\"v t=13\\cdot (t+1)\\iff v=\\frac{13\\cdot (t+1)}{t}\"></span> . </p></center><p> А через 4 часа 24 минут после этого тре­тий ве­ло­си­пе­дист до­гнал пер­во­го. Таким об­ра­зом,</p><center><p><span> <span data-inline-latex=\"v\\cdot (t+\\frac{22}{5})=14\\cdot (t+\\frac{22}{5}+2)\\iff \\frac{13\\cdot (t+1)\\cdot (5t+22)}{5t}=\\frac{14}{5}\\cdot (5t+32)\\iff\"></span> </span></p></center><center><p> <span data-inline-latex=\"\\iff 65t^{2}+13\\cdot 27t+22\\cdot 13=70t^{2}+13\\cdot 32t\\iff 5t^{2}+97t-286=0\\iff\"></span> </p></center><center><p> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}t=\\frac{-97+\\sqrt{97^{2}+4\\cdot 5\\cdot 286}}{10}=\\frac{13}{5}\\\\t=\\frac{-97-\\sqrt{97^{2}+4\\cdot 5\\cdot 286}}{10}=-22\\end{aligned}\\right..\\quad \\underset{t\\gt 0}{\\iff}t=\\frac{13}{5}\"></span> . </p></center><p> Таким об­ра­зом,  <span data-inline-latex=\"v=\\frac{13\\cdot \\frac{18}{5}}{\\frac{13}{5}}=18\"></span>.  </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99597",
+      "task": "113617",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пер­вый ве­ло­си­пе­дист вы­ехал из по­сел­ка по шоссе со ско­ро­стью 14 км/ч. Через час после него со ско­ро­стью 11 км/ч из того же по­сел­ка в том же на­прав­ле­нии вы­ехал вто­рой ве­ло­си­пе­дист, а еще через час после этого  — тре­тий. Най­ди­те ско­рость тре­тье­го ве­ло­си­пе­ди­ста, если сна­ча­ла он до­гнал вто­ро­го, а через 2 часа 30 минут после этого до­гнал пер­во­го. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть  <span data-inline-latex=\"v\"></span>  км/ч  — ско­рость тре­тье­го ве­ло­си­пе­ди­ста, а <i>t</i> ч  — время, ко­то­рое по­на­до­би­лось ему, чтобы до­гнать вто­ро­го ве­ло­си­пе­ди­ста. Таким об­ра­зом, </p><center><p> <span data-inline-latex=\"v t=11\\cdot (t+1)\\iff v=\\frac{11\\cdot (t+1)}{t}\"></span> . </p></center><p> А через 2 часа 30 минут после этого тре­тий ве­ло­си­пе­дист до­гнал пер­во­го. Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"v\\cdot (t+\\frac{5}{2})=14\\cdot (t+\\frac{5}{2}+2)\\iff \\frac{11\\cdot (t+1)\\cdot (2t+5)}{2t}=7\\cdot (2t+9)\\iff\"></span> </p></center><center><p> <span data-inline-latex=\"\\iff 22t^{2}+11\\cdot 7t+11\\cdot 5=28t^{2}+2\\cdot 63t\\iff 6t^{2}+49t-55=0\\iff\"></span> </p></center><center><p> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}t=1\\\\t=-\\frac{55}{6}\\end{aligned}\\right..\\quad \\underset{t\\gt 0}{\\iff}t=1\"></span>.</p></center><p> Таким об­ра­зом,  <span data-inline-latex=\"v=\\frac{11\\cdot 2}{1}=22\"></span>.  </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "99597",
+      "task": "113621",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пер­вый ве­ло­си­пе­дист вы­ехал из по­сел­ка по шоссе со ско­ро­стью 15 км/ч. Через час после него со ско­ро­стью 12 км/ч из того же по­сел­ка в том же на­прав­ле­нии вы­ехал вто­рой ве­ло­си­пе­дист, а еще через час после этого  — тре­тий. Най­ди­те ско­рость тре­тье­го ве­ло­си­пе­ди­ста, если сна­ча­ла он до­гнал вто­ро­го, а через 4 часа 30 минут после этого до­гнал пер­во­го. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть  <span data-inline-latex=\"v\"></span>  км/ч  — ско­рость тре­тье­го ве­ло­си­пе­ди­ста, а <i>t</i> ч  — время, ко­то­рое по­на­до­би­лось ему, чтобы до­гнать вто­ро­го ве­ло­си­пе­ди­ста. Таким об­ра­зом, </p><center><p> <span data-inline-latex=\"v t=12\\cdot (t+1)\\iff v=\\frac{12\\cdot (t+1)}{t}\"></span> . </p></center><p> А через 4 часа 30 минут после этого тре­тий ве­ло­си­пе­дист до­гнал пер­во­го. Таким об­ра­зом,</p><center><p><span><span data-inline-latex=\"v\\cdot\\left(t+\\frac{9}{2}\\right)=15\\cdot\\left(t+\\frac{9}{2}+2\\right)\\Leftrightarrow\\frac{12\\cdot(t+1)\\cdot(2t+9)}{2t}=\\frac{15}{2}\\cdot(2t+13)\\Leftrightarrow48t^2+12\\cdot22t+12\\cdot18=60t^2+15\\cdot26t\\Leftrightarrow2t^2+21t-36=0\\Leftrightarrow\\left[\\begin{aligned}t&amp;=\\frac{-21+\\sqrt{21^2+4\\cdot2\\cdot36}}{4}=\\frac{3}{2};\\\\t&amp;=\\frac{-21-\\sqrt{21^2+4\\cdot2\\cdot36}}{4}=-12\\end{aligned}\\right.\\underset{t&gt;0}{\\Leftrightarrow}t=\\frac{3}{2}.\"></span></span></p></center><p> Таким об­ра­зом,  <span data-inline-latex=\"v=\\frac{12\\cdot \\frac{5}{2}}{\\frac{3}{2}}=20\"></span>.  </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323849",
+      "task": "323849",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Два че­ло­ве­ка от­прав­ля­ют­ся из од­но­го дома на про­гул­ку до опуш­ки леса, на­хо­дя­щей­ся в 4,4 км от дома. Один идёт со ско­ро­стью 2,5 км/⁠ч, а дру­гой  — со ско­ро­стью 3 км/⁠ч. Дойдя до опуш­ки, вто­рой с той же ско­ро­стью воз­вра­ща­ет­ся об­рат­но. На каком рас­сто­я­нии от дома про­изойдёт их встре­ча? Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Пусть <nobr><i>х</i> км</nobr>  — ис­ко­мое рас­сто­я­ние, его про­хо­дит пут­ник, дви­жу­щий­ся мед­лен­нее, за <nobr> <span data-inline-latex=\"\\frac{x}{2{,}5}\"></span> часов.</nobr> Дру­гой пут­ник вна­ча­ле про­хо­дит 4,4 км до опуш­ки, а затем воз­вра­ща­ет­ся на <nobr><span data-inline-latex=\"4{,}4-x\"></span> км</nobr> назад, то есть всего он про­хо­дит <nobr><span data-inline-latex=\"8{,}8-x\"></span> км</nobr> за <nobr> <span data-inline-latex=\"\\frac{8{,}8-x}{3}\"></span>  часа.</nobr> Вре­ме­на дви­же­ния пут­ни­ков равны, тогда: </p><center><p><span> <span data-inline-latex=\"\\frac{x}{2{,}5}=\\frac{4{,}4}{3}+\\frac{4{,}4-x}{3}\\iff \\frac{2x}{5}=\\frac{8{,}8-x}{3}\\iff 6x=44-5x\\iff 11x=44\\iff x=4\"></span>. </span></p></center><p>Таким об­ра­зом, ис­ко­мое рас­сто­я­ние равно 4 км.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Пусть <i>x</i> км  — рас­сто­я­ние, ко­то­рое не дошел до опуш­ки пер­вый пут­ник, оно равно рас­сто­я­нию, ко­то­рое про­шел от опуш­ки до места встре­чи вто­рой пут­ник. Пут­ни­ки за­тра­ти­ли одно и то же время, по­это­му </p><center><p><span><span data-inline-latex=\"\\frac{4{,}4+x}{3}=\\frac{4{,}4-x}{2{,}5}\\Leftrightarrow 2{,}5(4{,}4+x)=3(4{,}4-x)\\Leftrightarrow 5{,}5x=0{,}5\\cdot 4{,}4\\Leftrightarrow x=0{,}4.\"></span></span></p></center><p>Не дойдя 0,4 км до опуш­ки, пер­вый пут­ник ока­зал­ся на рас­сто­я­нии 4,4 − 0,4  =  4 км от дома. Это и есть ис­ко­мое рас­сто­я­ние.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Пусть <i>x</i> ч  — время, про­шед­шее от на­ча­ла дви­же­ния до мо­мен­та встре­чи пе­ше­хо­дов. Тогда к мо­мен­ту их встре­чи тот, кто шёл мед­лен­нее, прошёл 2,5<i>x</i> км, а тот, кто шёл быст­рее, прошёл 3<i>x</i> км, из ко­то­рых 4,4 км до опуш­ки, а 3<i>х</i> − 4,4 в об­рат­ном на­прав­ле­нии. Пе­ше­хо­ды встре­ти­лись на одном и том же рас­сто­я­нии от опуш­ки, по­это­му рас­сто­я­ние, ко­то­рое ещё оста­лось прой­ти до опуш­ки более мед­лен­но­му из них, равно рас­сто­я­нию, на ко­то­рое более быст­рый от неё уже уда­лил­ся. Сле­до­ва­тель­но, 4,4 − 2,5<i>х</i>  =  3<i>х</i> − 4,4, от­ку­да <i>х</i>  =  1,6 ч, а ис­ко­мое рас­сто­я­ние равно 2,5 · 1,6  =  4 км.</p><p><i>Ком­мен­та­рий.</i> Урав­не­ние можно было бы со­ста­вить не­сколь­ко по-⁠дру­го­му. По каж­до­му участ­ку либо про­шли оба пе­ше­хо­да, либо один пе­ше­ход два­жды, по­это­му общий прой­ден­ный путь равен удво­ен­но­му рас­сто­я­нию от дома до опуш­ки: 3<i>х</i> + 2,5<i>х</i>  =  8,8.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Тот, кто идет быст­рее, дой­дет до опуш­ки за 4,4 : 3  =  22/⁠15 часа. За это время тот, кто идет мед­лен­нее, прой­дет 2,5 · 22/15  =  11/⁠3 км и ока­жет­ся на рас­сто­я­нии 4,4 − 11/3  =  11/⁠15 км от опуш­ки. Далее они пой­дут на встре­чу друг другу со ско­ро­стью сбли­же­ния 5,5 км/⁠час и пре­одо­ле­ют раз­де­ля­ю­щее их рас­сто­я­ние за (11/⁠15) : 5,5  =  2/⁠15 часа. За это время мед­лен­но иду­щий пе­ше­ход прой­дет еще 2,5 · 2/⁠15  =  1/⁠3 км и ока­жет­ся на рас­сто­я­нии 11/⁠3 + 1/⁠3  =  4 км от точки от­прав­ле­ния.</p><p><b>При­ве­дем ещё одно ре­ше­ние.</b></p><p>Усло­вие за­да­чи рав­но­силь­но тому, что два че­ло­ве­ка, каж­дый из ко­то­рых на­хо­дит­ся на рас­сто­я­нии 4,4 км от опуш­ки, идут нав­стре­чу друг другу. Ско­рость их сбли­же­ния равна 5,5 км/⁠ч. Встре­ча про­изойдёт через 8,8 : 5,5  =  1,6 часа на рас­сто­я­нии 2,5 · 1,6  =  4 км от дома.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323849",
+      "task": "323857",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Два че­ло­ве­ка от­прав­ля­ют­ся из од­но­го дома на про­гул­ку до опуш­ки леса, на­хо­дя­щей­ся в 1,1 км от дома. Один идёт со ско­ро­стью 2,5 км/ч, а дру­гой  — со ско­ро­стью 3 км/ч. Дойдя до опуш­ки, вто­рой с той же ско­ро­стью воз­вра­ща­ет­ся об­рат­но. На каком рас­сто­я­нии от точки от­прав­ле­ния про­изойдёт их встре­ча? Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=13779930\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ Санкт-Петербург, 11.04.2017. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>х</i> км  — ис­ко­мое рас­сто­я­ние. Чтобы прой­ти это рас­сто­я­ние пут­ни­ку, иду­ще­му со ско­ро­стью 2,5 км/ч, не­об­хо­ди­мо  <span data-inline-latex=\"\\frac{x}{2{,}5}\"></span> часа. Вто­рой пут­ник дви­жет­ся со ско­ро­стью 3 км/ч, по­это­му чтобы прой­ти 1,1 км  до опуш­ки и вер­нуть­ся на <span data-inline-latex=\"1{,}1-x\"></span> км назад,  ему не­об­хо­ди­мо  <span data-inline-latex=\"\\frac{1{,}1}{3}\"></span>  +  <span data-inline-latex=\"\\frac{1{,}1-x}{3}\"></span>  часа. Вре­ме­на дви­же­ния пут­ни­ков равны, тогда: </p><center><p><span> <span data-inline-latex=\"\\frac{x}{2{,}5}=\\frac{1{,}1}{3}+\\frac{1{,}1-x}{3}\\iff \\frac{3x}{2{,}5\\cdot 3}=\\frac{5{,}5-2{,}5x}{2{,}5\\cdot 3}\\iff 3x=5{,}5-2{,}5x\\iff 5{,}5x=5{,}5\\iff x=1\"></span>. </span></p></center><p>Тем самым, ис­ко­мое рас­сто­я­ние равно 1 км.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323849",
+      "task": "323859",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Два че­ло­ве­ка от­прав­ля­ют­ся из од­но­го дома на про­гул­ку до опуш­ки леса, на­хо­дя­щей­ся в 1,5 км от дома. Один идёт со ско­ро­стью 2,2 км/ч, а дру­гой  — со ско­ро­стью 4,4 км/ч. Дойдя до опуш­ки, вто­рой с той же ско­ро­стью воз­вра­ща­ет­ся об­рат­но. На каком рас­сто­я­нии от точки от­прав­ле­ния про­изойдёт их встре­ча? Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=13780028\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ Санкт-Петербург, 11.04.2017. Вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>х</i> км  — ис­ко­мое рас­сто­я­ние. Чтобы прой­ти это рас­сто­я­ние пут­ни­ку, иду­ще­му со ско­ро­стью 2,2 км/ч, не­об­хо­ди­мо  <span data-inline-latex=\"\\frac{x}{2{,}2}\"></span> часа. Вто­рой пут­ник дви­жет­ся со ско­ро­стью 4,4 км/ч, по­это­му чтобы прой­ти 1,5 км до опуш­ки и вер­нуть­ся на <span data-inline-latex=\"1{,}5-x\"></span> км назад,  ему не­об­хо­ди­мо  <span data-inline-latex=\"\\frac{1{,}5}{4{,}4}\"></span>  +  <span data-inline-latex=\"\\frac{1{,}5-x}{4{,}4}\"></span>  часа. Вре­ме­на дви­же­ния пут­ни­ков равны, тогда: </p><center><p> <span data-inline-latex=\"\\frac{x}{2{,}2}=\\frac{1{,}5}{4{,}4}+\\frac{1{,}5-x}{4{,}4}\\iff \\frac{2x}{4{,}4}=\\frac{3-x}{4{,}4}\\iff 2x=3-x\\iff x=1\"></span> </p></center><p>Тем самым, ис­ко­мое рас­сто­я­ние равно 1 км.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323849",
+      "task": "624076",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Два че­ло­ве­ка от­прав­ля­ют­ся од­но­вре­мен­но из од­но­го дома на про­гул­ку до опуш­ки леса, на­хо­дя­щей­ся в 6,3 км от дома. Пер­вый идёт со ско­ро­стью 2,5 км/ч, а вто­рой  — со ско­ро­стью 3,8 км/ч. Дойдя до опуш­ки, вто­рой раз­во­ра­чи­ва­ет­ся и с той же ско­ро­стью воз­вра­ща­ет­ся об­рат­но. На каком рас­сто­я­нии от дома про­изойдёт их встре­ча? Ответ дайте в ки­ло­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>х</i> км  — ис­ко­мое рас­сто­я­ние. Чтобы прой­ти это рас­сто­я­ние пут­ни­ку, иду­ще­му со ско­ро­стью 2,5 км/ч, не­об­хо­ди­мо  <span data-inline-latex=\"\\frac{x}{2{,}5}\"></span> часа. Вто­рой пут­ник дви­жет­ся со ско­ро­стью 3,8 км/ч, по­это­му чтобы прой­ти 6,3 км  до опуш­ки и вер­нуть­ся на <span data-inline-latex=\"6{,}3-x\"></span> км назад,  ему не­об­хо­ди­мо  <span data-inline-latex=\"\\frac{6{,}3}{3{,}8}+\\frac{6{,}3-x}{3{,}8}\"></span>  часа. Вре­ме­на дви­же­ния пут­ни­ков равны, тогда: </p><center><p><span><span data-inline-latex=\"\\frac{x}{2{,}5}=\\frac{6{,}3}{3{,}8}+\\frac{6{,}3-x}{3{,}8}\\Leftrightarrow\\frac{3{,}8x}{2{,}5\\cdot3{,}8}=\\frac{2\\cdot2{,}5\\cdot6{,}3-2{,}5x}{2{,}5\\cdot3{,}8}\\Leftrightarrow 3{,}8x=31{,}5-2{,}5x\\Leftrightarrow 6{,}3x=31{,}5\\Leftrightarrow x=5.\"></span></span></p></center><p>Тем самым, ис­ко­мое рас­сто­я­ние равно 5 км.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323850",
+      "task": "323850",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>До­ро­га между пунк­та­ми <i>А</i> и <i>В</i> со­сто­ит из подъёма и спус­ка, а её длина равна 8 км. Путь из <i>А</i> в <i>В</i> занял у ту­ри­ста <nobr>5 часов,</nobr> из ко­то­рых <nobr>1 час</nobr> ушёл на спуск. Най­ди­те ско­рость ту­ри­ста на спус­ке, если она боль­ше ско­ро­сти на подъёме на 3 км/⁠ч. Ответ дайте <nobr>в км/⁠ч.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть ско­рость, с ко­то­рой ту­рист спус­кал­ся, равна <nobr><i>х</i> км/ч,</nobr> тогда его ско­рость на подъёме равна <nobr><i>х</i> − 3 км/ч,</nobr> длина спус­ка равна <nobr><i>х</i> км,</nobr> длина подъёма равна <nobr>4(<i>х</i> − 3) км.</nobr> По­сколь­ку весь путь равен 8 км, имеем: <i>х</i> + 4(<i>х</i> − 3)  =  8, от­ку­да <i>х</i>  =  4 км/⁠ч.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323850",
+      "task": "503125",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>До­ро­га между пунк­та­ми   <i>А</i> и <i>В</i>   со­сто­ит из подъёма и спус­ка, а её длина равна 8 км. Путь из  <i>А</i> в <i>В</i>   занял у ту­ри­ста 2 часа 45 минут, из ко­то­рых 1 час 15 минут ушёл на спуск. Най­ди­те ско­рость ту­ри­ста на спус­ке, если она боль­ше ско­ро­сти на подъёме на 2 км/ч. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=4206873\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 28.04.2014. Досрочная волна. Вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­ме­тим, что время подъ­ема со­ста­ви­ло 1 час 30 минут или 1,5 часа, а время спус­ка 1,25 часа. Пусть <i>x</i> км/ч  — ско­рость дви­же­ния пе­ше­хо­да на спус­ке, тогда <i>х</i> − 2 км/ч  — ско­рость дви­же­ния пе­ше­хо­да на подъ­еме, 1,25<i>х</i> км  — длина пути на спус­ке, 1,5(<i>х</i> − 2) км  — длина пути на подъ­еме. Всего было прой­де­но 8 км, от­ку­да имеем:</p><center><p><span data-inline-latex=\"1{,}25x+1{,}5(x-2)=8\\iff 5x+6(x-2)=32\\iff 11x=44\\iff x=4\"></span>. </p></center><p>Тем самым, ско­рость пе­ше­хо­да на спус­ке была равна 4 км/ч.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323850",
+      "task": "323897",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>До­ро­га между пунк­та­ми   <i>А</i> и <i>В</i>   со­сто­ит из подъёма и спус­ка, а её длина равна 19 км. Путь из  <i>А</i> в <i>В</i>   занял у ту­ри­ста 13 часов, из ко­то­рых 6 часов ушло на спуск. Най­ди­те ско­рость ту­ри­ста на спус­ке, если она боль­ше ско­ро­сти на подъёме на 1 км/ч. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323850",
+      "task": "323899",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>До­ро­га между пунк­та­ми   <i>А</i> и <i>В</i>   со­сто­ит из подъёма и спус­ка, а её длина равна 49 км. Путь из  <i>А</i> в <i>В</i>   занял у ту­ри­ста 14 часов, из ко­то­рых 7 часов ушло на спуск. Най­ди­те ско­рость ту­ри­ста на спус­ке, если она боль­ше ско­ро­сти на подъёме на 3 км/ч. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "5"
+    },
+    {
+      "group": "323853",
+      "task": "323853",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ав­то­мо­биль вы­ехал с по­сто­ян­ной ско­ро­стью 75 км/⁠ч из го­ро­да А в город В, рас­сто­я­ние между ко­то­ры­ми равно 275 км. Од­но­вре­мен­но с ним из го­ро­да С в город В, рас­сто­я­ние между ко­то­ры­ми равно 255 км, с по­сто­ян­ной ско­ро­стью вы­ехал мо­то­цик­лист. По до­ро­ге он сде­лал оста­нов­ку на <nobr>50 минут.</nobr> В ре­зуль­та­те ав­то­мо­биль и мо­то­цикл при­бы­ли в город В од­но­вре­мен­но. Най­ди­те ско­рость мо­то­цик­ли­ста. Ответ дайте <nobr>в км/ч.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">90</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Время, не­об­хо­ди­мое, чтобы до­е­хать до го­ро­да, равно 275 : 75  =  11/⁠3 часа, или <nobr>3 часа</nobr> <nobr>40 минут.</nobr> По­сколь­ку мо­то­цик­лист дол­жен сде­лать 50-⁠ми­нут­ную оста­нов­ку, у него остаётся <nobr>2 часа</nobr> <nobr>50 минут,</nobr> или <nobr>17/⁠6 часа,</nobr> на дви­же­ние. За это время он дол­жен про­ехать 255 км, по­это­му его ско­рость долж­на быть рав­ной 255 : (17/⁠6)  =  90 км/⁠ч.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323853",
+      "task": "530453",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ав­то­мо­биль вы­ехал с по­сто­ян­ной ско­ро­стью 90 км/ч из го­ро­да А в город В, рас­сто­я­ние между ко­то­ры­ми равно 270 км. Од­но­вре­мен­но с ним из го­ро­да С в город В, рас­сто­я­ние между ко­то­ры­ми равно 162 км, с по­сто­ян­ной ско­ро­стью вы­ехал мо­то­цик­лист. По до­ро­ге он сде­лал оста­нов­ку на 45 минут. В ре­зуль­та­те ав­то­мо­биль и мо­то­цикл при­бы­ли в город В од­но­вре­мен­но. Най­ди­те ско­рость мо­то­цик­ли­ста. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">72</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Время, не­об­хо­ди­мое, чтобы до­е­хать до го­ро­да, равно 270 : 90  =  3 часа. По­сколь­ку мо­то­цик­лист дол­жен сде­лать 45-ми­нут­ную оста­нов­ку, у него остаётся 2 часа 15 минут или 9/4 часа на дви­же­ние. За это время он дол­жен про­ехать 162 км, по­это­му его ско­рость долж­на быть рав­ной 162 : (9/4)  =  72 км/час.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323853",
+      "task": "530555",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ав­то­мо­биль вы­ехал с по­сто­ян­ной ско­ро­стью 72 км/ч из го­ро­да А в город В, рас­сто­я­ние между ко­то­ры­ми равно 360 км. Од­но­вре­мен­но с ним из го­ро­да С в город В, рас­сто­я­ние между ко­то­ры­ми равно 270 км, с по­сто­ян­ной ско­ро­стью вы­ехал мо­то­цик­лист. По до­ро­ге он сде­лал оста­нов­ку на 30 минут. В ре­зуль­та­те ав­то­мо­биль и мо­то­цикл при­бы­ли в город В од­но­вре­мен­но. Най­ди­те ско­рость мо­то­цик­ли­ста. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Время, не­об­хо­ди­мое, чтобы до­е­хать до го­ро­да, равно 360 : 72  =  5 часов. По­сколь­ку мо­то­цик­лист дол­жен сде­лать 30-ми­нут­ную оста­нов­ку, у него остаётся 4 часа 30 минут или 9/2 часа на дви­же­ние. За это время он дол­жен про­ехать 270 км, по­это­му его ско­рость долж­на быть рав­ной 270 : (9/2)  =  60 км/час.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "323853",
+      "task": "324033",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ав­то­мо­биль вы­ехал с по­сто­ян­ной ско­ро­стью 51 км/ч из го­ро­да А в город В, рас­сто­я­ние между ко­то­ры­ми равно 357 км. Од­но­вре­мен­но с ним из го­ро­да С в город В, рас­сто­я­ние между ко­то­ры­ми равно 351 км, с по­сто­ян­ной ско­ро­стью вы­ехал мо­то­цик­лист. По до­ро­ге он сде­лал оста­нов­ку на 30 минут. В ре­зуль­та­те ав­то­мо­биль и мо­то­цикл при­бы­ли в город В од­но­вре­мен­но. Най­ди­те ско­рость мо­то­цик­ли­ста. Ответ дайте в км/ч.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">54</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "502291",
+      "task": "502291",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Иван и Алек­сей до­го­во­ри­лись встре­тить­ся в Н-⁠ске. Они едут к Н-⁠ску раз­ны­ми до­ро­га­ми. Иван зво­нит Алек­сею и узнаёт, что тот на­хо­дит­ся в 168 км от Н-⁠ска и едет с по­сто­ян­ной ско­ро­стью 72 км/⁠ч. Иван в мо­мент звон­ка на­хо­дит­ся в 165 км от Н-⁠ска и ещё дол­жен по до­ро­ге сде­лать 30-⁠ми­нут­ную оста­нов­ку. С какой ско­ро­стью дол­жен ехать Иван, чтобы при­быть в Н-⁠ск од­но­вре­мен­но с Алек­се­ем?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">90</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Алек­сей при­е­дет в Н-⁠ск через</p><center><p> <span data-inline-latex=\"\\frac{168}{72}=\\frac{7}{3}\\,\\mathrm{ч}\"></span>.  </p></center><p>Обо­зна­чим ско­рость Ивана за  <span data-inline-latex=\"v\"></span> . По­сколь­ку время его дви­же­ния с учётом по­лу­ча­со­вой оста­нов­ки равно вре­ме­ни дви­же­ния Алек­сея, по­лу­ча­ем урав­не­ние:</p><center><p> <span data-inline-latex=\"\\frac{165}{v}+\\frac{1}{2}=\\frac{7}{3}\\iff \\frac{165}{v}=\\frac{11}{6}\\iff 11v=990\\iff v=90\\,\\mathrm{км}/\\mathrm{ч}\"></span>.  </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "635151",
+      "task": "635151",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Из двух го­ро­дов, рас­сто­я­ние между ко­то­ры­ми 720 км, по па­рал­лель­ным путям от­прав­ля­ют­ся нав­стре­чу друг другу два по­ез­да и встре­ча­ют­ся на се­ре­ди­не пути. Вто­рой поезд вышел на 1 ч позже пер­во­го со ско­ро­стью, на 4 км/⁠ч боль­шей, чем ско­рость пер­во­го по­ез­да. Най­ди­те ско­рость вто­ро­го по­ез­да. Ответ дайте <nobr>в км/ч.</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">40</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=49528593\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный вариант ЕГЭ по математике 03.12.22 Москва</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть ско­рость пер­во­го по­ез­да равна <nobr><i>x</i> км/ч,</nobr> тогда он про­хо­дит свой путь за  <span data-inline-latex=\"\\frac{360}{x}\"></span>  ч. Ско­рость вто­ро­го по­ез­да равна <nobr><i>x</i> + 4 км/ч.</nobr> Вто­рой поезд про­хо­дит путь за  <span data-inline-latex=\"\\frac{360}{x+4}\"></span>  ч. Вто­рой поезд вышел на 1 ч позже пер­во­го, тогда </p><center><p><span><span data-inline-latex=\"\\frac{360}{x}=\\frac{360}{x+4}+1\\underset{x&gt;0}{\\Leftrightarrow}360(x+4)=360x+x(x+4)\\Leftrightarrow360x+1440=360x+x^2+4x\\Leftrightarrow x^2+4x-1440=0\\Leftrightarrow\\left[\\begin{aligned}x&amp;=36,\\\\x&amp;=-40\\end{aligned}\\right.\\underset{x&gt;0}{\\Leftrightarrow}x=36\"></span></span></p></center><p>Таким об­ра­зом, ско­рость вто­ро­го по­ез­да равна <nobr>36 + 4  =  40 км/ч.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

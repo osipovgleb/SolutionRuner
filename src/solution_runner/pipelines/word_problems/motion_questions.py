@@ -45,6 +45,20 @@ PATTERNS = {
     + rf" выехал первый автомобиль, а через (?P<delay>{DURATION}) после этого навстречу ему из города В выехал со скоростью (?P<second>{VALUE}) км/ч второй автомобиль\. Найдите скорость первого автомобиля, если автомобили встретились на расстоянии (?P<point>{VALUE}) км от города А\."
     + SPEED_ANSWER,
     "trip_time": rf"Из городов А и В навстречу друг другу (?:одновременно )?выехали мотоциклист и велосипедист\. Мотоциклист приехал в В на (?P<delay>{DURATION}) раньше, чем велосипедист приехал в А, а встретились они через (?P<meeting>{DURATION}) после выезда\. Сколько часов затратил на путь из В в А велосипедист\?",
+    "freight": rf"Товарный поезд каждую минуту проезжает на (?P<metres_per_minute>{VALUE}) метров меньше, чем скорый, и на путь в (?P<distance>{VALUE}) км тратит времени на (?P<delay>{DURATION}) больше, чем скорый\. Найдите скорость товарного поезда\."
+    + SPEED_ANSWER,
+    "catch_return": DELAY_START
+    + rf" выехал автомобиль, а через (?P<delay>{DURATION}) следом за ним со скоростью (?P<known>{VALUE}) км/ч выехал (?:мотоциклист|мотоцикл), догнал автомобиль в городе С и повернул обратно\. Когда (?:он|мотоцикл) вернулся в А, автомобиль прибыл в В\. Найдите расстояние от А до С\. Ответ дайте в километрах\.",
+    "third_cyclist": rf"Первый велосипедист выехал из поселка по шоссе со скоростью (?P<first>{VALUE}) км/ч\. Через час после него со скоростью (?P<second>{VALUE}) км/ч из того же поселка в том же направлении выехал второй велосипедист, а еще через час после этого — третий\. Найдите скорость третьего велосипедиста, если сначала он догнал второго, а через (?P<delay>{DURATION}) после этого догнал первого\."
+    + SPEED_ANSWER,
+    "walk_return": rf"Два человека отправляются (?:одновременно )?из одного дома на прогулку до опушки леса, находящейся в (?P<distance>{VALUE}) км от дома\. (?:Один|Первый) идет со скоростью (?P<slow>{VALUE}) км/ч, а (?:другой|второй) — со скоростью (?P<fast>{VALUE}) км/ч\. Дойдя до опушки, второй (?:разворачивается и )?с той же скоростью возвращается обратно\. На каком расстоянии от (?:дома|точки отправления) произойдет их встреча\? Ответ дайте в километрах\.",
+    "downhill": rf"Дорога между пунктами А и В состоит из подъема и спуска, а ее длина равна (?P<distance>{VALUE}) км\. Путь из А в В занял у туриста (?P<total>{DURATION}), из которых (?P<down>{DURATION}) уш(?:ел|ло) на спуск\. Найдите скорость туриста на спуске, если она больше скорости на подъеме на (?P<gap>{VALUE}) км/ч\."
+    + SPEED_ANSWER,
+    "stopped": rf"Автомобиль выехал с постоянной скоростью (?P<known>{VALUE}) км/ч из города А в город В, расстояние между которыми равно (?P<reference_distance>{VALUE}) км\. Одновременно с ним из города С в город В, расстояние между которыми равно (?P<distance>{VALUE}) км, с постоянной скоростью выехал мотоциклист\. По дороге он сделал остановку на (?P<delay>{DURATION})\. В результате автомобиль и мотоцикл прибыли в город В одновременно\. Найдите скорость мотоциклиста\."
+    + SPEED_ANSWER,
+    "named_stop": rf"Иван и Алексей договорились встретиться в Н-ске\. Они едут к Н-ску разными дорогами\. Иван звонит Алексею и узнает, что тот находится в (?P<reference_distance>{VALUE}) км от Н-ска и едет с постоянной скоростью (?P<known>{VALUE}) км/ч\. Иван в момент звонка находится в (?P<distance>{VALUE}) км от Н-ска и еще должен по дороге сделать (?P<stop_minutes>{VALUE})-минутную остановку\. С какой скоростью должен ехать Иван, чтобы прибыть в Н-ск одновременно с Алексеем\?",
+    "midpoint": rf"Из двух городов, расстояние между которыми (?P<distance>{VALUE}) км, по параллельным путям отправляются навстречу друг другу два поезда и встречаются на середине пути\. Второй поезд вышел на (?P<lag_hours>{VALUE}) ч позже первого со скоростью, на (?P<gap>{VALUE}) км/ч большей, чем скорость первого поезда\. Найдите скорость второго поезда\."
+    + SPEED_ANSWER,
 }
 
 
@@ -94,29 +108,45 @@ class Question:
 
     @property
     def symbol(self):
-        return {"meeting": "t", "delayed_point": "S", "trip_time": "x"}.get(
-            self.kind, "v"
-        )
+        return {
+            "meeting": "t",
+            "delayed_point": "S",
+            "trip_time": "x",
+            "catch_return": "t",
+            "third_cyclist": "t",
+            "third_cyclist_speed": "x",
+            "midpoint": "x",
+            "walk_return": "x",
+            "downhill": "x",
+        }.get(self.kind, "v")
 
 
 def parse(text):
-    text = re.sub(r"\b[AB]\b", lambda m: {"A": "А", "B": "В"}[m[0]], text)
+    text = re.sub(r"\b[ABC]\b", lambda m: {"A": "А", "B": "В", "C": "С"}[m[0]], text)
     for kind, pattern in PATTERNS.items():
         match = re.fullmatch(pattern, text)
         if match:
             data = match.groupdict()
             times = {
-                key: duration(data[key]) for key in ("delay", "meeting") if key in data
+                key: duration(data[key])
+                for key in ("delay", "meeting", "total", "down")
+                if key in data
             }
             values = {
                 key: scalar(value)
                 for key, value in data.items()
-                if key not in {"delay", "meeting", "route", "place"}
+                if key not in {"delay", "meeting", "total", "down", "route", "place"}
             }
             if any(value <= 0 for value in values.values()):
                 raise UnsupportedCondition(
                     "positive distances, speeds and bounds are required"
                 )
+            if "stop_minutes" in values:
+                times["delay"] = Duration(sp.Integer(0), values["stop_minutes"])
+            if "lag_hours" in values:
+                times["delay"] = Duration(values["lag_hours"], sp.Integer(0))
+            if "metres_per_minute" in values:
+                values["gap"] = values["metres_per_minute"] * sp.Rational(3, 50)
             return Question(
                 kind,
                 values,
