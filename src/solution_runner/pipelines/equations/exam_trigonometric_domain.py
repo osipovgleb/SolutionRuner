@@ -99,3 +99,30 @@ def proof(a):
         "<p>Решим уравнение, учитывая область определения квадратного корня:</p>",
         html,
     )
+
+
+def without_poles(branches, poles):
+    from .exam_trigonometric_compile import C, S
+
+    if not poles:
+        return branches
+    return tuple(
+        replace(
+            b,
+            values=tuple(
+                v
+                for v in b.values
+                if all(sp.simplify(p.subs(b.variable, v)) != 0 for p in poles)
+            ),
+            residues=tuple(
+                q
+                for q in b.residues
+                if all(
+                    sp.simplify(p.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)}))
+                    != 0
+                    for p in poles
+                )
+            ),
+        )
+        for b in branches
+    )

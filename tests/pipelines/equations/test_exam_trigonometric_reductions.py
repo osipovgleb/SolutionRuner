@@ -147,12 +147,12 @@ def test_a_figure_alone_does_not_supply_an_unknown_selection_method():
         parent_style(str(BeautifulSoup(source, "html.parser").find("img")))
 
 
-def test_factoring_keeps_the_zero_branch_and_child_quadratic_keeps_discriminant():
+def test_factoring_preserves_zero_branch_and_adapts_to_a_nonzero_child_constant():
     c = next(c for c in CASES if c["task"] == "513071")
     html = plan(c).solution_html
     assert "Вынесем общий множитель" in html and "D=" not in html
     assert r"(\sin x)=0" in html and r"x=\pi k" in html
     child = next(c for c in CASES if c["task"] == "513092")
     html = plan(child).solution_html
-    assert "D=" in html and "Вынесем общий множитель" not in html
+    assert "Разложим квадратный трёхчлен" in html and "D=" not in html
     assert "не входит в отрезок" in html

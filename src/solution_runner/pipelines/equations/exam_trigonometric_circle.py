@@ -70,7 +70,20 @@ def validate(entry, a):
         entry["bounds"][2:]
     )
     labels = tuple(decode(q) for q in entry["labels"])
-    if a.residues != expected or a.bounds != bounds or a.selected != labels:
+    residues, actual_bounds, selected = a.residues, a.bounds, a.selected
+    if a.scale != 1:
+        from .exam_trigonometric import select
+
+        multiplier = sp.Rational(entry.get("circle_scale", "1"))
+        if multiplier <= 0:
+            raise UnsupportedCondition("the circle angle multiplier must be positive")
+        residues = select(
+            tuple((q * multiplier, p * multiplier) for q, p in a.series),
+            (sp.Integer(0), sp.Integer(2), True, False),
+        )[0]
+        actual_bounds = tuple(q * multiplier for q in a.bounds[:2]) + a.bounds[2:]
+        selected = tuple(q * multiplier for q in a.selected)
+    if residues != expected or actual_bounds != bounds or selected != labels:
         raise UnsupportedCondition(
             "the circle points, interval and labels must match the computed equation exactly"
         )
@@ -108,7 +121,80 @@ def image(context, a, generated):
         "Окружность для отбора корней",
         source_id=asset["asset_id"],
     )
-    return markup + point_caption(entry, a), key, changes
+    return (
+        markup
+        + point_caption(entry, a)
+        + series_caption(entry, a)
+        + angle_caption(entry, a),
+        key,
+        changes,
+    )
+
+
+def angle_caption(entry, a):
+    from ..probability.common import line
+    from ..word_problems.water_season_proof import inline
+    from .exam_trigonometric_proof import pi
+
+    multiplier = sp.Rational(entry.get("circle_scale", "1"))
+    if multiplier == 1:
+        return ""
+    angle = sp.latex(multiplier * sp.Symbol("x", real=True))
+    lo, hi, lc, uc = a.bounds
+    html = (
+        "<p>На окружности рассматриваем угол "
+        + inline(angle)
+        + ". Пересчитаем границы промежутка и выбранные корни:</p>"
+    )
+    html += line(
+        pi(lo * multiplier)
+        + (r"\le" if lc else "<")
+        + angle
+        + (r"\le" if uc else "<")
+        + pi(hi * multiplier)
+    )
+    for q in a.selected:
+        html += line(
+            angle
+            + "="
+            + pi(q * multiplier)
+            + r"\quad\Longleftrightarrow\quad x="
+            + pi(q)
+        )
+    return html
+
+
+def series_caption(entry, a):
+    from ..probability.common import line
+    from .exam_trigonometric import C
+    from .exam_trigonometric_inverse import level_series
+    from .exam_trigonometric_proof import series_lines
+
+    marks = entry.get("series_marks")
+    if not marks:
+        return ""
+    if (
+        a.scale != sp.Rational(entry["series_angle"])
+        or len(a.branches) != 1
+        or a.branches[0].variable != C
+        or {sp.Rational(m["value"]) for m in marks} != set(a.branches[0].values)
+    ):
+        raise UnsupportedCondition("the marked series must match all cosine levels")
+    html = "<p>На рисунке обозначены серии:</p>"
+    for mark in marks:
+        if mark["label"] not in ("*", "**"):
+            raise UnsupportedCondition("unknown source series label")
+        series = tuple(
+            (q / a.scale, p / a.scale)
+            for q, p in level_series(C, sp.Rational(mark["value"]))
+        )
+        if any(s not in a.series for s in series):
+            raise UnsupportedCondition("the circle series marker changed")
+        html += "".join(
+            line(text + r",\quad k\in\mathbb Z\quad(" + mark["label"] + ")")
+            for text in series_lines(series)
+        )
+    return html
 
 
 def point_caption(entry, a):

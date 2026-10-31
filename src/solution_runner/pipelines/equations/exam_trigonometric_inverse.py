@@ -113,6 +113,8 @@ def angles(variable, value, allow_inverse=False):
         if compare(value, sp.Integer(0)) < 0:
             left += 2
         return ordered((left, sp.Rational(1, 2) + angle))
+    if compare(value, sp.Integer(0)) < 0:
+        angle = 1 - sp.acos(-value) / sp.pi
     return ordered((angle, 2 - angle))
 
 

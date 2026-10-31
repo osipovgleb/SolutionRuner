@@ -2,7 +2,7 @@
 
 import re
 from dataclasses import dataclass, replace
-from functools import cmp_to_key, lru_cache
+from functools import cmp_to_key
 
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -12,6 +12,7 @@ from ..word_problems.math_common import primitive
 from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
+from .exam_trigonometric_compile import C, S, T, compile_equation, table
 from .exam_trigonometric_inverse import (
     angles,
     centred,
@@ -19,12 +20,6 @@ from .exam_trigonometric_inverse import (
     ordered,
     select_inverse,
 )
-from .power_arithmetic import clean
-from .trig_angles import C as NUMERIC_C
-from .trig_angles import S as NUMERIC_S
-from .trig_symbolic_parser import SymbolicTrigonometricParser, compile_atoms
-
-S, C, T = sp.symbols("s c tangent", real=True)
 
 
 @dataclass(frozen=True)
@@ -57,75 +52,12 @@ class Analysis:
     selection_method: str = "circle"
     factorization: bool = False
     domain: sp.Expr | None = None
-
-
-def compile_equation(formula):
-    text = clean(formula)
-    if text.count("=") != 1:
-        raise UnsupportedCondition("one complete trigonometric equation is required")
-    atoms = {}
-    denominators = []
-    values = []
-    for side in text.split("="):
-        parser = SymbolicTrigonometricParser(
-            side.replace("x", r"\alpha"), atoms, denominators
-        )
-        values.append(parser.parse().value)
-    if atoms and all(a.function == "tg" for a in atoms.values()):
-        if any(
-            abs(a.coefficient) != 1 or not a.shift.is_Integer for a in atoms.values()
-        ) or any(d.free_symbols for d in denominators):
-            raise UnsupportedCondition(
-                "reviewed tangent polynomials require one angle and no added denominators"
-            )
-        compiled = {symbol: a.coefficient * T for symbol, a in atoms.items()}
-        raw = sp.expand((values[0] - values[1]).xreplace(compiled))
-        if not raw.is_polynomial(T) or raw == 0 or sp.degree(raw, T) > 2:
-            raise UnsupportedCondition(
-                "a nonzero tangent polynomial of degree at most two is required"
-            )
-        return raw, ()
-    base, _, compiled, poles = compile_atoms(parser)
-    if (
-        base != 1
-        or poles
-        or any(a.function not in ("sin", "cos") for a in atoms.values())
-    ):
-        raise UnsupportedCondition(
-            "reviewed sine and cosine equations have one base angle and no original denominators"
-        )
-    raw = sp.expand(
-        (values[0] - values[1])
-        .xreplace(compiled)
-        .xreplace({NUMERIC_S: S, NUMERIC_C: C})
-    )
-    if not raw.is_polynomial(S, C) or sp.Poly(raw, S, C).total_degree() > 4 or raw == 0:
-        raise UnsupportedCondition(
-            "a nonzero polynomial of sine and cosine of degree at most four is required"
-        )
-    identities = tuple(
-        dict.fromkeys(
-            (
-                atom.text.replace(r"\alpha", "x"),
-                compiled[symbol].xreplace({NUMERIC_S: S, NUMERIC_C: C}),
-            )
-            for symbol, atom in atoms.items()
-        )
-    )
-    return raw, identities
-
-
-@lru_cache(maxsize=128)
-def table(variable, value):
-    f = sp.sin if variable == S else sp.cos
-    result = tuple(
-        sp.Rational(i, 12)
-        for i in range(24)
-        if sp.simplify(f(sp.pi * i / 12) - value) == 0
-    )
-    if not result:
-        raise UnsupportedCondition("a complete reviewed exact angle table is required")
-    return result
+    scale: sp.Rational = sp.S.One
+    poles: tuple = ()
+    reciprocal: sp.Expr | None = None
+    doubled: bool = False
+    alternative: "Analysis | None" = None
+    allow_inverse: bool = False
 
 
 def periodic(residues):
@@ -176,7 +108,11 @@ def solve_branches(raw, preferred, allow_inverse=False):
             if compare(v, -sp.Integer(1)) >= 0 and compare(v, sp.Integer(1)) <= 0
         )
         residues = ordered(
-            q for v in accepted for q in angles(variable, v, allow_inverse)
+            q
+            for v in accepted
+            for q in (
+                angles(variable, v, True) if allow_inverse else table(variable, v)
+            )
         )
         branches.append(Branch(variable, p, values, accepted, residues))
     return reduced, tuple(branches)
@@ -184,7 +120,7 @@ def solve_branches(raw, preferred, allow_inverse=False):
 
 def parent_style(parent_html):
     soup = BeautifulSoup(parent_html, "html.parser")
-    text = soup.get_text(" ", strip=True).replace("\xad", "").lower()
+    text = " ".join(soup.get_text(" ", strip=True).replace("\xad", "").lower().split())
     images = soup.find_all("img")
     selection_method = (
         "circle"
@@ -192,12 +128,14 @@ def parent_style(parent_html):
         or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
         or (len(images) == 1 and "среди представленных корней отберём" in text)
         or (len(images) == 1 and "изображается жирной дугой" in text)
+        or (len(images) == 1 and "удовлетворяют числа" in text)
+        or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
         else "inequalities"
         if "решим неравенства" in text
         else None
     )
     if selection_method is None or any(
-        s in text for s in ("другое решение", "еще одно решение")
+        s in text for s in ("другое решение", "еще одно решение", "ещё одно решение")
     ):
         raise UnsupportedCondition(
             "one reviewed circle or inequality selection method is required"
@@ -206,8 +144,10 @@ def parent_style(parent_html):
         "".join(s["data-inline-latex"].split())
         for s in soup.select("[data-inline-latex]")
     ]
-    matches = [m for f in formulas for m in re.findall(r"\\(sin|cos|tg)x&?=", f)]
-    if not matches or len(images) != (1 if selection_method == "circle" else 0):
+    from .exam_trigonometric_methods import preference
+
+    function, _ = preference(parent_html)
+    if len(images) != (1 if selection_method == "circle" else 0):
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
         )
@@ -225,11 +165,11 @@ def parent_style(parent_html):
     substitutions = [
         m
         for f in formulas
-        for m in re.findall(r"(?:([ty])=\\(?:sin|cos)x|\\(?:sin|cos)x=([ty]))", f)
+        for m in re.findall(r"(?:([ty])=\\(?:sin|cos|tg)x|\\(?:sin|cos|tg)x=([ty]))", f)
     ]
     substitution = next((left or right for left, right in substitutions), None)
     return (
-        {"sin": S, "cos": C, "tg": T}[matches[0]],
+        {"sin": S, "cos": C, "tg": T}[function],
         ("полный квадрат" in text),
         any(re.search(r"\(-\d+\)\^\{?k", f) for f in formulas),
         position,
@@ -262,23 +202,48 @@ def select(series, bounds):
 
 
 def analyze(formula, interval, bounds, parent_html):
-    from .exam_trigonometric_domain import radical_product, restrict
+    from .exam_trigonometric_methods import methods, preference
 
-    preferred, square, alternating, position, substitution, method = parent_style(
-        parent_html
-    )
-    product = radical_product(formula)
-    if product is None:
-        raw, identities = compile_equation(formula)
-        domain = None
-    else:
-        raw, identities, domain = product
-    reduced, branches = solve_branches(raw, preferred, method == "inequalities")
-    if domain is not None:
-        branches = restrict(branches, domain)
-    if len(branches) == 1:
-        preferred = branches[0].variable
-    residues = ordered(q for b in branches for q in b.residues)
+    primary, alternative = methods(parent_html)
+    result = analyze_method(formula, interval, bounds, primary)
+    if alternative is not None:
+        function, multiple = preference(alternative)
+        style = (
+            {"sin": S, "cos": C, "tg": T}[function],
+            False,
+            False,
+            "none",
+            None,
+            result.selection_method,
+        )
+        second = analyze_method(
+            formula,
+            interval,
+            bounds,
+            alternative,
+            style=style,
+            preferred_scale=multiple,
+        )
+        if (
+            canonical(result.series) != canonical(second.series)
+            or result.selected != second.selected
+        ):
+            raise UnsupportedCondition(
+                "the parent methods must yield identical complete root sets"
+            )
+        result = replace(result, alternative=second, image_position="after-intro")
+    return result
+
+
+def canonical(series):
+    if any(q.is_Rational is not True or p.is_Rational is not True for q, p in series):
+        raise UnsupportedCondition(
+            "multiple methods require reviewed rational-pi series"
+        )
+    return select(series, (sp.Integer(0), sp.Integer(2), True, False))[0]
+
+
+def root_series(branches, residues, domain, allow_inverse):
     if domain is not None:
         series = tuple(s for branch in branches for s in periodic(branch.residues))
     elif (
@@ -298,9 +263,49 @@ def analyze(formula, interval, bounds, parent_html):
                 for v in sorted(
                     b.values, key=cmp_to_key(compare), reverse=(b.variable == C)
                 )
-                for s in level_series(b.variable, v, method == "inequalities")
+                for s in level_series(b.variable, v, allow_inverse)
             )
         )
+    return series
+
+
+def analyze_method(
+    formula, interval, bounds, parent_html, *, style=None, preferred_scale=None
+):
+    from .exam_trigonometric_domain import radical_product, restrict, without_poles
+    from .exam_trigonometric_methods import (
+        Equation,
+        compile_reviewed,
+        factorized,
+        preference,
+    )
+
+    preferred, square, alternating, position, substitution, method = (
+        style or parent_style(parent_html)
+    )
+    if preferred_scale is None:
+        _, preferred_scale = preference(parent_html)
+    allow_inverse = method == "inequalities" or r"\arccos" in parent_html
+    compiled = Equation(sp.Integer(0), (), sp.Integer(1))
+    product = radical_product(formula)
+    if product is None:
+        try:
+            raw, identities = compile_equation(formula)
+        except UnsupportedCondition:
+            compiled = compile_reviewed(formula, preferred, preferred_scale)
+            raw, identities = compiled.raw, compiled.identities
+        domain = None
+    else:
+        raw, identities, domain = product
+    reduced, branches = solve_branches(raw, preferred, allow_inverse)
+    if domain is not None:
+        branches = restrict(branches, domain)
+    branches = without_poles(branches, compiled.poles)
+    if len(branches) == 1:
+        preferred = branches[0].variable
+    residues = ordered(q for b in branches for q in b.residues)
+    series = root_series(branches, residues, domain, allow_inverse)
+    series = tuple((q / compiled.scale, p / compiled.scale) for q, p in series)
     if method == "inequalities":
         series = centred(series)
     qbounds = tuple(sp.cancel(b / sp.pi) for b in bounds[:2]) + bounds[2:]
@@ -327,13 +332,14 @@ def analyze(formula, interval, bounds, parent_html):
         position,
         substitution,
         method,
-        any(
-            re.search(r"\\(?:sin|cos)x\(", "".join(s["data-inline-latex"].split()))
-            for s in BeautifulSoup(parent_html, "html.parser").select(
-                "[data-inline-latex]"
-            )
-        ),
+        factorized(parent_html),
         domain,
+        compiled.scale,
+        compiled.poles,
+        compiled.reciprocal,
+        compiled.doubled,
+        None,
+        allow_inverse,
     )
 
 

@@ -13,8 +13,15 @@ from .exam_trigonometric_inverse import compare_q, level_series
 K = sp.Symbol("k", integer=True)
 
 
-def formula(value):
-    return sp.latex(value, symbol_names={S: r"(\sin x)", C: r"(\cos x)", T: r"(\tg x)"})
+def formula(value, angle="x"):
+    return sp.latex(
+        value,
+        symbol_names={
+            S: r"(\sin " + angle + ")",
+            C: r"(\cos " + angle + ")",
+            T: r"(\tg " + angle + ")",
+        },
+    )
 
 
 def pi(q):
@@ -37,9 +44,10 @@ def series_lines(series):
         if pair:
             remaining.remove(pair)
             angle = min((abs(offset), abs(pair[0])), key=cmp_to_key(compare_q))
-            result.append(
-                "x=" + r"\pm" + pi(angle) + "+" + sp.latex(period * sp.pi * K)
-            )
+            text = pi(angle)
+            if sp.expand(angle * sp.pi).is_Add:
+                text = r"\left(" + text + r"\right)"
+            result.append("x=" + r"\pm" + text + "+" + sp.latex(period * sp.pi * K))
         else:
             result.append(
                 "x="
@@ -80,15 +88,24 @@ def polynomial(
     allow_inverse=False,
     factorization=False,
     allowed_residues=None,
+    angle="x",
+    root_scale=sp.S.One,
 ):
     p = branch.polynomial
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable
-    html = line(formula(p.subs(variable, symbol)) + "=0")
+    html = line(formula(p.subs(variable, symbol), angle) + "=0")
     degree = sp.Poly(p, variable).degree()
-    if degree == 2 and factorization and p.subs(variable, 0) == 0:
-        html += "<p>Вынесем общий множитель. Произведение равно нулю, когда хотя бы один множитель равен нулю; на тригонометрический множитель не делим:</p>"
-        html += line(formula(sp.factor(p).subs(variable, symbol)) + "=0")
+    if degree == 2 and factorization:
+        html += (
+            "<p>Вынесем общий множитель. Произведение равно нулю, когда хотя бы один множитель равен нулю; на тригонометрический множитель не делим:</p>"
+            if p.subs(variable, 0) == 0
+            else "<p>Разложим квадратный трёхчлен на множители. Произведение равно нулю, когда хотя бы один множитель равен нулю:</p>"
+        )
+        factored = (
+            sp.factor(p) if p.subs(variable, 0) == 0 else sp.factor(p, extension=True)
+        )
+        html += line(formula(factored.subs(variable, symbol), angle) + "=0")
     elif degree == 2:
         A, B, D0 = sp.Poly(p, variable).all_coeffs()
         html += line(
@@ -102,27 +119,45 @@ def polynomial(
             + n(sp.simplify(B * B - 4 * A * D0))
         )
     elif degree > 2:
-        html += line(formula(sp.factor(p)) + "=0")
+        html += line(formula(sp.factor(p), angle) + "=0")
         for factor, _ in sp.factor_list(p, variable, extension=True)[1]:
             poly = sp.Poly(factor, variable)
             if poly.degree() == 2:
                 A, B, D0 = poly.all_coeffs()
                 d = sp.simplify(B * B - 4 * A * D0)
                 if d < 0:
-                    html += line(formula(factor) + ">0")
+                    html += line(formula(factor, angle) + ">0")
                     html += "<p>Квадратный множитель имеет положительный старший коэффициент и отрицательный дискриминант, поэтому не обращается в нуль.</p>"
+    return html + candidate_lines(
+        branch, substitution, allow_inverse, allowed_residues, angle, root_scale
+    )
+
+
+def candidate_lines(
+    branch,
+    substitution=None,
+    allow_inverse=False,
+    allowed_residues=None,
+    angle="x",
+    root_scale=sp.S.One,
+):
+    variable = branch.variable
+    symbol = sp.Symbol(substitution, real=True) if substitution else variable
+    html = ""
     for value in branch.candidates:
-        html += line(formula(symbol) + "=" + sp.latex(value))
+        html += line(formula(symbol, angle) + "=" + sp.latex(value))
         if substitution and value in branch.values:
             html += "<p>Вернёмся к исходной переменной:</p>"
-            html += line(formula(variable) + "=" + sp.latex(value))
+            html += line(formula(variable, angle) + "=" + sp.latex(value))
         if value not in branch.values:
             html += "<p>Это значение не входит в отрезок от −1 до 1, поэтому соответствующее тригонометрическое уравнение корней не имеет.</p>"
         else:
             series = level_series(variable, value, allow_inverse)
             if allowed_residues is not None:
                 series = periodic(set(allowed_residues) & set(table(variable, value)))
-            for text in series_lines(series):
+            for text in series_lines(
+                tuple((q / root_scale, p / root_scale) for q, p in series)
+            ):
                 html += line(text + r",\quad k\in\mathbb Z")
     return html
 
@@ -132,11 +167,19 @@ def first(a):
         from .exam_trigonometric_domain import proof
 
         return proof(a)
+    if a.scale != 1 or a.reciprocal is not None:
+        from .exam_trigonometric_variants import proof
+
+        return proof(a)
     intro = "<p>Преобразуем уравнение с помощью формул приведения и двойного угла:</p>"
     html = ""
     if a.preferred == T:
         html = "<p>Тангенс определён при условии:</p>" + line(r"\cos x\ne0")
-        html += polynomial(a.branches[0])
+        if a.substitution:
+            html += "<p>Введём обозначение:</p>" + line(
+                a.substitution + "=" + formula(T)
+            )
+        html += polynomial(a.branches[0], substitution=a.substitution)
         return "<p>Решим квадратное уравнение относительно тангенса:</p>", html
     if a.substitution:
         intro = (
@@ -161,9 +204,7 @@ def first(a):
                     )
                     + "=0"
                 )
-            html += polynomial(
-                branch, a.substitution, a.selection_method == "inequalities"
-            )
+            html += polynomial(branch, a.substitution, a.allow_inverse)
         return intro, html
     for text, value in a.identities:
         html += line(text + "=" + formula(value))
@@ -190,7 +231,7 @@ def first(a):
     for branch in a.branches:
         html += polynomial(
             branch,
-            allow_inverse=a.selection_method == "inequalities",
+            allow_inverse=a.allow_inverse,
             factorization=a.factorization,
         )
     if any(sp.Poly(b.polynomial, b.variable).degree() > 1 for b in a.branches):
@@ -281,6 +322,13 @@ def render(a, image):
         + second
         + "</li></ol>"
     )
+    if a.alternative is not None:
+        alternative_intro, alternative_steps = first(a.alternative)
+        html += (
+            "<p><b>Приведём другое решение пункта а).</b></p>"
+            + alternative_intro
+            + alternative_steps
+        )
     all_roots = (
         r";\ ".join(families(a)) + r",\ k\in\mathbb Z" if a.series else r"\varnothing"
     )
