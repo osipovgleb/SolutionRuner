@@ -4,6 +4,11 @@ from solution_runner.pipelines.core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "word-work-rate-balance",
+        "solution_runner.pipelines.word_problems.work_rate_models:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "word-clock-meetings",
         "solution_runner.pipelines.word_problems.clock_meetings:build_context_repair_plan",
         requires_parent_condition_asset=False,

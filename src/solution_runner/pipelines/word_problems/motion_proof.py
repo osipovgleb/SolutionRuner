@@ -90,7 +90,7 @@ def conversions(q):
     return html
 
 
-def quadratic_steps(a):
+def quadratic_steps(a, *, quantities="времени и скоростей"):
     symbol = a.question.symbol
     poly = sp.Poly(a.polynomial, X)
     c2, c1, c0 = (poly.nth(i) for i in (2, 1, 0))
@@ -115,7 +115,7 @@ def quadratic_steps(a):
         + frac("-(" + n(c1) + r")\pm\sqrt{" + n(disc) + "}", "2\\cdot(" + n(c2) + ")")
     )
     html += line(symbol + r"\in\left\{" + ";".join(n(r) for r in a.roots) + r"\right\}")
-    html += "<p>Выберем корень, удовлетворяющий ограничениям условия и положительности времени и скоростей:</p>"
+    html += f"<p>Выберем корень, удовлетворяющий ограничениям условия и положительности {quantities}:</p>"
     return html + line(symbol + "=" + n(a.root))
 
 

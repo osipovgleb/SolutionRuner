@@ -125,6 +125,8 @@ class Question:
             "midpoint": "x",
             "walk_return": "x",
             "downhill": "x",
+            "work_worker_rates": "n",
+            "work_pipe_rates": "x",
         }.get(self.kind, "v")
 
 
