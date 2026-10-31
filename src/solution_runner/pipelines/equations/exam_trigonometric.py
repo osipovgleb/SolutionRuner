@@ -93,6 +93,7 @@ def periodic(residues):
 
 
 def solve_branches(raw, preferred, allow_inverse=False):
+    from .exam_trigonometric_factors import project, separated
     from .exam_trigonometric_grouping import mixed_branches
     from .exam_trigonometric_ratios import linear_branch, ratio_branch
 
@@ -100,18 +101,7 @@ def solve_branches(raw, preferred, allow_inverse=False):
         return ratio_branch(raw, U if raw.has(U) else T)
     if preferred in (T, U):
         return mixed_branches(raw)
-    other = S if preferred == C else C
-    reduced = sp.expand(sp.rem(raw, S * S + C * C - 1, other))
-    if not reduced.has(other):
-        expressions = [reduced]
-    else:
-        alternative = sp.expand(sp.rem(raw, S * S + C * C - 1, preferred))
-        if not alternative.has(preferred):
-            reduced = alternative
-            expressions = [reduced]
-        else:
-            _, factors = sp.factor_list(raw, S, C)
-            expressions = [p for p, _ in factors]
+    reduced, expressions = project(raw, preferred)
     branches = []
     for expression in expressions:
         variables = expression.free_symbols & {S, C}
@@ -120,7 +110,8 @@ def solve_branches(raw, preferred, allow_inverse=False):
             if mixed is not None:
                 branches.append(mixed)
                 continue
-            return mixed_branches(raw)
+            separate = separated(raw, preferred, allow_inverse)
+            return separate if separate is not None else mixed_branches(raw)
         variable = variables.pop()
         p = primitive(expression, (variable,))
         values = roots(p.subs(variable, X))
@@ -137,6 +128,8 @@ def solve_branches(raw, preferred, allow_inverse=False):
             )
         )
         branches.append(Branch(variable, p, values, accepted, residues))
+    if any(b.original is not None for b in branches):
+        reduced = raw
     return reduced, tuple(sorted(branches, key=lambda b: b.original is not None))
 
 
@@ -383,7 +376,11 @@ def method_series(
     merged = (
         method == "inequalities" and compiled.scale != 1 and merges_series(parent_html)
     )
-    dividing = division(parent_html) and compiled.homogeneous is None
+    dividing = (
+        division(parent_html)
+        and compiled.homogeneous is None
+        and not any(b.original is not None for b in branches)
+    )
     if compiled.absolute is not None:
         from .exam_trigonometric_absolute import series as absolute_series
 

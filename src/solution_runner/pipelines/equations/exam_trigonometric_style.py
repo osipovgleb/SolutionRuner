@@ -20,6 +20,7 @@ def parent_style(parent_html):
         or (len(images) == 1 and "изображается жирной дугой" in text)
         or (len(images) == 1 and "удовлетворяют числа" in text)
         or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
+        or (len(images) == 1 and "отрезку" in text and "принадлежат корни" in text)
         else "inequalities"
         if "решим неравенства" in text
         or "решив неравенство" in text

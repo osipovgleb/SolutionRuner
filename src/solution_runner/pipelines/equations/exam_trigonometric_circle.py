@@ -9,6 +9,7 @@ import sympy as sp
 from ..probability import solution_diagrams
 from ..word_problems.common import UnsupportedCondition, section
 from .exam_input import read as read_exam
+from .exam_trigonometric_prepared_circle import recipe, source_less
 
 DIRECTORY = Path(__file__).parent / "assets/exam-trigonometry"
 CIRCLES = json.loads((DIRECTORY / "source-circles.json").read_text())
@@ -46,7 +47,13 @@ def source(context):
 def read(context):
     if not (context.get("normalized_content") or {}).get("assets"):
         return read_exam(context)
-    source(context)
+    if source_less(context):
+        if recipe(context) is None:
+            raise UnsupportedCondition(
+                "the prepared circle must match a reviewed equation and interval"
+            )
+    else:
+        source(context)
     content = context["normalized_content"]
     prepared = deepcopy(context)
     prepared["normalized_content"]["assets"] = []
@@ -98,8 +105,13 @@ def validate(entry, a):
 
 
 def diagram_specs(context):
-    if not (context.get("normalized_content") or {}).get("assets"):
-        return ()
+    if source_less(context):
+        entry = recipe(context)
+        return (
+            (solution_diagrams.spec(KEY, (DIRECTORY / entry["file"]).read_text()),)
+            if entry
+            else ()
+        )
     _, entry = source(context)
     if not entry.get("corrected_file"):
         return ()
@@ -109,7 +121,21 @@ def diagram_specs(context):
 
 
 def image(context, a, generated):
-    if not context["normalized_content"].get("assets"):
+    if source_less(context):
+        entry = recipe(context)
+        if entry is not None:
+            if a.selection_method != "circle":
+                raise UnsupportedCondition(
+                    "the prepared circle requires the reviewed circle-selection method"
+                )
+            validate(entry, a)
+            return solution_diagrams.image(
+                context["normalized_content"],
+                KEY,
+                "Окружность для отбора корней",
+                svg=(DIRECTORY / entry["file"]).read_text(),
+                generated=generated,
+            )
         if a.selection_method not in ("inequalities", "progressions"):
             raise UnsupportedCondition("circle selection requires its source figure")
         return "", "", []
