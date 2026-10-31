@@ -13,72 +13,7 @@ def parent_style(parent_html):
     soup = BeautifulSoup(parent_html, "html.parser")
     text = " ".join(soup.get_text(" ", strip=True).replace("\xad", "").lower().split())
     images = soup.find_all("img")
-    selection_method = (
-        "inequalities"
-        if circle_note(soup)
-        else "circle"
-        if "окружност" in text
-        or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
-        or (len(images) == 1 and "среди представленных корней отберём" in text)
-        or (len(images) == 1 and "изображается жирной дугой" in text)
-        or (len(images) == 1 and "удовлетворяют числа" in text)
-        or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
-        or (len(images) == 1 and "отрезку" in text and "принадлежат корни" in text)
-        or (len(images) == 1 and "получим точку" in text)
-        or (
-            len(images) == 1
-            and "из решений, найденных в пункте а)" in text
-            and "принадлежит" in text
-        )
-        or (
-            len(images) == 1
-            and "из первой серии" in text
-            and "из второй" in text
-            and "указанному промежутку" in text
-        )
-        or (
-            len(images) == 1
-            and "из найденных решений промежутку" in text
-            and "принадлеж" in text
-        )
-        else "number_line"
-        if len(images) == 1 and ("числовой оси" in text or "числовой прямой" in text)
-        else "inequalities"
-        if "решим неравенства" in text
-        or "с помощью неравенств" in text
-        or "решим эти неравенства" in text
-        or "решив неравенство" in text
-        or "двойного неравенства" in text
-        or "двойных неравенств" in text
-        or "двойное неравенство" in text
-        or (
-            not images
-            and "найдем корни этого уравнения" in text.replace("ё", "е")
-            and "имеем" in text
-            and any(
-                n.get("data-inline-latex", "").count(r"\le") >= 2
-                for n in soup.select("[data-inline-latex]")
-            )
-        )
-        or (
-            not images
-            and "отберем корни" in text
-            and any(
-                r"\le" in n.get("data-inline-latex", "")
-                for n in soup.select("[data-inline-latex]")
-            )
-        )
-        else "progressions"
-        if (not images and "лежат только два числа такого вида" in text)
-        or "разность между соседними членами" in text
-        or "расстояние между соседними членами" in text
-        or (
-            "длина" in text
-            and "серии" in text
-            and any(s in text for s in ("не более", "не больше"))
-        )
-        else None
-    )
+    selection_method = selection_style(soup, text, images)
     if selection_method is None or any(
         s in text for s in ("другое решение", "еще одно решение", "ещё одно решение")
     ):
@@ -266,6 +201,10 @@ def preference(parent_html):
                     scale *= sp.pi
                 matches.append((bool(power), function, scale))
     if not matches:
+        from .exam_trigonometric_sine_pair import reviewed as equal_sines
+
+        if equal_sines(parent_html):
+            return "sin", sp.S.One
         from .exam_trigonometric_sum_identities import style as sum_style
 
         if sum_style(parent_html) == "constant_sum":
@@ -277,3 +216,78 @@ def preference(parent_html):
         enumerate(matches), key=lambda item: (item[1][0], item[0])
     )[1]
     return function, multiple
+
+
+def selection_style(soup, text, images):
+    from .exam_trigonometric_neighbors import reviewed as neighbors
+
+    selection_method = (
+        "inequalities"
+        if circle_note(soup)
+        else "circle"
+        if "окружност" in text
+        or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
+        or (len(images) == 1 and "среди представленных корней отберём" in text)
+        or (len(images) == 1 and "изображается жирной дугой" in text)
+        or (len(images) == 1 and "удовлетворяют числа" in text)
+        or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
+        or (len(images) == 1 and "отрезку" in text and "принадлежат корни" in text)
+        or (len(images) == 1 and "получим точку" in text)
+        or (
+            len(images) == 1
+            and "из решений, найденных в пункте а)" in text
+            and "принадлежит" in text
+        )
+        or (
+            len(images) == 1
+            and "из первой серии" in text
+            and "из второй" in text
+            and "указанному промежутку" in text
+        )
+        or (
+            len(images) == 1
+            and "из найденных решений промежутку" in text
+            and "принадлеж" in text
+        )
+        else "number_line"
+        if len(images) == 1 and ("числовой оси" in text or "числовой прямой" in text)
+        else "inequalities"
+        if "решим неравенства" in text
+        or "с помощью неравенств" in text
+        or "решим эти неравенства" in text
+        or "решив неравенство" in text
+        or "методом неравенств" in text
+        or "двойного неравенства" in text
+        or "двойных неравенств" in text
+        or "двойное неравенство" in text
+        or (
+            not images
+            and "найдем корни этого уравнения" in text.replace("ё", "е")
+            and "имеем" in text
+            and any(
+                n.get("data-inline-latex", "").count(r"\le") >= 2
+                for n in soup.select("[data-inline-latex]")
+            )
+        )
+        or (
+            not images
+            and "отберем корни" in text
+            and any(
+                r"\le" in n.get("data-inline-latex", "")
+                for n in soup.select("[data-inline-latex]")
+            )
+        )
+        else "progressions"
+        if (not images and "лежат только два числа такого вида" in text)
+        or "разность между соседними членами" in text
+        or "расстояние между соседними членами" in text
+        or (
+            "длина" in text
+            and "серии" in text
+            and any(s in text for s in ("не более", "не больше"))
+        )
+        else "neighbors"
+        if neighbors(str(soup))
+        else None
+    )
+    return selection_method

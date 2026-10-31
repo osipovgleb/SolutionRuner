@@ -8,6 +8,9 @@ def method_proof(a):
         from .exam_trigonometric_auxiliary_notes import primary_proof
 
         return primary_proof(a)
+    specialized = school_proof(a)
+    if specialized is not None:
+        return specialized
     if a.domain is not None and a.poles:
         from .exam_trigonometric_domain import ratio_proof
 
@@ -74,6 +77,34 @@ def method_proof(a):
         from .exam_trigonometric_combination import proof
 
         return proof(a)
+    return function_proof(a)
+
+
+def school_proof(a):
+    if a.sine_double is not None:
+        from .exam_trigonometric_sine_double import proof
+
+        return proof(a)
+    if a.sine_pair is not None:
+        from .exam_trigonometric_sine_pair import proof
+
+        return proof(a)
+    if a.centered_power is not None:
+        from .exam_trigonometric_centered_power import proof
+
+        return proof(a)
+    if a.absolute_square is not None:
+        from .exam_trigonometric_absolute_square import proof
+
+        return proof(a)
+    if a.extremum is not None:
+        from .exam_trigonometric_extremum import proof
+
+        return proof(a)
+    return None
+
+
+def function_proof(a):
     if a.absolute is not None:
         from .exam_trigonometric_absolute import proof
 

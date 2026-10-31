@@ -90,6 +90,15 @@ def notation(result, parent_html):
 
     from .exam_trigonometric import select
 
+    if result.sine_pair is not None and result.sine_pair[-1]:
+        _, low, high, _, _ = result.sine_pair
+        result = replace(
+            result,
+            signed_series=(
+                (sp.S.Zero, 2 / (low - high)),
+                (1 / (low + high), 2 / (low + high)),
+            ),
+        )
     if result.angle_product is not None and result.angle_product.source_poles:
         from .exam_trigonometric_restricted_families import prepare
 
@@ -102,10 +111,43 @@ def notation(result, parent_html):
             result = replace(
                 result, series=((q, p),), selected=selected, selections=trace
             )
+    result = align_affine(result, parent_html)
     parameters = names(parent_html, result.series)
     return replace(
         result,
         family_parameters=parameters
         if len(set(parameters)) > 1 or set(parameters) == {"l"}
         else (),
+    )
+
+
+def align_affine(result, html):
+    from dataclasses import replace
+
+    from .exam_trigonometric import select
+    from .exam_trigonometric_selection import equivalent_series
+
+    if (
+        result.signed_series
+        or result.poles
+        or not (
+            result.selection_method == "neighbors" or result.angle_product is not None
+        )
+    ):
+        return result
+    source = affine_families(html)
+    if len(source) != len(result.series) or any(
+        q.is_Rational is not True for q, _ in result.series
+    ):
+        return result
+    series = tuple((q, p) for q, p, _ in source)
+    if not equivalent_series(series, result.series):
+        return result
+    selected, trace = select(series, result.bounds)
+    return replace(
+        result,
+        series=series,
+        selected=selected,
+        selections=trace,
+        series_aligned=series != result.series,
     )

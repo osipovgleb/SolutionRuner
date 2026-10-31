@@ -118,6 +118,10 @@ def analysis_fields(equation):
         "strict_domain": equation.strict_domain,
         "fraction": equation.fraction,
         "absolute": equation.absolute,
+        "absolute_square": equation.absolute_square,
+        "extremum": equation.extremum,
+        "sine_pair": equation.sine_pair,
+        "sine_double": equation.sine_double,
         "homogeneous": equation.homogeneous,
         "power_angle": equation.power_angle,
         "factored_source": equation.factored_source,
@@ -132,3 +136,60 @@ def analysis_fields(equation):
         "triple_angle": equation.triple_angle,
         "ratio_product": equation.ratio_product,
     }
+
+
+def compile_parent(formula, preferred, preferred_scale, translation, parent_html):
+    from .exam_trigonometric_absolute_square import reviewed as square_absolute
+    from .exam_trigonometric_angle_product import reviewed as angle_product_method
+    from .exam_trigonometric_extremum import reviewed as extremum_method
+    from .exam_trigonometric_factor_style import base_angle_product
+    from .exam_trigonometric_ratio_product import style as ratio_product_style
+    from .exam_trigonometric_sine_pair import reviewed as sine_pair_method
+    from .exam_trigonometric_square_difference import reviewed as difference_method
+    from .exam_trigonometric_square_factor import reviewed as square_method
+    from .exam_trigonometric_style import grouping_method
+    from .exam_trigonometric_sum_identities import style as sum_identity_style
+    from .exam_trigonometric_sum_product import square_style
+    from .exam_trigonometric_triple_angle import style as triple_angle_style
+
+    if translation and (
+        square_absolute(parent_html)
+        or extremum_method(parent_html)
+        or sine_pair_method(parent_html)
+    ):
+        raise UnsupportedCondition(
+            "these reviewed methods require the original angle variable"
+        )
+    if square_absolute(parent_html):
+        from .exam_trigonometric_absolute_square import compile_square
+
+        compiled = compile_square(formula, preferred, preferred_scale)
+        domain = compiled.domain
+    elif extremum_method(parent_html):
+        from .exam_trigonometric_extremum import compile_extremum
+
+        compiled, domain = compile_extremum(formula), None
+    elif sine_pair_method(parent_html):
+        from .exam_trigonometric_sine_pair import compile_pair
+
+        compiled, domain = compile_pair(formula), None
+    else:
+        compiled, domain = method_equation(
+            formula,
+            preferred,
+            preferred_scale,
+            translation,
+            grouping=grouping_method(parent_html),
+            difference=difference_method(parent_html),
+            product=angle_product_method(parent_html),
+            preserve_products=square_method(parent_html)
+            or base_angle_product(parent_html),
+            square_sum=square_style(parent_html),
+            sum_identity=sum_identity_style(parent_html),
+            triple_angle=triple_angle_style(parent_html),
+            ratio_product=ratio_product_style(parent_html),
+        )
+    from .exam_trigonometric_sine_double import prepare as sine_double
+
+    compiled = sine_double(compiled, preferred, preferred_scale)
+    return compiled, domain

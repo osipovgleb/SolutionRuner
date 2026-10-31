@@ -332,6 +332,10 @@ def proof(a):
         html += polynomial(
             branch, angle=argument(branch.angle_scale), root_scale=branch.angle_scale
         )
+    if a.series_aligned:
+        html += "<p>Учитывая периодичность, перенумеруем целые индексы и запишем те же серии в порядке исходного решения:</p>"
+        for text in families(a):
+            html += line(text + r",\quad k\in\mathbb Z")
     if a.poles:
         excluded = sorted({q for b in nominal for q in b.residues} - set(a.residues))
         for q in excluded:

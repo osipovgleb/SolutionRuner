@@ -9,41 +9,35 @@ from ..word_problems.common import UnsupportedCondition
 from ..word_problems.math_common import primitive
 from . import (
     exam_trigonometric_compile,
+    exam_trigonometric_equation,
     exam_trigonometric_selection,
     exam_trigonometric_style,
 )
 from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
-from .exam_trigonometric_angle_product import reviewed as angle_product_method
 from .exam_trigonometric_compile import C, S, T, U, table
-from .exam_trigonometric_equation import analysis_fields, method_equation
-from .exam_trigonometric_factor_style import base_angle_product
+from .exam_trigonometric_equation import analysis_fields
 from .exam_trigonometric_homogeneous import Reduction
 from .exam_trigonometric_inverse import (
     angles,
     ordered,
     select_inverse,
 )
-from .exam_trigonometric_ratio_product import style as ratio_product_style
 from .exam_trigonometric_selection import (
     canonical,
     equivalent_series,
 )
 from .exam_trigonometric_square_difference import parameter as integer_parameter
-from .exam_trigonometric_square_difference import reviewed as difference_method
-from .exam_trigonometric_square_factor import reviewed as square_method
 from .exam_trigonometric_style import (
     circle_note,
-    grouping_method,
     homogeneous_method,
     parent_style,
     selection_note,
 )
 from .exam_trigonometric_sum_identities import style as sum_identity_style
-from .exam_trigonometric_sum_product import square_style
-from .exam_trigonometric_triple_angle import style as triple_angle_style
 
+method_equation = exam_trigonometric_equation.method_equation
 compile_equation = exam_trigonometric_compile.compile_equation
 method_series = exam_trigonometric_selection.method_series
 periodic = exam_trigonometric_selection.periodic
@@ -112,6 +106,11 @@ class Analysis:
     strict_domain: bool = False
     fraction: sp.Expr | None = None
     absolute: tuple | None = None
+    absolute_square: tuple | None = None
+    extremum: tuple | None = None
+    sine_pair: tuple | None = None
+    sine_double: tuple | None = None
+    centered_power: tuple | None = None
     division: bool = False
     shifted_notation: bool = False
     homogeneous: Reduction | None = None
@@ -133,6 +132,8 @@ class Analysis:
     circle_note: bool = False
     auxiliary_notes: bool = False
     parameter: str = "k"
+    series_aligned: bool = False
+    signed_series: tuple = ()
     family_parameters: tuple = ()
     restricted_families: tuple = ()
 
@@ -308,19 +309,8 @@ def analyze_method(
     allow_inverse = method == "inequalities" or any(
         name in parent_html for name in (r"\arccos", r"\arcsin")
     )
-    compiled, domain = method_equation(
-        formula,
-        preferred,
-        preferred_scale,
-        translation,
-        grouping=grouping_method(parent_html),
-        difference=difference_method(parent_html),
-        product=angle_product_method(parent_html),
-        preserve_products=square_method(parent_html) or base_angle_product(parent_html),
-        square_sum=square_style(parent_html),
-        sum_identity=sum_identity_style(parent_html),
-        triple_angle=triple_angle_style(parent_html),
-        ratio_product=ratio_product_style(parent_html),
+    compiled, domain = exam_trigonometric_equation.compile_parent(
+        formula, preferred, preferred_scale, translation, parent_html
     )
     from .exam_trigonometric_factors import method_branches
 
@@ -376,9 +366,10 @@ def analyze_method(
         )
     )
 
+    from .exam_trigonometric_centered_power import prepare as centered_power
     from .exam_trigonometric_parameters import notation
 
-    return notation(result, parent_html)
+    return notation(centered_power(result, parent_html), parent_html)
 
 
 def build_context_repair_plan(

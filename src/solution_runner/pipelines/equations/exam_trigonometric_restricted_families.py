@@ -86,6 +86,28 @@ def formulas(a):
 def selection_rows(a):
     from .exam_trigonometric import select
 
+    if a.signed_series:
+        rows = []
+        for q, p in a.signed_series:
+            _, trace = select(((q, abs(p)),), a.bounds)
+            _, _, start, end, _ = trace[0]
+            indices = (
+                tuple(range(start, end + 1))
+                if p > 0
+                else tuple(range(-end, -start + 1))
+            )
+            rows.append(
+                (
+                    q,
+                    p,
+                    min(indices) if indices else 1,
+                    max(indices) if indices else 0,
+                    tuple(q + p * k for k in indices),
+                    "k",
+                    indices,
+                )
+            )
+        return tuple(rows)
     if not a.restricted_families:
         return tuple(
             (

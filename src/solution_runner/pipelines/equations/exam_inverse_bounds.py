@@ -44,6 +44,9 @@ def endpoint(text):
 def validate(value):
     if value.is_Rational is True:
         return
+    radians = sp.cancel(value * sp.pi)
+    if radians.is_Rational is True and abs(radians) <= 1000:
+        return
     functions = list(value.atoms(sp.atan))
     if len(functions) == 1:
         angle = functions[0]

@@ -85,7 +85,12 @@ def finish(a):
             series = centred(series)
     for bound in a.bounds[:2]:
         validate(bound)
-    selected, trace = select(series, a.bounds)
+    if a.selection_method == "neighbors":
+        from .exam_trigonometric_neighbors import certify
+
+        selected, trace = certify(series, a.bounds)
+    else:
+        selected, trace = select(series, a.bounds)
     if a.affine is not None:
         selected = combine(selected, a.affine.roots, a.bounds)
     return replace(a, series=series, selected=selected, selections=trace)

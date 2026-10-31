@@ -55,14 +55,17 @@ def inequality_selection(a):
             + (r"\le" if uc else "<")
             + pi(hi)
         )
+        lower, upper, left_closed, right_closed = (
+            (lo, hi, lc, uc) if period > 0 else (hi, lo, uc, lc)
+        )
         html += line(
-            display(sp.simplify((lo - offset) / period))
-            + (r"\le" if lc else "<")
+            display(sp.simplify((lower - offset) / period))
+            + (r"\le" if left_closed else "<")
             + " "
             + name
             + " "
-            + (r"\le" if uc else "<")
-            + display(sp.simplify((hi - offset) / period))
+            + (r"\le" if right_closed else "<")
+            + display(sp.simplify((upper - offset) / period))
         )
         if not indices:
             html += "<p>Подходящих целых значений " + name + " нет.</p>"

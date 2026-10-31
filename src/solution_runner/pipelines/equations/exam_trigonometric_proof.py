@@ -75,6 +75,8 @@ def series_lines(series, *, sine_inverse=False):
 
 
 def families(a):
+    if a.signed_series:
+        return series_lines(a.signed_series)
     if a.restricted_families:
         from .exam_trigonometric_restricted_families import formulas
 
@@ -341,16 +343,18 @@ def render(a, image):
         + steps
         + (image if a.image_position == "after-steps" else "")
     )
-    if a.selection_method == "number_line":
-        from .exam_trigonometric_affine_proof import selection
+    from .exam_trigonometric_affine_proof import selection as number_line_selection
+    from .exam_trigonometric_neighbors import proof as neighbor_selection
+    from .exam_trigonometric_selection import progressions
 
-        second = selection(a)
-    elif a.selection_method == "inequalities":
-        second = inequality_selection(a)
-    elif a.selection_method == "progressions":
-        from .exam_trigonometric_selection import progressions
-
-        second = progressions(a)
+    selectors = {
+        "neighbors": neighbor_selection,
+        "number_line": number_line_selection,
+        "inequalities": inequality_selection,
+        "progressions": progressions,
+    }
+    if a.selection_method in selectors:
+        second = selectors[a.selection_method](a)
     else:
         second = (
             "<p>С помощью числовой окружности отберём корни, принадлежащие промежутку "

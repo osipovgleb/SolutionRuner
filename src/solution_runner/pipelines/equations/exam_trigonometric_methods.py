@@ -111,6 +111,10 @@ class Equation:
     strict_domain: bool = False
     fraction: sp.Expr | None = None
     absolute: tuple | None = None
+    absolute_square: tuple | None = None
+    extremum: tuple | None = None
+    sine_pair: tuple | None = None
+    sine_double: tuple | None = None
     homogeneous: Reduction | None = None
     power_angle: sp.Rational | None = None
     affine: "AffineFactor | None" = None
