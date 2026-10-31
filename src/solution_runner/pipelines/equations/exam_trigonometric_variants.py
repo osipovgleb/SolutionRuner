@@ -20,6 +20,9 @@ def proof(a):
         return reciprocal(a)
     intro = "<p>Используем формулы приведения и решим уравнение относительно тригонометрической функции:</p>"
     html = ""
+    if a.rewritten is not None:
+        html += "<p>Свернём произведения и разность квадратов по тригонометрическим тождествам:</p>"
+        html += line(sp.latex(a.rewritten) + "=0")
     if a.doubled:
         half = argument(a.scale / 2)
         intro = "<p>Воспользуемся формулой понижения степени:</p>"
@@ -86,6 +89,12 @@ def proof(a):
             + str(a.scale)
             + ".</p>"
         )
+    if a.merged:
+        from .exam_trigonometric_proof import families
+
+        html += "<p>Объединим полученные серии в одну арифметическую прогрессию:</p>"
+        for text in families(a):
+            html += line(text + r",\quad k\in\mathbb Z")
     return intro, html
 
 

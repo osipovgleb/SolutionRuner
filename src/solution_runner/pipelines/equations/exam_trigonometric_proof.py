@@ -154,7 +154,9 @@ def candidate_lines(
         if substitution and value in branch.values:
             html += "<p>Вернёмся к исходной переменной:</p>"
             html += line(formula(variable, angle) + "=" + sp.latex(value))
-        if value not in branch.values:
+        if value in branch.excluded:
+            html += "<p>Это значение нарушает область определения исходного уравнения, поэтому соответствующая ветвь исключается.</p>"
+        elif value not in branch.values:
             html += "<p>Это значение не входит в отрезок от −1 до 1, поэтому соответствующее тригонометрическое уравнение корней не имеет.</p>"
         else:
             series = level_series(variable, value, allow_inverse)
@@ -170,6 +172,10 @@ def candidate_lines(
 def first(a):
     if a.domain is not None:
         from .exam_trigonometric_domain import proof
+
+        return proof(a)
+    if a.poles and a.reciprocal is None:
+        from .exam_trigonometric_poles import proof
 
         return proof(a)
     if a.scale != 1 or a.reciprocal is not None:

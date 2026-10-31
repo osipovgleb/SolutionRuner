@@ -60,6 +60,7 @@ class Equation:
     poles: tuple = ()
     reciprocal: sp.Expr | None = None
     doubled: bool = False
+    rewritten: sp.Expr | None = None
 
 
 def shifted_atom(atom):
@@ -73,7 +74,7 @@ def shifted_atom(atom):
     )
 
 
-def compile_reviewed(formula, preferred, preferred_scale):
+def parse_equation(formula):
     text = clean(formula).removesuffix(".")
     if text.count("=") != 1:
         raise UnsupportedCondition("one complete equation is required")
@@ -81,10 +82,24 @@ def compile_reviewed(formula, preferred, preferred_scale):
     for side in text.split("="):
         parser = ExamAngleParser(side.replace("x", r"\alpha"), atoms, denominators)
         values.append(parser.parse().value)
+    if any(a.variable != r"\alpha" for a in atoms.values()):
+        raise UnsupportedCondition("the exam equation must use one x variable")
+    return values, atoms, denominators
+
+
+def compile_reviewed(formula, preferred, preferred_scale):
+    from .exam_trigonometric_folding import fold
+
+    values, atoms, denominators = parse_equation(formula)
+    if any(a.function in ("tg", "ctg") for a in atoms.values()):
+        from .exam_trigonometric_poles import compile_quotients
+
+        return compile_quotients(values, atoms, denominators)
     if not atoms or any(a.function not in ("sin", "cos") for a in atoms.values()):
         raise UnsupportedCondition(
             "scaled rational equations require only sine and cosine"
         )
+    values, atoms, rewritten = fold(values, atoms, denominators, preferred_scale)
     scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
     for symbol, atom in tuple(atoms.items()):
         atoms[symbol] = replace(atom, coefficient=int(atom.coefficient / scale))
@@ -153,7 +168,13 @@ def compile_reviewed(formula, preferred, preferred_scale):
         scale *= 2
         identities = ()
     return Equation(
-        sp.expand(raw), identities, scale, original_poles, reciprocal, doubled
+        sp.expand(raw),
+        identities,
+        scale,
+        original_poles,
+        reciprocal,
+        doubled,
+        rewritten,
     )
 
 
@@ -195,7 +216,8 @@ def preference(parent_html):
     matches = []
     for formula in formulas:
         for match in re.finditer(
-            r"\\(sin|cos|tg|ctg)(?:\^\{?(\d+)\}?)?(\d*)x&?=", formula
+            r"\\(sin|cos|tg|ctg)(?:\^\{?(\d+)\}?)?(?:(\d*)x|\\frac\{(\d*)x\}\{(\d+)\})&?=",
+            formula,
         ):
             right = re.split(
                 r"\\\\|\\(?:iff|Leftrightarrow|end|quad|implies)",
@@ -203,8 +225,13 @@ def preference(parent_html):
                 maxsplit=1,
             )[0]
             if not re.search(r"\\(?:sin|cos|tg)", right):
-                function, power, multiple = match.groups()
-                matches.append((bool(power), function, sp.Rational(multiple or 1)))
+                function, power, multiple, numerator, denominator = match.groups()
+                scale = (
+                    sp.Rational(numerator or 1, denominator)
+                    if denominator
+                    else sp.Rational(multiple or 1)
+                )
+                matches.append((bool(power), function, scale))
     if not matches:
         raise UnsupportedCondition(
             "a trigonometric equation for the parent method is required"
@@ -215,13 +242,38 @@ def preference(parent_html):
     return function, multiple
 
 
+def merges_series(parent_html):
+    formulas = [
+        "".join(s["data-inline-latex"].split())
+        for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    ]
+    formulas = [re.split(r"\\(?:iff|Leftrightarrow)", f)[-1] for f in formulas]
+    return (
+        len(
+            [
+                f
+                for f in formulas
+                if f.startswith("x=")
+                and f.count("x=") == 1
+                and "k" in f
+                and "\\\\" not in f
+            ]
+        )
+        == 1
+    )
+
+
 def factorized(parent_html):
     formulas = [
         "".join(s["data-inline-latex"].split())
         for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
     ]
+    formulas = [re.sub(r"\\frac\{\d*x\}\{\d+\}", "x", f) for f in formulas]
+    formulas = [
+        re.sub(r"\\(sin|cos)(\d+)x", lambda m: "\\" + m[1] + "x", f) for f in formulas
+    ]
     return any(
-        re.search(r"\\(?:sin|cos)x\(", f)
+        re.search(r"\\(?:sin|cos)x(?:\\cdot)?\(", f)
         or re.search(
             r"\([^()]*\\(?:sin|cos)(?:\^\{?\d+\}?)?x[^()]*\)\([^()]*\\(?:sin|cos)(?:\^\{?\d+\}?)?x",
             f,

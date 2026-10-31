@@ -30,6 +30,7 @@ class Branch:
     values: tuple
     residues: tuple
     original: sp.Expr | None = None
+    excluded: tuple = ()
 
 
 @dataclass(frozen=True)
@@ -59,6 +60,8 @@ class Analysis:
     doubled: bool = False
     alternative: "Analysis | None" = None
     allow_inverse: bool = False
+    rewritten: sp.Expr | None = None
+    merged: bool = False
 
 
 def periodic(residues):
@@ -135,7 +138,7 @@ def parent_style(parent_html):
         or (len(images) == 1 and "удовлетворяют числа" in text)
         or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
         else "inequalities"
-        if "решим неравенства" in text
+        if "решим неравенства" in text or "решив неравенство" in text
         else None
     )
     if selection_method is None or any(
@@ -283,6 +286,7 @@ def analyze_method(
         Equation,
         compile_reviewed,
         factorized,
+        merges_series,
         preference,
     )
 
@@ -310,7 +314,18 @@ def analyze_method(
     if len(branches) == 1:
         preferred = branches[0].variable
     residues = ordered(q for b in branches for q in b.residues)
-    series = root_series(branches, residues, domain, allow_inverse)
+    merged = (
+        method == "inequalities" and compiled.scale != 1 and merges_series(parent_html)
+    )
+    if merged:
+        series = periodic(residues)
+    else:
+        filtered = domain is not None or (
+            compiled.poles and compiled.reciprocal is None
+        )
+        series = root_series(
+            branches, residues, filtered if filtered else None, allow_inverse
+        )
     series = tuple((q / compiled.scale, p / compiled.scale) for q, p in series)
     if method == "inequalities":
         series = centred(series)
@@ -346,6 +361,8 @@ def analyze_method(
         compiled.doubled,
         None,
         allow_inverse,
+        compiled.rewritten,
+        merged,
     )
 
 

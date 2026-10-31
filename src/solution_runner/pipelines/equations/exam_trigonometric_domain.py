@@ -103,26 +103,27 @@ def proof(a):
 
 def without_poles(branches, poles):
     from .exam_trigonometric_compile import C, S
+    from .exam_trigonometric_inverse import angles
 
     if not poles:
         return branches
-    return tuple(
-        replace(
-            b,
-            values=tuple(
-                v
-                for v in b.values
-                if all(sp.simplify(p.subs(b.variable, v)) != 0 for p in poles)
-            ),
-            residues=tuple(
-                q
-                for q in b.residues
-                if all(
-                    sp.simplify(p.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)}))
-                    != 0
-                    for p in poles
-                )
-            ),
+    result = []
+    for branch in branches:
+        residues = tuple(
+            q
+            for q in branch.residues
+            if all(
+                sp.simplify(p.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)})) != 0
+                for p in poles
+            )
         )
-        for b in branches
-    )
+        values = tuple(
+            v
+            for v in branch.values
+            if any(q in residues for q in angles(branch.variable, v, True))
+        )
+        excluded = tuple(v for v in branch.values if v not in values)
+        result.append(
+            replace(branch, residues=residues, values=values, excluded=excluded)
+        )
+    return tuple(result)
