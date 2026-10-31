@@ -4,7 +4,6 @@ import re
 from dataclasses import dataclass
 
 import sympy as sp
-from bs4 import BeautifulSoup
 
 from ..calculus.common import real_roots
 from ..word_problems.common import UnsupportedCondition
@@ -29,35 +28,6 @@ def polynomial(text):
             "the exponent must be a polynomial in x of degree at most two"
         )
     return v
-
-
-def shifted(parent_html):
-    candidates = []
-    for s in BeautifulSoup(parent_html, "html.parser").select(
-        "span[data-inline-latex]"
-    ):
-        raw = s["data-inline-latex"]
-        probe = "".join(raw.split())
-        if not (probe.startswith("t=") or probe.endswith("=t")):
-            continue
-        text = clean(raw)
-        if text.startswith("t="):
-            text = text[2:]
-        elif text.endswith("=t"):
-            text = text[:-2]
-        else:
-            continue
-        m = re.match(r"\d+\^", text)
-        if not m:
-            continue
-        raw, end = balanced(text, m.end())
-        if end == len(text):
-            candidates.append(polynomial(raw).subs(X, 0) != 0)
-    if not candidates or len(set(candidates)) != 1:
-        raise UnsupportedCondition(
-            "the parent must specify one consistent exponential substitution"
-        )
-    return candidates[0]
 
 
 def terms(formula):
@@ -99,8 +69,8 @@ def terms(formula):
             powers.append((coefficient, base, exponent))
         else:
             constant += sign * ScalarParser(piece).parse()
-    if len(powers) != 2:
-        raise UnsupportedCondition("exactly two exponential terms are required")
+    if len(powers) not in (2, 3):
+        raise UnsupportedCondition("two or three exponential terms are required")
     return powers, constant
 
 
@@ -116,25 +86,42 @@ class Analysis:
     interval: str
     bounds: tuple
     back: tuple
+    divisor: tuple | None = None
+    explicit: bool = True
 
 
 def analyze(formula, interval, bounds, parent_html):
     from .exam_scalar import compare
 
     powers, c = terms(formula)
-    high, low = powers
-    if high[1] != low[1] ** 2:
-        raise UnsupportedCondition("the first base must be the square of the second")
-    base = low[1]
-    g = low[2] if shifted(parent_html) else low[2] - low[2].subs(X, 0)
-    offsets = (sp.expand(2 * high[2] - 2 * g), sp.expand(low[2] - g))
-    if any(
-        v.free_symbols or v.is_Rational is not True or abs(v) > 100 for v in offsets
-    ):
-        raise UnsupportedCondition(
-            "both powers must reduce to one positive substitution"
-        )
-    a, b = high[0] * base ** offsets[0], low[0] * base ** offsets[1]
+    from .exam_exponential_parent import style
+
+    shifted, explicit = style(parent_html)
+    divisor = None
+    if len(powers) == 3:
+        from .exam_homogeneous import normalize
+
+        if c != 0:
+            raise UnsupportedCondition(
+                "a homogeneous equation cannot have an additional constant"
+            )
+        base, g, (a, b, c), divisor = normalize(powers, shifted)
+    else:
+        high, low = powers
+        if high[1] != low[1] ** 2:
+            raise UnsupportedCondition(
+                "the first base must be the square of the second"
+            )
+        base = low[1]
+        g = low[2] if shifted else low[2] - low[2].subs(X, 0)
+        offsets = (sp.expand(2 * high[2] - 2 * g), sp.expand(low[2] - g))
+        if any(
+            v.free_symbols or v.is_Rational is not True or abs(v) > 100 for v in offsets
+        ):
+            raise UnsupportedCondition(
+                "both powers must reduce to one positive substitution"
+            )
+        a, b = high[0] * base ** offsets[0], low[0] * base ** offsets[1]
     if any(v.is_Rational is not True for v in (a, b, c)) or a == 0:
         raise UnsupportedCondition(
             "the transformed quadratic must have exact rational coefficients"
@@ -145,10 +132,10 @@ def analyze(formula, interval, bounds, parent_html):
     for t in tr:
         if compare(t, sp.Integer(0)) <= 0:
             continue
-        value = sp.simplify(sp.expand_log(sp.log(t)) / sp.log(base))
+        value = sp.cancel(sp.expand_log(sp.log(t) / sp.log(base)))
         p = sp.Poly(g - value, X)
         if p.degree() == 1:
-            branch = (sp.simplify(sp.expand_log(-p.nth(0) / p.nth(1))),)
+            branch = (sp.cancel(sp.expand_log(-p.nth(0) / p.nth(1))),)
             roots.extend(branch)
         elif p.degree() == 2 and value.is_Rational:
             branch = tuple(real_roots(p.as_expr(), X))
@@ -169,7 +156,18 @@ def analyze(formula, interval, bounds, parent_html):
         and (compare(r, hi) < 0 or (uc and compare(r, hi) == 0))
     )
     return Analysis(
-        formula, base, g, (a, b, c), tr, roots, selected, interval, bounds, tuple(back)
+        formula,
+        base,
+        g,
+        (a, b, c),
+        tr,
+        roots,
+        selected,
+        interval,
+        bounds,
+        tuple(back),
+        divisor,
+        explicit,
     )
 
 

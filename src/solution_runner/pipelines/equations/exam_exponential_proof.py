@@ -25,7 +25,7 @@ def labels(a):
                 p = sp.Poly(a.exponent, X)
                 u, c = p.nth(1), p.nth(0)
                 arg = sp.simplify(t * a.base ** (-c))
-                text = r"\log_{" + n(a.base) + "}(" + n(arg) + ")"
+                text = r"\log_{" + sp.latex(a.base) + "}(" + n(arg) + ")"
                 result[r] = text if u == 1 else r"\frac{" + text + "}{" + n(u) + "}"
             else:
                 result[r] = n(r)
@@ -62,33 +62,54 @@ def fences(a, r):
     )
 
 
+def preparation(a):
+    A, B, _C = a.coefficients
+    if a.divisor:
+        from .exam_homogeneous import proof_prefix
+
+        html = proof_prefix(a)
+    else:
+        html = "<p>Приведём степени к одному основанию, раскрывая постоянные сдвиги в показателях:</p>"
+        powers, _ = terms(a.formula)
+        for (coefficient, base, exponent), target, power in zip(powers, (A, B), (2, 1)):
+            source = (
+                (n(coefficient) + r"\cdot" if coefficient != 1 else "")
+                + n(base)
+                + "^{"
+                + sp.latex(exponent)
+                + "}"
+            )
+            replacement = (
+                (n(target) + r"\cdot" if target != 1 else "")
+                + "("
+                + sp.latex(a.base)
+                + "^{"
+                + sp.latex(a.exponent)
+                + "})"
+                + ("^2" if power == 2 else "")
+            )
+            html += line(source + "=" + replacement)
+    if a.explicit:
+        html += "<p>Введём замену переменной. Показательная функция положительна при любом действительном x:</p>"
+        html += line("t=" + sp.latex(a.base) + "^{" + sp.latex(a.exponent) + "}>0")
+        html += "<p>Раскрывая постоянные сдвиги в показателях, получаем квадратное уравнение относительно t:</p>"
+    else:
+        html += "<p>Получаем квадратное уравнение относительно положительного показательного выражения:</p>"
+    return html
+
+
 def first_part(a, rendered):
     A, B, C = a.coefficients
-    html = "<p>Приведём степени к одному основанию, раскрывая постоянные сдвиги в показателях:</p>"
-    powers, _ = terms(a.formula)
-    for (coefficient, base, exponent), target, power in zip(powers, (A, B), (2, 1)):
-        source = (
-            (n(coefficient) + r"\cdot" if coefficient != 1 else "")
-            + n(base)
-            + "^{"
-            + sp.latex(exponent)
-            + "}"
-        )
-        replacement = (
-            (n(target) + r"\cdot" if target != 1 else "")
-            + "("
-            + n(a.base)
-            + "^{"
-            + sp.latex(a.exponent)
-            + "})"
-            + ("^2" if power == 2 else "")
-        )
-        html += line(source + "=" + replacement)
-    html += "<p>Введём замену переменной. Показательная функция положительна при любом действительном x:</p>"
-    html += line("t=" + n(a.base) + "^{" + sp.latex(a.exponent) + "}>0")
-    html += "<p>Раскрывая постоянные сдвиги в показателях, получаем квадратное уравнение относительно t:</p>"
+    html = preparation(a)
+    name = (
+        "t"
+        if a.explicit
+        else "(" + sp.latex(a.base) + "^{" + sp.latex(a.exponent) + "})"
+    )
     poly = A * sp.Symbol("t") ** 2 + B * sp.Symbol("t") + C
-    html += line(sp.latex(poly) + "=0")
+    html += line(
+        (sp.latex(poly) if a.explicit else sp.latex(poly).replace("t", name)) + "=0"
+    )
     html += line(
         "D=("
         + n(B)
@@ -100,22 +121,30 @@ def first_part(a, rendered):
         + n(B * B - 4 * A * C)
     )
     html += (
-        line("t=" + r",\quad t=".join(n(t) for t in a.t_roots))
+        line((name + "=") + (r",\quad " + name + "=").join(n(t) for t in a.t_roots))
         if a.t_roots
         else "<p>Дискриминант отрицателен, действительных значений t нет.</p>"
     )
     if any(compare(t, sp.Integer(0)) <= 0 for t in a.t_roots):
-        html += "<p>Неположительные значения t не подходят, поскольку введённая показательная функция строго положительна.</p>"
+        html += (
+            "<p>Неположительные значения t не подходят, поскольку введённая показательная функция строго положительна.</p>"
+            if a.explicit
+            else "<p>Неположительные правые части не подходят, поскольку показательная функция строго положительна.</p>"
+        )
     for t, value, branch in a.back:
-        html += "<p>Вернёмся к исходной переменной при " + inline("t=" + n(t)) + ":</p>"
-        html += line(n(a.base) + "^{" + sp.latex(a.exponent) + "}=" + n(t))
+        html += (
+            "<p>Вернёмся к исходной переменной при " + inline("t=" + n(t)) + ":</p>"
+            if a.explicit
+            else "<p>Решим уравнение с положительной правой частью:</p>"
+        )
+        html += line(sp.latex(a.base) + "^{" + sp.latex(a.exponent) + "}=" + n(t))
         html += line(
             sp.latex(a.exponent)
             + "="
             + (
                 n(value)
                 if value.is_Rational
-                else r"\log_{" + n(a.base) + "}(" + n(t) + ")"
+                else r"\log_{" + sp.latex(a.base) + "}(" + n(t) + ")"
             )
         )
         if sp.Poly(a.exponent, X).degree() == 2:
@@ -135,6 +164,9 @@ def second_part(a, rendered):
         + inline(a.interval)
         + ". Для логарифмов используем монотонность показательной функции, а радикалы оцениваем сравнением квадратов неотрицательных чисел.</p>"
     )
+    if lower.has(sp.pi) or upper.has(sp.pi):
+        html += "<p>Для сравнения с границами используем оценки числа π:</p>"
+        html += line(r"3<\pi<\frac{22}{7}")
     for r in a.roots:
         if compare(r, lower) == 0 or compare(r, upper) == 0:
             endpoint = lower if compare(r, lower) == 0 else upper
@@ -151,7 +183,7 @@ def second_part(a, rendered):
             u, c = p.nth(1), p.nth(0)
             t = next(t for t, _, branch in a.back if r in branch)
             values = (a.base ** (u * left + c), t, a.base ** (u * right + c))
-            sign = r"<" if u > 0 else r">"
+            sign = r"<" if (u > 0) == (a.base > 1) else r">"
             html += line(sign.join(n(v) for v in values))
         html += line(n(left) + "<" + rendered[r] + "<" + n(right))
         html += (

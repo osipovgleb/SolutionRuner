@@ -8,7 +8,7 @@ from ..word_problems.common import UnsupportedCondition, section
 from .power_arithmetic import ScalarParser
 
 FIRST = r"Решите уравнение:? ФОРМУЛА\.?"
-SECOND = r"(?:Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
+SECOND = r"(?:Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие отрезку|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
 
 
 def read(context):
@@ -108,10 +108,24 @@ def read_interval(second):
     if len(separators) != 1:
         raise UnsupportedCondition("the interval must have two unambiguous endpoints")
     i = separators[0]
-    lower, upper = (ScalarParser(v).parse() for v in (inner[:i], inner[i + 1 :]))
+    lower, upper = (endpoint(v) for v in (inner[:i], inner[i + 1 :]))
     from .exam_scalar import compare
 
     ordering = compare(lower, upper)
     if ordering > 0 or (ordering == 0 and (interval[0] != "[" or interval[-1] != "]")):
         raise UnsupportedCondition("a nonempty ordered interval is required")
     return interval, (lower, upper, interval[0] == "[", interval[-1] == "]")
+
+
+def endpoint(text):
+    import sympy as sp
+
+    if "p" in text.replace(r"\pi", ""):
+        raise UnsupportedCondition(
+            "an interval endpoint cannot contain an undeclared variable"
+        )
+    return (
+        ScalarParser(text.replace(r"\pi", "p"), {"p"})
+        .parse()
+        .subs(sp.Symbol("p", real=True), sp.pi)
+    )

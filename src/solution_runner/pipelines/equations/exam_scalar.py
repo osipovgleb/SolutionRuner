@@ -46,7 +46,25 @@ def log_rational(q, terms):
     return lo, hi
 
 
+@lru_cache(maxsize=3)
+def pi_bounds(terms):
+    def atan(q):
+        total = sum(
+            ((-1) ** j * q ** (2 * j + 1) / (2 * j + 1) for j in range(terms)), F(0)
+        )
+        other = total + (-1) ** terms * q ** (2 * terms + 1) / (2 * terms + 1)
+        return min(total, other), max(total, other)
+
+    return add(
+        multiply((F(16), F(16)), atan(F(1, 5))),
+        multiply((F(-4), F(-4)), atan(F(1, 239))),
+    )
+
+
 def enclose(value, bits=16):
+    if value == sp.pi:
+        return pi_bounds(bits)
+
     if value.is_Rational:
         q = F(int(value.p), int(value.q))
         return q, q

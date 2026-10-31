@@ -1,6 +1,7 @@
 """Two-part exponential answers, prototype shifts and certified interval boundaries."""
 
 import json
+import re
 from copy import deepcopy
 from fractions import Fraction
 from pathlib import Path
@@ -20,11 +21,17 @@ from solution_runner.pipelines.equations.exam_scalar import (
     log_rational,
 )
 
-DATA = json.loads(
-    (
-        Path(__file__).parent / "fixtures/category_14_exponential_quadratics.json"
-    ).read_text()
-)
+FIXTURES = [
+    json.loads((Path(__file__).parent / "fixtures" / name).read_text())
+    for name in (
+        "category_14_exponential_quadratics.json",
+        "category_14_homogeneous.json",
+    )
+]
+DATA = {
+    key: [item for fixture in FIXTURES for item in fixture[key]]
+    for key in ("groups", "cases")
+}
 CASES = DATA["cases"]
 LOG = lambda v, b: sp.log(v) / sp.log(b)
 EXPECTED = {
@@ -43,6 +50,22 @@ EXPECTED = {
     ),
     "552108": ((-LOG(3, 2), LOG(sp.Rational(3, 2), 2)), (LOG(sp.Rational(3, 2), 2),)),
 }
+
+EXPECTED.update(
+    {
+        "514081": (
+            (LOG(3, sp.Rational(3, 2)), LOG(4, sp.Rational(3, 2))),
+            (LOG(3, sp.Rational(3, 2)),),
+        ),
+        "515781": ((-LOG(19, 2), sp.Integer(0)), (-LOG(19, 2),)),
+        "502999": (
+            ((3 - sp.sqrt(5)) / 2, (3 + sp.sqrt(5)) / 2),
+            ((3 - sp.sqrt(5)) / 2,),
+        ),
+        "515705": ((sp.Integer(-4), sp.Integer(0)), (sp.Integer(0),)),
+        "562757": ((sp.Integer(-2), sp.Integer(-1)), (sp.Integer(-1),)),
+    }
+)
 
 
 def case_for(task):
@@ -85,7 +108,7 @@ def changed(task, old, new):
 
 
 @pytest.mark.parametrize("g", DATA["groups"], ids=lambda g: g["key"])
-def test_four_profiles_share_one_registered_rule(g):
+def test_all_profiles_share_one_registered_rule(g):
     p = get_group_profile(g["key"])
     assert p.content_rule_key == "exam-exponential-quadratic-interval"
     assert p.source_group_id == g["uuid"] and p.snapshot_theme_id == g["theme_uuid"]
@@ -156,6 +179,21 @@ def test_expected_roots_satisfy_the_original_equation_without_using_the_model_co
         "516760": lambda x: 4**x - 2 ** (x + 3) + 15,
         "516779": lambda x: 9**x - 3 ** (x + 2) + 14,
         "528517": lambda x: 4 ** (x * x - 1) - 24 * 2 ** (x * x - 3) + 8,
+        "514081": lambda x: (
+            3 * 9 ** (x - sp.Rational(1, 2)) - 7 * 6**x + 3 * 4 ** (x + 1)
+        ),
+        "515781": lambda x: 19 * 4**x - 5 * 2 ** (x + 2) + 1,
+        "502999": lambda x: (
+            7 * 9 ** (x * x - 3 * x + 1)
+            + 5 * 6 ** (x * x - 3 * x + 1)
+            - 48 * 4 ** (x * x - 3 * x)
+        ),
+        "515705": lambda x: (
+            5 * 4 ** (x * x + 4 * x)
+            + 20 * 10 ** (x * x + 4 * x - 1)
+            - 7 * 25 ** (x * x + 4 * x)
+        ),
+        "562757": lambda x: 3 * 9 ** (x + 1) - 5 * 6 ** (x + 1) + 8 * 2 ** (2 * x),
         "552108": lambda x: 24 * 4 ** (x - sp.Rational(1, 2)) - 11 * 2 ** (x + 1) + 6,
     }
     for r in EXPECTED[c["task"]][0]:
@@ -169,12 +207,26 @@ def test_both_subparts_and_the_parent_substitution_are_retained(c):
     soup = BeautifulSoup(plan(c).solution_html, "html.parser")
     rows = soup.ol.find_all("li", recursive=False)
     assert len(rows) == 2 and [r["data-list-marker"] for r in rows] == ["а)", "б)"]
-    assert "t=" + str(a.base) + "^{" in str(rows[0])
-    assert (
-        a.exponent.subs(sp.Symbol("x", real=True), 0) != 0
-        if c["group"] in {"502094", "528517"} and c["task"] != "511382"
-        else a.exponent.subs(sp.Symbol("x", real=True), 0) == 0
-    )
+    if a.explicit:
+        assert any(
+            s.get("data-inline-latex", "").startswith("t=")
+            for s in rows[0].select("span")
+        )
+    else:
+        assert not any(
+            "t" in re.sub(r"\\[A-Za-z]+", "", s.get("data-inline-latex", ""))
+            for s in rows[0].select("span")
+        )
+    expected_shift = c["task"] in {
+        "502094",
+        "511374",
+        "502074",
+        "528517",
+        "502999",
+        "515705",
+        "562757",
+    }
+    assert (a.exponent.subs(sp.Symbol("x", real=True), 0) != 0) == expected_shift
     assert "промежут" in rows[1].text and not soup.select("img")
     answer = next(
         t["value"]["html"]
@@ -291,3 +343,40 @@ def test_close_exact_comparisons_and_undefined_scalars_are_not_guessed():
     assert compare(sp.log(2), sp.Rational(693148, 1000000)) == -1
     with pytest.raises(ValueError):
         enclose(sp.sin(1))
+
+
+def test_decreasing_exponential_ratio_reverses_power_comparisons():
+    c = case_for("502999")
+    context = deepcopy(c["context"])
+    section = next(
+        s for s in context["normalized_content"]["sections"] if s["key"] == "condition"
+    )
+    soup = BeautifulSoup(section["html"], "html.parser")
+    soup.span["data-inline-latex"] = r"4^{x}-3\cdot 10^{x}+2\cdot 25^{x}=0"
+    section["html"] = str(soup)
+    a = analysis(c, context)
+    assert a.base == sp.Rational(2, 5) and len(a.selected) == 2
+    html = BeautifulSoup(plan(c, context).solution_html, "html.parser")
+    assert any(
+        s["data-inline-latex"].count(">") == 2
+        for s in html.select("[data-inline-latex]")
+    )
+
+
+def test_machin_identity_has_exact_tangent_one():
+    q = sp.Rational(1, 5)
+    twice = 2 * q / (1 - q * q)
+    fourth = 2 * twice / (1 - twice * twice)
+    assert (fourth - sp.Rational(1, 239)) / (1 + fourth / sp.Integer(239)) == 1
+
+
+@pytest.mark.parametrize("value", [sp.pi, -sp.pi / 2])
+def test_pi_and_its_negative_half_have_certified_bounds(value):
+    lo, hi = enclose(value)
+    actual = sp.N(value, 80)
+    assert (
+        sp.Rational(lo.numerator, lo.denominator)
+        < actual
+        < sp.Rational(hi.numerator, hi.denominator)
+    )
+    assert hi - lo < Fraction(1, 10**15)
