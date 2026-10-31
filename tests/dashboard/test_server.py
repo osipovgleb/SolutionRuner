@@ -24,11 +24,89 @@ from solution_runner.group_inventory_store import (
 )
 
 
+def test_register_binds_before_work_and_preserves_fast_completion(tmp_path):
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    inventory = GroupInventoryStore(store.path)
+    inventory.replace(GroupInventorySnapshot(
+        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+    ))
+    requested = []
+
+    def register(group, index, thread_id, comment, on_created):
+        requested.append(thread_id)
+        on_created(thread_id or "native-thread")
+        assert store.get_group("123")["codex_thread_id"] == "native-thread"
+        store.update_group("123", {"agent_status": "updated", "full_dry_run_status": "ready"})
+        return {"id": "native-thread", "title": "123"}
+
+    service = SimpleNamespace(register_group=register)
+    dashboard_server._register_group_task(store, inventory, service, "123")
+    group = store.get_group("123")
+    assert group["agent_status"] == "updated"
+    assert group["full_dry_run_status"] == "ready"
+    dashboard_server._register_group_task(store, inventory, service, "123")
+    assert requested == [None, "native-thread"]
+
+
+def test_failed_first_turn_keeps_native_task_id_and_error(tmp_path):
+    from solution_runner.dashboard.codex_tasks import CodexTaskStartError
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    inventory = GroupInventoryStore(store.path)
+    inventory.replace(GroupInventorySnapshot(
+        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
+        parent_problem_id="parent", parent_source_problem_id="10",
+        items=(GroupInventoryItem("parent", "10", 0, True, True, True),),
+    ))
+
+    def register(*args, **kwargs):
+        raise CodexTaskStartError("retained-task", "model unavailable")
+
+    with pytest.raises(CodexTaskStartError):
+        dashboard_server._register_group_task(store, inventory, SimpleNamespace(register_group=register), "123")
+    group = store.get_group("123")
+    assert group["codex_thread_id"] == "retained-task"
+    assert group["agent_status"] == "blocked"
+    assert "model unavailable" in group["agent_summary"]
+
+
 def _request(url, *, method="GET", payload=None):
     data = json.dumps(payload).encode() if payload is not None else None
     request = Request(url, method=method, data=data, headers={"Content-Type": "application/json"})
     with urlopen(request) as response:
         return response.status, json.load(response)
+
+
+def test_comment_is_not_acknowledged_or_recorded_when_owner_queue_rejects_it(tmp_path):
+    from solution_runner.dashboard.codex_tasks import CodexTaskService
+
+    def failed_send(*args):
+        raise RuntimeError("native queue unavailable")
+
+    store = DashboardStore(tmp_path / "dashboard.sqlite3")
+    store.add_manual_group("123", "catalog")
+    store.update_group("123", {"codex_thread_id": "thread-1", "agent_status": "updated", "full_dry_run_status": "ready"})
+    service = CodexTaskService(project_root=tmp_path, send_message=failed_send)
+    server = make_server(store=store, codex_tasks=service, var_dir=tmp_path / "var", profiles={}, static_dir=tmp_path, port=0)
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        with pytest.raises(HTTPError) as failure:
+            _request(f"http://127.0.0.1:{server.server_port}/api/groups/123/comments", method="POST", payload={"body": "please fix"})
+        assert failure.value.code == 502
+        assert "native queue unavailable" in json.load(failure.value)["message"]
+        group = store.get_group("123")
+        assert group["agent_status"] == "delivery_failed"
+        assert group["full_dry_run_status"] == "ready"
+        assert not any(c["body"] == "please fix" for c in store.list_comments("123"))
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=2)
 
 
 def test_profile_source_state_detects_a_new_profile_declaration(tmp_path):
@@ -114,7 +192,7 @@ def test_remove_group_rejects_active_work_and_preserves_inventory(tmp_path):
 
 def test_ready_initialization_waits_for_manual_registration(tmp_path):
     class FakeCodexTasks:
-        def register_group(self, group, inventory, thread_id=None):
+        def register_group(self, group, inventory, thread_id=None, comment="", on_created=None):
             raise AssertionError("Initialization must not launch Codex")
 
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
@@ -185,7 +263,7 @@ def test_agent_result_without_full_dry_run_is_verified_by_server(tmp_path):
 
 def test_startup_resumes_ready_initialization_and_repairs_agent_column(tmp_path):
     class FakeCodexTasks:
-        def register_group(self, group, inventory, thread_id=None):
+        def register_group(self, group, inventory, thread_id=None, comment="", on_created=None):
             raise AssertionError("Startup must not launch Codex")
 
     store = DashboardStore(tmp_path / "dashboard.sqlite3")
@@ -319,7 +397,7 @@ def test_group_api_registers_with_selected_or_new_codex_task(tmp_path):
         def list_tasks(self):
             return [{"id": "thread-existing", "title": "Existing task", "model": "gpt-6.1-sol", "reasoning_effort": "medium"}]
 
-        def register_group(self, group, inventory, thread_id=None, comment=""):
+        def register_group(self, group, inventory, thread_id=None, comment="", on_created=None):
             self.registrations.append((group["id"], inventory["parent_problem_id"], thread_id, comment))
             task_id = thread_id or "thread-new"
             return {"id": task_id, "title": "Existing task" if thread_id else "Регистрация группы 123"}

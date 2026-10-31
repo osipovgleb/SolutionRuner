@@ -223,6 +223,7 @@ class DashboardStore:
         group["column"] = {
             "needs_input": "issues",
             "blocked": "issues",
+            "delivery_failed": "issues",
         }.get(group.get("agent_status")) or manual_column or group["system_column"]
         group["source"] = group.pop("manual_source") or group["source"]
         group["id"] = group.pop("group_key")
@@ -349,6 +350,7 @@ class DashboardStore:
             "no_changes": "review",
             "needs_input": "issues",
             "blocked": "issues",
+            "delivery_failed": "issues",
         }.get(changes.get("agent_status"))
         if agent_column and "column" not in changes:
             values["manual_column"] = agent_column

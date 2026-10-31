@@ -22,6 +22,47 @@ full-group dry-run moves the card to review and enables Apply; a failed one move
 it to problems. Review/problem comments are forwarded to the linked Codex task
 and invalidate the previous full-group approval.
 
+Codex tasks use the host's shared Codex daemon and its `CODEX_HOME`. The
+vendored T3 Code transport in `codex-runtime/` connects over its Unix WebSocket;
+it does not start a private app-server per request. Node >=24.10 is required.
+Locked transport dependencies are installed automatically with `npm ci
+--ignore-scripts` on first use or when the lockfile changes. The shared daemon
+is started if needed, and client disconnects do not terminate its tasks.
+
+For simultaneous access from the local Codex desktop app and this dashboard,
+the desktop app must also connect to that daemon. Using the same `CODEX_HOME`
+with separate app-server processes still produces `already has an active
+writer` / `This is open in another app`.
+
+The installed macOS desktop build supports this opt-in connection mode:
+
+```bash
+codex app-server daemon start
+launchctl setenv CODEX_APP_SERVER_USE_LOCAL_DAEMON 1
+```
+
+Then fully quit and reopen the desktop app after its active work finishes.
+`launchctl setenv` applies to subsequently launched GUI processes in the current
+login session; it does not change an already running app or survive logout.
+The app must have no forced CLI/runtime override (`CODEX_APP_SERVER_FORCE_CLI`,
+`CODEX_CLI_PATH`, or a configured custom CLI command). The mode is an internal
+switch verified in the installed desktop build, not a portable public setting.
+SSH is not required. To undo the opt-in, run
+`launchctl unsetenv CODEX_APP_SERVER_USE_LOCAL_DAEMON` and restart the app.
+
+Each card retains the native persistent `thread_id`; retries and comments reuse
+that task. Continuations use `codex queue` to deliver to the existing owner,
+including Codex App, instead of trying to acquire another writer with
+`thread/resume`. HTTP success is returned only after queue acceptance. Delivery
+errors are separate from agent failures, remain visible, and do not record an
+undelivered comment as sent. A created ID is saved before admitting the first turn, including when
+admission fails, and native errors are returned to the UI. Creation/name/start
+share one runtime connection. Completion notifications update the linked card.
+The host running the dashboard owns the task; local and remote hosts are never
+silently mixed. T3 Code has a separate sidebar index: its native-session import
+must point at the same host and Codex home; the transport does not replicate
+T3's project database or synchronize tasks to other machines.
+
 ```bash
 npm install
 npm run build

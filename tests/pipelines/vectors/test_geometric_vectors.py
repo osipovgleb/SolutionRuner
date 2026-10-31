@@ -3,6 +3,8 @@
 from copy import deepcopy
 from fractions import Fraction as F
 from itertools import permutations
+import json
+from pathlib import Path
 
 import pytest
 import sympy as sp
@@ -11,6 +13,32 @@ from test_coordinate_source_samples import CASES, plan
 
 from solution_runner.pipelines.vectors.geometric import _quadrilateral
 from solution_runner.pipelines.vectors.rectangle_coordinates import dimensions
+
+
+REPAIRS = json.loads(
+    (Path(__file__).parent / "fixtures/group_27711_repairs.json").read_text()
+)
+
+
+@pytest.mark.parametrize("item,expected", list(zip(REPAIRS, ("6", "14", "32", "29", "18"))))
+def test_group_27711_audited_diagram_repairs(item, expected):
+    context = deepcopy(item)
+    # Production transformation contexts supply these stable section targets.
+    for section in context["normalized_content"]["sections"]:
+        section["transformation_target_id"] = "section:" + section["section_id"]
+    original = deepcopy(context)
+    result = plan({"group": "27711"}, context)
+    assert result.answer == expected
+    assert context == original
+    assert all(
+        t["transformation_target_id"].startswith(("section:solution", "section:answer"))
+        for t in result.transformations
+    )
+    solution = next(
+        t for t in result.transformations
+        if t["transformation_target_id"].startswith("section:solution")
+    )
+    assert r"\overrightarrow{AB}" in solution["value"]["html"]
 
 
 @pytest.mark.parametrize(

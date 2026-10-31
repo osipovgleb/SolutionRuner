@@ -36,7 +36,7 @@ from .activity import load_group_activity
 from .backfill import backfill_local_runs
 from .store import DashboardStore, sync_groups
 from .teacherhelper import teacherhelper_navigation
-from .codex_tasks import CodexTaskService
+from .codex_tasks import CodexTaskService, CodexTaskStartError
 from .auth import DashboardAuth
 from .job_queue import DurableJobQueue
 
@@ -132,20 +132,39 @@ def _register_group_task(
         "parent_source_problem_id": snapshot.parent_source_problem_id,
         "task_count": len(inventory_store.list_items(group_key)),
     }
-    task = (
-        codex_tasks.register_group(group, inventory, thread_id, comment)
-        if comment else codex_tasks.register_group(group, inventory, thread_id)
-    )
+    thread_id = thread_id or group.get("codex_thread_id")
+    def bind_created_task(created_id: str) -> None:
+        # Bind before the first turn can finish, so lifecycle callbacks find the card.
+        store.update_group(group_key, {
+            "codex_thread_id": created_id,
+            "task_title": f"{group_key} · {group['title']}",
+            "task_url": f"codex://threads/{created_id}",
+            "agent_status": "working", "column": "work",
+            "full_dry_run_status": None,
+        })
+    try:
+        task = codex_tasks.register_group(group, inventory, thread_id, comment, on_created=bind_created_task)
+    except CodexTaskStartError as exc:
+        store.update_group(group_key, {
+            "codex_thread_id": exc.thread_id,
+            "task_title": f"{group_key} · {group['title']}",
+            "task_url": f"codex://threads/{exc.thread_id}",
+            "agent_status": "blocked", "agent_summary": str(exc)[:200],
+        })
+        raise
+    # Preserve a terminal state if a fast first turn already completed.
+    current = store.get_group(group_key) or {}
+    completed_early = current.get("codex_thread_id") == task["id"] and current.get("agent_status") in {"updated", "no_changes", "blocked", "needs_input", "verifying"}
     updated = store.update_group(group_key, {
         "codex_thread_id": task["id"],
         "codex_archived": 0,
         "task_title": task["title"],
         "task_url": f"codex://threads/{task['id']}",
-        "column": "work",
+        "column": current.get("column", "work") if completed_early else "work",
         "revision_requested": 0,
-        "full_dry_run_status": None,
-        "agent_status": "working",
-        "agent_summary": "Агент исследует группу и готовит полный dry-run.",
+        "full_dry_run_status": current.get("full_dry_run_status") if completed_early else None,
+        "agent_status": current.get("agent_status") if completed_early else "working",
+        "agent_summary": current.get("agent_summary") if completed_early else "Агент исследует группу и готовит полный dry-run.",
     })
     assert updated is not None
     return task, updated
@@ -755,7 +774,7 @@ class Handler(BaseHTTPRequestHandler):
             thread_id = group.get("codex_thread_id")
             must_send = (
                 group["column"] in {"issues", "review"}
-                or group.get("agent_status") in {"blocked", "needs_input"}
+                or group.get("agent_status") in {"blocked", "needs_input", "delivery_failed"}
                 or problem_id
             )
             sent_to_codex = False
@@ -769,6 +788,10 @@ class Handler(BaseHTTPRequestHandler):
                     else:
                         self.server.codex_tasks.send_comment(str(thread_id), group, body)
                 except RuntimeError as exc:
+                    self.server.store.update_group(segments[2], {
+                        "agent_status": "delivery_failed",
+                        "agent_summary": str(exc)[:200],
+                    })
                     self._json(502, {"error": "codex_comment_failed", "message": str(exc)})
                     return
                 sent_to_codex = True

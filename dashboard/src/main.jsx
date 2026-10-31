@@ -17,6 +17,7 @@ const agentStatusLabels = {
   no_changes: "Проверено без изменений",
   needs_input: "Нужен ответ",
   blocked: "Агент заблокирован",
+  delivery_failed: "Сообщение не доставлено",
 };
 const jobKindLabels = { dry_run: "Dry-run", apply: "Apply", helpers: "Helpers" };
 const jobStatusLabels = { queued: "ожидает", running: "выполняется", retry_wait: "ожидает повтора" };
@@ -555,10 +556,10 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
       setComments([...comments, result.comment]);
       onGroupUpdate(result.group);
       setComment("");
-    } catch {
-      setRunError(group.codex_thread_id
+    } catch (error) {
+      setRunError(error.message || (group.codex_thread_id
         ? "Не удалось отправить комментарий в связанную Codex-задачу."
-        : "Сначала свяжи группу с Codex-задачей.");
+        : "Сначала свяжи группу с Codex-задачей."));
     }
   };
   const addTaskComment = async (task, body) => {
@@ -616,8 +617,8 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
       );
       onGroupUpdate(result.group);
       setEditingTask(false);
-    } catch {
-      setTaskError("Не удалось зарегистрировать группу или создать Codex-задачу.");
+    } catch (error) {
+      setTaskError(error.message || "Не удалось зарегистрировать группу или создать Codex-задачу.");
     } finally {
       setRegistering(false);
     }
@@ -673,6 +674,7 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
           </div>
           {agentStatus && <div class={`detail-agent-state agent-${group.agent_status || "idle"}`}>
             <span><b>Codex:</b> {agentStatus}</span>
+            {group.agent_summary && <span>{group.agent_summary}</span>}
             {group.agent_status === "blocked" && group.codex_thread_id && <button class="secondary-button" onClick={restartAgent} disabled={restartingAgent}>{restartingAgent ? "Запускаю…" : "Перезапустить"}</button>}
           </div>}
         </div>

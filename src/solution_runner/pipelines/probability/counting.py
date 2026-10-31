@@ -31,6 +31,48 @@ _BOOKS = re.compile(
 _EXAM = re.compile(
     r"(?:На экзамен вынесено|На экзамене) (?P<n>\d+) (?P<kind>вопросов|билетов)[,.] [А-Я][а-я]+ не выучил (?P<m>\d+) из них\. Найдите вероятность того, что ему попадется выученный (?P<target>вопрос|билет)\."
 )
+_CHANNEL_COUNTS = {
+    "трем": 3,
+    "четырем": 4,
+    "шести": 6,
+    "девяти": 9,
+    "четырнадцати": 14,
+    "шестнадцати": 16,
+    "тридцати": 30,
+    "тридцати пяти": 35,
+    "сорока пяти": 45,
+    "сорока восьми": 48,
+}
+_CHANNEL_COUNT = r"(?:\d+|" + "|".join(sorted(_CHANNEL_COUNTS, key=len, reverse=True)) + r")"
+_TELEVISION = re.compile(
+    rf"(?P<name>[А-Я][а-я]+) включает телевизор\. Телевизор включается на случайном канале\. "
+    rf"В это время по (?P<m>{_CHANNEL_COUNT}) каналам из (?P<n>{_CHANNEL_COUNT}) показывают "
+    r"(?P<program>новости|телевикторины|музыкальные клипы|документальные фильмы|рекламу)\. "
+    r"Найдите вероятность того, что (?P=name) попадет на канал, где (?P<event>.+)\."
+)
+
+
+def _television(text):
+    match = _TELEVISION.fullmatch(text)
+    if match is None:
+        return None
+    events = {
+        "новости": "новости не идут",
+        "телевикторины": "телевикторины не идут",
+        "музыкальные клипы": "клипы не идут",
+        "документальные фильмы": "документальные фильмы не идут",
+        "рекламу": "реклама не идет",
+    }
+    if match["event"] != events[match["program"]]:
+        raise UnsupportedCondition("the television question is not the audited complement")
+    n, included = (
+        int(match[key]) if match[key].isdigit() else _CHANNEL_COUNTS[match[key]]
+        for key in ("n", "m")
+    )
+    html = "<p>Все каналы равновозможны. Вычтем из общего количества каналы, по которым идёт указанная передача:</p>"
+    html += line(rf"N_{{\mathrm{{общ}}}}={n}")
+    html += line(rf"N_{{\mathrm{{благ}}}}={n}-{included}={n - included}")
+    return n, n - included, html, "P"
 
 
 def _books(text):
@@ -91,6 +133,7 @@ def solve(text):
         circular_counts,
         _books,
         _exam,
+        _television,
         quality_counts,
         selection_counts,
         inventory_counts,
@@ -106,7 +149,11 @@ def solve(text):
             return (
                 answer,
                 html
-                + "<p>Разделим число подходящих исходов на общее количество:</p>"
+                + "<p>По классическому определению вероятность события считается по формуле:</p>"
+                + line(
+                    rf"{symbol}=\frac{{\text{{Число благоприятных исходов}}}}{{\text{{Число всех равновозможных исходов}}}}"
+                )
+                + "<p>Поэтому, подставляя найденные количества, получаем:</p>"
                 + calculation,
             )
     raise UnsupportedCondition("unsupported complete counting condition")

@@ -2,25 +2,17 @@
 
 from __future__ import annotations
 
-import json
 import os
-from pathlib import Path
-import selectors
 import subprocess
+from pathlib import Path
 from threading import Event, Lock, Thread
-from uuid import uuid4
-import time
 from typing import Any, Callable, Mapping
+
+from .codex_transport import shared_client
 
 
 MODEL = "gpt-6.1-sol"
 EFFORT = "medium"
-AUTOMATION_ACCESS_ARGS = [
-    "--config", 'sandbox_mode="danger-full-access"',
-    "--config", 'approval_policy="never"',
-    "--config", 'mcp_servers.teacherhelper.default_tools_approval_mode="approve"',
-    "--config", 'mcp_servers.teacherhelper_org.default_tools_approval_mode="approve"',
-]
 
 
 def build_registration_prompt(
@@ -50,61 +42,9 @@ def build_registration_prompt(
     return prompt if not comment else f"{prompt}\n\nКомментарий пользователя:\n{comment}"
 
 
-def _log_path(project_root: Path, operation: str) -> Path:
-    directory = project_root / "var/dashboard/logs"
-    directory.mkdir(parents=True, exist_ok=True)
-    return directory / f"codex-{operation}-{uuid4().hex}.log"
-
 
 def _app_server_request(project_root: Path, method: str, params: Mapping[str, Any]) -> dict[str, Any]:
-    with _log_path(project_root, "app-server").open("a", encoding="utf-8") as error_log:
-        process = subprocess.Popen(
-            ["codex", "app-server", "--stdio"],
-            cwd=project_root,
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=error_log,
-            text=True,
-            bufsize=1,
-        )
-    assert process.stdin is not None and process.stdout is not None
-    messages = [
-        {"id": 1, "method": "initialize", "params": {
-            "clientInfo": {"name": "solution-runner-dashboard", "title": "SolutionRunner", "version": "1.0"},
-            "capabilities": {"experimentalApi": True},
-        }},
-        {"method": "initialized", "params": {}},
-        {"id": 2, "method": method, "params": dict(params)},
-    ]
-    for message in messages:
-        process.stdin.write(json.dumps(message) + "\n")
-    process.stdin.flush()
-    selector = selectors.DefaultSelector()
-    selector.register(process.stdout, selectors.EVENT_READ)
-    deadline = time.monotonic() + 8
-    try:
-        while time.monotonic() < deadline:
-            if not selector.select(timeout=max(deadline - time.monotonic(), 0)):
-                break
-            line = process.stdout.readline()
-            if not line:
-                break
-            try:
-                message = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if message.get("id") == 2:
-                if message.get("error"):
-                    raise RuntimeError(str(message["error"]))
-                return message.get("result") or {}
-        raise RuntimeError(f"Codex request timed out: {method}")
-    finally:
-        selector.close()
-        process.terminate()
-        try:
-            process.wait(timeout=2)
-        except subprocess.TimeoutExpired:
-            process.kill()
+    return shared_client(project_root).request(method, dict(params))
 
 
 def _list_threads(project_root: Path) -> list[dict[str, Any]]:
@@ -134,67 +74,69 @@ def _create_thread(
     model: str,
     effort: str,
     on_exit: Callable[[str, int], None] | None = None,
+    on_created: Callable[[str], None] | None = None,
 ) -> str:
-    """Create a saved task, release its owner, then queue work for the app.
-
-    Running ``codex exec`` here holds the task's ownership lock for the whole
-    turn, making the desktop composer unavailable with "open in another app".
-    The short app-server request closes before queueing the first message.
-    """
-    result = _app_server_request(project_root, "thread/start", {
-        "cwd": str(project_root),
-        "model": model,
-        "approvalPolicy": "never",
-        "sandbox": "danger-full-access",
+    """Create and start one durable task in the shared daemon through T3 transport."""
+    client = shared_client(project_root)
+    result = client.request("thread/start", {
+        "cwd": str(project_root), "model": model,
+        "approvalPolicy": "never", "sandbox": "danger-full-access",
         "config": {
             "model_reasoning_effort": effort,
             "mcp_servers.teacherhelper.default_tools_approval_mode": "approve",
             "mcp_servers.teacherhelper_org.default_tools_approval_mode": "approve",
         },
-        "threadSource": "appServer",
-        "ephemeral": False,
+        "threadSource": "appServer", "ephemeral": False,
     })
-    thread_id = (result.get("thread") or {}).get("id")
+    thread_id = str((result.get("thread") or {}).get("id") or "")
     if not thread_id:
         raise RuntimeError("Codex did not create a task")
-    thread_id = str(thread_id)
-    _app_server_request(project_root, "thread/name/set", {
-        "threadId": thread_id,
-        "name": prompt.splitlines()[0],
-    })
-    _send_message(project_root, thread_id, prompt, on_exit)
+    try:
+        client.request("thread/name/set", {"threadId": thread_id, "name": prompt.splitlines()[0]})
+        if on_created:
+            on_created(thread_id)
+        turn_id = client.start_turn(thread_id, prompt, model, effort)
+    except RuntimeError as exc:
+        raise CodexTaskStartError(thread_id, str(exc)) from exc
+    Thread(target=_watch_turn, args=(client, thread_id, turn_id, on_exit), daemon=True).start()
     return thread_id
 
 
-def _send_message(
-    project_root: Path,
-    thread_id: str,
-    prompt: str,
-    on_exit: Callable[[str, int], None] | None = None,
-) -> None:
-    """Queue a turn in the app-owned task."""
+class CodexTaskStartError(RuntimeError):
+    """Retain a created task ID even when admitting its first turn fails."""
 
-    with _log_path(project_root, "queue").open("w", encoding="utf-8") as output:
-        process = subprocess.run(
-            [
-                "codex", "queue", "--thread", thread_id, "--message", prompt,
-                *AUTOMATION_ACCESS_ARGS, "-C", str(project_root),
-                "-m", MODEL, "-c", f'model_reasoning_effort="{EFFORT}"',
-            ],
-            cwd=project_root,
-            stdout=output,
-            stderr=subprocess.STDOUT,
-            text=True,
-            check=False,
+    def __init__(self, thread_id: str, message: str):
+        super().__init__(message)
+        self.thread_id = thread_id
+
+
+def _watch_turn(client, thread_id, turn_id, on_exit):
+    try:
+        code = client.wait_turn(turn_id)
+    except RuntimeError:
+        code = 1
+    if on_exit:
+        on_exit(thread_id, code)
+
+
+def _send_message(
+    project_root: Path, thread_id: str, prompt: str,
+) -> None:
+    """Queue at the task's existing owner instead of acquiring a second writer."""
+    try:
+        result = subprocess.run(
+            ['codex', 'queue', '--thread', thread_id, '--message', prompt],
+            cwd=project_root, capture_output=True, text=True, timeout=20, check=False,
         )
-    if process.returncode:
-        if on_exit:
-            on_exit(thread_id, process.returncode)
-        raise RuntimeError(f"Codex did not queue the message (exit {process.returncode})")
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise RuntimeError(f'Не удалось передать сообщение владельцу чата Codex: {exc}') from exc
+    if result.returncode:
+        reason = (result.stderr or result.stdout).strip()[-500:]
+        raise RuntimeError(f'Сообщение не доставлено в Codex App: {reason or result.returncode}')
 
 
 class _SerialMessageSender:
-    """Run messages for one Codex task in submission order."""
+    """Serialize queue admission and return real delivery errors to the HTTP caller."""
 
     def __init__(self, send: Callable[[str, str], None]) -> None:
         self._send = send
@@ -206,9 +148,6 @@ class _SerialMessageSender:
         with self._lock:
             previous = self._tails.get(thread_id)
             self._tails[thread_id] = done
-        Thread(target=self._run, args=(thread_id, prompt, previous, done), daemon=True).start()
-
-    def _run(self, thread_id: str, prompt: str, previous: Event | None, done: Event) -> None:
         if previous:
             previous.wait()
         try:
@@ -233,16 +172,17 @@ class CodexTaskService:
     ) -> None:
         self.project_root = project_root
         self._list = list_threads or (lambda: _list_threads(project_root))
-        self._create = create_thread or (lambda prompt, model, effort: _create_thread(project_root, prompt, model, effort, on_exit))
+        self._custom_create = create_thread
+        self._on_exit = on_exit
         self._send = send_message or _SerialMessageSender(
-            lambda thread_id, prompt: _send_message(project_root, thread_id, prompt, on_exit)
+            lambda thread_id, prompt: _send_message(project_root, thread_id, prompt)
         )
         self._archive = archive_thread or (lambda thread_id: _archive_thread(project_root, thread_id))
 
     def list_tasks(self) -> list[dict[str, Any]]:
         return [{
             "id": str(item["id"]),
-            "title": str(item.get("title") or item.get("name") or str(item.get("preview") or item["id"]).splitlines()[0]),
+            "title": str(item.get("name") or item.get("title") or str(item.get("preview") or item["id"]).splitlines()[0]),
             "model": item.get("model"),
             "reasoning_effort": item.get("reasoningEffort"),
             "status": item.get("status"),
@@ -255,18 +195,25 @@ class CodexTaskService:
         inventory: Mapping[str, Any],
         thread_id: str | None = None,
         comment: str = "",
+        on_created: Callable[[str], None] | None = None,
     ) -> dict[str, str]:
         prompt = build_registration_prompt(group, inventory, comment)
         if thread_id:
             task = next((item for item in self.list_tasks() if item["id"] == thread_id), None)
             if task is None:
                 raise ValueError("selected Codex task does not exist in this project")
+            if on_created:
+                on_created(thread_id)
             self._send(thread_id, prompt)
             return {"id": thread_id, "title": str(task["title"])}
-        created_id = self._create(
-            prompt, os.environ.get("SOLUTION_RUNNER_CODEX_MODEL", MODEL),
-            os.environ.get("SOLUTION_RUNNER_CODEX_EFFORT", EFFORT),
-        )
+        model = os.environ.get("SOLUTION_RUNNER_CODEX_MODEL", MODEL)
+        effort = os.environ.get("SOLUTION_RUNNER_CODEX_EFFORT", EFFORT)
+        if self._custom_create:
+            created_id = self._custom_create(prompt, model, effort)
+            if on_created:
+                on_created(created_id)
+        else:
+            created_id = _create_thread(self.project_root, prompt, model, effort, self._on_exit, on_created)
         return {"id": created_id, "title": f"{group['id']} · {group['title']}"}
 
     def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> None:

@@ -1,8 +1,6 @@
-from subprocess import CompletedProcess
-from threading import Event
+from threading import Event, Thread
 
 from solution_runner.dashboard.codex_tasks import (
-    AUTOMATION_ACCESS_ARGS,
     CodexTaskService,
     _SerialMessageSender,
     _create_thread,
@@ -11,13 +9,6 @@ from solution_runner.dashboard.codex_tasks import (
     build_registration_prompt,
 )
 
-
-def test_automatic_tasks_get_full_access_without_teacherhelper_prompts():
-    joined = " ".join(AUTOMATION_ACCESS_ARGS)
-    assert 'sandbox_mode="danger-full-access"' in joined
-    assert 'approval_policy="never"' in joined
-    assert 'mcp_servers.teacherhelper.default_tools_approval_mode="approve"' in joined
-    assert 'mcp_servers.teacherhelper_org.default_tools_approval_mode="approve"' in joined
 
 
 def test_registration_prompt_defines_the_bounded_registration_job():
@@ -126,34 +117,58 @@ def test_messages_for_one_task_run_in_submission_order():
             second_finished.set()
 
     sender = _SerialMessageSender(send)
-    sender("thread", "first")
+    first = Thread(target=sender, args=("thread", "first"))
+    second = Thread(target=sender, args=("thread", "second"))
+    first.start()
     assert first_started.wait(timeout=1)
-    sender("thread", "second")
+    second.start()
     assert not second_finished.wait(timeout=0.05)
     release_first.set()
     assert second_finished.wait(timeout=1)
+    first.join(timeout=1)
+    second.join(timeout=1)
     assert calls == ["start:first", "finish:first", "start:second", "finish:second"]
 
 
-def test_send_message_queues_into_app_owned_task(monkeypatch, tmp_path):
+class FakeSharedClient:
+    def __init__(self):
+        self.calls = []
+        self.fail_turn = False
+        self.thread_id = "thread-new"
+
+    def request(self, method, params):
+        self.calls.append((method, params))
+        return {"thread": {"id": self.thread_id}} if method == "thread/start" else {}
+
+    def start_turn(self, thread_id, prompt, model, effort):
+        self.calls.append(("turn/start", thread_id, prompt, model, effort))
+        if self.fail_turn:
+            raise RuntimeError("model unavailable")
+        return "turn-1"
+
+    def wait_turn(self, turn_id):
+        self.calls.append(("wait", turn_id))
+        return 0
+
+
+def test_send_message_queues_at_existing_owner_without_resuming(monkeypatch, tmp_path):
+    from subprocess import CompletedProcess
     calls = []
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.shared_client", lambda *_: (_ for _ in ()).throw(AssertionError("must not acquire writer")))
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.subprocess.run", lambda command, **kwargs: calls.append((command, kwargs)) or CompletedProcess(command, 0))
+    _send_message(tmp_path, "thread-1", "hello")
+    assert calls[0][0] == ["codex", "queue", "--thread", "thread-1", "--message", "hello"]
+    assert calls[0][1]["cwd"] == tmp_path
 
-    def run(command, **kwargs):
-        calls.append((command, kwargs))
-        return CompletedProcess(command, 0)
 
-    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.subprocess.run", run)
-    exits = []
-
-    _send_message(tmp_path, "thread-1", "hello", lambda thread_id, code: exits.append((thread_id, code)))
-
-    assert calls[0][0] == [
-        "codex", "queue", "--thread", "thread-1", "--message", "hello",
-        *AUTOMATION_ACCESS_ARGS,
-        "-C", str(tmp_path),
-        "-m", "gpt-6.1-sol", "-c", 'model_reasoning_effort="medium"',
-    ]
-    assert exits == []
+def test_delivery_error_reaches_caller_instead_of_becoming_agent_exit(monkeypatch, tmp_path):
+    from subprocess import CompletedProcess
+    import pytest
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.subprocess.run", lambda command, **kwargs: CompletedProcess(command, 1, stderr="native queue unavailable"))
+    sender = _SerialMessageSender(lambda thread_id, prompt: _send_message(tmp_path, thread_id, prompt))
+    with pytest.raises(RuntimeError, match="native queue unavailable"):
+        sender("thread-1", "hello")
+    assert sender._tails == {}
 
 
 def test_list_threads_includes_all_regular_sources_and_pages(monkeypatch, tmp_path):
@@ -172,51 +187,39 @@ def test_list_threads_includes_all_regular_sources_and_pages(monkeypatch, tmp_pa
     assert calls[1][1]["cursor"] == "page-2"
 
 
-def test_creation_releases_app_server_before_queueing_first_turn(monkeypatch, tmp_path):
-    calls = []
-
-    def request(root, method, params):
-        calls.append((method, params))
-        return {"thread": {"id": "thread-new"}} if method == "thread/start" else {}
-
-    monkeypatch.setattr("solution_runner.dashboard.codex_tasks._app_server_request", request)
-    monkeypatch.setattr(
-        "solution_runner.dashboard.codex_tasks._send_message",
-        lambda root, thread_id, prompt, on_exit: calls.append(("queue", thread_id, prompt)),
-    )
-    monkeypatch.setattr(
-        "solution_runner.dashboard.codex_tasks.subprocess.Popen",
-        lambda *args, **kwargs: (_ for _ in ()).throw(AssertionError("must not run codex exec")),
-    )
-
-    assert _create_thread(tmp_path, "123 · Группа\nЗадание", "gpt-6.1-sol", "medium") == "thread-new"
-    assert [call[0] for call in calls] == ["thread/start", "thread/name/set", "queue"]
-    assert calls[0][1]["model"] == "gpt-6.1-sol"
-    assert calls[0][1]["config"]["model_reasoning_effort"] == "medium"
-    assert calls[1][1] == {"threadId": "thread-new", "name": "123 · Группа"}
-    assert calls[2] == ("queue", "thread-new", "123 · Группа\nЗадание")
+def test_creation_uses_one_shared_client_and_persists_before_start(monkeypatch, tmp_path):
+    client = FakeSharedClient()
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.shared_client", lambda root: client)
+    completed = Event()
+    assert _create_thread(tmp_path, "123 · Группа\nЗадание", "chosen-model", "high",
+                          lambda *_: completed.set()) == "thread-new"
+    assert completed.wait(1)
+    assert [c[0] for c in client.calls] == ["thread/start", "thread/name/set", "turn/start", "wait"]
+    assert client.calls[0][1]["approvalPolicy"] == "never"
+    assert client.calls[0][1]["sandbox"] == "danger-full-access"
+    assert client.calls[0][1]["config"]["mcp_servers.teacherhelper.default_tools_approval_mode"] == "approve"
+    assert client.calls[0][1]["ephemeral"] is False
+    assert client.calls[0][1]["model"] == "chosen-model"
+    assert client.calls[1][1] == {"threadId": "thread-new", "name": "123 · Группа"}
+    assert client.calls[2] == ("turn/start", "thread-new", "123 · Группа\nЗадание", "chosen-model", "high")
 
 
-def test_creation_without_id_does_not_queue_work(monkeypatch, tmp_path):
+def test_creation_without_id_never_starts_work(monkeypatch, tmp_path):
     import pytest
-
-    monkeypatch.setattr("solution_runner.dashboard.codex_tasks._app_server_request", lambda *args: {})
-    monkeypatch.setattr(
-        "solution_runner.dashboard.codex_tasks._send_message",
-        lambda *args: (_ for _ in ()).throw(AssertionError("missing task must not be queued")),
-    )
+    client = FakeSharedClient()
+    client.thread_id = ""
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.shared_client", lambda root: client)
     with pytest.raises(RuntimeError, match="did not create"):
         _create_thread(tmp_path, "Задание", "gpt-6.1-sol", "medium")
+    assert [c[0] for c in client.calls] == ["thread/start"]
 
 
-def test_queue_failure_is_reported_instead_of_returning_success(monkeypatch, tmp_path):
+def test_start_failure_retains_the_created_task_for_retry(monkeypatch, tmp_path):
     import pytest
-
-    monkeypatch.setattr(
-        "solution_runner.dashboard.codex_tasks.subprocess.run",
-        lambda *args, **kwargs: CompletedProcess(args[0], 1),
-    )
-    exits = []
-    with pytest.raises(RuntimeError, match="did not queue"):
-        _send_message(tmp_path, "thread-1", "hello", lambda *args: exits.append(args))
-    assert exits == [("thread-1", 1)]
+    from solution_runner.dashboard.codex_tasks import CodexTaskStartError
+    client = FakeSharedClient()
+    client.fail_turn = True
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.shared_client", lambda root: client)
+    with pytest.raises(CodexTaskStartError, match="model unavailable") as failure:
+        _create_thread(tmp_path, "Задание", "gpt-6.1-sol", "medium")
+    assert failure.value.thread_id == "thread-new"
