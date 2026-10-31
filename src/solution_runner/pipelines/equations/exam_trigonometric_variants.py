@@ -46,7 +46,11 @@ def proof(a):
             html += line(formula(a.reduced, theta) + "=0")
     for branch in a.branches:
         p = sp.Poly(branch.polynomial, branch.variable)
-        if p.degree() == 4 and all(power[0] % 2 == 0 for power in p.monoms()):
+        if (
+            p.degree() == 4
+            and not a.factorization
+            and all(power[0] % 2 == 0 for power in p.monoms())
+        ):
             u = sp.Symbol("u", real=True)
             quadratic = sum(coef * u ** (power[0] // 2) for power, coef in p.terms())
             html += "<p>Решим квадратное уравнение относительно квадрата функции:</p>"

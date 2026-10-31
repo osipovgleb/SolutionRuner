@@ -83,6 +83,17 @@ def validate(entry, a):
         )[0]
         actual_bounds = tuple(q * multiplier for q in a.bounds[:2]) + a.bounds[2:]
         selected = tuple(q * multiplier for q in a.selected)
+    scope = entry.get("point_scope", "all")
+    if scope == "selected":
+        from .exam_trigonometric_inverse import ordered
+
+        if any(q.is_Rational is not True for q in selected):
+            raise UnsupportedCondition(
+                "a selected-only circle needs reviewed rational angles"
+            )
+        residues = ordered(q % 2 for q in selected)
+    elif scope != "all":
+        raise UnsupportedCondition("unknown circle point scope")
     if residues != expected or actual_bounds != bounds or selected != labels:
         raise UnsupportedCondition(
             "the circle points, interval and labels must match the computed equation exactly"
@@ -108,13 +119,18 @@ def image(context, a, generated):
     asset, entry = source(context)
     validate(entry, a)
     if entry.get("corrected_file"):
-        return solution_diagrams.image(
+        markup, key, changes = solution_diagrams.image(
             context["normalized_content"],
             KEY,
             "Окружность для отбора корней",
             svg=(DIRECTORY / entry["corrected_file"]).read_text(),
             generated=generated,
         )
+        if entry.get("point_scope") == "selected":
+            markup += (
+                "<p>На окружности отмечены только корни указанного промежутка.</p>"
+            )
+        return markup, key, changes
     markup, key, changes = solution_diagrams.image(
         context["normalized_content"],
         "image_1",

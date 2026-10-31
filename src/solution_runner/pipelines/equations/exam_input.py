@@ -109,6 +109,14 @@ def read(context):
 
 
 def read_interval(second):
+    for old, new in (
+        (r"\left[", "["),
+        (r"\right]", "]"),
+        (r"\left(", "("),
+        (r"\right)", ")"),
+        (r"\,", ""),
+    ):
+        second = second.replace(old, new)
     match = re.fullmatch(r"(.+?)\s+([\[(].+[\])])\s*\.?", second)
     if not match or not re.fullmatch(SECOND, match[1] + " ИНТЕРВАЛ"):
         raise UnsupportedCondition(

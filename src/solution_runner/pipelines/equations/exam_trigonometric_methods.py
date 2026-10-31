@@ -9,14 +9,13 @@ from bs4 import BeautifulSoup
 from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_compile import C, S
 from .power_arithmetic import ScalarParser, clean
-from .trig_angles import PI
+from .trig_angles import PI, multiple_angle
 from .trig_angles import C as NUMERIC_C
 from .trig_angles import S as NUMERIC_S
 from .trig_symbolic_parser import (
     A,
     SymbolicAtom,
     SymbolicTrigonometricParser,
-    compile_atoms,
 )
 
 
@@ -42,11 +41,11 @@ class ExamAngleParser(SymbolicTrigonometricParser):
             or abs(coefficient) > 100
             or coefficient.q > 4
             or shift.is_Rational is not True
-            or (2 * shift).is_Integer is not True
+            or (12 * shift).is_Integer is not True
             or abs(shift) > 1000
         ):
             raise UnsupportedCondition(
-                "bounded rational angle multiples and half-pi shifts are required"
+                "bounded rational angle multiples and reviewed twelfth-pi shifts are required"
             )
         return sp.Symbol("T" + str(len(self.atoms)), real=True), SymbolicAtom(
             function, coefficient, shift, variable, "\\" + function + "(" + angle + ")"
@@ -63,8 +62,19 @@ class Equation:
     doubled: bool = False
 
 
+def shifted_atom(atom):
+    sine = multiple_angle("sin", atom.coefficient, 0)
+    cosine = multiple_angle("cos", atom.coefficient, 0)
+    shift_sine, shift_cosine = sp.sin(atom.shift * sp.pi), sp.cos(atom.shift * sp.pi)
+    return sp.expand(
+        sine * shift_cosine + cosine * shift_sine
+        if atom.function == "sin"
+        else cosine * shift_cosine - sine * shift_sine
+    )
+
+
 def compile_reviewed(formula, preferred, preferred_scale):
-    text = clean(formula)
+    text = clean(formula).removesuffix(".")
     if text.count("=") != 1:
         raise UnsupportedCondition("one complete equation is required")
     atoms, denominators, values = {}, [], []
@@ -78,7 +88,9 @@ def compile_reviewed(formula, preferred, preferred_scale):
     scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
     for symbol, atom in tuple(atoms.items()):
         atoms[symbol] = replace(atom, coefficient=int(atom.coefficient / scale))
-    _, _, compiled, poles = compile_atoms(parser)
+    if any(abs(a.coefficient) > 4 for a in atoms.values()):
+        raise UnsupportedCondition("the base-angle multiple exceeds the reviewed range")
+    compiled = {symbol: shifted_atom(atom) for symbol, atom in atoms.items()}
     convert = lambda v: sp.cancel(
         v.xreplace(compiled).xreplace({NUMERIC_S: S, NUMERIC_C: C})
     )
@@ -89,10 +101,10 @@ def compile_reviewed(formula, preferred, preferred_scale):
             for symbol, a in atoms.items()
         )
     )
-    original_poles = tuple(convert(d) for d in denominators)
-    if poles and not original_poles:
-        raise UnsupportedCondition("unreviewed trigonometric poles")
+    original_poles = tuple(convert(d) for d in denominators if d.free_symbols)
     raw, denominator = sp.fraction(expression)
+    if not original_poles and not denominator.free_symbols:
+        raw = expression
     reciprocal = None
     if original_poles:
         if scale != 1 or any(
@@ -205,6 +217,9 @@ def factorized(parent_html):
     ]
     return any(
         re.search(r"\\(?:sin|cos)x\(", f)
-        or re.search(r"\([^()]*\\(?:sin|cos)x[^()]*\)\([^()]*\\(?:sin|cos)x", f)
+        or re.search(
+            r"\([^()]*\\(?:sin|cos)(?:\^\{?\d+\}?)?x[^()]*\)\([^()]*\\(?:sin|cos)(?:\^\{?\d+\}?)?x",
+            f,
+        )
         for f in formulas
     )
