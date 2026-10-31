@@ -171,6 +171,9 @@ class DashboardStore:
         path.parent.mkdir(parents=True, exist_ok=True)
         with self.connect() as connection:
             connection.executescript(SCHEMA)
+            comment_columns = {row[1] for row in connection.execute("PRAGMA table_info(comments)")}
+            if "attachments" not in comment_columns:
+                connection.execute("ALTER TABLE comments ADD COLUMN attachments TEXT NOT NULL DEFAULT '[]'")
             columns = {row[1] for row in connection.execute("PRAGMA table_info(groups)")}
             migrations = {
                 "manual_source": "TEXT",
@@ -431,24 +434,24 @@ class DashboardStore:
     def list_comments(self, group_key: str) -> list[dict[str, Any]]:
         with self.connect() as connection:
             rows = connection.execute(
-                "SELECT id, problem_id, author_type, body, created_at FROM comments WHERE group_key = ? ORDER BY id",
+                "SELECT id, problem_id, author_type, body, created_at, attachments FROM comments WHERE group_key = ? ORDER BY id",
                 (group_key,),
             ).fetchall()
-        return [dict(row) for row in rows]
+        return [{**dict(row), "attachments": json.loads(row["attachments"])} for row in rows]
 
-    def add_comment(self, group_key: str, body: str, problem_id: str | None = None) -> dict[str, Any]:
+    def add_comment(self, group_key: str, body: str, problem_id: str | None = None, attachments: list | None = None) -> dict[str, Any]:
         created_at = _now()
         with self.connect() as connection:
             cursor = connection.execute(
-                "INSERT INTO comments (group_key, problem_id, author_type, body, created_at) VALUES (?, ?, 'user', ?, ?)",
-                (group_key, problem_id, body, created_at),
+                "INSERT INTO comments (group_key, problem_id, author_type, body, created_at, attachments) VALUES (?, ?, 'user', ?, ?, ?)",
+                (group_key, problem_id, body, created_at, json.dumps(attachments or [])),
             )
             connection.execute(
                 "UPDATE groups SET manual_column = 'work', revision_requested = 1, full_dry_run_status = NULL "
                 "WHERE group_key = ? AND COALESCE(manual_column, system_column) IN ('review', 'issues')",
                 (group_key,),
             )
-        return {"id": cursor.lastrowid, "problem_id": problem_id, "author_type": "user", "body": body, "created_at": created_at}
+        return {"id": cursor.lastrowid, "problem_id": problem_id, "author_type": "user", "body": body, "created_at": created_at, "attachments": attachments or []}
 
 
 def sync_groups(

@@ -178,3 +178,12 @@ test("job history and logs encode their identifiers", async () => {
   await api.getJobLog(42);
   assert.deepEqual(calls, [`/api/jobs?group=${encodeURIComponent("Группа 123")}`, "/api/jobs/42/log"]);
 });
+
+test('image-only comments include image bytes and optional problem context', async () => {
+  const api = createApi(async (url, options) => {
+    assert.equal(url, '/api/groups/1001/comments');
+    assert.deepEqual(JSON.parse(options.body), { body: '', problem_id: 'problem-id', images: [{ name: 'shot.png', data: 'aW1hZ2U=' }] });
+    return { ok: true, json: async () => ({ comment: { attachments: [] } }) };
+  });
+  await api.addComment('1001', '', 'problem-id', [{ name: 'shot.png', data: 'aW1hZ2U=' }]);
+});

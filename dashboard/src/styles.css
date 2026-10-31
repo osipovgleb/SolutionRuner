@@ -192,3 +192,14 @@ select, .secondary-button, .primary-button, .danger-button, .icon-button {
 .job-history-row { display: grid; gap: 8px; padding: 12px 0; border-bottom: 1px solid #ddd; }
 .job-history-row button { justify-self: start; }
 .job-log { max-height: 400px; overflow: auto; padding: 12px; background: #f4f5f6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.comment-composer { width: 100%; min-width: 0; }
+.comment-composer.dragging { outline: 2px dashed #6b6278; outline-offset: 4px; }
+.comment-images { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.comment-images > div { position: relative; }
+.comment-images img { display: block; width: 100px; height: 72px; object-fit: contain; border: 1px solid #d9dde3; background: #fff; }
+.comment-images button { position: absolute; right: 2px; top: 2px; padding: 0 5px; background: #fff; border: 1px solid #d9dde3; }
+.comment-compose-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.comment-compose-actions > span { flex: 1; color: #6d737d; font-size: 11px; }
+.comment-compose-actions label { cursor: pointer; font-size: 12px; }
+.comment-compose-actions input { display: none; }
+.task-comment-box > .comment-composer { display: block; }

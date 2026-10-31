@@ -862,3 +862,42 @@ def test_dry_run_refreshes_a_profile_registered_after_server_start(tmp_path, mon
         server.shutdown()
         server.server_close()
         thread.join()
+
+
+def test_image_comment_is_delivered_and_survives_reload(tmp_path):
+    import base64
+    from solution_runner.dashboard.codex_tasks import CodexTaskService
+    png = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/lYkAAAAASUVORK5CYII=')
+    deliveries = []
+    def send(thread_id, prompt, images):
+        assert images[0].read_bytes() == png
+        deliveries.append((thread_id, prompt, images))
+    store = DashboardStore(tmp_path / 'dashboard.sqlite3')
+    store.add_manual_group('123', 'catalog')
+    store.update_group('123', {'codex_thread_id': 'thread-1'})
+    service = CodexTaskService(project_root=tmp_path, send_message=send)
+    server = make_server(store=store, codex_tasks=service, var_dir=tmp_path / 'var', profiles={}, static_dir=tmp_path, port=0)
+    thread = Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    base = f'http://127.0.0.1:{server.server_port}'
+    try:
+        status, result = _request(base + '/api/groups/123/comments', method='POST', payload={
+            'body': '', 'images': [{'name': '../../example.png', 'data': base64.b64encode(png).decode()}],
+        })
+        assert len(deliveries) == 1
+        attachment = result['comment']['attachments'][0]
+        assert DashboardStore(store.path).list_comments('123')[-1]['attachments'] == [attachment]
+        with urlopen(base + attachment['url']) as response:
+            assert response.read() == png
+            assert response.headers['Content-Type'] == 'image/png'
+        with pytest.raises(HTTPError) as failure:
+            _request(base + '/api/groups/123/comments', method='POST', payload={
+                'body': 'invalid', 'images': [{'data': base64.b64encode(b'<svg/>').decode()}],
+            })
+        assert failure.value.code == 400
+        assert len(deliveries) == 1
+        assert len(store.list_comments('123')) == 1
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=2)

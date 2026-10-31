@@ -51,9 +51,9 @@ SSH is not required. To undo the opt-in, run
 `launchctl unsetenv CODEX_APP_SERVER_USE_LOCAL_DAEMON` and restart the app.
 
 Each card retains the native persistent `thread_id`; retries and comments reuse
-that task. Continuations use `codex queue` to deliver to the existing owner,
+that task. Continuations use the desktop IPC `thread-follower-start-turn` request to deliver a new turn to the existing owner,
 including Codex App, instead of trying to acquire another writer with
-`thread/resume`. HTTP success is returned only after queue acceptance. Delivery
+`thread/resume`. HTTP success is returned only after the owner accepts the new turn. Delivery
 errors are separate from agent failures, remain visible, and do not record an
 undelivered comment as sent. A created ID is saved before admitting the first turn, including when
 admission fails, and native errors are returned to the UI. Creation/name/start
@@ -128,3 +128,11 @@ change prepares the application but does not deploy it, configure the domain,
 install a service, or change machine policy. Service hosting must be arranged
 on an authorized machine. All devices use HTTP API; do not share the SQLite
 file over a network filesystem.
+
+Comments for groups and individual problems accept up to four PNG, JPEG, GIF,
+or WebP images (5 MiB each), by dropping files, pasting, or selecting files.
+The composer previews attachments and retains them if delivery fails. Images
+are stored under `var/dashboard/comment-images`, referenced from SQLite comment
+history, and passed to the desktop owner as native `localImage` inputs. The CLI queue is not used: it steers active turns and rejects image attachments.
+The task inventory refreshes every three seconds while its tab is open, including
+updates made by an agent or another dashboard tab.

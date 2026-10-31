@@ -151,22 +151,21 @@ class FakeSharedClient:
         return 0
 
 
-def test_send_message_queues_at_existing_owner_without_resuming(monkeypatch, tmp_path):
-    from subprocess import CompletedProcess
+def test_send_message_starts_a_new_turn_at_existing_owner(monkeypatch, tmp_path):
     calls = []
     monkeypatch.setattr("solution_runner.dashboard.codex_tasks.shared_client", lambda *_: (_ for _ in ()).throw(AssertionError("must not acquire writer")))
-    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.subprocess.run", lambda command, **kwargs: calls.append((command, kwargs)) or CompletedProcess(command, 0))
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.send_owner_turn", lambda *args: calls.append(args))
     _send_message(tmp_path, "thread-1", "hello")
-    assert calls[0][0] == ["codex", "queue", "--thread", "thread-1", "--message", "hello"]
-    assert calls[0][1]["cwd"] == tmp_path
+    assert calls == [("thread-1", "hello", ())]
 
 
 def test_delivery_error_reaches_caller_instead_of_becoming_agent_exit(monkeypatch, tmp_path):
-    from subprocess import CompletedProcess
     import pytest
-    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.subprocess.run", lambda command, **kwargs: CompletedProcess(command, 1, stderr="native queue unavailable"))
+    def reject(*args):
+        raise RuntimeError("native owner unavailable")
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks.send_owner_turn", reject)
     sender = _SerialMessageSender(lambda thread_id, prompt: _send_message(tmp_path, thread_id, prompt))
-    with pytest.raises(RuntimeError, match="native queue unavailable"):
+    with pytest.raises(RuntimeError, match="native owner unavailable"):
         sender("thread-1", "hello")
     assert sender._tails == {}
 
@@ -223,3 +222,11 @@ def test_start_failure_retains_the_created_task_for_retry(monkeypatch, tmp_path)
     with pytest.raises(CodexTaskStartError, match="model unavailable") as failure:
         _create_thread(tmp_path, "Задание", "gpt-6.1-sol", "medium")
     assert failure.value.thread_id == "thread-new"
+
+
+def test_send_message_attaches_local_images_to_native_turn(monkeypatch, tmp_path):
+    calls = []
+    monkeypatch.setattr('solution_runner.dashboard.codex_tasks.send_owner_turn', lambda *args: calls.append(args))
+    path = tmp_path / 'an image $(literal).png'
+    _send_message(tmp_path, 'thread-1', 'look at this', (path,))
+    assert calls == [('thread-1', 'look at this', (path,))]

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { createApi } from "./api.js";
+import { CommentComposer } from "./comment-composer.jsx";
 import { canApplyGroup, canApplyTask, columns, compactCatalogLabel, filterGroups, formatTaskError, isTaskRecorded, teacherHelperGroupUrl } from "./model.js";
 import "./styles.css";
 
@@ -134,15 +135,17 @@ function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canCommen
     if (filter === "skipped") return [task.dry_run_status, task.apply_status, task.helpers_status].includes("skipped");
     return true;
   });
-  const addTaskComment = async (task) => {
-    if (!taskComment.trim()) return;
+  const addTaskComment = async (task, images = []) => {
+    if (!taskComment.trim() && !images.length) return false;
     setCommentingProblemId(task.problem_id);
     setTaskCommentError("");
     try {
-      await onAddTaskComment(task, taskComment.trim());
+      await onAddTaskComment(task, taskComment.trim(), images);
       setTaskComment("");
-    } catch {
-      setTaskCommentError("Не удалось отправить комментарий в Codex.");
+      return true;
+    } catch (error) {
+      setTaskCommentError(error.message || "Не удалось отправить комментарий в Codex.");
+      return false;
     } finally {
       setCommentingProblemId(null);
     }
@@ -195,8 +198,7 @@ function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canCommen
           </div>}
           {!previewLoading && !sample && <div class="preview-state">Карточка недоступна.</div>}
           <div class="task-comment-box">
-            <textarea value={taskComment} onInput={(event) => setTaskComment(event.currentTarget.value)} placeholder="Комментарий по этой задаче…" disabled={!canComment} />
-            <div><span>{canComment ? "Будет отправлен в связанный Codex-тред с номером задачи" : "Сначала свяжите группу с Codex"}</span><button class="primary-button" onClick={() => addTaskComment(task)} disabled={!canComment || commentingProblemId === task.problem_id}>{commentingProblemId === task.problem_id ? "Отправляю…" : "Отправить в Codex"}</button></div>
+            <CommentComposer key={task.problem_id} value={taskComment} onChange={setTaskComment} placeholder="Комментарий по этой задаче…" disabled={!canComment || commentingProblemId === task.problem_id} onSend={(images) => addTaskComment(task, images)} />
             {taskCommentError && <p class="sample-error">{taskCommentError}</p>}
           </div>
         </td></tr>}
@@ -372,6 +374,19 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
   const [initialization, setInitialization] = useState(null);
   const [inventory, setInventory] = useState(null);
   const [activity, setActivity] = useState(null);
+  useEffect(() => {
+    if (!["tasks", "issues"].includes(tab)) return;
+    let active = true;
+    const refresh = async () => {
+      try {
+        const next = await api.getTasks(group.id);
+        if (active) setInventory(next);
+      } catch { /* Keep the last successful view while reconnecting. */ }
+    };
+    refresh();
+    const timer = setInterval(refresh, 3000);
+    return () => { active = false; clearInterval(timer); };
+  }, [group.id, tab]);
   const refreshActivity = () => api.getActivity(group.id).then(setActivity).catch(() => setActivity(null));
   const loadPreview = (selectLast = false) => {
     setPreview(null);
@@ -548,22 +563,24 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
     }
   };
   const selectedSample = preview?.samples?.[sampleIndex];
-  const addComment = async () => {
-    if (!comment.trim()) return;
+  const addComment = async (images = []) => {
+    if (!comment.trim() && !images.length) return false;
     setRunError("");
     try {
-      const result = await api.addComment(group.id, comment.trim());
+      const result = await api.addComment(group.id, comment.trim(), null, images);
       setComments([...comments, result.comment]);
       onGroupUpdate(result.group);
       setComment("");
+      return true;
     } catch (error) {
       setRunError(error.message || (group.codex_thread_id
         ? "Не удалось отправить комментарий в связанную Codex-задачу."
         : "Сначала свяжи группу с Codex-задачей."));
+      return false;
     }
   };
-  const addTaskComment = async (task, body) => {
-    const result = await api.addComment(group.id, body, task.problem_id);
+  const addTaskComment = async (task, body, images = []) => {
+    const result = await api.addComment(group.id, body, task.problem_id, images);
     setComments((items) => [...items, result.comment]);
     onGroupUpdate(result.group);
   };
@@ -759,11 +776,8 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
             </>}
             <section class="review-box">
               <div class="review-title">Комментарий к группе</div>
-              {comments.map((item) => <div class={`comment comment-${item.author_type || "user"}`} key={item.id}><span>{item.author_type === "codex" ? "Codex" : "Вы"}</span><p>{item.body}</p></div>)}
-              <textarea value={comment} onInput={(event) => setComment(event.currentTarget.value)} placeholder="Что исправить в результате или раннере…" />
-              <div class="review-actions">
-                <button class="primary-button" onClick={addComment} disabled={!group.codex_thread_id}>Отправить в Codex</button>
-              </div>
+              {comments.map((item) => <div class={`comment comment-${item.author_type || "user"}`} key={item.id}><span>{item.author_type === "codex" ? "Codex" : "Вы"}</span><div><p>{item.body}</p><div class="comment-images">{(item.attachments || []).map((image) => <a href={image.url} target="_blank" rel="noreferrer"><img src={image.url} alt={image.name} /></a>)}</div></div></div>)}
+              <CommentComposer key={group.id} value={comment} onChange={setComment} onSend={addComment} disabled={!group.codex_thread_id} placeholder="Что исправить в результате или раннере…" />
             </section>
           </>
         )}

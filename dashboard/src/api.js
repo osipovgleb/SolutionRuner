@@ -73,9 +73,9 @@ export function createApi(fetcher = fetch) {
       method: "POST",
       body: JSON.stringify({ stage: "helpers", scope: "group" }),
     }),
-    addComment: (id, body, problemId = null) => request(fetcher, `/api/groups/${id}/comments`, {
+    addComment: (id, body, problemId = null, images = []) => request(fetcher, `/api/groups/${id}/comments`, {
       method: "POST",
-      body: JSON.stringify({ body, ...(problemId ? { problem_id: problemId } : {}) }),
+      body: JSON.stringify({ body, ...(problemId ? { problem_id: problemId } : {}), ...(images.length ? { images } : {}) }),
     }),
   };
 }

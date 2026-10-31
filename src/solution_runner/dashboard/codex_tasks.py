@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import os
-import subprocess
 from pathlib import Path
 from threading import Event, Lock, Thread
 from typing import Any, Callable, Mapping
 
 from .codex_transport import shared_client
+from .codex_owner import OwnerUnavailable, send_owner_turn
 
 
 MODEL = "gpt-6.1-sol"
@@ -121,18 +121,17 @@ def _watch_turn(client, thread_id, turn_id, on_exit):
 
 def _send_message(
     project_root: Path, thread_id: str, prompt: str,
+    images: tuple[Path, ...] = (),
 ) -> None:
-    """Queue at the task's existing owner instead of acquiring a second writer."""
+    """Start a visible user turn at the existing owner, with native image input."""
     try:
-        result = subprocess.run(
-            ['codex', 'queue', '--thread', thread_id, '--message', prompt],
-            cwd=project_root, capture_output=True, text=True, timeout=20, check=False,
-        )
-    except (OSError, subprocess.SubprocessError) as exc:
-        raise RuntimeError(f'Не удалось передать сообщение владельцу чата Codex: {exc}') from exc
-    if result.returncode:
-        reason = (result.stderr or result.stdout).strip()[-500:]
-        raise RuntimeError(f'Сообщение не доставлено в Codex App: {reason or result.returncode}')
+        send_owner_turn(thread_id, prompt, images)
+    except OwnerUnavailable:
+        # A newly created task may still be owned by our shared daemon client.
+        # Do not resume it or steal ownership; turn/start succeeds only when loaded.
+        inputs = [{"type": "text", "text": prompt}]
+        inputs.extend({"type": "localImage", "path": str(path.resolve())} for path in images)
+        shared_client(project_root).request("turn/start", {"threadId": thread_id, "input": inputs})
 
 
 class _SerialMessageSender:
@@ -143,7 +142,7 @@ class _SerialMessageSender:
         self._lock = Lock()
         self._tails: dict[str, Event] = {}
 
-    def __call__(self, thread_id: str, prompt: str) -> None:
+    def __call__(self, thread_id: str, prompt: str, images: tuple[Path, ...] = ()) -> None:
         done = Event()
         with self._lock:
             previous = self._tails.get(thread_id)
@@ -151,7 +150,10 @@ class _SerialMessageSender:
         if previous:
             previous.wait()
         try:
-            self._send(thread_id, prompt)
+            if images:
+                self._send(thread_id, prompt, images)
+            else:
+                self._send(thread_id, prompt)
         finally:
             done.set()
             with self._lock:
@@ -175,7 +177,7 @@ class CodexTaskService:
         self._custom_create = create_thread
         self._on_exit = on_exit
         self._send = send_message or _SerialMessageSender(
-            lambda thread_id, prompt: _send_message(project_root, thread_id, prompt)
+            lambda thread_id, prompt, images=(): _send_message(project_root, thread_id, prompt, images)
         )
         self._archive = archive_thread or (lambda thread_id: _archive_thread(project_root, thread_id))
 
@@ -216,9 +218,13 @@ class CodexTaskService:
             created_id = _create_thread(self.project_root, prompt, model, effort, self._on_exit, on_created)
         return {"id": created_id, "title": f"{group['id']} · {group['title']}"}
 
-    def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str, source_problem_id: str | None = None) -> None:
+    def send_comment(self, thread_id: str, group: Mapping[str, Any], body: str, source_problem_id: str | None = None, images: tuple[Path, ...] = ()) -> None:
         target = f" · задача {source_problem_id}" if source_problem_id else ""
-        self._send(thread_id, f"Группа {group['id']}{target}: {body}")
+        prompt = f"Группа {group['id']}{target}: {body}"
+        if images:
+            self._send(thread_id, prompt, images)
+        else:
+            self._send(thread_id, prompt)
 
     def archive_task(self, thread_id: str) -> None:
         self._archive(thread_id)

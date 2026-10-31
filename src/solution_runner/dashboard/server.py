@@ -38,6 +38,7 @@ from .store import DashboardStore, sync_groups
 from .teacherhelper import teacherhelper_navigation
 from .codex_tasks import CodexTaskService, CodexTaskStartError
 from .auth import DashboardAuth
+from .attachments import save_images
 from .job_queue import DurableJobQueue
 
 
@@ -378,6 +379,20 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:  # noqa: N802
         segments = self._segments()
+        if len(segments) == 3 and segments[:2] == ["api", "comment-images"]:
+            root = (self.server.var_dir / "dashboard/comment-images").resolve()
+            path = (root / segments[2]).resolve()
+            if path.parent != root or not path.is_file():
+                self._json(404, {"error": "image_not_found"})
+                return
+            data = path.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", mimetypes.guess_type(path.name)[0] or "application/octet-stream")
+            self.send_header("Content-Length", str(len(data)))
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.end_headers()
+            self.wfile.write(data)
+            return
         if segments == ["api", "jobs"] and self.server.job_queue is not None:
             group_key = parse_qs(urlparse(self.path).query).get("group", [None])[0]
             self._json(200, {"jobs": self.server.job_queue.list_jobs(group_key=group_key)})
@@ -551,6 +566,9 @@ class Handler(BaseHTTPRequestHandler):
         self._json(200, group) if group else self._json(404, {"error": "group_not_found"})
 
     def do_POST(self) -> None:  # noqa: N802
+        if int(self.headers.get("Content-Length", "0")) > 29 * 1024 * 1024:
+            self._json(413, {"message": "Вложения превышают допустимый размер."})
+            return
         segments = self._segments()
         if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "archive-codex":
             group = self.server.store.get_group(segments[2])
@@ -757,7 +775,7 @@ class Handler(BaseHTTPRequestHandler):
                 return
             payload = self._body()
             body = str(payload.get("body", "")).strip()
-            if not body:
+            if not body and not payload.get("images"):
                 self._json(400, {"error": "comment_required"})
                 return
             problem_id = str(payload.get("problem_id") or "").strip() or None
@@ -772,6 +790,19 @@ class Handler(BaseHTTPRequestHandler):
                     return
                 source_problem_id = str(item["source_problem_id"])
             thread_id = group.get("codex_thread_id")
+            image_root = self.server.var_dir / "dashboard/comment-images"
+            if payload.get("images") and not thread_id:
+                self._json(409, {"error": "codex_task_not_linked", "message": "Сначала свяжите группу с Codex."})
+                return
+            if thread_id and self.server.codex_tasks is None:
+                self._json(503, {"error": "codex_tasks_unavailable"})
+                return
+            try:
+                attachments = save_images(image_root, payload.get("images", []))
+            except ValueError as exc:
+                self._json(400, {"error": "invalid_images", "message": str(exc)})
+                return
+            image_paths = tuple(image_root / item["url"].rsplit("/", 1)[-1] for item in attachments)
             must_send = (
                 group["column"] in {"issues", "review"}
                 or group.get("agent_status") in {"blocked", "needs_input", "delivery_failed"}
@@ -783,11 +814,15 @@ class Handler(BaseHTTPRequestHandler):
                     self._json(503, {"error": "codex_tasks_unavailable"})
                     return
                 try:
-                    if source_problem_id:
+                    if image_paths:
+                        self.server.codex_tasks.send_comment(str(thread_id), group, body, source_problem_id, images=image_paths)
+                    elif source_problem_id:
                         self.server.codex_tasks.send_comment(str(thread_id), group, body, source_problem_id)
                     else:
                         self.server.codex_tasks.send_comment(str(thread_id), group, body)
                 except RuntimeError as exc:
+                    # A timeout may follow queue acceptance; retain local files
+                    # so the native owner can still read admitted attachments.
                     self.server.store.update_group(segments[2], {
                         "agent_status": "delivery_failed",
                         "agent_summary": str(exc)[:200],
@@ -798,7 +833,7 @@ class Handler(BaseHTTPRequestHandler):
             elif must_send:
                     self._json(409, {"error": "codex_task_not_linked"})
                     return
-            comment = self.server.store.add_comment(segments[2], body, problem_id)
+            comment = self.server.store.add_comment(segments[2], body, problem_id, attachments=attachments)
             if sent_to_codex:
                 self.server.store.update_group(segments[2], {
                     "agent_status": "working",
