@@ -1,0 +1,370 @@
+{
+  "groups": [
+    {
+      "key": "519423",
+      "uuid": "493526d5-2102-4af7-b871-7adfe73b0b84",
+      "theme_uuid": "e3d4e88d-f782-4715-9211-1d11895851ca",
+      "theme_title": "Рациональные уравнения",
+      "theme_order": 1,
+      "order": 0
+    },
+    {
+      "key": "563297",
+      "uuid": "ae6448b4-02e6-4a2e-bfbc-3b3f161ae8e0",
+      "theme_uuid": "e3d4e88d-f782-4715-9211-1d11895851ca",
+      "theme_title": "Рациональные уравнения",
+      "theme_order": 1,
+      "order": 1
+    },
+    {
+      "key": "627406",
+      "uuid": "2196854a-5d58-4a09-89d7-5409f71d10ee",
+      "theme_uuid": "e3d4e88d-f782-4715-9211-1d11895851ca",
+      "theme_title": "Рациональные уравнения",
+      "theme_order": 1,
+      "order": 2
+    }
+  ],
+  "cases": [
+    {
+      "group": "519423",
+      "task": "519423",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{(x-2)^{2}}{2}+\\frac{18}{(x-2)^{2}}=7(\\frac{x-2}{2}-\\frac{3}{x-2})+10\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те его корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-2;2]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-1;4;6-\\sqrt{22};6+\\sqrt{22}\\}\"></span> ; б)  <span data-inline-latex=\"-1;6-\\sqrt{22}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Сде­ла­ем за­ме­ну <span data-inline-latex=\"t=\\frac{x-2}{2}-\\frac{3}{x-2}\"></span> ,  воз­ведём обе части в квад­рат:<center><p><span data-inline-latex=\"t^{2}=\\frac{(x-2)^{2}}{4}-2\\cdot \\frac{x-2}{2}\\cdot \\frac{3}{x-2}+\\frac{9}{(x-2)^{2}}=\\frac{(x-2)^{2}}{4}-3+\\frac{9}{(x-2)^{2}}\"></span> , </p></center><p> тогда  <span data-inline-latex=\"\\frac{(x-2)^{2}}{4}+\\frac{9}{(x-2)^{2}}=t^{2}+3\"></span>.  Имеем: </p><center><p><span data-inline-latex=\"2(t^{2}+3)=7t+10\\iff 2t^{2}-7t-4=0\\iff \\left[\\begin{aligned}t=-\\frac{1}{2}\\\\t=4\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной. Если <span data-inline-latex=\"t=-\\frac{1}{2}\"></span> ,  то</p><center><p><span> <span data-inline-latex=\"\\frac{x-2}{2}-\\frac{3}{x-2}=-\\frac{1}{2}\\iff \\begin{cases}x\\ne 2\\\\(x-2)^{2}-6=-(x-2)\\end{cases}.\\quad \\iff x^{2}-3x-4=0\\iff \\left[\\begin{aligned}x=-1\\\\x=4\\end{aligned}\\right.\"></span> . </span></p></center><p>Если <span data-inline-latex=\"t=4\"></span>, то </p><center><p><span> <span data-inline-latex=\"\\frac{x-2}{2}-\\frac{3}{x-2}=4\\iff \\begin{cases}x\\ne 2\\\\(x-2)^{2}-6=8(x-2)\\end{cases}.\\quad \\iff x^{2}-12x+14=0\\iff \\left[\\begin{aligned}x=6-\\sqrt{22}\\\\x=6+\\sqrt{22}\\end{aligned}\\right.\"></span> . </span></p></center></li><li data-list-marker=\"б)\">Вы­яс­ним, какие из най­ден­ных кор­ней при­над­ле­жат от­рез­ку  <span data-inline-latex=\"[-2;2]\"></span> . В силу не­ра­венств <center><p><span data-inline-latex=\"0\\lt 6-\\sqrt{22}\\lt 6-4=2\"></span> и <span data-inline-latex=\"6+\\sqrt{22}\\gt 6+4=10\\gt 2\"></span></p></center><p>из най­ден­ных кор­ней урав­не­ния за­дан­но­му от­рез­ку при­над­ле­жат толь­ко числа  <span data-inline-latex=\"-1\"></span> и <span data-inline-latex=\"6-\\sqrt{22}\"></span> .</p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "519423",
+      "task": "519424",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{(x+3)^{2}}{5}+\\frac{20}{(x+3)^{2}}=8(\\frac{x+3}{5}-\\frac{2}{x+3})+1\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те его корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-6;-4]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-5;2;-\\frac{1+\\sqrt{65}}{2};\\frac{-1+\\sqrt{65}}{2}\\}\"></span> ;  б)  <span data-inline-latex=\"-5;-\\frac{1+\\sqrt{65}}{2}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=18744183\" rel=\"noreferrer noopener\" target=\"_blank\">Типовые тестовые задания по математике под редакцией И.В. Ященко, 2018</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <span data-inline-latex=\"t=\\frac{x+3}{5}-\\frac{2}{x+3}\"></span> ,  тогда <span data-inline-latex=\"t^{2}=\\frac{(x+3)^{2}}{25}+\\frac{4}{(x+3)^{2}}-\\frac{4}{5}\"></span> .  Имеем: <center><p><span data-inline-latex=\"5t^{2}+4=8t+1\\iff 5t^{2}-8t+3=0\\iff \\left[\\begin{aligned}t=1\\\\t=\\frac{3}{5}\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной. Если <span data-inline-latex=\"t=1\"></span>, то</p><center><p><span> <span data-inline-latex=\"\\frac{x+3}{5}-\\frac{2}{x+3}=1\\iff \\begin{cases}x\\ne -3\\\\(x+3)^{2}-10=5(x+3)\\end{cases}.\\quad \\iff x^{2}+x-16=0\\iff \\left[\\begin{aligned}x=\\frac{-1-\\sqrt{65}}{2}\\\\x=\\frac{-1+\\sqrt{65}}{2}\\end{aligned}\\right.\"></span> . </span></p></center><p>Если <span data-inline-latex=\"t=\\frac{3}{5}\"></span> , то </p><center><p><span> <span data-inline-latex=\"\\frac{x+3}{5}-\\frac{2}{x+3}=\\frac{3}{5}\\iff \\begin{cases}x\\ne -3\\\\(x+3)^{2}-10=3(x+3)\\end{cases}.\\quad \\iff x^{2}+3x-10=0\\iff \\left[\\begin{aligned}x=-5\\\\x=2\\end{aligned}\\right.\"></span> . </span></p></center></li><li data-list-marker=\"б)\">Вы­яс­ним, какие из най­ден­ных кор­ней при­над­ле­жат от­рез­ку  <span data-inline-latex=\"[-6;-4]\"></span> . По­ло­жи­тель­ные корни не могут ле­жать в этом от­рез­ке. Число –5 лежит в нем. Ко­рень  <span data-inline-latex=\"-\\frac{1+\\sqrt{65}}{2}\"></span>  тоже лежит в этом от­рез­ке в силу це­поч­ки со­от­но­ше­ний:<center><p> <span data-inline-latex=\"-6\\lt -5=-\\frac{1+\\sqrt{81}}{2}\\lt -\\frac{1+\\sqrt{65}}{2}\\lt -\\frac{1+\\sqrt{64}}{2}=-4{,}5\\lt -4\"></span>. </p></center><p><b>При­ме­ча­ние.</b></p><p>Об­ра­ща­ем вни­ма­ние чи­та­те­лей, что  <span data-inline-latex=\"\\frac{-1-\\sqrt{65}}{2}=-\\frac{1+\\sqrt{65}}{2}\"></span> . </p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "519423",
+      "task": "519425",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{(x-1)^{2}}{8}+\\frac{8}{(x-1)^{2}}=7(\\frac{x-1}{4}-\\frac{2}{x-1})-1\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те его корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-2;3]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-1;5;7-2\\sqrt{11};7+2\\sqrt{11}\\}\"></span> ; б)  <span data-inline-latex=\"-1;7-2\\sqrt{11}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=18744183\" rel=\"noreferrer noopener\" target=\"_blank\">Типовые тестовые задания по математике под редакцией И.В. Ященко, 2018</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Сде­ла­ем за­ме­ну <span data-inline-latex=\"t=\\frac{x-1}{4}-\\frac{2}{x-1}\"></span> ,  тогда <span data-inline-latex=\"t^{2}=\\frac{(x-1)^{2}}{16}+\\frac{4}{(x-1)^{2}}-1\"></span>.  Имеем: <center><p><span data-inline-latex=\"2(t^{2}+1)=7t-1\\iff 2t^{2}-7t+3=0\\iff \\left[\\begin{aligned}t=\\frac{1}{2}\\\\t=3\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной. Если <span data-inline-latex=\"t=\\frac{1}{2}\"></span> ,  то</p><center><p><span> <span data-inline-latex=\"\\frac{x-1}{4}-\\frac{2}{x-1}=\\frac{1}{2}\\iff \\begin{cases}x\\ne 1\\\\(x-1)^{2}-8=2(x-1)\\end{cases}.\\quad \\iff x^{2}-4x-5=0\\iff \\left[\\begin{aligned}x=-1\\\\x=5\\end{aligned}\\right.\"></span> . </span></p></center><p>Если <span data-inline-latex=\"t=3\"></span>, то </p><center><p><span> <span data-inline-latex=\"\\frac{x-1}{4}-\\frac{2}{x-1}=3\\iff \\begin{cases}x\\ne 1\\\\(x-1)^{2}-8=12(x-1)\\end{cases}.\\quad \\iff x^{2}-14x+5=0\\iff \\left[\\begin{aligned}x=7-2\\sqrt{11}\\\\x=7+2\\sqrt{11}\\end{aligned}\\right.\"></span> . </span></p></center></li><li data-list-marker=\"б)\">Вы­яс­ним, какие из най­ден­ных кор­ней при­над­ле­жат от­рез­ку  <span data-inline-latex=\"[-2;3]\"></span> . В силу не­ра­венств <center><p> <span data-inline-latex=\"-2\\lt -1\\lt 7-\\sqrt{44}\\lt 3\\lt 5\\lt 7+\\sqrt{44}\"></span> </p></center><p>из най­ден­ных кор­ней урав­не­ния за­дан­но­му от­рез­ку при­над­ле­жат толь­ко числа  <span data-inline-latex=\"-1\"></span> и <span data-inline-latex=\"7-\\sqrt{44}\"></span> .</p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "519423",
+      "task": "519426",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"2(\\frac{(x-2)^{2}}{4}+\\frac{25}{(x-2)^{2}})=\\frac{x-2}{2}-\\frac{5}{x-2}+16\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те его корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[3;8]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-3;4;4+\\sqrt{14};4-\\sqrt{14}\\}\"></span> ; б) <span data-inline-latex=\"4;4+\\sqrt{14}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=18744183\" rel=\"noreferrer noopener\" target=\"_blank\">Типовые тестовые задания по математике под редакцией И.В. Ященко, 2018</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <span data-inline-latex=\"t=\\frac{x-2}{2}-\\frac{5}{x-2}\"></span> ,  тогда <span data-inline-latex=\"t^{2}=\\frac{(x-2)^{2}}{4}+\\frac{25}{(x-2)^{2}}-5\"></span>.  Далее имеем:<center><p><span data-inline-latex=\"2(t^{2}+5)=t+16\\iff 2t^{2}-t-6=0\\iff \\left[\\begin{aligned}t=2\\\\t=-\\frac{3}{2}\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}\\frac{x-2}{2}-\\frac{5}{x-2}=2\\\\\\frac{x-2}{2}-\\frac{5}{x-2}=-\\frac{3}{2}\\end{aligned}\\right.\\iff \\begin{cases}x\\ne 2\\\\\\left[\\begin{aligned}(x-2)^{2}-10=4x-8\\\\(x-2)^{2}-10=-3x+6\\end{aligned}\\right.\\end{cases}.\\quad \\iff\"></span> </p></center><center><p> <span data-inline-latex=\"\\begin{cases}x\\ne 2\\\\\\left[\\begin{aligned}x^{2}-8x+2=0\\\\x^{2}-x-12=0\\end{aligned}\\right.\\end{cases}.\\quad \\iff \\left[\\begin{aligned}x=4-\\sqrt{14}\\\\x=4+\\sqrt{14}\\\\x=-3\\\\x=4\\end{aligned}\\right.\"></span> .</p></center></li><li data-list-marker=\"б)\">Вы­яс­ним, какие из най­ден­ных кор­ней при­над­ле­жат от­рез­ку  <span data-inline-latex=\"[3;8]\"></span> . В силу не­ра­венств <center><p><span data-inline-latex=\"4\\lt 4+\\sqrt{14}\\lt 4+4=8\"></span> и <span data-inline-latex=\"4-\\sqrt{14}\\lt 4-3=1\\lt 3\"></span>,</p></center><p>из най­ден­ных кор­ней урав­не­ния за­дан­но­му от­рез­ку при­над­ле­жат толь­ко числа <span data-inline-latex=\"4\"></span> и <span data-inline-latex=\"4+\\sqrt{14}\"></span> .</p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "563297",
+      "task": "563297",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"x^{2}-12+\\frac{36}{x^{2}}+2\\cdot (\\frac{x}{2}-\\frac{3}{x})=0\"></span>. </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-2{,}5;2]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-\\sqrt{6};-3;2;\\sqrt{6}\\}\"></span> ; б)  <span data-inline-latex=\"-\\sqrt{6}\"></span> ; 2.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=39577416\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 356</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Вне­сем <nobr>число 2</nobr> в скоб­ки и обо­зна­чим  <span data-inline-latex=\"t=x-\\frac{6}{x}\"></span> .  За­ме­тим, что <span data-inline-latex=\"x^{2}-12+\\frac{36}{x^{2}}=t^{2}\"></span> ,  а зна­чит, урав­не­ние за­пи­сы­ва­ет­ся в виде <span data-inline-latex=\"t^{2}+t=0\"></span>, от­ку­да <span data-inline-latex=\"t=-1\"></span> или <span data-inline-latex=\"t=0\"></span>. Далее, при усло­вии <span data-inline-latex=\"x\\ne 0\"></span> имеем:<center><p> <span data-inline-latex=\"\\left[\\begin{aligned}x-\\frac{6}{x}=0\\\\x-\\frac{6}{x}=-1\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x^{2}-6=0\\\\x^{2}+x-6=0\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\pm \\sqrt{6}\\\\x=-3\\\\x=2\\end{aligned}\\right.\"></span> . </p></center></li><li data-list-marker=\"б)\">За­ме­тим, что  <span data-inline-latex=\"-3\\lt -2{,}5\\lt -\\sqrt{6}\\lt 2\\lt \\sqrt{6}\"></span> . Под­хо­дят  <span data-inline-latex=\"-\\sqrt{6}\"></span>  и 2.</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "627406",
+      "task": "627406",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{(x^{2}-x-12)^{2}}{x+\\sqrt{13}}=\\frac{(2x^{2}+x-27)^{2}}{x+\\sqrt{13}}\"></span> . </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\sqrt{15}-1;\\sqrt{17}-1]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-5;3;\\sqrt{13}\\}\"></span> ; б) <i>x</i>  =  3.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=44500655\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 385</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">При усло­вии <span data-inline-latex=\"x\\ne -\\sqrt{13}\"></span>  от­бро­сим зна­ме­на­те­ли, вос­поль­зу­ем­ся тем, что квад­ра­ты чисел равны, если сами числа равны или про­ти­во­по­лож­ны:<center><p><span> <span data-inline-latex=\"(x^{2}-x-12)^{2}=(2x^{2}+x-27)^{2}\\iff \\left[\\begin{aligned}x^{2}-x-12=2x^{2}+x-27\\\\x^{2}-x-12=-(2x^{2}+x-27)\\end{aligned}\\right..\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}x^{2}+2x-15=0\\\\3(x^{2}-13)=0\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=-5\\\\x=3\\\\x=\\pm \\sqrt{13}\\end{aligned}\\right.\"></span> . </span></p></center><p> Усло­вию <span data-inline-latex=\"x\\ne -\\sqrt{13}\"></span>  удо­вле­тво­ря­ют корни <i>x</i>  =  −5, <i>x</i>  =  3, <span data-inline-latex=\"x=\\sqrt{13}\"></span> .</p></li><li data-list-marker=\"б)\">За­ме­тим, что <span data-inline-latex=\"3\\lt \\sqrt{15}\\lt 4\\iff 2\\lt \\sqrt{15}-1\\lt 3\"></span>. Кроме того,<center><p> <span data-inline-latex=\"\\sqrt{17}-1\\lt \\sqrt{13}\\iff \\sqrt{17}\\lt \\sqrt{13}+1\\iff 17\\lt (\\sqrt{13}+1)^{2}\\iff 3\\lt 2\\sqrt{13}\"></span> .</p></center><p> По­след­нее не­ра­вен­ство верно, так как <span data-inline-latex=\"3\\lt \\sqrt{13}\"></span> , сле­до­ва­тель­но, под­хо­дит толь­ко <i>x</i>  =  3.</p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

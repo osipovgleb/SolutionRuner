@@ -3975,3 +3975,27 @@ PROFILES += tuple(
         ("640910", "9b1ab182-42a0-4418-a1ee-b4e5b05b567f", 11),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Рациональные уравнения",
+        theme_order_index=1,
+        snapshot_theme_id="e3d4e88d-f782-4715-9211-1d11895851ca",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-rational-interval",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("519423", "493526d5-2102-4af7-b871-7adfe73b0b84", 0),
+        ("563297", "ae6448b4-02e6-4a2e-bfbc-3b3f161ae8e0", 1),
+        ("627406", "2196854a-5d58-4a09-89d7-5409f71d10ee", 2),
+    )
+)
