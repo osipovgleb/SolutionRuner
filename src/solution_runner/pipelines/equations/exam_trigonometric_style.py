@@ -22,6 +22,11 @@ def parent_style(parent_html):
         or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
         or (len(images) == 1 and "отрезку" in text and "принадлежат корни" in text)
         or (len(images) == 1 and "получим точку" in text)
+        or (
+            len(images) == 1
+            and "из найденных решений промежутку" in text
+            and "принадлеж" in text
+        )
         else "number_line"
         if len(images) == 1 and ("числовой оси" in text or "числовой прямой" in text)
         else "inequalities"

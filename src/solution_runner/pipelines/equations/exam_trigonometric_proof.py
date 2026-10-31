@@ -1,5 +1,6 @@
 """Keep the parent's identities, full square and exact circle selection in order."""
 
+from dataclasses import replace
 from functools import cmp_to_key
 
 import sympy as sp
@@ -9,7 +10,9 @@ from ..word_problems.water_season_proof import inline
 from .exam_exponential_proof import n
 from .exam_trigonometric import C, S, T, U, periodic, table
 from .exam_trigonometric_inverse import compare_q, level_series
+from .exam_trigonometric_inverse import display_angle as complementary_angle
 from .exam_trigonometric_proof_methods import method_proof
+from .exam_trigonometric_variants import method_notes
 
 K = sp.Symbol("k", integer=True)
 
@@ -26,11 +29,14 @@ def formula(value, angle="x"):
     )
 
 
-def pi(q):
-    return sp.latex(sp.expand(q * sp.pi), inv_trig_style="full")
+def pi(q, *, sine_inverse=False):
+    angle = sp.expand(q * sp.pi)
+    return sp.latex(
+        complementary_angle(angle) if sine_inverse else angle, inv_trig_style="full"
+    )
 
 
-def series_lines(series):
+def series_lines(series, *, sine_inverse=False):
     remaining = list(series)
     result = []
     while remaining:
@@ -46,7 +52,7 @@ def series_lines(series):
         if pair:
             remaining.remove(pair)
             angle = min((abs(offset), abs(pair[0])), key=cmp_to_key(compare_q))
-            text = pi(angle)
+            text = pi(angle, sine_inverse=sine_inverse)
             if sp.expand(angle * sp.pi).is_Add:
                 text = r"\left(" + text + r"\right)"
             result.append("x=" + r"\pm" + text + "+" + sp.latex(period * sp.pi * K))
@@ -54,7 +60,14 @@ def series_lines(series):
             result.append(
                 "x="
                 + sp.latex(
-                    sp.expand(offset * sp.pi + period * sp.pi * K),
+                    sp.expand(
+                        (
+                            complementary_angle(sp.expand(offset * sp.pi))
+                            if sine_inverse
+                            else offset * sp.pi
+                        )
+                        + period * sp.pi * K
+                    ),
                     inv_trig_style="full",
                 )
             )
@@ -86,7 +99,7 @@ def families(a):
                 )
                 result.append(r"x=(-1)^k\cdot" + pi(angle) + r"+\pi k")
         return tuple(result)
-    return series_lines(a.series)
+    return series_lines(a.series, sine_inverse=a.sine_inverse)
 
 
 def polynomial(
@@ -97,6 +110,7 @@ def polynomial(
     allowed_residues=None,
     angle="x",
     root_scale=sp.S.One,
+    sine_inverse=False,
 ):
     if branch.angle_shift:
         from .exam_trigonometric_linear_phase import proof
@@ -158,7 +172,13 @@ def polynomial(
                     html += line(formula(factor, angle) + ">0")
                     html += "<p>Квадратный множитель имеет положительный старший коэффициент и отрицательный дискриминант, поэтому не обращается в нуль.</p>"
     return html + candidate_lines(
-        branch, substitution, allow_inverse, allowed_residues, angle, root_scale
+        branch,
+        substitution,
+        allow_inverse,
+        allowed_residues,
+        angle,
+        root_scale,
+        sine_inverse=sine_inverse,
     )
 
 
@@ -169,6 +189,7 @@ def candidate_lines(
     allowed_residues=None,
     angle="x",
     root_scale=sp.S.One,
+    sine_inverse=False,
 ):
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable
@@ -185,9 +206,26 @@ def candidate_lines(
         else:
             series = level_series(variable, value, allow_inverse)
             if allowed_residues is not None:
-                series = periodic(set(allowed_residues) & set(table(variable, value)))
+                from .exam_trigonometric_inverse import angles
+
+                if variable in (T, U) or (
+                    allow_inverse
+                    and any(
+                        q.is_Rational is not True for q in angles(variable, value, True)
+                    )
+                ):
+                    from .exam_trigonometric_selection import restricted_series
+
+                    series = restricted_series(
+                        replace(branch, residues=tuple(allowed_residues)), value
+                    )
+                else:
+                    series = periodic(
+                        set(allowed_residues) & set(table(variable, value))
+                    )
             for text in series_lines(
-                tuple((q / root_scale, p / root_scale) for q, p in series)
+                tuple((q / root_scale, p / root_scale) for q, p in series),
+                sine_inverse=sine_inverse,
             ):
                 html += line(text + r",\quad k\in\mathbb Z")
     return html
@@ -226,7 +264,9 @@ def first(a):
                     )
                     + "=0"
                 )
-            html += polynomial(branch, a.substitution, a.allow_inverse)
+            html += polynomial(
+                branch, a.substitution, a.allow_inverse, sine_inverse=a.sine_inverse
+            )
         return intro, html
     for text, value in a.identities:
         html += line(text + "=" + formula(value))
@@ -258,6 +298,7 @@ def first(a):
             branch,
             allow_inverse=a.allow_inverse,
             factorization=a.factorization,
+            sine_inverse=a.sine_inverse,
         )
     if any(sp.Poly(b.polynomial, b.variable).degree() > 1 for b in a.branches):
         html += "<p>Объединим полученные серии, учитывая периодичность:</p>"
@@ -311,6 +352,10 @@ def inequality_selection(a):
 
 def render(a, image):
     intro, steps = first(a)
+    if a.single_part:
+        from .exam_trigonometric_single import render as render_single
+
+        return render_single(a, image, intro, steps)
     before = image if a.image_position == "before-intro" else ""
     after = image if a.image_position == "after-intro" else ""
     first_html = (
@@ -341,11 +386,11 @@ def render(a, image):
             second += image
         for root in a.selected:
             second += line(
-                pi(lo)
+                pi(lo, sine_inverse=a.sine_inverse)
                 + (r"\le" if lc else "<")
-                + pi(root)
+                + pi(root, sine_inverse=a.sine_inverse)
                 + (r"\le" if uc else "<")
-                + pi(hi)
+                + pi(hi, sine_inverse=a.sine_inverse)
             )
         if not a.selected:
             second += "<p>На указанной дуге точек решения нет.</p>"
@@ -362,17 +407,7 @@ def render(a, image):
         + second
         + "</li></ol>"
     )
-    if a.triple_angle is not None and a.triple_angle.note:
-        from .exam_trigonometric_triple_angle import note
-
-        html += note(a)
-    if a.alternative is not None:
-        alternative_intro, alternative_steps = first(a.alternative)
-        html += (
-            "<p><b>Приведём другое решение пункта а).</b></p>"
-            + alternative_intro
-            + alternative_steps
-        )
+    html += method_notes(a)
     parameter = (
         a.square_difference.parameter if a.square_difference is not None else "k"
     )
@@ -385,7 +420,10 @@ def render(a, image):
         from .exam_trigonometric_affine_selection import all_roots as affine_roots
 
         all_roots = affine_roots(a)
-    selected = r";\ ".join(pi(q) for q in a.selected) or r"\varnothing"
+    selected = (
+        r";\ ".join(pi(q, sine_inverse=a.sine_inverse) for q in a.selected)
+        or r"\varnothing"
+    )
     return (
         "а) " + all_roots + "; б) " + selected,
         "<p>а) " + inline(all_roots) + "; б) " + inline(selected) + ".</p>",

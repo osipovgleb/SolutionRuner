@@ -201,9 +201,12 @@ def compile_reviewed(
     compiled, expression, identities, original_poles = polynomial_input(
         values, atoms, denominators
     )
-    if original_poles and any(
-        len(p.free_symbols) != 1 or sp.Poly(p, *p.free_symbols).length() != 1
-        for p in original_poles
+    if original_poles and (
+        expression.is_polynomial(S, C)
+        or any(
+            len(p.free_symbols) != 1 or sp.Poly(p, *p.free_symbols).length() != 1
+            for p in original_poles
+        )
     ):
         from .exam_trigonometric_rational import compile_fraction
 

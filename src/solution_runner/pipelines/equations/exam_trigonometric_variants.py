@@ -162,3 +162,25 @@ def reciprocal(a):
         "<p>Сведём уравнение к квадратному заменой обратной тригонометрической функции:</p>",
         html,
     )
+
+
+def method_notes(a):
+    from .exam_trigonometric_proof import first
+
+    html = ""
+    if a.triple_angle is not None and a.triple_angle.note:
+        from .exam_trigonometric_triple_angle import note
+
+        html += note(a)
+    if a.alternative is not None:
+        alternative_intro, alternative_steps = first(a.alternative)
+        html += (
+            (
+                "<p><b>Приведём другое решение.</b></p>"
+                if a.single_part
+                else "<p><b>Приведём другое решение пункта а).</b></p>"
+            )
+            + alternative_intro
+            + alternative_steps
+        )
+    return html

@@ -246,3 +246,18 @@ def decode(value):
         sp.Rational(value["rational"])
         + value["coefficient"] * function(argument) / sp.pi
     )
+
+
+def display_angle(angle):
+    inverse = list(angle.atoms(sp.acos))
+    if len(inverse) == 1:
+        arc = inverse[0]
+        coefficient = angle.coeff(arc)
+        shift = sp.simplify((angle - coefficient * arc) / sp.pi)
+        if (
+            coefficient in (-1, 1)
+            and shift.is_Rational
+            and shift % 1 == sp.Rational(1, 2)
+        ):
+            return sp.expand(angle.xreplace({arc: sp.pi / 2 - sp.asin(arc.args[0])}))
+    return angle

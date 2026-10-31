@@ -5,6 +5,8 @@ import sympy as sp
 from ..probability.common import line
 from ..word_problems.common import UnsupportedCondition
 from ..word_problems.water_season_proof import inline
+from .exam_trigonometric_compile import T, U
+from .exam_trigonometric_style import division
 
 
 def progressions(a):
@@ -169,9 +171,29 @@ def equivalent_series(first, second):
 
 
 def square_series(branch):
+    if any(q.is_Rational is not True for q in branch.residues):
+        return restricted_series(branch)
     if not branch.square_level or len(branch.values) != 2 or sum(branch.values) != 0:
         return periodic(branch.residues)
     return tuple((q, sp.S.One) for q in sorted({r % 1 for r in branch.residues}))
+
+
+def restricted_series(branch, value=None):
+    from .exam_trigonometric_inverse import angles, level_series
+
+    if branch.angle_scale != 1 or branch.angle_shift:
+        raise UnsupportedCondition(
+            "inverse pole filtering requires one unshifted base angle"
+        )
+    result = []
+    for v in branch.values if value is None else (value,):
+        candidates = angles(branch.variable, v, True)
+        retained = tuple(q for q in candidates if q in branch.residues)
+        if retained == candidates:
+            result.extend(level_series(branch.variable, v, True))
+        else:
+            result.extend((q, sp.Integer(2)) for q in retained)
+    return tuple(result)
 
 
 def branch_series(branch, allow_inverse):
@@ -195,3 +217,76 @@ def branch_series(branch, allow_inverse):
         for q, p in level_series(branch.variable, v, allow_inverse)
     )
     return tuple(result)
+
+
+def method_series(
+    branches,
+    residues,
+    compiled,
+    domain,
+    parent_html,
+    style,
+):
+    from .exam_trigonometric_factor_style import merges_series
+
+    if domain is not None and compiled.poles:
+        from .exam_trigonometric_inverse import centred
+        from .exam_trigonometric_selection import restricted_series
+
+        return (
+            tuple(
+                s
+                for b in branches
+                for item in restricted_series(b)
+                for s in centred((item,))
+            ),
+            False,
+            False,
+        )
+
+    if compiled.ratio_product is not None:
+        from .exam_trigonometric_ratio_product import series
+
+        return series(branches), False, False
+    if compiled.fraction is not None and len(compiled.fraction.free_symbols) > 1:
+        from .exam_trigonometric_selection import restricted_series
+
+        return tuple(s for b in branches for s in restricted_series(b)), False, False
+
+    preferred, method = style
+    allow_inverse = method == "inequalities" or any(
+        name in parent_html for name in (r"\arccos", r"\arcsin")
+    )
+    merged = (
+        (
+            method == "inequalities"
+            and compiled.scale != 1
+            and merges_series(parent_html)
+        )
+        or compiled.square_difference is not None
+        or compiled.symmetric is not None
+        or (compiled.sum_product is not None and bool(compiled.sum_product.poles))
+    )
+    dividing = (
+        division(parent_html)
+        and compiled.homogeneous is None
+        and not any(b.original is not None for b in branches)
+    )
+    if compiled.absolute is not None:
+        from .exam_trigonometric_absolute import series as absolute_series
+
+        series = absolute_series(branches[0].values)
+    elif dividing:
+        from .exam_trigonometric_division import series as division_series
+
+        series = division_series(branches)
+    elif merged:
+        series = periodic(residues)
+    else:
+        filtered = domain is not None or (
+            compiled.poles and compiled.reciprocal is None and preferred not in (T, U)
+        )
+        series = root_series(
+            branches, residues, filtered if filtered else None, allow_inverse
+        )
+    return series, merged, dividing

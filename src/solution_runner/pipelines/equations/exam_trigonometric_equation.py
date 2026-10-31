@@ -84,8 +84,7 @@ def method_equation(
             raise UnsupportedCondition(
                 "translated radical products need a reviewed domain"
             )
-        raw, identities, domain = product
-        return Equation(raw, identities, sp.S.One), domain
+        return product, product.domain
     if scale != 1 or translation or difference:
         return compile_reviewed(
             formula,

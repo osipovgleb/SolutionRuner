@@ -30,12 +30,7 @@ def radical_product(formula):
         raise UnsupportedCondition(
             "a complete parenthesized factor times a square root must equal zero"
         )
-    factor, identities = compile_equation(prefix + "=0")
     domain, domain_identities = compile_equation(inner + "=0")
-    if factor.free_symbols - {S, C}:
-        raise UnsupportedCondition(
-            "the polynomial factor must use only sine and cosine"
-        )
     variables = domain.free_symbols & {S, C}
     if len(variables) != 1:
         raise UnsupportedCondition(
@@ -46,7 +41,44 @@ def radical_product(formula):
         raise UnsupportedCondition(
             "a homogeneous linear trigonometric radicand is required"
         )
-    return sp.expand(factor * domain), identities + domain_identities, domain
+    from .exam_trigonometric_methods import Equation, compile_reviewed
+
+    try:
+        factor, identities = compile_equation(prefix + "=0")
+    except UnsupportedCondition:
+        if not any(token in prefix for token in (r"\tg", r"\ctg")):
+            raise
+        equation = compile_reviewed(prefix + "=0", C, sp.S.One)
+        if (
+            equation.scale != 1
+            or not equation.poles
+            or any(p.free_symbols != {variable} for p in equation.poles)
+        ):
+            raise UnsupportedCondition(
+                "the radical ratio must share one original nonzero function"
+            )
+        raw = (
+            equation.factored_source
+            if equation.factored_source is not None
+            else equation.raw
+        )
+        return replace(
+            equation,
+            raw=raw,
+            domain=domain,
+            factored_source=None,
+            cleared_denominator=None,
+        )
+    if factor.free_symbols - {S, C}:
+        raise UnsupportedCondition(
+            "the polynomial factor must use only sine and cosine"
+        )
+    return Equation(
+        sp.expand(factor * domain),
+        identities + domain_identities,
+        sp.S.One,
+        domain=domain,
+    )
 
 
 def restrict(branches, domain, strict=False):
@@ -101,6 +133,26 @@ def proof(a):
     )
 
 
+def ratio_proof(a):
+    from ..probability.common import line
+    from .exam_trigonometric_proof import formula, polynomial
+
+    html = "<p>Корень должен быть определён, а знаменатель тригонометрического отношения — отличен от нуля:</p>"
+    html += line(formula(a.domain) + r"\ge0")
+    for pole in a.poles:
+        html += line(formula(pole) + r"\ne0")
+    html += line(formula(a.domain) + ">0")
+    html += "<p>Поэтому корень положителен. Разделим на него только на исходной области определения и разложим оставшееся произведение:</p>"
+    html += line(a.original)
+    html += line(formula(sp.factor(a.raw, extension=True)) + "=0")
+    for branch in a.branches:
+        html += polynomial(branch, allowed_residues=branch.residues)
+    html += (
+        "<p>Из каждой серии оставлены только точки исходной области определения.</p>"
+    )
+    return "<p>Сохраним область определения до деления на радикал:</p>", html
+
+
 def without_poles(branches, poles):
     from .exam_trigonometric_compile import C, S
     from .exam_trigonometric_inverse import angles
@@ -130,3 +182,37 @@ def without_poles(branches, poles):
             replace(branch, residues=residues, values=values, excluded=excluded)
         )
     return tuple(result)
+
+
+def validate_circle_domain(entry, a):
+    from .exam_trigonometric_compile import C, S
+    from .exam_trigonometric_inverse import decode
+
+    multiplier = sp.Rational(entry.get("circle_scale", "1"))
+    if multiplier <= 0:
+        raise UnsupportedCondition(
+            "a circle domain certificate requires a positive angle multiplier"
+        )
+    for point in entry.get("excluded_markers", []):
+        q = a.scale * (decode(point["angle"]) / multiplier + a.translation)
+        substitution = {S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)}
+        pole = any(sp.simplify(p.subs(substitution)) == 0 for p in a.poles)
+        negative = a.domain is not None and compare(
+            sp.simplify(a.domain.subs(substitution)), sp.S.Zero
+        ) < (1 if a.strict_domain else 0)
+        if not (pole or negative):
+            raise UnsupportedCondition(
+                "every crossed circle point must violate the original domain"
+            )
+    shading = entry.get("domain_shading")
+    if shading:
+        variable = {"sin": S, "cos": C}.get(shading.get("variable"))
+        if (
+            variable is None
+            or a.domain != variable
+            or variable not in a.poles
+            or shading.get("side") != "nonpositive"
+        ):
+            raise UnsupportedCondition(
+                "the shaded half-circle must match the complete original domain"
+            )

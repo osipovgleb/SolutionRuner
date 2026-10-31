@@ -13,12 +13,11 @@ def compile_fraction(values, compiled, poles, scale, identities):
     from .exam_trigonometric_methods import Equation
 
     variables = set().union(*(p.free_symbols for p in poles))
-    if scale != 1 or len(variables) != 1 or not variables <= {S, C}:
-        raise UnsupportedCondition(
-            "one unscaled sine or cosine is required for a rational substitution"
-        )
-    variable = next(iter(variables))
-    if any(not p.is_polynomial(variable) or sp.degree(p, variable) > 2 for p in poles):
+    if not variables or not variables <= {S, C}:
+        raise UnsupportedCondition("the original poles must use sine and cosine")
+    if any(
+        not p.is_polynomial(S, C) or sp.Poly(p, S, C).total_degree() > 2 for p in poles
+    ):
         raise UnsupportedCondition(
             "the original poles must be bounded function polynomials"
         )
@@ -28,18 +27,19 @@ def compile_fraction(values, compiled, poles, scale, identities):
         .xreplace({NUMERIC_S: S, NUMERIC_C: C})
     )
     numerator, denominator = sp.fraction(expression)
+    functions = numerator.free_symbols
     if (
         numerator == 0
-        or not numerator.is_polynomial(variable)
-        or sp.degree(numerator, variable) != 2
-        or denominator.free_symbols - {variable}
+        or len(functions) != 1
+        or not functions <= {S, C}
+        or not numerator.is_polynomial(*functions)
+        or sp.degree(numerator, next(iter(functions))) not in (1, 2)
+        or denominator.free_symbols - {S, C}
     ):
         raise UnsupportedCondition(
-            "the uncancelled numerator must be a quadratic in one function"
+            "the uncancelled numerator must be linear or quadratic in one function"
         )
-    return Equation(
-        sp.expand(numerator), identities, sp.S.One, poles, fraction=expression
-    )
+    return Equation(sp.expand(numerator), identities, scale, poles, fraction=expression)
 
 
 def proof(a):
@@ -48,6 +48,11 @@ def proof(a):
     if len(a.branches) != 1:
         raise UnsupportedCondition("one rational function substitution is required")
     branch = a.branches[0]
+    if (
+        len(a.fraction.free_symbols) > 1
+        or sp.degree(branch.polynomial, branch.variable) == 1
+    ):
+        return direct_proof(a, branch)
     name = a.substitution or "t"
     parameter = sp.Symbol(name, real=True)
     html = (
@@ -63,6 +68,7 @@ def proof(a):
         substitution=name,
         allowed_residues=branch.residues,
         factorization=a.factorization,
+        sine_inverse=a.sine_inverse,
     )
     for value in branch.excluded:
         html += (
@@ -76,3 +82,32 @@ def proof(a):
         "<p>Решим рациональное уравнение относительно тригонометрической функции:</p>",
         html,
     )
+
+
+def direct_proof(a, branch):
+    from .exam_trigonometric_proof import formula, polynomial
+    from .exam_trigonometric_variants import argument
+
+    angle = argument(a.scale)
+    html = "<p>Запишем ограничения исходной дроби до сокращения:</p>"
+    for pole in a.poles:
+        html += line(formula(pole, angle) + r"\ne0")
+    html += line(a.original)
+    for text, value in a.identities:
+        if value not in (S, C):
+            html += line(text + "=" + formula(value, angle))
+    html += "<p>На этой области определения используем формулы приведения и сокращаем только ненулевые множители:</p>"
+    html += line(formula(a.fraction, angle) + "=0")
+    html += "<p>Числитель должен равняться нулю, а исходный знаменатель — оставаться ненулевым:</p>"
+    html += line(formula(sp.factor(a.raw, extension=True), angle) + "=0")
+    html += polynomial(
+        branch,
+        angle=angle,
+        root_scale=a.scale,
+        allowed_residues=branch.residues,
+        allow_inverse=a.allow_inverse,
+        factorization=a.factorization,
+        sine_inverse=a.sine_inverse,
+    )
+    html += "<p>В каждой серии оставлены только корни, не обращающие исходный знаменатель в нуль.</p>"
+    return "<p>Решим уравнение с сохранением области определения дроби:</p>", html

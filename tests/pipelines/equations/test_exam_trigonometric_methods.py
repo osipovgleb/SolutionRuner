@@ -272,7 +272,7 @@ def test_both_parent_methods_are_independent_complete_and_keep_order_and_legend(
     [
         r"\sin(\frac{x}{5})=0",
         r"\sin(\sqrt{2}x)=0",
-        r"\frac{1}{\sin x+1}=2",
+        r"\frac{\sin^{3} x}{\sin x+1}=2",
         r"\frac{1}{\sin x\cos x}=2",
         r"\frac{1}{\cos^3 x}=2",
         r"\sin x=\sin x",
@@ -298,3 +298,16 @@ def test_unreviewed_extra_method_and_changed_series_legend_fail_closed():
     _, f, interval, bounds = read(c["context"])
     with pytest.raises(UnsupportedCondition):
         analyze(f, interval, bounds, parent(c) + "<p>Ещё одно решение.</p>")
+
+
+def test_linear_function_fraction_preserves_its_original_pole_and_complete_roots():
+    from solution_runner.pipelines.equations.exam_trigonometric import solve_branches
+    from solution_runner.pipelines.equations.exam_trigonometric_domain import (
+        without_poles,
+    )
+
+    compiled = compile_reviewed(r"\frac{1}{\sin x+1}=2", C, sp.S.One)
+    assert compiled.raw == -2 * S - 1 and compiled.poles == (S + 1,)
+    branches = without_poles(solve_branches(compiled.raw, S)[1], compiled.poles)
+    assert branches[0].values == (-sp.Rational(1, 2),)
+    assert branches[0].residues == (sp.Rational(7, 6), sp.Rational(11, 6))

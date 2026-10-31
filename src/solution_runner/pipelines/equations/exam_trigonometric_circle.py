@@ -47,8 +47,10 @@ def source(context):
 
 
 def read(context):
+    from .exam_trigonometric_single import read as read_single
+
     if not (context.get("normalized_content") or {}).get("assets"):
-        return read_exam(context)
+        return read_single(context) or read_exam(context)
     if source_less(context):
         if recipe(context) is None:
             raise UnsupportedCondition(
@@ -62,7 +64,7 @@ def read(context):
     copied_solution = section(prepared["normalized_content"], "solution")
     if copied_solution is not None:
         copied_solution["asset_keys"] = []
-    _parts, formula, interval, bounds = read_exam(prepared)
+    _parts, formula, interval, bounds = read_single(prepared) or read_exam(prepared)
     return (
         tuple(section(content, key) for key in ("condition", "answer", "solution")),
         formula,
@@ -72,6 +74,18 @@ def read(context):
 
 
 def validate(entry, a):
+    from .exam_trigonometric_domain import validate_circle_domain
+
+    validate_circle_domain(entry, a)
+    if a.single_part:
+        from .exam_trigonometric_single import validate_circle
+
+        validate_circle(entry, a)
+        return
+    if entry.get("selection_kind") == "all_roots":
+        raise UnsupportedCondition(
+            "a full-root figure must not stand in for interval selection"
+        )
     if "complete_residues" in entry:
         from .exam_trigonometric_inverse import decode
 

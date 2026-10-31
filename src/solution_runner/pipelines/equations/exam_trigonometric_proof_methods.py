@@ -4,6 +4,10 @@ from .exam_trigonometric_compile import C, S, T, U
 
 
 def method_proof(a):
+    if a.domain is not None and a.poles:
+        from .exam_trigonometric_domain import ratio_proof
+
+        return ratio_proof(a)
     if a.ratio_product is not None:
         from .exam_trigonometric_ratio_product import proof
 
