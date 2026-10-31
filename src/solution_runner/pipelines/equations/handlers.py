@@ -676,3 +676,17 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-trigonometric-polynomial-circle",
+        "solution_runner.pipelines.equations.exam_trigonometric:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        diagram_builder="solution_runner.pipelines.equations.exam_trigonometric_circle:diagram_specs",
+        requires_parent_condition_asset=False,
+    ),
+)

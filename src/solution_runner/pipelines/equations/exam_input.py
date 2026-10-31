@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup, NavigableString
 from ..word_problems.common import UnsupportedCondition, section
 from .power_arithmetic import ScalarParser
 
-FIRST = r"Решите уравнение:? ФОРМУЛА\.?"
+FIRST = r"Решите уравнение:? ФОРМУЛА[.;]?"
 SECOND = r"(?:Найдите(?: все)? корни уравнения, принадлежащие отрезку|Укажите все корни этого уравнения, принадлежащие промежутку|Найдите решения уравнения, принадлежащие отрезку|Найдите его корни, принадлежащие отрезку|Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
 
 
@@ -87,7 +87,7 @@ def read_parts(context):
     first = " ".join(
         rows[0].get_text(" ", strip=True).replace("\xad", "").replace("ё", "е").split()
     )
-    first = re.sub(r"\s+([.,:])", r"\1", first)
+    first = re.sub(r"\s+([.,:;])", r"\1", first)
     second = " ".join(
         rows[1]
         .get_text(" ", strip=True)
@@ -96,7 +96,7 @@ def read_parts(context):
         .replace("−", "-")
         .split()
     )
-    second = re.sub(r"\s+([.,:])", r"\1", second)
+    second = re.sub(r"\s+([.,:;])", r"\1", second)
     if not re.fullmatch(FIRST, first):
         raise UnsupportedCondition("the entire equation instruction must match")
     return parts, equation, second
