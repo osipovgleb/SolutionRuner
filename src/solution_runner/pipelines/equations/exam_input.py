@@ -147,6 +147,23 @@ def endpoint_texts(interval):
 def endpoint(text):
     import sympy as sp
 
+    from .power_arithmetic import balanced, clean
+
+    if text.strip().startswith(r"\sqrt{") and r"\log_" in text:
+        normalized = clean(re.sub(r"\\log_([2-9])(?=\s)", r"\\log_{\1}", text))
+        inner, end = balanced(normalized, 5)
+        if end != len(normalized):
+            raise UnsupportedCondition(
+                "a nested logarithm endpoint must be one complete square root"
+            )
+        value = endpoint(inner)
+        from .exam_scalar import compare
+
+        if compare(value, sp.Integer(0)) < 0:
+            raise UnsupportedCondition(
+                "a square root endpoint needs a nonnegative argument"
+            )
+        return sp.Pow(value, sp.Rational(1, 2), evaluate=False)
     if r"\pi" not in text:
         from .logarithm_arithmetic import actual
         from .logarithm_parser import LogarithmParser

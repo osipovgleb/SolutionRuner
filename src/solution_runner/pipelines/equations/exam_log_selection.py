@@ -33,6 +33,8 @@ def selection(
         for text, bound in zip(texts, (lower, upper)):
             if bound.is_Rational:
                 continue
+            if text.strip().startswith(r"\sqrt{") and r"\log_" in text:
+                continue
             node = LogarithmParser(text).parse()
             if node.kind != "log":
                 continue

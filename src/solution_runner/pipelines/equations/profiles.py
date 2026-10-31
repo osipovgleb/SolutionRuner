@@ -4057,3 +4057,30 @@ PROFILES += tuple(
         ("525377", "3c8b455f-ae67-4e7c-83e3-e1335da29360", 4),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Ло га риф ми че ские уравнения",
+        theme_order_index=3,
+        snapshot_theme_id="7824b997-6388-471c-8e7b-7d796c7a7bca",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithmic-branches",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("550261", "eae85fbe-8667-4f75-9439-88ed8d8a7ab4", 5),
+        ("555265", "7ed66a0d-29a5-4964-9571-29eed85be85f", 6),
+        ("561853", "735f4d49-cf5e-4d47-90b3-3b2c9764760d", 7),
+        ("643200", "7c6a747c-1b97-4b1a-9d9b-3338a36f7828", 8),
+        ("643677", "c5184bb1-3deb-4b48-8e01-2868659ff387", 9),
+        ("693985", "914862fc-4438-4a08-9a73-ef800ae16921", 10),
+    )
+)
