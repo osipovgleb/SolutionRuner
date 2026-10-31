@@ -92,6 +92,10 @@ def polynomial(
     angle="x",
     root_scale=sp.S.One,
 ):
+    if branch.angle_shift:
+        from .exam_trigonometric_linear_phase import proof
+
+        return proof(branch, angle, root_scale)
     p = branch.polynomial
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable

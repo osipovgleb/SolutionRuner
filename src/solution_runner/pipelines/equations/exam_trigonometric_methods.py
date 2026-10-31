@@ -27,6 +27,13 @@ if TYPE_CHECKING:
 class ExamAngleParser(SymbolicTrigonometricParser):
     allowed_powers = (1, 2, 3, 4, 6)
 
+    def _angle(self):
+        match = re.match(r"[+-]?(?:\d+)?\\pi\\alpha", self.text[self.index :])
+        if match:
+            self.index += match.end()
+            return match.group()
+        return super()._angle()
+
     def _nested(self, text):
         return ExamAngleParser(
             text, self.atoms, self.denominators, self.depth + 1
@@ -59,11 +66,12 @@ class ExamAngleParser(SymbolicTrigonometricParser):
         ).parse()
         coefficient = sp.expand(value).coeff(A)
         shift = sp.cancel((value - coefficient * A) / PI)
+        multiple = sp.cancel(coefficient / PI) if coefficient.has(PI) else coefficient
         if (
-            coefficient.is_Rational is not True
-            or coefficient == 0
-            or abs(coefficient) > 100
-            or coefficient.q > 4
+            multiple.is_Rational is not True
+            or multiple == 0
+            or abs(multiple) > 100
+            or multiple.q > 4
             or shift.is_Rational is not True
             or (12 * shift).is_Integer is not True
             or abs(shift) > 10000
@@ -72,7 +80,11 @@ class ExamAngleParser(SymbolicTrigonometricParser):
                 "bounded rational angle multiples and reviewed twelfth-pi shifts are required"
             )
         return sp.Symbol("T" + str(len(self.atoms)), real=True), SymbolicAtom(
-            function, coefficient, shift, variable, "\\" + function + "(" + angle + ")"
+            function,
+            coefficient.subs(PI, sp.pi),
+            shift,
+            variable,
+            "\\" + function + "(" + angle + ")",
         )
 
 
@@ -80,7 +92,7 @@ class ExamAngleParser(SymbolicTrigonometricParser):
 class Equation:
     raw: sp.Expr
     identities: tuple
-    scale: sp.Rational
+    scale: sp.Expr
     poles: tuple = ()
     reciprocal: sp.Expr | None = None
     doubled: bool = False
@@ -147,6 +159,10 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         raise UnsupportedCondition(
             "scaled rational equations require only sine and cosine"
         )
+    from .exam_trigonometric_pi_scale import normalize
+
+    atoms, unit = normalize(atoms, denominators)
+    preferred_scale /= unit
     values, atoms, rewritten, power_angle = fold(
         values, atoms, denominators, preferred_scale
     )
@@ -201,7 +217,7 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
     return Equation(
         sp.expand(raw),
         constants + identities,
-        scale,
+        scale * unit,
         original_poles,
         reciprocal,
         doubled,
@@ -312,7 +328,7 @@ def preference(parent_html):
     matches = []
     for formula in formulas:
         for match in re.finditer(
-            r"\\(sin|cos|tg|ctg)(?:\^\{?(\d+)\}?)?(?:(\d*)x|\\frac\{(\d*)x\}\{(\d+)\})&?=",
+            r"\\(sin|cos|tg|ctg)(?:\^\{?(\d+)\}?)?(?:(\d*)(\\pi)?x|\\frac\{(\d*)x\}\{(\d+)\})&?=",
             formula,
         ):
             right = re.split(
@@ -321,12 +337,16 @@ def preference(parent_html):
                 maxsplit=1,
             )[0]
             if not re.search(r"\\(?:sin|cos|tg)", right):
-                function, power, multiple, numerator, denominator = match.groups()
+                function, power, multiple, pi_unit, numerator, denominator = (
+                    match.groups()
+                )
                 scale = (
                     sp.Rational(numerator or 1, denominator)
                     if denominator
                     else sp.Rational(multiple or 1)
                 )
+                if pi_unit:
+                    scale *= sp.pi
                 matches.append((bool(power), function, scale))
     if not matches:
         raise UnsupportedCondition(
@@ -366,7 +386,8 @@ def factorized(parent_html):
     ]
     formulas = [re.sub(r"\\frac\{\d*x\}\{\d+\}", "x", f) for f in formulas]
     formulas = [
-        re.sub(r"\\(sin|cos)(\d+)x", lambda m: "\\" + m[1] + "x", f) for f in formulas
+        re.sub(r"\\(sin|cos)(\d+)(?:\\pi)?x", lambda m: "\\" + m[1] + "x", f)
+        for f in formulas
     ]
     return any(
         re.search(r"\\(?:sin|cos)x(?:\\cdot)?\(", f)

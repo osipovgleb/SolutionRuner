@@ -1,7 +1,6 @@
 """Reduce reviewed identities, keep zero factors and select exact periodic roots."""
 
 from dataclasses import dataclass, replace
-from functools import cmp_to_key
 from typing import TYPE_CHECKING
 
 import sympy as sp
@@ -12,16 +11,14 @@ from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
 from .exam_trigonometric_compile import C, S, T, U, compile_equation, table
-from .exam_trigonometric_homogeneous import Reduction, convert
+from .exam_trigonometric_homogeneous import Reduction
 from .exam_trigonometric_inverse import (
     angles,
-    level_series,
     ordered,
     select_inverse,
 )
-from .exam_trigonometric_selection import canonical, periodic
+from .exam_trigonometric_selection import canonical, periodic, root_series
 from .exam_trigonometric_style import (
-    cotangent_method,
     division,
     grouping_method,
     homogeneous_method,
@@ -43,6 +40,7 @@ class Branch:
     excluded: tuple = ()
     impossible: bool = False
     grouping: bool = False
+    angle_shift: sp.Rational = sp.S.Zero
 
 
 @dataclass(frozen=True)
@@ -66,7 +64,7 @@ class Analysis:
     selection_method: str = "circle"
     factorization: bool = False
     domain: sp.Expr | None = None
-    scale: sp.Rational = sp.S.One
+    scale: sp.Expr = sp.S.One
     poles: tuple = ()
     reciprocal: sp.Expr | None = None
     doubled: bool = False
@@ -89,6 +87,7 @@ class Analysis:
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
     from .exam_trigonometric_factors import project, separated
     from .exam_trigonometric_grouping import mixed_branches
+    from .exam_trigonometric_linear_phase import branch as phased_branch
     from .exam_trigonometric_ratios import linear_branch, ratio_branch
 
     if raw.has(T, U):
@@ -105,7 +104,7 @@ def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
     for expression in expressions:
         variables = expression.free_symbols & {S, C}
         if len(variables) != 1:
-            mixed = linear_branch(expression)
+            mixed = linear_branch(expression) or phased_branch(expression)
             if mixed is not None:
                 branches.append(mixed)
                 continue
@@ -201,32 +200,6 @@ def analyze(formula, interval, bounds, parent_html):
     return result
 
 
-def root_series(branches, residues, domain, allow_inverse):
-    if domain is not None:
-        series = tuple(s for branch in branches for s in periodic(branch.residues))
-    elif (
-        all(q.is_Rational for q in residues)
-        and len(branches) == 1
-        and all(
-            power[0] % 2 == 0
-            for power in sp.Poly(branches[0].polynomial, branches[0].variable).monoms()
-        )
-    ):
-        series = periodic(residues)
-    else:
-        series = tuple(
-            dict.fromkeys(
-                s
-                for b in branches
-                for v in sorted(
-                    b.values, key=cmp_to_key(compare), reverse=(b.variable == C)
-                )
-                for s in level_series(b.variable, v, allow_inverse)
-            )
-        )
-    return series
-
-
 def method_equation(formula, preferred, scale, translation, *, grouping=False):
     from .exam_trigonometric_absolute import compile_absolute
     from .exam_trigonometric_domain import radical_product
@@ -269,7 +242,6 @@ def analyze_method(
     translation=sp.S.Zero,
     shifted_notation=False,
 ):
-    from .exam_trigonometric_domain import restrict, without_poles
     from .exam_trigonometric_methods import (
         factorized,
         preference,
@@ -290,21 +262,12 @@ def analyze_method(
         translation,
         grouping=grouping_method(parent_html),
     )
-    if not compiled.raw.has(T, U) and cotangent_method(parent_html):
-        preferred = U
-    compiled = convert(compiled, preferred)
-    from .exam_trigonometric_factors import preserve_zero_square
+    from .exam_trigonometric_factors import method_branches
 
-    compiled = preserve_zero_square(compiled, parent_html)
-    raw, identities = compiled.raw, compiled.identities
-    reduced, branches = solve_branches(
-        raw, preferred, allow_inverse, factored=compiled.factored_source is not None
+    compiled, reduced, branches, preferred = method_branches(
+        compiled, preferred, allow_inverse, domain, parent_html
     )
-    if domain is not None:
-        branches = restrict(branches, domain, compiled.strict_domain)
-    branches = without_poles(branches, compiled.poles)
-    if grouping_method(parent_html) and domain is None and not compiled.poles:
-        branches = tuple(replace(b, grouping=True) for b in branches)
+    raw, identities = compiled.raw, compiled.identities
     if len(branches) == 1:
         preferred = branches[0].variable
     residues = ordered(q for b in branches for q in b.residues)

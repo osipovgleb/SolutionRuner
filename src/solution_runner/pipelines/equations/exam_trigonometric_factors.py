@@ -93,3 +93,33 @@ def preserve_zero_square(compiled, parent_html):
         if reduced is not None
         else compiled
     )
+
+
+def method_branches(compiled, preferred, allow_inverse, domain, parent_html):
+    from ..word_problems.common import UnsupportedCondition
+    from .exam_trigonometric import solve_branches
+    from .exam_trigonometric_compile import T, U
+    from .exam_trigonometric_domain import restrict, without_poles
+    from .exam_trigonometric_homogeneous import convert
+    from .exam_trigonometric_style import cotangent_method, grouping_method
+
+    if not compiled.raw.has(T, U) and cotangent_method(parent_html):
+        preferred = U
+    compiled = convert(compiled, preferred)
+    compiled = preserve_zero_square(compiled, parent_html)
+    reduced, branches = solve_branches(
+        compiled.raw,
+        preferred,
+        allow_inverse,
+        factored=compiled.factored_source is not None,
+    )
+    if domain is not None:
+        branches = restrict(branches, domain, compiled.strict_domain)
+    branches = without_poles(branches, compiled.poles)
+    if any(b.angle_shift for b in branches) and (domain is not None or compiled.poles):
+        raise UnsupportedCondition(
+            "shifted linear factors require a denominator-free equation"
+        )
+    if grouping_method(parent_html) and domain is None and not compiled.poles:
+        branches = tuple(replace(b, grouping=True) for b in branches)
+    return compiled, reduced, branches, preferred

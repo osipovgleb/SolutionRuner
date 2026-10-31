@@ -26,6 +26,7 @@ def parent_style(parent_html):
         if len(images) == 1 and ("числовой оси" in text or "числовой прямой" in text)
         else "inequalities"
         if "решим неравенства" in text
+        or "решим эти неравенства" in text
         or "решив неравенство" in text
         or "двойного неравенства" in text
         or "двойных неравенств" in text

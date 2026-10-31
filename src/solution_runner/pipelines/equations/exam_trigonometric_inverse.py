@@ -12,6 +12,9 @@ def compare_q(a, b):
     difference = sp.expand(sp.simplify(a - b))
     if difference.is_Rational:
         return 1 if difference > 0 else -1 if difference < 0 else 0
+    scalar = sp.cancel(difference * sp.pi)
+    if scalar.is_Rational:
+        return 1 if scalar > 0 else -1 if scalar < 0 else 0
     tangents = list(difference.atoms(sp.atan))
     if tangents:
         return compare_tangents(difference, tangents)

@@ -58,6 +58,11 @@ def finish(a):
     from .exam_trigonometric_affine_selection import combine
     from .exam_trigonometric_inverse import centred
 
+    if sp.cancel(a.scale / sp.pi).is_Rational is True:
+        from .exam_trigonometric_pi_scale import finish as finish_pi
+
+        return finish_pi(a)
+
     series = tuple((q / a.scale - a.translation, p / a.scale) for q, p in a.series)
     if a.shifted_notation:
         series = tuple(s for item in series for s in centred((item,)))
@@ -93,3 +98,35 @@ def canonical(series):
             "multiple methods require reviewed rational-pi series"
         )
     return select(series, (sp.Integer(0), sp.Integer(2), True, False))[0]
+
+
+def root_series(branches, residues, domain, allow_inverse):
+    from functools import cmp_to_key
+
+    from .exam_scalar import compare
+    from .exam_trigonometric_compile import C
+    from .exam_trigonometric_inverse import level_series
+
+    if domain is not None:
+        series = tuple(s for branch in branches for s in periodic(branch.residues))
+    elif (
+        all(q.is_Rational for q in residues)
+        and len(branches) == 1
+        and all(
+            power[0] % 2 == 0
+            for power in sp.Poly(branches[0].polynomial, branches[0].variable).monoms()
+        )
+    ):
+        series = periodic(residues)
+    else:
+        series = tuple(
+            dict.fromkeys(
+                (q - b.angle_shift, period)
+                for b in branches
+                for v in sorted(
+                    b.values, key=cmp_to_key(compare), reverse=(b.variable == C)
+                )
+                for q, period in level_series(b.variable, v, allow_inverse)
+            )
+        )
+    return series
