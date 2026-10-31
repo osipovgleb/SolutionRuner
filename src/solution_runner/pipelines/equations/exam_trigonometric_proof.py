@@ -169,7 +169,11 @@ def candidate_lines(
     return html
 
 
-def first(a):
+def method_proof(a):
+    if any(b.impossible for b in a.branches):
+        from .exam_trigonometric_combination import proof
+
+        return proof(a)
     if a.absolute is not None:
         from .exam_trigonometric_absolute import proof
 
@@ -202,12 +206,19 @@ def first(a):
         from .exam_trigonometric_variants import proof
 
         return proof(a)
-    intro = "<p>Преобразуем уравнение с помощью формул приведения и двойного угла:</p>"
-    html = ""
     if a.preferred == U:
         from .exam_trigonometric_ratios import cotangent_proof
 
         return cotangent_proof(a)
+    return None
+
+
+def first(a):
+    selected = method_proof(a)
+    if selected is not None:
+        return selected
+    intro = "<p>Преобразуем уравнение с помощью формул приведения и двойного угла:</p>"
+    html = ""
     if a.substitution:
         intro = (
             "<p>Сделаем замену переменной и решим полученное квадратное уравнение:</p>"

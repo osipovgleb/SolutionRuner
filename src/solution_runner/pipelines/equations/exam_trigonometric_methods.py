@@ -59,7 +59,7 @@ class ExamAngleParser(SymbolicTrigonometricParser):
             or coefficient.q > 4
             or shift.is_Rational is not True
             or (12 * shift).is_Integer is not True
-            or abs(shift) > 1000
+            or abs(shift) > 10000
         ):
             raise UnsupportedCondition(
                 "bounded rational angle multiples and reviewed twelfth-pi shifts are required"

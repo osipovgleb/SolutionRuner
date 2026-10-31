@@ -30,6 +30,7 @@ class Branch:
     residues: tuple
     original: sp.Expr | None = None
     excluded: tuple = ()
+    impossible: bool = False
 
 
 @dataclass(frozen=True)
@@ -88,6 +89,10 @@ def solve_branches(raw, preferred, allow_inverse=False):
 
     if raw.has(T, U):
         return ratio_branch(raw, U if raw.has(U) else T)
+    if preferred in (T, U):
+        from .exam_trigonometric_combination import branches
+
+        return branches(raw)
     other = S if preferred == C else C
     reduced = sp.expand(sp.rem(raw, S * S + C * C - 1, other))
     if not reduced.has(other):
@@ -108,9 +113,9 @@ def solve_branches(raw, preferred, allow_inverse=False):
             if mixed is not None:
                 branches.append(mixed)
                 continue
-            raise UnsupportedCondition(
-                "each factor must reduce to one sine or cosine without division"
-            )
+            from .exam_trigonometric_combination import branches as combination_branches
+
+            return combination_branches(raw)
         variable = variables.pop()
         p = primitive(expression, (variable,))
         values = roots(p.subs(variable, X))
