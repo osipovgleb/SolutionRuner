@@ -3900,3 +3900,28 @@ PROFILES += tuple(
         ),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Показательные уравнения",
+        theme_order_index=0,
+        snapshot_theme_id="a55db974-0491-4d22-b9c0-b9da72748cb1",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-exponential-quadratic-interval",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("502094", "508b774c-5cc8-4fd3-8c8a-9643a32cfdc5", 0),
+        ("516760", "a0f73691-5be8-43c8-b1d8-dcd5a0b16172", 1),
+        ("528517", "35edc567-3c07-4426-910d-514aafbe8366", 6),
+        ("552108", "88afa490-c812-4c3d-9783-95ffa9105617", 7),
+    )
+)

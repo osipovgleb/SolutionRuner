@@ -1,0 +1,478 @@
+{
+  "groups": [
+    {
+      "key": "502094",
+      "uuid": "508b774c-5cc8-4fd3-8c8a-9643a32cfdc5",
+      "theme_uuid": "a55db974-0491-4d22-b9c0-b9da72748cb1",
+      "theme_title": "Показательные уравнения",
+      "theme_order": 0,
+      "order": 0
+    },
+    {
+      "key": "516760",
+      "uuid": "a0f73691-5be8-43c8-b1d8-dcd5a0b16172",
+      "theme_uuid": "a55db974-0491-4d22-b9c0-b9da72748cb1",
+      "theme_title": "Показательные уравнения",
+      "theme_order": 0,
+      "order": 1
+    },
+    {
+      "key": "528517",
+      "uuid": "35edc567-3c07-4426-910d-514aafbe8366",
+      "theme_uuid": "a55db974-0491-4d22-b9c0-b9da72748cb1",
+      "theme_title": "Показательные уравнения",
+      "theme_order": 0,
+      "order": 6
+    },
+    {
+      "key": "552108",
+      "uuid": "88afa490-c812-4c3d-9783-95ffa9105617",
+      "theme_uuid": "a55db974-0491-4d22-b9c0-b9da72748cb1",
+      "theme_title": "Показательные уравнения",
+      "theme_order": 0,
+      "order": 7
+    }
+  ],
+  "cases": [
+    {
+      "group": "502094",
+      "task": "502094",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"9^{x-\\frac{1}{2}}-8\\cdot 3^{x-1}+5=0\"></span>.  </li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие про­ме­жут­ку  <span data-inline-latex=\"(1;\\frac{7}{3})\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а) <span data-inline-latex=\"1,\\,\\log_3 5\"></span>; б)  <span data-inline-latex=\"\\log_3 5\"></span>. </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=2528308\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 19.06.2013. Основная волна, резервный день. Центр. Вариант 502</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=18945798\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 13 (С1) ЕГЭ 2013</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что <span data-inline-latex=\"9^{(x-\\frac{1}{2})}=9^{(x-1+\\frac{1}{2})}=9^{\\frac{1}{2}}\\cdot 9^{(x-1)}=3\\cdot 9^{(x-1)}\"></span> ,  пре­об­ра­зу­ем ис­ход­ное урав­не­ние: <center><p><span data-inline-latex=\"9^{x-\\frac{1}{2}}-8\\cdot 3^{x-1}+5=0\\iff 3\\cdot 9^{x-1}-8\\cdot 3^{x-1}+5=0\"></span>. </p></center><p>Пусть  <span data-inline-latex=\"t=3^{x-1}\"></span> , тогда урав­не­ние за­пи­шет­ся в виде <span data-inline-latex=\"3t^{2}-8t+5=0\"></span>, от­ку­да <span data-inline-latex=\"t=1\"></span>   или   <span data-inline-latex=\"t=\\frac{5}{3}\"></span> . </p><p>При <span data-inline-latex=\"t=1\"></span>  по­лу­чим <span data-inline-latex=\"3^{x-1}=1\"></span>, от­ку­да <span data-inline-latex=\"x=1\"></span>.</p><p>При  <span data-inline-latex=\"t=\\frac{5}{3}\"></span>  по­лу­чим <span data-inline-latex=\"3^{x-1}=\\frac{5}{3}\"></span> ,  от­ку­да <span data-inline-latex=\"x=\\log_3 5\"></span>.</p></li><li data-list-marker=\"б)\">Ко­рень <span data-inline-latex=\"x=1\"></span> не при­над­ле­жит про­ме­жут­ку  <span data-inline-latex=\"(1;\\frac{7}{3})\"></span> .  По­сколь­ку <span data-inline-latex=\"1\\lt \\log_3 5\"></span> и  <span data-inline-latex=\"\\log_3 5\\lt \\log_3 9=2\\lt \\frac{7}{3}\"></span> ,  ко­рень <span data-inline-latex=\"x=\\log_3 5\"></span>  при­над­ле­жит про­ме­жут­ку  <span data-inline-latex=\"(1;\\frac{7}{3})\"></span> . </li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "502094",
+      "task": "511374",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"4^{x-\\frac{1}{2}}-6\\cdot 2^{x-1}+3=0\"></span>.  </li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие про­ме­жут­ку  <span data-inline-latex=\"(0;2)\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а) <span data-inline-latex=\"x=\\log_2 (3\\pm \\sqrt{3})\"></span> , б)  <span data-inline-latex=\"\\log_2 (3-\\sqrt{3})\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пре­об­ра­зу­ем ис­ход­ное урав­не­ние, по­лу­чим: <span data-inline-latex=\"4^{x}-6\\cdot 2^{x}+6=0\"></span>. Пусть  <span data-inline-latex=\"t=2^{x}\"></span> , тогда урав­не­ние за­пи­шет­ся в виде <span data-inline-latex=\"t^{2}-6t+6=0\"></span>, от­ку­да  <span data-inline-latex=\"t=3\\pm \\sqrt{3}\"></span> . Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, имеем: <span data-inline-latex=\"2^{x}=3\\pm \\sqrt{3}\"></span> , от­ку­да <span data-inline-latex=\"x=\\log_2 (3\\pm \\sqrt{3})\"></span> .</li><li data-list-marker=\"б)\">Ко­рень <span data-inline-latex=\"x=\\log_2 (3+\\sqrt{3})\"></span>  не при­над­ле­жит про­ме­жут­ку  <span data-inline-latex=\"(0;2)\"></span> , по­сколь­ку <span data-inline-latex=\"2^{2}\\lt 3+\\sqrt{3}\"></span> , ко­рень <span data-inline-latex=\"x=\\log_2 (3-\\sqrt{3})\"></span>  при­над­ле­жит про­ме­жут­ку  <span data-inline-latex=\"(0;2)\"></span> .</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "502094",
+      "task": "511382",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"4^{x+1}-5\\cdot 2^{x}-3=0\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие про­ме­жут­ку  <span data-inline-latex=\"(0,\\sqrt{5})\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а) <span data-inline-latex=\"x=\\log_2 \\frac{5+\\sqrt{73}}{8}\"></span> ;  б)  <span data-inline-latex=\"\\log_2 \\frac{5+\\sqrt{73}}{8}\"></span> </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пре­об­ра­зу­ем ис­ход­ное урав­не­ние: <span data-inline-latex=\"4\\cdot 4^{x}-5\\cdot 2^{x}-3=0\"></span>.<p>Пусть <span data-inline-latex=\"t=2^{x},\\quad t\\gt 0\"></span>, тогда урав­не­ние за­пи­шет­ся в виде <span data-inline-latex=\"4t^{2}-5t-3=0\"></span> от­ку­да <span data-inline-latex=\"t=\\frac{5\\pm \\sqrt{73}}{8}\"></span> . </p><p>При <span data-inline-latex=\"t=\\frac{5+\\sqrt{73}}{8}\"></span>  по­лу­чим <span data-inline-latex=\"2^{x}=\\frac{5+\\sqrt{73}}{8}\"></span> ,  от­ку­да <span data-inline-latex=\"x=\\log_2 \\frac{5+\\sqrt{73}}{8}\"></span> . </p><p>При <span data-inline-latex=\"t=\\frac{5-\\sqrt{73}}{8}\\lt 0\"></span>   нет ре­ше­ний. </p></li><li data-list-marker=\"б)\">За­ме­тим, что <span><span data-inline-latex=\"8&lt;\\sqrt{73}&lt;9\\Leftrightarrow\\frac{13}{8}&lt;\\frac{5+\\sqrt{73}}{8}&lt;\\frac{14}{8}\\Leftrightarrow\\log_2\\frac{13}{8}&lt;\\log_2\\frac{5+\\sqrt{73}}{8}&lt;\\log_2\\frac{14}{8}.\"></span></span><p>Это озна­ча­ет, что  <span data-inline-latex=\"\\log_2 \\frac{5+\\sqrt{73}}{8}\\in (0;1)\"></span> .  По­сколь­ку  <span data-inline-latex=\"\\sqrt{5}\\gt 1\"></span> най­ден­ное ре­ше­ние лежит в ин­тер­ва­ле  <span data-inline-latex=\"(0;\\sqrt{5})\"></span> .</p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "502094",
+      "task": "502074",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"4^{x-\\frac{1}{2}}-5\\cdot 2^{x-1}+3=0\"></span>.  </li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие про­ме­жут­ку  <span data-inline-latex=\"(1,\\frac{5}{3})\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а) <span data-inline-latex=\"1,\\,\\log_2 3\"></span>; б)  <span data-inline-latex=\"\\log_2 3\"></span>.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=2526477\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 19.06.2013. Основная волна, резервный день. Центр. Вариант 501</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=18945798\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 13 (С1) ЕГЭ 2013</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пре­об­ра­зу­ем ис­ход­ное урав­не­ние: <span data-inline-latex=\"4^{x-\\frac{1}{2}}-5\\cdot 2^{x-1}+3=0\"></span>. <center><p><span data-inline-latex=\"2\\cdot 4^{x-1}-5\\cdot 2^{x-1}+3=0\"></span>. </p></center><p>Пусть <span data-inline-latex=\"t=2^{x-1}\"></span> , тогда урав­не­ние за­пи­шет­ся в виде <span data-inline-latex=\"2t^{2}-5t+3=0\"></span>, от­ку­да <span data-inline-latex=\"t=1\"></span> или <span data-inline-latex=\"t=\\frac{3}{2}\"></span> . </p><p>При <span data-inline-latex=\"t=1\"></span> по­лу­чим: <span data-inline-latex=\"2^{x-1}=1\"></span>, от­ку­да <span data-inline-latex=\"x=1\"></span>. </p><p>При <span data-inline-latex=\"t=\\frac{3}{2}\"></span>  по­лу­чим: <span data-inline-latex=\"2^{x-1}=\\frac{3}{2}\"></span> ,  от­ку­да <span data-inline-latex=\"x=\\log_2 3\"></span>. </p></li><li data-list-marker=\"б)\">Ко­рень <span data-inline-latex=\"x=1\"></span> не при­над­ле­жит про­ме­жут­ку  <span data-inline-latex=\"(1,\\frac{5}{3})\"></span> .  По­сколь­ку <span data-inline-latex=\"1\\lt \\log_2 3\"></span> и <span data-inline-latex=\"3\\log_2 3=\\log_2 27\\lt \\log_2 32=5\"></span>, ко­рень <span data-inline-latex=\"x=\\log_2 3\"></span> при­над­ле­жит про­ме­жут­ку  <span data-inline-latex=\"(1,\\frac{5}{3})\"></span> .  </li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "516760",
+      "task": "516760",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние: <span data-inline-latex=\"4^{x}-2^{x+3}+15=0\"></span>.</li><li data-list-marker=\"б)\">Опре­де­ли­те, какие из его кор­ней при­над­ле­жат от­рез­ку  <span data-inline-latex=\"[2;\\sqrt{10}]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\log_2 3;\\log_2 5\\}\"></span> ; б) <span data-inline-latex=\"\\log_2 5\"></span>.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=13779930\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ Санкт-Петербург, 11.04.2017. Вариант 1</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=13773105\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ Санкт-Петербург, 11.04.2017. Вариант 1. (Часть 2)</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <span data-inline-latex=\"t=2^{x}\"></span> , тогда ис­ход­ное урав­не­ние при­ни­ма­ет вид <span data-inline-latex=\"t^{2}-8t+15=0\"></span>, от­ку­да <span data-inline-latex=\"t=3\"></span> или <span data-inline-latex=\"t=5\"></span>. Сле­до­ва­тель­но,<center><p><span data-inline-latex=\"2^{2x}-8\\cdot 2^{x}+15=0\\iff \\left[\\begin{aligned}2^{x}=3\\\\2^{x}=5\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\log_2 3\\\\x=\\log_2 5\\end{aligned}\\right.\"></span> .</p></center></li><li data-list-marker=\"б)\">По­сколь­ку <span data-inline-latex=\"\\log_2 3\\lt \\log_2 4=2\"></span>, ко­рень <span data-inline-latex=\"\\log_2 3\"></span> не при­над­ле­жит от­рез­ку  <span data-inline-latex=\"[2;\\sqrt{10}]\"></span> . По­сколь­ку <span data-inline-latex=\"2=\\log_2 4\\lt \\log_2 5\\lt \\log_2 8=3\\lt \\sqrt{10}\"></span> , ко­рень <span data-inline-latex=\"\\log_2 5\"></span> при­над­ле­жит от­рез­ку <span data-inline-latex=\"[2;\\sqrt{10}]\"></span> .</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "516760",
+      "task": "516779",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние: <span data-inline-latex=\"9^{x}-3^{x+2}+14=0\"></span>. </li><li data-list-marker=\"б)\">Опре­де­ли­те, какие из его кор­ней при­над­ле­жат от­рез­ку  <span data-inline-latex=\"[1;\\sqrt{5}]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\log_3 2;\\log_3 7\\}\"></span> , б) <span data-inline-latex=\"\\log_3 7\"></span>.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=13780028\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ Санкт-Петербург, 11.04.2017. Вариант 2</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=13774613\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ Санкт-Петербург, 11.04.2017. Вариант 2. (Часть 2)</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <span data-inline-latex=\"t=3^{x}\"></span> , тогда ис­ход­ное урав­не­ние при­ни­ма­ет вид <span data-inline-latex=\"t^{2}-9t+14=0\"></span>, от­ку­да <span data-inline-latex=\"t=2\"></span> или <span data-inline-latex=\"t=7\"></span>. Сле­до­ва­тель­но,<center><p><span data-inline-latex=\"9^{x}-9\\cdot 3^{x}+14=0\\iff \\left[\\begin{aligned}3^{x}=2\\\\3^{x}=7\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\log_3 2\\\\x=\\log_3 7\\end{aligned}\\right.\"></span> .</p></center></li><li data-list-marker=\"б)\">По­сколь­ку <span data-inline-latex=\"\\log_3 2\\lt \\log_3 3=1\"></span>, ко­рень <span data-inline-latex=\"\\log_3 2\"></span> не при­над­ле­жит от­рез­ку  <span data-inline-latex=\"[1;\\sqrt{5}]\"></span> . По­сколь­ку <span data-inline-latex=\"1=\\log_3 3\\lt \\log_3 7\\lt \\log_3 9=2\\lt \\sqrt{5}\"></span> , ко­рень <span data-inline-latex=\"\\log_3 7\"></span> при­над­ле­жит от­рез­ку  <span data-inline-latex=\"[1;\\sqrt{5}]\"></span> .</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "528517",
+      "task": "528517",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"4^{x^{2}-1}-24\\cdot 2^{x^{2}-3}+8=0\"></span>.</li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{5}{3};2]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-\\sqrt{3},-\\sqrt{2},\\sqrt{2},\\sqrt{3}\\}\"></span> ; б)  <span data-inline-latex=\"-\\sqrt{2},\\,\\sqrt{2},\\,\\sqrt{3}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=25614460\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 286</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"a)\">Сде­ла­ем за­ме­ну пе­ре­мен­ной: <span data-inline-latex=\"t=2^{x^{2}-3}\"></span> , тогда <span data-inline-latex=\"t^{2}=(2^{x^{2}-3})^{2}=4^{x^{2}-3}=\\frac{4^{x^{2}-1}}{4^{2}}=\\frac{4^{x^{2}-1}}{16}\"></span> ,  и<center><p><span data-inline-latex=\"16t^{2}-24t+8=0\\iff 2t^{2}-3t+1\\iff \\left[\\begin{aligned}t=1\\\\t=\\frac{1}{2}\\end{aligned}\\right.\"></span> . </p></center><p>Вернёмся к ис­ход­ной пе­ре­мен­ной:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}2^{x^{2}-3}=1\\\\2^{x^{2}-3}=\\frac{1}{2}\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x^{2}-3=0\\\\x^{2}-3=-1\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\pm \\sqrt{3}\\\\x=\\pm \\sqrt{2}\\end{aligned}\\right.\"></span> .</p></center></li><li data-list-marker=\"б)\">За­ме­тим, что  <span data-inline-latex=\"\\sqrt{2}\\lt \\sqrt{3}\\lt 2\"></span>, при этом  <span data-inline-latex=\"-\\sqrt{3}\\lt -\\frac{5}{3}\\lt -\\sqrt{2}\"></span> .  По­это­му в за­дан­ном от­рез­ке лежат корни <span data-inline-latex=\"\\pm \\sqrt{2},\\,\\sqrt{3}\"></span> .</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "552108",
+      "task": "552108",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"24\\cdot 4^{x-0{,}5}-11\\cdot 2^{x+1}+6=0\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те корни этого урав­не­ния, при­над­ле­жа­щие про­ме­жут­ку [−1; 1].</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"-\\log_2 3\"></span>,  <span data-inline-latex=\"\\log_2 1{,}5\"></span>; б)  <span data-inline-latex=\"\\log_2 1{,}5\"></span>.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пре­об­ра­зу­ем урав­не­ние:<center><p><span><span data-inline-latex=\"24\\cdot 4^{x-0{,}5}-11\\cdot 2^{x+1}+6=0\\iff 12\\cdot 4^{x}-22\\cdot 2^{x}+6\\iff 6\\cdot 4^{x}-11\\cdot 2^{x}+3=0\"></span>.</span></p></center><p>Пусть <span data-inline-latex=\"2^{x}=t\"></span>. Тогда:</p><center><p><span data-inline-latex=\"6t^{2}-11t+3=0\\iff \\left[\\begin{aligned}t=\\frac{1}{3}\\\\t=\\frac{3}{2}\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной, по­лу­чим <span data-inline-latex=\"2^{x}=\\frac{1}{3}\"></span>  или <span data-inline-latex=\"2^{x}=\\frac{3}{2}\"></span> , сле­до­ва­тель­но, <span data-inline-latex=\"x=-\\log_2 3\"></span> или <span data-inline-latex=\"x=\\log_2 1{,}5\"></span>.</p></li><li data-list-marker=\"б)\">По­сколь­ку <span data-inline-latex=\"x=-\\log_2 3\\lt -1\"></span>, а <span data-inline-latex=\"x=\\log_2 1{,}5\\lt 1\"></span>, от­рез­ку [− 1; 1] при­над­ле­жит толь­ко ко­рень <span data-inline-latex=\"x=\\log_2 1{,}5\"></span>.</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
