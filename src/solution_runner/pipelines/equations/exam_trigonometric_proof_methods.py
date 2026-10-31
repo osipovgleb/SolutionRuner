@@ -90,6 +90,10 @@ def method_proof(a):
         from .exam_trigonometric_domain import proof
 
         return proof(a)
+    if a.reciprocal is not None:
+        from .exam_trigonometric_variants import reciprocal
+
+        return reciprocal(a)
     if a.preferred == T:
         if any(b.variable != T for b in a.branches):
             from .exam_trigonometric_ratio_grouping import proof

@@ -33,6 +33,7 @@ from .exam_trigonometric_selection import (
 from .exam_trigonometric_square_difference import reviewed as difference_method
 from .exam_trigonometric_square_factor import reviewed as square_method
 from .exam_trigonometric_style import (
+    circle_note,
     grouping_method,
     homogeneous_method,
     parent_style,
@@ -128,6 +129,7 @@ class Analysis:
     selection_note: bool = False
     single_part: bool = False
     sine_inverse: bool = False
+    circle_note: bool = False
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -345,6 +347,7 @@ def analyze_method(
             shifted_notation=shifted_notation,
             selection_note=selection_note(parent_html),
             sine_inverse=r"\arcsin" in parent_html,
+            circle_note=circle_note(parent_html),
             **analysis_fields(compiled),
         )
     )

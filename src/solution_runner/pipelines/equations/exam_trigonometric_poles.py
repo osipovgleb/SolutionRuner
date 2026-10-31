@@ -11,7 +11,7 @@ from .trig_angles import C as NUMERIC_C
 from .trig_angles import S as NUMERIC_S
 
 
-def compile_quotients(values, atoms, denominators):
+def compile_quotients(values, atoms, denominators, *, preferred=None):
     from .exam_trigonometric_methods import Equation, shifted_atom
 
     compiled = {}
@@ -75,6 +75,15 @@ def compile_quotients(values, atoms, denominators):
         cleared, source = denominator, raw
         if sp.Poly(denominator, S, C).total_degree() == 1:
             raw = sp.expand(sp.rem(raw, S * S + C * C - 1, S if S in poles else C))
+        elif preferred in (S, C):
+            reduced = sp.expand(
+                sp.rem(raw, S * S + C * C - 1, S if preferred == C else C)
+            )
+            if (
+                reduced.free_symbols == {preferred}
+                and sp.degree(reduced, preferred) <= 2
+            ):
+                raw = reduced
     identities = tuple(
         dict.fromkeys(
             (a.text.replace(r"\alpha", "x"), compiled[s]) for s, a in atoms.items()

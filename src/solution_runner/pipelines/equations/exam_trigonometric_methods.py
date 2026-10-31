@@ -134,6 +134,9 @@ def shifted_atom(atom):
 
 
 def parse_equation(formula):
+    formula = re.sub(
+        r"(?<![A-Za-z\\])(ctg|tg)(?=\s*x(?![A-Za-z]))", lambda m: "\\" + m[1], formula
+    )
     text = clean(formula).removesuffix(".")
     if text.count("=") != 1:
         raise UnsupportedCondition("one complete equation is required")
@@ -211,7 +214,7 @@ def compile_reviewed(
         from .exam_trigonometric_rational import compile_fraction
 
         return compile_fraction(
-            values, compiled, original_poles, scale, constants + identities
+            values, compiled, original_poles, scale * unit, constants + identities
         )
     raw, denominator = sp.fraction(expression)
     if not original_poles and not denominator.free_symbols:

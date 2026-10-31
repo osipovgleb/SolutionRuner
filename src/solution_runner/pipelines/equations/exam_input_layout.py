@@ -20,7 +20,7 @@ def paragraphs(soup):
         first = node.contents[0] if node.contents else None
         if not isinstance(first, NavigableString):
             return
-        match = re.match(r"\s*" + marker + r"\s+", str(first))
+        match = re.match(r"\s*" + marker + r"\s*", str(first))
         if not match:
             return
         matches.append(match.end())

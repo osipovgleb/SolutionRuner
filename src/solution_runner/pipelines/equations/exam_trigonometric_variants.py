@@ -5,7 +5,7 @@ import sympy as sp
 from ..probability.common import line
 from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
-from .exam_trigonometric_compile import C, S
+from .exam_trigonometric_compile import C, S, T, U
 
 
 def argument(scale):
@@ -134,12 +134,16 @@ def reciprocal(a):
     variable = a.branches[0].variable
     t = sp.Symbol("t", real=True)
     name = a.substitution or "t"
+    angle = argument(a.scale)
     html = "<p>Знаменатели исходного уравнения не должны обращаться в нуль:</p>"
-    html += line(formula(variable) + r"\ne0")
+    if variable in (T, U):
+        for pole in a.poles:
+            html += line(formula(pole, angle) + r"\ne0")
+    html += line(formula(variable, angle) + r"\ne0")
     for text, value in a.identities:
-        html += line(text + "=" + formula(value))
+        html += line(text + "=" + formula(value, angle))
     html += "<p>Введём обозначение:</p>" + line(
-        name + "=" + formula(1 / variable) + r",\quad " + name + r"\ne0"
+        name + "=" + formula(1 / variable, angle) + r",\quad " + name + r"\ne0"
     )
     html += line(sp.latex(a.reciprocal, symbol_names={t: name}) + "=0")
     A, B, C0 = sp.Poly(a.reciprocal, t).all_coeffs()
@@ -151,12 +155,22 @@ def reciprocal(a):
             continue
         back = sp.simplify(1 / value)
         html += "<p>Вернёмся к исходной переменной:</p>" + line(
-            formula(variable) + "=" + sp.latex(back)
+            formula(variable, angle) + "=" + sp.latex(back)
         )
         if back not in a.branches[0].values:
-            html += "<p>Это значение не входит в отрезок от −1 до 1, поэтому корней нет.</p>"
+            html += (
+                "<p>Это значение нарушает исходную область определения.</p>"
+                if variable in (T, U)
+                else "<p>Это значение не входит в отрезок от −1 до 1, поэтому корней нет.</p>"
+            )
         else:
-            for text in series_lines(level_series(variable, back)):
+            for text in series_lines(
+                tuple(
+                    (q / a.scale, p / a.scale)
+                    for q, p in level_series(variable, back, a.allow_inverse)
+                ),
+                sine_inverse=a.sine_inverse,
+            ):
                 html += line(text + r",\quad k\in\mathbb Z")
     return (
         "<p>Сведём уравнение к квадратному заменой обратной тригонометрической функции:</p>",

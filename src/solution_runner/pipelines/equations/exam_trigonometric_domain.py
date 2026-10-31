@@ -161,6 +161,11 @@ def without_poles(branches, poles):
         return branches
     result = []
     for branch in branches:
+        multiplier = sp.sympify(branch.angle_scale)
+        if multiplier.is_Integer is not True or not 1 <= multiplier <= 12:
+            raise UnsupportedCondition(
+                "pole filtering requires a bounded positive integer branch angle"
+            )
         residues = tuple(
             q
             for q in branch.residues
@@ -173,8 +178,11 @@ def without_poles(branches, poles):
             v
             for v in branch.values
             if any(
-                ((q - branch.angle_shift) % 2 if branch.angle_shift else q) in residues
+                (((q - branch.angle_shift) % 2 if branch.angle_shift else q) + 2 * k)
+                / branch.angle_scale
+                in residues
                 for q in angles(branch.variable, v, True)
+                for k in range(int(branch.angle_scale))
             )
         )
         excluded = tuple(v for v in branch.values if v not in values)

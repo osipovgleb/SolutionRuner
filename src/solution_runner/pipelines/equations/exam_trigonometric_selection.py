@@ -284,7 +284,9 @@ def method_series(
         series = periodic(residues)
     else:
         filtered = domain is not None or (
-            compiled.poles and compiled.reciprocal is None and preferred not in (T, U)
+            compiled.poles
+            and compiled.reciprocal is None
+            and (preferred not in (T, U) or compiled.angle_product is not None)
         )
         series = root_series(
             branches, residues, filtered if filtered else None, allow_inverse

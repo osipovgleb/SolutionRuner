@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 import sympy as sp
 from bs4 import BeautifulSoup
-from sympy.simplify.fu import TR9
+from sympy.simplify.fu import TR8, TR9
 
 from ..probability.common import line
 from ..word_problems.common import UnsupportedCondition
@@ -105,6 +105,8 @@ def compile_product(formula):
     values, atoms, denominators, constants = constant_angles(
         values, atoms, denominators
     )
+    if any(a.function in ("tg", "ctg") for a in atoms.values()):
+        return compile_ratio_factor(values, atoms, denominators, constants)
     if (
         denominators
         or not atoms
@@ -150,6 +152,36 @@ def compile_product(formula):
     )
 
 
+def compile_ratio_factor(values, atoms, denominators, constants):
+    from dataclasses import replace
+
+    from .exam_trigonometric_poles import compile_quotients
+
+    equation = compile_quotients(values, atoms, denominators)
+    numerator = (
+        equation.factored_source
+        if equation.factored_source is not None
+        else equation.raw
+    )
+    raw = numerator.xreplace({S: sp.sin(X), C: sp.cos(X)})
+    factored = sp.Mul(*(TR8(factor) for factor in sp.Mul.make_args(sp.factor(raw))))
+    factors = factor_angles(factored)
+    if factors is None or sp.trigsimp(sp.expand_trig(raw - factored)) != 0:
+        raise UnsupportedCondition(
+            "the cleared ratio must give two exact affine angle factors"
+        )
+    identities = constants + tuple(
+        (left, right.xreplace({S: sp.sin(X), C: sp.cos(X)}))
+        for left, right in equation.identities
+    )
+    identities += ((sp.sin(X) * sp.cos(X), sp.sin(2 * X) / 2),)
+    return replace(
+        equation,
+        raw=raw,
+        angle_product=AngleProduct(factored, factors, identities, raw, False),
+    )
+
+
 def sum_products(expression):
     yield TR9(expression)
     terms = sp.Add.make_args(expression)
@@ -184,13 +216,24 @@ def branches(product):
 
 
 def proof(a):
-    from .exam_trigonometric_proof import polynomial
+    from .exam_trigonometric_proof import families, formula, pi, polynomial
     from .exam_trigonometric_variants import argument
 
     data = a.angle_product
-    html = line(a.original)
+    html = ""
+    if a.poles:
+        html += (
+            "<p>Сохраним исходную область определения до умножения на знаменатель:</p>"
+        )
+        for pole in a.poles:
+            html += line(formula(pole) + r"\ne0")
+    html += line(a.original)
     if data.identities:
-        html += "<p>Применим формулы приведения и понижения степени:</p>"
+        html += (
+            "<p>Используем определение тригонометрического отношения и формулу двойного угла:</p>"
+            if a.poles
+            else "<p>Применим формулы приведения и понижения степени:</p>"
+        )
         for left, right in data.identities:
             html += line(
                 (left if isinstance(left, str) else sp.latex(left))
@@ -208,12 +251,24 @@ def proof(a):
         html += "<p>Применим формулу приведения, затем формулу суммы " + name + ":</p>"
     else:
         html += "<p>Вынесем общий множитель:</p>"
+    if a.poles:
+        html += "<p>Умножаем только на ненулевой в исходной области определения знаменатель:</p>"
     html += line(sp.latex(data.reduced if data.identities else a.raw) + "=0")
     html += line(sp.latex(sp.expand(data.factored)) + "=0")
     html += line(sp.latex(data.factored) + "=0")
     html += "<p>Произведение равно нулю, когда хотя бы один множитель равен нулю. Решим каждое уравнение со своим углом:</p>"
-    for branch in a.branches:
+    nominal = branches(data) if a.poles else a.branches
+    for branch in nominal:
         html += polynomial(
             branch, angle=argument(branch.angle_scale), root_scale=branch.angle_scale
         )
+    if a.poles:
+        excluded = sorted({q for b in nominal for q in b.residues} - set(a.residues))
+        for q in excluded:
+            html += "<p>Эта серия нарушает исходную область определения:</p>" + line(
+                "x=" + pi(q) + r"+2\pi k"
+            )
+        html += "<p>После проверки исходных ограничений остаются серии:</p>"
+        for text in families(a):
+            html += line(text + r",\quad k\in\mathbb Z")
     return "<p>Разложим левую часть уравнения на множители:</p>", html

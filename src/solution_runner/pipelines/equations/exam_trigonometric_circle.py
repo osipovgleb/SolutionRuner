@@ -75,8 +75,10 @@ def read(context):
 
 def validate(entry, a):
     from .exam_trigonometric_domain import validate_circle_domain
+    from .exam_trigonometric_reciprocal_ratio import validate_axis
 
     validate_circle_domain(entry, a)
+    validate_axis(entry, a)
     if a.single_part:
         from .exam_trigonometric_single import validate_circle
 

@@ -21,11 +21,14 @@ def compile_fraction(values, compiled, poles, scale, identities):
         raise UnsupportedCondition(
             "the original poles must be bounded function polynomials"
         )
-    expression = sp.together(
+    expression = (
         (values[0] - values[1])
         .xreplace(compiled)
         .xreplace({NUMERIC_S: S, NUMERIC_C: C})
     )
+    expression, complements = complement_denominators(expression, scale)
+    identities += complements
+    expression = sp.together(expression)
     numerator, denominator = sp.fraction(expression)
     functions = numerator.free_symbols
     if (
@@ -42,6 +45,27 @@ def compile_fraction(values, compiled, poles, scale, identities):
     return Equation(sp.expand(numerator), identities, scale, poles, fraction=expression)
 
 
+def complement_denominators(expression, scale):
+    replacements = {}
+    identities = []
+    angle = sp.latex(scale * sp.Symbol("x", real=True))
+    for power in expression.atoms(sp.Pow):
+        if not power.exp.is_Integer or power.exp >= 0:
+            continue
+        for variable, other in ((C, S), (S, C)):
+            coefficient = sp.cancel(power.base / (1 - variable**2))
+            if coefficient and not coefficient.free_symbols:
+                replacement = coefficient * other**2
+                replacements[power.base] = replacement
+                text = sp.latex(
+                    power.base,
+                    symbol_names={S: r"\sin(" + angle + ")", C: r"\cos(" + angle + ")"},
+                )
+                identities.append((text, replacement))
+                break
+    return expression.xreplace(replacements), tuple(identities)
+
+
 def proof(a):
     from .exam_trigonometric_proof import formula, polynomial
 
@@ -51,6 +75,10 @@ def proof(a):
     if (
         len(a.fraction.free_symbols) > 1
         or sp.degree(branch.polynomial, branch.variable) == 1
+        or (
+            not a.substitution
+            and len(set().union(*(p.free_symbols for p in a.poles))) > 1
+        )
     ):
         return direct_proof(a, branch)
     name = a.substitution or "t"

@@ -213,6 +213,13 @@ def compile_ratio_method(values, atoms, denominators, preferred, constants):
         symbol: replace(atom, coefficient=atom.coefficient / scale)
         for symbol, atom in atoms.items()
     }
+    from .exam_trigonometric_reciprocal_ratio import compile_reciprocal
+
+    reciprocal = compile_reciprocal(values, atoms, denominators)
+    if reciprocal is not None:
+        return replace(
+            reciprocal, identities=constants + reciprocal.identities, scale=scale
+        )
     if (
         preferred == T
         and denominators
@@ -226,5 +233,5 @@ def compile_ratio_method(values, atoms, denominators, preferred, constants):
         )
     from .exam_trigonometric_poles import compile_quotients
 
-    equation = compile_quotients(values, atoms, denominators)
+    equation = compile_quotients(values, atoms, denominators, preferred=preferred)
     return replace(equation, identities=constants + equation.identities, scale=scale)

@@ -13,7 +13,9 @@ def parent_style(parent_html):
     text = " ".join(soup.get_text(" ", strip=True).replace("\xad", "").lower().split())
     images = soup.find_all("img")
     selection_method = (
-        "circle"
+        "inequalities"
+        if circle_note(soup)
+        else "circle"
         if "окружност" in text
         or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
         or (len(images) == 1 and "среди представленных корней отберём" in text)
@@ -97,6 +99,7 @@ def presentation(soup, selection_method, formulas):
     allowed_images = (
         (0, 1)
         if selection_method == "progressions"
+        or (selection_method == "inequalities" and circle_note(soup))
         else (1,)
         if selection_method in ("circle", "number_line")
         else (0,)
@@ -118,16 +121,34 @@ def presentation(soup, selection_method, formulas):
         )
     if paired:
         position = "selection"
+    if circle_note(soup) and images[0].find_parent("li") is not None:
+        position = "after-steps"
     substitutions = [
         m
         for f in formulas
         for m in re.findall(
-            r"(?:([ty])=(?:\\(?:sin|cos|tg|ctg)x|\\frac\{1\}\{\\(?:sin|cos)x\})|\\(?:sin|cos|tg|ctg)x=([ty]))",
+            r"(?:([ty])=(?:\\(?:sin|cos|tg|ctg)x|\\frac\{1\}\{\\(?:sin|cos|tg|ctg)x\})|\\(?:sin|cos|tg|ctg)x=([ty]))",
             f,
         )
     ]
     substitution = next((left or right for left, right in substitutions), None)
     return position, substitution
+
+
+def circle_note(parent_html):
+    soup = (
+        BeautifulSoup(parent_html, "html.parser")
+        if isinstance(parent_html, str)
+        else parent_html
+    )
+    text = " ".join(soup.get_text(" ", strip=True).replace("\xad", "").lower().split())
+    before, marker, after = text.partition("примечание")
+    return bool(
+        marker
+        and len(soup.find_all("img")) == 1
+        and re.search(r"двойн\w*\s+неравенств", before)
+        and "окружност" in after
+    )
 
 
 def division(parent_html):

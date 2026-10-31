@@ -160,6 +160,7 @@ def method_branches(
         result = angle_branches(compiled.angle_product)
         if domain is not None:
             result = restrict(result, domain, compiled.strict_domain)
+        result = without_poles(result, compiled.poles)
         return compiled, compiled.raw, result, preferred
     if not compiled.raw.has(T, U) and cotangent_method(parent_html):
         preferred = C if local_cotangent(parent_html) else U

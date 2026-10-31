@@ -399,6 +399,8 @@ def render(a, image):
             "<p><b>Примечание.</b> Пункт б) можно решить при помощи двойных неравенств.</p>"
             + inequality_selection(a)
         )
+    if a.circle_note:
+        second += "<p><b>Примечание.</b> Отобрать корни можно, используя тригонометрическую окружность (см. рис.).</p>"
     html = (
         (image if a.image_position == "outside" else "")
         + '<ol data-layout="source-subparts" type="a"><li data-list-marker="а)">'
