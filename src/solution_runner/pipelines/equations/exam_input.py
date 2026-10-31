@@ -8,8 +8,8 @@ from ..word_problems.common import UnsupportedCondition, section
 from .exam_input_layout import subparts
 from .power_arithmetic import ScalarParser
 
-FIRST = r"Решите уравнение:? ФОРМУЛА[.;]?"
-SECOND = r"(?:Найдите все его корни этого уравнения, принадлежащие отрезку|Найдите все его корни, принадлежащие отрезку|Найдите его корни на промежутке|Укажите корни, принадлежащие отрезку|Укажите корни уравнения, принадлежащие отрезку|Укажите корни этого уравнения, принадлежащее отрезку|Найдите(?: все)? корни уравнения, принадлежащие (?:отрезку|интервалу|промежутку)|Укажите все корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите решения уравнения, принадлежащие отрезку|Найдите его корни, принадлежащие отрезку|Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
+FIRST = r"(?:Решите уравнение:? ФОРМУЛА[.;]?|Дано уравнение ФОРМУЛА[.;]? Решите данное уравнение[.;]?)"
+SECOND = r"(?:Укажите корни данного уравнения, принадлежащие промежутку|Найдите все его корни этого уравнения, принадлежащие отрезку|Найдите все его корни, принадлежащие отрезку|Найдите его корни на промежутке|Укажите корни, принадлежащие отрезку|Укажите корни уравнения, принадлежащие отрезку|Укажите корни этого уравнения, принадлежащее отрезку|Найдите(?: все)? корни уравнения, принадлежащие (?:отрезку|интервалу|промежутку)|Укажите все корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите решения уравнения, принадлежащие отрезку|Найдите его корни, принадлежащие отрезку|Найдите(?: все)? корни этого уравнения, принадлежащие (?:промежутку|отрезку)|Найдите корни этого уравнения, принадлежащие промежутку|Укажите корни этого уравнения, принадлежащие (?:отрезку|промежутку)|Укажите корни этого уравнения, принадлежащего отрезку|Определите, какие из его корней принадлежат отрезку) ИНТЕРВАЛ\.?"
 
 
 def read_parts(context):
@@ -89,6 +89,8 @@ def read(context):
 
 
 def read_interval(second):
+    import sympy as sp
+
     for old, new in (
         (r"\left[", "["),
         (r"\right]", "]"),
@@ -106,7 +108,12 @@ def read_interval(second):
     lower, upper = (endpoint(v) for v in endpoint_texts(interval))
     from .exam_scalar import compare
 
-    ordering = compare(lower, upper)
+    if lower.has(sp.atan) or upper.has(sp.atan):
+        from .exam_trigonometric_inverse import compare_q
+
+        ordering = compare_q(lower / sp.pi, upper / sp.pi)
+    else:
+        ordering = compare(lower, upper)
     if ordering > 0 or (ordering == 0 and (interval[0] != "[" or interval[-1] != "]")):
         raise UnsupportedCondition("a nonempty ordered interval is required")
     return interval, (lower, upper, interval[0] == "[", interval[-1] == "]")
@@ -135,8 +142,12 @@ def endpoint_texts(interval):
 def endpoint(text):
     import sympy as sp
 
+    from .exam_inverse_bounds import endpoint as inverse_endpoint
     from .power_arithmetic import balanced, clean
 
+    inverse = inverse_endpoint(text)
+    if inverse is not None:
+        return inverse
     if text.strip().startswith(r"\sqrt{") and r"\log_" in text:
         normalized = clean(re.sub(r"\\log_([2-9])(?=\s)", r"\\log_{\1}", text))
         inner, end = balanced(normalized, 5)

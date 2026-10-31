@@ -66,9 +66,7 @@ def validate(entry, a):
     from .exam_trigonometric_inverse import decode
 
     expected = tuple(decode(q) for q in entry["residues"])
-    bounds = tuple(sp.Rational(q) for q in entry["bounds"][:2]) + tuple(
-        entry["bounds"][2:]
-    )
+    bounds = tuple(decode(q) for q in entry["bounds"][:2]) + tuple(entry["bounds"][2:])
     labels = tuple(decode(q) for q in entry["labels"])
     residues, actual_bounds, selected = a.residues, a.bounds, a.selected
     if a.scale != 1 or a.translation:
@@ -85,13 +83,12 @@ def validate(entry, a):
         selected = tuple(q * multiplier for q in a.selected)
     scope = entry.get("point_scope", "all")
     if scope == "selected":
-        from .exam_trigonometric_inverse import ordered
+        from .exam_inverse_bounds import validate as validate_bound
+        from .exam_trigonometric_inverse import ordered, turn
 
-        if any(q.is_Rational is not True for q in selected):
-            raise UnsupportedCondition(
-                "a selected-only circle needs reviewed rational angles"
-            )
-        residues = ordered(q % 2 for q in selected)
+        for root in selected:
+            validate_bound(root)
+        residues = ordered(turn(q) for q in selected)
     elif scope != "all":
         raise UnsupportedCondition("unknown circle point scope")
     if residues != expected or actual_bounds != bounds or selected != labels:

@@ -71,6 +71,12 @@ def compare_tangents(difference, angles):
             )
         if abs(constant) >= abs(coefficients[0]):
             return 1 if constant > 0 else -1
+    if (
+        len(angles) == 2
+        and abs(coefficients[0]) == abs(coefficients[1])
+        and (constant / abs(coefficients[0])).is_Integer is True
+    ):
+        return compare_pair(angles, coefficients, constant)
     if constant == 0:
         signs = [
             compare(a.args[0], sp.Integer(0)) * (1 if c > 0 else -1)
@@ -83,6 +89,26 @@ def compare_tangents(difference, angles):
     raise UnsupportedCondition(
         "the arctangent difference is outside the reviewed exact comparison"
     )
+
+
+def compare_pair(angles, coefficients, constant):
+    multiplier = abs(coefficients[0])
+    a, b = (
+        angle.args[0] * coefficient / multiplier
+        for angle, coefficient in zip(angles, coefficients)
+    )
+    numerator, denominator = sp.simplify(a + b), sp.simplify(1 - a * b)
+    direction = compare(numerator, sp.S.Zero)
+    quadrant = compare(denominator, sp.S.Zero)
+    if direction == 0:
+        return compare(constant, sp.S.Zero)
+    if quadrant == 0:
+        return compare(constant + multiplier * direction / 2, sp.S.Zero)
+    shift = direction if quadrant < 0 else 0
+    reduced = constant + multiplier * (
+        shift + sp.atan(sp.cancel(numerator / denominator)) / sp.pi
+    )
+    return compare_q(reduced, sp.S.Zero)
 
 
 def ordered(values):
@@ -148,6 +174,14 @@ def centred(series):
         for q, period in series
     )
     return tuple(sorted(result, key=cmp_to_key(lambda a, b: compare_q(a[0], b[0]))))
+
+
+def turn(value):
+    while compare_q(value, sp.S.Zero) < 0:
+        value += 2
+    while compare_q(value, sp.Integer(2)) >= 0:
+        value -= 2
+    return value
 
 
 def select_inverse(series, bounds):

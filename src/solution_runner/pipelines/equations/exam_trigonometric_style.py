@@ -25,6 +25,7 @@ def parent_style(parent_html):
         or "решив неравенство" in text
         or "двойного неравенства" in text
         or "двойных неравенств" in text
+        or "двойное неравенство" in text
         else "progressions"
         if "разность между соседними членами" in text
         else None
@@ -82,3 +83,14 @@ def division(parent_html):
         .lower()
     )
     return "разделим обе части уравнения на" in text
+
+
+def homogeneous_method(parent_html):
+    text = " ".join(
+        BeautifulSoup(parent_html, "html.parser")
+        .get_text(" ", strip=True)
+        .replace("\xad", "")
+        .lower()
+        .split()
+    )
+    return "однородн" in text or "относительно тангенса" in text

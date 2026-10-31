@@ -11,6 +11,7 @@ from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
 from .exam_trigonometric_compile import C, S, T, U, compile_equation, table
+from .exam_trigonometric_homogeneous import Reduction, convert
 from .exam_trigonometric_inverse import (
     angles,
     centred,
@@ -18,7 +19,7 @@ from .exam_trigonometric_inverse import (
     ordered,
     select_inverse,
 )
-from .exam_trigonometric_style import division, parent_style
+from .exam_trigonometric_style import division, homogeneous_method, parent_style
 
 
 @dataclass(frozen=True)
@@ -68,6 +69,7 @@ class Analysis:
     absolute: tuple | None = None
     division: bool = False
     shifted_notation: bool = False
+    homogeneous: Reduction | None = None
 
 
 def periodic(residues):
@@ -280,7 +282,6 @@ def analyze_method(
     from .exam_trigonometric_domain import restrict, without_poles
     from .exam_trigonometric_methods import (
         factorized,
-        merges_series,
         preference,
     )
 
@@ -289,8 +290,11 @@ def analyze_method(
     )
     if preferred_scale is None:
         _, preferred_scale = preference(parent_html)
+    if homogeneous_method(parent_html):
+        preferred, preferred_scale = T, sp.S.One
     allow_inverse = method == "inequalities" or r"\arccos" in parent_html
     compiled, domain = method_equation(formula, preferred, preferred_scale, translation)
+    compiled = convert(compiled, preferred)
     raw, identities = compiled.raw, compiled.identities
     reduced, branches = solve_branches(raw, preferred, allow_inverse)
     if domain is not None:
@@ -299,27 +303,14 @@ def analyze_method(
     if len(branches) == 1:
         preferred = branches[0].variable
     residues = ordered(q for b in branches for q in b.residues)
-    merged = (
-        method == "inequalities" and compiled.scale != 1 and merges_series(parent_html)
+    series, merged, dividing = method_series(
+        branches,
+        residues,
+        compiled,
+        domain,
+        parent_html,
+        (preferred, method),
     )
-    dividing = division(parent_html)
-    if compiled.absolute is not None:
-        from .exam_trigonometric_absolute import series as absolute_series
-
-        series = absolute_series(branches[0].values)
-    elif dividing:
-        from .exam_trigonometric_division import series as division_series
-
-        series = division_series(branches)
-    elif merged:
-        series = periodic(residues)
-    else:
-        filtered = domain is not None or (
-            compiled.poles and compiled.reciprocal is None and preferred not in (T, U)
-        )
-        series = root_series(
-            branches, residues, filtered if filtered else None, allow_inverse
-        )
     series = tuple(
         (q / compiled.scale - translation, p / compiled.scale) for q, p in series
     )
@@ -328,10 +319,10 @@ def analyze_method(
     elif method == "inequalities":
         series = centred(series)
     qbounds = tuple(sp.cancel(b / sp.pi) for b in bounds[:2]) + bounds[2:]
-    if any(q.is_Rational is not True for q in qbounds[:2]):
-        raise UnsupportedCondition(
-            "this circle family requires rational-pi interval endpoints"
-        )
+    from .exam_inverse_bounds import validate as validate_bound
+
+    for bound in qbounds[:2]:
+        validate_bound(bound)
     selected, trace = select(series, qbounds)
     return Analysis(
         formula,
@@ -367,7 +358,44 @@ def analyze_method(
         compiled.absolute,
         dividing,
         shifted_notation,
+        compiled.homogeneous,
     )
+
+
+def method_series(
+    branches,
+    residues,
+    compiled,
+    domain,
+    parent_html,
+    style,
+):
+    from .exam_trigonometric_methods import merges_series
+
+    preferred, method = style
+    allow_inverse = method == "inequalities" or r"\arccos" in parent_html
+    merged = (
+        method == "inequalities" and compiled.scale != 1 and merges_series(parent_html)
+    )
+    dividing = division(parent_html) and compiled.homogeneous is None
+    if compiled.absolute is not None:
+        from .exam_trigonometric_absolute import series as absolute_series
+
+        series = absolute_series(branches[0].values)
+    elif dividing:
+        from .exam_trigonometric_division import series as division_series
+
+        series = division_series(branches)
+    elif merged:
+        series = periodic(residues)
+    else:
+        filtered = domain is not None or (
+            compiled.poles and compiled.reciprocal is None and preferred not in (T, U)
+        )
+        series = root_series(
+            branches, residues, filtered if filtered else None, allow_inverse
+        )
+    return series, merged, dividing
 
 
 def build_context_repair_plan(

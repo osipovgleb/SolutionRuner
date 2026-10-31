@@ -35,6 +35,8 @@ def paragraphs(soup):
 
 
 def subparts(soup):
+    declaration(soup)
+    math_wrappers(soup)
     if not soup.find("ol"):
         paragraphs(soup)
     lists = soup.find_all("ol")
@@ -61,3 +63,45 @@ def subparts(soup):
     ):
         raise UnsupportedCondition("the two exam markers must be a and b in order")
     return ordered, rows
+
+
+def declaration(soup):
+    nodes = [
+        n for n in soup.contents if not isinstance(n, NavigableString) or n.strip()
+    ]
+    if (
+        len(nodes) != 2
+        or getattr(nodes[0], "name", None) != "p"
+        or nodes[0].attrs
+        or getattr(nodes[1], "name", None) != "ol"
+    ):
+        return
+    paragraph, ordered = nodes
+    text = " ".join(paragraph.get_text(" ", strip=True).replace("\xad", "").split())
+    if not text.startswith("Дано уравнение"):
+        return
+    rows = ordered.find_all("li", recursive=False)
+    if not rows:
+        return
+    rows[0].insert(0, " ")
+    for node in reversed(list(paragraph.contents)):
+        rows[0].insert(0, node.extract())
+    paragraph.extract()
+
+
+def math_wrappers(soup):
+    for node in reversed(soup.find_all(("span", "p", "center"))):
+        if node.attrs or not node.find_parent("li"):
+            continue
+        children = [c for c in node.contents if not isinstance(c, NavigableString)]
+        if (
+            len(children) == 1
+            and children[0].name == "span"
+            and set(children[0].attrs) == {"data-inline-latex"}
+            and all(
+                not str(c).strip(" .\n\t")
+                for c in node.contents
+                if isinstance(c, NavigableString)
+            )
+        ):
+            node.unwrap()

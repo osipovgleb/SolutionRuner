@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_compile import C, S, T
+from .exam_trigonometric_homogeneous import Reduction
 from .power_arithmetic import ScalarParser, clean
 from .trig_angles import PI, multiple_angle, parse_angle
 from .trig_angles import C as NUMERIC_C
@@ -82,6 +83,7 @@ class Equation:
     strict_domain: bool = False
     fraction: sp.Expr | None = None
     absolute: tuple | None = None
+    homogeneous: Reduction | None = None
 
 
 def shifted_atom(atom):
@@ -165,9 +167,10 @@ def compile_reviewed(formula, preferred, preferred_scale, translation=sp.S.Zero)
         raw = expression
     reciprocal = None
     if original_poles:
-        reciprocal, preferred = reciprocal_polynomial(
-            expression, original_poles, scale, preferred
-        )
+        if preferred != T:
+            reciprocal, preferred = reciprocal_polynomial(
+                expression, original_poles, scale, preferred
+            )
     elif denominator.free_symbols:
         raise UnsupportedCondition("an original denominator must not be lost")
     if not raw.is_polynomial(S, C) or sp.Poly(raw, S, C).total_degree() > 8 or raw == 0:

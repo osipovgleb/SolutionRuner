@@ -170,6 +170,10 @@ def candidate_lines(
 
 
 def method_proof(a):
+    if a.homogeneous is not None:
+        from .exam_trigonometric_homogeneous_proof import proof
+
+        return proof(a)
     if any(b.impossible for b in a.branches):
         from .exam_trigonometric_combination import proof
 
