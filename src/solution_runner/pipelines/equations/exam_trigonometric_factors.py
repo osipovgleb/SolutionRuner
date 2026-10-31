@@ -125,17 +125,14 @@ def method_branches(
 ):
     from ..word_problems.common import UnsupportedCondition
     from .exam_trigonometric import solve_branches
-    from .exam_trigonometric_compile import T, U
+    from .exam_trigonometric_compile import T
     from .exam_trigonometric_domain import restrict, without_poles
     from .exam_trigonometric_factor_style import (
-        local_cotangent,
         mark_grouping,
         retain_order,
     )
-    from .exam_trigonometric_homogeneous import convert
     from .exam_trigonometric_square_factor import mark as mark_squares
     from .exam_trigonometric_square_factor import prepare as square_product
-    from .exam_trigonometric_style import cotangent_method
 
     identity = identity_branches(compiled, allow_inverse, domain)
     if identity is not None:
@@ -163,16 +160,14 @@ def method_branches(
         result = angle_branches(compiled.angle_product)
         if domain is not None:
             result = restrict(result, domain, compiled.strict_domain)
-        result = without_poles(result, compiled.poles)
+        if compiled.angle_product.source_poles:
+            from .exam_trigonometric_angle_quotients import filter_branches
+
+            result = filter_branches(result, compiled.angle_product.source_poles)
+        else:
+            result = without_poles(result, compiled.poles)
         return compiled, compiled.raw, result, preferred
-    auxiliary = (
-        compiled.raw.free_symbols == {S, C}
-        and sp.Poly(compiled.raw, S, C).total_degree() == 1
-        and compiled.raw.subs({S: 0, C: 0}) != 0
-    )
-    if not compiled.raw.has(T, U) and cotangent_method(parent_html) and not auxiliary:
-        preferred = C if local_cotangent(parent_html) else U
-    compiled = convert(compiled, preferred)
+    compiled, preferred = homogeneous(compiled, preferred, parent_html)
     compiled = preserve_zero_square(compiled, parent_html)
     reduced, branches = solve_branches(
         compiled.raw,
@@ -213,3 +208,34 @@ def method_branches(
         branches = mark_grouping(branches, parent_html)
     branches = mark_squares(branches, parent_html, compiled.square_product)
     return compiled, reduced, branches, preferred
+
+
+def homogeneous(compiled, preferred, parent_html):
+    from .exam_trigonometric_compile import T, U
+    from .exam_trigonometric_factor_style import local_cotangent
+    from .exam_trigonometric_homogeneous import convert
+    from .exam_trigonometric_style import cotangent_method
+
+    auxiliary = (
+        compiled.raw.free_symbols == {S, C}
+        and sp.Poly(compiled.raw, S, C).total_degree() == 1
+        and compiled.raw.subs({S: 0, C: 0}) != 0
+    )
+    from .exam_trigonometric_style import preference
+
+    _function, preferred_scale = preference(parent_html)
+    from .exam_trigonometric_parameters import doubled_tangent
+
+    double_tangent = doubled_tangent(parent_html, compiled.scale)
+    if double_tangent:
+        preferred_scale = 2 * compiled.scale
+    if double_tangent:
+        preferred = T
+    if (
+        not compiled.raw.has(T, U)
+        and cotangent_method(parent_html)
+        and not auxiliary
+        and not double_tangent
+    ):
+        preferred = C if local_cotangent(parent_html) else U
+    return convert(compiled, preferred, preferred_scale), preferred

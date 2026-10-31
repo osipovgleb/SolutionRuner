@@ -69,7 +69,8 @@ def parent_style(parent_html):
             )
         )
         else "progressions"
-        if "разность между соседними членами" in text
+        if (not images and "лежат только два числа такого вида" in text)
+        or "разность между соседними членами" in text
         or "расстояние между соседними членами" in text
         or (
             "длина" in text

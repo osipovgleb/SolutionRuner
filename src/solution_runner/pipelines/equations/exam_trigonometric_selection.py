@@ -244,6 +244,12 @@ def method_series(
             False,
         )
 
+    if compiled.angle_product is not None and compiled.angle_product.source_poles:
+        return (
+            tuple(item for b in branches for item in periodic(b.residues)),
+            False,
+            False,
+        )
     if compiled.angle_product is not None and compiled.angle_product.nested:
         from .exam_trigonometric_angle_domain import series as nested_series
 
@@ -252,6 +258,12 @@ def method_series(
         from .exam_trigonometric_ratio_product import series
 
         return series(branches), False, False
+    if (
+        style[1] == "inequalities"
+        and compiled.scale != 1
+        and merges_series(parent_html)
+    ):
+        return periodic(residues), True, False
     if compiled.fraction is not None and len(compiled.fraction.free_symbols) > 1:
         from .exam_trigonometric_selection import restricted_series
 

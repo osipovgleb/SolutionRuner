@@ -25,9 +25,21 @@ class AngleProduct:
     nested: bool = False
     note: bool = False
     addition: bool = False
+    source_poles: tuple = ()
+    cancelled: sp.Expr | None = None
+    full_product: sp.Expr | None = None
 
 
 def reviewed(parent_html):
+    formulas = " ".join(
+        n["data-inline-latex"]
+        for n in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    )
+    rational_zeros = set(
+        re.findall(r"\\cos\s*(\\frac\{\d+x\}\{[2-9]\}|\d+x)\s*&?=0", formulas)
+    )
+    if len(rational_zeros) == 2 and any(r"\frac" in angle for angle in rational_zeros):
+        return True
     patterns = (
         FUNCTION + r"(?:\\cdot)?\([^()]*" + FUNCTION + r"[^()]*\)",
         r"\([^()]*" + FUNCTION + r"[^()]*\)(?:\\cdot)?" + FUNCTION,
@@ -192,6 +204,10 @@ def compile_ratio_factor(values, atoms, denominators, constants):
     from .exam_trigonometric_angle_domain import equivalent
     from .exam_trigonometric_poles import compile_quotients
 
+    if any(abs(a.coefficient) != 1 for a in atoms.values()):
+        from .exam_trigonometric_angle_quotients import compile_product
+
+        return compile_product(values, atoms, denominators, constants)
     equation = compile_quotients(values, atoms, denominators)
     numerator = (
         equation.factored_source
@@ -261,6 +277,10 @@ def branches(product):
 
 
 def proof(a):
+    if a.angle_product.source_poles:
+        from .exam_trigonometric_angle_quotients import proof as quotient_proof
+
+        return quotient_proof(a)
     from .exam_trigonometric_proof import families, formula, pi, polynomial
     from .exam_trigonometric_variants import argument
 

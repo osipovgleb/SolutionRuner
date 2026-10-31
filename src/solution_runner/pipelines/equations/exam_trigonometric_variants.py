@@ -225,6 +225,18 @@ def selection_notes(a, system_image=""):
 
 
 def root_notation(a, rendered):
+    from .exam_trigonometric_proof import series_lines
+
+    pairs = tuple(zip(getattr(a, "series", ()), getattr(a, "family_parameters", ())))
+    restricted = getattr(a, "restricted_families", ())
+    if restricted:
+        pairs = tuple(((f.offset, f.period), f.parameter) for f in restricted)
+    for item, name in pairs:
+        if name != "k":
+            for text in series_lines((item,), sine_inverse=a.sine_inverse):
+                old = text + r",\quad k\in\mathbb Z"
+                new = text.replace("k", name) + r",\quad " + name + r"\in\mathbb Z"
+                rendered = tuple(value.replace(old, new) for value in rendered)
     if a.parameter == "k":
         return rendered
     return tuple(

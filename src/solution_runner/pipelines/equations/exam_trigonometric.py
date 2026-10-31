@@ -133,6 +133,8 @@ class Analysis:
     circle_note: bool = False
     auxiliary_notes: bool = False
     parameter: str = "k"
+    family_parameters: tuple = ()
+    restricted_families: tuple = ()
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -340,7 +342,7 @@ def analyze_method(
     qbounds = tuple(sp.cancel(b / sp.pi) for b in bounds[:2]) + bounds[2:]
     from .exam_trigonometric_selection import finish
 
-    return finish(
+    result = finish(
         Analysis(
             formula,
             raw,
@@ -373,6 +375,10 @@ def analyze_method(
             **analysis_fields(compiled),
         )
     )
+
+    from .exam_trigonometric_parameters import notation
+
+    return notation(result, parent_html)
 
 
 def build_context_repair_plan(

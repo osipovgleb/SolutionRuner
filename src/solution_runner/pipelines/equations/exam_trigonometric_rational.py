@@ -137,6 +137,12 @@ def direct_proof(a, branch=None):
     for pole in a.poles:
         html += line(formula(pole, angle) + r"\ne0")
     html += line(a.original)
+    shared = len(a.poles) == 2 and a.poles[0] == a.poles[1]
+    if shared:
+        sources = tuple(text for text, value in a.identities if value == a.poles[0])
+        if len(sources) == 2:
+            html += "<p>Знаменатели равны по формуле приведения; на исходной области определения можно приравнять числители:</p>"
+            html += line(sources[0] + "=" + sources[1] + r"\ne0")
     for text, value in a.identities:
         if value not in (S, C):
             html += line(text + "=" + formula(value, angle))
@@ -164,4 +170,10 @@ def direct_proof(a, branch=None):
             sine_inverse=a.sine_inverse,
         )
     html += "<p>В каждой серии оставлены только корни, не обращающие исходный знаменатель в нуль.</p>"
+    if a.merged:
+        from .exam_trigonometric_proof import families
+
+        html += "<p>Объединим полученные серии в одну арифметическую прогрессию:</p>"
+        for text in families(a):
+            html += line(text + r",\quad k\in\mathbb Z")
     return "<p>Решим уравнение с сохранением области определения дроби:</p>", html

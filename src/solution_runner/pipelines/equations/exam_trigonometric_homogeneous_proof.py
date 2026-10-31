@@ -42,8 +42,10 @@ def proof(a):
         html += power_proof(a.power_angle)
     if a.poles:
         html += "<p>Знаменатель исходного уравнения должен быть ненулевым:</p>"
-        for pole in a.poles:
+        for pole in reduction.source_poles or a.poles:
             html += line(formula(pole, source_angle) + r"\ne0")
+    if reduction.source_poles:
+        html += line(a.original)
     if a.rewritten is not None:
         html += line(sp.latex(a.rewritten) + "=0")
     for text, value in a.identities:
@@ -54,6 +56,9 @@ def proof(a):
         html += "<p>Применим формулы двойного угла:</p>"
         html += line(formula(S, angle) + "=" + formula(2 * S * C, source_angle))
         html += line(formula(C, angle) + "=" + formula(C * C - S * S, source_angle))
+    if reduction.source_poles:
+        html += "<p>Исходные синус и косинус одновременно ненулевые тогда и только тогда, когда синус двойного угла ненулевой:</p>"
+        html += line(formula(S, angle) + r"\ne0")
     html += line(formula(reduction.polynomial, angle) + "=0")
     if reduction.variable == U:
         html += "<p>Если синус равен нулю, косинус равен 1 или −1, и однородный многочлен ненулевой. Поэтому на множестве решений синус ненулевой; разделим уравнение на его степень:</p>"

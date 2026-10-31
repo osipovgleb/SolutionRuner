@@ -54,6 +54,46 @@ def compile_tangent_identity(values, atoms, denominators):
     return Equation(raw, tuple(dict.fromkeys(identities)), sp.S.One, (C,))
 
 
+def cancelled_identity(values, atoms, denominators, scale):
+    from .exam_trigonometric_methods import Equation
+
+    if not {"sin", "tg"} <= {a.function for a in atoms.values()}:
+        return None
+    if any(
+        abs(a.coefficient) != 1
+        or not a.shift.is_Integer
+        or a.function not in ("sin", "cos", "tg")
+        for a in atoms.values()
+    ):
+        return None
+    cosines = {s for s, a in atoms.items() if a.function == "cos"}
+    original = [d for d in denominators if d.free_symbols]
+    if not original or any(
+        not any(sp.cancel(d / (symbol**2)).free_symbols == set() for symbol in cosines)
+        for d in original
+    ):
+        return None
+    compiled = {
+        s: (
+            a.coefficient * T
+            if a.function == "tg"
+            else (-1) ** a.shift * (a.coefficient * S if a.function == "sin" else C)
+        )
+        for s, a in atoms.items()
+    }
+    expression = sp.expand((values[0] - values[1]).xreplace(compiled))
+    raw = sp.expand(expression.subs(C**-2, 1 + T * T))
+    if (
+        len(raw.free_symbols) != 1
+        or not raw.free_symbols <= {S, C}
+        or not raw.is_polynomial(*raw.free_symbols)
+        or sp.degree(raw, next(iter(raw.free_symbols))) not in (1, 2)
+    ):
+        return None
+    identity = r"\frac{1}{\cos^2(" + sp.latex(scale * X) + ")}"
+    return Equation(raw, ((identity, 1 + T * T),), sp.S.One, (C,))
+
+
 def tangent_proof(a):
     from functools import partial
 
@@ -204,7 +244,9 @@ def linear_proof(branch, angle):
 def compile_ratio_method(values, atoms, denominators, preferred, constants):
     from dataclasses import replace
 
-    scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
+    from .exam_trigonometric_folding import common_scale
+
+    scale = common_scale(atoms)
     if scale.is_Rational is not True or scale <= 0 or scale > 100 or scale.q > 4:
         raise UnsupportedCondition(
             "ratio products require a bounded common rational angle"
@@ -219,6 +261,11 @@ def compile_ratio_method(values, atoms, denominators, preferred, constants):
     if reciprocal is not None:
         return replace(
             reciprocal, identities=constants + reciprocal.identities, scale=scale
+        )
+    cancelled = cancelled_identity(values, atoms, denominators, scale)
+    if cancelled is not None:
+        return replace(
+            cancelled, identities=constants + cancelled.identities, scale=scale
         )
     from .exam_trigonometric_ratio_fraction import compile_fraction
 

@@ -1,5 +1,7 @@
 """Fold typed products and square differences before expanding high angle multiples."""
 
+from math import gcd, lcm
+
 import sympy as sp
 
 from ..word_problems.common import UnsupportedCondition
@@ -10,13 +12,20 @@ from .trig_symbolic_parser import SymbolicAtom
 X = sp.Symbol("x", real=True)
 
 
+def common_scale(atoms):
+    values = [abs(sp.sympify(a.coefficient)) for a in atoms.values()]
+    if not values or any(v.is_Rational is not True or v == 0 for v in values):
+        raise UnsupportedCondition("a common positive rational base angle is required")
+    return sp.Rational(gcd(*(v.p for v in values)), lcm(*(v.q for v in values)))
+
+
 def fold(values, atoms, denominators, preferred_scale, *, sine_square=False):
     if any(d.free_symbols for d in denominators):
         return values, atoms, None, None
     expression = values[0] - values[1]
     symbols = tuple(atoms)
     poly = sp.Poly(expression, *symbols)
-    base = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
+    base = common_scale(atoms)
     coefficients = [abs(atoms[s].coefficient) for s in symbols]
     if (
         preferred_scale == 2 * base
@@ -121,7 +130,12 @@ def normalize_base(
         values, atoms, rewritten, power_angle = fold(
             values, atoms, denominators, preferred_scale, sine_square=(preferred == S)
         )
-    scale = sp.gcd_list([abs(a.coefficient) for a in atoms.values()])
+    scale = common_scale(atoms)
     for symbol, atom in tuple(atoms.items()):
-        atoms[symbol] = replace(atom, coefficient=int(atom.coefficient / scale))
+        multiple = sp.cancel(atom.coefficient / scale)
+        if multiple.is_Integer is not True:
+            raise UnsupportedCondition(
+                "each angle must be an exact integer multiple of its base"
+            )
+        atoms[symbol] = replace(atom, coefficient=int(multiple))
     return values, atoms, scale, unit, preferred_scale, rewritten, power_angle

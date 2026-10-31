@@ -1,0 +1,1689 @@
+{
+  "groups": [
+    {
+      "key": "633751",
+      "uuid": "58165732-af78-4224-9db3-05e049e8f68e",
+      "theme_uuid": "7a3eb443-be07-4933-96c3-2b90566979f4",
+      "theme_order": 7,
+      "order": 33
+    },
+    {
+      "key": "637084",
+      "uuid": "e8036921-0dd1-42cc-b187-5e6e304d1589",
+      "theme_uuid": "7a3eb443-be07-4933-96c3-2b90566979f4",
+      "theme_order": 7,
+      "order": 37
+    },
+    {
+      "key": "646081",
+      "uuid": "b479a30c-d827-472b-973a-444c98ff8109",
+      "theme_uuid": "7a3eb443-be07-4933-96c3-2b90566979f4",
+      "theme_order": 7,
+      "order": 40
+    },
+    {
+      "key": "668795",
+      "uuid": "f343ff32-5364-4533-82a1-7bcbcec4db0a",
+      "theme_uuid": "7a3eb443-be07-4933-96c3-2b90566979f4",
+      "theme_order": 7,
+      "order": 44
+    },
+    {
+      "key": "677685",
+      "uuid": "6e651545-fde2-434a-908d-11c95cb2fa6d",
+      "theme_uuid": "7a3eb443-be07-4933-96c3-2b90566979f4",
+      "theme_order": 7,
+      "order": 46
+    },
+    {
+      "key": "695735",
+      "uuid": "e05d8aa2-4bc5-477b-bf10-32311e6695d2",
+      "theme_uuid": "7a3eb443-be07-4933-96c3-2b90566979f4",
+      "theme_order": 7,
+      "order": 48
+    }
+  ],
+  "cases": [
+    {
+      "group": "633751",
+      "task": "633751",
+      "context": {
+        "problem_id": "a06a93fd-bced-45fe-a2ae-8711b16f0d96",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{6\\sin x-2\\cos 2x-4\\cos^{2} x-3}{\\sqrt{7}\\sin x-3\\cos x}=0\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-4\\pi;-3\\pi]\"></span> .</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{\\pi-\\arcsin \\frac{3}{4}+2\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-3\\pi-\\arcsin \\frac{3}{4}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Зна­ме­на­тель дроби дол­жен быть от­ли­чен от нуля, то есть <center><p> <span data-inline-latex=\"\\sqrt{7}\\sin x-3\\cos x\\ne 0\\iff \\tg x\\ne \\frac{3}{\\sqrt{7}}\"></span> . </p></center><p> При этом усло­вии чис­ли­тель дроби дол­жен быть равен нулю. При­ме­ним фор­му­лы  <span data-inline-latex=\"\\cos^{2} x=1-\\sin^{2} x\"></span>  и  <span data-inline-latex=\"\\cos 2x=1-2\\sin^{2} x\"></span>, по­лу­чим:</p><center><p><span><span data-inline-latex=\"6\\sin x-2\\cos 2x-4\\cos^2 x-3=0\\Leftrightarrow 6\\sin x-2(1-2\\sin^2 x)-4(1-\\sin^2 x)-3=0\\Leftrightarrow 8\\sin^2 x+6\\sin x-9=0\\Leftrightarrow \\left[\\begin{aligned}\\sin x&amp;=\\frac{3}{4},\\\\\\sin x&amp;=-\\frac{3}{2}\\end{aligned}\\right.\\quad \\sin x\\ge -1\\Leftrightarrow \\sin x=\\frac{3}{4}.\"></span></span></p></center><p>Если  <span data-inline-latex=\"\\sin x=\\frac{3}{4}\"></span>  и угол <i>х</i> лежит в пер­вой чет­вер­ти, то  <span data-inline-latex=\"\\cos x=\\sqrt{1-\\frac{9}{16}}=\\frac{\\sqrt{7}}{4}\"></span> ,  тогда  <span data-inline-latex=\"\\tg x=\\frac{3}{\\sqrt{7}}\"></span> ,  что об­ра­ща­ет зна­ме­на­тель в нуль. Если же  <span data-inline-latex=\"\\sin x=\\frac{3}{4}\"></span>  и <nobr>угол <i>х</i></nobr> лежит во вто­рой чет­вер­ти, то  <span data-inline-latex=\"\\cos x=-\\sqrt{1-\\frac{9}{16}}=-\\frac{\\sqrt{7}}{4}\"></span> ,  тогда  <span data-inline-latex=\"\\tg x=-\\frac{3}{\\sqrt{7}}\"></span> ,  что до­пу­сти­мо. Сле­до­ва­тель­но, ре­ше­ни­ем урав­не­ния яв­ля­ет­ся серия <span data-inline-latex=\"x=\\pi-\\arcsin \\frac{3}{4}+2\\pi k,\\quad k\\in\\mathbb{Z}\"></span> . </p></li><li data-list-marker=\"б)\">От­бе­рем корни, решая двой­ное не­ра­вен­ство: <center><p><span> <span data-inline-latex=\"-4\\pi\\lt \\pi-\\arcsin \\frac{3}{4}+2\\pi k\\lt -3\\pi\\iff -5\\pi+\\arcsin \\frac{3}{4}\\lt 2\\pi k\\lt -4\\pi+\\arcsin \\frac{3}{4}\"></span> . </span></p></center><p>Акр­си­нус по­ло­жи­тель­но­го числа лежит в ин­тер­ва­ле  <span data-inline-latex=\"(0;\\frac{\\pi}{2})\"></span> , по­это­му левая часть двой­но­го не­ра­вен­ства боль­ше  –5π, а пра­вая  — мень­ше –4,5π. Сле­до­ва­тель­но, число 2π<i>k</i> лежит в ин­тер­ва­ле (–5π; –4,5π), а зна­чит, <span data-inline-latex=\"k=-2\"></span>. Най­ден­но­му зна­че­нию па­ра­мет­ра со­от­вет­ству­ет ко­рень  <span data-inline-latex=\"-3\\pi-\\arcsin \\frac{3}{4}\"></span> . </p></li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T12:09:00.205342+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{6\\sin x-2\\cos 2x-4\\cos^{2} x-3}{\\sqrt{7}\\sin x-3\\cos x}=0\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-4\\pi;-3\\pi]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\pi-\\arcsin \\frac{3}{4}+2\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-3\\pi-\\arcsin \\frac{3}{4}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=48670149\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 403</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Зна­ме­на­тель дроби дол­жен быть от­ли­чен от нуля, то есть <center><p> <span data-inline-latex=\"\\sqrt{7}\\sin x-3\\cos x\\ne 0\\iff \\tg x\\ne \\frac{3}{\\sqrt{7}}\"></span> . </p></center><p> При этом усло­вии чис­ли­тель дроби дол­жен быть равен нулю. При­ме­ним фор­му­лы  <span data-inline-latex=\"\\cos^{2} x=1-\\sin^{2} x\"></span>  и  <span data-inline-latex=\"\\cos 2x=1-2\\sin^{2} x\"></span>, по­лу­чим:</p><center><p><span><span data-inline-latex=\"6\\sin x-2\\cos 2x-4\\cos^2 x-3=0\\Leftrightarrow 6\\sin x-2(1-2\\sin^2 x)-4(1-\\sin^2 x)-3=0\\Leftrightarrow 8\\sin^2 x+6\\sin x-9=0\\Leftrightarrow \\left[\\begin{aligned}\\sin x&amp;=\\frac{3}{4},\\\\\\sin x&amp;=-\\frac{3}{2}\\end{aligned}\\right.\\quad \\sin x\\ge -1\\Leftrightarrow \\sin x=\\frac{3}{4}.\"></span></span></p></center><p>Если  <span data-inline-latex=\"\\sin x=\\frac{3}{4}\"></span>  и угол <i>х</i> лежит в пер­вой чет­вер­ти, то  <span data-inline-latex=\"\\cos x=\\sqrt{1-\\frac{9}{16}}=\\frac{\\sqrt{7}}{4}\"></span> ,  тогда  <span data-inline-latex=\"\\tg x=\\frac{3}{\\sqrt{7}}\"></span> ,  что об­ра­ща­ет зна­ме­на­тель в нуль. Если же  <span data-inline-latex=\"\\sin x=\\frac{3}{4}\"></span>  и <nobr>угол <i>х</i></nobr> лежит во вто­рой чет­вер­ти, то  <span data-inline-latex=\"\\cos x=-\\sqrt{1-\\frac{9}{16}}=-\\frac{\\sqrt{7}}{4}\"></span> ,  тогда  <span data-inline-latex=\"\\tg x=-\\frac{3}{\\sqrt{7}}\"></span> ,  что до­пу­сти­мо. Сле­до­ва­тель­но, ре­ше­ни­ем урав­не­ния яв­ля­ет­ся серия <span data-inline-latex=\"x=\\pi-\\arcsin \\frac{3}{4}+2\\pi k,\\quad k\\in\\mathbb{Z}\"></span> . </p></li><li data-list-marker=\"б)\">От­бе­рем корни, решая двой­ное не­ра­вен­ство: <center><p><span> <span data-inline-latex=\"-4\\pi\\lt \\pi-\\arcsin \\frac{3}{4}+2\\pi k\\lt -3\\pi\\iff -5\\pi+\\arcsin \\frac{3}{4}\\lt 2\\pi k\\lt -4\\pi+\\arcsin \\frac{3}{4}\"></span> . </span></p></center><p>Акр­си­нус по­ло­жи­тель­но­го числа лежит в ин­тер­ва­ле  <span data-inline-latex=\"(0;\\frac{\\pi}{2})\"></span> , по­это­му левая часть двой­но­го не­ра­вен­ства боль­ше  –5π, а пра­вая  — мень­ше –4,5π. Сле­до­ва­тель­но, число 2π<i>k</i> лежит в ин­тер­ва­ле (–5π; –4,5π), а зна­чит, <span data-inline-latex=\"k=-2\"></span>. Най­ден­но­му зна­че­нию па­ра­мет­ра со­от­вет­ству­ет ко­рень  <span data-inline-latex=\"-3\\pi-\\arcsin \\frac{3}{4}\"></span> . </p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "637084",
+      "task": "637084",
+      "context": {
+        "problem_id": "563f9ec1-d306-49ef-b817-c704ec92ec04",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"\\frac{2\\sin^2\\left(\\frac{\\pi}{4}-x\\right)-\\cos^2 x}{2\\tan x-4}=0.\"></span></li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-5\\pi;-4\\pi]\"></span> .</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; б)  −5π и  −4π.</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Урав­не­ние опре­де­ле­но, если  <span data-inline-latex=\"\\tg x\\ne 2\"></span>. Най­дем нули чис­ли­те­ля, за­ме­тив, что квад­ра­ты двух чисел равны, когда сами числа равны или про­ти­во­по­лож­ны:<center><p><span><span data-inline-latex=\"2\\sin^2\\left(\\frac{\\pi}{4}-x\\right)=\\cos^2 x\\Leftrightarrow\\left[\\begin{aligned}\\sqrt{2}\\sin\\left(\\frac{\\pi}{4}-x\\right)&amp;=\\cos x,\\\\\\sqrt{2}\\sin\\left(\\frac{\\pi}{4}-x\\right)&amp;=-\\cos x\\end{aligned}\\right.\\Leftrightarrow\\left[\\begin{aligned}\\cos x-\\sin x&amp;=\\cos x,\\\\\\cos x-\\sin x&amp;=-\\cos x\\end{aligned}\\right.\\Leftrightarrow\\left[\\begin{aligned}\\sin x&amp;=0,\\\\\\tg x&amp;=2\\end{aligned}\\right.\\quad\\tg x\\ne2\\Leftrightarrow x=\\pi k,\\ k\\in\\mathbb{Z}.\"></span></span></p></center></li><li data-list-marker=\"б)\">От­ве­том яв­ля­ет­ся π, взя­тое любое любое целое число раз. На от­рез­ке  <span data-inline-latex=\"[-5\\pi;-4\\pi]\"></span>  лежат толь­ко два числа та­ко­го вида:  −5π и  −4π.</li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T07:33:40.582776+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"\\frac{2\\sin^2\\left(\\frac{\\pi}{4}-x\\right)-\\cos^2 x}{2\\tan x-4}=0.\"></span></li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-5\\pi;-4\\pi]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; б)  −5π и  −4π.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=50578210\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 415</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Урав­не­ние опре­де­ле­но, если  <span data-inline-latex=\"\\tg x\\ne 2\"></span>. Най­дем нули чис­ли­те­ля, за­ме­тив, что квад­ра­ты двух чисел равны, когда сами числа равны или про­ти­во­по­лож­ны:<center><p><span><span data-inline-latex=\"2\\sin^2\\left(\\frac{\\pi}{4}-x\\right)=\\cos^2 x\\Leftrightarrow\\left[\\begin{aligned}\\sqrt{2}\\sin\\left(\\frac{\\pi}{4}-x\\right)&amp;=\\cos x,\\\\\\sqrt{2}\\sin\\left(\\frac{\\pi}{4}-x\\right)&amp;=-\\cos x\\end{aligned}\\right.\\Leftrightarrow\\left[\\begin{aligned}\\cos x-\\sin x&amp;=\\cos x,\\\\\\cos x-\\sin x&amp;=-\\cos x\\end{aligned}\\right.\\Leftrightarrow\\left[\\begin{aligned}\\sin x&amp;=0,\\\\\\tg x&amp;=2\\end{aligned}\\right.\\quad\\tg x\\ne2\\Leftrightarrow x=\\pi k,\\ k\\in\\mathbb{Z}.\"></span></span></p></center></li><li data-list-marker=\"б)\">От­ве­том яв­ля­ет­ся π, взя­тое любое любое целое число раз. На от­рез­ке  <span data-inline-latex=\"[-5\\pi;-4\\pi]\"></span>  лежат толь­ко два числа та­ко­го вида:  −5π и  −4π.</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "646081",
+      "task": "646081",
+      "context": {
+        "problem_id": "d1296fe8-d6e1-47c7-84e8-bb8980b13997",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\tg^{2} x-\\frac{1}{\\cos^{2} x}+2\\sin^{2} x+\\sin x=0\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-4\\pi;-\\frac{\\pi}{2}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+2\\pi k;\\frac{5\\pi}{6}+2\\pi n\\mid k,\\,n\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-\\frac{23\\pi}{6}\"></span> ;   <span data-inline-latex=\"-\\frac{19\\pi}{6}\"></span> ;   <span data-inline-latex=\"-\\frac{11\\pi}{6}\"></span> ;   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ис­по­льщу­ем след­ствие из ос­нов­но­го три­го­но­мет­ри­че­ско­го тож­де­ства: <span data-inline-latex=\"1+\\tg^{2} \\alpha=\\frac{1}{\\cos^{2} x}\"></span> ,  по­лу­ча­ем:<center><p><span> <span data-inline-latex=\"\\tg^{2} x-(\\tg^{2} x+1)+2\\sin^{2} x+\\sin x=0\\iff \\begin{cases}\\cos x\\ne 0\\\\2\\sin^{2} x+\\sin x-1=0\\end{cases}.\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}\\cos x\\ne 0\\\\\\left[\\begin{aligned}\\sin x=-1\\\\\\sin x=\\frac{1}{2}\\end{aligned}\\right.\\end{cases}.\\quad \\iff \\sin x=\\frac{1}{2}\\iff \\left[\\begin{aligned}x=\\frac{\\pi}{6}+2\\pi k\\\\x=\\frac{5\\pi}{6}+2\\pi n\\end{aligned}\\right..k,\\,n\\in\\mathbb{Z}\"></span> . </span></p></center></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства. Для пер­вой серии по­лу­ча­ем:<center><p><span> <span data-inline-latex=\"-4\\pi\\le \\frac{\\pi}{6}+2\\pi k\\le -\\frac{\\pi}{2}\\iff -4\\frac{1}{6}\\le 2k\\le -\\frac{2}{3}\\iff -2\\frac{1}{12}\\le k\\le -\\frac{1}{3}\\iff \\left[\\begin{aligned}k=-2\\\\k=-1\\end{aligned}\\right.\"></span> . </span></p></center><p>Най­ден­ным зна­че­ни­ям <i>k</i> со­от­вет­ству­ют корни  <span data-inline-latex=\"-\\frac{23\\pi}{6}\"></span>  и  <span data-inline-latex=\"-\\frac{11\\pi}{6}\"></span> .  Для вто­рой серии на­хо­дим:</p><center><p><span> <span data-inline-latex=\"-4\\pi\\le \\frac{5\\pi}{6}+2\\pi n\\le -\\frac{\\pi}{2}\\iff -4\\frac{5}{6}\\le 2n\\le -\\frac{4}{3}\\iff -2\\frac{5}{12}\\le n\\le -\\frac{2}{3}\\iff \\left[\\begin{aligned}n=-2\\\\n=-1\\end{aligned}\\right.\"></span> . </span></p></center><p>Най­ден­ным зна­че­ни­ям <i>n</i> со­от­вет­ству­ют корни  <span data-inline-latex=\"-\\frac{19\\pi}{6}\"></span>  и  <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> . </p></li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T13:51:54.614186+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\tg^{2} x-\\frac{1}{\\cos^{2} x}+2\\sin^{2} x+\\sin x=0\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-4\\pi;-\\frac{\\pi}{2}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+2\\pi k;\\frac{5\\pi}{6}+2\\pi n\\mid k,\\,n\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-\\frac{23\\pi}{6}\"></span> ;   <span data-inline-latex=\"-\\frac{19\\pi}{6}\"></span> ;   <span data-inline-latex=\"-\\frac{11\\pi}{6}\"></span> ;   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=55011488\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 436</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ис­по­льщу­ем след­ствие из ос­нов­но­го три­го­но­мет­ри­че­ско­го тож­де­ства: <span data-inline-latex=\"1+\\tg^{2} \\alpha=\\frac{1}{\\cos^{2} x}\"></span> ,  по­лу­ча­ем:<center><p><span> <span data-inline-latex=\"\\tg^{2} x-(\\tg^{2} x+1)+2\\sin^{2} x+\\sin x=0\\iff \\begin{cases}\\cos x\\ne 0\\\\2\\sin^{2} x+\\sin x-1=0\\end{cases}.\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}\\cos x\\ne 0\\\\\\left[\\begin{aligned}\\sin x=-1\\\\\\sin x=\\frac{1}{2}\\end{aligned}\\right.\\end{cases}.\\quad \\iff \\sin x=\\frac{1}{2}\\iff \\left[\\begin{aligned}x=\\frac{\\pi}{6}+2\\pi k\\\\x=\\frac{5\\pi}{6}+2\\pi n\\end{aligned}\\right..k,\\,n\\in\\mathbb{Z}\"></span> . </span></p></center></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства. Для пер­вой серии по­лу­ча­ем:<center><p><span> <span data-inline-latex=\"-4\\pi\\le \\frac{\\pi}{6}+2\\pi k\\le -\\frac{\\pi}{2}\\iff -4\\frac{1}{6}\\le 2k\\le -\\frac{2}{3}\\iff -2\\frac{1}{12}\\le k\\le -\\frac{1}{3}\\iff \\left[\\begin{aligned}k=-2\\\\k=-1\\end{aligned}\\right.\"></span> . </span></p></center><p>Най­ден­ным зна­че­ни­ям <i>k</i> со­от­вет­ству­ют корни  <span data-inline-latex=\"-\\frac{23\\pi}{6}\"></span>  и  <span data-inline-latex=\"-\\frac{11\\pi}{6}\"></span> .  Для вто­рой серии на­хо­дим:</p><center><p><span> <span data-inline-latex=\"-4\\pi\\le \\frac{5\\pi}{6}+2\\pi n\\le -\\frac{\\pi}{2}\\iff -4\\frac{5}{6}\\le 2n\\le -\\frac{4}{3}\\iff -2\\frac{5}{12}\\le n\\le -\\frac{2}{3}\\iff \\left[\\begin{aligned}n=-2\\\\n=-1\\end{aligned}\\right.\"></span> . </span></p></center><p>Най­ден­ным зна­че­ни­ям <i>n</i> со­от­вет­ству­ют корни  <span data-inline-latex=\"-\\frac{19\\pi}{6}\"></span>  и  <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> . </p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "668795",
+      "task": "668795",
+      "context": {
+        "problem_id": "6685c230-f254-4710-b697-c036ac5dcac4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{\\cos x}{\\cos (x+\\frac{\\pi}{3})}=\\frac{\\cos \\frac{x}{2}}{\\sin (\\frac{\\pi}{6}-x)}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[2\\pi;\\frac{7\\pi}{2}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{4\\pi l}{3}\\mid l\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"\\frac{8\\pi}{3}\"></span> . </nobr></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">По­ка­жем, что зна­ме­на­те­ли дро­бей в левой и пра­вой ча­стях урав­не­ния равны:<center><p> <span data-inline-latex=\"\\cos (x+\\frac{\\pi}{3})=\\sin (\\frac{\\pi}{2}-x-\\frac{\\pi}{3})=\\sin (\\frac{\\pi}{6}-x)\"></span> . </p></center><p> Сле­до­ва­тель­но, чис­ли­те­ли равны, а по­то­му урав­не­ние рав­но­силь­но си­сте­ме:</p><center><p><span><span data-inline-latex=\"\\begin{cases}\\cos x=\\cos\\frac{x}{2},\\\\ \\sin\\left(\\frac{\\pi}{6}-x\\right)\\ne 0\\end{cases}\\Leftrightarrow\\begin{cases}2\\cos^2\\frac{x}{2}-1=\\cos\\frac{x}{2},\\\\ \\sin\\left(\\frac{\\pi}{6}-x\\right)\\ne 0\\end{cases}\\Leftrightarrow\\begin{cases}2\\cos^2\\frac{x}{2}-\\cos\\frac{x}{2}-1=0,\\\\ \\frac{\\pi}{6}-x\\ne\\pi k\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}\\cos\\frac{x}{2}&amp;=1,\\\\ \\cos\\frac{x}{2}&amp;=-\\frac{1}{2},\\quad k\\in\\mathbb{Z}\\end{aligned}\\right.\\Leftrightarrow\\frac{x}{2}=\\frac{2\\pi l}{3}\\Leftrightarrow x=\\frac{4\\pi l}{3},\\quad l\\in\\mathbb{Z}.\\\\ \\frac{x}{2}&amp;\\ne\\frac{\\pi}{12}+\\frac{\\pi k}{2}\\end{cases}\"></span></span></p></center></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства:<center><p> <span data-inline-latex=\"2\\pi\\le \\frac{4\\pi l}{3}\\le \\frac{7\\pi}{2}\\iff 2\\le \\frac{2l}{3}\\le \\frac{7}{2}\\iff 12\\le 8l\\le 21\\iff 1\\frac{1}{2}\\le l\\le 2\\frac{5}{8}\"></span> , </p></center><p>чему удо­вле­тво­ря­ет целое  <span data-inline-latex=\"l=2\"></span>. Най­ден­но­му зна­че­нию па­ра­мет­ра со­от­вет­ству­ет <nobr>ко­рень  <span data-inline-latex=\"\\frac{8\\pi}{3}\"></span> . </nobr></p></li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T08:41:16.300780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{\\cos x}{\\cos (x+\\frac{\\pi}{3})}=\\frac{\\cos \\frac{x}{2}}{\\sin (\\frac{\\pi}{6}-x)}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[2\\pi;\\frac{7\\pi}{2}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{4\\pi l}{3}\\mid l\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"\\frac{8\\pi}{3}\"></span> . </nobr></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=78087099\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 473</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">По­ка­жем, что зна­ме­на­те­ли дро­бей в левой и пра­вой ча­стях урав­не­ния равны:<center><p> <span data-inline-latex=\"\\cos (x+\\frac{\\pi}{3})=\\sin (\\frac{\\pi}{2}-x-\\frac{\\pi}{3})=\\sin (\\frac{\\pi}{6}-x)\"></span> . </p></center><p> Сле­до­ва­тель­но, чис­ли­те­ли равны, а по­то­му урав­не­ние рав­но­силь­но си­сте­ме:</p><center><p><span><span data-inline-latex=\"\\begin{cases}\\cos x=\\cos\\frac{x}{2},\\\\ \\sin\\left(\\frac{\\pi}{6}-x\\right)\\ne 0\\end{cases}\\Leftrightarrow\\begin{cases}2\\cos^2\\frac{x}{2}-1=\\cos\\frac{x}{2},\\\\ \\sin\\left(\\frac{\\pi}{6}-x\\right)\\ne 0\\end{cases}\\Leftrightarrow\\begin{cases}2\\cos^2\\frac{x}{2}-\\cos\\frac{x}{2}-1=0,\\\\ \\frac{\\pi}{6}-x\\ne\\pi k\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}\\cos\\frac{x}{2}&amp;=1,\\\\ \\cos\\frac{x}{2}&amp;=-\\frac{1}{2},\\quad k\\in\\mathbb{Z}\\end{aligned}\\right.\\Leftrightarrow\\frac{x}{2}=\\frac{2\\pi l}{3}\\Leftrightarrow x=\\frac{4\\pi l}{3},\\quad l\\in\\mathbb{Z}.\\\\ \\frac{x}{2}&amp;\\ne\\frac{\\pi}{12}+\\frac{\\pi k}{2}\\end{cases}\"></span></span></p></center></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства:<center><p> <span data-inline-latex=\"2\\pi\\le \\frac{4\\pi l}{3}\\le \\frac{7\\pi}{2}\\iff 2\\le \\frac{2l}{3}\\le \\frac{7}{2}\\iff 12\\le 8l\\le 21\\iff 1\\frac{1}{2}\\le l\\le 2\\frac{5}{8}\"></span> , </p></center><p>чему удо­вле­тво­ря­ет целое  <span data-inline-latex=\"l=2\"></span>. Най­ден­но­му зна­че­нию па­ра­мет­ра со­от­вет­ству­ет <nobr>ко­рень  <span data-inline-latex=\"\\frac{8\\pi}{3}\"></span> . </nobr></p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "677685",
+      "task": "677685",
+      "context": {
+        "problem_id": "5320e321-3eeb-437f-86b3-7033ef6ac6c3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{1}{\\tg x}+\\frac{1}{\\ctg x}-2\\ctg x=2\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{3\\pi}{2};\\frac{\\pi}{2}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><nobr>а)  <span data-inline-latex=\"\\{-\\frac{\\pi}{8}+\\frac{\\pi k}{2}\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"-\\frac{9\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{\\pi}{8}\"></span> ,   <span data-inline-latex=\"\\frac{3\\pi}{8}\"></span> . </nobr></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Урав­не­ние опре­де­ле­но при  <span data-inline-latex=\"x\\ne \\frac{\\pi n}{2}\"></span> ,   <span data-inline-latex=\"n\\in\\mathbb{Z}\"></span> . Пре­об­ра­зу­ем его при этом огра­ни­че­нии:<center><p><span> <span data-inline-latex=\"\\frac{1}{\\tg x}+\\frac{1}{\\ctg x}-2\\ctg x=2\\iff \\ctg x+\\tg x-2\\ctg x=2\\iff \\frac{\\sin x}{\\cos x}-\\frac{\\cos x}{\\sin x}=2\\iff \\sin^{2} x-\\cos^{2} x=2\\sin x\\cos x\\iff \\sin 2x=-\\cos 2x\\iff \\tg 2x=-1\\iff 2x=-\\frac{\\pi}{4}+\\pi k\\iff x=-\\frac{\\pi}{8}+\\frac{\\pi k}{2},\\quad k\\in\\mathbb{Z}\"></span> . </span></p></center><p> Все члены най­ден­ной серии удо­вле­тво­ря­ют усло­вию   <span data-inline-latex=\"x\\ne \\frac{\\pi n}{2}\"></span> . </p></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства:<center><p><span> <span data-inline-latex=\"-\\frac{3\\pi}{2}\\le -\\frac{\\pi}{8}+\\frac{\\pi k}{2}\\le \\frac{\\pi}{2}\\iff -\\frac{3}{2}\\le -\\frac{1}{8}+\\frac{k}{2}\\le \\frac{1}{2}\\iff -12\\le -1+4k\\le 4\\iff -11\\le 4k\\le 5\\iff -\\frac{11}{4}\\le k\\le \\frac{5}{4}\"></span> . </span></p></center><p>По­лу­чен­но­му двой­но­му не­ра­вен­ству удо­вле­тво­ря­ют целые числа  <span data-inline-latex=\"k=-2\"></span>,  <span data-inline-latex=\"k=-1\"></span>,  <span data-inline-latex=\"k=0\"></span> и  <span data-inline-latex=\"k=1\"></span>. Най­ден­ным зна­че­ни­ям па­ра­мет­ра <i>k</i> со­от­вет­ству­ют корни  <span data-inline-latex=\"-\\frac{9\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{\\pi}{8}\"></span>  <nobr> и  <span data-inline-latex=\"\\frac{3\\pi}{8}\"></span> . </nobr></p></li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_19"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_20"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_21"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_22"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_23"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T07:24:16.500732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\frac{1}{\\tg x}+\\frac{1}{\\ctg x}-2\\ctg x=2\"></span>. </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{3\\pi}{2};\\frac{\\pi}{2}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><nobr>а)  <span data-inline-latex=\"\\{-\\frac{\\pi}{8}+\\frac{\\pi k}{2}\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"-\\frac{9\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{\\pi}{8}\"></span> ,   <span data-inline-latex=\"\\frac{3\\pi}{8}\"></span> . </nobr></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=82615887\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 499</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Урав­не­ние опре­де­ле­но при  <span data-inline-latex=\"x\\ne \\frac{\\pi n}{2}\"></span> ,   <span data-inline-latex=\"n\\in\\mathbb{Z}\"></span> . Пре­об­ра­зу­ем его при этом огра­ни­че­нии:<center><p><span> <span data-inline-latex=\"\\frac{1}{\\tg x}+\\frac{1}{\\ctg x}-2\\ctg x=2\\iff \\ctg x+\\tg x-2\\ctg x=2\\iff \\frac{\\sin x}{\\cos x}-\\frac{\\cos x}{\\sin x}=2\\iff \\sin^{2} x-\\cos^{2} x=2\\sin x\\cos x\\iff \\sin 2x=-\\cos 2x\\iff \\tg 2x=-1\\iff 2x=-\\frac{\\pi}{4}+\\pi k\\iff x=-\\frac{\\pi}{8}+\\frac{\\pi k}{2},\\quad k\\in\\mathbb{Z}\"></span> . </span></p></center><p> Все члены най­ден­ной серии удо­вле­тво­ря­ют усло­вию   <span data-inline-latex=\"x\\ne \\frac{\\pi n}{2}\"></span> . </p></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства:<center><p><span> <span data-inline-latex=\"-\\frac{3\\pi}{2}\\le -\\frac{\\pi}{8}+\\frac{\\pi k}{2}\\le \\frac{\\pi}{2}\\iff -\\frac{3}{2}\\le -\\frac{1}{8}+\\frac{k}{2}\\le \\frac{1}{2}\\iff -12\\le -1+4k\\le 4\\iff -11\\le 4k\\le 5\\iff -\\frac{11}{4}\\le k\\le \\frac{5}{4}\"></span> . </span></p></center><p>По­лу­чен­но­му двой­но­му не­ра­вен­ству удо­вле­тво­ря­ют целые числа  <span data-inline-latex=\"k=-2\"></span>,  <span data-inline-latex=\"k=-1\"></span>,  <span data-inline-latex=\"k=0\"></span> и  <span data-inline-latex=\"k=1\"></span>. Най­ден­ным зна­че­ни­ям па­ра­мет­ра <i>k</i> со­от­вет­ству­ют корни  <span data-inline-latex=\"-\\frac{9\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{8}\"></span> ,   <span data-inline-latex=\"-\\frac{\\pi}{8}\"></span> <nobr> и  <span data-inline-latex=\"\\frac{3\\pi}{8}\"></span> . </nobr></p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "695735",
+      "task": "695735",
+      "context": {
+        "problem_id": "ae6ddf6d-339a-4bb2-a36c-1544e8721439",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\tg 2x+\\frac{1}{\\sin x}=\\ctg x+\\frac{1}{\\sin 5x}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[0;\\pi]\"></span> .</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+\\frac{\\pi k}{3};\\frac{\\pi}{9}+\\pi k;\\frac{\\pi}{3}+\\pi k;\\frac{5\\pi}{9}+\\pi k;\\frac{7\\pi}{9}+\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"\\frac{\\pi}{6}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{2}\"></span> ,   <span data-inline-latex=\"\\frac{5\\pi}{6}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{9}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{3}\"></span> ,   <span data-inline-latex=\"\\frac{5\\pi}{9}\"></span> ,   <span data-inline-latex=\"\\frac{7\\pi}{9}\"></span> . </nobr></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Най­дем об­ласть опре­де­ле­ния урав­не­ния:<center><p> <span data-inline-latex=\"\\begin{cases}\\cos 2x\\ne q\\\\0\\\\\\sin x\\ne q\\\\0\\\\\\sin 5x\\ne q\\\\0\\end{cases}\\iff \\begin{cases}2x\\ne q\\frac{\\pi}{2}+\\pi m\\\\x\\ne q\\pi q\\\\5x\\ne q\\pi l\\end{cases}\\iff \\begin{cases}x\\ne \\frac{\\pi}{4}+\\frac{\\pi m}{2}\\\\x\\ne \\frac{\\pi l}{5}\\end{cases}.m,\\,q,\\,l\\in\\mathbb{Z}\"></span> . </p></center><p>Пре­об­ра­зу­ем урав­не­ние при этих огра­ни­че­ни­ях:</p><center><p><span> <span data-inline-latex=\"\\tg 2x+\\frac{1}{\\sin x}=\\ctg x+\\frac{1}{\\sin 5x}\\iff \\tg 2x-\\ctg x=\\frac{1}{\\sin 5x}-\\frac{1}{\\sin x}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{\\sin x\\sin 2x-\\cos x\\cos 2x}{\\sin x\\cos 2x}=\\frac{\\sin x-\\sin 5x}{\\sin x\\sin 5x}\\iff \\frac{\\cos 3x}{\\cos 2x}=\\frac{2\\sin 2x\\cos 3x}{\\sin 5x}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{\\cos 3x(\\sin 5x-2\\sin 2x\\cos 2x)}{\\cos 2x\\sin 5x}=0\\iff \\cos 3x(\\sin 5x-\\sin 4x)=0\\iff 2\\cos 3x\\sin \\frac{x}{2}\\cos \\frac{9x}{2}=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}\\cos 3x=0\\\\\\cos \\frac{9x}{2}=0\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}3x=\\frac{\\pi}{2}+\\pi n\\\\\\frac{9x}{2}=\\frac{\\pi}{2}+\\pi k\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\frac{\\pi}{6}+\\frac{\\pi n}{3}\\\\x=\\frac{\\pi}{9}+\\frac{2\\pi k}{9}\\end{aligned}\\right..k,\\,n\\in\\mathbb{Z}\"></span> . </span></p></center><p>При  <span data-inline-latex=\"k=9p+4\"></span>,  <span data-inline-latex=\"p\\in\\mathbb{Z}\"></span>  корни вто­рой серии имеют вид</p><center><p> <span data-inline-latex=\"\\frac{\\pi+2\\pi(9p+4)}{9}=\\frac{18\\pi p+9\\pi}{9}=\\pi+2\\pi p,\\quad p\\in\\mathbb{Z}\"></span> . </p></center><p> В этих точ­ках  <span data-inline-latex=\"\\sin x=0\"></span>, по­это­му окон­ча­тель­ный ответ есть  <span data-inline-latex=\"x=\\frac{\\pi}{6}+\\frac{\\pi n}{3}\"></span> ,   <span data-inline-latex=\"x=\\frac{\\pi}{9}+\\frac{2\\pi k}{9}\"></span> ,   <span data-inline-latex=\"k\\in \\mathbb{Z}\\setminus \\{9p+4\\mid p\\in\\mathbb{Z}\\}\"></span> .</p></li><li data-list-marker=\"б)\"><nobr>Точки 0 и  <span data-inline-latex=\"\\pi\"></span> </nobr> не удо­вле­тво­ря­ют огра­ни­че­ни­ям, по­это­му будем ис­кать корни урав­не­ния, при­над­ле­жа­щие <nobr>ин­тер­ва­лу  <span data-inline-latex=\"(0;\\pi)\"></span> .</nobr> От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства. Для  <span data-inline-latex=\"x=\\frac{\\pi}{6}+\\frac{\\pi n}{3}\"></span>  на­хо­дим:<center><p><span> <span data-inline-latex=\"0\\lt \\frac{\\pi}{6}+\\frac{\\pi n}{3}\\lt \\pi\\iff 0\\lt \\pi+2\\pi n\\lt 6\\pi\\iff 0\\lt 1+2n\\lt 6\\iff\"></span> <br/> <span data-inline-latex=\"\\iff -1\\lt 2n\\lt 5\\iff -\\frac{1}{2}\\lt n\\lt \\frac{5}{2}\\underset{n\\in\\mathbb{Z}}{\\iff}\\left[\\begin{aligned}n=0\\\\n=1\\\\n=2\\end{aligned}\\right.\"></span> . </span></p></center><p> Най­ден­ным зна­че­ни­ям па­ра­мет­ра со­от­вет­ству­ют числа  <span data-inline-latex=\"\\frac{\\pi}{6}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{2}\"></span>  и  <span data-inline-latex=\"\\frac{5\\pi}{6}\"></span> . </p><p>Для  <span data-inline-latex=\"x=\\frac{\\pi}{9}+\\frac{2\\pi k}{9}\"></span>  на­хо­дим:</p><center><p><span> <span data-inline-latex=\"0\\lt \\frac{\\pi}{9}+\\frac{2\\pi k}{9}\\lt \\pi\\iff 0\\lt \\pi+2\\pi k\\lt 9\\pi\\iff 0\\lt 1+2k\\lt 9\\iff\"></span> <br/> <span data-inline-latex=\"\\iff -1\\lt 2k\\lt 8\\iff -\\frac{1}{2}\\lt k\\lt 4\\underset{k\\in\\mathbb{Z}}{\\iff}\\left[\\begin{aligned}k=0\\\\k=1\\\\k=2\\\\k=3\\end{aligned}\\right.\"></span> . </span></p></center><p> Най­ден­ным зна­че­ни­ям па­ра­мет­ра со­от­вет­ству­ют числа  <span data-inline-latex=\"\\frac{\\pi}{9}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{3}\"></span> ,   <span data-inline-latex=\"\\frac{5\\pi}{9}\"></span>  и  <span data-inline-latex=\"\\frac{7\\pi}{9}\"></span> . </p></li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_19"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_20"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_21"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_22"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_23"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_24"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_25"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_26"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_27"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_28"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_29"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_30"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_31"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_32"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_33"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_34"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_35"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_36"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_37"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T12:59:51.183553+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\tg 2x+\\frac{1}{\\sin x}=\\ctg x+\\frac{1}{\\sin 5x}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[0;\\pi]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+\\frac{\\pi k}{3};\\frac{\\pi}{9}+\\pi k;\\frac{\\pi}{3}+\\pi k;\\frac{5\\pi}{9}+\\pi k;\\frac{7\\pi}{9}+\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"\\frac{\\pi}{6}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{2}\"></span> ,   <span data-inline-latex=\"\\frac{5\\pi}{6}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{9}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{3}\"></span> ,   <span data-inline-latex=\"\\frac{5\\pi}{9}\"></span> ,   <span data-inline-latex=\"\\frac{7\\pi}{9}\"></span> . </nobr></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=89002443\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 528</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Най­дем об­ласть опре­де­ле­ния урав­не­ния:<center><p> <span data-inline-latex=\"\\begin{cases}\\cos 2x\\ne q\\\\0\\\\\\sin x\\ne q\\\\0\\\\\\sin 5x\\ne q\\\\0\\end{cases}\\iff \\begin{cases}2x\\ne q\\frac{\\pi}{2}+\\pi m\\\\x\\ne q\\pi q\\\\5x\\ne q\\pi l\\end{cases}\\iff \\begin{cases}x\\ne \\frac{\\pi}{4}+\\frac{\\pi m}{2}\\\\x\\ne \\frac{\\pi l}{5}\\end{cases}.m,\\,q,\\,l\\in\\mathbb{Z}\"></span> . </p></center><p>Пре­об­ра­зу­ем урав­не­ние при этих огра­ни­че­ни­ях:</p><center><p><span> <span data-inline-latex=\"\\tg 2x+\\frac{1}{\\sin x}=\\ctg x+\\frac{1}{\\sin 5x}\\iff \\tg 2x-\\ctg x=\\frac{1}{\\sin 5x}-\\frac{1}{\\sin x}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{\\sin x\\sin 2x-\\cos x\\cos 2x}{\\sin x\\cos 2x}=\\frac{\\sin x-\\sin 5x}{\\sin x\\sin 5x}\\iff \\frac{\\cos 3x}{\\cos 2x}=\\frac{2\\sin 2x\\cos 3x}{\\sin 5x}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{\\cos 3x(\\sin 5x-2\\sin 2x\\cos 2x)}{\\cos 2x\\sin 5x}=0\\iff \\cos 3x(\\sin 5x-\\sin 4x)=0\\iff 2\\cos 3x\\sin \\frac{x}{2}\\cos \\frac{9x}{2}=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}\\cos 3x=0\\\\\\cos \\frac{9x}{2}=0\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}3x=\\frac{\\pi}{2}+\\pi n\\\\\\frac{9x}{2}=\\frac{\\pi}{2}+\\pi k\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\frac{\\pi}{6}+\\frac{\\pi n}{3}\\\\x=\\frac{\\pi}{9}+\\frac{2\\pi k}{9}\\end{aligned}\\right..k,\\,n\\in\\mathbb{Z}\"></span> . </span></p></center><p>При  <span data-inline-latex=\"k=9p+4\"></span>,  <span data-inline-latex=\"p\\in\\mathbb{Z}\"></span>  корни вто­рой серии имеют вид</p><center><p> <span data-inline-latex=\"\\frac{\\pi+2\\pi(9p+4)}{9}=\\frac{18\\pi p+9\\pi}{9}=\\pi+2\\pi p,\\quad p\\in\\mathbb{Z}\"></span> . </p></center><p> В этих точ­ках  <span data-inline-latex=\"\\sin x=0\"></span>, по­это­му окон­ча­тель­ный ответ есть  <span data-inline-latex=\"x=\\frac{\\pi}{6}+\\frac{\\pi n}{3}\"></span> ,   <span data-inline-latex=\"x=\\frac{\\pi}{9}+\\frac{2\\pi k}{9}\"></span> ,   <span data-inline-latex=\"k\\in \\mathbb{Z}\\setminus \\{9p+4\\mid p\\in\\mathbb{Z}\\}\"></span> .</p></li><li data-list-marker=\"б)\"><nobr>Точки 0 и  <span data-inline-latex=\"\\pi\"></span> </nobr> не удо­вле­тво­ря­ют огра­ни­че­ни­ям, по­это­му будем ис­кать корни урав­не­ния, при­над­ле­жа­щие <nobr>ин­тер­ва­лу  <span data-inline-latex=\"(0;\\pi)\"></span> .</nobr> От­бе­рем корни при по­мо­щи двой­но­го не­ра­вен­ства. Для  <span data-inline-latex=\"x=\\frac{\\pi}{6}+\\frac{\\pi n}{3}\"></span>  на­хо­дим:<center><p><span> <span data-inline-latex=\"0\\lt \\frac{\\pi}{6}+\\frac{\\pi n}{3}\\lt \\pi\\iff 0\\lt \\pi+2\\pi n\\lt 6\\pi\\iff 0\\lt 1+2n\\lt 6\\iff\"></span> <br/> <span data-inline-latex=\"\\iff -1\\lt 2n\\lt 5\\iff -\\frac{1}{2}\\lt n\\lt \\frac{5}{2}\\underset{n\\in\\mathbb{Z}}{\\iff}\\left[\\begin{aligned}n=0\\\\n=1\\\\n=2\\end{aligned}\\right.\"></span> . </span></p></center><p> Най­ден­ным зна­че­ни­ям па­ра­мет­ра со­от­вет­ству­ют числа  <span data-inline-latex=\"\\frac{\\pi}{6}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{2}\"></span>  и  <span data-inline-latex=\"\\frac{5\\pi}{6}\"></span> . </p><p>Для  <span data-inline-latex=\"x=\\frac{\\pi}{9}+\\frac{2\\pi k}{9}\"></span>  на­хо­дим:</p><center><p><span> <span data-inline-latex=\"0\\lt \\frac{\\pi}{9}+\\frac{2\\pi k}{9}\\lt \\pi\\iff 0\\lt \\pi+2\\pi k\\lt 9\\pi\\iff 0\\lt 1+2k\\lt 9\\iff\"></span> <br/> <span data-inline-latex=\"\\iff -1\\lt 2k\\lt 8\\iff -\\frac{1}{2}\\lt k\\lt 4\\underset{k\\in\\mathbb{Z}}{\\iff}\\left[\\begin{aligned}k=0\\\\k=1\\\\k=2\\\\k=3\\end{aligned}\\right.\"></span> . </span></p></center><p> Най­ден­ным зна­че­ни­ям па­ра­мет­ра со­от­вет­ству­ют числа  <span data-inline-latex=\"\\frac{\\pi}{9}\"></span> ,   <span data-inline-latex=\"\\frac{\\pi}{3}\"></span> ,   <span data-inline-latex=\"\\frac{5\\pi}{9}\"></span>  и  <span data-inline-latex=\"\\frac{7\\pi}{9}\"></span> . </p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

@@ -139,6 +139,11 @@ def shifted_atom(atom):
 
 def parse_equation(formula):
     formula = re.sub(
+        r"\\(tan|cot)(?![A-Za-z])",
+        lambda m: "\\" + {"tan": "tg", "cot": "ctg"}[m[1]],
+        formula,
+    )
+    formula = re.sub(
         r"\\operatorname\s*\{\s*(sin|cos|tg|ctg)\s*\}", lambda m: "\\" + m[1], formula
     )
     formula = re.sub(

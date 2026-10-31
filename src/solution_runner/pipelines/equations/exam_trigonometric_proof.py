@@ -75,6 +75,16 @@ def series_lines(series, *, sine_inverse=False):
 
 
 def families(a):
+    if a.restricted_families:
+        from .exam_trigonometric_restricted_families import formulas
+
+        return formulas(a)
+    if a.family_parameters and len(set(a.family_parameters)) > 1:
+        return tuple(
+            text.replace("k", name)
+            for item, name in zip(a.series, a.family_parameters)
+            for text in series_lines((item,), sine_inverse=a.sine_inverse)
+        )
     if a.square_difference is not None:
         return tuple(
             text.replace("k", a.square_difference.parameter)
@@ -308,46 +318,9 @@ def first(a):
 
 
 def inequality_selection(a):
-    html = (
-        "<p>Найдём корни на промежутке "
-        + inline(a.interval)
-        + ". Решим неравенства для целого параметра каждой серии:</p>"
-    )
-    inverse = (
-        set().union(*(q.atoms(sp.acos) for q in a.residues)) if a.residues else set()
-    )
-    for angle in inverse:
-        html += (
-            "<p>Для главного значения арккосинуса используем его область значений:</p>"
-        )
-        html += line("0<" + sp.latex(angle, inv_trig_style="full") + r"<\pi")
-    lo, hi, lc, uc = a.bounds
-    for offset, period, start, end, values in a.selections:
-        html += line(
-            pi(lo)
-            + (r"\le" if lc else "<")
-            + sp.latex(
-                sp.expand(offset * sp.pi + period * sp.pi * K), inv_trig_style="full"
-            )
-            + (r"\le" if uc else "<")
-            + pi(hi)
-        )
-        html += line(
-            sp.latex(sp.simplify((lo - offset) / period), inv_trig_style="full")
-            + (r"\le" if lc else "<")
-            + "k"
-            + (r"\le" if uc else "<")
-            + sp.latex(sp.simplify((hi - offset) / period), inv_trig_style="full")
-        )
-        if start > end:
-            html += "<p>Подходящих целых значений k нет.</p>"
-        else:
-            html += line(
-                r"k\in\{" + ";".join(str(k) for k in range(start, end + 1)) + r"\}"
-            )
-            for root in values:
-                html += line("x=" + pi(root))
-    return html
+    from .exam_trigonometric_inequalities import inequality_selection as select
+
+    return select(a)
 
 
 def render(a, image):
@@ -412,11 +385,17 @@ def render(a, image):
         if a.square_difference is not None
         else a.parameter
     )
+    if a.restricted_families:
+        parameter = ",".join(dict.fromkeys(f.parameter for f in a.restricted_families))
+    if a.family_parameters:
+        parameter = ",".join(dict.fromkeys(a.family_parameters))
     all_roots = (
         r";\ ".join(families(a)) + r",\ " + parameter + r"\in\mathbb Z"
         if a.series
         else r"\varnothing"
     )
+    if a.restricted_families:
+        all_roots = r";\ ".join(families(a))
     if a.affine is not None:
         from .exam_trigonometric_affine_selection import all_roots as affine_roots
 

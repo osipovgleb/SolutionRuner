@@ -108,6 +108,10 @@ def base_angle_product(parent_html):
 
 
 def merges_series(parent_html):
+    from .exam_trigonometric_parameters import single_family
+
+    if single_family(parent_html):
+        return True
     formulas = [
         "".join(s["data-inline-latex"].split())
         for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
@@ -120,7 +124,7 @@ def merges_series(parent_html):
                 for f in formulas
                 if f.startswith("x=")
                 and f.count("x=") == 1
-                and "k" in f
+                and re.search(r"(?<![A-Za-z\\])[knl](?![A-Za-z])", f)
                 and "\\\\" not in f
             ]
         )

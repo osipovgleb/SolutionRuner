@@ -121,7 +121,14 @@ def proof(a):
         html = "<p>Запишем область определения исходного уравнения:</p>"
     for pole in a.poles:
         html += line(formula(pole) + r"\ne0")
-    html += "<p>В этой области используем определения тригонометрических отношений:</p>"
+    cancelled = any(text.startswith(r"\frac{1}{\cos^2") for text, _ in a.identities)
+    if cancelled:
+        html += line(a.original)
+    html += (
+        "<p>Используем следствие основного тригонометрического тождества и сократим одинаковые слагаемые:</p>"
+        if cancelled
+        else "<p>В этой области используем определения тригонометрических отношений:</p>"
+    )
     for text, value in a.identities:
         if value not in (S, C):
             html += line(text + "=" + formula(value))
@@ -164,6 +171,8 @@ def proof(a):
     intro = (
         "<p>Решим уравнение, сохраняя исходную область определения:</p>"
         if a.cleared_denominator is not None
+        else "<p>Упростим уравнение с помощью основного тригонометрического тождества:</p>"
+        if cancelled
         else "<p>Упростим произведение тригонометрических отношений с сохранением ОДЗ:</p>"
     )
     return intro, html

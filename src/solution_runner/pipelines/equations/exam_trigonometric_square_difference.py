@@ -18,9 +18,19 @@ class SquareDifference:
     total: sp.Expr
     coefficient: sp.Expr
     parameter: str = "k"
+    general: bool = False
 
 
 def compile_difference(values, atoms, denominators):
+    direct = compile_direct(values, atoms, denominators)
+    if direct is not None:
+        return direct
+    from .exam_trigonometric_square_fraction import compile_pair
+
+    return compile_pair(values, atoms, denominators)
+
+
+def compile_direct(values, atoms, denominators):
     from .exam_trigonometric_methods import Equation, shifted_atom
     from .trig_angles import C as NUMERIC_C
     from .trig_angles import S as NUMERIC_S
@@ -58,6 +68,11 @@ def compile_difference(values, atoms, denominators):
 
 
 def parameter(parent_html):
+    from .exam_trigonometric_parameters import affine_families
+
+    letters = {name for _, _, name in affine_families(parent_html)}
+    if letters == {"l"}:
+        return "l"
     expressions = [
         n["data-inline-latex"]
         for n in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
@@ -68,12 +83,20 @@ def parameter(parent_html):
     used = {
         symbol
         for text in families
-        for symbol in re.findall(r"(?<![A-Za-z\\])([kn])(?![A-Za-z])", text)
+        for symbol in re.findall(r"(?<![A-Za-z\\])([knl])(?![A-Za-z])", text)
     }
-    return "n" if used == {"n"} else "k"
+    return next(iter(used)) if len(used) == 1 else "k"
 
 
 def reviewed(parent_html):
+    text = (
+        BeautifulSoup(parent_html, "html.parser")
+        .get_text(" ")
+        .replace("\xad", "")
+        .lower()
+    )
+    if "квадраты двух чисел равны" in text:
+        return True
     for node in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]"):
         text = (
             "".join(node["data-inline-latex"].split())
@@ -91,6 +114,10 @@ def reviewed(parent_html):
 
 
 def proof(a):
+    if a.square_difference.general:
+        from .exam_trigonometric_square_fraction import proof as pair_proof
+
+        return pair_proof(a)
     from .exam_trigonometric_proof import families, formula
 
     d = a.square_difference

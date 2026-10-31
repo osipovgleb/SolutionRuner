@@ -15,6 +15,7 @@ class Reduction:
     polynomial: sp.Expr
     degree: int
     variable: sp.Symbol = T
+    source_poles: tuple = ()
 
 
 def lift(raw, variable=T):
@@ -45,7 +46,7 @@ def lift(raw, variable=T):
     return primitive(homogeneous, (S, C)), degree
 
 
-def convert(equation, preferred):
+def convert(equation, preferred, preferred_scale=None):
     raw = equation.raw
     if raw.has(T, U) or equation.reciprocal is not None:
         return equation
@@ -67,13 +68,20 @@ def convert(equation, preferred):
         return equation
     homogeneous, degree = lifted
     scale = equation.scale
-    if degree == 2 and not equation.poles:
+    source_poles = ()
+    poles = equation.poles
+    double_domain = preferred_scale == 2 * scale and set(poles) == {S, C}
+    if degree == 2 and (not poles or double_domain):
         a = homogeneous.coeff(S, 2)
         if homogeneous.coeff(C, 2) == -a:
             homogeneous = sp.expand(homogeneous.coeff(S).coeff(C) * S / 2 - a * C)
             scale *= 2
             degree = 1
-    reduction = Reduction(raw, equation.scale, homogeneous, degree, variable)
+            if double_domain:
+                source_poles, poles = poles, (S,)
+    reduction = Reduction(
+        raw, equation.scale, homogeneous, degree, variable, source_poles
+    )
     return replace(
         equation,
         raw=sp.expand(
@@ -81,4 +89,5 @@ def convert(equation, preferred):
         ),
         scale=scale,
         homogeneous=reduction,
+        poles=poles,
     )
