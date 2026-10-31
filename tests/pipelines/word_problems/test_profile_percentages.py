@@ -67,7 +67,7 @@ def test_source_answer_is_computed_without_mutation_and_replay_has_no_more_chang
     )
     result = plan(case, context)
     assert parse_rational(result.answer) == parse_rational(
-        BeautifulSoup(saved, "html.parser").get_text()
+        case.get("expected_answer", BeautifulSoup(saved, "html.parser").get_text())
     )
     assert context == original
     next(s for s in context["normalized_content"]["sections"] if s["key"] == "answer")[

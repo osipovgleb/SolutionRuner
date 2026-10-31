@@ -3,12 +3,9 @@
 import sympy as sp
 
 from ..probability.common import line
+from .math_common import fraction as frac
 from .math_common import number as n
 from .motion_models import X
-
-
-def frac(top, bottom):
-    return r"\frac{" + str(top) + "}{" + str(bottom) + "}"
 
 
 def half_setup(q):

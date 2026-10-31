@@ -8,7 +8,7 @@ import sympy as sp
 from ..applied.physical_questions import VALUE, scalar
 from .common import UnsupportedCondition
 
-HOUR = rf"(?:(?:{VALUE}|два|три|четыре) )?час(?:а|ов)?"
+HOUR = rf"(?:(?:{VALUE}|один|два|три|четыре) )?час(?:а|ов)?"
 DURATION = rf"(?:{HOUR}(?: {VALUE} минут(?:а|ы)?)?|{VALUE} минут(?:а|ы)?)"
 SPEED_ANSWER = r" Ответ (?:дайте в км/ч|запишите в километрах в час)\."
 HALF_START = r"Из (?:пункта )?А в (?:пункт )?В одновременно выехали два (?:автомобиля|автомобилиста)\. Первый проехал с постоянной скоростью весь путь\. Второй проехал первую половину пути со скоростью"
@@ -60,7 +60,7 @@ class Duration:
 
 def duration(text):
     match = re.fullmatch(
-        rf"(?:(?P<h>{VALUE}|два|три|четыре)? ?час(?:а|ов)?(?: (?P<m>{VALUE}) минут(?:а|ы)?)?|(?P<only>{VALUE}) минут(?:а|ы)?)",
+        rf"(?:(?P<h>{VALUE}|один|два|три|четыре)? ?час(?:а|ов)?(?: (?P<m>{VALUE}) минут(?:а|ы)?)?|(?P<only>{VALUE}) минут(?:а|ы)?)",
         text,
     )
     if not match:
@@ -69,6 +69,7 @@ def duration(text):
         )
     words = {
         None: sp.Integer(1),
+        "один": sp.Integer(1),
         "два": sp.Integer(2),
         "три": sp.Integer(3),
         "четыре": sp.Integer(4),

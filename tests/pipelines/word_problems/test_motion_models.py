@@ -57,6 +57,7 @@ def test_unread_instructions_and_foreign_assets_fail_closed(case, mode):
     "text,hours,minutes,total",
     [
         ("час", 1, 0, 1),
+        ("один час", 1, 0, 1),
         ("два часа", 2, 0, 2),
         ("4 часа 20 минут", 4, 20, sp.Rational(13, 3)),
         ("2 часа 40 минут", 2, 40, sp.Rational(8, 3)),

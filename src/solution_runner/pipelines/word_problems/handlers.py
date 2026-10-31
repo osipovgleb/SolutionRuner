@@ -4,6 +4,16 @@ from solution_runner.pipelines.core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "word-average-speed",
+        "solution_runner.pipelines.word_problems.average_speed:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
+        "word-relative-displacement",
+        "solution_runner.pipelines.word_problems.relative_motion:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "word-motion-time-balance",
         "solution_runner.pipelines.word_problems.motion_models:build_context_repair_plan",
         requires_parent_condition_asset=False,

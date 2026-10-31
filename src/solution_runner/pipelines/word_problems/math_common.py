@@ -28,3 +28,7 @@ def number(value):
 def primitive(expression, variables):
     poly = sp.Poly(expression, *variables).clear_denoms(convert=True)[1].primitive()[1]
     return poly.as_expr() if poly.LC() > 0 else -poly.as_expr()
+
+
+def fraction(top, bottom):
+    return r"\frac{" + str(top) + "}{" + str(bottom) + "}"
