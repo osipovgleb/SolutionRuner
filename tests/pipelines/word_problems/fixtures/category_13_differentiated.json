@@ -1,0 +1,484 @@
+{
+  "groups": [
+    {
+      "key": "517203",
+      "uuid": "fe9f8bcd-9661-462a-99db-dce206c6a464",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 1,
+      "rule": "word-differentiated-credit",
+      "source_key": "517203"
+    },
+    {
+      "key": "517480",
+      "uuid": "9f46abb3-e04c-4753-ab3c-6dcc8aa423d7",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 2,
+      "rule": "word-differentiated-credit",
+      "source_key": "517480"
+    },
+    {
+      "key": "517569",
+      "uuid": "c58722c2-5feb-42f3-b6a1-52dd2b5841a0",
+      "theme_uuid": "87e2a62d-a8cc-4bcb-b02e-3a05b81c2519",
+      "theme_title": "Кредиты",
+      "theme_order": 1,
+      "order": 4,
+      "rule": "word-differentiated-credit",
+      "source_key": "517569"
+    }
+  ],
+  "cases": [
+    {
+      "group": "517203",
+      "task": "517203",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму <nobr>7 млн</nobr> руб­лей на срок <nobr>10 лет.</nobr> Усло­вия воз­вра­та та­ко­вы: </p><p>—  каж­дый ян­варь долг воз­рас­та­ет на <i>r</i> % по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь не­об­хо­ди­мо вы­пла­тить часть долга так, чтобы на на­ча­ло июля каж­до­го года долг умень­шал­ся на одну и ту же сумму по срав­не­нию с преды­ду­щим июлем.</p><p>Най­ди­те наи­мень­шую воз­мож­ную став­ку <i>r</i> , если из­вест­но, что по­след­ний платёж будет не менее <nobr>0,819 млн</nobr> руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Долг перед бан­ком (в млн руб­лей) по со­сто­я­нию на июль дол­жен умень­шать­ся до нуля рав­но­мер­но:</p><center><p>7; 6,3; 5,6; ...; 1,4; 0,7; 0.</p></center><p>По усло­вию каж­дый ян­варь долг воз­рас­та­ет на <i>r</i> %. Пусть <span data-inline-latex=\"k=1+\\frac{r}{100}\"></span> ,  тогда по­сле­до­ва­тель­ность раз­ме­ров долга <nobr>(в млн руб­лей)</nobr> в ян­ва­ре та­ко­ва:</p><center><p>7<i>k</i>; 6,3<i>k</i>; 5,6<i>k</i>; ...; 1,4<i>k</i>; 0,7<i>k</i>.</p></center><p>Сле­до­ва­тель­но, по­след­ний пла­теж со­ста­вит <nobr>0,7<i>k</i> млн руб­лей.</nobr></p><p>По­лу­ча­ем <span data-inline-latex=\"0{,}7k\\ge 0{,}819\"></span>, от­ку­да <span data-inline-latex=\"k\\ge 1{,}17\"></span>. Зна­чит, <span data-inline-latex=\"k=1{,}17,\\quad r=17\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "517203",
+      "task": "517241",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 8 млн руб­лей на срок 10 лет. Усло­вия воз­вра­та та­ко­вы: </p><p>— каж­дый ян­варь долг воз­рас­та­ет на <i>r</i> % по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь не­об­хо­ди­мо вы­пла­тить часть долга так, чтобы на на­ча­ло июля каж­до­го года долг умень­шал­ся на одну и ту же сумму по срав­не­нию с преды­ду­щим июлем.</p><p>Най­ди­те наи­мень­шую воз­мож­ную став­ку <i>r</i>, если из­вест­но, что по­след­ний платёж будет не менее 0,92 млн руб­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84560717\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 505</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "15",
+      "source_answer_note": "0,8(1+r/100) >= 0,92; минимальное r=15, а не 1."
+    },
+    {
+      "group": "517480",
+      "task": "517480",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/897a275c-8614-4b7d-9ef0-902806ced49c",
+              "kind": "attachment",
+              "asset_id": "897a275c-8614-4b7d-9ef0-902806ced49c",
+              "asset_key": "attachment_1",
+              "transformation_target_id": "asset:attachment_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму <nobr>9 млн</nobr> руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг воз­рас­та­ет на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>—  в июле каж­до­го года долг дол­жен быть на одну и ту же сумму мень­ше долга на июль преды­ду­ще­го года.</p><p>Чему будет равна общая сумма вы­плат (в мил­ли­о­нах руб­лей) после пол­но­го по­га­ше­ния кре­ди­та, если наи­боль­ший го­до­вой платёж со­ста­вит <nobr>3,6 млн</nobr> руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">14,4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=14975602\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2017. Основная волна 02.06.2017. Вариант 431 (часть 2)</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=15014745\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 (С5) ЕГЭ 2017</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ясно, что наи­боль­шим яв­ля­ет­ся пер­вый платёж, со­от­вет­ству­ю­щий мак­си­маль­ной сумме долга. Пусть кре­дит пла­ни­ру­ет­ся взять на <i>n</i> лет. Пер­вый платёж при вы­пла­те диф­фе­рен­ци­ру­е­мы­ми пла­те­жа­ми равен <span data-inline-latex=\"-\\frac{9}{n}+9\\cdot 0{,}2\"></span> млн руб. По усло­вию эта ве­ли­чи­на равна 3,6 млн руб., от­ку­да <span data-inline-latex=\"n=5\"></span>. По фор­му­ле для вы­пла­ты В при опла­те кре­ди­та <var data-math-identifier=\"S\">S</var>, взя­то­го под <i>r</i>% го­до­вых, имеем:</p><center><p><span data-inline-latex=\"\\mathrm{В}=S+\\frac{n+1}{200}rS\"></span>, </p></center><p>По­это­му</p><center><p><nobr><span data-inline-latex=\"\\mathrm{В}=9+\\frac{5+1}{200}\\cdot 20\\cdot 9=14{,}4\"></span>  млн руб.</nobr></p></center><p>О ре­ше­нии таких за­да­ний см. Гущин Д. Д. <a data-asset-id=\"897a275c-8614-4b7d-9ef0-902806ced49c\" data-asset-key=\"attachment_1\" href=\"/assets/897a275c-8614-4b7d-9ef0-902806ced49c\" rel=\"noreferrer noopener\" target=\"_blank\"> «Встре­чи с фи­нан­со­вой ма­те­ма­ти­кой»</a>.</p><p><b>При­ведём ав­тор­ское ре­ше­ние.</b></p><p>Долг перед бан­ком (в млн руб­лей) по со­сто­я­нию на июль дол­жен умень­шать­ся до нуля рав­но­мер­но:</p><center><span data-inline-latex=\"9,\\,\\frac{9(n-1)}{n},\\,\\dots,\\,\\frac{9\\cdot 2}{n},\\,\\frac{9}{n},\\,0\"></span>.</center><p>По усло­вию каж­дый ян­варь долг воз­рас­та­ет на 20%, зна­чит, по­сле­до­ва­тель­ность раз­ме­ров долга (в млн руб­лей) в ян­ва­ре та­ко­ва:</p><center><p><span data-inline-latex=\"10{,}8,\\,\\frac{10{,}8(n-1)}{n},\\,\\dots,\\,\\frac{10{,}8\\cdot 2}{n},\\,\\frac{10{,}8}{n}\"></span> .</p></center><p>Сле­до­ва­тель­но, вы­пла­ты <nobr>(в млн руб­лей)</nobr> долж­ны быть сле­ду­ю­щи­ми: </p><center><p><span data-inline-latex=\"1{,}8+\\frac{9}{n},\\,\\frac{1{,}8(n-1)+9}{n},\\,\\dots,\\,\\frac{1{,}8\\cdot 2+9}{n},\\,\\frac{1{,}8+9}{n}\"></span> .</p></center><p>По­лу­ча­ем <span data-inline-latex=\"1{,}8+\\frac{9}{n}=3{,}6\"></span>, от­ку­да <span data-inline-latex=\"n=5\"></span>. Зна­чит, всего сле­ду­ет вы­пла­тить </p><center><p><nobr><span data-inline-latex=\"9+1{,}8(1+\\frac{4}{5}+\\frac{3}{5}+\\frac{2}{5}+\\frac{1}{5})=9+1{,}8\\cdot 3=14{,}4\"></span> (млн руб­лей).</nobr></p></center><figure><img alt=\"\" data-asset-id=\"897a275c-8614-4b7d-9ef0-902806ced49c\" data-asset-key=\"attachment_1\" data-transformation-target-id=\"asset:attachment_1\" src=\"/assets/897a275c-8614-4b7d-9ef0-902806ced49c\"/></figure>",
+              "title": "Решение",
+              "asset_keys": [
+                "attachment_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "517480",
+      "task": "513108",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 9 млн руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг воз­рас­та­ет на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— в июле каж­до­го года долг дол­жен быть на одну и ту же сумму мень­ше долга на июль преды­ду­ще­го года.</p><p>Чему будет равна общая сумма вы­плат после пол­но­го по­га­ше­ния кре­ди­та, если наи­боль­ший го­до­вой платёж со­ста­вит 1,5 млн руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "16,2",
+      "source_answer_note": "n=9/(1,5-0,9)=15; всего 9+0,9*16/2=16,2 млн."
+    },
+    {
+      "group": "517480",
+      "task": "513109",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 17 млн руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг воз­рас­та­ет на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— в июле каж­до­го года долг дол­жен быть на одну и ту же сумму мень­ше долга на июль преды­ду­ще­го года.</p><p>Чему будет равна общая сумма вы­плат после пол­но­го по­га­ше­ния кре­ди­та, если наи­боль­ший го­до­вой платёж со­ста­вит 3,4 млн руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">..</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "26,35",
+      "source_answer_note": "n=17/(3,4-1,7)=10; всего 17+1,7*11/2=26,35 млн."
+    },
+    {
+      "group": "517480",
+      "task": "513107",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 28 млн руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг воз­рас­та­ет на 25% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— в июле каж­до­го года долг дол­жен быть на одну и ту же сумму мень­ше долга на июль преды­ду­ще­го года.</p><p>Чему будет равна общая сумма вы­плат после пол­но­го по­га­ше­ния кре­ди­та, если наи­боль­ший го­до­вой платёж со­ста­вит 9 млн руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "80,5",
+      "source_answer_note": "n=28/(9-7)=14; всего 28+7*15/2=80,5 млн."
+    },
+    {
+      "group": "517569",
+      "task": "517569",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/897a275c-8614-4b7d-9ef0-902806ced49c",
+              "kind": "attachment",
+              "asset_id": "897a275c-8614-4b7d-9ef0-902806ced49c",
+              "asset_key": "attachment_1",
+              "transformation_target_id": "asset:attachment_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 18 млн руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы:</p><p>—  каж­дый ян­варь долг воз­рас­та­ет на 10% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>—  с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>—  в июле каж­до­го года долг дол­жен быть на одну и ту же сумму мень­ше долга на июль преды­ду­ще­го года.</p><p>На сколь­ко лет был взят кре­дит, если общая сумма вы­плат после пол­но­го по­га­ше­ния кре­ди­та со­ста­ви­ла 27 млн руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=15014745\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 (С5) ЕГЭ 2017</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>По фор­му­ле для пе­ре­пла­ты П при вы­пла­те суммы кре­ди­та <nobr><i>S  =  18</i> млн</nobr> руб­лей диф­фе­рен­ци­ро­ван­ны­ми пла­те­жа­ми имеем:</p><center><p><span data-inline-latex=\"P=\\frac{n+1}{200}rS\"></span>, </p></center><p>где <i>n</i>  — ис­ко­мое число лет, а <i>r</i>  =  10  — ве­ли­чи­на пла­теж­ной став­ки в про­цен­тах  (см. Гущин Д. Д. <a data-asset-id=\"897a275c-8614-4b7d-9ef0-902806ced49c\" data-asset-key=\"attachment_1\" href=\"/assets/897a275c-8614-4b7d-9ef0-902806ced49c\" rel=\"noreferrer noopener\" target=\"_blank\"> «Встре­чи с фи­нан­со­вой ма­те­ма­ти­кой»</a>; для по­лу­че­ния пол­но­го балла до­ка­за­тель­ство этих фор­мул не­об­хо­ди­мо при­во­дить на эк­за­ме­не). По усло­вию, пе­ре­пла­та  П равна <nobr></nobr></p><nobr><span data-inline-latex=\"27-18=9\"></span> млн</nobr> руб­лей,<center><p><span data-inline-latex=\"9=\\frac{n+1}{2}\\cdot 0{,}1\\cdot 18\"></span>,</p></center><p>от­ку­да <i>n</i>  =  9.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Долг умень­ша­ет­ся каж­дый июль рав­но­мер­но: <span data-inline-latex=\"18,\\,\\frac{18}{n}(n-1),\\,\\dots,\\,\\frac{2\\cdot 18}{n},\\,\\frac{18}{n},\\,0\"></span>. </p><p>В ян­ва­ре  долг воз­рас­та­ет на 10%, зна­чит, долг в ян­ва­ре:</p><center><p><span data-inline-latex=\"1{,}1\\cdot 18,\\,\\frac{1{,}1\\cdot 18(n-1)}{n},\\,\\dots,\\,\\frac{2\\cdot 1{,}1\\cdot 18}{n},\\,\\frac{1{,}1\\cdot 18}{n}\"></span> . </p></center><p>Вы­пла­ты: </p><center><p><span><span data-inline-latex=\"0{,}1\\cdot 18+\\frac{18}{n},\\,\\frac{0{,}1\\cdot 18(n-1)}{n}+\\frac{18}{n},\\,\\dots,\\,\\frac{0{,}1\\cdot 18\\cdot 2}{n}+\\frac{18}{n},\\,\\frac{0{,}1\\cdot 18}{n}+\\frac{18}{n}\"></span> . </span></p></center><p>Тогда </p><center><p><span><span data-inline-latex=\"18+0{,}1\\cdot 18(\\frac{n}{n}+\\frac{n-1}{n}+\\dots+\\frac{2}{n}+\\frac{1}{n})=18+18\\frac{0{,}1(n+1)}{2}=27\\iff 1{,}8\\frac{(n+1)}{2}=9\\iff n=9\"></span>. </span></p></center></section><figure><img alt=\"\" data-asset-id=\"897a275c-8614-4b7d-9ef0-902806ced49c\" data-asset-key=\"attachment_1\" data-transformation-target-id=\"asset:attachment_1\" src=\"/assets/897a275c-8614-4b7d-9ef0-902806ced49c\"/></figure>",
+              "title": "Решение",
+              "asset_keys": [
+                "attachment_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "517569",
+      "task": "517517",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 5 млн руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг воз­рас­та­ет на 20% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— в июле каж­до­го года долг дол­жен быть на одну и ту же сумму мень­ше долга на июль преды­ду­ще­го года.</p><p>На сколь­ко лет пла­ни­ру­ет­ся взять кре­дит, если из­вест­но, что общая сумма вы­плат после его пол­но­го по­га­ше­ния со­ста­вит 7,5 млн руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=15005049\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2017. Основная волна 02.06.2017. Вариант 419 (часть 2)</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34043000\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 ЕГЭ–2020</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=15014745\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 (С5) ЕГЭ 2017</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "4",
+      "source_answer_note": "5+0,2*5*(n+1)/2=7,5; n=4."
+    },
+    {
+      "group": "517569",
+      "task": "521918",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 20 млн руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы: </p><p>— каж­дый ян­варь долг воз­рас­та­ет на 30% по срав­не­нию с кон­цом преды­ду­ще­го года; </p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга; </p><p>— в июле каж­до­го года долг дол­жен быть на одну и ту же ве­ли­чи­ну мень­ше долга на июль преды­ду­ще­го года. </p><p>На сколь­ко лет был взят кре­дит, если из­вест­но, что общая сумма вы­плат после его по­га­ше­ния рав­ня­лась 47 млн руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">-</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=20108133\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин: Тренировочный вариант № 238</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "8",
+      "source_answer_note": "20+0,3*20*(n+1)/2=47; n=8."
+    },
+    {
+      "group": "517569",
+      "task": "526343",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В июле пла­ни­ру­ет­ся взять кре­дит в банке на сумму 16 млн руб­лей на не­ко­то­рый срок (целое число лет). Усло­вия его воз­вра­та та­ко­вы:</p><p>— каж­дый ян­варь долг воз­рас­та­ет на 25% по срав­не­нию с кон­цом преды­ду­ще­го года;</p><p>— с фев­ра­ля по июнь каж­до­го года не­об­хо­ди­мо вы­пла­тить часть долга;</p><p>— в июле каж­до­го года долг дол­жен быть на одну и ту же сумму мень­ше долга на июль преды­ду­ще­го года.</p><p>На сколь­ко лет пла­ни­ру­ет­ся взять кре­дит, если из­вест­но, что общая сумма вы­плат после его пол­но­го по­га­ше­ния со­ста­вит 38 млн руб­лей?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=24586088\" rel=\"noreferrer noopener\" target=\"_blank\">Основная волна ЕГЭ по математике 29.05.2019. Вариант 405</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=24900081\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 17 (С5) ЕГЭ 2019</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "10",
+      "source_answer_note": "16+0,25*16*(n+1)/2=38; n=10."
+    }
+  ]
+}

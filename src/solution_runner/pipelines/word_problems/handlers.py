@@ -119,3 +119,12 @@ HANDLERS = (
         requires_parent_condition_asset=False,
     ),
 )
+
+
+HANDLERS += (
+    HandlerSpec(
+        "word-differentiated-credit",
+        "solution_runner.pipelines.word_problems.differentiated_credit:build_context_repair_plan",
+        requires_parent_condition_asset=False,
+    ),
+)
