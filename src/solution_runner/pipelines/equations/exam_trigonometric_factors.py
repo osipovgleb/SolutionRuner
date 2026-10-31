@@ -95,6 +95,31 @@ def preserve_zero_square(compiled, parent_html):
     )
 
 
+def identity_branches(compiled, allow_inverse, domain):
+    if compiled.ratio_product is not None:
+        from .exam_trigonometric_ratio_product import branches
+
+        return compiled, branches(compiled.ratio_product)
+
+    if compiled.triple_angle is not None and compiled.triple_angle.remainder != 0:
+        return compiled, compiled.triple_angle.branches
+    if compiled.sum_product is not None:
+        from .exam_trigonometric_sum_product import branches as sum_product_branches
+
+        return compiled, sum_product_branches(compiled)
+    from .exam_trigonometric_unit_factors import (
+        branches as unit_branches,
+    )
+    from .exam_trigonometric_unit_factors import (
+        prepare as unit_factors,
+    )
+
+    factored = unit_factors(compiled) if domain is None else None
+    if factored is not None:
+        return factored, unit_branches(factored, allow_inverse)
+    return None
+
+
 def method_branches(
     compiled, preferred, allow_inverse, domain, parent_html, *, translation=sp.S.Zero
 ):
@@ -112,22 +137,10 @@ def method_branches(
     from .exam_trigonometric_square_factor import prepare as square_product
     from .exam_trigonometric_style import cotangent_method
 
-    if compiled.triple_angle is not None and compiled.triple_angle.remainder != 0:
-        return compiled, compiled.raw, compiled.triple_angle.branches, preferred
-    if compiled.sum_product is not None:
-        from .exam_trigonometric_sum_product import branches as sum_product_branches
-
-        return compiled, compiled.raw, sum_product_branches(compiled), preferred
-    from .exam_trigonometric_unit_factors import (
-        branches as unit_branches,
-    )
-    from .exam_trigonometric_unit_factors import (
-        prepare as unit_factors,
-    )
-
-    factored = unit_factors(compiled) if domain is None else None
-    if factored is not None:
-        return factored, factored.raw, unit_branches(factored, allow_inverse), preferred
+    identity = identity_branches(compiled, allow_inverse, domain)
+    if identity is not None:
+        factored, branches = identity
+        return factored, factored.raw, branches, preferred
     compiled = square_product(compiled, parent_html) if domain is None else compiled
     if compiled.square_difference is not None:
         from .exam_trigonometric_square_difference import parameter
@@ -144,7 +157,10 @@ def method_branches(
     if compiled.angle_product is not None:
         from .exam_trigonometric_angle_product import branches as angle_branches
 
-        return compiled, compiled.raw, angle_branches(compiled.angle_product), preferred
+        result = angle_branches(compiled.angle_product)
+        if domain is not None:
+            result = restrict(result, domain, compiled.strict_domain)
+        return compiled, compiled.raw, result, preferred
     if not compiled.raw.has(T, U) and cotangent_method(parent_html):
         preferred = C if local_cotangent(parent_html) else U
     compiled = convert(compiled, preferred)

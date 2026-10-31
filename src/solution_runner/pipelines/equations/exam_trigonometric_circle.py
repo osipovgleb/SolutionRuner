@@ -9,6 +9,7 @@ import sympy as sp
 from ..probability import solution_diagrams
 from ..word_problems.common import UnsupportedCondition, section
 from .exam_input import read as read_exam
+from .exam_trigonometric_panels import sources as panel_sources
 from .exam_trigonometric_prepared_circle import recipe, source_less
 
 DIRECTORY = Path(__file__).parent / "assets/exam-trigonometry"
@@ -53,7 +54,7 @@ def read(context):
             raise UnsupportedCondition(
                 "the prepared circle must match a reviewed equation and interval"
             )
-    else:
+    elif panel_sources(context) is None:
         source(context)
     content = context["normalized_content"]
     prepared = deepcopy(context)
@@ -130,6 +131,8 @@ def validate(entry, a):
 
 
 def diagram_specs(context):
+    if panel_sources(context) is not None:
+        return ()
     if source_less(context):
         entry = recipe(context)
         return (
@@ -146,6 +149,15 @@ def diagram_specs(context):
 
 
 def image(context, a, generated):
+    panels = panel_sources(context)
+    if panels is not None:
+        from .exam_trigonometric_panels import image as panel_image
+
+        if generated:
+            raise UnsupportedCondition(
+                "compatible partition circles need no generated duplicates"
+            )
+        return panel_image(context, a, panels)
     if source_less(context):
         entry = recipe(context)
         if entry is not None:

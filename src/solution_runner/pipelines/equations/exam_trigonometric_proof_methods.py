@@ -4,6 +4,10 @@ from .exam_trigonometric_compile import C, S, T, U
 
 
 def method_proof(a):
+    if a.ratio_product is not None:
+        from .exam_trigonometric_ratio_product import proof
+
+        return proof(a)
     if a.triple_angle is not None:
         from .exam_trigonometric_triple_angle import proof
 
@@ -29,6 +33,10 @@ def method_proof(a):
 
         return proof(a)
     if a.angle_product is not None:
+        if a.strict_domain:
+            from .exam_trigonometric_radical_quotient import proof
+
+            return proof(a)
         from .exam_trigonometric_angle_product import proof
 
         return proof(a)

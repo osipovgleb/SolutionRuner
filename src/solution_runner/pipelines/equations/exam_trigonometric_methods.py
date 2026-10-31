@@ -23,6 +23,7 @@ from .trig_symbolic_parser import (
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
+    from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
@@ -118,6 +119,7 @@ class Equation:
     unit_factors: tuple | None = None
     sum_product: "SumProduct | None" = None
     triple_angle: "TripleAngle | None" = None
+    ratio_product: "RatioProduct | None" = None
 
 
 def shifted_atom(atom):

@@ -83,6 +83,12 @@ def parent_style(parent_html):
 
 def presentation(soup, selection_method, formulas):
     images = soup.find_all("img")
+    paired = (
+        selection_method == "circle"
+        and len(images) == 2
+        and "две тригонометрические окружности"
+        in soup.get_text(" ").replace("\xad", "").lower()
+    )
     allowed_images = (
         (0, 1)
         if selection_method == "progressions"
@@ -90,7 +96,7 @@ def presentation(soup, selection_method, formulas):
         if selection_method in ("circle", "number_line")
         else (0,)
     )
-    if len(images) not in allowed_images:
+    if len(images) not in allowed_images and not paired:
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
         )
@@ -105,6 +111,8 @@ def presentation(soup, selection_method, formulas):
             if any(str(n).strip() for n in image.previous_siblings)
             else "before-intro"
         )
+    if paired:
+        position = "selection"
     substitutions = [
         m
         for f in formulas

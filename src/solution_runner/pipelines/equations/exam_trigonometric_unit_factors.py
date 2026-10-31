@@ -50,10 +50,26 @@ def prepare(equation):
 
 
 def branches(equation, allow_inverse):
-    from .exam_trigonometric import solve_branches
+    from .exam_trigonometric import Branch, solve_branches
 
     result = solve_branches(equation.raw, C, allow_inverse, factored=True)[1]
+    if doubled_product(equation.unit_factors[3]) is not None:
+        homogeneous = next(b for b in result if b.original is not None)
+        zero = Branch(
+            S,
+            S,
+            (sp.S.Zero,),
+            (sp.S.Zero,),
+            (sp.S.Zero, sp.Rational(1, 2), sp.S.One, sp.Rational(3, 2)),
+            angle_scale=sp.Integer(2),
+        )
+        return homogeneous, zero
     return tuple(sorted(result, key=lambda b: b.original is None))
+
+
+def doubled_product(reduced):
+    coefficient = sp.cancel(reduced / (S * C))
+    return coefficient if coefficient and not coefficient.free_symbols else None
 
 
 def proof(a):
@@ -62,12 +78,39 @@ def proof(a):
 
     raw, linear, quotient, reduced = a.unit_factors
     angle = argument(a.scale)
+    coefficient = doubled_product(reduced)
     html = line(a.original)
     html += line(formula(raw, angle) + "=0")
-    html += "<p>Применим формулы суммы кубов и разности квадратов, вынесем общий множитель:</p>"
+    html += (
+        "<p>Применим формулу разности кубов и вынесем общий множитель:</p>"
+        if coefficient is not None and linear.coeff(S) * linear.coeff(C) < 0
+        else "<p>Применим формулы суммы кубов и разности квадратов, вынесем общий множитель:</p>"
+    )
     html += line(formula(sp.Mul(linear, quotient, evaluate=False), angle) + "=0")
     html += line(formula(S * S + C * C, angle) + "=1")
     html += line(formula(sp.Mul(linear, reduced, evaluate=False), angle) + "=0")
+    if coefficient is not None:
+        doubled = argument(2 * a.scale)
+        html += (
+            "<p>Применим формулу двойного угла к произведению синуса и косинуса:</p>"
+        )
+        html += line(formula(S * C, angle) + r"=\frac{1}{2}\sin(" + doubled + ")")
+        html += line(
+            sp.latex(coefficient / 2)
+            + r"\cdot"
+            + formula(linear, angle)
+            + r"\sin("
+            + doubled
+            + ")=0"
+        )
+        html += "<p>Решим оба уравнения, не теряя нулевой множитель:</p>"
+        for branch in a.branches:
+            scale = a.scale * branch.angle_scale
+            html += polynomial(branch, angle=argument(scale), root_scale=scale)
+        return (
+            "<p>Разложим кубическое выражение с помощью основного тригонометрического тождества:</p>",
+            html,
+        )
     html += "<p>Разложим оставшуюся скобку и решим все три уравнения:</p>"
     html += line(
         formula(

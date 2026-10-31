@@ -68,7 +68,13 @@ def finish(a):
         series = tuple(s for item in series for s in centred((item,)))
     elif a.selection_method == "inequalities":
         if (
-            a.factored_source is not None
+            (
+                a.factored_source is not None
+                or (
+                    a.unit_factors is not None
+                    and any(b.angle_scale != 1 for b in a.branches)
+                )
+            )
             and any(b.original is not None for b in a.branches)
             and not a.poles
         ):
@@ -110,7 +116,9 @@ def canonical(series):
 def root_series(branches, residues, domain, allow_inverse):
 
     if domain is not None:
-        series = tuple(s for branch in branches for s in square_series(branch))
+        series = tuple(
+            dict.fromkeys(s for branch in branches for s in square_series(branch))
+        )
     elif (
         all(q.is_Rational for q in residues)
         and len(branches) == 1

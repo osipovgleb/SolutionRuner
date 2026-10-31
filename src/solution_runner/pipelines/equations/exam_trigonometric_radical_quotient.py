@@ -1,5 +1,7 @@
 """A radical denominator requires a strictly positive radicand before clearing it."""
 
+from dataclasses import replace
+
 import sympy as sp
 
 from ..probability.common import line
@@ -8,10 +10,10 @@ from .exam_trigonometric_compile import C, S, compile_equation, table
 from .power_arithmetic import balanced, clean
 
 
-def compile_quotient(formula):
+def compile_quotient(formula, *, product=False):
     from .exam_trigonometric_methods import Equation
 
-    text = clean(formula)
+    text = clean(formula).removesuffix(".")
     if not text.startswith(r"\frac{"):
         return None
     numerator, end = balanced(text, 5)
@@ -25,13 +27,18 @@ def compile_quotient(formula):
         raise UnsupportedCondition(
             "one complete quotient by one square root must equal zero"
         )
-    raw, identities = compile_equation(numerator + "=0")
     domain, domain_identities = compile_equation(radicand + "=0")
     if len(domain.free_symbols) != 1 or not domain.free_symbols <= {S, C}:
         raise UnsupportedCondition("the radical denominator needs one sine or cosine")
     variable = next(iter(domain.free_symbols))
     if sp.degree(domain, variable) != 1 or domain.subs(variable, 0) != 0:
         raise UnsupportedCondition("a homogeneous linear radicand is required")
+    if product:
+        from .exam_trigonometric_angle_product import compile_product
+
+        compiled = compile_product(numerator + "=0")
+        return replace(compiled, domain=domain, strict_domain=True)
+    raw, identities = compile_equation(numerator + "=0")
     return Equation(
         raw, identities + domain_identities, sp.S.One, domain=domain, strict_domain=True
     )
@@ -43,6 +50,11 @@ def proof(a):
     html = "<p>Корень в знаменателе должен быть определён и отличен от нуля:</p>"
     html += line(formula(a.domain) + ">0")
     html += "<p>Только при этом условии исходное уравнение равносильно обращению числителя в нуль:</p>"
+    if a.angle_product is not None:
+        return (
+            "<p>Решим уравнение с сохранением области определения знаменателя:</p>",
+            html + product_proof(a),
+        )
     for text, value in a.identities:
         html += line(text + "=" + formula(value))
     html += line(formula(a.raw) + "=0")
@@ -65,3 +77,23 @@ def proof(a):
                     "x=" + pi(q) + r"+2\pi k:\quad" + sp.latex(radicand) + r"\le0"
                 )
     return "<p>Решим уравнение с сохранением области определения знаменателя:</p>", html
+
+
+def product_proof(a):
+    from .exam_trigonometric_angle_product import branches
+    from .exam_trigonometric_angle_product import proof as angle_proof
+    from .exam_trigonometric_proof import families, pi
+
+    unfiltered = branches(a.angle_product)
+    html = angle_proof(replace(a, branches=unfiltered))[1]
+    rejected = sorted({q for b in unfiltered for q in b.residues} - set(a.residues))
+    for q in rejected:
+        value = sp.simplify(a.domain.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)}))
+        if value.is_nonpositive is not True:
+            raise UnsupportedCondition("only nonpositive radicands may be excluded")
+        html += "<p>Эта серия не удовлетворяет строгому условию на знаменатель:</p>"
+        html += line("x=" + pi(q) + r"+2\pi k:\quad" + sp.latex(value) + r"\le0")
+    html += "<p>После отбора по области определения остаются серии:</p>"
+    for text in families(a):
+        html += line(text + r",\quad k\in\mathbb Z")
+    return html

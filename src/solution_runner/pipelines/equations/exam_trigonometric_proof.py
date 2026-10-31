@@ -337,6 +337,8 @@ def render(a, image):
             + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
         )
         lo, hi, lc, uc = a.bounds
+        if a.image_position == "selection":
+            second += image
         for root in a.selected:
             second += line(
                 pi(lo)

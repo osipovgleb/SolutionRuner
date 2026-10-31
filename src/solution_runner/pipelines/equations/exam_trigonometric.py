@@ -21,6 +21,7 @@ from .exam_trigonometric_inverse import (
     ordered,
     select_inverse,
 )
+from .exam_trigonometric_ratio_product import style as ratio_product_style
 from .exam_trigonometric_selection import (
     canonical,
     equivalent_series,
@@ -45,6 +46,7 @@ compile_equation = exam_trigonometric_compile.compile_equation
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
+    from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
@@ -117,6 +119,7 @@ class Analysis:
     unit_factors: tuple | None = None
     sum_product: "SumProduct | None" = None
     triple_angle: "TripleAngle | None" = None
+    ratio_product: "RatioProduct | None" = None
     selection_note: bool = False
 
 
@@ -276,6 +279,7 @@ def analyze_method(
         square_sum=square_style(parent_html),
         sum_identity=sum_identity_style(parent_html),
         triple_angle=triple_angle_style(parent_html),
+        ratio_product=ratio_product_style(parent_html),
     )
     from .exam_trigonometric_factors import method_branches
 
@@ -339,6 +343,11 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.ratio_product is not None:
+        from .exam_trigonometric_ratio_product import series
+
+        return series(branches), False, False
+
     preferred, method = style
     allow_inverse = method == "inequalities" or r"\arccos" in parent_html
     merged = (
@@ -388,7 +397,7 @@ def build_context_repair_plan(
     if a.image_position == "none" and context["normalized_content"].get("assets"):
         a = replace(a, image_position="after-steps")
     markup, key, asset_changes = image(context, a, generated_solution_assets)
-    keys = [key] if key else []
+    keys = list(key) if isinstance(key, tuple) else [key] if key else []
     plan = repair(parts, *render(a, markup))
     changes = list(plan.transformations)
     if (

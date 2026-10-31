@@ -19,12 +19,22 @@ def method_equation(
     square_sum=False,
     sum_identity=None,
     triple_angle=None,
+    ratio_product=None,
 ):
     from .exam_trigonometric_absolute import compile_absolute
     from .exam_trigonometric_domain import radical_product
     from .exam_trigonometric_methods import Equation, compile_reviewed
     from .exam_trigonometric_radical_quotient import compile_quotient
     from .exam_trigonometric_sum_product import compile_reciprocal, compile_square
+
+    if ratio_product is not None:
+        from .exam_trigonometric_ratio_product import compile_product
+
+        if translation:
+            raise UnsupportedCondition(
+                "the ratio product requires its original variable"
+            )
+        return compile_product(formula, ratio_product), None
 
     if triple_angle and triple_angle[0]:
         from .exam_trigonometric_triple_angle import compile_triple
@@ -46,6 +56,13 @@ def method_equation(
                 "sum-to-product methods require the original variable"
             )
         return compile_square(formula), None
+    quotient = compile_quotient(formula, product=product)
+    if quotient is not None:
+        if translation:
+            raise UnsupportedCondition(
+                "a radical quotient requires its original variable"
+            )
+        return quotient, quotient.domain
     reciprocal = compile_reciprocal(formula)
     if reciprocal is not None:
         return reciprocal, None
@@ -60,10 +77,6 @@ def method_equation(
     absolute = compile_absolute(formula)
     if absolute is not None:
         return absolute, None
-
-    quotient = compile_quotient(formula)
-    if quotient is not None:
-        return quotient, quotient.domain
 
     product = radical_product(formula)
     if product is not None:
@@ -118,4 +131,5 @@ def analysis_fields(equation):
         "unit_factors": equation.unit_factors,
         "sum_product": equation.sum_product,
         "triple_angle": equation.triple_angle,
+        "ratio_product": equation.ratio_product,
     }
