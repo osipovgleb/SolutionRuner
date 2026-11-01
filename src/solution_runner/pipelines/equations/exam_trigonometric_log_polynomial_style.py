@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
 from .exam_scalar import compare
+from .exam_trigonometric_log_parent import small_fractions
 from .exam_trigonometric_log_parser import Parser
 from .power_arithmetic import ScalarParser, clean
 
@@ -14,7 +15,7 @@ from .power_arithmetic import ScalarParser, clean
 def declared_levels(formulas):
     levels, substitution = [], None
     for formula in formulas:
-        text = clean(formula)
+        text = clean(small_fractions(formula))
         for match in re.finditer(r"\\log_", text):
             logs = []
             parser = Parser(text[match.start() :].replace("x", r"\alpha"), {}, [], logs)

@@ -119,6 +119,7 @@ def proof(a):
     from .exam_trigonometric_proof import families, formula
 
     data = a.log_polynomial
+    prefix = ""
     log = r"\log_{" + sp.latex(data.base) + r"}\left(" + data.argument_text + r"\right)"
     html = line(a.original)
     html += "<p>Сохраним область определения исходного логарифма и все исходные знаменатели:</p>"
@@ -129,12 +130,29 @@ def proof(a):
             (data.argument_text if relation == "positive" else formula(expression))
             + (">0" if relation == "positive" else r"\ne0")
         )
+    if data.powers is not None:
+        e = data.powers
+        names = {L: r"\left(" + log + r"\right)"}
+        base = (
+            sp.latex(e.base)
+            if e.base.is_Integer
+            else r"\left(" + sp.latex(e.base) + r"\right)"
+        )
+        for exponent in e.denominator_exponents:
+            html += line(base + "^{" + sp.latex(exponent, symbol_names=names) + "}>0")
+        html += "<p>Перейдём к одному основанию. Положительные степени с одинаковым основанием, отличным от единицы, равны тогда и только тогда, когда равны их показатели:</p>"
+        left, right = (sp.latex(v, symbol_names=names) for v in (e.left, e.right))
+        html += line(base + "^{" + left + "}=" + base + "^{" + right + "}")
+        html += line(left + "=" + right)
+        html += line(sp.latex(data.polynomial, symbol_names=names) + "=0")
     if sp.degree(data.polynomial, L) == 2:
         html += log_equation(a, log)
+        if data.powers is not None and data.powers.image_after_log:
+            prefix, html = html, ""
     else:
         html += "<p>Логарифм равен нулю тогда и только тогда, когда его аргумент равен единице. При этом аргумент положителен, а исходные знаменатели по-прежнему должны быть ненулевыми:</p>"
     for level in data.levels:
         html += trig_case(a, level)
     html += "<p>После проверки всех исходных ограничений получаем серии:</p>"
     html += "".join(line(f + r",\quad k\in\mathbb Z") for f in families(a))
-    return "<p>Решим уравнение по определению логарифма:</p>", html
+    return prefix or "<p>Решим уравнение по определению логарифма:</p>", html

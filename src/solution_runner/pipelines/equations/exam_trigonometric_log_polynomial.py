@@ -3,6 +3,7 @@
 import re
 from dataclasses import dataclass, replace
 from functools import cmp_to_key
+from typing import TYPE_CHECKING
 
 import sympy as sp
 
@@ -14,6 +15,9 @@ from .exam_trigonometric_compile import C, S
 from .power_arithmetic import clean
 
 L = sp.Symbol("l", real=True)
+
+if TYPE_CHECKING:
+    from .exam_trigonometric_log_powers import LogPowers
 
 
 @dataclass(frozen=True)
@@ -28,6 +32,7 @@ class LogPolynomial:
     discriminant: bool = False
     alternative_selection: bool = False
     argument_text: str = ""
+    powers: "LogPowers | None" = None
 
 
 def compile_polynomial(formula, parent_html):

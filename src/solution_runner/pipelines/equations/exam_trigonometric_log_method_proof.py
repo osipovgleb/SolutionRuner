@@ -139,6 +139,9 @@ def branch_notation(a, b, log_case, html):
     residues = tuple(q for q in b.residues if case_failed(a, q, log_case) is None)
     if not residues:
         return html
+    aligned = aligned_branch_lines(a, b, residues, html)
+    if aligned is not None:
+        return aligned
     matches = [
         (item, name)
         for item, name in zip(
@@ -156,3 +159,39 @@ def branch_notation(a, b, log_case, html):
             old + r",\quad k\in\mathbb Z", wanted + r",\quad k\in\mathbb Z"
         )
     return root_notation(replace(a, parameter=name, family_parameters=()), (html,))[0]
+
+
+def aligned_branch_lines(a, b, residues, html):
+    from dataclasses import replace
+
+    from .exam_trigonometric_inverse import level_series
+    from .exam_trigonometric_proof import series_lines
+    from .exam_trigonometric_selection import equivalent_series, periodic
+    from .exam_trigonometric_variants import root_notation
+
+    if len(b.values) != 1 or b.candidates != b.values or b.excluded:
+        return None
+    original = level_series(b.variable, b.values[0], a.allow_inverse)
+    matches = tuple(
+        (item, name)
+        for item, name in zip(
+            a.series, a.family_parameters or (a.parameter,) * len(a.series), strict=True
+        )
+        if equivalent_series((*periodic(residues), item), periodic(residues))
+    )
+    wanted = tuple(item for item, _ in matches)
+    if (
+        not wanted
+        or len({name for _, name in matches}) != 1
+        or not equivalent_series(original, periodic(residues))
+        or not equivalent_series(wanted, original)
+    ):
+        return None
+    old = "".join(line(f + r",\quad k\in\mathbb Z") for f in series_lines(original))
+    new = "".join(line(f + r",\quad k\in\mathbb Z") for f in series_lines(wanted))
+    if old not in html:
+        return None
+    return root_notation(
+        replace(a, parameter=matches[0][1], family_parameters=()),
+        (html.replace(old, new, 1),),
+    )[0]

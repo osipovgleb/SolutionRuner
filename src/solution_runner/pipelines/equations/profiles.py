@@ -4721,6 +4721,7 @@ PROFILES += tuple(
         ("639688", "76e739db-d888-4c85-a229-b22a14b1cac8", 27),
         ("691277", "8135111b-c459-4b41-865f-dece879d8473", 36),
         ("697406", "bf70bef2-1dcc-4dbf-9a69-495c773e8629", 39),
+        ("500447", "68d27161-72d2-4a2e-a075-16f93a7ec240", 2),
     )
 )
 
@@ -4744,11 +4745,11 @@ PROFILES += (
 )
 
 
-PROFILES += (
+PROFILES += tuple(
     _profile(
-        "632828",
-        "371f8cfa-9d76-4ab6-a27b-149148dd2209",
-        6,
+        key,
+        group_id,
+        index,
         catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
         category_key="14",
         theme_title="Другие уравнения смешанного типа",
@@ -4759,7 +4760,12 @@ PROFILES += (
         workflow_kind="content_rule",
         content_rule_key="exam-trigonometric-polynomial-circle",
         rewrite_existing_solution=True,
-    ),
+    )
+    for key, group_id, index in (
+        ("632828", "371f8cfa-9d76-4ab6-a27b-149148dd2209", 6),
+        ("630105", "4bac18b0-ac35-4bb3-aa85-e0d1d4b7b3ca", 5),
+        ("641932", "93203a2e-e66e-480a-9de9-966c42ed7a98", 8),
+    )
 )
 
 

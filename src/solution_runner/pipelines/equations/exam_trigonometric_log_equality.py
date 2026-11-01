@@ -109,7 +109,12 @@ def first_factor(parent_html):
 def order_branches(data, branches):
     preferred = {"sin": S, "cos": C}.get(data.first_factor)
     return (
-        tuple(sorted(branches, key=lambda b: b.variable != preferred))
+        tuple(
+            sorted(
+                branches,
+                key=lambda b: (b.candidates != (sp.S.Zero,), b.variable != preferred),
+            )
+        )
         if preferred is not None
         else tuple(branches)
     )
@@ -211,6 +216,7 @@ def reduce_definition(nodes, logs, powers, values):
 
 def compile_equality(formula, parent_html):
     from .exam_trigonometric_log_methods import level_order
+    from .exam_trigonometric_log_parent import definition_chain
     from .exam_trigonometric_log_product import LogProduct
     from .exam_trigonometric_methods import Equation
     from .exam_trigonometric_radical_equation import compile_values
@@ -254,7 +260,7 @@ def compile_equality(formula, parent_html):
         (r"\log_" in f and "=" in f)
         or (kind == "exponential" and re.search(r"=\d+\^\{?x\}?", clean(f)))
         for f in formulas
-    ):
+    ) and not (kind == "constant" and definition_chain(formulas)):
         raise UnsupportedCondition("the parent must show the log-definition method")
     data = LogProduct(
         raw,

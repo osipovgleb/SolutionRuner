@@ -20,11 +20,15 @@ def root_rights(parent_html):
             if re.search(r"-\s*$", text[: match.start()]):
                 continue
             yield (
-                re.split(
-                    r",|;|\\\\|\\(?:quad|end|iff|Leftrightarrow)",
-                    text[match.end() :],
-                    maxsplit=1,
-                )[0]
+                re.sub(
+                    r"\.\s*\\\s+[knlm]\s*\\in\s*\\mathbb\{Z\}$",
+                    "",
+                    re.split(
+                        r",|;|\\\\|\\(?:quad|end|iff|Leftrightarrow)",
+                        text[match.end() :],
+                        maxsplit=1,
+                    )[0].strip(),
+                )
                 .strip()
                 .removesuffix(".")
             )
