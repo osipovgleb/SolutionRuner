@@ -307,6 +307,10 @@ def validate_circle_domain(entry, a):
             raise UnsupportedCondition(
                 "the source circle must retain the original strict denominator domain"
             )
+    if "original_quotient_domain" in entry or entry.get("unselected_root_markers"):
+        from .exam_trigonometric_original_quotients import validate_circle
+
+        validate_circle(entry, a)
     shading = entry.get("domain_shading")
     if shading:
         variable = {"sin": S, "cos": C}.get(shading.get("variable"))

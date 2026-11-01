@@ -53,6 +53,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_global_radical import GlobalRadical
     from .exam_trigonometric_log_polynomial import LogPolynomial
     from .exam_trigonometric_log_product import LogProduct
+    from .exam_trigonometric_original_quotients import OriginalQuotient
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_radical_product import RadicalProduct
     from .exam_trigonometric_ratio_product import RatioProduct
@@ -121,6 +122,7 @@ class Analysis:
     absolute_fraction: tuple | None = None
     radical_ratio: tuple | None = None
     strict_quotient: "StrictQuotient | None" = None
+    original_quotient: "OriginalQuotient | None" = None
     radical_product: "RadicalProduct | None" = None
     radical_equation: "RadicalEquation | None" = None
     bounded_log: "BoundedLog | None" = None
@@ -365,6 +367,8 @@ def analyze_method(
             "domain": "after-intro",
             "double_identity": "after-intro",
         }[compiled.strict_quotient.stage]
+    if compiled.original_quotient is not None:
+        position = compiled.original_quotient.stage
     raw, identities = compiled.raw, compiled.identities
     if len(branches) == 1:
         preferred = branches[0].variable

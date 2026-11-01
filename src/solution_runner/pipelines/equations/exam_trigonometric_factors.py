@@ -138,6 +138,15 @@ def method_branches(
     from .exam_trigonometric_factor_style import retain_order
     from .exam_trigonometric_square_factor import prepare as square_product
 
+    if compiled.original_quotient is not None:
+        from .exam_trigonometric_original_quotients import branches as original_branches
+
+        return (
+            compiled,
+            compiled.raw,
+            original_branches(compiled, allow_inverse),
+            preferred,
+        )
     if compiled.strict_quotient is not None:
         from .exam_trigonometric_strict_quotient import branches as strict_branches
 

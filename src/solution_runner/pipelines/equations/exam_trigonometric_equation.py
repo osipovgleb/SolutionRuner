@@ -122,6 +122,7 @@ def analysis_fields(equation):
         "absolute_fraction": equation.absolute_fraction,
         "radical_ratio": equation.radical_ratio,
         "strict_quotient": equation.strict_quotient,
+        "original_quotient": equation.original_quotient,
         "radical_product": equation.radical_product,
         "radical_equation": equation.radical_equation,
         "bounded_log": equation.bounded_log,
@@ -247,6 +248,7 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
 def compile_constrained(formula, parent_html, translation):
     from .exam_trigonometric_bounded_log import reviewed as bounded_log
     from .exam_trigonometric_global_radical import reviewed as global_radical
+    from .exam_trigonometric_original_quotients import reviewed as original_quotient
     from .exam_trigonometric_radical_equation import variable_radicals
     from .exam_trigonometric_radical_style import kind as radical_kind
     from .exam_trigonometric_strict_quotient import reviewed as strict_quotient
@@ -302,6 +304,14 @@ def compile_constrained(formula, parent_html, translation):
         if translation:
             raise UnsupportedCondition(
                 "strict radical denominators require their original physical angle"
+            )
+        compiled = compile_quotient(formula, parent_html)
+    elif original_quotient(formula, parent_html):
+        from .exam_trigonometric_original_quotients import compile_quotient
+
+        if translation:
+            raise UnsupportedCondition(
+                "original quotient poles require the physical angle"
             )
         compiled = compile_quotient(formula, parent_html)
     elif global_radical(parent_html):
