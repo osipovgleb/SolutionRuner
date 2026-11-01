@@ -248,7 +248,7 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
-    if compiled.log_product is not None:
+    if compiled.log_product is not None or compiled.log_polynomial is not None:
         return (
             tuple(dict.fromkeys(s for b in branches for s in restricted_series(b))),
             False,

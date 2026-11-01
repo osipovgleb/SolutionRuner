@@ -99,7 +99,7 @@ def proof(a):
 
 def branches_proof(a, case_branches, log_case):
     from .exam_trigonometric_log_method_proof import branch_notation
-    from .exam_trigonometric_proof import formula, pi, polynomial
+    from .exam_trigonometric_proof import polynomial
 
     data = a.log_product
     html = ""
@@ -120,26 +120,34 @@ def branches_proof(a, case_branches, log_case):
         elif b.polynomial.subs(b.variable, 0) == 0 and 0 in b.candidates:
             b = replace(b, candidates=(sp.S.Zero, *(v for v in b.candidates if v != 0)))
         branch_html = polynomial(b, factorization=True, allow_inverse=a.allow_inverse)
-        for q in b.residues:
-            rejection = case_failed(a, q, log_case)
-            if rejection is None:
-                continue
-            expression, relation, result = rejection
-            if failed(a, q) is None:
-                branch_html += "<p>Эта серия уже получена в случае нулевого логарифма. В текущем случае логарифм должен быть ненулевым, поэтому здесь серию исключаем:</p>"
-            else:
-                branch_html += "<p>Проверим эту серию в исходной области определения; она не подходит:</p>"
-            branch_html += line(
-                "x="
-                + pi(q)
-                + r"+2\pi k:\quad "
-                + formula(ratio_factor(expression))
-                + "="
-                + sp.latex(result)
-            )
-            branch_html += line(
-                formula(ratio_factor(expression))
-                + (r"\not>0" if relation == "positive" else "=0")
-            )
+        branch_html += rejections(a, b, log_case)
         html += branch_notation(a, b, log_case, branch_html)
+    return html
+
+
+def rejections(a, b, log_case=False):
+    from .exam_trigonometric_proof import formula, pi
+
+    html = ""
+    for q in b.residues:
+        rejection = case_failed(a, q, log_case)
+        if rejection is None:
+            continue
+        expression, relation, result = rejection
+        if failed(a, q) is None:
+            html += "<p>Эта серия уже получена в случае нулевого логарифма. В текущем случае логарифм должен быть ненулевым, поэтому здесь серию исключаем:</p>"
+        else:
+            html += "<p>Проверим эту серию в исходной области определения; она не подходит:</p>"
+        html += line(
+            "x="
+            + pi(q)
+            + r"+2\pi k:\quad "
+            + formula(ratio_factor(expression))
+            + "="
+            + sp.latex(result)
+        )
+        html += line(
+            formula(ratio_factor(expression))
+            + (r"\not>0" if relation == "positive" else "=0")
+        )
     return html

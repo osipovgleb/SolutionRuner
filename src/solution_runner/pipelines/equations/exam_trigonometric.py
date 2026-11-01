@@ -51,6 +51,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_angle_product import AngleProduct
     from .exam_trigonometric_bounded_log import BoundedLog
     from .exam_trigonometric_global_radical import GlobalRadical
+    from .exam_trigonometric_log_polynomial import LogPolynomial
     from .exam_trigonometric_log_product import LogProduct
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_radical_product import RadicalProduct
@@ -122,6 +123,7 @@ class Analysis:
     radical_equation: "RadicalEquation | None" = None
     bounded_log: "BoundedLog | None" = None
     log_product: "LogProduct | None" = None
+    log_polynomial: "LogPolynomial | None" = None
     global_radical: "GlobalRadical | None" = None
     square_radicals: "SquareRadicals | None" = None
     sum_squares: tuple | None = None

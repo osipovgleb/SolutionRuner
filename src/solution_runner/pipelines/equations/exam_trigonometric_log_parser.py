@@ -38,7 +38,17 @@ class Parser(ExamAngleParser):
             raise UnsupportedCondition(
                 "the log base must be positive and different from one"
             )
+        exponent = (
+            self._exponent().value
+            if self.text[self.index : self.index + 1] == "^"
+            else sp.S.One
+        )
+        if exponent not in (sp.S.One, sp.Integer(2)):
+            raise UnsupportedCondition(
+                "only first and second powers of one log are reviewed"
+            )
         before = len(self.logs)
+        argument_start = self.index
         argument = self._factor().value
         if len(self.logs) != before:
             raise UnsupportedCondition("nested log factors require a separate method")
@@ -46,4 +56,4 @@ class Parser(ExamAngleParser):
             raise UnsupportedCondition("one or two variable log factors are required")
         symbol = sp.Symbol("L" + str(len(self.logs)), real=True)
         self.logs.append((symbol, base, argument))
-        return Node(symbol, "", "log")
+        return Node(symbol**exponent, self.text[argument_start : self.index], "log")

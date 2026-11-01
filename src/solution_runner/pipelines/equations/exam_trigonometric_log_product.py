@@ -115,6 +115,8 @@ def compile_product(formula):
 def conditions(compiled):
     data = compiled.log_product
     result = [(p, "nonzero") for p in compiled.poles]
+    if compiled.log_polynomial is not None:
+        return (*result, (compiled.log_polynomial.argument, "positive"))
     if data.argument is not None:
         result.append((data.argument, "positive"))
     if data.denominator:
@@ -140,7 +142,7 @@ def failed(compiled, q):
 def case_failed(compiled, q, log_case):
     rejection = failed(compiled, q)
     data = compiled.log_product
-    if rejection is None and data.log_first and not log_case:
+    if rejection is None and data is not None and data.log_first and not log_case:
         expression = data.argument - 1
         value = sp.simplify(
             expression.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)})

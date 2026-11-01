@@ -81,6 +81,11 @@ def method_proof(a):
 
 
 def school_proof(a):
+    if a.log_polynomial is not None:
+        from .exam_trigonometric_log_polynomial_proof import proof
+
+        return proof(a)
+
     if a.log_product is not None:
         from .exam_trigonometric_log_product_proof import proof
 

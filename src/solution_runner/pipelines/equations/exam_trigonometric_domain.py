@@ -284,7 +284,7 @@ def validate_circle_domain(entry, a):
             for condition in a.radical_equation.conditions
         )
         log_domain = False
-        if a.log_product is not None:
+        if a.log_product is not None or a.log_polynomial is not None:
             from .exam_trigonometric_log_product import failed
 
             log_domain = failed(a, q) is not None

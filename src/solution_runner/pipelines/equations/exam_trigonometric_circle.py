@@ -21,6 +21,11 @@ KEY = "exam_trig_circle"
 
 
 def source(context):
+    from .exam_trigonometric_log_selection import source as dual_source
+
+    dual = dual_source(context)
+    if dual is not None:
+        return dual
     from .exam_trigonometric_log_figures import sources as log_sources
 
     log_figures = log_sources(context)
@@ -93,9 +98,9 @@ def validate(entry, a):
     if "log_domain_conditions" in entry:
         from .exam_trigonometric_log_product import conditions
 
-        if a.log_product is None or entry["log_domain_conditions"] != [
-            [str(e), relation] for e, relation in conditions(a)
-        ]:
+        if (a.log_product is None and a.log_polynomial is None) or entry[
+            "log_domain_conditions"
+        ] != [[str(e), relation] for e, relation in conditions(a)]:
             raise UnsupportedCondition(
                 "the source figure must retain its original log domain"
             )
@@ -177,6 +182,11 @@ def validate(entry, a):
 
 
 def diagram_specs(context):
+    from .exam_trigonometric_log_selection import diagram_specs as dual_specs
+
+    dual = dual_specs(context)
+    if dual is not None:
+        return dual
     if panel_sources(context) is not None:
         return ()
     if source_less(context):
@@ -195,6 +205,11 @@ def diagram_specs(context):
 
 
 def image(context, a, generated):
+    from .exam_trigonometric_log_selection import image as dual_image
+    from .exam_trigonometric_log_selection import source as dual_source
+
+    if dual_source(context) is not None:
+        return dual_image(context, a, generated)
     from .exam_trigonometric_log_figures import image as log_image
     from .exam_trigonometric_log_figures import sources as log_sources
 

@@ -29,6 +29,12 @@ def style(parent_html, condition=""):
         else "circle"
     )
     images = soup.find_all("img")
+    if "другое решение пункта б" in text:
+        if len(images) != 2 or "числовой оси" not in text or "окружност" not in text:
+            raise UnsupportedCondition(
+                "both reviewed interval selection methods are required"
+            )
+        return C, False, False, "selection", None, "log_dual_selection"
     if method == "circle" and len(images) not in (1, 2):
         raise UnsupportedCondition(
             "the log-product circle method needs its source figures"

@@ -135,7 +135,7 @@ def align_affine(result, html):
     from .exam_trigonometric_selection import equivalent_series
 
     source = affine_families(html)
-    if result.log_product is not None:
+    if result.log_product is not None or result.log_polynomial is not None:
         source = tuple(
             (q, p, name)
             for q, p, name in source
@@ -146,6 +146,7 @@ def align_affine(result, html):
         or (
             result.poles
             and result.log_product is None
+            and result.log_polynomial is None
             and result.absolute_fraction is None
             and not any(b.phase_series for b in result.branches)
         )
@@ -158,6 +159,7 @@ def align_affine(result, html):
             or result.square_radicals is not None
             or result.absolute_fraction is not None
             or result.log_product is not None
+            or result.log_polynomial is not None
             or (
                 len(result.branches) > 1
                 and any(b.original is not None for b in result.branches)

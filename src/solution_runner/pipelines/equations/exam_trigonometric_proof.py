@@ -371,6 +371,10 @@ def render(a, image):
         from .exam_trigonometric_global_radical_proof import selection
 
         second = selection(a)
+    elif a.log_polynomial is not None and a.log_polynomial.alternative_selection:
+        from .exam_trigonometric_log_selection import selection
+
+        second = selection(a, image)
     elif a.bounded_log is not None:
         from .exam_trigonometric_bounded_log_proof import selection
 
