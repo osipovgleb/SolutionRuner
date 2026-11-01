@@ -50,6 +50,9 @@ def prepare(equation, preferred, scale):
         equation.cosine_equality,
         equation.argument_pair,
         equation.sum_squares,
+        equation.radical_equation,
+        equation.radical_ratio,
+        equation.bounded_log,
     )
     if any(value is not None for value in specialized):
         return equation

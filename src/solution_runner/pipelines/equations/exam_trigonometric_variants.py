@@ -181,6 +181,10 @@ def reciprocal(a):
 
 
 def method_notes(a):
+    if a.radical_notes and not a.radical_notes[0]:
+        from .exam_trigonometric_radical_proof import notes
+
+        return notes(a)
     from .exam_trigonometric_proof import first
 
     html = ""
@@ -203,6 +207,10 @@ def method_notes(a):
 
 
 def selection_notes(a, system_image=""):
+    if a.radical_notes and a.radical_notes[0]:
+        from .exam_trigonometric_radical_proof import notes
+
+        return notes(a)
     from .exam_trigonometric_proof import inequality_selection
 
     html = ""
@@ -247,3 +255,35 @@ def root_notation(a, rendered):
         re.sub(r"(?<![A-Za-z_-])k(?![A-Za-z_-])", a.parameter, text)
         for text in rendered
     )
+
+
+def all_root_answer(a):
+    from .exam_trigonometric_proof import families, pi
+
+    parameter = (
+        a.square_difference.parameter
+        if a.square_difference is not None
+        else a.parameter
+    )
+    if a.restricted_families:
+        parameter = ",".join(dict.fromkeys(f.parameter for f in a.restricted_families))
+    if a.family_parameters:
+        parameter = ",".join(dict.fromkeys(a.family_parameters))
+    all_roots = (
+        r";\ ".join(families(a)) + r",\ " + parameter + r"\in\mathbb Z"
+        if a.series
+        else r"\varnothing"
+    )
+    if a.restricted_families:
+        all_roots = r";\ ".join(families(a))
+    if a.affine is not None:
+        from .exam_trigonometric_affine_selection import all_roots as affine_roots
+
+        all_roots = affine_roots(a)
+    if a.finite_roots is not None:
+        all_roots = (
+            r"\{"
+            + r";\ ".join(pi(q, sine_inverse=a.sine_inverse) for q in a.finite_roots)
+            + r"\}"
+        )
+    return all_roots

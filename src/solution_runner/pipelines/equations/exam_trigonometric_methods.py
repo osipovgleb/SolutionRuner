@@ -24,6 +24,8 @@ from .trig_symbolic_parser import (
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
+    from .exam_trigonometric_bounded_log import BoundedLog
+    from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_sum_product import SumProduct
@@ -113,6 +115,9 @@ class Equation:
     absolute: tuple | None = None
     absolute_square: tuple | None = None
     absolute_fraction: tuple | None = None
+    radical_ratio: tuple | None = None
+    radical_equation: "RadicalEquation | None" = None
+    bounded_log: "BoundedLog | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
     extremum: tuple | None = None

@@ -12,7 +12,12 @@ from .exam_trigonometric import C, S, T, U, periodic, table
 from .exam_trigonometric_inverse import compare_q, level_series
 from .exam_trigonometric_inverse import display_angle as complementary_angle
 from .exam_trigonometric_proof_methods import method_proof
-from .exam_trigonometric_variants import method_notes, root_notation, selection_notes
+from .exam_trigonometric_variants import (
+    all_root_answer,
+    method_notes,
+    root_notation,
+    selection_notes,
+)
 
 K = sp.Symbol("k", integer=True)
 
@@ -353,7 +358,19 @@ def render(a, image):
         "inequalities": inequality_selection,
         "progressions": progressions,
     }
-    if a.selection_method in selectors:
+    if a.bounded_log is not None:
+        from .exam_trigonometric_bounded_log_proof import selection
+
+        second = selection(a)
+    elif (
+        a.radical_equation is not None
+        and a.radical_equation.kind == "half_tangent"
+        and any(b.is_Rational is not True for b in a.bounds[:2])
+    ):
+        from .exam_trigonometric_radical_proof import numeric_selection
+
+        second = numeric_selection(a)
+    elif a.selection_method in selectors:
         second = selectors[a.selection_method](a)
     else:
         second = (
@@ -384,26 +401,7 @@ def render(a, image):
         + "</li></ol>"
     )
     html += method_notes(a)
-    parameter = (
-        a.square_difference.parameter
-        if a.square_difference is not None
-        else a.parameter
-    )
-    if a.restricted_families:
-        parameter = ",".join(dict.fromkeys(f.parameter for f in a.restricted_families))
-    if a.family_parameters:
-        parameter = ",".join(dict.fromkeys(a.family_parameters))
-    all_roots = (
-        r";\ ".join(families(a)) + r",\ " + parameter + r"\in\mathbb Z"
-        if a.series
-        else r"\varnothing"
-    )
-    if a.restricted_families:
-        all_roots = r";\ ".join(families(a))
-    if a.affine is not None:
-        from .exam_trigonometric_affine_selection import all_roots as affine_roots
-
-        all_roots = affine_roots(a)
+    all_roots = all_root_answer(a)
     selected = (
         r";\ ".join(pi(q, sine_inverse=a.sine_inverse) for q in a.selected)
         or r"\varnothing"

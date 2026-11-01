@@ -120,6 +120,9 @@ def analysis_fields(equation):
         "absolute": equation.absolute,
         "absolute_square": equation.absolute_square,
         "absolute_fraction": equation.absolute_fraction,
+        "radical_ratio": equation.radical_ratio,
+        "radical_equation": equation.radical_equation,
+        "bounded_log": equation.bounded_log,
         "sum_squares": equation.sum_squares,
         "argument_pair": equation.argument_pair,
         "extremum": equation.extremum,
@@ -168,16 +171,9 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
     from .exam_trigonometric_absolute_fraction import reviewed as absolute_fraction
     from .exam_trigonometric_cosine_equality import reviewed as cosine_equality
     from .exam_trigonometric_positive_factors import reviewed as positive_factors
-    from .exam_trigonometric_sum_squares import reviewed as sum_squares
 
-    if sum_squares(parent_html):
-        from .exam_trigonometric_sum_squares import compile_squares
-
-        if translation:
-            raise UnsupportedCondition(
-                "the two-square system requires the original angle"
-            )
-        compiled = compile_squares(formula)
+    compiled = compile_constrained(formula, parent_html, translation)
+    if compiled is not None:
         domain = compiled.domain
     elif cosine_equality(parent_html):
         from .exam_trigonometric_cosine_equality import compile_equality
@@ -237,3 +233,38 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
 
     compiled = sine_double(compiled, preferred, preferred_scale)
     return compiled, domain
+
+
+def compile_constrained(formula, parent_html, translation):
+    from .exam_trigonometric_bounded_log import reviewed as bounded_log
+    from .exam_trigonometric_radical_equation import variable_radicals
+    from .exam_trigonometric_radical_style import kind as radical_kind
+    from .exam_trigonometric_sum_squares import reviewed as sum_squares
+
+    if bounded_log(parent_html):
+        from .exam_trigonometric_bounded_log import compile_log
+
+        if translation:
+            raise UnsupportedCondition(
+                "bounded logarithms require their original x domain"
+            )
+        compiled = compile_log(formula)
+    elif radical_kind(parent_html) and variable_radicals(formula):
+        from .exam_trigonometric_radical_equation import compile_radical
+
+        if translation:
+            raise UnsupportedCondition(
+                "the reviewed radical equation requires its original variable"
+            )
+        compiled = compile_radical(formula, radical_kind(parent_html))
+    elif sum_squares(parent_html):
+        from .exam_trigonometric_sum_squares import compile_squares
+
+        if translation:
+            raise UnsupportedCondition(
+                "the two-square system requires the original angle"
+            )
+        compiled = compile_squares(formula)
+    else:
+        return None
+    return compiled

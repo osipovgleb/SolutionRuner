@@ -47,6 +47,8 @@ division = exam_trigonometric_style.division
 if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
+    from .exam_trigonometric_bounded_log import BoundedLog
+    from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_sum_product import SumProduct
@@ -109,6 +111,9 @@ class Analysis:
     absolute: tuple | None = None
     absolute_square: tuple | None = None
     absolute_fraction: tuple | None = None
+    radical_ratio: tuple | None = None
+    radical_equation: "RadicalEquation | None" = None
+    bounded_log: "BoundedLog | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
     extremum: tuple | None = None
@@ -143,6 +148,8 @@ class Analysis:
     signed_series: tuple = ()
     family_parameters: tuple = ()
     restricted_families: tuple = ()
+    radical_notes: tuple = ()
+    finite_roots: tuple | None = None
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
@@ -226,16 +233,24 @@ def analyze(formula, interval, bounds, parent_html):
         return replace(
             result, single_part=True, interval="", selected=(), selections=()
         )
-    from .exam_trigonometric_auxiliary_notes import half_angle, split
+    from .exam_trigonometric_auxiliary_notes import split
     from .exam_trigonometric_four_methods import split as split_four
+    from .exam_trigonometric_radical_style import split as split_radical
 
+    parent_html, radical_notes = split_radical(parent_html, formula)
     parent_html, four_methods = split_four(parent_html)
     parent_html, auxiliary_notes = split(parent_html)
     from .exam_trigonometric_methods import methods, preference
+    from .exam_trigonometric_radical_equation import variable_radicals
+    from .exam_trigonometric_radical_style import kind as radical_kind
     from .exam_trigonometric_sine_pair import reviewed as equal_sines
     from .exam_trigonometric_translation import read_method
 
-    if sum_identity_style(parent_html) or equal_sines(parent_html):
+    if (
+        sum_identity_style(parent_html)
+        or equal_sines(parent_html)
+        or (radical_kind(parent_html) and variable_radicals(formula))
+    ):
         translation, shifted_notation = sp.S.Zero, False
     else:
         parent_html, translation, shifted_notation = read_method(parent_html)
@@ -276,20 +291,18 @@ def analyze(formula, interval, bounds, parent_html):
             )
         result = replace(result, alternative=second, image_position="after-intro")
     if auxiliary_notes:
-        from .exam_trigonometric_inverse import centred
+        from .exam_trigonometric_auxiliary_notes import finish
 
-        centred_series = tuple(
-            (q / result.scale, p / result.scale)
-            for q, p in centred(
-                tuple((q * result.scale, p * result.scale) for q, p in result.series)
+        result = finish(result)
+    if radical_notes:
+        if (
+            result.radical_equation is None
+            or result.radical_equation.kind != radical_notes[1]
+        ):
+            raise UnsupportedCondition(
+                "every radical note must share the primary equation certificate"
             )
-        )
-        selected, selections = select(centred_series, result.bounds)
-        result = replace(
-            result, series=centred_series, selected=selected, selections=selections
-        )
-        half_angle(result)
-        result = replace(result, auxiliary_notes=True, image_position="after-steps")
+        result = replace(result, radical_notes=radical_notes)
     if four_methods:
         from .exam_trigonometric_four_methods import certify
 
@@ -380,10 +393,11 @@ def analyze_method(
         )
     )
 
+    from .exam_trigonometric_bounded_log import prepare as bounded_log
     from .exam_trigonometric_centered_power import prepare as centered_power
     from .exam_trigonometric_parameters import notation
 
-    return notation(centered_power(result, parent_html), parent_html)
+    return bounded_log(notation(centered_power(result, parent_html), parent_html))
 
 
 def build_context_repair_plan(

@@ -138,3 +138,21 @@ def primary_proof(a):
     html += proof(b, theta, a.scale, b.residues)
     html += exclusions(b, a.poles, scale=a.scale)
     return "<p>Преобразуем уравнение с учётом области определения:</p>", html
+
+
+def finish(result):
+    from .exam_trigonometric import select
+    from .exam_trigonometric_inverse import centred
+
+    centred_series = tuple(
+        (q / result.scale, p / result.scale)
+        for q, p in centred(
+            tuple((q * result.scale, p * result.scale) for q, p in result.series)
+        )
+    )
+    selected, selections = select(centred_series, result.bounds)
+    result = replace(
+        result, series=centred_series, selected=selected, selections=selections
+    )
+    half_angle(result)
+    return replace(result, auxiliary_notes=True, image_position="after-steps")

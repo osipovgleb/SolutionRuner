@@ -242,6 +242,8 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.radical_equation is not None:
+        return periodic(residues), False, False
     if compiled.argument_pair is not None:
         from .exam_trigonometric_sine_pair import argument_series
 

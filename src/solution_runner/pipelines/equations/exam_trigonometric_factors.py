@@ -128,6 +128,11 @@ def method_branches(
     from .exam_trigonometric_factor_style import retain_order
     from .exam_trigonometric_square_factor import prepare as square_product
 
+    if compiled.radical_equation is not None:
+        from .exam_trigonometric_radical_equation import branches as radical_branches
+
+        reduced, result = radical_branches(compiled, preferred, allow_inverse)
+        return compiled, reduced, result, preferred
     if compiled.argument_pair is not None:
         from .exam_trigonometric_sine_pair import argument_branches
 

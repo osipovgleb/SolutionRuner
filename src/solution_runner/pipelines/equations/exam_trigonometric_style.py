@@ -201,6 +201,10 @@ def preference(parent_html):
                     scale *= sp.pi
                 matches.append((bool(power), function, scale))
     if not matches:
+        from .exam_trigonometric_radical_style import kind as radical_kind
+
+        if radical_kind(parent_html):
+            return "sin", sp.S.One
         from .exam_trigonometric_symmetric import style as combined_style
 
         if combined_style(parent_html)[2]:
@@ -267,6 +271,7 @@ def selection_style(soup, text, images):
         or "методом неравенств" in text
         or "двойного неравенства" in text
         or "двойных неравенств" in text
+        or "двойные неравенства" in text
         or "двойное неравенство" in text
         or (
             not images
@@ -296,6 +301,7 @@ def selection_style(soup, text, images):
         else "progressions"
         if (not images and "лежат только два числа такого вида" in text)
         or "разность между соседними членами" in text
+        or "разность между соседними корнями" in text
         or "расстояние между соседними членами" in text
         or (
             "длина" in text

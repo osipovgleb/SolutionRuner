@@ -81,6 +81,18 @@ def method_proof(a):
 
 
 def school_proof(a):
+    if a.bounded_log is not None:
+        from .exam_trigonometric_bounded_log_proof import proof
+
+        return proof(a)
+    if a.radical_ratio is not None:
+        from .exam_trigonometric_radical_quotient import proof
+
+        return proof(a)
+    if a.radical_equation is not None:
+        from .exam_trigonometric_radical_proof import proof
+
+        return proof(a)
     if a.sum_squares is not None:
         from .exam_trigonometric_sum_squares import proof
 
