@@ -47,7 +47,7 @@ def operands(formula):
     return values["factor"], values["root"]
 
 
-def shifted_operands(formula):
+def shifted_operands(formula, *, allow_vanishing=False):
     from .exam_trigonometric_absolute import R, RootPlaceholderParser
 
     text = clean(formula).removesuffix(".")
@@ -82,8 +82,13 @@ def shifted_operands(formula):
         .parse()
         .value
     )
-    offset = sp.simplify(value - R)
-    if atoms or denominators or offset.free_symbols or offset.is_positive is not True:
+    coefficient = value.coeff(R)
+    if coefficient not in (sp.S.One, -sp.S.One):
+        return None
+    offset = sp.simplify(value / coefficient - R)
+    positive = coefficient == 1 and offset.is_positive is True
+    vanishing = allow_vanishing and offset.is_negative is True
+    if atoms or denominators or offset.free_symbols or not (positive or vanishing):
         return None
     return (second if root_factor == first else first), radicand, offset
 
@@ -92,8 +97,8 @@ def compile_product(factor, radicand, root_offset=sp.S.Zero):
     from .exam_trigonometric_methods import Equation, ExamAngleParser
     from .exam_trigonometric_radical_equation import compile_values
 
-    if root_offset != 0 and root_offset.is_positive is not True:
-        raise UnsupportedCondition("the additive root offset must be positive")
+    if root_offset.free_symbols or root_offset.is_real is not True:
+        raise UnsupportedCondition("the additive root offset must be a real constant")
     atoms, denominators = {}, []
     values = [
         ExamAngleParser(text.replace("x", r"\alpha"), atoms, denominators).parse().value
@@ -139,8 +144,14 @@ def compile_product(factor, radicand, root_offset=sp.S.Zero):
         raise UnsupportedCondition(
             "the parent factor must be polynomial or one quadratic ratio"
         )
+    if root_offset.is_negative:
+        raw = numerator * (root_num - root_offset**2 * root_den)
+    elif root_offset:
+        raw = numerator
+    else:
+        raw = numerator * root_num
     return Equation(
-        sp.expand(numerator if root_offset else numerator * root_num),
+        sp.expand(raw),
         identities,
         sp.S.One,
         poles=poles,
@@ -152,6 +163,12 @@ def compile_product(factor, radicand, root_offset=sp.S.Zero):
 def factor_branches(factor, preferred, allow_inverse):
     from .exam_trigonometric import solve_branches
 
+    if not factor.free_symbols:
+        if factor == 0:
+            raise UnsupportedCondition(
+                "an identically zero factor requires its complete domain"
+            )
+        return ()
     if factor.free_symbols in ({S}, {C}):
         preferred = next(iter(factor.free_symbols))
     elif factor.free_symbols <= {S, C} and preferred not in (S, C):
@@ -170,22 +187,49 @@ def cases(compiled, preferred, allow_inverse):
     from .exam_trigonometric import solve_branches
     from .exam_trigonometric_domain import restrict, without_poles
 
-    root_num = sp.fraction(compiled.radical_product.radicand)[0]
-    shifted = compiled.radical_product.root_offset != 0
+    data = compiled.radical_product
+    root_num = sp.fraction(data.radicand)[0]
+    shifted = data.root_offset != 0
     zero = (
-        ()
+        solve_branches(
+            root_function(data) - data.root_offset**2, preferred, allow_inverse
+        )[1]
+        if data.root_offset.is_negative
+        else ()
         if shifted
         else solve_branches(root_num, S if root_num.has(S) else C, allow_inverse)[1]
     )
-    positive = factor_branches(
-        compiled.radical_product.factor, preferred, allow_inverse
-    )
+    positive = factor_branches(admissible_factor(compiled)[0], preferred, allow_inverse)
     return (
         without_poles(restrict(zero, compiled.domain), compiled.poles),
         without_poles(
             restrict(positive, compiled.domain, strict=not shifted), compiled.poles
         ),
     )
+
+
+def root_function(data):
+    denominator = sp.fraction(data.radicand)[1]
+    if denominator.has(S):
+        return sp.cancel(data.radicand.subs(C, U * S))
+    if denominator.has(C):
+        return sp.cancel(data.radicand.subs(S, T * C))
+    return data.radicand
+
+
+def admissible_factor(compiled):
+    factor = compiled.radical_product.factor
+    divisor = sp.S.One
+    if compiled.radical_product.root_offset.is_negative:
+        for pole in compiled.poles:
+            if pole not in (S, C):
+                continue
+            while (
+                factor != 0 and factor.is_polynomial(pole) and factor.subs(pole, 0) == 0
+            ):
+                factor = sp.cancel(factor / pole)
+                divisor *= pole
+    return factor, divisor
 
 
 def prepare(a, parent_html):

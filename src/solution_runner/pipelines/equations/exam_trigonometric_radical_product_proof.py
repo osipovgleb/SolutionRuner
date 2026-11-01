@@ -92,10 +92,10 @@ def accepted_ratio(a, q, ratio):
 
 def positive_case(a, positive, ratio):
     from .exam_trigonometric_proof import formula, pi, polynomial
-    from .exam_trigonometric_radical_product import factor_branches
+    from .exam_trigonometric_radical_product import admissible_factor, factor_branches
 
     data = a.radical_product
-    original = factor_branches(data.factor, a.preferred, a.allow_inverse)
+    original = factor_branches(admissible_factor(a)[0], a.preferred, a.allow_inverse)
     pairs = tuple(zip(original, positive))
     if data.root_offset:
         pairs = tuple(
@@ -171,6 +171,10 @@ def proof(a):
     if sp.fraction(data.radicand)[1].free_symbols:
         html += "<p>На исходной области определения квадрат знаменателя положителен. Умножим неравенство на этот квадрат:</p>"
         html += line(formula(a.domain) + r"\ge0")
+    if data.root_offset.is_negative:
+        from .exam_trigonometric_radical_factor_proof import proof as vanishing_proof
+
+        return vanishing_proof(a, html, zero, positive)
     if data.root_offset:
         html += "<p>На исходной области определения квадратный корень неотрицателен, поэтому вся скобка строго положительна, в том числе при нулевом радикале:</p>"
         html += line(

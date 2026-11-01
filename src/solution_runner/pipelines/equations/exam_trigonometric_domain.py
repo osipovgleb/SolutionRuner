@@ -31,7 +31,7 @@ def radical_product(formula):
         shifted_operands,
     )
 
-    shifted = shifted_operands(formula)
+    shifted = shifted_operands(formula, allow_vanishing=True)
     if shifted is not None:
         return compile_product(*shifted)
 

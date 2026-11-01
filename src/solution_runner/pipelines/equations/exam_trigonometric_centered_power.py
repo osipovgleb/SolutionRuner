@@ -10,6 +10,12 @@ from .exam_trigonometric_compile import C, S
 
 
 def prepare(a, html):
+    from .exam_trigonometric_biquadratic import prepare as biquadratic
+
+    result = biquadratic(a, html)
+    if result is not a:
+        return result
+
     if a.scale != 1 or a.raw.free_symbols not in ({S}, {C}):
         return a
     variable = next(iter(a.raw.free_symbols))
@@ -45,6 +51,11 @@ def proof(a):
     from .exam_trigonometric_proof import families, formula
 
     variable, shift, leading, second, substituted = a.centered_power
+    if shift == 0:
+        from .exam_trigonometric_biquadratic import proof as biquadratic_proof
+
+        return biquadratic_proof(a)
+
     t = sp.Symbol("t", real=True)
     polynomial = sp.expand(a.raw.subs(variable, t + shift))
     html = line(a.original)

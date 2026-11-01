@@ -213,6 +213,9 @@ def method_branches(
         branches = notation(branches, parent_html, scale=compiled.scale)
     branches = without_poles(branches, compiled.poles)
     branches = finish_branches(compiled, branches, preferred, parent_html, domain)
+    from .exam_trigonometric_ratio_square import mark as ratio_square
+
+    branches = ratio_square(branches, parent_html, compiled.fraction)
     return compiled, reduced, branches, preferred
 
 

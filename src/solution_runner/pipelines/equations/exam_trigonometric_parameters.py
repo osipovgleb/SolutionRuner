@@ -116,7 +116,10 @@ def notation(result, parent_html):
                 result, series=((q, p),), selected=selected, selections=trace
             )
     result = align_affine(result, parent_html)
-    parameters = names(parent_html, result.series)
+    from .exam_trigonometric_ratio_square import notation as ratio_square
+
+    result, parameters = ratio_square(result, parent_html)
+    parameters = parameters or names(parent_html, result.series)
     return replace(
         result,
         family_parameters=parameters

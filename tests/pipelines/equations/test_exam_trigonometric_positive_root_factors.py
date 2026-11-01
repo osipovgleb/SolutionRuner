@@ -253,8 +253,6 @@ def test_zero_factor_at_zero_radicand_remains_admissible(formula):
 @pytest.mark.parametrize(
     "formula",
     [
-        r"(\sin x)(\sqrt{\tg x}-1)=0",
-        r"(\sin x)(1-\sqrt{\tg x})=0",
         r"(\sin x)(2\sqrt{\tg x}+1)=0",
         r"(\sin x)(\sqrt{\tg x}+\cos x)=0",
         r"(\sin x)(\sqrt{\tg x}+1+\frac{\sin x}{\sin x})=0",

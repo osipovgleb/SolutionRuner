@@ -248,7 +248,11 @@ def root_notation(a, rendered):
             for text in series_lines((item,), sine_inverse=a.sine_inverse):
                 old = text + r",\quad k\in\mathbb Z"
                 new = text.replace("k", name) + r",\quad " + name + r"\in\mathbb Z"
-                rendered = tuple(value.replace(old, new) for value in rendered)
+                named_old = text.replace("k", name) + r",\quad k\in\mathbb Z"
+                rendered = tuple(
+                    value.replace(old, new).replace(named_old, new)
+                    for value in rendered
+                )
     if a.parameter == "k":
         return rendered
     return tuple(
