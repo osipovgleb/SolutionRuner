@@ -24,6 +24,8 @@ class RadicalEquation:
     conditions: tuple
     kind: str
     multiple: int = 0
+    cleared: sp.Expr = sp.S.One
+    parameters: tuple = ()
 
 
 def trig_polynomial(function, coefficient, shift=sp.S.Zero):
@@ -41,9 +43,13 @@ def trig_polynomial(function, coefficient, shift=sp.S.Zero):
 
 
 def compile_values(values, atoms, denominators, *, extra_symbols=()):
-    result = list(values)
+    from .exam_trigonometric_half_products import normalize
+
+    result, atoms, denominators, half_identities = normalize(
+        list(values), atoms, denominators
+    )
     poles = []
-    identities = []
+    identities = list(half_identities)
     for symbol, atom in atoms.items():
         k, shift = atom.coefficient, atom.shift
         if atom.function in ("sin", "cos"):
@@ -108,7 +114,7 @@ def variable_radicals(text):
 def compile_radical(formula, kind):
     from .exam_trigonometric_methods import Equation
 
-    text = clean(formula)
+    text = clean(formula).removesuffix(".")
     if text.count("=") != 1:
         raise UnsupportedCondition("one radical equality is required")
     atoms, denominators = {}, []
@@ -130,7 +136,13 @@ def compile_radical(formula, kind):
     (left, right, radicand), poles, identities = compile_values(
         [*values, roots[0]], atoms, denominators
     )
-    difference = sp.expand(left - right)
+    cleared = sp.S.One
+    if kind == "safe_square":
+        difference, cleared = sp.fraction(sp.cancel(left - right))
+        if cleared.free_symbols:
+            poles = tuple(dict.fromkeys((*poles, sp.expand(cleared))))
+    else:
+        difference = sp.expand(left - right)
     multiplier = difference.coeff(R)
     target = -difference.subs(R, 0)
     if multiplier == 0 or sp.expand(difference - multiplier * R + target) != 0:
@@ -164,65 +176,82 @@ def compile_radical(formula, kind):
         multiplier, radicand, target, squared, unreduced_right, conditions, kind
     )
     raw, multiple = reviewed_numerator(data, poles)
-    data = replace(data, multiple=multiple)
+    data = replace(data, multiple=multiple, cleared=cleared)
     return Equation(raw, identities, sp.S.One, poles=poles, radical_equation=data)
 
 
 def reviewed_numerator(data, poles):
-    if data.kind == "half_tangent":
-        expected = 4 - 2 / ((1 + C) * (2 * C - 1) ** 2)
-        if (
-            not same(data.multiplier, S)
-            or not same(data.right, 2 + C)
-            or not same(data.radicand, expected)
+    method = {
+        "safe_square": safe_square,
+        "half_tangent": half_tangent,
+        "amgm": amgm,
+        "extremal": extremal,
+    }.get(data.kind)
+    if method is None:
+        raise UnsupportedCondition(
+            "an independently reviewed radical method is required"
+        )
+    return method(data, poles)
+
+
+def half_tangent(data, poles):
+    expected = 4 - 2 / ((1 + C) * (2 * C - 1) ** 2)
+    if (
+        not same(data.multiplier, S)
+        or not same(data.right, 2 + C)
+        or not same(data.radicand, expected)
+    ):
+        raise UnsupportedCondition(
+            "the reviewed triple/half-angle method requires its complete rational certificate"
+        )
+    if set(poles) != {sp.expand((1 + C) * (2 * C - 1) ** 2)}:
+        raise UnsupportedCondition(
+            "the triple-angle tangent must retain exactly its original pole"
+        )
+    raw = sp.expand(sp.rem(data.squared, CIRCLE, S))
+    _coefficient, factors = sp.factor_list(raw, C, extension=True)
+    kept = []
+    for factor, power in factors:
+        if not any(sp.rem(p, factor, C) == 0 for p in poles):
+            kept.append(factor**power)
+    raw = sp.expand(sp.prod(kept))
+    return raw, 0
+
+
+def amgm(data, poles):
+    if (
+        data.multiplier.free_symbols
+        or not same(data.radicand, S * C)
+        or not same(data.right, data.multiplier * (S + C) / 2)
+        or set(poles) != {S, C}
+    ):
+        raise UnsupportedCondition(
+            "both original ratio poles and the positive geometric-mean identity are required"
+        )
+    return (S - C) ** 2, 0
+
+
+def extremal(data, poles):
+    if poles:
+        raise UnsupportedCondition(
+            "the reviewed radical extremum has no additional poles"
+        )
+    if (
+        data.multiplier.free_symbols
+        or data.multiplier == 0
+        or not same(data.right / data.multiplier, -2 * C)
+    ):
+        raise UnsupportedCondition(
+            "the square-root extremum requires its exact cosine right-hand side"
+        )
+    for multiple in range(1, 12, 2):
+        if same(
+            data.radicand,
+            trig_polynomial("cos", sp.Integer(2))
+            - trig_polynomial("sin", sp.Integer(multiple)),
         ):
-            raise UnsupportedCondition(
-                "the reviewed triple/half-angle method requires its complete rational certificate"
-            )
-        if set(poles) != {sp.expand((1 + C) * (2 * C - 1) ** 2)}:
-            raise UnsupportedCondition(
-                "the triple-angle tangent must retain exactly its original pole"
-            )
-        raw = sp.expand(sp.rem(data.squared, CIRCLE, S))
-        _coefficient, factors = sp.factor_list(raw, C, extension=True)
-        kept = []
-        for factor, power in factors:
-            if not any(sp.rem(p, factor, C) == 0 for p in poles):
-                kept.append(factor**power)
-        raw = sp.expand(sp.prod(kept))
-        return raw, 0
-    if data.kind == "amgm":
-        if (
-            data.multiplier.free_symbols
-            or not same(data.radicand, S * C)
-            or not same(data.right, data.multiplier * (S + C) / 2)
-            or set(poles) != {S, C}
-        ):
-            raise UnsupportedCondition(
-                "both original ratio poles and the positive geometric-mean identity are required"
-            )
-        return (S - C) ** 2, 0
-    if data.kind == "extremal":
-        if poles:
-            raise UnsupportedCondition(
-                "the reviewed radical extremum has no additional poles"
-            )
-        if (
-            data.multiplier.free_symbols
-            or data.multiplier == 0
-            or not same(data.right / data.multiplier, -2 * C)
-        ):
-            raise UnsupportedCondition(
-                "the square-root extremum requires its exact cosine right-hand side"
-            )
-        for multiple in range(1, 12, 2):
-            if same(
-                data.radicand,
-                trig_polynomial("cos", sp.Integer(2))
-                - trig_polynomial("sin", sp.Integer(multiple)),
-            ):
-                sign = sp.sin(multiple * sp.pi / 2)
-                return S + sign, multiple
+            sign = sp.sin(multiple * sp.pi / 2)
+            return S + sign, multiple
     raise UnsupportedCondition("an independently reviewed radical method is required")
 
 
@@ -235,3 +264,33 @@ def branches(compiled, preferred, allow_inverse):
     for condition in compiled.radical_equation.conditions:
         result = restrict(result, condition)
     return reduced, result
+
+
+def safe_square(data, poles):
+    if data.multiplier.free_symbols or data.multiplier == 0:
+        raise UnsupportedCondition(
+            "safe squaring requires a nonzero constant root coefficient"
+        )
+    right = sp.cancel(data.right / data.multiplier)
+    if (
+        not right.is_polynomial(S, C)
+        or sp.Poly(right, S, C).total_degree() > 1
+        or not data.radicand.is_polynomial(S, C)
+        or sp.Poly(data.radicand, S, C).total_degree() > 2
+    ):
+        raise UnsupportedCondition(
+            "an affine right side and quadratic unit-circle radicand are required"
+        )
+    for pole in poles:
+        _, factors = sp.factor_list(pole, S, C)
+        if not factors or any(f not in (S, C) for f, _ in factors):
+            raise UnsupportedCondition(
+                "safe squaring retains only reviewed sine/cosine poles"
+            )
+    for variable, other in ((S, C), (C, S)):
+        reduced = sp.expand(sp.rem(data.squared, CIRCLE, other))
+        if not reduced.has(other) and sp.degree(reduced, variable) in (1, 2):
+            return reduced, 0
+    raise UnsupportedCondition(
+        "the squared equation must reduce to one quadratic trigonometric variable"
+    )

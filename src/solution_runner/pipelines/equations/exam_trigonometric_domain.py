@@ -208,7 +208,11 @@ def validate_circle_domain(entry, a):
         negative = a.domain is not None and compare(
             sp.simplify(a.domain.subs(substitution)), sp.S.Zero
         ) < (1 if a.strict_domain else 0)
-        if not (pole or negative):
+        radical_sign = a.radical_equation is not None and any(
+            compare(sp.simplify(condition.subs(substitution)), sp.S.Zero) < 0
+            for condition in a.radical_equation.conditions
+        )
+        if not (pole or negative or radical_sign):
             raise UnsupportedCondition(
                 "every crossed circle point must violate the original domain"
             )

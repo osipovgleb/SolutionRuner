@@ -116,7 +116,10 @@ def extremal_primary(a):
 
 
 def proof(a):
+    from .exam_trigonometric_safe_square_proof import proof as safe_square
+
     return {
+        "safe_square": safe_square,
         "half_tangent": half_primary,
         "amgm": amgm_primary,
         "extremal": extremal_primary,

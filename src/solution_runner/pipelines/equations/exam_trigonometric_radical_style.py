@@ -54,6 +54,8 @@ def kind(html):
         and not soup.find("img")
     ):
         return "perfect_squares"
+    if safe_square_method(text, formulas):
+        return "safe_square"
     return ""
 
 
@@ -151,3 +153,27 @@ def square_method(html):
     ):
         return "linear_absolute"
     return ""
+
+
+def safe_square_method(text, formulas):
+    import re
+
+    if "числител" in text or "знаменателе корень" in text:
+        return False
+    sign = any(
+        token in formulas
+        for token in (
+            r"\cosx\ge",
+            r"\cosx\le",
+            r"\sinx\ge",
+            r"\sinx\le",
+            r"\sinx>",
+            r"\sinx\gt",
+        )
+    )
+    squared = bool(
+        re.search(
+            r"=(?:\\sin|\\cos)\^(?:2|\{2\})|(?:\\sin|\\cos)\^(?:2|\{2\})x=", formulas
+        )
+    )
+    return sign and (squared or ("правая часть" in text and "в квадрат" in text))

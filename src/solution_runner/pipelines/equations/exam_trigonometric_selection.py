@@ -337,9 +337,11 @@ def finalize(result, parent_html):
     from .exam_trigonometric_centered_power import prepare as centered_power
     from .exam_trigonometric_global_radical import prepare as global_radical
     from .exam_trigonometric_parameters import notation
+    from .exam_trigonometric_safe_square import prepare as safe_square
     from .exam_trigonometric_square_radical_cases import prepare as square_radicals
 
     result = notation(centered_power(result, parent_html), parent_html)
+    result = safe_square(result, parent_html)
     result = square_radicals(result, parent_html)
     result = global_radical(result, parent_html)
     return bounded_log(result)
@@ -366,6 +368,12 @@ def constrained_series(compiled, branches, residues):
             )
             return series, True, False
     if compiled.radical_equation is not None:
+        if any(q.is_Rational is not True for q in residues):
+            return (
+                tuple(s for branch in branches for s in restricted_series(branch)),
+                False,
+                False,
+            )
         return periodic(residues), False, False
     if compiled.argument_pair is not None:
         from .exam_trigonometric_sine_pair import argument_series
