@@ -250,7 +250,7 @@ def test_radical_product_retains_zero_radicand_and_excludes_the_other_sine_branc
         r"(\sin x+1)\sqrt{1-5\cos x}=0",
         r"\sqrt{-5\cos x}+1=0",
         r"(\sin x+1)\sqrt{-5\cos x}=1",
-        r"(\tg x+1)\sqrt{-5\cos x}=0",
+        r"(\tg 2x+1)\sqrt{-5\cos x}=0",
     ],
 )
 def test_other_radical_grammars_fail_closed(formula):

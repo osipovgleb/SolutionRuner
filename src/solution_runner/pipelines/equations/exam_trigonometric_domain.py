@@ -10,9 +10,9 @@ from .power_arithmetic import balanced, clean
 
 
 def radical_product(formula):
-    from .exam_trigonometric import C, S, compile_equation
+    from .exam_trigonometric import C, S, T, U, compile_equation
 
-    text = clean(formula)
+    text = clean(formula).removesuffix(".")
     candidates = []
     start = 0
     while (index := text.find(r"\sqrt{", start)) >= 0:
@@ -25,12 +25,16 @@ def radical_product(formula):
     if len(candidates) != 1:
         raise UnsupportedCondition("one variable radical factor is required")
     index, inner, end = candidates[0]
-    prefix = text[:index]
+    prefix = text[:index].removesuffix(r"\cdot").removesuffix(r"\times")
     if text[end:] != "=0" or not prefix.startswith("(") or not prefix.endswith(")"):
         raise UnsupportedCondition(
             "a complete parenthesized factor times a square root must equal zero"
         )
+    from .exam_trigonometric_radical_product import compile_product
+
     domain, domain_identities = compile_equation(inner + "=0")
+    if domain.has(T, U):
+        return compile_product(prefix[1:-1], inner)
     variables = domain.free_symbols & {S, C}
     if len(variables) != 1:
         raise UnsupportedCondition(
@@ -69,12 +73,21 @@ def radical_product(formula):
             factored_source=None,
             cleared_denominator=None,
         )
+    if factor.has(T, U):
+        return compile_product(prefix[1:-1], inner)
     if factor.free_symbols - {S, C}:
         raise UnsupportedCondition(
             "the polynomial factor must use only sine and cosine"
         )
+    from .exam_trigonometric_factors import source_factors
+
+    raw = sp.expand(factor * domain)
+    if sp.total_degree(raw) > 2 and any(
+        len(f.free_symbols) == 2 and sp.total_degree(f) > 1 for f in source_factors(raw)
+    ):
+        return compile_product(prefix[1:-1], inner)
     return Equation(
-        sp.expand(factor * domain),
+        raw,
         identities + domain_identities,
         sp.S.One,
         domain=domain,

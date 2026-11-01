@@ -15,6 +15,8 @@ from .exam_trigonometric_prepared_circle import recipe, source_less
 DIRECTORY = Path(__file__).parent / "assets/exam-trigonometry"
 CIRCLES = json.loads((DIRECTORY / "source-circles.json").read_text())
 LINES = json.loads((DIRECTORY / "source-lines.json").read_text())
+RASTERS = json.loads((DIRECTORY / "source-rasters.json").read_text())
+SOURCES = CIRCLES | LINES | RASTERS
 KEY = "exam_trig_circle"
 
 
@@ -31,13 +33,13 @@ def source(context):
     if (
         len(originals) != 1
         or len(generated) > 1
-        or originals[0].get("asset_id") not in (CIRCLES.keys() | LINES.keys())
+        or originals[0].get("asset_id") not in SOURCES
     ):
         raise UnsupportedCondition(
             "one mathematically audited source circle is required"
         )
     asset = originals[0]
-    entry = (CIRCLES | LINES)[asset["asset_id"]]
+    entry = SOURCES[asset["asset_id"]]
     if (
         asset.get("asset_key") != "image_1"
         or asset.get("url") != "/assets/" + asset["asset_id"]

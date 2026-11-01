@@ -93,6 +93,10 @@ def school_proof(a):
         from .exam_trigonometric_bounded_log_proof import proof
 
         return proof(a)
+    if a.radical_product is not None:
+        from .exam_trigonometric_radical_product_proof import proof
+
+        return proof(a)
     if a.radical_ratio is not None:
         from .exam_trigonometric_radical_quotient import proof
 

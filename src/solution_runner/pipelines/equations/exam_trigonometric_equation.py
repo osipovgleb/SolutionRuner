@@ -121,6 +121,7 @@ def analysis_fields(equation):
         "absolute_square": equation.absolute_square,
         "absolute_fraction": equation.absolute_fraction,
         "radical_ratio": equation.radical_ratio,
+        "radical_product": equation.radical_product,
         "radical_equation": equation.radical_equation,
         "bounded_log": equation.bounded_log,
         "global_radical": equation.global_radical,
@@ -259,6 +260,10 @@ def compile_constrained(formula, parent_html, translation):
             raise UnsupportedCondition("global radical domains require physical x")
         compiled = compile_global(formula, global_radical(parent_html))
     elif radical_kind(parent_html) and variable_radicals(formula):
+        from .exam_trigonometric_radical_product import operands
+
+        if operands(formula) is not None:
+            return None
         from .exam_trigonometric_radical_equation import compile_radical
 
         if translation:

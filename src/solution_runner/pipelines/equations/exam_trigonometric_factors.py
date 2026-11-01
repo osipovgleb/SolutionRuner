@@ -138,6 +138,11 @@ def method_branches(
 
         reduced, result = absolute_branches(compiled, preferred, allow_inverse)
         return compiled, reduced, result, preferred
+    if compiled.radical_product is not None:
+        from .exam_trigonometric_radical_product import cases
+
+        zero, positive = cases(compiled, preferred, allow_inverse)
+        return compiled, compiled.raw, (*zero, *positive), preferred
     if compiled.radical_equation is not None:
         from .exam_trigonometric_radical_equation import branches as radical_branches
 

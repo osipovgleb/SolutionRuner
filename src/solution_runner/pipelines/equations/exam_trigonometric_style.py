@@ -174,7 +174,11 @@ def selection_note(parent_html):
 
 def preference(parent_html):
     formulas = [
-        "".join(s["data-inline-latex"].split())
+        re.sub(
+            r"\\operatorname\{(sin|cos|tg|ctg)\}",
+            lambda m: "\\" + m[1],
+            "".join(s["data-inline-latex"].split()),
+        )
         for s in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
     ]
     matches = []

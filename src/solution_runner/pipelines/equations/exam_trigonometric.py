@@ -50,6 +50,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_bounded_log import BoundedLog
     from .exam_trigonometric_global_radical import GlobalRadical
     from .exam_trigonometric_radical_equation import RadicalEquation
+    from .exam_trigonometric_radical_product import RadicalProduct
     from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_square_radicals import SquareRadicals
@@ -114,6 +115,7 @@ class Analysis:
     absolute_square: tuple | None = None
     absolute_fraction: tuple | None = None
     radical_ratio: tuple | None = None
+    radical_product: "RadicalProduct | None" = None
     radical_equation: "RadicalEquation | None" = None
     bounded_log: "BoundedLog | None" = None
     global_radical: "GlobalRadical | None" = None
