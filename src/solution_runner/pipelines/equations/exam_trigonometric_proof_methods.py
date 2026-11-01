@@ -81,6 +81,10 @@ def method_proof(a):
 
 
 def school_proof(a):
+    if a.exponential_absolute is not None:
+        from .exam_trigonometric_exponential_absolute_proof import proof
+
+        return proof(a)
     if a.original_quotient is not None:
         from .exam_trigonometric_original_quotient_proof import proof
 

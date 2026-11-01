@@ -18,9 +18,10 @@ def scalar(text):
     return value
 
 
-def read(formula):
+def read(formula, *, exponent_reader=None):
     from .exam_exponential import polynomial
 
+    exponent_reader = exponent_reader or polynomial
     text = clean(formula)
     if text.count("=") != 1:
         raise UnsupportedCondition(
@@ -68,7 +69,7 @@ def read(formula):
             raise UnsupportedCondition(
                 "each exponential term needs one bounded positive base and no trailing factors"
             )
-        exponent = polynomial(raw)
+        exponent = exponent_reader(raw)
         if not exponent.free_symbols:
             value = coefficient * base**exponent
             if value.is_Rational is not True:

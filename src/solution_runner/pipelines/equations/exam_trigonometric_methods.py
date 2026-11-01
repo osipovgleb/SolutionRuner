@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
     from .exam_trigonometric_bounded_log import BoundedLog
+    from .exam_trigonometric_exponential_absolute import ExponentialAbsolute
     from .exam_trigonometric_global_radical import GlobalRadical
     from .exam_trigonometric_log_polynomial import LogPolynomial
     from .exam_trigonometric_log_product import LogProduct
@@ -138,6 +139,7 @@ class Equation:
     log_polynomial: "LogPolynomial | None" = None
     global_radical: "GlobalRadical | None" = None
     square_radicals: "SquareRadicals | None" = None
+    exponential_absolute: "ExponentialAbsolute | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
     extremum: tuple | None = None

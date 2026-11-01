@@ -130,6 +130,7 @@ def analysis_fields(equation):
         "log_polynomial": equation.log_polynomial,
         "global_radical": equation.global_radical,
         "square_radicals": equation.square_radicals,
+        "exponential_absolute": equation.exponential_absolute,
         "sum_squares": equation.sum_squares,
         "argument_pair": equation.argument_pair,
         "extremum": equation.extremum,
@@ -247,6 +248,9 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
 
 def compile_constrained(formula, parent_html, translation):
     from .exam_trigonometric_bounded_log import reviewed as bounded_log
+    from .exam_trigonometric_exponential_absolute import (
+        reviewed as exponential_absolute,
+    )
     from .exam_trigonometric_global_radical import reviewed as global_radical
     from .exam_trigonometric_original_quotients import reviewed as original_quotient
     from .exam_trigonometric_radical_equation import variable_radicals
@@ -254,7 +258,15 @@ def compile_constrained(formula, parent_html, translation):
     from .exam_trigonometric_strict_quotient import reviewed as strict_quotient
     from .exam_trigonometric_sum_squares import reviewed as sum_squares
 
-    if bounded_log(parent_html):
+    if exponential_absolute(formula):
+        from .exam_trigonometric_exponential_absolute import compile_absolute
+
+        if translation:
+            raise UnsupportedCondition(
+                "absolute exponents require the original variable"
+            )
+        compiled = compile_absolute(formula, parent_html)
+    elif bounded_log(parent_html):
         from .exam_trigonometric_bounded_log import compile_log
 
         if translation:
