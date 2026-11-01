@@ -25,21 +25,22 @@ def radical_product(formula):
     if len(candidates) != 1:
         raise UnsupportedCondition("one variable radical factor is required")
     index, inner, end = candidates[0]
+    from .exam_trigonometric_radical_product import compile_product, operands
+
     prefix = text[:index].removesuffix(r"\cdot").removesuffix(r"\times")
     if text[end:] != "=0" or not prefix.startswith("(") or not prefix.endswith(")"):
+        parts = operands(formula)
+        if parts is not None:
+            return compile_product(*parts)
         raise UnsupportedCondition(
             "a complete parenthesized factor times a square root must equal zero"
         )
-    from .exam_trigonometric_radical_product import compile_product
-
     domain, domain_identities = compile_equation(inner + "=0")
     if domain.has(T, U):
         return compile_product(prefix[1:-1], inner)
     variables = domain.free_symbols & {S, C}
     if len(variables) != 1:
-        raise UnsupportedCondition(
-            "the radicand must be a scalar times one sine or cosine"
-        )
+        return compile_product(prefix[1:-1], inner)
     variable = next(iter(variables))
     if sp.degree(domain, variable) != 1 or domain.subs(variable, 0) != 0:
         raise UnsupportedCondition(

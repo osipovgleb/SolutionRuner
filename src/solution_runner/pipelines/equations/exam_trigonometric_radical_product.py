@@ -15,18 +15,35 @@ class RadicalProduct:
     radicand: sp.Expr
 
 
+def operand(text):
+    if text.startswith(r"\sqrt{"):
+        value, end = balanced(text, 5)
+        return "root", value, end
+    if text.startswith("("):
+        value, end = balanced(text, 0, "(", ")")
+        nested = operand(value) if value.startswith(r"\sqrt{") else None
+        if nested is not None and nested[2] == len(value):
+            return "root", nested[1], end
+        return "factor", value, end
+    return None
+
+
 def operands(formula):
     text = clean(formula).removesuffix(".")
-    if not text.startswith("("):
+    if not text.endswith("=0"):
         return None
-    factor, end = balanced(text, 0, "(", ")")
-    tail = text[end:].removeprefix(r"\cdot").removeprefix(r"\times")
-    if not tail.startswith(r"\sqrt{"):
+    body = text[:-2]
+    first = operand(body)
+    if first is None:
         return None
-    radicand, end = balanced(tail, 5)
-    if tail[end:] != "=0" or "x" not in radicand:
+    rest = body[first[2] :].removeprefix(r"\cdot").removeprefix(r"\times")
+    second = operand(rest)
+    if second is None or second[2] != len(rest) or first[0] == second[0]:
         return None
-    return factor, radicand
+    values = {first[0]: first[1], second[0]: second[1]}
+    if "x" not in values["root"]:
+        return None
+    return values["factor"], values["root"]
 
 
 def compile_product(factor, radicand):
@@ -39,20 +56,24 @@ def compile_product(factor, radicand):
         for text in (factor, radicand)
     ]
     (value, root), poles, identities = compile_values(values, atoms, denominators)
-    weights = (root / S, root / C, root * C / S, root * S / C)
-    if not any(
-        not (w := sp.cancel(weight)).free_symbols and w.is_real is True and w != 0
-        for weight in weights
+    root_num, root_den = sp.fraction(sp.cancel(root))
+    denominators = (root_den, sp.cancel(root_den / S), sp.cancel(root_den / C))
+    if (
+        not root_num.is_polynomial(S, C)
+        or sp.Poly(root_num, S, C).total_degree() != 1
+        or root_num.subs({S: 0, C: 0}) != 0
+        or not any(
+            not d.free_symbols and d.is_real is True and d != 0 for d in denominators
+        )
     ):
         raise UnsupportedCondition(
-            "one homogeneous sine, cosine or ratio radicand is required"
+            "a homogeneous linear radicand numerator over a constant, sine or cosine is required"
         )
     if not set(poles) <= {S, C}:
         raise UnsupportedCondition(
             "the radical product retains only original sine/cosine poles"
         )
     numerator, denominator = sp.fraction(sp.cancel(value))
-    root_num, root_den = sp.fraction(sp.cancel(root))
     if (
         not numerator.is_polynomial(S, C)
         or sp.Poly(numerator, S, C).total_degree() > 4
@@ -61,7 +82,12 @@ def compile_product(factor, radicand):
         raise UnsupportedCondition(
             "the radical factor needs a bounded unit-circle polynomial"
         )
-    source_factor, _ = compile_equation(factor + "=0")
+    try:
+        source_factor, _ = compile_equation(factor + "=0")
+    except UnsupportedCondition:
+        if not value.is_polynomial(S, C):
+            raise
+        source_factor = value
     if source_factor.free_symbols - {S, C, T, U} or (
         source_factor.has(T, U)
         and (len(source_factor.free_symbols) != 1 or sp.total_degree(source_factor) > 2)
@@ -79,15 +105,32 @@ def compile_product(factor, radicand):
     )
 
 
+def factor_branches(factor, preferred, allow_inverse):
+    from .exam_trigonometric import solve_branches
+
+    if factor.free_symbols in ({S}, {C}):
+        preferred = next(iter(factor.free_symbols))
+    elif factor.free_symbols <= {S, C} and preferred not in (S, C):
+        preferred = S
+    result = solve_branches(factor, preferred, allow_inverse)[1]
+    if factor.free_symbols in ({S}, {C}):
+        variable = next(iter(factor.free_symbols))
+        if sp.degree(factor, variable) == 2 and factor.coeff(variable) == 0:
+            from dataclasses import replace
+
+            result = tuple(replace(b, square_level=True) for b in result)
+    return result
+
+
 def cases(compiled, preferred, allow_inverse):
     from .exam_trigonometric import solve_branches
     from .exam_trigonometric_domain import restrict, without_poles
 
     root_num = sp.fraction(compiled.radical_product.radicand)[0]
     zero = solve_branches(root_num, S if root_num.has(S) else C, allow_inverse)[1]
-    positive = solve_branches(
+    positive = factor_branches(
         compiled.radical_product.factor, preferred, allow_inverse
-    )[1]
+    )
     return (
         without_poles(restrict(zero, compiled.domain), compiled.poles),
         without_poles(restrict(positive, compiled.domain, strict=True), compiled.poles),
@@ -97,20 +140,46 @@ def cases(compiled, preferred, allow_inverse):
 def prepare(a, parent_html):
     if a.domain is None or a.strict_domain or operands(a.original) is None:
         return a
+    import re
     from dataclasses import replace
+    from html import escape
+
+    from bs4 import BeautifulSoup
 
     from .exam_trigonometric import select
     from .exam_trigonometric_parameters import affine_families
     from .exam_trigonometric_selection import equivalent_series
 
     parent_html = parent_html.replace(r"\dfrac", r"\frac")
-    source = tuple(
-        dict.fromkeys(
+    formulas = BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]")
+    source = ()
+    for node in reversed(formulas):
+        tail = re.split(r"\\(?:iff|Leftrightarrow)", node["data-inline-latex"])[-1]
+        candidates = tuple(
             (q, p)
-            for q, p, _ in affine_families(parent_html)
+            for q, p, _ in affine_families(
+                '<span data-inline-latex="' + escape(tail) + '"></span>'
+            )
             if equivalent_series((*a.series, (q, p)), a.series)
         )
-    )
+        if candidates and equivalent_series(candidates, a.series):
+            source = candidates
+            break
+    if not source:
+        declared_source = tuple(
+            f for node in formulas for f in affine_families(str(node))
+        )
+        source = tuple(
+            reversed(
+                tuple(
+                    dict.fromkeys(
+                        (q, p)
+                        for q, p, _ in reversed(declared_source)
+                        if equivalent_series((*a.series, (q, p)), a.series)
+                    )
+                )
+            )
+        )
     if source and equivalent_series(source, a.series):
         series = source
     else:

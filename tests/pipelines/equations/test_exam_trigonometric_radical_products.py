@@ -346,7 +346,7 @@ def test_assetless_child_gets_a_local_circle_with_its_own_domain_and_roots():
         (r"\sin x", r"\sin x+1"),
         (r"\tg^2 2x-1", r"\cos x"),
         (r"\tg^3 x-1", r"\cos x"),
-        (r"\sin x", r"\tg x+1"),
+        (r"\sin x", r"\tg x+\cos x"),
     ],
 )
 def test_unreviewed_radicands_angles_and_degrees_fail_closed(factor, radicand):

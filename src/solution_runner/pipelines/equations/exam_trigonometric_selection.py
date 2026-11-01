@@ -259,7 +259,11 @@ def method_series(
             tuple(
                 s
                 for b in branches
-                for item in restricted_series(b)
+                for item in (
+                    square_series(b)
+                    if compiled.radical_product is not None and b.square_level
+                    else restricted_series(b)
+                )
                 for s in centred((item,))
             ),
             False,
