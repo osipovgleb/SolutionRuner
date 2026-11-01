@@ -249,11 +249,16 @@ def method_series(
     from .exam_trigonometric_factor_style import merges_series
 
     if compiled.log_product is not None or compiled.log_polynomial is not None:
-        return (
-            tuple(dict.fromkeys(s for b in branches for s in restricted_series(b))),
-            False,
-            False,
-        )
+        series = tuple(dict.fromkeys(s for b in branches for s in restricted_series(b)))
+        if (
+            compiled.log_product is not None
+            and compiled.log_product.equality is not None
+            and compiled.log_product.equality.centre_inverse
+        ):
+            from .exam_trigonometric_inverse import centred
+
+            series = tuple(s for item in series for s in centred((item,)))
+        return series, False, False
 
     constrained = constrained_series(compiled, branches, residues)
     if constrained is not None:

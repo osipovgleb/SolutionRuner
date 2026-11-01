@@ -5,7 +5,7 @@ import re
 from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
-from .exam_trigonometric_compile import C
+from .exam_trigonometric_compile import C, S
 
 
 def style(parent_html, condition=""):
@@ -28,6 +28,19 @@ def style(parent_html, condition=""):
 
         _, _, _, position = radical_style(parent_html)
         return C, False, False, position, None, "circle"
+    from .exam_trigonometric_log_equality import first_factor, presentation, reviewed
+
+    if condition and reviewed(condition):
+        from .exam_trigonometric_style import preference
+
+        position, _ = presentation(parent_html)
+        function, _ = preference(parent_html)
+        function = first_factor(parent_html) or function
+        if function not in ("sin", "cos"):
+            raise UnsupportedCondition(
+                "the log-definition polynomial needs a sine/cosine parent method"
+            )
+        return {"sin": S, "cos": C}[function], False, False, position, None, "circle"
     text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
     text = text.split("примечание")[0]
     method = (

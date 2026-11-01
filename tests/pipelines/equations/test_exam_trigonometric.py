@@ -286,9 +286,16 @@ def test_source_svg_bytes_and_marker_positions_match_the_audited_geometry(
             )
         angle = float(decode(point["angle"])) * math.pi
         radius = point.get("radius", entry["circle"][2])
+        frame = point.get(
+            "native_frame", {"cx": cx, "cy": cy, "rx": radius, "ry": radius}
+        )
+        if isinstance(frame, int):
+            frame = entry["native_frames"][frame]
+        if "path_d" in frame:
+            assert frame["path_d"] in paths
         distance = math.hypot(
-            point["x"] - (cx + radius * math.cos(angle)),
-            point["y"] - (cy - radius * math.sin(angle)),
+            point["x"] - (frame["cx"] + frame["rx"] * math.cos(angle)),
+            point["y"] - (frame["cy"] - frame["ry"] * math.sin(angle)),
         )
         if point.get("inaccurate"):
             assert entry.get("corrected_file") and distance > 5

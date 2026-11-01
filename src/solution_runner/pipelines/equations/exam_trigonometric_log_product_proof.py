@@ -28,6 +28,10 @@ def logarithm(base, argument):
 
 
 def proof(a):
+    if a.log_product.equality is not None:
+        from .exam_trigonometric_log_equality_proof import proof as equality_proof
+
+        return equality_proof(a)
     if a.log_product.radical is not None:
         from .exam_trigonometric_log_radical_proof import proof as radical_proof
 
@@ -101,7 +105,7 @@ def proof(a):
     return "<p>Решим уравнение, сохраняя область определения логарифмов:</p>", html
 
 
-def branches_proof(a, case_branches, log_case):
+def branches_proof(a, case_branches, log_case, *, factorization=True):
     from .exam_trigonometric_log_method_proof import branch_notation
     from .exam_trigonometric_proof import polynomial
 
@@ -123,7 +127,9 @@ def branches_proof(a, case_branches, log_case):
             )
         elif b.polynomial.subs(b.variable, 0) == 0 and 0 in b.candidates:
             b = replace(b, candidates=(sp.S.Zero, *(v for v in b.candidates if v != 0)))
-        branch_html = polynomial(b, factorization=True, allow_inverse=a.allow_inverse)
+        branch_html = polynomial(
+            b, factorization=factorization, allow_inverse=a.allow_inverse
+        )
         branch_html += rejections(a, b, log_case)
         html += branch_notation(a, b, log_case, branch_html)
     return html

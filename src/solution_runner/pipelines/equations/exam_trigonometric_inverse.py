@@ -237,7 +237,25 @@ def decode(value):
     ):
         raise UnsupportedCondition("unknown audited inverse-angle label")
     function = sp.atan if "atan" in value else sp.acos
-    argument = sp.Rational(value["atan"] if "atan" in value else value["acos"])
+    raw_argument = value["atan"] if "atan" in value else value["acos"]
+    if isinstance(raw_argument, dict):
+        if (
+            function != sp.acos
+            or set(raw_argument) != {"sqrt", "coefficient"}
+            or type(raw_argument["sqrt"]) is not int
+            or not 2 <= raw_argument["sqrt"] <= 1000
+        ):
+            raise UnsupportedCondition(
+                "one bounded audited quadratic cosine argument is required"
+            )
+        coefficient = sp.Rational(raw_argument["coefficient"])
+        if abs(coefficient) > 100 or coefficient.q > 1000:
+            raise UnsupportedCondition(
+                "the audited radical coefficient exceeds its bounds"
+            )
+        argument = coefficient * sp.sqrt(raw_argument["sqrt"])
+    else:
+        argument = sp.Rational(raw_argument)
     if function == sp.acos and not -1 < argument < 1:
         raise UnsupportedCondition(
             "the audited inverse angle needs a value strictly inside the unit range"

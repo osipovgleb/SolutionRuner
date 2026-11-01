@@ -271,9 +271,14 @@ def compile_constrained(formula, parent_html, translation):
 
         if translation:
             raise UnsupportedCondition("log products require the original variable")
+        from .exam_trigonometric_log_equality import compile_equality, reviewed
         from .exam_trigonometric_log_polynomial import compile_polynomial
 
-        compiled = compile_polynomial(formula, parent_html)
+        compiled = (
+            compile_equality(formula, parent_html)
+            if reviewed(formula)
+            else compile_polynomial(formula, parent_html)
+        )
         if compiled is None:
             compiled = prepare(compile_product(formula), parent_html)
     elif global_radical(parent_html):

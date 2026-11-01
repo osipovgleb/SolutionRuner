@@ -11,6 +11,7 @@ from .exam_trigonometric_compile import C, S, T, U
 from .power_arithmetic import clean
 
 if TYPE_CHECKING:
+    from .exam_trigonometric_log_equality import LogEquality
     from .exam_trigonometric_log_radical import RadicalLog
 
 
@@ -28,6 +29,7 @@ class LogProduct:
     level_ascending: bool | None = None
     domain_labels: bool = False
     radical: "RadicalLog | None" = None
+    equality: "LogEquality | None" = None
 
 
 def compile_product(formula):
@@ -124,6 +126,8 @@ def conditions(compiled):
         return (*result, (compiled.log_polynomial.argument, "positive"))
     if data.argument is not None:
         result.append((data.argument, "positive"))
+    if data.equality is not None and data.equality.other_argument is not None:
+        result.append((data.equality.other_argument, "positive"))
     if data.radical is not None:
         result.append((data.factor, "nonnegative"))
         if data.radical.denominator is not None:
@@ -135,11 +139,19 @@ def conditions(compiled):
 
 
 def failed(compiled, q):
-    substitution = {S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)}
+    from .exam_exponential import X
+
+    substitution = {S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi), X: q * sp.pi}
     for expression, relation in conditions(compiled):
         value = sp.simplify(expression.subs(substitution))
         if value.has(sp.zoo, sp.nan, sp.oo, -sp.oo):
             return expression, relation, value
+        if (
+            (relation == "positive" and value.is_positive is True)
+            or (relation == "nonnegative" and value.is_nonnegative is True)
+            or (relation == "nonzero" and value.is_zero is False)
+        ):
+            continue
         sign = compare(value, sp.S.Zero)
         if (
             (relation == "positive" and sign <= 0)
@@ -187,10 +199,16 @@ def branches(compiled, preferred, allow_inverse=False):
                 q for q in b.residues if case_failed(compiled, q, log_case) is None
             )
             result.append(replace(b, residues=residues))
+    if data.equality is not None:
+        from .exam_trigonometric_log_equality import order_branches
+
+        return order_branches(data.equality, result)
     return tuple(result)
 
 
 def zero_cases(data):
+    if data.equality is not None:
+        return ((False, sp.cancel(data.factor / data.divide)),)
     if data.radical is not None and data.radical.divide:
         return ((True, ratio_factor(data.argument - 1)),)
     cases = [(False, ratio_factor(data.factor / data.divide))]
