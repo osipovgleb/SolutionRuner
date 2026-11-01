@@ -10,6 +10,11 @@ from .exam_trigonometric_compile import C, S, T, U
 
 
 def parent_style(parent_html):
+    from .exam_trigonometric_log_style import style as log_style
+
+    reviewed_log = log_style(parent_html)
+    if reviewed_log is not None:
+        return reviewed_log
     soup = BeautifulSoup(parent_html, "html.parser")
     text = " ".join(soup.get_text(" ", strip=True).replace("\xad", "").lower().split())
     images = soup.find_all("img")

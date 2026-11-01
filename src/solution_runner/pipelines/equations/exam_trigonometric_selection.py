@@ -248,12 +248,18 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.log_product is not None:
+        return (
+            tuple(dict.fromkeys(s for b in branches for s in restricted_series(b))),
+            False,
+            False,
+        )
+
     constrained = constrained_series(compiled, branches, residues)
     if constrained is not None:
         return constrained
     if domain is not None and compiled.poles:
         from .exam_trigonometric_inverse import centred
-        from .exam_trigonometric_selection import restricted_series
 
         return (
             tuple(
@@ -291,8 +297,6 @@ def method_series(
     ):
         return periodic(residues), True, False
     if compiled.fraction is not None and len(compiled.fraction.free_symbols) > 1:
-        from .exam_trigonometric_selection import restricted_series
-
         return tuple(s for b in branches for s in restricted_series(b)), False, False
 
     preferred, method = style

@@ -334,6 +334,9 @@ def render(a, image):
     system_image = ""
     if a.auxiliary_notes:
         image, system_image = image
+    selection_image = image
+    if a.log_product is not None and isinstance(image, tuple):
+        image, selection_image = image
     intro, steps = first(a)
     if a.single_part:
         from .exam_trigonometric_single import render as render_single
@@ -383,8 +386,10 @@ def render(a, image):
             + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
         )
         lo, hi, lc, uc = a.bounds
-        if a.image_position == "selection":
-            second += image
+        if a.image_position == "selection" or (
+            a.log_product is not None and selection_image != image
+        ):
+            second += selection_image
         for root in a.selected:
             second += line(
                 pi(lo, sine_inverse=a.sine_inverse)

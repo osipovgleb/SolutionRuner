@@ -124,6 +124,7 @@ def analysis_fields(equation):
         "radical_product": equation.radical_product,
         "radical_equation": equation.radical_equation,
         "bounded_log": equation.bounded_log,
+        "log_product": equation.log_product,
         "global_radical": equation.global_radical,
         "square_radicals": equation.square_radicals,
         "sum_squares": equation.sum_squares,
@@ -256,6 +257,12 @@ def compile_constrained(formula, parent_html, translation):
                 "bounded logarithms require their original x domain"
             )
         compiled = compile_log(formula)
+    elif r"\log_" in formula and not variable_radicals(formula):
+        from .exam_trigonometric_log_product import compile_product, prepare
+
+        if translation:
+            raise UnsupportedCondition("log products require the original variable")
+        compiled = prepare(compile_product(formula), parent_html)
     elif global_radical(parent_html):
         from .exam_trigonometric_global_radical import compile_global
 

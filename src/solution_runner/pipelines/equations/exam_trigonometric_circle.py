@@ -21,6 +21,11 @@ KEY = "exam_trig_circle"
 
 
 def source(context):
+    from .exam_trigonometric_log_figures import sources as log_sources
+
+    log_figures = log_sources(context)
+    if log_figures is not None:
+        return log_figures[0]
     from .exam_trigonometric_auxiliary_figures import sources
 
     figures = sources(context)
@@ -85,6 +90,15 @@ def validate(entry, a):
     from .exam_trigonometric_reciprocal_ratio import validate_axis
 
     validate_circle_domain(entry, a)
+    if "log_domain_conditions" in entry:
+        from .exam_trigonometric_log_product import conditions
+
+        if a.log_product is None or entry["log_domain_conditions"] != [
+            [str(e), relation] for e, relation in conditions(a)
+        ]:
+            raise UnsupportedCondition(
+                "the source figure must retain its original log domain"
+            )
     validate_axis(entry, a)
     if a.single_part:
         from .exam_trigonometric_single import validate_circle
@@ -92,6 +106,15 @@ def validate(entry, a):
         validate_circle(entry, a)
         return
     if entry.get("selection_kind") == "all_roots":
+        if (
+            a.log_product is not None
+            and entry.get("figure_role") == "derivation"
+            and a.image_position != "selection"
+        ):
+            from .exam_trigonometric_single import validate_circle
+
+            validate_circle(entry, a)
+            return
         raise UnsupportedCondition(
             "a full-root figure must not stand in for interval selection"
         )
@@ -172,6 +195,12 @@ def diagram_specs(context):
 
 
 def image(context, a, generated):
+    from .exam_trigonometric_log_figures import image as log_image
+    from .exam_trigonometric_log_figures import sources as log_sources
+
+    log_figures = log_sources(context)
+    if log_figures is not None:
+        return log_image(context, a, generated, log_figures)
     from .exam_trigonometric_auxiliary_figures import image as auxiliary_image
     from .exam_trigonometric_auxiliary_figures import sources
 

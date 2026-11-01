@@ -96,6 +96,11 @@ def preserve_zero_square(compiled, parent_html):
 
 
 def identity_branches(compiled, allow_inverse, domain):
+    if compiled.log_product is not None:
+        from .exam_trigonometric_log_product import branches
+
+        return compiled, branches(compiled, C, allow_inverse)
+
     if compiled.ratio_product is not None:
         from .exam_trigonometric_ratio_product import branches
 

@@ -283,7 +283,12 @@ def validate_circle_domain(entry, a):
             compare(sp.simplify(condition.subs(substitution)), sp.S.Zero) < 0
             for condition in a.radical_equation.conditions
         )
-        if not (pole or negative or radical_sign):
+        log_domain = False
+        if a.log_product is not None:
+            from .exam_trigonometric_log_product import failed
+
+            log_domain = failed(a, q) is not None
+        if not (pole or negative or radical_sign or log_domain):
             raise UnsupportedCondition(
                 "every crossed circle point must violate the original domain"
             )

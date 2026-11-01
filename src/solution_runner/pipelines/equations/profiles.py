@@ -4370,6 +4370,8 @@ PROFILES += tuple(
         ("642003", "26cee32e-deae-4242-814c-5cb1491cf984", 38),
         ("653512", "56008fa6-740d-4d21-a69a-21678479c523", 42),
         ("701089", "0b8c7f04-c03e-4f66-874e-7e22bff31678", 52),
+        ("648771", "89f5c4f8-7eb8-4d0c-82fe-1029c63ed3b5", 41),
+        ("655320", "a497d5bd-c722-4628-8e2c-05e02d50a2b2", 43),
         ("622096", "109129ee-dba1-4173-b90c-89f5fb57bfc6", 24),
         ("622377", "40190098-5658-4576-8a5c-23c438af7f5c", 25),
         ("622981", "d00d4319-02a0-45b1-a67a-c29930da86e1", 26),
@@ -4441,6 +4443,7 @@ PROFILES += tuple(
         ("636742", "d90c1162-44e1-48be-8116-21da3647612e", 37),
         ("639768", "625e3144-7567-4e2a-9d7f-84a093400fcf", 40),
         ("645371", "9b349024-712b-4354-8a3e-739b9f6397b8", 48),
+        ("658806", "9ac503a3-7d6c-44b8-bdd3-7aa7e584706a", 53),
     )
 )
 
@@ -4673,5 +4676,29 @@ PROFILES += tuple(
         ("548180", "eb3d14f3-28c1-4037-922c-f33117df86a1", 26),
         ("621853", "3b0d53db-67b3-4a6b-bec1-1e4aa737c1c8", 32),
         ("626816", "6032ad52-f10c-4939-b12a-cfd104acbbeb", 35),
+    )
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрия и логарифмы",
+        theme_order_index=10,
+        snapshot_theme_id="95b23d39-c034-4c39-b315-95bb88dff3bc",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("515648", "fcdc8a08-abf9-4627-a42f-06205f5c1fb7", 0),
+        ("528869", "2b45f885-f477-45cd-b0f3-6ebbe8cbcf8b", 10),
+        ("645663", "1bc8d4eb-5003-4dbe-a51c-f1800a30dd64", 30),
     )
 )
