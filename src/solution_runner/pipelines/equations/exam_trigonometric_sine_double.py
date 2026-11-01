@@ -53,6 +53,7 @@ def prepare(equation, preferred, scale):
         equation.radical_equation,
         equation.radical_ratio,
         equation.bounded_log,
+        equation.square_radicals,
     )
     if any(value is not None for value in specialized):
         return equation

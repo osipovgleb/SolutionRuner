@@ -28,6 +28,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
+    from .exam_trigonometric_square_radicals import SquareRadicals
     from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
     from .exam_trigonometric_triple_angle import TripleAngle
@@ -118,6 +119,7 @@ class Equation:
     radical_ratio: tuple | None = None
     radical_equation: "RadicalEquation | None" = None
     bounded_log: "BoundedLog | None" = None
+    square_radicals: "SquareRadicals | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
     extremum: tuple | None = None

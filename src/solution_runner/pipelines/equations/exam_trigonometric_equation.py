@@ -123,6 +123,7 @@ def analysis_fields(equation):
         "radical_ratio": equation.radical_ratio,
         "radical_equation": equation.radical_equation,
         "bounded_log": equation.bounded_log,
+        "square_radicals": equation.square_radicals,
         "sum_squares": equation.sum_squares,
         "argument_pair": equation.argument_pair,
         "extremum": equation.extremum,
@@ -256,7 +257,12 @@ def compile_constrained(formula, parent_html, translation):
             raise UnsupportedCondition(
                 "the reviewed radical equation requires its original variable"
             )
-        compiled = compile_radical(formula, radical_kind(parent_html))
+        if radical_kind(parent_html) == "perfect_squares":
+            from .exam_trigonometric_square_radicals import compile_squares
+
+            compiled = compile_squares(formula)
+        else:
+            compiled = compile_radical(formula, radical_kind(parent_html))
     elif sum_squares(parent_html):
         from .exam_trigonometric_sum_squares import compile_squares
 

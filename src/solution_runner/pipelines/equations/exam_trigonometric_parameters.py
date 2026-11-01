@@ -143,6 +143,7 @@ def align_affine(result, html):
             or result.angle_product is not None
             or result.cosine_equality is not None
             or result.argument_pair is not None
+            or result.square_radicals is not None
             or result.absolute_fraction is not None
             or (
                 len(result.branches) > 1

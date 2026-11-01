@@ -45,6 +45,13 @@ def kind(html):
         and r"\cos2x=-1" in formulas
     ):
         return "extremal"
+    if (
+        variable_roots(formulas)
+        and r"\left|" in formulas
+        and (r"\le1" in formulas or r"\leq1" in formulas)
+        and not soup.find("img")
+    ):
+        return "perfect_squares"
     return ""
 
 
