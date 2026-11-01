@@ -205,6 +205,8 @@ def image(context, a, generated):
                     "<p>На окружности отмечены только корни указанного промежутка.</p>"
                 )
             return markup + point_caption(entry, a), key, changes
+        if a.global_radical is not None and a.selection_method == "global_domain":
+            return "", "", []
         if a.selection_method not in ("inequalities", "progressions", "neighbors"):
             raise UnsupportedCondition("circle selection requires its source figure")
         return "", "", []

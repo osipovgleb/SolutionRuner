@@ -123,6 +123,7 @@ def analysis_fields(equation):
         "radical_ratio": equation.radical_ratio,
         "radical_equation": equation.radical_equation,
         "bounded_log": equation.bounded_log,
+        "global_radical": equation.global_radical,
         "square_radicals": equation.square_radicals,
         "sum_squares": equation.sum_squares,
         "argument_pair": equation.argument_pair,
@@ -238,6 +239,7 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
 
 def compile_constrained(formula, parent_html, translation):
     from .exam_trigonometric_bounded_log import reviewed as bounded_log
+    from .exam_trigonometric_global_radical import reviewed as global_radical
     from .exam_trigonometric_radical_equation import variable_radicals
     from .exam_trigonometric_radical_style import kind as radical_kind
     from .exam_trigonometric_sum_squares import reviewed as sum_squares
@@ -250,6 +252,12 @@ def compile_constrained(formula, parent_html, translation):
                 "bounded logarithms require their original x domain"
             )
         compiled = compile_log(formula)
+    elif global_radical(parent_html):
+        from .exam_trigonometric_global_radical import compile_global
+
+        if translation:
+            raise UnsupportedCondition("global radical domains require physical x")
+        compiled = compile_global(formula, global_radical(parent_html))
     elif radical_kind(parent_html) and variable_radicals(formula):
         from .exam_trigonometric_radical_equation import compile_radical
 

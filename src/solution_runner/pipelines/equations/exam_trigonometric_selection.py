@@ -66,6 +66,12 @@ def finish(a):
         return finish_pi(a)
 
     series = tuple((q / a.scale - a.translation, p / a.scale) for q, p in a.series)
+    if a.global_radical is not None:
+        from .exam_scalar import enclose
+
+        for bound in a.bounds[:2]:
+            enclose(bound * sp.pi)
+        return replace(a, series=series, selected=(), selections=())
     if a.shifted_notation:
         series = tuple(s for item in series for s in centred((item,)))
     elif a.selection_method == "inequalities":
@@ -242,24 +248,9 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
-    if compiled.square_radicals is not None:
-        if compiled.square_radicals.method == "linear_absolute":
-            return periodic(residues), False, False
-        if compiled.square_radicals.method == "absolute_level":
-            series = tuple(
-                sorted((q - p if q > p / 2 else q, p) for q, p in periodic(residues))
-            )
-            return series, True, False
-    if compiled.radical_equation is not None:
-        return periodic(residues), False, False
-    if compiled.argument_pair is not None:
-        from .exam_trigonometric_sine_pair import argument_series
-
-        return argument_series(compiled.argument_pair), False, False
-    if compiled.cosine_equality is not None:
-        from .exam_trigonometric_cosine_equality import series
-
-        return series(compiled.cosine_equality), False, False
+    constrained = constrained_series(compiled, branches, residues)
+    if constrained is not None:
+        return constrained
     if domain is not None and compiled.poles:
         from .exam_trigonometric_inverse import centred
         from .exam_trigonometric_selection import restricted_series
@@ -339,3 +330,49 @@ def method_series(
             branches, residues, filtered if filtered else None, allow_inverse
         )
     return series, merged, dividing
+
+
+def finalize(result, parent_html):
+    from .exam_trigonometric_bounded_log import prepare as bounded_log
+    from .exam_trigonometric_centered_power import prepare as centered_power
+    from .exam_trigonometric_global_radical import prepare as global_radical
+    from .exam_trigonometric_parameters import notation
+    from .exam_trigonometric_square_radical_cases import prepare as square_radicals
+
+    result = notation(centered_power(result, parent_html), parent_html)
+    result = square_radicals(result, parent_html)
+    result = global_radical(result, parent_html)
+    return bounded_log(result)
+
+
+def constrained_series(compiled, branches, residues):
+    if compiled.global_radical is not None:
+        return (
+            root_series(
+                branches,
+                residues,
+                bool(compiled.poles) or None,
+                any(q.is_Rational is not True for q in residues),
+            ),
+            False,
+            False,
+        )
+    if compiled.square_radicals is not None:
+        if compiled.square_radicals.method == "linear_absolute":
+            return periodic(residues), False, False
+        if compiled.square_radicals.method == "absolute_level":
+            series = tuple(
+                sorted((q - p if q > p / 2 else q, p) for q, p in periodic(residues))
+            )
+            return series, True, False
+    if compiled.radical_equation is not None:
+        return periodic(residues), False, False
+    if compiled.argument_pair is not None:
+        from .exam_trigonometric_sine_pair import argument_series
+
+        return argument_series(compiled.argument_pair), False, False
+    if compiled.cosine_equality is not None:
+        from .exam_trigonometric_cosine_equality import series
+
+        return series(compiled.cosine_equality), False, False
+    return None

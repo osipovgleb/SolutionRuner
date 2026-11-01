@@ -286,4 +286,8 @@ def all_root_answer(a):
             + r";\ ".join(pi(q, sine_inverse=a.sine_inverse) for q in a.finite_roots)
             + r"\}"
         )
+    if a.global_radical is not None:
+        from .exam_trigonometric_global_radical_proof import all_roots as global_roots
+
+        all_roots = global_roots(a)
     return all_roots

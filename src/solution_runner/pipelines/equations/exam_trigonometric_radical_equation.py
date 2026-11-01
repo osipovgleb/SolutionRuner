@@ -40,7 +40,7 @@ def trig_polynomial(function, coefficient, shift=sp.S.Zero):
     return value
 
 
-def compile_values(values, atoms, denominators):
+def compile_values(values, atoms, denominators, *, extra_symbols=()):
     result = list(values)
     poles = []
     identities = []
@@ -83,8 +83,8 @@ def compile_values(values, atoms, denominators):
         if other.free_symbols:
             poles.append(other)
     result = [sp.cancel(v) for v in result]
-    if any(v.free_symbols - {S, C, R} for v in result) or any(
-        p.free_symbols - {S, C} for p in poles
+    if any(v.free_symbols - {S, C, R, *extra_symbols} for v in result) or any(
+        p.free_symbols - {S, C, *extra_symbols} for p in poles
     ):
         raise UnsupportedCondition("undeclared symbols remain in the radical equation")
     return result, tuple(dict.fromkeys(map(sp.expand, poles))), tuple(identities)

@@ -358,7 +358,11 @@ def render(a, image):
         "inequalities": inequality_selection,
         "progressions": progressions,
     }
-    if a.bounded_log is not None:
+    if a.global_radical is not None:
+        from .exam_trigonometric_global_radical_proof import selection
+
+        second = selection(a)
+    elif a.bounded_log is not None:
         from .exam_trigonometric_bounded_log_proof import selection
 
         second = selection(a)

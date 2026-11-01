@@ -231,6 +231,10 @@ def preference(parent_html):
 
 
 def selection_style(soup, text, images):
+    from .exam_trigonometric_global_radical import reviewed as global_radical
+
+    if global_radical(str(soup)):
+        return "global_domain"
     from .exam_trigonometric_neighbors import reviewed as neighbors
 
     selection_method = (

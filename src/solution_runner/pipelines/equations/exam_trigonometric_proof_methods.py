@@ -81,6 +81,10 @@ def method_proof(a):
 
 
 def school_proof(a):
+    if a.global_radical is not None:
+        from .exam_trigonometric_global_radical_proof import proof
+
+        return proof(a)
     if a.square_radicals is not None:
         from .exam_trigonometric_square_radicals_proof import proof
 

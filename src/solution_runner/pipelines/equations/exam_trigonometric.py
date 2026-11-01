@@ -48,6 +48,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
     from .exam_trigonometric_bounded_log import BoundedLog
+    from .exam_trigonometric_global_radical import GlobalRadical
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
@@ -115,6 +116,7 @@ class Analysis:
     radical_ratio: tuple | None = None
     radical_equation: "RadicalEquation | None" = None
     bounded_log: "BoundedLog | None" = None
+    global_radical: "GlobalRadical | None" = None
     square_radicals: "SquareRadicals | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
@@ -242,6 +244,7 @@ def analyze(formula, interval, bounds, parent_html):
     parent_html, radical_notes = split_radical(parent_html, formula)
     parent_html, four_methods = split_four(parent_html)
     parent_html, auxiliary_notes = split(parent_html)
+    from .exam_trigonometric_global_radical import reviewed as global_radical
     from .exam_trigonometric_methods import methods, preference
     from .exam_trigonometric_radical_equation import variable_radicals
     from .exam_trigonometric_radical_style import kind as radical_kind
@@ -249,7 +252,8 @@ def analyze(formula, interval, bounds, parent_html):
     from .exam_trigonometric_translation import read_method
 
     if (
-        sum_identity_style(parent_html)
+        global_radical(parent_html)
+        or sum_identity_style(parent_html)
         or equal_sines(parent_html)
         or (radical_kind(parent_html) and variable_radicals(formula))
     ):
@@ -395,16 +399,9 @@ def analyze_method(
         )
     )
 
-    from .exam_trigonometric_bounded_log import prepare as bounded_log
-    from .exam_trigonometric_centered_power import prepare as centered_power
-    from .exam_trigonometric_parameters import notation
-    from .exam_trigonometric_square_radical_cases import prepare as square_radicals
+    from .exam_trigonometric_selection import finalize
 
-    return bounded_log(
-        square_radicals(
-            notation(centered_power(result, parent_html), parent_html), parent_html
-        )
-    )
+    return finalize(result, parent_html)
 
 
 def build_context_repair_plan(

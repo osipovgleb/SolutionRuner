@@ -34,7 +34,9 @@ def affine_families(parent_html):
     result = []
     for right in root_rights(parent_html):
         letters = set(
-            re.findall(r"[knl]", re.sub(r"\\[A-Za-z]+", "", right.replace(r"\pi", " ")))
+            re.findall(
+                r"[knlm]", re.sub(r"\\[A-Za-z]+", "", right.replace(r"\pi", " "))
+            )
         )
         if len(letters) != 1:
             continue
