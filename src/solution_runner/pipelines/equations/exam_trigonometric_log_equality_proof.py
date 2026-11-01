@@ -60,6 +60,10 @@ def grouping(a, branch):
 
 
 def proof(a):
+    if a.log_product.equality.variable is not None:
+        from .exam_trigonometric_log_variable_proof import proof as variable_proof
+
+        return variable_proof(a)
     if a.log_product.equality.linear is not None:
         from .exam_trigonometric_log_linear_proof import proof as linear_proof
 

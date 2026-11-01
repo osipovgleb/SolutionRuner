@@ -276,9 +276,13 @@ def compile_constrained(formula, parent_html, translation):
         from .exam_trigonometric_log_polynomial import compile_polynomial
         from .exam_trigonometric_log_powers import compile_powers
         from .exam_trigonometric_log_powers import reviewed as log_powers
+        from .exam_trigonometric_log_variable import compile_variable
+        from .exam_trigonometric_log_variable import reviewed as variable_base
 
         compiled = (
-            compile_powers(formula, parent_html)
+            compile_variable(formula, parent_html)
+            if variable_base(formula)
+            else compile_powers(formula, parent_html)
             if log_powers(formula)
             else compile_linear(formula, parent_html)
         )

@@ -36,7 +36,10 @@ def prepare(equation, preferred, scale):
         or (
             equation.log_product is not None
             and equation.log_product.equality is not None
-            and equation.log_product.equality.linear is not None
+            and (
+                equation.log_product.equality.linear is not None
+                or equation.log_product.equality.variable is not None
+            )
         )
     ):
         return equation

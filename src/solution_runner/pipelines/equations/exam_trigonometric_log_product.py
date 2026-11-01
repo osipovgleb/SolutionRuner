@@ -124,6 +124,14 @@ def conditions(compiled):
     result = [(p, "nonzero") for p in compiled.poles]
     if compiled.log_polynomial is not None:
         return (*result, (compiled.log_polynomial.argument, "positive"))
+    if data.equality is not None and data.equality.variable is not None:
+        base = data.equality.variable.base
+        return (
+            *result,
+            (base, "positive"),
+            (base - 1, "nonzero"),
+            (data.argument, "positive"),
+        )
     if data.argument is not None:
         result.append((data.argument, "positive"))
     if data.equality is not None and data.equality.other_argument is not None:

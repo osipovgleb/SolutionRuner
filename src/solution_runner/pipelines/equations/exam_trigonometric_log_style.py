@@ -17,6 +17,11 @@ def style(parent_html, condition=""):
     )
     if r"\log_" not in formulas + condition:
         return None
+    from .exam_trigonometric_log_variable import style as variable_style
+
+    variable = variable_style(parent_html, condition)
+    if variable is not None:
+        return variable
     from .exam_trigonometric_radical_equation import variable_radicals
 
     if variable_radicals(condition or formulas):

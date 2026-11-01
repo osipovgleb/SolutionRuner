@@ -17,6 +17,7 @@ from .power_arithmetic import clean
 
 if TYPE_CHECKING:
     from .exam_trigonometric_log_linear import LinearLogs
+    from .exam_trigonometric_log_variable import VariableLog
 
 
 @dataclass(frozen=True)
@@ -32,6 +33,7 @@ class LogEquality:
     image_after_reduction: bool = False
     first_factor: str | None = None
     linear: "LinearLogs | None" = None
+    variable: "VariableLog | None" = None
 
 
 class EqualityParser(Parser):
