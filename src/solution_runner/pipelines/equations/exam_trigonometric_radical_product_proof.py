@@ -62,7 +62,7 @@ def accepted_ratio(a, q, ratio):
     sine, cosine = sp.sin(q * sp.pi), sp.cos(q * sp.pi)
     value = sp.simplify(sine / cosine if variable == T else cosine / sine)
     radicand = sp.simplify(a.radical_product.radicand.subs({S: sine, C: cosine}))
-    if compare(radicand, sp.S.Zero) <= 0:
+    if compare(radicand, sp.S.Zero) < (0 if a.radical_product.root_offset else 1):
         raise UnsupportedCondition(
             "the accepted ratio branch must have a positive radical"
         )
@@ -83,7 +83,10 @@ def accepted_ratio(a, q, ratio):
     html = "<p>Проверим оставшуюся серию, используя периодичность и нечётность тригонометрического отношения:</p>"
     html += line(expression + "=" + sp.latex(value))
     return html + line(
-        formula(a.radical_product.radicand) + "=" + sp.latex(radicand) + ">0"
+        formula(a.radical_product.radicand)
+        + "="
+        + sp.latex(radicand)
+        + (r"\ge0" if a.radical_product.root_offset else ">0")
     )
 
 
@@ -93,19 +96,29 @@ def positive_case(a, positive, ratio):
 
     data = a.radical_product
     original = factor_branches(data.factor, a.preferred, a.allow_inverse)
+    pairs = tuple(zip(original, positive))
+    if data.root_offset:
+        pairs = tuple(
+            sorted(
+                pairs,
+                key=lambda pair: pair[0].polynomial.subs(pair[0].variable, 0) != 0,
+            )
+        )
     domain = homogeneous_domain(data.radicand)
     html = (
         "".join(
             polynomial(
                 branch,
-                allowed_residues=None if domain or ratio else filtered.residues,
+                allowed_residues=None
+                if domain or ratio or data.root_offset
+                else filtered.residues,
                 factorization=True,
             )
-            for branch, filtered in zip(original, positive)
+            for branch, filtered in pairs
         )
         + domain
     )
-    for branch, filtered in zip(original, positive):
+    for branch, filtered in pairs:
         for value in branch.values:
             for q in angles(branch.variable, value, a.allow_inverse):
                 if q in filtered.residues:
@@ -158,6 +171,27 @@ def proof(a):
     if sp.fraction(data.radicand)[1].free_symbols:
         html += "<p>На исходной области определения квадрат знаменателя положителен. Умножим неравенство на этот квадрат:</p>"
         html += line(formula(a.domain) + r"\ge0")
+    if data.root_offset:
+        html += "<p>На исходной области определения квадратный корень неотрицателен, поэтому вся скобка строго положительна, в том числе при нулевом радикале:</p>"
+        html += line(
+            r"\sqrt{"
+            + formula(data.radicand)
+            + "}+"
+            + sp.latex(data.root_offset)
+            + r"\ge "
+            + sp.latex(data.root_offset)
+            + ">0"
+        )
+        html += "<p>Разделим на положительную скобку и разложим первый множитель, сохраняя исходную область определения:</p>"
+        if len(positive) > 1:
+            if r"\sin2x" in "".join(a.original.split()):
+                html += line(r"\sin2x=2\sin x\cos x")
+            html += line(formula(data.factor) + "=0")
+            html += line(formula(sp.factor(data.factor)) + "=0")
+        html += positive_case(a, positive, ratio)
+        html += "<p>Оставим серии, удовлетворяющие исходной области определения:</p>"
+        html += "".join(line(text + r",\quad k\in\mathbb Z") for text in families(a))
+        return "<p>Решим уравнение, учитывая положительность скобки с корнем:</p>", html
     if any(b.residues for b in zero):
         html += "<p>Рассмотрим два случая. Сначала подкоренное выражение равно нулю. При сохранении исходных знаменателей это сразу даёт нулевое произведение:</p>"
         html += line(formula(data.radicand) + "=0")

@@ -13,6 +13,7 @@ from .power_arithmetic import balanced, clean
 class RadicalProduct:
     factor: sp.Expr
     radicand: sp.Expr
+    root_offset: sp.Expr = sp.S.Zero
 
 
 def operand(text):
@@ -46,10 +47,53 @@ def operands(formula):
     return values["factor"], values["root"]
 
 
-def compile_product(factor, radicand):
+def shifted_operands(formula):
+    from .exam_trigonometric_absolute import R, RootPlaceholderParser
+
+    text = clean(formula).removesuffix(".")
+    if not text.endswith("=0") or not text.startswith("("):
+        return None
+    first, end = balanced(text, 0, "(", ")")
+    rest = text[end:-2].removeprefix(r"\cdot").removeprefix(r"\times")
+    if not rest.startswith("("):
+        return None
+    second, end = balanced(rest, 0, "(", ")")
+    if end != len(rest):
+        return None
+    candidates = [v for v in (first, second) if r"\sqrt{" in v and "x" in v]
+    if len(candidates) != 1:
+        return None
+    root_factor = candidates[0]
+    roots, start = [], 0
+    while (index := root_factor.find(r"\sqrt{", start)) >= 0:
+        inner, start = balanced(root_factor, index + 5)
+        if "x" in inner:
+            roots.append((index, inner, start))
+    if len(roots) != 1:
+        return None
+    index, radicand, end = roots[0]
+    atoms, denominators = {}, []
+    value = (
+        RootPlaceholderParser(
+            (root_factor[:index] + "(r)" + root_factor[end:]).replace("x", r"\alpha"),
+            atoms,
+            denominators,
+        )
+        .parse()
+        .value
+    )
+    offset = sp.simplify(value - R)
+    if atoms or denominators or offset.free_symbols or offset.is_positive is not True:
+        return None
+    return (second if root_factor == first else first), radicand, offset
+
+
+def compile_product(factor, radicand, root_offset=sp.S.Zero):
     from .exam_trigonometric_methods import Equation, ExamAngleParser
     from .exam_trigonometric_radical_equation import compile_values
 
+    if root_offset != 0 and root_offset.is_positive is not True:
+        raise UnsupportedCondition("the additive root offset must be positive")
     atoms, denominators = {}, []
     values = [
         ExamAngleParser(text.replace("x", r"\alpha"), atoms, denominators).parse().value
@@ -96,12 +140,12 @@ def compile_product(factor, radicand):
             "the parent factor must be polynomial or one quadratic ratio"
         )
     return Equation(
-        sp.expand(numerator * root_num),
+        sp.expand(numerator if root_offset else numerator * root_num),
         identities,
         sp.S.One,
         poles=poles,
         domain=sp.expand(root_num * root_den),
-        radical_product=RadicalProduct(source_factor, root),
+        radical_product=RadicalProduct(source_factor, root, root_offset),
     )
 
 
@@ -127,18 +171,32 @@ def cases(compiled, preferred, allow_inverse):
     from .exam_trigonometric_domain import restrict, without_poles
 
     root_num = sp.fraction(compiled.radical_product.radicand)[0]
-    zero = solve_branches(root_num, S if root_num.has(S) else C, allow_inverse)[1]
+    shifted = compiled.radical_product.root_offset != 0
+    zero = (
+        ()
+        if shifted
+        else solve_branches(root_num, S if root_num.has(S) else C, allow_inverse)[1]
+    )
     positive = factor_branches(
         compiled.radical_product.factor, preferred, allow_inverse
     )
     return (
         without_poles(restrict(zero, compiled.domain), compiled.poles),
-        without_poles(restrict(positive, compiled.domain, strict=True), compiled.poles),
+        without_poles(
+            restrict(positive, compiled.domain, strict=not shifted), compiled.poles
+        ),
     )
 
 
 def prepare(a, parent_html):
-    if a.domain is None or a.strict_domain or operands(a.original) is None:
+    if (
+        a.domain is None
+        or a.strict_domain
+        or (
+            operands(a.original) is None
+            and not (a.radical_product and a.radical_product.root_offset)
+        )
+    ):
         return a
     import re
     from dataclasses import replace

@@ -25,7 +25,15 @@ def radical_product(formula):
     if len(candidates) != 1:
         raise UnsupportedCondition("one variable radical factor is required")
     index, inner, end = candidates[0]
-    from .exam_trigonometric_radical_product import compile_product, operands
+    from .exam_trigonometric_radical_product import (
+        compile_product,
+        operands,
+        shifted_operands,
+    )
+
+    shifted = shifted_operands(formula)
+    if shifted is not None:
+        return compile_product(*shifted)
 
     prefix = text[:index].removesuffix(r"\cdot").removesuffix(r"\times")
     if text[end:] != "=0" or not prefix.startswith("(") or not prefix.endswith(")"):
