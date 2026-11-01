@@ -37,6 +37,15 @@ def selection(
                 continue
             node = LogarithmParser(text).parse()
             if node.kind != "log":
+                if bound.is_Pow and bound.exp.is_Rational is False and r.is_positive:
+                    exponent = sp.simplify(sp.log(r) / sp.log(bound.base))
+                    order = compare(exponent, bound.exp)
+                    html += line(n(r) + "=" + n(bound.base) + "^{" + n(exponent) + "}")
+                    html += line(
+                        n(exponent)
+                        + ("<" if order < 0 else ">" if order > 0 else "=")
+                        + n(bound.exp)
+                    )
                 continue
             base, arg = (actual(child.value) for child in node.children)
             order = compare(r, bound) * (1 if base > 1 else -1)

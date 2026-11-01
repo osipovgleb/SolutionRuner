@@ -109,13 +109,39 @@ def enclose(value, bits=16):
 
 
 def compare(a, b):
+    a, b = sp.sympify(a), sp.sympify(b)
     difference = sp.simplify(a - b)
     if difference == 0:
         return 0
     if difference.is_Rational:
         return 1 if difference > 0 else -1
+    scalar = a - b
+    powers = [p for p in scalar.atoms(sp.Pow) if p.exp.is_Rational is not True]
+    if powers:
+        if not all(
+            p.base.is_Rational is True
+            and 0 < p.base <= 1000
+            and p.exp.is_real is True
+            and (p.exp**2).is_Rational is True
+            and 0 < p.exp**2 <= 400
+            for p in powers
+        ):
+            raise UnsupportedCondition("one bounded quadratic exponent is required")
+        if a.is_positive is True and b.is_nonpositive is True:
+            return 1
+        if a.is_nonpositive is True and b.is_positive is True:
+            return -1
+        if a.is_negative is True and b.is_zero is True:
+            return -1
+        if a.is_zero is True and b.is_negative is True:
+            return 1
+        if a.is_negative is True and b.is_negative is True:
+            a, b = -b, -a
+        if a.is_positive is not True or b.is_positive is not True:
+            raise UnsupportedCondition("logarithmic comparison needs positive scalars")
+        scalar = sp.expand_log(sp.log(a) - sp.log(b), force=False)
     for bits in (16, 32, 64):
-        lo, hi = enclose(a - b, bits)
+        lo, hi = enclose(scalar, bits)
         if hi < 0:
             return -1
         if lo > 0:

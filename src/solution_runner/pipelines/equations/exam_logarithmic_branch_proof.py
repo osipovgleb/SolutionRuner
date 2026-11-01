@@ -220,6 +220,10 @@ def first(a):
 
 
 def render(a):
+    if a.radical_product is not None:
+        from .exam_logarithmic_radical_product_proof import render as radical_product
+
+        return radical_product(a)
     from .exam_log_selection import selection as exact_selection
 
     rendered = {r: n(r) for r in a.selection.roots}

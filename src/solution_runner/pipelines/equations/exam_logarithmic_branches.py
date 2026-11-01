@@ -1,6 +1,7 @@
 """Factor logarithm products and retain every original variable-base restriction."""
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -12,6 +13,9 @@ from .exam_logarithmic_input import SYMBOLS, Atom, read_equation
 from .exam_rational import Selection
 from .exam_scalar import compare
 from .logarithm_arithmetic import log_ratio, power
+
+if TYPE_CHECKING:
+    from .exam_logarithmic_radical_product import RadicalProduct
 
 
 @dataclass(frozen=True)
@@ -34,6 +38,7 @@ class Analysis:
     positive: tuple
     method: str
     generic: bool = False
+    radical_product: "RadicalProduct | None" = None
 
 
 def constraints(atoms):
@@ -48,14 +53,15 @@ def constraints(atoms):
 
 
 def allowed(value, conditions):
-    return all(
-        (
-            compare(sp.simplify(p.subs(X, value)), sp.Integer(0)) > 0
-            if relation == "positive"
-            else compare(sp.simplify(p.subs(X, value)), sp.Integer(0)) != 0
-        )
-        for p, relation in conditions
-    )
+    for p, relation in conditions:
+        sign = compare(sp.simplify(p.subs(X, value)), sp.Integer(0))
+        if (
+            (relation == "positive" and sign <= 0)
+            or (relation == "nonnegative" and sign < 0)
+            or (relation == "nonzero" and sign == 0)
+        ):
+            return False
+    return True
 
 
 def canonicalize(atoms, expression):
@@ -184,7 +190,8 @@ def variable(atoms, expression, parent):
 
 
 def analyze(formula, interval, bounds, parent_html):
-    atoms, expression = read_equation(formula, extended=True)
+    radicands = []
+    atoms, expression = read_equation(formula, extended=True, radicands=radicands)
     parent = (
         BeautifulSoup(parent_html, "html.parser")
         .get_text(" ", strip=True)
@@ -193,6 +200,12 @@ def analyze(formula, interval, bounds, parent_html):
     )
     if not parent or any(s in parent for s in ("другое решение", "еще одно решение")):
         raise UnsupportedCondition("one complete reviewed logarithm method is required")
+    if radicands:
+        from .exam_logarithmic_radical_product import analyze_product
+
+        return analyze_product(
+            atoms, expression, radicands[0], interval, bounds, parent
+        )
     conditions = constraints(atoms)
     if any(a.base.has(X) for a in atoms):
         method, branches = variable(atoms, expression, parent)

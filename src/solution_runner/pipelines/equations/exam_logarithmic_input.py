@@ -80,7 +80,7 @@ def logarithm(text, index, symbol, *, extended=False):
     return Atom(base, argument, root, symbol), power, index
 
 
-def read_equation(formula, *, extended=False):
+def read_equation(formula, *, extended=False, radicands=None):
     text = clean(formula.removesuffix("."))
     if text.count("=") != 1 or any(c in text for c in "zwuv"):
         raise UnsupportedCondition("one complete logarithmic equation in x is required")
@@ -98,6 +98,19 @@ def read_equation(formula, *, extended=False):
         text = (
             text[:start] + str(atom.symbol) + ("^2" if power == 2 else "") + text[end:]
         )
+    if radicands is not None and extended:
+        from .exam_logarithmic_algebra import polynomial as algebraic_polynomial
+
+        for match in reversed(list(re.finditer(r"\\sqrt\{", text))):
+            raw, end = balanced(text, match.start() + 5)
+            if "x" not in raw:
+                continue
+            if radicands or len(atoms) > 3:
+                raise UnsupportedCondition(
+                    "one outer polynomial square root is required"
+                )
+            radicands.append(algebraic_polynomial(raw))
+            text = text[: match.start()] + str(SYMBOLS[3]) + text[end:]
     values = []
     nonzero = set()
     for side in text.split("="):

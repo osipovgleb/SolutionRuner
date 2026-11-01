@@ -1,0 +1,265 @@
+{
+  "groups": [
+    {
+      "key": "624920",
+      "uuid": "a4be3cfe-1332-431b-8214-5630671d3091",
+      "theme_uuid": "b10a50bd-f667-4a69-a859-5ed2d47781de",
+      "order": 3,
+      "theme_order": 12,
+      "task_count": 1
+    }
+  ],
+  "cases": [
+    {
+      "group": "624920",
+      "task": "624920",
+      "context": {
+        "problem_id": "59cb1131-5a59-41b9-8673-a1fd17ef82bd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"(\\sqrt{x^{2}+2x-7}-1)\\cdot \\log_3 (9+2x-x^{2})=0\"></span>.</li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\log_3 5;2^{\\sqrt{2}}]\"></span> .</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{2;4\\}\"></span> ; б) 2.</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пер­вый мно­жи­тель об­ра­ща­ет­ся в нуль, если  <span data-inline-latex=\"\\sqrt{x^{2}+2x-7}=1\"></span>, то есть при <span data-inline-latex=\"x^{2}+2x-7=1\"></span>, от­ку­да <span data-inline-latex=\"x=-4\"></span> или <span data-inline-latex=\"x=2\"></span>. При <span data-inline-latex=\"x=-4\"></span> ар­гу­мент ло­га­риф­ма от­ри­ца­те­лен, при <span data-inline-latex=\"x=2\"></span>  — по­ло­жи­те­лен. Число −4  — по­сто­рон­ний ко­рень.<p>Вто­рой мно­жи­тель об­ра­ща­ет­ся в нуль, если <span data-inline-latex=\"9+2x-x^{2}=1\"></span>, то есть если <span data-inline-latex=\"x^{2}-2x-8=0\"></span>, от­ку­да <span data-inline-latex=\"x=-2\"></span> или <span data-inline-latex=\"x=4\"></span>. При <span data-inline-latex=\"x=-2\"></span> под­ко­рен­ное вы­ра­же­ние от­ри­ца­тель­но, при <span data-inline-latex=\"x=4\"></span>  — по­ло­жи­тель­но. Число −2  — по­сто­рон­ний ко­рень.</p><p>Таким об­ра­зом, кор­ня­ми урав­не­ния яв­ля­ют­ся числа <nobr>2 и 4.</nobr></p></li><li data-list-marker=\"б)\">Рас­ста­вим корни и концы от­рез­ка в по­ряд­ке воз­рас­та­ния:<center><p> <span data-inline-latex=\"\\log_3 5\\lt \\log_3 9=2\\lt 2^{\\sqrt{2}}\\lt 4\"></span>.</p></center><p>Зна­чит, под­хо­дит толь­ко 2.</p><p><b>При­ме­ча­ние.</b></p><p>Чтобы не про­ве­рять корни под­ста­нов­кой, можно было найти об­ласть опре­де­ле­ния урав­не­ния, затем про­ве­рить, какие из кор­ней урав­не­ния-след­ствия, ко­то­рое рав­но­силь­но ис­ход­но­му урав­не­нию на его об­ла­сти опре­де­ле­ния, лежат в об­ла­сти опре­де­ле­ния. А имен­но, урав­не­ние имеет смысл при</p><center><p> <span data-inline-latex=\"\\begin{cases}x^{2}+2x-7\\ge 0\\\\9+2x-x^{2}\\gt 0\\end{cases}\\iff \\begin{cases}x^{2}+2x-7\\ge 0\\\\x^{2}-2x-9\\lt 0\\end{cases}.\\quad \\iff 2\\sqrt{2}-1\\le x\\lt 1+\\sqrt{10}\"></span> .</p></center><p>Пе­рей­дем к след­ствию  — най­дем нули мно­жи­те­лей:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}x^{2}+2x-7=1\\\\9+2x-x^{2}=1\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x^{2}-2x-8=0\\\\x^{2}+2x-8=0\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\pm 4\\\\x=\\pm 2\\end{aligned}\\right.\"></span> . </p></center><p>Из най­ден­ных ре­ше­ний в об­ла­сти опре­де­ле­ния лежат толь­ко числа 2 и 4.</p></li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T07:40:46.540691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"(\\sqrt{x^{2}+2x-7}-1)\\cdot \\log_3 (9+2x-x^{2})=0\"></span>.</li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\log_3 5;2^{\\sqrt{2}}]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{2;4\\}\"></span> ; б) 2.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=43055316\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 377</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пер­вый мно­жи­тель об­ра­ща­ет­ся в нуль, если  <span data-inline-latex=\"\\sqrt{x^{2}+2x-7}=1\"></span>, то есть при <span data-inline-latex=\"x^{2}+2x-7=1\"></span>, от­ку­да <span data-inline-latex=\"x=-4\"></span> или <span data-inline-latex=\"x=2\"></span>. При <span data-inline-latex=\"x=-4\"></span> ар­гу­мент ло­га­риф­ма от­ри­ца­те­лен, при <span data-inline-latex=\"x=2\"></span>  — по­ло­жи­те­лен. Число −4  — по­сто­рон­ний ко­рень.<p>Вто­рой мно­жи­тель об­ра­ща­ет­ся в нуль, если <span data-inline-latex=\"9+2x-x^{2}=1\"></span>, то есть если <span data-inline-latex=\"x^{2}-2x-8=0\"></span>, от­ку­да <span data-inline-latex=\"x=-2\"></span> или <span data-inline-latex=\"x=4\"></span>. При <span data-inline-latex=\"x=-2\"></span> под­ко­рен­ное вы­ра­же­ние от­ри­ца­тель­но, при <span data-inline-latex=\"x=4\"></span>  — по­ло­жи­тель­но. Число −2  — по­сто­рон­ний ко­рень.</p><p>Таким об­ра­зом, кор­ня­ми урав­не­ния яв­ля­ют­ся числа <nobr>2 и 4.</nobr></p></li><li data-list-marker=\"б)\">Рас­ста­вим корни и концы от­рез­ка в по­ряд­ке воз­рас­та­ния:<center><p> <span data-inline-latex=\"\\log_3 5\\lt \\log_3 9=2\\lt 2^{\\sqrt{2}}\\lt 4\"></span>.</p></center><p>Зна­чит, под­хо­дит толь­ко 2.</p><p><b>При­ме­ча­ние.</b></p><p>Чтобы не про­ве­рять корни под­ста­нов­кой, можно было найти об­ласть опре­де­ле­ния урав­не­ния, затем про­ве­рить, какие из кор­ней урав­не­ния-след­ствия, ко­то­рое рав­но­силь­но ис­ход­но­му урав­не­нию на его об­ла­сти опре­де­ле­ния, лежат в об­ла­сти опре­де­ле­ния. А имен­но, урав­не­ние имеет смысл при</p><center><p> <span data-inline-latex=\"\\begin{cases}x^{2}+2x-7\\ge 0\\\\9+2x-x^{2}\\gt 0\\end{cases}\\iff \\begin{cases}x^{2}+2x-7\\ge 0\\\\x^{2}-2x-9\\lt 0\\end{cases}.\\quad \\iff 2\\sqrt{2}-1\\le x\\lt 1+\\sqrt{10}\"></span> .</p></center><p>Пе­рей­дем к след­ствию  — най­дем нули мно­жи­те­лей:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}x^{2}+2x-7=1\\\\9+2x-x^{2}=1\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x^{2}-2x-8=0\\\\x^{2}+2x-8=0\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}x=\\pm 4\\\\x=\\pm 2\\end{aligned}\\right.\"></span> . </p></center><p>Из най­ден­ных ре­ше­ний в об­ла­сти опре­де­ле­ния лежат толь­ко числа 2 и 4.</p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

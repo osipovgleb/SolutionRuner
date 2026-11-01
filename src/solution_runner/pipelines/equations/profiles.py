@@ -4761,3 +4761,22 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+
+PROFILES += (
+    _profile(
+        "624920",
+        "a4be3cfe-1332-431b-8214-5630671d3091",
+        3,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Другие уравнения смешанного типа",
+        theme_order_index=12,
+        snapshot_theme_id="b10a50bd-f667-4a69-a859-5ed2d47781de",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithmic-branches",
+        rewrite_existing_solution=True,
+    ),
+)
