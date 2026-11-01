@@ -36,6 +36,7 @@ def reviewed(formula):
 
 class Parser(ExamAngleParser):
     implicit_prefixes = (*ExamAngleParser.implicit_prefixes, r"\log")
+    allowed_powers = (*ExamAngleParser.allowed_powers, -1, -2)
 
     def __init__(self, text, atoms, denominators, logs, depth=0):
         super().__init__(text, atoms, denominators, depth)
@@ -48,11 +49,19 @@ class Parser(ExamAngleParser):
 
     def _primary(self):
         if not self.text.startswith(r"\log_", self.index):
-            return super()._primary()
+            node = super()._primary()
+            denominator = sp.fraction(node.value)[1]
+            if node.kind == "trig" and denominator != 1:
+                self.denominators.append(denominator)
+            return node
         self.index += 5
-        if self.text[self.index : self.index + 1] != "{":
-            raise UnsupportedCondition("an explicit trigonometric log base is required")
-        base_text, self.index = balanced(self.text, self.index)
+        if self.text[self.index : self.index + 1] == "{":
+            base_text, self.index = balanced(self.text, self.index)
+        elif self.index < len(self.text) and self.text[self.index] in "23456789":
+            base_text = self.text[self.index]
+            self.index += 1
+        else:
+            raise UnsupportedCondition("an explicit logarithm base is required")
         base = ExamAngleParser(base_text, self.atoms, self.denominators).parse().value
         before = len(self.logs)
         start = self.index
@@ -112,6 +121,11 @@ def style(parent_html, formula):
 
     if not reviewed(formula):
         return None
+    from .exam_trigonometric_log_identity_style import style as identity_style
+
+    identity = identity_style(parent_html, formula)
+    if identity is not None:
+        return identity
     method = parent_method(parent_html)
     soup = BeautifulSoup(parent_html, "html.parser")
     text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
@@ -233,11 +247,22 @@ def compile_variable(formula, parent_html):
             "one variable log and an optional constant-argument log are required"
         )
     values, poles, identities = compile_values(
-        [v for e in logs for v in e[1:3]],
+        [*(v for e in logs for v in e[1:3]), nodes[0].value - nodes[1].value],
         atoms,
         denominators,
         extra_symbols=tuple(e[0] for e in logs),
     )
+    values, value = values[:-1], values[-1]
+    from .exam_trigonometric_log_identity import certify_identity
+
+    identity = certify_identity(
+        sp.expand(value), logs, values, poles, parent_html, atoms
+    )
+    if identity is not None:
+        raw, data = identity
+        from .exam_trigonometric_log_identity import build_equation
+
+        return build_equation(raw, data, identities, poles)
     if poles or any(
         a.coefficient != 1 and a.coefficient != 2 and a.coefficient != 4
         for a in atoms.values()

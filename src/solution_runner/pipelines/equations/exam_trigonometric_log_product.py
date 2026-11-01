@@ -132,6 +132,10 @@ def conditions(compiled):
             (base - 1, "nonzero"),
             (data.argument, "positive"),
         )
+    if data.equality is not None and data.equality.identity is not None:
+        from .exam_logarithmic_branches import constraints
+
+        return (*result, *constraints(data.equality.identity.atoms))
     if data.argument is not None:
         result.append((data.argument, "positive"))
     if data.equality is not None and data.equality.other_argument is not None:

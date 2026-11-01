@@ -16,6 +16,7 @@ from .logarithm_parser import Node
 from .power_arithmetic import clean
 
 if TYPE_CHECKING:
+    from .exam_trigonometric_log_identity import LogIdentity
     from .exam_trigonometric_log_linear import LinearLogs
     from .exam_trigonometric_log_variable import VariableLog
 
@@ -34,6 +35,7 @@ class LogEquality:
     first_factor: str | None = None
     linear: "LinearLogs | None" = None
     variable: "VariableLog | None" = None
+    identity: "LogIdentity | None" = None
 
 
 class EqualityParser(Parser):
