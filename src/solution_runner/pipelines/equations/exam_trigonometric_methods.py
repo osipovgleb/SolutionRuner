@@ -41,6 +41,12 @@ class ExamAngleParser(SymbolicTrigonometricParser):
     allowed_powers = (1, 2, 3, 4, 6)
 
     def _angle(self):
+        decimal = re.match(
+            r"[+-]?\d+\.\d+\\(?:alpha|beta|gamma)", self.text[self.index :]
+        )
+        if decimal:
+            self.index += decimal.end()
+            return decimal.group()
         match = re.match(r"[+-]?(?:\d+)?\\pi\\alpha", self.text[self.index :])
         if match:
             self.index += match.end()

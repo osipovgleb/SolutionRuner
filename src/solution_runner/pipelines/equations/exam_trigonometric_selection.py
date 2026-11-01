@@ -242,6 +242,14 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.square_radicals is not None:
+        if compiled.square_radicals.method == "linear_absolute":
+            return periodic(residues), False, False
+        if compiled.square_radicals.method == "absolute_level":
+            series = tuple(
+                sorted((q - p if q > p / 2 else q, p) for q, p in periodic(residues))
+            )
+            return series, True, False
     if compiled.radical_equation is not None:
         return periodic(residues), False, False
     if compiled.argument_pair is not None:

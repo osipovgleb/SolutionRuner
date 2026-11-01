@@ -258,9 +258,10 @@ def compile_constrained(formula, parent_html, translation):
                 "the reviewed radical equation requires its original variable"
             )
         if radical_kind(parent_html) == "perfect_squares":
+            from .exam_trigonometric_radical_style import square_method
             from .exam_trigonometric_square_radicals import compile_squares
 
-            compiled = compile_squares(formula)
+            compiled = compile_squares(formula, square_method(parent_html))
         else:
             compiled = compile_radical(formula, radical_kind(parent_html))
     elif sum_squares(parent_html):

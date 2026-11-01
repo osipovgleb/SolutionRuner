@@ -45,6 +45,8 @@ def kind(html):
         and r"\cos2x=-1" in formulas
     ):
         return "extremal"
+    if square_method(html):
+        return "perfect_squares"
     if (
         variable_roots(formulas)
         and r"\left|" in formulas
@@ -123,3 +125,29 @@ def split(html, formula):
         node.extract()
     marker.extract()
     return str(soup), (placement, method)
+
+
+def square_method(html):
+    soup = BeautifulSoup(html, "html.parser")
+    text = normalized(soup)
+    formulas = " ".join(
+        "".join(n["data-inline-latex"].split())
+        for n in soup.select("[data-inline-latex]")
+    )
+    if not variable_roots(formulas):
+        return ""
+    if "пусть" in text and r"\left|\sinx\right|=t" in formulas:
+        return "absolute_level"
+    if (
+        "под знаками обоих радикалов" in text
+        and r"\underset" in formulas
+        and r"\left|" in formulas
+    ):
+        return "remaining_absolute"
+    if (
+        r"(\sinx+\cosx)^{2}" in formulas
+        and r"\left|\sinx+\cosx\right|" in formulas
+        and r"\ge0" in formulas
+    ):
+        return "linear_absolute"
+    return ""

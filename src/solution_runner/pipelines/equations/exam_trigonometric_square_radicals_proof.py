@@ -7,32 +7,19 @@ from .exam_trigonometric_compile import S
 
 
 def proof(a):
+    if a.square_radicals.method:
+        from .exam_trigonometric_square_radical_proof_cases import (
+            proof as reviewed_proof,
+        )
+
+        return reviewed_proof(a)
     from .exam_trigonometric_proof import candidate_lines, families, formula
     from .exam_trigonometric_variants import argument
 
     data = a.square_radicals
     theta = argument(a.scale)
     show = lambda value: formula(value, theta)
-    html = line(a.original)
-    html += "<p>Выделим полные квадраты под корнями. Используем равенство √u² = |u| и диапазон синуса:</p>"
-    html += line(r"-1\le " + show(S) + r"\le1")
-    if r"\cos" in a.original:
-        html += line(r"\cos(2(" + theta + r"))=1-2\sin^2(" + theta + ")")
-        html += line(r"\cos^2(" + theta + r")=1-\sin^2(" + theta + ")")
-    for radicand, linear in zip(data.radicands, data.linears):
-        html += line(
-            r"\sqrt{"
-            + show(radicand)
-            + r"}=\sqrt{("
-            + show(linear)
-            + r")^2}=\left|"
-            + show(linear)
-            + r"\right|"
-        )
-    absolute = data.remainder + sum(
-        c * sp.Abs(v) for c, v in zip(data.coefficients, data.linears)
-    )
-    html += line(show(absolute) + "=0")
+    html = introduction(a)
     if all(data.signs):
         html += "<p>На всём диапазоне синуса знаки выражений под модулями постоянны. Поэтому раскроем модули с учётом этих знаков:</p>"
         for linear, sign in zip(data.linears, data.signs):
@@ -109,4 +96,39 @@ def absolute_cases(data, theta):
                 + "<0"
             )
             html += "<p>Правая часть отрицательна, а модуль неотрицателен; это значение исключаем.</p>"
+    return html
+
+
+def introduction(a):
+    from .exam_trigonometric_proof import formula
+    from .exam_trigonometric_variants import argument
+
+    data = a.square_radicals
+    theta = argument(a.scale)
+    show = lambda value: formula(value, theta)
+    html = line(a.original)
+    html += "<p>Выделим полные квадраты под корнями. Используем равенство √u² = |u| и диапазон синуса:</p>"
+    html += line(r"-1\le " + show(S) + r"\le1")
+    if data.method == "linear_absolute":
+        html += line(
+            r"\sin(2(" + theta + r"))=2\sin(" + theta + r")\cos(" + theta + ")"
+        )
+        html += line(r"\sin^2(" + theta + r")+\cos^2(" + theta + ")=1")
+    elif r"\cos" in a.original:
+        html += line(r"\cos(2(" + theta + r"))=1-2\sin^2(" + theta + ")")
+        html += line(r"\cos^2(" + theta + r")=1-\sin^2(" + theta + ")")
+    for radicand, linear in zip(data.radicands, data.linears):
+        html += line(
+            r"\sqrt{"
+            + show(radicand)
+            + r"}=\sqrt{("
+            + show(linear)
+            + r")^2}=\left|"
+            + show(linear)
+            + r"\right|"
+        )
+    absolute = data.remainder + sum(
+        c * sp.Abs(v) for c, v in zip(data.coefficients, data.linears)
+    )
+    html += line(show(absolute) + "=0")
     return html

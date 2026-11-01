@@ -29,6 +29,13 @@ def reviewed(html):
             and "решений на отрезке" in text
             and all(token in formulas for token in (r"k\le", "k=", r"k\ge"))
         )
+        or (
+            "члены обеих серий" in text
+            and "больше" in text
+            and "меньше" in text
+            and "других решений" in text
+            and all(token in formulas for token in (r"k\le", "k=", r"k\ge"))
+        )
     )
 
 

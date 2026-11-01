@@ -398,8 +398,13 @@ def analyze_method(
     from .exam_trigonometric_bounded_log import prepare as bounded_log
     from .exam_trigonometric_centered_power import prepare as centered_power
     from .exam_trigonometric_parameters import notation
+    from .exam_trigonometric_square_radical_cases import prepare as square_radicals
 
-    return bounded_log(notation(centered_power(result, parent_html), parent_html))
+    return bounded_log(
+        square_radicals(
+            notation(centered_power(result, parent_html), parent_html), parent_html
+        )
+    )
 
 
 def build_context_repair_plan(

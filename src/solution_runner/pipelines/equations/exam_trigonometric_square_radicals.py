@@ -29,6 +29,7 @@ class SquareRadicals:
     cases: tuple
     candidates: tuple
     accepted: tuple
+    method: str = ""
 
 
 class Parser(ExamAngleParser):
@@ -97,9 +98,9 @@ def read(formula):
     ):
         raise UnsupportedCondition("unshifted sine and cosine arguments are required")
     scale = reduce(sp.gcd, (a.coefficient for a in atoms.values()))
-    if scale.is_Integer is not True or not 1 <= scale <= 12:
+    if scale.is_Rational is not True or scale <= 0 or scale.p > 12 or scale.q > 2:
         raise UnsupportedCondition(
-            "one bounded positive integer base angle is required"
+            "one bounded positive integer or half-integer base angle is required"
         )
     scaled = {
         p: replace(a, coefficient=a.coefficient / scale) for p, a in atoms.items()
@@ -122,16 +123,30 @@ def read(formula):
             "every radical must have a nonzero constant multiplier"
         )
     if any(
-        v.free_symbols - {S} or not v.is_polynomial(S) or sp.degree(v, S) > 2
+        v.free_symbols - {S, C}
+        or not v.is_polynomial(S, C)
+        or sp.Poly(v, S, C).total_degree() > 2
         for v in (remainder, *radicands)
     ):
-        raise UnsupportedCondition(
-            "quadratic polynomials in one sine variable are required"
-        )
+        raise UnsupportedCondition("quadratic unit-circle polynomials are required")
     return scale, remainder, coefficients, radicands
 
 
 def square(radicand):
+    if radicand.has(C):
+        for polynomial in (radicand + CIRCLE, radicand - CIRCLE, radicand):
+            coefficient, factors = sp.factor_list(polynomial, S, C)
+            if len(factors) == 1 and factors[0][1] == 2:
+                linear = sp.sqrt(coefficient) * factors[0][0]
+                if (
+                    coefficient > 0
+                    and sp.Poly(linear, S, C).total_degree() == 1
+                    and sp.rem(sp.expand(linear**2 - radicand), CIRCLE, C) == 0
+                ):
+                    return linear
+        raise UnsupportedCondition(
+            "the reviewed unit-circle radicand is not a linear square"
+        )
     if sp.degree(radicand, S) != 2:
         raise UnsupportedCondition(
             "each variable radical must be a complete linear square"
@@ -149,9 +164,17 @@ def square(radicand):
     return linear
 
 
-def compile_squares(formula):
+def compile_squares(formula, method=""):
     scale, remainder, coefficients, radicands = read(formula)
     linears = tuple(square(r) for r in radicands)
+    if method:
+        from .exam_trigonometric_square_radical_cases import compile_cases
+
+        return compile_cases(scale, remainder, coefficients, radicands, linears, method)
+    if any(v.has(C) for v in (*linears, remainder)):
+        raise UnsupportedCondition(
+            "mixed absolute values require their reviewed parent method"
+        )
     signs = tuple(
         1
         if min(v.subs(S, -1), v.subs(S, 1)) >= 0
