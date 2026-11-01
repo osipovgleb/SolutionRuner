@@ -10,17 +10,17 @@ from ..word_problems.math_common import primitive
 from . import (
     exam_trigonometric_compile,
     exam_trigonometric_equation,
+    exam_trigonometric_inverse,
     exam_trigonometric_selection,
     exam_trigonometric_style,
 )
 from .exam_exponential import X
 from .exam_logarithmic_algebra import roots
 from .exam_scalar import compare
-from .exam_trigonometric_compile import C, S, T, U, table
+from .exam_trigonometric_compile import C, S, T, U
 from .exam_trigonometric_equation import analysis_fields
 from .exam_trigonometric_homogeneous import Reduction
 from .exam_trigonometric_inverse import (
-    angles,
     ordered,
     select_inverse,
 )
@@ -39,6 +39,8 @@ from .exam_trigonometric_sum_identities import style as sum_identity_style
 
 method_equation = exam_trigonometric_equation.method_equation
 compile_equation = exam_trigonometric_compile.compile_equation
+table = exam_trigonometric_compile.table
+angles = exam_trigonometric_inverse.angles
 method_series = exam_trigonometric_selection.method_series
 periodic = exam_trigonometric_selection.periodic
 root_series = exam_trigonometric_selection.root_series
@@ -136,6 +138,7 @@ class Analysis:
     affine: "AffineFactor | None" = None
     angle_product: "AngleProduct | None" = None
     cleared_denominator: sp.Expr | None = None
+    ratio_division: tuple | None = None
     square_difference: "SquareDifference | None" = None
     symmetric: "SumReduction | None" = None
     square_product: tuple | None = None
@@ -158,7 +161,7 @@ class Analysis:
     finite_roots: tuple | None = None
 
 
-def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
+def solve_branches(raw, preferred, allow_inverse=False, *, factored=False, poles=()):
     from .exam_trigonometric_factors import project, separated
     from .exam_trigonometric_grouping import mixed_branches
     from .exam_trigonometric_linear_phase import branch as phased_branch
@@ -192,14 +195,11 @@ def solve_branches(raw, preferred, allow_inverse=False, *, factored=False):
             for v in values
             if compare(v, -sp.Integer(1)) >= 0 and compare(v, sp.Integer(1)) <= 0
         )
-        residues = ordered(
-            q
-            for v in accepted
-            for q in (
-                angles(variable, v, True) if allow_inverse else table(variable, v)
-            )
+        from .exam_trigonometric_domain import level_branch
+
+        branches.append(
+            level_branch(variable, p, values, accepted, allow_inverse, poles)
         )
-        branches.append(Branch(variable, p, values, accepted, residues))
     if any(b.original is not None for b in branches):
         reduced = raw
     if factored:

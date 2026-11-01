@@ -15,20 +15,40 @@ def compile_quotients(values, atoms, denominators, *, preferred=None):
     from .exam_trigonometric_methods import Equation
 
     compiled, poles = compile_atoms(atoms)
+    additional = []
     for d in denominators:
         numerator, _ = sp.fraction(sp.cancel(d.xreplace(compiled)))
         if numerator.free_symbols:
             p = sp.Poly(numerator, S, C)
             if p.length() != 1:
-                raise UnsupportedCondition(
-                    "additional poles must be powers of sine and cosine"
-                )
-            poles.update(numerator.free_symbols)
+                if p.total_degree() > 2:
+                    raise UnsupportedCondition(
+                        "additional poles must have degree at most two"
+                    )
+                additional.append(numerator)
+                poles.add(numerator)
+            else:
+                poles.update(numerator.free_symbols)
     expression = sp.cancel((values[0] - values[1]).xreplace(compiled))
     raw, denominator = sp.fraction(expression)
     if not raw.is_polynomial(S, C) or raw == 0 or sp.Poly(raw, S, C).total_degree() > 4:
         raise UnsupportedCondition(
             "the reviewed ratio products must cancel to a nonzero polynomial"
+        )
+    if additional:
+        if len(additional) != 1 or sum(bool(d.free_symbols) for d in denominators) != 1:
+            raise UnsupportedCondition(
+                "the mixed-factor method requires one explicit denominator"
+            )
+        from .exam_trigonometric_positive_factors import compile_mixed
+
+        identities = tuple(
+            dict.fromkeys(
+                (a.text.replace(r"\alpha", "x"), compiled[s]) for s, a in atoms.items()
+            )
+        )
+        return compile_mixed(
+            raw, denominator, tuple(sorted(poles, key=str)), identities
         )
     cleared = None
     source = None
@@ -107,6 +127,11 @@ def compile_atoms(atoms):
 
 
 def proof(a):
+    if a.ratio_division is not None:
+        from .exam_trigonometric_pole_proof import division_proof
+
+        return division_proof(a)
+
     from functools import partial
 
     from .exam_trigonometric_proof import formula as format_formula

@@ -175,6 +175,51 @@ def ratio_proof(a):
     return "<p>Сохраним область определения до деления на радикал:</p>", html
 
 
+def forbidden_level(variable, value, poles):
+    from .exam_trigonometric_compile import C, S
+
+    if variable not in (S, C):
+        return False
+    other = C if variable == S else S
+    delta = sp.simplify(1 - value**2)
+    if delta.is_nonnegative is not True:
+        return False
+    return all(
+        any(
+            sp.simplify(p.subs({variable: value, other: sign * sp.sqrt(delta)})) == 0
+            for p in poles
+        )
+        for sign in (-1, 1)
+    )
+
+
+def level_branch(variable, polynomial, values, accepted, allow_inverse, poles):
+    from .exam_trigonometric import Branch
+    from .exam_trigonometric_compile import table
+    from .exam_trigonometric_inverse import angles, ordered
+
+    residues, excluded = [], []
+    for value in accepted:
+        try:
+            residues.extend(
+                angles(variable, value, True)
+                if allow_inverse
+                else table(variable, value)
+            )
+        except UnsupportedCondition:
+            if not poles or not forbidden_level(variable, value, poles):
+                raise
+            excluded.append(value)
+    return Branch(
+        variable,
+        polynomial,
+        values,
+        tuple(v for v in accepted if v not in excluded),
+        ordered(residues),
+        excluded=tuple(excluded),
+    )
+
+
 def without_poles(branches, poles):
     from .exam_trigonometric_compile import C, S
     from .exam_trigonometric_inverse import angles
@@ -207,7 +252,11 @@ def without_poles(branches, poles):
                 for k in range(int(branch.angle_scale))
             )
         )
-        excluded = tuple(v for v in branch.values if v not in values)
+        excluded = tuple(
+            dict.fromkeys(
+                (*branch.excluded, *(v for v in branch.values if v not in values))
+            )
+        )
         result.append(
             replace(branch, residues=residues, values=values, excluded=excluded)
         )

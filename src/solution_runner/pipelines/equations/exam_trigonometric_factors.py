@@ -202,6 +202,7 @@ def method_branches(
         allow_inverse,
         factored=compiled.factored_source is not None
         or compiled.square_product is not None,
+        poles=compiled.poles,
     )
     compiled, branches = retain_order(compiled, reduced, branches, parent_html, domain)
     if domain is not None:

@@ -141,6 +141,8 @@ def proof(a):
     from .exam_trigonometric_proof import formula, polynomial
 
     _numerator, factored, factor, _power, denominator, kind = a.positive_factorization
+    if kind == "mixed_double":
+        return mixed_proof(a)
     html = line(a.original)
     if a.poles:
         html += "<p>Сохраним исходную область определения перед умножением на знаменатель:</p>"
@@ -183,3 +185,107 @@ def proof(a):
     for b in a.branches:
         html += polynomial(b, allowed_residues=b.residues)
     return "<p>Разложим на множители и проверим знак каждого множителя:</p>", html
+
+
+def compile_mixed(numerator, denominator, poles, identities):
+    from .exam_trigonometric_methods import Equation
+
+    def factors(poly):
+        return {
+            sp.Poly(f, S, C).monic().as_expr() for f, _ in sp.factor_list(poly, S, C)[1]
+        }
+
+    if not denominator.is_polynomial(S, C) or not factors(denominator) <= set().union(
+        *(factors(p) for p in poles)
+    ):
+        raise UnsupportedCondition(
+            "every cleared factor must be an original nonzero pole"
+        )
+    for variable in (S, C):
+        reduced = sp.expand(sp.rem(numerator, S * S + C * C - 1, variable))
+        coefficient, parts = sp.factor_list(reduced, S, C)
+        if len(parts) != 2 or any(power != 1 for _, power in parts):
+            continue
+        zero = next((f for f, _ in parts if f in (S, C)), None)
+        if zero is None:
+            continue
+        factor = next(f for f, _ in parts if f != zero)
+        a, b = factor.coeff(S * C), factor.subs({S: 0, C: 0})
+        if (
+            a == 0
+            or sp.expand(factor - a * S * C - b) != 0
+            or compare(abs(2 * b / a), sp.S.One) <= 0
+        ):
+            continue
+        return Equation(
+            zero,
+            identities,
+            sp.S.One,
+            poles,
+            positive_factorization=(
+                numerator,
+                coefficient * zero * factor,
+                factor,
+                1,
+                denominator,
+                "mixed_double",
+            ),
+        )
+    raise UnsupportedCondition(
+        "one zero function factor and a double-angle factor outside [-1,1] are required"
+    )
+
+
+def mixed_proof(a):
+    from .exam_trigonometric_compile import T, U
+    from .exam_trigonometric_pole_proof import source_sides
+    from .exam_trigonometric_proof import families, formula, polynomial
+    from .exam_trigonometric_variants import argument
+
+    _, factored, factor, _, _denominator, _ = a.positive_factorization
+    angle = argument(a.scale)
+    left, right = source_sides(a.original, a.scale)
+    multiplier = next((p for p in a.poles if sp.Poly(p, S, C).length() > 1), None)
+    if multiplier is None:
+        raise UnsupportedCondition("the original ratio multiplier must remain recorded")
+    ratio_value = sp.cancel(left * multiplier)
+    ratio = T if ratio_value == S / C else U if ratio_value == C / S else None
+    if ratio is None:
+        raise UnsupportedCondition(
+            "the reviewed source must isolate one tangent or cotangent"
+        )
+    html = line(a.original) + "<p>Сохраним исходные ограничения до умножения:</p>"
+    for pole in a.poles:
+        html += line(formula(pole, angle) + r"\ne0")
+    html += "<p>Умножим обе части на исходный ненулевой знаменатель дроби:</p>"
+    rhs = sp.expand(right * multiplier)
+    html += line(formula(ratio, angle) + "=" + formula(rhs, angle))
+    other = C if ratio == T else S
+    reduced_rhs = sp.expand(sp.rem(rhs, S * S + C * C - 1, other))
+    html += line(r"\sin^2(" + angle + r")+\cos^2(" + angle + ")=1")
+    html += line(formula(ratio_value - reduced_rhs, angle) + "=0")
+    html += "<p>Умножим на знаменатель тригонометрического отношения, ненулевой на исходной области определения, и вынесем общий множитель:</p>"
+    html += line(formula(sp.expand(factored), angle) + "=0")
+    html += line(formula(factored, angle) + "=0")
+    doubled = argument(2 * a.scale)
+    level = sp.simplify(-2 * factor.subs({S: 0, C: 0}) / factor.coeff(S * C))
+    html += "<p>Произведение равно нулю, когда хотя бы один множитель равен нулю. Во второй ветви применим формулу двойного угла:</p>"
+    html += line(
+        formula(a.raw, angle)
+        + "=0"
+        + r"\quad\text{или}\quad"
+        + formula(factor, angle)
+        + "=0"
+    )
+    html += line(r"\sin(" + doubled + ")=" + sp.latex(level))
+    html += "<p>Модуль синуса не превосходит 1, поэтому вторая ветвь корней не имеет. Решим первую и проверим исходные ограничения:</p>"
+    for branch in a.branches:
+        html += polynomial(
+            branch, allowed_residues=None, angle=angle, root_scale=a.scale
+        )
+        from .exam_trigonometric_pole_proof import checked_levels
+
+        html += checked_levels(a, branch)
+    html += "<p>В исходной области определения остаются серии:</p>"
+    html += "".join(line(f + r",\quad k\in\mathbb Z") for f in families(a))
+    return "<p>Преобразуем уравнение с сохранением исходной ОДЗ:</p>", html

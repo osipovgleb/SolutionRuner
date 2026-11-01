@@ -143,6 +143,7 @@ class Equation:
     factored_source: sp.Expr | None = None
     angle_product: "AngleProduct | None" = None
     cleared_denominator: sp.Expr | None = None
+    ratio_division: tuple | None = None
     square_difference: "SquareDifference | None" = None
     symmetric: "SumReduction | None" = None
     square_product: tuple | None = None

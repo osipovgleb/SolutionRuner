@@ -133,13 +133,24 @@ def proof(a):
 
 
 def direct_proof(a, branch=None):
+    from .exam_trigonometric_compile import T, U
+    from .exam_trigonometric_pole_proof import checked_levels, ratio_fraction_proof
     from .exam_trigonometric_proof import formula, polynomial
     from .exam_trigonometric_variants import argument
+
+    if (
+        a.raw.free_symbols in ({T}, {U})
+        and a.raw.subs(next(iter(a.raw.free_symbols)), 0) == 0
+    ):
+        return ratio_fraction_proof(a)
 
     angle = argument(a.scale)
     html = "<p>Запишем ограничения исходной дроби до сокращения:</p>"
     for pole in a.poles:
         html += line(formula(pole, angle) + r"\ne0")
+    from .exam_trigonometric_pole_proof import doubled_pole_conditions
+
+    html += doubled_pole_conditions(a)
     html += line(a.original)
     shared = len(a.poles) == 2 and a.poles[0] == a.poles[1]
     if shared:
@@ -164,15 +175,32 @@ def direct_proof(a, branch=None):
         html += line(formula(a.raw, angle) + "=0")
     html += line(formula(sp.factor(a.raw, extension=True), angle) + "=0")
     for item in (branch,) if branch is not None else a.branches:
+        from .exam_trigonometric_inverse import angles
+
+        partial = any(
+            q not in item.residues
+            for v in item.values
+            for q in angles(item.variable, v, a.allow_inverse)
+        )
         html += polynomial(
             item,
             angle=angle,
             root_scale=a.scale,
-            allowed_residues=item.residues,
+            allowed_residues=None if partial else item.residues,
             allow_inverse=a.allow_inverse,
             factorization=a.factorization,
             sine_inverse=a.sine_inverse,
         )
+        html += checked_levels(a, item)
+    if any(
+        set(b.residues)
+        != {q for v in b.values for q in angles(b.variable, v, a.allow_inverse)}
+        for b in a.branches
+    ):
+        from .exam_trigonometric_proof import families
+
+        html += "<p>После проверки исходных ограничений остаются серии:</p>"
+        html += "".join(line(f + r",\quad k\in\mathbb Z") for f in families(a))
     html += "<p>В каждой серии оставлены только корни, не обращающие исходный знаменатель в нуль.</p>"
     if a.merged:
         from .exam_trigonometric_proof import families
