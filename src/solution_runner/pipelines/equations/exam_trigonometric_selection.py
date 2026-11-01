@@ -200,6 +200,12 @@ def restricted_series(branch, value=None):
             for q, p in level_series(branch.variable, v, True)
             if (q - branch.angle_shift) % 2 in branch.residues
         )
+    if (
+        sp.sympify(branch.angle_scale).is_Integer
+        and 1 < branch.angle_scale <= 12
+        and not branch.angle_shift
+    ):
+        return scaled_restricted_series(branch, value)
     if branch.angle_scale != 1 or branch.angle_shift:
         raise UnsupportedCondition(
             "inverse pole filtering requires one unshifted base angle"
@@ -213,6 +219,20 @@ def restricted_series(branch, value=None):
         else:
             result.extend((q, sp.Integer(2)) for q in retained)
     return tuple(result)
+
+
+def scaled_restricted_series(branch, value=None):
+    from .exam_trigonometric import select
+    from .exam_trigonometric_inverse import level_series
+
+    result = []
+    for v in branch.values if value is None else (value,):
+        for q, p in level_series(branch.variable, v, True):
+            item = (q / branch.angle_scale, p / branch.angle_scale)
+            orbit = select((item,), (0, 2, True, False))[0]
+            retained = tuple(q for q in orbit if q in branch.residues)
+            result.extend((item,) if retained == orbit else periodic(retained))
+    return tuple(dict.fromkeys(result))
 
 
 def branch_series(branch, allow_inverse):

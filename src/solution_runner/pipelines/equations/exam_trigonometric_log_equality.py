@@ -2,6 +2,7 @@
 
 import re
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -13,6 +14,9 @@ from .exam_trigonometric_log_parser import Parser
 from .logarithm_arithmetic import power
 from .logarithm_parser import Node
 from .power_arithmetic import clean
+
+if TYPE_CHECKING:
+    from .exam_trigonometric_log_linear import LinearLogs
 
 
 @dataclass(frozen=True)
@@ -27,6 +31,7 @@ class LogEquality:
     centre_inverse: bool = False
     image_after_reduction: bool = False
     first_factor: str | None = None
+    linear: "LinearLogs | None" = None
 
 
 class EqualityParser(Parser):

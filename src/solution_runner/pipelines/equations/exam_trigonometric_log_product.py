@@ -194,7 +194,13 @@ def branches(compiled, preferred, allow_inverse=False):
     data = compiled.log_product
     result = []
     for log_case, factor in zero_cases(data):
-        for b in factor_branches(factor, preferred, allow_inverse):
+        if data.equality is not None and data.equality.linear is not None:
+            from .exam_trigonometric_log_linear import branches as linear_branches
+
+            source = linear_branches(compiled, preferred, allow_inverse)
+        else:
+            source = factor_branches(factor, preferred, allow_inverse)
+        for b in source:
             residues = tuple(
                 q for q in b.residues if case_failed(compiled, q, log_case) is None
             )

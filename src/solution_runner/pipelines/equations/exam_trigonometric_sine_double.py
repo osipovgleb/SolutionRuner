@@ -33,6 +33,11 @@ def prepare(equation, preferred, scale):
         or equation.poles
         or equation.domain is not None
         or equation.angle_product is not None
+        or (
+            equation.log_product is not None
+            and equation.log_product.equality is not None
+            and equation.log_product.equality.linear is not None
+        )
     ):
         return equation
     specialized = (
