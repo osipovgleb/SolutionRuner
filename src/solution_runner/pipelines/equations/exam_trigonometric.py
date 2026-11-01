@@ -58,6 +58,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_ratio_product import RatioProduct
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_square_radicals import SquareRadicals
+    from .exam_trigonometric_strict_quotient import StrictQuotient
     from .exam_trigonometric_sum_product import SumProduct
     from .exam_trigonometric_symmetric import SumReduction
     from .exam_trigonometric_triple_angle import TripleAngle
@@ -119,6 +120,7 @@ class Analysis:
     absolute_square: tuple | None = None
     absolute_fraction: tuple | None = None
     radical_ratio: tuple | None = None
+    strict_quotient: "StrictQuotient | None" = None
     radical_product: "RadicalProduct | None" = None
     radical_equation: "RadicalEquation | None" = None
     bounded_log: "BoundedLog | None" = None
@@ -356,6 +358,13 @@ def analyze_method(
     compiled, reduced, branches, preferred = method_branches(
         compiled, preferred, allow_inverse, domain, parent_html, translation=translation
     )
+    if compiled.strict_quotient is not None:
+        position = {
+            "none": "none",
+            "outside": "outside",
+            "domain": "after-intro",
+            "double_identity": "after-intro",
+        }[compiled.strict_quotient.stage]
     raw, identities = compiled.raw, compiled.identities
     if len(branches) == 1:
         preferred = branches[0].variable

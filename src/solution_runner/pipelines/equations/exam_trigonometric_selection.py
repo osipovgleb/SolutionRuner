@@ -268,6 +268,14 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.strict_quotient is not None:
+        from .exam_trigonometric_compile import C
+        from .exam_trigonometric_inverse import centred
+
+        series = tuple(dict.fromkeys(s for b in branches for s in restricted_series(b)))
+        if compiled.strict_quotient.variable == C:
+            series = centred(series)
+        return series, False, False
     if compiled.log_product is not None or compiled.log_polynomial is not None:
         series = tuple(dict.fromkeys(s for b in branches for s in restricted_series(b)))
         if (

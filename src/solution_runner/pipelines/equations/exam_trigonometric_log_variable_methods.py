@@ -44,17 +44,9 @@ def cotangent(raw, base):
 
 
 def cotangent_double(raw):
-    constant = raw.subs({S: 0, C: 0})
-    homogeneous = sp.expand(raw + constant * (S * S + C * C - 1))
-    a, b = homogeneous.coeff(C, 2), homogeneous.coeff(S).coeff(C) / 2
-    if (
-        sp.expand(homogeneous - a * (C * C - S * S) - 2 * b * S * C) != 0
-        or a == 0
-        or b == 0
-    ):
-        raise UnsupportedCondition(
-            "a nondegenerate homogeneous double-angle sine/cosine equation is required"
-        )
+    from .exam_trigonometric_sine_double import linear_double
+
+    a, b = linear_double(raw)
     return a, b, sp.simplify(-b / a)
 
 

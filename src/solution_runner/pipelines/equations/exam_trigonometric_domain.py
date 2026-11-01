@@ -292,6 +292,21 @@ def validate_circle_domain(entry, a):
             raise UnsupportedCondition(
                 "every crossed circle point must violate the original domain"
             )
+    if "strict_quotient_domain" in entry:
+        expected = (
+            {
+                "radicand": str(a.strict_quotient.radicand),
+                "figure_stage": a.strict_quotient.stage,
+                "poles": list(map(str, a.poles)),
+                "strict": True,
+            }
+            if a.strict_quotient is not None
+            else None
+        )
+        if entry["strict_quotient_domain"] != expected or not a.strict_domain:
+            raise UnsupportedCondition(
+                "the source circle must retain the original strict denominator domain"
+            )
     shading = entry.get("domain_shading")
     if shading:
         variable = {"sin": S, "cos": C}.get(shading.get("variable"))
@@ -303,4 +318,21 @@ def validate_circle_domain(entry, a):
         ):
             raise UnsupportedCondition(
                 "the shaded half-circle must match the complete original domain"
+            )
+
+    if "strict_product_shading" in entry:
+        certificate = entry["strict_product_shading"]
+        weight = sp.cancel(a.domain / (S * C)) if a.domain is not None else None
+        if (
+            a.strict_quotient is None
+            or a.strict_domain is not True
+            or weight is None
+            or weight.free_symbols
+            or weight.is_positive is not True
+            or not set(a.poles) <= {S, C}
+            or not a.poles
+            or certificate.get("invalid_quadrants") != [2, 4]
+        ):
+            raise UnsupportedCondition(
+                "the shaded quadrants must retain the strict original product domain"
             )

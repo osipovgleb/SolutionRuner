@@ -112,6 +112,11 @@ def validate(entry, a):
         return
     if entry.get("selection_kind") == "all_roots":
         if (
+            a.strict_quotient is not None
+            and entry.get("figure_role") == "derivation"
+            and a.selection_method == "progressions"
+            and a.image_position != "selection"
+        ) or (
             a.log_product is not None
             and (
                 entry.get("figure_role") == "derivation"
@@ -239,6 +244,10 @@ def image(context, a, generated):
             )
         return panel_image(context, a, panels)
     if source_less(context):
+        if a.strict_quotient is not None and a.strict_quotient.stage != "none":
+            raise UnsupportedCondition(
+                "the reviewed strict-denominator figure is required"
+            )
         entry = recipe(context)
         if entry is not None:
             if a.selection_method != "circle":

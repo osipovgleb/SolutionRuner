@@ -138,6 +138,15 @@ def method_branches(
     from .exam_trigonometric_factor_style import retain_order
     from .exam_trigonometric_square_factor import prepare as square_product
 
+    if compiled.strict_quotient is not None:
+        from .exam_trigonometric_strict_quotient import branches as strict_branches
+
+        return (
+            compiled,
+            compiled.raw,
+            strict_branches(compiled, allow_inverse),
+            compiled.strict_quotient.variable,
+        )
     if (
         compiled.square_radicals is not None
         and compiled.square_radicals.method == "linear_absolute"
