@@ -28,6 +28,10 @@ def logarithm(base, argument):
 
 
 def proof(a):
+    if a.log_product.radical is not None:
+        from .exam_trigonometric_log_radical_proof import proof as radical_proof
+
+        return radical_proof(a)
     from .exam_trigonometric_proof import families, formula
     from .exam_trigonometric_radical_product import factor_branches
 
@@ -148,6 +152,8 @@ def rejections(a, b, log_case=False):
         )
         html += line(
             formula(ratio_factor(expression))
-            + (r"\not>0" if relation == "positive" else "=0")
+            + {"positive": r"\not>0", "nonnegative": r"\not\ge0", "nonzero": "=0"}[
+                relation
+            ]
         )
     return html

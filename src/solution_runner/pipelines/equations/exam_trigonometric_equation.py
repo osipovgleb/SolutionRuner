@@ -258,6 +258,14 @@ def compile_constrained(formula, parent_html, translation):
                 "bounded logarithms require their original x domain"
             )
         compiled = compile_log(formula)
+    elif r"\log_" in formula and variable_radicals(formula):
+        from .exam_trigonometric_log_radical import compile_product
+
+        if translation:
+            raise UnsupportedCondition(
+                "radical-log products require their original variable"
+            )
+        compiled = compile_product(formula, parent_html)
     elif r"\log_" in formula and not variable_radicals(formula):
         from .exam_trigonometric_log_product import compile_product, prepare
 

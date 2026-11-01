@@ -1,6 +1,7 @@
 """Solve the two zero factors, checking every original logarithm and ratio pole."""
 
 from dataclasses import dataclass, replace
+from typing import TYPE_CHECKING
 
 import sympy as sp
 
@@ -8,6 +9,9 @@ from ..word_problems.common import UnsupportedCondition
 from .exam_scalar import compare
 from .exam_trigonometric_compile import C, S, T, U
 from .power_arithmetic import clean
+
+if TYPE_CHECKING:
+    from .exam_trigonometric_log_radical import RadicalLog
 
 
 @dataclass(frozen=True)
@@ -23,6 +27,7 @@ class LogProduct:
     selection_image_position: str = "selection"
     level_ascending: bool | None = None
     domain_labels: bool = False
+    radical: "RadicalLog | None" = None
 
 
 def compile_product(formula):
@@ -119,6 +124,10 @@ def conditions(compiled):
         return (*result, (compiled.log_polynomial.argument, "positive"))
     if data.argument is not None:
         result.append((data.argument, "positive"))
+    if data.radical is not None:
+        result.append((data.factor, "nonnegative"))
+        if data.radical.denominator is not None:
+            result.append((data.radical.denominator, "positive"))
     if data.denominator:
         argument = data.denominator[1]
         result.extend(((argument, "positive"), (argument - 1, "nonzero")))
@@ -132,8 +141,10 @@ def failed(compiled, q):
         if value.has(sp.zoo, sp.nan, sp.oo, -sp.oo):
             return expression, relation, value
         sign = compare(value, sp.S.Zero)
-        if (relation == "positive" and sign <= 0) or (
-            relation == "nonzero" and sign == 0
+        if (
+            (relation == "positive" and sign <= 0)
+            or (relation == "nonzero" and sign == 0)
+            or (relation == "nonnegative" and sign < 0)
         ):
             return expression, relation, value
     return None
@@ -180,6 +191,8 @@ def branches(compiled, preferred, allow_inverse=False):
 
 
 def zero_cases(data):
+    if data.radical is not None and data.radical.divide:
+        return ((True, ratio_factor(data.argument - 1)),)
     cases = [(False, ratio_factor(data.factor / data.divide))]
     if data.argument is not None and data.nonzero_bound is None:
         cases.append((True, ratio_factor(data.argument - 1)))

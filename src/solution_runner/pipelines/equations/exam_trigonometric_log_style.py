@@ -20,7 +20,14 @@ def style(parent_html, condition=""):
     from .exam_trigonometric_radical_equation import variable_radicals
 
     if variable_radicals(condition or formulas):
-        return None
+        from .exam_trigonometric_bounded_log import reviewed as bounded_log
+
+        if bounded_log(parent_html):
+            return None
+        from .exam_trigonometric_log_radical import style as radical_style
+
+        _, _, _, position = radical_style(parent_html)
+        return C, False, False, position, None, "circle"
     text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
     text = text.split("примечание")[0]
     method = (

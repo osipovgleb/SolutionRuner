@@ -113,7 +113,14 @@ def validate(entry, a):
     if entry.get("selection_kind") == "all_roots":
         if (
             a.log_product is not None
-            and entry.get("figure_role") == "derivation"
+            and (
+                entry.get("figure_role") == "derivation"
+                or (
+                    entry.get("figure_role") == "alternative"
+                    and a.log_product.radical is not None
+                    and a.log_product.radical.alternative
+                )
+            )
             and a.image_position != "selection"
         ):
             from .exam_trigonometric_single import validate_circle

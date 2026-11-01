@@ -221,6 +221,14 @@ def selection_notes(a, system_image=""):
         )
     if a.circle_note:
         html += "<p><b>Примечание.</b> Отобрать корни можно, используя тригонометрическую окружность (см. рис.).</p>"
+    if (
+        a.log_product is not None
+        and a.log_product.radical is not None
+        and a.log_product.radical.alternative
+    ):
+        from .exam_trigonometric_log_radical_proof import alternative
+
+        html += alternative(a, system_image)
     if a.auxiliary_notes:
         from .exam_trigonometric_auxiliary_notes import notes
 

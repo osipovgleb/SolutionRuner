@@ -334,6 +334,12 @@ def render(a, image):
     system_image = ""
     if a.auxiliary_notes:
         image, system_image = image
+    if (
+        a.log_product is not None
+        and a.log_product.radical is not None
+        and a.log_product.radical.alternative
+    ):
+        image, system_image = image
     selection_image = image
     if a.log_product is not None and isinstance(image, tuple):
         image, selection_image = image
