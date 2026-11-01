@@ -43,15 +43,14 @@ def recipe(context):
             section["asset_keys"] = []
     _, formula, _, bounds = read(prepared)
     from .exam_trigonometric_inverse import decode
+    from .exam_trigonometric_log_common import numeric_bases
 
+    formula = clean(numeric_bases(formula)).removesuffix(".")
     for entry in RECIPES:
         expected = tuple(decode(q) for q in entry["bounds"][:2]) + tuple(
             entry["bounds"][2:]
         )
         actual = tuple(q / sp.pi for q in bounds[:2]) + bounds[2:]
-        if (
-            clean(formula).removesuffix(".") == clean(entry["formula"])
-            and actual == expected
-        ):
+        if formula == clean(numeric_bases(entry["formula"])) and actual == expected:
             return entry
     return None

@@ -9,6 +9,7 @@ from .power_arithmetic import ScalarParser, balanced
 
 
 class Parser(ExamAngleParser):
+    max_logs = 2
     implicit_prefixes = (*ExamAngleParser.implicit_prefixes, r"\log")
 
     def __init__(self, text, atoms, denominators, logs, depth=0):
@@ -49,11 +50,23 @@ class Parser(ExamAngleParser):
             )
         before = len(self.logs)
         argument_start = self.index
-        argument = self._factor().value
-        if len(self.logs) != before:
+        argument_node = self._factor()
+        argument = argument_node.value
+        if len(self.logs) != before or contains_log(argument_node):
             raise UnsupportedCondition("nested log factors require a separate method")
-        if not argument.free_symbols or len(self.logs) >= 2:
+        return self._make_log(
+            base, argument, exponent, self.text[argument_start : self.index]
+        )
+
+    def _make_log(self, base, argument, exponent, text):
+        if not argument.free_symbols or len(self.logs) >= self.max_logs:
             raise UnsupportedCondition("one or two variable log factors are required")
         symbol = sp.Symbol("L" + str(len(self.logs)), real=True)
         self.logs.append((symbol, base, argument))
-        return Node(symbol**exponent, self.text[argument_start : self.index], "log")
+        return Node(symbol**exponent, text, "log")
+
+
+def contains_log(node):
+    return node.kind in ("log", "constant_log") or any(
+        contains_log(n) for n in node.children
+    )

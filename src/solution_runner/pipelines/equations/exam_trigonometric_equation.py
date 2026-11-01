@@ -275,6 +275,7 @@ def compile_constrained(formula, parent_html, translation):
 
         if translation:
             raise UnsupportedCondition("log products require the original variable")
+        from .exam_trigonometric_log_common import quadratic
         from .exam_trigonometric_log_equality import compile_equality, reviewed
         from .exam_trigonometric_log_linear import compile_linear
         from .exam_trigonometric_log_polynomial import compile_polynomial
@@ -288,6 +289,8 @@ def compile_constrained(formula, parent_html, translation):
             if variable_base(formula)
             else compile_powers(formula, parent_html)
             if log_powers(formula)
+            else compile_polynomial(formula, parent_html)
+            if quadratic(formula)
             else compile_linear(formula, parent_html)
         )
         if compiled is None:

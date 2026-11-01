@@ -7,15 +7,16 @@ from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
 from .exam_scalar import compare
+from .exam_trigonometric_log_common import exact_power, numeric_bases, scalar_level
 from .exam_trigonometric_log_parent import small_fractions
 from .exam_trigonometric_log_parser import Parser
-from .power_arithmetic import ScalarParser, clean
+from .power_arithmetic import clean
 
 
 def declared_levels(formulas):
     levels, substitution = [], None
     for formula in formulas:
-        text = clean(small_fractions(formula))
+        text = clean(numeric_bases(small_fractions(formula)))
         for match in re.finditer(r"\\log_", text):
             logs = []
             parser = Parser(text[match.start() :].replace("x", r"\alpha"), {}, [], logs)
@@ -43,12 +44,15 @@ def declared_levels(formulas):
                 r"\\\\|\\(?:end|iff|Leftrightarrow|quad)|,", after[1:], maxsplit=1
             )[0].removesuffix(".")
             try:
-                value = ScalarParser(right).parse()
+                value = scalar_level(right)
             except UnsupportedCondition:
                 continue
-            if value.free_symbols or value.is_Rational is not True:
+            if value.free_symbols:
                 continue
-            target = sp.simplify(logs[0][1] ** value)
+            try:
+                target = exact_power(logs[0][1], value)
+            except UnsupportedCondition:
+                continue
             if target not in levels:
                 levels.append(target)
     return levels, substitution
@@ -57,7 +61,7 @@ def declared_levels(formulas):
 def review(base, argument, polynomial, levels, parent_html):
     from .exam_trigonometric_log_polynomial import L, LogPolynomial
 
-    soup = BeautifulSoup(parent_html, "html.parser")
+    soup = BeautifulSoup(numeric_bases(parent_html), "html.parser")
     formulas = [n["data-inline-latex"] for n in soup.select("[data-inline-latex]")]
     text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
     declared, substitution = declared_levels(formulas)
@@ -100,6 +104,11 @@ def review(base, argument, polynomial, levels, parent_html):
         r"\begin{cases}" in first_log
         and first_log.count(r"\log_") >= 2
         and polynomial.subs(L, 0) == 0
+    )
+    factor_before = factor_before or (
+        polynomial.subs(L, 0) == 0
+        and "либо равно нулю" in text
+        and "сократить обе части" in text
     )
     discriminant = any(re.search(r"\\pm\s*\\sqrt", f) for f in formulas)
     return LogPolynomial(

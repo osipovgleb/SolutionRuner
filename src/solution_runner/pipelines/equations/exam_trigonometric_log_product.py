@@ -123,7 +123,13 @@ def conditions(compiled):
     data = compiled.log_product
     result = [(p, "nonzero") for p in compiled.poles]
     if compiled.log_polynomial is not None:
-        return (*result, (compiled.log_polynomial.argument, "positive"))
+        normalization = compiled.log_polynomial.normalization
+        arguments = (
+            normalization.original_arguments
+            if normalization is not None
+            else (compiled.log_polynomial.argument,)
+        )
+        return (*result, *((arg, "positive") for arg in arguments))
     if data.equality is not None and data.equality.variable is not None:
         base = data.equality.variable.base
         return (

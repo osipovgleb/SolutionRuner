@@ -240,6 +240,9 @@ def select(series, bounds):
 
 
 def analyze(formula, interval, bounds, parent_html):
+    from .exam_trigonometric_log_common import numeric_bases
+
+    formula, parent_html = numeric_bases(formula), numeric_bases(parent_html)
     if bounds is None:
         result = analyze(
             formula, r"[0;2\pi)", (sp.S.Zero, 2 * sp.pi, True, False), parent_html

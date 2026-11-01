@@ -33,16 +33,21 @@ def style(parent_html, condition=""):
 
         _, _, _, position = radical_style(parent_html)
         return C, False, False, position, None, "circle"
+    from .exam_trigonometric_log_common import quadratic
     from .exam_trigonometric_log_equality import first_factor, presentation, reviewed
     from .exam_trigonometric_log_powers import reviewed as log_powers
     from .power_arithmetic import clean
 
-    if condition and (
-        reviewed(condition)
-        or (
-            condition.count(r"\log_") == 2
-            and not clean(condition).removesuffix(".").endswith("=0")
-            and not log_powers(condition)
+    if (
+        condition
+        and not quadratic(condition)
+        and (
+            reviewed(condition)
+            or (
+                condition.count(r"\log_") == 2
+                and not clean(condition).removesuffix(".").endswith("=0")
+                and not log_powers(condition)
+            )
         )
     ):
         from .exam_trigonometric_style import preference

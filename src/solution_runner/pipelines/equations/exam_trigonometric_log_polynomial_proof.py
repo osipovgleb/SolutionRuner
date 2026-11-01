@@ -3,6 +3,10 @@
 import sympy as sp
 
 from ..probability.common import line
+from .exam_trigonometric_log_common import exact_power
+from .exam_trigonometric_log_common_proof import expression as tex_expression
+from .exam_trigonometric_log_common_proof import power_level
+from .exam_trigonometric_log_common_proof import steps as common_steps
 from .exam_trigonometric_log_polynomial import L
 from .exam_trigonometric_log_product import conditions
 from .exam_trigonometric_log_product_proof import rejections
@@ -42,8 +46,16 @@ def log_equation(a, log):
     names = {L: log}
     html = ""
     if data.factor_before:
-        html += "<p>На исходной области определения числитель равен нулю. Вынесем общий логарифмический множитель:</p>"
-        html += line(sp.latex(sp.factor(data.polynomial), symbol_names=names) + "=0")
+        html += (
+            "<p>Вынесем общий логарифмический множитель, сохраняя его нулевые значения:</p>"
+            if data.normalization is not None
+            else "<p>На исходной области определения числитель равен нулю. Вынесем общий логарифмический множитель:</p>"
+        )
+        html += line(
+            tex_expression(data, data.polynomial, names=names, factor=True) + "=0"
+        )
+    if data.factor_before and not data.substitution and data.normalization is not None:
+        return html
     if data.substitution:
         variable = sp.Symbol(data.substitution, real=True)
         html += "<p>Сделаем замену и решим квадратное уравнение:</p>"
@@ -60,7 +72,9 @@ def log_equation(a, log):
         html += (
             "<p>Решим квадратное уравнение относительно логарифмического выражения:</p>"
         )
-        html += line(sp.latex(sp.factor(data.polynomial), symbol_names=names) + "=0")
+        html += line(
+            tex_expression(data, data.polynomial, names=names, factor=True) + "=0"
+        )
     return html
 
 
@@ -71,10 +85,12 @@ def trig_case(a, level):
     from .exam_trigonometric_radical_product import factor_branches
 
     data = a.log_polynomial
-    value = sp.simplify(data.base**level)
+    value = exact_power(data.base, level)
     log = r"\log_{" + sp.latex(data.base) + r"}\left(" + data.argument_text + r"\right)"
     html = "<p>Вернёмся к исходной переменной по определению логарифма:</p>"
-    html += line(log + "=" + sp.latex(level))
+    html += line(log + "=" + tex_expression(data, level))
+    if level.is_Rational is not True:
+        html += line(tex_expression(data, level) + "=" + power_level(data, level))
     base = (
         sp.latex(data.base)
         if data.base.is_Integer
@@ -85,7 +101,7 @@ def trig_case(a, level):
         + "="
         + base
         + "^{"
-        + sp.latex(level)
+        + power_level(data, level)
         + "}="
         + sp.latex(value)
     )
@@ -127,9 +143,14 @@ def proof(a):
         if relation == "positive" and sp.degree(data.polynomial, L) == 1:
             continue
         html += line(
-            (data.argument_text if relation == "positive" else formula(expression))
+            (
+                data.argument_text
+                if relation == "positive" and expression == data.argument
+                else formula(expression)
+            )
             + (">0" if relation == "positive" else r"\ne0")
         )
+    html += common_steps(a, log)
     if data.powers is not None:
         e = data.powers
         names = {L: r"\left(" + log + r"\right)"}
