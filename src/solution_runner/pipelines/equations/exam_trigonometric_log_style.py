@@ -8,21 +8,26 @@ from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_compile import C
 
 
-def style(parent_html):
-    if r"\log_" not in parent_html:
+def style(parent_html, condition=""):
+    if r"\log_" not in (parent_html + condition):
         return None
     soup = BeautifulSoup(parent_html, "html.parser")
     formulas = " ".join(
         n["data-inline-latex"] for n in soup.select("[data-inline-latex]")
     )
-    if r"\log_" not in formulas:
+    if r"\log_" not in formulas + condition:
         return None
     from .exam_trigonometric_radical_equation import variable_radicals
 
-    if variable_radicals(formulas):
+    if variable_radicals(condition or formulas):
         return None
     text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
-    method = "inequalities" if re.search(r"двойн\w*\s+неравенств", text) else "circle"
+    text = text.split("примечание")[0]
+    method = (
+        "inequalities"
+        if re.search(r"двойн\w*\s+неравенств|решим неравенства", text)
+        else "circle"
+    )
     images = soup.find_all("img")
     if method == "circle" and len(images) not in (1, 2):
         raise UnsupportedCondition(
@@ -36,13 +41,17 @@ def style(parent_html):
         parts = [i.find_parent("li") for i in images]
         if any(p is None for p in parts) or [
             p.get("data-list-marker") for p in parts
-        ] != ["а)", "б)"]:
+        ] not in (["а)", "б)"], ["а)", "а)"]):
             raise UnsupportedCondition(
                 "the two log-product figures need separate derivation and selection roles"
             )
     if images:
         position = (
-            "before-intro"
+            (
+                "after-intro"
+                if any(str(n).strip() for n in images[0].previous_siblings)
+                else "before-intro"
+            )
             if images[0].find_parent("li")
             else "after-steps"
             if method == "inequalities"

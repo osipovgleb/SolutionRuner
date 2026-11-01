@@ -13,10 +13,16 @@ from .power_arithmetic import clean
 @dataclass(frozen=True)
 class LogProduct:
     factor: sp.Expr
-    base: sp.Expr
-    argument: sp.Expr
+    base: sp.Expr | None
+    argument: sp.Expr | None
     denominator: tuple | None
     divide: sp.Expr = sp.S.One
+    log_first: bool = False
+    nonzero_bound: sp.Expr | None = None
+    double_angle: tuple | None = None
+    selection_image_position: str = "selection"
+    level_ascending: bool | None = None
+    domain_labels: bool = False
 
 
 def compile_product(formula):
@@ -43,11 +49,15 @@ def compile_product(formula):
     numerator, denominator = sp.fraction(value)
     upstairs = [v for v in symbols if numerator.has(v)]
     downstairs = [v for v in symbols if denominator.has(v)]
-    if len(upstairs) != 1 or len(downstairs) != len(logs) - 1:
+    if (
+        len(upstairs) > 1
+        or len(downstairs) > 1
+        or len(upstairs) + len(downstairs) != len(logs)
+    ):
         raise UnsupportedCondition(
-            "one numerator log and at most one denominator log are required"
+            "at most one numerator and one denominator log are required"
         )
-    log = upstairs[0]
+    log = upstairs[0] if upstairs else sp.S.One
     den_log = downstairs[0] if downstairs else sp.S.One
     factor = sp.cancel(value * den_log / log)
     if factor.free_symbols - {S, C} or any(
@@ -87,22 +97,26 @@ def compile_product(formula):
             )
     if factor == 0 or not factor.free_symbols:
         raise UnsupportedCondition("a nonconstant nonzero algebraic factor is required")
-    index = symbols.index(log)
+    index = symbols.index(log) if upstairs else None
     other = symbols.index(den_log) if downstairs else None
     data = LogProduct(
         factor,
-        logs[index][1],
-        arguments[index],
+        logs[index][1] if index is not None else None,
+        arguments[index] if index is not None else None,
         (logs[other][1], arguments[other]) if other is not None else None,
     )
-    raw = sp.expand(sp.fraction(factor)[0] * sp.fraction(data.argument - 1)[0])
+    raw = sp.fraction(factor)[0]
+    if data.argument is not None:
+        raw *= sp.fraction(data.argument - 1)[0]
+    raw = sp.expand(raw)
     return Equation(raw, identities, sp.S.One, poles=poles, log_product=data)
 
 
 def conditions(compiled):
     data = compiled.log_product
     result = [(p, "nonzero") for p in compiled.poles]
-    result.append((data.argument, "positive"))
+    if data.argument is not None:
+        result.append((data.argument, "positive"))
     if data.denominator:
         argument = data.denominator[1]
         result.extend(((argument, "positive"), (argument - 1, "nonzero")))
@@ -123,6 +137,19 @@ def failed(compiled, q):
     return None
 
 
+def case_failed(compiled, q, log_case):
+    rejection = failed(compiled, q)
+    data = compiled.log_product
+    if rejection is None and data.log_first and not log_case:
+        expression = data.argument - 1
+        value = sp.simplify(
+            expression.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)})
+        )
+        if value == 0:
+            return expression, "nonzero", value
+    return rejection
+
+
 def ratio_factor(value):
     value = sp.cancel(value)
     if sp.fraction(value)[1].has(C):
@@ -141,40 +168,23 @@ def branches(compiled, preferred, allow_inverse=False):
 
     data = compiled.log_product
     result = []
-    for factor in (
-        ratio_factor(data.factor / data.divide),
-        ratio_factor(data.argument - 1),
-    ):
+    for log_case, factor in zero_cases(data):
         for b in factor_branches(factor, preferred, allow_inverse):
-            residues = tuple(q for q in b.residues if failed(compiled, q) is None)
+            residues = tuple(
+                q for q in b.residues if case_failed(compiled, q, log_case) is None
+            )
             result.append(replace(b, residues=residues))
     return tuple(result)
 
 
-def prepare(compiled, parent_html):
-    from bs4 import BeautifulSoup
+def zero_cases(data):
+    cases = [(False, ratio_factor(data.factor / data.divide))]
+    if data.argument is not None and data.nonzero_bound is None:
+        cases.append((True, ratio_factor(data.argument - 1)))
+    return tuple(reversed(cases)) if data.log_first else tuple(cases)
 
-    data = compiled.log_product
-    soup = BeautifulSoup(parent_html, "html.parser")
-    text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
-    formulas = [n["data-inline-latex"] for n in soup.select("[data-inline-latex]")]
-    if "наибольшее значение аргумента" in text or any(
-        f.strip().startswith(r"\log_") and "=0" in f for f in formulas
-    ):
-        raise UnsupportedCondition(
-            "a different parent log-case order or nonzero bound needs its own proof"
-        )
-    if r"\left[" not in parent_html or not (
-        r"\log_" in parent_html or r"\begin{cases}" in parent_html
-    ):
-        raise UnsupportedCondition(
-            "the parent must show the reviewed zero-factor cases and domain"
-        )
-    if "разделить обе части уравнения на" in text:
-        for pole in compiled.poles:
-            if data.factor.is_polynomial(pole) and data.factor.subs(pole, 0) == 0:
-                return replace(compiled, log_product=replace(data, divide=pole))
-        raise UnsupportedCondition(
-            "the parent's division needs an original nonzero factor"
-        )
-    return compiled
+
+def prepare(compiled, parent_html):
+    from .exam_trigonometric_log_methods import prepare as reviewed
+
+    return reviewed(compiled, parent_html)

@@ -9,10 +9,10 @@ from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_compile import C, S, T, U
 
 
-def parent_style(parent_html):
+def parent_style(parent_html, *, formula=""):
     from .exam_trigonometric_log_style import style as log_style
 
-    reviewed_log = log_style(parent_html)
+    reviewed_log = log_style(parent_html, formula)
     if reviewed_log is not None:
         return reviewed_log
     soup = BeautifulSoup(parent_html, "html.parser")

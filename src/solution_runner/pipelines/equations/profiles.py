@@ -4416,6 +4416,7 @@ PROFILES += tuple(
         ("562175", "aeb019aa-2b58-43f6-8a7e-dd99febd89d2", 21),
         ("620775", "04f0acff-c911-4028-b11f-fbfaab579c38", 25),
         ("633390", "7e1ac067-fc5c-4a7e-a30e-4dda3caea143", 33),
+        ("696038", "f5538494-d3c1-4f99-aa61-8604090328b3", 60),
     )
 )
 
@@ -4700,5 +4701,30 @@ PROFILES += tuple(
         ("515648", "fcdc8a08-abf9-4627-a42f-06205f5c1fb7", 0),
         ("528869", "2b45f885-f477-45cd-b0f3-6ebbe8cbcf8b", 10),
         ("645663", "1bc8d4eb-5003-4dbe-a51c-f1800a30dd64", 30),
+        ("516331", "e88e8261-2f3f-4949-941c-af6708bdea36", 1),
+        ("484556", "27ff67c2-31c2-4153-b42e-26bf631e5014", 3),
+        ("628134", "31fa5e6d-0a61-4d88-8b5c-47b61026e7f2", 20),
+        ("629503", "99353fa4-a506-448f-971f-167abeff8978", 21),
+        ("633979", "5fedcce5-3e93-4791-a435-d79e27b706d6", 22),
+        ("640574", "1873f49a-8d77-48ee-ba2e-3dc0753946bc", 28),
     )
+)
+
+
+PROFILES += (
+    _profile(
+        "646757",
+        "4d4bdbd0-1682-4d0c-8a16-0c30af215ccb",
+        33,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрия и показательные выражения",
+        theme_order_index=11,
+        snapshot_theme_id="76619b09-5e8b-45b2-baad-ae54e9eaf162",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    ),
 )

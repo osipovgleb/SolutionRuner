@@ -373,3 +373,33 @@ def point_caption(entry, a):
         + ".</p>"
         for value, names in groups.items()
     )
+
+
+def selection_proof(a, image, *, paired=False):
+    from ..probability.common import line
+    from ..word_problems.water_season_proof import inline
+    from .exam_trigonometric_proof import pi
+
+    second = (
+        "<p>С помощью числовой окружности отберём корни, принадлежащие промежутку "
+        + inline(a.interval)
+        + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
+    )
+    lo, hi, lc, uc = a.bounds
+    if a.image_position == "selection" or (
+        a.log_product is not None
+        and paired
+        and a.log_product.selection_image_position == "selection"
+    ):
+        second += image
+    for root in a.selected:
+        second += line(
+            pi(lo, sine_inverse=a.sine_inverse)
+            + (r"\le" if lc else "<")
+            + pi(root, sine_inverse=a.sine_inverse)
+            + (r"\le" if uc else "<")
+            + pi(hi, sine_inverse=a.sine_inverse)
+        )
+    if not a.selected:
+        second += "<p>На указанной дуге точек решения нет.</p>"
+    return second

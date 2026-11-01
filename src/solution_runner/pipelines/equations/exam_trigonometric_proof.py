@@ -351,6 +351,12 @@ def render(a, image):
         + steps
         + (image if a.image_position == "after-steps" else "")
     )
+    if (
+        a.log_product is not None
+        and selection_image != image
+        and a.log_product.selection_image_position == "after-steps"
+    ):
+        first_html += selection_image
     from .exam_trigonometric_affine_proof import selection as number_line_selection
     from .exam_trigonometric_neighbors import proof as neighbor_selection
     from .exam_trigonometric_selection import progressions
@@ -380,26 +386,9 @@ def render(a, image):
     elif a.selection_method in selectors:
         second = selectors[a.selection_method](a)
     else:
-        second = (
-            "<p>С помощью числовой окружности отберём корни, принадлежащие промежутку "
-            + inline(a.interval)
-            + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
-        )
-        lo, hi, lc, uc = a.bounds
-        if a.image_position == "selection" or (
-            a.log_product is not None and selection_image != image
-        ):
-            second += selection_image
-        for root in a.selected:
-            second += line(
-                pi(lo, sine_inverse=a.sine_inverse)
-                + (r"\le" if lc else "<")
-                + pi(root, sine_inverse=a.sine_inverse)
-                + (r"\le" if uc else "<")
-                + pi(hi, sine_inverse=a.sine_inverse)
-            )
-        if not a.selected:
-            second += "<p>На указанной дуге точек решения нет.</p>"
+        from .exam_trigonometric_circle import selection_proof
+
+        second = selection_proof(a, selection_image, paired=selection_image != image)
     second += selection_notes(a, system_image)
     html = (
         (image if a.image_position == "outside" else "")

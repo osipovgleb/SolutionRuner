@@ -337,7 +337,7 @@ def analyze_method(
     )
 
     preferred, square, alternating, position, substitution, method = (
-        style or parent_style(parent_html)
+        style or parent_style(parent_html, formula=formula)
     )
     if preferred_scale is None:
         _, preferred_scale = preference(parent_html)
