@@ -228,7 +228,7 @@ def preference(parent_html):
             return "sin", sp.S.One
         from .exam_trigonometric_sum_identities import style as sum_style
 
-        if sum_style(parent_html) == "constant_sum":
+        if sum_style(parent_html) in ("constant_sum", "auxiliary_sine"):
             return "sin", sp.S.One
         raise UnsupportedCondition(
             "a trigonometric equation for the parent method is required"

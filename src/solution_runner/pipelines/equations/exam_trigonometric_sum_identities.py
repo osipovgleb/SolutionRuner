@@ -18,6 +18,15 @@ def style(html):
     text = soup.get_text(" ").replace("\xad", "").lower()
     if "вспомогательн" in text and "разности косинусов" in text:
         return "auxiliary_cosine"
+    formulas = [
+        "".join(n["data-inline-latex"].split())
+        for n in soup.select("[data-inline-latex]")
+    ]
+    if any(
+        re.search(r"\\sin\d+x-\\sin\(x[+-]", f) and r"\cos(" in f and r"\sin(" in f
+        for f in formulas
+    ) and any(r"\sinx" in f and r"\cosx" in f for f in formulas):
+        return "auxiliary_sine"
     for node in soup.select("[data-inline-latex]"):
         formula = "".join(node["data-inline-latex"].split())
         for match in re.finditer(r"\\sin\([^()]*x[^()]*\)\(([^()]*)\)=0", formula):
@@ -54,6 +63,8 @@ def compile_identity(formula, method):
         return constant_sum(polynomial, atoms, functions)
     if method == "auxiliary_cosine":
         return auxiliary(polynomial.xreplace(functions))
+    if method == "auxiliary_sine":
+        return auxiliary(polynomial.xreplace(functions), sine_method=True)
     raise UnsupportedCondition("unknown reviewed sum identity")
 
 
@@ -111,7 +122,7 @@ def constant_sum(polynomial, atoms, functions):
     raise UnsupportedCondition("the third sine must equal the mean-angle sine")
 
 
-def auxiliary(raw):
+def auxiliary(raw, *, sine_method=False):
     sine, cosine = sp.sin(X), sp.cos(X)
     raw = sp.expand(raw)
     a, b = raw.coeff(sine), raw.coeff(cosine)
@@ -122,19 +133,21 @@ def auxiliary(raw):
         )
     functions = rest.atoms(sp.sin, sp.cos)
     if len(functions) != 1:
-        raise UnsupportedCondition("one second cosine is required")
+        raise UnsupportedCondition("one higher-angle function is required")
     other = next(iter(functions))
     multiple = sp.cancel(other.args[0] / X)
     amplitude = sp.sqrt(sp.simplify(a * a + b * b))
     if (
-        other.func != sp.cos
+        other.func != (sp.sin if sine_method else sp.cos)
         or multiple.is_Integer is not True
         or not 2 <= multiple <= 12
         or sp.simplify(rest / amplitude) not in (other, -other)
     ):
         raise UnsupportedCondition(
-            "two cosines of equal amplitude and bounded integer angles are required"
+            "two functions of equal amplitude and bounded integer angles are required"
         )
+    if sine_method:
+        return sine_difference(raw, a, b, rest, other)
     phases = [
         sp.Rational(i, 12)
         for i in range(-11, 13)
@@ -177,23 +190,66 @@ def auxiliary(raw):
     )
 
 
+def sine_difference(raw, a, b, rest, other):
+    normalizer = sp.cancel(rest / other)
+    a, b = sp.simplify(-a / normalizer), sp.simplify(-b / normalizer)
+    phases = [
+        sp.Rational(i, 12)
+        for i in range(-11, 13)
+        if sp.simplify(sp.cos(i * sp.pi / 12) - a) == 0
+        and sp.simplify(sp.sin(i * sp.pi / 12) - b) == 0
+    ]
+    if len(phases) != 1:
+        raise UnsupportedCondition("one reviewed exact auxiliary angle is required")
+    angle = X + phases[0] * sp.pi
+    shifted = sp.sin(angle, evaluate=False)
+    product = sp.Mul(
+        2,
+        sp.cos((other.args[0] + angle) / 2, evaluate=False),
+        sp.sin((other.args[0] - angle) / 2, evaluate=False),
+        evaluate=False,
+    )
+    return equation(
+        SumProduct(
+            raw,
+            other - shifted,
+            product,
+            False,
+            normalizer=normalizer,
+            kind="auxiliary_sine",
+            identities=((a * sp.sin(X) + b * sp.cos(X), shifted),),
+        )
+    )
+
+
 def proof(a):
     from .exam_trigonometric_inverse import level_series
     from .exam_trigonometric_proof import series_lines
 
     data = a.sum_product
     html = line(a.original)
+    if data.kind == "auxiliary_sine":
+        left, shifted = data.identities[0]
+        html += "<p>Перенесём функции единичного угла вправо и разделим обе части на ненулевой числовой коэффициент:</p>"
+        html += line(sp.latex(data.root + shifted) + "=" + sp.latex(left))
     html += (
         "<p>Применим формулу суммы синусов:</p>"
         if data.kind == "constant_sum"
+        else "<p>Введём вспомогательный угол с помощью формулы синуса суммы:</p>"
+        if data.kind == "auxiliary_sine"
         else "<p>Введём вспомогательный угол с помощью формулы косинуса суммы:</p>"
     )
     for left, right in data.identities[:1]:
         html += line(sp.latex(left) + "=" + sp.latex(right))
-    if data.kind == "auxiliary_cosine":
-        html += line(sp.latex(data.cleared / data.normalizer) + "=0")
+    if data.kind in ("auxiliary_cosine", "auxiliary_sine"):
+        if data.kind == "auxiliary_cosine":
+            html += line(sp.latex(data.cleared / data.normalizer) + "=0")
         html += line(sp.latex(data.root) + "=0")
-        html += "<p>Применим формулу разности или суммы косинусов:</p>"
+        html += (
+            "<p>Применим формулу разности синусов:</p>"
+            if data.kind == "auxiliary_sine"
+            else "<p>Применим формулу разности или суммы косинусов:</p>"
+        )
     html += line(sp.latex(data.product) + "=0")
     if data.kind == "constant_sum":
         coefficient, value = data.identities[1]

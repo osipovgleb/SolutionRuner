@@ -178,7 +178,7 @@ def branches(a):
     for function in sorted(
         (f for f in data.product.atoms(sp.sin, sp.cos) if f.has(X)),
         key=(lambda f: -abs(sp.expand(f.args[0]).coeff(X)))
-        if data.kind == "auxiliary_cosine"
+        if data.kind in ("auxiliary_cosine", "auxiliary_sine")
         else sp.default_sort_key,
     ):
         angle = sp.expand(function.args[0])
