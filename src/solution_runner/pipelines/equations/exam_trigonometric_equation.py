@@ -242,9 +242,11 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
             triple_angle=triple_angle_style(parent_html),
             ratio_product=ratio_product_style(parent_html),
         )
+    from .exam_trigonometric_affine import prepare as prepare_affine
     from .exam_trigonometric_pole_proof import prepare_division
     from .exam_trigonometric_sine_double import prepare as sine_double
 
+    compiled = prepare_affine(compiled, parent_html)
     compiled = prepare_division(compiled, formula, parent_html)
     compiled = sine_double(compiled, preferred, preferred_scale)
     return compiled, domain

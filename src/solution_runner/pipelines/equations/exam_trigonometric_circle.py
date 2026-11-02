@@ -171,11 +171,13 @@ def validate(entry, a):
         )[0]
         actual_bounds = tuple(q * multiplier for q in a.bounds[:2]) + a.bounds[2:]
         selected = tuple(q * multiplier for q in a.selected)
-    if entry.get("label_scope") == "periodic":
-        from .exam_trigonometric import select
+    if entry.get("label_scope") == "periodic" or "isolated_roots" in entry:
         from .exam_trigonometric_number_line import validate_isolated
 
         validate_isolated(entry, a)
+    if entry.get("label_scope") == "periodic":
+        from .exam_trigonometric import select
+
         selected = select(a.series, a.bounds)[0]
     scope = entry.get("point_scope", "all")
     if scope == "selected":
@@ -411,11 +413,26 @@ def selection_proof(a, image, *, paired=False):
     from ..word_problems.water_season_proof import inline
     from .exam_trigonometric_proof import pi
 
+    quadratic = a.affine is not None and a.affine.quadratic
+    lead = (
+        "С помощью числовой окружности отберём периодические корни"
+        if quadratic
+        else "С помощью числовой окружности отберём корни"
+    )
     second = (
-        "<p>С помощью числовой окружности отберём корни, принадлежащие промежутку "
+        "<p>"
+        + lead
+        + ", принадлежащие промежутку "
         + inline(a.interval)
         + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
     )
+    roots = a.selected
+    if quadratic:
+        from .exam_trigonometric import select
+        from .exam_trigonometric_affine_proof import isolated_selection
+
+        second = isolated_selection(a) + second
+        roots = select(a.series, a.bounds)[0]
     lo, hi, lc, uc = a.bounds
     if a.image_position == "selection" or (
         a.log_product is not None
@@ -423,7 +440,7 @@ def selection_proof(a, image, *, paired=False):
         and a.log_product.selection_image_position == "selection"
     ):
         second += image
-    for root in a.selected:
+    for root in roots:
         second += line(
             pi(lo, sine_inverse=a.sine_inverse)
             + (r"\le" if lc else "<")
@@ -431,6 +448,10 @@ def selection_proof(a, image, *, paired=False):
             + (r"\le" if uc else "<")
             + pi(hi, sine_inverse=a.sine_inverse)
         )
-    if not a.selected:
-        second += "<p>На указанной дуге точек решения нет.</p>"
+    if not roots:
+        second += (
+            "<p>Периодических корней на указанной дуге нет.</p>"
+            if quadratic
+            else "<p>На указанной дуге точек решения нет.</p>"
+        )
     return second

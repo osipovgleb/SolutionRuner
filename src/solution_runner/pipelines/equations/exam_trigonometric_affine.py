@@ -1,15 +1,18 @@
-"""Separate a real affine factor from a unit sine/cosine equation."""
+"""Separate bounded rational algebraic roots from a unit sine/cosine factor."""
 
-from dataclasses import dataclass
+import re
+from dataclasses import dataclass, replace
 
 import sympy as sp
+from bs4 import BeautifulSoup
 
 from ..word_problems.common import UnsupportedCondition
+from ..word_problems.math_common import primitive
 from .exam_exponential import X
 from .exam_trigonometric_compile import C, S
 from .exam_trigonometric_methods import Equation, ExamAngleParser
 from .logarithm_parser import Node
-from .power_arithmetic import clean
+from .power_arithmetic import ScalarParser, clean
 
 
 @dataclass(frozen=True)
@@ -17,6 +20,11 @@ class AffineFactor:
     source: sp.Expr
     algebraic: sp.Expr
     roots: tuple
+    algebraic_first: bool = False
+
+    @property
+    def quadratic(self):
+        return sp.degree(self.algebraic, X) == 2
 
 
 class AffineParser(ExamAngleParser):
@@ -73,16 +81,12 @@ def compile_affine(formula):
     raw = parse(formula)
     if raw is None:
         return None
-    if not raw.is_polynomial(X, S, C) or sp.Poly(raw, X, S, C).total_degree() > 2:
+    if not raw.is_polynomial(X, S, C) or sp.Poly(raw, X, S, C).total_degree() > 3:
         raise UnsupportedCondition(
-            "one affine algebraic and one affine trigonometric factor are required"
+            "one bounded algebraic and one affine trigonometric factor are required"
         )
     _, factors = sp.factor_list(raw, X, S, C, extension=True)
-    algebraic = [
-        f
-        for f, power in factors
-        if f.free_symbols == {X} and power == 1 and sp.degree(f, X) == 1
-    ]
+    algebraic = [(f, power) for f, power in factors if f.free_symbols == {X}]
     trig = [
         f
         for f, power in factors
@@ -90,15 +94,53 @@ def compile_affine(formula):
         and power == 1
         and sp.Poly(f, *f.free_symbols).degree() == 1
     ]
-    if len(factors) != 2 or len(algebraic) != 1 or len(trig) != 1:
+    if len(trig) != 1 or len(algebraic) + 1 != len(factors) or not algebraic:
         raise UnsupportedCondition(
-            "the mixed equation must separate into exactly two affine factors"
+            "the mixed equation must separate into algebraic factors and one affine trig factor"
         )
-    root = sp.cancel(-algebraic[0].subs(X, 0) / algebraic[0].coeff(X))
-    if root.is_Rational is not True or abs(root) > 1000:
-        raise UnsupportedCondition("a bounded rational isolated root is required")
-    return Equation(
-        trig[0], (), sp.S.One, affine=AffineFactor(raw, algebraic[0], (root,))
+    polynomial = sp.prod(f**power for f, power in algebraic)
+    degree = sp.degree(polynomial, X)
+    if degree not in (1, 2) or any(
+        v.is_Rational is not True for v in sp.Poly(polynomial, X).all_coeffs()
+    ):
+        raise UnsupportedCondition(
+            "a rational algebraic factor of degree one or two is required"
+        )
+    if degree == 2:
+        polynomial = primitive(sp.expand(polynomial), (X,))
+        _, root_factors = sp.factor_list(polynomial, X)
+    else:
+        root_factors = algebraic
+    if any(sp.degree(f, X) != 1 for f, _ in root_factors):
+        raise UnsupportedCondition("all isolated roots must be rational linear factors")
+    roots = tuple(
+        dict.fromkeys(sp.cancel(-f.subs(X, 0) / f.coeff(X)) for f, _ in root_factors)
+    )
+    if any(root.is_Rational is not True or abs(root) > 1000 for root in roots):
+        raise UnsupportedCondition("bounded rational isolated roots are required")
+    return Equation(trig[0], (), sp.S.One, affine=AffineFactor(raw, polynomial, roots))
+
+
+def prepare(equation, parent_html):
+    if equation.affine is None or not equation.affine.quadratic:
+        return equation
+    for node in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]"):
+        text = clean(node["data-inline-latex"]).replace("&", "")
+        for part in re.split(r"\\(?:iff|Leftrightarrow)|\\\\", text):
+            match = re.search(r"(\\(?:sin|cos))?x=([^=]*)", part)
+            if match is None:
+                continue
+            try:
+                value = ScalarParser(match[2].rstrip(".,")).parse()
+            except UnsupportedCondition:
+                continue
+            if value.is_real is True and not value.free_symbols:
+                return replace(
+                    equation,
+                    affine=replace(equation.affine, algebraic_first=match[1] is None),
+                )
+    raise UnsupportedCondition(
+        "the parent must show the order of algebraic and trigonometric branches"
     )
 
 

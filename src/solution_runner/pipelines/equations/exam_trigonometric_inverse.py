@@ -15,6 +15,11 @@ def compare_q(a, b):
     scalar = sp.cancel(difference * sp.pi)
     if scalar.is_Rational:
         return 1 if scalar > 0 else -1 if scalar < 0 else 0
+    expanded = sp.expand(scalar)
+    coefficient = expanded.coeff(sp.pi)
+    constant = sp.expand(expanded - coefficient * sp.pi)
+    if coefficient.is_Rational and constant.is_Rational:
+        return compare(expanded, sp.S.Zero)
     tangents = list(difference.atoms(sp.atan))
     if tangents:
         return compare_tangents(difference, tangents)
@@ -219,11 +224,19 @@ def select_inverse(series, bounds):
 
 
 def decode(value):
-    if isinstance(value, dict) and set(value) == {"scalar"}:
-        scalar = sp.Rational(value["scalar"])
-        if abs(scalar) > 1000:
-            raise UnsupportedCondition("the isolated scalar exceeds the reviewed range")
-        return scalar / sp.pi
+    if isinstance(value, dict) and set(value) in ({"scalar"}, {"rational", "scalar"}):
+        try:
+            scalar = sp.Rational(value["scalar"])
+            rational = sp.Rational(value.get("rational", "0"))
+        except (TypeError, ValueError, ZeroDivisionError):
+            raise UnsupportedCondition(
+                "isolated angle coordinates require rational literals"
+            ) from None
+        if abs(scalar) > 1000 or abs(rational) > 1000:
+            raise UnsupportedCondition(
+                "the isolated scalar or turn exceeds the reviewed range"
+            )
+        return rational + scalar / sp.pi
     if isinstance(value, str):
         return sp.Rational(value)
     if (
