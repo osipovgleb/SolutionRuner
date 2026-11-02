@@ -272,9 +272,7 @@ def test_other_affine_factors_are_not_assumed_impossible(expression):
     assert impossible_branch(expression) is None
 
 
-@pytest.mark.parametrize(
-    "raw", [2 * S * C + S + C + 1, S + C, (S + C) ** 2, 2 * S * C + S - C + 1]
-)
+@pytest.mark.parametrize("raw", [S + C, (S + C) ** 2, 2 * S * C + S - C + 1])
 def test_unreviewed_combination_factorizations_fail_closed(raw):
     with pytest.raises(UnsupportedCondition):
         branches(raw)
@@ -318,3 +316,34 @@ def test_combination_proof_and_root_series_keep_a_scaled_base_angle():
     _, _, html = render(a, "")
     assert r"(\sin 2 x)" in html and r"\cos(2 x)\ne0" in html
     assert r"(\tg 2 x)=-1" in html
+
+
+def test_reviewed_affine_factor_is_solved_instead_of_treated_as_an_impossible_extreme():
+    _raw, result = branches(2 * S * C + S + C + 1)
+    expected = set(map(sp.Rational, ("3/4", "1", "3/2", "7/4")))
+    assert {q for b in result for q in b.residues} == expected
+    assert not any(b.impossible for b in result)
+    for n in range(24):
+        q = sp.Rational(n, 12)
+        sine, cosine = sp.sin(q * sp.pi), sp.cos(q * sp.pi)
+        value = sp.simplify(2 * sine * cosine + sine + cosine + 1)
+        assert (value == 0) == (q in expected)
+
+
+def test_reviewed_affine_factor_proof_explains_the_unit_circle_lift():
+    from solution_runner.pipelines.equations.exam_trigonometric_proof import render
+
+    a = analyze(
+        r"\sin 2x+\sin x+\cos x+1=0",
+        r"[0;2\pi)",
+        (sp.S.Zero, 2 * sp.pi, True, False),
+        parent(case("702493")),
+    )
+    assert a.selected == tuple(map(sp.Rational, ("3/4", "1", "3/2", "7/4")))
+    assert sp.expand(a.reduced - a.raw) == S * S + C * C - 1
+    _, _, html = render(a, "")
+    assert html.index("основное тригонометрическое тождество") < html.index(
+        "Произведение равно нулю"
+    )
+    assert "корней не имеет" not in html
+    assert "сдвинутого угла" in html

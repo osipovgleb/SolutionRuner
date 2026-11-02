@@ -248,7 +248,9 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
 
     compiled = prepare_affine(compiled, parent_html)
     compiled = prepare_division(compiled, formula, parent_html)
-    compiled = sine_double(compiled, preferred, preferred_scale)
+    compiled = sine_double(
+        compiled, preferred, preferred_scale, formula=formula, parent_html=parent_html
+    )
     return compiled, domain
 
 

@@ -1,4 +1,4 @@
-"""Factor a sine/cosine sum on the unit circle and exclude an impossible branch."""
+"""Factor a sine/cosine sum on the unit circle and retain reviewed linear branches."""
 
 import sympy as sp
 
@@ -28,6 +28,7 @@ def impossible_branch(expression):
 
 
 def branches(raw):
+    from .exam_trigonometric_linear_phase import branch as phase_branch
     from .exam_trigonometric_ratios import linear_branch
 
     if (
@@ -52,17 +53,25 @@ def branches(raw):
         )
     result = []
     for factor, _ in factors:
-        branch = linear_branch(factor) or impossible_branch(factor)
+        branch = (
+            linear_branch(factor) or impossible_branch(factor) or phase_branch(factor)
+        )
         if branch is None:
             raise UnsupportedCondition(
                 "each linear combination needs a reviewed solution or impossibility proof"
             )
         result.append(branch)
-    if sum(b.impossible for b in result) != 1:
-        raise UnsupportedCondition(
-            "one homogeneous branch and one impossible extreme branch are required"
-        )
-    return lifted, tuple(sorted(result, key=lambda b: b.impossible))
+    if sum(b.impossible for b in result) == 1:
+        return lifted, tuple(sorted(result, key=lambda b: b.impossible))
+    if (
+        not any(b.impossible for b in result)
+        and sum(b.original.subs({S: 0, C: 0}) == 0 for b in result) == 1
+        and sum(bool(b.angle_shift) for b in result) == 1
+    ):
+        return lifted, tuple(sorted(result, key=lambda b: bool(b.angle_shift)))
+    raise UnsupportedCondition(
+        "one homogeneous branch and one reviewed affine or impossible branch are required"
+    )
 
 
 def exclude(branch, angle="x"):

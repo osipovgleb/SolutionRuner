@@ -178,6 +178,10 @@ def selection_note(parent_html):
 
 
 def preference(parent_html):
+    from .exam_trigonometric_sine_double import shifted_square_parent
+
+    if shifted_square_parent(parent_html) is not None:
+        return "sin", sp.Integer(2)
     formulas = [
         re.sub(
             r"\\operatorname\{(sin|cos|tg|ctg)\}",

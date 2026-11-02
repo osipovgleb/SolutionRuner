@@ -1,4 +1,4 @@
-"""Keep homogeneous linear factors separate, with grouping and original poles."""
+"""Keep reviewed linear factors separate, with grouping and original poles."""
 
 import sympy as sp
 
@@ -14,12 +14,17 @@ def proof(a):
     factors = [b.original for b in a.branches]
     if len(factors) != 2 or any(sp.Poly(f, S, C).total_degree() != 1 for f in factors):
         raise UnsupportedCondition(
-            "two homogeneous linear factors are required for grouping"
+            "two affine linear factors are required for grouping"
         )
-    coefficient = sp.cancel(a.raw / sp.prod(factors), extension=True)
+    coefficient = sp.cancel(a.reduced / sp.prod(factors), extension=True)
     if coefficient.free_symbols or coefficient == 0:
         raise UnsupportedCondition(
-            "the factor product must equal the source polynomial"
+            "the factor product must equal the reduced polynomial"
+        )
+    difference = sp.expand(a.raw - a.reduced)
+    if difference != 0 and sp.rem(difference, S * S + C * C - 1, S) != 0:
+        raise UnsupportedCondition(
+            "grouping must preserve the exact unit-circle equation"
         )
     if (
         not a.poles
@@ -36,6 +41,7 @@ def proof(a):
         evaluate=False,
     )
     angle = argument(a.scale)
+    phase_poles = bool(a.poles) and any(b.angle_shift for b in a.branches)
     html = ""
     if a.poles:
         html += "<p>До сокращения запишем область определения исходного уравнения:</p>"
@@ -43,9 +49,16 @@ def proof(a):
             html += line(formula(pole, angle) + r"\ne0")
     for text, value in a.identities:
         html += line(text + "=" + formula(value, angle))
+    if phase_poles and a.cleared_denominator is not None:
+        html += "<p>В исходной области определения умножим обе части на ненулевой знаменатель:</p>"
+        html += line(formula(a.cleared_denominator, angle) + r"\ne0")
     if a.poles:
         html += "<p>Сокращаем только множители, ненулевые в исходной области определения:</p>"
     html += line(formula(a.raw, angle) + "=0")
+    if difference != 0:
+        html += "<p>Используем основное тригонометрическое тождество и перегруппируем слагаемые:</p>"
+        html += line(formula(S * S + C * C, angle) + "=1")
+        html += line(formula(a.reduced, angle) + "=0")
     if not a.poles:
         html += "<p>Сгруппируем слагаемые и вынесем общий множитель:</p>"
         html += line(formula(grouped, angle) + "=0")
@@ -54,8 +67,14 @@ def proof(a):
     for factor in factors:
         branch = next(b for b in a.branches if b.original == factor)
         html += polynomial(branch, angle=angle, root_scale=a.scale)
+        if phase_poles and branch.angle_shift:
+            from .exam_trigonometric_phase_domain import proof as excluded_phases
+
+            html += excluded_phases(branch, a.poles, scale=a.scale)
     return (
-        "<p>Применим формулы приведения и двойного угла, затем разложим на множители:</p>",
+        "<p>Используем определения тригонометрических отношений и разложим на множители:</p>"
+        if phase_poles
+        else "<p>Применим формулы приведения и двойного угла, затем разложим на множители:</p>",
         html,
     )
 
