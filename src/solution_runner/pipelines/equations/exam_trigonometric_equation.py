@@ -20,6 +20,7 @@ def method_equation(
     sum_identity=None,
     triple_angle=None,
     ratio_product=None,
+    parent_html="",
 ):
     from .exam_trigonometric_absolute import compile_absolute
     from .exam_trigonometric_domain import radical_product
@@ -74,6 +75,18 @@ def method_equation(
                 "separate angle products require the original variable"
             )
         return compile_product(formula), None
+    if parent_html:
+        from .exam_trigonometric_absolute_affine import (
+            compile_absolute as affine_absolute,
+        )
+
+        compiled = affine_absolute(formula, parent_html)
+        if compiled is not None:
+            if translation or scale != 1:
+                raise UnsupportedCondition(
+                    "affine absolute cases require their original unit angle"
+                )
+            return compiled, None
     absolute = compile_absolute(formula)
     if absolute is not None:
         return absolute, None
@@ -118,6 +131,7 @@ def analysis_fields(equation):
         "strict_domain": equation.strict_domain,
         "fraction": equation.fraction,
         "absolute": equation.absolute,
+        "absolute_affine": equation.absolute_affine,
         "absolute_square": equation.absolute_square,
         "absolute_fraction": equation.absolute_fraction,
         "radical_ratio": equation.radical_ratio,
@@ -241,6 +255,7 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
             sum_identity=sum_identity_style(parent_html),
             triple_angle=triple_angle_style(parent_html),
             ratio_product=ratio_product_style(parent_html),
+            parent_html=parent_html,
         )
     from .exam_trigonometric_affine import prepare as prepare_affine
     from .exam_trigonometric_pole_proof import prepare_division

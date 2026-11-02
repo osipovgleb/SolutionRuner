@@ -177,6 +177,16 @@ def method_branches(
 
         reduced, result = absolute_branches(compiled, preferred, allow_inverse)
         return compiled, reduced, result, preferred
+    if compiled.absolute_affine is not None:
+        from .exam_trigonometric_absolute_affine import cases
+
+        result = cases(compiled.absolute_affine, allow_inverse)
+        return (
+            compiled,
+            compiled.raw,
+            tuple(b for _, _, _, _, accepted in result for b in accepted),
+            preferred,
+        )
     if compiled.radical_product is not None:
         from .exam_trigonometric_radical_product import cases
 

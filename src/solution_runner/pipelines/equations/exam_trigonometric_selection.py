@@ -415,7 +415,7 @@ def constrained_series(compiled, branches, residues):
                 sorted((q - p if q > p / 2 else q, p) for q, p in periodic(residues))
             )
             return series, True, False
-    if compiled.radical_equation is not None:
+    if compiled.radical_equation is not None or compiled.absolute_affine is not None:
         if any(q.is_Rational is not True for q in residues):
             return (
                 tuple(s for branch in branches for s in restricted_series(branch)),

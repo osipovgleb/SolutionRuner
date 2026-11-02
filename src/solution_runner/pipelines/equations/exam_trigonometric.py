@@ -47,6 +47,7 @@ root_series = exam_trigonometric_selection.root_series
 division = exam_trigonometric_style.division
 
 if TYPE_CHECKING:
+    from .exam_trigonometric_absolute_affine import AbsoluteAffine
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
     from .exam_trigonometric_bounded_log import BoundedLog
@@ -174,6 +175,7 @@ class Analysis:
     restricted_families: tuple = ()
     radical_notes: tuple = ()
     finite_roots: tuple | None = None
+    absolute_affine: "AbsoluteAffine | None" = None
 
 
 def solve_branches(raw, preferred, allow_inverse=False, *, factored=False, poles=()):
@@ -398,6 +400,11 @@ def analyze_method(
             )
             else figure_stage(parent_html)
         )
+    if (
+        compiled.absolute_affine is not None
+        and compiled.absolute_affine.intermediate_image
+    ):
+        position = "absolute-case"
     from .exam_trigonometric_factors import method_branches
 
     compiled, reduced, branches, preferred = method_branches(

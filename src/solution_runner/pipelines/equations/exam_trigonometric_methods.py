@@ -22,6 +22,7 @@ from .trig_symbolic_parser import (
 )
 
 if TYPE_CHECKING:
+    from .exam_trigonometric_absolute_affine import AbsoluteAffine
     from .exam_trigonometric_affine import AffineFactor
     from .exam_trigonometric_angle_product import AngleProduct
     from .exam_trigonometric_bounded_log import BoundedLog
@@ -171,6 +172,7 @@ class Equation:
     sum_product: "SumProduct | None" = None
     triple_angle: "TripleAngle | None" = None
     ratio_product: "RatioProduct | None" = None
+    absolute_affine: "AbsoluteAffine | None" = None
 
 
 def shifted_atom(atom):

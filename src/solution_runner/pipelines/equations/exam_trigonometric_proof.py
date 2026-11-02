@@ -363,7 +363,11 @@ def render(a, image):
         image, tuple
     ):
         image, selection_image = image
-    if a.power_equality is not None and a.power_equality.grouping is not None:
+    if a.absolute_affine is not None:
+        from .exam_trigonometric_absolute_affine_proof import proof
+
+        intro, steps = proof(a, image if a.image_position == "absolute-case" else "")
+    elif a.power_equality is not None and a.power_equality.grouping is not None:
         from .exam_trigonometric_power_grouping_proof import proof
 
         intro, steps = proof(a, image if a.image_position == "after-polynomial" else "")
