@@ -146,6 +146,8 @@ def endpoint(text):
     from .power_arithmetic import balanced, clean
 
     text = text.replace("π", r"\pi")
+    if text.strip() in ("e", "+e", "-e"):
+        return -sp.E if text.strip() == "-e" else sp.E
     inverse = inverse_endpoint(text)
     if inverse is not None:
         return inverse

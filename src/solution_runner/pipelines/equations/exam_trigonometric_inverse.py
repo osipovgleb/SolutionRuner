@@ -18,7 +18,9 @@ def compare_q(a, b):
     expanded = sp.expand(scalar)
     coefficient = expanded.coeff(sp.pi)
     constant = sp.expand(expanded - coefficient * sp.pi)
-    if coefficient.is_Rational and constant.is_Rational:
+    e_coefficient = constant.coeff(sp.E)
+    rational = sp.expand(constant - e_coefficient * sp.E)
+    if coefficient.is_Rational and e_coefficient.is_Rational and rational.is_Rational:
         return compare(expanded, sp.S.Zero)
     tangents = list(difference.atoms(sp.atan))
     if tangents:
@@ -223,7 +225,67 @@ def select_inverse(series, bounds):
     return ordered(selected), tuple(trace)
 
 
+def select_euler(series, bounds):
+    from .exam_scalar import enclose
+
+    lo, hi, lc, uc = bounds
+    if not all(isinstance(value, (int, sp.Basic)) for value in (lo, hi)):
+        raise UnsupportedCondition("Euler bounds require parsed exact scalars")
+    lo, hi = (
+        sp.Integer(value) if isinstance(value, int) else value for value in (lo, hi)
+    )
+    lower, upper = enclose(lo)[0], enclose(hi)[1]
+    selected, trace = set(), []
+    for offset, period in series:
+        if not isinstance(offset, sp.Rational) and not isinstance(offset, int):
+            raise UnsupportedCondition("Euler bounds require rational-pi series")
+        if not isinstance(period, sp.Rational) and not isinstance(period, int):
+            raise UnsupportedCondition("Euler bounds require rational-pi series")
+        if period <= 0:
+            raise UnsupportedCondition("Euler bounds require rational-pi series")
+        start = int(
+            sp.floor(
+                (sp.Rational(lower.numerator, lower.denominator) - offset) / period
+            )
+        )
+        end = int(
+            sp.ceiling(
+                (sp.Rational(upper.numerator, upper.denominator) - offset) / period
+            )
+        )
+        pairs = []
+        for k in range(start, end + 1):
+            root = offset + k * period
+            left, right = compare_q(root, lo), compare_q(root, hi)
+            if (left > 0 or lc and left == 0) and (right < 0 or uc and right == 0):
+                pairs.append((k, root))
+        values = tuple(root for _, root in pairs)
+        selected.update(values)
+        trace.append(
+            (
+                offset,
+                period,
+                pairs[0][0] if pairs else start,
+                pairs[-1][0] if pairs else start - 1,
+                values,
+            )
+        )
+    return ordered(selected), tuple(trace)
+
+
 def decode(value):
+    if isinstance(value, dict) and set(value) == {"e"}:
+        try:
+            coefficient = sp.Rational(value["e"])
+        except (TypeError, ValueError, ZeroDivisionError):
+            raise UnsupportedCondition(
+                "an Euler coordinate needs a rational coefficient"
+            ) from None
+        if not 0 < abs(coefficient) <= 1000:
+            raise UnsupportedCondition(
+                "the Euler coefficient exceeds the reviewed range"
+            )
+        return coefficient * sp.E / sp.pi
     if isinstance(value, dict) and set(value) in ({"scalar"}, {"rational", "scalar"}):
         try:
             scalar = sp.Rational(value["scalar"])

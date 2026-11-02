@@ -2,7 +2,7 @@
 
 from fractions import Fraction as F
 from functools import lru_cache
-from math import isqrt
+from math import factorial, isqrt
 
 import sympy as sp
 
@@ -61,9 +61,20 @@ def pi_bounds(terms):
     )
 
 
+@lru_cache(maxsize=3)
+def e_bounds(terms):
+    if type(terms) is not int or not 1 <= terms <= 128:
+        raise UnsupportedCondition("Euler enclosure needs one to 128 series terms")
+    total = sum((F(1, factorial(k)) for k in range(terms + 1)), F(0))
+    # Each following factorial ratio is at most 1/(terms+1), so the tail is geometric.
+    return total, total + F(1, terms * factorial(terms))
+
+
 def enclose(value, bits=16):
     if value == sp.pi:
         return pi_bounds(bits)
+    if value == sp.E:
+        return e_bounds(bits)
 
     if value.is_Rational:
         q = F(int(value.p), int(value.q))

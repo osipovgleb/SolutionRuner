@@ -229,6 +229,12 @@ def select(series, bounds):
         raise UnsupportedCondition(
             "the reviewed interval must have bounded rational multiples of pi"
         )
+    if (isinstance(lo, sp.Basic) and lo.has(sp.E)) or (
+        isinstance(hi, sp.Basic) and hi.has(sp.E)
+    ):
+        from .exam_trigonometric_inverse import select_euler
+
+        return select_euler(series, bounds)
     if any(not isinstance(q, int) and q.is_Rational is not True for q, _ in series):
         return select_inverse(series, bounds)
     selected = set()

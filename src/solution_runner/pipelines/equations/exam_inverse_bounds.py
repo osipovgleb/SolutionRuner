@@ -47,6 +47,9 @@ def validate(value):
     radians = sp.cancel(value * sp.pi)
     if radians.is_Rational is True and abs(radians) <= 1000:
         return
+    e_coefficient = sp.cancel(radians / sp.E)
+    if e_coefficient.is_Rational is True and 0 < abs(e_coefficient) <= 1000:
+        return
     functions = list(value.atoms(sp.atan))
     if len(functions) == 1:
         angle = functions[0]

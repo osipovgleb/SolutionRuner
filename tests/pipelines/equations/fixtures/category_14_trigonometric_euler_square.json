@@ -1,0 +1,232 @@
+{
+  "cases": [
+    {
+      "group": "560429",
+      "task": "560429",
+      "context": {
+        "problem_id": "36fb2b9c-3eb3-4c45-a3c9-633a2256ccdc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:25:12.024448+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/cd1fb861-525f-4354-b877-b1d88caee646",
+                "html": "<img alt=\"\" data-asset-id=\"cd1fb861-525f-4354-b877-b1d88caee646\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/cd1fb861-525f-4354-b877-b1d88caee646\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "cd1fb861-525f-4354-b877-b1d88caee646",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\sin^{2} (\\frac{\\pi}{4}+x)=\\sin^{2} (\\frac{\\pi}{4}-x)+\\sqrt{7}\\cos x\"></span>. </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-e;\\pi]\"></span> .</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{2}+\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б) <span data-inline-latex=\"\\pm \\frac{\\pi}{2}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\"><img alt=\"\" data-asset-id=\"cd1fb861-525f-4354-b877-b1d88caee646\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ис­поль­зу­ем фор­му­лу раз­но­сти квад­ра­тов, затем фор­му­лы суммы и раз­но­сти си­ну­сов:<center><p> <span data-inline-latex=\"\\sin^{2} (\\frac{\\pi}{4}+x)=\\sin^{2} (\\frac{\\pi}{4}-x)+\\sqrt{7}\\cos x\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\sin^{2} (\\frac{\\pi}{4}+x)-\\sin^{2} (\\frac{\\pi}{4}-x)=\\sqrt{7}\\cos x\\iff\"></span> <br/> <span data-inline-latex=\"\\iff (\\sin (\\frac{\\pi}{4}+x)-\\sin (\\frac{\\pi}{4}-x))(\\sin (\\frac{\\pi}{4}+x)+\\sin (\\frac{\\pi}{4}-x))=\\sqrt{7}\\cos x\\iff\"></span> <br/> <span data-inline-latex=\"\\iff 2\\cos \\frac{\\pi}{4}\\sin x\\cdot 2\\sin \\frac{\\pi}{4}\\cos x=\\sqrt{7}\\cos x\\iff \\cos x(2\\sin x-\\sqrt{7})=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}\\cos x=0\\\\\\sin x=\\frac{\\sqrt{7}}{2}\\gt 1\\end{aligned}\\right..\\quad \\iff x=\\frac{\\pi}{2}+\\pi k,\\quad k\\in\\mathbb{Z}\"></span> . </p><p></p><p></p><p></p><p></p></center></li><li data-list-marker=\"б)\">Отберём корни при по­мо­щи еди­нич­ной окруж­но­сти. По­лу­чим <span data-inline-latex=\"\\pm \\frac{\\pi}{2}\"></span> . </li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:28:28.743951+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/cd1fb861-525f-4354-b877-b1d88caee646",
+              "kind": "ordinary_image",
+              "asset_id": "cd1fb861-525f-4354-b877-b1d88caee646",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\sin^{2} (\\frac{\\pi}{4}+x)=\\sin^{2} (\\frac{\\pi}{4}-x)+\\sqrt{7}\\cos x\"></span>. </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-e;\\pi]\"></span> .</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{2}+\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б) <span data-inline-latex=\"\\pm \\frac{\\pi}{2}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=37336027\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 344</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\"><img alt=\"\" data-asset-id=\"cd1fb861-525f-4354-b877-b1d88caee646\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/cd1fb861-525f-4354-b877-b1d88caee646\"/>Ис­поль­зу­ем фор­му­лу раз­но­сти квад­ра­тов, затем фор­му­лы суммы и раз­но­сти си­ну­сов:<center><p> <span data-inline-latex=\"\\sin^{2} (\\frac{\\pi}{4}+x)=\\sin^{2} (\\frac{\\pi}{4}-x)+\\sqrt{7}\\cos x\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\sin^{2} (\\frac{\\pi}{4}+x)-\\sin^{2} (\\frac{\\pi}{4}-x)=\\sqrt{7}\\cos x\\iff\"></span> <br/> <span data-inline-latex=\"\\iff (\\sin (\\frac{\\pi}{4}+x)-\\sin (\\frac{\\pi}{4}-x))(\\sin (\\frac{\\pi}{4}+x)+\\sin (\\frac{\\pi}{4}-x))=\\sqrt{7}\\cos x\\iff\"></span> <br/> <span data-inline-latex=\"\\iff 2\\cos \\frac{\\pi}{4}\\sin x\\cdot 2\\sin \\frac{\\pi}{4}\\cos x=\\sqrt{7}\\cos x\\iff \\cos x(2\\sin x-\\sqrt{7})=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}\\cos x=0\\\\\\sin x=\\frac{\\sqrt{7}}{2}\\gt 1\\end{aligned}\\right..\\quad \\iff x=\\frac{\\pi}{2}+\\pi k,\\quad k\\in\\mathbb{Z}\"></span> . </p><p></p><p></p><p></p><p></p></center></li><li data-list-marker=\"б)\">Отберём корни при по­мо­щи еди­нич­ной окруж­но­сти. По­лу­чим <span data-inline-latex=\"\\pm \\frac{\\pi}{2}\"></span> . </li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ],
+  "groups": {
+    "560429": {
+      "uuid": "00ceadcf-875f-421a-8385-14cde0d0d993",
+      "theme_uuid": "81adff3f-4a92-408f-abf4-4881018613e5",
+      "order_index": 19,
+      "task_count": 1
+    }
+  }
+}
