@@ -26,6 +26,9 @@ class RadicalEquation:
     multiple: int = 0
     cleared: sp.Expr = sp.S.One
     parameters: tuple = ()
+    positive_arguments: tuple = ()
+    inverse_identity: tuple | None = None
+    mixed_factors: bool = False
 
 
 def trig_polynomial(function, coefficient, shift=sp.S.Zero):
@@ -177,6 +180,8 @@ def compile_radical(formula, kind):
     )
     raw, multiple = reviewed_numerator(data, poles)
     data = replace(data, multiple=multiple, cleared=cleared)
+    if kind == "safe_square" and raw.free_symbols == {S, C}:
+        data = replace(data, mixed_factors=True)
     return Equation(raw, identities, sp.S.One, poles=poles, radical_equation=data)
 
 
@@ -256,13 +261,33 @@ def extremal(data, poles):
 
 
 def branches(compiled, preferred, allow_inverse):
-    from .exam_trigonometric import solve_branches
+    from .exam_trigonometric import T, U, solve_branches
     from .exam_trigonometric_domain import restrict, without_poles
 
-    reduced, result = solve_branches(compiled.raw, preferred, allow_inverse)
+    reduced, result = solve_branches(
+        compiled.raw,
+        preferred,
+        allow_inverse,
+        factored=compiled.radical_equation.mixed_factors,
+    )
+    if compiled.radical_equation.mixed_factors and preferred == U:
+        result = tuple(
+            replace(
+                b,
+                variable=U,
+                polynomial=U - sp.cancel(1 / b.candidates[0]),
+                candidates=tuple(sp.cancel(1 / v) for v in b.candidates),
+                values=tuple(sp.cancel(1 / v) for v in b.values),
+            )
+            if b.variable == T and b.original is not None
+            else b
+            for b in result
+        )
     result = without_poles(result, compiled.poles)
     for condition in compiled.radical_equation.conditions:
         result = restrict(result, condition)
+    for argument in compiled.radical_equation.positive_arguments:
+        result = restrict(result, argument, strict=True)
     return reduced, result
 
 
@@ -291,6 +316,13 @@ def safe_square(data, poles):
         reduced = sp.expand(sp.rem(data.squared, CIRCLE, other))
         if not reduced.has(other) and sp.degree(reduced, variable) in (1, 2):
             return reduced, 0
+    lifted = sp.expand(data.squared + data.squared.subs({S: 0, C: 0}) * CIRCLE)
+    factors = sp.factor_list(lifted, S, C, extension=True)[1]
+    if len(factors) == 2 and all(
+        power == 1 and sp.Poly(factor, S, C).total_degree() == 1
+        for factor, power in factors
+    ):
+        return lifted, 0
     raise UnsupportedCondition(
         "the squared equation must reduce to one quadratic trigonometric variable"
     )

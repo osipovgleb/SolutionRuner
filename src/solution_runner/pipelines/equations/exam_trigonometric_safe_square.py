@@ -90,6 +90,10 @@ def prepare(a, parent_html):
             and any(q.is_Rational is not True for q, _ in a.series)
         ):
             source = a.series
+        if a.radical_equation.mixed_factors and (
+            not source or not equivalent_series(source, a.series)
+        ):
+            source = a.series
         parameters = ()
     if not source or not equivalent_series(source, a.series):
         raise UnsupportedCondition(

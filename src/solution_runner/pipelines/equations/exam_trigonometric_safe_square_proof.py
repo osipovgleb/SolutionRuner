@@ -6,12 +6,17 @@ import sympy as sp
 
 from ..probability.common import line
 from .exam_scalar import compare
-from .exam_trigonometric_compile import C, S
-from .exam_trigonometric_inverse import angles, compare_q, turn
+from .exam_trigonometric_compile import C, S, T, U
+from .exam_trigonometric_inverse import angles, compare_q, level_series, turn
 from .exam_trigonometric_proof import families, formula, series_lines
 
 
 def nominal(variable, value):
+    if variable in (T, U):
+        return tuple(
+            (q - 1 if compare_q(q, sp.S.Half) > 0 else q, p)
+            for q, p in level_series(variable, value)
+        )
     if value == 0:
         return ((sp.S.Zero if variable == S else sp.S.Half, sp.S.One),)
     if variable == S:
@@ -41,7 +46,9 @@ def sign_condition(a, right):
     variable = next(iter(right.free_symbols))
     coefficient = sp.expand(right).coeff(variable)
     boundary = sp.simplify(-right.subs(variable, 0) / coefficient)
-    strict = boundary == 0 and variable in a.poles
+    strict = boundary == 0 and (
+        variable in a.poles or variable in a.radical_equation.positive_arguments
+    )
     relation = (
         (">" if strict else r"\ge") if coefficient > 0 else ("<" if strict else r"\le")
     )
@@ -56,10 +63,29 @@ def checked_values(a, q):
     poles = tuple(sp.simplify(p.subs(substitutions)) for p in a.poles)
     accepted = (
         all(v != 0 for v in poles)
+        and all(compare(v, sp.S.Zero) > 0 for v in positive_values(a, q))
         and compare(radicand, sp.S.Zero) >= 0
         and compare(right, sp.S.Zero) >= 0
     )
     return radicand, right, poles, accepted
+
+
+def positive_values(a, q):
+    return tuple(
+        sp.simplify(argument.subs({S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)}))
+        for argument in a.radical_equation.positive_arguments
+    )
+
+
+def rejection(a, q, radicand, right, poles):
+    if any(v == 0 for v in poles):
+        return line(r"\text{исходный знаменатель}=0")
+    invalid = [v for v in positive_values(a, q) if compare(v, sp.S.Zero) <= 0]
+    if invalid:
+        return line(r"\text{аргумент логарифма}=" + sp.latex(invalid[0]) + r"\le0")
+    if compare(right, sp.S.Zero) < 0:
+        return line(r"\text{правая часть}=" + sp.latex(right) + "<0")
+    return line(r"\text{подкоренное выражение}=" + sp.latex(radicand) + "<0")
 
 
 def candidates(a, branch):
@@ -69,7 +95,9 @@ def candidates(a, branch):
         values = sorted(values, key=cmp_to_key(compare))
     for value in values:
         html += line(formula(branch.variable) + "=" + sp.latex(value))
-        if compare(value, -sp.S.One) < 0 or compare(value, sp.S.One) > 0:
+        if branch.variable in (S, C) and (
+            compare(value, -sp.S.One) < 0 or compare(value, sp.S.One) > 0
+        ):
             html += "<p>Значение вне отрезка от −1 до 1, поэтому эта ветвь не имеет корней.</p>"
             continue
         checks = tuple(
@@ -77,15 +105,8 @@ def candidates(a, branch):
         )
         if not any(row[-1] for _, row in checks):
             html += "<p>Эта ветвь нарушает исходное ограничение:</p>"
-            for _q, (rad, right, poles, _) in checks:
-                if any(v == 0 for v in poles):
-                    html += line(r"\text{исходный знаменатель}=0")
-                elif compare(right, sp.S.Zero) < 0:
-                    html += line(r"\text{правая часть}=" + sp.latex(right) + "<0")
-                else:
-                    html += line(
-                        r"\text{подкоренное выражение}=" + sp.latex(rad) + "<0"
-                    )
+            for q, (rad, right, poles, _) in checks:
+                html += rejection(a, q, rad, right, poles)
             continue
         for q, p in nominal(branch.variable, value):
             name = parameter(a, q, zero=value == 0 and branch.variable == S)
@@ -110,6 +131,11 @@ def candidates(a, branch):
                 text += r",\quad\text{знаменатель}=" + ";".join(
                     sp.latex(v) for v in poles
                 )
+            arguments = positive_values(a, q)
+            if arguments:
+                text += r",\quad\text{аргумент логарифма}=" + ";".join(
+                    sp.latex(v) for v in arguments
+                )
             html += line(text)
             html += (
                 "<p>Серия удовлетворяет исходному уравнению.</p>"
@@ -127,6 +153,22 @@ def proof(a):
     for pole in a.poles:
         html += line(formula(pole) + r"\ne0")
     html += line(formula(data.radicand) + r"\ge0")
+    if data.inverse_identity is not None:
+        base, argument = data.inverse_identity
+        html += line(formula(argument) + ">0")
+        if data.radicand == S * C:
+            html += line(formula(S if argument == C else C) + r"\ge0")
+        html += "<p>При положительном аргументе применим взаимную обратность показательной функции и логарифма:</p>"
+        html += line(
+            r"\left("
+            + sp.latex(base)
+            + r"\right)^{\log_{"
+            + sp.latex(base)
+            + r"}\left("
+            + formula(argument)
+            + r"\right)}="
+            + formula(argument)
+        )
     for text, value in a.identities:
         plain = "".join(c for c in text if c not in " (){}\t\n")
         if plain not in (r"\sinx", r"\cosx"):
@@ -139,7 +181,19 @@ def proof(a):
     html += "<p>С учётом этих ограничений возведение в квадрат равносильно. Используем основное тригонометрическое тождество:</p>"
     html += line(formula(data.radicand) + r"=\left(" + formula(right) + r"\right)^2")
     html += line(r"\sin^2x+\cos^2x=1")
+    if data.mixed_factors:
+        html += line(formula(data.squared) + "=0")
+        if sp.expand(data.squared - a.raw) != 0:
+            html += line(formula(a.raw) + "=0")
+        html += line(formula(sp.factor(a.raw, extension=True)) + "=0")
+        html += (
+            "<p>Произведение равно нулю, когда хотя бы один множитель равен нулю:</p>"
+        )
     for branch in a.branches:
+        if branch.original is not None and branch.variable in (T, U):
+            from .exam_trigonometric_ratios import linear_proof
+
+            html += linear_proof(branch, "x")
         polynomial = branch.polynomial
         html += line(formula(polynomial) + "=0")
         factored = sp.factor(polynomial, extension=True)

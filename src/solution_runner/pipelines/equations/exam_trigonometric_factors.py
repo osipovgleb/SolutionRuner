@@ -182,6 +182,12 @@ def method_branches(
         return compiled, compiled.raw, (*zero, *positive), preferred
     if compiled.radical_equation is not None:
         from .exam_trigonometric_radical_equation import branches as radical_branches
+        from .exam_trigonometric_style import cotangent_method
+
+        if compiled.radical_equation.mixed_factors and cotangent_method(parent_html):
+            from .exam_trigonometric_compile import U
+
+            preferred = U
 
         reduced, result = radical_branches(compiled, preferred, allow_inverse)
         return compiled, reduced, result, preferred

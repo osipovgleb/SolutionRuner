@@ -4713,6 +4713,8 @@ PROFILES += tuple(
         rewrite_existing_solution=True,
     )
     for key, group_id, index in (
+        ("686782", "b29ea6a9-149d-49c0-831a-19267e58e250", 52),
+        ("530236", "88c370a4-5b74-4333-99f3-5503babb9e8f", 12),
         ("515800", "406aae05-a045-4482-9f40-a17004edf895", 10),
         ("512356", "e8fa11c5-8d8c-41cb-a555-60cfd71cd871", 3),
         ("507429", "231fad0b-74d3-4f57-b648-209f0a0008a2", 5),
@@ -4855,6 +4857,7 @@ PROFILES += tuple(
         rewrite_existing_solution=True,
     )
     for key, group_id, index in (
+        ("629305", "3833b0c0-56ed-4e6d-b372-7443254bea0f", 4),
         ("632828", "371f8cfa-9d76-4ab6-a27b-149148dd2209", 6),
         ("630105", "4bac18b0-ac35-4bb3-aa85-e0d1d4b7b3ca", 5),
         ("641932", "93203a2e-e66e-480a-9de9-966c42ed7a98", 8),

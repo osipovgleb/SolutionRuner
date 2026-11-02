@@ -20,6 +20,77 @@ class RadicalLog:
     alternative: bool
 
 
+def inverse_power(formula):
+    text = clean(formula).removesuffix(".")
+    parts = text.split("=")
+    if len(parts) != 2 or r"\log_" not in parts[1] or "^{" not in parts[1]:
+        return None
+    left, right = parts
+    if not left.startswith(r"\sqrt{"):
+        return None
+    _inside, end = balanced(left, 5)
+    if end != len(left):
+        raise UnsupportedCondition(
+            "the inverse-log identity needs one complete left radical"
+        )
+    atoms, denominators, logs = {}, [], []
+    node = Parser(right.replace("x", r"\alpha"), atoms, denominators, logs).parse()
+    if (
+        len(logs) != 1
+        or any(d.free_symbols or d == 0 for d in denominators)
+        or node.kind != "power"
+        or len(node.children) != 2
+        or node.children[0].value != logs[0][1]
+        or node.children[1].value != logs[0][0]
+        or logs[0][1].is_Rational is not True
+        or not 0 < logs[0][1] <= 1000000
+        or logs[0][1] == 1
+    ):
+        raise UnsupportedCondition(
+            "one whole positive constant power of its own logarithm is required"
+        )
+    from .exam_trigonometric_radical_equation import compile_values
+
+    values, poles, _identities = compile_values([logs[0][2]], atoms, denominators)
+    argument = values[0]
+    if poles or argument not in (S, C):
+        raise UnsupportedCondition(
+            "one original unit sine or cosine log argument is required"
+        )
+    return (
+        left + "=" + (r"\sin x" if argument == S else r"\cos x"),
+        logs[0][1],
+        argument,
+    )
+
+
+def compile_inverse(formula, parent_html):
+    from dataclasses import replace
+
+    from .exam_trigonometric_radical_equation import compile_radical
+    from .exam_trigonometric_radical_style import kind
+
+    identity = inverse_power(formula)
+    if identity is None:
+        raise UnsupportedCondition(
+            "one complete inverse-power logarithm identity is required"
+        )
+    normalized, base, argument = identity
+    if kind(parent_html) != "safe_square":
+        raise UnsupportedCondition(
+            "the inverse-log radical requires its reviewed equivalent-square method"
+        )
+    equation = compile_radical(normalized, "safe_square")
+    return replace(
+        equation,
+        radical_equation=replace(
+            equation.radical_equation,
+            positive_arguments=(argument,),
+            inverse_identity=(base, argument),
+        ),
+    )
+
+
 class RootParser(Parser):
     def __init__(self, text, atoms, denominators, logs, roots, depth=0):
         super().__init__(text, atoms, denominators, logs, depth)

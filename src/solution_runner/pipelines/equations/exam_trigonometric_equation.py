@@ -296,13 +296,21 @@ def compile_constrained(
             )
         compiled = compile_log(formula)
     elif r"\log_" in formula and variable_radicals(formula):
-        from .exam_trigonometric_log_radical import compile_product
+        from .exam_trigonometric_log_radical import (
+            compile_inverse,
+            compile_product,
+            inverse_power,
+        )
 
         if translation:
             raise UnsupportedCondition(
                 "radical-log products require their original variable"
             )
-        compiled = compile_product(formula, parent_html)
+        compiled = (
+            compile_inverse(formula, parent_html)
+            if inverse_power(formula) is not None
+            else compile_product(formula, parent_html)
+        )
     elif r"\log_" in formula and not variable_radicals(formula):
         from .exam_trigonometric_log_product import compile_product, prepare
 
