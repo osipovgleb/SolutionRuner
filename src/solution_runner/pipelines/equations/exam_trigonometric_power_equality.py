@@ -77,9 +77,7 @@ def review_quotient_parent(html, exponent):
     )
 
 
-def exponent_step(forms, exponent):
-    from .exam_trigonometric_compile import compile_equation
-
+def parent_equations(forms):
     for value in forms:
         parts = re.split(
             r"\\(?:iff|Leftrightarrow|quad)|\\(?:begin|end)\{(?:cases|aligned)\}|\\\\",
@@ -87,17 +85,23 @@ def exponent_step(forms, exponent):
         )
         for part in parts:
             part = part.removeprefix(r"\left[").removesuffix(r"\right.").strip(".,;")
-            if part.count("=") != 1 or any(
+            if part.count("=") == 1 and not any(
                 token in part for token in ("<", ">", r"\gt", r"\lt", r"\ge", r"\le")
             ):
-                continue
-            try:
-                raw, _ = compile_equation(part)
-            except UnsupportedCondition:
-                continue
-            weight = sp.cancel(raw / exponent)
-            if not weight.free_symbols and weight.is_real is True and weight != 0:
-                return True
+                yield part
+
+
+def exponent_step(forms, exponent):
+    from .exam_trigonometric_compile import compile_equation
+
+    for part in parent_equations(forms):
+        try:
+            raw, _ = compile_equation(part)
+        except UnsupportedCondition:
+            continue
+        weight = sp.cancel(raw / exponent)
+        if not weight.free_symbols and weight.is_real is True and weight != 0:
+            return True
     return False
 
 

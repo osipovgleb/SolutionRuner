@@ -122,6 +122,12 @@ def compile_product(formula):
 def conditions(compiled):
     data = compiled.log_product
     result = [(p, "nonzero") for p in compiled.poles]
+    if (
+        compiled.power_polynomial is not None
+        and compiled.power_polynomial.log_denominator is not None
+    ):
+        _, argument = compiled.power_polynomial.log_denominator
+        return (*result, (argument, "positive"), (argument - 1, "nonzero"))
     if compiled.log_polynomial is not None:
         normalization = compiled.log_polynomial.normalization
         arguments = (

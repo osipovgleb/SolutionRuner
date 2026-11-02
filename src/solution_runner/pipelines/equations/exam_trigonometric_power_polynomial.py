@@ -35,6 +35,7 @@ class PowerPolynomial:
     multiplier: sp.Rational
     wrapper: str | None
     strict_root: bool
+    log_denominator: tuple | None = None
 
 
 def unwrap(formula):
@@ -121,9 +122,62 @@ def validate_radicand(domain, *, rational_domain=False):
             raise UnsupportedCondition("a bounded whole quadratic radicand is required")
 
 
-def compile_polynomial(formula, parent_html):
-    if r"\log" in formula or not reviewed(formula):
+def polynomial_source(formula):
+    if r"\log" not in formula:
+        return (*source(formula), None)
+    text, wrapper = unwrap(formula)
+    if wrapper is None or r"\log" in text:
         return None
+    from .exam_trigonometric_log_common import parse_expression
+    from .exam_trigonometric_radical_equation import same
+
+    parsed = parse_expression(wrapper + "=0")
+    if parsed is None:
+        return None
+    nodes, logs, constants, compiled, _ = parsed
+    if len(logs) != 1 or constants or nodes[0].value != logs[0][0]:
+        raise UnsupportedCondition(
+            "one complete fixed-base logarithm denominator is required"
+        )
+    values, original_poles, log_identities = compiled
+    argument = values[1]
+    validate_radicand(argument, rational_domain=True)
+    if same(argument, sp.S.One) or same(argument, sp.S.Zero):
+        raise UnsupportedCondition(
+            "the original log denominator is undefined or identically zero"
+        )
+    numerator, denominator = sp.fraction(argument)
+    expression, poles, identities, _, _, _ = source(text)
+    retained = []
+    for pole in (*poles, *original_poles, sp.expand(numerator - denominator)):
+        if (
+            same(pole, sp.S.Zero)
+            or not pole.is_polynomial(S, C)
+            or sp.Poly(pole, S, C).total_degree() > 2
+        ):
+            raise UnsupportedCondition(
+                "all original log-denominator poles must remain bounded nonzero polynomials"
+            )
+        if pole.free_symbols:
+            retained.append(sp.cancel(pole / sp.Poly(pole, S, C).LC()))
+    return (
+        expression,
+        tuple(dict.fromkeys(retained)),
+        tuple(dict.fromkeys((*identities, *log_identities))),
+        sp.expand(numerator * denominator),
+        wrapper,
+        True,
+        (logs[0][1], argument),
+    )
+
+
+def compile_polynomial(formula, parent_html):
+    if not reviewed(formula):
+        return None
+    if r"\log" in formula:
+        text, wrapper = unwrap(formula)
+        if wrapper is None or not wrapper.startswith(r"\log_") or r"\log" in text:
+            return None
     from bs4 import BeautifulSoup
 
     if (
@@ -137,7 +191,10 @@ def compile_polynomial(formula, parent_html):
     style = review(parent_html)
     if style is None:
         return None
-    expression, poles, identities, domain, wrapper, strict = source(formula)
+    parsed = polynomial_source(formula)
+    if parsed is None:
+        return None
+    expression, poles, identities, domain, wrapper, strict, log_denominator = parsed
     unit = None
     for shape in shapes(style, formula):
         unit = normalize(
@@ -168,26 +225,17 @@ def compile_polynomial(formula, parent_html):
         raise UnsupportedCondition(
             "a rational multiple of one reviewed trig power is required"
         )
-    powers = tuple(
-        sorted(
-            roots(unit.polynomial.subs(E, X)),
-            key=cmp_to_key(compare_roots),
-            reverse=not style.ascending,
-        )
-    )
-    levels = []
-    for value in powers:
-        if compare_roots(value, sp.S.Zero) <= 0:
-            levels.append(None)
-            continue
-        level = actual(log_ratio(unit.base, value))
-        if level.is_Rational is not True or abs(level) > 100 or level.q > 100:
-            raise UnsupportedCondition(
-                "bounded rational exponential levels are required"
-            )
-        levels.append(level)
+    powers, levels = power_levels(unit, style.ascending)
     data = PowerPolynomial(
-        unit, shape, style, powers, tuple(levels), multiplier, wrapper, strict
+        unit,
+        shape,
+        style,
+        powers,
+        levels,
+        multiplier,
+        wrapper,
+        strict and log_denominator is None,
+        log_denominator,
     )
     raw = sp.prod(
         shape.variable**shape.power - level / multiplier
@@ -203,3 +251,25 @@ def compile_polynomial(formula, parent_html):
         strict_domain=strict,
         power_polynomial=data,
     )
+
+
+def power_levels(unit, ascending):
+    powers = tuple(
+        sorted(
+            roots(unit.polynomial.subs(E, X)),
+            key=cmp_to_key(compare_roots),
+            reverse=not ascending,
+        )
+    )
+    levels = []
+    for value in powers:
+        if compare_roots(value, sp.S.Zero) <= 0:
+            levels.append(None)
+            continue
+        level = actual(log_ratio(unit.base, value))
+        if level.is_Rational is not True or abs(level) > 100 or level.q > 100:
+            raise UnsupportedCondition(
+                "bounded rational exponential levels are required"
+            )
+        levels.append(level)
+    return powers, tuple(levels)

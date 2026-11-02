@@ -98,9 +98,15 @@ def validate(entry, a):
     if "log_domain_conditions" in entry:
         from .exam_trigonometric_log_product import conditions
 
-        if (a.log_product is None and a.log_polynomial is None) or entry[
-            "log_domain_conditions"
-        ] != [[str(e), relation] for e, relation in conditions(a)]:
+        power_log = (
+            a.power_polynomial is not None
+            and a.power_polynomial.log_denominator is not None
+        )
+        if (
+            a.log_product is None and a.log_polynomial is None and not power_log
+        ) or entry["log_domain_conditions"] != [
+            [str(e), relation] for e, relation in conditions(a)
+        ]:
             raise UnsupportedCondition(
                 "the source figure must retain its original log domain"
             )

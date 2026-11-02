@@ -21,6 +21,7 @@ class AbsoluteAffine:
     split_sign: bool
     phase: tuple | None
     intermediate_image: bool
+    common: tuple | None = None
 
 
 def operands(formula):
@@ -63,16 +64,84 @@ def operands(formula):
         raise UnsupportedCondition(
             "one nonzero scalar absolute coefficient is required"
         )
-    if poles or any(
-        not v.is_polynomial(S, C) or sp.Poly(v, S, C).total_degree() > 1
-        for v in (inner, target)
-    ):
-        raise UnsupportedCondition(
-            "denominator-free affine sine/cosine expressions are required"
-        )
+    if poles:
+        raise UnsupportedCondition("denominator-free absolute expressions are required")
+    common_factor(inner, target)
     if sp.expand(inner**2 - target**2) == 0:
         raise UnsupportedCondition("an absolute identity may have intervals of roots")
     return inner, target, identities
+
+
+def common_factor(inner, right):
+    from .exam_trigonometric_radical_equation import same
+
+    if not all(v.is_polynomial(S, C) for v in (inner, right)):
+        raise UnsupportedCondition(
+            "bounded polynomial absolute expressions are required"
+        )
+    degrees = [sp.Poly(v, S, C).total_degree() for v in (inner, right)]
+    if max(degrees) <= 1:
+        return False
+    ratio = sp.cancel(inner / right)
+    if (
+        degrees[0] > 3
+        or degrees[1] != 2
+        or same(right, sp.S.Zero)
+        or not ratio.is_polynomial(S, C)
+        or sp.Poly(ratio, S, C).total_degree() > 1
+    ):
+        raise UnsupportedCondition(
+            "a quadratic common factor and affine remaining factor are required"
+        )
+    return True
+
+
+def parent_branches(forms, right):
+    from .exam_trigonometric_power_equality import parent_equations
+    from .exam_trigonometric_power_polynomial import source
+
+    pairs = []
+    for part in parent_equations(forms):
+        sides = []
+        try:
+            for side in part.split("="):
+                raw, poles, _, _, wrapper, _ = source(side + "=0")
+                if poles or wrapper is not None:
+                    break
+                sides.append(raw)
+        except UnsupportedCondition:
+            continue
+        if len(sides) == 2:
+            pairs.append(tuple(sides))
+    for u, v in pairs:
+        weight = sp.cancel(v / right)
+        if weight.free_symbols or weight.is_real is not True or weight == 0:
+            continue
+        try:
+            product = common_factor(u, v)
+        except UnsupportedCondition:
+            continue
+        if product and (u, -v) in pairs:
+            return True
+    return False
+
+
+def global_domain(forms, right, pairs, common):
+    for f in forms:
+        for m in re.finditer(r"(\\(?:sin|cos)[12]?x)\\le0", f):
+            atoms, poles = {}, []
+            node = ExamAngleParser(m[1].replace("x", r"\alpha"), atoms, poles).parse()
+            values, _, _ = compile_values([node.value], atoms, poles)
+            weight = sp.cancel(right / values[0])
+            if weight.free_symbols or weight.is_negative is not True:
+                continue
+            if common or any(
+                sp.cancel(v / values[0]).is_negative is True for _, v in pairs
+            ):
+                return m[1], -weight
+    raise UnsupportedCondition(
+        "the parent's complete absolute sign restriction needs review"
+    )
 
 
 def parent_method(html, inner, right):
@@ -93,7 +162,10 @@ def parent_method(html, inner, right):
             except UnsupportedCondition:
                 continue
             source_pairs.append((u, v))
-    if not source_pairs:
+    common = common_factor(inner, right)
+    if (common and not parent_branches(forms, right)) or (
+        not common and not source_pairs
+    ):
         raise UnsupportedCondition(
             "the parent must retain the complete affine absolute equation"
         )
@@ -103,21 +175,7 @@ def parent_method(html, inner, right):
         raise UnsupportedCondition(
             "the parent sign split must use the same absolute function"
         )
-    if not split:
-        variable = next(
-            (v for v in (S, C) if sp.cancel(right / v).is_negative is True), None
-        )
-        token = {S: r"\sinx\le0", C: r"\cosx\le0"}.get(variable)
-        if (
-            token is None
-            or not any(token in f for f in forms)
-            or not any(
-                sp.cancel(v / variable).is_negative is True for _, v in source_pairs
-            )
-        ):
-            raise UnsupportedCondition(
-                "the parent's complete absolute sign restriction needs review"
-            )
+    domain = global_domain(forms, right, source_pairs, common) if not split else None
     phases = tuple(
         dict.fromkeys((n, q) for f in forms for n, _, q in candidates(formula(f)))
     )
@@ -137,7 +195,12 @@ def parent_method(html, inner, right):
         intermediate = bool(before and before[0] == name + r"\lt0")
         if not intermediate:
             raise UnsupportedCondition("the absolute-case figure stage needs review")
-    return split, phases[0] if phases else None, intermediate
+    return (
+        split,
+        phases[0] if phases else None,
+        intermediate,
+        domain if common else None,
+    )
 
 
 def compile_absolute(formula, parent_html):
@@ -147,12 +210,14 @@ def compile_absolute(formula, parent_html):
     if text.count("|") != 2 or variable_radicals(text):
         return None
     inner, right, identities = operands(text)
-    split, phase, intermediate = parent_method(parent_html, inner, right)
+    split, phase, intermediate, common = parent_method(parent_html, inner, right)
     return Equation(
         sp.expand(inner**2 - right**2),
         identities,
         sp.S.One,
-        absolute_affine=AbsoluteAffine(inner, right, split, phase, intermediate),
+        absolute_affine=AbsoluteAffine(
+            inner, right, split, phase, intermediate, common
+        ),
     )
 
 
@@ -190,7 +255,9 @@ def cases(data, allow_inverse=False):
             raise UnsupportedCondition(
                 "an absolute branch with an interval of roots needs review"
             )
-        _, formal = solve_branches(raw, S, allow_inverse)
+        _, formal = solve_branches(
+            raw, S, allow_inverse, factored=data.common is not None
+        )
         formal = tuple(phase_branch(b, data.phase) for b in formal)
         condition = (
             (-data.inner if negative else data.inner) if data.split_sign else data.right

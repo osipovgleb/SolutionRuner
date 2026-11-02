@@ -177,7 +177,7 @@ def align_affine(result, html):
         )
     ):
         return result
-    if len(source) != len(result.series) or any(
+    if (len(source) != len(result.series) and result.absolute_affine is None) or any(
         q.is_Rational is not True for q, _ in result.series
     ):
         return result

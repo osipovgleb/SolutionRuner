@@ -38,7 +38,24 @@ def domain(a):
         html = "<p>Сохраним область определения исходного уравнения:</p>"
     for pole in a.poles:
         html += line(formula(pole) + r"\ne0")
-    if a.domain is not None:
+    if a.power_polynomial.log_denominator is not None:
+        _, argument = a.power_polynomial.log_denominator
+        html += line(a.power_polynomial.wrapper + r"\ne0")
+        html += line(formula(argument) + ">0") + line(formula(argument) + r"\ne1")
+        html += "<p>Аргумент логарифма должен быть положителен и отличен от единицы. Сам логарифм может быть отрицательным, но не нулевым. При этих условиях дробь равна нулю тогда и только тогда, когда её числитель равен нулю.</p>"
+        if argument.is_polynomial(S, C) and len(argument.free_symbols) == 1:
+            variable = next(iter(argument.free_symbols))
+            if sp.degree(argument, variable) == 1:
+                coefficient = argument.coeff(variable)
+                html += line(
+                    formula(variable)
+                    + (">" if coefficient > 0 else "<")
+                    + sp.latex(-argument.subs(variable, 0) / coefficient)
+                )
+        if sp.fraction(argument)[1].free_symbols:
+            html += "<p>При исходных ненулевых знаменателях умножим неравенство на положительный квадрат знаменателя:</p>"
+            html += line(formula(a.domain) + ">0")
+    elif a.domain is not None:
         text, _ = balanced(a.power_polynomial.wrapper, 5)
         html += line(original_text(text) + ">0")
         html += "<p>Подкоренное выражение всего знаменателя должно быть строго положительным.</p>"

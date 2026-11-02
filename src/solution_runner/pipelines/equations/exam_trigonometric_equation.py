@@ -28,6 +28,20 @@ def method_equation(
     from .exam_trigonometric_radical_quotient import compile_quotient
     from .exam_trigonometric_sum_product import compile_reciprocal, compile_square
 
+    if parent_html:
+        from .exam_trigonometric_absolute_affine import (
+            compile_absolute as affine_absolute,
+        )
+
+        compiled = affine_absolute(formula, parent_html)
+        if compiled is not None:
+            if translation or (
+                scale != 1 and (compiled.absolute_affine.common is None or scale != 2)
+            ):
+                raise UnsupportedCondition(
+                    "absolute cases require their reviewed original argument"
+                )
+            return compiled, None
     if ratio_product is not None:
         from .exam_trigonometric_ratio_product import compile_product
 
@@ -75,18 +89,6 @@ def method_equation(
                 "separate angle products require the original variable"
             )
         return compile_product(formula), None
-    if parent_html:
-        from .exam_trigonometric_absolute_affine import (
-            compile_absolute as affine_absolute,
-        )
-
-        compiled = affine_absolute(formula, parent_html)
-        if compiled is not None:
-            if translation or scale != 1:
-                raise UnsupportedCondition(
-                    "affine absolute cases require their original unit angle"
-                )
-            return compiled, None
     absolute = compile_absolute(formula)
     if absolute is not None:
         return absolute, None
