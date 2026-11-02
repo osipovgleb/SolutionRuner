@@ -110,6 +110,12 @@ PROFILES += tuple(
             "vector-geometric-operations",
         ),
         (
+            "27710",
+            "c7d327f1-239d-4bdf-bf9a-51c02a0e76ad",
+            5,
+            "vector-geometric-operations",
+        ),
+        (
             "27711",
             "50dc7a51-bcd6-491a-8fe1-cc926abcd3bf",
             6,
