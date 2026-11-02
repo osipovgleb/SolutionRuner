@@ -67,7 +67,7 @@ def test_altered_or_augmented_conditions_have_no_transcription(entry):
 
 def test_transcription_records_change_only_the_reviewed_formula_and_are_packaged():
     hashes = {e["condition_sha256"] for e in ALL_ENTRIES}
-    assert len(hashes) == len(ALL_ENTRIES) == 25 and len(ENTRIES) == 16
+    assert len(hashes) == len(ALL_ENTRIES) == 26 and len(ENTRIES) == 16
     for e in ALL_ENTRIES:
         assert (
             hashlib.sha256(e["before_html"].encode()).hexdigest()

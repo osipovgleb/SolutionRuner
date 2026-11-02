@@ -48,7 +48,6 @@ def operands(formula):
 
 
 def shifted_operands(formula, *, allow_vanishing=False):
-    from .exam_trigonometric_absolute import R, RootPlaceholderParser
     from .exam_trigonometric_radical_equation import variable_radicals
 
     text = clean(formula).removesuffix(".")
@@ -65,6 +64,16 @@ def shifted_operands(formula, *, allow_vanishing=False):
     if len(candidates) != 1:
         return None
     root_factor = candidates[0]
+    parsed = shifted_root(root_factor, allow_vanishing=allow_vanishing)
+    if parsed is None:
+        return None
+    radicand, offset, _coefficient = parsed
+    return (second if root_factor == first else first), radicand, offset
+
+
+def shifted_root(root_factor, *, allow_vanishing=False):
+    from .exam_trigonometric_absolute import R, RootPlaceholderParser
+
     roots, start = [], 0
     while (index := root_factor.find(r"\sqrt{", start)) >= 0:
         inner, start = balanced(root_factor, index + 5)
@@ -89,9 +98,14 @@ def shifted_operands(formula, *, allow_vanishing=False):
     offset = sp.simplify(value / coefficient - R)
     positive = coefficient == 1 and offset.is_positive is True
     vanishing = allow_vanishing and offset.is_negative is True
-    if atoms or denominators or offset.free_symbols or not (positive or vanishing):
+    if (
+        atoms
+        or any(d.free_symbols or d == 0 for d in denominators)
+        or offset.free_symbols
+        or not (positive or vanishing)
+    ):
         return None
-    return (second if root_factor == first else first), radicand, offset
+    return radicand, offset, coefficient
 
 
 def compile_product(factor, radicand, root_offset=sp.S.Zero):

@@ -380,12 +380,18 @@ def analyze_method(
         formula, preferred, preferred_scale, translation, parent_html
     )
     if compiled.power_equality is not None or compiled.power_polynomial is not None:
-        from .exam_trigonometric_power_style import figure_stage
+        from .exam_trigonometric_power_style import figure_stage, quotient_figure
 
         grouping = compiled.power_equality.grouping if compiled.power_equality else None
+        offset_figure = bool(
+            compiled.power_equality
+            and compiled.power_equality.root_offset
+            and quotient_figure(parent_html, compiled.power_equality.exponent)
+        )
         position = (
             "after-polynomial"
             if (grouping is not None and grouping.figure_after_grouping)
+            or offset_figure
             or (
                 compiled.power_polynomial is not None
                 and compiled.power_polynomial.style.figure_after_polynomial

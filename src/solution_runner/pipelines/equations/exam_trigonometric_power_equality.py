@@ -31,6 +31,7 @@ class PowerEquality:
     radicand_text: str | None = None
     cleared_power: sp.Expr = sp.S.One
     grouping: "PowerGrouping | None" = None
+    root_offset: sp.Expr = sp.S.Zero
 
 
 def reviewed(formula):
@@ -68,11 +69,17 @@ def review_parent(html):
 
 
 def review_quotient_parent(html, exponent):
+    forms = parent_forms(html)
+    if any(reviewed(f) for f in forms) or exponent_step(forms, exponent):
+        return
+    raise UnsupportedCondition(
+        "the parent must retain the complete computed power-exponent equation"
+    )
+
+
+def exponent_step(forms, exponent):
     from .exam_trigonometric_compile import compile_equation
 
-    forms = parent_forms(html)
-    if any(reviewed(f) for f in forms):
-        return
     for value in forms:
         parts = re.split(
             r"\\(?:iff|Leftrightarrow|quad)|\\(?:begin|end)\{(?:cases|aligned)\}|\\\\",
@@ -90,10 +97,8 @@ def review_quotient_parent(html, exponent):
                 continue
             weight = sp.cancel(raw / exponent)
             if not weight.free_symbols and weight.is_real is True and weight != 0:
-                return
-    raise UnsupportedCondition(
-        "the parent must retain the complete computed power-exponent equation"
-    )
+                return True
+    return False
 
 
 def prime_logs(value):
@@ -217,9 +222,29 @@ def compile_equality(formula, parent_html, *, preferred=None, scale=sp.S.One):
             prime_logs(pole)
         elif variable not in retained:
             retained.append(variable)
+    cleared_power = sp.S.One
+    if values[1] == 0:
+        values, cleared_power = positive_pair(values[0])
     return equation(
-        values, identities, parent_html, preferred, scale, poles=tuple(retained)
+        values,
+        identities,
+        parent_html,
+        preferred,
+        scale,
+        poles=tuple(retained),
+        cleared_power=cleared_power,
     )
+
+
+def positive_pair(expression):
+    numerator, divisor = sp.fraction(expression)
+    prime_logs(divisor)
+    terms = sp.Add.make_args(numerator)
+    positive = [t for t in terms if not t.could_extract_minus_sign()]
+    negative = [-t for t in terms if t.could_extract_minus_sign()]
+    if len(positive) != 1 or len(negative) != 1:
+        raise UnsupportedCondition("two complete positive power products are required")
+    return (positive[0], negative[0]), divisor
 
 
 def equation(
@@ -233,6 +258,7 @@ def equation(
     radicand_text=None,
     poles=(),
     cleared_power=sp.S.One,
+    root_offset=sp.S.Zero,
 ):
     left, right = (prime_logs(value) for value in values)
     base, exponent = common_exponent(left, right)
@@ -260,6 +286,7 @@ def equation(
         radicand,
         radicand_text,
         cleared_power,
+        root_offset=root_offset,
     )
     numerator, denominator = sp.fraction(radicand) if radicand is not None else (0, 1)
     return Equation(
@@ -268,7 +295,7 @@ def equation(
         scale,
         poles=poles,
         domain=sp.expand(numerator * denominator) if radicand is not None else None,
-        strict_domain=radicand is not None,
+        strict_domain=radicand is not None and root_offset == 0,
         power_equality=data,
     )
 
@@ -278,24 +305,24 @@ def compile_quotient(formula, parent_html, *, preferred=None, scale=sp.S.One):
     from .exam_trigonometric_strict_quotient import operands
 
     parts = operands(formula)
-    if parts is None or not reviewed(formula):
+    if not reviewed(formula):
         return None
+    if parts is None:
+        return compile_offset_quotient(
+            formula, parent_html, preferred=preferred, scale=scale
+        )
     expression, poles, identities, radicand, _wrapper, strict = source(
         formula, rational_domain=True
     )
-    numerator, divisor = sp.fraction(expression)
-    prime_logs(divisor)
-    terms = sp.Add.make_args(numerator)
-    positive = [t for t in terms if not t.could_extract_minus_sign()]
-    negative = [-t for t in terms if t.could_extract_minus_sign()]
-    if not strict or len(positive) != 1 or len(negative) != 1:
-        raise UnsupportedCondition("two complete positive power products are required")
+    values, divisor = positive_pair(expression)
+    if not strict:
+        raise UnsupportedCondition("the whole radical denominator must be retained")
     if any(p not in (S, C) for p in poles):
         raise UnsupportedCondition(
             "only original sine/cosine power-quotient poles are reviewed"
         )
     return equation(
-        [positive[0], negative[0]],
+        values,
         identities,
         parent_html,
         preferred,
@@ -304,6 +331,54 @@ def compile_quotient(formula, parent_html, *, preferred=None, scale=sp.S.One):
         radicand_text=parts[1],
         poles=poles,
         cleared_power=divisor,
+    )
+
+
+def compile_offset_quotient(formula, parent_html, *, preferred=None, scale=sp.S.One):
+    from .exam_trigonometric_power_polynomial import source, unwrap, validate_radicand
+    from .exam_trigonometric_radical_product import shifted_root
+
+    text, wrapper = unwrap(formula)
+    if wrapper is None or not wrapper.startswith(r"\sqrt{"):
+        return None
+    parsed = shifted_root(wrapper, allow_vanishing=True)
+    if parsed is None:
+        return None
+    radicand_text, offset, coefficient = parsed
+    if coefficient != 1:
+        raise UnsupportedCondition(
+            "one complete square root plus a constant is required"
+        )
+    expression, poles, identities, _, _, _ = source(text)
+    negated_radicand, rad_poles, rad_identities, _, _, _ = source("0=" + radicand_text)
+    radicand = -negated_radicand
+    validate_radicand(radicand, rational_domain=True)
+    poles = tuple(dict.fromkeys((*poles, *rad_poles)))
+    if any(p not in (S, C) for p in poles):
+        raise UnsupportedCondition(
+            "only original sine/cosine power-quotient poles are reviewed"
+        )
+    if offset.is_negative:
+        numerator, denominator = sp.fraction(radicand)
+        root_pole = sp.expand(numerator - offset**2 * denominator)
+        if root_pole == 0:
+            raise UnsupportedCondition(
+                "the original shifted-root denominator is identically zero"
+            )
+        if root_pole.free_symbols:
+            poles = (*poles, root_pole)
+    values, divisor = positive_pair(expression)
+    return equation(
+        values,
+        (*identities, *rad_identities),
+        parent_html,
+        preferred,
+        scale,
+        radicand=radicand,
+        radicand_text=radicand_text,
+        poles=poles,
+        cleared_power=divisor,
+        root_offset=offset,
     )
 
 

@@ -77,20 +77,8 @@ def source(formula, *, rational_domain=False):
         [n.value for n in nodes], atoms, denominators
     )
     domain = values[2] if strict else None
-    if domain is not None and (
-        not domain.is_polynomial(S, C) or sp.Poly(domain, S, C).total_degree() > 2
-    ):
-        numerator, denominator = sp.fraction(domain)
-        weights = [sp.cancel(denominator / variable) for variable in (S, C)]
-        if (
-            not rational_domain
-            or not numerator.is_polynomial(S, C)
-            or sp.Poly(numerator, S, C).total_degree() > 1
-            or not any(
-                not w.free_symbols and w.is_real is True and w != 0 for w in weights
-            )
-        ):
-            raise UnsupportedCondition("a bounded whole quadratic radicand is required")
+    if domain is not None:
+        validate_radicand(domain, rational_domain=rational_domain)
     poles = (*poles, *((values[2],) if wrapper is not None and not strict else ()))
     retained = []
     for pole in poles:
@@ -116,6 +104,21 @@ def source(formula, *, rational_domain=False):
         wrapper,
         strict,
     )
+
+
+def validate_radicand(domain, *, rational_domain=False):
+    if not domain.is_polynomial(S, C) or sp.Poly(domain, S, C).total_degree() > 2:
+        numerator, denominator = sp.fraction(domain)
+        weights = [sp.cancel(denominator / variable) for variable in (S, C)]
+        if (
+            not rational_domain
+            or not numerator.is_polynomial(S, C)
+            or sp.Poly(numerator, S, C).total_degree() > 1
+            or not any(
+                not w.free_symbols and w.is_real is True and w != 0 for w in weights
+            )
+        ):
+            raise UnsupportedCondition("a bounded whole quadratic radicand is required")
 
 
 def compile_polynomial(formula, parent_html):

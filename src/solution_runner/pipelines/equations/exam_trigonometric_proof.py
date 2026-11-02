@@ -136,6 +136,7 @@ def polynomial(
     angle="x",
     root_scale=sp.S.One,
     sine_inverse=False,
+    image_after_reduction="",
 ):
     if branch.angle_shift:
         from .exam_trigonometric_linear_phase import proof
@@ -198,14 +199,18 @@ def polynomial(
                 if d < 0:
                     html += line(formula(factor, angle) + ">0")
                     html += "<p>Квадратный множитель имеет положительный старший коэффициент и отрицательный дискриминант, поэтому не обращается в нуль.</p>"
-    return html + candidate_lines(
-        branch,
-        substitution,
-        allow_inverse,
-        allowed_residues,
-        angle,
-        root_scale,
-        sine_inverse=sine_inverse,
+    return (
+        html
+        + image_after_reduction
+        + candidate_lines(
+            branch,
+            substitution,
+            allow_inverse,
+            allowed_residues,
+            angle,
+            root_scale,
+            sine_inverse=sine_inverse,
+        )
     )
 
 
@@ -362,6 +367,10 @@ def render(a, image):
         from .exam_trigonometric_power_grouping_proof import proof
 
         intro, steps = proof(a, image if a.image_position == "after-polynomial" else "")
+    elif a.power_equality is not None and a.image_position == "after-polynomial":
+        from .exam_trigonometric_power_equality_proof import proof
+
+        intro, steps = proof(a, image)
     elif a.power_polynomial is not None:
         from .exam_trigonometric_power_polynomial_proof import proof
 

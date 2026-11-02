@@ -317,7 +317,7 @@ def test_complete_parent_exponent_step_is_checked_without_using_the_answer():
         r"\frac{9^{\sin2x}-3^{2\sin x}+1}{\sqrt{\sin x}}=0",
         r"\frac{2^{\sin x}-2^{\sin x}}{\sqrt{\sin x}}=0",
         r"\frac{9^{\sin2x}-3^{2\sin x}}{\sqrt{\frac{\sin x}{1+\cos x}}}=0",
-        r"\frac{9^{\sin2x}-3^{2\sin x}}{\sqrt{\sin x}-1}=0",
+        r"\frac{9^{\sin2x}-3^{2\sin x}}{\sqrt{\sin x}-\cos x}=0",
     ],
 )
 def test_unreviewed_powers_extra_terms_identity_and_denominator_shapes_fail_closed(

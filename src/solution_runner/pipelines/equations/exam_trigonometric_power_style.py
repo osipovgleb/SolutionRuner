@@ -70,6 +70,27 @@ def figure_stage(parent_html):
     return "after-intro" if any(preceding) else "before-intro"
 
 
+def quotient_figure(parent_html, exponent):
+    from .exam_trigonometric_power_equality import exponent_step
+
+    images = BeautifulSoup(parent_html, "html.parser").find_all("img")
+    if len(images) != 1:
+        return False
+    image = images[0]
+    part = image.find_parent("li")
+    if part is None or part.get("data-list-marker") not in ("а)", "a)"):
+        return False
+    before, after, seen = [], [], False
+    for node in part.descendants:
+        if node is image:
+            seen = True
+        elif getattr(node, "attrs", {}).get("data-inline-latex"):
+            (after if seen else before).append(clean(node["data-inline-latex"]))
+    return exponent_step(before, exponent) and any(
+        "x=" in f and "k" in f for f in after
+    )
+
+
 def equal_base(parent_html):
     for n in BeautifulSoup(parent_html, "html.parser").select("[data-inline-latex]"):
         for term in re.split(

@@ -42,12 +42,12 @@ def exponent_steps(a, left, right):
     )
 
 
-def proof(a):
+def proof(a, image=""):
     if a.power_equality.grouping is not None:
         from .exam_trigonometric_power_grouping_proof import proof as grouping
 
         return grouping(a)
-    from .exam_trigonometric_proof import candidate_lines, formula, polynomial
+    from .exam_trigonometric_proof import formula
 
     data = a.power_equality
     html = quotient_domain(a) if data.radicand is not None else ""
@@ -58,6 +58,11 @@ def proof(a):
     for text, value in a.identities:
         if value not in (S, C):
             html += line(text + "=" + formula(value))
+    if data.radicand is None and data.cleared_power != 1:
+        if not a.poles:
+            html += line(a.original)
+        html += "<p>Умножим уравнение на положительный множитель; множество корней не изменится:</p>"
+        html += line(formula(data.cleared_power) + ">0")
     html += power_steps(a)
     if a.homogeneous is not None and data.radicand is None:
         from .exam_trigonometric_homogeneous_proof import proof as homogeneous
@@ -74,29 +79,52 @@ def proof(a):
         html += reduction
         if len(a.branches) > 1:
             html += line(formula(sp.factor(exponent, extension=True)) + "=0")
-        for branch in a.branches:
-            options = {
-                "allow_inverse": a.allow_inverse,
-                "angle": "x" if a.scale == 1 else sp.latex(a.scale) + "x",
-                "root_scale": a.scale,
-            }
-            html += (
-                candidate_lines(branch, **options)
-                if a.poles
-                and data.radicand is None
-                and branch.polynomial == branch.variable
-                else polynomial(branch, factorization=True, **options)
-            )
-            if data.radicand is not None:
-                html += quotient_checks(a, branch)
+        if len(a.branches) > 1:
+            html += image
+        html += branch_steps(a, image if len(a.branches) == 1 else "")
     if data.radicand is not None:
         from .exam_trigonometric_proof import families
 
         html += (
             "<p>Оставим только серии, удовлетворяющие исходной области определения:</p>"
+            if a.series
+            else "<p>Все формальные корни исключены исходной областью определения; корней нет.</p>"
         )
         html += "".join(line(f + r",\quad k\in\mathbb Z") for f in families(a))
     return "<p>Применим формулы приведения и преобразуем исходное уравнение:</p>", html
+
+
+def branch_steps(a, image=""):
+    from ..word_problems.common import UnsupportedCondition
+    from .exam_trigonometric_proof import candidate_lines, polynomial
+
+    data = a.power_equality
+    if image and any(b.angle_shift for b in a.branches):
+        raise UnsupportedCondition(
+            "the intermediate inverse-phase figure stage needs review"
+        )
+    html = ""
+    for branch in a.branches:
+        options = {
+            "allow_inverse": a.allow_inverse,
+            "angle": "x" if a.scale == 1 else sp.latex(a.scale) + "x",
+            "root_scale": a.scale,
+        }
+        html += (
+            candidate_lines(branch, **options)
+            if a.poles
+            and data.radicand is None
+            and branch.polynomial == branch.variable
+            else polynomial(
+                branch,
+                factorization=True,
+                image_after_reduction=image if len(a.branches) == 1 else "",
+                **options,
+            )
+        )
+        if data.radicand is not None:
+            html += quotient_checks(a, branch)
+    return html
 
 
 def reduced_exponent(a):
@@ -126,6 +154,8 @@ def quotient_domain(a):
     from .exam_trigonometric_radical_product_proof import affine_ratio
 
     data = a.power_equality
+    if data.root_offset:
+        return offset_domain(a)
     html = line(a.original)
     html += "<p>Корень в знаменателе должен существовать и быть ненулевым. Запишем исходные ограничения до преобразования степеней:</p>"
     for pole in a.poles:
@@ -155,6 +185,42 @@ def quotient_domain(a):
     return html
 
 
+def offset_domain(a):
+    from .exam_trigonometric_proof import formula
+
+    data = a.power_equality
+    root = r"\sqrt{" + data.radicand_text + "}"
+    denominator = (
+        root + ("+" if data.root_offset > 0 else "") + sp.latex(data.root_offset)
+    )
+    html = line(a.original)
+    html += "<p>Запишем область определения: подкоренное выражение неотрицательно, а весь знаменатель ненулевой:</p>"
+    html += line(data.radicand_text + r"\ge0") + line(denominator + r"\ne0")
+    html += "<p>Сдвинутый корень не требует строгой положительности подкоренного выражения: при нулевом корне весь знаменатель равен ненулевому постоянному слагаемому. Остальные исходные ограничения также сохраняются.</p>"
+    if data.root_offset < 0:
+        html += "<p>Чтобы исключить нулевой знаменатель, учтём равносильность при неотрицательном подкоренном выражении:</p>"
+        html += line(
+            root
+            + "="
+            + sp.latex(-data.root_offset)
+            + r"\quad\Longleftrightarrow\quad "
+            + data.radicand_text
+            + "="
+            + sp.latex(data.root_offset**2)
+        )
+    else:
+        html += line(denominator + r"\ge " + sp.latex(data.root_offset) + ">0")
+    for pole in a.poles:
+        html += line(formula(pole) + r"\ne0")
+    if sp.fraction(data.radicand)[1].free_symbols:
+        html += "<p>При ненулевом исходном знаменателе умножим неравенство на его положительный квадрат:</p>"
+        html += line(formula(a.domain) + r"\ge0")
+    if data.cleared_power != 1:
+        html += "<p>На исходной области определения числитель равен нулю. Умножим его на положительный множитель; множество нулей не изменится:</p>"
+        html += line(formula(data.cleared_power) + ">0")
+    return html
+
+
 def quotient_checks(a, branch):
     from ..word_problems.common import UnsupportedCondition
     from .exam_scalar import compare
@@ -172,12 +238,14 @@ def quotient_checks(a, branch):
                 html += line(r"\text{исходный знаменатель}=0")
             else:
                 radicand = sp.simplify(a.power_equality.radicand.subs(substitutions))
-                if compare(radicand, sp.S.Zero) > 0:
+                if compare(radicand, sp.S.Zero) >= (1 if a.strict_domain else 0):
                     raise UnsupportedCondition(
                         "a rejected power root must violate its original domain"
                     )
                 html += line(
-                    r"\text{подкоренное выражение}=" + sp.latex(radicand) + r"\le0"
+                    r"\text{подкоренное выражение}="
+                    + sp.latex(radicand)
+                    + (r"\le0" if a.strict_domain else "<0")
                 )
             html += "<p>Дробь не определена; эту серию исключаем.</p>"
     return html
