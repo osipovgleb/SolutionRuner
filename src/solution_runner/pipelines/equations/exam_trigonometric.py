@@ -362,6 +362,10 @@ def analyze_method(
     compiled, domain = exam_trigonometric_equation.compile_parent(
         formula, preferred, preferred_scale, translation, parent_html
     )
+    if compiled.power_equality is not None:
+        from .exam_trigonometric_power_style import figure_stage
+
+        position = figure_stage(parent_html)
     from .exam_trigonometric_factors import method_branches
 
     compiled, reduced, branches, preferred = method_branches(
@@ -433,13 +437,13 @@ def analyze_method(
 def build_context_repair_plan(
     context, *, parent_solution_html="", generated_solution_assets=()
 ):
-    from .exam_input import read_parts, repair
+    from .exam_input import repair
     from .exam_trigonometric_circle import image, read
     from .exam_trigonometric_proof import render
     from .expression_repair import with_condition_repair
     from .verified_expression_repair import repair_verified_condition
 
-    context, condition_change = repair_verified_condition(context, validate=read_parts)
+    context, condition_change = repair_verified_condition(context, validate=read)
     parts, formula, interval, bounds = read(context)
     a = analyze(formula, interval, bounds, parent_solution_html)
     if a.image_position == "none" and context["normalized_content"].get("assets"):

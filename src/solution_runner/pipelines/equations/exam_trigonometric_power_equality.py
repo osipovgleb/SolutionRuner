@@ -22,6 +22,7 @@ class PowerEquality:
     right_primes: tuple
     base: sp.Expr
     exponent: sp.Expr
+    equal_powers: tuple | None = None
 
 
 def reviewed(formula):
@@ -115,7 +116,30 @@ def common_exponent(left, right):
     return base, exponent
 
 
-def compile_equality(formula, parent_html):
+def scaled_exponent(exponent, preferred, scale):
+    if scale == 1:
+        return exponent
+    from .exam_trigonometric_radical_equation import same
+
+    if scale != 2 or preferred not in (S, C):
+        raise UnsupportedCondition(
+            "only the parent's reviewed double-angle power method is supported"
+        )
+    identity = 2 * S * C if preferred == S else C * C - S * S
+    reduced = sp.expand(sp.rem(exponent, S * S + C * C - 1, S))
+    coefficient = (
+        reduced.coeff(S * C) / 2 if preferred == S else reduced.coeff(C, 2) / 2
+    )
+    reduced_identity = 2 * S * C if preferred == S else 2 * C * C - 1
+    constant = sp.expand(reduced - coefficient * reduced_identity).subs({S: 0, C: 0})
+    if coefficient == 0 or not same(exponent, coefficient * identity + constant):
+        raise UnsupportedCondition(
+            "the complete exponent must be affine in the original double angle"
+        )
+    return coefficient * preferred + constant
+
+
+def compile_equality(formula, parent_html, *, preferred=None, scale=sp.S.One):
     review_parent(parent_html)
     text = clean(formula).removesuffix(".")
     if text.count("=") != 1:
@@ -134,11 +158,20 @@ def compile_equality(formula, parent_html):
     for pole in poles:
         prime_logs(pole)
     base, exponent = common_exponent(left, right)
+    from .exam_trigonometric_power_style import equal_base, equal_sides, scaled_angle
+
+    preferred, scale = scaled_angle(parent_html) or (preferred, scale)
     data = PowerEquality(
         *values,
         tuple(sorted(left.items())),
         tuple(sorted(right.items())),
         base,
         exponent,
+        equal_sides(left, right, base, equal_base(parent_html)),
     )
-    return Equation(exponent, identities, sp.S.One, power_equality=data)
+    return Equation(
+        scaled_exponent(exponent, preferred, scale),
+        identities,
+        scale,
+        power_equality=data,
+    )

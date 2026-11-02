@@ -182,7 +182,9 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
     from .exam_trigonometric_cosine_equality import reviewed as cosine_equality
     from .exam_trigonometric_positive_factors import reviewed as positive_factors
 
-    compiled = compile_constrained(formula, parent_html, translation)
+    compiled = compile_constrained(
+        formula, parent_html, translation, preferred=preferred, scale=preferred_scale
+    )
     if compiled is not None:
         domain = compiled.domain
     elif cosine_equality(parent_html):
@@ -247,7 +249,9 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
     return compiled, domain
 
 
-def compile_constrained(formula, parent_html, translation):
+def compile_constrained(
+    formula, parent_html, translation, *, preferred=None, scale=sp.S.One
+):
     from .exam_trigonometric_bounded_log import reviewed as bounded_log
     from .exam_trigonometric_exponential_absolute import (
         reviewed as exponential_absolute,
@@ -320,7 +324,9 @@ def compile_constrained(formula, parent_html, translation):
 
         if translation:
             raise UnsupportedCondition("positive powers require their original angle")
-        compiled = compile_equality(formula, parent_html)
+        compiled = compile_equality(
+            formula, parent_html, preferred=preferred, scale=scale
+        )
     elif strict_quotient(formula, parent_html):
         from .exam_trigonometric_strict_quotient import compile_quotient
 

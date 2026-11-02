@@ -10,6 +10,7 @@ from ..probability.common import UnsupportedCondition
 
 
 def clean(text):
+    text = text.replace("\u2060", " ")
     if len(text) > 3000 or re.search(r"\d\s+\d", text):
         raise UnsupportedCondition("oversized or ambiguously spaced power expression")
     return "".join(

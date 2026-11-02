@@ -255,6 +255,11 @@ def selection_style(soup, text, images):
         or (len(images) == 1 and "среди представленных корней отберём" in text)
         or (len(images) == 1 and "изображается жирной дугой" in text)
         or (len(images) == 1 and "удовлетворяют числа" in text)
+        or (
+            len(images) == 1
+            and "условию" in text
+            and "удовлетворяют только числа" in text
+        )
         or (len(images) == 1 and "принадлежат корни" in text and "см." in text)
         or (len(images) == 1 and "отрезку" in text and "принадлежат корни" in text)
         or (len(images) == 1 and "получим точку" in text)

@@ -233,6 +233,8 @@ def method_branches(
         poles=compiled.poles,
     )
     compiled, branches = retain_order(compiled, reduced, branches, parent_html, domain)
+    if compiled.power_equality is not None:
+        branches = tuple(sorted(branches, key=lambda b: b.polynomial != b.variable))
     if domain is not None:
         branches = restrict(branches, domain, compiled.strict_domain)
     if any(b.angle_shift for b in branches):
