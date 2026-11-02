@@ -4,6 +4,12 @@ from solution_runner.pipelines.core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "word-alloy-labor-optimization",
+        "solution_runner.pipelines.word_problems.alloy_optimization:build_context_repair_plan",
+        asset_selector="solution_runner.pipelines.word_problems.alloy_optimization:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "word-arithmetic-progression",
         "solution_runner.pipelines.word_problems.arithmetic_progression:build_context_repair_plan",
         requires_parent_condition_asset=False,

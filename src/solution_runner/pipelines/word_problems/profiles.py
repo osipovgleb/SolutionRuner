@@ -6,6 +6,21 @@ from .profile_families import PROFILE_FAMILIES
 
 PROFILES = (
     _profile(
+        "513289",
+        "95490951-a73a-4892-8fc9-2d90704ae145",
+        8,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="17",
+        theme_title="Задания для подготовки",
+        theme_order_index=0,
+        snapshot_theme_id="62c9e3b4-ff60-4be4-8d83-c465f5412293",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="word-alloy-labor-optimization",
+        rewrite_existing_solution=True,
+    ),
+    _profile(
         "77331",
         "f23ffe4f-acd2-4f14-966e-fbb336468960",
         4,

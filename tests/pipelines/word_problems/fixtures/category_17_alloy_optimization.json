@@ -1,0 +1,634 @@
+{
+  "binding": {
+    "category": {
+      "uuid": "7c0adfb2-67b5-4f4d-b823-e0ff9c2d3a81",
+      "name": "Категория 17. Задачи на оптимальный выбор"
+    },
+    "theme": {
+      "uuid": "62c9e3b4-ff60-4be4-8d83-c465f5412293",
+      "name": "Тема Задания для подготовки"
+    },
+    "group": {
+      "uuid": "95490951-a73a-4892-8fc9-2d90704ae145",
+      "name": "Группа 513289"
+    }
+  },
+  "group_size": 3,
+  "group_tasks": [
+    {
+      "uuid": "9fcb19a9-ab62-4bea-9584-894be6ac64ca",
+      "name": "Задача 513289"
+    },
+    {
+      "uuid": "ef1d82c6-2d67-41de-9f09-4a6ed9510909",
+      "name": "Задача 513293"
+    },
+    {
+      "uuid": "0e25e73a-87e3-4700-bb8b-8f5b55ec6c8d",
+      "name": "Задача 521567"
+    }
+  ],
+  "cases": [
+    {
+      "group": "513289",
+      "task": "513289",
+      "context": {
+        "problem_id": "9fcb19a9-ab62-4bea-9584-894be6ac64ca",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 10,
+          "items": [
+            {
+              "at": "2026-10-01T19:39:25.937445+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e7d12b7b-6935-4703-be95-8a189ffb8472",
+                "html": "<img alt=\"\" data-asset-id=\"e7d12b7b-6935-4703-be95-8a189ffb8472\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e7d12b7b-6935-4703-be95-8a189ffb8472\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e7d12b7b-6935-4703-be95-8a189ffb8472",
+                "position": 7,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В двух об­ла­стях есть по 20 ра­бо­чих, каж­дый из ко­то­рых готов тру­дить­ся по 10 часов в сутки на до­бы­че алю­ми­ния или ни­ке­ля. В пер­вой об­ла­сти один ра­бо­чий за час до­бы­ва­ет 0,2 кг алю­ми­ния или 0,2 кг ни­ке­ля. Во вто­рой об­ла­сти для до­бы­чи <nobr><i>х</i> кг</nobr> алю­ми­ния в день тре­бу­ет­ся <span data-inline-latex=\"x^{2}\"></span>  че­ло­ве­ко-часов труда, а для до­бы­чи <nobr><i>y</i> кг</nobr> ни­ке­ля в день тре­бу­ет­ся <span data-inline-latex=\"y^{2}\"></span>  че­ло­ве­ко-⁠часов труда.</p><p>Обе об­ла­сти по­став­ля­ют до­бы­тый ме­талл на завод, где для нужд про­мыш­лен­но­сти про­из­во­дит­ся сплав алю­ми­ния и ни­ке­ля, в ко­то­ром на 1 кг алю­ми­ния при­хо­дит­ся 1 кг ни­ке­ля. При этом об­ла­сти до­го­ва­ри­ва­ют­ся между собой вести до­бы­чу ме­тал­лов так, чтобы завод мог про­из­ве­сти наи­боль­шее ко­ли­че­ство спла­ва. Сколь­ко ки­ло­грам­мов спла­ва при таких усло­ви­ях еже­днев­но смо­жет про­из­ве­сти завод?</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В каж­дой об­ла­сти в сутки может быть за­тра­че­но 200 че­ло­ве­ко-⁠часов труда. При этом в пер­вой об­ла­сти будет до­бы­то 0,2 · 200  =  40 кг ме­тал­лов. Пусть в ней будет до­бы­то <nobr><i>y</i> кг</nobr> алю­ми­ния, тогда ни­ке­ля будет до­бы­то (40 − <i>y</i>) кг. Пусть во вто­рой об­ла­сти будет до­бы­то <nobr><i>x</i> кг</nobr> алю­ми­ния, тогда ни­ке­ля будет до­бы­то <nobr> <span data-inline-latex=\"\\sqrt{200-x^{2}}\"></span>  кг.</nobr></p><p>Для про­из­вод­ства спла­ва за­во­ду не­об­хо­ди­мо по­лу­чить рав­ное ко­ли­че­ство алю­ми­ния и ни­ке­ля, по­это­му долж­но вы­пол­нять­ся ра­вен­ство </p><center><p><span data-inline-latex=\"x+y=\\sqrt{200-x^{2}}+40-y.(\\cdot)\"></span> </p></center><p>При этом масса спла­ва будет равна сумме масс всех ме­тал­лов:</p><center><p><span data-inline-latex=\"m(x)=x+\\sqrt{200-x^{2}}+40\"></span>.</p></center><p>Найдём наи­боль­шее зна­че­ние функ­ции <span data-inline-latex=\"m(x)\"></span> , где <span data-inline-latex=\"0\\le x\\le 10\\sqrt{2}\"></span> . Для этого най­дем про­из­вод­ную функ­ции:</p><center><p><span data-inline-latex=\"m'(x)=1+\\frac{-2x}{2\\sqrt{200-x^{2}}}=\\frac{\\sqrt{200-x^{2}}-x}{\\sqrt{200-x^{2}}}\"></span> . </p></center><p>Най­дем нули про­из­вод­ной:</p><center><p><span data-inline-latex=\"m'(x)=0\\iff \\sqrt{200-x^{2}}-x=0\\iff x=10\"></span>.</p></center><p>Ука­жем знаки про­из­вод­ной и по­ве­де­ние функ­ции на ри­сун­ке:</p><center><p><img alt=\"\" data-asset-id=\"e7d12b7b-6935-4703-be95-8a189ffb8472\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p></center><p>Наи­боль­шее зна­че­ние функ­ции до­сти­га­ет­ся в точке мак­си­му­ма при <span data-inline-latex=\"x=10\"></span>. Из ра­вен­ства (*) для <span data-inline-latex=\"x=10\"></span> на­хо­дим <span data-inline-latex=\"y=20\"></span>. Таким об­ра­зом, наи­боль­шее зна­че­ние функ­ции <i>m</i>(<i>x</i>) равно </p><center><p><span data-inline-latex=\"m(10)=10+\\sqrt{200-10^{2}}+40=60\"></span>. </p></center><p>Таким об­ра­зом, завод смо­жет про­из­во­дить 60 кг спла­ва еже­днев­но.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T16:21:14.320087+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e7d12b7b-6935-4703-be95-8a189ffb8472",
+              "kind": "ordinary_image",
+              "asset_id": "e7d12b7b-6935-4703-be95-8a189ffb8472",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В двух об­ла­стях есть по 20 ра­бо­чих, каж­дый из ко­то­рых готов тру­дить­ся по 10 часов в сутки на до­бы­че алю­ми­ния или ни­ке­ля. В пер­вой об­ла­сти один ра­бо­чий за час до­бы­ва­ет 0,2 кг алю­ми­ния или 0,2 кг ни­ке­ля. Во вто­рой об­ла­сти для до­бы­чи <nobr><i>х</i> кг</nobr> алю­ми­ния в день тре­бу­ет­ся <span data-inline-latex=\"x^{2}\"></span>  че­ло­ве­ко-часов труда, а для до­бы­чи <nobr><i>y</i> кг</nobr> ни­ке­ля в день тре­бу­ет­ся <span data-inline-latex=\"y^{2}\"></span>  че­ло­ве­ко-⁠часов труда.</p><p>Обе об­ла­сти по­став­ля­ют до­бы­тый ме­талл на завод, где для нужд про­мыш­лен­но­сти про­из­во­дит­ся сплав алю­ми­ния и ни­ке­ля, в ко­то­ром на 1 кг алю­ми­ния при­хо­дит­ся 1 кг ни­ке­ля. При этом об­ла­сти до­го­ва­ри­ва­ют­ся между собой вести до­бы­чу ме­тал­лов так, чтобы завод мог про­из­ве­сти наи­боль­шее ко­ли­че­ство спла­ва. Сколь­ко ки­ло­грам­мов спла­ва при таких усло­ви­ях еже­днев­но смо­жет про­из­ве­сти завод?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>60.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Верно по­стро­е­на ма­те­ма­ти­че­ская мо­дель</td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В каж­дой об­ла­сти в сутки может быть за­тра­че­но 200 че­ло­ве­ко-⁠часов труда. При этом в пер­вой об­ла­сти будет до­бы­то 0,2 · 200  =  40 кг ме­тал­лов. Пусть в ней будет до­бы­то <nobr><i>y</i> кг</nobr> алю­ми­ния, тогда ни­ке­ля будет до­бы­то (40 − <i>y</i>) кг. Пусть во вто­рой об­ла­сти будет до­бы­то <nobr><i>x</i> кг</nobr> алю­ми­ния, тогда ни­ке­ля будет до­бы­то <nobr> <span data-inline-latex=\"\\sqrt{200-x^{2}}\"></span>  кг.</nobr></p><p>Для про­из­вод­ства спла­ва за­во­ду не­об­хо­ди­мо по­лу­чить рав­ное ко­ли­че­ство алю­ми­ния и ни­ке­ля, по­это­му долж­но вы­пол­нять­ся ра­вен­ство </p><center><p><span data-inline-latex=\"x+y=\\sqrt{200-x^{2}}+40-y.(\\cdot)\"></span> </p></center><p>При этом масса спла­ва будет равна сумме масс всех ме­тал­лов:</p><center><p><span data-inline-latex=\"m(x)=x+\\sqrt{200-x^{2}}+40\"></span>.</p></center><p>Найдём наи­боль­шее зна­че­ние функ­ции <span data-inline-latex=\"m(x)\"></span> , где <span data-inline-latex=\"0\\le x\\le 10\\sqrt{2}\"></span> . Для этого най­дем про­из­вод­ную функ­ции:</p><center><p><span data-inline-latex=\"m'(x)=1+\\frac{-2x}{2\\sqrt{200-x^{2}}}=\\frac{\\sqrt{200-x^{2}}-x}{\\sqrt{200-x^{2}}}\"></span> . </p></center><p>Най­дем нули про­из­вод­ной:</p><center><p><span data-inline-latex=\"m'(x)=0\\iff \\sqrt{200-x^{2}}-x=0\\iff x=10\"></span>.</p></center><p>Ука­жем знаки про­из­вод­ной и по­ве­де­ние функ­ции на ри­сун­ке:</p><center><p><img alt=\"\" data-asset-id=\"e7d12b7b-6935-4703-be95-8a189ffb8472\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e7d12b7b-6935-4703-be95-8a189ffb8472\"/></p></center><p>Наи­боль­шее зна­че­ние функ­ции до­сти­га­ет­ся в точке мак­си­му­ма при <span data-inline-latex=\"x=10\"></span>. Из ра­вен­ства (*) для <span data-inline-latex=\"x=10\"></span> на­хо­дим <span data-inline-latex=\"y=20\"></span>. Таким об­ра­зом, наи­боль­шее зна­че­ние функ­ции <i>m</i>(<i>x</i>) равно </p><center><p><span data-inline-latex=\"m(10)=10+\\sqrt{200-10^{2}}+40=60\"></span>. </p></center><p>Таким об­ра­зом, завод смо­жет про­из­во­дить 60 кг спла­ва еже­днев­но.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "513289",
+      "task": "513293",
+      "context": {
+        "problem_id": "ef1d82c6-2d67-41de-9f09-4a6ed9510909",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 10,
+          "items": [
+            {
+              "at": "2026-10-01T19:39:25.954630+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/60cb8a3c-1aac-4f83-ac9e-b466fb190d90",
+                "html": "<img alt=\"\" data-asset-id=\"60cb8a3c-1aac-4f83-ac9e-b466fb190d90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/60cb8a3c-1aac-4f83-ac9e-b466fb190d90\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "60cb8a3c-1aac-4f83-ac9e-b466fb190d90",
+                "position": 7,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В двух об­ла­стях есть по 160 ра­бо­чих, каж­дый из ко­то­рых готов тру­дить­ся по 5 часов в сутки на до­бы­че алю­ми­ния или ни­ке­ля. В пер­вой об­ла­сти один ра­бо­чий за час до­бы­ва­ет 0,1 кг алю­ми­ния или 0,1 кг ни­ке­ля. Во вто­рой об­ла­сти для до­бы­чи <i>х</i> кг алю­ми­ния в день тре­бу­ет­ся <span data-inline-latex=\"x^{2}\"></span>  че­ло­ве­ко-часов труда, а для до­бы­чи <i>у</i> кг ни­ке­ля в день тре­бу­ет­ся <span data-inline-latex=\"y^{2}\"></span>  че­ло­ве­ко-часов труда.</p><p>Обе об­ла­сти по­став­ля­ют до­бы­тый ме­талл на завод, где для нужд про­мыш­лен­но­сти про­из­во­дит­ся сплав алю­ми­ния и ни­ке­ля, в ко­то­ром на 1 кг алю­ми­ния при­хо­дит­ся 1 кг ни­ке­ля. При этом об­ла­сти до­го­ва­ри­ва­ют­ся между собой вести до­бы­чу ме­тал­лов так, чтобы завод мог про­из­ве­сти наи­боль­шее ко­ли­че­ство спла­ва. Сколь­ко ки­ло­грам­мов спла­ва при таких усло­ви­ях еже­днев­но смо­жет про­из­ве­сти завод?</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В каж­дой об­ла­сти в сутки может быть за­тра­че­но 800 че­ло­ве­ко-часов труда. </p><p>При этом в пер­вой об­ла­сти будет до­бы­то 0,1 · 800  =  80 кг ме­тал­лов. При до­бы­че <i>y</i> кг алю­ми­ния, ни­ке­ля будет до­бы­то (80 − <i>y</i>) кг.</p><p>Во вто­рой об­ла­сти  при до­бы­че <i>x</i> кг алю­ми­ния, ни­ке­ля будет до­бы­то  <span data-inline-latex=\"\\sqrt{800-x^{2}}\"></span>  кг.</p><p>Для про­из­вод­ства спла­ва за­во­ду не­об­хо­ди­мо по­лу­чить рав­ное ко­ли­че­ство алю­ми­ния и ни­ке­ля, по­это­му долж­но вы­пол­нять­ся ра­вен­ство </p><center><p><span data-inline-latex=\"x+y=\\sqrt{800-x^{2}}+80-y.(\\cdot)\"></span> </p></center><p>При этом масса спла­ва будет равна сумме масс всех ме­тал­лов:</p><center><p><span data-inline-latex=\"m(x)=x+\\sqrt{800-x^{2}}+80\"></span>.</p></center><p>Найдём наи­боль­шее зна­че­ние функ­ции <span data-inline-latex=\"m(x)\"></span> , где <span data-inline-latex=\"0\\le x\\le 20\\sqrt{2}\"></span> . Для этого ис­сле­ду­ем функ­цию с по­мо­щью  про­из­вод­ной.</p><center><p><span data-inline-latex=\"m'(x)=1+\\frac{-2x}{2\\sqrt{800-x^{2}}}=\\frac{\\sqrt{800-x^{2}}-x}{\\sqrt{800-x^{2}}}\"></span> . </p></center><p>При­рав­ня­ем про­из­вод­ную к нулю и найдём кри­ти­че­ские точки:</p><center><p><span data-inline-latex=\"m'(x)=0\\iff \\sqrt{800-x^{2}}-x=0\\iff x=20\"></span></p><p><img alt=\"\" data-asset-id=\"60cb8a3c-1aac-4f83-ac9e-b466fb190d90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p></center><p>За­ме­тим, что при <span data-inline-latex=\"x=20\"></span> ра­вен­ство  <span data-inline-latex=\"(\\cdot)\"></span>  вы­пол­ня­ет­ся, если <span data-inline-latex=\"y=40\"></span>.</p><p>Таким об­ра­зом, наи­боль­шее зна­че­ние функ­ции <i>m(x)</i> равно <span data-inline-latex=\"m(20)=20+\\sqrt{800-20^{2}}+80=120\"></span>. Зна­чит, завод смо­жет про­из­во­дить 120 кг спла­ва еже­днев­но.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T16:21:15.439564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/60cb8a3c-1aac-4f83-ac9e-b466fb190d90",
+              "kind": "ordinary_image",
+              "asset_id": "60cb8a3c-1aac-4f83-ac9e-b466fb190d90",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В двух об­ла­стях есть по 160 ра­бо­чих, каж­дый из ко­то­рых готов тру­дить­ся по 5 часов в сутки на до­бы­че алю­ми­ния или ни­ке­ля. В пер­вой об­ла­сти один ра­бо­чий за час до­бы­ва­ет 0,1 кг алю­ми­ния или 0,1 кг ни­ке­ля. Во вто­рой об­ла­сти для до­бы­чи <i>х</i> кг алю­ми­ния в день тре­бу­ет­ся <span data-inline-latex=\"x^{2}\"></span>  че­ло­ве­ко-часов труда, а для до­бы­чи <i>у</i> кг ни­ке­ля в день тре­бу­ет­ся <span data-inline-latex=\"y^{2}\"></span>  че­ло­ве­ко-часов труда.</p><p>Обе об­ла­сти по­став­ля­ют до­бы­тый ме­талл на завод, где для нужд про­мыш­лен­но­сти про­из­во­дит­ся сплав алю­ми­ния и ни­ке­ля, в ко­то­ром на 1 кг алю­ми­ния при­хо­дит­ся 1 кг ни­ке­ля. При этом об­ла­сти до­го­ва­ри­ва­ют­ся между собой вести до­бы­чу ме­тал­лов так, чтобы завод мог про­из­ве­сти наи­боль­шее ко­ли­че­ство спла­ва. Сколь­ко ки­ло­грам­мов спла­ва при таких усло­ви­ях еже­днев­но смо­жет про­из­ве­сти завод?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>120 кг.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Верно по­стро­е­на ма­те­ма­ти­че­ская мо­дель</td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В каж­дой об­ла­сти в сутки может быть за­тра­че­но 800 че­ло­ве­ко-часов труда. </p><p>При этом в пер­вой об­ла­сти будет до­бы­то 0,1 · 800  =  80 кг ме­тал­лов. При до­бы­че <i>y</i> кг алю­ми­ния, ни­ке­ля будет до­бы­то (80 − <i>y</i>) кг.</p><p>Во вто­рой об­ла­сти  при до­бы­че <i>x</i> кг алю­ми­ния, ни­ке­ля будет до­бы­то  <span data-inline-latex=\"\\sqrt{800-x^{2}}\"></span>  кг.</p><p>Для про­из­вод­ства спла­ва за­во­ду не­об­хо­ди­мо по­лу­чить рав­ное ко­ли­че­ство алю­ми­ния и ни­ке­ля, по­это­му долж­но вы­пол­нять­ся ра­вен­ство </p><center><p><span data-inline-latex=\"x+y=\\sqrt{800-x^{2}}+80-y.(\\cdot)\"></span> </p></center><p>При этом масса спла­ва будет равна сумме масс всех ме­тал­лов:</p><center><p><span data-inline-latex=\"m(x)=x+\\sqrt{800-x^{2}}+80\"></span>.</p></center><p>Найдём наи­боль­шее зна­че­ние функ­ции <span data-inline-latex=\"m(x)\"></span> , где <span data-inline-latex=\"0\\le x\\le 20\\sqrt{2}\"></span> . Для этого ис­сле­ду­ем функ­цию с по­мо­щью  про­из­вод­ной.</p><center><p><span data-inline-latex=\"m'(x)=1+\\frac{-2x}{2\\sqrt{800-x^{2}}}=\\frac{\\sqrt{800-x^{2}}-x}{\\sqrt{800-x^{2}}}\"></span> . </p></center><p>При­рав­ня­ем про­из­вод­ную к нулю и найдём кри­ти­че­ские точки:</p><center><p><span data-inline-latex=\"m'(x)=0\\iff \\sqrt{800-x^{2}}-x=0\\iff x=20\"></span></p><p><img alt=\"\" data-asset-id=\"60cb8a3c-1aac-4f83-ac9e-b466fb190d90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/60cb8a3c-1aac-4f83-ac9e-b466fb190d90\"/></p></center><p>За­ме­тим, что при <span data-inline-latex=\"x=20\"></span> ра­вен­ство  <span data-inline-latex=\"(\\cdot)\"></span>  вы­пол­ня­ет­ся, если <span data-inline-latex=\"y=40\"></span>.</p><p>Таким об­ра­зом, наи­боль­шее зна­че­ние функ­ции <i>m(x)</i> равно <span data-inline-latex=\"m(20)=20+\\sqrt{800-20^{2}}+80=120\"></span>. Зна­чит, завод смо­жет про­из­во­дить 120 кг спла­ва еже­днев­но.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "513289",
+      "task": "521567",
+      "context": {
+        "problem_id": "0e25e73a-87e3-4700-bb8b-8f5b55ec6c8d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T23:50:37.400933+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пер­вой об­ла­сти цена до­бы­чи обоих ме­тал­лов оди­на­ко­ва. Во вто­рой об­ла­сти можно до­быть не более  <span data-inline-latex=\"\\sqrt{200}\"></span>  лю­бо­го ме­тал­ла, по­сколь­ку <span data-inline-latex=\"200\\cdot 0{,}2=40\\gt 2\\sqrt{200}\"></span> , нужно про­сто до­быть как можно боль­ше ме­тал­лов во вто­рой об­ла­сти, а воз­мож­ный дис­ба­ланс в них ис­пра­вить за счет пер­вой об­ла­сти. По­сколь­ку <span data-inline-latex=\"200\\ge x^{2}+y^{2}\\ge \\frac{(x+y)^{2}}{2}\"></span> ,  по­лу­ча­ем что <span data-inline-latex=\"x+y\\le 20\"></span>, при­чем это зна­че­ние до­сти­га­ет­ся при <span data-inline-latex=\"x=y=10\"></span>. Итак, во вто­рой об­ла­сти до­бу­дут по 10 кг каж­до­го ме­тал­ла, в пер­вой по 20 кг и в итоге вы­пла­вят <span data-inline-latex=\"60\"></span> кг спла­ва.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-01T23:50:37.400933+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T23:50:37.400933+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T23:50:37.400933+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T23:50:37.400933+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T23:50:37.400933+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-01T23:50:37.400933+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В двух об­ла­стях есть по 20 ра­бо­чих, каж­дый из ко­то­рых готов тру­дить­ся по 10 часов в сутки на до­бы­че алю­ми­ния или ни­ке­ля. В пер­вой об­ла­сти один ра­бо­чий за час до­бы­ва­ет 0,2 кг алю­ми­ния или 0,2 кг ни­ке­ля. Во вто­рой об­ла­сти для до­бы­чи <i>x</i> кг алю­ми­ния в день тре­бу­ет­ся <i>x</i><sup>2</sup> че­ло­ве­ко‐часов труда, а для до­бы­чи y кг ни­ке­ля в день тре­бу­ет­ся <i>y</i><sup>2</sup> че­ло­ве­ко‐часов труда. Обе об­ла­сти по­став­ля­ют до­бы­тый ме­талл на завод, где для нужд про­мыш­лен­но­сти про­из­во­дит­ся сплав алю­ми­ния и ни­ке­ля, в ко­то­ром на 1 кг алю­ми­ния при­хо­дит­ся 1 кг ни­ке­ля. При этом об­ла­сти до­го­ва­ри­ва­ют­ся между собой вести до­бы­чу ме­тал­лов так, чтобы завод мог про­из­ве­сти наи­боль­шее ко­ли­че­ство спла­ва. Сколь­ко ки­ло­грам­мов спла­ва при таких усло­ви­ях еже­днев­но смо­жет про­из­ве­сти завод?</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>60.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=19958124\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин: Тренировочный вариант № 221</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­чен пра­виль­ный ответ.</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td>По­лу­че­но вер­ное вы­ра­же­ние для суммы пла­те­жа, но до­пу­ще­на вы­чис­ли­тель­ная ошиб­ка, при­вед­шая к не­вер­но­му от­ве­ту.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td> По­лу­че­но вы­ра­же­ние для еже­год­ной вы­пла­ты, но урав­не­ние не со­став­ле­но ИЛИ вер­ный ответ най­ден под­бо­ром.</td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td> Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В пер­вой об­ла­сти цена до­бы­чи обоих ме­тал­лов оди­на­ко­ва. Во вто­рой об­ла­сти можно до­быть не более  <span data-inline-latex=\"\\sqrt{200}\"></span>  лю­бо­го ме­тал­ла, по­сколь­ку <span data-inline-latex=\"200\\cdot 0{,}2=40\\gt 2\\sqrt{200}\"></span> , нужно про­сто до­быть как можно боль­ше ме­тал­лов во вто­рой об­ла­сти, а воз­мож­ный дис­ба­ланс в них ис­пра­вить за счет пер­вой об­ла­сти. По­сколь­ку <span data-inline-latex=\"200\\ge x^{2}+y^{2}\\ge \\frac{(x+y)^{2}}{2}\"></span> ,  по­лу­ча­ем что <span data-inline-latex=\"x+y\\le 20\"></span>, при­чем это зна­че­ние до­сти­га­ет­ся при <span data-inline-latex=\"x=y=10\"></span>. Итак, во вто­рой об­ла­сти до­бу­дут по 10 кг каж­до­го ме­тал­ла, в пер­вой по 20 кг и в итоге вы­пла­вят <span data-inline-latex=\"60\"></span> кг спла­ва.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
