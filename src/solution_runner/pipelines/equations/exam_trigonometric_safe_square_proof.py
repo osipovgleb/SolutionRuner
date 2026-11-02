@@ -59,7 +59,12 @@ def checked_values(a, q):
     substitutions = {S: sp.sin(q * sp.pi), C: sp.cos(q * sp.pi)}
     data = a.radical_equation
     radicand = sp.simplify(data.radicand.subs(substitutions))
-    right = sp.simplify((data.right / data.multiplier).subs(substitutions))
+    right_domain = (
+        data.right_radicand
+        if data.right_radicand is not None
+        else data.right / data.multiplier
+    )
+    right = sp.simplify(right_domain.subs(substitutions))
     poles = tuple(sp.simplify(p.subs(substitutions)) for p in a.poles)
     accepted = (
         all(v != 0 for v in poles)
@@ -84,13 +89,20 @@ def rejection(a, q, radicand, right, poles):
     if invalid:
         return line(r"\text{аргумент логарифма}=" + sp.latex(invalid[0]) + r"\le0")
     if compare(right, sp.S.Zero) < 0:
-        return line(r"\text{правая часть}=" + sp.latex(right) + "<0")
+        label = (
+            "подкоренное выражение справа"
+            if a.radical_equation.right_radicand is not None
+            else "правая часть"
+        )
+        return line(r"\text{" + label + "}=" + sp.latex(right) + "<0")
     return line(r"\text{подкоренное выражение}=" + sp.latex(radicand) + "<0")
 
 
 def candidates(a, branch):
     html = ""
     values = sorted(branch.candidates, key=lambda v: (v != 0, abs(v) != 1))
+    if a.radical_equation.right_radicand is not None:
+        values = sorted(values, key=lambda v: bool(-1 <= v <= 1))
     if a.sine_inverse:
         values = sorted(values, key=cmp_to_key(compare))
     for value in values:
@@ -121,10 +133,17 @@ def candidates(a, branch):
             text = series_lines(((q, sp.Integer(2)),), sine_inverse=a.sine_inverse)[
                 0
             ].replace("k", name)
+            label = (
+                "подкоренное выражение справа"
+                if a.radical_equation.right_radicand is not None
+                else "правая часть"
+            )
             text += (
                 r"\quad\Rightarrow\quad\text{подкоренное выражение}="
                 + sp.latex(rad)
-                + r",\quad\text{правая часть}="
+                + r",\quad\text{"
+                + label
+                + "}="
                 + sp.latex(right)
             )
             if poles:
@@ -146,6 +165,8 @@ def candidates(a, branch):
 
 
 def proof(a):
+    if a.radical_equation.right_radicand is not None:
+        return pair_proof(a)
     if a.radical_equation.auxiliary_branch is not None:
         return double_proof(a)
     data = a.radical_equation
@@ -191,6 +212,15 @@ def proof(a):
         html += (
             "<p>Произведение равно нулю, когда хотя бы один множитель равен нулю:</p>"
         )
+    html += branch_steps(a)
+    return (
+        "<p>Преобразуем уравнение, сохраняя знак корня и исходную область определения:</p>",
+        html,
+    )
+
+
+def branch_steps(a):
+    html = ""
     for branch in a.branches:
         if branch.original is not None and branch.variable in (T, U):
             from .exam_trigonometric_ratios import linear_proof
@@ -206,10 +236,19 @@ def proof(a):
     names = a.family_parameters or ("k",) * len(families(a))
     for text, name in zip(families(a), names):
         html += line(text + r",\quad " + name + r"\in\mathbb Z")
-    return (
-        "<p>Преобразуем уравнение, сохраняя знак корня и исходную область определения:</p>",
-        html,
-    )
+    return html
+
+
+def pair_proof(a):
+    data = a.radical_equation
+    html = line(a.original)
+    html += "<p>Квадратные корни равны тогда и только тогда, когда их подкоренные выражения совпадают и неотрицательны:</p>"
+    html += line(formula(data.right_radicand) + r"\ge0")
+    html += line(formula(data.radicand) + "=" + formula(data.right_radicand))
+    html += "<p>При равенстве выражений это ограничение обеспечивает существование обоих корней. Перенесём слагаемые в одну часть:</p>"
+    html += line(formula(a.raw) + "=0")
+    html += branch_steps(a)
+    return "<p>Последовательно преобразуем равенство двух квадратных корней:</p>", html
 
 
 def double_candidates(a, branch):

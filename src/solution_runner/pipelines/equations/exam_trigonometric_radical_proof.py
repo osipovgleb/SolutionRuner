@@ -120,6 +120,7 @@ def proof(a):
 
     return {
         "safe_square": safe_square,
+        "equal_roots": safe_square,
         "half_tangent": half_primary,
         "amgm": amgm_primary,
         "extremal": extremal_primary,

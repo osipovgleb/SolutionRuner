@@ -1,4 +1,4 @@
-"""Certify one radical equation before squaring, retaining every original pole."""
+"""Certify equivalent radical equations, retaining every original domain and pole."""
 
 from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING
@@ -34,6 +34,7 @@ class RadicalEquation:
     inverse_identity: tuple | None = None
     mixed_factors: bool = False
     auxiliary_branch: "Branch | None" = None
+    right_radicand: sp.Expr | None = None
 
 
 def trig_polynomial(function, coefficient, shift=sp.S.Zero):
@@ -122,6 +123,10 @@ def variable_radicals(text):
 def compile_radical(formula, kind, *, parent_html=""):
     from .exam_trigonometric_methods import Equation
 
+    if kind == "equal_roots":
+        from .exam_trigonometric_equal_radicals import compile_equality
+
+        return compile_equality(formula)
     text = clean(formula).removesuffix(".")
     if text.count("=") != 1:
         raise UnsupportedCondition("one radical equality is required")
@@ -319,10 +324,10 @@ def safe_square(data, poles):
         not right.is_polynomial(S, C)
         or sp.Poly(right, S, C).total_degree() > 1
         or not data.radicand.is_polynomial(S, C)
-        or sp.Poly(data.radicand, S, C).total_degree() > 2
+        or sp.Poly(data.radicand, S, C).total_degree() > 3
     ):
         raise UnsupportedCondition(
-            "an affine right side and quadratic unit-circle radicand are required"
+            "an affine right side and bounded cubic unit-circle radicand are required"
         )
     for pole in poles:
         _, factors = sp.factor_list(pole, S, C)
@@ -334,7 +339,7 @@ def safe_square(data, poles):
         return data.squared, 0
     for variable, other in ((S, C), (C, S)):
         reduced = sp.expand(sp.rem(data.squared, CIRCLE, other))
-        if not reduced.has(other) and sp.degree(reduced, variable) in (1, 2):
+        if not reduced.has(other) and sp.degree(reduced, variable) in (1, 2, 3):
             return reduced, 0
     lifted = sp.expand(data.squared + data.squared.subs({S: 0, C: 0}) * CIRCLE)
     factors = sp.factor_list(lifted, S, C, extension=True)[1]

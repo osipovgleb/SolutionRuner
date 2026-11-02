@@ -48,12 +48,16 @@ def variable_roots(formulas):
 
 
 def kind(html):
+    from .exam_trigonometric_equal_radicals import reviewed_parent
+
     soup = BeautifulSoup(html, "html.parser")
     text = normalized(soup)
     formulas = " ".join(
         "".join(n["data-inline-latex"].split())
         for n in soup.select("[data-inline-latex]")
     )
+    if reviewed_parent(html):
+        return "equal_roots"
     if "косинуса тройного угла" in text and "косинуса половинного угла" in text:
         return "half_tangent"
     if (

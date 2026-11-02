@@ -274,7 +274,7 @@ def test_crossed_marker_must_fail_an_actual_original_restriction():
     [
         r"\sqrt{1-\sin\frac{x}{2}}=\cos x",
         r"\sqrt{1+\sin\frac{x}{2}\cos\frac{3x}{2}}=\cos x",
-        r"\sqrt{1+\sin^3x}=\cos x",
+        r"\sqrt{1+\sin^4x}=\cos x",
         r"\sqrt{1+\sin x}=\cos^2x",
         r"\frac{\sqrt{\cos^2x-\cos x}}{\sin x+1}=1",
         r"\sqrt{1+\sin 13x}=\cos x",
