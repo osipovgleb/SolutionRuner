@@ -102,6 +102,10 @@ def original_value(task, x):
         "507909": lambda: 2 * cos(pi / 2 + x) - sqrt(3) * mp.tan(x),
         "500346": lambda: 4 * s**3 - 3 * cos(x - pi / 2),
         "522122": lambda: 1 - 4 * cos(x - 5 * pi / 12) ** 2 - sqrt(3) * cos(2 * x),
+        "522094": lambda: (
+            sqrt(2) * sin(2 * x) + 4 * cos(3 * pi / 8 + x) ** 2 - 2 - sqrt(2)
+        ),
+        "652135": lambda: 4 * sin(x + 7 * pi / 8) ** 2 + sqrt(2) * sin(2 * x) - 1,
         "522148": lambda: 4 * sin(x + 7 * pi / 8) ** 2 + sqrt(2) * sin(2 * x) - 1,
         "527386": lambda: sin(pi - x) - cos(pi / 2 + x) + 1,
         "529730": lambda: (
