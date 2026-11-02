@@ -207,6 +207,7 @@ def candidate_lines(
     angle="x",
     root_scale=sp.S.One,
     sine_inverse=False,
+    series_transform=None,
 ):
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable
@@ -240,6 +241,8 @@ def candidate_lines(
                     series = periodic(
                         set(allowed_residues) & set(table(variable, value))
                     )
+            if series_transform is not None:
+                series = series_transform(series)
             for text in series_lines(
                 tuple((q / root_scale, p / root_scale) for q, p in series),
                 sine_inverse=sine_inverse,
@@ -343,7 +346,12 @@ def render(a, image):
     selection_image = image
     if a.log_product is not None and isinstance(image, tuple):
         image, selection_image = image
-    intro, steps = first(a)
+    if a.power_polynomial is not None:
+        from .exam_trigonometric_power_polynomial_proof import proof
+
+        intro, steps = proof(a, image if a.image_position == "after-polynomial" else "")
+    else:
+        intro, steps = first(a)
     if a.single_part:
         from .exam_trigonometric_single import render as render_single
 

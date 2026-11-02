@@ -31,9 +31,9 @@ def repair_verified_condition(context, *, validate=read_math_markup):
     row = _TRANSCRIPTIONS.get(digest)
     if row is None or html != row["before_html"]:
         return context, None
-    validate(context)
     copied = deepcopy(context)
     fixed = _section(copied["normalized_content"], "condition")
     fixed["html"] = row["after_html"]
+    validate(copied)
     change = _section_transformation(condition, "condition", "Условие", fixed["html"])
     return copied, change

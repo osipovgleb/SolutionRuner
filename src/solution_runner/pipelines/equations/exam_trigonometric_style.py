@@ -321,7 +321,7 @@ def selection_style(soup, text, images):
         or "разность между соседними корнями" in text
         or "расстояние между соседними членами" in text
         or (
-            "длина" in text
+            "длин" in text
             and ("серии" in text or "корней данного уравнения" in text)
             and any(s in text for s in ("не более", "не больше"))
         )

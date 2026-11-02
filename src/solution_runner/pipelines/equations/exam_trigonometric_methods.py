@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_log_product import LogProduct
     from .exam_trigonometric_original_quotients import OriginalQuotient
     from .exam_trigonometric_power_equality import PowerEquality
+    from .exam_trigonometric_power_polynomial import PowerPolynomial
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_radical_product import RadicalProduct
     from .exam_trigonometric_ratio_product import RatioProduct
@@ -142,6 +143,7 @@ class Equation:
     square_radicals: "SquareRadicals | None" = None
     exponential_absolute: "ExponentialAbsolute | None" = None
     power_equality: "PowerEquality | None" = None
+    power_polynomial: "PowerPolynomial | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
     extremum: tuple | None = None

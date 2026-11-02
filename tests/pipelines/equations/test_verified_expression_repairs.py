@@ -67,7 +67,7 @@ def test_altered_or_augmented_conditions_have_no_transcription(entry):
 
 def test_transcription_records_change_only_the_reviewed_formula_and_are_packaged():
     hashes = {e["condition_sha256"] for e in ALL_ENTRIES}
-    assert len(hashes) == len(ALL_ENTRIES) == 18 and len(ENTRIES) == 16
+    assert len(hashes) == len(ALL_ENTRIES) == 24 and len(ENTRIES) == 16
     for e in ALL_ENTRIES:
         assert (
             hashlib.sha256(e["before_html"].encode()).hexdigest()
@@ -75,7 +75,10 @@ def test_transcription_records_change_only_the_reviewed_formula_and_are_packaged
         )
         assert hashlib.sha256(e["after_html"].encode()).hexdigest() not in hashes
         soup = BeautifulSoup(e["before_html"], "html.parser")
-        soup.select_one("[data-inline-latex]")["data-inline-latex"] = e["transcription"]
+        for index, value in e.get(
+            "formula_transcriptions", {"0": e["transcription"]}
+        ).items():
+            soup.select("[data-inline-latex]")[int(index)]["data-inline-latex"] = value
         assert str(soup) == e["after_html"]
         assert e["source_url"].startswith("https://math-ege.sdamgia.ru/problem?id=")
         assert all(

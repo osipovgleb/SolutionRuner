@@ -138,6 +138,15 @@ def method_branches(
     from .exam_trigonometric_factor_style import retain_order
     from .exam_trigonometric_square_factor import prepare as square_product
 
+    if compiled.power_polynomial is not None:
+        from .exam_trigonometric_power_polynomial_roots import branches
+
+        return (
+            compiled,
+            compiled.raw,
+            branches(compiled, allow_inverse),
+            compiled.power_polynomial.shape.variable,
+        )
     if compiled.original_quotient is not None:
         from .exam_trigonometric_original_quotients import branches as original_branches
 

@@ -132,6 +132,7 @@ def analysis_fields(equation):
         "square_radicals": equation.square_radicals,
         "exponential_absolute": equation.exponential_absolute,
         "power_equality": equation.power_equality,
+        "power_polynomial": equation.power_polynomial,
         "sum_squares": equation.sum_squares,
         "argument_pair": equation.argument_pair,
         "extremum": equation.extremum,
@@ -259,11 +260,21 @@ def compile_constrained(
     from .exam_trigonometric_global_radical import reviewed as global_radical
     from .exam_trigonometric_original_quotients import reviewed as original_quotient
     from .exam_trigonometric_power_equality import reviewed as positive_powers
+    from .exam_trigonometric_power_polynomial import (
+        compile_polynomial as power_polynomial,
+    )
     from .exam_trigonometric_radical_equation import variable_radicals
     from .exam_trigonometric_radical_style import kind as radical_kind
     from .exam_trigonometric_strict_quotient import reviewed as strict_quotient
     from .exam_trigonometric_sum_squares import reviewed as sum_squares
 
+    compiled = power_polynomial(formula, parent_html)
+    if compiled is not None:
+        if translation:
+            raise UnsupportedCondition(
+                "exponential quadratics require their original angle"
+            )
+        return compiled
     if exponential_absolute(formula):
         from .exam_trigonometric_exponential_absolute import compile_absolute
 

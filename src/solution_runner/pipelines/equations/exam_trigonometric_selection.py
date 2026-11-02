@@ -268,6 +268,10 @@ def method_series(
 ):
     from .exam_trigonometric_factor_style import merges_series
 
+    if compiled.power_polynomial is not None:
+        from .exam_trigonometric_power_polynomial_roots import series
+
+        return series(compiled, branches, residues), False, False
     if compiled.original_quotient is not None:
         from .exam_trigonometric_original_quotients import series
 

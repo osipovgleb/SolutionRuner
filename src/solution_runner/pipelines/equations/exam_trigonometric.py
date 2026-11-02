@@ -56,6 +56,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_log_product import LogProduct
     from .exam_trigonometric_original_quotients import OriginalQuotient
     from .exam_trigonometric_power_equality import PowerEquality
+    from .exam_trigonometric_power_polynomial import PowerPolynomial
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_radical_product import RadicalProduct
     from .exam_trigonometric_ratio_product import RatioProduct
@@ -134,6 +135,7 @@ class Analysis:
     square_radicals: "SquareRadicals | None" = None
     exponential_absolute: "ExponentialAbsolute | None" = None
     power_equality: "PowerEquality | None" = None
+    power_polynomial: "PowerPolynomial | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
     extremum: tuple | None = None
@@ -362,10 +364,15 @@ def analyze_method(
     compiled, domain = exam_trigonometric_equation.compile_parent(
         formula, preferred, preferred_scale, translation, parent_html
     )
-    if compiled.power_equality is not None:
+    if compiled.power_equality is not None or compiled.power_polynomial is not None:
         from .exam_trigonometric_power_style import figure_stage
 
-        position = figure_stage(parent_html)
+        position = (
+            "after-polynomial"
+            if compiled.power_polynomial is not None
+            and compiled.power_polynomial.style.figure_after_polynomial
+            else figure_stage(parent_html)
+        )
     from .exam_trigonometric_factors import method_branches
 
     compiled, reduced, branches, preferred = method_branches(
