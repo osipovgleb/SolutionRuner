@@ -55,6 +55,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_log_polynomial import LogPolynomial
     from .exam_trigonometric_log_product import LogProduct
     from .exam_trigonometric_original_quotients import OriginalQuotient
+    from .exam_trigonometric_power_equality import PowerEquality
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_radical_product import RadicalProduct
     from .exam_trigonometric_ratio_product import RatioProduct
@@ -132,6 +133,7 @@ class Analysis:
     global_radical: "GlobalRadical | None" = None
     square_radicals: "SquareRadicals | None" = None
     exponential_absolute: "ExponentialAbsolute | None" = None
+    power_equality: "PowerEquality | None" = None
     sum_squares: tuple | None = None
     argument_pair: tuple | None = None
     extremum: tuple | None = None
@@ -431,10 +433,13 @@ def analyze_method(
 def build_context_repair_plan(
     context, *, parent_solution_html="", generated_solution_assets=()
 ):
-    from .exam_input import repair
+    from .exam_input import read_parts, repair
     from .exam_trigonometric_circle import image, read
     from .exam_trigonometric_proof import render
+    from .expression_repair import with_condition_repair
+    from .verified_expression_repair import repair_verified_condition
 
+    context, condition_change = repair_verified_condition(context, validate=read_parts)
     parts, formula, interval, bounds = read(context)
     a = analyze(formula, interval, bounds, parent_solution_html)
     if a.image_position == "none" and context["normalized_content"].get("assets"):
@@ -456,4 +461,7 @@ def build_context_repair_plan(
     for t in changes:
         if t["transformation_target_id"].startswith("section:solution"):
             t["value"]["asset_keys"] = keys
-    return replace(plan, transformations=tuple(asset_changes) + tuple(changes))
+    return with_condition_repair(
+        replace(plan, transformations=tuple(asset_changes) + tuple(changes)),
+        condition_change,
+    )

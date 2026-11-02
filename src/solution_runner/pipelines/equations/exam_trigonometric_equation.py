@@ -131,6 +131,7 @@ def analysis_fields(equation):
         "global_radical": equation.global_radical,
         "square_radicals": equation.square_radicals,
         "exponential_absolute": equation.exponential_absolute,
+        "power_equality": equation.power_equality,
         "sum_squares": equation.sum_squares,
         "argument_pair": equation.argument_pair,
         "extremum": equation.extremum,
@@ -253,6 +254,7 @@ def compile_constrained(formula, parent_html, translation):
     )
     from .exam_trigonometric_global_radical import reviewed as global_radical
     from .exam_trigonometric_original_quotients import reviewed as original_quotient
+    from .exam_trigonometric_power_equality import reviewed as positive_powers
     from .exam_trigonometric_radical_equation import variable_radicals
     from .exam_trigonometric_radical_style import kind as radical_kind
     from .exam_trigonometric_strict_quotient import reviewed as strict_quotient
@@ -313,6 +315,12 @@ def compile_constrained(formula, parent_html, translation):
             )
         if compiled is None:
             compiled = prepare(compile_product(formula), parent_html)
+    elif positive_powers(formula):
+        from .exam_trigonometric_power_equality import compile_equality
+
+        if translation:
+            raise UnsupportedCondition("positive powers require their original angle")
+        compiled = compile_equality(formula, parent_html)
     elif strict_quotient(formula, parent_html):
         from .exam_trigonometric_strict_quotient import compile_quotient
 

@@ -9,8 +9,7 @@ from bs4 import BeautifulSoup
 from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_log_equality import original_text
 from .exam_trigonometric_log_parser import Parser
-from .logarithm_arithmetic import power
-from .logarithm_parser import Node
+from .exam_trigonometric_power_parser import PowerFactors
 from .power_arithmetic import clean
 
 
@@ -23,7 +22,7 @@ class LogPowers:
     image_after_log: bool = False
 
 
-class PowerParser(Parser):
+class PowerParser(PowerFactors, Parser):
     def __init__(self, text, atoms, denominators, logs, bases, depth=0):
         super().__init__(text, atoms, denominators, logs, depth)
         self.bases = bases
@@ -33,37 +32,19 @@ class PowerParser(Parser):
             text, self.atoms, self.denominators, self.logs, self.bases, self.depth + 1
         ).parse()
 
-    def _factor(self):
-        token = self.text[self.index : self.index + 1]
-        if token in ("+", "-"):
-            self.index += 1
-            node = self._factor()
-            return node if token == "+" else Node(-node.value, "", "negative", (node,))
-        node = self._primary()
-        if self.text[self.index : self.index + 1] != "^":
-            return node
-        exponent = self._exponent()
-        if not exponent.value.free_symbols:
-            return Node(
-                power(node.value, exponent.value), "", "power", (node, exponent)
-            )
+    def variable_power(self, base, exponent):
         if (
-            node.value.is_Rational is not True
-            or not sp.Rational(1, 1000) <= node.value <= 1000
-            or node.value == 1
-            or exponent.value.free_symbols - {e[0] for e in self.logs}
+            base.is_Rational is not True
+            or not sp.Rational(1, 1000) <= base <= 1000
+            or base == 1
+            or exponent.free_symbols - {e[0] for e in self.logs}
             or len(self.bases) >= 4
         ):
             raise UnsupportedCondition(
                 "one bounded positive exponential base and log-only exponents are required"
             )
-        self.bases.append(node.value)
-        return Node(
-            sp.Pow(node.value, exponent.value, evaluate=False),
-            "",
-            "power",
-            (node, exponent),
-        )
+        self.bases.append(base)
+        return sp.Pow(base, exponent, evaluate=False)
 
 
 def reviewed(formula):

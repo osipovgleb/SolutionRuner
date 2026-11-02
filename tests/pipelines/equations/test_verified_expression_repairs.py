@@ -20,7 +20,10 @@ DATA_PATH = (
     Path(__file__).parents[3]
     / "src/solution_runner/pipelines/equations/verified_expression_transcriptions.json"
 )
-ENTRIES = json.loads(DATA_PATH.read_text())["entries"]
+ALL_ENTRIES = json.loads(DATA_PATH.read_text())["entries"]
+ENTRIES = [
+    e for e in ALL_ENTRIES if e.get("condition_kind", "expression") == "expression"
+]
 
 
 def condition(context):
@@ -63,9 +66,9 @@ def test_altered_or_augmented_conditions_have_no_transcription(entry):
 
 
 def test_transcription_records_change_only_the_reviewed_formula_and_are_packaged():
-    hashes = {e["condition_sha256"] for e in ENTRIES}
-    assert len(hashes) == len(ENTRIES) == 16
-    for e in ENTRIES:
+    hashes = {e["condition_sha256"] for e in ALL_ENTRIES}
+    assert len(hashes) == len(ALL_ENTRIES) == 17 and len(ENTRIES) == 16
+    for e in ALL_ENTRIES:
         assert (
             hashlib.sha256(e["before_html"].encode()).hexdigest()
             == e["condition_sha256"]

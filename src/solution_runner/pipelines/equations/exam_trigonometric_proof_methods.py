@@ -81,6 +81,11 @@ def method_proof(a):
 
 
 def school_proof(a):
+    if a.power_equality is not None:
+        from .exam_trigonometric_power_equality_proof import proof
+
+        return proof(a)
+
     if a.exponential_absolute is not None:
         from .exam_trigonometric_exponential_absolute_proof import proof
 

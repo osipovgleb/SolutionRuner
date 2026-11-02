@@ -19,7 +19,7 @@ _DATA = json.loads(
 _TRANSCRIPTIONS = {row["condition_sha256"]: row for row in _DATA["entries"]}
 
 
-def repair_verified_condition(context):
+def repair_verified_condition(context, *, validate=read_math_markup):
     content = _normalized_content(context)
     condition = _section(content, "condition")
     if condition is None:
@@ -31,7 +31,7 @@ def repair_verified_condition(context):
     row = _TRANSCRIPTIONS.get(digest)
     if row is None or html != row["before_html"]:
         return context, None
-    read_math_markup(context)
+    validate(context)
     copied = deepcopy(context)
     fixed = _section(copied["normalized_content"], "condition")
     fixed["html"] = row["after_html"]

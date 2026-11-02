@@ -296,8 +296,7 @@ def selection_style(soup, text, images):
         )
         or (
             not images
-            and "найдем корни этого уравнения" in text.replace("ё", "е")
-            and "имеем" in text
+            and "найдем корни" in text.replace("ё", "е")
             and any(
                 n.get("data-inline-latex", "").count(r"\le") >= 2
                 for n in soup.select("[data-inline-latex]")

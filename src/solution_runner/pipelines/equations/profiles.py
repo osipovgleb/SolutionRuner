@@ -4751,11 +4751,11 @@ PROFILES += tuple(
 )
 
 
-PROFILES += (
+PROFILES += tuple(
     _profile(
-        "646757",
-        "4d4bdbd0-1682-4d0c-8a16-0c30af215ccb",
-        33,
+        key,
+        group_id,
+        index,
         catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
         category_key="14",
         theme_title="Тригонометрия и показательные выражения",
@@ -4766,7 +4766,12 @@ PROFILES += (
         workflow_kind="content_rule",
         content_rule_key="exam-trigonometric-polynomial-circle",
         rewrite_existing_solution=True,
-    ),
+    )
+    for key, group_id, index in (
+        ("505565", "059d44d0-4e44-430e-a660-0dcc48c30b99", 2),
+        ("646481", "5f89004b-6377-4edf-beb0-5e239ea72cc5", 32),
+        ("646757", "4d4bdbd0-1682-4d0c-8a16-0c30af215ccb", 33),
+    )
 )
 
 
