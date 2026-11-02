@@ -12,6 +12,31 @@ def normalized(node):
     )
 
 
+def paired_product(soup, formula):
+    from .exam_trigonometric_radical_product import shifted_operands
+
+    parts = shifted_operands(formula, allow_vanishing=True)
+    if parts is None or parts[2].is_negative is not True:
+        return False
+    images = soup.find_all("img")
+    if len(images) != 2:
+        return False
+    for image, markers in zip(images, (("a)", "а)"), ("б)",)), strict=True):
+        paragraph = image.parent
+        following = paragraph.find_next_sibling() if paragraph else None
+        if (
+            paragraph is None
+            or paragraph.name != "p"
+            or paragraph.parent is not soup
+            or len(paragraph.contents) != 1
+            or following is None
+            or following.name != "p"
+            or not normalized(following).startswith(markers)
+        ):
+            return False
+    return images[0].parent is soup.find(True)
+
+
 def variable_roots(formulas):
     result = []
     start = 0

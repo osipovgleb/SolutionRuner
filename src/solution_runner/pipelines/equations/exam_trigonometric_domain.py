@@ -267,6 +267,20 @@ def validate_circle_domain(entry, a):
     from .exam_trigonometric_compile import C, S
     from .exam_trigonometric_inverse import decode
 
+    if "radical_product_domain" in entry:
+        expected = (
+            {
+                "radicand": str(a.radical_product.radicand),
+                "root_offset": str(a.radical_product.root_offset),
+                "poles": list(map(str, a.poles)),
+            }
+            if a.radical_product is not None
+            else None
+        )
+        if entry["radical_product_domain"] != expected:
+            raise UnsupportedCondition(
+                "the product figures must retain the original radical domain"
+            )
     multiplier = sp.Rational(entry.get("circle_scale", "1"))
     if multiplier <= 0:
         raise UnsupportedCondition(

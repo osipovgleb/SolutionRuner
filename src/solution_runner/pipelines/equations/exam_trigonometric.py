@@ -464,7 +464,9 @@ def build_context_repair_plan(
     a = analyze(formula, interval, bounds, parent_solution_html)
     if a.image_position == "none" and context["normalized_content"].get("assets"):
         a = replace(a, image_position="after-steps")
-    markup, key, asset_changes = image(context, a, generated_solution_assets)
+    markup, key, asset_changes = image(
+        context, a, generated_solution_assets, parent_html=parent_solution_html
+    )
     keys = list(key) if isinstance(key, tuple) else [key] if key else []
     plan = repair(parts, *render(a, markup))
     changes = list(plan.transformations)

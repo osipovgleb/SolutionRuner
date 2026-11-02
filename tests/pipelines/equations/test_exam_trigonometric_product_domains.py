@@ -35,6 +35,9 @@ from solution_runner.pipelines.equations.exam_trigonometric_radical_product impo
 from solution_runner.pipelines.equations.exam_trigonometric_radical_product_proof import (
     homogeneous_domain,
 )
+from solution_runner.pipelines.equations.verified_expression_repair import (
+    repair_verified_condition,
+)
 from solution_runner.pipelines.word_problems.common import UnsupportedCondition
 
 DATA = json.loads(
@@ -351,7 +354,7 @@ def test_unreviewed_halfplane_phase_fails_closed_before_rendering():
         homogeneous_domain(S - 2 * C)
 
 
-def test_conflicting_parent_scope_is_recorded_and_never_registered_from_its_answer():
+def test_conflicting_parent_scope_requires_verified_transcription_before_planning():
     (g,) = DATA["rejected_sources"]
     assert g["group"]["key"] == "507428"
     ctx = g["tasks"][0]["context"]
@@ -367,10 +370,21 @@ def test_conflicting_parent_scope_is_recorded_and_never_registered_from_its_answ
     )
     assert r"\sqrt{-\sin x-1}" in formulas(condition)[0]
     assert any(r"\sqrt{-\sin x}-1" in f for f in formulas(solution))
-    assert "507428" not in all_group_profiles()
     assert -sp.sin(4 * sp.pi / 3) - 1 < 0
     with pytest.raises(UnsupportedCondition):
         compile_product(r"2\cos x+1", r"-\sin x-1")
+    original = deepcopy(ctx)
+    fixed, change = repair_verified_condition(ctx, validate=read)
+    assert ctx == original and change is not None
+    assert change["value"]["html"] == condition.replace(
+        r"\sqrt{-\sin x-1}", r"\sqrt{-\sin x}-1"
+    )
+    profile = all_group_profiles()["507428"]
+    actual = get_handler(profile.content_rule_key).plan(
+        PlanInput(ctx, parent_solution_html=solution)
+    )
+    assert actual.condition_html == change["value"]["html"]
+    assert analyze(*read(fixed)[1:], solution).selected == (R(4, 3), R(3, 2))
 
 
 @pytest.mark.parametrize("e", CASES, ids=lambda c: c["task"])

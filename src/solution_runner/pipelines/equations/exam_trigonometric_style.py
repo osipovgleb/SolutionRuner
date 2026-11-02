@@ -30,7 +30,7 @@ def parent_style(parent_html, *, formula=""):
         "".join(n["data-inline-latex"].split())
         for n in soup.select("[data-inline-latex]")
     ]
-    position, substitution = presentation(soup, selection_method, formulas)
+    position, substitution = presentation(soup, selection_method, formulas, formula)
     return (
         {"sin": S, "cos": C, "tg": T, "ctg": U}[function],
         ("полный квадрат" in text),
@@ -41,7 +41,9 @@ def parent_style(parent_html, *, formula=""):
     )
 
 
-def presentation(soup, selection_method, formulas):
+def presentation(soup, selection_method, formulas, formula=""):
+    from .exam_trigonometric_radical_style import paired_product
+
     images = soup.find_all("img")
     paired = (
         selection_method == "circle"
@@ -57,7 +59,11 @@ def presentation(soup, selection_method, formulas):
         if selection_method in ("circle", "number_line")
         else (0,)
     )
-    if len(images) not in allowed_images and not paired:
+    if (
+        len(images) not in allowed_images
+        and not paired
+        and not (selection_method == "circle" and paired_product(soup, formula))
+    ):
         raise UnsupportedCondition(
             "the parent must identify its trigonometric function and one circle"
         )

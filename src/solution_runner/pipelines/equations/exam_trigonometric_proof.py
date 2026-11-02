@@ -344,7 +344,9 @@ def render(a, image):
     ):
         image, system_image = image
     selection_image = image
-    if a.log_product is not None and isinstance(image, tuple):
+    if (a.log_product is not None or a.radical_product is not None) and isinstance(
+        image, tuple
+    ):
         image, selection_image = image
     if a.power_polynomial is not None:
         from .exam_trigonometric_power_polynomial_proof import proof

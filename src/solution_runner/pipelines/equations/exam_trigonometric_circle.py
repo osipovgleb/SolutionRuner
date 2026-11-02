@@ -112,21 +112,31 @@ def validate(entry, a):
         return
     if entry.get("selection_kind") == "all_roots":
         if (
-            a.strict_quotient is not None
-            and entry.get("figure_role") == "derivation"
-            and a.selection_method == "progressions"
-            and a.image_position != "selection"
-        ) or (
-            a.log_product is not None
-            and (
-                entry.get("figure_role") == "derivation"
-                or (
-                    entry.get("figure_role") == "alternative"
-                    and a.log_product.radical is not None
-                    and a.log_product.radical.alternative
-                )
+            (
+                a.strict_quotient is not None
+                and entry.get("figure_role") == "derivation"
+                and a.selection_method == "progressions"
+                and a.image_position != "selection"
             )
-            and a.image_position != "selection"
+            or (
+                a.radical_product is not None
+                and a.radical_product.root_offset.is_negative
+                and entry.get("radical_product_domain")
+                and entry.get("figure_role") == "derivation"
+                and a.image_position != "selection"
+            )
+            or (
+                a.log_product is not None
+                and (
+                    entry.get("figure_role") == "derivation"
+                    or (
+                        entry.get("figure_role") == "alternative"
+                        and a.log_product.radical is not None
+                        and a.log_product.radical.alternative
+                    )
+                )
+                and a.image_position != "selection"
+            )
         ):
             from .exam_trigonometric_single import validate_circle
 
@@ -218,7 +228,7 @@ def diagram_specs(context):
     )
 
 
-def image(context, a, generated):
+def image(context, a, generated, *, parent_html=""):
     from .exam_trigonometric_log_selection import image as dual_image
     from .exam_trigonometric_log_selection import source as dual_source
 
@@ -229,7 +239,7 @@ def image(context, a, generated):
 
     log_figures = log_sources(context)
     if log_figures is not None:
-        return log_image(context, a, generated, log_figures)
+        return log_image(context, a, generated, log_figures, parent_html=parent_html)
     from .exam_trigonometric_auxiliary_figures import image as auxiliary_image
     from .exam_trigonometric_auxiliary_figures import sources
 
@@ -426,6 +436,8 @@ def selection_proof(a, image, *, paired=False):
         + inline(a.interval)
         + ". Границы дуги учитываем в соответствии с квадратными и круглыми скобками:</p>"
     )
+    if paired and a.radical_product is not None:
+        second = image + second
     roots = a.selected
     if quadratic:
         from .exam_trigonometric import select

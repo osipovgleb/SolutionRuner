@@ -14,25 +14,29 @@ def proof(a, html, zero, first):
     factor, divisor = admissible_factor(a)
     root = root_function(data)
     normalized = sp.cancel(root / data.root_offset**2)
-    html += "<p>Разложим первый множитель и вынесем ненулевую постоянную из скобки с корнем:</p>"
-    html += line(
-        r"\left("
-        + formula(sp.factor(data.factor))
-        + r"\right)\left(1-\sqrt{"
-        + formula(normalized)
-        + r"}\right)=0"
-    )
+    if data.root_offset != -1:
+        html += "<p>Разложим первый множитель и вынесем ненулевую постоянную из скобки с корнем:</p>"
+        html += line(
+            r"\left("
+            + formula(sp.factor(data.factor))
+            + r"\right)\left(1-\sqrt{"
+            + formula(normalized)
+            + r"}\right)=0"
+        )
     if divisor != 1:
         html += "<p>Выделенный множитель ненулевой по исходной области определения. Поэтому на него можно разделить, не теряя допустимых корней:</p>"
         html += line(formula(divisor) + r"\ne0")
-    html += "<p>На исходной области определения получаем равносильное произведение:</p>"
-    html += line(
-        r"\left("
-        + formula(factor)
-        + r"\right)\left(1-\sqrt{"
-        + formula(normalized)
-        + r"}\right)=0"
-    )
+    if data.root_offset != -1 or divisor != 1 or factor != data.factor:
+        html += (
+            "<p>На исходной области определения получаем равносильное произведение:</p>"
+        )
+        html += line(
+            r"\left("
+            + formula(factor)
+            + r"\right)\left(1-\sqrt{"
+            + formula(normalized)
+            + r"}\right)=0"
+        )
     html += "<p>Рассмотрим оба случая. Первый множитель равен нулю при сохранении нестрогого условия на подкоренное выражение:</p>"
     html += line(formula(factor) + "=0")
     html += line(formula(root) + r"\ge0")
@@ -40,7 +44,11 @@ def proof(a, html, zero, first):
         html += "<p>Первый множитель — ненулевая постоянная, поэтому этот случай корней не даёт.</p>"
     html += positive_case(a, first, None)
     html += "<p>Во втором случае равна нулю вся скобка с корнем. Корень равен положительному числу 1, поэтому возведение в квадрат равносильно:</p>"
-    html += line(r"1-\sqrt{" + formula(normalized) + r"}=0")
+    html += line(
+        (r"\sqrt{" + formula(normalized) + r"}-1=0")
+        if data.root_offset == -1
+        else (r"1-\sqrt{" + formula(normalized) + r"}=0")
+    )
     html += line(r"\sqrt{" + formula(normalized) + r"}=1")
     html += line(formula(normalized) + "=1")
     for branch in zero:

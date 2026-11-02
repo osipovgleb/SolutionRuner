@@ -49,6 +49,7 @@ def operands(formula):
 
 def shifted_operands(formula, *, allow_vanishing=False):
     from .exam_trigonometric_absolute import R, RootPlaceholderParser
+    from .exam_trigonometric_radical_equation import variable_radicals
 
     text = clean(formula).removesuffix(".")
     if not text.endswith("=0") or not text.startswith("("):
@@ -60,7 +61,7 @@ def shifted_operands(formula, *, allow_vanishing=False):
     second, end = balanced(rest, 0, "(", ")")
     if end != len(rest):
         return None
-    candidates = [v for v in (first, second) if r"\sqrt{" in v and "x" in v]
+    candidates = [v for v in (first, second) if variable_radicals(v)]
     if len(candidates) != 1:
         return None
     root_factor = candidates[0]

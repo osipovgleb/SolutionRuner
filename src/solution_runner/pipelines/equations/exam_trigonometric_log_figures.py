@@ -1,4 +1,4 @@
-"""Keep a log-product domain circle separate from its interval-selection circle."""
+"""Keep reviewed product-domain and interval-selection figures separate."""
 
 from dataclasses import replace
 
@@ -32,9 +32,7 @@ def sources(context):
             or asset.get("kind") != "ordinary_image"
             or entry.get("corrected_file")
         ):
-            raise UnsupportedCondition(
-                "the log-product source figure identities changed"
-            )
+            raise UnsupportedCondition("the product source figure identities changed")
         result.append((asset, entry))
     first, second = result
     alternative = first[1].get("alternative_companion")
@@ -60,25 +58,36 @@ def sources(context):
     return tuple(result)
 
 
-def image(context, a, generated, figures):
+def image(context, a, generated, figures, *, parent_html=""):
     from .exam_trigonometric_circle import validate
 
     if (
         generated
-        or a.log_product is None
+        or not (
+            a.log_product is not None
+            or (
+                a.radical_product is not None
+                and a.radical_product.root_offset.is_negative
+                and figures[0][1].get("radical_product_domain")
+            )
+        )
         or a.selection_method != "circle"
         or a.image_position == "selection"
     ):
         raise UnsupportedCondition(
-            "the reviewed log-product figures need separate original roles"
+            "the reviewed product figures need separate original roles"
         )
     alternative = figures[0][1].get("alternative_companion") is not None
     if alternative and (
-        a.log_product.radical is None or not a.log_product.radical.alternative
+        a.log_product is None
+        or a.log_product.radical is None
+        or not a.log_product.radical.alternative
     ):
         raise UnsupportedCondition(
             "the full-root companion requires both reviewed radical-log methods"
         )
+    if a.radical_product is not None:
+        validate_product_parent(parent_html, a.original, figures)
     markup, keys, changes = [], [], []
     for index, (asset, entry) in enumerate(figures):
         validate(
@@ -109,3 +118,23 @@ def image(context, a, generated, figures):
         keys.append(key)
         changes.extend(edits)
     return tuple(markup), tuple(keys), changes
+
+
+def validate_product_parent(parent_html, formula, figures):
+    from bs4 import BeautifulSoup
+
+    from .exam_trigonometric_radical_style import paired_product
+
+    soup = BeautifulSoup(parent_html, "html.parser")
+    identities = [
+        (i.get("data-asset-id"), i.get("data-asset-key"), i.get("src"))
+        for i in soup.find_all("img")
+    ]
+    expected = [
+        (asset["asset_id"], asset["asset_key"], asset["url"])
+        for asset, _entry in figures
+    ]
+    if not paired_product(soup, formula) or identities != expected:
+        raise UnsupportedCondition(
+            "both radical-product figures need their original parent roles"
+        )
