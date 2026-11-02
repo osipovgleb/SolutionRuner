@@ -4,6 +4,7 @@ import re
 
 import sympy as sp
 from bs4 import BeautifulSoup
+from sympy.simplify.fu import TR8
 
 from ..probability.common import line
 from ..word_problems.common import UnsupportedCondition
@@ -19,12 +20,141 @@ def reviewed(html):
     )
     return bool(
         re.search(r"\\cos\d+x=-\\cos\(x[+-]", formulas) and r"\pi\pm" in formulas
+    ) or direct_parent(html)
+
+
+def direct_parent(html):
+    from .exam_trigonometric_power_equality import parent_equations
+
+    soup = BeautifulSoup(html, "html.parser")
+    forms = [n["data-inline-latex"] for n in soup.select("[data-inline-latex]")]
+    compact = " ".join("".join(f.split()) for f in forms)
+    relations = re.findall(r"(?<![A-Za-z])(-?\d*)x=(-?\d*)x\+2\\pi[knm]", compact)
+    if not any(b.startswith("-") for _, b in relations) or not any(
+        not b.startswith("-") for _, b in relations
+    ):
+        return False
+    if re.search(r"(?<![A-Za-z])[tyuzv]=", compact):
+        raise UnsupportedCondition(
+            "the direct cosine argument method must not omit a substitution"
+        )
+    for equation in parent_equations(forms):
+        if equation.count(r"\cos") < 2:
+            continue
+        try:
+            polynomial, atoms, _ = literal(equation)
+        except UnsupportedCondition:
+            continue
+        symbols = tuple(atoms)
+        if len(symbols) != 2 or any(a.function != "cos" for a in atoms.values()):
+            continue
+        weight = polynomial.coeff(symbols[0])
+        if (
+            weight != 0
+            and not weight.free_symbols
+            and sp.expand(polynomial - weight * (symbols[0] - symbols[1])) == 0
+        ):
+            return True
+    return False
+
+
+def cosine_phase(a, b):
+    phases = [
+        sp.Rational(k, 12)
+        for k in range(-11, 13)
+        if sp.simplify(sp.cos(sp.pi * k / 12) - a) == 0
+        and sp.simplify(-sp.sin(sp.pi * k / 12) - b) == 0
+    ]
+    if len(phases) != 1:
+        raise UnsupportedCondition(
+            "the cosine addition angle must have a reviewed exact phase"
+        )
+    return phases[0]
+
+
+def compile_direct(formula):
+    from .exam_trigonometric_methods import Equation
+    from .exam_trigonometric_sine_pair import ArgumentPair, argument_series
+
+    if re.search(r"\\(?:alpha|beta|gamma)", formula):
+        raise UnsupportedCondition("the original cosine equality must use x")
+    polynomial, atoms, functions = literal(formula)
+    if any(
+        a.coefficient.is_Rational is not True
+        or a.coefficient.q not in (1, 2)
+        or abs(a.coefficient) > 12
+        or a.shift.is_Rational is not True
+        or a.shift.q > 12
+        for a in atoms.values()
+    ):
+        raise UnsupportedCondition(
+            "bounded original integer or half-integer angles are required"
+        )
+    raw = polynomial.xreplace(functions)
+    canonical = raw.xreplace({f: f.func(*f.args) for f in raw.atoms(sp.sin, sp.cos)})
+    reduced = sp.expand(TR8(canonical))
+    terms = tuple(sorted(reduced.atoms(sp.sin, sp.cos), key=sp.default_sort_key))
+    if len(terms) != 2:
+        raise UnsupportedCondition(
+            "two complete sine/cosine terms are required after identities"
+        )
+    weights = {f: reduced.coeff(f) for f in terms}
+    if (
+        any(
+            w.free_symbols or w.is_real is not True or w == 0 or abs(w) > 1000
+            for w in weights.values()
+        )
+        or sp.expand(reduced - sum(weights[f] * f for f in terms)) != 0
+    ):
+        raise UnsupportedCondition(
+            "a bounded homogeneous pair of trig terms is required"
+        )
+    if any(
+        (f.args[0] / X).is_Integer is not True or not 0 < abs(f.args[0] / X) <= 12
+        for f in terms
+    ):
+        raise UnsupportedCondition(
+            "bounded unshifted integer angles are required after identities"
+        )
+    if sp.simplify(abs(weights[terms[0]]) - abs(weights[terms[1]])) == 0:
+        first = next((f for f in terms if weights[f].is_positive), terms[0])
+        second = next(f for f in terms if f != first)
+        weight = weights[first]
+        left = first.args[0] if first.func == sp.cos else sp.pi / 2 - first.args[0]
+        right = second.args[0] if second.func == sp.cos else sp.pi / 2 - second.args[0]
+        if sp.simplify(weights[second] - weight) == 0:
+            right += sp.pi
+        elif sp.simplify(weights[second] + weight) != 0:
+            raise UnsupportedCondition("the two complete amplitudes must agree exactly")
+    else:
+        if len({f.args[0] for f in terms}) != 1:
+            raise UnsupportedCondition(
+                "unequal amplitudes require the same original angle"
+            )
+        angle = terms[0].args[0]
+        a, b = reduced.coeff(sp.cos(angle)), reduced.coeff(sp.sin(angle))
+        weight = sp.sqrt(a * a + b * b)
+        left, right = angle + cosine_phase(a / weight, b / weight) * sp.pi, sp.pi / 2
+    transformed = weight * (
+        sp.cos(left, evaluate=False) - sp.cos(right, evaluate=False)
     )
+    scale = 2 if any(a.coefficient.q == 2 for a in atoms.values()) else 1
+    if not equivalent(
+        raw.subs(X, scale * X), reduced.subs(X, scale * X)
+    ) or not equivalent(reduced, transformed):
+        raise UnsupportedCondition(
+            "the complete cosine normalization requires an exact identity certificate"
+        )
+    data = ArgumentPair(left, right, cosine=True, reduced=reduced, weight=weight)
+    argument_series(data)
+    return Equation(raw, (), sp.S.One, argument_pair=data)
 
 
-def compile_equality(formula):
+def compile_equality(formula, *, parent_html=""):
     from .exam_trigonometric_methods import Equation
 
+    if direct_parent(parent_html):
+        return compile_direct(formula)
     polynomial, _, functions = literal(formula)
     raw = sp.expand(polynomial.xreplace(functions))
     higher = [
@@ -51,17 +181,7 @@ def compile_equality(formula):
         raise UnsupportedCondition(
             "the remaining unit-angle combination must have exactly the same amplitude"
         )
-    phases = [
-        sp.Rational(k, 12)
-        for k in range(-11, 13)
-        if sp.simplify(sp.cos(sp.pi * k / 12) - a) == 0
-        and sp.simplify(-sp.sin(sp.pi * k / 12) - b) == 0
-    ]
-    if len(phases) != 1:
-        raise UnsupportedCondition(
-            "the cosine addition angle must have a reviewed exact phase"
-        )
-    phase = phases[0]
+    phase = cosine_phase(a, b)
     if not equivalent(raw / weight, high + sp.cos(X + phase * sp.pi)):
         raise UnsupportedCondition(
             "the cosine addition formula requires an exact unit-circle certificate"

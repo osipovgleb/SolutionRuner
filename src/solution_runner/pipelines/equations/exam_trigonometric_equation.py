@@ -211,7 +211,7 @@ def compile_parent(formula, preferred, preferred_scale, translation, parent_html
             raise UnsupportedCondition(
                 "cosine argument equality requires the original variable"
             )
-        compiled, domain = compile_equality(formula), None
+        compiled, domain = compile_equality(formula, parent_html=parent_html), None
     elif absolute_fraction(parent_html):
         from .exam_trigonometric_absolute_fraction import compile_fraction
 

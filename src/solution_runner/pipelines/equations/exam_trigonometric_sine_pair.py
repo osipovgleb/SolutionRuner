@@ -1,6 +1,7 @@
-"""Retain the sine-equality method, adapting unequal coefficients by a double angle."""
+"""Retain reviewed sine/cosine argument equalities and their original identities."""
 
 import re
+from dataclasses import dataclass
 
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -11,6 +12,15 @@ from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_angle_domain import equivalent
 from .exam_trigonometric_angle_product import AngleProduct, X, factor_angles
 from .exam_trigonometric_sum_identities import literal
+
+
+@dataclass(frozen=True)
+class ArgumentPair:
+    left: sp.Expr
+    right: sp.Expr
+    cosine: bool = False
+    reduced: sp.Expr | None = None
+    weight: sp.Expr = sp.S.One
 
 
 def reviewed(html):
@@ -143,7 +153,7 @@ def compile_arguments(polynomial, atoms, functions):
             "the two sine coefficients must be nonzero and opposite"
         )
     left, right = functions[first].args[0], functions[second].args[0]
-    data = (left, right)
+    data = ArgumentPair(left, right)
     argument_series(data)
     raw = polynomial.xreplace(functions)
     product = 2 * weight * sp.cos((left + right) / 2) * sp.sin((left - right) / 2)
@@ -154,22 +164,39 @@ def compile_arguments(polynomial, atoms, functions):
     return Equation(raw, (), sp.S.One, argument_pair=data)
 
 
-def argument_series(data):
-    left, right = data
+def argument_rows(data):
+    left, right = data.left, data.right
     result = []
-    for expression in (left - right, left + right - sp.pi):
+    for expression in (left - right, left + right - (0 if data.cosine else sp.pi)):
         coefficient = sp.expand(expression).coeff(X)
         shift = sp.simplify((expression - coefficient * X) / sp.pi)
         if (
-            coefficient == 0
-            or coefficient.is_Integer is not True
+            coefficient.is_Integer is not True
+            or abs(coefficient) > 24
             or shift.is_Rational is not True
         ):
             raise UnsupportedCondition(
                 "both argument equations must have nonzero bounded slopes"
             )
-        result.append((sp.cancel(-shift / coefficient), 2 / abs(coefficient)))
+        if coefficient == 0:
+            if not data.cosine:
+                raise UnsupportedCondition(
+                    "both argument equations must have nonzero bounded slopes"
+                )
+            if (shift / 2).is_Integer:
+                raise UnsupportedCondition(
+                    "an argument identity gives infinitely many solutions"
+                )
+            result.append((expression, None))
+            continue
+        result.append(
+            (expression, (sp.cancel(-shift / coefficient), 2 / abs(coefficient)))
+        )
     return tuple(result)
+
+
+def argument_series(data):
+    return tuple(series for _, series in argument_rows(data) if series is not None)
 
 
 def argument_branches(data):
@@ -177,9 +204,10 @@ def argument_branches(data):
     from .exam_trigonometric_compile import S
 
     result = []
-    for (q, p), expression in zip(
-        argument_series(data), (data[0] - data[1], data[0] + data[1] - sp.pi)
-    ):
+    for expression, series in argument_rows(data):
+        if series is None:
+            continue
+        q, p = series
         coefficient = sp.expand(expression).coeff(X)
         shift = sp.simplify((expression - coefficient * X) / sp.pi)
         residues = tuple(
@@ -202,7 +230,9 @@ def argument_branches(data):
 def argument_proof(a):
     from .exam_trigonometric_proof import families
 
-    left, right = a.argument_pair
+    if a.argument_pair.cosine:
+        return cosine_argument_proof(a)
+    left, right = a.argument_pair.left, a.argument_pair.right
     html = line(a.original) + line(
         sp.latex(sp.sin(left, evaluate=False))
         + "="
@@ -216,3 +246,54 @@ def argument_proof(a):
         html += line(sp.latex(sp.expand(expression)) + r"=2\pi k")
         html += line(text + r",\quad k\in\mathbb Z")
     return "<p>Применим условия равенства синусов:</p>", html
+
+
+def cosine_argument_proof(a):
+    from .exam_trigonometric_proof import families, series_lines
+    from .exam_trigonometric_selection import equivalent_series
+
+    data = a.argument_pair
+    left, right = data.left, data.right
+    html = line(a.original)
+    html += "<p>Применим формулы приведения и двойного угла:</p>"
+    html += line(sp.latex(data.reduced) + "=0")
+    if data.weight != 1:
+        html += "<p>Представим левую часть через косинусы и сократим ненулевой числовой множитель:</p>"
+        html += line(
+            sp.latex(data.reduced)
+            + "="
+            + sp.latex(data.weight * (sp.cos(left, evaluate=False) - sp.cos(right)))
+        )
+        html += line(sp.latex(data.weight) + r"\ne0")
+    html += line(
+        sp.latex(sp.cos(left, evaluate=False))
+        + "="
+        + sp.latex(sp.cos(right, evaluate=False))
+    )
+    html += "<p>Косинусы равны, когда их аргументы совпадают или противоположны с точностью до целого числа полных оборотов:</p>"
+    html += line(sp.latex(left) + "=" + sp.latex(right) + r"+2\pi k")
+    html += line(sp.latex(left) + r"=-\left(" + sp.latex(right) + r"\right)+2\pi k")
+    rows = argument_rows(data)
+    if any(
+        sp.expand(expression).coeff(X) < 0
+        for expression, series in rows
+        if series is not None
+    ):
+        html += "<p>При отрицательном коэффициенте переобозначим целый параметр противоположным; он по-прежнему пробегает все целые числа.</p>"
+    for expression, series in rows:
+        html += line(sp.latex(sp.expand(expression)) + r"=2\pi k")
+        if series is None:
+            html += "<p>Это равенство не выполняется ни при одном целом k; эта ветвь решений не даёт.</p>"
+        else:
+            for text in series_lines((series,)):
+                html += line(text + r",\quad k\in\mathbb Z")
+    source = tuple(series for _, series in rows if series is not None)
+    if len(source) == 2 and equivalent_series(source, (source[1],)):
+        html += "<p>Первая серия решений входит во вторую.</p>"
+    elif len(source) == 2 and equivalent_series(source, (source[0],)):
+        html += "<p>Вторая серия решений входит в первую.</p>"
+    else:
+        html += "<p>Объединим полученные серии:</p>"
+    for text in families(a):
+        html += line(text + r",\quad k\in\mathbb Z")
+    return "<p>Сведём уравнение к равенству косинусов:</p>", html

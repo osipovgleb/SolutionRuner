@@ -61,6 +61,7 @@ if TYPE_CHECKING:
     from .exam_trigonometric_radical_equation import RadicalEquation
     from .exam_trigonometric_radical_product import RadicalProduct
     from .exam_trigonometric_ratio_product import RatioProduct
+    from .exam_trigonometric_sine_pair import ArgumentPair
     from .exam_trigonometric_square_difference import SquareDifference
     from .exam_trigonometric_square_radicals import SquareRadicals
     from .exam_trigonometric_strict_quotient import StrictQuotient
@@ -138,7 +139,7 @@ class Analysis:
     power_equality: "PowerEquality | None" = None
     power_polynomial: "PowerPolynomial | None" = None
     sum_squares: tuple | None = None
-    argument_pair: tuple | None = None
+    argument_pair: "ArgumentPair | None" = None
     extremum: tuple | None = None
     sine_pair: tuple | None = None
     cosine_equality: tuple | None = None

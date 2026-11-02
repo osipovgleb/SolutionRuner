@@ -426,6 +426,8 @@ def constrained_series(compiled, branches, residues):
     if compiled.argument_pair is not None:
         from .exam_trigonometric_sine_pair import argument_series
 
+        if compiled.argument_pair.cosine:
+            return periodic(residues), False, False
         return argument_series(compiled.argument_pair), False, False
     if compiled.cosine_equality is not None:
         from .exam_trigonometric_cosine_equality import series
