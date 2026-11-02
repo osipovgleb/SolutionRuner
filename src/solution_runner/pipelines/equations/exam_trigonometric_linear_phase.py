@@ -8,7 +8,7 @@ from ..probability.common import line
 from .exam_trigonometric_compile import C, S
 
 
-def branch(expression):
+def branch(expression, *, allow_inverse=False):
     from .exam_trigonometric import Branch
     from .exam_trigonometric_inverse import angles, ordered
 
@@ -34,7 +34,7 @@ def branch(expression):
     from ..word_problems.common import UnsupportedCondition
 
     try:
-        roots = angles(S, value)
+        roots = angles(S, value, allow_inverse)
     except UnsupportedCondition:
         return None
     residues = ordered((q - phase) % 2 for q in roots)
@@ -49,7 +49,7 @@ def branch(expression):
     )
 
 
-def notation(branches, parent_html, *, scale=sp.S.One):
+def notation(branches, parent_html, *, scale=sp.S.One, allow_inverse=False):
     from bs4 import BeautifulSoup
 
     from .exam_trigonometric_shifted import candidates, formula
@@ -81,12 +81,12 @@ def notation(branches, parent_html, *, scale=sp.S.One):
             b = replace(
                 b, variable=C, polynomial=C - b.candidates[0], angle_shift=phase
             )
-        b = orient(b, source_forms, parent_html, scale)
+        b = orient(b, source_forms, parent_html, scale, allow_inverse=allow_inverse)
         result.append(b)
     return tuple(result)
 
 
-def orient(b, forms, html, scale):
+def orient(b, forms, html, scale, *, allow_inverse=False):
     from .exam_trigonometric_inverse import level_series
     from .exam_trigonometric_parameters import affine_families
     from .exam_trigonometric_selection import equivalent_series
@@ -110,7 +110,8 @@ def orient(b, forms, html, scale):
         return b
     value = sp.simplify(-constant / weight)
     actual = tuple(
-        ((q - shift) / scale, p / scale) for q, p in level_series(variable, value)
+        ((q - shift) / scale, p / scale)
+        for q, p in level_series(variable, value, allow_inverse)
     )
     source = tuple((q, p) for q, p, _ in affine_families(html))
     source = (
@@ -130,7 +131,30 @@ def orient(b, forms, html, scale):
     )
 
 
-def proof(branch, angle, root_scale, allowed_residues=None):
+def paired_family(branch, root_scale=sp.S.One):
+    from .exam_trigonometric_inverse import angles, ordered
+    from .exam_trigonometric_proof import K
+
+    if branch.variable != C or len(branch.candidates) != 1 or not branch.angle_shift:
+        return None
+    roots = angles(C, branch.candidates[0], True)
+    if (
+        all(q.is_Rational for q in roots)
+        or ordered((q - branch.angle_shift) % 2 for q in roots) != branch.residues
+    ):
+        return None
+    offset = -branch.angle_shift * sp.pi / root_scale
+    return (
+        "x="
+        + (sp.latex(offset) if offset else "")
+        + r"\pm "
+        + sp.latex(sp.acos(branch.candidates[0]) / root_scale, inv_trig_style="full")
+        + "+"
+        + sp.latex(2 * sp.pi * K / root_scale)
+    )
+
+
+def proof(branch, angle, root_scale, allowed_residues=None, *, allow_inverse=False):
     from .exam_trigonometric_inverse import level_series
     from .exam_trigonometric_proof import formula, series_lines
 
@@ -157,9 +181,14 @@ def proof(branch, angle, root_scale, allowed_residues=None):
     html += line(
         formula(branch.variable, shifted) + "=" + sp.latex(branch.candidates[0])
     )
+    paired = paired_family(branch, root_scale) if allow_inverse else None
+    if paired is not None and allowed_residues is None:
+        return html + line(paired + r",\quad k\in\mathbb Z")
     series = tuple(
         ((q - branch.angle_shift) / root_scale, period / root_scale)
-        for q, period in level_series(branch.variable, branch.candidates[0])
+        for q, period in level_series(
+            branch.variable, branch.candidates[0], allow_inverse
+        )
     )
     series = branch.phase_series or series
     for text in series_lines(series):

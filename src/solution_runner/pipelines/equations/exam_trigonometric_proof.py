@@ -80,6 +80,14 @@ def series_lines(series, *, sine_inverse=False):
 
 
 def families(a):
+    if a.power_equality is not None and a.poles:
+        from .exam_trigonometric_linear_phase import paired_family
+
+        active = [b for b in a.branches if b.residues]
+        if len(active) == 1 and active[0].residues == a.residues:
+            paired = paired_family(active[0], a.scale)
+            if paired is not None:
+                return (paired,)
     if a.signed_series:
         return series_lines(a.signed_series)
     if a.restricted_families:
@@ -132,7 +140,9 @@ def polynomial(
     if branch.angle_shift:
         from .exam_trigonometric_linear_phase import proof
 
-        return proof(branch, angle, root_scale, allowed_residues)
+        return proof(
+            branch, angle, root_scale, allowed_residues, allow_inverse=allow_inverse
+        )
     p = branch.polynomial
     variable = branch.variable
     symbol = sp.Symbol(substitution, real=True) if substitution else variable

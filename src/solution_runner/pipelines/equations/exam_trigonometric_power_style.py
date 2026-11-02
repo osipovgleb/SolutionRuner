@@ -99,6 +99,7 @@ def equal_base(parent_html):
 
 
 def equal_sides(left, right, base, parent_base):
+    from .exam_trigonometric_compile import C, S
     from .exam_trigonometric_power_equality import prime_logs
 
     if parent_base is None:
@@ -130,7 +131,11 @@ def equal_sides(left, right, base, parent_base):
             for e in (a, b)
             for v in sp.Poly(e, *sorted(e.free_symbols, key=str)).coeffs()
         ]
-        if a.free_symbols and b.free_symbols
+        if composite
+        and a.free_symbols
+        and b.free_symbols
+        and a.is_polynomial(S, C)
+        and b.is_polynomial(S, C)
         else []
     )
     if composite and coefficients and all(v.is_Integer for v in coefficients):

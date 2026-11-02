@@ -93,18 +93,18 @@ def branches(raw):
     return raw, result
 
 
-def mixed_branches(raw):
+def mixed_branches(raw, *, allow_inverse=False):
     grouped = branches(raw)
     if grouped is not None:
         return grouped
     from .exam_trigonometric_factors import separated
 
-    separate = separated(raw, S, False)
+    separate = separated(raw, S, allow_inverse)
     if separate is not None:
         return separate
     from .exam_trigonometric_combination import branches as combination_branches
 
-    return combination_branches(raw)
+    return combination_branches(raw, allow_inverse=allow_inverse)
 
 
 def pure_proof(a):

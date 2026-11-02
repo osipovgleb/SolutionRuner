@@ -27,7 +27,7 @@ def impossible_branch(expression):
     return Branch(T, sp.S.One, (), (), (), original=expression, impossible=True)
 
 
-def branches(raw):
+def branches(raw, *, allow_inverse=False):
     from .exam_trigonometric_linear_phase import branch as phase_branch
     from .exam_trigonometric_ratios import linear_branch
 
@@ -43,7 +43,7 @@ def branches(raw):
     lifted = sp.expand(raw + constant * (S * S + C * C - 1))
     from .exam_trigonometric_factors import separated
 
-    separate = separated(lifted, S, False)
+    separate = separated(lifted, S, allow_inverse)
     if separate is not None:
         return separate
     factors = sp.factor_list(lifted, S, C, extension=True)[1]
@@ -54,7 +54,9 @@ def branches(raw):
     result = []
     for factor, _ in factors:
         branch = (
-            linear_branch(factor) or impossible_branch(factor) or phase_branch(factor)
+            linear_branch(factor)
+            or impossible_branch(factor)
+            or phase_branch(factor, allow_inverse=allow_inverse)
         )
         if branch is None:
             raise UnsupportedCondition(

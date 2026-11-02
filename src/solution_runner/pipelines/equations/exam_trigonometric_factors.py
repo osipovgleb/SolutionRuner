@@ -26,13 +26,10 @@ def separated(raw, preferred, allow_inverse):
         not v or not v <= {S, C} for v in variables
     ):
         return None
-    if any(
-        sp.Poly(f, S, C).total_degree() != 1
-        or (len(v) == 2 and f.subs({S: 0, C: 0}) != 0)
-        for (f, _), v in zip(factors, variables)
-    ):
+    if any(sp.Poly(f, S, C).total_degree() != 1 for f, _ in factors):
         return None
     result = []
+    from .exam_trigonometric_linear_phase import branch as phase_branch
     from .exam_trigonometric_ratios import linear_branch
 
     for factor, _ in sorted(
@@ -40,7 +37,12 @@ def separated(raw, preferred, allow_inverse):
         key=lambda item: (len(item[0].free_symbols) > 1, not item[0].has(preferred)),
     ):
         if factor.free_symbols == {S, C}:
-            result.append(linear_branch(factor))
+            branch = linear_branch(factor) or phase_branch(
+                factor, allow_inverse=allow_inverse
+            )
+            if branch is None:
+                return None
+            result.append(branch)
         else:
             variable = next(iter(factor.free_symbols))
             result.extend(solve_branches(factor, variable, allow_inverse)[1])
@@ -255,7 +257,9 @@ def method_branches(
     if any(b.angle_shift for b in branches):
         from .exam_trigonometric_linear_phase import notation
 
-        branches = notation(branches, parent_html, scale=compiled.scale)
+        branches = notation(
+            branches, parent_html, scale=compiled.scale, allow_inverse=allow_inverse
+        )
     branches = without_poles(branches, compiled.poles)
     branches = finish_branches(compiled, branches, preferred, parent_html, domain)
     from .exam_trigonometric_ratio_square import mark as ratio_square

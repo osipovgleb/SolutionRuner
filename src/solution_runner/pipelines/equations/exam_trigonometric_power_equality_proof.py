@@ -47,10 +47,14 @@ def proof(a):
         from .exam_trigonometric_power_grouping_proof import proof as grouping
 
         return grouping(a)
-    from .exam_trigonometric_proof import formula, polynomial
+    from .exam_trigonometric_proof import candidate_lines, formula, polynomial
 
     data = a.power_equality
     html = quotient_domain(a) if data.radicand is not None else ""
+    if a.poles and data.radicand is None:
+        html += line(a.original)
+        html += "<p>До сокращения степеней сохраним область определения исходных тригонометрических отношений:</p>"
+        html += "".join(line(formula(p) + r"\ne0") for p in a.poles)
     for text, value in a.identities:
         if value not in (S, C):
             html += line(text + "=" + formula(value))
@@ -66,15 +70,22 @@ def proof(a):
             html += line(formula(data.exponent) + "=0")
             html += "<p>Применим формулу двойного угла:</p>"
             html += line("\\" + name + "2x=" + formula(identity))
+        exponent, reduction = reduced_exponent(a)
+        html += reduction
         if len(a.branches) > 1:
-            html += line(formula(sp.factor(data.exponent, extension=True)) + "=0")
+            html += line(formula(sp.factor(exponent, extension=True)) + "=0")
         for branch in a.branches:
-            html += polynomial(
-                branch,
-                allow_inverse=a.allow_inverse,
-                factorization=True,
-                angle="x" if a.scale == 1 else sp.latex(a.scale) + "x",
-                root_scale=a.scale,
+            options = {
+                "allow_inverse": a.allow_inverse,
+                "angle": "x" if a.scale == 1 else sp.latex(a.scale) + "x",
+                "root_scale": a.scale,
+            }
+            html += (
+                candidate_lines(branch, **options)
+                if a.poles
+                and data.radicand is None
+                and branch.polynomial == branch.variable
+                else polynomial(branch, factorization=True, **options)
             )
             if data.radicand is not None:
                 html += quotient_checks(a, branch)
@@ -86,6 +97,28 @@ def proof(a):
         )
         html += "".join(line(f + r",\quad k\in\mathbb Z") for f in families(a))
     return "<p>Применим формулы приведения и преобразуем исходное уравнение:</p>", html
+
+
+def reduced_exponent(a):
+    from ..word_problems.common import UnsupportedCondition
+    from .exam_trigonometric_proof import formula
+
+    source = a.power_equality.exponent
+    if not a.poles or a.power_equality.radicand is not None or a.reduced == source:
+        return source, ""
+    unit = S * S + C * C - 1
+    weight = sp.cancel(sp.rem(source, unit, S) / sp.rem(a.reduced, unit, S))
+    if weight.free_symbols or weight.is_real is not True or weight == 0:
+        raise UnsupportedCondition(
+            "the reduced power equation must preserve the complete unit-circle equation"
+        )
+    html = "<p>Используем основное тригонометрическое тождество и приведём подобные слагаемые:</p>"
+    html += line(formula(S * S + C * C) + "=1")
+    if weight != 1:
+        html += "<p>Сократим ненулевой числовой множитель:</p>" + line(
+            sp.latex(weight) + r"\ne0"
+        )
+    return a.reduced, html + line(formula(a.reduced) + "=0")
 
 
 def quotient_domain(a):
@@ -172,6 +205,19 @@ def power_steps(a):
         for p, _ in shared:
             left.pop(p)
             right.pop(p)
-        html += line(product(left.items()) + "=" + product(right.items()))
+        comparison = product(left.items()) + "=" + product(right.items())
+        equal = data.equal_powers
+        if not (
+            a.poles
+            and equal is not None
+            and comparison
+            == power(equal[0], equal[1]) + "=" + power(equal[0], equal[2])
+        ):
+            html += line(comparison)
     html += exponent_steps(a, left, right)
+    if a.poles and data.equal_powers is not None:
+        _, first, second = data.equal_powers
+        if not first.is_polynomial(S, C) or not second.is_polynomial(S, C):
+            html += "<p>Перенесём показатели в одну часть и сократим одинаковые слагаемые, сохраняя исходные ограничения:</p>"
+            html += line(formula(sp.cancel(first - second)) + "=0")
     return html

@@ -349,6 +349,7 @@ def method_series(
     )
     dividing = (
         division(parent_html)
+        and not (compiled.power_equality is not None and compiled.poles)
         and compiled.homogeneous is None
         and not any(b.original is not None for b in branches)
     )

@@ -185,7 +185,7 @@ def solve_branches(raw, preferred, allow_inverse=False, *, factored=False, poles
     if raw.has(T, U):
         return ratio_branch(raw, U if raw.has(U) else T)
     if preferred in (T, U):
-        return mixed_branches(raw)
+        return mixed_branches(raw, allow_inverse=allow_inverse)
     if factored:
         from .exam_trigonometric_factors import source_factors
 
@@ -196,12 +196,18 @@ def solve_branches(raw, preferred, allow_inverse=False, *, factored=False, poles
     for expression in expressions:
         variables = expression.free_symbols & {S, C}
         if len(variables) != 1:
-            mixed = linear_branch(expression) or phased_branch(expression)
+            mixed = linear_branch(expression) or phased_branch(
+                expression, allow_inverse=allow_inverse
+            )
             if mixed is not None:
                 branches.append(mixed)
                 continue
             separate = separated(raw, preferred, allow_inverse)
-            return separate if separate is not None else mixed_branches(raw)
+            return (
+                separate
+                if separate is not None
+                else mixed_branches(raw, allow_inverse=allow_inverse)
+            )
         variable = variables.pop()
         p = primitive(expression, (variable,))
         values = roots(p.subs(variable, X))

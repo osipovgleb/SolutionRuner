@@ -151,7 +151,7 @@ def common_exponent(left, right):
         or not 1 <= sp.Poly(exponent, S, C).total_degree() <= 3
     ):
         raise UnsupportedCondition(
-            "a bounded polynomial exponent with no original trig poles is required"
+            "the complete exponent difference must be a bounded polynomial"
         )
     coefficients = sp.Poly(exponent, S, C).coeffs()
     if any(e.is_real is not True or abs(e) > 1000 for e in coefficients):
@@ -201,9 +201,25 @@ def compile_equality(formula, parent_html, *, preferred=None, scale=sp.S.One):
     values, poles, identities = compile_values(
         [n.value for n in nodes], atoms, denominators
     )
+    retained = []
     for pole in poles:
-        prime_logs(pole)
-    return equation(values, identities, parent_html, preferred, scale)
+        variable = next(
+            (
+                v
+                for v in (S, C)
+                if not (weight := sp.cancel(pole / v)).free_symbols
+                and weight.is_real is True
+                and weight != 0
+            ),
+            None,
+        )
+        if variable is None:
+            prime_logs(pole)
+        elif variable not in retained:
+            retained.append(variable)
+    return equation(
+        values, identities, parent_html, preferred, scale, poles=tuple(retained)
+    )
 
 
 def equation(
@@ -223,6 +239,8 @@ def equation(
     from .exam_trigonometric_power_style import equal_base, equal_sides, scaled_angle
 
     preferred, scale = scaled_angle(parent_html) or (preferred, scale)
+    if poles and scale != 1:
+        raise UnsupportedCondition("power poles require their original unit angle")
     if radicand is not None:
         review_quotient_parent(parent_html, exponent)
         if scale != 1:
@@ -290,7 +308,11 @@ def compile_quotient(formula, parent_html, *, preferred=None, scale=sp.S.One):
 
 
 def prepare(a, parent_html):
-    if a.power_equality is None or a.power_equality.radicand is None or not a.series:
+    if (
+        a.power_equality is None
+        or (a.power_equality.radicand is None and not a.poles)
+        or not a.series
+    ):
         return a
     from .exam_trigonometric import select
     from .exam_trigonometric_inverse import centred
