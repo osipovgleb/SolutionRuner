@@ -268,9 +268,21 @@
       "source_answer": "Ответ: 0"
     }
   ],
-  "child_native_contexts_available": false,
+  "child_native_contexts_available": true,
   "unavailable_public_figures": [
     "/abms/b0/3e/30/61/b03e3061be360577d78b6842d0a036cd.jpg"
   ],
-  "status": "binding prepared; native child contexts and their assets remain unverified"
+  "status": "native parent and three available children read; legacy child 26443 still lacks normalized content",
+  "native_child_tasks": [
+    "60305",
+    "60307",
+    "60309"
+  ],
+  "unavailable_native_tasks": [
+    {
+      "task": "26443",
+      "uuid": "9e54a761-7e8f-477c-9026-244ceef5a520",
+      "error_type": "McpCallError"
+    }
+  ]
 }

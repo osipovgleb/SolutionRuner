@@ -494,6 +494,24 @@
       "theme_title": "Векторы и операции с ними",
       "theme_order": 0,
       "rule": "vector-coordinate-operations"
+    },
+    {
+      "key": "27708",
+      "uuid": "363c95ed-4a3d-421e-a382-240b162aa85b",
+      "order": 3,
+      "theme_uuid": "64fdf550-dcad-489a-aea5-0682edf81d76",
+      "theme_title": "Векторы и операции с ними",
+      "theme_order": 0,
+      "rule": "vector-27708-rectangle-vector-sum-length"
+    },
+    {
+      "key": "27710",
+      "uuid": "c7d327f1-239d-4bdf-bf9a-51c02a0e76ad",
+      "order": 5,
+      "theme_uuid": "64fdf550-dcad-489a-aea5-0682edf81d76",
+      "theme_title": "Векторы и операции с ними",
+      "theme_order": 0,
+      "rule": "vector-geometric-operations"
     }
   ],
   "cases": [
@@ -8708,6 +8726,389 @@
           }
         }
       }
+    },
+    {
+      "group": "27708",
+      "task": "27708",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "kind": "ordinary_image",
+              "asset_id": "83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"83e55258-af58-415f-8b8b-0dd18e7c596c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83e55258-af58-415f-8b8b-0dd18e7c596c\"/>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 6 и 8. Най­ди­те длину суммы век­то­ров  <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и  <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма век­то­ров  <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и  <span data-inline-latex=\"\\overrightarrow{AD}\"></span> равна век­то­ру  <span data-inline-latex=\"\\overrightarrow{AC}\"></span>. Век­тор  <span data-inline-latex=\"\\overrightarrow{AC}\"></span> делит пря­мо­уголь­ник на два пря­мо­уголь­ных тре­уголь­ни­ка. Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AC=\\sqrt{6^{2}+8^{2}}=\\sqrt{100}=10\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27708",
+      "task": "60205",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "kind": "ordinary_image",
+              "asset_id": "83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 14 и 48. Най­ди­те длину суммы век­то­ров <img alt=\"\" data-asset-id=\"83e55258-af58-415f-8b8b-0dd18e7c596c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83e55258-af58-415f-8b8b-0dd18e7c596c\"/><span data-inline-latex=\"\\overrightarrow{AB}\"></span> и <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма век­то­ров  <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и  <span data-inline-latex=\"\\overrightarrow{AD}\"></span> равна век­то­ру  <span data-inline-latex=\"\\overrightarrow{AC}\"></span>. Век­тор  <span data-inline-latex=\"\\overrightarrow{AC}\"></span> делит пря­мо­уголь­ник на два пря­мо­уголь­ных тре­уголь­ни­ка. Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AC=\\sqrt{14^{2}+48^{2}}=\\sqrt{2500}=50\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">50</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27708",
+      "task": "60207",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "kind": "ordinary_image",
+              "asset_id": "83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 16 и 12. Най­ди­те длину суммы век­то­ров <img alt=\"\" data-asset-id=\"83e55258-af58-415f-8b8b-0dd18e7c596c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83e55258-af58-415f-8b8b-0dd18e7c596c\"/><span data-inline-latex=\"\\overrightarrow{AB}\"></span> и <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма век­то­ров  <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и  <span data-inline-latex=\"\\overrightarrow{AD}\"></span> равна век­то­ру  <span data-inline-latex=\"\\overrightarrow{AC}\"></span>. Век­тор  <span data-inline-latex=\"\\overrightarrow{AC}\"></span> делит пря­мо­уголь­ник на два пря­мо­уголь­ных тре­уголь­ни­ка. Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AC=\\sqrt{16^{2}+12^{2}}=\\sqrt{400}=20\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27708",
+      "task": "60209",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "kind": "ordinary_image",
+              "asset_id": "83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 45 и 24. Най­ди­те длину суммы век­то­ров <img alt=\"\" data-asset-id=\"83e55258-af58-415f-8b8b-0dd18e7c596c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83e55258-af58-415f-8b8b-0dd18e7c596c\"/><span data-inline-latex=\"\\overrightarrow{AB}\"></span> и <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма век­то­ров  <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и  <span data-inline-latex=\"\\overrightarrow{AD}\"></span> равна век­то­ру  <span data-inline-latex=\"\\overrightarrow{AC}\"></span>. Век­тор  <span data-inline-latex=\"\\overrightarrow{AC}\"></span> делит пря­мо­уголь­ник на два пря­мо­уголь­ных тре­уголь­ни­ка. Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AC=\\sqrt{45^{2}+24^{2}}=\\sqrt{2601}=51\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">51</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27710",
+      "task": "27710",
+      "context": {
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "kind": "ordinary_image",
+              "asset_id": "83e55258-af58-415f-8b8b-0dd18e7c596c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"83e55258-af58-415f-8b8b-0dd18e7c596c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83e55258-af58-415f-8b8b-0dd18e7c596c\"/>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 6 и 8. Най­ди­те ска­ляр­ное про­из­ве­де­ние век­то­ров  <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и  <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ска­ляр­ное про­из­ве­де­ние двух век­то­ров равно про­из­ве­де­нию их длин на ко­си­нус угла между ними. Ко­си­нус пря­мо­го угла равен нулю, по­это­му и ис­ко­мое ска­ляр­ное про­из­ве­де­ние равно нулю.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27710",
+      "task": "60305",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 8 и 6. Най­ди­те ска­ляр­ное про­из­ве­де­ние век­то­ров <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27710",
+      "task": "60307",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 30 и 72. Най­ди­те ска­ляр­ное про­из­ве­де­ние век­то­ров <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27710",
+      "task": "60309",
+      "context": {
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Две сто­ро­ны пря­мо­уголь­ни­ка <i>ABCD</i> равны 4 и 16. Най­ди­те ска­ляр­ное про­из­ве­де­ние век­то­ров <span data-inline-latex=\"\\overrightarrow{AB}\"></span> и <span data-inline-latex=\"\\overrightarrow{AD}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
     }
-  ]
+  ],
+  "unavailable_native_tasks": {
+    "27708": [
+      {
+        "task": "26441",
+        "uuid": "8317bf37-4a79-46f0-b7dd-6a307e8b4b6c",
+        "error_type": "McpCallError"
+      }
+    ],
+    "27710": [
+      {
+        "task": "26443",
+        "uuid": "9e54a761-7e8f-477c-9026-244ceef5a520",
+        "error_type": "McpCallError"
+      }
+    ]
+  }
 }

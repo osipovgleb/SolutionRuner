@@ -1,4 +1,4 @@
-"""Native parent and explicit public-text probes; child assets remain unverified."""
+"""Native source recovery and independent public-text probes for the shared rule."""
 
 import json
 import re
@@ -59,7 +59,9 @@ def test_full_catalog_group_reuses_existing_geometric_rule():
     assert len(DATA["group_tasks"]) == 27
     ids = {t["uuid"] for t in DATA["group_tasks"]}
     assert len(ids) == 27 and {s["task_uuid"] for s in SOURCES} <= ids
-    assert not DATA["child_native_contexts_available"]
+    assert DATA["child_native_contexts_available"]
+    assert DATA["native_child_tasks"] == ["60305", "60307", "60309"]
+    assert [x["task"] for x in DATA["unavailable_native_tasks"]] == ["26443"]
     assert DATA["unavailable_public_figures"]
 
 
