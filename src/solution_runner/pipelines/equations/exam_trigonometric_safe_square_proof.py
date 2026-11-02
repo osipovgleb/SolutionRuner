@@ -146,6 +146,8 @@ def candidates(a, branch):
 
 
 def proof(a):
+    if a.radical_equation.auxiliary_branch is not None:
+        return double_proof(a)
     data = a.radical_equation
     right = sp.cancel(data.right / data.multiplier)
     html = line(a.original)
@@ -208,3 +210,97 @@ def proof(a):
         "<p>Преобразуем уравнение, сохраняя знак корня и исходную область определения:</p>",
         html,
     )
+
+
+def double_candidates(a, branch):
+    from .exam_trigonometric_safe_square import auxiliary_series
+
+    shifted = sp.latex(2 * sp.Symbol("x", real=True) + branch.angle_shift * sp.pi)
+    unit = tuple(
+        (q - p if q > p / 2 else q, p)
+        for q, p in level_series(branch.variable, branch.values[0])
+    )
+    html = "<p>Сначала найдём сдвинутый угол, затем выразим исходную переменную:</p>"
+    for text in series_lines(unit):
+        html += line(shifted + "=" + text.split("=", 1)[1] + r",\quad k\in\mathbb Z")
+    nominal = auxiliary_series(branch)
+    for text in series_lines(nominal):
+        html += line(text + r",\quad k\in\mathbb Z")
+    html += (
+        "<p>В каждой серии проверим исходные ограничения при чётном и нечётном k:</p>"
+    )
+    for q, period in nominal:
+        for parity in (0, 1):
+            actual = q + parity * period
+            radicand, right, poles, accepted = checked_values(a, actual)
+            html += line(
+                "k=2n"
+                + ("+1" if parity else "")
+                + r":\quad x="
+                + sp.latex(actual * sp.pi)
+                + r"+2\pi n,\quad\text{правая часть}="
+                + sp.latex(right)
+            )
+            if accepted:
+                html += "<p>Серия удовлетворяет исходному уравнению.</p>"
+            else:
+                html += rejection(a, actual, radicand, right, poles)
+                html += "<p>Эту серию исключаем.</p>"
+    return html
+
+
+def double_proof(a):
+    from .exam_trigonometric_safe_square import double_polynomial
+
+    data = a.radical_equation
+    branch = data.auxiliary_branch
+    right = sp.cancel(data.right / data.multiplier)
+    radicand = double_polynomial(data.radicand)
+    square = double_polynomial(right**2)
+    projected = branch.original
+    constant = projected.subs({S: 0, C: 0})
+    amplitude = sp.sqrt(projected.coeff(S) ** 2 + projected.coeff(C) ** 2)
+    shifted = (
+        r"\left("
+        + sp.latex(2 * sp.Symbol("x", real=True) + branch.angle_shift * sp.pi)
+        + r"\right)"
+    )
+    html = line(a.original)
+    if data.multiplier != 1:
+        html += "<p>Разделим обе части на ненулевую постоянную перед корнем:</p>"
+        html += line(sp.latex(data.multiplier) + r"\ne0")
+        html += line(r"\sqrt{" + formula(radicand, "2x") + "}=" + formula(right))
+    html += "<p>Учтём область определения и неотрицательность правой части до возведения в квадрат:</p>"
+    for pole in a.poles:
+        html += line(formula(pole) + r"\ne0")
+    html += line(formula(radicand, "2x") + r"\ge0")
+    html += sign_condition(a, right)
+    html += "<p>При этих ограничениях возведение в квадрат равносильно. Приведём квадрат правой части к двойным углам:</p>"
+    html += line(formula(radicand, "2x") + "=(" + formula(right) + ")^2")
+    squared = sp.expand(right**2)
+    for monomial, identity in (
+        (S**2, r"\sin^2x=\frac{1-\cos2x}{2}"),
+        (C**2, r"\cos^2x=\frac{1+\cos2x}{2}"),
+        (S * C, r"\sin x\cos x=\frac{\sin2x}{2}"),
+    ):
+        if squared.coeff(monomial):
+            html += line(identity)
+    html += line(formula(radicand, "2x") + "=" + formula(square, "2x"))
+    html += line(formula(projected, "2x") + "=0")
+    name = "синуса" if branch.variable == S else "косинуса"
+    html += (
+        "<p>Разделим на положительную амплитуду и применим формулу "
+        + name
+        + " суммы:</p>"
+    )
+    html += line(sp.latex(amplitude) + ">0")
+    html += line(
+        formula(sp.expand((projected - constant) / amplitude), "2x")
+        + "="
+        + sp.latex(branch.values[0])
+    )
+    html += line(formula(branch.variable, shifted) + "=" + sp.latex(branch.values[0]))
+    html += double_candidates(a, branch)
+    html += "<p>Объединим допустимые серии:</p>"
+    html += "".join(line(f + r",\quad k\in\mathbb Z") for f in families(a))
+    return "<p>Решим уравнение с помощью вспомогательного двойного угла.</p>", html

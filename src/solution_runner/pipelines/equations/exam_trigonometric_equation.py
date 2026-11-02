@@ -389,7 +389,9 @@ def compile_constrained(
 
             compiled = compile_squares(formula, square_method(parent_html))
         else:
-            compiled = compile_radical(formula, radical_kind(parent_html))
+            compiled = compile_radical(
+                formula, radical_kind(parent_html), parent_html=parent_html
+            )
     elif sum_squares(parent_html):
         from .exam_trigonometric_sum_squares import compile_squares
 

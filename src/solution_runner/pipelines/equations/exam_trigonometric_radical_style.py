@@ -198,7 +198,10 @@ def safe_square_method(text, formulas):
     )
     squared = bool(
         re.search(
-            r"=(?:\\sin|\\cos)\^(?:2|\{2\})|(?:\\sin|\\cos)\^(?:2|\{2\})x=", formulas
+            r"=(?:\\sin|\\cos)\^(?:2|\{2\})|(?:\\sin|\\cos)\^(?:2|\{2\})x=",
+            formulas,
         )
     )
+    if not squared and variable_roots(formulas):
+        squared = bool(re.search(r"=\d+(?:\\sin|\\cos)\^(?:2|\{2\})", formulas))
     return sign and (squared or ("правая часть" in text and "в квадрат" in text))

@@ -1,6 +1,7 @@
 """Certify one radical equation before squaring, retaining every original pole."""
 
 from dataclasses import dataclass, replace
+from typing import TYPE_CHECKING
 
 import sympy as sp
 
@@ -12,6 +13,9 @@ from .power_arithmetic import balanced, clean
 
 X = sp.Symbol("x", real=True)
 CIRCLE = S * S + C * C - 1
+
+if TYPE_CHECKING:
+    from .exam_trigonometric import Branch
 
 
 @dataclass(frozen=True)
@@ -29,6 +33,7 @@ class RadicalEquation:
     positive_arguments: tuple = ()
     inverse_identity: tuple | None = None
     mixed_factors: bool = False
+    auxiliary_branch: "Branch | None" = None
 
 
 def trig_polynomial(function, coefficient, shift=sp.S.Zero):
@@ -114,7 +119,7 @@ def variable_radicals(text):
     return count
 
 
-def compile_radical(formula, kind):
+def compile_radical(formula, kind, *, parent_html=""):
     from .exam_trigonometric_methods import Equation
 
     text = clean(formula).removesuffix(".")
@@ -178,9 +183,17 @@ def compile_radical(formula, kind):
     data = RadicalEquation(
         multiplier, radicand, target, squared, unreduced_right, conditions, kind
     )
+    if kind == "safe_square":
+        from .exam_trigonometric_safe_square import auxiliary_branch
+
+        data = replace(data, auxiliary_branch=auxiliary_branch(data, parent_html))
     raw, multiple = reviewed_numerator(data, poles)
     data = replace(data, multiple=multiple, cleared=cleared)
-    if kind == "safe_square" and raw.free_symbols == {S, C}:
+    if (
+        kind == "safe_square"
+        and data.auxiliary_branch is None
+        and raw.free_symbols == {S, C}
+    ):
         data = replace(data, mixed_factors=True)
     return Equation(raw, identities, sp.S.One, poles=poles, radical_equation=data)
 
@@ -264,11 +277,16 @@ def branches(compiled, preferred, allow_inverse):
     from .exam_trigonometric import T, U, solve_branches
     from .exam_trigonometric_domain import restrict, without_poles
 
-    reduced, result = solve_branches(
-        compiled.raw,
-        preferred,
-        allow_inverse,
-        factored=compiled.radical_equation.mixed_factors,
+    auxiliary = compiled.radical_equation.auxiliary_branch
+    reduced, result = (
+        (compiled.raw, (auxiliary,))
+        if auxiliary is not None
+        else solve_branches(
+            compiled.raw,
+            preferred,
+            allow_inverse,
+            factored=compiled.radical_equation.mixed_factors,
+        )
     )
     if compiled.radical_equation.mixed_factors and preferred == U:
         result = tuple(
@@ -312,6 +330,8 @@ def safe_square(data, poles):
             raise UnsupportedCondition(
                 "safe squaring retains only reviewed sine/cosine poles"
             )
+    if data.auxiliary_branch is not None:
+        return data.squared, 0
     for variable, other in ((S, C), (C, S)):
         reduced = sp.expand(sp.rem(data.squared, CIRCLE, other))
         if not reduced.has(other) and sp.degree(reduced, variable) in (1, 2):
