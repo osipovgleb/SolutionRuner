@@ -29,12 +29,15 @@ def reviewed(formula):
     text = clean(formula)
     for m in re.finditer(r"\\log_\{", text):
         base, _ = balanced(text, m.end() - 1)
-        if any(f in base for f in (r"\sin", r"\cos", r"\tg", r"\ctg")):
+        if any(f in base for f in (r"\sin", r"\cos", r"\tg", r"\ctg")) or re.search(
+            r"(?<![A-Za-z])x(?![A-Za-z])", base
+        ):
             return True
     return False
 
 
 class Parser(ExamAngleParser):
+    base_parser = ExamAngleParser
     implicit_prefixes = (*ExamAngleParser.implicit_prefixes, r"\log")
     allowed_powers = (*ExamAngleParser.allowed_powers, -1, -2)
 
@@ -43,7 +46,7 @@ class Parser(ExamAngleParser):
         self.logs = logs
 
     def _nested(self, text):
-        return Parser(
+        return type(self)(
             text, self.atoms, self.denominators, self.logs, self.depth + 1
         ).parse()
 
@@ -62,7 +65,7 @@ class Parser(ExamAngleParser):
             self.index += 1
         else:
             raise UnsupportedCondition("an explicit logarithm base is required")
-        base = ExamAngleParser(base_text, self.atoms, self.denominators).parse().value
+        base = self.base_parser(base_text, self.atoms, self.denominators).parse().value
         before = len(self.logs)
         start = self.index
         arg = self._factor()
@@ -237,9 +240,18 @@ def compile_variable(formula, parent_html):
         return None
     if text.count("=") != 1:
         raise UnsupportedCondition("one complete variable-base equality is required")
+    from .exam_trigonometric_log_identity_style import parent_kind
+
+    method = parent_kind(parent_html)
+    parser, extras = Parser, ()
+    if method is not None and method[0] == "finite_base":
+        from .exam_exponential import X
+        from .exam_trigonometric_finite_log_parser import ScalarLogParser
+
+        parser, extras = ScalarLogParser, (X,)
     atoms, denominators, logs = {}, [], []
     nodes = tuple(
-        Parser(p.replace("x", r"\alpha"), atoms, denominators, logs).parse()
+        parser(p.replace("x", r"\alpha"), atoms, denominators, logs).parse()
         for p in text.split("=")
     )
     if not 1 <= len(logs) <= 2:
@@ -250,7 +262,7 @@ def compile_variable(formula, parent_html):
         [*(v for e in logs for v in e[1:3]), nodes[0].value - nodes[1].value],
         atoms,
         denominators,
-        extra_symbols=tuple(e[0] for e in logs),
+        extra_symbols=(*extras, *(e[0] for e in logs)),
     )
     values, value = values[:-1], values[-1]
     from .exam_trigonometric_log_identity import certify_identity

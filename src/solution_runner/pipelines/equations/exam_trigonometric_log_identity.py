@@ -16,6 +16,7 @@ from .logarithm_arithmetic import power
 Z = sp.Symbol("z", real=True)
 
 if TYPE_CHECKING:
+    from .exam_trigonometric_finite_log import FiniteBaseLog
     from .exam_trigonometric_log_base_change import SquareBaseChange
 
 
@@ -31,6 +32,7 @@ class LogIdentity:
     substitution: str
     stage: str
     base_change: "SquareBaseChange | None" = None
+    finite_base: "FiniteBaseLog | None" = None
 
 
 def equal(first, second):
@@ -182,6 +184,10 @@ def certify_identity(value, logs, values, poles, parent_html, angles):
         from .exam_trigonometric_log_base_change import identity
 
         return identity(value, atoms, logs, poles, parent_html, angles)
+    if kind == "finite_base":
+        from .exam_trigonometric_finite_log import identity
+
+        return identity(value, atoms, logs, poles, angles)
     if not atoms or any(
         a.base.free_symbols - {S, C}
         or a.argument.free_symbols - {S, C}
@@ -248,6 +254,8 @@ def build_equation(raw, data, identities, poles):
 
     if data.base_change is not None:
         poles = (sp.expand(data.atoms[0].base - 1),)
+    if data.finite_base is not None:
+        poles = data.finite_base.poles
     return Equation(
         raw,
         identities,

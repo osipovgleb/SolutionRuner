@@ -207,9 +207,15 @@ def ratio_factor(value):
 
 
 def branches(compiled, preferred, allow_inverse=False):
+    from .exam_trigonometric_finite_log import data_of
     from .exam_trigonometric_radical_product import factor_branches
 
     data = compiled.log_product
+    if data_of(compiled) is not None:
+        # Physical x domains must be checked on finite translates, not residues.
+        from .exam_trigonometric_finite_log import branches as finite_branches
+
+        return finite_branches(compiled, preferred, allow_inverse)
     result = []
     for log_case, factor in zero_cases(data):
         if data.equality is not None and data.equality.linear is not None:
@@ -245,3 +251,22 @@ def prepare(compiled, parent_html):
     from .exam_trigonometric_log_methods import prepare as reviewed
 
     return reviewed(compiled, parent_html)
+
+
+def series(compiled, branches, residues):
+    from .exam_trigonometric_inverse import centred
+    from .exam_trigonometric_selection import periodic, restricted_series
+
+    equality = (
+        compiled.log_product.equality if compiled.log_product is not None else None
+    )
+    identity = equality.identity if equality is not None else None
+    if identity is not None:
+        if identity.finite_base is not None:
+            return identity.finite_base.series()
+        if identity.base_change is not None:
+            return periodic(residues)
+    result = tuple(dict.fromkeys(s for b in branches for s in restricted_series(b)))
+    if equality is not None and equality.centre_inverse:
+        result = tuple(s for item in result for s in centred((item,)))
+    return result

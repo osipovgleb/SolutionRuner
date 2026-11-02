@@ -24,6 +24,20 @@ def kind(forms):
     return None
 
 
+def finite_kind(forms):
+    if (
+        r"\frac{1}{\log_ab}=\log_ba" in forms
+        and any(re.search(r"x\^(?:2|\{2\})", f) for f in forms)
+        and any(r"\sin3x" in f and r"\cos(" in f and r"2\sin(" in f for f in forms)
+    ):
+        if any(re.search(r"(?<![A-Za-z])[tyuzv]=", f) for f in forms):
+            raise UnsupportedCondition(
+                "the finite-base log method must retain its direct sum-to-product proof"
+            )
+        return "finite_base", ""
+    return None
+
+
 def review(parent_html):
     soup = BeautifulSoup(parent_html, "html.parser")
     forms = [clean(n["data-inline-latex"]) for n in soup.select("[data-inline-latex]")]

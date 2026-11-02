@@ -178,6 +178,10 @@ def proof(a):
     from .exam_trigonometric_proof import families
 
     d = a.log_product.equality.identity
+    if d.finite_base is not None:
+        from .exam_trigonometric_finite_log_proof import proof as finite_proof
+
+        return finite_proof(a)
     intro = "<p>Преобразуем исходные логарифмы на их области определения:</p>"
     html = line(a.original)
     if d.kind == "power":

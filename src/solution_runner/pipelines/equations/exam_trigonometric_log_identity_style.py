@@ -39,9 +39,10 @@ def parent_kind(parent_html):
                 "the direct log identity must not discard another substitution"
             )
         return direct, ""
+    from .exam_trigonometric_log_base_change_style import finite_kind
     from .exam_trigonometric_log_base_change_style import kind as base_change
 
-    algebraic = base_change(forms)
+    algebraic = base_change(forms) or finite_kind(forms)
     if algebraic is not None:
         return algebraic
     names = set()
@@ -77,6 +78,12 @@ def figure_stage(parent_html, kind):
         return base_stage(parent_html)
     soup = BeautifulSoup(parent_html, "html.parser")
     images = soup.find_all("img")
+    if kind == "finite_base":
+        if images:
+            raise UnsupportedCondition(
+                "the finite-base log parent has no source diagram"
+            )
+        return "none"
     if not images:
         return "none"
     if kind == "chain":
@@ -138,6 +145,8 @@ def style(parent_html, formula):
         return None
     kind, _ = method
     stage = figure_stage(parent_html, kind)
+    if kind == "finite_base":
+        return S, False, False, "none", None, "inequalities"
     soup = BeautifulSoup(parent_html, "html.parser")
     text = " ".join(soup.get_text(" ").replace("\xad", "").lower().split())
     if stage == "none":

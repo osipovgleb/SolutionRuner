@@ -1,0 +1,274 @@
+{
+  "groups": [
+    {
+      "key": "531828",
+      "uuid": "5e3d0981-4d14-4493-860c-4fd336c488e1",
+      "order": 12,
+      "theme_uuid": "95b23d39-c034-4c39-b315-95bb88dff3bc",
+      "theme_order": 10,
+      "task_count": 1
+    }
+  ],
+  "cases": [
+    {
+      "task": "531828",
+      "group": "531828",
+      "context": {
+        "problem_id": "8a1f9dc5-0500-4764-b2ac-1e0f01a05bdc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\log_{(3+2x-x^{2})} \\frac{\\sin x+\\sqrt{3}\\cos x}{\\sin 3x}=\\frac{1}{\\log_2 (3+2x-x^{2})}\"></span> . </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\frac{\\pi}{2};\\frac{5\\pi}{4}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}\\}\"></span> ;  б) кор­ней нет.</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что долж­ны быть вы­пол­не­ны сле­ду­ю­щие усло­вия: <span data-inline-latex=\"x^{2}-2x-3\\lt 0\"></span>, <span data-inline-latex=\"x^{2}-2x-2\\ne 0\"></span>,  <span data-inline-latex=\"\\sin 3x\\ne 0\"></span>, то есть  <span data-inline-latex=\"-1\\lt x\\lt 3\"></span>, <span data-inline-latex=\"x\\ne 0\"></span>, <span data-inline-latex=\"x\\ne \\frac{\\pi}{3}\"></span> , <span data-inline-latex=\"x\\ne \\frac{2\\pi}{3}\"></span> , <span data-inline-latex=\"x\\ne 1\\pm \\sqrt{3}\"></span> . При этих усло­ви­ях при­ме­ним к пра­вой части фор­му­лу  <span data-inline-latex=\"\\frac{1}{\\log_a b}=\\log_b a\"></span> и по­лу­чим рав­но­силь­ное урав­не­ние<center><p> <span data-inline-latex=\"\\log_{(3+2x-x^{2})} \\frac{\\sin x+\\sqrt{3}\\cos x}{\\sin 3x}=\\log_{(3+2x-x^{2})} 2\"></span>. </p></center><p>При тех же усло­ви­ях имеем:</p><center><p><span><span data-inline-latex=\"\\frac{\\sin x+\\sqrt{3}\\cos x}{\\sin 3x}=2\\Leftrightarrow \\frac{1}{2}\\sin x+\\frac{\\sqrt{3}}{2}\\cos x=\\sin 3x\\Leftrightarrow \\sin\\left(x+\\frac{\\pi}{3}\\right)-\\sin 3x=0\\Leftrightarrow 2\\sin\\left(\\frac{\\pi}{6}-x\\right)\\cos\\left(2x+\\frac{\\pi}{6}\\right)=0\\Leftrightarrow \\left[\\begin{aligned}\\sin\\left(x-\\frac{\\pi}{6}\\right)&amp;=0,\\\\\\cos\\left(2x+\\frac{\\pi}{6}\\right)&amp;=0\\end{aligned}\\right.\\Leftrightarrow \\left[\\begin{aligned}x-\\frac{\\pi}{6}&amp;=\\pi k,\\\\2x+\\frac{\\pi}{6}&amp;=\\frac{\\pi}{2}+\\pi k,\\end{aligned}\\right.\\Leftrightarrow x=\\frac{\\pi}{6}+\\frac{\\pi k}{2},\\ k\\in\\mathbb{Z}.\"></span></span></p><p></p></center><p>Из най­ден­ной серии огра­ни­че­ни­ям удо­вле­тво­ря­ет толь­ко ко­рень <span data-inline-latex=\"x=\\frac{\\pi}{6}\"></span> . </p></li><li data-list-marker=\"б)\">Оче­вид­но, что един­ствен­ный ко­рень п. а) не лежит в ука­зан­ном про­ме­жут­ке, то есть удо­вле­тво­ря­ю­щих усло­вию кор­ней нет.</li></ol>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T11:08:18.822366+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\log_{(3+2x-x^{2})} \\frac{\\sin x+\\sqrt{3}\\cos x}{\\sin 3x}=\\frac{1}{\\log_2 (3+2x-x^{2})}\"></span> . </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\frac{\\pi}{2};\\frac{5\\pi}{4}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}\\}\"></span> ;  б) кор­ней нет.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=27234951\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 300</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что долж­ны быть вы­пол­не­ны сле­ду­ю­щие усло­вия: <span data-inline-latex=\"x^{2}-2x-3\\lt 0\"></span>, <span data-inline-latex=\"x^{2}-2x-2\\ne 0\"></span>,  <span data-inline-latex=\"\\sin 3x\\ne 0\"></span>, то есть  <span data-inline-latex=\"-1\\lt x\\lt 3\"></span>, <span data-inline-latex=\"x\\ne 0\"></span>, <span data-inline-latex=\"x\\ne \\frac{\\pi}{3}\"></span> , <span data-inline-latex=\"x\\ne \\frac{2\\pi}{3}\"></span> , <span data-inline-latex=\"x\\ne 1\\pm \\sqrt{3}\"></span> . При этих усло­ви­ях при­ме­ним к пра­вой части фор­му­лу  <span data-inline-latex=\"\\frac{1}{\\log_a b}=\\log_b a\"></span> и по­лу­чим рав­но­силь­ное урав­не­ние<center><p> <span data-inline-latex=\"\\log_{(3+2x-x^{2})} \\frac{\\sin x+\\sqrt{3}\\cos x}{\\sin 3x}=\\log_{(3+2x-x^{2})} 2\"></span>. </p></center><p>При тех же усло­ви­ях имеем:</p><center><p><span><span data-inline-latex=\"\\frac{\\sin x+\\sqrt{3}\\cos x}{\\sin 3x}=2\\Leftrightarrow \\frac{1}{2}\\sin x+\\frac{\\sqrt{3}}{2}\\cos x=\\sin 3x\\Leftrightarrow \\sin\\left(x+\\frac{\\pi}{3}\\right)-\\sin 3x=0\\Leftrightarrow 2\\sin\\left(\\frac{\\pi}{6}-x\\right)\\cos\\left(2x+\\frac{\\pi}{6}\\right)=0\\Leftrightarrow \\left[\\begin{aligned}\\sin\\left(x-\\frac{\\pi}{6}\\right)&amp;=0,\\\\\\cos\\left(2x+\\frac{\\pi}{6}\\right)&amp;=0\\end{aligned}\\right.\\Leftrightarrow \\left[\\begin{aligned}x-\\frac{\\pi}{6}&amp;=\\pi k,\\\\2x+\\frac{\\pi}{6}&amp;=\\frac{\\pi}{2}+\\pi k,\\end{aligned}\\right.\\Leftrightarrow x=\\frac{\\pi}{6}+\\frac{\\pi k}{2},\\ k\\in\\mathbb{Z}.\"></span></span></p><p></p></center><p>Из най­ден­ной серии огра­ни­че­ни­ям удо­вле­тво­ря­ет толь­ко ко­рень <span data-inline-latex=\"x=\\frac{\\pi}{6}\"></span> . </p></li><li data-list-marker=\"б)\">Оче­вид­но, что един­ствен­ный ко­рень п. а) не лежит в ука­зан­ном про­ме­жут­ке, то есть удо­вле­тво­ря­ю­щих усло­вию кор­ней нет.</li></ol>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

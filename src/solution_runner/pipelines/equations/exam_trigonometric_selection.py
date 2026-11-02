@@ -281,23 +281,9 @@ def method_series(
             series = centred(series)
         return series, False, False
     if compiled.log_product is not None or compiled.log_polynomial is not None:
-        if (
-            compiled.log_product is not None
-            and compiled.log_product.equality is not None
-            and compiled.log_product.equality.identity is not None
-            and compiled.log_product.equality.identity.base_change is not None
-        ):
-            return periodic(residues), False, False
-        series = tuple(dict.fromkeys(s for b in branches for s in restricted_series(b)))
-        if (
-            compiled.log_product is not None
-            and compiled.log_product.equality is not None
-            and compiled.log_product.equality.centre_inverse
-        ):
-            from .exam_trigonometric_inverse import centred
+        from .exam_trigonometric_log_product import series as log_series
 
-            series = tuple(s for item in series for s in centred((item,)))
-        return series, False, False
+        return log_series(compiled, branches, residues), False, False
 
     constrained = constrained_series(compiled, branches, residues)
     if constrained is not None:
@@ -387,6 +373,7 @@ def method_series(
 def finalize(result, parent_html):
     from .exam_trigonometric_bounded_log import prepare as bounded_log
     from .exam_trigonometric_centered_power import prepare as centered_power
+    from .exam_trigonometric_finite_log import prepare as finite_log
     from .exam_trigonometric_global_radical import prepare as global_radical
     from .exam_trigonometric_parameters import notation
     from .exam_trigonometric_radical_product import prepare as radical_product
@@ -398,7 +385,7 @@ def finalize(result, parent_html):
     result = safe_square(result, parent_html)
     result = square_radicals(result, parent_html)
     result = global_radical(result, parent_html)
-    return bounded_log(result)
+    return finite_log(bounded_log(result))
 
 
 def constrained_series(compiled, branches, residues):

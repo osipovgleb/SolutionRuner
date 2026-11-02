@@ -27,9 +27,11 @@ def reciprocal(value, atoms, poles):
         variable is None
         or fixed is None
         or fixed.base.is_Rational is not True
-        or not 1 < fixed.base <= 100
+        or not sp.Rational(1, 100) <= fixed.base <= 100
+        or fixed.base == 1
         or fixed.argument != variable.base
-        or poles != (fixed.symbol,)
+        or fixed.symbol not in poles
+        or any(p.has(*(a.symbol for a in atoms)) and p != fixed.symbol for p in poles)
     ):
         raise UnsupportedCondition(
             "the original fixed-log denominator must share the variable base exactly"
@@ -40,11 +42,18 @@ def reciprocal(value, atoms, poles):
         raise UnsupportedCondition(
             "the complete equation must be log_B A = k + 1/log_d B"
         )
-    return variable, fixed, level, (sp.expand(variable.base - 1),)
+    mapped = tuple(
+        sp.expand(variable.base - 1) if p == fixed.symbol else p for p in poles
+    )
+    return variable, fixed, level, mapped
 
 
 def certify(value, atoms, poles, angles):
     variable, fixed, level, mapped_poles = reciprocal(value, atoms, poles)
+    if poles != (fixed.symbol,) or fixed.base <= 1:
+        raise UnsupportedCondition(
+            "the squared-base substitution has no extra original poles"
+        )
     base, argument = variable.base, variable.argument
     if (
         level != 2
