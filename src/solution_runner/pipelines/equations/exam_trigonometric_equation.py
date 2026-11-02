@@ -280,6 +280,7 @@ def compile_constrained(
     )
     from .exam_trigonometric_global_radical import reviewed as global_radical
     from .exam_trigonometric_original_quotients import reviewed as original_quotient
+    from .exam_trigonometric_power_absolute import compile_quotient as absolute_power
     from .exam_trigonometric_power_equality import reviewed as positive_powers
     from .exam_trigonometric_power_grouping import compile_grouping as power_grouping
     from .exam_trigonometric_power_polynomial import (
@@ -290,6 +291,13 @@ def compile_constrained(
     from .exam_trigonometric_strict_quotient import reviewed as strict_quotient
     from .exam_trigonometric_sum_squares import reviewed as sum_squares
 
+    compiled = absolute_power(formula, parent_html)
+    if compiled is not None:
+        if translation or scale != 1:
+            raise UnsupportedCondition(
+                "absolute power quotients require their original unit angle"
+            )
+        return compiled
     compiled = power_grouping(formula, parent_html)
     if compiled is not None:
         if translation:

@@ -140,6 +140,11 @@ def method_branches(
     from .exam_trigonometric_factor_style import retain_order
     from .exam_trigonometric_square_factor import prepare as square_product
 
+    if (
+        compiled.power_equality is not None
+        and compiled.power_equality.absolute_level is not None
+    ):
+        preferred = compiled.power_equality.absolute_level[0]
     if compiled.power_polynomial is not None:
         from .exam_trigonometric_power_polynomial_roots import branches
 

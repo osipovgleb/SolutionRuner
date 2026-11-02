@@ -12,9 +12,9 @@ def equation(data, sign=None):
 
     variable = formula(data.variable)
     exponent = (
-        r"\left|" + variable + r"\right|"
+        ("-" if data.radical_sign == -1 else "") + r"\left|" + variable + r"\right|"
         if sign is None
-        else formula(sign * data.variable)
+        else formula(data.radical_sign * sign * data.variable)
     )
     base = sp.latex(data.base)
     a, b, c = data.coefficients
@@ -32,13 +32,28 @@ def case_proof(data, row):
     variable = formula(data.variable)
     exponential = sp.latex(data.base) + "^{" + variable + "}"
     relation = r"\ge0" if row.sign == 1 else r"\le0"
+    if data.substitution and row.sign == -1:
+        relation = "<0"
     html = "<p>Если " + inline(variable + relation) + ", то:</p>"
     html += line(equation(data, row.sign))
-    if row.sign == -1:
+    symbol = data.substitution or exponential
+    polynomial = row.polynomial
+    if data.substitution and polynomial.has(E):
+        a, b, c = data.coefficients
+        html += "<p>Пусть " + inline(symbol + "=" + exponential + ">0") + ". Тогда:</p>"
+        power = data.radical_sign * row.sign
+        reduced = a * E**power + b * E + c
+        html += line(sp.latex(reduced, symbol_names={E: symbol}) + "=0")
+        polynomial = sp.Poly(polynomial, E).clear_denoms()[1].primitive()[1].as_expr()
+        if sp.LC(polynomial, E) < 0:
+            polynomial = -polynomial
+    if data.radical_sign * row.sign == -1:
         html += "<p>Умножим равенство на положительную показательную функцию и перенесём слагаемые:</p>"
-        html += line(exponential + ">0")
-    html += line(sp.latex(row.polynomial, symbol_names={E: exponential}) + "=0")
+        html += line(symbol + ">0")
+    html += line(sp.latex(polynomial, symbol_names={E: symbol}) + "=0")
     for power, level in zip(row.powers, row.levels, strict=True):
+        if data.substitution:
+            html += line(symbol + "=" + sp.latex(power))
         html += line(exponential + "=" + sp.latex(power))
         if level is None:
             html += (
@@ -48,7 +63,9 @@ def case_proof(data, row):
         html += line(variable + "=" + sp.latex(level))
         if not -1 <= level <= 1:
             html += "<p>Значение не входит в отрезок от −1 до 1.</p>"
-        elif row.sign * level < 0:
+        elif row.sign * level < 0 or (
+            data.substitution and row.sign == -1 and level == 0
+        ):
             html += "<p>Значение не удовлетворяет условию рассматриваемого случая.</p>"
     if row.accepted:
         series = periodic(

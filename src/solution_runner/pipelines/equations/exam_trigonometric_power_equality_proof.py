@@ -64,7 +64,18 @@ def proof(a, image=""):
         html += "<p>Умножим уравнение на положительный множитель; множество корней не изменится:</p>"
         html += line(formula(data.cleared_power) + ">0")
     html += power_steps(a)
-    if a.homogeneous is not None and data.radicand is None:
+    if data.absolute_level is not None:
+        variable, canceled, level = data.absolute_level
+        html += line(formula(data.exponent) + "=0")
+        html += "<p>Нули сокращаемого множителя не входят в исходную область определения. Поэтому на ней:</p>"
+        html += line(formula(canceled) + r"\ne0")
+        html += line(formula(sp.Abs(variable)) + "=" + sp.latex(level))
+        html += (
+            "<p>Обе части неотрицательны, поэтому возведение в квадрат равносильно:</p>"
+        )
+        html += line(formula(variable**2) + "=" + sp.latex(level**2))
+        html += branch_steps(a)
+    elif a.homogeneous is not None and data.radicand is None:
         from .exam_trigonometric_homogeneous_proof import proof as homogeneous
 
         html += homogeneous(replace(a, identities=()))[1]

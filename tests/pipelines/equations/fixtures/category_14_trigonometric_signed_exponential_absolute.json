@@ -1,0 +1,552 @@
+{
+  "cases": [
+    {
+      "group": "674931",
+      "task": "674931",
+      "context": {
+        "problem_id": "fe45c3d5-f37b-4055-9dc8-2637a50372c5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:21.952025+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/643703a3-299e-4371-9634-1de276d5ca09",
+                "html": "<img alt=\"\" data-asset-id=\"643703a3-299e-4371-9634-1de276d5ca09\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/643703a3-299e-4371-9634-1de276d5ca09\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "643703a3-299e-4371-9634-1de276d5ca09",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"49^{-\\sqrt{1-\\sin^{2} x}}-49^{\\cos x}=-\\frac{48}{7}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\frac{5\\pi}{2};4\\pi]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><nobr>а)  <span data-inline-latex=\"\\{-\\frac{\\pi}{3}+2\\pi k;\\frac{\\pi}{3}+2\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"\\frac{11\\pi}{3}\"></span> . </nobr></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"643703a3-299e-4371-9634-1de276d5ca09\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>а)  Из ос­нов­но­го три­го­но­мет­ри­че­ско­го тож­де­ства на­хо­дим, что  <span data-inline-latex=\"\\sqrt{1-\\sin^{2} x}=\\left|\\cos x\\right|\"></span>. Тогда урав­не­ние при­ни­ма­ет вид</p><center><p> <span data-inline-latex=\"49^{-\\left|\\cos x\\right|}-49^{\\cos x}=-\\frac{48}{7}\"></span> . </p></center><p>При  <span data-inline-latex=\"\\cos x\\lt 0\"></span> по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"49^{\\cos x}-49^{\\cos x}=-\\frac{48}{7}\"></span> ,  оно не имеет ре­ше­ний. При  <span data-inline-latex=\"\\cos x\\ge 0\"></span> по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"49^{-\\cos x}-49^{\\cos x}=-\\frac{48}{7}\"></span> .  Пусть  <span data-inline-latex=\"y=49^{\\cos x}\"></span> , тогда </p><center><p> <span data-inline-latex=\"\\frac{1}{y}-y=-\\frac{48}{7}\\iff \\frac{7y^{2}-48y-7}{7y}=0\\iff \\left[\\begin{aligned}y=-\\frac{1}{7}\\\\y=7\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной, по­лу­чим:  <span data-inline-latex=\"49^{\\cos x}=-\\frac{1}{7}\"></span>  или  <span data-inline-latex=\"49^{\\cos x}=7\"></span>. Пер­вое из этих урав­не­ний не имеет ре­ше­ний, для вто­ро­го урав­не­ния на­хо­дим:</p><center><p> <span data-inline-latex=\"49^{\\cos x}=7\\iff \\cos x=\\frac{1}{2}\\iff \\left[\\begin{aligned}x=-\\frac{\\pi}{3}+2\\pi k\\\\x=\\frac{\\pi}{3}+2\\pi k\\end{aligned}\\right..k\\in\\mathbb{Z}\"></span> . </p></center><p>б)  С по­мо­щью чис­ло­вой окруж­но­сти отберём корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\frac{5\\pi}{2};4\\pi]\"></span> .  По­лу­чим число  <span data-inline-latex=\"\\frac{11\\pi}{3}\"></span> . </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:28:35.446903+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/643703a3-299e-4371-9634-1de276d5ca09",
+              "kind": "ordinary_image",
+              "asset_id": "643703a3-299e-4371-9634-1de276d5ca09",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"49^{-\\sqrt{1-\\sin^{2} x}}-49^{\\cos x}=-\\frac{48}{7}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\frac{5\\pi}{2};4\\pi]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><nobr>а)  <span data-inline-latex=\"\\{-\\frac{\\pi}{3}+2\\pi k;\\frac{\\pi}{3}+2\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"\\frac{11\\pi}{3}\"></span> . </nobr></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=81249043\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 11.02.2025 вариант МА2410309</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"643703a3-299e-4371-9634-1de276d5ca09\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/643703a3-299e-4371-9634-1de276d5ca09\"/></p><p>а)  Из ос­нов­но­го три­го­но­мет­ри­че­ско­го тож­де­ства на­хо­дим, что  <span data-inline-latex=\"\\sqrt{1-\\sin^{2} x}=\\left|\\cos x\\right|\"></span>. Тогда урав­не­ние при­ни­ма­ет вид</p><center><p> <span data-inline-latex=\"49^{-\\left|\\cos x\\right|}-49^{\\cos x}=-\\frac{48}{7}\"></span> . </p></center><p>При  <span data-inline-latex=\"\\cos x\\lt 0\"></span> по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"49^{\\cos x}-49^{\\cos x}=-\\frac{48}{7}\"></span> ,  оно не имеет ре­ше­ний. При  <span data-inline-latex=\"\\cos x\\ge 0\"></span> по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"49^{-\\cos x}-49^{\\cos x}=-\\frac{48}{7}\"></span> .  Пусть  <span data-inline-latex=\"y=49^{\\cos x}\"></span> , тогда </p><center><p> <span data-inline-latex=\"\\frac{1}{y}-y=-\\frac{48}{7}\\iff \\frac{7y^{2}-48y-7}{7y}=0\\iff \\left[\\begin{aligned}y=-\\frac{1}{7}\\\\y=7\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной, по­лу­чим:  <span data-inline-latex=\"49^{\\cos x}=-\\frac{1}{7}\"></span>  или  <span data-inline-latex=\"49^{\\cos x}=7\"></span>. Пер­вое из этих урав­не­ний не имеет ре­ше­ний, для вто­ро­го урав­не­ния на­хо­дим:</p><center><p> <span data-inline-latex=\"49^{\\cos x}=7\\iff \\cos x=\\frac{1}{2}\\iff \\left[\\begin{aligned}x=-\\frac{\\pi}{3}+2\\pi k\\\\x=\\frac{\\pi}{3}+2\\pi k\\end{aligned}\\right..k\\in\\mathbb{Z}\"></span> . </p></center><p>б)  С по­мо­щью чис­ло­вой окруж­но­сти отберём корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[\\frac{5\\pi}{2};4\\pi]\"></span> .  По­лу­чим число  <span data-inline-latex=\"\\frac{11\\pi}{3}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "674931",
+      "task": "674970",
+      "context": {
+        "problem_id": "37596d00-a72f-4155-bb2c-6681acf44907",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:25:13.685585+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6da65704-f96c-4ace-b589-2396736fc244",
+                "html": "<img alt=\"\" data-asset-id=\"6da65704-f96c-4ace-b589-2396736fc244\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6da65704-f96c-4ace-b589-2396736fc244\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6da65704-f96c-4ace-b589-2396736fc244",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"36^{\\sqrt{1-\\sin^{2} x}}-36^{\\cos x}=\\frac{35}{6}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-3\\pi;-\\frac{3\\pi}{2}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{2\\pi}{3}+2\\pi k;\\frac{4\\pi}{3}+2\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"-\\frac{8\\pi}{3}\"></span> . </nobr></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6da65704-f96c-4ace-b589-2396736fc244\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>а)  Из ос­нов­но­го три­го­но­мет­ри­че­ско­го тож­де­ства на­хо­дим, что  <span data-inline-latex=\"\\sqrt{1-\\sin^{2} x}=\\left|\\cos x\\right|\"></span>. Тогда урав­не­ние при­ни­ма­ет вид:</p><center><p> <span data-inline-latex=\"36^{\\left|\\cos x\\right|}-36^{\\cos x}=\\frac{35}{6}\"></span> . </p></center><p>При  <span data-inline-latex=\"\\cos x\\ge 0\"></span> по­лу­ча­ем урав­не­ние <span data-inline-latex=\"36^{\\cos x}-36^{\\cos x}=\\frac{35}{6}\"></span> ,  оно не имеет ре­ше­ний. При  <span data-inline-latex=\"\\cos x\\lt 0\"></span> по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"36^{-\\cos x}-36^{\\cos x}=\\frac{35}{6}\"></span> .  Пусть  <span data-inline-latex=\"y=36^{\\cos x}\"></span> , тогда</p><center><p> <span data-inline-latex=\"\\frac{1}{y}-y=\\frac{35}{6}\\iff \\frac{6y^{2}+35y-6}{6y}=0\\iff \\left[\\begin{aligned}y=\\frac{1}{6}\\\\y=-6\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной, по­лу­чим  <span data-inline-latex=\"36^{\\cos x}=\\frac{1}{6}\"></span>  или  <span data-inline-latex=\"36^{\\cos x}=-6\"></span>. Вто­рое из этих урав­не­ний не имеет ре­ше­ний, для пер­во­го урав­не­ния на­хо­дим:</p><center><p> <span data-inline-latex=\"36^{\\cos x}=\\frac{1}{6}\\iff \\cos x=-\\frac{1}{2}\\iff \\left[\\begin{aligned}x=\\frac{2\\pi}{3}+2\\pi k\\\\x=\\frac{4\\pi}{3}+2\\pi k\\end{aligned}\\right..k\\in\\mathbb{Z}\"></span> . </p></center><p>б)  С по­мо­щью чис­ло­вой окруж­но­сти отберём корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-3\\pi;-\\frac{3\\pi}{2}]\"></span> .  По­лу­чим <nobr>число  <span data-inline-latex=\"-\\frac{8\\pi}{3}\"></span> . </nobr></p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:28:30.729245+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6da65704-f96c-4ace-b589-2396736fc244",
+              "kind": "ordinary_image",
+              "asset_id": "6da65704-f96c-4ace-b589-2396736fc244",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"36^{\\sqrt{1-\\sin^{2} x}}-36^{\\cos x}=\\frac{35}{6}\"></span> . </li><li data-list-marker=\"б)\">Най­ди­те все корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-3\\pi;-\\frac{3\\pi}{2}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{2\\pi}{3}+2\\pi k;\\frac{4\\pi}{3}+2\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"-\\frac{8\\pi}{3}\"></span> . </nobr></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=81257590\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 11.02.2025 вариант МА2410310</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"6da65704-f96c-4ace-b589-2396736fc244\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6da65704-f96c-4ace-b589-2396736fc244\"/></p><p>а)  Из ос­нов­но­го три­го­но­мет­ри­че­ско­го тож­де­ства на­хо­дим, что  <span data-inline-latex=\"\\sqrt{1-\\sin^{2} x}=\\left|\\cos x\\right|\"></span>. Тогда урав­не­ние при­ни­ма­ет вид:</p><center><p> <span data-inline-latex=\"36^{\\left|\\cos x\\right|}-36^{\\cos x}=\\frac{35}{6}\"></span> . </p></center><p>При  <span data-inline-latex=\"\\cos x\\ge 0\"></span> по­лу­ча­ем урав­не­ние <span data-inline-latex=\"36^{\\cos x}-36^{\\cos x}=\\frac{35}{6}\"></span> ,  оно не имеет ре­ше­ний. При  <span data-inline-latex=\"\\cos x\\lt 0\"></span> по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"36^{-\\cos x}-36^{\\cos x}=\\frac{35}{6}\"></span> .  Пусть  <span data-inline-latex=\"y=36^{\\cos x}\"></span> , тогда</p><center><p> <span data-inline-latex=\"\\frac{1}{y}-y=\\frac{35}{6}\\iff \\frac{6y^{2}+35y-6}{6y}=0\\iff \\left[\\begin{aligned}y=\\frac{1}{6}\\\\y=-6\\end{aligned}\\right.\"></span> . </p></center><p>Вер­нем­ся к ис­ход­ной пе­ре­мен­ной, по­лу­чим  <span data-inline-latex=\"36^{\\cos x}=\\frac{1}{6}\"></span>  или  <span data-inline-latex=\"36^{\\cos x}=-6\"></span>. Вто­рое из этих урав­не­ний не имеет ре­ше­ний, для пер­во­го урав­не­ния на­хо­дим:</p><center><p> <span data-inline-latex=\"36^{\\cos x}=\\frac{1}{6}\\iff \\cos x=-\\frac{1}{2}\\iff \\left[\\begin{aligned}x=\\frac{2\\pi}{3}+2\\pi k\\\\x=\\frac{4\\pi}{3}+2\\pi k\\end{aligned}\\right..k\\in\\mathbb{Z}\"></span> . </p></center><p>б)  С по­мо­щью чис­ло­вой окруж­но­сти отберём корни, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-3\\pi;-\\frac{3\\pi}{2}]\"></span> .  По­лу­чим <nobr>число  <span data-inline-latex=\"-\\frac{8\\pi}{3}\"></span> . </nobr></p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

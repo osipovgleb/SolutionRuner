@@ -123,6 +123,11 @@ def validate_radicand(domain, *, rational_domain=False):
 
 
 def polynomial_source(formula):
+    from .exam_trigonometric_radical_equation import variable_radicals
+
+    text, _ = unwrap(formula)
+    if variable_radicals(text):
+        return None
     if r"\log" not in formula:
         return (*source(formula), None)
     text, wrapper = unwrap(formula)

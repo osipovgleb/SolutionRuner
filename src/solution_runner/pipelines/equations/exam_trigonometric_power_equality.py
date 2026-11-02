@@ -32,6 +32,7 @@ class PowerEquality:
     cleared_power: sp.Expr = sp.S.One
     grouping: "PowerGrouping | None" = None
     root_offset: sp.Expr = sp.S.Zero
+    absolute_level: tuple | None = None
 
 
 def reviewed(formula):
@@ -132,7 +133,7 @@ def prime_logs(value):
     )
 
 
-def common_exponent(left, right):
+def common_exponent(left, right, *, extra_symbols=()):
     vectors = {
         p: sp.expand(left.get(p, 0) - right.get(p, 0))
         for p in sorted(left.keys() | right.keys())
@@ -155,15 +156,18 @@ def common_exponent(left, right):
     divisor = sp.igcd(0, *integers.values())
     base = sp.prod(sp.Integer(p) ** (e / divisor) for p, e in integers.items())
     exponent = sp.expand(first * divisor / denominator)
+    variables = (S, C, *extra_symbols)
     if (
-        not exponent.is_polynomial(S, C)
-        or not 1 <= sp.Poly(exponent, S, C).total_degree() <= 3
+        not exponent.is_polynomial(*variables)
+        or not 1 <= sp.Poly(exponent, *variables).total_degree() <= 3
     ):
         raise UnsupportedCondition(
             "the complete exponent difference must be a bounded polynomial"
         )
-    coefficients = sp.Poly(exponent, S, C).coeffs()
-    if any(e.is_real is not True or abs(e) > 1000 for e in coefficients):
+    coefficients = sp.Poly(exponent, *variables).coeffs()
+    if any(
+        e.free_symbols or e.is_real is not True or abs(e) > 1000 for e in coefficients
+    ):
         raise UnsupportedCondition(
             "bounded real algebraic exponent coefficients are required"
         )

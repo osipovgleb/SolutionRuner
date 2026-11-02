@@ -27,6 +27,8 @@ class PowerFactors:
 
 
 class PositivePowerParser(PowerFactors, ExamAngleParser):
+    extra_symbols = ()
+
     def _nested(self, text):
         return type(self)(text, self.atoms, self.denominators, self.depth + 1).parse()
 
@@ -37,7 +39,7 @@ class PositivePowerParser(PowerFactors, ExamAngleParser):
             base.is_Rational is not True
             or not sp.Rational(1, 10000) <= base <= 10000
             or base == 1
-            or exponent.free_symbols - set(self.atoms)
+            or exponent.free_symbols - set(self.atoms) - set(self.extra_symbols)
         ):
             raise UnsupportedCondition(
                 "bounded positive rational bases and original trig exponents are required"
