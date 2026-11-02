@@ -85,7 +85,10 @@ def fold(values, atoms, denominators, preferred_scale, *, sine_square=False):
             or abs(coefficient) > 100
             or coefficient.q > 4
             or shift.is_Rational is not True
-            or (12 * shift).is_Integer is not True
+            or (
+                (12 * shift).is_Integer is not True
+                and (8 * shift).is_Integer is not True
+            )
         ):
             raise UnsupportedCondition(
                 "the folded angles must stay in the reviewed affine grammar"
@@ -112,6 +115,8 @@ def verify_identity(actual, rewritten):
     difference = sp.trigsimp(actual - rewritten)
     if difference != 0:
         difference = sp.trigsimp(sp.expand(sp.expand_trig(difference)))
+    if difference != 0:
+        difference = sp.simplify(difference)
     if difference != 0:
         raise UnsupportedCondition("the product identity must be verified exactly")
 

@@ -159,6 +159,7 @@ class Analysis:
     unit_factors: tuple | None = None
     sum_product: "SumProduct | None" = None
     triple_angle: "TripleAngle | None" = None
+    sine_triple_note: bool = False
     ratio_product: "RatioProduct | None" = None
     selection_note: bool = False
     single_part: bool = False
@@ -332,7 +333,9 @@ def analyze(formula, interval, bounds, parent_html):
         from .exam_trigonometric_four_methods import certify
 
         result = certify(result)
-    return result
+    from .exam_trigonometric_triple_angle import retain_sine_note
+
+    return retain_sine_note(result, parent_html)
 
 
 def analyze_method(

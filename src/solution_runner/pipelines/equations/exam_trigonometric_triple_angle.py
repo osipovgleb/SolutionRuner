@@ -1,5 +1,6 @@
 """Preserve the triple-angle solution and the parent's factorization note."""
 
+import re
 from dataclasses import dataclass, replace
 
 import sympy as sp
@@ -128,4 +129,76 @@ def note(a):
     return (
         "<p><b>Примечание.</b> Можно также решить уравнение разложением на множители.</p>"
         + factorization(data)
+    )
+
+
+def retain_sine_note(a, parent_html):
+    from .exam_trigonometric import select, solve_branches
+    from .exam_trigonometric_selection import finish, root_series
+
+    text = (
+        BeautifulSoup(parent_html, "html.parser")
+        .get_text(" ")
+        .replace("\xad", "")
+        .lower()
+    )
+    if (
+        "примечание" not in text
+        or re.search(r"\bсинуса тройного угла\b", text.split("примечание", 1)[1])
+        is None
+    ):
+        return a
+    identity = 3 * S - 4 * S**3
+    coefficient = sp.cancel(a.raw / identity)
+    if (
+        coefficient.free_symbols
+        or coefficient.is_real is not True
+        or coefficient == 0
+        or a.scale != 1
+        or a.translation
+        or a.poles
+        or a.domain is not None
+    ):
+        raise UnsupportedCondition(
+            "the sine triple-angle note requires the complete unrestricted cubic identity"
+        )
+    branches = solve_branches(a.raw, S, factored=True)[1]
+    branches = tuple(
+        replace(
+            b,
+            square_level=sp.degree(b.polynomial, S) == 2,
+            candidates=tuple(reversed(b.candidates))
+            if sp.degree(b.polynomial, S) == 2
+            else b.candidates,
+        )
+        for b in sorted(branches, key=lambda b: sp.degree(b.polynomial, S))
+    )
+    series = root_series(branches, a.residues, None, False)
+    expected = tuple(sp.Rational(n, 3) for n in range(6))
+    if (
+        select(a.series, (0, 2, True, False))[0] != expected
+        or select(series, (0, 2, True, False))[0] != expected
+    ):
+        raise UnsupportedCondition(
+            "the sine triple-angle note must recover the complete primary root set"
+        )
+    return finish(
+        replace(
+            a,
+            branches=branches,
+            series=series,
+            factorization=True,
+            sine_triple_note=True,
+        )
+    )
+
+
+def sine_note(a):
+    name = a.parameter
+    return (
+        "<p><b>Примечание.</b> Можно также применить формулу синуса тройного угла:</p>"
+        + line(r"3\sin x-4\sin^3x=\sin3x")
+        + line(r"\sin3x=0")
+        + line(r"3x=\pi " + name)
+        + line(r"x=\frac{\pi " + name + r"}{3},\quad " + name + r"\in\mathbb Z")
     )

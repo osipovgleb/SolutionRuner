@@ -73,7 +73,10 @@ class ExamAngleParser(SymbolicTrigonometricParser):
             shift, degrees = parse_angle(angle)
             if (
                 degrees
-                or (12 * shift).is_Integer is not True
+                or (
+                    (12 * shift).is_Integer is not True
+                    and (8 * shift).is_Integer is not True
+                )
                 or function not in ("sin", "cos")
             ):
                 raise UnsupportedCondition(
@@ -101,11 +104,14 @@ class ExamAngleParser(SymbolicTrigonometricParser):
             or abs(multiple) > 100
             or multiple.q > 4
             or shift.is_Rational is not True
-            or (12 * shift).is_Integer is not True
+            or (
+                (12 * shift).is_Integer is not True
+                and (8 * shift).is_Integer is not True
+            )
             or abs(shift) > 10000
         ):
             raise UnsupportedCondition(
-                "bounded rational angle multiples and reviewed twelfth-pi shifts are required"
+                "bounded rational angle multiples and reviewed eighth- or twelfth-pi shifts are required"
             )
         return sp.Symbol("T" + str(len(self.atoms)), real=True), SymbolicAtom(
             function,

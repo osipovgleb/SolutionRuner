@@ -188,6 +188,10 @@ def method_notes(a):
     from .exam_trigonometric_proof import first
 
     html = ""
+    if a.sine_triple_note:
+        from .exam_trigonometric_triple_angle import sine_note
+
+        html += sine_note(a)
     if a.triple_angle is not None and a.triple_angle.note:
         from .exam_trigonometric_triple_angle import note
 
