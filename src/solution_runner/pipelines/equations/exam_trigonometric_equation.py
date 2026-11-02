@@ -279,6 +279,13 @@ def compile_constrained(
                 "exponential quadratics require their original angle"
             )
         return compiled
+    from .exam_trigonometric_power_equality import compile_quotient as power_quotient
+
+    compiled = power_quotient(formula, parent_html, preferred=preferred, scale=scale)
+    if compiled is not None:
+        if translation:
+            raise UnsupportedCondition("power quotients require their original angle")
+        return compiled
     if exponential_absolute(formula):
         from .exam_trigonometric_exponential_absolute import compile_absolute
 

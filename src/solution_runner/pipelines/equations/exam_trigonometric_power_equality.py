@@ -1,7 +1,7 @@
 """Certify one common exponent of complete positive power products."""
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -23,6 +23,9 @@ class PowerEquality:
     base: sp.Expr
     exponent: sp.Expr
     equal_powers: tuple | None = None
+    radicand: sp.Expr | None = None
+    radicand_text: str | None = None
+    cleared_power: sp.Expr = sp.S.One
 
 
 def reviewed(formula):
@@ -34,19 +37,58 @@ def reviewed(formula):
     return False
 
 
-def review_parent(html):
+def parent_forms(html):
     soup = BeautifulSoup(html, "html.parser")
     forms = [clean(n["data-inline-latex"]) for n in soup.select("[data-inline-latex]")]
     text = soup.get_text(" ").replace("\xad", "").lower()
     if (
-        not any(reviewed(f) for f in forms)
-        or any(re.search(r"(?<![A-Za-z])[tyuzv]=", f) for f in forms)
-        or any(s in text for s in ("случа", "другое решение", "ещё одно решение"))
+        any(re.search(r"(?<![A-Za-z])[tyuzv]=", f) for f in forms)
+        or any(
+            s in text
+            for s in ("случа", "другое решение", "ещё одно решение", "еще одно решение")
+        )
         or r"\log" in " ".join(forms)
     ):
         raise UnsupportedCondition(
             "the parent must use direct equality of positive powers without another method"
         )
+    return forms
+
+
+def review_parent(html):
+    if not any(reviewed(f) for f in parent_forms(html)):
+        raise UnsupportedCondition(
+            "the parent must use direct equality of positive powers without another method"
+        )
+
+
+def review_quotient_parent(html, exponent):
+    from .exam_trigonometric_compile import compile_equation
+
+    forms = parent_forms(html)
+    if any(reviewed(f) for f in forms):
+        return
+    for value in forms:
+        parts = re.split(
+            r"\\(?:iff|Leftrightarrow|quad)|\\(?:begin|end)\{(?:cases|aligned)\}|\\\\",
+            value.replace("&", ""),
+        )
+        for part in parts:
+            part = part.removeprefix(r"\left[").removesuffix(r"\right.").strip(".,;")
+            if part.count("=") != 1 or any(
+                token in part for token in ("<", ">", r"\gt", r"\lt", r"\ge", r"\le")
+            ):
+                continue
+            try:
+                raw, _ = compile_equation(part)
+            except UnsupportedCondition:
+                continue
+            weight = sp.cancel(raw / exponent)
+            if not weight.free_symbols and weight.is_real is True and weight != 0:
+                return
+    raise UnsupportedCondition(
+        "the parent must retain the complete computed power-exponent equation"
+    )
 
 
 def prime_logs(value):
@@ -154,24 +196,116 @@ def compile_equality(formula, parent_html, *, preferred=None, scale=sp.S.One):
     values, poles, identities = compile_values(
         [n.value for n in nodes], atoms, denominators
     )
-    left, right = (prime_logs(value) for value in values)
     for pole in poles:
         prime_logs(pole)
+    return equation(values, identities, parent_html, preferred, scale)
+
+
+def equation(
+    values,
+    identities,
+    parent_html,
+    preferred,
+    scale,
+    *,
+    radicand=None,
+    radicand_text=None,
+    poles=(),
+    cleared_power=sp.S.One,
+):
+    left, right = (prime_logs(value) for value in values)
     base, exponent = common_exponent(left, right)
     from .exam_trigonometric_power_style import equal_base, equal_sides, scaled_angle
 
     preferred, scale = scaled_angle(parent_html) or (preferred, scale)
+    if radicand is not None:
+        review_quotient_parent(parent_html, exponent)
+        if scale != 1:
+            raise UnsupportedCondition(
+                "a radical power quotient needs its original angle"
+            )
+    presented_base = equal_base(parent_html)
+    if radicand is not None and presented_base is None:
+        presented_base = base
     data = PowerEquality(
         *values,
         tuple(sorted(left.items())),
         tuple(sorted(right.items())),
         base,
         exponent,
-        equal_sides(left, right, base, equal_base(parent_html)),
+        equal_sides(left, right, base, presented_base),
+        radicand,
+        radicand_text,
+        cleared_power,
     )
+    numerator, denominator = sp.fraction(radicand) if radicand is not None else (0, 1)
     return Equation(
         scaled_exponent(exponent, preferred, scale),
         identities,
         scale,
+        poles=poles,
+        domain=sp.expand(numerator * denominator) if radicand is not None else None,
+        strict_domain=radicand is not None,
         power_equality=data,
+    )
+
+
+def compile_quotient(formula, parent_html, *, preferred=None, scale=sp.S.One):
+    from .exam_trigonometric_power_polynomial import source
+    from .exam_trigonometric_strict_quotient import operands
+
+    parts = operands(formula)
+    if parts is None or not reviewed(formula):
+        return None
+    expression, poles, identities, radicand, _wrapper, strict = source(
+        formula, rational_domain=True
+    )
+    numerator, divisor = sp.fraction(expression)
+    prime_logs(divisor)
+    terms = sp.Add.make_args(numerator)
+    positive = [t for t in terms if not t.could_extract_minus_sign()]
+    negative = [-t for t in terms if t.could_extract_minus_sign()]
+    if not strict or len(positive) != 1 or len(negative) != 1:
+        raise UnsupportedCondition("two complete positive power products are required")
+    if any(p not in (S, C) for p in poles):
+        raise UnsupportedCondition(
+            "only original sine/cosine power-quotient poles are reviewed"
+        )
+    return equation(
+        [positive[0], negative[0]],
+        identities,
+        parent_html,
+        preferred,
+        scale,
+        radicand=radicand,
+        radicand_text=parts[1],
+        poles=poles,
+        cleared_power=divisor,
+    )
+
+
+def prepare(a, parent_html):
+    if a.power_equality is None or a.power_equality.radicand is None or not a.series:
+        return a
+    from .exam_trigonometric import select
+    from .exam_trigonometric_inverse import centred
+    from .exam_trigonometric_parameters import affine_families
+    from .exam_trigonometric_selection import equivalent_series
+
+    declared = {
+        (q % p, p): (q, p)
+        for q, p, _ in affine_families(parent_html)
+        if equivalent_series((*a.series, (q, p)), a.series)
+    }
+    source = tuple(declared.values())
+    series = (
+        source if source and equivalent_series(source, a.series) else centred(a.series)
+    )
+    selected, trace = select(series, a.bounds)
+    return replace(
+        a,
+        series=series,
+        selected=selected,
+        selections=trace,
+        series_aligned=series != a.series,
     )

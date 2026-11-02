@@ -50,7 +50,7 @@ def unwrap(formula):
     return text, wrapper
 
 
-def source(formula):
+def source(formula, *, rational_domain=False):
     text, wrapper = unwrap(formula)
     atoms, denominators = {}, []
     nodes = [
@@ -80,7 +80,17 @@ def source(formula):
     if domain is not None and (
         not domain.is_polynomial(S, C) or sp.Poly(domain, S, C).total_degree() > 2
     ):
-        raise UnsupportedCondition("a bounded whole quadratic radicand is required")
+        numerator, denominator = sp.fraction(domain)
+        weights = [sp.cancel(denominator / variable) for variable in (S, C)]
+        if (
+            not rational_domain
+            or not numerator.is_polynomial(S, C)
+            or sp.Poly(numerator, S, C).total_degree() > 1
+            or not any(
+                not w.free_symbols and w.is_real is True and w != 0 for w in weights
+            )
+        ):
+            raise UnsupportedCondition("a bounded whole quadratic radicand is required")
     poles = (*poles, *((values[2],) if wrapper is not None and not strict else ()))
     retained = []
     for pole in poles:

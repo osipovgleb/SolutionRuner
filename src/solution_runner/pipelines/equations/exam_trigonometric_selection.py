@@ -380,10 +380,12 @@ def finalize(result, parent_html):
     from .exam_trigonometric_finite_log import prepare as finite_log
     from .exam_trigonometric_global_radical import prepare as global_radical
     from .exam_trigonometric_parameters import notation
+    from .exam_trigonometric_power_equality import prepare as power_equality
     from .exam_trigonometric_radical_product import prepare as radical_product
     from .exam_trigonometric_safe_square import prepare as safe_square
     from .exam_trigonometric_square_radical_cases import prepare as square_radicals
 
+    result = power_equality(result, parent_html)
     result = notation(centered_power(result, parent_html), parent_html)
     result = radical_product(result, parent_html)
     result = safe_square(result, parent_html)
