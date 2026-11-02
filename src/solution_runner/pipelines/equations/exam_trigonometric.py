@@ -376,10 +376,14 @@ def analyze_method(
     if compiled.power_equality is not None or compiled.power_polynomial is not None:
         from .exam_trigonometric_power_style import figure_stage
 
+        grouping = compiled.power_equality.grouping if compiled.power_equality else None
         position = (
             "after-polynomial"
-            if compiled.power_polynomial is not None
-            and compiled.power_polynomial.style.figure_after_polynomial
+            if (grouping is not None and grouping.figure_after_grouping)
+            or (
+                compiled.power_polynomial is not None
+                and compiled.power_polynomial.style.figure_after_polynomial
+            )
             else figure_stage(parent_html)
         )
     from .exam_trigonometric_factors import method_branches

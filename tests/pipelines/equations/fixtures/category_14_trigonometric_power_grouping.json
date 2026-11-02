@@ -1,0 +1,552 @@
+{
+  "cases": [
+    {
+      "group": "649745",
+      "task": "649745",
+      "context": {
+        "problem_id": "c30763ac-751a-4d33-96fd-5d2014f8983d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:57.099252+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c078761c-fa3f-48cb-aeb4-8a1a5c41735f",
+                "html": "<img alt=\"\" data-asset-id=\"c078761c-fa3f-48cb-aeb4-8a1a5c41735f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c078761c-fa3f-48cb-aeb4-8a1a5c41735f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c078761c-fa3f-48cb-aeb4-8a1a5c41735f",
+                "position": 4,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"750^{\\cos 3x}+6\\cdot 125^{\\frac{1}{3}+\\cos 3x}=5^{5\\cos 3x}+30^{1+\\cos 3x}\"></span> .</li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{7\\pi}{4};-\\frac{3\\pi}{4}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+\\frac{\\pi k}{3}\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <span data-inline-latex=\"t=\\cos 3x\"></span>,  тогда:<center><p><span><span data-inline-latex=\"750^t+6\\cdot125^{\\frac{1}{3}+t}=5^{5t}+30^{1+t}\\Leftrightarrow 5^{3t}\\cdot6^t+30\\cdot5^{3t}=5^{5t}+30\\cdot5^t\\cdot6^t\\Leftrightarrow 5^{2t}\\cdot6^t+30\\cdot5^{2t}=5^{4t}+30\\cdot6^t\\Leftrightarrow 5^{2t}(6^t-5^{2t})-30(6^t-5^{2t})=0\\Leftrightarrow (5^{2t}-30)(6^t-25^t)=0\\Leftrightarrow \\left[\\begin{aligned}5^{2t}&amp;=30,\\\\6^t&amp;=25^t\\end{aligned}\\right.\\Leftrightarrow \\begin{cases}2t=\\log_5 30,\\\\\\left(\\frac{6}{25}\\right)^t=1\\end{cases}\\Leftrightarrow \\left[\\begin{aligned}t&amp;=\\frac{1}{2}\\log_5 30,\\\\t&amp;=0.\\end{aligned}\\right.\"></span></span></p></center><img alt=\"\" data-asset-id=\"c078761c-fa3f-48cb-aeb4-8a1a5c41735f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p>За­ме­тим, что </p><center><p> <span data-inline-latex=\"\\frac{1}{2}\\log_5 30\\gt \\frac{1}{2}\\log_5 25=\\frac{1}{2}\\cdot 2=1\"></span>, </p></center><p>по­это­му урав­не­ние  <span data-inline-latex=\"\\cos 3x=\\frac{1}{2}\\log_5 30\"></span> не имеет ре­ше­ний. Оста­лось ре­шить урав­не­ние  <span data-inline-latex=\"\\cos 3x=0\"></span>:</p><center><p> <span data-inline-latex=\"\\cos 3x=0\\iff 3x=\\frac{\\pi}{2}+\\pi k\\iff x=\\frac{\\pi}{6}+\\frac{\\pi k}{3},\\quad k\\in\\mathbb{Z}\"></span> . </p></center></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи еди­нич­ной окруж­но­сти. Под­хо­дят:  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T19:24:01.560985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c078761c-fa3f-48cb-aeb4-8a1a5c41735f",
+              "kind": "ordinary_image",
+              "asset_id": "c078761c-fa3f-48cb-aeb4-8a1a5c41735f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние <span data-inline-latex=\"750^{\\cos 3x}+6\\cdot 125^{\\frac{1}{3}+\\cos 3x}=5^{5\\cos 3x}+30^{1+\\cos 3x}\"></span> .</li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{7\\pi}{4};-\\frac{3\\pi}{4}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+\\frac{\\pi k}{3}\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=56439438\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 446</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <span data-inline-latex=\"t=\\cos 3x\"></span>,  тогда:<center><p><span><span data-inline-latex=\"750^t+6\\cdot125^{\\frac{1}{3}+t}=5^{5t}+30^{1+t}\\Leftrightarrow 5^{3t}\\cdot6^t+30\\cdot5^{3t}=5^{5t}+30\\cdot5^t\\cdot6^t\\Leftrightarrow 5^{2t}\\cdot6^t+30\\cdot5^{2t}=5^{4t}+30\\cdot6^t\\Leftrightarrow 5^{2t}(6^t-5^{2t})-30(6^t-5^{2t})=0\\Leftrightarrow (5^{2t}-30)(6^t-25^t)=0\\Leftrightarrow \\left[\\begin{aligned}5^{2t}&amp;=30,\\\\6^t&amp;=25^t\\end{aligned}\\right.\\Leftrightarrow \\begin{cases}2t=\\log_5 30,\\\\\\left(\\frac{6}{25}\\right)^t=1\\end{cases}\\Leftrightarrow \\left[\\begin{aligned}t&amp;=\\frac{1}{2}\\log_5 30,\\\\t&amp;=0.\\end{aligned}\\right.\"></span></span></p></center><img alt=\"\" data-asset-id=\"c078761c-fa3f-48cb-aeb4-8a1a5c41735f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c078761c-fa3f-48cb-aeb4-8a1a5c41735f\"/><p>За­ме­тим, что </p><center><p> <span data-inline-latex=\"\\frac{1}{2}\\log_5 30\\gt \\frac{1}{2}\\log_5 25=\\frac{1}{2}\\cdot 2=1\"></span>, </p></center><p>по­это­му урав­не­ние  <span data-inline-latex=\"\\cos 3x=\\frac{1}{2}\\log_5 30\"></span> не имеет ре­ше­ний. Оста­лось ре­шить урав­не­ние  <span data-inline-latex=\"\\cos 3x=0\"></span>:</p><center><p> <span data-inline-latex=\"\\cos 3x=0\\iff 3x=\\frac{\\pi}{2}+\\pi k\\iff x=\\frac{\\pi}{6}+\\frac{\\pi k}{3},\\quad k\\in\\mathbb{Z}\"></span> . </p></center></li><li data-list-marker=\"б)\">От­бе­рем корни при по­мо­щи еди­нич­ной окруж­но­сти. Под­хо­дят:  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "674825",
+      "task": "674825",
+      "context": {
+        "problem_id": "385023c4-73de-4b8e-b291-39d8c1b3d195",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:25:15.663748+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9352852a-9c3f-4b98-b97f-07c27d9107b6",
+                "html": "<img alt=\"\" data-asset-id=\"9352852a-9c3f-4b98-b97f-07c27d9107b6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9352852a-9c3f-4b98-b97f-07c27d9107b6\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9352852a-9c3f-4b98-b97f-07c27d9107b6",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"750^{\\cos 3x}+6\\cdot 125^{\\frac{1}{3}+\\cos 3x}=5^{5\\cos 3x}+30^{1+\\cos 3x}\"></span> .</li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{7\\pi}{4};-\\frac{3\\pi}{4}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+\\frac{\\pi k}{3}\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </nobr></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9352852a-9c3f-4b98-b97f-07c27d9107b6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>а)  Пре­об­ра­зу­ем урав­не­ние:</p><center><p><span> <span data-inline-latex=\"750^{\\cos 3x}+6\\cdot 125^{\\frac{1}{3}+\\cos 3x}=5^{5\\cos 3x}+30^{1+\\cos 3x}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff (6\\cdot 5^{3})^{\\cos 3x}+6\\cdot 5^{1+3\\cos 3x}-5^{5\\cos 3x}-(6\\cdot 5)^{1+\\cos 3x}=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff (6\\cdot 5)^{\\cos 3x}(5^{2\\cos 3x}-30)-5^{3\\cos 3x}(5^{2\\cos 3x}-30)=0\\iff (6^{\\cos 3x}-5^{2\\cos 3x})(5^{2\\cos 3x}-30)=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}6^{\\cos 3x}=25^{\\cos 3x}\\\\25^{\\cos 3x}=30\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}\\cos 3x=0\\\\\\cos 3x=\\log_{(25)} 30\\gt 1\\end{aligned}\\right..\\quad \\iff 3x=\\frac{\\pi}{2}+\\pi k\\iff x=\\frac{\\pi}{6}+\\frac{\\pi k}{3},\\quad k\\in\\mathbb{Z}\"></span> . </span></p></center><p>б)  От­бе­рем корни при по­мо­щи еди­нич­ной окруж­но­сти (см. рис.). По­лу­ча­ем корни  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:28:38.457591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9352852a-9c3f-4b98-b97f-07c27d9107b6",
+              "kind": "ordinary_image",
+              "asset_id": "9352852a-9c3f-4b98-b97f-07c27d9107b6",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"750^{\\cos 3x}+6\\cdot 125^{\\frac{1}{3}+\\cos 3x}=5^{5\\cos 3x}+30^{1+\\cos 3x}\"></span> .</li><li data-list-marker=\"б)\">Най­ди­те все корни урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{7\\pi}{4};-\\frac{3\\pi}{4}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><nobr>а)  <span data-inline-latex=\"\\{\\frac{\\pi}{6}+\\frac{\\pi k}{3}\\mid k\\in\\mathbb{Z}\\}\"></span> ; </nobr> <nobr>б)  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </nobr></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=81205443\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 491</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б)</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"9352852a-9c3f-4b98-b97f-07c27d9107b6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9352852a-9c3f-4b98-b97f-07c27d9107b6\"/></p><p>а)  Пре­об­ра­зу­ем урав­не­ние:</p><center><p><span> <span data-inline-latex=\"750^{\\cos 3x}+6\\cdot 125^{\\frac{1}{3}+\\cos 3x}=5^{5\\cos 3x}+30^{1+\\cos 3x}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff (6\\cdot 5^{3})^{\\cos 3x}+6\\cdot 5^{1+3\\cos 3x}-5^{5\\cos 3x}-(6\\cdot 5)^{1+\\cos 3x}=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff (6\\cdot 5)^{\\cos 3x}(5^{2\\cos 3x}-30)-5^{3\\cos 3x}(5^{2\\cos 3x}-30)=0\\iff (6^{\\cos 3x}-5^{2\\cos 3x})(5^{2\\cos 3x}-30)=0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\left[\\begin{aligned}6^{\\cos 3x}=25^{\\cos 3x}\\\\25^{\\cos 3x}=30\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}\\cos 3x=0\\\\\\cos 3x=\\log_{(25)} 30\\gt 1\\end{aligned}\\right..\\quad \\iff 3x=\\frac{\\pi}{2}+\\pi k\\iff x=\\frac{\\pi}{6}+\\frac{\\pi k}{3},\\quad k\\in\\mathbb{Z}\"></span> . </span></p></center><p>б)  От­бе­рем корни при по­мо­щи еди­нич­ной окруж­но­сти (см. рис.). По­лу­ча­ем корни  <span data-inline-latex=\"-\\frac{3\\pi}{2}\"></span> ,   <span data-inline-latex=\"-\\frac{7\\pi}{6}\"></span> ,   <span data-inline-latex=\"-\\frac{5\\pi}{6}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

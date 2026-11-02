@@ -43,6 +43,10 @@ def exponent_steps(a, left, right):
 
 
 def proof(a):
+    if a.power_equality.grouping is not None:
+        from .exam_trigonometric_power_grouping_proof import proof as grouping
+
+        return grouping(a)
     from .exam_trigonometric_proof import formula, polynomial
 
     data = a.power_equality

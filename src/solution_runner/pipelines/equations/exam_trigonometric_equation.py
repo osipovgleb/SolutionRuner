@@ -264,6 +264,7 @@ def compile_constrained(
     from .exam_trigonometric_global_radical import reviewed as global_radical
     from .exam_trigonometric_original_quotients import reviewed as original_quotient
     from .exam_trigonometric_power_equality import reviewed as positive_powers
+    from .exam_trigonometric_power_grouping import compile_grouping as power_grouping
     from .exam_trigonometric_power_polynomial import (
         compile_polynomial as power_polynomial,
     )
@@ -272,6 +273,11 @@ def compile_constrained(
     from .exam_trigonometric_strict_quotient import reviewed as strict_quotient
     from .exam_trigonometric_sum_squares import reviewed as sum_squares
 
+    compiled = power_grouping(formula, parent_html)
+    if compiled is not None:
+        if translation:
+            raise UnsupportedCondition("power grouping requires its original argument")
+        return compiled
     compiled = power_polynomial(formula, parent_html)
     if compiled is not None:
         if translation:

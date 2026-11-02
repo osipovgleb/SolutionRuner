@@ -2,6 +2,7 @@
 
 import re
 from dataclasses import dataclass, replace
+from typing import TYPE_CHECKING
 
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -12,6 +13,9 @@ from .exam_trigonometric_methods import Equation
 from .exam_trigonometric_power_parser import PositivePowerParser
 from .exam_trigonometric_radical_equation import compile_values
 from .power_arithmetic import balanced, clean
+
+if TYPE_CHECKING:
+    from .exam_trigonometric_power_grouping import PowerGrouping
 
 
 @dataclass(frozen=True)
@@ -26,6 +30,7 @@ class PowerEquality:
     radicand: sp.Expr | None = None
     radicand_text: str | None = None
     cleared_power: sp.Expr = sp.S.One
+    grouping: "PowerGrouping | None" = None
 
 
 def reviewed(formula):

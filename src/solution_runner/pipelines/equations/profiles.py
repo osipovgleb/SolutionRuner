@@ -4809,6 +4809,8 @@ PROFILES += tuple(
         rewrite_existing_solution=True,
     )
     for key, group_id, index in (
+        ("649745", "3a87d3fe-4fe4-4be6-894a-52c579de90e5", 34),
+        ("674825", "522b6b7f-a5a8-4a19-b6fa-3a79e6a68f07", 38),
         ("698236", "4df5187a-b1b9-498a-aac0-ea8362bdacb9", 43),
         ("624488", "391f7348-6c53-4381-9570-11854c0c3e41", 25),
         ("516274", "ed671437-0c28-486e-97a0-301bd20d064c", 10),
