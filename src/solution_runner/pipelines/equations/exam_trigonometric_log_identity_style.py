@@ -39,6 +39,11 @@ def parent_kind(parent_html):
                 "the direct log identity must not discard another substitution"
             )
         return direct, ""
+    from .exam_trigonometric_log_base_change_style import kind as base_change
+
+    algebraic = base_change(forms)
+    if algebraic is not None:
+        return algebraic
     names = set()
     for f in forms:
         match = re.match(r"([tyuzv])=\\log_", f) or re.search(r"=([tyuzv])$", f)
@@ -66,6 +71,10 @@ def parent_kind(parent_html):
 
 
 def figure_stage(parent_html, kind):
+    if kind == "base_square":
+        from .exam_trigonometric_log_base_change_style import figure_stage as base_stage
+
+        return base_stage(parent_html)
     soup = BeautifulSoup(parent_html, "html.parser")
     images = soup.find_all("img")
     if not images:
@@ -146,7 +155,7 @@ def style(parent_html, formula):
     else:
         selection = "circle"
     return (
-        C if kind == "power" else S,
+        C if kind in ("power", "base_square") else S,
         False,
         False,
         "after-intro" if stage == "after-substitution" else stage,

@@ -184,6 +184,10 @@ def proof(a):
         html += power_steps(a)
     elif d.kind == "chain":
         html += chain_steps(a)
+    elif d.kind == "base_square":
+        from .exam_trigonometric_log_base_change_proof import steps
+
+        html += steps(a)
     else:
         html += domain(a)
         steps, first, second = substitution(a)

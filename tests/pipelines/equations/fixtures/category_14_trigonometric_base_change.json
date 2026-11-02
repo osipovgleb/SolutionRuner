@@ -1,0 +1,225 @@
+{
+  "groups": [
+    {
+      "key": "528341",
+      "uuid": "f334e21b-093e-4634-ad39-0d1891ec6b03",
+      "order": 9,
+      "theme_uuid": "95b23d39-c034-4c39-b315-95bb88dff3bc",
+      "theme_order": 10,
+      "task_count": 1
+    }
+  ],
+  "cases": [
+    {
+      "task": "528341",
+      "group": "528341",
+      "context": {
+        "problem_id": "a24b2886-9eca-4c29-90f5-c4ec68248769",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:25:58.991185+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0e1261c6-01ce-4cb3-b10b-5798ff5933f3",
+                "html": "<img alt=\"\" data-asset-id=\"0e1261c6-01ce-4cb3-b10b-5798ff5933f3\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0e1261c6-01ce-4cb3-b10b-5798ff5933f3\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0e1261c6-01ce-4cb3-b10b-5798ff5933f3",
+                "position": 4,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\log_{(3-4\\cos^{2} x)} (9-16\\cos^{4} x)=2+\\frac{1}{\\log_2 (3-4\\cos^{2} x)}\"></span> . </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{\\pi}{3};\\frac{2\\pi}{3}]\"></span> . </li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>а)  <span data-inline-latex=\"\\{-\\frac{\\pi}{3}+\\pi k,\\frac{\\pi}{3}+\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-\\frac{\\pi}{3},\\,\\frac{\\pi}{3},\\,\\frac{2\\pi}{3}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"a)\">Пусть <span data-inline-latex=\"4\\cos^{2} x=t\"></span>,  тогда имеем:<center><p><span> <span data-inline-latex=\"\\log_{(3-t)} (9-t^{2})=2+\\frac{1}{\\log_2 (3-t)}\\iff \\log_{(3-t)} ((3-t)(3+t))=2+\\log_{(3-t)} 2\\iff 1+\\log_{(3-t)} (3+t)=2+\\log_{(3-t)} 2\\iff \\log_{(3-t)} \\frac{3+t}{2}=1\\iff \\begin{cases}\\frac{3+t}{2}=3-t\\\\3-t\\gt 0\\\\3-t\\ne 1\\end{cases}.\\quad \\iff t=1\"></span>. </span></p><p><span></span></p></center><p>Вернёмся к ис­ход­ной пе­ре­мен­ной:</p><center><p> <span data-inline-latex=\"4\\cos^{2} x=1\\iff \\cos x=\\pm \\frac{1}{2}\\iff x=\\pm \\frac{\\pi}{3}+\\pi k,\\quad k\\in\\mathbb{Z}\"></span> . </p></center><p><img alt=\"\" data-asset-id=\"0e1261c6-01ce-4cb3-b10b-5798ff5933f3\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p></li><li data-list-marker=\"б)\">При по­мо­щи еди­нич­ной окруж­но­сти отберём корни, ле­жа­щие на  от­рез­ке  <span data-inline-latex=\"[-\\frac{\\pi}{3};\\frac{2\\pi}{3}]\"></span> .  По­лу­ча­ем числа  <span data-inline-latex=\"-\\frac{\\pi}{3},\\,\\frac{\\pi}{3},\\,\\frac{2\\pi}{3}\"></span> . </li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T19:08:26.754985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0e1261c6-01ce-4cb3-b10b-5798ff5933f3",
+              "kind": "ordinary_image",
+              "asset_id": "0e1261c6-01ce-4cb3-b10b-5798ff5933f3",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Ре­ши­те урав­не­ние  <span data-inline-latex=\"\\log_{(3-4\\cos^{2} x)} (9-16\\cos^{4} x)=2+\\frac{1}{\\log_2 (3-4\\cos^{2} x)}\"></span> . </li><li data-list-marker=\"б)\">Ука­жи­те корни этого урав­не­ния, при­над­ле­жа­щие от­рез­ку  <span data-inline-latex=\"[-\\frac{\\pi}{3};\\frac{2\\pi}{3}]\"></span> . </li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>а)  <span data-inline-latex=\"\\{-\\frac{\\pi}{3}+\\pi k,\\frac{\\pi}{3}+\\pi k\\mid k\\in\\mathbb{Z}\\}\"></span> ;  б)  <span data-inline-latex=\"-\\frac{\\pi}{3},\\,\\frac{\\pi}{3},\\,\\frac{2\\pi}{3}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=25535536\" rel=\"noreferrer noopener\" target=\"_blank\">А. Ларин. Тренировочный вариант № 285</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th>Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th>Баллы</th></tr><tr><td>Обос­но­ван­но по­лу­че­ны вер­ные от­ве­ты в обоих пунк­тах.</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td>Обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те а),<p>ИЛИ</p><p>по­лу­че­ны не­вер­ные от­ве­ты из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния пунк­та а) и пунк­та б).</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td>Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"a)\">Пусть <span data-inline-latex=\"4\\cos^{2} x=t\"></span>,  тогда имеем:<center><p><span> <span data-inline-latex=\"\\log_{(3-t)} (9-t^{2})=2+\\frac{1}{\\log_2 (3-t)}\\iff \\log_{(3-t)} ((3-t)(3+t))=2+\\log_{(3-t)} 2\\iff 1+\\log_{(3-t)} (3+t)=2+\\log_{(3-t)} 2\\iff \\log_{(3-t)} \\frac{3+t}{2}=1\\iff \\begin{cases}\\frac{3+t}{2}=3-t\\\\3-t\\gt 0\\\\3-t\\ne 1\\end{cases}.\\quad \\iff t=1\"></span>. </span></p><p><span></span></p></center><p>Вернёмся к ис­ход­ной пе­ре­мен­ной:</p><center><p> <span data-inline-latex=\"4\\cos^{2} x=1\\iff \\cos x=\\pm \\frac{1}{2}\\iff x=\\pm \\frac{\\pi}{3}+\\pi k,\\quad k\\in\\mathbb{Z}\"></span> . </p></center><p><img alt=\"\" data-asset-id=\"0e1261c6-01ce-4cb3-b10b-5798ff5933f3\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0e1261c6-01ce-4cb3-b10b-5798ff5933f3\"/></p></li><li data-list-marker=\"б)\">При по­мо­щи еди­нич­ной окруж­но­сти отберём корни, ле­жа­щие на  от­рез­ке  <span data-inline-latex=\"[-\\frac{\\pi}{3};\\frac{2\\pi}{3}]\"></span> .  По­лу­ча­ем числа  <span data-inline-latex=\"-\\frac{\\pi}{3},\\,\\frac{\\pi}{3},\\,\\frac{2\\pi}{3}\"></span> . </li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

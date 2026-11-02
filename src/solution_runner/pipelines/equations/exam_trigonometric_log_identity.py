@@ -1,6 +1,7 @@
 """Certify complete log identities without cancelling their original domains."""
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
 import sympy as sp
 
@@ -14,6 +15,9 @@ from .logarithm_arithmetic import power
 
 Z = sp.Symbol("z", real=True)
 
+if TYPE_CHECKING:
+    from .exam_trigonometric_log_base_change import SquareBaseChange
+
 
 @dataclass(frozen=True)
 class LogIdentity:
@@ -26,6 +30,7 @@ class LogIdentity:
     polynomial: sp.Expr | None
     substitution: str
     stage: str
+    base_change: "SquareBaseChange | None" = None
 
 
 def equal(first, second):
@@ -173,6 +178,10 @@ def certify_identity(value, logs, values, poles, parent_html, angles):
             logs, zip(values[::2], values[1::2], strict=True), strict=True
         )
     )
+    if kind == "base_square":
+        from .exam_trigonometric_log_base_change import identity
+
+        return identity(value, atoms, logs, poles, parent_html, angles)
     if not atoms or any(
         a.base.free_symbols - {S, C}
         or a.argument.free_symbols - {S, C}
@@ -237,6 +246,8 @@ def build_equation(raw, data, identities, poles):
     from .exam_trigonometric_log_product import LogProduct
     from .exam_trigonometric_methods import Equation
 
+    if data.base_change is not None:
+        poles = (sp.expand(data.atoms[0].base - 1),)
     return Equation(
         raw,
         identities,
@@ -248,7 +259,7 @@ def build_equation(raw, data, identities, poles):
             None,
             None,
             selection_image_position="after-steps"
-            if data.kind == "chain"
+            if data.kind in ("chain", "base_square")
             else "selection",
             equality=LogEquality(
                 "identity", data.log_value, None, "", "", identity=data

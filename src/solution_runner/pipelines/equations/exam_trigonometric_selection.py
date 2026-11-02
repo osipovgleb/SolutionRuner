@@ -281,6 +281,13 @@ def method_series(
             series = centred(series)
         return series, False, False
     if compiled.log_product is not None or compiled.log_polynomial is not None:
+        if (
+            compiled.log_product is not None
+            and compiled.log_product.equality is not None
+            and compiled.log_product.equality.identity is not None
+            and compiled.log_product.equality.identity.base_change is not None
+        ):
+            return periodic(residues), False, False
         series = tuple(dict.fromkeys(s for b in branches for s in restricted_series(b)))
         if (
             compiled.log_product is not None
