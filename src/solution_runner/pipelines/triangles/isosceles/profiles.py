@@ -483,6 +483,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27744-vertex-angle-from-base-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27745",
@@ -497,6 +498,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27745-base-angle-from-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27746",
@@ -511,6 +513,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27746-exterior-angle-from-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27747",
@@ -525,6 +528,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27747-vertex-angle-from-exterior-base-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27748",
@@ -539,6 +543,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27748-base-angle-from-exterior-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27750",
@@ -553,6 +558,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27750-smaller-angle-from-larger-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27754",
@@ -567,6 +573,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27754-smaller-angle-from-angle-difference",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27760",

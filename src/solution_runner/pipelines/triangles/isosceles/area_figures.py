@@ -40,11 +40,16 @@ def source_bytes(source):
 
 
 def triangle_svg(model):
+    return plain_triangle_svg(model.apex, model.height / model.base)
+
+
+def plain_triangle_svg(apex, height_over_base):
+    """Keep the audited plain triangle style for a specified apex and shape."""
     original = ET.fromstring(source_bytes(ACUTE))
     glyphs = dict(zip("ABC", original.findall(_tag("g"))))
     root = ET.Element(_tag("svg"), dict(original.attrib))
     left, right, bottom = 15.0321, 119.9139, 117.2406
-    height = float(model.height / model.base) * (right - left)
+    height = float(height_over_base) * (right - left)
     if not math.isfinite(height) or height <= 0:
         raise ContentPlanError(
             "the exact area triangle must have a finite positive height"
@@ -66,9 +71,9 @@ def triangle_svg(model):
             blue,
             "equal-" + name,
         )
-    ends = sorted(set("ABC") - {model.apex})
+    ends = sorted(set("ABC") - {apex})
     boxes = []
-    for name, point in [(ends[0], p), (ends[1], q), (model.apex, r)]:
+    for name, point in [(ends[0], p), (ends[1], q), (apex, r)]:
         _, _, w, h = _bounds(glyphs[name])
         x = point[0] - w if point == p else point[0] if point == q else point[0] - w / 2
         y = point[1] + 1 if point in (p, q) else point[1] - h - 1

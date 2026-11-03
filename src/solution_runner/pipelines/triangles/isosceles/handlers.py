@@ -170,40 +170,30 @@ HANDLERS = (
             "isosceles-triangle-27621-side-from-area-and-150-degree-vertex-angle",
         )
     ),
-    HandlerSpec(
-        "isosceles-triangle-27744-vertex-angle-from-base-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27744_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27745-base-angle-from-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27745_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27746-exterior-angle-from-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27746_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27747-vertex-angle-from-exterior-base-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27747_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27748-base-angle-from-exterior-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27748_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27750-smaller-angle-from-larger-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27750_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27754-smaller-angle-from-angle-difference",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27754_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.isosceles.angle_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.isosceles.angle_figures:diagram_specs",
+        )
+        for rule in (
+            "isosceles-triangle-27744-vertex-angle-from-base-angle",
+            "isosceles-triangle-27745-base-angle-from-vertex-angle",
+            "isosceles-triangle-27746-exterior-angle-from-vertex-angle",
+            "isosceles-triangle-27747-vertex-angle-from-exterior-base-angle",
+            "isosceles-triangle-27748-base-angle-from-exterior-vertex-angle",
+            "isosceles-triangle-27750-smaller-angle-from-larger-angle",
+            "isosceles-triangle-27754-smaller-angle-from-angle-difference",
+        )
     ),
     HandlerSpec(
         "isosceles-triangle-27760-vertex-angle-from-altitude-angle",
