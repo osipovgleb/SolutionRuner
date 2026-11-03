@@ -81,6 +81,11 @@ PARENTS = {
         (("image_2", "fc89bc2b-18eb-447d-9299-1639f467c25e"),),
         "30c910e6b751c092a8147fabb9f3d6f4b708d47ed3c92089235c14f9f0edb99d",
     ),
+    "circle-circumcircle-trapezoid-height-radius": (
+        "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+        (("image_2", "ac7891b6-247a-4853-9107-02031ac6651d"),),
+        "0136f05fb47ec9e4ee40a6ab269a18bf736e38695744565c6eb199179dc93162",
+    ),
 }
 
 SOURCES = {
@@ -155,5 +160,17 @@ SOURCES = {
     "fc89bc2b-18eb-447d-9299-1639f467c25e": (
         "fc89bc2b-18eb-447d-9299-1639f467c25e",
         "365ddadb491b6001df9286efe31531b13c353a27b24d8515ee460ddfb02fb2ec",
+    ),
+    "7420a6a1-e81a-46a9-81fc-c953dd1ffad5": (
+        "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+        "fdd0a98e5368e5751350c77e621691fe2fb6b3638b804de495d2544466a973e7",
+    ),
+    "ac7891b6-247a-4853-9107-02031ac6651d": (
+        "ac7891b6-247a-4853-9107-02031ac6651d",
+        "6e3fee82c03d9337fee046495710e4eac505e3414da0286beee83b858394a507",
+    ),
+    "928f8239-e49d-4447-9f00-d36e87ac4aa6": (
+        "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+        "fdd0a98e5368e5751350c77e621691fe2fb6b3638b804de495d2544466a973e7",
     ),
 }

@@ -6,7 +6,9 @@ from ..core.errors import ContentPlanError
 from ..quadrilaterals.quantity_content import read_content
 from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import condition_changes
-from . import circumcircle_polygon_figures, static_figures
+from . import circumcircle_height_figures, circumcircle_polygon_figures, static_figures
+from .circumcircle_height_model import CONDITION_KEY, DETAIL_KEY, INSIDE_SOURCES
+from .circumcircle_height_model import DETAIL as HEIGHT_DETAIL
 from .circumcircle_model import read_question
 from .circumcircle_polygon_svg import SOURCE as POLYGON_SOURCE
 
@@ -18,6 +20,7 @@ OBTUSE = (
     "e5506a55-6c96-4c42-b5bd-b826625e6e4f",
 )
 SOURCES = {
+    "trapezoid_height": INSIDE_SOURCES,
     "trapezoid_leg": ("e16597a7-9e5c-45b4-b551-8590fe806922",),
     "trapezoid_radius": ("8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",),
     "polygon_vertices": (POLYGON_SOURCE,),
@@ -37,6 +40,7 @@ SOURCES = {
 
 
 DETAILS = {
+    "trapezoid_height": (("height", HEIGHT_DETAIL),),
     "hexagon_side": (("equilateral", "da152d89-1c61-4571-a592-42f5eb10c818"),),
     "trapezoid_radius": (("projection", "fc89bc2b-18eb-447d-9299-1639f467c25e"),),
 }
@@ -44,7 +48,14 @@ DETAILS = {
 
 def context_model(context):
     content, _, _ = read_content(
-        context, {"image_1", "image_2", circumcircle_polygon_figures.KEY}
+        context,
+        {
+            "image_1",
+            "image_2",
+            circumcircle_polygon_figures.KEY,
+            CONDITION_KEY,
+            DETAIL_KEY,
+        },
     )
     condition = _section(content, "condition")
     if condition is None:
@@ -56,6 +67,8 @@ def context_model(context):
 
 def diagram_specs(context):
     model = context_model(context)
+    if model.mode == "trapezoid_height":
+        return circumcircle_height_figures.diagram_specs(context, model)
     if model.mode == "polygon_vertices":
         return circumcircle_polygon_figures.diagram_specs(context, model)
     static_figures.selection(context, read_question, SOURCES, DETAILS, {})
@@ -64,6 +77,8 @@ def diagram_specs(context):
 
 def prepare(context, generated):
     candidate = context_model(context)
+    if candidate.mode == "trapezoid_height":
+        return circumcircle_height_figures.prepare(context, candidate, generated)
     if candidate.mode == "polygon_vertices":
         return circumcircle_polygon_figures.prepare(context, candidate, generated)
     model, condition, assets = static_figures.selection(

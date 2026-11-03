@@ -12,6 +12,7 @@ SINES = {
     150: sp.Rational(1, 2),
 }
 MODES = {
+    "trapezoid_height",
     "trapezoid_leg",
     "trapezoid_radius",
     "polygon_vertices",
@@ -28,6 +29,21 @@ MODES = {
 
 def variables(m):
     v = m.given[0]
+    if m.mode == "trapezoid_height":
+        a, b, r, inside = m.given
+        near, far = sp.sqrt(r * r - a * a / 4), sp.sqrt(r * r - b * b / 4)
+        return {
+            "AB": a,
+            "DC": b,
+            "R": r,
+            "OC": r,
+            "OB": r,
+            "KC": b / 2,
+            "HB": a / 2,
+            "KO": far,
+            "OH": near,
+            "KH": far + near if inside else far - near,
+        }
     if m.mode == "trapezoid_leg":
         perimeter, midline = m.given
         leg = perimeter / 2 - midline

@@ -159,6 +159,16 @@
         "53943",
         "53901"
       ]
+    },
+    {
+      "key": "27926",
+      "group_uuid": "187f9127-4394-4642-924f-70e15e24e708",
+      "rule": "circle-circumcircle-trapezoid-height-radius",
+      "sample_tasks": [
+        "53949",
+        "53951",
+        "53953"
+      ]
     }
   ],
   "cases": [
@@ -7898,6 +7908,846 @@
             {
               "key": "answer",
               "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "27926",
+      "context": {
+        "problem_id": "d5de10d6-8b89-4845-9569-40fcb976a637",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:10.497164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "html": "<img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:17:10.497164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ac7891b6-247a-4853-9107-02031ac6651d",
+                "html": "<img alt=\"\" data-asset-id=\"ac7891b6-247a-4853-9107-02031ac6651d\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ac7891b6-247a-4853-9107-02031ac6651d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ac7891b6-247a-4853-9107-02031ac6651d",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T17:02:05.761531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 8 и 6. Ра­ди­ус опи­сан­ной окруж­но­сти равен 5. Центр окруж­но­сти лежит внут­ри тра­пе­ции. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:02:05.761531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ac7891b6-247a-4853-9107-02031ac6651d\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/>Вы­со­та тра­пе­ции <span data-inline-latex=\"KH=KO+OH\"></span>, где <var data-math-identifier=\"KO\">KO</var> и <var data-math-identifier=\"OH\">OH</var>  — вы­со­ты рав­но­бед­рен­ных тре­уголь­ни­ков <var data-math-identifier=\"DOC\">DOC</var> и <var data-math-identifier=\"AOB\">AOB</var>. По тео­ре­ме Пи­фа­го­ра:</p><center><p><span data-inline-latex=\"KO=\\sqrt{OC}^{2}-KC^{2}=\\sqrt{R}^{2}-\\frac{DC^{2}}{4}=\\sqrt{25-9}=4\"></span>, <br/><span data-inline-latex=\"OH=\\sqrt{OB}^{2}-HB^{2}=\\sqrt{R}^{2}-\\frac{AB^{2}}{4}=\\sqrt{25-16}=3\"></span>. </p><p> </p></center><p>Тогда <span data-inline-latex=\"KH=KO+OH=7\"></span>.</p><p><b>При­ме­ча­ние.</b></p><p>Если бы боль­шее ос­но­ва­ние тра­пе­ции ле­жа­ло выше цен­тра окруж­но­сти (то есть оба ос­но­ва­ния рас­по­ла­га­лись по одну сто­ро­ну от цен­тра окруж­но­сти) длина вы­со­ты рав­ня­лась бы не сумме, а раз­но­сти най­ден­ных от­рез­ков.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:02:05.761531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:02:05.761531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:02:05.761531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:02:05.761531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "kind": "ordinary_image",
+              "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/ac7891b6-247a-4853-9107-02031ac6651d",
+              "kind": "ordinary_image",
+              "asset_id": "ac7891b6-247a-4853-9107-02031ac6651d",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 8 и 6. Ра­ди­ус опи­сан­ной окруж­но­сти равен 5. Центр окруж­но­сти лежит внут­ри тра­пе­ции. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"ac7891b6-247a-4853-9107-02031ac6651d\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ac7891b6-247a-4853-9107-02031ac6651d\"/>Вы­со­та тра­пе­ции <span data-inline-latex=\"KH=KO+OH\"></span>, где <var data-math-identifier=\"KO\">KO</var> и <var data-math-identifier=\"OH\">OH</var>  — вы­со­ты рав­но­бед­рен­ных тре­уголь­ни­ков <var data-math-identifier=\"DOC\">DOC</var> и <var data-math-identifier=\"AOB\">AOB</var>. По тео­ре­ме Пи­фа­го­ра:</p><center><p><span data-inline-latex=\"KO=\\sqrt{OC}^{2}-KC^{2}=\\sqrt{R}^{2}-\\frac{DC^{2}}{4}=\\sqrt{25-9}=4\"></span>, <br/><span data-inline-latex=\"OH=\\sqrt{OB}^{2}-HB^{2}=\\sqrt{R}^{2}-\\frac{AB^{2}}{4}=\\sqrt{25-16}=3\"></span>. </p><p> </p></center><p>Тогда <span data-inline-latex=\"KH=KO+OH=7\"></span>.</p><p><b>При­ме­ча­ние.</b></p><p>Если бы боль­шее ос­но­ва­ние тра­пе­ции ле­жа­ло выше цен­тра окруж­но­сти (то есть оба ос­но­ва­ния рас­по­ла­га­лись по одну сто­ро­ну от цен­тра окруж­но­сти) длина вы­со­ты рав­ня­лась бы не сумме, а раз­но­сти най­ден­ных от­рез­ков.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53949",
+      "context": {
+        "problem_id": "fe8c655d-c76a-4828-b326-9e3bcdb3412f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:20.911294+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "html": "<img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:17:20.911294+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ac7891b6-247a-4853-9107-02031ac6651d",
+                "html": "<img alt=\"\" data-asset-id=\"ac7891b6-247a-4853-9107-02031ac6651d\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ac7891b6-247a-4853-9107-02031ac6651d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ac7891b6-247a-4853-9107-02031ac6651d",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T17:05:54.225796+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 32 и 24. Ра­ди­ус опи­сан­ной окруж­но­сти равен 20.</p><p>Най­ди­те вы­со­ту тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:05:54.225796+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ac7891b6-247a-4853-9107-02031ac6651d\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/>Вы­со­та тра­пе­ции <i>KH  =  KO + OH</i>, где <var data-math-identifier=\"KO\">KO</var> и <var data-math-identifier=\"OH\">OH</var>  — вы­со­ты рав­но­бед­рен­ных тре­уголь­ни­ков <var data-math-identifier=\"DOC\">DOC</var> и <var data-math-identifier=\"AOB\">AOB</var>. По тео­ре­ме Пи­фа­го­ра:</p><center><p><span data-inline-latex=\"KO=\\sqrt{OC}^{2}-KC^{2}=\\sqrt{R}^{2}-\\frac{DC^{2}}{4}=\\sqrt{400-144}=16\"></span>, <br/><span data-inline-latex=\"OH=\\sqrt{OB}^{2}-HB^{2}=\\sqrt{R}^{2}-\\frac{AB^{2}}{4}=\\sqrt{400-256}=12\"></span>. </p><p></p></center><p>Тогда <span data-inline-latex=\"KH=KO+OH=28\"></span>. </p><p><b>При­ме­ча­ние.</b></p><p>Если бы боль­шее ос­но­ва­ние тра­пе­ции ле­жа­ло выше цен­тра окруж­но­сти (то есть оба ос­но­ва­ния рас­по­ла­га­лись по одну сто­ро­ну от цен­тра окруж­но­сти) длина вы­со­ты рав­ня­лась бы не сумме, а раз­но­сти най­ден­ных от­рез­ков. Решая дан­ную за­да­чу не­об­хо­ди­мо при­ни­мать во вни­ма­ние ри­су­нок, дан­ный в усло­вии.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:05:54.225796+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:05:54.225796+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:05:54.225796+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "kind": "ordinary_image",
+              "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/ac7891b6-247a-4853-9107-02031ac6651d",
+              "kind": "ordinary_image",
+              "asset_id": "ac7891b6-247a-4853-9107-02031ac6651d",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/> Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 32 и 24. Ра­ди­ус опи­сан­ной окруж­но­сти равен 20.</p><p>Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">28</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"ac7891b6-247a-4853-9107-02031ac6651d\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ac7891b6-247a-4853-9107-02031ac6651d\"/>Вы­со­та тра­пе­ции <i>KH  =  KO + OH</i>, где <var data-math-identifier=\"KO\">KO</var> и <var data-math-identifier=\"OH\">OH</var>  — вы­со­ты рав­но­бед­рен­ных тре­уголь­ни­ков <var data-math-identifier=\"DOC\">DOC</var> и <var data-math-identifier=\"AOB\">AOB</var>. По тео­ре­ме Пи­фа­го­ра:</p><center><p><span data-inline-latex=\"KO=\\sqrt{OC}^{2}-KC^{2}=\\sqrt{R}^{2}-\\frac{DC^{2}}{4}=\\sqrt{400-144}=16\"></span>, <br/><span data-inline-latex=\"OH=\\sqrt{OB}^{2}-HB^{2}=\\sqrt{R}^{2}-\\frac{AB^{2}}{4}=\\sqrt{400-256}=12\"></span>. </p><p></p></center><p>Тогда <span data-inline-latex=\"KH=KO+OH=28\"></span>. </p><p><b>При­ме­ча­ние.</b></p><p>Если бы боль­шее ос­но­ва­ние тра­пе­ции ле­жа­ло выше цен­тра окруж­но­сти (то есть оба ос­но­ва­ния рас­по­ла­га­лись по одну сто­ро­ну от цен­тра окруж­но­сти) длина вы­со­ты рав­ня­лась бы не сумме, а раз­но­сти най­ден­ных от­рез­ков. Решая дан­ную за­да­чу не­об­хо­ди­мо при­ни­мать во вни­ма­ние ри­су­нок, дан­ный в усло­вии.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53951",
+      "context": {
+        "problem_id": "fec255ba-c308-4762-949b-461fc35e2516",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:16.799344+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "html": "<img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "kind": "ordinary_image",
+              "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 240 и 70. Ра­ди­ус опи­сан­ной окруж­но­сти равен 125. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">155</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53953",
+      "context": {
+        "problem_id": "90f66aa7-0264-4e96-aacb-9d918aea6f37",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:17.021482+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "html": "<img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "kind": "ordinary_image",
+              "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 72 и 30. Ра­ди­ус опи­сан­ной окруж­но­сти равен 39. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">51</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53955",
+      "context": {
+        "problem_id": "e23044bb-fd17-42ac-956b-005b08736c0f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:19.310487+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "html": "<img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "kind": "ordinary_image",
+              "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 144 и 60. Ра­ди­ус опи­сан­ной окруж­но­сти равен 78. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">102</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53957",
+      "context": {
+        "problem_id": "27b04a94-f21c-4c0b-92d1-b04235aae3a1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:02.495061+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6",
+                "html": "<img alt=\"\" data-asset-id=\"928f8239-e49d-4447-9f00-d36e87ac4aa6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "928f8239-e49d-4447-9f00-d36e87ac4aa6",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6",
+              "kind": "ordinary_image",
+              "asset_id": "928f8239-e49d-4447-9f00-d36e87ac4aa6",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"928f8239-e49d-4447-9f00-d36e87ac4aa6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 96 и 40. Ра­ди­ус опи­сан­ной окруж­но­сти равен 52. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">68</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53959",
+      "context": {
+        "problem_id": "ed86fca9-cd33-4ce6-939e-905ee7fe1d5a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:20.717615+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "html": "<img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "kind": "ordinary_image",
+              "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 288 и 84. Ра­ди­ус опи­сан­ной окруж­но­сти равен 150. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">186</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53961",
+      "context": {
+        "problem_id": "8840c0de-c600-4fa1-952c-d8a7cd5469d1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:16.915613+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "html": "<img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "kind": "ordinary_image",
+              "asset_id": "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7420a6a1-e81a-46a9-81fc-c953dd1ffad5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7420a6a1-e81a-46a9-81fc-c953dd1ffad5\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 192 и 56. Ра­ди­ус опи­сан­ной окруж­но­сти равен 100. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27926",
+      "task": "53963",
+      "context": {
+        "problem_id": "fa8d7b32-325f-49da-8888-c93eb77c9852",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:20.847062+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6",
+                "html": "<img alt=\"\" data-asset-id=\"928f8239-e49d-4447-9f00-d36e87ac4aa6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "928f8239-e49d-4447-9f00-d36e87ac4aa6",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6",
+              "kind": "ordinary_image",
+              "asset_id": "928f8239-e49d-4447-9f00-d36e87ac4aa6",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"928f8239-e49d-4447-9f00-d36e87ac4aa6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/928f8239-e49d-4447-9f00-d36e87ac4aa6\"/>Ос­но­ва­ния рав­но­бед­рен­ной тра­пе­ции равны 24 и 10. Ра­ди­ус опи­сан­ной окруж­но­сти равен 13. Най­ди­те вы­со­ту тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">.</span></p>",
               "title": "Ответ",
               "asset_keys": [],
               "section_id": "answer:1",

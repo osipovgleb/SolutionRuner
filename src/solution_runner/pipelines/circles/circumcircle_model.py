@@ -9,10 +9,12 @@ from ..core.errors import ContentPlanError
 from ..probability.common import UnsupportedCondition
 from ..triangles.right.altitude_input import _text
 from ..triangles.right.altitude_solver import AltitudeSolveError
+from . import circumcircle_height_model
 from .angle_model import DEGREE
 from .incircle_model import _positive
 
 RULES = {
+    "circle-circumcircle-trapezoid-height-radius": "trapezoid_height",
     "circle-circumcircle-trapezoid-leg-perimeter-midline": "trapezoid_leg",
     "circle-circumcircle-trapezoid-radius-sixty": "trapezoid_radius",
     "circle-circumcircle-regular-polygon-vertices": "polygon_vertices",
@@ -77,8 +79,15 @@ class CircumcircleQuantity:
 def read_question(html, source=None):
     try:
         text = _text(
-            html, source, labels="ABCHORah", extra_identifiers=("ABC",)
+            circumcircle_height_model.condition_html(html),
+            source,
+            labels="ABCHORah",
+            extra_identifiers=("ABC",),
         ).replace("ё", "е")
+        height = circumcircle_height_model.read(text, source)
+        if height is not None:
+            given, answer = height
+            return CircumcircleQuantity("trapezoid_height", given, answer)
         for mode, pattern in PATTERNS.items():
             match = re.fullmatch(pattern, text)
             if match:
