@@ -47,10 +47,10 @@ def source_bytes(source):
     return raw
 
 
-def _remapped(model, raw):
+def _remapped(model, raw, names=None):
     original = ET.fromstring(raw)
     groups = [g for g in original.findall(_tag("g")) if list(g.iter(_tag("path")))]
-    names = "ABC" if model.mode == "external" else "ABCD"
+    names = names or ("ABC" if model.mode == "external" else "ABCD")
     if len(groups) != len(names):
         raise ContentPlanError("the reviewed simple-angle lettering changed")
     glyphs = dict(zip(names, groups))

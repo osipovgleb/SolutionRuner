@@ -6,6 +6,27 @@ HANDLERS = (
     *(
         HandlerSpec(
             rule,
+            "solution_runner.pipelines.triangles.general.incenter_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            parent_from_group_listing=True,
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.general.incenter_figures:diagram_specs",
+        )
+        for rule in (
+            "general-triangle-27764-incenter-angle",
+            "general-triangle-27778-incenter-bisectors-angle",
+        )
+    ),
+    *(
+        HandlerSpec(
+            rule,
             "solution_runner.pipelines.triangles.general.simple_angle_parent:prepare",
             inputs=(
                 ("parent_condition_asset_id", "parent_asset_id"),
@@ -115,16 +136,6 @@ HANDLERS = (
         parent_from_group_listing=True,
     ),
     HandlerSpec(
-        "general-triangle-27764-incenter-angle",
-        "solution_runner.pipelines.triangles.general.angle_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-        ),
-        options=(("rule", "general-triangle-27764-incenter-angle"),),
-        parent_from_group_listing=True,
-    ),
-    HandlerSpec(
         "general-triangle-27767-altitude-bisector-intersection",
         "solution_runner.pipelines.triangles.general.angle_planner:build_repair_plan",
         inputs=(
@@ -176,17 +187,6 @@ HANDLERS = (
             ("parent_solution_assets", "parent_solution_assets"),
         ),
         options=(("rule", "general-triangle-27777-exterior-bisector-isosceles-angle"),),
-        parent_from_group_listing=True,
-    ),
-    HandlerSpec(
-        "general-triangle-27778-incenter-bisectors-angle",
-        "solution_runner.pipelines.triangles.general.next_group_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-            ("parent_solution_assets", "parent_solution_assets"),
-        ),
-        options=(("rule", "general-triangle-27778-incenter-bisectors-angle"),),
         parent_from_group_listing=True,
     ),
     HandlerSpec(
