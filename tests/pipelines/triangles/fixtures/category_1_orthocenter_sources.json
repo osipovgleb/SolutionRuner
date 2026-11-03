@@ -1,0 +1,507 @@
+{
+  "groups": [
+    {
+      "key": "27779",
+      "size": 26,
+      "rule": "general-triangle-27779-orthocenter-altitudes-angle"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27779",
+      "task": "27779",
+      "context": {
+        "problem_id": "a33dca79-0cb6-4c59-ae86-895d5a2c379b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:18.726670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+                "html": "<img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:10:34.811149+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен 60°, угол <var data-math-identifier=\"B\">B</var> равен 82°. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:10:34.811149+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=82^{\\circ}\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:10:34.811149+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+              "kind": "ordinary_image",
+              "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен 60°, угол <var data-math-identifier=\"B\">B</var> равен 82°. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">82</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=82^{\\circ}\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27779",
+      "task": "48045",
+      "context": {
+        "problem_id": "fafaf3b2-8e04-43ce-b06d-cb23486e719f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-09-05T23:12:05.438947+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=11^{\\circ}\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:09:00.736780+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+                "html": "<img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T05:11:17.749831+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"21^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"11^{\\circ}\"></span>. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:11:17.749831+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T05:11:17.749831+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+              "kind": "ordinary_image",
+              "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/><span data-inline-latex=\"21^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"11^{\\circ}\"></span>. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=11^{\\circ}\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">11</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27779",
+      "task": "48047",
+      "context": {
+        "problem_id": "b4efda07-c1d3-4569-b174-8664bf35c819",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-09-06T00:09:57.579812+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=75^{\\circ}\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:08:52.965495+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+                "html": "<img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T05:11:08.758158+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"36^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"75^{\\circ}\"></span>. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:11:08.758158+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T05:11:08.758158+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+              "kind": "ordinary_image",
+              "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/><span data-inline-latex=\"36^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"75^{\\circ}\"></span>. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=75^{\\circ}\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27779",
+      "task": "48049",
+      "context": {
+        "problem_id": "0cc6057e-fae8-4e3a-bdd4-58071c82fe35",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-09-06T00:09:57.447253+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=31^{\\circ}\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:08:31.281151+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+                "html": "<img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T05:10:21.846615+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"6^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"31^{\\circ}\"></span>. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:10:21.846615+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T05:10:21.846615+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/86889ade-4724-487b-b241-b45b40f5c3f5",
+              "kind": "ordinary_image",
+              "asset_id": "86889ade-4724-487b-b241-b45b40f5c3f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"86889ade-4724-487b-b241-b45b40f5c3f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86889ade-4724-487b-b241-b45b40f5c3f5\"/><span data-inline-latex=\"6^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"31^{\\circ}\"></span>. <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"BE\">BE</var> и <var data-math-identifier=\"CF\">CF</var>  — вы­со­ты, пе­ре­се­ка­ю­щи­е­ся в точке <var data-math-identifier=\"O\">O</var>. Най­ди­те угол <var data-math-identifier=\"AOF\">AOF</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол между вы­со­та­ми равен углу между сто­ро­на­ми, к ко­то­рым они про­ве­де­ны:  <span data-inline-latex=\"\\angle AOF=\\angle B=31^{\\circ}\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">31</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

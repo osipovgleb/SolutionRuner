@@ -9,7 +9,7 @@ from ..isosceles.side_altitude_svg import _corner, _place, _style
 from ..right.construction_svg import _bounds, _line, _tag
 
 
-def _extension(root, points, side, foot, style):
+def _extension(root, points, side, foot, style, *, name=None):
     p, q, h = (points[n] for n in (side[0], side[1], foot))
     v = (q[0] - p[0], q[1] - p[1])
     t = ((h[0] - p[0]) * v[0] + (h[1] - p[1]) * v[1]) / sum(x * x for x in v)
@@ -19,7 +19,7 @@ def _extension(root, points, side, foot, style):
             p if t < 0 else q,
             h,
             style | {"stroke-dasharray": "4 4"},
-            "extension-" + foot,
+            name or "extension-" + foot,
         )
 
 
