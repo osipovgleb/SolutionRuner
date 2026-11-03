@@ -86,6 +86,11 @@ PARENTS = {
         (("image_2", "ac7891b6-247a-4853-9107-02031ac6651d"),),
         "0136f05fb47ec9e4ee40a6ab269a18bf736e38695744565c6eb199179dc93162",
     ),
+    "circle-circumcircle-isosceles-radius-sides": (
+        "2dfa5269-0fd0-4665-b051-344e4bf91281",
+        (("image_2", "8dc1610b-629d-4fb5-9957-7899ce7ed6b0"),),
+        "dfde6f418d022c248654e82398bbf67e9c951ac493786585c46b13aeecd4cbdb",
+    ),
 }
 
 SOURCES = {
@@ -172,5 +177,13 @@ SOURCES = {
     "928f8239-e49d-4447-9f00-d36e87ac4aa6": (
         "7420a6a1-e81a-46a9-81fc-c953dd1ffad5",
         "fdd0a98e5368e5751350c77e621691fe2fb6b3638b804de495d2544466a973e7",
+    ),
+    "2dfa5269-0fd0-4665-b051-344e4bf91281": (
+        "2dfa5269-0fd0-4665-b051-344e4bf91281",
+        "633cb5fc3c4f5cf2415fe76d167ae3526d4c5fe57750b20c6ad4ccad5302ca63",
+    ),
+    "8dc1610b-629d-4fb5-9957-7899ce7ed6b0": (
+        "8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+        "e858f8d9fc1c26125840ea414c85b76e83361ca943392e00b2d59b8bcd82360b",
     ),
 }

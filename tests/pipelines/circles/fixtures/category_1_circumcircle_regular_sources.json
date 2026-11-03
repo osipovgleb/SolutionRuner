@@ -169,6 +169,16 @@
         "53951",
         "53953"
       ]
+    },
+    {
+      "key": "27923",
+      "group_uuid": "60a7128c-a21e-4d15-9b8a-b334b47be3f9",
+      "rule": "circle-circumcircle-isosceles-radius-sides",
+      "sample_tasks": [
+        "53821",
+        "53843",
+        "624071"
+      ]
     }
   ],
   "cases": [
@@ -8752,6 +8762,828 @@
               "asset_keys": [],
               "section_id": "answer:1",
               "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27923",
+      "task": "27923",
+      "context": {
+        "problem_id": "c23eee1a-2314-4b40-aaf0-b935b4f11a36",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:59.238512+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "html": "<img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:16:59.238512+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+                "html": "<img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+                "position": 3,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:31:06.019310+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка равны 40, ос­но­ва­ние равно 48. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Чтобы найти пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, вос­поль­зу­ем­ся фор­му­лой Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}\"></span> .</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span>  на­хо­дим: </p><center><p><span data-inline-latex=\"R=\\frac{40\\cdot 40\\cdot 48}{4\\cdot \\sqrt{64\\cdot 24\\cdot 24\\cdot 16}}=\\frac{10\\cdot 40\\cdot 48}{24\\cdot 8\\cdot 4}=25\"></span>. </p></center><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p><b>При­ве­дем еще одно ре­ше­ние.</b></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var> пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ACH\">ACH</var> и най­дем ее:</p><center><p><span data-inline-latex=\"CH=\\sqrt{AC^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{40^{2}-24^{2}}=32\"></span>. </p></center><p> Сле­до­ва­тель­но,  <span data-inline-latex=\"\\sin A=\\frac{CH}{AC}=\\frac{32}{40}=\\frac{4}{5}\"></span> . </p><p>При­ме­ним тео­ре­му си­ну­сов к тре­уголь­ни­ку <var data-math-identifier=\"ABC\">ABC</var>, по­лу­чим  <span data-inline-latex=\"\\frac{BC}{\\sin A}=2R\"></span>,  от­ку­да <span data-inline-latex=\"R=\\frac{40}{2\\cdot \\frac{4}{5}}=25\"></span>. </p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> яв­ля­ет­ся ост­ро­уголь­ным, по­сколь­ку 48<sup>2</sup> &lt; 40<sup>2</sup> + 40<sup>2</sup>. В рав­но­бед­рен­ном ост­ро­уголь­ном тре­уголь­ни­ке центр опи­сан­ной окруж­но­сти <i>О</i> лежит на вы­со­те, про­ве­ден­ной к ос­но­ва­нию.</p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var>, най­дем ее из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ACH\">ACH</var>:</p><center><p><span data-inline-latex=\"CH=\\sqrt{AC^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{40^{2}-24^{2}}=32\"></span>. </p></center><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"AOH\">AOH</var> по­лу­чим: <span data-inline-latex=\"R^{2}=AH^{2}+OH^{2}\"></span> , <span data-inline-latex=\"R^{2}=24^{2}+(32-R)^{2}\"></span> , а тогда</p><center><p><span data-inline-latex=\"R=\\frac{32^{2}+24^{2}}{64}=25\"></span>. </p></center><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>За­пи­шем тео­ре­му ко­си­ну­сов:</p><center><p><span data-inline-latex=\"AC^{2}=AB^{2}+BC^{2}-2\\cdot AB\\cdot BC\\cdot \\cos \\angle ABC\"></span>.</p></center><p> Далее под­ста­вим числа:</p><center><p><span><span data-inline-latex=\"48^2=40^2+40^2-2\\cdot40^2\\cdot\\cos\\angle ABC\\Leftrightarrow 48^2-2\\cdot40^2=-2\\cdot40^2\\cdot\\cos\\angle ABC\\Leftrightarrow \\cos\\angle ABC=\\frac{896}{2\\cdot1600}\\Leftrightarrow \\cos\\angle ABC=\\frac{7}{25}\"></span></span></p><p></p></center><p> Зная,  <span data-inline-latex=\"\\cos \\angle ABC\"></span>, най­дем </p><center><p> <span data-inline-latex=\"\\cos \\angle AOC=\\cos 2\\angle ABC=2\\cos^{2} \\angle ABC-1=-\\frac{527}{625}\"></span> . </p></center><p>От­рез­ки <var data-math-identifier=\"AO\">AO</var> и <var data-math-identifier=\"OC\">OC</var> равны ис­ко­мо­му ра­ди­у­су опи­сан­ной окруж­но­сти <var data-math-identifier=\"R\">R</var>, по­это­му по тео­ре­ме ко­си­ну­сов для тре­уголь­ни­ка <var data-math-identifier=\"AOC\">AOC</var> по­лу­ча­ем:</p><center><p><span data-inline-latex=\"AC^{2}=AO^{2}+OC^{2}-2\\cdot AO\\cdot OC\\cdot \\cos \\angle AOC\"></span>,</p></center><p>от­ку­да, под­став­ляя числа, за­клю­ча­ем:</p><center><p><span data-inline-latex=\"48^{2}=2\\cdot AO^{2}+2\\cdot AO^{2}\\cdot -\\frac{527}{625}\\iff 48^{2}=\\frac{2304}{625}\\cdot AO^{2}\\iff AO^{2}=625\"></span>. </p></center><p> Таким об­ра­зом, <span data-inline-latex=\"AO=25\"></span>, сле­до­ва­тель­но, <span data-inline-latex=\"R=25\"></span>.</p><p><b>Еще одно ре­ше­ние</b> при­ве­де­но в за­да­че <a href=\"https://math-ege.sdamgia.ru/problem?id=53843\" rel=\"noreferrer noopener\" target=\"_blank\">53843</a>.</p></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_19"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T16:33:33.858862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "kind": "ordinary_image",
+              "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+              "kind": "ordinary_image",
+              "asset_id": "8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка равны 40, ос­но­ва­ние равно 48. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Чтобы найти пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, вос­поль­зу­ем­ся фор­му­лой Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}\"></span> .</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span>  на­хо­дим: </p><center><p><span data-inline-latex=\"R=\\frac{40\\cdot 40\\cdot 48}{4\\cdot \\sqrt{64\\cdot 24\\cdot 24\\cdot 16}}=\\frac{10\\cdot 40\\cdot 48}{24\\cdot 8\\cdot 4}=25\"></span>. </p></center><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0\"/></p><p><b>При­ве­дем еще одно ре­ше­ние.</b></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var> пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ACH\">ACH</var> и най­дем ее:</p><center><p><span data-inline-latex=\"CH=\\sqrt{AC^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{40^{2}-24^{2}}=32\"></span>. </p></center><p> Сле­до­ва­тель­но,  <span data-inline-latex=\"\\sin A=\\frac{CH}{AC}=\\frac{32}{40}=\\frac{4}{5}\"></span> . </p><p>При­ме­ним тео­ре­му си­ну­сов к тре­уголь­ни­ку <var data-math-identifier=\"ABC\">ABC</var>, по­лу­чим  <span data-inline-latex=\"\\frac{BC}{\\sin A}=2R\"></span>,  от­ку­да <span data-inline-latex=\"R=\\frac{40}{2\\cdot \\frac{4}{5}}=25\"></span>. </p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0\"/></p><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> яв­ля­ет­ся ост­ро­уголь­ным, по­сколь­ку 48<sup>2</sup> &lt; 40<sup>2</sup> + 40<sup>2</sup>. В рав­но­бед­рен­ном ост­ро­уголь­ном тре­уголь­ни­ке центр опи­сан­ной окруж­но­сти <i>О</i> лежит на вы­со­те, про­ве­ден­ной к ос­но­ва­нию.</p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var>, най­дем ее из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ACH\">ACH</var>:</p><center><p><span data-inline-latex=\"CH=\\sqrt{AC^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{40^{2}-24^{2}}=32\"></span>. </p></center><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"AOH\">AOH</var> по­лу­чим: <span data-inline-latex=\"R^{2}=AH^{2}+OH^{2}\"></span> , <span data-inline-latex=\"R^{2}=24^{2}+(32-R)^{2}\"></span> , а тогда</p><center><p><span data-inline-latex=\"R=\\frac{32^{2}+24^{2}}{64}=25\"></span>. </p></center><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0\"/></p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>За­пи­шем тео­ре­му ко­си­ну­сов:</p><center><p><span data-inline-latex=\"AC^{2}=AB^{2}+BC^{2}-2\\cdot AB\\cdot BC\\cdot \\cos \\angle ABC\"></span>.</p></center><p> Далее под­ста­вим числа:</p><center><p><span><span data-inline-latex=\"48^2=40^2+40^2-2\\cdot40^2\\cdot\\cos\\angle ABC\\Leftrightarrow 48^2-2\\cdot40^2=-2\\cdot40^2\\cdot\\cos\\angle ABC\\Leftrightarrow \\cos\\angle ABC=\\frac{896}{2\\cdot1600}\\Leftrightarrow \\cos\\angle ABC=\\frac{7}{25}\"></span></span></p><p></p></center><p> Зная,  <span data-inline-latex=\"\\cos \\angle ABC\"></span>, най­дем </p><center><p> <span data-inline-latex=\"\\cos \\angle AOC=\\cos 2\\angle ABC=2\\cos^{2} \\angle ABC-1=-\\frac{527}{625}\"></span> . </p></center><p>От­рез­ки <var data-math-identifier=\"AO\">AO</var> и <var data-math-identifier=\"OC\">OC</var> равны ис­ко­мо­му ра­ди­у­су опи­сан­ной окруж­но­сти <var data-math-identifier=\"R\">R</var>, по­это­му по тео­ре­ме ко­си­ну­сов для тре­уголь­ни­ка <var data-math-identifier=\"AOC\">AOC</var> по­лу­ча­ем:</p><center><p><span data-inline-latex=\"AC^{2}=AO^{2}+OC^{2}-2\\cdot AO\\cdot OC\\cdot \\cos \\angle AOC\"></span>,</p></center><p>от­ку­да, под­став­ляя числа, за­клю­ча­ем:</p><center><p><span data-inline-latex=\"48^{2}=2\\cdot AO^{2}+2\\cdot AO^{2}\\cdot -\\frac{527}{625}\\iff 48^{2}=\\frac{2304}{625}\\cdot AO^{2}\\iff AO^{2}=625\"></span>. </p></center><p> Таким об­ра­зом, <span data-inline-latex=\"AO=25\"></span>, сле­до­ва­тель­но, <span data-inline-latex=\"R=25\"></span>.</p><p><b>Еще одно ре­ше­ние</b> при­ве­де­но в за­да­че <a href=\"https://math-ege.sdamgia.ru/problem?id=53843\" rel=\"noreferrer noopener\" target=\"_blank\">53843</a>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27923",
+      "task": "53821",
+      "context": {
+        "problem_id": "80aaf44d-7cde-4669-ab5e-b465df99059a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:53.528695+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "html": "<img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:31:05.294111+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка равны 104, ос­но­ва­ние равно 192. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:31:05.294111+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Для на­хож­де­ния пло­ща­ди тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var> вос­поль­зу­ем­ся фор­му­лой Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}=3840\"></span>.</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span> :  </p><center><p><span data-inline-latex=\"R=\\frac{104\\cdot 104\\cdot 192}{4\\cdot \\sqrt{200\\cdot 96\\cdot 96\\cdot 8}}=\\frac{104\\cdot 104\\cdot 192}{4\\cdot 96\\cdot 40}=135{,}2\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:31:05.294111+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:31:05.294111+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:31:05.294111+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "kind": "ordinary_image",
+              "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка равны 104, ос­но­ва­ние равно 192. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">135,2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Для на­хож­де­ния пло­ща­ди тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var> вос­поль­зу­ем­ся фор­му­лой Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}=3840\"></span>.</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span> :  </p><center><p><span data-inline-latex=\"R=\\frac{104\\cdot 104\\cdot 192}{4\\cdot \\sqrt{200\\cdot 96\\cdot 96\\cdot 8}}=\\frac{104\\cdot 104\\cdot 192}{4\\cdot 96\\cdot 40}=135{,}2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27923",
+      "task": "53843",
+      "context": {
+        "problem_id": "18339b66-a5f6-416b-97c2-df3ee8001576",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:16.843754+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "html": "<img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка равны 30, ос­но­ва­ние равно 36. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Най­дем пло­щадь тре­уголь­ни­ка по фор­му­ле Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}=\\sqrt{48\\cdot 18\\cdot 18\\cdot 12}=432\"></span>.</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span>  имеем: </p><center><p><span data-inline-latex=\"R=\\frac{30\\cdot 30\\cdot 36}{4\\cdot 432}=18{,}75\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть <var data-math-identifier=\"AB\">AB</var>  — ос­но­ва­ние рав­но­бед­рен­но­го тре­уголь­ни­ка. По тео­ре­ме ко­си­ну­сов най­дем ко­си­нус угла <var data-math-identifier=\"A\">A</var>:</p><center><p> <span data-inline-latex=\"\\cos \\angle A=\\frac{AC^{2}+AB^{2}-BC^{2}}{2\\cdot AC\\cdot AB}=\\frac{30^{2}+36^{2}-30^{2}}{2\\cdot 30\\cdot 36}=\\frac{3}{5}\"></span> , </p></center><p>сле­до­ва­тель­но,  <span data-inline-latex=\"\\sin \\angle A=\\sqrt{1-(\\frac{3}{5})^{2}}=\\frac{4}{5}\"></span> .  Тогда по тео­ре­ме си­ну­сов  <span data-inline-latex=\"\\frac{BC}{\\sin \\angle A}=2R\"></span>,  от­ку­да <span data-inline-latex=\"R=\\frac{30}{2\\cdot \\frac{4}{5}}=18{,}75\"></span>. </p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:31:04.531768+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "kind": "ordinary_image",
+              "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка равны 30, ос­но­ва­ние равно 36. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18,75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Най­дем пло­щадь тре­уголь­ни­ка по фор­му­ле Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}=\\sqrt{48\\cdot 18\\cdot 18\\cdot 12}=432\"></span>.</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span>  имеем: </p><center><p><span data-inline-latex=\"R=\\frac{30\\cdot 30\\cdot 36}{4\\cdot 432}=18{,}75\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть <var data-math-identifier=\"AB\">AB</var>  — ос­но­ва­ние рав­но­бед­рен­но­го тре­уголь­ни­ка. По тео­ре­ме ко­си­ну­сов най­дем ко­си­нус угла <var data-math-identifier=\"A\">A</var>:</p><center><p> <span data-inline-latex=\"\\cos \\angle A=\\frac{AC^{2}+AB^{2}-BC^{2}}{2\\cdot AC\\cdot AB}=\\frac{30^{2}+36^{2}-30^{2}}{2\\cdot 30\\cdot 36}=\\frac{3}{5}\"></span> , </p></center><p>сле­до­ва­тель­но,  <span data-inline-latex=\"\\sin \\angle A=\\sqrt{1-(\\frac{3}{5})^{2}}=\\frac{4}{5}\"></span> .  Тогда по тео­ре­ме си­ну­сов  <span data-inline-latex=\"\\frac{BC}{\\sin \\angle A}=2R\"></span>,  от­ку­да <span data-inline-latex=\"R=\\frac{30}{2\\cdot \\frac{4}{5}}=18{,}75\"></span>. </p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27923",
+      "task": "624071",
+      "context": {
+        "problem_id": "e815bd1e-2312-44bc-bfcc-7da3142c631a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:01.498203+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "html": "<img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:17:01.498203+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+                "html": "<img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+                "position": 3,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка  равны 13, ос­но­ва­ние равно 24. Най­ди­те ра­ди­ус опи­сан­ной около этого тре­уголь­ни­ка окруж­но­сти.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Чтобы найти пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, вос­поль­зу­ем­ся фор­му­лой Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}\"></span> .</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span>  на­хо­дим: </p><center><p><span data-inline-latex=\"R=\\frac{13\\cdot 13\\cdot 24}{4\\cdot \\sqrt{25\\cdot 12\\cdot 12\\cdot 1}}=\\frac{13\\cdot 13\\cdot 6}{5\\cdot 12}=16{,}9\"></span>. </p></center><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p><b>При­ве­дем еще одно ре­ше­ние.</b></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var> пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ACH\">ACH</var> и най­дем ее:</p><center><p><span data-inline-latex=\"CH=\\sqrt{AC^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{13^{2}-12^{2}}=5\"></span>. </p></center><p> Сле­до­ва­тель­но,  <span data-inline-latex=\"\\sin A=\\frac{CH}{AC}=\\frac{5}{13}\"></span> . </p><p>При­ме­ним тео­ре­му си­ну­сов к тре­уголь­ни­ку <var data-math-identifier=\"ABC\">ABC</var>, по­лу­чим  <span data-inline-latex=\"\\frac{BC}{\\sin A}=2R\"></span>,  от­ку­да <span data-inline-latex=\"R=\\frac{13}{2\\cdot \\frac{5}{13}}=16{,}9\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:31:06.303725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "kind": "ordinary_image",
+              "asset_id": "2dfa5269-0fd0-4665-b051-344e4bf91281",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+              "kind": "ordinary_image",
+              "asset_id": "8dc1610b-629d-4fb5-9957-7899ce7ed6b0",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2dfa5269-0fd0-4665-b051-344e4bf91281\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2dfa5269-0fd0-4665-b051-344e4bf91281\"/>Бо­ко­вые сто­ро­ны рав­но­бед­рен­но­го тре­уголь­ни­ка  равны 13, ос­но­ва­ние равно 24. Най­ди­те ра­ди­ус опи­сан­ной около этого тре­уголь­ни­ка окруж­но­сти.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">16,9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Чтобы найти пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, вос­поль­зу­ем­ся фор­му­лой Ге­ро­на: </p><center><p><span data-inline-latex=\"S=\\sqrt{p(p-AC)(p-AB)(p-BC)}\"></span> .</p></center><p>Далее по фор­му­ле <span data-inline-latex=\"R=\\frac{abc}{4S}\"></span>  на­хо­дим: </p><center><p><span data-inline-latex=\"R=\\frac{13\\cdot 13\\cdot 24}{4\\cdot \\sqrt{25\\cdot 12\\cdot 12\\cdot 1}}=\\frac{13\\cdot 13\\cdot 6}{5\\cdot 12}=16{,}9\"></span>. </p></center><p><img alt=\"\" data-asset-id=\"8dc1610b-629d-4fb5-9957-7899ce7ed6b0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8dc1610b-629d-4fb5-9957-7899ce7ed6b0\"/></p><p><b>При­ве­дем еще одно ре­ше­ние.</b></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var> пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ACH\">ACH</var> и най­дем ее:</p><center><p><span data-inline-latex=\"CH=\\sqrt{AC^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{13^{2}-12^{2}}=5\"></span>. </p></center><p> Сле­до­ва­тель­но,  <span data-inline-latex=\"\\sin A=\\frac{CH}{AC}=\\frac{5}{13}\"></span> . </p><p>При­ме­ним тео­ре­му си­ну­сов к тре­уголь­ни­ку <var data-math-identifier=\"ABC\">ABC</var>, по­лу­чим  <span data-inline-latex=\"\\frac{BC}{\\sin A}=2R\"></span>,  от­ку­да <span data-inline-latex=\"R=\\frac{13}{2\\cdot \\frac{5}{13}}=16{,}9\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
             }
           ],
           "schema_version": 3,

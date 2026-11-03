@@ -142,5 +142,11 @@ PROFILES += tuple(
             23,
             "circle-circumcircle-trapezoid-height-radius",
         ),
+        (
+            "27923",
+            "60a7128c-a21e-4d15-9b8a-b334b47be3f9",
+            20,
+            "circle-circumcircle-isosceles-radius-sides",
+        ),
     )
 )

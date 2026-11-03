@@ -12,6 +12,7 @@ SINES = {
     150: sp.Rational(1, 2),
 }
 MODES = {
+    "isosceles_radius",
     "trapezoid_height",
     "trapezoid_leg",
     "trapezoid_radius",
@@ -29,6 +30,36 @@ MODES = {
 
 def variables(m):
     v = m.given[0]
+    if m.mode == "isosceles_radius":
+        a, b = m.given
+        h = sp.sqrt(a * a - b * b / 4)
+        r = m.answer
+        c = sp.simplify((2 * a * a - b * b) / (2 * a * a))
+        d = sp.simplify(2 * c * c - 1)
+        return {
+            "abc": a * a * b,
+            "a": a,
+            "b": a,
+            "c": b,
+            "p": a + b / 2,
+            "S": b * h / 2,
+            "AB": b,
+            "AC": a,
+            "BC": a,
+            "CH": h,
+            "AH": b / 2,
+            "OH": sp.Abs(h - r),
+            "R": r,
+            "AO": r,
+            "BO": r,
+            "CO": r,
+            "OC": r,
+            r"\sin A": h / a,
+            r"\cos C": c,
+            r"\cos^2 C": c * c,
+            r"\cos 2C": d,
+            r"\cos\angle AOB": d,
+        }
     if m.mode == "trapezoid_height":
         a, b, r, inside = m.given
         near, far = sp.sqrt(r * r - a * a / 4), sp.sqrt(r * r - b * b / 4)

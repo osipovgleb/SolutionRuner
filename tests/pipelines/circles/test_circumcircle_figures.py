@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from circumcircle_source_cases import CASES, GROUPS, plan, read
 from midpoint_source_cases import replay, section
 
+from solution_runner.pipelines.circles import circumcircle_isosceles_model as iso
 from solution_runner.pipelines.circles.circumcircle_figures import (
     DETAILS,
     SOURCES,
@@ -41,9 +42,37 @@ def test_every_native_case_reuses_matching_figure_roles_and_original_ids(case):
     context = deepcopy(case["context"])
     m = read(context)
     specs = get_handler(GROUPS[case["group"]]["rule"]).diagram_specs(context)
-    assert len(specs) == (1 if m.mode == "polygon_vertices" and m.answer != 5 else 0)
+    expected = 1 if m.mode == "polygon_vertices" and m.answer != 5 else 0
+    if m.mode == "isosceles_radius":
+        expected = 0 if iso.kind(m) == "acute" else 1 if iso.kind(m) == "obtuse" else 2
+    assert len(specs) == expected
     replay(context, plan(case).transformations)
     assets = {a["asset_key"]: a for a in context["normalized_content"]["assets"]}
+    if m.mode == "isosceles_radius":
+        shape = iso.kind(m)
+        assert len(assets) == 2
+        key = iso.CONDITION_KEY if shape == "right" else "image_1"
+        assert assets[key]["asset_id"] == (
+            "preview-" + specs[0]["sha256"][:16]
+            if shape == "right"
+            else iso.OBTUSE
+            if shape == "obtuse"
+            else iso.SOURCE
+        )
+        detail_key = "image_2" if shape == "acute" else iso.DETAIL_KEY
+        assert section(context, "condition")["asset_keys"] == [key]
+        assert section(context, "solution")["asset_keys"] == [detail_key]
+        expected_detail = (
+            iso.DETAIL if shape == "acute" else "preview-" + specs[-1]["sha256"][:16]
+        )
+        assert assets[detail_key]["asset_id"] == expected_detail
+        soup = BeautifulSoup(section(context, "solution")["html"], "html.parser")
+        first, second, third = soup.select("section")
+        assert (
+            first.find("img") and second.find("p").find("img") and not third.find("img")
+        )
+        assert read(context) == m
+        return
     if m.mode == "polygon_vertices":
         key = KEY if specs else "image_1"
         assert len(assets) == 1

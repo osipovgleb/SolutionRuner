@@ -7,6 +7,7 @@ from ..quadrilaterals.parallelogram.rectangle_proofs import bracket, value
 from ..triangles.right.altitude_methods import solution_section
 from . import (
     circumcircle_height_proof,
+    circumcircle_isosceles_proofs,
     circumcircle_polygon_proof,
     circumcircle_quantity_proofs,
     circumcircle_trapezoid_proofs,
@@ -99,6 +100,8 @@ def _height_radius(m):
 
 
 def render(m, pictures):
+    if m.mode == "isosceles_radius":
+        return circumcircle_isosceles_proofs.render(m, pictures)
     if m.mode == "trapezoid_height":
         return circumcircle_height_proof.render(m, pictures)
     if m.mode in circumcircle_trapezoid_proofs.MODES:

@@ -18,6 +18,11 @@ from solution_runner.pipelines.equations.power_arithmetic import ScalarParser
 from solution_runner.pipelines.equations.trig_parser import TrigonometricParser
 
 TITLES = {
+    "isosceles_radius": [
+        "Решение",
+        "Альтернативное решение.",
+        "Альтернативное решение.",
+    ],
     "trapezoid_height": [],
     "trapezoid_leg": ["Решение", "Приведем другое решение."],
     "trapezoid_radius": [
@@ -99,7 +104,9 @@ def test_every_native_answer_and_each_equality_keep_all_parent_methods(case):
         model.mode, ["Решение"]
     )
     assert len(soup.find_all("img")) == (
-        1
+        2
+        if model.mode == "isosceles_radius"
+        else 1
         if model.mode
         in {"hexagon_side", "polygon_vertices", "trapezoid_radius", "trapezoid_height"}
         else 0
