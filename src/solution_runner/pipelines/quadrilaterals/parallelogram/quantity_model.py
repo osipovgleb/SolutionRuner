@@ -8,10 +8,13 @@ import sympy as sp
 from ...core.errors import ContentPlanError
 from ...triangles.right.altitude_input import _text
 from ...triangles.right.altitude_solver import AltitudeSolveError, _parse_positive_value
+from .bisector_model import RULES as BISECTOR_RULES
+from .bisector_model import read_text as read_bisector
 from .linear_model import RULES as LINEAR_RULES
 from .linear_model import read_text
 
 RULES = {
+    **BISECTOR_RULES,
     **LINEAR_RULES,
     "parallelogram-sine-greater-height": "sine",
     "parallelogram-base-height-transfer": "transfer",
@@ -166,6 +169,6 @@ def read_question(html, source=None):
                         "the given quantities admit no nondegenerate parallelogram"
                     )
                 return model
-        return read_text(text)
+        return read_bisector(text) or read_text(text)
     except AltitudeSolveError as exc:
         raise ContentPlanError(str(exc)) from exc

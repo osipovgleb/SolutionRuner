@@ -2,6 +2,7 @@
 
 from ...probability.common import line
 from ...triangles.right.altitude_methods import solution_section
+from .bisector_proofs import render as render_bisector
 from .linear_model import LinearQuantity
 from .linear_proofs import render as render_linear
 from .rectangle_proofs import bracket, value
@@ -148,6 +149,8 @@ def _height(m):
 
 
 def render(m, pictures):
+    if m.mode in {"rhombus_angle", "bisector_ratio", "bisector_double"}:
+        return render_bisector(m, pictures)
     if isinstance(m, LinearQuantity):
         return render_linear(m)
     if m.mode == "sine":

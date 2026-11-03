@@ -57,6 +57,7 @@ HANDLERS += tuple(
         requires_frozen_manifest=True,
         verify_content_readback=True,
         diagram_builder="solution_runner.pipelines.quadrilaterals.parallelogram.quantity_figures:diagram_specs",
+        strict_frozen_input=True,
     )
     for rule in QUANTITY_RULES
 )

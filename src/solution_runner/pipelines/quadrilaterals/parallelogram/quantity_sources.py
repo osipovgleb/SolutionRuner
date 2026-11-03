@@ -7,6 +7,26 @@ from importlib.resources import files
 from ...core.errors import ContentPlanError
 
 PARENTS = {
+    "parallelogram-bisector-side-ratio": (
+        "08c781f3-a920-469b-a381-c6e4e0584a5e",
+        (),
+        "91f447c88139d67398d94a220938d8a6a2695a7f3de3c7ea5650312652a1da14",
+    ),
+    "parallelogram-adjacent-bisectors-side": (
+        "32680c37-6527-4f57-b91a-d33736438451",
+        (),
+        "f3fe5f9895537a7cbd7f69cc9f9e5ed3884b3b0545656215c1c30f2541aaa19e",
+    ),
+    "rhombus-full-angle-diagonal": (
+        "76657e56-90d6-44c5-a20d-50c62d7badd6",
+        (("image_1", "76657e56-90d6-44c5-a20d-50c62d7badd6"),),
+        "16affc3c2f8552f939d27a295dda00aacae9077eba668d02dd71ff2168315304",
+    ),
+    "rhombus-diagonal-angle-full": (
+        "acabb4d9-d90f-47b7-9be2-6ac1e4434b81",
+        (("image_1", "acabb4d9-d90f-47b7-9be2-6ac1e4434b81"),),
+        "bdf3434d031233e0a195227eccd95f31d858829efa8ce74cde47c3ef30e597c2",
+    ),
     "parallelogram-angle-sum": (
         "046e3609-22e3-41c4-be82-0f3022ce9151",
         (),
@@ -92,6 +112,13 @@ PARENTS = {
     ),
 }
 _HASHES = {
+    "acabb4d9-d90f-47b7-9be2-6ac1e4434b81": "84becefd00106fbaee70fd5af2d0b10149ba1d6456a5216fa7de650c02925442",
+    "76657e56-90d6-44c5-a20d-50c62d7badd6": "c9f0161217040b10b8881380fd49d33ddb075945075c3ab203cb2fb0e5218d8e",
+    "32680c37-6527-4f57-b91a-d33736438451": "cc8a393a4ec49f0b38a556abde961bf6bf01456fc3a8feb5bd6a0605ac8bca07",
+    "bc0a45e8-c5d6-4e95-a26e-1e7d9319cfde": "baee52dcb8510569d62756037549c4c824e99eafc7af98e97cdb559bde819a39",
+    "08c781f3-a920-469b-a381-c6e4e0584a5e": "de3d9a411834f37d57e6c6ee69ca3627e95604dc7001c0c63f253ae58c9b8ff6",
+    "58569964-9541-49bf-98c6-dc1df50de6e5": "c09982c4db61587aa38c5f36c00e648dae89d81dfde5f6d0bb957f7246f84803",
+    "3a54f85a-51d1-45d9-aed0-9a3cd92e0088": "8ba04d301e61b80b24d95e82a0b16c164727e6e1bb918527d24661f868a5ab88",
     "fae36b3a-5683-48f0-a5b2-dec9e314795f": "a41cf3234016811cd9a4e600491cef366507a0186b9e4cd0a581211f507c7755",
     "6bade94c-1b78-4213-a883-6c3f32da00f5": "f6fd348bd8e8d58ecb080892beef57dc6ef8a163a0675b25510663a5482729f9",
     "0f9596a2-7160-4a52-8155-cdecf3de5824": "4fafbe2ecdc9be611509e252d7ed1b3e89b6f029502e7021d65cd49e4461bccf",

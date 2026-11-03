@@ -6,6 +6,10 @@ from ...core.errors import ContentPlanError
 from ...probability.solution_diagrams import spec
 from ...triangles.isosceles.planner import _section
 from ...triangles.isosceles.side_altitude_figures import _identity, condition_changes
+from .bisector_figures import prepare as prepare_rhombus
+from .bisector_figures import selection as select_rhombus
+from .bisector_svg import DOUBLE_SOURCE, RATIO_KEY, RATIO_SOURCE, RHOMBUS_KEY
+from .bisector_svg import figure_svg as bisector_svg
 from .midpoint_figures import _attach
 from .quantity_model import read_question
 from .quantity_sources import source_bytes
@@ -42,6 +46,8 @@ def _content(context):
         "image_2",
         SINE_KEY,
         DETAIL_KEY,
+        RATIO_KEY,
+        RHOMBUS_KEY,
     }:
         raise ContentPlanError("unknown or duplicate quantity assets")
     for a in assets:
@@ -96,6 +102,8 @@ def selection(context):
     if images:
         images[0]["data-asset-key"] = "image_1"
     model = read_question(str(soup), source)
+    if model.mode == "rhombus_angle":
+        return select_rhombus(model, condition, assets, owners)
     primary = (
         SINE
         if model.mode == "sine"
@@ -112,6 +120,8 @@ def selection(context):
             "side_difference": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
             "side_known": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
             "side_ratio": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+            "bisector_ratio": RATIO_SOURCE,
+            "bisector_double": DOUBLE_SOURCE,
         }.get(model.mode, RHOMBUS)
     )
     source_bytes(primary)
@@ -124,6 +134,8 @@ def selection(context):
         allowed = {"image_1": primary}
         if model.mode == "sine":
             allowed[SINE_KEY] = None
+        if model.mode == "bisector_ratio":
+            allowed[RATIO_KEY] = None
         if len(assets) > 1:
             raise ContentPlanError("one primary quantity condition image is required")
         owner = "condition"
@@ -150,6 +162,8 @@ def selection(context):
         if model.mode in {"sine", "transfer"} and not compatible_detail
         else None
     )
+    if model.mode == "bisector_ratio":
+        diagram = spec(RATIO_KEY, bisector_svg(model))
     return model, condition, assets, primary, diagram
 
 
@@ -168,6 +182,8 @@ def prepare(context, generated):
         raise ContentPlanError(
             "the prepared quantity diagrams differ from the current model"
         )
+    if model.mode == "rhombus_angle":
+        return prepare_rhombus(model, assets, diagram, generated)
     if model.mode != "transfer":
         current = next(iter(assets.values()), {})
         key = diagram["asset_key"] if diagram else "image_1"

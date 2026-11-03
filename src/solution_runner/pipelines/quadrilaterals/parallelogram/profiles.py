@@ -22,6 +22,30 @@ PROFILES = tuple(
     )
     for key, identifier, index, rule in (
         (
+            "27826",
+            "752bb012-dc7f-4ffd-8e10-26d0d33fa18f",
+            23,
+            "parallelogram-bisector-side-ratio",
+        ),
+        (
+            "27827",
+            "946fa53f-9491-4a70-816f-dccc4a336e60",
+            24,
+            "parallelogram-adjacent-bisectors-side",
+        ),
+        (
+            "282851",
+            "aecf8382-4aa9-45e8-b401-2d94c98938cc",
+            28,
+            "rhombus-full-angle-diagonal",
+        ),
+        (
+            "282852",
+            "aeedbd6e-2988-499f-8c6f-958e5b46c523",
+            29,
+            "rhombus-diagonal-angle-full",
+        ),
+        (
             "27806",
             "a777678a-338f-4d37-83da-fb5761b960b7",
             14,
