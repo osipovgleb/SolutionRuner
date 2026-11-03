@@ -6,6 +6,28 @@ HANDLERS = (
     *(
         HandlerSpec(
             rule,
+            "solution_runner.pipelines.triangles.general.simple_angle_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            parent_from_group_listing=True,
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.general.simple_angle_figures:diagram_specs",
+        )
+        for rule in (
+            "general-triangle-27743-exterior-angle",
+            "general-triangle-27758-bisector-angle",
+            "general-triangle-27759-bisector-exterior-angle",
+        )
+    ),
+    *(
+        HandlerSpec(
+            rule,
             "solution_runner.pipelines.triangles.general.midline_parent:prepare",
             inputs=(
                 ("parent_condition_asset_id", "parent_asset_id"),
@@ -53,16 +75,6 @@ HANDLERS = (
         diagram_builder="solution_runner.pipelines.triangles.general.height_area_parent:diagram_specs",
     ),
     HandlerSpec(
-        "general-triangle-27743-exterior-angle",
-        "solution_runner.pipelines.triangles.general.angle_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-        ),
-        options=(("rule", "general-triangle-27743-exterior-angle"),),
-        parent_from_group_listing=True,
-    ),
-    HandlerSpec(
         "general-triangle-27752-angle-ratio",
         "solution_runner.pipelines.triangles.general.ratio_planner:build_repair_plan",
         inputs=(
@@ -79,26 +91,6 @@ HANDLERS = (
             ("parent_condition_asset_id", "parent_asset_id"),
         ),
         options=(("rule", "general-triangle-27757-altitude-angle"),),
-        parent_from_group_listing=True,
-    ),
-    HandlerSpec(
-        "general-triangle-27758-bisector-angle",
-        "solution_runner.pipelines.triangles.general.angle_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-        ),
-        options=(("rule", "general-triangle-27758-bisector-angle"),),
-        parent_from_group_listing=True,
-    ),
-    HandlerSpec(
-        "general-triangle-27759-bisector-exterior-angle",
-        "solution_runner.pipelines.triangles.general.angle_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-        ),
-        options=(("rule", "general-triangle-27759-bisector-exterior-angle"),),
         parent_from_group_listing=True,
     ),
     HandlerSpec(

@@ -84,7 +84,7 @@ PROFILES = (
             workflow_kind="content_rule",
             content_rule_key=rule,
             rewrite_existing_solution=group_key
-            in {"27592", "27623", "317337", "319058"},
+            in {"27592", "27623", "27743", "27758", "27759", "317337", "319058"},
         )
         for group_key, source_group_id, order_index, rule in (
             (
