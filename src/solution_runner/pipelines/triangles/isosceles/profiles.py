@@ -700,6 +700,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27799-side-from-base-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27800",
@@ -714,6 +715,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27800-base-from-side-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "628232",

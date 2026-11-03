@@ -1,0 +1,450 @@
+{
+  "groups": [
+    {
+      "key": "27799",
+      "group_uuid": "b69438ac-93e6-49e5-a4a8-4cd48c1fdd1d",
+      "group_size": 17,
+      "rule": "isosceles-triangle-27799-side-from-base-vertex-angle"
+    },
+    {
+      "key": "27800",
+      "group_uuid": "4e16550e-63d7-4415-9c21-1c3eee965acb",
+      "group_size": 17,
+      "rule": "isosceles-triangle-27800-base-from-side-vertex-angle"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27799",
+      "task": "27799",
+      "context": {
+        "problem_id": "7c319b59-e6a7-49c4-9196-145da4db2a85",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"AC\">AC</var>  =  <var data-math-identifier=\"BC\">BC</var>, угол <var data-math-identifier=\"C\">C</var> равен 120°,  <span data-inline-latex=\"AB=2\\sqrt{3}\"></span> . Най­ди­те <var data-math-identifier=\"AC\">AC</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Вос­поль­зу­ем­ся тео­ре­мой ко­си­ну­сов:</p><center><p> <span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cdot \\cos \\angle C=2AC^{2}\\cdot (1-\\cos \\angle C)\"></span> .</p></center><p> Тогда </p><center><p> <span data-inline-latex=\"AC=\\sqrt{\\frac{AB^{2}}{2\\cdot (1-\\cos \\angle C)}}=\\sqrt{\\frac{12}{2\\cdot (1+0{,}5)}}=2\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение\"><p>Углы при ос­но­ва­нии дан­но­го рав­но­бед­рен­но­го тре­уголь­ни­ка равны 30°. При­ме­ним тео­ре­му си­ну­сов: </p><center><p> <span data-inline-latex=\"\\frac{AC}{\\sin 30^{\\circ}}=\\frac{AB}{\\sin 120^{\\circ}}\\iff AC=AB\\cdot \\frac{\\sin 30^{\\circ}}{\\sin 120^{\\circ}}\\iff AC=2\\sqrt{3}\\cdot \\frac{\\frac{1}{2}}{\\frac{\\sqrt{3}}{2}}\\iff AC=2\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27799",
+      "task": "4807",
+      "context": {
+        "problem_id": "aac0cf29-1440-4f39-8bbe-2cdaec2b1b29",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <span data-inline-latex=\"AC=BC\"></span>, угол <var data-math-identifier=\"C\">C</var> равен <span data-inline-latex=\"120^\\circ AB=2\\sqrt{3}.\"></span> Най­ди­те <var data-math-identifier=\"AC\">AC</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По теореме косинусов и с учётом <span data-inline-latex=\"AC=BC\"></span>:</p><center><p><span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cos \\angle C=2AC^{2}\\left(1-\\cos \\angle C\\right)\"></span>.</p></center><p>Следовательно,</p><center><p><span data-inline-latex=\"AC=\\sqrt{\\frac{AB^{2}}{2\\left(1-\\cos \\angle C\\right)}}=\\sqrt{\\frac{(2\\sqrt{3})^{2}}{3}}=2\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27799",
+      "task": "49019",
+      "context": {
+        "problem_id": "1641ab6b-d538-4f4b-b2fb-2559ae4c4e36",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <span data-inline-latex=\"AC=BC\"></span>, угол <var data-math-identifier=\"C\">C</var> равен <span data-inline-latex=\"120^{\\circ}\"></span>, <span data-inline-latex=\"AB=16\\sqrt{3}\"></span> . Най­ди­те <var data-math-identifier=\"AC\">AC</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По теореме косинусов и с учётом <span data-inline-latex=\"AC=BC\"></span>:</p><center><p><span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cos \\angle C=2AC^{2}\\left(1-\\cos \\angle C\\right)\"></span>.</p></center><p>Следовательно,</p><center><p><span data-inline-latex=\"AC=\\sqrt{\\frac{AB^{2}}{2\\left(1-\\cos \\angle C\\right)}}=\\sqrt{\\frac{(16\\sqrt{3})^{2}}{3}}=16\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">16</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27799",
+      "task": "49021",
+      "context": {
+        "problem_id": "dbcb9ba3-805b-4bbd-a307-a9ea1d3d860b",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <span data-inline-latex=\"AC=BC\"></span>, угол <var data-math-identifier=\"C\">C</var> равен <span data-inline-latex=\"120^{\\circ}\"></span>, <span data-inline-latex=\"AB=2\\sqrt{3}\"></span> . Най­ди­те <var data-math-identifier=\"AC\">AC</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По теореме косинусов и с учётом <span data-inline-latex=\"AC=BC\"></span>:</p><center><p><span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cos \\angle C=2AC^{2}\\left(1-\\cos \\angle C\\right)\"></span>.</p></center><p>Следовательно,</p><center><p><span data-inline-latex=\"AC=\\sqrt{\\frac{AB^{2}}{2\\left(1-\\cos \\angle C\\right)}}=\\sqrt{\\frac{(2\\sqrt{3})^{2}}{3}}=2\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27800",
+      "task": "27800",
+      "context": {
+        "problem_id": "eb51c1af-d57a-4fc1-bfe3-7ff892e70d19",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"AC\">AC</var>  =  <var data-math-identifier=\"BC\">BC</var>, угол <var data-math-identifier=\"C\">C</var> равен 120°,  <span data-inline-latex=\"AC=2\\sqrt{3}\"></span> . Най­ди­те <var data-math-identifier=\"AB\">AB</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём косинус данного угла:</p><center><p><span data-inline-latex=\"\\cos \\angle C=\\cos 120^{\\circ}=- \\frac{1}{2}\"></span>.</p></center><p>По теореме косинусов:</p><center><p><span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cos \\angle C\"></span>.</p></center><p>Так как <span data-inline-latex=\"AC=BC=2\\sqrt{3}\"></span>, подставим известные значения и последовательно выполним вычисления:</p><center><p><span data-inline-latex=\"AB^{2}=(2\\sqrt{3})^{2}+(2\\sqrt{3})^{2}-2\\cdot(2\\sqrt{3})\\cdot(2\\sqrt{3})\\cdot(- \\frac{1}{2})\\iff AB^{2}=12+12-2\\cdot 12\\cdot(- \\frac{1}{2})\\iff AB^{2}=12+12+12\\iff AB^{2}=36\"></span>.</p></center><p>Длина стороны положительна, поэтому</p><center><p><span data-inline-latex=\"AB=\\sqrt{36}=6\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27800",
+      "task": "49049",
+      "context": {
+        "problem_id": "6c3f9ebc-4802-4c50-b380-a6799aede4ca",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <span data-inline-latex=\"AC=BC\"></span>, угол <var data-math-identifier=\"C\">C</var> равен <span data-inline-latex=\"120^{\\circ}\"></span>, <span data-inline-latex=\"AC=3\\sqrt{3}\"></span> . Най­ди­те <var data-math-identifier=\"AB\">AB</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём косинус данного угла:</p><center><p><span data-inline-latex=\"\\cos \\angle C=\\cos 120^{\\circ}=- \\frac{1}{2}\"></span>.</p></center><p>По теореме косинусов:</p><center><p><span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cos \\angle C\"></span>.</p></center><p>Так как <span data-inline-latex=\"AC=BC=3\\sqrt{3}\"></span>, подставим известные значения и последовательно выполним вычисления:</p><center><p><span data-inline-latex=\"AB^{2}=(3\\sqrt{3})^{2}+(3\\sqrt{3})^{2}-2\\cdot(3\\sqrt{3})\\cdot(3\\sqrt{3})\\cdot(- \\frac{1}{2})\\iff AB^{2}=27+27-2\\cdot 27\\cdot(- \\frac{1}{2})\\iff AB^{2}=27+27+27\\iff AB^{2}=81\"></span>.</p></center><p>Длина стороны положительна, поэтому</p><center><p><span data-inline-latex=\"AB=\\sqrt{81}=9\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27800",
+      "task": "49051",
+      "context": {
+        "problem_id": "3828497b-2195-4d31-aaca-c902c44954fe",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <span data-inline-latex=\"AC=BC\"></span>, угол <var data-math-identifier=\"C\">C</var> равен <span data-inline-latex=\"120^{\\circ}\"></span>, <span data-inline-latex=\"AC=22\\sqrt{3}\"></span> . Най­ди­те <var data-math-identifier=\"AB\">AB</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём косинус данного угла:</p><center><p><span data-inline-latex=\"\\cos \\angle C=\\cos 120^{\\circ}=- \\frac{1}{2}\"></span>.</p></center><p>По теореме косинусов:</p><center><p><span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cos \\angle C\"></span>.</p></center><p>Так как <span data-inline-latex=\"AC=BC=22\\sqrt{3}\"></span>, подставим известные значения и последовательно выполним вычисления:</p><center><p><span data-inline-latex=\"AB^{2}=(22\\sqrt{3})^{2}+(22\\sqrt{3})^{2}-2\\cdot(22\\sqrt{3})\\cdot(22\\sqrt{3})\\cdot(- \\frac{1}{2})\\iff AB^{2}=1452+1452-2\\cdot 1452\\cdot(- \\frac{1}{2})\\iff AB^{2}=1452+1452+1452\\iff AB^{2}=4356\"></span>.</p></center><p>Длина стороны положительна, поэтому</p><center><p><span data-inline-latex=\"AB=\\sqrt{4356}=66\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">66</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27800",
+      "task": "49053",
+      "context": {
+        "problem_id": "d1176ae2-2d43-47c3-968e-650e2a1cbcdf",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "kind": "ordinary_image",
+              "asset_id": "a6e5f963-52f8-4755-b2dc-09073a0c9889",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6e5f963-52f8-4755-b2dc-09073a0c9889\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6e5f963-52f8-4755-b2dc-09073a0c9889\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <span data-inline-latex=\"AC=BC\"></span>, угол <var data-math-identifier=\"C\">C</var> равен <span data-inline-latex=\"120^{\\circ}\"></span>, <span data-inline-latex=\"AC=4\\sqrt{3}\"></span> . Най­ди­те <var data-math-identifier=\"AB\">AB</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Найдём косинус данного угла:</p><center><p><span data-inline-latex=\"\\cos \\angle C=\\cos 120^{\\circ}=- \\frac{1}{2}\"></span>.</p></center><p>По теореме косинусов:</p><center><p><span data-inline-latex=\"AB^{2}=AC^{2}+BC^{2}-2AC\\cdot BC\\cos \\angle C\"></span>.</p></center><p>Так как <span data-inline-latex=\"AC=BC=4\\sqrt{3}\"></span>, подставим известные значения и последовательно выполним вычисления:</p><center><p><span data-inline-latex=\"AB^{2}=(4\\sqrt{3})^{2}+(4\\sqrt{3})^{2}-2\\cdot(4\\sqrt{3})\\cdot(4\\sqrt{3})\\cdot(- \\frac{1}{2})\\iff AB^{2}=48+48-2\\cdot 48\\cdot(- \\frac{1}{2})\\iff AB^{2}=48+48+48\\iff AB^{2}=144\"></span>.</p></center><p>Длина стороны положительна, поэтому</p><center><p><span data-inline-latex=\"AB=\\sqrt{144}=12\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

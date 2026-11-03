@@ -235,15 +235,25 @@ HANDLERS = (
         "solution_runner.pipelines.triangles.isosceles.planner:build_group_27798_repair_plan",
         inputs=(("parent_condition_asset_id", "parent_asset_id"),),
     ),
-    HandlerSpec(
-        "isosceles-triangle-27799-side-from-base-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27799_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27800-base-from-side-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27800_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.isosceles.cosine_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.isosceles.cosine_figures:diagram_specs",
+        )
+        for rule in (
+            "isosceles-triangle-27799-side-from-base-vertex-angle",
+            "isosceles-triangle-27800-base-from-side-vertex-angle",
+        )
     ),
     HandlerSpec(
         "isosceles-triangle-628232-base-from-side-tangent",
