@@ -109,6 +109,46 @@
         "54275",
         "54283"
       ]
+    },
+    {
+      "key": "27913",
+      "group_uuid": "9787602f-3b73-49a6-b9c4-e50bc8726ce9",
+      "rule": "circle-incircle-rhombus-radius",
+      "sample_tasks": [
+        "53421",
+        "53423",
+        "53425"
+      ]
+    },
+    {
+      "key": "27914",
+      "group_uuid": "02108ceb-1cf8-456d-b595-b1abb50cb361",
+      "rule": "circle-incircle-rhombus-side",
+      "sample_tasks": [
+        "53471",
+        "53473",
+        "53475"
+      ]
+    },
+    {
+      "key": "27916",
+      "group_uuid": "d85b5c45-8a3e-4ddc-a282-8d63314ac4b9",
+      "rule": "circle-incircle-hexagon-side",
+      "sample_tasks": [
+        "53571",
+        "53613",
+        "53619"
+      ]
+    },
+    {
+      "key": "27917",
+      "group_uuid": "64410ceb-da0b-47d7-8605-084f6ffd88f5",
+      "rule": "circle-incircle-hexagon-radius",
+      "sample_tasks": [
+        "53621",
+        "53665",
+        "53623"
+      ]
     }
   ],
   "cases": [
@@ -6037,6 +6077,2399 @@
               ],
               "section_id": "solution:1",
               "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27913",
+      "task": "27913",
+      "context": {
+        "problem_id": "9a113afc-e006-4c26-a533-b6bcca49bbdb",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:57.045629+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:17:57.045629+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "html": "<img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:47:49.874525+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­на ромба равна 1, ост­рый угол равен 30°. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:49.874525+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"r=\\frac{d}{2}=\\frac{BH}{2}=\\frac{AB\\sin \\angle DAB}{2}=\\frac{1}{2}\\cdot \\frac{1}{2}=0{,}25\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Про­ве­дем вы­со­ту ромба. В пря­мо­уголь­ном тре­уголь­ни­ке катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы, по­это­му вы­со­та ромба <nobr>равна  <span data-inline-latex=\"\\frac{1}{2}=0{,}5\"></span>.</nobr> Ра­ди­ус впи­сан­ной окруж­но­сти равен по­ло­ви­не вы­со­ты, то есть 0,25.</p></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:49.874525+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:47:49.874525+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "kind": "ordinary_image",
+              "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Сто­ро­на ромба равна 1, ост­рый угол равен 30°. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"r=\\frac{d}{2}=\\frac{BH}{2}=\\frac{AB\\sin \\angle DAB}{2}=\\frac{1}{2}\\cdot \\frac{1}{2}=0{,}25\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Про­ве­дем вы­со­ту ромба. В пря­мо­уголь­ном тре­уголь­ни­ке катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы, по­это­му вы­со­та ромба <nobr>равна  <span data-inline-latex=\"\\frac{1}{2}=0{,}5\"></span>.</nobr> Ра­ди­ус впи­сан­ной окруж­но­сти равен по­ло­ви­не вы­со­ты, то есть 0,25.</p></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27913",
+      "task": "53421",
+      "context": {
+        "problem_id": "72b48d34-b37b-4b63-a4bd-1e5e544c7282",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:56.939460+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:17:56.939460+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "html": "<img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:47:52.787943+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­на ромба равна 20, ост­рый угол равен 30°. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:52.787943+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"r=\\frac{d}{2}=\\frac{BH}{2}=\\frac{AB\\sin \\angle DAB}{2}=\\frac{20}{2}\\cdot \\frac{1}{2}=5\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:52.787943+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "kind": "ordinary_image",
+              "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Сто­ро­на ромба равна 20, ост­рый угол равен 30°. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"r=\\frac{d}{2}=\\frac{BH}{2}=\\frac{AB\\sin \\angle DAB}{2}=\\frac{20}{2}\\cdot \\frac{1}{2}=5\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27913",
+      "task": "53423",
+      "context": {
+        "problem_id": "74342d18-572c-4c03-8606-c687fec1d9f1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:52.963378+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:53.115481+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­на ромба равна 58, ост­рый угол равен <span data-inline-latex=\"30^{\\circ}\"></span>. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:53.115481+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Сто­ро­на ромба равна 58, ост­рый угол равен <span data-inline-latex=\"30^{\\circ}\"></span>. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">14,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27913",
+      "task": "53425",
+      "context": {
+        "problem_id": "0929597a-04a1-497f-ac23-da8453c3c115",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:45.169878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:46.724205+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­на ромба равна 100, ост­рый угол равен <span data-inline-latex=\"30^{\\circ}\"></span>. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:46.724205+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Сто­ро­на ромба равна 100, ост­рый угол равен <span data-inline-latex=\"30^{\\circ}\"></span>. Най­ди­те ра­ди­ус впи­сан­ной окруж­но­сти этого ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27914",
+      "task": "27914",
+      "context": {
+        "problem_id": "501c6d66-777a-49aa-9e47-e2a1a8bc3757",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:17.099829+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:17.099829+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "html": "<img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:26:08.199657+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ост­рый угол ромба равен 30°. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 2. Най­ди­те сто­ро­ну ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:26:08.199657+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"AB=\\frac{BH}{\\sin \\angle BAD}=\\frac{d}{\\sin \\angle BAD}=\\frac{2r}{\\sin \\angle BAD}=\\frac{4}{\\sin 30^{\\circ}}=8\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Тре­уголь­ник <var data-math-identifier=\"ABH\">ABH</var>  — пря­мо­уголь­ный,  <span data-inline-latex=\"BH=2r=4\"></span>. Катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD=2\\cdot 4=8\"></span>.</p></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:26:08.199657+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:26:08.199657+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:26:08.199657+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "kind": "ordinary_image",
+              "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Ост­рый угол ромба равен 30°. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 2. Най­ди­те сто­ро­ну ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"AB=\\frac{BH}{\\sin \\angle BAD}=\\frac{d}{\\sin \\angle BAD}=\\frac{2r}{\\sin \\angle BAD}=\\frac{4}{\\sin 30^{\\circ}}=8\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Тре­уголь­ник <var data-math-identifier=\"ABH\">ABH</var>  — пря­мо­уголь­ный,  <span data-inline-latex=\"BH=2r=4\"></span>. Катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD=2\\cdot 4=8\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27914",
+      "task": "53471",
+      "context": {
+        "problem_id": "42ae2a3e-9e28-494c-ba62-b725d5c58d98",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:13.978162+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:13:13.978162+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "html": "<img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:26:08.076838+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ост­рый угол ромба равен 30°. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 9. Най­ди­те сто­ро­ну ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:26:08.076838+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"AB=\\frac{BH}{\\sin \\angle BAD}=\\frac{d}{\\sin \\angle BAD}=\\frac{2r}{\\sin \\angle BAD}=\\frac{18}{\\sin 30^{\\circ}}=36\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:26:08.076838+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "kind": "ordinary_image",
+              "asset_id": "e1f42826-e0fc-4d65-9663-0fb90911f70b",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Ост­рый угол ромба равен 30°. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 9. Най­ди­те сто­ро­ну ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">36</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"e1f42826-e0fc-4d65-9663-0fb90911f70b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e1f42826-e0fc-4d65-9663-0fb90911f70b\"/></p><p>Ра­ди­ус <i>r</i> впи­сан­ной в ромб окруж­но­сти вдвое мень­ше его вы­со­ты <i>d</i>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"AB=\\frac{BH}{\\sin \\angle BAD}=\\frac{d}{\\sin \\angle BAD}=\\frac{2r}{\\sin \\angle BAD}=\\frac{18}{\\sin 30^{\\circ}}=36\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27914",
+      "task": "53473",
+      "context": {
+        "problem_id": "dd3aa602-163c-4c4c-83b7-34ab23728bd4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:25.939231+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:47.871404+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ост­рый угол ромба равен <span data-inline-latex=\"30^{\\circ}\"></span>. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 5,5.</p><p>Най­ди­те сто­ро­ну ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:47.871404+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Ост­рый угол ромба равен <span data-inline-latex=\"30^{\\circ}\"></span>. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 5,5.</p><p>Най­ди­те сто­ро­ну ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27914",
+      "task": "53475",
+      "context": {
+        "problem_id": "4d4d3f28-513e-4f4f-aa9b-02ba40aec9a9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:17.096961+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "html": "<img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:26:08.168309+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ост­рый угол ромба равен <span data-inline-latex=\"30^{\\circ}\"></span>. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 3.</p><p>Най­ди­те сто­ро­ну ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:26:08.168309+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "kind": "ordinary_image",
+              "asset_id": "1446766a-f13a-4866-8904-d7fc5f49f0c8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1446766a-f13a-4866-8904-d7fc5f49f0c8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1446766a-f13a-4866-8904-d7fc5f49f0c8\"/>Ост­рый угол ромба равен <span data-inline-latex=\"30^{\\circ}\"></span>. Ра­ди­ус впи­сан­ной в этот ромб окруж­но­сти равен 3.</p><p>Най­ди­те сто­ро­ну ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27916",
+      "task": "27916",
+      "context": {
+        "problem_id": "40143c0f-a7a4-4193-a00f-3697e439ad93",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:49.533474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "html": "<img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:11:49.533474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "html": "<img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:20:27.505154+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой <nobr>равен  <span data-inline-latex=\"\\sqrt{3}\"></span> .</nobr></p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:27.505154+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=2\\sqrt{3}\\tg 30^{\\circ}=2\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Вос­поль­зу­ем­ся со­от­но­ше­ни­ем между сто­ро­ной <i>a</i> пра­виль­но­го ше­сти­уголь­ни­ка и ра­ди­у­сом <i>r</i> впи­сан­ной в него окруж­но­сти:</p><center><p> <span data-inline-latex=\"a=\\frac{2r}{\\sqrt{3}}=\\frac{2\\sqrt{3}}{\\sqrt{3}}=2\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:27.505154+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:27.505154+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:20:27.505154+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "kind": "ordinary_image",
+              "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "kind": "ordinary_image",
+              "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой <nobr>равен  <span data-inline-latex=\"\\sqrt{3}\"></span> .</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=2\\sqrt{3}\\tg 30^{\\circ}=2\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Вос­поль­зу­ем­ся со­от­но­ше­ни­ем между сто­ро­ной <i>a</i> пра­виль­но­го ше­сти­уголь­ни­ка и ра­ди­у­сом <i>r</i> впи­сан­ной в него окруж­но­сти:</p><center><p> <span data-inline-latex=\"a=\\frac{2r}{\\sqrt{3}}=\\frac{2\\sqrt{3}}{\\sqrt{3}}=2\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27916",
+      "task": "53571",
+      "context": {
+        "problem_id": "d028024a-2c7d-441e-8199-6b23ffd3449e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:35.574374+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "html": "<img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:12:35.574374+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "html": "<img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:20:29.048585+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой <nobr>равен  <span data-inline-latex=\"10\\sqrt{3}\"></span> .</nobr></p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:29.048585+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=20\\sqrt{3}\\tg 30^{\\circ}=20\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:29.048585+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:29.048585+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "kind": "ordinary_image",
+              "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "kind": "ordinary_image",
+              "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой <nobr>равен  <span data-inline-latex=\"10\\sqrt{3}\"></span> .</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=20\\sqrt{3}\\tg 30^{\\circ}=20\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27916",
+      "task": "53613",
+      "context": {
+        "problem_id": "2e55be80-e694-465d-b473-68831ee15850",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:50.573320+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "html": "<img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:11:50.573320+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "html": "<img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:20:27.266176+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой <nobr>равен  <span data-inline-latex=\"17\\sqrt{3}\"></span> .</nobr></p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:27.266176+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=34\\sqrt{3}\\tg 30^{\\circ}=34\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Вос­поль­зу­ем­ся со­от­но­ше­ни­ем между сто­ро­ной <i>a</i> пра­виль­но­го ше­сти­уголь­ни­ка и ра­ди­у­сом <i>r</i> впи­сан­ной в него окруж­но­сти:</p><center><p> <span data-inline-latex=\"a=\\frac{2r}{\\sqrt{3}}=\\frac{34\\sqrt{3}}{\\sqrt{3}}=34\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:27.266176+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:27.266176+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:20:27.266176+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "kind": "ordinary_image",
+              "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "kind": "ordinary_image",
+              "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой <nobr>равен  <span data-inline-latex=\"17\\sqrt{3}\"></span> .</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">34</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=34\\sqrt{3}\\tg 30^{\\circ}=34\"></span>.</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Вос­поль­зу­ем­ся со­от­но­ше­ни­ем между сто­ро­ной <i>a</i> пра­виль­но­го ше­сти­уголь­ни­ка и ра­ди­у­сом <i>r</i> впи­сан­ной в него окруж­но­сти:</p><center><p> <span data-inline-latex=\"a=\\frac{2r}{\\sqrt{3}}=\\frac{34\\sqrt{3}}{\\sqrt{3}}=34\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27916",
+      "task": "53619",
+      "context": {
+        "problem_id": "89853798-7a6e-4f21-9c76-bf3e812f58d9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:32.411483+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "html": "<img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:12:32.411483+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "html": "<img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:20:28.338381+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой<nobr> равен  <span data-inline-latex=\"47\\sqrt{3}\"></span> .</nobr></p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:28.338381+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=94\\sqrt{3}\\tg 30^{\\circ}=94\"></span>.</p></center><p><b>При­ме­ча­ние</b>.</p><p>Сто­ро­на пра­виль­но­го ше­сти­уголь­ни­ка равна ра­ди­у­су окруж­но­сти, опи­сан­ной во­круг этого ше­сти­уголь­ни­ка, сле­до­ва­тель­но,  <span data-inline-latex=\"OA=OF=AF\"></span>. При этом в за­да­че задан ра­ди­ус окруж­но­сти, впи­сан­ный в ше­сти­уголь­ник, то есть ве­ли­чи­на <var data-math-identifier=\"OH\">OH</var>.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:28.338381+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:28.338381+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:20:28.338381+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "kind": "ordinary_image",
+              "asset_id": "bd99ce14-74a9-4790-939e-ba8be82ea490",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "kind": "ordinary_image",
+              "asset_id": "7058b1bc-557c-4cb1-b281-9ef2910ae12a",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bd99ce14-74a9-4790-939e-ba8be82ea490\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bd99ce14-74a9-4790-939e-ba8be82ea490\"/>Най­ди­те сто­ро­ну пра­виль­но­го ше­сти­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, ра­ди­ус ко­то­рой<nobr> равен  <span data-inline-latex=\"47\\sqrt{3}\"></span> .</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">94</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"7058b1bc-557c-4cb1-b281-9ef2910ae12a\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7058b1bc-557c-4cb1-b281-9ef2910ae12a\"/></p><p>Пусть точка <i>О</i>  — центр окруж­но­сти. Тре­уголь­ник <i>АОF</i> яв­ля­ет­ся рав­но­бед­рен­ным с углом при вер­ши­не 60° (см. рис.), по­это­му этот тре­уголь­ник  — рав­но­сто­рон­ний. Ра­ди­ус <i>ОН</i> впи­сан­ной в ше­сти­уголь­ник окруж­но­сти яв­ля­ет­ся вы­со­той, бис­сек­три­сой и ме­ди­а­ной тре­уголь­ни­ка <i>АОF</i>, по­это­му:</p><center><p> <span data-inline-latex=\"AF=2HF=2OH\\tg \\angle HOF=94\\sqrt{3}\\tg 30^{\\circ}=94\"></span>.</p></center><p><b>При­ме­ча­ние</b>.</p><p>Сто­ро­на пра­виль­но­го ше­сти­уголь­ни­ка равна ра­ди­у­су окруж­но­сти, опи­сан­ной во­круг этого ше­сти­уголь­ни­ка, сле­до­ва­тель­но,  <span data-inline-latex=\"OA=OF=AF\"></span>. При этом в за­да­че задан ра­ди­ус окруж­но­сти, впи­сан­ный в ше­сти­уголь­ник, то есть ве­ли­чи­на <var data-math-identifier=\"OH\">OH</var>.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27917",
+      "task": "27917",
+      "context": {
+        "problem_id": "be5ff2c8-adef-4802-a608-afc6f94ee7f9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:51.717490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+                "html": "<img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:21:51.717490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/59fee103-a830-4872-91d6-070344ecd5b1",
+                "html": "<img alt=\"\" data-asset-id=\"59fee103-a830-4872-91d6-070344ecd5b1\" data-asset-key=\"image_4\" data-transformation-target-id=\"asset:image_4\" src=\"/assets/59fee103-a830-4872-91d6-070344ecd5b1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "59fee103-a830-4872-91d6-070344ecd5b1",
+                "position": 7,
+                "asset_key": "image_4",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_4"
+            },
+            {
+              "at": "2026-08-27T10:21:51.717490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1a91c9e3-29ac-433e-b6cb-c3363977f641",
+                "html": "<img alt=\"\" data-asset-id=\"1a91c9e3-29ac-433e-b6cb-c3363977f641\" data-asset-key=\"image_3\" data-transformation-target-id=\"asset:image_3\" src=\"/assets/1a91c9e3-29ac-433e-b6cb-c3363977f641\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1a91c9e3-29ac-433e-b6cb-c3363977f641",
+                "position": 3,
+                "asset_key": "image_3",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_3"
+            },
+            {
+              "at": "2026-08-27T10:21:51.717490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576",
+                "html": "<img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2c1f434b-33bb-40e4-93d9-4d6229d84576",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник <nobr>со сто­ро­ной  <span data-inline-latex=\"\\sqrt{3}\"></span> .</nobr></p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. При­ме­ним в тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> тео­ре­му ко­си­ну­сов, по­лу­чим:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{(\\sqrt{3})^{2}+(\\sqrt{3})^{2}-2\\cdot (\\sqrt{3})^{2}\\cos 120^{\\circ}}=\\sqrt{3+3+2\\cdot 3\\cdot \\frac{1}{2}}=\\sqrt{9}=3\"></span>.</span></p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=\\frac{3}{2}=1{,}5\"></span>. </p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение\"><p><img alt=\"\" data-asset-id=\"1a91c9e3-29ac-433e-b6cb-c3363977f641\" data-asset-key=\"image_3\" data-transformation-target-id=\"asset:image_3\"/></p><p>Со­еди­ним центр <var data-math-identifier=\"O\">O</var> впи­сан­ной окруж­но­сти с вер­ши­на­ми ше­сти­уголь­ни­ка, при этом ше­сти­уголь­ник будет раз­бит на 6 рав­ных тре­уголь­ни­ков. Тре­уголь­ник <var data-math-identifier=\"AOB\">AOB</var>  — рав­но­бед­рен­ный, угол при его вер­ши­не <nobr>равен  <span data-inline-latex=\"\\frac{360^{\\circ}}{6}=60^{\\circ}\"></span>, </nobr> сле­до­ва­тель­но, этот тре­уголь­ник яв­ля­ет­ся рав­но­сто­рон­ним с<nobr>о сто­ро­ной  <span data-inline-latex=\"\\sqrt{3}\"></span> .</nobr></p><p>Ра­ди­ус впи­сан­ной окруж­но­сти яв­ля­ет­ся бис­сек­три­сой, ме­ди­а­ной и вы­со­той этого тре­уголь­ни­ка. Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"r=\\sqrt{AO^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{3-\\frac{3}{4}}=\\sqrt{\\frac{9}{4}}=1{,}5\"></span>. </p></center><p><b>При­ве­дем еще одно ре­ше­ние</b>.</p><p><img alt=\"\" data-asset-id=\"59fee103-a830-4872-91d6-070344ecd5b1\" data-asset-key=\"image_4\" data-transformation-target-id=\"asset:image_4\"/></p><p>Про­ве­дем по­стро­е­ния, как по­ка­за­но на ри­сун­ке. Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>  — рав­но­бед­рен­ный, от­ре­зок <var data-math-identifier=\"BH\">BH</var> яв­ля­ет­ся его вы­со­той, ме­ди­а­ной и бис­сек­три­сой, от­ку­да  <span data-inline-latex=\"AH=HC\"></span>,  <span data-inline-latex=\"\\angle CBH=\\frac{120^{\\circ}}{2}=60^{\\circ}\"></span>.  Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"CBH\">CBH</var> на­хо­дим:</p><center><p> <span data-inline-latex=\"HC=BC\\cdot \\sin 60^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=1{,}5\"></span>. </p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=HC=1{,}5\"></span>. </p></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2",
+                  "image_3",
+                  "image_4"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T16:20:24.928170+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+              "kind": "ordinary_image",
+              "asset_id": "0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576",
+              "kind": "ordinary_image",
+              "asset_id": "2c1f434b-33bb-40e4-93d9-4d6229d84576",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "alt": "",
+              "url": "/assets/1a91c9e3-29ac-433e-b6cb-c3363977f641",
+              "kind": "ordinary_image",
+              "asset_id": "1a91c9e3-29ac-433e-b6cb-c3363977f641",
+              "asset_key": "image_3",
+              "transformation_target_id": "asset:image_3"
+            },
+            {
+              "alt": "",
+              "url": "/assets/59fee103-a830-4872-91d6-070344ecd5b1",
+              "kind": "ordinary_image",
+              "asset_id": "59fee103-a830-4872-91d6-070344ecd5b1",
+              "asset_key": "image_4",
+              "transformation_target_id": "asset:image_4"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник <nobr>со сто­ро­ной  <span data-inline-latex=\"\\sqrt{3}\"></span> .</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576\"/></p><p>Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. При­ме­ним в тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> тео­ре­му ко­си­ну­сов, по­лу­чим:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{(\\sqrt{3})^{2}+(\\sqrt{3})^{2}-2\\cdot (\\sqrt{3})^{2}\\cos 120^{\\circ}}=\\sqrt{3+3+2\\cdot 3\\cdot \\frac{1}{2}}=\\sqrt{9}=3\"></span>.</span></p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=\\frac{3}{2}=1{,}5\"></span>. </p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение\"><p><img alt=\"\" data-asset-id=\"1a91c9e3-29ac-433e-b6cb-c3363977f641\" data-asset-key=\"image_3\" data-transformation-target-id=\"asset:image_3\" src=\"/assets/1a91c9e3-29ac-433e-b6cb-c3363977f641\"/></p><p>Со­еди­ним центр <var data-math-identifier=\"O\">O</var> впи­сан­ной окруж­но­сти с вер­ши­на­ми ше­сти­уголь­ни­ка, при этом ше­сти­уголь­ник будет раз­бит на 6 рав­ных тре­уголь­ни­ков. Тре­уголь­ник <var data-math-identifier=\"AOB\">AOB</var>  — рав­но­бед­рен­ный, угол при его вер­ши­не <nobr>равен  <span data-inline-latex=\"\\frac{360^{\\circ}}{6}=60^{\\circ}\"></span>, </nobr> сле­до­ва­тель­но, этот тре­уголь­ник яв­ля­ет­ся рав­но­сто­рон­ним с<nobr>о сто­ро­ной  <span data-inline-latex=\"\\sqrt{3}\"></span> .</nobr></p><p>Ра­ди­ус впи­сан­ной окруж­но­сти яв­ля­ет­ся бис­сек­три­сой, ме­ди­а­ной и вы­со­той этого тре­уголь­ни­ка. Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"r=\\sqrt{AO^{2}-(\\frac{AB}{2})^{2}}=\\sqrt{3-\\frac{3}{4}}=\\sqrt{\\frac{9}{4}}=1{,}5\"></span>. </p></center><p><b>При­ве­дем еще одно ре­ше­ние</b>.</p><p><img alt=\"\" data-asset-id=\"59fee103-a830-4872-91d6-070344ecd5b1\" data-asset-key=\"image_4\" data-transformation-target-id=\"asset:image_4\" src=\"/assets/59fee103-a830-4872-91d6-070344ecd5b1\"/></p><p>Про­ве­дем по­стро­е­ния, как по­ка­за­но на ри­сун­ке. Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>  — рав­но­бед­рен­ный, от­ре­зок <var data-math-identifier=\"BH\">BH</var> яв­ля­ет­ся его вы­со­той, ме­ди­а­ной и бис­сек­три­сой, от­ку­да  <span data-inline-latex=\"AH=HC\"></span>,  <span data-inline-latex=\"\\angle CBH=\\frac{120^{\\circ}}{2}=60^{\\circ}\"></span>.  Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"CBH\">CBH</var> на­хо­дим:</p><center><p> <span data-inline-latex=\"HC=BC\\cdot \\sin 60^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=1{,}5\"></span>. </p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=HC=1{,}5\"></span>. </p></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2",
+                "image_3",
+                "image_4"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27917",
+      "task": "53621",
+      "context": {
+        "problem_id": "f2d3216b-4580-4ea4-9f67-3fffd41d9b83",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:22:14.253434+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+                "html": "<img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:22:14.253434+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576",
+                "html": "<img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2c1f434b-33bb-40e4-93d9-4d6229d84576",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:20:25.471106+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник <nobr>со сто­ро­ной  <span data-inline-latex=\"86\\sqrt{3}\"></span> .</nobr></p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.471106+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. При­ме­ним в тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> тео­ре­му ко­си­ну­сов, по­лу­чим:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{(86\\sqrt{3})^{2}+(86\\sqrt{3})^{2}-2\\cdot (86\\sqrt{3})^{2}\\cos 120^{\\circ}}=\\sqrt{86^{2}\\cdot 3+86^{2}\\cdot 3+2\\cdot 86^{2}\\cdot 3\\cdot \\frac{1}{2}}=\\sqrt{9\\cdot 86^{2}}=3\\cdot 86=258\"></span>.</span></p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=\\frac{258}{2}=129\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.471106+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.471106+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:20:25.471106+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:20:25.471106+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+              "kind": "ordinary_image",
+              "asset_id": "0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576",
+              "kind": "ordinary_image",
+              "asset_id": "2c1f434b-33bb-40e4-93d9-4d6229d84576",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник <nobr>со сто­ро­ной  <span data-inline-latex=\"86\\sqrt{3}\"></span> .</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">129</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576\"/></p><p>Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. При­ме­ним в тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> тео­ре­му ко­си­ну­сов, по­лу­чим:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{(86\\sqrt{3})^{2}+(86\\sqrt{3})^{2}-2\\cdot (86\\sqrt{3})^{2}\\cos 120^{\\circ}}=\\sqrt{86^{2}\\cdot 3+86^{2}\\cdot 3+2\\cdot 86^{2}\\cdot 3\\cdot \\frac{1}{2}}=\\sqrt{9\\cdot 86^{2}}=3\\cdot 86=258\"></span>.</span></p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=\\frac{258}{2}=129\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27917",
+      "task": "53665",
+      "context": {
+        "problem_id": "f37fc5ed-308f-4cda-888f-2c95cd6ff30c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:22:14.310995+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/73e2eef4-1919-4a74-8d62-2617d521c7c9",
+                "html": "<img alt=\"\" data-asset-id=\"73e2eef4-1919-4a74-8d62-2617d521c7c9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/73e2eef4-1919-4a74-8d62-2617d521c7c9\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "73e2eef4-1919-4a74-8d62-2617d521c7c9",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:22:14.310995+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576",
+                "html": "<img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2c1f434b-33bb-40e4-93d9-4d6229d84576",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:20:25.503450+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"73e2eef4-1919-4a74-8d62-2617d521c7c9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник со сто­ро­ной <span data-inline-latex=\"64\\sqrt{3}\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.503450+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. При­ме­ним в тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> тео­ре­му ко­си­ну­сов, по­лу­чим:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{(64\\sqrt{3})^{2}+(64\\sqrt{3})^{2}-2\\cdot (64\\sqrt{3})^{2}\\cos 120^{\\circ}}=\\sqrt{64^{2}\\cdot 3+64^{2}\\cdot 3+2\\cdot 64^{2}\\cdot 3\\cdot \\frac{1}{2}}=\\sqrt{9\\cdot 64^{2}}=3\\cdot 64=192\"></span>.</span></p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=\\frac{192}{2}=96\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.503450+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.503450+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:20:25.503450+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:20:25.503450+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/73e2eef4-1919-4a74-8d62-2617d521c7c9",
+              "kind": "ordinary_image",
+              "asset_id": "73e2eef4-1919-4a74-8d62-2617d521c7c9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576",
+              "kind": "ordinary_image",
+              "asset_id": "2c1f434b-33bb-40e4-93d9-4d6229d84576",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"73e2eef4-1919-4a74-8d62-2617d521c7c9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/73e2eef4-1919-4a74-8d62-2617d521c7c9\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник со сто­ро­ной <span data-inline-latex=\"64\\sqrt{3}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">96</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"2c1f434b-33bb-40e4-93d9-4d6229d84576\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/2c1f434b-33bb-40e4-93d9-4d6229d84576\"/></p><p>Угол между сто­ро­на­ми пра­виль­но­го ше­сти­уголь­ни­ка равен 120°. При­ме­ним в тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> тео­ре­му ко­си­ну­сов, по­лу­чим:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{(64\\sqrt{3})^{2}+(64\\sqrt{3})^{2}-2\\cdot (64\\sqrt{3})^{2}\\cos 120^{\\circ}}=\\sqrt{64^{2}\\cdot 3+64^{2}\\cdot 3+2\\cdot 64^{2}\\cdot 3\\cdot \\frac{1}{2}}=\\sqrt{9\\cdot 64^{2}}=3\\cdot 64=192\"></span>.</span></p></center><p> От­ре­зок <var data-math-identifier=\"AC\">AC</var> равен диа­мет­ру окруж­но­сти. Таким об­ра­зом,  <span data-inline-latex=\"r=\\frac{AC}{2}=\\frac{192}{2}=96\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27917",
+      "task": "53623",
+      "context": {
+        "problem_id": "1defb5e4-8826-410f-8d58-2f7d96b016c5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:44.338020+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+                "html": "<img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:20:22.766130+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник со сто­ро­ной <span data-inline-latex=\"52\\sqrt{3}\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:22.766130+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+              "kind": "ordinary_image",
+              "asset_id": "0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a1a3de1-9bce-43ad-8c5e-930245e4d3a5\"/>Най­ди­те ра­ди­ус окруж­но­сти, впи­сан­ной в пра­виль­ный ше­сти­уголь­ник со сто­ро­ной <span data-inline-latex=\"52\\sqrt{3}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">78</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
             }
           ],
           "schema_version": 3,

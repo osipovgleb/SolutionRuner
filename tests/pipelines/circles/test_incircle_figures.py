@@ -30,7 +30,7 @@ def test_original_unnumbered_figures_have_exact_reviewed_bytes(source):
     assert hashlib.sha256(raw).hexdigest() == AUDITED[source][1]
     root = ET.fromstring(raw)
     assert not list(root.iter(_tag("text"))) and not list(root.iter(_tag("image")))
-    assert list(root.iter(_tag("line")))
+    assert list(root.iter(_tag("line"))) or list(root.iter(_tag("polygon")))
     assert list(root.iter(_tag("path")))
 
 
@@ -47,12 +47,12 @@ def test_every_native_case_reuses_matching_figure_roles_and_original_ids(case):
     )
     assert read(context) == m
     assert section(context, "condition")["asset_keys"] == ["image_1"]
-    if m.mode in DETAILS:
-        assert assets["image_2"]["asset_id"] == DETAILS[m.mode][0][1]
-        assert section(context, "solution")["asset_keys"] == ["image_2"]
-        assert len(assets) == 2
-    else:
-        assert len(assets) == 1 and section(context, "solution")["asset_keys"] == []
+    details = DETAILS.get(m.mode, ())
+    keys = ["image_" + str(i + 2) for i in range(len(details))]
+    for key, (_, source) in zip(keys, details):
+        assert assets[key]["asset_id"] == source
+    assert section(context, "solution")["asset_keys"] == keys
+    assert len(assets) == 1 + len(details)
 
 
 @pytest.mark.parametrize("group", GROUPS)
@@ -108,3 +108,18 @@ def test_compatible_source_cannot_be_duplicated_by_a_generated_asset(group):
     case = next(c for c in CASES if c["task"] == group)
     with pytest.raises(ContentPlanError, match="no generated copies"):
         plan(case, generated_solution_assets=({"asset_key": "image_1"},))
+
+
+@pytest.mark.parametrize("key", ["image_2", "image_3", "image_4"])
+def test_hexagon_method_diagrams_cannot_exchange_roles(key):
+    case = next(c for c in CASES if c["task"] == "27917")
+    context = deepcopy(case["context"])
+    assets = context["normalized_content"]["assets"]
+    asset = next(a for a in assets if a["asset_key"] == key)
+    other = next(a for a in assets if a["asset_key"] not in {key, "image_1"})
+    old, new = asset["asset_id"], other["asset_id"]
+    asset["asset_id"], asset["url"] = new, "/assets/" + new
+    solution = section(context, "solution")
+    solution["html"] = solution["html"].replace(old, new)
+    with pytest.raises(ContentPlanError):
+        plan(case, context)

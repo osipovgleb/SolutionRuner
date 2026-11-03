@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from incircle_source_cases import CASES, GROUPS, REJECTED_CASES, arguments, plan, read
 from midpoint_source_cases import replay, section, solution_html
 
+from solution_runner.pipelines.circles.incircle_figures import DETAILS
 from solution_runner.pipelines.circles.incircle_model import read_question
 from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.core.group_profiles import get_group_profile
@@ -17,6 +18,10 @@ from solution_runner.pipelines.equations.power_arithmetic import ScalarParser
 from solution_runner.pipelines.equations.trig_parser import TrigonometricParser
 
 TITLES = {
+    "rhombus_radius": ["Решение", "Альтернативное решение."],
+    "rhombus_side": ["Решение", "Альтернативное решение."],
+    "hexagon_side": ["Решение", "Альтернативное решение."],
+    "hexagon_radius": ["Решение", "Приведем другое решение"],
     "equilateral_height_radius": ["Решение", "Приведем другое решение"],
     "isosceles_right_radius": ["Решение", "Приведём другое решение"],
     "right_radius": ["Решение", "Альтернативное решение."],
@@ -26,6 +31,44 @@ TITLES = {
 
 def variables(m):
     a = m.given[0]
+    if m.mode.startswith("rhombus_"):
+        side = a if m.mode == "rhombus_radius" else 4 * m.given[1]
+        return {
+            "AB": side,
+            "BH": side / 2,
+            "d": side / 2,
+            "r": side / 4,
+            r"\sin\angle DAB": sp.Rational(1, 2),
+            r"\sin30^{\circ}": sp.Rational(1, 2),
+        }
+    if m.mode == "hexagon_side":
+        side = 2 * a / sp.sqrt(3)
+        return {
+            "a": side,
+            "AF": side,
+            "HF": side / 2,
+            "OH": a,
+            "r": a,
+            r"\angle HOF": 30,
+            r"\tg\angle HOF": sp.sqrt(3) / 3,
+            r"\tg30^{\circ}": sp.sqrt(3) / 3,
+        }
+    if m.mode == "hexagon_radius":
+        radius = a * sp.sqrt(3) / 2
+        return {
+            "a": a,
+            "AB": a,
+            "BC": a,
+            "AO": a,
+            "AC": 2 * radius,
+            "AH": radius,
+            "HC": radius,
+            "r": radius,
+            r"\angle AOB": 60,
+            r"\angle CBH": 60,
+            r"\cos120^{\circ}": -sp.Rational(1, 2),
+            r"\sin60^{\circ}": sp.sqrt(3) / 2,
+        }
     if m.mode in {"polygon_area", "triangle_area"}:
         perimeter, radius = m.given if m.mode == "triangle_area" else m.given[::-1]
         return {
@@ -146,7 +189,7 @@ def test_all_feasible_native_answers_and_each_parent_equality(case):
     assert [s["data-solution-title"] for s in soup.select("section")] == TITLES.get(
         m.mode, ["Решение"]
     )
-    assert len(soup.find_all("img")) == (1 if m.mode == "tangent_perimeter" else 0)
+    assert len(soup.find_all("img")) == len(DETAILS.get(m.mode, ()))
     if m.mode == "isosceles_radius":
         assert "Герона" in soup.get_text() and r"S=\frac{AC\cdot h}{2}" in html
     if m.mode == "equilateral_radius_side":
@@ -270,3 +313,31 @@ def test_exact_existence_boundary_and_ordered_tangent_parts(html, expected):
 def test_impossible_or_additional_conditions_fail_closed(html):
     with pytest.raises(ContentPlanError):
         read_question("<p>" + html + "</p>")
+
+
+@pytest.mark.parametrize("mode", ["rhombus_radius", "rhombus_side"])
+def test_rhombus_parent_method_refuses_other_acute_angles(mode):
+    case = next(c for c in CASES if read(c["context"]).mode == mode)
+    context = deepcopy(case["context"])
+    condition = section(context, "condition")
+    condition["html"] = condition["html"].replace("30", "60")
+    with pytest.raises(ContentPlanError, match="reviewed incircle method"):
+        plan(case, context)
+
+
+@pytest.mark.parametrize(
+    "case", [c for c in CASES if c["group"] == "27917"], ids=lambda c: c["task"]
+)
+def test_three_hexagon_methods_keep_two_typed_sections_and_image_order(case):
+    soup = BeautifulSoup(solution_html(plan(case)), "html.parser")
+    sections = soup.select("section")
+    assert len(sections) == 2
+    assert [img["data-asset-key"] for img in sections[0].find_all("img")] == ["image_2"]
+    assert [img["data-asset-key"] for img in sections[1].find_all("img")] == [
+        "image_3",
+        "image_4",
+    ]
+    assert sections[1].find("b").get_text() == "Приведем еще одно решение"
+    assert (
+        "Пифагора" in sections[1].get_text() and "косинусов" in sections[0].get_text()
+    )

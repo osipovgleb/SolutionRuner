@@ -6,6 +6,7 @@ from incircle_source_cases import CASES, GROUPS, REJECTED_CASES, arguments, plan
 from midpoint_source_cases import section
 from test_midpoint_area_lifecycle import OfflineGateway
 
+from solution_runner.pipelines.circles.incircle_figures import DETAILS
 from solution_runner.pipelines.core.content_runtime import (
     _apply_record,
     _prepared_record,
@@ -71,8 +72,8 @@ def test_missing_pictures_restore_all_roles_without_duplicates_or_uploads(group)
     assert len(pairs) == len(set(pairs))
     assert apply_offline(case, gateway, record)["status"] == "applied"
     assert not gateway.uploads
-    assert len(gateway.context["normalized_content"]["assets"]) == (
-        2 if group == "27935" else 1
+    assert len(gateway.context["normalized_content"]["assets"]) == 1 + len(
+        DETAILS.get(read(case["context"]).mode, ())
     )
     assert apply_offline(case, gateway, record)["status"] == "already_complete"
 
@@ -117,3 +118,14 @@ def test_impossible_native_data_fail_preparation_before_any_local_write(case):
     record = prepared(case, gateway)
     assert record["status"] == "blocked", record
     assert not gateway.uploads and not gateway.writes
+
+
+@pytest.mark.parametrize("key", ["image_2", "image_3", "image_4"])
+def test_each_hexagon_method_diagram_requires_authoritative_readback(key):
+    case = next(c for c in CASES if c["task"] == "27917")
+    gateway = OfflineGateway(case)
+    remove_images(gateway)
+    record = prepared(case, gateway)
+    gateway.omit = "asset:" + key
+    assert apply_offline(case, gateway, record)["status"] == "failed"
+    assert not gateway.uploads

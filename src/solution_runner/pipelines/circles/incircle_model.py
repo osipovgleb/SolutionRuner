@@ -13,6 +13,10 @@ from ..triangles.right.altitude_solver import AltitudeSolveError
 from .angle_model import DEGREE
 
 RULES = {
+    "circle-incircle-rhombus-radius": "rhombus_radius",
+    "circle-incircle-rhombus-side": "rhombus_side",
+    "circle-incircle-hexagon-radius": "hexagon_radius",
+    "circle-incircle-hexagon-side": "hexagon_side",
     "circle-incircle-polygon-area": "polygon_area",
     "circle-incircle-triangle-area": "triangle_area",
     "circle-incircle-triangle-perimeter": "triangle_perimeter",
@@ -26,6 +30,10 @@ RULES = {
     "circle-incircle-isosceles-tangent-perimeter": "tangent_perimeter",
 }
 PATTERNS = {
+    "rhombus_radius": rf"Сторона ромба равна\s+(.+?)\s*,\s*острый угол равен\s+(.+?)\s*{DEGREE}\s*\.\s*Найдите радиус вписанной окружности этого ромба\s*\.",
+    "rhombus_side": rf"Острый угол ромба равен\s+(.+?)\s*{DEGREE}\s*\.\s*Радиус вписанной в этот ромб окружности равен\s+(.+?)\s*\.\s*Найдите сторону ромба\s*\.",
+    "hexagon_side": r"Найдите сторону правильного шестиугольника, описанного около окружности, радиус которой равен\s+(.+?)\s*\.",
+    "hexagon_radius": r"Найдите радиус окружности, вписанной в правильный шестиугольник со стороной\s+(.+?)\s*\.",
     "polygon_area": r"Около окружности, радиус которой равен\s+(.+?)\s*,\s*описан многоугольник, периметр которого равен\s+(.+?)\s*\.\s*Найдите его площадь\s*\.",
     "triangle_area": r"Периметр треугольника равен\s+(.+?)\s*,\s*а радиус вписанной окружности равен\s+(.+?)\s*\.\s*Найдите площадь этого треугольника\s*\.",
     "triangle_perimeter": r"Площадь треугольника равна\s+(.+?)\s*,\s*а радиус вписанной окружности равен\s+(.+?)\s*\.\s*Найдите периметр этого треугольника\s*\.",
@@ -39,6 +47,10 @@ PATTERNS = {
     "tangent_perimeter": r"Окружность, вписанная в равнобедренный треугольник, делит в точке касания одну из боковых сторон на два отрезка, длины которых равны\s+(.+?)\s+и\s+(.+?)\s*,\s*считая от вершины, противолежащей основанию\s*\.\s*Найдите периметр треугольника\s*\.",
 }
 FORMULAS = {
+    "rhombus_radius": lambda v: v[0] / 4,
+    "rhombus_side": lambda v: 4 * v[1],
+    "hexagon_side": lambda v: 2 * v[0] / sp.sqrt(3),
+    "hexagon_radius": lambda v: v[0] * sp.sqrt(3) / 2,
     "polygon_area": lambda v: v[0] * v[1] / 2,
     "triangle_area": lambda v: v[0] * v[1] / 2,
     "triangle_perimeter": lambda v: 2 * v[0] / v[1],
@@ -54,6 +66,8 @@ FORMULAS = {
     "tangent_perimeter": lambda v: 2 * v[0] + 4 * v[1],
 }
 CONSTRAINTS = {
+    "rhombus_radius": lambda v: v[1] == 30,
+    "rhombus_side": lambda v: v[0] == 30,
     "polygon_area": lambda v: v[1] > 2 * sp.pi * v[0],
     # Heron and AM-GM give p² >= 27r²; these equivalent squared forms are exact.
     "triangle_area": lambda v: v[0] ** 2 >= 108 * v[1] ** 2,
@@ -93,7 +107,9 @@ def read_question(html, source=None):
             given = tuple(_positive(v) for v in match.groups())
             if mode in CONSTRAINTS and not CONSTRAINTS[mode](given):
                 raise ContentPlanError(
-                    "the given incircle data do not describe a nondegenerate figure"
+                    "the angle differs from the reviewed incircle method"
+                    if mode in {"rhombus_radius", "rhombus_side", "right_radius"}
+                    else "the given incircle data do not describe a nondegenerate figure"
                 )
             return IncircleQuantity(mode, given, sp.simplify(FORMULAS[mode](given)))
     except (AltitudeSolveError, UnsupportedCondition) as exc:

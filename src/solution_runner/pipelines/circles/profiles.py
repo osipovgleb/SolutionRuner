@@ -237,3 +237,48 @@ PROFILES += tuple(
         ),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        identifier,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="1",
+        theme_title="Вписанные окружности",
+        theme_order_index=7,
+        snapshot_theme_id="2dfc57fc-a5b9-41e7-a335-28e80d18faa0",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, identifier, index, rule in (
+        (
+            "27913",
+            "9787602f-3b73-49a6-b9c4-e50bc8726ce9",
+            7,
+            "circle-incircle-rhombus-radius",
+        ),
+        (
+            "27914",
+            "02108ceb-1cf8-456d-b595-b1abb50cb361",
+            8,
+            "circle-incircle-rhombus-side",
+        ),
+        (
+            "27916",
+            "d85b5c45-8a3e-4ddc-a282-8d63314ac4b9",
+            9,
+            "circle-incircle-hexagon-side",
+        ),
+        (
+            "27917",
+            "64410ceb-da0b-47d7-8605-084f6ffd88f5",
+            10,
+            "circle-incircle-hexagon-radius",
+        ),
+    )
+)

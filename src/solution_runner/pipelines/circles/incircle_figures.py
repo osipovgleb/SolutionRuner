@@ -4,6 +4,13 @@ from . import static_figures
 from .incircle_model import read_question
 
 SOURCES = {
+    "rhombus_radius": ("1446766a-f13a-4866-8904-d7fc5f49f0c8",),
+    "rhombus_side": ("1446766a-f13a-4866-8904-d7fc5f49f0c8",),
+    "hexagon_side": ("bd99ce14-74a9-4790-939e-ba8be82ea490",),
+    "hexagon_radius": (
+        "0a1a3de1-9bce-43ad-8c5e-930245e4d3a5",
+        "73e2eef4-1919-4a74-8d62-2617d521c7c9",
+    ),
     "polygon_area": ("68bb519a-757f-4f57-9dc1-90d1165e7bb1",),
     "triangle_area": ("5408d585-4bb2-49e0-a00d-cd1b8cdaf111",),
     "triangle_perimeter": ("5408d585-4bb2-49e0-a00d-cd1b8cdaf111",),
@@ -16,7 +23,17 @@ SOURCES = {
     "isosceles_radius": ("2e28b07d-6116-4f98-bbe6-99edd9064cac",),
     "tangent_perimeter": ("515f4048-fd47-41f8-a462-984e0050be88",),
 }
-DETAILS = {"tangent_perimeter": (("detail", "dadd91a7-4bdc-45f4-a167-bf8fd458a747"),)}
+DETAILS = {
+    "tangent_perimeter": (("detail", "dadd91a7-4bdc-45f4-a167-bf8fd458a747"),),
+    "rhombus_radius": (("height", "e1f42826-e0fc-4d65-9663-0fb90911f70b"),),
+    "rhombus_side": (("height", "e1f42826-e0fc-4d65-9663-0fb90911f70b"),),
+    "hexagon_side": (("tangent", "7058b1bc-557c-4cb1-b281-9ef2910ae12a"),),
+    "hexagon_radius": (
+        ("cosine", "2c1f434b-33bb-40e4-93d9-4d6229d84576"),
+        ("pythagoras", "1a91c9e3-29ac-433e-b6cb-c3363977f641"),
+        ("sine", "59fee103-a830-4872-91d6-070344ecd5b1"),
+    ),
+}
 
 
 def selection(context):
