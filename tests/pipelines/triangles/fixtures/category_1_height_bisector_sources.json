@@ -1,0 +1,481 @@
+{
+  "groups": [
+    {
+      "key": "27767",
+      "size": 18,
+      "rule": "general-triangle-27767-altitude-bisector-intersection"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27767",
+      "task": "27767",
+      "context": {
+        "problem_id": "4fd39a2a-463a-4b7b-a340-03d6145ea85d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:19.961696+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "html": "<img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:43:56.128744+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, <var data-math-identifier=\"AD\">AD</var>  — бис­сек­три­са, <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния пря­мых <var data-math-identifier=\"CH\">CH</var> и <var data-math-identifier=\"AD\">AD</var> угол <var data-math-identifier=\"BAD\">BAD</var> равен 26°. Най­ди­те угол <var data-math-identifier=\"AOC\">AOC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:43:56.128744+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"26^{\\circ}+90^{\\circ}=116^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:43:56.128744+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "kind": "ordinary_image",
+              "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, <var data-math-identifier=\"AD\">AD</var>  — бис­сек­три­са, <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния пря­мых <var data-math-identifier=\"CH\">CH</var> и <var data-math-identifier=\"AD\">AD</var> угол <var data-math-identifier=\"BAD\">BAD</var> равен 26°. Най­ди­те угол <var data-math-identifier=\"AOC\">AOC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">116</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"26^{\\circ}+90^{\\circ}=116^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27767",
+      "task": "47567",
+      "context": {
+        "problem_id": "c02970bd-40dd-4183-9b61-744ced62b034",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-10-01T19:31:04.245234+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "html": "<img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-09-05T22:35:37.527436+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"66^{\\circ}+90^{\\circ}=156^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-09-05T22:35:37.527436+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p><span data-effect=\"spaced\">156</span></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "kind": "ordinary_image",
+              "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, <var data-math-identifier=\"AD\">AD</var>  — бис­сек­три­са, <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния пря­мых <var data-math-identifier=\"CH\">CH</var> и <var data-math-identifier=\"AD\">AD</var>, угол <var data-math-identifier=\"BAD\">BAD</var> равен 66°. Най­ди­те угол <var data-math-identifier=\"AOC\">AOC</var>. Ответ дайте в гра­ду­сах.</p><img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">156</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"66^{\\circ}+90^{\\circ}=156^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27767",
+      "task": "47505",
+      "context": {
+        "problem_id": "9bb41403-f25f-42c5-8631-ff63c57f9cb9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 12,
+          "items": [
+            {
+              "at": "2026-09-05T22:18:39.622690+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"26^{\\circ}+90^{\\circ}=116^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:08:47.577965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "html": "<img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-09-05T22:27:59.689389+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"38^{\\circ}+90^{\\circ}=128^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T05:10:58.210256+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, <var data-math-identifier=\"AD\">AD</var>  — бис­сек­три­са, <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния <var data-math-identifier=\"CH\">CH</var> и <var data-math-identifier=\"AD\">AD</var>, угол <var data-math-identifier=\"BAD\">BAD</var> равен <img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"38^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"AOC\">AOC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:10:58.210256+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "kind": "ordinary_image",
+              "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, <var data-math-identifier=\"AD\">AD</var>  — бис­сек­три­са, <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния <var data-math-identifier=\"CH\">CH</var> и <var data-math-identifier=\"AD\">AD</var>, угол <var data-math-identifier=\"BAD\">BAD</var> равен <img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/><span data-inline-latex=\"38^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"AOC\">AOC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"38^{\\circ}+90^{\\circ}=128^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">128</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27767",
+      "task": "47511",
+      "context": {
+        "problem_id": "511ab13a-4f0a-4afe-b27c-f2dac0586cb2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-09-05T22:35:37.382720+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"33^{\\circ}+90^{\\circ}=123^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:08:40.293728+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "html": "<img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T05:10:42.024476+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, <var data-math-identifier=\"AD\">AD</var>  — бис­сек­три­са, <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния <var data-math-identifier=\"CH\">CH</var> и <var data-math-identifier=\"AD\">AD</var>, угол <var data-math-identifier=\"BAD\">BAD</var> равен <img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"33^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"AOC\">AOC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:10:42.024476+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "kind": "ordinary_image",
+              "asset_id": "04b1854c-9a0b-4b63-8ddb-a45317e32978",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, <var data-math-identifier=\"AD\">AD</var>  — бис­сек­три­са, <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния <var data-math-identifier=\"CH\">CH</var> и <var data-math-identifier=\"AD\">AD</var>, угол <var data-math-identifier=\"BAD\">BAD</var> равен <img alt=\"\" data-asset-id=\"04b1854c-9a0b-4b63-8ddb-a45317e32978\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/04b1854c-9a0b-4b63-8ddb-a45317e32978\"/><span data-inline-latex=\"33^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"AOC\">AOC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Угол <var data-math-identifier=\"AOC\">AOC</var>  — внеш­ний угол тре­уголь­ни­ка <i>AOН</i>, по­это­му он равен сумме углов <i>НAO</i> и <i>AНO</i>. Таким об­ра­зом, угол <var data-math-identifier=\"AOC\">AOC</var> <nobr>равен  <span data-inline-latex=\"33^{\\circ}+90^{\\circ}=123^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">123</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

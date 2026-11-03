@@ -4,14 +4,12 @@ import gzip
 import hashlib
 from importlib.resources import files
 
-from bs4 import BeautifulSoup
-
 from ...core.errors import ContentPlanError
 from ...probability.solution_diagrams import spec
-from ..isosceles.planner import _section
 from ..isosceles.side_altitude_figures import _identity, condition_changes
 from .altitude_quad_model import read_question
 from .altitude_quad_svg import external_svg
+from .angle_sources import reviewed_condition
 from .simple_angle_figures import _remapped
 
 ACUTE = "3c6d2a44-861f-4dbe-b088-436dd5451b81"
@@ -37,55 +35,10 @@ def source_bytes(source):
 
 
 def selection(context):
-    content = context.get("normalized_content")
-    if (
-        not isinstance(content, dict)
-        or content.get("schema_version") != 3
-        or content.get("format") != "teacherhelper-normalized"
-    ):
-        raise ContentPlanError(
-            "schema-v3 normalized altitude quadrilateral content is required"
-        )
-    assets = content.get("assets")
-    if (
-        not isinstance(assets, list)
-        or len(assets) != 1
-        or not isinstance(assets[0], dict)
-    ):
-        raise ContentPlanError(
-            "one reviewed altitude quadrilateral condition figure is required"
-        )
-    asset = assets[0]
-    key, identifier = asset.get("asset_key"), asset.get("asset_id")
-    if (
-        key not in {"image_1", *KEYS.values()}
-        or not isinstance(identifier, str)
-        or not identifier
-        or asset.get("kind") != "ordinary_image"
-        or asset.get("url") != "/assets/" + identifier
-    ):
-        raise ContentPlanError("the altitude quadrilateral image metadata changed")
-    source = (
-        identifier if key == "image_1" else next(s for s, k in KEYS.items() if k == key)
+    asset, condition, source, raw, html = reviewed_condition(
+        context, KEYS, source_bytes
     )
-    raw = source_bytes(source)
-    condition = _section(content, "condition")
-    if condition is None or not isinstance(condition.get("html"), str):
-        raise ContentPlanError(
-            "one complete altitude quadrilateral condition is required"
-        )
-    soup = BeautifulSoup(condition["html"], "html.parser")
-    images = soup.find_all("img")
-    if (
-        len(images) != 1
-        or images[0].get("data-asset-key") != key
-        or images[0].get("data-asset-id") != identifier
-    ):
-        raise ContentPlanError(
-            "the altitude quadrilateral image differs from its metadata"
-        )
-    images[0]["data-asset-key"] = "image_1"
-    model = read_question(str(soup), identifier)
+    model = read_question(html, asset["asset_id"])
     if model.alpha > 90:
         diagram = spec(KEYS[source], external_svg(model, raw))
     elif model.frame != "ABC":
