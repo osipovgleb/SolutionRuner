@@ -1,12 +1,13 @@
 """One handler declaration for the reviewed circle-angle methods."""
 
 from ..core.handlers import HandlerSpec
-from .angle_model import RULES
+from .angle_model import RULES as ANGLE_RULES
+from .tangent_model import RULES as TANGENT_RULES
 
 HANDLERS = tuple(
     HandlerSpec(
         rule,
-        "solution_runner.pipelines.circles.angle_parent:prepare",
+        "solution_runner.pipelines.circles.quantity_parent:prepare",
         inputs=(
             ("parent_condition_asset_id", "parent_asset_id"),
             ("parent_solution_html", "parent_solution_html"),
@@ -18,7 +19,14 @@ HANDLERS = tuple(
         requires_frozen_manifest=True,
         verify_content_readback=True,
         strict_frozen_input=True,
-        diagram_builder="solution_runner.pipelines.circles.angle_figures:diagram_specs",
+        diagram_builder=builder,
     )
-    for rule in RULES
+    for rules, builder in (
+        (ANGLE_RULES, "solution_runner.pipelines.circles.angle_figures:diagram_specs"),
+        (
+            TANGENT_RULES,
+            "solution_runner.pipelines.circles.tangent_figures:diagram_specs",
+        ),
+    )
+    for rule in rules
 )

@@ -10,7 +10,7 @@ from ..triangles.isosceles.angle_svg import _arc
 from ..triangles.isosceles.basic_figures import canvas_svg
 from ..triangles.isosceles.side_altitude_svg import _place, _style
 from ..triangles.right.construction_svg import _bounds, _line, _tag
-from .angle_sources import source_bytes
+from .quantity_sources import source_bytes
 
 SOURCE = "d98c679b-1fdf-4382-9fad-5c11e6512d0f"
 CENTER = (80.0, 80.0)

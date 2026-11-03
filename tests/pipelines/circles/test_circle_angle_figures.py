@@ -12,15 +12,15 @@ from midpoint_source_cases import replay, section
 from test_iso_trapezoid_figures import check_labels
 
 from solution_runner.pipelines.circles.angle_figures import KEY, SOURCES
-from solution_runner.pipelines.circles.angle_sources import SOURCES as AUDITED
-from solution_runner.pipelines.circles.angle_sources import source_bytes
 from solution_runner.pipelines.circles.angle_svg import figure_svg
+from solution_runner.pipelines.circles.quantity_sources import SOURCES as AUDITED
+from solution_runner.pipelines.circles.quantity_sources import source_bytes
 from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.triangles.right.construction_svg import _tag
 
 
-@pytest.mark.parametrize("source", sorted(AUDITED))
+@pytest.mark.parametrize("source", sorted({s for row in SOURCES.values() for s in row}))
 def test_source_svg_bytes_are_pinned_and_native_circles_are_retained(source):
     raw = source_bytes(source)
     assert hashlib.sha256(raw).hexdigest() == AUDITED[source][1]

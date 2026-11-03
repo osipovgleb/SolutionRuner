@@ -63,3 +63,90 @@ PROFILES = tuple(
         ),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        identifier,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="1",
+        theme_title="Касательная, хорда, секущая",
+        theme_order_index=6,
+        snapshot_theme_id="57f0b792-de91-48d5-b551-02c86f7ecedc",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, identifier, index, rule in (
+        (
+            "27858",
+            "c15436a9-f40a-4114-9562-a4ce41c90941",
+            0,
+            "circle-chord-thirty-radius",
+        ),
+        (
+            "27862",
+            "3feceb4a-f50a-41e4-892a-6fe38b28e08b",
+            1,
+            "circle-chord-obtuse-radius",
+        ),
+        (
+            "27867",
+            "237425aa-cf0d-41c5-b5e6-39ac223c49ca",
+            2,
+            "circle-chord-arc-ratio-inscribed",
+        ),
+        (
+            "27877",
+            "a96b2b37-1f85-439a-b672-abb54493f54f",
+            3,
+            "circle-tangent-chord-angle-from-arc",
+        ),
+        (
+            "27878",
+            "1b871c3e-cfa1-42bc-a6c9-3f3279538f6e",
+            4,
+            "circle-central-angle-from-tangent-base",
+        ),
+        (
+            "27879",
+            "041d5072-65a9-4f39-9f86-c9e1f62c0f8d",
+            5,
+            "circle-two-tangents-angle-from-arc",
+        ),
+        (
+            "27880",
+            "e3a64bda-586d-4031-8c06-dc80d98f8703",
+            6,
+            "circle-two-tangents-arc-from-angle",
+        ),
+        (
+            "27881",
+            "f6689318-6e37-4792-9b24-0e4f5cb9408e",
+            7,
+            "circle-tangent-centre-near-angle",
+        ),
+        (
+            "27882",
+            "df86ff96-17ed-4af0-bfaf-c62634b41fc9",
+            8,
+            "circle-tangent-centre-near-arc",
+        ),
+        (
+            "27883",
+            "eb0e4c16-30a7-4ada-8dec-67733800676c",
+            9,
+            "circle-tangent-centre-far-angle",
+        ),
+        (
+            "27884",
+            "87fd76ed-792f-4f6c-bb56-9f69197e32db",
+            10,
+            "circle-tangent-centre-far-arc",
+        ),
+    )
+)

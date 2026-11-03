@@ -9,8 +9,8 @@ from ..quadrilaterals.quantity_content import read_content
 from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import _identity, condition_changes
 from .angle_model import read_question
-from .angle_sources import source_bytes
 from .angle_svg import SOURCE, figure_svg
+from .quantity_sources import source_bytes
 
 KEY = "circle_two_arcs"
 SOURCES = {

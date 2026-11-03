@@ -42,6 +42,61 @@ PARENTS = {
         (),
         "fce3960501562b7a4234272edcab7925a8959230844f88c274919a9e0f92f9cc",
     ),
+    "circle-chord-thirty-radius": (
+        "03407436-f0c4-4cab-aaf7-d1ac07758183",
+        (("image_2", "37a12d63-5fb7-446e-9cad-41be89cdaaa5"),),
+        "468f8134bd0e08753140c7c943f23e3851d713c667c1c24ee1ed69852968b7af",
+    ),
+    "circle-chord-obtuse-radius": (
+        "ba29ffaf-2266-4074-8d9a-b0af840fa294",
+        (("image_2", "cebe4bd3-9c4c-47ff-962d-bdd8515f4933"),),
+        "1915edc2a96d0833ecc92a9382a81b0c69bc85f0357b4b5b41e4498d33df6a99",
+    ),
+    "circle-chord-arc-ratio-inscribed": (
+        "fa9b1335-5d14-421c-ad1f-f75492af3f92",
+        (),
+        "6e21f5d83ef7fcdc5f5c0c4bc51474b2516c487bf56163898d3a0370168bd941",
+    ),
+    "circle-tangent-chord-angle-from-arc": (
+        "1fdab1cc-720e-4514-b05d-d9163cbf99dd",
+        (),
+        "864bb61a22bac21307e0bcb8f8db19b07b1ca9e527016b215a8bd98d854315c4",
+    ),
+    "circle-central-angle-from-tangent-base": (
+        "d6035e07-cca6-4352-80a7-e671530a4363",
+        (("image_2", "22cfa237-3e19-4574-8062-5929258e12ab"),),
+        "f314c443cb9938f32cef1d8e37a97ae674c9725e92ea9f07e24e975d5cce3448",
+    ),
+    "circle-two-tangents-angle-from-arc": (
+        "d6035e07-cca6-4352-80a7-e671530a4363",
+        (),
+        "5172b979509dfef76d289090ae2842d5f5ab387a691e50217a4a067e81394abb",
+    ),
+    "circle-two-tangents-arc-from-angle": (
+        "d6035e07-cca6-4352-80a7-e671530a4363",
+        (),
+        "6e48292af05fe7fac59b1a60373322542b1162bacae402761b5a1d8ab81a512e",
+    ),
+    "circle-tangent-centre-near-angle": (
+        "04c45fcc-f49e-434f-b8fe-b3254ed2719a",
+        (),
+        "61897e21feda6d81af7653add3cdebc65e3e433fba84337a6eaf6a7005dc21b3",
+    ),
+    "circle-tangent-centre-near-arc": (
+        "04c45fcc-f49e-434f-b8fe-b3254ed2719a",
+        (),
+        "41d22faf2678b9bf3abed7fb793cb4b2ed8e860e30f2214e1a070a479ce3fe47",
+    ),
+    "circle-tangent-centre-far-angle": (
+        "9d345fef-61ad-4320-ae6c-980925039824",
+        (),
+        "26875bad19ea330a8cf61cf04d7bce232ff8b76bb59c0b56a5aebfd1909dc2c7",
+    ),
+    "circle-tangent-centre-far-arc": (
+        "9d345fef-61ad-4320-ae6c-980925039824",
+        (),
+        "fbfa499cd253b0b08f8a8638ffcdc00aeccc014bb884d41e2717b074ce8f6c20",
+    ),
 }
 
 SOURCES = {
@@ -88,6 +143,50 @@ SOURCES = {
     "f98a097b-c129-44ea-b49b-059bde4c8963": (
         "f98a097b-c129-44ea-b49b-059bde4c8963",
         "927bfbd86a3240c54661c4d598584ce8fddc71d01ccf574a059f6fcdd67f50c9",
+    ),
+    "03407436-f0c4-4cab-aaf7-d1ac07758183": (
+        "03407436-f0c4-4cab-aaf7-d1ac07758183",
+        "7d6443f56f9ce839d2865a9a5f925ea29b13003488b9a0b8235f99b047f95b75",
+    ),
+    "04c45fcc-f49e-434f-b8fe-b3254ed2719a": (
+        "04c45fcc-f49e-434f-b8fe-b3254ed2719a",
+        "aef29386f0b4c2f3df2049231f175cad12079ec1f8bb3dd9488cf8e2e8942569",
+    ),
+    "1fdab1cc-720e-4514-b05d-d9163cbf99dd": (
+        "1fdab1cc-720e-4514-b05d-d9163cbf99dd",
+        "5652c3dc23b08863928dc2d583eef383768536c2d71f6500c7b10323f22ae7d7",
+    ),
+    "9d345fef-61ad-4320-ae6c-980925039824": (
+        "9d345fef-61ad-4320-ae6c-980925039824",
+        "89d9f56fbe2e8a916e2fffb98c87ad27568688e79e8cb823a4a22eb258f26037",
+    ),
+    "37a12d63-5fb7-446e-9cad-41be89cdaaa5": (
+        "37a12d63-5fb7-446e-9cad-41be89cdaaa5",
+        "34a5d22adb153645860ffaa0f4aa0316e18885badcafb8c404750c002b92c5ef",
+    ),
+    "22cfa237-3e19-4574-8062-5929258e12ab": (
+        "22cfa237-3e19-4574-8062-5929258e12ab",
+        "18f8f62300b4e1dc7cefd746a05f2c8e3105275658c74bc4f87725ef8dc1b09e",
+    ),
+    "ce2fa07b-34f1-44dc-833f-deb1f5d7af2d": (
+        "ce2fa07b-34f1-44dc-833f-deb1f5d7af2d",
+        "a21395192df0f9ece0699ede82b13a3a0fa2075e49ebd39fd2c6a9687e62a861",
+    ),
+    "ba29ffaf-2266-4074-8d9a-b0af840fa294": (
+        "ba29ffaf-2266-4074-8d9a-b0af840fa294",
+        "578236f8174db7ca8e32053498e7da85a31880b328907661ba5e99e6bbeeaac1",
+    ),
+    "cebe4bd3-9c4c-47ff-962d-bdd8515f4933": (
+        "cebe4bd3-9c4c-47ff-962d-bdd8515f4933",
+        "066ffc4775e4a74173cf2e96e476d36c70e5246877ab0410f6202011a285e8c3",
+    ),
+    "d6035e07-cca6-4352-80a7-e671530a4363": (
+        "d6035e07-cca6-4352-80a7-e671530a4363",
+        "88c62c1a2a5c8f6004edfe4983d6b442cf88f3aecd2df80f64de9c9e7fbfa7a2",
+    ),
+    "fa9b1335-5d14-421c-ad1f-f75492af3f92": (
+        "fa9b1335-5d14-421c-ad1f-f75492af3f92",
+        "695d8753a9320b6b99a2f5ba0b0c5bedf8c33cb44459fb788fb80a874bac01b7",
     ),
 }
 
