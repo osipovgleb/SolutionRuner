@@ -3,6 +3,7 @@
 from solution_runner.pipelines.core.handlers import HandlerSpec
 
 from .midpoint_model import HEIGHT, PERIMETER, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON
+from .rectangle_model import RULES as RECTANGLE_RULES
 
 HANDLERS = tuple(
     HandlerSpec(
@@ -21,4 +22,21 @@ HANDLERS = tuple(
         diagram_builder="solution_runner.pipelines.quadrilaterals.parallelogram.midpoint_figures:diagram_specs",
     )
     for rule in (HEIGHT, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON, PERIMETER)
+)
+
+HANDLERS += tuple(
+    HandlerSpec(
+        rule,
+        "solution_runner.pipelines.quadrilaterals.parallelogram.rectangle_parent:prepare",
+        inputs=(
+            ("parent_condition_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+            ("parent_solution_assets", "parent_solution_assets"),
+        ),
+        options=(("content_rule_key", rule),),
+        parent_from_group_listing=True,
+        requires_frozen_manifest=True,
+        verify_content_readback=True,
+    )
+    for rule in RECTANGLE_RULES
 )

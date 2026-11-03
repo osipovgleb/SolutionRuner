@@ -21,6 +21,37 @@ PROFILES = tuple(
         rewrite_existing_solution=True,
     )
     for key, identifier, index, rule in (
+        ("27582", "99f7646a-3ef6-4ef7-8a55-da75d65a624e", 1, "square-diagonal-area"),
+        (
+            "27601",
+            "0e0c7608-9d21-4d7f-b861-fd97b8966e76",
+            2,
+            "rectangle-area-difference-larger-side",
+        ),
+        (
+            "27603",
+            "86832ac9-ad4f-4595-be65-102713dc8103",
+            3,
+            "rectangle-area-ratio-perimeter",
+        ),
+        (
+            "27604",
+            "1f736624-c5c0-4a0b-8390-1d9f1e5a97f6",
+            4,
+            "rectangle-perimeter-area-larger-side",
+        ),
+        (
+            "27605",
+            "b12321a6-0a95-4445-8096-b3742783d932",
+            5,
+            "rectangle-perimeter-diagonal-area",
+        ),
+        (
+            "27606",
+            "6f8a0661-036c-433c-8cf6-cd5c949903ad",
+            6,
+            "rectangle-perimeter-area-diagonal",
+        ),
         ("27845", "0638b40d-6f64-4dfc-8398-d598e5334386", 27, PERIMETER),
         ("317338", "07a0cb21-4434-46af-b91b-112adf950a2a", 30, TWO_TRAPEZOID),
         ("319056", "acad8e12-9935-4d79-9a1f-3aface7f792a", 31, VARIGNON),
