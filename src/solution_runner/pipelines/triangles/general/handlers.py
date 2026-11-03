@@ -178,27 +178,26 @@ HANDLERS = (
         options=(("rule", "general-triangle-27768-bisector-equal-segments-angle"),),
         parent_from_group_listing=True,
     ),
-    HandlerSpec(
-        "general-triangle-27769-extension-isosceles-angle",
-        "solution_runner.pipelines.triangles.general.next_group_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-            ("parent_solution_assets", "parent_solution_assets"),
-        ),
-        options=(("rule", "general-triangle-27769-extension-isosceles-angle"),),
-        parent_from_group_listing=True,
-    ),
-    HandlerSpec(
-        "general-triangle-27776-bisector-congruent-angle",
-        "solution_runner.pipelines.triangles.general.next_group_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-            ("parent_solution_assets", "parent_solution_assets"),
-        ),
-        options=(("rule", "general-triangle-27776-bisector-congruent-angle"),),
-        parent_from_group_listing=True,
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.general.equal_side_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            parent_from_group_listing=True,
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.general.equal_side_figures:diagram_specs",
+        )
+        for rule in (
+            "general-triangle-27769-extension-isosceles-angle",
+            "general-triangle-27776-bisector-congruent-angle",
+        )
     ),
     HandlerSpec(
         "general-triangle-27777-exterior-bisector-isosceles-angle",
