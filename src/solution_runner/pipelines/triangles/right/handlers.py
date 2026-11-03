@@ -78,8 +78,11 @@ HANDLERS = (
     ),
     HandlerSpec(
         "right-triangle-bisector-intersection-angle",
-        "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        "solution_runner.pipelines.triangles.right.construction_parent:prepare",
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
         options=(("content_rule_key", "right-triangle-bisector-intersection-angle"),),
     ),
     HandlerSpec(
@@ -133,8 +136,11 @@ HANDLERS = (
     ),
     HandlerSpec(
         "right-triangle-median-angle",
-        "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        "solution_runner.pipelines.triangles.right.construction_parent:prepare",
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
         options=(("content_rule_key", "right-triangle-median-angle"),),
     ),
     HandlerSpec(

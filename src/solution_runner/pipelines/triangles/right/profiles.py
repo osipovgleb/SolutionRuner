@@ -160,6 +160,8 @@ PROFILES = (
             content_rule_key=content_rule_key,
             rewrite_existing_solution=content_rule_key
             in {
+                "right-triangle-median-angle",
+                "right-triangle-bisector-intersection-angle",
                 "right-triangle-altitude-length",
                 "right-triangle-hypotenuse-projection-ah",
                 "right-triangle-hypotenuse-projection-bh",

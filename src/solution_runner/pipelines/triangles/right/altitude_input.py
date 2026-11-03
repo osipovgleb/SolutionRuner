@@ -8,7 +8,9 @@ from bs4 import BeautifulSoup
 
 from .altitude_solver import AltitudeSolveError, _parse_positive_value, _split_braced
 
-_LABELS = str.maketrans({"А": "A", "В": "B", "С": "C", "Н": "H"})
+_LABELS = str.maketrans(
+    {"А": "A", "В": "B", "С": "C", "Н": "H", "М": "M", "Д": "D", "Е": "E", "О": "O"}
+)
 _ALIASES = {"BA": "AB", "CA": "AC", "CB": "BC", "HA": "AH", "HB": "BH", "HC": "CH"}
 _QUANTITY = r"(?:AB|BA|AC|CA|BC|CB|AH|HA|BH|HB|CH|HC|\\(?:sin|cos|tg)\s*[AB])"
 
@@ -42,7 +44,8 @@ def _value(text):
     return raw.replace(".", "{,}"), rest
 
 
-def _text(html, source):
+def _text(html, source, *, labels="ABCH"):
+    alphabet = labels + "".join(chr(k) for k, v in _LABELS.items() if v in labels)
     soup = BeautifulSoup(html, "html.parser")
     images = soup.find_all("img")
     if len(images) > 1:
@@ -73,7 +76,7 @@ def _text(html, source):
             if (
                 set(tag.attrs) != {"data-math-identifier"}
                 or tag["data-math-identifier"].translate(_LABELS) != value
-                or not re.fullmatch(r"[ABCH]{1,3}", value)
+                or not re.fullmatch(rf"[{labels}]{{1,3}}", value)
             ):
                 raise AltitudeSolveError("unsupported geometric identifier")
             tag.replace_with(" " + value + " ")
@@ -85,7 +88,7 @@ def _text(html, source):
             raise AltitudeSolveError("unsupported complete altitude markup")
     text = unicodedata.normalize("NFKC", soup.get_text(" ", strip=True))
     text = text.replace("\xad", "").replace("\u2060", "").replace("\u200b", "")
-    text = re.sub(r"\b[ABCHАВСН]{1,3}\b", lambda m: m[0].translate(_LABELS), text)
+    text = re.sub(rf"\b[{alphabet}]{{1,3}}\b", lambda m: m[0].translate(_LABELS), text)
     text = text.replace(r"\operatorname{tg}", r"\tg").replace(r"\tan", r"\tg")
     text = text.replace(r"\quad", ", ").replace(r"\;", " ")
     return " ".join(text.split())

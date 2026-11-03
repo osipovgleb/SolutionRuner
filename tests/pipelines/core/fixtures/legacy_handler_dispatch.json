@@ -919,10 +919,11 @@
     "requires_parent_condition_asset": true
   },
   "right-triangle-bisector-intersection-angle": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-bisector-intersection-angle"
+      "content_rule_key": "right-triangle-bisector-intersection-angle",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
@@ -990,10 +991,11 @@
     "requires_parent_condition_asset": true
   },
   "right-triangle-median-angle": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-median-angle"
+      "content_rule_key": "right-triangle-median-angle",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true

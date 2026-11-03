@@ -273,7 +273,7 @@ def test_legacy_area_leg_difference_intro_names_both_legs_with_inline_latex() ->
     )
 
 
-def test_median_angle_solution_explains_the_isosceles_triangle() -> None:
+def test_legacy_median_angle_solution_explains_the_isosceles_triangle() -> None:
     """Explain why every segment and base angle equality holds."""
 
     condition = (
@@ -281,7 +281,7 @@ def test_median_angle_solution_explains_the_isosceles_triangle() -> None:
         "CD — медиана. Найдите угол ACD.</p>"
     )
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         _elementary_context(condition, answer="32"),
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key="right-triangle-median-angle",
@@ -301,7 +301,7 @@ def test_median_angle_solution_explains_the_isosceles_triangle() -> None:
     assert solution.index(explanation) < solution.index(angle_equality)
 
 
-def test_bisector_intersection_solution_explains_alpha_construction() -> None:
+def test_legacy_bisector_intersection_solution_explains_alpha_construction() -> None:
     """Derive the requested acute angle through the triangle at the intersection."""
 
     condition = (
@@ -309,7 +309,7 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         "острый угол, образованный биссектрисами этого и прямого углов.</p>"
     )
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         _elementary_context(condition, answer="61"),
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key="right-triangle-bisector-intersection-angle",
