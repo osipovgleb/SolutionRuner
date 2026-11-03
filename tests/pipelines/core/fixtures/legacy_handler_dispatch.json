@@ -872,10 +872,11 @@
     "requires_parent_condition_asset": true
   },
   "right-triangle-altitude-length": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.degree_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-altitude-length"
+      "content_rule_key": "right-triangle-altitude-length",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
@@ -959,19 +960,21 @@
     "requires_parent_condition_asset": true
   },
   "right-triangle-hypotenuse-projection-ah": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.degree_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-hypotenuse-projection-ah"
+      "content_rule_key": "right-triangle-hypotenuse-projection-ah",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "right-triangle-hypotenuse-projection-bh": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.degree_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-hypotenuse-projection-bh"
+      "content_rule_key": "right-triangle-hypotenuse-projection-bh",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true

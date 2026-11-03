@@ -462,7 +462,7 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
     ],
 )
-def test_registered_geometry_rules_explain_the_parent_reasoning(
+def test_legacy_geometry_rules_explain_the_parent_reasoning(
     content_rule_key: str,
     condition_html: str,
     answer: str,
@@ -470,7 +470,7 @@ def test_registered_geometry_rules_explain_the_parent_reasoning(
 ) -> None:
     """Keep each deterministic derivation at least as explicit as its parent."""
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         _elementary_context(condition_html, answer=answer),
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key=content_rule_key,
@@ -599,7 +599,7 @@ def test_registered_geometry_rules_explain_the_parent_reasoning(
         ),
     ],
 )
-def test_angle_and_altitude_content_rules_build_exact_solutions(
+def test_legacy_angle_and_altitude_content_rules_build_exact_solutions(
     content_rule_key: str,
     condition_html: str,
     answer: str,
@@ -607,7 +607,7 @@ def test_angle_and_altitude_content_rules_build_exact_solutions(
 ) -> None:
     """Catch a wrong geometric identity or wrong requested quantity."""
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         _elementary_context(condition_html, answer="ошибка"),
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key=content_rule_key,
@@ -638,7 +638,7 @@ def test_angle_runner_rejects_an_unrelated_requested_angle() -> None:
         )
 
 
-def test_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
+def test_legacy_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
     """Do not rewrite a numerically correct answer that has trailing zeroes."""
 
     context = _elementary_context(
@@ -663,7 +663,7 @@ def test_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
         }
     )
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         context,
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key="right-triangle-altitude-length",
@@ -737,7 +737,7 @@ def test_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
         ),
     ],
 )
-def test_new_rules_read_source_split_formula_layouts(
+def test_legacy_new_rules_read_source_split_formula_layouts(
     content_rule_key: str,
     condition_html: str,
     answer: str,
@@ -745,7 +745,7 @@ def test_new_rules_read_source_split_formula_layouts(
 ) -> None:
     """Preserve formula/text order when source spans split values from labels."""
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         _elementary_context(condition_html, answer="ошибка"),
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key=content_rule_key,
