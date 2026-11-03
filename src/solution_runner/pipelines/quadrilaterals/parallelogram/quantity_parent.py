@@ -30,7 +30,8 @@ def prepare(
         parent_solution_assets,
     )
     model, changes, pictures, keys = prepare_figures(context, generated_solution_assets)
-    if RULES[content_rule_key] != model.mode:
+    mode = "side_difference" if model.mode == "side_known" else model.mode
+    if RULES[content_rule_key] != mode:
         raise ContentPlanError(
             "the complete quantity question differs from its parent method"
         )

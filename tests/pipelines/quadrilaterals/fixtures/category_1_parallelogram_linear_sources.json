@@ -1,0 +1,2728 @@
+{
+  "groups": [
+    {
+      "key": "27806",
+      "size": 27,
+      "group_uuid": "a777678a-338f-4d37-83da-fb5761b960b7",
+      "rule": "parallelogram-angle-sum"
+    },
+    {
+      "key": "27807",
+      "size": 25,
+      "group_uuid": "8a177d33-717b-4f84-a898-b841ede1416b",
+      "rule": "parallelogram-angle-difference"
+    },
+    {
+      "key": "27808",
+      "size": 61,
+      "group_uuid": "2f4bd1e4-0f0c-40a2-8ee2-5b55c6ec50f8",
+      "rule": "parallelogram-diagonal-split-angle"
+    },
+    {
+      "key": "27809",
+      "size": 27,
+      "group_uuid": "b1cdc10e-d198-4f26-928a-dd0b51e7d0af",
+      "rule": "parallelogram-perimeter-side-difference"
+    },
+    {
+      "key": "27822",
+      "size": 18,
+      "group_uuid": "db659783-b855-4b5e-93e9-1888832d4c31",
+      "rule": "parallelogram-angle-ratio"
+    },
+    {
+      "key": "27824",
+      "size": 19,
+      "group_uuid": "474c396b-7d8f-47c3-ac20-c40e85568813",
+      "rule": "parallelogram-perimeter-side-ratio"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27806",
+      "task": "27806",
+      "context": {
+        "problem_id": "c8238573-0495-4ecc-bb36-68e9f8a342b3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:35.485705+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:37:45.990725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 100°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:37:45.990725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 100°. Ост­рый угол равен 50°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-50^{\\circ}=130^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:37:45.990725+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 100°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">130</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 100°. Ост­рый угол равен 50°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-50^{\\circ}=130^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27806",
+      "task": "49147",
+      "context": {
+        "problem_id": "40f52c42-505f-464e-b9e1-7e8c2935b630",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:23.755108+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:35:48.008263+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 62°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:35:48.008263+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 62°. Ост­рый угол равен 31°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-31^{\\circ}=149^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:35:48.008263+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 62°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">149</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 62°. Ост­рый угол равен 31°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-31^{\\circ}=149^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27806",
+      "task": "49153",
+      "context": {
+        "problem_id": "13b65a71-91b6-499a-8f51-46d079d48db3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:15.873576+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:35:46.881420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 46°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:35:46.881420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 46°. Ост­рый угол равен 23°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-23^{\\circ}=157^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:35:46.881420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 46°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">157</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 46°. Ост­рый угол равен 23°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-23^{\\circ}=157^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27806",
+      "task": "651048",
+      "context": {
+        "problem_id": "bd11c216-cbf1-4a94-8a94-371fc8053ef6",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:32.594568+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:37:45.857641+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 82°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:37:45.857641+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 82°. Ост­рый угол равен 41°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-41^{\\circ}=139^{\\circ}\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:37:45.857641+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Сумма двух углов па­рал­ле­ло­грам­ма равна 82°. Най­ди­те один из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">139</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, зна­чит, сумма двух про­ти­во­по­лож­ных ост­рых углов па­рал­ле­ло­грам­ма равна 82°. Ост­рый угол равен 41°, зна­чит, тупой угол <nobr>равен  <span data-inline-latex=\"180^{\\circ}-41^{\\circ}=139^{\\circ}\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27807",
+      "task": "27807",
+      "context": {
+        "problem_id": "0ef80f88-dae0-4828-adc3-1ce615d9035b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:48.903786+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:25:57.691097+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на 70°. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:25:57.691097+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, а их раз­ность равна 70°. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle D+(\\angle D-70^{\\circ})=180^{\\circ}\\iff 2\\angle D=250^{\\circ}\\iff \\angle D=125^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:25:57.691097+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на 70°. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">125</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма равна 180°, а их раз­ность равна 70°. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle D+(\\angle D-70^{\\circ})=180^{\\circ}\\iff 2\\angle D=250^{\\circ}\\iff \\angle D=125^{\\circ}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27807",
+      "task": "49197",
+      "context": {
+        "problem_id": "2241c721-111f-4f4d-a1ff-81fd3917d54c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:51.293519+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:25:59.672811+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на <span data-inline-latex=\"80^{\\circ}\"></span>. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:25:59.672811+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на <span data-inline-latex=\"80^{\\circ}\"></span>. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">130</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27807",
+      "task": "49199",
+      "context": {
+        "problem_id": "5f8a5d69-bab8-45a1-8dcf-dfd3af15b2e9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:20.660539+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:26:00.593196+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на <span data-inline-latex=\"48^{\\circ}\"></span>. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:26:00.593196+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на <span data-inline-latex=\"48^{\\circ}\"></span>. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">114</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27807",
+      "task": "49201",
+      "context": {
+        "problem_id": "e25625ea-037d-4ad1-993f-e543417bce85",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:39.209262+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:26:01.729791+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на <span data-inline-latex=\"106^{\\circ}\"></span>. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:26:01.729791+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Один угол па­рал­ле­ло­грам­ма боль­ше дру­го­го на <span data-inline-latex=\"106^{\\circ}\"></span>. Най­ди­те боль­ший угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">143</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27808",
+      "task": "27808",
+      "context": {
+        "problem_id": "422e38f7-e65c-4fbc-9144-9e7775e99a6d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:50.170246+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "html": "<img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.387487+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы 26° и 34°. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.387487+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма, равна 180°. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle A=180^{\\circ}-\\angle B=180^{\\circ}-(\\angle BAC+\\angle CAD)=180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.387487+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "kind": "ordinary_image",
+              "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы 26° и 34°. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">120</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма, равна 180°. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle A=180^{\\circ}-\\angle B=180^{\\circ}-(\\angle BAC+\\angle CAD)=180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27808",
+      "task": "49245",
+      "context": {
+        "problem_id": "62f696c8-d99b-4718-a78d-a7c594515484",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:49.508492+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "html": "<img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.636569+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы <span data-inline-latex=\"33^{\\circ}\"></span> и <span data-inline-latex=\"11^{\\circ}\"></span>. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.636569+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.636569+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "kind": "ordinary_image",
+              "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы <span data-inline-latex=\"33^{\\circ}\"></span> и <span data-inline-latex=\"11^{\\circ}\"></span>. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">136</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27808",
+      "task": "49246",
+      "context": {
+        "problem_id": "dba84f59-b57c-405f-93e1-b060c99ebbac",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:56.642280+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "html": "<img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:14:25.351531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы <span data-inline-latex=\"24^{\\circ}\"></span> и <span data-inline-latex=\"47^{\\circ}\"></span>. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:14:25.351531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:14:25.351531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "kind": "ordinary_image",
+              "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы <span data-inline-latex=\"24^{\\circ}\"></span> и <span data-inline-latex=\"47^{\\circ}\"></span>. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">109</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27808",
+      "task": "49247",
+      "context": {
+        "problem_id": "7dd44261-b45c-4189-b023-512f0f1303e7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:53.566027+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "html": "<img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.878624+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы <span data-inline-latex=\"52^{\\circ}\"></span> и <span data-inline-latex=\"10^{\\circ}\"></span>. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.878624+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:36.878624+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "kind": "ordinary_image",
+              "asset_id": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6bade94c-1b78-4213-a883-6c3f32da00f5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6bade94c-1b78-4213-a883-6c3f32da00f5\"/>Диа­го­наль па­рал­ле­ло­грам­ма об­ра­зу­ет с двумя его сто­ро­на­ми углы <span data-inline-latex=\"52^{\\circ}\"></span> и <span data-inline-latex=\"10^{\\circ}\"></span>. Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">118</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27809",
+      "task": "27809",
+      "context": {
+        "problem_id": "c451493e-0fe3-4bf9-a705-ad89a33c69a9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:01.371545+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:52:37.258668+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр па­рал­ле­ло­грам­ма равен 46. Одна сто­ро­на па­рал­ле­ло­грам­ма на 3 боль­ше дру­гой. Най­ди­те мень­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:52:37.258668+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(AB+AB+3)=4AB+6\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 46, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AB=10\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:52:37.258668+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:52:37.258668+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Пе­ри­метр па­рал­ле­ло­грам­ма равен 46. Одна сто­ро­на па­рал­ле­ло­грам­ма на 3 боль­ше дру­гой. Най­ди­те мень­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(AB+AB+3)=4AB+6\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 46, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AB=10\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27809",
+      "task": "49305",
+      "context": {
+        "problem_id": "ede91454-fbe9-4b43-ba02-92a1f84508ed",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:03.722504+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:52:40.347930+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр па­рал­ле­ло­грам­ма равен 94. Одна сто­ро­на па­рал­ле­ло­грам­ма на 41 боль­ше дру­гой. Най­ди­те мень­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:52:40.347930+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(AB+AB+41)=4AB+82\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 94, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AB=3\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:52:40.347930+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:52:40.347930+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Пе­ри­метр па­рал­ле­ло­грам­ма равен 94. Одна сто­ро­на па­рал­ле­ло­грам­ма на 41 боль­ше дру­гой. Най­ди­те мень­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(AB+AB+41)=4AB+82\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 94, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AB=3\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27809",
+      "task": "504250",
+      "context": {
+        "problem_id": "09abd723-fe95-42ed-9c62-65d10944695f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:10:49.624300+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:52:35.203195+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр па­рал­ле­ло­грам­ма равен 70. Мень­шая сто­ро­на равна 16. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:52:35.203195+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пе­ри­метр па­рал­ле­ло­грам­ма равен сумме длин его сто­рон. Длины про­ти­во­по­лож­ных сто­рон па­рал­ле­ло­грам­ма равны, сле­до­ва­тель­но, сумма длин двух мень­ших его сто­рон равна 32, а сумма боль­ших <nobr>равна  <span data-inline-latex=\"70-32=38\"></span>.</nobr> Таким об­ра­зом, длина боль­шей сто­ро­ны па­рал­ле­ло­грам­ма равна 19.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:52:35.203195+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Пе­ри­метр па­рал­ле­ло­грам­ма равен 70. Мень­шая сто­ро­на равна 16. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">19</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пе­ри­метр па­рал­ле­ло­грам­ма равен сумме длин его сто­рон. Длины про­ти­во­по­лож­ных сто­рон па­рал­ле­ло­грам­ма равны, сле­до­ва­тель­но, сумма длин двух мень­ших его сто­рон равна 32, а сумма боль­ших <nobr>равна  <span data-inline-latex=\"70-32=38\"></span>.</nobr> Таким об­ра­зом, длина боль­шей сто­ро­ны па­рал­ле­ло­грам­ма равна 19.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27809",
+      "task": "49307",
+      "context": {
+        "problem_id": "e5237a56-3ad2-4f0b-88a5-c63d54912237",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:10:56.847274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Пе­ри­метр па­рал­ле­ло­грам­ма равен 38. Одна сто­ро­на па­рал­ле­ло­грам­ма на 3 боль­ше дру­гой. Най­ди­те мень­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27822",
+      "task": "27822",
+      "context": {
+        "problem_id": "4e17beb2-fb72-46a3-8817-7cb10adf3d98",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:28.654987+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:55.952516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как 3 : 7. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:55.952516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма, равна 180°. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle B=\\frac{7}{3}\\angle A\\iff \\angle B=\\frac{7}{3}(180^{\\circ}-\\angle B)\\iff \\frac{10}{3}\\angle B=420^{\\circ}\\iff \\angle B=126^{\\circ}\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:27:55.952516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как 3 : 7. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">126</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма углов, при­ле­жа­щих к одной сто­ро­не па­рал­ле­ло­грам­ма, равна 180°. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle B=\\frac{7}{3}\\angle A\\iff \\angle B=\\frac{7}{3}(180^{\\circ}-\\angle B)\\iff \\frac{10}{3}\\angle B=420^{\\circ}\\iff \\angle B=126^{\\circ}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27822",
+      "task": "49859",
+      "context": {
+        "problem_id": "a3de4df0-210f-4b16-8bf7-f5e82ed14262",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:32.343639+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:57.591293+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как <span data-inline-latex=\"17\\colon 19\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:57.591293+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как <span data-inline-latex=\"17\\colon 19\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">95</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27822",
+      "task": "49861",
+      "context": {
+        "problem_id": "500238bd-9d8a-4632-b4d5-de4ef5df0cdf",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:28.743983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:56.039271+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как <span data-inline-latex=\"1\\colon 71\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:56.039271+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как <span data-inline-latex=\"1\\colon 71\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">177,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27822",
+      "task": "49863",
+      "context": {
+        "problem_id": "d8789ee7-3954-4a5d-ad46-09c2a1e42561",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:44.478647+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:58.675494+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как <span data-inline-latex=\"25\\colon 47\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:58.675494+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Най­ди­те боль­ший угол па­рал­ле­ло­грам­ма, если два его угла от­но­сят­ся как <span data-inline-latex=\"25\\colon 47\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">117,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27824",
+      "task": "27824",
+      "context": {
+        "problem_id": "ca1fbd74-2433-479c-ba06-2db9ec223b87",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:28:04.289899+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:39:07.335827+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 3 : 4, а пе­ри­метр его равен 70. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:07.335827+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{3}{4}AD+AD)=3{,}5AB\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 70, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=20\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть мень­шая сто­ро­на па­рал­ле­ло­грам­ма равна 3<i>x</i>, тогда боль­шая сто­ро­на равна 4<i>x</i>. По­лу­ча­ем урав­не­ние</p><center><p> <span data-inline-latex=\"2(3x+4x)=70\\iff 7x=35\\iff x=5\"></span>.</p></center><p>Сле­до­ва­тель­но, боль­шая сто­ро­на па­рал­ле­ло­грам­ма <nobr>равна  <span data-inline-latex=\"4\\cdot 5=20\"></span>.</nobr></p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:39:07.335827+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:39:07.335827+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:39:07.335827+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:39:07.335827+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 3 : 4, а пе­ри­метр его равен 70. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{3}{4}AD+AD)=3{,}5AB\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 70, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=20\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть мень­шая сто­ро­на па­рал­ле­ло­грам­ма равна 3<i>x</i>, тогда боль­шая сто­ро­на равна 4<i>x</i>. По­лу­ча­ем урав­не­ние</p><center><p> <span data-inline-latex=\"2(3x+4x)=70\\iff 7x=35\\iff x=5\"></span>.</p></center><p>Сле­до­ва­тель­но, боль­шая сто­ро­на па­рал­ле­ло­грам­ма <nobr>равна  <span data-inline-latex=\"4\\cdot 5=20\"></span>.</nobr></p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27824",
+      "task": "49893",
+      "context": {
+        "problem_id": "df6d6312-5639-4157-b271-033b3c918811",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:28:33.846374+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:39:13.123081+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 1 : 4, а пе­ри­метр его равен 30. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:13.123081+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{1}{4}AD+AD)=2{,}5AB\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 30, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=12\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:39:13.123081+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:39:13.123081+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 1 : 4, а пе­ри­метр его равен 30. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{1}{4}AD+AD)=2{,}5AB\"></span>.</p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 30, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=12\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27824",
+      "task": "49923",
+      "context": {
+        "problem_id": "163f3d1d-21d2-4334-a4bd-f7115e75d9f0",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:23:55.431925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:39:04.696361+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 3 : 17, а пе­ри­метр его равен 40. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:04.696361+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{3}{17}AD+AD)=\\frac{40}{17}AB\"></span>. </p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 40, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=17\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:39:04.696361+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:39:04.696361+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 3 : 17, а пе­ри­метр его равен 40. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{3}{17}AD+AD)=\\frac{40}{17}AB\"></span>. </p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 40, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=17\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27824",
+      "task": "49927",
+      "context": {
+        "problem_id": "5440c5bc-2022-49b4-b647-ea5a51238959",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:27:55.618505+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "html": "<img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:39:05.631427+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 9 : 11, а пе­ри­метр его равен 40. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:05.631427+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{9}{11}AD+AD)=\\frac{40}{11}AB\"></span>. </p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 40, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=11\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:39:05.631427+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:39:05.631427+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "kind": "ordinary_image",
+              "asset_id": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fae36b3a-5683-48f0-a5b2-dec9e314795f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fae36b3a-5683-48f0-a5b2-dec9e314795f\"/>Две сто­ро­ны па­рал­ле­ло­грам­ма от­но­сят­ся как 9 : 11, а пе­ри­метр его равен 40. Най­ди­те боль­шую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">11</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны, сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P=2(AB+AD)=2(\\frac{9}{11}AD+AD)=\\frac{40}{11}AB\"></span>. </p></center><p>Пе­ри­метр па­рал­ле­ло­грам­ма равен 40, по­это­му по­лу­ча­ем  <span data-inline-latex=\"AD=11\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

@@ -102,11 +102,16 @@ def selection(context):
         else REFERENCE
         if model.mode == "transfer"
         else BARE
-        if model.mode == "height"
+        if model.mode in {"height", "angle_sum", "angle_difference"}
         else {
             "sixty_height": "0f9596a2-7160-4a52-8155-cdecf3de5824",
             "sixty_diagonal": "d079942f-59e2-4f99-8e45-e295851aa7c1",
             "ratio_height": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+            "angle_split": "6bade94c-1b78-4213-a883-6c3f32da00f5",
+            "angle_ratio": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+            "side_difference": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+            "side_known": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+            "side_ratio": "fae36b3a-5683-48f0-a5b2-dec9e314795f",
         }.get(model.mode, RHOMBUS)
     )
     source_bytes(primary)

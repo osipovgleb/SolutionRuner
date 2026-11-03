@@ -7,6 +7,36 @@ from importlib.resources import files
 from ...core.errors import ContentPlanError
 
 PARENTS = {
+    "parallelogram-angle-sum": (
+        "046e3609-22e3-41c4-be82-0f3022ce9151",
+        (),
+        "147f049b8d01f50a5b88ed94450beba00adc875dd853eb4bc172bb4166c6bb0d",
+    ),
+    "parallelogram-angle-difference": (
+        "046e3609-22e3-41c4-be82-0f3022ce9151",
+        (),
+        "f7808caf9fc8e8e70107e86fa803a09db6fd866d61f6435ad46c81167e265ad9",
+    ),
+    "parallelogram-diagonal-split-angle": (
+        "6bade94c-1b78-4213-a883-6c3f32da00f5",
+        (),
+        "3e61c2066c2b52d72f15d7759c8d47f6cf869e4585b2ef8a664b0c50e41753ec",
+    ),
+    "parallelogram-perimeter-side-difference": (
+        "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+        (),
+        "fc90e2da5762f5e3d1dcf7f4809251b151920867d919aa1c77804db251011cc5",
+    ),
+    "parallelogram-angle-ratio": (
+        "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+        (),
+        "4af9c89fd008f3f8a8650d47c41d58141508a8a544296399cbcad058828268cb",
+    ),
+    "parallelogram-perimeter-side-ratio": (
+        "fae36b3a-5683-48f0-a5b2-dec9e314795f",
+        (),
+        "4fc665894e1ef95a3d6d5dd6d7c61954d6e7d65b40ca54da6da16352b4ab2877",
+    ),
     "rhombus-side-sixty-height": (
         "0f9596a2-7160-4a52-8155-cdecf3de5824",
         (),
@@ -62,6 +92,8 @@ PARENTS = {
     ),
 }
 _HASHES = {
+    "fae36b3a-5683-48f0-a5b2-dec9e314795f": "a41cf3234016811cd9a4e600491cef366507a0186b9e4cd0a581211f507c7755",
+    "6bade94c-1b78-4213-a883-6c3f32da00f5": "f6fd348bd8e8d58ecb080892beef57dc6ef8a163a0675b25510663a5482729f9",
     "0f9596a2-7160-4a52-8155-cdecf3de5824": "4fafbe2ecdc9be611509e252d7ed1b3e89b6f029502e7021d65cd49e4461bccf",
     "d079942f-59e2-4f99-8e45-e295851aa7c1": "ee9f58552447e8b7021268366be5ef8d33604b9cba86d45d60b7f924cd7c3cf0",
     "fc78faa7-5ccc-40bd-8519-e9d4a1629853": "1f784e9f14ddd615fef82b2ef54487dc6f2a1fe5a1d871bc57bae0ce8b87f67b",

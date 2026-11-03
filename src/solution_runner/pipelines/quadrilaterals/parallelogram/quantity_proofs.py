@@ -2,6 +2,8 @@
 
 from ...probability.common import line
 from ...triangles.right.altitude_methods import solution_section
+from .linear_model import LinearQuantity
+from .linear_proofs import render as render_linear
 from .rectangle_proofs import bracket, value
 from .rhombus_quantity_proofs import render as render_rhombus
 
@@ -146,6 +148,8 @@ def _height(m):
 
 
 def render(m, pictures):
+    if isinstance(m, LinearQuantity):
+        return render_linear(m)
     if m.mode == "sine":
         return _sine(m)
     if m.mode == "transfer":
