@@ -8,6 +8,7 @@ from ..isosceles.angle_proofs import angle, degree
 from ..right.altitude_methods import solution_section
 
 PARENTS = {
+    "general-triangle-681454-bisector-angle": "d440fb4dad8a051d18614a5634b2b5feb5537b9ec919c78fa07f7312c57eb43b",
     "general-triangle-27743-exterior-angle": "3717e31cd62af7cb4c70b1949d1113f506cc34ece49853809ceadf64ade68f5b",
     "general-triangle-27758-bisector-angle": "ad61a590100621c655219f35d8a849dc5bfcf8511c7de947dad5b20acd3380e4",
     "general-triangle-27759-bisector-exterior-angle": "6ab2f484633c5243931219a5be7efc3fc1b01b060bd543c2e404eb2078c468ae",
@@ -37,19 +38,20 @@ def _external(m):
     )
 
 
-def _base(m):
-    a, b, c = (angle(m.name(n)) for n in "ABC")
-    half = angle(m.name("CAD"))
+def _base(m, named=False):
+    a, b, c = (angle(m.name(n)) for n in (("CAB", "ABD", "ACB") if named else "ABC"))
+    half = angle(m.name("BAD" if named else "CAD"))
+    other_half = angle(m.name("CAD" if named else "BAD"))
     return (
         f"<p>Луч {m.name('AD')} — биссектриса, она делит угол {m.name('A')} пополам:</p>"
-        + line(half + "=" + angle(m.name("BAD")) + "=" + degree(m.second))
+        + line(half + "=" + other_half + "=" + degree(m.second))
         + line(a + "=2" + half)
         + line(a + r"=2\cdot " + degree(m.second) + "=" + degree(2 * m.second))
         + "<p>Сумма углов треугольника равна 180°. Найдем третий угол:</p>"
         + line(b + r"=180^{\circ}-" + a + "-" + c)
         + line(b + r"=180^{\circ}-" + degree(2 * m.second) + "-" + degree(m.first))
-        + line(b + r"=180^{\circ}-" + degree(2 * m.second + m.first))
-        + line(b + "=" + degree(m.answer))
+        + ("" if named else line(b + r"=180^{\circ}-" + degree(2 * m.second + m.first)))
+        + line(b + "=" + degree(m.angles[m.name("B")]))
     )
 
 
@@ -67,7 +69,35 @@ def _bisector_external(m):
     )
 
 
-def render(m):
+def _named(m):
+    body = _base(m, True)
+    if m.mode == "bisector_base":
+        return body
+    target = angle(m.name("ADB"))
+    return (
+        body
+        + f"<p>Теперь рассмотрим треугольник {m.name('ABD')} и найдем угол при основании биссектрисы по сумме его углов:</p>"
+        + line(
+            target
+            + r"=180^{\circ}-"
+            + angle(m.name("BAD"))
+            + "-"
+            + angle(m.name("ABD"))
+        )
+        + line(
+            target
+            + r"=180^{\circ}-"
+            + degree(m.second)
+            + "-"
+            + degree(m.angles[m.name("B")])
+        )
+        + line(target + "=" + degree(m.answer))
+    )
+
+
+def render(m, rule=None):
+    if rule == "general-triangle-681454-bisector-angle":
+        return solution_section("Решение", _named(m))
     return solution_section(
         "Решение",
         {

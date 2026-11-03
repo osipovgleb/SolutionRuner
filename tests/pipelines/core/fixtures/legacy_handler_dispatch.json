@@ -387,9 +387,13 @@
     "requires_parent_condition_asset": true
   },
   "general-triangle-681454-bisector-angle": {
-    "target": "solution_runner.pipelines.triangles.general.group_681454_planner:build_repair_plan",
+    "target": "solution_runner.pipelines.triangles.general.simple_angle_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "general-triangle-681454-bisector-angle"
     },
     "constraints": {},
     "requires_parent_condition_asset": true

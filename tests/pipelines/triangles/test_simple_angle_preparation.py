@@ -45,6 +45,9 @@ def check_rows(html, m):
             return "(" + sp.latex(values[name]) + ")"
         canonical = "".join(reverse[v] for v in name)
         canonical_values = {
+            "CAB": values[m.name("A")],
+            "ABD": values[m.name("B")],
+            "ACB": values[m.name("C")],
             "CAD": values[m.name("A")] / 2,
             "BAD": values[m.name("A")] / 2,
             "ACD": values[m.name("C")],

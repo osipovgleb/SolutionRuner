@@ -20,6 +20,8 @@ from .simple_angle_model import read_question
 EXTERNAL = "acf0700e-c2d9-451b-b6b0-f04a2b718de1"
 BISECTOR_BASE = "6fec46c1-abc5-4b85-86ec-08f4e76a8341"
 BISECTOR_EXTERNAL = "a1e16fd0-1b72-4515-923b-482eaafaebdd"
+NAMED_BISECTOR = "7d48c070-eedf-486d-8852-e04ea2d578f8"
+NAMED_KEY = "named_bisector_condition"
 SOURCES = {
     "external": EXTERNAL,
     "bisector_base": BISECTOR_BASE,
@@ -27,6 +29,7 @@ SOURCES = {
 }
 KEY = "simple_angle_condition"
 _HASHES = {
+    NAMED_BISECTOR: "3dc90edcdee218300b97cf05da8f2382ccf92ae6cfa29265648033d9728b70a2",
     EXTERNAL: "24d0db05357700f712dc13640ef758cab9e0a655b3feefe91593b0f7e4b9c216",
     BISECTOR_BASE: "f7be3b4d2a5e646b890240d438f6723a095dc4bd36391679afdff9b164e215a2",
     BISECTOR_EXTERNAL: "2d5bbbcbb9f41f94e6426d9f4086a5bfe551070cdccffe85a4eaf9b8281a3fca",
@@ -81,7 +84,7 @@ def selection(context):
     asset = assets[0]
     key, identifier = asset.get("asset_key"), asset.get("asset_id")
     if (
-        key not in {"image_1", KEY}
+        key not in {"image_1", KEY, NAMED_KEY}
         or not isinstance(identifier, str)
         or not identifier
         or asset.get("kind") != "ordinary_image"
@@ -103,9 +106,17 @@ def selection(context):
         raise ContentPlanError("the simple-angle condition image differs from metadata")
     images[0]["data-asset-key"] = "image_1"
     model = read_question(str(soup), identifier)
-    source = SOURCES[model.mode]
+    named = identifier == NAMED_BISECTOR or key == NAMED_KEY
+    if named and model.mode == "external":
+        raise ContentPlanError(
+            "the named bisector source requires a bisector construction"
+        )
+    source = NAMED_BISECTOR if named else SOURCES[model.mode]
     raw = source_bytes(source)
-    diagram = None if model.frame == "ABC" else spec(KEY, _remapped(model, raw))
+    generated_key = NAMED_KEY if named else KEY
+    diagram = (
+        None if model.frame == "ABC" else spec(generated_key, _remapped(model, raw))
+    )
     return model, asset, condition, source, diagram
 
 
@@ -116,6 +127,6 @@ def diagram_specs(context):
 
 def prepare(context, generated):
     model, asset, condition, source, diagram = selection(context)
-    key = KEY if diagram else "image_1"
+    key = diagram["asset_key"] if diagram else "image_1"
     identifier, url = _identity(key, source, diagram, generated)
     return model, condition_changes(context, condition, asset, key, identifier, url)

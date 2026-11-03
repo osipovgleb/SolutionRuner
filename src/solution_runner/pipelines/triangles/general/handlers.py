@@ -23,6 +23,7 @@ HANDLERS = (
             "general-triangle-27743-exterior-angle",
             "general-triangle-27758-bisector-angle",
             "general-triangle-27759-bisector-exterior-angle",
+            "general-triangle-681454-bisector-angle",
         )
     ),
     *(
@@ -224,12 +225,6 @@ HANDLERS = (
     HandlerSpec(
         "general-triangle-561168-obtuse-included-angle-area",
         "solution_runner.pipelines.triangles.general.group_561168_planner:build_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-        parent_from_group_listing=True,
-    ),
-    HandlerSpec(
-        "general-triangle-681454-bisector-angle",
-        "solution_runner.pipelines.triangles.general.group_681454_planner:build_repair_plan",
         inputs=(("parent_condition_asset_id", "parent_asset_id"),),
         parent_from_group_listing=True,
     ),

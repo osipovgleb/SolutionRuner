@@ -14,6 +14,7 @@ RULES = {
     "general-triangle-27743-exterior-angle": "external",
     "general-triangle-27758-bisector-angle": "bisector_base",
     "general-triangle-27759-bisector-exterior-angle": "bisector_external",
+    "general-triangle-681454-bisector-angle": ("bisector_base", "bisector_external"),
 }
 _END = "Ответ дайте в градусах."
 
@@ -47,7 +48,8 @@ class SimpleAngle:
         }[self.mode]
 
     def require_rule(self, rule):
-        if RULES.get(rule) != self.mode:
+        allowed = RULES.get(rule)
+        if self.mode not in ((allowed,) if isinstance(allowed, str) else allowed or ()):
             raise ContentPlanError(
                 "the complete angle question differs from its registered method"
             )
@@ -96,6 +98,14 @@ def _external(angles, target):
 def _bisector(apex, angles, target):
     if any(g[0] for g in angles):
         raise ContentPlanError("the bisector method requires two internal angles")
+    angles = [
+        (
+            external,
+            name[1] if len(name) == 3 and set(name) == set("ABC") else name,
+            value,
+        )
+        for external, name, value in angles
+    ]
     singles = [g for g in angles if len(g[1]) == 1]
     halves = [g for g in angles if len(g[1]) == 3]
     if len(singles) != 1 or len(halves) != 1:
@@ -111,7 +121,9 @@ def _bisector(apex, angles, target):
         raise ContentPlanError(
             "the half-angle must use a triangle side and the bisector"
         )
-    if target == other:
+    if target == other or (
+        len(target) == 3 and target[1] == other and set(target[::2]) == {apex, "D"}
+    ):
         mode = "bisector_base"
     elif len(target) == 3 and target[1] == "D" and set(target[::2]) == {apex, other}:
         mode = "bisector_external"
@@ -122,16 +134,40 @@ def _bisector(apex, angles, target):
     return SimpleAngle(mode, apex + other + c, first, second)
 
 
+def _parts(text):
+    explicit = text.endswith(_END)
+    if text.count("Найдите") != 1:
+        raise ContentPlanError("one complete angle question is required")
+    given, request = (text[: -len(_END)].strip() if explicit else text).split("Найдите")
+    if ", если " in request:
+        target, facts = request.split(", если ", 1)
+        setup = re.fullmatch(
+            r"([ВB] треугольнике ABC )проведена биссектриса ([ABC]D)\s*\.\s*", given
+        )
+        if setup is None:
+            raise ContentPlanError(
+                "the conditional question must declare its complete bisector setup"
+            )
+        given = (
+            setup[1]
+            + setup[2]
+            + " — биссектриса, "
+            + facts.replace(" и угол ", ", угол ")
+        )
+        request = target + "."
+    elif not explicit:
+        raise ContentPlanError("the angle request must explicitly specify degree units")
+    return given, request
+
+
 def read_question(html, source):
     try:
         text = _text(html, source, labels="ABCD")
-        if not text.endswith(_END) or text.count("Найдите") != 1:
-            raise ContentPlanError(
-                "one complete angle question with degree units is required"
-            )
-        given, request = text[: -len(_END)].strip().split("Найдите")
+        given, request = _parts(text)
         prefix = re.match(r"[ВB] треугольнике ABC\s+", given)
-        target = re.fullmatch(r"\s*угол ([ABC]|[ABC]D[ABC])\s*\.\s*", request)
+        target = re.fullmatch(
+            r"\s*(?:угол|величину угла) ([ABC]|[ABCD]{3})\s*\.\s*", request
+        )
         if prefix is None or target is None:
             raise ContentPlanError(
                 "the complete named triangle and angle request are required"
