@@ -291,3 +291,29 @@ def read_question(html, source):
         )
     except AltitudeSolveError as exc:
         raise ContentPlanError(str(exc)) from exc
+
+
+def read_context(context):
+    from bs4 import BeautifulSoup
+
+    from .planner import _section
+    from .side_altitude_sources import generated_keys
+
+    content = context.get("normalized_content")
+    if (
+        not isinstance(content, dict)
+        or content.get("schema_version") != 3
+        or content.get("format") != "teacherhelper-normalized"
+    ):
+        raise ContentPlanError("schema-v3 normalized side-altitude content is required")
+    condition = _section(content, "condition")
+    if condition is None or not isinstance(condition.get("html"), str):
+        raise ContentPlanError("a complete side-altitude condition is required")
+    soup = BeautifulSoup(condition["html"], "html.parser")
+    images = soup.find_all("img")
+    if len(images) > 1:
+        raise ContentPlanError("one side-altitude condition image is required")
+    source = images[0].get("data-asset-id", "") if images else ""
+    if images and images[0].get("data-asset-key") in generated_keys():
+        images[0]["data-asset-key"] = "image_1"
+    return read_question(str(soup), source)

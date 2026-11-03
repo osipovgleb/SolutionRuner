@@ -168,3 +168,47 @@ def zero_svg(model, raw, with_k):
         _place(root, glyphs, "K", k[0] - w / 2, k[1] + 1, boxes)
     root.set("viewBox", f"{left} {r[1]} {right - left} {y - r[1]}")
     return canvas_svg(root, boxes)
+
+
+def remapped_svg(model, raw, with_k):
+    """Keep a canonical audited construction and place its glyphs at actual vertices."""
+    from copy import deepcopy
+
+    original = ET.fromstring(raw)
+    groups = [g for g in original.findall(_tag("g")) if list(g.iter(_tag("path")))]
+    names = "ABCHK" if with_k else "ABCH"
+    if len(groups) != len(names):
+        raise ContentPlanError("the canonical source lettering changed")
+    glyphs = dict(zip(names, groups))
+    mapping = {
+        "A": model.vertex,
+        "B": model.other_base_vertex,
+        "C": model.apex,
+        "H": "H",
+        "K": "K",
+    }
+    root = deepcopy(original)
+    copies = [g for g in root.findall(_tag("g")) if list(g.iter(_tag("path")))]
+    boxes = []
+    for role, old in zip(names, copies):
+        desired = mapping[role]
+        target = glyphs[role]
+        glyph = deepcopy(glyphs[desired])
+        tx, ty, tw, th = _bounds(target)
+        gx, gy, gw, gh = _bounds(glyph)
+        dx, dy = tx + tw / 2 - gx - gw / 2, ty + th - gy - gh
+        glyph.set("id", "label-" + desired)
+        glyph.set("transform", f"translate({dx:.6f} {dy:.6f})")
+        index = list(root).index(old)
+        root.remove(old)
+        root.insert(index, glyph)
+        for rect in glyph.iter(_tag("rect")):
+            boxes.append(
+                (
+                    float(rect.get("x", 0)) + dx,
+                    float(rect.get("y", 0)) + dy,
+                    float(rect.get("width")),
+                    float(rect.get("height")),
+                )
+            )
+    return canvas_svg(root, boxes)

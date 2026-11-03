@@ -108,6 +108,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27320-altitude-from-base-sine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27321",
@@ -122,6 +123,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27321-projection-from-base-sine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27322",
@@ -136,6 +138,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27322-altitude-from-base-cosine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27323",
@@ -150,6 +153,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27323-projection-from-base-cosine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27324",
@@ -164,6 +168,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27324-altitude-from-base-tangent",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27325",
@@ -178,6 +183,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27325-projection-from-base-tangent",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27326",
@@ -192,6 +198,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27326-altitude-from-side-sine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27327",
@@ -206,6 +213,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27327-projection-from-side-sine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27328",
@@ -220,6 +228,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27328-altitude-from-side-cosine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27329",
@@ -234,6 +243,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27329-projection-from-side-cosine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27330",
@@ -248,6 +258,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27330-sine-from-altitude-and-base",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27331",
@@ -262,6 +273,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27331-cosine-from-altitude-and-base",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27345",

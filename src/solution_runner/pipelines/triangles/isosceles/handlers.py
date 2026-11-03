@@ -91,65 +91,35 @@ HANDLERS = (
         verify_content_readback=True,
         diagram_builder="solution_runner.pipelines.triangles.isosceles.basic_figures:diagram_specs",
     ),
-    HandlerSpec(
-        "isosceles-triangle-27320-altitude-from-base-sine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27320_repair_plan",
-        inputs=(("parent_solution_assets", "parent_solution_assets"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27321-projection-from-base-sine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27321_repair_plan",
-        inputs=(("parent_solution_assets", "parent_solution_assets"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27322-altitude-from-base-cosine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27322_repair_plan",
-        inputs=(("parent_solution_assets", "parent_solution_assets"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27323-projection-from-base-cosine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27323_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27324-altitude-from-base-tangent",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27324_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27325-projection-from-base-tangent",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27325_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27326-altitude-from-side-sine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27326_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27327-projection-from-side-sine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27327_repair_plan",
-        inputs=(("parent_solution_assets", "parent_solution_assets"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27328-altitude-from-side-cosine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27328_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27329-projection-from-side-cosine",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27329_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27330-sine-from-altitude-and-base",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27330_repair_plan",
-        inputs=(("parent_solution_assets", "parent_solution_assets"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27331-cosine-from-altitude-and-base",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27331_repair_plan",
-        inputs=(("parent_solution_assets", "parent_solution_assets"),),
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.isosceles.side_altitude_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.isosceles.side_altitude_figures:diagram_specs",
+        )
+        for rule in (
+            "isosceles-triangle-27320-altitude-from-base-sine",
+            "isosceles-triangle-27321-projection-from-base-sine",
+            "isosceles-triangle-27322-altitude-from-base-cosine",
+            "isosceles-triangle-27323-projection-from-base-cosine",
+            "isosceles-triangle-27324-altitude-from-base-tangent",
+            "isosceles-triangle-27325-projection-from-base-tangent",
+            "isosceles-triangle-27326-altitude-from-side-sine",
+            "isosceles-triangle-27327-projection-from-side-sine",
+            "isosceles-triangle-27328-altitude-from-side-cosine",
+            "isosceles-triangle-27329-projection-from-side-cosine",
+            "isosceles-triangle-27330-sine-from-altitude-and-base",
+            "isosceles-triangle-27331-cosine-from-altitude-and-base",
+        )
     ),
     HandlerSpec(
         "isosceles-triangle-27345-obtuse-sine-from-side-and-altitude",
