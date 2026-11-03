@@ -5,7 +5,11 @@ import sympy as sp
 from ..probability.common import line
 from ..quadrilaterals.parallelogram.rectangle_proofs import bracket, value
 from ..triangles.right.altitude_methods import solution_section
-from . import incircle_polygon_proofs, incircle_regular_proofs
+from . import (
+    incircle_polygon_proofs,
+    incircle_regular_proofs,
+    incircle_tangential_proofs,
+)
 
 
 def _area(m):
@@ -188,6 +192,8 @@ def _tangent_parts(m):
 
 
 def render(m, pictures):
+    if m.mode in incircle_tangential_proofs.MODES:
+        return incircle_tangential_proofs.render(m, pictures)
     if m.mode in incircle_polygon_proofs.MODES:
         return incircle_polygon_proofs.render(m, pictures)
     if m.mode in incircle_regular_proofs.MODES:

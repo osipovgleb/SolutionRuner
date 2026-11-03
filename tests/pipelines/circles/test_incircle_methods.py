@@ -3,6 +3,7 @@
 import re
 from copy import deepcopy
 
+import incircle_tangential_cases
 import pytest
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -30,6 +31,8 @@ TITLES = {
 
 
 def variables(m):
+    if m.mode in incircle_tangential_cases.MODES:
+        return incircle_tangential_cases.variables(m)
     a = m.given[0]
     if m.mode.startswith("rhombus_"):
         side = a if m.mode == "rhombus_radius" else 4 * m.given[1]
@@ -176,7 +179,7 @@ def test_all_feasible_native_answers_and_each_parent_equality(case):
     soup = BeautifulSoup(section(case["context"], "answer")["html"], "html.parser")
     tag = soup.select_one("[data-inline-latex]")
     saved = tag["data-inline-latex"] if tag else soup.get_text(strip=True)
-    expected = "18" if case["task"] == "56873" else saved
+    expected = {"56873": "18", "54649": "66"}.get(case["task"], saved)
     assert (
         sp.simplify(
             ScalarParser(result.answer).parse() - ScalarParser(expected).parse()

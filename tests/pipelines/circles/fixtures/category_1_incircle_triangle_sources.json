@@ -149,6 +149,86 @@
         "53665",
         "53623"
       ]
+    },
+    {
+      "key": "27936",
+      "group_uuid": "2cf9c19b-91fa-4cd5-ace0-28f539eda4bb",
+      "rule": "circle-incircle-trapezoid-midline-legs",
+      "sample_tasks": [
+        "54323",
+        "54367",
+        "642391"
+      ]
+    },
+    {
+      "key": "27937",
+      "group_uuid": "3a516416-2b19-41dd-8ba8-6ca06836d9f9",
+      "rule": "circle-incircle-trapezoid-midline-perimeter",
+      "sample_tasks": [
+        "54373",
+        "54375",
+        "54377"
+      ]
+    },
+    {
+      "key": "27938",
+      "group_uuid": "37d0d7b0-3c92-40bf-be8d-3b9a7c9d00eb",
+      "rule": "circle-incircle-right-trapezoid-radius",
+      "sample_tasks": [
+        "54423",
+        "509493",
+        "54425"
+      ]
+    },
+    {
+      "key": "27939",
+      "group_uuid": "26d4380f-39d5-41b7-a3a0-f56cc0da27ee",
+      "rule": "circle-incircle-quadrilateral-perimeter",
+      "sample_tasks": [
+        "54451",
+        "523987",
+        "524014"
+      ]
+    },
+    {
+      "key": "27940",
+      "group_uuid": "bc5e6c0f-68de-4d8a-b0b3-d7a16a49b921",
+      "rule": "circle-incircle-quadrilateral-larger-side",
+      "sample_tasks": [
+        "54501",
+        "54503",
+        "54505"
+      ]
+    },
+    {
+      "key": "27941",
+      "group_uuid": "1e6cb2c4-db83-400f-a675-7f95343b5026",
+      "rule": "circle-incircle-quadrilateral-fourth-side",
+      "sample_tasks": [
+        "54551",
+        "54595",
+        "513337"
+      ]
+    },
+    {
+      "key": "27943",
+      "group_uuid": "b805332a-10e5-47ee-9c36-213c4654250b",
+      "rule": "circle-incircle-three-tangent-cuts",
+      "sample_tasks": [
+        "54647",
+        "54649",
+        "54651"
+      ]
+    },
+    {
+      "key": "627979",
+      "group_uuid": "e76f62c5-787d-4a9f-ac8d-8c8c3dbe3dc9",
+      "rule": "circle-incircle-quadrilateral-opposite-side",
+      "sample_tasks": [
+        "694806",
+        "694825",
+        "704519"
+      ]
     }
   ],
   "cases": [
@@ -8470,6 +8550,3564 @@
               "asset_keys": [],
               "section_id": "answer:1",
               "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27936",
+      "task": "27936",
+      "context": {
+        "problem_id": "38f20e71-2a7a-4d7b-a5c2-e58e00395c0d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:17.663653+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Бо­ко­вые сто­ро­ны тра­пе­ции, опи­сан­ной около окруж­но­сти, равны 3 и 5. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но, сумма ос­но­ва­ний тра­пе­ции равна сумме бо­ко­вых сто­рон, то есть равна 8. Сред­няя линия тра­пе­ции равна по­лу­сум­ме ос­но­ва­ний, по­это­му она равна 4.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27936",
+      "task": "54323",
+      "context": {
+        "problem_id": "f46bc41a-f65a-4279-bee9-abda6d912779",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:55.170155+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Бо­ко­вые сто­ро­ны тра­пе­ции, опи­сан­ной около окруж­но­сти, равны 11 и 1. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но, сумма ос­но­ва­ний тра­пе­ции равна сумме бо­ко­вых сто­рон, то есть равна 12. Сред­няя линия тра­пе­ции равна по­лу­сум­ме ос­но­ва­ний, по­это­му она равна 6.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27936",
+      "task": "54367",
+      "context": {
+        "problem_id": "3026724c-f103-49bc-9809-06862573d469",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:17.473909+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Бо­ко­вые сто­ро­ны тра­пе­ции, опи­сан­ной около окруж­но­сти, равны 27 и 4. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но, сумма ос­но­ва­ний тра­пе­ции равна сумме бо­ко­вых сто­рон, то есть равна 31. Сред­няя линия тра­пе­ции равна по­лу­сум­ме ос­но­ва­ний, по­это­му она равна 15,5.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27936",
+      "task": "642391",
+      "context": {
+        "problem_id": "c124d407-1c1a-4c13-ad06-61ea2246402b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:29.886423+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Бо­ко­вые сто­ро­ны тра­пе­ции, опи­сан­ной около окруж­но­сти, равны 15 и 22. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но, сумма ос­но­ва­ний тра­пе­ции равна сумме бо­ко­вых сто­рон, то есть равна 37. Сред­няя линия тра­пе­ции равна по­лу­сум­ме ос­но­ва­ний, по­это­му она равна 18,5.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27937",
+      "task": "27937",
+      "context": {
+        "problem_id": "965d4255-b2fc-44af-b8b9-978d03d49088",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:52.658200+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Около окруж­но­сти опи­са­на тра­пе­ция, пе­ри­метр ко­то­рой равен 40. Най­ди­те длину её сред­ней линии.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но, сумма ос­но­ва­ний тра­пе­ции равна по­лу­пе­ри­мет­ру, то есть равна 20. Сред­няя линия тра­пе­ции равна по­лу­сум­ме ос­но­ва­ний, по­это­му она равна 10.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27937",
+      "task": "54373",
+      "context": {
+        "problem_id": "6dd2ae2d-dc0d-455c-87cf-c26f27a635bb",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:51.538532+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Около окруж­но­сти опи­са­на тра­пе­ция, пе­ри­метр ко­то­рой равен 84. Най­ди­те длину её сред­ней линии.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">21</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но, сумма ос­но­ва­ний тра­пе­ции равна по­лу­пе­ри­мет­ру, то есть равна 42. Сред­няя линия тра­пе­ции равна по­лу­сум­ме ос­но­ва­ний, по­это­му она равна 21.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27937",
+      "task": "54375",
+      "context": {
+        "problem_id": "b3e561ba-1a4b-4261-83c2-24860ced6453",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:52.850006+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Около окруж­но­сти опи­са­на тра­пе­ция, пе­ри­метр ко­то­рой равен 60. Най­ди­те длину её сред­ней линии.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27937",
+      "task": "54377",
+      "context": {
+        "problem_id": "def8890d-cca8-4c29-bc9e-de681b2c24df",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:54.069064+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+                "html": "<img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/49629729-cca6-45a3-847b-718059b3f287",
+              "kind": "ordinary_image",
+              "asset_id": "49629729-cca6-45a3-847b-718059b3f287",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"49629729-cca6-45a3-847b-718059b3f287\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/49629729-cca6-45a3-847b-718059b3f287\"/>Около окруж­но­сти опи­са­на тра­пе­ция, пе­ри­метр ко­то­рой равен 44. Най­ди­те длину её сред­ней линии.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">11</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27938",
+      "task": "27938",
+      "context": {
+        "problem_id": "6a89a969-1fad-4472-9022-a294e48f39d7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:30:01.998136+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "html": "<img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:06.435436+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр пря­мо­уголь­ной тра­пе­ции, опи­сан­ной около окруж­но­сти, равен 22, ее боль­шая бо­ко­вая сто­ро­на равна 7. Най­ди­те ра­ди­ус окруж­но­сти.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:06.435436+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Ра­ди­ус окруж­но­сти, впи­сан­ной в пря­мо­уголь­ную тра­пе­цию, равен по­ло­ви­не ее вы­со­ты, то есть по­ло­ви­не сто­ро­ны <i>AB</i>. В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Каж­дая из этих сумм равна по­ло­ви­не пе­ри­мет­ра че­ты­рех­уголь­ни­ка, по­это­му  <span data-inline-latex=\"AB+CD=11\"></span>. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=11-7=4\"></span>, а по­то­му ра­ди­ус окруж­но­сти равен  <span data-inline-latex=\"r=\\frac{AB}{2}=2\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:24:06.435436+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:24:06.435436+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:24:06.435436+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "kind": "ordinary_image",
+              "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>Пе­ри­метр пря­мо­уголь­ной тра­пе­ции, опи­сан­ной около окруж­но­сти, равен 22, ее боль­шая бо­ко­вая сто­ро­на равна 7. Най­ди­те ра­ди­ус окруж­но­сти.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ра­ди­ус окруж­но­сти, впи­сан­ной в пря­мо­уголь­ную тра­пе­цию, равен по­ло­ви­не ее вы­со­ты, то есть по­ло­ви­не сто­ро­ны <i>AB</i>. В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Каж­дая из этих сумм равна по­ло­ви­не пе­ри­мет­ра че­ты­рех­уголь­ни­ка, по­это­му  <span data-inline-latex=\"AB+CD=11\"></span>. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=11-7=4\"></span>, а по­то­му ра­ди­ус окруж­но­сти равен  <span data-inline-latex=\"r=\\frac{AB}{2}=2\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27938",
+      "task": "54423",
+      "context": {
+        "problem_id": "e6e5bfa3-e362-4daf-b529-c47e04ef4a23",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:13.308928+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "html": "<img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:19.171230+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр пря­мо­уголь­ной тра­пе­ции, опи­сан­ной около окруж­но­сти, равен 100, ее боль­шая бо­ко­вая сто­ро­на равна 42. Най­ди­те ра­ди­ус окруж­но­сти.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:19.171230+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Ра­ди­ус окруж­но­сти, впи­сан­ной в пря­мо­уголь­ную тра­пе­цию, равен по­ло­ви­не ее вы­со­ты, то есть по­ло­ви­не сто­ро­ны <i>AB</i>. В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Каж­дая из этих сумм равна по­ло­ви­не пе­ри­мет­ра че­ты­рех­уголь­ни­ка, по­это­му  <span data-inline-latex=\"AB+CD=50\"></span>. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=50-42=8\"></span>, а по­то­му ра­ди­ус окруж­но­сти равен  <span data-inline-latex=\"r=\\frac{AB}{2}=4\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:24:19.171230+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:24:19.171230+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:24:19.171230+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "kind": "ordinary_image",
+              "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>Пе­ри­метр пря­мо­уголь­ной тра­пе­ции, опи­сан­ной около окруж­но­сти, равен 100, ее боль­шая бо­ко­вая сто­ро­на равна 42. Най­ди­те ра­ди­ус окруж­но­сти.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ра­ди­ус окруж­но­сти, впи­сан­ной в пря­мо­уголь­ную тра­пе­цию, равен по­ло­ви­не ее вы­со­ты, то есть по­ло­ви­не сто­ро­ны <i>AB</i>. В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Каж­дая из этих сумм равна по­ло­ви­не пе­ри­мет­ра че­ты­рех­уголь­ни­ка, по­это­му  <span data-inline-latex=\"AB+CD=50\"></span>. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=50-42=8\"></span>, а по­то­му ра­ди­ус окруж­но­сти равен  <span data-inline-latex=\"r=\\frac{AB}{2}=4\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27938",
+      "task": "509493",
+      "context": {
+        "problem_id": "c0b006e2-5336-4576-994b-03ec89106993",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:30:17.887363+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "html": "<img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:17.777295+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр пря­мо­уголь­ной тра­пе­ции, опи­сан­ной около окруж­но­сти, равен 32, её боль­шая бо­ко­вая сто­ро­на равна 9. Най­ди­те ра­ди­ус окруж­но­сти.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:17.777295+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Ра­ди­ус окруж­но­сти, впи­сан­ной в пря­мо­уголь­ную тра­пе­цию, равен по­ло­ви­не ее вы­со­ты, то есть по­ло­ви­не сто­ро­ны <i>AB</i>. В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Каж­дая из этих сумм равна по­ло­ви­не пе­ри­мет­ра че­ты­рех­уголь­ни­ка, по­это­му  <span data-inline-latex=\"AB+CD=16\"></span>. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=16-9=7\"></span>, а по­то­му ра­ди­ус окруж­но­сти равен  <span data-inline-latex=\"r=\\frac{AB}{2}=3{,}5\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:24:17.777295+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:24:17.777295+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:24:17.777295+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "kind": "ordinary_image",
+              "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>Пе­ри­метр пря­мо­уголь­ной тра­пе­ции, опи­сан­ной около окруж­но­сти, равен 32, её боль­шая бо­ко­вая сто­ро­на равна 9. Най­ди­те ра­ди­ус окруж­но­сти.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=7340125\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 26.03.2015. Досрочная волна, Восток</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=7337716\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике — 2015. Досрочная волна, Запад.</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Ра­ди­ус окруж­но­сти, впи­сан­ной в пря­мо­уголь­ную тра­пе­цию, равен по­ло­ви­не ее вы­со­ты, то есть по­ло­ви­не сто­ро­ны <i>AB</i>. В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Каж­дая из этих сумм равна по­ло­ви­не пе­ри­мет­ра че­ты­рех­уголь­ни­ка, по­это­му  <span data-inline-latex=\"AB+CD=16\"></span>. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=16-9=7\"></span>, а по­то­му ра­ди­ус окруж­но­сти равен  <span data-inline-latex=\"r=\\frac{AB}{2}=3{,}5\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27938",
+      "task": "54425",
+      "context": {
+        "problem_id": "60154318-be3e-4e8a-8f70-579ad5d84623",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:29:56.954498+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "html": "<img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "kind": "ordinary_image",
+              "asset_id": "dd32ef1c-0671-4408-abb1-7a483841fc55",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"dd32ef1c-0671-4408-abb1-7a483841fc55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dd32ef1c-0671-4408-abb1-7a483841fc55\"/>Пе­ри­метр пря­мо­уголь­ной тра­пе­ции, опи­сан­ной около окруж­но­сти, равен 80, ее боль­шая бо­ко­вая сто­ро­на равна 30. Най­ди­те ра­ди­ус окруж­но­сти.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27939",
+      "task": "27939",
+      "context": {
+        "problem_id": "b079194f-a367-4b77-a6b3-58c5cffb8ff4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:22.903098+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:22.308799+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  10, <i>CD</i>  =  16. Най­ди­те пе­ри­метр че­ты­рех­уголь­ни­ка <i>ABCD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:22.308799+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=52\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:22.308799+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  10, <i>CD</i>  =  16. Най­ди­те пе­ри­метр че­ты­рех­уголь­ни­ка <i>ABCD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">52</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=76974529\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 31.05.2024. Основная волна. Разные города</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=91679262\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 08.06.2026. Основная волна. Дальний Восток, вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=52\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27939",
+      "task": "54451",
+      "context": {
+        "problem_id": "484c0356-d832-4eb2-b5f3-f8b8a052f4e5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:19.654425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.684357+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  22, <i>CD</i>  =  77. Най­ди­те пе­ри­метр че­ты­рех­уголь­ни­ка <i>ABCD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.684357+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=198\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.684357+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  22, <i>CD</i>  =  77. Най­ди­те пе­ри­метр че­ты­рех­уголь­ни­ка <i>ABCD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">198</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=91679265\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 08.06.2026. Основная волна. Дальний Восток, вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=198\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27939",
+      "task": "523987",
+      "context": {
+        "problem_id": "6a19af02-012b-440f-a9a2-2e6b32a37faf",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:19.795651+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.925291+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  44, <i>CD</i>  =  55. Най­ди­те пе­ри­метр четырёхуголь­ни­ка <i>ABCD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.925291+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=198\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.925291+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В четырёхуголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  44, <i>CD</i>  =  55. Най­ди­те пе­ри­метр четырёхуголь­ни­ка <i>ABCD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">198</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=198\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27939",
+      "task": "524014",
+      "context": {
+        "problem_id": "74cb7067-4080-4082-a163-32a651ab8dc9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:20.792743+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.967343+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  22, <i>CD</i>  =  29. Най­ди­те пе­ри­метр четырёхуголь­ни­ка <i>ABCD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.967343+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=102\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:21.967343+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В четырёхуголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  22, <i>CD</i>  =  29. Най­ди­те пе­ри­метр четырёхуголь­ни­ка <i>ABCD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">102</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+DA=2(AB+CD)=102\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27940",
+      "task": "27940",
+      "context": {
+        "problem_id": "28b6b360-1ce3-4573-ab84-2677fe8b6ea5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:21.595104+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:10.194503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр че­ты­рех­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, равен 24, две его сто­ро­ны равны 5 и 6. Най­ди­те боль­шую из остав­ших­ся сто­рон.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:10.194503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. В этом слу­чае пе­ри­метр че­ты­рех­уголь­ни­ка вдвое боль­ше суммы длин про­ти­во­по­лож­ных сто­рон, сле­до­ва­тель­но, в дан­ном че­ты­рех­уголь­ни­ке сумма длин про­ти­во­по­лож­ных сто­рон равна 12, а зна­чит, сто­ро­ны дли­ной 5 и 6 не могут быть про­ти­во­по­лож­ны­ми и яв­ля­ют­ся смеж­ны­ми. </p><p>На­про­тив сто­ро­ны дли­ной 5 лежит сто­ро­на <nobr>дли­ной  <span data-inline-latex=\"12-5=7\"></span>.</nobr> На­про­тив сто­ро­ны дли­ной 6 лежит сто­ро­на <nobr>дли­ной  <span data-inline-latex=\"12-6=6\"></span>.</nobr> Боль­шая из этих двух сто­рон имеет длину 7.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:00:10.194503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:00:10.194503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>Пе­ри­метр че­ты­рех­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, равен 24, две его сто­ро­ны равны 5 и 6. Най­ди­те боль­шую из остав­ших­ся сто­рон.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. В этом слу­чае пе­ри­метр че­ты­рех­уголь­ни­ка вдвое боль­ше суммы длин про­ти­во­по­лож­ных сто­рон, сле­до­ва­тель­но, в дан­ном че­ты­рех­уголь­ни­ке сумма длин про­ти­во­по­лож­ных сто­рон равна 12, а зна­чит, сто­ро­ны дли­ной 5 и 6 не могут быть про­ти­во­по­лож­ны­ми и яв­ля­ют­ся смеж­ны­ми. </p><p>На­про­тив сто­ро­ны дли­ной 5 лежит сто­ро­на <nobr>дли­ной  <span data-inline-latex=\"12-5=7\"></span>.</nobr> На­про­тив сто­ро­ны дли­ной 6 лежит сто­ро­на <nobr>дли­ной  <span data-inline-latex=\"12-6=6\"></span>.</nobr> Боль­шая из этих двух сто­рон имеет длину 7.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27940",
+      "task": "54501",
+      "context": {
+        "problem_id": "96623ec0-bf5d-423c-9c61-05345f2a3223",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:26.080393+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:11.697049+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD,</i> пе­ри­метр ко­то­ро­го равен 48, впи­са­на окруж­ность, <i>AB</i>  =  15. Най­ди­те <i>CD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:11.697049+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB+CD=24\"></span>, от­ку­да  <span data-inline-latex=\"CD=24-15=9\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:00:11.697049+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:00:11.697049+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В четырёхуголь­ник <i>ABCD,</i> пе­ри­метр ко­то­ро­го равен 48, впи­са­на окруж­ность, <i>AB</i>  =  15. Най­ди­те <i>CD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB+CD=24\"></span>, от­ку­да  <span data-inline-latex=\"CD=24-15=9\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27940",
+      "task": "54503",
+      "context": {
+        "problem_id": "fca92f1e-d66a-461b-ac6b-42f7b97d7126",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:28.097555+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>Пе­ри­метр че­ты­рех­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, равен 48, две его сто­ро­ны равны 16 и 22. Най­ди­те боль­шую из остав­ших­ся сто­рон.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27940",
+      "task": "54505",
+      "context": {
+        "problem_id": "16c3c475-8b08-4e3e-a68c-19c933f46b9c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:21.449279+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>Пе­ри­метр че­ты­рех­уголь­ни­ка, опи­сан­но­го около окруж­но­сти, равен 56, две его сто­ро­ны равны 4 и 12. Най­ди­те боль­шую из остав­ших­ся сто­рон.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27941",
+      "task": "27941",
+      "context": {
+        "problem_id": "2a350bf6-f5c5-4d17-af69-21ae0d9ac27d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:13.118270+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.080410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  10, <i>BC</i>  =  11 и <i>CD</i>  =  15. Най­ди­те чет­вер­тую сто­ро­ну че­ты­рех­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.080410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD+BC=AB+CD\"></span>, от­ку­да  <span data-inline-latex=\"AD+11=25\"></span>, то есть  <span data-inline-latex=\"AD=14\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.080410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.080410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:13:32.080410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  10, <i>BC</i>  =  11 и <i>CD</i>  =  15. Най­ди­те чет­вер­тую сто­ро­ну че­ты­рех­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">14</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD+BC=AB+CD\"></span>, от­ку­да  <span data-inline-latex=\"AD+11=25\"></span>, то есть  <span data-inline-latex=\"AD=14\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27941",
+      "task": "54551",
+      "context": {
+        "problem_id": "9a65bed5-465c-453c-8d90-2ece9cca4498",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:17.146491+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:33.619592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  8, <i>BC</i>  =  8 и <i>CD</i>  =  33. Най­ди­те чет­вер­тую сто­ро­ну че­ты­рех­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:33.619592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD+BC=AB+CD\"></span>, от­ку­да  <span data-inline-latex=\"AD+8=41\"></span>, то есть  <span data-inline-latex=\"AD=33\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:33.619592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:33.619592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:13:33.619592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  8, <i>BC</i>  =  8 и <i>CD</i>  =  33. Най­ди­те чет­вер­тую сто­ро­ну че­ты­рех­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">33</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD+BC=AB+CD\"></span>, от­ку­да  <span data-inline-latex=\"AD+8=41\"></span>, то есть  <span data-inline-latex=\"AD=33\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27941",
+      "task": "54595",
+      "context": {
+        "problem_id": "4b755961-20c0-4cbb-9630-b364f9e06fce",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:15.093626+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.906907+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  12, <i>BC</i>  =  4 и <i>CD</i>  =  46. Най­ди­те чет­вер­тую сто­ро­ну че­ты­рех­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.906907+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD+BC=AB+CD\"></span>, от­ку­да  <span data-inline-latex=\"AD+4=58\"></span>, то есть  <span data-inline-latex=\"AD=54\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.906907+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.906907+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:13:32.906907+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В че­ты­рех­уголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  12, <i>BC</i>  =  4 и <i>CD</i>  =  46. Най­ди­те чет­вер­тую сто­ро­ну че­ты­рех­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">54</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В вы­пук­лый че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда суммы длин его про­ти­во­по­лож­ных сто­рон равны. Сле­до­ва­тель­но,  <span data-inline-latex=\"AD+BC=AB+CD\"></span>, от­ку­да  <span data-inline-latex=\"AD+4=58\"></span>, то есть  <span data-inline-latex=\"AD=54\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27941",
+      "task": "513337",
+      "context": {
+        "problem_id": "33d39115-3e0d-4ec5-907e-77ac7b5f0c0d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:14.933230+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+                "html": "<img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.388655+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  41, <i>CD</i>  =  46. Най­ди­те пе­ри­метр четырёхуголь­ни­ка <i>ABCD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.388655+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=AD+BC\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+CD+BC+AD=2(AB+CD)=174\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.388655+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:32.388655+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/af6e87fa-5536-44f0-967b-62be25dede86",
+              "kind": "ordinary_image",
+              "asset_id": "af6e87fa-5536-44f0-967b-62be25dede86",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"af6e87fa-5536-44f0-967b-62be25dede86\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/af6e87fa-5536-44f0-967b-62be25dede86\"/>В четырёхуголь­ник <i>ABCD</i> впи­са­на окруж­ность, <i>AB</i>  =  41, <i>CD</i>  =  46. Най­ди­те пе­ри­метр четырёхуголь­ни­ка <i>ABCD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">174</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=AD+BC\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"P_{ABCD}=AB+CD+BC+AD=2(AB+CD)=174\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27943",
+      "task": "27943",
+      "context": {
+        "problem_id": "eb5a4014-63fe-48e5-b954-43c424b6c42d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:28.021536+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+                "html": "<img alt=\"\" data-asset-id=\"cb3e01b8-f2f7-443f-94be-5d07b0304b92\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:11:28.021536+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+                "html": "<img alt=\"\" data-asset-id=\"36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:54:11.718959+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"cb3e01b8-f2f7-443f-94be-5d07b0304b92\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>К окруж­но­сти, впи­сан­ной в тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, про­ве­де­ны три ка­са­тель­ные. Пе­ри­мет­ры от­се­чен­ных тре­уголь­ни­ков <nobr>равны 6, 8, 10.</nobr> Най­ди­те пе­ри­метр дан­но­го тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:11.718959+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>По­ка­жем, что сумма пе­ри­мет­ров от­се­чен­ных тре­уголь­ни­ков равна сумме длин сто­рон тре­уголь­ни­ка <i>АВС</i>, то есть равна его пе­ри­мет­ру. От­рез­ки ка­са­тель­ных, про­ве­ден­ных к окруж­но­сти из точек <var data-math-identifier=\"K\">K</var>, <var data-math-identifier=\"H\">H</var>, <var data-math-identifier=\"O\">O</var>, <var data-math-identifier=\"F\">F</var>, <var data-math-identifier=\"N\">N</var>, <var data-math-identifier=\"M\">M</var> со­от­вет­ствен­но равны друг другу (см. рис., рав­ные от­рез­ки вы­де­ле­ны оди­на­ко­вы­ми цве­та­ми). Сле­до­ва­тель­но,</p><p> <span data-inline-latex=\"P_{BKM}=BQ+BR\"></span>,<br/> <span data-inline-latex=\"P_{CHO}=CQ+CS\"></span>,<br/> <span data-inline-latex=\"P_{AFN}=AS+AR\"></span>.</p><p></p><p></p><p> Сло­жим пра­вые части по­лу­чен­ных ра­венств: </p><center><p> <span data-inline-latex=\"(BQ+BR)+(CQ+CS)+(AS+AR)=AB+BC+AC=P_{ABC}\"></span>.</p></center><p>Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"P_{ABC}=P_{BKM}+P_{CHO}+P_{AFN}=24\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:11.718959+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:54:11.718959+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:54:11.718959+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:54:11.718959+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:54:11.718959+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+              "kind": "ordinary_image",
+              "asset_id": "cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+              "kind": "ordinary_image",
+              "asset_id": "36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"cb3e01b8-f2f7-443f-94be-5d07b0304b92\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92\"/>К окруж­но­сти, впи­сан­ной в тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, про­ве­де­ны три ка­са­тель­ные. Пе­ри­мет­ры от­се­чен­ных тре­уголь­ни­ков <nobr>равны 6, 8, 10.</nobr> Най­ди­те пе­ри­метр дан­но­го тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\"/></p><p>По­ка­жем, что сумма пе­ри­мет­ров от­се­чен­ных тре­уголь­ни­ков равна сумме длин сто­рон тре­уголь­ни­ка <i>АВС</i>, то есть равна его пе­ри­мет­ру. От­рез­ки ка­са­тель­ных, про­ве­ден­ных к окруж­но­сти из точек <var data-math-identifier=\"K\">K</var>, <var data-math-identifier=\"H\">H</var>, <var data-math-identifier=\"O\">O</var>, <var data-math-identifier=\"F\">F</var>, <var data-math-identifier=\"N\">N</var>, <var data-math-identifier=\"M\">M</var> со­от­вет­ствен­но равны друг другу (см. рис., рав­ные от­рез­ки вы­де­ле­ны оди­на­ко­вы­ми цве­та­ми). Сле­до­ва­тель­но,</p><p> <span data-inline-latex=\"P_{BKM}=BQ+BR\"></span>,<br/> <span data-inline-latex=\"P_{CHO}=CQ+CS\"></span>,<br/> <span data-inline-latex=\"P_{AFN}=AS+AR\"></span>.</p><p></p><p></p><p> Сло­жим пра­вые части по­лу­чен­ных ра­венств: </p><center><p> <span data-inline-latex=\"(BQ+BR)+(CQ+CS)+(AS+AR)=AB+BC+AC=P_{ABC}\"></span>.</p></center><p>Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"P_{ABC}=P_{BKM}+P_{CHO}+P_{AFN}=24\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27943",
+      "task": "54647",
+      "context": {
+        "problem_id": "a4cb4342-8ff2-475b-9c68-1f1f1b29ad1e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:24.772424+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+                "html": "<img alt=\"\" data-asset-id=\"cb3e01b8-f2f7-443f-94be-5d07b0304b92\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:11:24.772424+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+                "html": "<img alt=\"\" data-asset-id=\"36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:54:08.475094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"cb3e01b8-f2f7-443f-94be-5d07b0304b92\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>К окруж­но­сти, впи­сан­ной в тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, про­ве­де­ны три ка­са­тель­ные. Пе­ри­мет­ры от­се­чен­ных тре­уголь­ни­ков <nobr>равны 8, 23, 78.</nobr> Най­ди­те пе­ри­метр дан­но­го тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.475094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>По­ка­жем, что сумма пе­ри­мет­ров от­се­чен­ных тре­уголь­ни­ков равна сумме длин сто­рон тре­уголь­ни­ка <i>АВС</i>, то есть равна его пе­ри­мет­ру. От­рез­ки ка­са­тель­ных, про­ве­ден­ных к окруж­но­сти из точек <var data-math-identifier=\"K\">K</var>, <var data-math-identifier=\"H\">H</var>, <var data-math-identifier=\"O\">O</var>, <var data-math-identifier=\"F\">F</var>, <var data-math-identifier=\"N\">N</var>, <var data-math-identifier=\"M\">M</var> со­от­вет­ствен­но равны друг другу (см. рис., рав­ные от­рез­ки вы­де­ле­ны оди­на­ко­вы­ми цве­та­ми). Сле­до­ва­тель­но,</p><p> <span data-inline-latex=\"P_{BKM}=BQ+BR\"></span>,<br/> <span data-inline-latex=\"P_{CHO}=CQ+CS\"></span>,<br/> <span data-inline-latex=\"P_{AFN}=AS+AR\"></span>.</p><p></p><p></p><p> Сло­жим пра­вые части по­лу­чен­ных ра­венств: </p><center><p> <span data-inline-latex=\"(BQ+BR)+(CQ+CS)+(AS+AR)=AB+BC+AC=P_{ABC}\"></span>.</p></center><p>Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"P_{ABC}=P_{BKM}+P_{CHO}+P_{AFN}=109\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.475094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.475094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:54:08.475094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:54:08.475094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:54:08.475094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+              "kind": "ordinary_image",
+              "asset_id": "cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+              "kind": "ordinary_image",
+              "asset_id": "36e82f8a-fe0b-4edc-9382-7cdb65eb3d71",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"cb3e01b8-f2f7-443f-94be-5d07b0304b92\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/cb3e01b8-f2f7-443f-94be-5d07b0304b92\"/>К окруж­но­сти, впи­сан­ной в тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, про­ве­де­ны три ка­са­тель­ные. Пе­ри­мет­ры от­се­чен­ных тре­уголь­ни­ков <nobr>равны 8, 23, 78.</nobr> Най­ди­те пе­ри­метр дан­но­го тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">109</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/36e82f8a-fe0b-4edc-9382-7cdb65eb3d71\"/></p><p>По­ка­жем, что сумма пе­ри­мет­ров от­се­чен­ных тре­уголь­ни­ков равна сумме длин сто­рон тре­уголь­ни­ка <i>АВС</i>, то есть равна его пе­ри­мет­ру. От­рез­ки ка­са­тель­ных, про­ве­ден­ных к окруж­но­сти из точек <var data-math-identifier=\"K\">K</var>, <var data-math-identifier=\"H\">H</var>, <var data-math-identifier=\"O\">O</var>, <var data-math-identifier=\"F\">F</var>, <var data-math-identifier=\"N\">N</var>, <var data-math-identifier=\"M\">M</var> со­от­вет­ствен­но равны друг другу (см. рис., рав­ные от­рез­ки вы­де­ле­ны оди­на­ко­вы­ми цве­та­ми). Сле­до­ва­тель­но,</p><p> <span data-inline-latex=\"P_{BKM}=BQ+BR\"></span>,<br/> <span data-inline-latex=\"P_{CHO}=CQ+CS\"></span>,<br/> <span data-inline-latex=\"P_{AFN}=AS+AR\"></span>.</p><p></p><p></p><p> Сло­жим пра­вые части по­лу­чен­ных ра­венств: </p><center><p> <span data-inline-latex=\"(BQ+BR)+(CQ+CS)+(AS+AR)=AB+BC+AC=P_{ABC}\"></span>.</p></center><p>Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"P_{ABC}=P_{BKM}+P_{CHO}+P_{AFN}=109\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27943",
+      "task": "54649",
+      "context": {
+        "problem_id": "250519d7-b230-4576-9ee8-7074d1113ce2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:21.551485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+                "html": "<img alt=\"\" data-asset-id=\"2ea27720-dba3-42e1-a18d-9aaea689a2ce\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+              "kind": "ordinary_image",
+              "asset_id": "2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2ea27720-dba3-42e1-a18d-9aaea689a2ce\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce\"/>К окруж­но­сти, впи­сан­ной в тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, про­ве­де­ны три ка­са­тель­ные. Пе­ри­мет­ры от­се­чен­ных тре­уголь­ни­ков равны 10, 32, 24. Най­ди­те пе­ри­метр дан­но­го тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">00</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27943",
+      "task": "54651",
+      "context": {
+        "problem_id": "7b45d44b-6e47-45da-8040-974949eb21d2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:23.589722+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+                "html": "<img alt=\"\" data-asset-id=\"2ea27720-dba3-42e1-a18d-9aaea689a2ce\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+              "kind": "ordinary_image",
+              "asset_id": "2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2ea27720-dba3-42e1-a18d-9aaea689a2ce\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2ea27720-dba3-42e1-a18d-9aaea689a2ce\"/>К окруж­но­сти, впи­сан­ной в тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, про­ве­де­ны три ка­са­тель­ные. Пе­ри­мет­ры от­се­чен­ных тре­уголь­ни­ков равны 6, 14, 85. Най­ди­те пе­ри­метр дан­но­го тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">105</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "627979",
+      "task": "627979",
+      "context": {
+        "problem_id": "2346158d-0eae-4eae-a775-3b273fcc5759",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:54.949820+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+                "html": "<img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:57:08.229666+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 54, впи­са­на окруж­ность, <i>AB</i>  =  18. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:57:08.229666+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (18+CD)=54\\iff 18+CD=27\\iff CD=9\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:57:08.229666+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:57:08.229666+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+              "kind": "ordinary_image",
+              "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 54, впи­са­на окруж­ность, <i>AB</i>  =  18. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=44927441\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 28.03.2022. Досрочная волна. Москва. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (18+CD)=54\\iff 18+CD=27\\iff CD=9\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "627979",
+      "task": "694806",
+      "context": {
+        "problem_id": "6511506f-7684-4163-8ad7-bd2fe8f99775",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:05.653026+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+                "html": "<img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.319643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 76, впи­са­на окруж­ность, <i>AB</i>  =  14. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.319643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (14+CD)=76\\iff 14+CD=38\\iff CD=24\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.319643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.319643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+              "kind": "ordinary_image",
+              "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 76, впи­са­на окруж­ность, <i>AB</i>  =  14. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=91680852\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 08.06.2026. Основная волна. Сибирь, вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (14+CD)=76\\iff 14+CD=38\\iff CD=24\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "627979",
+      "task": "694825",
+      "context": {
+        "problem_id": "ce3bbd6e-b36f-4962-8e2c-318c63405093",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:10.471822+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+                "html": "<img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:57:14.152046+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 44, впи­са­на окруж­ность, <i>AB</i>  =  5. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:57:14.152046+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (5+CD)=44\\iff 5+CD=22\\iff CD=17\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:57:14.152046+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:57:14.152046+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+              "kind": "ordinary_image",
+              "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 44, впи­са­на окруж­ность, <i>AB</i>  =  5. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (5+CD)=44\\iff 5+CD=22\\iff CD=17\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "627979",
+      "task": "704519",
+      "context": {
+        "problem_id": "b1289972-e5d5-45e2-bb04-695042283381",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 5,
+          "items": [
+            {
+              "at": "2026-10-01T19:42:56.291241+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+                "html": "<img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.765878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 22, впи­са­на окруж­ность, <i>AB</i>  =  8. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.765878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (8+CD)=22\\iff 8+CD=11\\iff CD=3\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.765878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:57:13.765878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3ce39918-b981-4707-ba88-4b951758f04c",
+              "kind": "ordinary_image",
+              "asset_id": "3ce39918-b981-4707-ba88-4b951758f04c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3ce39918-b981-4707-ba88-4b951758f04c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3ce39918-b981-4707-ba88-4b951758f04c\"/>В четырёхуголь­ник <i>ABCD</i>, пе­ри­метр ко­то­ро­го равен 22, впи­са­на окруж­ность, <i>AB</i>  =  8. Най­ди­те длину сто­ро­ны <i>CD</i>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В че­ты­рех­уголь­ник можно впи­сать окруж­ность тогда и толь­ко тогда, когда  <span data-inline-latex=\"AB+CD=BC+AD\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"2\\cdot (8+CD)=22\\iff 8+CD=11\\iff CD=3\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
             }
           ],
           "schema_version": 3,

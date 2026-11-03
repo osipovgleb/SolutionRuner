@@ -282,3 +282,72 @@ PROFILES += tuple(
         ),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        identifier,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="1",
+        theme_title="Вписанные окружности",
+        theme_order_index=7,
+        snapshot_theme_id="2dfc57fc-a5b9-41e7-a335-28e80d18faa0",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, identifier, index, rule in (
+        (
+            "27936",
+            "2cf9c19b-91fa-4cd5-ace0-28f539eda4bb",
+            15,
+            "circle-incircle-trapezoid-midline-legs",
+        ),
+        (
+            "27937",
+            "3a516416-2b19-41dd-8ba8-6ca06836d9f9",
+            16,
+            "circle-incircle-trapezoid-midline-perimeter",
+        ),
+        (
+            "27938",
+            "37d0d7b0-3c92-40bf-be8d-3b9a7c9d00eb",
+            17,
+            "circle-incircle-right-trapezoid-radius",
+        ),
+        (
+            "27939",
+            "26d4380f-39d5-41b7-a3a0-f56cc0da27ee",
+            18,
+            "circle-incircle-quadrilateral-perimeter",
+        ),
+        (
+            "27940",
+            "bc5e6c0f-68de-4d8a-b0b3-d7a16a49b921",
+            19,
+            "circle-incircle-quadrilateral-larger-side",
+        ),
+        (
+            "27941",
+            "1e6cb2c4-db83-400f-a675-7f95343b5026",
+            20,
+            "circle-incircle-quadrilateral-fourth-side",
+        ),
+        (
+            "27943",
+            "b805332a-10e5-47ee-9c36-213c4654250b",
+            21,
+            "circle-incircle-three-tangent-cuts",
+        ),
+        (
+            "627979",
+            "e76f62c5-787d-4a9f-ac8d-8c8c3dbe3dc9",
+            23,
+            "circle-incircle-quadrilateral-opposite-side",
+        ),
+    )
+)

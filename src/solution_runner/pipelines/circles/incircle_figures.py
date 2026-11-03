@@ -4,6 +4,17 @@ from . import static_figures
 from .incircle_model import read_question
 
 SOURCES = {
+    "trapezoid_legs": ("49629729-cca6-45a3-847b-718059b3f287",),
+    "trapezoid_perimeter": ("49629729-cca6-45a3-847b-718059b3f287",),
+    "right_trapezoid_radius": ("dd32ef1c-0671-4408-abb1-7a483841fc55",),
+    "tangential_quad": (
+        "af6e87fa-5536-44f0-967b-62be25dede86",
+        "3ce39918-b981-4707-ba88-4b951758f04c",
+    ),
+    "tangent_cuts": (
+        "cb3e01b8-f2f7-443f-94be-5d07b0304b92",
+        "2ea27720-dba3-42e1-a18d-9aaea689a2ce",
+    ),
     "rhombus_radius": ("1446766a-f13a-4866-8904-d7fc5f49f0c8",),
     "rhombus_side": ("1446766a-f13a-4866-8904-d7fc5f49f0c8",),
     "hexagon_side": ("bd99ce14-74a9-4790-939e-ba8be82ea490",),
@@ -24,6 +35,7 @@ SOURCES = {
     "tangent_perimeter": ("515f4048-fd47-41f8-a462-984e0050be88",),
 }
 DETAILS = {
+    "tangent_cuts": (("equal_tangents", "36e82f8a-fe0b-4edc-9382-7cdb65eb3d71"),),
     "tangent_perimeter": (("detail", "dadd91a7-4bdc-45f4-a167-bf8fd458a747"),),
     "rhombus_radius": (("height", "e1f42826-e0fc-4d65-9663-0fb90911f70b"),),
     "rhombus_side": (("height", "e1f42826-e0fc-4d65-9663-0fb90911f70b"),),
