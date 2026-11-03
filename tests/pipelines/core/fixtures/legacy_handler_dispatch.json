@@ -899,7 +899,8 @@
   "right-triangle-altitude-universal": {
     "target": "solution_runner.pipelines.triangles.right.planner:build_altitude_repair_plan",
     "kwargs": {
-      "parent_asset_id": "@parent_asset_id"
+      "parent_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true

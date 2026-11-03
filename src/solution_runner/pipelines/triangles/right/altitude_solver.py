@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from fractions import Fraction
-from html import unescape
 import math
 import re
 import unicodedata
+from dataclasses import dataclass
+from html import unescape
 
 import sympy as sp
 
@@ -24,6 +23,8 @@ class AltitudeSolution:
     exact_value: sp.Expr
     answer: str
     rows: tuple[str, ...]
+    givens: tuple[tuple[str, sp.Expr, str], ...] = ()
+    values: tuple[tuple[str, sp.Expr], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -99,7 +100,9 @@ def _visible_text(value: str) -> str:
     plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", decoded)).strip()
 
     def latin_label(match: re.Match[str]) -> str:
-        return match.group(0).translate(str.maketrans({"А": "A", "В": "B", "С": "C", "Н": "H"}))
+        return match.group(0).translate(
+            str.maketrans({"А": "A", "В": "B", "С": "C", "Н": "H"})
+        )
 
     return re.sub(r"\b[АВСН]{1,3}\b", latin_label, plain)
 
@@ -107,8 +110,10 @@ def _visible_text(value: str) -> str:
 def _normalized_formula(value: str) -> str:
     """Normalize source aliases while preserving the displayable exact value."""
 
-    normalized = unescape(value).strip().translate(
-        str.maketrans({"А": "A", "В": "B", "С": "C", "Н": "H"})
+    normalized = (
+        unescape(value)
+        .strip()
+        .translate(str.maketrans({"А": "A", "В": "B", "С": "C", "Н": "H"}))
     )
     return (
         normalized.replace(r"\operatorname{tg}", r"\tg")
@@ -138,7 +143,12 @@ def _split_braced(value: str, start: int) -> tuple[str, int]:
 def _parse_positive_value(value: str) -> sp.Expr:
     """Parse one supported positive rational or quadratic-radical LaTeX value."""
 
-    compact = _normalized_formula(value).replace(" ", "").replace("{,}", ".").replace(",", ".")
+    compact = (
+        _normalized_formula(value)
+        .replace(" ", "")
+        .replace("{,}", ".")
+        .replace(",", ".")
+    )
     if compact.startswith(r"\frac"):
         numerator, next_index = _split_braced(compact, len(r"\frac"))
         denominator, final_index = _split_braced(compact, next_index)
@@ -200,7 +210,11 @@ def _fact_latex(facts: dict[str, _Fact], quantity: str) -> str:
 def _coefficient_term(coefficient: sp.Expr, variable: str) -> str:
     """Render a positive coefficient times one proportionality variable."""
 
-    return variable if _same(coefficient, sp.Integer(1)) else _latex_number(coefficient) + variable
+    return (
+        variable
+        if _same(coefficient, sp.Integer(1))
+        else _latex_number(coefficient) + variable
+    )
 
 
 def _squared_display(value: str) -> str:
@@ -249,7 +263,9 @@ def _extract_condition(condition_html: str) -> tuple[dict[str, _Fact], str]:
     visible = _visible_text(condition_html)
     formula_cells = [
         _normalized_formula(value)
-        for value in re.findall(r'data-inline-latex="([^"]+)"', unescape(condition_html))
+        for value in re.findall(
+            r'data-inline-latex="([^"]+)"', unescape(condition_html)
+        )
     ]
     formulas = [
         part.strip(" ,")
@@ -318,7 +334,7 @@ def _extract_condition(condition_html: str) -> tuple[dict[str, _Fact], str]:
         )
 
     for quantity, raw in re.findall(
-        r'data-inline-latex="[^"]*\b(AB|AC|BC|AH|BH|CH)=' 
+        r'data-inline-latex="[^"]*\b(AB|AC|BC|AH|BH|CH)='
         r'\s*"></span>\s*(\d+(?:[,.]\d+)?)',
         condition_html,
         re.IGNORECASE,
@@ -373,12 +389,14 @@ def _extract_condition(condition_html: str) -> tuple[dict[str, _Fact], str]:
         )
     requests = list(dict.fromkeys(bare_requests))
     if len(requests) != 1:
-        raise AltitudeSolveError("condition must request exactly one supported quantity")
+        raise AltitudeSolveError(
+            "condition must request exactly one supported quantity"
+        )
     requested = requests[0]
     if requested in facts:
         raise AltitudeSolveError("requested quantity is already given")
     altitude_used = requested in {"AH", "BH", "CH"} or any(
-        quantity in facts for quantity in {"AH", "BH", "CH"}
+        quantity in facts for quantity in ("AH", "BH", "CH")
     )
     altitude_declared = bool(
         re.search(r"CH\s*[—–−-]?\s*высот[ау]", visible, re.IGNORECASE)
@@ -422,10 +440,14 @@ def _assign(
     return True
 
 
-def _apply_ratio(facts: dict[str, _Fact], function: str, numerator: str, denominator: str) -> bool:
+def _apply_ratio(
+    facts: dict[str, _Fact], function: str, numerator: str, denominator: str
+) -> bool:
     """Infer the only missing member of one trigonometric side ratio."""
 
-    known = {quantity for quantity in (function, numerator, denominator) if quantity in facts}
+    known = {
+        quantity for quantity in (function, numerator, denominator) if quantity in facts
+    }
     if len(known) < 2:
         return False
     function_latex = _function_latex(function)
@@ -437,7 +459,9 @@ def _apply_ratio(facts: dict[str, _Fact], function: str, numerator: str, denomin
             + rf"=\frac{{{_fact_latex(facts, numerator)}}}{{{_fact_latex(facts, denominator)}}}="
             + _latex_number(value)
         )
-        return _assign(facts, function, value, _Derivation((numerator, denominator), (row,)))
+        return _assign(
+            facts, function, value, _Derivation((numerator, denominator), (row,))
+        )
     if numerator not in facts:
         value = facts[denominator].value * facts[function].value
         if facts[denominator].derivation is not None:
@@ -463,12 +487,16 @@ def _apply_ratio(facts: dict[str, _Fact], function: str, numerator: str, denomin
             if source_derivation is not None and setup in source_derivation.rows
             else (
                 setup,
-                rf"{denominator}={_fact_latex(facts, denominator)}={den_term}"
-                rf"\Longrightarrow {variable}={_latex_number(scale)}",
+                (
+                    rf"{denominator}={_fact_latex(facts, denominator)}={den_term}"
+                    rf"\Longrightarrow {variable}={_latex_number(scale)}"
+                ),
                 rf"{numerator}={num_term}={_latex_number(value)}",
             )
         )
-        return _assign(facts, numerator, value, _Derivation((denominator, function), rows))
+        return _assign(
+            facts, numerator, value, _Derivation((denominator, function), rows)
+        )
     if denominator not in facts:
         value = facts[numerator].value / facts[function].value
         if facts[numerator].derivation is not None:
@@ -494,19 +522,25 @@ def _apply_ratio(facts: dict[str, _Fact], function: str, numerator: str, denomin
             if source_derivation is not None and setup in source_derivation.rows
             else (
                 setup,
-                rf"{numerator}={_fact_latex(facts, numerator)}={num_term}"
-                rf"\Longrightarrow {variable}={_latex_number(scale)}",
+                (
+                    rf"{numerator}={_fact_latex(facts, numerator)}={num_term}"
+                    rf"\Longrightarrow {variable}={_latex_number(scale)}"
+                ),
                 rf"{denominator}={den_term}={_latex_number(value)}",
             )
         )
-        return _assign(facts, denominator, value, _Derivation((numerator, function), rows))
+        return _assign(
+            facts, denominator, value, _Derivation((numerator, function), rows)
+        )
     expected = facts[numerator].value / facts[denominator].value
     if not _same(facts[function].value, expected):
         raise AltitudeSolveError(f"inconsistent {function}")
     return False
 
 
-def _apply_pythagoras(facts: dict[str, _Fact], hypotenuse: str, leg_a: str, leg_b: str) -> bool:
+def _apply_pythagoras(
+    facts: dict[str, _Fact], hypotenuse: str, leg_a: str, leg_b: str
+) -> bool:
     """Infer or verify one side through the Pythagorean theorem."""
 
     quantities = (hypotenuse, leg_a, leg_b)
@@ -514,7 +548,7 @@ def _apply_pythagoras(facts: dict[str, _Fact], hypotenuse: str, leg_a: str, leg_
     if len(known) < 2:
         return False
     if hypotenuse not in facts:
-        value = sp.sqrt(facts[leg_a].value**2 + facts[leg_b].value**2)
+        value = sp.sqrt(facts[leg_a].value ** 2 + facts[leg_b].value ** 2)
         row = (
             rf"{hypotenuse}=\sqrt{{{leg_a}^2+{leg_b}^2}}="
             rf"\sqrt{{({_fact_latex(facts, leg_a)})^2+({_fact_latex(facts, leg_b)})^2}}="
@@ -524,7 +558,7 @@ def _apply_pythagoras(facts: dict[str, _Fact], hypotenuse: str, leg_a: str, leg_
     missing = leg_a if leg_a not in facts else leg_b if leg_b not in facts else None
     if missing is not None:
         other = leg_b if missing == leg_a else leg_a
-        square = sp.simplify(facts[hypotenuse].value**2 - facts[other].value**2)
+        square = sp.simplify(facts[hypotenuse].value ** 2 - facts[other].value ** 2)
         if square.is_positive is not True:
             raise AltitudeSolveError(f"inconsistent {hypotenuse}")
         value = sp.sqrt(square)
@@ -534,8 +568,8 @@ def _apply_pythagoras(facts: dict[str, _Fact], hypotenuse: str, leg_a: str, leg_
             + _latex_number(value)
         )
         return _assign(facts, missing, value, _Derivation((hypotenuse, other), (row,)))
-    expected = facts[leg_a].value**2 + facts[leg_b].value**2
-    if not _same(facts[hypotenuse].value**2, expected):
+    expected = facts[leg_a].value ** 2 + facts[leg_b].value ** 2
+    if not _same(facts[hypotenuse].value ** 2, expected):
         raise AltitudeSolveError(f"inconsistent {leg_b}")
     return False
 
@@ -565,9 +599,14 @@ def _apply_trig_pythagorean_scale(
     if third not in facts:
         return False
 
-    variable, numerator_coefficient, denominator_coefficient, numerator_term, denominator_term, setup = (
-        _proportion_parts(facts, function, numerator, denominator)
-    )
+    (
+        variable,
+        numerator_coefficient,
+        denominator_coefficient,
+        numerator_term,
+        denominator_term,
+        setup,
+    ) = _proportion_parts(facts, function, numerator, denominator)
     coefficient_by_side = {
         numerator: numerator_coefficient,
         denominator: denominator_coefficient,
@@ -585,7 +624,10 @@ def _apply_trig_pythagorean_scale(
             numerator_coefficient**2 + denominator_coefficient**2
         )
     third_coefficient = sp.simplify(third_coefficient)
-    if third_coefficient.is_real is not True or third_coefficient.is_positive is not True:
+    if (
+        third_coefficient.is_real is not True
+        or third_coefficient.is_positive is not True
+    ):
         raise AltitudeSolveError(f"inconsistent {function}")
     coefficient_by_side[third] = third_coefficient
     scale = sp.simplify(facts[third].value / third_coefficient)
@@ -649,22 +691,27 @@ def _apply_identity(facts: dict[str, _Fact]) -> bool:
     """Infer only sine from cosine or cosine from sine through the basic identity."""
 
     if "sinA" in facts and "cosA" not in facts:
-        value = sp.sqrt(1 - facts["sinA"].value**2)
+        value = sp.sqrt(1 - facts["sinA"].value ** 2)
         row = (
             r"\cos A=\sqrt{1-(\sin A)^2}="
             rf"\sqrt{{1-({_fact_latex(facts, 'sinA')})^2}}={_latex_number(value)}"
         )
         return _assign(facts, "cosA", value, _Derivation(("sinA",), (row,)))
     if "cosA" in facts and "sinA" not in facts:
-        value = sp.sqrt(1 - facts["cosA"].value**2)
+        value = sp.sqrt(1 - facts["cosA"].value ** 2)
         row = (
             r"\sin A=\sqrt{1-(\cos A)^2}="
             rf"\sqrt{{1-({_fact_latex(facts, 'cosA')})^2}}={_latex_number(value)}"
         )
         return _assign(facts, "sinA", value, _Derivation(("cosA",), (row,)))
-    if "sinA" in facts and "cosA" in facts:
-        if not _same(facts["sinA"].value**2 + facts["cosA"].value**2, sp.Integer(1)):
-            raise AltitudeSolveError("inconsistent sinA and cosA")
+    if (
+        "sinA" in facts
+        and "cosA" in facts
+        and not _same(
+            facts["sinA"].value ** 2 + facts["cosA"].value ** 2, sp.Integer(1)
+        )
+    ):
+        raise AltitudeSolveError("inconsistent sinA and cosA")
     return False
 
 
@@ -679,9 +726,7 @@ def _apply_tangent_hypotenuse(
     if "tgA" not in facts or hypotenuse not in facts or denominator in facts:
         return False
     tangent = facts["tgA"].value
-    denominator_value = sp.simplify(
-        facts[hypotenuse].value / sp.sqrt(1 + tangent**2)
-    )
+    denominator_value = sp.simplify(facts[hypotenuse].value / sp.sqrt(1 + tangent**2))
     variable, _num_coefficient, den_coefficient, num_term, den_term, setup = (
         _proportion_parts(facts, "tgA", numerator, denominator)
     )
@@ -755,6 +800,7 @@ def solve_altitude_condition(condition_html: str) -> AltitudeSolution:
     """Solve one supported altitude condition or fail without partial output."""
 
     facts, requested = _extract_condition(condition_html)
+    givens = tuple((key, fact.value, fact.latex) for key, fact in facts.items())
     for _ in range(20):
         changed = False
         for hypotenuse, leg_a, leg_b in _PYTHAGOREAN:
@@ -784,9 +830,7 @@ def solve_altitude_condition(condition_html: str) -> AltitudeSolution:
                 )
                 or changed
             )
-        if "sinA" in facts and "cosA" in facts:
-            changed = _apply_identity(facts) or changed
-        elif requested not in facts:
+        if "sinA" in facts and "cosA" in facts or requested not in facts:
             changed = _apply_identity(facts) or changed
         if not changed:
             break
@@ -810,8 +854,10 @@ def solve_altitude_condition(condition_html: str) -> AltitudeSolution:
             derivation=_Derivation(
                 ("AB", "AH"),
                 (
-                    rf"BH=AB-AH={_fact_latex(facts, 'AB')}"
-                    rf"-{_fact_latex(facts, 'AH')}={_latex_number(subtraction)}",
+                    (
+                        rf"BH=AB-AH={_fact_latex(facts, 'AB')}"
+                        rf"-{_fact_latex(facts, 'AH')}={_latex_number(subtraction)}"
+                    ),
                 ),
             ),
         )
@@ -820,6 +866,8 @@ def solve_altitude_condition(condition_html: str) -> AltitudeSolution:
         exact_value=facts[requested].value,
         answer=_answer_text(facts[requested].value),
         rows=_proof_rows(facts, requested),
+        givens=givens,
+        values=tuple((key, fact.value) for key, fact in facts.items()),
     )
 
 

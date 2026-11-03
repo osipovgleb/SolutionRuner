@@ -2,22 +2,25 @@
 
 from __future__ import annotations
 
+import math
+import re
+import unicodedata
 from dataclasses import dataclass
 from fractions import Fraction
 from html import unescape
-import math
-import re
 from typing import Any
-import unicodedata
 
-from solution_runner.pipelines.core.errors import ContentPlanError as RightTrianglePlanError
+from solution_runner.pipelines.core.errors import (
+    ContentPlanError as RightTrianglePlanError,
+)
 
 from .altitude_solver import (
     AltitudeSolveError,
-    answer_matches as altitude_answer_matches,
     solve_altitude_condition,
 )
-
+from .altitude_solver import (
+    answer_matches as altitude_answer_matches,
+)
 
 _ALTITUDE_CONTENT_VERSION = "10"
 
@@ -162,12 +165,18 @@ def _universal_values(condition_html: str) -> UniversalRightTriangleValues:
             )
     right = _right_angle_labels(visible, values)
     requested_match = re.search(r"Найдите\s+(AB|AC|BC)\b", visible, re.IGNORECASE)
-    latex_requested = next((value for value in values if value in {"AB", "AC", "BC"}), None)
-    requested = requested_match.group(1) if requested_match is not None else latex_requested
+    latex_requested = next(
+        (value for value in values if value in {"AB", "AC", "BC"}), None
+    )
+    requested = (
+        requested_match.group(1) if requested_match is not None else latex_requested
+    )
     if len(right) != 1:
         raise RightTrianglePlanError("condition must declare one right angle")
     if len(trig_values) != 1:
-        raise RightTrianglePlanError("condition must declare one sin, cos, tg, or ctg value")
+        raise RightTrianglePlanError(
+            "condition must declare one sin, cos, tg, or ctg value"
+        )
     if len(known_values) != 1:
         raise RightTrianglePlanError("condition must declare one known side")
     if requested is None:
@@ -225,8 +234,7 @@ def _universal_trig_request_values(
     requested = [
         (match.group(1), match.group(2))
         for value in values
-        if (match := re.fullmatch(r"\\(sin|cos|tg|ctg)([ABC])", value))
-        is not None
+        if (match := re.fullmatch(r"\\(sin|cos|tg|ctg)([ABC])", value)) is not None
     ]
     if not requested:
         return None
@@ -240,9 +248,13 @@ def _universal_trig_request_values(
     if len(right) != 1:
         raise RightTrianglePlanError("condition must declare one right angle")
     if len(requested) != 1:
-        raise RightTrianglePlanError("condition must request one sin, cos, tg, or ctg value")
+        raise RightTrianglePlanError(
+            "condition must request one sin, cos, tg, or ctg value"
+        )
     if len(known) != 2 or len({side for side, _ in known}) != 2:
-        raise RightTrianglePlanError("trig request must declare two distinct known sides")
+        raise RightTrianglePlanError(
+            "trig request must declare two distinct known sides"
+        )
 
     right_angle = right[0].upper()
     trig_name, trig_angle = requested[0]
@@ -285,7 +297,7 @@ def _latex_values(condition_html: str) -> tuple[str, str, str, str, str]:
         if value.startswith(prefix)
     ]
     known = next(
-        (value for value in values if value.startswith("AC=") or value.startswith("AB=")),
+        (value for value in values if value.startswith(("AC=", "AB="))),
         None,
     )
     visible = _plain_html(condition_html)
@@ -304,7 +316,9 @@ def _latex_values(condition_html: str) -> tuple[str, str, str, str, str]:
         raise RightTrianglePlanError(
             "condition must declare one sin A, cos A, or tg A and a known side"
         )
-    requested = requested_match.group(1) if requested_match is not None else latex_requested
+    requested = (
+        requested_match.group(1) if requested_match is not None else latex_requested
+    )
     if requested is None:
         raise RightTrianglePlanError("condition must request AC, AB, or BC")
     known_side = known[:2]
@@ -368,7 +382,10 @@ def _positive_root_latex(square: Fraction) -> str:
     denominator = square.denominator
     root_numerator = math.isqrt(numerator)
     root_denominator = math.isqrt(denominator)
-    if root_numerator * root_numerator == numerator and root_denominator * root_denominator == denominator:
+    if (
+        root_numerator * root_numerator == numerator
+        and root_denominator * root_denominator == denominator
+    ):
         reduced = Fraction(root_numerator, root_denominator)
         return rf"\frac{{{reduced.numerator}}}{{{reduced.denominator}}}"
     if root_denominator * root_denominator == denominator:
@@ -562,10 +579,7 @@ def _solution_transformation(
     if decimal_row is not None:
         lead_rows.append(decimal_row)
     if trig_name == "sin":
-        intro = (
-            '<p>Найдём косинус угла '
-            '<var data-math-identifier="A">A</var>:</p>'
-        )
+        intro = '<p>Найдём косинус угла <var data-math-identifier="A">A</var>:</p>'
         lead_rows.append(
             rf"\cos A=\sqrt{{1-\sin^2 A}}="
             rf"\sqrt{{1-\left({canonical_trig}\right)^2}}={cosine_latex}"
@@ -574,7 +588,7 @@ def _solution_transformation(
         intro = (
             "<p>Запишем значение косинуса в виде обыкновенной дроби:</p>"
             if decimal_row is not None
-            else '<p>По условию задан косинус угла '
+            else "<p>По условию задан косинус угла "
             '<var data-math-identifier="A">A</var>:</p>'
         )
         if decimal_row is None:
@@ -585,9 +599,7 @@ def _solution_transformation(
             rf"\frac{{{known}}}{{{cosine_latex}}}={answer_latex}"
         )
     elif requested == "AC":
-        result_formula = (
-            rf"AC=AB\cdot\cos A={known}\cdot {cosine_latex}={answer_latex}"
-        )
+        result_formula = rf"AC=AB\cdot\cos A={known}\cdot {cosine_latex}={answer_latex}"
     else:
         if hypotenuse_latex is None:
             raise RightTrianglePlanError("AC-to-BC rule requires an exact hypotenuse")
@@ -607,17 +619,17 @@ def _solution_transformation(
         html = (
             '<section data-content-kind="solution" '
             'data-solution-title="Альтернативное решение.">'
-            '<p><b>Альтернативное решение.</b></p>'
-            '<p>Най\u00adдем ко\u00adси\u00adнус угла <i>А</i>:</p>'
+            "<p><b>Альтернативное решение.</b></p>"
+            "<p>Най\u00adдем ко\u00adси\u00adнус угла <i>А</i>:</p>"
             '<center><p> <span data-inline-latex="'
             + cosine_formula
             + '"></span> . </p></center>'
-            '<p>Най\u00adдем длину ги\u00adпо\u00adте\u00adну\u00adзы '
+            "<p>Най\u00adдем длину ги\u00adпо\u00adте\u00adну\u00adзы "
             '<var data-math-identifier="AB">AB</var>:</p>'
             '<center><p> <span data-inline-latex="'
             + hypotenuse_formula
             + '"></span> . </p></center>'
-            '<p>По те\u00adо\u00adре\u00adме Пи\u00adфа\u00adго\u00adра най\u00adдем длину ка\u00adте\u00adта '
+            "<p>По те\u00adо\u00adре\u00adме Пи\u00adфа\u00adго\u00adра най\u00adдем длину ка\u00adте\u00adта "
             '<var data-math-identifier="BC">BC</var>:</p>'
             '<center><p> <span data-inline-latex="'
             + result_formula
@@ -632,9 +644,7 @@ def _solution_transformation(
         '<section data-content-kind="solution" data-solution-title="Решение">'
         + intro
         + "".join(
-            '<center><p><span data-inline-latex="'
-            + row
-            + '"></span>.</p></center>'
+            '<center><p><span data-inline-latex="' + row + '"></span>.</p></center>'
             for row in lead_rows
         )
         + "<p>Следовательно,</p>"
@@ -669,9 +679,7 @@ def _tangent_solution_transformation(
         else hypotenuse_latex + "=" + answer_latex
     )
     definition_formula = r"\tg A=\frac{BC}{AC}"
-    bc_formula = (
-        rf"BC=AC\cdot\tg A={known}\cdot {trig_latex}={bc_latex}"
-    )
+    bc_formula = rf"BC=AC\cdot\tg A={known}\cdot {trig_latex}={bc_latex}"
     ab_formula = (
         rf"AB=\sqrt{{AC^{{2}}+BC^{{2}}}}="
         rf"\sqrt{{{_number_latex(known_squared)}+{_number_latex(bc_squared)}}}="
@@ -685,10 +693,8 @@ def _tangent_solution_transformation(
         + definition_formula
         + '"></span>.</p></center>'
         '<p>Най\u00adдем <var data-math-identifier="BC">BC</var>:</p>'
-        '<center><p><span data-inline-latex="'
-        + bc_formula
-        + '"></span>.</p></center>'
-        '<p>По те\u00adо\u00adре\u00adме Пи\u00adфа\u00adго\u00adра най\u00adдем '
+        '<center><p><span data-inline-latex="' + bc_formula + '"></span>.</p></center>'
+        "<p>По те\u00adо\u00adре\u00adме Пи\u00adфа\u00adго\u00adра най\u00adдем "
         '<var data-math-identifier="AB">AB</var>:</p>'
         '<center><p><span data-inline-latex="'
         + ab_formula
@@ -712,12 +718,14 @@ def _tangent_bc_solution_transformation(
     """Build the 27243 parent calculation as one equivalence chain."""
 
     answer_latex = answer.replace(",", "{,}")
-    exact_answer = bc_latex if bc_latex == answer_latex else bc_latex + "=" + answer_latex
+    exact_answer = (
+        bc_latex if bc_latex == answer_latex else bc_latex + "=" + answer_latex
+    )
     html = (
         '<section data-content-kind="solution" '
         'data-content-rule="right-triangle-tangent-opposite-cathetus" '
         'data-solution-title="Решение">'
-        '<p>По опре\u00adде\u00adле\u00adнию тан\u00adген\u00adса:</p>'
+        "<p>По опре\u00adде\u00adле\u00adнию тан\u00adген\u00adса:</p>"
         '<center><p><span data-inline-latex="'
         + rf"\tg A=\frac{{BC}}{{AC}}\iff BC=AC\tg A={known}\cdot {trig_latex}={exact_answer}"
         + '"></span>.</p></center></section>'
@@ -755,9 +763,7 @@ def _elementary_solution_transformation(
     rendered_rows = []
     for index, row in enumerate(rows):
         rendered_rows.append(
-            '<center><p><span data-inline-latex="'
-            + row
-            + '"></span></p></center>'
+            '<center><p><span data-inline-latex="' + row + '"></span></p></center>'
         )
         if content_rule_key == "right-triangle-median-angle" and index == 0:
             rendered_rows.append(
@@ -881,7 +887,9 @@ def _acute_angle_difference_rows(condition_html: str) -> tuple[str, list[str]]:
         )
     difference = candidates[0]
     if difference >= 90:
-        raise RightTrianglePlanError("acute-angle difference must be less than 90 degrees")
+        raise RightTrianglePlanError(
+            "acute-angle difference must be less than 90 degrees"
+        )
     larger = Fraction(90 + difference, 2)
     smaller = Fraction(90 - difference, 2)
     answer = _answer_text(float(larger))
@@ -903,8 +911,7 @@ def _acute_angle_ratio(condition_html: str) -> Fraction:
     fractions = [
         Fraction(int(match.group(1)), int(match.group(2)))
         for value in formulas
-        if (match := re.fullmatch(r"\\frac\{(\d+)\}\{(\d+)\}", value))
-        is not None
+        if (match := re.fullmatch(r"\\frac\{(\d+)\}\{(\d+)\}", value)) is not None
     ]
     if len(fractions) > 1:
         raise RightTrianglePlanError("condition must give one acute-angle ratio")
@@ -939,11 +946,15 @@ def _acute_angle_ratio_rows(condition_html: str) -> tuple[str, list[str]]:
     unit_value = unit.numerator
     larger_value = larger.numerator
     return str(larger_value), [
-        rf"{smaller_coefficient}x+{larger_coefficient}x=90^{{\circ}}"
-        rf"\iff{smaller_coefficient + larger_coefficient}x=90^{{\circ}}"
-        rf"\iff x={unit_value}^{{\circ}}",
-        rf"{larger_coefficient}x={larger_coefficient}\cdot{unit_value}^{{\circ}}="
-        rf"{larger_value}^{{\circ}}",
+        (
+            rf"{smaller_coefficient}x+{larger_coefficient}x=90^{{\circ}}"
+            rf"\iff{smaller_coefficient + larger_coefficient}x=90^{{\circ}}"
+            rf"\iff x={unit_value}^{{\circ}}"
+        ),
+        (
+            rf"{larger_coefficient}x={larger_coefficient}\cdot{unit_value}^{{\circ}}="
+            rf"{larger_value}^{{\circ}}"
+        ),
     ]
 
 
@@ -975,7 +986,9 @@ def _math_aware_html(value: str) -> str:
 def _acute_condition_angles(condition_html: str) -> list[int]:
     """Return the positive non-right degree values declared by one condition."""
 
-    angles = [value for value in _condition_degree_values(condition_html) if value != 90]
+    angles = [
+        value for value in _condition_degree_values(condition_html) if value != 90
+    ]
     if not angles or any(value <= 0 or value >= 90 for value in angles):
         raise RightTrianglePlanError("condition must give acute angle values")
     return angles
@@ -987,7 +1000,9 @@ def _require_condition_terms(condition_html: str, *terms: str) -> str:
     visible = _math_aware_html(condition_html)
     lowered = visible.lower()
     if any(term not in lowered for term in terms):
-        raise RightTrianglePlanError("condition does not match the registered angle rule")
+        raise RightTrianglePlanError(
+            "condition does not match the registered angle rule"
+        )
     return visible
 
 
@@ -996,16 +1011,22 @@ def _single_acute_angle(condition_html: str) -> int:
 
     angles = _acute_condition_angles(condition_html)
     if len(angles) != 1:
-        raise RightTrianglePlanError("condition must give exactly one acute angle value")
+        raise RightTrianglePlanError(
+            "condition must give exactly one acute angle value"
+        )
     return angles[0]
 
 
 def _single_line_angle(condition_html: str) -> int:
     """Return one stated angle between lines, allowing the coincident case zero."""
 
-    angles = [value for value in _condition_degree_values(condition_html) if value != 90]
+    angles = [
+        value for value in _condition_degree_values(condition_html) if value != 90
+    ]
     if len(angles) != 1 or angles[0] < 0 or angles[0] >= 45:
-        raise RightTrianglePlanError("condition must give one line angle below 45 degrees")
+        raise RightTrianglePlanError(
+            "condition must give one line angle below 45 degrees"
+        )
     return angles[0]
 
 
@@ -1019,8 +1040,10 @@ def _median_angle_rows(condition_html: str) -> tuple[str, list[str]]:
     answer = 90 - angle
     return str(answer), [
         "CD=AD=BD",
-        rf"\angle ACD=\angle A=90^{{\circ}}-\angle B="
-        rf"90^{{\circ}}-{angle}^{{\circ}}={answer}^{{\circ}}",
+        (
+            rf"\angle ACD=\angle A=90^{{\circ}}-\angle B="
+            rf"90^{{\circ}}-{angle}^{{\circ}}={answer}^{{\circ}}"
+        ),
     ]
 
 
@@ -1035,8 +1058,10 @@ def _bisector_intersection_angle_rows(
     answer_text = _answer_text(float(answer))
     answer_latex = _number_latex(answer)
     return answer_text, [
-        rf"\varphi=45^{{\circ}}+\frac{{{angle}^{{\circ}}}}{{2}}="
-        rf"{answer_latex}^{{\circ}}"
+        (
+            rf"\varphi=45^{{\circ}}+\frac{{{angle}^{{\circ}}}}{{2}}="
+            rf"{answer_latex}^{{\circ}}"
+        )
     ]
 
 
@@ -1045,12 +1070,16 @@ def _altitude_bisector_angle_rows(condition_html: str) -> tuple[str, list[str]]:
 
     visible = _plain_html(condition_html).lower()
     if "высот" not in visible or "биссектрис" not in visible or "медиан" in visible:
-        raise RightTrianglePlanError("condition must request the altitude and bisector angle")
+        raise RightTrianglePlanError(
+            "condition must request the altitude and bisector angle"
+        )
     angle = _single_acute_angle(condition_html)
     answer = abs(angle - 45)
     return str(answer), [
-        rf"\varphi=\left|{angle}^{{\circ}}-45^{{\circ}}\right|="
-        rf"{answer}^{{\circ}}"
+        (
+            rf"\varphi=\left|{angle}^{{\circ}}-45^{{\circ}}\right|="
+            rf"{answer}^{{\circ}}"
+        )
     ]
 
 
@@ -1075,8 +1104,10 @@ def _inverse_45_degree_rows(
     if answer <= 0:
         raise RightTrianglePlanError("line angle must be less than 45 degrees")
     return str(answer), [
-        rf"\alpha_{{\min}}=45^{{\circ}}-{line_angle}^{{\circ}}="
-        rf"{answer}^{{\circ}}"
+        (
+            rf"\alpha_{{\min}}=45^{{\circ}}-{line_angle}^{{\circ}}="
+            rf"{answer}^{{\circ}}"
+        )
     ]
 
 
@@ -1108,15 +1139,19 @@ def _altitude_line_angle_rows(condition_html: str) -> tuple[str, list[str]]:
             )
         answer = larger - smaller
         return str(answer), [
-            rf"\varphi=\left|{larger}^{{\circ}}-{smaller}^{{\circ}}\right|="
-            rf"{answer}^{{\circ}}"
+            (
+                rf"\varphi=\left|{larger}^{{\circ}}-{smaller}^{{\circ}}\right|="
+                rf"{answer}^{{\circ}}"
+            )
         ]
     if "биссектрис" in lowered and "медиан" not in lowered:
         angle = max(angles)
         answer = abs(angle - 45)
         return str(answer), [
-            rf"\varphi=\left|{angle}^{{\circ}}-45^{{\circ}}\right|="
-            rf"{answer}^{{\circ}}"
+            (
+                rf"\varphi=\left|{angle}^{{\circ}}-45^{{\circ}}\right|="
+                rf"{answer}^{{\circ}}"
+            )
         ]
     raise RightTrianglePlanError(
         "condition must request altitude with either median or bisector"
@@ -1132,8 +1167,10 @@ def _altitude_median_inverse_rows(condition_html: str) -> tuple[str, list[str]]:
     answer_text = _answer_text(float(answer))
     answer_latex = _number_latex(answer)
     return answer_text, [
-        rf"\alpha_{{\max}}=\frac{{90^{{\circ}}+{line_angle}^{{\circ}}}}{{2}}="
-        rf"{answer_latex}^{{\circ}}"
+        (
+            rf"\alpha_{{\max}}=\frac{{90^{{\circ}}+{line_angle}^{{\circ}}}}{{2}}="
+            rf"{answer_latex}^{{\circ}}"
+        )
     ]
 
 
@@ -1150,8 +1187,10 @@ def _bisector_median_angle_rows(condition_html: str) -> tuple[str, list[str]]:
         raise RightTrianglePlanError("condition must determine one acute angle")
     answer = abs(angle - 45)
     return str(answer), [
-        rf"\varphi=\left|{angle}^{{\circ}}-45^{{\circ}}\right|="
-        rf"{answer}^{{\circ}}"
+        (
+            rf"\varphi=\left|{angle}^{{\circ}}-45^{{\circ}}\right|="
+            rf"{answer}^{{\circ}}"
+        )
     ]
 
 
@@ -1170,21 +1209,22 @@ def _angle_a_and_hypotenuse(condition_html: str) -> tuple[int, int, bool, str]:
 
     visible = _latin_triangle_labels(_math_aware_html(condition_html))
     lowered = visible.lower()
-    combined = (
-        visible.replace(" ", "")
-        .replace(r"\quad", "")
-        .replace(r"\,", "")
-    )
+    combined = visible.replace(" ", "").replace(r"\quad", "").replace(r"\,", "")
     if "уголcравен90" not in lowered.replace(" ", "") and "90" not in combined:
         raise RightTrianglePlanError("condition must declare right angle C")
     angles = _acute_condition_angles(condition_html)
     if len(angles) != 1 or angles[0] not in {30, 60}:
-        raise RightTrianglePlanError("condition must give angle A equal to 30 or 60 degrees")
+        raise RightTrianglePlanError(
+            "condition must give angle A equal to 30 or 60 degrees"
+        )
     radical = re.search(r"AB=(\d*)\\sqrt\{?3\}?", combined)
     if radical is not None:
         coefficient = int(radical.group(1) or "1")
-        return angles[0], coefficient, True, (
-            ("" if coefficient == 1 else str(coefficient)) + r"\sqrt{3}"
+        return (
+            angles[0],
+            coefficient,
+            True,
+            (("" if coefficient == 1 else str(coefficient)) + r"\sqrt{3}"),
         )
     plain = re.search(r"AB=(\d+)(?:[,.](\d+))?", combined)
     if plain is None or plain.group(2) is not None:
@@ -1201,7 +1241,9 @@ def _altitude_length_rows(condition_html: str) -> tuple[str, list[str]]:
         raise RightTrianglePlanError("condition must request CH")
     angle, coefficient, radical, ab_latex = _angle_a_and_hypotenuse(condition_html)
     if not radical:
-        raise RightTrianglePlanError("altitude-length condition must give AB as k sqrt(3)")
+        raise RightTrianglePlanError(
+            "altitude-length condition must give AB as k sqrt(3)"
+        )
     answer = Fraction(3 * coefficient, 4)
     sin_latex = r"\frac{1}{2}" if angle == 30 else r"\frac{\sqrt{3}}{2}"
     cos_latex = r"\frac{\sqrt{3}}{2}" if angle == 30 else r"\frac{1}{2}"
@@ -1218,7 +1260,9 @@ def _projection_rows(
 ) -> tuple[str, list[str]]:
     """Find one hypotenuse projection from AB and angle A."""
 
-    visible = _require_condition_terms(condition_html, "высот", "найдите", requested.lower())
+    visible = _require_condition_terms(
+        condition_html, "высот", "найдите", requested.lower()
+    )
     if requested not in _latin_triangle_labels(visible).upper():
         raise RightTrianglePlanError(f"condition must request {requested}")
     angle, ab, radical, ab_latex = _angle_a_and_hypotenuse(condition_html)
@@ -1234,8 +1278,10 @@ def _projection_rows(
         trig_name = "sin"
     answer = ab * factor
     return _answer_text(float(answer)), [
-        rf"{requested}=AB\{trig_name}^{{2}}A={ab_latex}\cdot"
-        rf"\left({trig_latex}\right)^{{2}}={_number_latex(answer)}"
+        (
+            rf"{requested}=AB\{trig_name}^{{2}}A={ab_latex}\cdot"
+            rf"\left({trig_latex}\right)^{{2}}={_number_latex(answer)}"
+        )
     ]
 
 
@@ -1287,19 +1333,19 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
         )
     if content_rule_key == "right-triangle-bisector-intersection-angle":
         return (
-            '<p>Пусть данный острый угол равен '
+            "<p>Пусть данный острый угол равен "
             '<span data-inline-latex="\\alpha"></span>. Тогда второй острый угол '
             'равен <span data-inline-latex="90^{\\circ}-\\alpha"></span>.</p>'
-            '<p>Обозначим точку пересечения биссектрис через '
+            "<p>Обозначим точку пересечения биссектрис через "
             '<span data-inline-latex="O"></span>. Биссектриса данного острого '
-            'угла делит его пополам, поэтому '
+            "угла делит его пополам, поэтому "
             '<span data-inline-latex="\\angle OAC=\\frac{\\alpha}{2}"></span>.</p>'
-            '<p>Биссектриса прямого угла также делит его пополам, следовательно, '
+            "<p>Биссектриса прямого угла также делит его пополам, следовательно, "
             '<span data-inline-latex="\\angle ACO=45^{\\circ}"></span>. Тогда по '
             'сумме углов треугольника <span data-inline-latex="AOC"></span> '
             '<span data-inline-latex="\\angle AOC=135^{\\circ}-\\frac{\\alpha}{2}"></span>.</p>'
-            '<p>Полученный угол тупой; смежный с ним острый угол является '
-            'искомым и равен '
+            "<p>Полученный угол тупой; смежный с ним острый угол является "
+            "искомым и равен "
             '<span data-inline-latex="45^{\\circ}+\\frac{\\alpha}{2}"></span>:</p>'
         )
     if content_rule_key == "right-triangle-altitude-bisector-angle":
@@ -1309,23 +1355,23 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
             '<span data-inline-latex="BCH"></span> прямоугольный, поэтому '
             '<span data-inline-latex="\\angle BCH=90^{\\circ}-\\alpha"></span>.</p>'
             '<p>Отрезок <span data-inline-latex="CD"></span> — биссектриса '
-            'прямого угла, следовательно, '
+            "прямого угла, следовательно, "
             '<span data-inline-latex="\\angle ACD=45^{\\circ}"></span>.</p>'
-            '<p>Искомый угол равен модулю разности полученных углов: '
+            "<p>Искомый угол равен модулю разности полученных углов: "
             '<span data-inline-latex="\\varphi=|\\angle BCH-\\angle ACD|"></span>. '
             "Подставим данное значение:</p>"
         )
     if content_rule_key == "right-triangle-altitude-bisector-inverse":
         return (
             '<p>Пусть <span data-inline-latex="\\varphi"></span> — данный угол '
-            'между высотой и биссектрисой. Так как '
+            "между высотой и биссектрисой. Так как "
             '<span data-inline-latex="CD"></span> — биссектриса прямого угла, '
             '<span data-inline-latex="\\angle ACD=45^{\\circ}"></span>.</p>'
             '<p>Поэтому <span data-inline-latex="\\angle ACH=45^{\\circ}+\\varphi"></span>. '
             'Треугольник <span data-inline-latex="ACH"></span> прямоугольный при '
             '<span data-inline-latex="H"></span>, поэтому сумма его острых углов '
             'равна <span data-inline-latex="90^{\\circ}"></span>.</p>'
-            '<p>Следовательно, '
+            "<p>Следовательно, "
             '<span data-inline-latex="\\angle A=90^{\\circ}-\\angle ACH"></span>, '
             "откуда найдём меньший острый угол:</p>"
         )
@@ -1333,22 +1379,22 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
         visible = _math_aware_html(condition_html).lower()
         if "медиан" in visible and "биссектрис" not in visible:
             return (
-                '<p>Медиана к гипотенузе равна её половине. Поэтому '
+                "<p>Медиана к гипотенузе равна её половине. Поэтому "
                 '<span data-inline-latex="CM=BM"></span>, и треугольник '
                 '<span data-inline-latex="CMB"></span> равнобедренный.</p>'
-                '<p>Его углы при основании равны: '
+                "<p>Его углы при основании равны: "
                 '<span data-inline-latex="\\angle BCM=\\angle CBM=\\angle B"></span>.</p>'
                 '<p>Так как <span data-inline-latex="CH\\perp AB"></span>, '
                 'треугольник <span data-inline-latex="BCH"></span> прямоугольный. '
                 'Поэтому <span data-inline-latex="\\angle BCH=90^{\\circ}-\\angle B"></span>. '
                 'Но <span data-inline-latex="\\angle A=90^{\\circ}-\\angle B"></span>, '
                 'следовательно, <span data-inline-latex="\\angle BCH=\\angle A"></span>.</p>'
-                '<p>Угол между высотой и медианой равен разности '
+                "<p>Угол между высотой и медианой равен разности "
                 '<span data-inline-latex="\\angle BCM"></span> и '
                 '<span data-inline-latex="\\angle BCH"></span>:</p>'
             )
         return (
-            '<p>Биссектриса прямого угла образует угол '
+            "<p>Биссектриса прямого угла образует угол "
             '<span data-inline-latex="45^{\\circ}"></span>. Высота, проведённая '
             "из вершины прямого угла, делит исходный треугольник на два "
             "подобных ему прямоугольных треугольника.</p>"
@@ -1362,10 +1408,10 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
             '<span data-inline-latex="CM"></span>. В прямоугольном треугольнике '
             '<span data-inline-latex="CHM"></span> получаем '
             '<span data-inline-latex="\\angle CMB=90^{\\circ}-\\varphi"></span>.</p>'
-            '<p>Медиана к гипотенузе равна её половине, поэтому '
+            "<p>Медиана к гипотенузе равна её половине, поэтому "
             '<span data-inline-latex="CM=MB"></span> и треугольник '
             '<span data-inline-latex="CMB"></span> равнобедренный.</p>'
-            '<p>Его углы при основании равны, а их сумма равна разности между '
+            "<p>Его углы при основании равны, а их сумма равна разности между "
             '<span data-inline-latex="180^{\\circ}"></span> и углом при вершине: '
             '<span data-inline-latex="\\angle CBM=\\angle BCM=\\frac{180^{\\circ}-\\angle CMB}{2}"></span>.</p>'
             '<p>Угол <span data-inline-latex="\\angle CBM"></span> совпадает с '
@@ -1373,15 +1419,15 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
         )
     if content_rule_key == "right-triangle-bisector-median-angle":
         return (
-            '<p>Медиана к гипотенузе равна её половине, поэтому '
+            "<p>Медиана к гипотенузе равна её половине, поэтому "
             '<span data-inline-latex="CM=BM"></span>. Значит, треугольник '
             '<span data-inline-latex="CMB"></span> равнобедренный и '
             '<span data-inline-latex="\\angle BCM=\\angle B"></span>.</p>'
             '<p>Биссектриса <span data-inline-latex="CD"></span> делит прямой '
-            'угол пополам, поэтому '
+            "угол пополам, поэтому "
             '<span data-inline-latex="\\angle ACD=45^{\\circ}"></span> и '
             '<span data-inline-latex="\\angle DCB=45^{\\circ}"></span>.</p>'
-            '<p>Искомый угол равен модулю разности углов '
+            "<p>Искомый угол равен модулю разности углов "
             '<span data-inline-latex="\\angle BCM"></span> и '
             '<span data-inline-latex="\\angle DCB"></span>:</p>'
         )
@@ -1392,9 +1438,9 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
             'треугольник <span data-inline-latex="AMC"></span> равнобедренный и '
             '<span data-inline-latex="\\angle ACM=\\angle A"></span>.</p>'
             '<p>Биссектриса <span data-inline-latex="CD"></span> делит прямой '
-            'угол пополам, поэтому '
+            "угол пополам, поэтому "
             '<span data-inline-latex="\\angle ACD=45^{\\circ}"></span>.</p>'
-            '<p>Поскольку данный угол между биссектрисой и медианой равен '
+            "<p>Поскольку данный угол между биссектрисой и медианой равен "
             '<span data-inline-latex="\\varphi=45^{\\circ}-\\angle A"></span>, '
             "меньший острый угол получаем вычитанием:</p>"
         )
@@ -1404,11 +1450,11 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
             '<span data-inline-latex="CH\\perp AB"></span>, и треугольник '
             '<span data-inline-latex="ACH"></span> прямоугольный.</p>'
             '<p>В треугольнике <span data-inline-latex="ABC"></span> по '
-            'определению косинуса '
+            "определению косинуса "
             '<span data-inline-latex="\\cos A=\\frac{AC}{AB}"></span>, откуда '
             '<span data-inline-latex="AC=AB\\cos A"></span>.</p>'
             '<p>В треугольнике <span data-inline-latex="ACH"></span> по '
-            'определению синуса '
+            "определению синуса "
             '<span data-inline-latex="\\sin A=\\frac{CH}{AC}"></span>, откуда '
             '<span data-inline-latex="CH=AC\\sin A"></span>.</p>'
             "<p>Подставим первое равенство во второе и вычислим высоту:</p>"
@@ -1429,7 +1475,7 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
     if content_rule_key == "right-triangle-hypotenuse-projection-bh":
         return (
             '<p>В треугольнике <span data-inline-latex="ABC"></span> по '
-            'определению синуса '
+            "определению синуса "
             '<span data-inline-latex="\\sin A=\\frac{BC}{AB}"></span>, откуда '
             '<span data-inline-latex="BC=AB\\sin A"></span>.</p>'
             '<p>Так как <span data-inline-latex="CH\\perp AB"></span>, '
@@ -1437,7 +1483,7 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
             'Его угол <span data-inline-latex="\\angle BCH=90^{\\circ}-\\angle B"></span>. '
             'Так как <span data-inline-latex="\\angle A=90^{\\circ}-\\angle B"></span>, '
             '<span data-inline-latex="\\angle BCH=\\angle A"></span>.</p>'
-            '<p>По определению синуса в треугольнике '
+            "<p>По определению синуса в треугольнике "
             '<span data-inline-latex="BCH"></span> '
             '<span data-inline-latex="\\sin A=\\frac{BH}{BC}"></span>, поэтому '
             '<span data-inline-latex="BH=BC\\sin A"></span>.</p>'
@@ -1458,7 +1504,7 @@ def _elementary_intro(content_rule_key: str, condition_html: str) -> str:
             '<span data-inline-latex="D"></span> — середина гипотенузы '
             '<span data-inline-latex="AB"></span>, поэтому '
             '<span data-inline-latex="AD=BD"></span>.</p>'
-            '<p>Медиана, проведённая из вершины прямого угла к гипотенузе, '
+            "<p>Медиана, проведённая из вершины прямого угла к гипотенузе, "
             "равна половине гипотенузы:</p>"
         ),
     }[content_rule_key]
@@ -1503,7 +1549,10 @@ def build_elementary_repair_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_asset_id
+    ):
         transformations.append(_asset_transformation(parent_asset_id))
     solution = _section(content, "solution")
     solution_html = str(solution.get("html") or "") if solution is not None else ""
@@ -1551,13 +1600,9 @@ def build_repair_plan(
         str(condition.get("html") or "")
     )
     if required_trig_name is not None and trig_name != required_trig_name:
-        raise RightTrianglePlanError(
-            f"condition must use {required_trig_name} A"
-        )
+        raise RightTrianglePlanError(f"condition must use {required_trig_name} A")
     if required_requested is not None and requested != required_requested:
-        raise RightTrianglePlanError(
-            f"condition must request {required_requested}"
-        )
+        raise RightTrianglePlanError(f"condition must request {required_requested}")
     if (_known_side, requested) not in {
         ("AC", "AB"),
         ("AB", "AC"),
@@ -1605,7 +1650,10 @@ def build_repair_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_asset_id
+    ):
         transformations.append(_asset_transformation(parent_asset_id))
     solution = _section(content, "solution")
     solution_html = str(solution.get("html") or "") if solution is not None else ""
@@ -1685,7 +1733,9 @@ def build_universal_repair_plan(
     trig_squared = _trig_square(values.trig_latex)
     if values.trig_name in {"sin", "cos"}:
         if not 0 < trig_squared < 1:
-            raise RightTrianglePlanError("sin or cos of an acute angle must be between zero and one")
+            raise RightTrianglePlanError(
+                "sin or cos of an acute angle must be between zero and one"
+            )
     elif trig_squared <= 0:
         raise RightTrianglePlanError("tg or ctg of an acute angle must be positive")
 
@@ -1708,8 +1758,7 @@ def build_universal_repair_plan(
         raise RightTrianglePlanError("known side must be positive")
     scale_squared = known_squared / coefficients[values.known_side]
     side_squares = {
-        side: scale_squared * coefficient
-        for side, coefficient in coefficients.items()
+        side: scale_squared * coefficient for side, coefficient in coefficients.items()
     }
     side_latex = {
         side: _positive_root_number_latex(square)
@@ -1725,19 +1774,23 @@ def build_universal_repair_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_asset_id
+    ):
         transformations.append(_asset_transformation(parent_asset_id))
 
     solution = _section(content, "solution")
     solution_html = str(solution.get("html") or "") if solution is not None else ""
     runner_solution_needs_refresh = (
         'data-content-rule="right-triangle-universal"' in solution_html
-        and (
-            "</span>.</p>" in solution_html
-            or r"\iff" not in unescape(solution_html)
-        )
+        and ("</span>.</p>" in solution_html or r"\iff" not in unescape(solution_html))
     )
-    if solution is None or not _plain_html(solution_html) or runner_solution_needs_refresh:
+    if (
+        solution is None
+        or not _plain_html(solution_html)
+        or runner_solution_needs_refresh
+    ):
         transformations.append(
             _universal_solution_transformation(
                 values,
@@ -1754,6 +1807,7 @@ def build_altitude_repair_plan(
     context: dict[str, Any],
     *,
     parent_asset_id: str,
+    parent_solution_html: str | None = None,
 ) -> RepairPlan:
     """Return a fail-closed repair for right triangles split by altitude CH."""
 
@@ -1768,6 +1822,17 @@ def build_altitude_repair_plan(
     answer_section = _section(content, "answer")
     if condition is None:
         raise RightTrianglePlanError("condition section is required")
+    if parent_solution_html is not None:
+        from .altitude_parent import prepare
+
+        try:
+            return prepare(
+                context,
+                parent_asset_id=parent_asset_id,
+                parent_solution_html=parent_solution_html,
+            )
+        except AltitudeSolveError as exc:
+            raise RightTrianglePlanError(str(exc)) from exc
     try:
         solved = solve_altitude_condition(str(condition.get("html") or ""))
     except AltitudeSolveError as exc:
@@ -1792,7 +1857,10 @@ def build_altitude_repair_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_asset_id
+    ):
         transformations.append(_asset_transformation(parent_asset_id))
 
     solution = _section(content, "solution")
@@ -1811,17 +1879,13 @@ def build_altitude_repair_plan(
             if intro:
                 rendered_steps.append(f"<p>{intro}</p>")
             rendered_steps.append(
-                '<center><p><span data-inline-latex="'
-                + row
-                + '"></span></p></center>'
+                '<center><p><span data-inline-latex="' + row + '"></span></p></center>'
             )
         html = (
             '<section data-content-kind="solution" '
             'data-content-rule="right-triangle-altitude-universal" '
             f'data-content-version="{_ALTITUDE_CONTENT_VERSION}" '
-            'data-solution-title="Решение">'
-            + "".join(rendered_steps)
-            + "</section>"
+            'data-solution-title="Решение">' + "".join(rendered_steps) + "</section>"
         )
         transformations.append(
             {
@@ -1901,8 +1965,7 @@ def _build_universal_trig_request_plan(
     """Build a repair when two sides are given and a trig value is requested."""
 
     side_squares = {
-        side: _numeric_square_latex(latex)
-        for side, latex in values.known_sides
+        side: _numeric_square_latex(latex) for side, latex in values.known_sides
     }
     if any(square <= 0 for square in side_squares.values()):
         raise RightTrianglePlanError("known sides must be positive")
@@ -1912,7 +1975,9 @@ def _build_universal_trig_request_plan(
         side_squares[missing_side] = sum(side_squares.values(), Fraction())
     else:
         if values.hypotenuse not in side_squares:
-            raise RightTrianglePlanError("two legs or the hypotenuse and one leg are required")
+            raise RightTrianglePlanError(
+                "two legs or the hypotenuse and one leg are required"
+            )
         other_leg = (all_sides - {values.hypotenuse, missing_side}).pop()
         missing_square = side_squares[values.hypotenuse] - side_squares[other_leg]
         if missing_square <= 0:
@@ -1922,8 +1987,7 @@ def _build_universal_trig_request_plan(
     side_latex = dict(values.known_sides)
     side_latex[missing_side] = _positive_root_number_latex(side_squares[missing_side])
     trig_square = (
-        side_squares[values.numerator_side]
-        / side_squares[values.denominator_side]
+        side_squares[values.numerator_side] / side_squares[values.denominator_side]
     )
     answer = _answer_text(math.sqrt(float(trig_square)))
     transformations: list[dict[str, Any]] = []
@@ -1935,7 +1999,10 @@ def _build_universal_trig_request_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_asset_id
+    ):
         transformations.append(_asset_transformation(parent_asset_id))
 
     solution = _section(content, "solution")
@@ -1944,7 +2011,11 @@ def _build_universal_trig_request_plan(
         'data-content-rule="right-triangle-universal"' in solution_html
         and "</span>.</p>" in solution_html
     )
-    if solution is None or not _plain_html(solution_html) or runner_solution_needs_refresh:
+    if (
+        solution is None
+        or not _plain_html(solution_html)
+        or runner_solution_needs_refresh
+    ):
         transformations.append(
             _universal_trig_request_solution_transformation(
                 values,
@@ -1993,29 +2064,25 @@ def _universal_solution_transformation(
     if {known, requested} == {numerator, denominator}:
         if known == numerator:
             rows.append(
-                definition
-                + rf"\iff {denominator}=\frac{{{numerator}}}{{{function}}}="
+                definition + rf"\iff {denominator}=\frac{{{numerator}}}{{{function}}}="
                 rf"\frac{{{values.known_latex}}}{{{trig}}}={side_latex[denominator]}"
             )
         else:
             rows.append(
-                definition
-                + rf"\iff {numerator}={denominator}\cdot{function}="
+                definition + rf"\iff {numerator}={denominator}\cdot{function}="
                 rf"{values.known_latex}\cdot {trig}={side_latex[numerator]}"
             )
     elif known in {numerator, denominator}:
         if known == numerator:
             calculated = denominator
             rows.append(
-                definition
-                + rf"\iff {denominator}=\frac{{{numerator}}}{{{function}}}="
+                definition + rf"\iff {denominator}=\frac{{{numerator}}}{{{function}}}="
                 rf"\frac{{{values.known_latex}}}{{{trig}}}={side_latex[denominator]}"
             )
         else:
             calculated = numerator
             rows.append(
-                definition
-                + rf"\iff {numerator}={denominator}\cdot{function}="
+                definition + rf"\iff {numerator}={denominator}\cdot{function}="
                 rf"{values.known_latex}\cdot {trig}={side_latex[numerator]}"
             )
         if requested == values.hypotenuse:
@@ -2026,42 +2093,48 @@ def _universal_solution_transformation(
                 rf"{side_latex[requested]}"
             )
         else:
-            other_leg = (
-                {"AB", "AC", "BC"}
-                - {values.hypotenuse, requested}
-            ).pop()
+            other_leg = ({"AB", "AC", "BC"} - {values.hypotenuse, requested}).pop()
             rows.append(
                 rf"{requested}=\sqrt{{{values.hypotenuse}^{{2}}-{other_leg}^{{2}}}}="
                 rf"\sqrt{{{side_latex[values.hypotenuse]}^{{2}}-{side_latex[other_leg]}^{{2}}}}="
                 rf"{side_latex[requested]}"
             )
         if calculated == requested:
-            raise RightTrianglePlanError("universal solution selected a redundant third row")
+            raise RightTrianglePlanError(
+                "universal solution selected a redundant third row"
+            )
     else:
         if known != third_side:
-            raise RightTrianglePlanError("known side is outside normalized triangle roles")
+            raise RightTrianglePlanError(
+                "known side is outside normalized triangle roles"
+            )
         if values.trig_name in {"sin", "cos"}:
             complement_name = "cos" if values.trig_name == "sin" else "sin"
             complement = rf"\{complement_name} {values.trig_angle}"
             complement_latex = _positive_root_latex(Fraction(1) - _trig_square(trig))
             rows.extend(
                 [
-                    rf"{complement}=\sqrt{{1-{function}^2}}="
-                    rf"\sqrt{{1-({trig})^2}}={complement_latex}",
-                    rf"{complement}=\frac{{{known}}}{{{denominator}}}"
-                    rf"\iff {denominator}=\frac{{{known}}}{{{complement}}}="
-                    rf"\frac{{{values.known_latex}}}{{{complement_latex}}}="
-                    rf"{side_latex[denominator]}",
+                    (
+                        rf"{complement}=\sqrt{{1-{function}^2}}="
+                        rf"\sqrt{{1-({trig})^2}}={complement_latex}"
+                    ),
+                    (
+                        rf"{complement}=\frac{{{known}}}{{{denominator}}}"
+                        rf"\iff {denominator}=\frac{{{known}}}{{{complement}}}="
+                        rf"\frac{{{values.known_latex}}}{{{complement_latex}}}="
+                        rf"{side_latex[denominator]}"
+                    ),
                 ]
             )
             if requested == numerator:
                 rows.append(
-                    definition
-                    + rf"\iff {numerator}={denominator}\cdot{function}="
+                    definition + rf"\iff {numerator}={denominator}\cdot{function}="
                     rf"{side_latex[denominator]}\cdot {trig}={side_latex[numerator]}"
                 )
             elif requested != denominator:
-                raise RightTrianglePlanError("requested side is outside normalized triangle roles")
+                raise RightTrianglePlanError(
+                    "requested side is outside normalized triangle roles"
+                )
             return _universal_solution_rows_transformation(rows)
         rows.append(definition)
         sign = "-" if denominator == values.hypotenuse else "+"
@@ -2076,7 +2149,9 @@ def _universal_solution_transformation(
                 rf"{side_latex[denominator]}\cdot {trig}={side_latex[numerator]}"
             )
         elif requested != denominator:
-            raise RightTrianglePlanError("requested side is outside normalized triangle roles")
+            raise RightTrianglePlanError(
+                "requested side is outside normalized triangle roles"
+            )
     return _universal_solution_rows_transformation(rows)
 
 
@@ -2087,11 +2162,9 @@ def _universal_solution_rows_transformation(rows: list[str]) -> dict[str, Any]:
         '<section data-content-kind="solution" '
         'data-content-rule="right-triangle-universal" '
         'data-solution-title="Решение">'
-        '<p>По определению тригонометрической функции:</p>'
+        "<p>По определению тригонометрической функции:</p>"
         + "".join(
-            '<center><p><span data-inline-latex="'
-            + row
-            + '"></span></p></center>'
+            '<center><p><span data-inline-latex="' + row + '"></span></p></center>'
             for row in rows
         )
         + "</section>"
@@ -2113,10 +2186,10 @@ def _universal_trig_request_solution_transformation(
     """Build two or three concise rows for a requested trig value."""
 
     rows: list[str] = []
-    if (
-        missing_side == values.hypotenuse
-        and missing_side in {values.numerator_side, values.denominator_side}
-    ):
+    if missing_side == values.hypotenuse and missing_side in {
+        values.numerator_side,
+        values.denominator_side,
+    }:
         legs = sorted({"AB", "AC", "BC"} - {values.hypotenuse})
         rows.append(
             rf"{values.hypotenuse}=\sqrt{{{legs[0]}^{{2}}+{legs[1]}^{{2}}}}="
@@ -2134,18 +2207,15 @@ def _universal_trig_request_solution_transformation(
     rows.append(
         rf"{function}=\frac{{{values.numerator_side}}}{{{values.denominator_side}}}="
         rf"\frac{{{side_latex[values.numerator_side]}}}"
-        rf"{{{side_latex[values.denominator_side]}}}="
-        + answer.replace(",", "{,}")
+        rf"{{{side_latex[values.denominator_side]}}}=" + answer.replace(",", "{,}")
     )
     html = (
         '<section data-content-kind="solution" '
         'data-content-rule="right-triangle-universal" '
         'data-solution-title="Решение">'
-        '<p>Используем соотношения сторон прямоугольного треугольника:</p>'
+        "<p>Используем соотношения сторон прямоугольного треугольника:</p>"
         + "".join(
-            '<center><p><span data-inline-latex="'
-            + row
-            + '"></span></p></center>'
+            '<center><p><span data-inline-latex="' + row + '"></span></p></center>'
             for row in rows
         )
         + "</section>"
@@ -2200,7 +2270,10 @@ def build_tangent_bc_repair_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_asset_id
+    ):
         transformations.append(_asset_transformation(parent_asset_id))
     solution = _section(content, "solution")
     solution_html = str(solution.get("html") or "") if solution is not None else ""
@@ -2213,8 +2286,7 @@ def build_tangent_bc_repair_plan(
     if solution is None or not _plain_html(solution_html):
         transformations.append(desired_solution)
     elif (
-        'data-content-rule="right-triangle-tangent-opposite-cathetus"'
-        in solution_html
+        'data-content-rule="right-triangle-tangent-opposite-cathetus"' in solution_html
         and solution_html != desired_solution["value"]["html"]
     ):
         transformations.append(
