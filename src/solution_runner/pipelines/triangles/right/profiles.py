@@ -18,6 +18,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="right-triangle-sine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27239",
@@ -32,6 +33,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="right-triangle-sine",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "642289",
@@ -61,6 +63,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="right-triangle-cosine-hypotenuse",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27242",
@@ -75,6 +78,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="right-triangle-tangent-hypotenuse",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27243",
@@ -89,6 +93,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="right-triangle-tangent-opposite-cathetus",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27244",
@@ -103,6 +108,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="right-triangle-universal",
+        rewrite_existing_solution=True,
     ),
     *(
         _profile(
@@ -118,6 +124,7 @@ PROFILES = (
             strategy_key=None,
             workflow_kind="content_rule",
             content_rule_key="right-triangle-universal",
+            rewrite_existing_solution=True,
         )
         for group_key, source_group_id, order_index in (
             (

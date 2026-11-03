@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from html import unescape
 import re
+from html import unescape
 
 import pytest
+from basic_source_cases import parent_html
 
 from solution_runner.pipelines.triangles.right.planner import (
     RightTrianglePlanError,
@@ -14,11 +15,10 @@ from solution_runner.pipelines.triangles.right.planner import (
     build_tangent_bc_repair_plan,
     build_universal_repair_plan,
 )
-from solution_runner.pipelines.triangles.right.runtime import run_manifest
 from solution_runner.pipelines.triangles.right.runtime import (
     _build_content_plan,
+    run_manifest,
 )
-
 
 PARENT_ASSET_ID = "8f8988bb-fa85-47a8-be0e-75edaf5a7604"
 
@@ -39,7 +39,9 @@ def _solution_formulas(plan: object) -> list[str]:
     ]
 
 
-def _context(*, answer: str, solution_html: str = "", asset_id: str | None = None) -> dict:
+def _context(
+    *, answer: str, solution_html: str = "", asset_id: str | None = None
+) -> dict:
     """Return a complete minimal schema-v3 transformation context fixture."""
 
     condition = (
@@ -102,10 +104,10 @@ def _altitude_context(
         asset_id=asset_id,
     )
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, CH — высота, '
+        "<p>В треугольнике ABC угол C равен 90°, CH — высота, "
         '<span data-inline-latex="AB=13"></span>, '
         '<span data-inline-latex="\\tg A=\\frac{1}{5}"></span>. '
-        'Найдите AH.</p>'
+        "Найдите AH.</p>"
     )
     return context
 
@@ -123,8 +125,10 @@ def _elementary_context(condition_html: str, *, answer: str) -> dict:
     [
         (
             "right-triangle-leg-hypotenuse-area",
-            "<p>Найдите площадь прямоугольного треугольника, если его катет "
-            "и гипотенуза равны соответственно 36 и 39.</p>",
+            (
+                "<p>Найдите площадь прямоугольного треугольника, если его катет "
+                "и гипотенуза равны соответственно 36 и 39.</p>"
+            ),
             "270",
             [
                 r"b=\sqrt{39^{2}-36^{2}}=15",
@@ -133,58 +137,76 @@ def _elementary_context(condition_html: str, *, answer: str) -> dict:
         ),
         (
             "right-triangle-area-leg-difference",
-            "<p>Площадь прямоугольного треугольника равна 2. Один из его "
-            "катетов на 3 больше другого. Найдите меньший катет.</p>",
+            (
+                "<p>Площадь прямоугольного треугольника равна 2. Один из его "
+                "катетов на 3 больше другого. Найдите меньший катет.</p>"
+            ),
             "1",
             [
-                r"\frac{1}{2}x(x+3)=2\iff x(x+3)=4\iff x^{2}+3x-4=0"
-                r"\iff \begin{cases}\left[\begin{aligned}x=1\\x=-4"
-                r"\end{aligned}\right.\\x\gt 0\end{cases}\iff x=1",
+                (
+                    r"\frac{1}{2}x(x+3)=2\iff x(x+3)=4\iff x^{2}+3x-4=0"
+                    r"\iff \begin{cases}\left[\begin{aligned}x=1\\x=-4"
+                    r"\end{aligned}\right.\\x\gt 0\end{cases}\iff x=1"
+                ),
             ],
         ),
         (
             "right-triangle-acute-angle-difference",
-            "<p>Один острый угол прямоугольного треугольника на 38° больше "
-            "другого. Найдите больший острый угол. Ответ дайте в градусах.</p>",
+            (
+                "<p>Один острый угол прямоугольного треугольника на 38° больше "
+                "другого. Найдите больший острый угол. Ответ дайте в градусах.</p>"
+            ),
             "64",
             [
-                r"\begin{cases}\angle A-\angle B=38^{\circ}\\"
-                r"\angle A+\angle B=90^{\circ}\end{cases}"
-                r"\iff \begin{cases}\angle A=64^{\circ}\\"
-                r"\angle B=26^{\circ}\end{cases}",
+                (
+                    r"\begin{cases}\angle A-\angle B=38^{\circ}\\"
+                    r"\angle A+\angle B=90^{\circ}\end{cases}"
+                    r"\iff \begin{cases}\angle A=64^{\circ}\\"
+                    r"\angle B=26^{\circ}\end{cases}"
+                ),
             ],
         ),
         (
             "right-triangle-acute-angle-difference",
-            '<p>Один острый угол прямоугольного треугольника на '
-            '<span data-inline-latex="1^{\\circ}"></span> больше другого. '
-            "Найдите больший острый угол.</p>",
+            (
+                "<p>Один острый угол прямоугольного треугольника на "
+                '<span data-inline-latex="1^{\\circ}"></span> больше другого. '
+                "Найдите больший острый угол.</p>"
+            ),
             "45,5",
             [
-                r"\begin{cases}\angle A-\angle B=1^{\circ}\\"
-                r"\angle A+\angle B=90^{\circ}\end{cases}"
-                r"\iff \begin{cases}\angle A=45{,}5^{\circ}\\"
-                r"\angle B=44{,}5^{\circ}\end{cases}",
+                (
+                    r"\begin{cases}\angle A-\angle B=1^{\circ}\\"
+                    r"\angle A+\angle B=90^{\circ}\end{cases}"
+                    r"\iff \begin{cases}\angle A=45{,}5^{\circ}\\"
+                    r"\angle B=44{,}5^{\circ}\end{cases}"
+                ),
             ],
         ),
         (
             "right-triangle-acute-angle-difference",
-            '<p>Один острый угол прямоугольного треугольника на '
-            '<span data-inline-latex="6^{\\circ}"></span> больше другого. '
-            "Найдите больший острый угол.</p>",
+            (
+                "<p>Один острый угол прямоугольного треугольника на "
+                '<span data-inline-latex="6^{\\circ}"></span> больше другого. '
+                "Найдите больший острый угол.</p>"
+            ),
             "48",
             [
-                r"\begin{cases}\angle A-\angle B=6^{\circ}\\"
-                r"\angle A+\angle B=90^{\circ}\end{cases}"
-                r"\iff \begin{cases}\angle A=48^{\circ}\\"
-                r"\angle B=42^{\circ}\end{cases}",
+                (
+                    r"\begin{cases}\angle A-\angle B=6^{\circ}\\"
+                    r"\angle A+\angle B=90^{\circ}\end{cases}"
+                    r"\iff \begin{cases}\angle A=48^{\circ}\\"
+                    r"\angle B=42^{\circ}\end{cases}"
+                ),
             ],
         ),
         (
             "right-triangle-acute-angle-ratio",
-            '<p>Один острый угол прямоугольного треугольника в '
-            '<span data-inline-latex="\\frac{19}{11}"></span> раза больше '
-            "другого. Найдите больший острый угол.</p>",
+            (
+                "<p>Один острый угол прямоугольного треугольника в "
+                '<span data-inline-latex="\\frac{19}{11}"></span> раза больше '
+                "другого. Найдите больший острый угол.</p>"
+            ),
             "57",
             [
                 r"11x+19x=90^{\circ}\iff30x=90^{\circ}\iff x=3^{\circ}",
@@ -193,8 +215,10 @@ def _elementary_context(condition_html: str, *, answer: str) -> dict:
         ),
         (
             "right-triangle-acute-angle-ratio",
-            "<p>Один острый угол прямоугольного треугольника в 29 раз "
-            "больше другого. Найдите больший острый угол.</p>",
+            (
+                "<p>Один острый угол прямоугольного треугольника в 29 раз "
+                "больше другого. Найдите больший острый угол.</p>"
+            ),
             "87",
             [
                 r"1x+29x=90^{\circ}\iff30x=90^{\circ}\iff x=3^{\circ}",
@@ -244,8 +268,7 @@ def test_area_leg_difference_intro_names_both_legs_with_inline_latex() -> None:
     solution = plan.transformations[1]["value"]["html"]
     assert (
         '<p>Пусть <span data-inline-latex="x"></span> — меньший катет, '
-        'тогда второй <span data-inline-latex="x+3"></span>:</p>'
-        in solution
+        'тогда второй <span data-inline-latex="x+3"></span>:</p>' in solution
     )
 
 
@@ -264,7 +287,7 @@ def test_median_angle_solution_explains_the_isosceles_triangle() -> None:
     )
 
     solution = plan.transformations[1]["value"]["html"]
-    assert "точка <span data-inline-latex=\"D\"></span> — середина" in solution
+    assert 'точка <span data-inline-latex="D"></span> — середина' in solution
     assert '<span data-inline-latex="AD=BD"></span>' in solution
     assert "равна половине гипотенузы" in solution
     side_equality = '<span data-inline-latex="CD=AD=BD"></span>'
@@ -293,15 +316,19 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
 
     solution = plan.transformations[1]["value"]["html"]
     assert (
-        '<p>Пусть данный острый угол равен '
+        "<p>Пусть данный острый угол равен "
         '<span data-inline-latex="\\alpha"></span>. Тогда второй острый угол '
-        'равен <span data-inline-latex="90^{\\circ}-\\alpha"></span>.</p>'
-        in solution
+        'равен <span data-inline-latex="90^{\\circ}-\\alpha"></span>.</p>' in solution
     )
-    assert '<span data-inline-latex="\\angle OAC=\\frac{\\alpha}{2}"></span>' in solution
+    assert (
+        '<span data-inline-latex="\\angle OAC=\\frac{\\alpha}{2}"></span>' in solution
+    )
     assert '<span data-inline-latex="\\angle ACO=45^{\\circ}"></span>' in solution
     assert "по сумме углов треугольника" in solution
-    assert '<span data-inline-latex="\\angle AOC=135^{\\circ}-\\frac{\\alpha}{2}"></span>' in solution
+    assert (
+        '<span data-inline-latex="\\angle AOC=135^{\\circ}-\\frac{\\alpha}{2}"></span>'
+        in solution
+    )
     assert "смежный с ним острый угол" in solution
 
 
@@ -310,8 +337,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
     [
         (
             "right-triangle-altitude-bisector-angle",
-            "<p>Острый угол B прямоугольного треугольника ABC равен 61°. "
-            "Найдите угол между высотой CH и биссектрисой CD.</p>",
+            (
+                "<p>Острый угол B прямоугольного треугольника ABC равен 61°. "
+                "Найдите угол между высотой CH и биссектрисой CD.</p>"
+            ),
             "16",
             [
                 r'Пусть <span data-inline-latex="\angle B=\alpha"></span>',
@@ -322,8 +351,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-altitude-bisector-inverse",
-            "<p>В прямоугольном треугольнике угол между высотой и биссектрисой, "
-            "проведёнными из вершины прямого угла, равен 21°. Найдите меньший угол.</p>",
+            (
+                "<p>В прямоугольном треугольнике угол между высотой и биссектрисой, "
+                "проведёнными из вершины прямого угла, равен 21°. Найдите меньший угол.</p>"
+            ),
             "24",
             [
                 r'Пусть <span data-inline-latex="\varphi"></span>',
@@ -334,8 +365,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-altitude-line-angle",
-            "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
-            "угол между высотой CH и медианой CM.</p>",
+            (
+                "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
+                "угол между высотой CH и медианой CM.</p>"
+            ),
             "42",
             [
                 r'<span data-inline-latex="CM=BM"></span>',
@@ -346,8 +379,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-altitude-median-inverse",
-            "<p>В прямоугольном треугольнике угол между высотой и медианой равен "
-            "40°. Найдите больший из острых углов.</p>",
+            (
+                "<p>В прямоугольном треугольнике угол между высотой и медианой равен "
+                "40°. Найдите больший из острых углов.</p>"
+            ),
             "65",
             [
                 r'<span data-inline-latex="CM=MB"></span>',
@@ -358,8 +393,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-bisector-median-angle",
-            "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
-            "угол между биссектрисой CD и медианой CM.</p>",
+            (
+                "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
+                "угол между биссектрисой CD и медианой CM.</p>"
+            ),
             "21",
             [
                 r'<span data-inline-latex="CM=BM"></span>',
@@ -369,8 +406,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-bisector-median-inverse",
-            "<p>Угол между биссектрисой и медианой прямоугольного треугольника "
-            "равен 14°. Найдите меньший угол этого треугольника.</p>",
+            (
+                "<p>Угол между биссектрисой и медианой прямоугольного треугольника "
+                "равен 14°. Найдите меньший угол этого треугольника.</p>"
+            ),
             "31",
             [
                 r'<span data-inline-latex="AM=CM"></span>',
@@ -381,8 +420,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-altitude-length",
-            '<p>В треугольнике ABC угол C равен 90°, угол A равен 30°, '
-            '<span data-inline-latex="AB=2\\sqrt{3}"></span>. Найдите высоту CH.</p>',
+            (
+                "<p>В треугольнике ABC угол C равен 90°, угол A равен 30°, "
+                '<span data-inline-latex="AB=2\\sqrt{3}"></span>. Найдите высоту CH.</p>'
+            ),
             "1,5",
             [
                 r'<span data-inline-latex="AC=AB\cos A"></span>',
@@ -393,8 +434,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-hypotenuse-projection-ah",
-            "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
-            "30°, AB = 2. Найдите AH.</p>",
+            (
+                "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
+                "30°, AB = 2. Найдите AH.</p>"
+            ),
             "1,5",
             [
                 r'<span data-inline-latex="AC=AB\cos A"></span>',
@@ -404,8 +447,10 @@ def test_bisector_intersection_solution_explains_alpha_construction() -> None:
         ),
         (
             "right-triangle-hypotenuse-projection-bh",
-            "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
-            "30°, AB = 4. Найдите BH.</p>",
+            (
+                "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
+                "30°, AB = 4. Найдите BH.</p>"
+            ),
             "1",
             [
                 r'<span data-inline-latex="BC=AB\sin A"></span>',
@@ -440,8 +485,10 @@ def test_registered_geometry_rules_explain_the_parent_reasoning(
     [
         (
             "right-triangle-median-angle",
-            "<p>В треугольнике ABC угол ACB равен 90°, угол B равен 58°, "
-            "CD — медиана. Найдите угол ACD.</p>",
+            (
+                "<p>В треугольнике ABC угол ACB равен 90°, угол B равен 58°, "
+                "CD — медиана. Найдите угол ACD.</p>"
+            ),
             "32",
             [
                 "CD=AD=BD",
@@ -450,64 +497,82 @@ def test_registered_geometry_rules_explain_the_parent_reasoning(
         ),
         (
             "right-triangle-bisector-intersection-angle",
-            "<p>Острый угол прямоугольного треугольника равен 32°. Найдите "
-            "острый угол, образованный биссектрисами этого и прямого углов.</p>",
+            (
+                "<p>Острый угол прямоугольного треугольника равен 32°. Найдите "
+                "острый угол, образованный биссектрисами этого и прямого углов.</p>"
+            ),
             "61",
             [r"\varphi=45^{\circ}+\frac{32^{\circ}}{2}=61^{\circ}"],
         ),
         (
             "right-triangle-altitude-bisector-angle",
-            "<p>Острый угол B прямоугольного треугольника ABC равен 61°. "
-            "Найдите угол между высотой CH и биссектрисой CD.</p>",
+            (
+                "<p>Острый угол B прямоугольного треугольника ABC равен 61°. "
+                "Найдите угол между высотой CH и биссектрисой CD.</p>"
+            ),
             "16",
             [r"\varphi=\left|61^{\circ}-45^{\circ}\right|=16^{\circ}"],
         ),
         (
             "right-triangle-altitude-bisector-inverse",
-            "<p>В прямоугольном треугольнике угол между высотой и биссектрисой, "
-            "проведёнными из вершины прямого угла, равен 21°. Найдите меньший угол.</p>",
+            (
+                "<p>В прямоугольном треугольнике угол между высотой и биссектрисой, "
+                "проведёнными из вершины прямого угла, равен 21°. Найдите меньший угол.</p>"
+            ),
             "24",
             [r"\alpha_{\min}=45^{\circ}-21^{\circ}=24^{\circ}"],
         ),
         (
             "right-triangle-altitude-line-angle",
-            "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
-            "угол между высотой CH и медианой CM.</p>",
+            (
+                "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
+                "угол между высотой CH и медианой CM.</p>"
+            ),
             "42",
             [r"\varphi=\left|66^{\circ}-24^{\circ}\right|=42^{\circ}"],
         ),
         (
             "right-triangle-altitude-line-angle",
-            "<p>Острые углы прямоугольного треугольника равны 85° и 5°. "
-            "Найдите угол между высотой и биссектрисой.</p>",
+            (
+                "<p>Острые углы прямоугольного треугольника равны 85° и 5°. "
+                "Найдите угол между высотой и биссектрисой.</p>"
+            ),
             "40",
             [r"\varphi=\left|85^{\circ}-45^{\circ}\right|=40^{\circ}"],
         ),
         (
             "right-triangle-altitude-median-inverse",
-            "<p>В прямоугольном треугольнике угол между высотой и медианой равен "
-            "40°. Найдите больший из острых углов.</p>",
+            (
+                "<p>В прямоугольном треугольнике угол между высотой и медианой равен "
+                "40°. Найдите больший из острых углов.</p>"
+            ),
             "65",
             [r"\alpha_{\max}=\frac{90^{\circ}+40^{\circ}}{2}=65^{\circ}"],
         ),
         (
             "right-triangle-bisector-median-angle",
-            "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
-            "угол между биссектрисой CD и медианой CM.</p>",
+            (
+                "<p>Острый угол B прямоугольного треугольника равен 66°. Найдите "
+                "угол между биссектрисой CD и медианой CM.</p>"
+            ),
             "21",
             [r"\varphi=\left|66^{\circ}-45^{\circ}\right|=21^{\circ}"],
         ),
         (
             "right-triangle-bisector-median-inverse",
-            "<p>Угол между биссектрисой и медианой прямоугольного треугольника "
-            "равен 14°. Найдите меньший угол этого треугольника.</p>",
+            (
+                "<p>Угол между биссектрисой и медианой прямоугольного треугольника "
+                "равен 14°. Найдите меньший угол этого треугольника.</p>"
+            ),
             "31",
             [r"\alpha_{\min}=45^{\circ}-14^{\circ}=31^{\circ}"],
         ),
         (
             "right-triangle-altitude-length",
-            '<p>В треугольнике ABC угол C равен 90°, угол A равен 30°, '
-            '<span data-inline-latex="AB=2\\sqrt{3}"></span>. Найдите высоту CH.</p>',
+            (
+                "<p>В треугольнике ABC угол C равен 90°, угол A равен 30°, "
+                '<span data-inline-latex="AB=2\\sqrt{3}"></span>. Найдите высоту CH.</p>'
+            ),
             "1,5",
             [
                 r"CH=AB\sin A\cos A=2\sqrt{3}\cdot\frac{1}{2}\cdot\frac{\sqrt{3}}{2}=\frac{3}{2}"
@@ -515,15 +580,19 @@ def test_registered_geometry_rules_explain_the_parent_reasoning(
         ),
         (
             "right-triangle-hypotenuse-projection-ah",
-            "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
-            "30°, AB = 2. Найдите AH.</p>",
+            (
+                "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
+                "30°, AB = 2. Найдите AH.</p>"
+            ),
             "1,5",
             [r"AH=AB\cos^{2}A=2\cdot\left(\frac{\sqrt{3}}{2}\right)^{2}=\frac{3}{2}"],
         ),
         (
             "right-triangle-hypotenuse-projection-bh",
-            "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
-            "30°, AB = 4. Найдите BH.</p>",
+            (
+                "<p>В треугольнике ABC угол C равен 90°, CH — высота, угол A равен "
+                "30°, AB = 4. Найдите BH.</p>"
+            ),
             "1",
             [r"BH=AB\sin^{2}A=4\cdot\left(\frac{1}{2}\right)^{2}=1"],
         ),
@@ -572,7 +641,7 @@ def test_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
     """Do not rewrite a numerically correct answer that has trailing zeroes."""
 
     context = _elementary_context(
-        '<p>В треугольнике ABC угол C равен 90°, угол A равен 30°, '
+        "<p>В треугольнике ABC угол C равен 90°, угол A равен 30°, "
         '<span data-inline-latex="AB=2\\sqrt{3}"></span>. Найдите высоту CH.</p>',
         answer="1,50",
     )
@@ -608,10 +677,12 @@ def test_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
     [
         (
             "right-triangle-median-angle",
-            '<p>В треугольнике ABC угол ACB равен '
-            '<span data-inline-latex="90"></span>°, угол B равен '
-            '<span data-inline-latex="58"></span>°, CD — медиана. '
-            "Найдите угол ACD.</p>",
+            (
+                "<p>В треугольнике ABC угол ACB равен "
+                '<span data-inline-latex="90"></span>°, угол B равен '
+                '<span data-inline-latex="58"></span>°, CD — медиана. '
+                "Найдите угол ACD.</p>"
+            ),
             "32",
             [
                 "CD=AD=BD",
@@ -620,26 +691,32 @@ def test_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
         ),
         (
             "right-triangle-altitude-bisector-angle",
-            '<p>Один из углов прямоугольного треугольника равен '
-            '<span data-inline-latex="86"></span>°. Найдите угол между '
-            "высотой и биссектрисой.</p>",
+            (
+                "<p>Один из углов прямоугольного треугольника равен "
+                '<span data-inline-latex="86"></span>°. Найдите угол между '
+                "высотой и биссектрисой.</p>"
+            ),
             "41",
             [r"\varphi=\left|86^{\circ}-45^{\circ}\right|=41^{\circ}"],
         ),
         (
             "right-triangle-altitude-bisector-inverse",
-            '<p>Угол между высотой и биссектрисой равен '
-            '<span data-inline-latex="0^{\\circ}"></span>. '
-            "Найдите меньший угол прямоугольного треугольника.</p>",
+            (
+                "<p>Угол между высотой и биссектрисой равен "
+                '<span data-inline-latex="0^{\\circ}"></span>. '
+                "Найдите меньший угол прямоугольного треугольника.</p>"
+            ),
             "45",
             [r"\alpha_{\min}=45^{\circ}-0^{\circ}=45^{\circ}"],
         ),
         (
             "right-triangle-altitude-length",
-            '<p>В треугольнике <span data-inline-latex="ABC"></span> угол C равен '
-            '<span data-inline-latex="90^{\\circ}"></span>, угол A равен '
-            '<span data-inline-latex="60^\\circ,\\quad AB=2\\sqrt{3}"></span> '
-            'Найдите высоту <span data-inline-latex="CH"></span>.</p>',
+            (
+                '<p>В треугольнике <span data-inline-latex="ABC"></span> угол C равен '
+                '<span data-inline-latex="90^{\\circ}"></span>, угол A равен '
+                '<span data-inline-latex="60^\\circ,\\quad AB=2\\sqrt{3}"></span> '
+                'Найдите высоту <span data-inline-latex="CH"></span>.</p>'
+            ),
             "1,5",
             [
                 r"CH=AB\sin A\cos A=2\sqrt{3}\cdot\frac{\sqrt{3}}{2}\cdot\frac{1}{2}=\frac{3}{2}"
@@ -647,15 +724,15 @@ def test_new_elementary_runner_preserves_equivalent_decimal_answer() -> None:
         ),
         (
             "right-triangle-hypotenuse-projection-bh",
-            '<p>В треугольнике ABC угол C равен '
-            '<span data-inline-latex="90^{\\circ}"></span>, '
-            '<span data-inline-latex="CH"></span> — высота, угол A равен '
-            '<span data-inline-latex="60^\\circ,\\ AB="></span>12. '
-            'Найдите <span data-inline-latex="BH"></span>.</p>',
+            (
+                "<p>В треугольнике ABC угол C равен "
+                '<span data-inline-latex="90^{\\circ}"></span>, '
+                '<span data-inline-latex="CH"></span> — высота, угол A равен '
+                '<span data-inline-latex="60^\\circ,\\ AB="></span>12. '
+                'Найдите <span data-inline-latex="BH"></span>.</p>'
+            ),
             "9",
-            [
-                r"BH=AB\sin^{2}A=12\cdot\left(\frac{\sqrt{3}}{2}\right)^{2}=9"
-            ],
+            [r"BH=AB\sin^{2}A=12\cdot\left(\frac{\sqrt{3}}{2}\right)^{2}=9"],
         ),
     ],
 )
@@ -677,7 +754,9 @@ def test_new_rules_read_source_split_formula_layouts(
     assert _solution_formulas(plan) == formulas
 
 
-def test_altitude_plan_adds_asset_and_solution_without_rewriting_correct_answer() -> None:
+def test_altitude_plan_adds_asset_and_solution_without_rewriting_correct_answer() -> (
+    None
+):
     """Keep a correct source answer untouched while filling missing content."""
 
     plan = build_altitude_repair_plan(
@@ -690,7 +769,10 @@ def test_altitude_plan_adds_asset_and_solution_without_rewriting_correct_answer(
         "asset:image_1",
         "section:solution",
     ]
-    assert all(item["transformation_target_id"] != "section:answer:1" for item in plan.transformations)
+    assert all(
+        item["transformation_target_id"] != "section:answer:1"
+        for item in plan.transformations
+    )
     assert _solution_formulas(plan)[-1].endswith("=\\frac{25}{2}")
     solution_html = next(
         item["value"]["html"]
@@ -760,10 +842,10 @@ def test_altitude_plan_names_the_corresponding_angle_in_bch() -> None:
 
     context = _altitude_context(answer="20")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, CH — высота, '
+        "<p>В треугольнике ABC угол C равен 90°, CH — высота, "
         '<span data-inline-latex="BC=25"></span>, '
         '<span data-inline-latex="\\sin A=\\frac{3}{5}"></span>. '
-        'Найдите высоту CH.</p>'
+        "Найдите высоту CH.</p>"
     )
 
     plan = build_altitude_repair_plan(context, parent_asset_id=PARENT_ASSET_ID)
@@ -775,14 +857,12 @@ def test_altitude_plan_names_the_corresponding_angle_in_bch() -> None:
     )
     assert (
         'Так как <span data-inline-latex="\\angle BCH=\\angle A"></span>, '
-        'по определению синуса в '
-        '<span data-inline-latex="\\triangle BCH"></span>:'
-        in solution_html
+        "по определению синуса в "
+        '<span data-inline-latex="\\triangle BCH"></span>:' in solution_html
     )
     assert (
-        'По определению косинуса в '
-        '<span data-inline-latex="\\triangle BCH"></span>:'
-        not in solution_html
+        "По определению косинуса в "
+        '<span data-inline-latex="\\triangle BCH"></span>:' not in solution_html
     )
 
 
@@ -854,9 +934,9 @@ def test_altitude_plan_refreshes_the_previous_solver_version() -> None:
         parent_asset_id=PARENT_ASSET_ID,
     )
 
-    assert [
-        item["transformation_target_id"] for item in refreshed.transformations
-    ] == ["section:solution"]
+    assert [item["transformation_target_id"] for item in refreshed.transformations] == [
+        "section:solution"
+    ]
     assert refreshed.transformations[0]["operation"] == "rewrite"
 
 
@@ -869,7 +949,7 @@ def test_altitude_plan_accepts_current_formula_only_solution() -> None:
         'data-content-version="10" data-solution-title="Решение">'
         '<center><p><span data-inline-latex="CH=20"></span></p></center>'
         '<center><p><span data-inline-latex="\\cos B=\\frac{4}{5}"></span></p></center>'
-        '</section>'
+        "</section>"
     )
 
     plan = build_altitude_repair_plan(
@@ -892,7 +972,7 @@ def test_altitude_plan_rejects_unknown_condition_shape() -> None:
 
     context = _altitude_context(answer="1")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, CH — высота, '
+        "<p>В треугольнике ABC угол C равен 90°, CH — высота, "
         '<span data-inline-latex="AB=13"></span>. Найдите AH.</p>'
     )
 
@@ -924,36 +1004,44 @@ def test_plan_adds_parent_image_solution_and_only_corrects_wrong_answer() -> Non
     ("condition_html", "answer", "formulas"),
     [
         (
-            '<p>В треугольнике ABC угол C равен 90°, '
-            '<span data-inline-latex="\\sin A=0{,}5"></span>, '
-            '<span data-inline-latex="BC=4"></span>. Найдите AB.</p>',
+            (
+                "<p>В треугольнике ABC угол C равен 90°, "
+                '<span data-inline-latex="\\sin A=0{,}5"></span>, '
+                '<span data-inline-latex="BC=4"></span>. Найдите AB.</p>'
+            ),
             "8",
             [
                 r"\sin A=\frac{BC}{AB}\iff AB=\frac{BC}{\sin A}=\frac{4}{0{,}5}=8",
             ],
         ),
         (
-            '<p>В треугольнике ABC угол A равен 90°, '
-            '<span data-inline-latex="\\cos B=\\frac{3}{5}"></span>, '
-            '<span data-inline-latex="AB=12"></span>. Найдите BC.</p>',
+            (
+                "<p>В треугольнике ABC угол A равен 90°, "
+                '<span data-inline-latex="\\cos B=\\frac{3}{5}"></span>, '
+                '<span data-inline-latex="AB=12"></span>. Найдите BC.</p>'
+            ),
             "20",
             [
                 r"\cos B=\frac{AB}{BC}\iff BC=\frac{AB}{\cos B}=\frac{12}{\frac{3}{5}}=20",
             ],
         ),
         (
-            '<p>В треугольнике ABC угол B равен 90°, '
-            '<span data-inline-latex="\\tg C=\\frac{3}{4}"></span>, '
-            '<span data-inline-latex="BC=4"></span>. Найдите AB.</p>',
+            (
+                "<p>В треугольнике ABC угол B равен 90°, "
+                '<span data-inline-latex="\\tg C=\\frac{3}{4}"></span>, '
+                '<span data-inline-latex="BC=4"></span>. Найдите AB.</p>'
+            ),
             "3",
             [
                 r"\tg C=\frac{AB}{BC}\iff AB=BC\cdot\tg C=4\cdot \frac{3}{4}=3",
             ],
         ),
         (
-            '<p>В треугольнике ABC угол A равен 90°, '
-            '<span data-inline-latex="\\ctg C=\\frac{4}{3}"></span>, '
-            '<span data-inline-latex="AB=6"></span>. Найдите AC.</p>',
+            (
+                "<p>В треугольнике ABC угол A равен 90°, "
+                '<span data-inline-latex="\\ctg C=\\frac{4}{3}"></span>, '
+                '<span data-inline-latex="AB=6"></span>. Найдите AC.</p>'
+            ),
             "8",
             [
                 r"\ctg C=\frac{AC}{AB}\iff AC=AB\cdot\ctg C=6\cdot \frac{4}{3}=8",
@@ -985,7 +1073,7 @@ def test_universal_plan_reads_degree_value_from_a_separate_inline_formula() -> N
 
     context = _context(answer="20")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен '
+        "<p>В треугольнике ABC угол C равен "
         '<span data-inline-latex="90^{\\circ}"></span>, '
         '<span data-inline-latex="BC=16"></span>, '
         '<span data-inline-latex="\\sin A=0{,}8"></span>. Найдите AB.</p>'
@@ -999,12 +1087,14 @@ def test_universal_plan_reads_degree_value_from_a_separate_inline_formula() -> N
     ]
 
 
-def test_universal_plan_uses_three_rows_when_known_side_is_outside_tangent_ratio() -> None:
+def test_universal_plan_uses_three_rows_when_known_side_is_outside_tangent_ratio() -> (
+    None
+):
     """Derive a requested leg from the hypotenuse without inventing a prototype."""
 
     context = _context(answer="6")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\tg A=\\frac{3}{4}"></span>, '
         '<span data-inline-latex="AB=10"></span>. Найдите BC.</p>'
     )
@@ -1027,10 +1117,10 @@ def test_universal_plan_names_complementary_sine_before_using_it() -> None:
 
     context = _context(answer="8")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="BC=5"></span>, '
         '<span data-inline-latex="\\cos A=\\frac{8\\sqrt{89}}{89}"></span>. '
-        'Найдите AC.</p>'
+        "Найдите AC.</p>"
     )
 
     plan = build_universal_repair_plan(context, parent_asset_id=PARENT_ASSET_ID)
@@ -1042,7 +1132,9 @@ def test_universal_plan_names_complementary_sine_before_using_it() -> None:
     ]
 
 
-def test_universal_plan_preserves_existing_solution_when_computed_answer_matches() -> None:
+def test_universal_plan_preserves_existing_solution_when_computed_answer_matches() -> (
+    None
+):
     """Allow the shared Helpers stage after validating untouched content."""
 
     context = _context(
@@ -1051,7 +1143,7 @@ def test_universal_plan_preserves_existing_solution_when_computed_answer_matches
         asset_id=PARENT_ASSET_ID,
     )
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\sin A=0{,}5"></span>, '
         '<span data-inline-latex="BC=4"></span>. Найдите AB.</p>'
     )
@@ -1082,7 +1174,7 @@ def test_universal_plan_rewrites_its_legacy_direct_solution_with_iff() -> None:
         asset_id=PARENT_ASSET_ID,
     )
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\sin A=0{,}5"></span>, '
         '<span data-inline-latex="BC=4"></span>. Найдите AB.</p>'
     )
@@ -1104,7 +1196,7 @@ def test_universal_plan_finds_requested_sine_from_two_known_legs() -> None:
 
     context = _context(answer="0,7")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="AC=\\sqrt{51}"></span>, '
         '<span data-inline-latex="BC=7"></span>. Найдите '
         '<span data-inline-latex="\\sin A"></span>.</p>'
@@ -1130,26 +1222,32 @@ def test_universal_plan_finds_requested_sine_from_two_known_legs() -> None:
     ("condition_html", "answer", "formulas"),
     [
         (
-            '<p>В треугольнике ABC угол A равен 90°, '
-            '<span data-inline-latex="AB=3"></span>, '
-            '<span data-inline-latex="BC=5"></span>. Найдите '
-            '<span data-inline-latex="\\cos B"></span>.</p>',
+            (
+                "<p>В треугольнике ABC угол A равен 90°, "
+                '<span data-inline-latex="AB=3"></span>, '
+                '<span data-inline-latex="BC=5"></span>. Найдите '
+                '<span data-inline-latex="\\cos B"></span>.</p>'
+            ),
             "0,6",
             [r"\cos B=\frac{AB}{BC}=\frac{3}{5}=0{,}6"],
         ),
         (
-            '<p>В треугольнике ABC угол B равен 90°, '
-            '<span data-inline-latex="AB=6"></span>, '
-            '<span data-inline-latex="BC=8"></span>. Найдите '
-            '<span data-inline-latex="\\tg C"></span>.</p>',
+            (
+                "<p>В треугольнике ABC угол B равен 90°, "
+                '<span data-inline-latex="AB=6"></span>, '
+                '<span data-inline-latex="BC=8"></span>. Найдите '
+                '<span data-inline-latex="\\tg C"></span>.</p>'
+            ),
             "0,75",
             [r"\tg C=\frac{AB}{BC}=\frac{6}{8}=0{,}75"],
         ),
         (
-            '<p>В треугольнике ABC угол C равен 90°, '
-            '<span data-inline-latex="AC=4"></span>, '
-            '<span data-inline-latex="BC=8"></span>. Найдите '
-            '<span data-inline-latex="\\ctg A"></span>.</p>',
+            (
+                "<p>В треугольнике ABC угол C равен 90°, "
+                '<span data-inline-latex="AC=4"></span>, '
+                '<span data-inline-latex="BC=8"></span>. Найдите '
+                '<span data-inline-latex="\\ctg A"></span>.</p>'
+            ),
             "0,5",
             [r"\ctg A=\frac{AC}{BC}=\frac{4}{8}=0{,}5"],
         ),
@@ -1176,7 +1274,7 @@ def test_universal_plan_rejects_trigonometry_of_the_right_angle() -> None:
 
     context = _context(answer="8", asset_id=PARENT_ASSET_ID)
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол B равен 90°, '
+        "<p>В треугольнике ABC угол B равен 90°, "
         '<span data-inline-latex="\\sin B=1"></span>, '
         '<span data-inline-latex="BC=4"></span>. Найдите AB.</p>'
     )
@@ -1193,7 +1291,7 @@ def test_plan_recognizes_latex_requested_side_and_reduces_decimal_sine() -> None
 
     context = _context(answer="75")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\sin A=0{,}8"></span>, '
         '<span data-inline-latex="AC=15"></span>. Найдите '
         '<span data-inline-latex="AB"></span>.</p>'
@@ -1214,7 +1312,7 @@ def test_plan_reduces_decimal_cosine_before_four_standard_rows() -> None:
 
     context = _context(answer="75")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\cos A=0{,}8"></span>, '
         '<span data-inline-latex="AC=15"></span>. Найдите '
         '<span data-inline-latex="AB"></span>.</p>'
@@ -1239,9 +1337,9 @@ def test_cosine_hypotenuse_rule_accepts_cyrillic_sides_only_for_ab() -> None:
     )
     condition = context["normalized_content"]["sections"][0]
     condition["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, <i>АС</i> = 4, '
+        "<p>В треугольнике ABC угол C равен 90°, <i>АС</i> = 4, "
         '<span data-inline-latex="\\cos A=0{,}5"></span>. '
-        'Найдите <i>АВ</i>.</p>'
+        "Найдите <i>АВ</i>.</p>"
     )
 
     plan = build_repair_plan(
@@ -1279,7 +1377,7 @@ def test_tangent_bc_plan_joins_definition_and_rearrangement_with_iff() -> None:
 
     context = _context(answer="12", asset_id="old-asset")
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, <i>АС</i> = 20, '
+        "<p>В треугольнике ABC угол C равен 90°, <i>АС</i> = 20, "
         '<span data-inline-latex="\\tg A=0{,}75"></span>. '
         'Найдите <var data-math-identifier="BC">BC</var>.</p>'
     )
@@ -1312,10 +1410,10 @@ def test_tangent_bc_plan_rewrites_its_older_two_row_solution() -> None:
             '<section data-content-kind="solution" '
             'data-content-rule="right-triangle-tangent-opposite-cathetus" '
             'data-solution-title="Решение">'
-            '<p>По определению тангенса:</p>'
+            "<p>По определению тангенса:</p>"
             '<center><p><span data-inline-latex="\\tg A=\\frac{BC}{AC}"></span>.</p></center>'
             '<center><p><span data-inline-latex="BC=AC\\tg A=20\\cdot 0{,}75=15"></span>.</p></center>'
-            '</section>'
+            "</section>"
         ),
     )
     context["normalized_content"]["sections"][0]["html"] = (
@@ -1338,18 +1436,24 @@ def test_tangent_bc_plan_rewrites_its_older_two_row_solution() -> None:
     ("condition_html", "message"),
     [
         (
-            '<p><span data-inline-latex="AC=8"></span>, '
-            '<span data-inline-latex="\\tg A=0{,}5"></span>. Найдите AB.</p>',
+            (
+                '<p><span data-inline-latex="AC=8"></span>, '
+                '<span data-inline-latex="\\tg A=0{,}5"></span>. Найдите AB.</p>'
+            ),
             "must request BC",
         ),
         (
-            '<p><span data-inline-latex="AC=8"></span>, '
-            '<span data-inline-latex="\\cos A=0{,}5"></span>. Найдите BC.</p>',
+            (
+                '<p><span data-inline-latex="AC=8"></span>, '
+                '<span data-inline-latex="\\cos A=0{,}5"></span>. Найдите BC.</p>'
+            ),
             "must use tg A",
         ),
         (
-            '<p><span data-inline-latex="AB=8"></span>, '
-            '<span data-inline-latex="\\tg A=0{,}5"></span>. Найдите BC.</p>',
+            (
+                '<p><span data-inline-latex="AB=8"></span>, '
+                '<span data-inline-latex="\\tg A=0{,}5"></span>. Найдите BC.</p>'
+            ),
             "must give AC",
         ),
     ],
@@ -1376,9 +1480,9 @@ def test_tangent_hypotenuse_rule_copies_parent_method_with_definition_first() ->
         asset_id=PARENT_ASSET_ID,
     )
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\tg A=\\frac{33}{4\\sqrt{33}}"></span>, '
-        '<i>АС</i> = 4. Найдите <i>АВ</i>.</p>'
+        "<i>АС</i> = 4. Найдите <i>АВ</i>.</p>"
     )
 
     plan = build_repair_plan(
@@ -1418,7 +1522,7 @@ def test_tangent_hypotenuse_rule_rejects_wrong_condition_shape(
 
     context = _context(answer="7", asset_id=PARENT_ASSET_ID)
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         f'<span data-inline-latex="{trig_latex}"></span>, '
         f'<span data-inline-latex="AC=4"></span>. Найдите {requested}.</p>'
     )
@@ -1471,7 +1575,7 @@ def test_plan_simplifies_and_rewrites_pipeline_radical_cosine() -> None:
         asset_id=PARENT_ASSET_ID,
     )
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\sin A=\\frac{24}{29}"></span>, '
         '<span data-inline-latex="AC=\\sqrt{265}"></span>. Найдите '
         '<var data-math-identifier="AB">AB</var>.</p>'
@@ -1552,7 +1656,7 @@ def test_plan_repairs_ac_to_bc_task_and_removes_solution_image() -> None:
         asset_id="old-asset",
     )
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\sin A=\\frac{\\sqrt{5}}{5}"></span>, '
         '<span data-inline-latex="AC=4"></span>. Найдите '
         '<var data-math-identifier="BC">BC</var>.</p>'
@@ -1575,7 +1679,10 @@ def test_plan_repairs_ac_to_bc_task_and_removes_solution_image() -> None:
     assert "<p><b>Альтернативное решение.</b></p>" in solution_html
     assert "Най\u00adдем ко\u00adси\u00adнус угла <i>А</i>:" in solution_html
     assert "Най\u00adдем длину ги\u00adпо\u00adте\u00adну\u00adзы" in solution_html
-    assert "По те\u00adо\u00adре\u00adме Пи\u00adфа\u00adго\u00adра най\u00adдем длину ка\u00adте\u00adта" in solution_html
+    assert (
+        "По те\u00adо\u00adре\u00adме Пи\u00adфа\u00adго\u00adра най\u00adдем длину ка\u00adте\u00adта"
+        in solution_html
+    )
     assert "<img" not in solution_html
 
 
@@ -1588,7 +1695,7 @@ def test_plan_preserves_complete_ac_to_bc_task_with_scaled_radical_sine() -> Non
         asset_id=PARENT_ASSET_ID,
     )
     context["normalized_content"]["sections"][0]["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="\\sin A=\\frac{2\\sqrt{5}}{5}"></span>, '
         '<span data-inline-latex="AC=17"></span>. Найдите '
         '<var data-math-identifier="BC">BC</var>.</p>'
@@ -1606,7 +1713,7 @@ def test_plan_rejects_condition_outside_the_three_explicit_side_rules() -> None:
     context = _context(answer="4", asset_id=PARENT_ASSET_ID)
     condition = context["normalized_content"]["sections"][0]
     condition["html"] = (
-        '<p>В треугольнике ABC угол C равен 90°, '
+        "<p>В треугольнике ABC угол C равен 90°, "
         '<span data-inline-latex="AB=4"></span>, '
         '<span data-inline-latex="\\sin A=\\frac{3}{5}"></span>. '
         'Найдите <var data-math-identifier="AB">AB</var>.</p>'
@@ -1688,7 +1795,9 @@ class _DryRunGateway:
         assert problem_id == "problem-1"
         return self.context
 
-    def apply_problem_transformations(self, problem_id: str, transformations: list[dict]) -> dict:
+    def apply_problem_transformations(
+        self, problem_id: str, transformations: list[dict]
+    ) -> dict:
         """Fail if a preview ever tries to modify source content."""
 
         raise AssertionError("dry-run must not write transformations")
@@ -1702,7 +1811,11 @@ def test_manifest_preview_discovers_group_and_never_writes() -> None:
         {
             "source_group_id": "group-27238",
             "condition_asset": {"source_asset_id": PARENT_ASSET_ID},
-            "selection": {"skip_source_problem_ids": [], "require_normalized_schema_version": 3},
+            "parent_solution_html": parent_html("27238"),
+            "selection": {
+                "skip_source_problem_ids": [],
+                "require_normalized_schema_version": 3,
+            },
         },
         apply=False,
     )
@@ -1714,6 +1827,10 @@ def test_manifest_preview_discovers_group_and_never_writes() -> None:
             "source_problem_id": "4583",
             "problem_id": "problem-1",
             "status": "planned",
-            "transformations": ["asset:image_1", "section:solution", "section:answer:1"],
+            "transformations": [
+                "asset:image_1",
+                "section:solution",
+                "section:answer:1",
+            ],
         }
     ]

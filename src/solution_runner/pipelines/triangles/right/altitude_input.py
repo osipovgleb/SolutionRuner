@@ -104,7 +104,7 @@ def canonical_condition(html, *, source):
         raise AltitudeSolveError("unsupported complete altitude request")
     requested = _key(request[1])
     setup = re.match(
-        r"[ВB] треугольнике ABC\s*[:,]?\s*(?:угол C равен\s*|\\angle\s*C\s*=\s*)90(?:°|\^\{?\\circ\}?)?",
+        r"[ВB] (?:прямоугольном )?треугольнике ABC\s*[:,]?\s*(?:угол C равен\s*|\\angle\s*C\s*=\s*)90(?:°|\^\{?\\circ\}?)?",
         given,
     )
     if setup is None:

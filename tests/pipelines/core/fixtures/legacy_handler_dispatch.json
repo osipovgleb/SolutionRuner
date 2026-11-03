@@ -946,7 +946,8 @@
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
       "required_trig_name": "cos",
-      "required_requested": "AB"
+      "required_requested": "AB",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {
       "required_trig_name": "cos",
@@ -993,7 +994,8 @@
   "right-triangle-sine": {
     "target": "solution_runner.pipelines.triangles.right.planner:build_repair_plan",
     "kwargs": {
-      "parent_asset_id": "@parent_asset_id"
+      "parent_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
@@ -1003,18 +1005,18 @@
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
       "required_trig_name": "tg",
-      "required_requested": "AB"
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {
-      "required_trig_name": "tg",
-      "required_requested": "AB"
+      "required_trig_name": "tg"
     },
     "requires_parent_condition_asset": true
   },
   "right-triangle-tangent-opposite-cathetus": {
     "target": "solution_runner.pipelines.triangles.right.planner:build_tangent_bc_repair_plan",
     "kwargs": {
-      "parent_asset_id": "@parent_asset_id"
+      "parent_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
@@ -1022,7 +1024,8 @@
   "right-triangle-universal": {
     "target": "solution_runner.pipelines.triangles.right.planner:build_universal_repair_plan",
     "kwargs": {
-      "parent_asset_id": "@parent_asset_id"
+      "parent_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html"
     },
     "constraints": {},
     "requires_parent_condition_asset": true

@@ -35,13 +35,14 @@ def _opposite(name):
     return lengths.get(name, name)
 
 
-def _source(source):
-    if source not in _SOURCES:
+def _source(source, *, sources=None):
+    sources = _SOURCES if sources is None else sources
+    if source not in sources:
         raise AltitudeSolveError("the altitude figure needs a mathematical audit")
     blob = gzip.decompress(
         files(__package__).joinpath("assets/" + source + ".svgz").read_bytes()
     )
-    if hashlib.sha256(blob).hexdigest() != _SOURCES[source]:
+    if hashlib.sha256(blob).hexdigest() != sources[source]:
         raise AltitudeSolveError("the audited altitude figure has changed")
     return blob
 
@@ -366,6 +367,15 @@ def _render(kind, solved, *, answer, mirrored, reversed_segments, image):
     return html
 
 
+def exact_answer(value):
+    if value.is_Rational is not True:
+        raise AltitudeSolveError("an exact finite decimal answer is required")
+    try:
+        return format_answer(Fraction(int(value.p), int(value.q)))
+    except NumberFormatError as exc:
+        raise AltitudeSolveError("an exact finite decimal answer is required") from exc
+
+
 def prepare(context, *, parent_asset_id, parent_solution_html):
     from .planner import RepairPlan, _section
 
@@ -392,14 +402,7 @@ def prepare(context, *, parent_asset_id, parent_solution_html):
         kind = "abc_cos"
     elif not mirrored and (solved.requested != requested or givens != known):
         raise AltitudeSolveError("the child requires a different parent method")
-    if solved.exact_value.is_Rational is not True:
-        raise AltitudeSolveError("an exact finite decimal answer is required")
-    try:
-        answer = format_answer(
-            Fraction(int(solved.exact_value.p), int(solved.exact_value.q))
-        )
-    except NumberFormatError as exc:
-        raise AltitudeSolveError("an exact finite decimal answer is required") from exc
+    answer = exact_answer(solved.exact_value)
     image, keys, changes = _figures(content, parent_asset_id, illustrated)
     html = _render(
         kind,

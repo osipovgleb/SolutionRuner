@@ -85,7 +85,10 @@ HANDLERS = (
     HandlerSpec(
         "right-triangle-cosine-hypotenuse",
         "solution_runner.pipelines.triangles.right.planner:build_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
         options=(("required_trig_name", "cos"), ("required_requested", "AB")),
         constraints=(("required_trig_name", "cos"), ("required_requested", "AB")),
     ),
@@ -116,23 +119,35 @@ HANDLERS = (
     HandlerSpec(
         "right-triangle-sine",
         "solution_runner.pipelines.triangles.right.planner:build_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
     ),
     HandlerSpec(
         "right-triangle-tangent-hypotenuse",
         "solution_runner.pipelines.triangles.right.planner:build_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
-        options=(("required_trig_name", "tg"), ("required_requested", "AB")),
-        constraints=(("required_trig_name", "tg"), ("required_requested", "AB")),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
+        options=(("required_trig_name", "tg"),),
+        constraints=(("required_trig_name", "tg"),),
     ),
     HandlerSpec(
         "right-triangle-tangent-opposite-cathetus",
         "solution_runner.pipelines.triangles.right.planner:build_tangent_bc_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
     ),
     HandlerSpec(
         "right-triangle-universal",
         "solution_runner.pipelines.triangles.right.planner:build_universal_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
     ),
 )

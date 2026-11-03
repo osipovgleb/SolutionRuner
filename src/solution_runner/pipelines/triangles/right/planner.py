@@ -1576,15 +1576,46 @@ def build_elementary_repair_plan(
     return RepairPlan(answer=answer, transformations=tuple(transformations))
 
 
+def _parent_triangle_plan(
+    context,
+    parent_asset_id,
+    parent_solution_html,
+    *,
+    required_trig_name=None,
+    required_requested=None,
+):
+    from .basic_parent import prepare
+
+    try:
+        return prepare(
+            context,
+            parent_asset_id=parent_asset_id,
+            parent_solution_html=parent_solution_html,
+            required_trig_name=required_trig_name,
+            required_requested=required_requested,
+        )
+    except AltitudeSolveError as exc:
+        raise RightTrianglePlanError(str(exc)) from exc
+
+
 def build_repair_plan(
     context: dict[str, Any],
     *,
     parent_asset_id: str,
+    parent_solution_html: str | None = None,
     required_trig_name: str | None = None,
     required_requested: str | None = None,
 ) -> RepairPlan:
     """Return minimal image, solution, and answer transformations for one task."""
 
+    if parent_solution_html is not None:
+        return _parent_triangle_plan(
+            context,
+            parent_asset_id,
+            parent_solution_html,
+            required_trig_name=required_trig_name,
+            required_requested=required_requested,
+        )
     content = context.get("normalized_content")
     if (
         not isinstance(content, dict)
@@ -1706,9 +1737,16 @@ def build_universal_repair_plan(
     context: dict[str, Any],
     *,
     parent_asset_id: str,
+    parent_solution_html: str | None = None,
 ) -> RepairPlan:
     """Return a role-normalized repair for any supported right triangle."""
 
+    if parent_solution_html is not None:
+        return _parent_triangle_plan(
+            context,
+            parent_asset_id,
+            parent_solution_html,
+        )
     content = context.get("normalized_content")
     if (
         not isinstance(content, dict)
@@ -2231,9 +2269,18 @@ def build_tangent_bc_repair_plan(
     context: dict[str, Any],
     *,
     parent_asset_id: str,
+    parent_solution_html: str | None = None,
 ) -> RepairPlan:
     """Return strict AC-and-tangent repairs for tasks requesting BC."""
 
+    if parent_solution_html is not None:
+        return _parent_triangle_plan(
+            context,
+            parent_asset_id,
+            parent_solution_html,
+            required_trig_name="tg",
+            required_requested="BC",
+        )
     content = context.get("normalized_content")
     if (
         not isinstance(content, dict)

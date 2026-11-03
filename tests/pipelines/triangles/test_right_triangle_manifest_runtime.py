@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from io import StringIO
-import json
 from pathlib import Path
+
+from basic_source_cases import parent_html
 
 from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.models import ProblemTarget
@@ -15,7 +17,6 @@ from solution_runner.pipelines.triangles.right.runtime import (
     prepare_manifest,
     run_content_rule_stage,
 )
-
 
 CATALOG_ID = "41bc4d03-40cd-4407-8dea-df76e3f47ea8"
 GROUP_ID = "8b5a2cb7-4831-4355-9d47-e473b8aef65c"
@@ -37,7 +38,7 @@ def _context(
             "key": "condition",
             "section_id": "condition:1",
             "html": (
-                '<p>В треугольнике ABC угол C равен 90°, '
+                "<p>В треугольнике ABC угол C равен 90°, "
                 '<span data-inline-latex="\\sin A=\\frac{3}{5}"></span>, '
                 '<span data-inline-latex="AC=4"></span>. Найдите AB.</p>'
             ),
@@ -53,7 +54,7 @@ def _context(
             {
                 "key": "solution",
                 "section_id": "solution:1",
-                "html": "<p>Проверенное решение.</p>",
+                "html": parent_html("27238"),
             }
         )
     assets = []
@@ -232,7 +233,7 @@ class _ApplyGateway(_PreparationGateway):
                     }
                 ]
             else:
-                key = "solution" if target == "section:solution" else "answer"
+                key = "solution" if target.startswith("section:solution") else "answer"
                 content["sections"] = [
                     section for section in content["sections"] if section["key"] != key
                 ]
@@ -284,7 +285,9 @@ class _CombinedGateway(_ApplyGateway):
     get_source_catalog_children = _PreparationGateway.get_source_catalog_children
 
 
-def test_apply_uses_frozen_records_batches_and_resumes_from_readback(tmp_path: Path) -> None:
+def test_apply_uses_frozen_records_batches_and_resumes_from_readback(
+    tmp_path: Path,
+) -> None:
     """Catch rediscovery, missing checkpoints, or repeated writes on a resumed run."""
 
     prepare_gateway = _PreparationGateway()
@@ -314,7 +317,8 @@ def test_apply_uses_frozen_records_batches_and_resumes_from_readback(tmp_path: P
 
     assert first["failed_count"] == 0
     assert checkpoint.is_file()
-    assert gateway.content_writes == ["child-problem"]
+    assert set(gateway.content_writes) == {"parent-problem", "child-problem"}
+    assert len(gateway.content_writes) == 2
     assert gateway.helpers_ready == set()
     assert second["already_complete_count"] == 2
 
@@ -371,15 +375,16 @@ def test_content_rule_stage_reports_and_continues_after_one_blocked_task(
     )
 
     assert [result.status for result in results] == [
-        "already_complete",
+        "applied",
         "applied",
         "failed",
     ]
-    assert gateway.content_writes == ["child-problem"]
+    assert set(gateway.content_writes) == {"parent-problem", "child-problem"}
+    assert len(gateway.content_writes) == 2
     assert gateway.helpers_ready == set()
     assert (tmp_path / "prepared-manifest.json").is_file()
     assert (tmp_path / "apply-results.json").is_file()
-    assert "SOLUTION ALREADY COMPLETE" in console.getvalue()
+    assert console.getvalue().count("SOLUTION WRITTEN") == 2
     assert "SOLUTION WRITTEN" in console.getvalue()
     assert "SOLUTION FAILED" in console.getvalue()
     assert '"source_problem_id": "4636"' in internal.getvalue()
@@ -398,7 +403,7 @@ def test_group_27243_runtime_freezes_the_strict_tangent_bc_solution(
             "key": "condition",
             "section_id": "condition:1",
             "html": (
-                '<p>В треугольнике ABC угол C равен 90°, '
+                "<p>В треугольнике ABC угол C равен 90°, "
                 '<span data-inline-latex="AC=8"></span>, '
                 '<span data-inline-latex="\\tg A=0{,}5"></span>. '
                 'Найдите <span data-inline-latex="BC"></span>.</p>'
@@ -410,6 +415,9 @@ def test_group_27243_runtime_freezes_the_strict_tangent_bc_solution(
             "html": '<p><span data-effect="spaced">3</span></p>',
         },
     ]
+    content["sections"].append(
+        {"key": "solution", "section_id": "solution:1", "html": parent_html("27243")}
+    )
     target = ProblemTarget(
         problem_id="parent-problem",
         source_problem_id="27243",
@@ -444,10 +452,9 @@ def test_group_27243_runtime_freezes_the_strict_tangent_bc_solution(
     solution = next(
         item
         for item in transformations
-        if item["transformation_target_id"] == "section:solution"
+        if item["transformation_target_id"].startswith("section:solution")
     )
     assert results[0].status == "planned"
     assert manifest["content_rule_key"] == "right-triangle-tangent-opposite-cathetus"
     assert manifest["records"][0]["expected_answer"] == "4"
-    assert r"\tg A=\frac{BC}{AC}" in solution["value"]["html"]
-    assert r"BC=AC\tg A=8\cdot 0{,}5=4" in solution["value"]["html"]
+    assert r"BC=AC\tg A=(8)\cdot(0{,}5)=4" in solution["value"]["html"]
