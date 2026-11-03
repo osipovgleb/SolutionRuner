@@ -22,7 +22,7 @@ def test_every_legacy_route_and_argument_is_preserved(key, monkeypatch):
     assert handler.target == expected["target"]
     assert dict(handler.constraints) == expected["constraints"]
     assert handler.requires_parent_condition_asset == expected["requires_parent_condition_asset"]
-    assert handler.parent_from_group_listing == key.startswith("general-triangle-")
+    assert handler.parent_from_group_listing == expected.get("parent_from_group_listing", key.startswith("general-triangle-"))
     assert handler.inspect_current_asset_type == (key in {
         "vector-27707-rectangle-diagonal-length", "vector-27708-rectangle-vector-sum-length",
         "vector-27718-rhombus-diagonal-difference",

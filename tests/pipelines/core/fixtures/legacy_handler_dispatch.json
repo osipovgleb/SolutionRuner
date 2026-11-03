@@ -1038,12 +1038,17 @@
     "requires_parent_condition_asset": true
   },
   "parallelogram-665285-midpoint-trapezoid-area": {
-    "target": "solution_runner.pipelines.quadrilaterals.parallelogram.group_665285_planner:build_repair_plan",
+    "target": "solution_runner.pipelines.quadrilaterals.parallelogram.midpoint_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "parallelogram-665285-midpoint-trapezoid-area"
     },
     "constraints": {},
-    "requires_parent_condition_asset": true
+    "requires_parent_condition_asset": true,
+    "parent_from_group_listing": true
   },
   "right-triangle-642289-sine-opposite": {
     "target": "solution_runner.pipelines.triangles.right.group_642289_planner:build_repair_plan",

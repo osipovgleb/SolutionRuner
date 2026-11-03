@@ -1,0 +1,1976 @@
+{
+  "groups": [
+    {
+      "key": "317338",
+      "size": 107,
+      "group_uuid": "07a0cb21-4434-46af-b91b-112adf950a2a",
+      "rule": "parallelogram-midpoint-trapezoid-two-methods"
+    },
+    {
+      "key": "319056",
+      "size": 50,
+      "group_uuid": "acad8e12-9935-4d79-9a1f-3aface7f792a",
+      "rule": "parallelogram-midpoint-varignon-area"
+    },
+    {
+      "key": "319057",
+      "size": 52,
+      "group_uuid": "10245d06-828f-44a3-a575-e92fef7a32fc",
+      "rule": "parallelogram-midpoint-triangle-two-methods"
+    },
+    {
+      "key": "665285",
+      "size": 4,
+      "group_uuid": "f43579ce-3c4e-4b2e-97a0-cab36f034bef",
+      "rule": "parallelogram-665285-midpoint-trapezoid-area"
+    }
+  ],
+  "cases": [
+    {
+      "group": "317338",
+      "task": "317338",
+      "context": {
+        "problem_id": "e528bb43-560a-416d-b770-be3a0be54dc2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:41.783524+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/026445da-c5cc-421d-9617-99a9526428a5",
+                "html": "<img alt=\"\" data-asset-id=\"026445da-c5cc-421d-9617-99a9526428a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/026445da-c5cc-421d-9617-99a9526428a5\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "026445da-c5cc-421d-9617-99a9526428a5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:41.783524+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/66e2ea05-1d95-4964-8611-efc5342d8806",
+                "html": "<img alt=\"\" data-asset-id=\"66e2ea05-1d95-4964-8611-efc5342d8806\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/66e2ea05-1d95-4964-8611-efc5342d8806\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "66e2ea05-1d95-4964-8611-efc5342d8806",
+                "position": 3,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:49:10.527425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"026445da-c5cc-421d-9617-99a9526428a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты:  <span data-inline-latex=\"S_{\\mathrm{п}}=AD\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{ABCE}=\\frac{1}{2}(AE+BC)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AD+AD)\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 189=141{,}75\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p><img alt=\"\" data-asset-id=\"66e2ea05-1d95-4964-8611-efc5342d8806\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Диа­го­наль <var data-math-identifier=\"AC\">AC</var> раз­би­ва­ет па­рал­ле­ло­грамм <var data-math-identifier=\"ABCD\">ABCD</var> на два рав­ных тре­уголь­ни­ка, зна­чит,</p><center><p> <span data-inline-latex=\"S_{ABC}=S_{ACD}=\\frac{S_{ABCD}}{2}\"></span> ,  </p></center><p>Ме­ди­а­на <var data-math-identifier=\"CE\">CE</var> раз­би­ва­ет тре­уголь­ник <var data-math-identifier=\"ACD\">ACD</var> на два рав­но­ве­ли­ких тре­уголь­ни­ка, от­ку­да</p><center><p> <span data-inline-latex=\"S_{CDE}=\\frac{S_{ACD}}{2}=\\frac{S_{ABCD}}{4}\"></span> . </p></center><p>Тогда для тра­пе­ции <var data-math-identifier=\"ABCE\">ABCE</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"S_{ABCE}=S_{ABCD}-S_{CDE}=S_{ABCD}-\\frac{S_{ABCD}}{4}=189-\\frac{189}{4}=141{,}75\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1",
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:10.527425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:10.527425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:49:10.527425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:49:10.527425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:49:10.527425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/026445da-c5cc-421d-9617-99a9526428a5",
+              "kind": "ordinary_image",
+              "asset_id": "026445da-c5cc-421d-9617-99a9526428a5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/66e2ea05-1d95-4964-8611-efc5342d8806",
+              "kind": "ordinary_image",
+              "asset_id": "66e2ea05-1d95-4964-8611-efc5342d8806",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 189. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"AECB\">AECB</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">141,75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"026445da-c5cc-421d-9617-99a9526428a5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/026445da-c5cc-421d-9617-99a9526428a5\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты:  <span data-inline-latex=\"S_{\\mathrm{п}}=AD\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{ABCE}=\\frac{1}{2}(AE+BC)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AD+AD)\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 189=141{,}75\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p><img alt=\"\" data-asset-id=\"66e2ea05-1d95-4964-8611-efc5342d8806\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/66e2ea05-1d95-4964-8611-efc5342d8806\"/></p><p>Диа­го­наль <var data-math-identifier=\"AC\">AC</var> раз­би­ва­ет па­рал­ле­ло­грамм <var data-math-identifier=\"ABCD\">ABCD</var> на два рав­ных тре­уголь­ни­ка, зна­чит,</p><center><p> <span data-inline-latex=\"S_{ABC}=S_{ACD}=\\frac{S_{ABCD}}{2}\"></span> ,  </p></center><p>Ме­ди­а­на <var data-math-identifier=\"CE\">CE</var> раз­би­ва­ет тре­уголь­ник <var data-math-identifier=\"ACD\">ACD</var> на два рав­но­ве­ли­ких тре­уголь­ни­ка, от­ку­да</p><center><p> <span data-inline-latex=\"S_{CDE}=\\frac{S_{ACD}}{2}=\\frac{S_{ABCD}}{4}\"></span> . </p></center><p>Тогда для тра­пе­ции <var data-math-identifier=\"ABCE\">ABCE</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"S_{ABCE}=S_{ABCD}-S_{CDE}=S_{ABCD}-\\frac{S_{ABCD}}{4}=189-\\frac{189}{4}=141{,}75\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1",
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "317338",
+      "task": "317439",
+      "context": {
+        "problem_id": "c9fc083b-5dde-47f2-921b-eb470b3a5fb5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:25.483225+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/4ecd1f86-80ad-4742-9661-949724aeaac1",
+                "html": "<img alt=\"\" data-asset-id=\"4ecd1f86-80ad-4742-9661-949724aeaac1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4ecd1f86-80ad-4742-9661-949724aeaac1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "4ecd1f86-80ad-4742-9661-949724aeaac1",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:48:47.160767+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"4ecd1f86-80ad-4742-9661-949724aeaac1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма  равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты:  <span data-inline-latex=\"S_{\\mathrm{п}}=AB\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{EBCD}=\\frac{1}{2}(EB+CD)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AB+AB)\\cdot h=\\frac{3}{4}AB\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 123=92{,}25\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:48:47.160767+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:48:47.160767+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/4ecd1f86-80ad-4742-9661-949724aeaac1",
+              "kind": "ordinary_image",
+              "asset_id": "4ecd1f86-80ad-4742-9661-949724aeaac1",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 123. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AB\">AB</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"EBCD\">EBCD</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">92,25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"4ecd1f86-80ad-4742-9661-949724aeaac1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4ecd1f86-80ad-4742-9661-949724aeaac1\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма  равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты:  <span data-inline-latex=\"S_{\\mathrm{п}}=AB\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{EBCD}=\\frac{1}{2}(EB+CD)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AB+AB)\\cdot h=\\frac{3}{4}AB\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 123=92{,}25\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "317338",
+      "task": "530448",
+      "context": {
+        "problem_id": "b88937a0-9950-44d6-8059-59b565ab1774",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:25.340533+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f",
+                "html": "<img alt=\"\" data-asset-id=\"17166b67-74e2-4ed6-8e78-201cc0d2152f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "17166b67-74e2-4ed6-8e78-201cc0d2152f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:14:25.340533+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7ea4264e-b440-4b12-b08a-c76ae6052b94",
+                "html": "<img alt=\"\" data-asset-id=\"7ea4264e-b440-4b12-b08a-c76ae6052b94\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7ea4264e-b440-4b12-b08a-c76ae6052b94\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7ea4264e-b440-4b12-b08a-c76ae6052b94",
+                "position": 3,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:48:46.963707+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"17166b67-74e2-4ed6-8e78-201cc0d2152f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты: <span data-inline-latex=\"S_{\\mathrm{п}}=AB\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{ABED}=\\frac{1}{2}(AB+ED)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AB+AB)\\cdot h=\\frac{3}{4}AB\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 20=15\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p><img alt=\"\" data-asset-id=\"7ea4264e-b440-4b12-b08a-c76ae6052b94\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Диа­го­наль <var data-math-identifier=\"BD\">BD</var> раз­би­ва­ет па­рал­ле­ло­грамм <var data-math-identifier=\"ABCD\">ABCD</var> на два рав­ных тре­уголь­ни­ка, зна­чит,</p><center><p> <span data-inline-latex=\"S_{ABD}=S_{BCD}=\\frac{S_{ABCD}}{2}\"></span> .  </p></center><p>Ме­ди­а­на <var data-math-identifier=\"BE\">BE</var> раз­би­ва­ет тре­уголь­ник <var data-math-identifier=\"BCD\">BCD</var> на два рав­но­ве­ли­ких тре­уголь­ни­ка, от­ку­да</p><center><p> <span data-inline-latex=\"S_{BCE}=\\frac{S_{BCD}}{2}=\\frac{S_{ABCD}}{4}\"></span> . </p></center><p>Тогда для тра­пе­ции <var data-math-identifier=\"ABED\">ABED</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"S_{ABED}=S_{ABCD}-S_{BCE}=S_{ABCD}-\\frac{S_{ABCD}}{4}=20-\\frac{20}{4}=15\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1",
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:48:46.963707+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:48:46.963707+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:48:46.963707+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:48:46.963707+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:48:46.963707+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f",
+              "kind": "ordinary_image",
+              "asset_id": "17166b67-74e2-4ed6-8e78-201cc0d2152f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/7ea4264e-b440-4b12-b08a-c76ae6052b94",
+              "kind": "ordinary_image",
+              "asset_id": "7ea4264e-b440-4b12-b08a-c76ae6052b94",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 20. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"CD\">CD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"ABED\">ABED</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"17166b67-74e2-4ed6-8e78-201cc0d2152f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты: <span data-inline-latex=\"S_{\\mathrm{п}}=AB\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{ABED}=\\frac{1}{2}(AB+ED)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AB+AB)\\cdot h=\\frac{3}{4}AB\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 20=15\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p><img alt=\"\" data-asset-id=\"7ea4264e-b440-4b12-b08a-c76ae6052b94\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/7ea4264e-b440-4b12-b08a-c76ae6052b94\"/></p><p>Диа­го­наль <var data-math-identifier=\"BD\">BD</var> раз­би­ва­ет па­рал­ле­ло­грамм <var data-math-identifier=\"ABCD\">ABCD</var> на два рав­ных тре­уголь­ни­ка, зна­чит,</p><center><p> <span data-inline-latex=\"S_{ABD}=S_{BCD}=\\frac{S_{ABCD}}{2}\"></span> .  </p></center><p>Ме­ди­а­на <var data-math-identifier=\"BE\">BE</var> раз­би­ва­ет тре­уголь­ник <var data-math-identifier=\"BCD\">BCD</var> на два рав­но­ве­ли­ких тре­уголь­ни­ка, от­ку­да</p><center><p> <span data-inline-latex=\"S_{BCE}=\\frac{S_{BCD}}{2}=\\frac{S_{ABCD}}{4}\"></span> . </p></center><p>Тогда для тра­пе­ции <var data-math-identifier=\"ABED\">ABED</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"S_{ABED}=S_{ABCD}-S_{BCE}=S_{ABCD}-\\frac{S_{ABCD}}{4}=20-\\frac{20}{4}=15\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1",
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "317338",
+      "task": "530550",
+      "context": {
+        "problem_id": "d43f3de2-1926-451b-93f8-23c40e94b872",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:43.510900+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f",
+                "html": "<img alt=\"\" data-asset-id=\"17166b67-74e2-4ed6-8e78-201cc0d2152f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "17166b67-74e2-4ed6-8e78-201cc0d2152f",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:10.418678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"17166b67-74e2-4ed6-8e78-201cc0d2152f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты: <span data-inline-latex=\"S_{\\mathrm{п}}=AB\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{ABED}=\\frac{1}{2}(AB+ED)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AB+AB)\\cdot h=\\frac{3}{4}AB\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 36=27\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:10.418678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:10.418678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f",
+              "kind": "ordinary_image",
+              "asset_id": "17166b67-74e2-4ed6-8e78-201cc0d2152f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 36. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"CD\">CD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"ABED\">ABED</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">27</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"17166b67-74e2-4ed6-8e78-201cc0d2152f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/17166b67-74e2-4ed6-8e78-201cc0d2152f\"/></p><p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты: <span data-inline-latex=\"S_{\\mathrm{п}}=AB\\cdot h\"></span>. Пло­щадь тра­пе­ции равна по­лу­сум­ме длин ос­но­ва­ний, умно­жен­ной на длину вы­со­ты. Вы­ра­зим пло­щадь тра­пе­ции через пло­щадь па­рал­ле­ло­грам­ма:</p><center><p><span> <span data-inline-latex=\"S_{ABED}=\\frac{1}{2}(AB+ED)\\cdot h=\\frac{1}{2}(\\frac{1}{2}AB+AB)\\cdot h=\\frac{3}{4}AB\\cdot h=\\frac{3}{4}S_{ABCD}=\\frac{3}{4}\\cdot 36=27\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319056",
+      "task": "319056",
+      "context": {
+        "problem_id": "e7bb1f2e-26ca-42a7-aa51-20bdcb62910f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:10:59.110081+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ccc9565b-f51d-483b-8f52-550bae30a7db",
+                "html": "<img alt=\"\" data-asset-id=\"ccc9565b-f51d-483b-8f52-550bae30a7db\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ccc9565b-f51d-483b-8f52-550bae30a7db\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ccc9565b-f51d-483b-8f52-550bae30a7db",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:37.809443+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 153. Най­ди­те пло­щадь <nobr>па­рал­ле­ло­грам­ма  <span data-inline-latex=\"A'B'C'D'\"></span>,</nobr> вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:37.809443+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ccc9565b-f51d-483b-8f52-550bae30a7db\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Че­ты­рех­уголь­ник, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон про­из­воль­но­го че­ты­рех­уголь­ни­ка, яв­ля­ет­ся па­рал­ле­ло­грам­мом, пло­щадь ко­то­ро­го равна по­ло­ви­не пло­ща­ди ис­ход­но­го че­ты­рех­уголь­ни­ка (см. <a href=\"https://www.treugolniki.ru/teorema-varinona/\" rel=\"noreferrer noopener\" target=\"_blank\">па­рал­ле­ло­грамм Ва­ри­ньо­на</a>). </p><p>Сле­до­ва­тель­но, его пло­щадь равна 76,5.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:37.809443+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ccc9565b-f51d-483b-8f52-550bae30a7db",
+              "kind": "ordinary_image",
+              "asset_id": "ccc9565b-f51d-483b-8f52-550bae30a7db",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 153. Най­ди­те пло­щадь <nobr>па­рал­ле­ло­грам­ма  <span data-inline-latex=\"A'B'C'D'\"></span>,</nobr> вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">76,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"ccc9565b-f51d-483b-8f52-550bae30a7db\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ccc9565b-f51d-483b-8f52-550bae30a7db\"/></p><p>Че­ты­рех­уголь­ник, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон про­из­воль­но­го че­ты­рех­уголь­ни­ка, яв­ля­ет­ся па­рал­ле­ло­грам­мом, пло­щадь ко­то­ро­го равна по­ло­ви­не пло­ща­ди ис­ход­но­го че­ты­рех­уголь­ни­ка (см. <a href=\"https://www.treugolniki.ru/teorema-varinona/\" rel=\"noreferrer noopener\" target=\"_blank\">па­рал­ле­ло­грамм Ва­ри­ньо­на</a>). </p><p>Сле­до­ва­тель­но, его пло­щадь равна 76,5.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319056",
+      "task": "319059",
+      "context": {
+        "problem_id": "9ecf5b54-bb5d-485b-8d4d-4aeb01ad734e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:10:55.257273+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ccc9565b-f51d-483b-8f52-550bae30a7db",
+                "html": "<img alt=\"\" data-asset-id=\"ccc9565b-f51d-483b-8f52-550bae30a7db\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ccc9565b-f51d-483b-8f52-550bae30a7db\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ccc9565b-f51d-483b-8f52-550bae30a7db",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:37.425464+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 14. Най­ди­те пло­щадь <nobr>па­рал­ле­ло­грам­ма  <span data-inline-latex=\"A'B'C'D'\"></span>,</nobr> вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:37.425464+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ccc9565b-f51d-483b-8f52-550bae30a7db\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Че­ты­рех­уголь­ник, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон про­из­воль­но­го че­ты­рех­уголь­ни­ка, яв­ля­ет­ся па­рал­ле­ло­грам­мом, пло­щадь ко­то­ро­го равна по­ло­ви­не пло­ща­ди ис­ход­но­го че­ты­рех­уголь­ни­ка (см. <a href=\"http://www.treugolniki.ru/teorema-varinona/\" rel=\"noreferrer noopener\" target=\"_blank\">па­рал­ле­ло­грамм Ва­ри­ньо­на</a>).</p><p>Сле­до­ва­тель­но, его пло­щадь равна 7.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:37.425464+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ccc9565b-f51d-483b-8f52-550bae30a7db",
+              "kind": "ordinary_image",
+              "asset_id": "ccc9565b-f51d-483b-8f52-550bae30a7db",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 14. Най­ди­те пло­щадь <nobr>па­рал­ле­ло­грам­ма  <span data-inline-latex=\"A'B'C'D'\"></span>,</nobr> вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"ccc9565b-f51d-483b-8f52-550bae30a7db\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ccc9565b-f51d-483b-8f52-550bae30a7db\"/></p><p>Че­ты­рех­уголь­ник, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон про­из­воль­но­го че­ты­рех­уголь­ни­ка, яв­ля­ет­ся па­рал­ле­ло­грам­мом, пло­щадь ко­то­ро­го равна по­ло­ви­не пло­ща­ди ис­ход­но­го че­ты­рех­уголь­ни­ка (см. <a href=\"http://www.treugolniki.ru/teorema-varinona/\" rel=\"noreferrer noopener\" target=\"_blank\">па­рал­ле­ло­грамм Ва­ри­ньо­на</a>).</p><p>Сле­до­ва­тель­но, его пло­щадь равна 7.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319056",
+      "task": "319061",
+      "context": {
+        "problem_id": "04779933-4a30-40a3-bb39-a7bc6a8e5a5a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T21:46:20.448767+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 116. Най­ди­те пло­щадь па­рал­ле­ло­грам­ма <span data-inline-latex=\"A'B'C'D'\"></span>, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T21:46:20.448767+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 116. Най­ди­те пло­щадь па­рал­ле­ло­грам­ма <span data-inline-latex=\"A'B'C'D'\"></span>, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">58</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319056",
+      "task": "319063",
+      "context": {
+        "problem_id": "cd500949-56b1-4d50-9d6a-d529cd6ab34a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T21:46:29.908745+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 156. Най­ди­те пло­щадь па­рал­ле­ло­грам­ма <span data-inline-latex=\"A'B'C'D'\"></span>, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T21:46:29.908745+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 156. Най­ди­те пло­щадь па­рал­ле­ло­грам­ма <span data-inline-latex=\"A'B'C'D'\"></span>, вер­ши­на­ми ко­то­ро­го яв­ля­ют­ся се­ре­ди­ны сто­рон дан­но­го па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">39</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319057",
+      "task": "319057",
+      "context": {
+        "problem_id": "391f385d-6b9a-451e-bf05-78ffb6e1483b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:23.782660+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/40db11b0-156b-414f-a046-ca6e41b37516",
+                "html": "<img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/40db11b0-156b-414f-a046-ca6e41b37516\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "40db11b0-156b-414f-a046-ca6e41b37516",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:45.186201+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"AH\">AH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"A\">A</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p><span> <span data-inline-latex=\"S_{ADE}=\\frac{1}{2}AH\\cdot DE=\\frac{1}{2}AH\\cdot \\frac{1}{2}DC=\\frac{1}{4}AH\\cdot DC=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 176=44\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p>Диа­го­наль <var data-math-identifier=\"AC\">AC</var> делит па­рал­ле­ло­грамм на два рав­ных тре­уголь­ни­ка, пло­щадь каж­до­го из ко­то­рых равна по­ло­ви­не пло­ща­ди па­рал­ле­ло­грам­ма. Ме­ди­а­на <var data-math-identifier=\"AE\">AE</var> делит тре­уголь­ник <var data-math-identifier=\"ADC\">ADC</var> на два рав­но­ве­ли­ких тре­уголь­ни­ка. Сле­до­ва­тель­но, пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> равна чет­вер­ти пло­ща­ди па­рал­ле­ло­грам­ма:</p><center><p> <span data-inline-latex=\"S_{ADE}=\\frac{S_{ABCD}}{4}=\\frac{176}{4}=44\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:45.186201+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:54:45.186201+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/40db11b0-156b-414f-a046-ca6e41b37516",
+              "kind": "ordinary_image",
+              "asset_id": "40db11b0-156b-414f-a046-ca6e41b37516",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 176. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"CD\">CD</var>. Най­ди­те пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">44</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=3897089\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ по математике Санкт-Петербург 2014. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/40db11b0-156b-414f-a046-ca6e41b37516\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"AH\">AH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"A\">A</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p><span> <span data-inline-latex=\"S_{ADE}=\\frac{1}{2}AH\\cdot DE=\\frac{1}{2}AH\\cdot \\frac{1}{2}DC=\\frac{1}{4}AH\\cdot DC=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 176=44\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p>Диа­го­наль <var data-math-identifier=\"AC\">AC</var> делит па­рал­ле­ло­грамм на два рав­ных тре­уголь­ни­ка, пло­щадь каж­до­го из ко­то­рых равна по­ло­ви­не пло­ща­ди па­рал­ле­ло­грам­ма. Ме­ди­а­на <var data-math-identifier=\"AE\">AE</var> делит тре­уголь­ник <var data-math-identifier=\"ADC\">ADC</var> на два рав­но­ве­ли­ких тре­уголь­ни­ка. Сле­до­ва­тель­но, пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> равна чет­вер­ти пло­ща­ди па­рал­ле­ло­грам­ма:</p><center><p> <span data-inline-latex=\"S_{ADE}=\\frac{S_{ABCD}}{4}=\\frac{176}{4}=44\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319057",
+      "task": "319157",
+      "context": {
+        "problem_id": "8afb850f-f010-4982-b2d5-58c086f93f65",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:27.092414+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/40db11b0-156b-414f-a046-ca6e41b37516",
+                "html": "<img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/40db11b0-156b-414f-a046-ca6e41b37516\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "40db11b0-156b-414f-a046-ca6e41b37516",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:46.101345+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"AH\">AH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"A\">A</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p><span> <span data-inline-latex=\"S_{ADE}=\\frac{1}{2}AH\\cdot DE=\\frac{1}{2}AH\\cdot \\frac{1}{2}DC=\\frac{1}{4}AH\\cdot DC=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 155=38{,}75\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:46.101345+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/40db11b0-156b-414f-a046-ca6e41b37516",
+              "kind": "ordinary_image",
+              "asset_id": "40db11b0-156b-414f-a046-ca6e41b37516",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 155. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"CD\">CD</var>. Най­ди­те пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">38,75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/40db11b0-156b-414f-a046-ca6e41b37516\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"AH\">AH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"A\">A</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p><span> <span data-inline-latex=\"S_{ADE}=\\frac{1}{2}AH\\cdot DE=\\frac{1}{2}AH\\cdot \\frac{1}{2}DC=\\frac{1}{4}AH\\cdot DC=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 155=38{,}75\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319057",
+      "task": "319171",
+      "context": {
+        "problem_id": "812a44a9-b1b5-4ab5-b49e-1d11361371b0",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:27.031395+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/40db11b0-156b-414f-a046-ca6e41b37516",
+                "html": "<img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/40db11b0-156b-414f-a046-ca6e41b37516\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "40db11b0-156b-414f-a046-ca6e41b37516",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:46.019313+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"AH\">AH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"A\">A</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p><span> <span data-inline-latex=\"S_{ADE}=\\frac{1}{2}AH\\cdot DE=\\frac{1}{2}AH\\cdot \\frac{1}{2}DC=\\frac{1}{4}AH\\cdot DC=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 117=29{,}25\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:46.019313+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/40db11b0-156b-414f-a046-ca6e41b37516",
+              "kind": "ordinary_image",
+              "asset_id": "40db11b0-156b-414f-a046-ca6e41b37516",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 117. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"CD\">CD</var>. Най­ди­те пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">29,25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"40db11b0-156b-414f-a046-ca6e41b37516\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/40db11b0-156b-414f-a046-ca6e41b37516\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"AH\">AH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"A\">A</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ADE\">ADE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p><span> <span data-inline-latex=\"S_{ADE}=\\frac{1}{2}AH\\cdot DE=\\frac{1}{2}AH\\cdot \\frac{1}{2}DC=\\frac{1}{4}AH\\cdot DC=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 117=29{,}25\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "319057",
+      "task": "637806",
+      "context": {
+        "problem_id": "534442ba-02ea-4f86-a03d-cbb75984208b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:19.973975+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b084d4ab-37d1-48f6-87f7-98875970f979",
+                "html": "<img alt=\"\" data-asset-id=\"b084d4ab-37d1-48f6-87f7-98875970f979\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b084d4ab-37d1-48f6-87f7-98875970f979\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b084d4ab-37d1-48f6-87f7-98875970f979",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:14:19.973975+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/313e1a07-bef2-45c4-ab67-409bc153050f",
+                "html": "<img alt=\"\" data-asset-id=\"313e1a07-bef2-45c4-ab67-409bc153050f\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/313e1a07-bef2-45c4-ab67-409bc153050f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "313e1a07-bef2-45c4-ab67-409bc153050f",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:54:45.237179+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b084d4ab-37d1-48f6-87f7-98875970f979\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 96. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABE\">ABE</var>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:45.237179+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"313e1a07-bef2-45c4-ab67-409bc153050f\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"BH\">BH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"B\">B</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"AD\">AD</var> за точку <var data-math-identifier=\"A\">A</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABE\">ABE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p> <span data-inline-latex=\"S_{ABE}=\\frac{1}{2}BH\\cdot AE=\\frac{1}{2}BH\\cdot \\frac{1}{2}AD=\\frac{1}{4}BH\\cdot AD=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 96=24\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:45.237179+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b084d4ab-37d1-48f6-87f7-98875970f979",
+              "kind": "ordinary_image",
+              "asset_id": "b084d4ab-37d1-48f6-87f7-98875970f979",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/313e1a07-bef2-45c4-ab67-409bc153050f",
+              "kind": "ordinary_image",
+              "asset_id": "313e1a07-bef2-45c4-ab67-409bc153050f",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b084d4ab-37d1-48f6-87f7-98875970f979\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b084d4ab-37d1-48f6-87f7-98875970f979\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 96. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABE\">ABE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"313e1a07-bef2-45c4-ab67-409bc153050f\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/313e1a07-bef2-45c4-ab67-409bc153050f\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"BH\">BH</var>  — пер­пен­ди­ку­ляр, опу­щен­ный из точки <var data-math-identifier=\"B\">B</var> на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"AD\">AD</var> за точку <var data-math-identifier=\"A\">A</var>. Вы­ра­зим пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"ABE\">ABE</var> через пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var>:</p><center><p> <span data-inline-latex=\"S_{ABE}=\\frac{1}{2}BH\\cdot AE=\\frac{1}{2}BH\\cdot \\frac{1}{2}AD=\\frac{1}{4}BH\\cdot AD=\\frac{1}{4}S_{ABCD}=\\frac{1}{4}\\cdot 96=24\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "665285",
+      "task": "665285",
+      "context": {
+        "problem_id": "e71d9d1b-c5d4-490a-8641-c9338191f3b8",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:39.180219+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "html": "<img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:39.958357+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 24. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:39.958357+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=24\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 24=18\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:39.958357+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:39.958357+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "kind": "ordinary_image",
+              "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 24. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=77409203\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2025 по математике. Профильный уровень</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=24\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 24=18\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "665285",
+      "task": "676889",
+      "context": {
+        "problem_id": "00fc42c0-39a9-4514-a1ae-4efd803c2c96",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:14.083945+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "html": "<img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:44.018292+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 12. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:44.018292+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=12\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 12=9\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:44.018292+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:44.018292+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "kind": "ordinary_image",
+              "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 12. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=82240629\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Досрочная волна 28.03.2025. Центр</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=12\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 12=9\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "665285",
+      "task": "677159",
+      "context": {
+        "problem_id": "5c4080a3-d261-4b2b-a3b8-71304c7b6700",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:17.248409+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "html": "<img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:45.860601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 70. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:45.860601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=70\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 70=52{,}5\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:45.860601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:45.860601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "kind": "ordinary_image",
+              "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 70. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">52,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=82258894\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Досрочная волна 28.03.2025. Разные города. Подборка Профиматики</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=70\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 70=52{,}5\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "665285",
+      "task": "680500",
+      "context": {
+        "problem_id": "8cb009ef-daea-4b73-beef-a9474f3c9345",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:32.375326+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "html": "<img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:46.308915+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 28. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:46.308915+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=28\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 28=21\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:46.308915+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:46.308915+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "kind": "ordinary_image",
+              "asset_id": "f751e689-ec08-4bc6-9de7-d55c46285ba8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f751e689-ec08-4bc6-9de7-d55c46285ba8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f751e689-ec08-4bc6-9de7-d55c46285ba8\"/>Пло­щадь па­рал­ле­ло­грам­ма <var data-math-identifier=\"ABCD\">ABCD</var> равна 28. Точка <var data-math-identifier=\"E\">E</var>  — се­ре­ди­на сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Най­ди­те пло­щадь тра­пе­ции <var data-math-identifier=\"BCDE\">BCDE</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">21</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84138204\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Досрочная волна 28.03.2025. Вариант ФИПИ</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>h</i>  — вы­со­та па­рал­ле­ло­грам­ма <i>ABCD</i>, тогда его пло­щадь равна  <span data-inline-latex=\"S_{ABCD}=AD\\cdot h=28\"></span>. Пло­щадь тра­пе­ции <i>BCDE</i> равна</p><center><p> <span data-inline-latex=\"S_{BCDE}=\\frac{ED+BC}{2}\\cdot h=\\frac{\\frac{3}{2}AD}{2}\\cdot h=\\frac{3}{4}AD\\cdot h=\\frac{3}{4}\\cdot 28=21\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

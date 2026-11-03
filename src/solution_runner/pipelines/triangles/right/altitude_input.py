@@ -44,7 +44,7 @@ def _value(text):
     return raw.replace(".", "{,}"), rest
 
 
-def _text(html, source, *, labels="ABCH"):
+def _text(html, source, *, labels="ABCH", extra_identifiers=()):
     alphabet = labels + "".join(chr(k) for k, v in _LABELS.items() if v in labels)
     soup = BeautifulSoup(html, "html.parser")
     images = soup.find_all("img")
@@ -76,7 +76,10 @@ def _text(html, source, *, labels="ABCH"):
             if (
                 set(tag.attrs) != {"data-math-identifier"}
                 or tag["data-math-identifier"].translate(_LABELS) != value
-                or not re.fullmatch(rf"[{labels}]{{1,3}}", value)
+                or not (
+                    re.fullmatch(rf"[{labels}]{{1,3}}", value)
+                    or value in extra_identifiers
+                )
             ):
                 raise AltitudeSolveError("unsupported geometric identifier")
             tag.replace_with(" " + value + " ")
@@ -88,7 +91,12 @@ def _text(html, source, *, labels="ABCH"):
             raise AltitudeSolveError("unsupported complete altitude markup")
     text = unicodedata.normalize("NFKC", soup.get_text(" ", strip=True))
     text = text.replace("\xad", "").replace("\u2060", "").replace("\u200b", "")
-    text = re.sub(rf"\b[{alphabet}]{{1,3}}\b", lambda m: m[0].translate(_LABELS), text)
+    limit = (
+        max(3, *(len(name) for name in extra_identifiers)) if extra_identifiers else 3
+    )
+    text = re.sub(
+        rf"\b[{alphabet}]{{1,{limit}}}\b", lambda m: m[0].translate(_LABELS), text
+    )
     text = text.replace(r"\operatorname{tg}", r"\tg").replace(r"\tan", r"\tg")
     text = text.replace(r"\quad", ", ").replace(r"\;", " ")
     return " ".join(text.split())
