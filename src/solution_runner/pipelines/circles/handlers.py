@@ -2,6 +2,7 @@
 
 from ..core.handlers import HandlerSpec
 from .angle_model import RULES as ANGLE_RULES
+from .incircle_model import RULES as INCIRCLE_RULES
 from .tangent_model import RULES as TANGENT_RULES
 
 HANDLERS = tuple(
@@ -26,6 +27,10 @@ HANDLERS = tuple(
         (
             TANGENT_RULES,
             "solution_runner.pipelines.circles.tangent_figures:diagram_specs",
+        ),
+        (
+            INCIRCLE_RULES,
+            "solution_runner.pipelines.circles.incircle_figures:diagram_specs",
         ),
     )
     for rule in rules

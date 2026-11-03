@@ -6,6 +6,9 @@ from . import (
     angle_figures,
     angle_model,
     angle_proofs,
+    incircle_figures,
+    incircle_model,
+    incircle_proofs,
     tangent_figures,
     tangent_model,
     tangent_proofs,
@@ -20,6 +23,10 @@ FAMILIES = {
     **dict.fromkeys(
         tangent_model.RULES,
         (tangent_model.RULES, tangent_figures.prepare, tangent_proofs.render),
+    ),
+    **dict.fromkeys(
+        incircle_model.RULES,
+        (incircle_model.RULES, incircle_figures.prepare, incircle_proofs.render),
     ),
 }
 

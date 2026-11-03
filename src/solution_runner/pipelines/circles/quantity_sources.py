@@ -5,6 +5,8 @@ import hashlib
 from importlib.resources import files
 
 from ..core.errors import ContentPlanError
+from .incircle_sources import PARENTS as INCIRCLE_PARENTS
+from .incircle_sources import SOURCES as INCIRCLE_SOURCES
 
 PARENTS = {
     "circle-central-angle-difference": (
@@ -189,6 +191,10 @@ SOURCES = {
         "695d8753a9320b6b99a2f5ba0b0c5bedf8c33cb44459fb788fb80a874bac01b7",
     ),
 }
+
+
+PARENTS = PARENTS | INCIRCLE_PARENTS
+SOURCES = SOURCES | INCIRCLE_SOURCES
 
 
 def source_bytes(source):

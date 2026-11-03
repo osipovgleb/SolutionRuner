@@ -150,3 +150,90 @@ PROFILES += tuple(
         ),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        identifier,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="1",
+        theme_title="Вписанные окружности",
+        theme_order_index=7,
+        snapshot_theme_id="2dfc57fc-a5b9-41e7-a335-28e80d18faa0",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, identifier, index, rule in (
+        (
+            "27624",
+            "a8411495-a2a7-49f0-a73a-c6e3246ae8f9",
+            0,
+            "circle-incircle-triangle-area",
+        ),
+        (
+            "27625",
+            "d79c8d81-2019-4c66-9b09-574ec194e3fd",
+            1,
+            "circle-incircle-triangle-perimeter",
+        ),
+        (
+            "27640",
+            "58e25adf-ec74-4c9d-a299-23d5b54a444a",
+            2,
+            "circle-incircle-polygon-area",
+        ),
+        (
+            "27907",
+            "a5880668-94ba-4985-8d30-219d5897c515",
+            3,
+            "circle-incircle-equilateral-radius-height",
+        ),
+        (
+            "27908",
+            "829f5215-d179-4087-b5c9-2c12201a1681",
+            4,
+            "circle-incircle-equilateral-height-radius",
+        ),
+        (
+            "27909",
+            "b0c78bc0-a97c-4bf4-8e96-1389347c1d30",
+            5,
+            "circle-incircle-equilateral-radius-side",
+        ),
+        (
+            "27910",
+            "a4661e5b-9f0f-4673-ab16-2a328eadbe96",
+            6,
+            "circle-incircle-equilateral-side-radius",
+        ),
+        (
+            "27932",
+            "64363d3b-d10d-4be8-aab8-292039280f95",
+            11,
+            "circle-incircle-isosceles-right-radius",
+        ),
+        (
+            "27933",
+            "4084f941-5666-4424-a253-97ddf0c538e1",
+            12,
+            "circle-incircle-right-triangle-radius",
+        ),
+        (
+            "27934",
+            "646e9666-e147-4e52-8f2b-7cc1d9c89712",
+            13,
+            "circle-incircle-isosceles-triangle-radius",
+        ),
+        (
+            "27935",
+            "292621e0-d20d-4b31-8ffe-16b938d6aee2",
+            14,
+            "circle-incircle-isosceles-tangent-perimeter",
+        ),
+    )
+)

@@ -1,13 +1,6 @@
 """Reuse complete unnumbered chord and tangent diagrams with strict ownership."""
 
-from bs4 import BeautifulSoup
-
-from ..core.errors import ContentPlanError
-from ..quadrilaterals.parallelogram.midpoint_figures import _attach
-from ..quadrilaterals.quantity_content import read_content
-from ..triangles.isosceles.planner import _section
-from ..triangles.isosceles.side_altitude_figures import condition_changes
-from .quantity_sources import source_bytes
+from . import static_figures
 from .tangent_model import read_question
 
 TANGENTS = (
@@ -35,35 +28,12 @@ DETAILS = {
 LEGACY_TANGENT = "22cfa237-3e19-4574-8062-5929258e12ab"
 
 
+PICTURES = {mode: (("detail", source),) for mode, source in DETAILS.items()}
+ALIASES = {TANGENTS[1]: (LEGACY_TANGENT,)}
+
+
 def selection(context):
-    content, assets, owners = read_content(context, {"image_1", "image_2"})
-    condition = _section(content, "condition")
-    if condition is None:
-        raise ContentPlanError("one complete chord or tangent condition is required")
-    soup = BeautifulSoup(condition["html"], "html.parser")
-    images = soup.find_all("img")
-    if len(images) > 1:
-        raise ContentPlanError("one chord or tangent condition figure is supported")
-    model = read_question(str(soup), images[0]["data-asset-id"] if images else None)
-    for key, asset in assets.items():
-        allowed = (
-            SOURCES[model.mode] if key == "image_1" else (DETAILS.get(model.mode),)
-        )
-        if key == "image_2" and model.mode == "central_from_tangent":
-            allowed += (LEGACY_TANGENT,)
-        if asset["asset_id"] not in allowed or owners[key] != (
-            "condition" if key == "image_1" else "solution"
-        ):
-            raise ContentPlanError(
-                "the chord or tangent figure depicts another method or owner"
-            )
-        source_bytes(asset["asset_id"])
-    for source in (
-        *SOURCES[model.mode],
-        *((DETAILS[model.mode],) if model.mode in DETAILS else ()),
-    ):
-        source_bytes(source)
-    return model, condition, assets
+    return static_figures.selection(context, read_question, SOURCES, PICTURES, ALIASES)
 
 
 def diagram_specs(context):
@@ -72,28 +42,6 @@ def diagram_specs(context):
 
 
 def prepare(context, generated):
-    model, condition, assets = selection(context)
-    if generated:
-        raise ContentPlanError(
-            "compatible chord and tangent figures need no generated copies"
-        )
-    current = assets.get("image_1", {})
-    source = current.get("asset_id", SOURCES[model.mode][0])
-    changes = list(
-        condition_changes(
-            context, condition, current, "image_1", source, "/assets/" + source
-        )
-    )
-    if model.mode not in DETAILS:
-        return model, tuple(changes), {}, ()
-    changes = [t for t in changes if t["transformation_target_id"] != "asset:image_2"]
-    detail = DETAILS[model.mode]
-    image, delta = _attach(
-        assets.get("image_2"), "image_2", detail, "/assets/" + detail, "solution"
-    )
-    return (
-        model,
-        tuple(changes) + tuple(delta),
-        {"detail": "<center>" + image + "</center>"},
-        ("image_2",),
+    return static_figures.prepare(
+        context, generated, read_question, SOURCES, PICTURES, ALIASES
     )
