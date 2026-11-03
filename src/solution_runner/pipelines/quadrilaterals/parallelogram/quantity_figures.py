@@ -1,0 +1,186 @@
+"""Validate complete figure ownership and prepare static reuse or actual height SVGs."""
+
+from bs4 import BeautifulSoup
+
+from ...core.errors import ContentPlanError
+from ...probability.solution_diagrams import spec
+from ...triangles.isosceles.planner import _section
+from ...triangles.isosceles.side_altitude_figures import _identity, condition_changes
+from .midpoint_figures import _attach
+from .quantity_model import read_question
+from .quantity_sources import source_bytes
+from .quantity_svg import DETAIL, SINE, figure_svg
+
+REFERENCE = "c45d5a90-41dd-4849-8c26-9289880cecfb"
+BARE = "046e3609-22e3-41c4-be82-0f3022ce9151"
+RHOMBUS = "0a581314-6063-4c87-95eb-073086a172f4"
+SINE_KEY = "quantity_sine_condition"
+DETAIL_KEY = "quantity_transfer_detail"
+
+
+def _content(context):
+    content = context.get("normalized_content")
+    if (
+        not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+    ):
+        raise ContentPlanError("schema-v3 normalized quantity content is required")
+    sections, assets = content.get("sections"), content.get("assets")
+    if (
+        not isinstance(sections, list)
+        or any(not isinstance(s, dict) for s in sections)
+        or not isinstance(assets, list)
+        or any(not isinstance(a, dict) for a in assets)
+    ):
+        raise ContentPlanError(
+            "complete quantity sections and asset metadata are required"
+        )
+    by_key = {a.get("asset_key"): a for a in assets}
+    if len(by_key) != len(assets) or set(by_key) - {
+        "image_1",
+        "image_2",
+        SINE_KEY,
+        DETAIL_KEY,
+    }:
+        raise ContentPlanError("unknown or duplicate quantity assets")
+    for a in assets:
+        identifier = a.get("asset_id")
+        if (
+            not isinstance(identifier, str)
+            or not identifier
+            or a.get("kind") != "ordinary_image"
+            or a.get("url") != "/assets/" + identifier
+        ):
+            raise ContentPlanError("quantity asset metadata changed")
+    owners = {}
+    for section in sections:
+        if not isinstance(section.get("html"), str):
+            raise ContentPlanError("complete quantity section HTML is required")
+        keys = []
+        for image in BeautifulSoup(section["html"], "html.parser").find_all("img"):
+            key = image.get("data-asset-key")
+            if (
+                key not in by_key
+                or key in owners
+                or section.get("key") not in {"condition", "solution"}
+            ):
+                raise ContentPlanError("ambiguous quantity figure ownership")
+            asset = by_key[key]
+            if (
+                image.get("data-asset-id") != asset["asset_id"]
+                or image.get("src") != asset["url"]
+                or image.get("data-transformation-target-id", "asset:" + key)
+                != "asset:" + key
+            ):
+                raise ContentPlanError("the quantity image differs from its metadata")
+            owners[key] = section["key"]
+            keys.append(key)
+        if section.get("asset_keys", []) != keys:
+            raise ContentPlanError("quantity section keys differ from image references")
+    if set(owners) != set(by_key):
+        raise ContentPlanError("unreferenced quantity asset metadata")
+    return content, by_key, owners
+
+
+def selection(context):
+    content, assets, owners = _content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise ContentPlanError("one quantity condition is required")
+    soup = BeautifulSoup(condition["html"], "html.parser")
+    images = soup.find_all("img")
+    if len(images) > 1:
+        raise ContentPlanError("at most one quantity condition image is supported")
+    source = images[0]["data-asset-id"] if images else None
+    if images:
+        images[0]["data-asset-key"] = "image_1"
+    model = read_question(str(soup), source)
+    primary = (
+        SINE
+        if model.mode == "sine"
+        else REFERENCE
+        if model.mode == "transfer"
+        else BARE
+        if model.mode == "height"
+        else RHOMBUS
+    )
+    source_bytes(primary)
+    if model.mode == "transfer":
+        allowed = {"image_1": REFERENCE, "image_2": DETAIL, DETAIL_KEY: None}
+        owner = "solution"
+        if "image_2" in assets and DETAIL_KEY in assets:
+            raise ContentPlanError("ambiguous corrected height figure")
+    else:
+        allowed = {"image_1": primary}
+        if model.mode == "sine":
+            allowed[SINE_KEY] = None
+        if len(assets) > 1:
+            raise ContentPlanError("one primary quantity condition image is required")
+        owner = "condition"
+    for key, asset in assets.items():
+        misplaced_primary = (
+            owner == "condition" and key == "image_1" and owners[key] == "solution"
+        )
+        if (
+            key not in allowed
+            or (owners[key] != owner and not misplaced_primary)
+            or (allowed[key] is not None and asset["asset_id"] != allowed[key])
+        ):
+            raise ContentPlanError(
+                "the quantity figure depicts another method or section"
+            )
+    compatible_detail = model.mode == "transfer" and (
+        model.a,
+        model.b,
+        model.first_height,
+        model.second_height,
+    ) == (9, 15, 10, 6)
+    diagram = (
+        spec(SINE_KEY if model.mode == "sine" else DETAIL_KEY, figure_svg(model))
+        if model.mode in {"sine", "transfer"} and not compatible_detail
+        else None
+    )
+    return model, condition, assets, primary, diagram
+
+
+def diagram_specs(context):
+    diagram = selection(context)[-1]
+    return (diagram,) if diagram else ()
+
+
+def prepare(context, generated):
+    model, condition, assets, primary, diagram = selection(context)
+    expected = {diagram["asset_key"]} if diagram else set()
+    if (
+        len(generated) != len(expected)
+        or {g.get("asset_key") for g in generated} != expected
+    ):
+        raise ContentPlanError(
+            "the prepared quantity diagrams differ from the current model"
+        )
+    if model.mode != "transfer":
+        current = next(iter(assets.values()), {})
+        key = diagram["asset_key"] if diagram else "image_1"
+        identifier, url = _identity(key, primary, diagram, generated)
+        changes = condition_changes(context, condition, current, key, identifier, url)
+        return model, changes, {}, ()
+    pictures, changes, keys = {}, [], []
+    for part, key, source, drawing, current in (
+        ("reference", "image_1", REFERENCE, None, assets.get("image_1")),
+        (
+            "detail",
+            DETAIL_KEY if diagram else "image_2",
+            DETAIL,
+            diagram,
+            assets.get(DETAIL_KEY) or assets.get("image_2"),
+        ),
+    ):
+        identifier, url = _identity(
+            key, source, drawing, tuple(g for g in generated if g["asset_key"] == key)
+        )
+        image, delta = _attach(current, key, identifier, url, "solution")
+        pictures[part] = "<center>" + image + "</center>"
+        changes.extend(delta)
+        keys.append(key)
+    return model, tuple(changes), pictures, tuple(keys)

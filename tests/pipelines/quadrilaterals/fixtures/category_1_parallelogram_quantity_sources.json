@@ -1,0 +1,3095 @@
+{
+  "groups": [
+    {
+      "key": "27436",
+      "size": 223,
+      "group_uuid": "e989a6f9-18f6-45e9-a084-2d5e9294e132",
+      "rule": "parallelogram-sine-greater-height"
+    },
+    {
+      "key": "27611",
+      "size": 27,
+      "group_uuid": "213db071-d7cb-4b31-9c01-adefaa299371",
+      "rule": "parallelogram-base-height-transfer"
+    },
+    {
+      "key": "27612",
+      "size": 26,
+      "group_uuid": "1cacd2f6-bd07-45c7-b945-ea61a66b1419",
+      "rule": "parallelogram-area-greater-height"
+    },
+    {
+      "key": "27613",
+      "size": 27,
+      "group_uuid": "67ea3c5c-0452-4b50-b5a8-4a58460c1544",
+      "rule": "rhombus-height-thirty-area"
+    },
+    {
+      "key": "27614",
+      "size": 28,
+      "group_uuid": "402797f0-041d-4bb3-8ec5-c925dc2cf1aa",
+      "rule": "rhombus-diagonals-area"
+    },
+    {
+      "key": "27615",
+      "size": 26,
+      "group_uuid": "9fd6095f-9221-475f-8ae8-01b7f84e4cf0",
+      "rule": "rhombus-area-known-diagonal"
+    },
+    {
+      "key": "27616",
+      "size": 26,
+      "group_uuid": "5f2f0435-f250-427f-b48a-800671449d79",
+      "rule": "rhombus-area-diagonal-factor-small"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27436",
+      "task": "27436",
+      "context": {
+        "problem_id": "65812160-52a2-46fb-9da9-bc0b15b25318",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:07.153337+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/19b90e5e-1140-484f-8100-ead74bd010e9",
+                "html": "<img alt=\"\" data-asset-id=\"19b90e5e-1140-484f-8100-ead74bd010e9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/19b90e5e-1140-484f-8100-ead74bd010e9\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "19b90e5e-1140-484f-8100-ead74bd010e9",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"19b90e5e-1140-484f-8100-ead74bd010e9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В па­рал­ле­ло­грам­ме <i>ABCD</i> <i>AB</i>  =  3, <i>AD</i>  =  21,  <span data-inline-latex=\"\\sin A=\\frac{6}{7}\"></span> . Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Боль­шая вы­со­та про­ве­де­на к мень­шей сто­ро­не. Имеем:</p><center><p> <span data-inline-latex=\"DH=AD\\sin A=21\\cdot \\frac{6}{7}=3\\cdot 6=18\"></span>.</p></center><p><b>При­ве­дем при­ме­ча­ние Дмит­рия Д</b>.</p><p>За­ме­тим, что точка <var data-math-identifier=\"H\">H</var> лежит на про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AB\">AB</var> па­рал­ле­ло­грам­ма. В самом деле, по тео­ре­ме Пи­фа­го­ра из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ADH\">ADH</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AH=\\sqrt{AD^{2}-DH^{2}}=\\sqrt{441-324}=\\sqrt{117}\\gt 3\"></span>.</p></center><p>Рас­по­ло­же­ние точки <var data-math-identifier=\"H\">H</var> на ри­сун­ке не вли­я­ет на пра­виль­ность ре­ше­ния, за­да­чу можно ре­шить вовсе без ри­сун­ка.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Найдём пло­щадь па­рал­ле­ло­грам­ма:</p><center><p> <span data-inline-latex=\"S=ab\\sin A=3\\cdot 21\\cdot \\frac{6}{7}=54\"></span>.</p></center><p>Чтобы найти вы­со­ту, вос­поль­зу­ем­ся дру­гой фор­му­лой для на­хож­де­ния пло­ща­ди:  <span data-inline-latex=\"S=ah\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"h=\\frac{S}{a}=\\frac{54}{3}=18\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:45:22.586060+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/19b90e5e-1140-484f-8100-ead74bd010e9",
+              "kind": "ordinary_image",
+              "asset_id": "19b90e5e-1140-484f-8100-ead74bd010e9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"19b90e5e-1140-484f-8100-ead74bd010e9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/19b90e5e-1140-484f-8100-ead74bd010e9\"/>В па­рал­ле­ло­грам­ме <i>ABCD</i> <i>AB</i>  =  3, <i>AD</i>  =  21,  <span data-inline-latex=\"\\sin A=\\frac{6}{7}\"></span> . Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Боль­шая вы­со­та про­ве­де­на к мень­шей сто­ро­не. Имеем:</p><center><p> <span data-inline-latex=\"DH=AD\\sin A=21\\cdot \\frac{6}{7}=3\\cdot 6=18\"></span>.</p></center><p><b>При­ве­дем при­ме­ча­ние Дмит­рия Д</b>.</p><p>За­ме­тим, что точка <var data-math-identifier=\"H\">H</var> лежит на про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AB\">AB</var> па­рал­ле­ло­грам­ма. В самом деле, по тео­ре­ме Пи­фа­го­ра из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ADH\">ADH</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AH=\\sqrt{AD^{2}-DH^{2}}=\\sqrt{441-324}=\\sqrt{117}\\gt 3\"></span>.</p></center><p>Рас­по­ло­же­ние точки <var data-math-identifier=\"H\">H</var> на ри­сун­ке не вли­я­ет на пра­виль­ность ре­ше­ния, за­да­чу можно ре­шить вовсе без ри­сун­ка.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Найдём пло­щадь па­рал­ле­ло­грам­ма:</p><center><p> <span data-inline-latex=\"S=ab\\sin A=3\\cdot 21\\cdot \\frac{6}{7}=54\"></span>.</p></center><p>Чтобы найти вы­со­ту, вос­поль­зу­ем­ся дру­гой фор­му­лой для на­хож­де­ния пло­ща­ди:  <span data-inline-latex=\"S=ah\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"h=\\frac{S}{a}=\\frac{54}{3}=18\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27436",
+      "task": "44407",
+      "context": {
+        "problem_id": "400a5b1f-19b6-4691-883f-a5b8825ff0f7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:08.205956+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/19b90e5e-1140-484f-8100-ead74bd010e9",
+                "html": "<img alt=\"\" data-asset-id=\"19b90e5e-1140-484f-8100-ead74bd010e9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/19b90e5e-1140-484f-8100-ead74bd010e9\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "19b90e5e-1140-484f-8100-ead74bd010e9",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"19b90e5e-1140-484f-8100-ead74bd010e9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В па­рал­ле­ло­грам­ме <i>ABCD</i> <i>AB</i>  =  2, <i>AD</i>  =  9,  <span data-inline-latex=\"\\sin A=\\frac{4}{9}\"></span> . Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Боль­шая вы­со­та про­ве­де­на к мень­шей сто­ро­не. Имеем:</p><center><p> <span data-inline-latex=\"DH=AD\\sin A=9\\cdot \\frac{4}{9}=4\"></span>.</p></center><p><b>При­ве­дем при­ме­ча­ние Ана­то­лия Круг­ло­ва</b>.</p><p>За­ме­тим, что точка <var data-math-identifier=\"H\">H</var> лежит на про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AB\">AB</var> па­рал­ле­ло­грам­ма. В самом деле, по тео­ре­ме Пи­фа­го­ра из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ADH\">ADH</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AH=\\sqrt{AD^{2}-DH^{2}}=\\sqrt{81-16}=\\sqrt{65}\\gt 2\"></span>.</p></center><p>Рас­по­ло­же­ние точки <var data-math-identifier=\"H\">H</var> на ри­сун­ке не вли­я­ет на пра­виль­ность ре­ше­ния, за­да­чу можно ре­шить вовсе без ри­сун­ка.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Найдём пло­щадь па­рал­ле­ло­грам­ма:</p><center><p> <span data-inline-latex=\"S=ab\\sin A=2\\cdot 9\\cdot \\frac{4}{9}=8\"></span>.</p></center><p>Чтобы найти вы­со­ту, вос­поль­зу­ем­ся дру­гой фор­му­лой для на­хож­де­ния пло­ща­ди:  <span data-inline-latex=\"S=ah\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"h=\\frac{S}{a}=\\frac{8}{2}=4\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:45:22.428328+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/19b90e5e-1140-484f-8100-ead74bd010e9",
+              "kind": "ordinary_image",
+              "asset_id": "19b90e5e-1140-484f-8100-ead74bd010e9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"19b90e5e-1140-484f-8100-ead74bd010e9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/19b90e5e-1140-484f-8100-ead74bd010e9\"/>В па­рал­ле­ло­грам­ме <i>ABCD</i> <i>AB</i>  =  2, <i>AD</i>  =  9,  <span data-inline-latex=\"\\sin A=\\frac{4}{9}\"></span> . Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Боль­шая вы­со­та про­ве­де­на к мень­шей сто­ро­не. Имеем:</p><center><p> <span data-inline-latex=\"DH=AD\\sin A=9\\cdot \\frac{4}{9}=4\"></span>.</p></center><p><b>При­ве­дем при­ме­ча­ние Ана­то­лия Круг­ло­ва</b>.</p><p>За­ме­тим, что точка <var data-math-identifier=\"H\">H</var> лежит на про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AB\">AB</var> па­рал­ле­ло­грам­ма. В самом деле, по тео­ре­ме Пи­фа­го­ра из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ADH\">ADH</var> по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"AH=\\sqrt{AD^{2}-DH^{2}}=\\sqrt{81-16}=\\sqrt{65}\\gt 2\"></span>.</p></center><p>Рас­по­ло­же­ние точки <var data-math-identifier=\"H\">H</var> на ри­сун­ке не вли­я­ет на пра­виль­ность ре­ше­ния, за­да­чу можно ре­шить вовсе без ри­сун­ка.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Найдём пло­щадь па­рал­ле­ло­грам­ма:</p><center><p> <span data-inline-latex=\"S=ab\\sin A=2\\cdot 9\\cdot \\frac{4}{9}=8\"></span>.</p></center><p>Чтобы найти вы­со­ту, вос­поль­зу­ем­ся дру­гой фор­му­лой для на­хож­де­ния пло­ща­ди:  <span data-inline-latex=\"S=ah\"></span>, от­ку­да</p><center><p> <span data-inline-latex=\"h=\\frac{S}{a}=\\frac{8}{2}=4\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27436",
+      "task": "44409",
+      "context": {
+        "problem_id": "8a3ad683-5832-4a1c-8b1b-606a7f332177",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-10-01T20:39:35.743005+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В па­рал­ле­ло­грам­ме <i>ABCD</i> <span data-inline-latex=\"AB=5\"></span>, <span data-inline-latex=\"AD=8\"></span>,  <span data-inline-latex=\"\\sin A=\\frac{7}{8}\"></span> .  Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T20:39:35.743005+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T20:39:35.743005+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T20:39:35.743005+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В па­рал­ле­ло­грам­ме <i>ABCD</i> <span data-inline-latex=\"AB=5\"></span>, <span data-inline-latex=\"AD=8\"></span>,  <span data-inline-latex=\"\\sin A=\\frac{7}{8}\"></span> .  Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27436",
+      "task": "44411",
+      "context": {
+        "problem_id": "1d06d57d-9652-4675-b177-6f140bc37163",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-10-01T20:39:34.979695+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В па­рал­ле­ло­грам­ме <i>ABCD</i> <span data-inline-latex=\"AB=4\"></span>, <span data-inline-latex=\"AD=4\"></span>,  <span data-inline-latex=\"\\sin A=\\frac{1}{4}\"></span> .  Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T20:39:34.979695+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T20:39:34.979695+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T20:39:34.979695+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В па­рал­ле­ло­грам­ме <i>ABCD</i> <span data-inline-latex=\"AB=4\"></span>, <span data-inline-latex=\"AD=4\"></span>,  <span data-inline-latex=\"\\sin A=\\frac{1}{4}\"></span> .  Най­ди­те боль­шую вы­со­ту па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27611",
+      "task": "27611",
+      "context": {
+        "problem_id": "46a234cf-ab15-411f-b9a4-8f5f7973f720",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:37.475084+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c45d5a90-41dd-4849-8c26-9289880cecfb",
+                "html": "<img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c45d5a90-41dd-4849-8c26-9289880cecfb\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c45d5a90-41dd-4849-8c26-9289880cecfb",
+                "position": 2,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:37.475084+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2",
+                "html": "<img alt=\"\" data-asset-id=\"f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2",
+                "position": 4,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:58:54.974601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть <i>x</i>  — длина ис­ко­мой вы­со­ты. Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Вы­чис­лим пло­щадь па­рал­ле­ло­грам­ма двумя спо­со­ба­ми:  <span data-inline-latex=\"S=9\\cdot 10=15\\cdot x\"></span>. Из по­лу­чен­но­го урав­не­ния на­хо­дим  <span data-inline-latex=\"x=6\"></span>.</p><p><img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p><b>При­ме­ча­ние</b>.</p><p>Рань­ше к этому за­да­нию со­ста­ви­те­ли да­ва­ли ри­су­нок, при­ведённый спра­ва. Вни­ма­тель­ный чи­та­тель за­ме­тит, что он не­вер­ный. Дей­стви­тель­но, если в пря­мо­уголь­ном тре­уголь­ни­ке <var data-math-identifier=\"BGC\">BGC</var> вы­чис­лить длину ка­те­та <var data-math-identifier=\"CG\">CG</var>, то ока­жет­ся, что</p><center><p> <span data-inline-latex=\"CG=\\sqrt{CB^{2}-BG^{2}}=\\sqrt{15^{2}-10^{2}}=\\sqrt{125}\\gt CD\"></span>.</p></center><p><img alt=\"\" data-asset-id=\"f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Свя­за­но это с тем, что на самом деле ос­но­ва­ние вы­со­ты па­рал­ле­ло­грам­ма па­да­ет на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var> (см. рис.). Для ре­ше­ния за­да­чи ри­су­нок не нужен.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1",
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:54.974601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:54.974601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:58:54.974601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c45d5a90-41dd-4849-8c26-9289880cecfb",
+              "kind": "ordinary_image",
+              "asset_id": "c45d5a90-41dd-4849-8c26-9289880cecfb",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2",
+              "kind": "ordinary_image",
+              "asset_id": "f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Сто­ро­ны па­рал­ле­ло­грам­ма равны 9 и 15. Вы­со­та, опу­щен­ная на первую сто­ро­ну, равна 10. Най­ди­те вы­со­ту, опу­щен­ную на вто­рую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=17852146\" rel=\"noreferrer noopener\" target=\"_blank\">Досрочный ЕГЭ по математике (Центр) 30.03.2018</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=10628625\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 28.03.2016. Досрочная волна, вариант 3</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>x</i>  — длина ис­ко­мой вы­со­ты. Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Вы­чис­лим пло­щадь па­рал­ле­ло­грам­ма двумя спо­со­ба­ми:  <span data-inline-latex=\"S=9\\cdot 10=15\\cdot x\"></span>. Из по­лу­чен­но­го урав­не­ния на­хо­дим  <span data-inline-latex=\"x=6\"></span>.</p><p><img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c45d5a90-41dd-4849-8c26-9289880cecfb\"/></p><p><b>При­ме­ча­ние</b>.</p><p>Рань­ше к этому за­да­нию со­ста­ви­те­ли да­ва­ли ри­су­нок, при­ведённый спра­ва. Вни­ма­тель­ный чи­та­тель за­ме­тит, что он не­вер­ный. Дей­стви­тель­но, если в пря­мо­уголь­ном тре­уголь­ни­ке <var data-math-identifier=\"BGC\">BGC</var> вы­чис­лить длину ка­те­та <var data-math-identifier=\"CG\">CG</var>, то ока­жет­ся, что</p><center><p> <span data-inline-latex=\"CG=\\sqrt{CB^{2}-BG^{2}}=\\sqrt{15^{2}-10^{2}}=\\sqrt{125}\\gt CD\"></span>.</p></center><p><img alt=\"\" data-asset-id=\"f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/f2ccbf6e-93b7-4dc0-96fa-ee00fe7aa8f2\"/></p><p>Свя­за­но это с тем, что на самом деле ос­но­ва­ние вы­со­ты па­рал­ле­ло­грам­ма па­да­ет на про­дол­же­ние сто­ро­ны <var data-math-identifier=\"CD\">CD</var> за точку <var data-math-identifier=\"D\">D</var> (см. рис.). Для ре­ше­ния за­да­чи ри­су­нок не нужен.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1",
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27611",
+      "task": "56155",
+      "context": {
+        "problem_id": "2e82cdec-60c0-4903-b5ac-6eea8ce520dd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:37.383609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c45d5a90-41dd-4849-8c26-9289880cecfb",
+                "html": "<img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c45d5a90-41dd-4849-8c26-9289880cecfb\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c45d5a90-41dd-4849-8c26-9289880cecfb",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:54.754850+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пусть <i>x</i>  — длина ис­ко­мой вы­со­ты. Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Вы­чис­лим пло­щадь па­рал­ле­ло­грам­ма двумя спо­со­ба­ми:  <span data-inline-latex=\"S=57\\cdot 38=76\\cdot x\"></span>. Из по­лу­чен­но­го урав­не­ния на­хо­дим  <span data-inline-latex=\"x=28{,}5\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:54.754850+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:54.754850+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c45d5a90-41dd-4849-8c26-9289880cecfb",
+              "kind": "ordinary_image",
+              "asset_id": "c45d5a90-41dd-4849-8c26-9289880cecfb",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Сто­ро­ны па­рал­ле­ло­грам­ма равны 38 и 76. Вы­со­та, опу­щен­ная на первую сто­ро­ну, равна 57. Най­ди­те вы­со­ту, опу­щен­ную на вто­рую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">28,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c45d5a90-41dd-4849-8c26-9289880cecfb\"/></p><p>Пусть <i>x</i>  — длина ис­ко­мой вы­со­ты. Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Вы­чис­лим пло­щадь па­рал­ле­ло­грам­ма двумя спо­со­ба­ми:  <span data-inline-latex=\"S=57\\cdot 38=76\\cdot x\"></span>. Из по­лу­чен­но­го урав­не­ния на­хо­дим  <span data-inline-latex=\"x=28{,}5\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27611",
+      "task": "549315",
+      "context": {
+        "problem_id": "f1e63740-9e03-4330-bdec-a4b89f76f945",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:32.023623+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c45d5a90-41dd-4849-8c26-9289880cecfb",
+                "html": "<img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c45d5a90-41dd-4849-8c26-9289880cecfb\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c45d5a90-41dd-4849-8c26-9289880cecfb",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:56.558114+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пусть <i>x</i>  — длина ис­ко­мой вы­со­ты. Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Вы­чис­лим пло­щадь па­рал­ле­ло­грам­ма двумя спо­со­ба­ми:  <span data-inline-latex=\"S=24\\cdot 18=27\\cdot x\"></span>. Из по­лу­чен­но­го урав­не­ния на­хо­дим  <span data-inline-latex=\"x=16\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:56.558114+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:56.558114+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c45d5a90-41dd-4849-8c26-9289880cecfb",
+              "kind": "ordinary_image",
+              "asset_id": "c45d5a90-41dd-4849-8c26-9289880cecfb",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Сто­ро­ны па­рал­ле­ло­грам­ма равны 24 и 27. Вы­со­та, опу­щен­ная на мень­шую из этих сто­рон, равна 18. Най­ди­те вы­со­ту, опу­щен­ную на бо́льшую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">16</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34177309\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2021 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=41538304\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2022 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47841143\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2023 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=54540650\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2024 по математике. Профильный уровень</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"c45d5a90-41dd-4849-8c26-9289880cecfb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c45d5a90-41dd-4849-8c26-9289880cecfb\"/></p><p>Пусть <i>x</i>  — длина ис­ко­мой вы­со­ты. Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Вы­чис­лим пло­щадь па­рал­ле­ло­грам­ма двумя спо­со­ба­ми:  <span data-inline-latex=\"S=24\\cdot 18=27\\cdot x\"></span>. Из по­лу­чен­но­го урав­не­ния на­хо­дим  <span data-inline-latex=\"x=16\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27611",
+      "task": "56157",
+      "context": {
+        "problem_id": "2530c5fd-f73a-4c31-8969-bdbcbf3244ed",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Сто­ро­ны па­рал­ле­ло­грам­ма равны 8 и 16. Вы­со­та, опу­щен­ная на первую сто­ро­ну, равна 12. Най­ди­те вы­со­ту, опу­щен­ную на вто­рую сто­ро­ну па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27612",
+      "task": "27612",
+      "context": {
+        "problem_id": "39102f8d-824b-4202-b6d5-a53fb6657406",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:13.774985+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.605983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь па­рал­ле­ло­грам­ма равна 40, две его сто­ро­ны равны 5 и 10. Най­ди­те боль­шую вы­со­ту этого па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.605983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Пусть длины высот равны со­от­вет­ствен­но <i>a</i> и <i>b</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=5\\cdot a=10\\cdot b=40\"></span>, от­ку­да  <span data-inline-latex=\"a=8\"></span>,  <span data-inline-latex=\"b=4\"></span>. Боль­шая вы­со­та равна 8.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.605983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.605983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:37.605983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Пло­щадь па­рал­ле­ло­грам­ма равна 40, две его сто­ро­ны равны 5 и 10. Най­ди­те боль­шую вы­со­ту этого па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Пусть длины высот равны со­от­вет­ствен­но <i>a</i> и <i>b</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=5\\cdot a=10\\cdot b=40\"></span>, от­ку­да  <span data-inline-latex=\"a=8\"></span>,  <span data-inline-latex=\"b=4\"></span>. Боль­шая вы­со­та равна 8.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27612",
+      "task": "56205",
+      "context": {
+        "problem_id": "13549ae3-7179-4531-88eb-4ac82db18a64",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:13.572133+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+                "html": "<img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.093448+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь па­рал­ле­ло­грам­ма равна 12, две его сто­ро­ны равны 4 и 8. Най­ди­те боль­шую вы­со­ту этого па­рал­ле­ло­грам­ма.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.093448+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Пусть длины высот равны со­от­вет­ствен­но <i>a</i> и <i>b</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=4\\cdot a=8\\cdot b=12\"></span>, от­ку­да  <span data-inline-latex=\"a=3\"></span>,  <span data-inline-latex=\"b=1{,}5\"></span>. Боль­шая вы­со­та равна 3.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.093448+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:37.093448+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:37.093448+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/046e3609-22e3-41c4-be82-0f3022ce9151",
+              "kind": "ordinary_image",
+              "asset_id": "046e3609-22e3-41c4-be82-0f3022ce9151",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"046e3609-22e3-41c4-be82-0f3022ce9151\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/046e3609-22e3-41c4-be82-0f3022ce9151\"/>Пло­щадь па­рал­ле­ло­грам­ма равна 12, две его сто­ро­ны равны 4 и 8. Най­ди­те боль­шую вы­со­ту этого па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Пусть длины высот равны со­от­вет­ствен­но <i>a</i> и <i>b</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=4\\cdot a=8\\cdot b=12\"></span>, от­ку­да  <span data-inline-latex=\"a=3\"></span>,  <span data-inline-latex=\"b=1{,}5\"></span>. Боль­шая вы­со­та равна 3.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27612",
+      "task": "56207",
+      "context": {
+        "problem_id": "e3e62cc8-f7a7-476d-9a4c-2877957b814c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма равна 144, две его сто­ро­ны равны 48 и 96. Най­ди­те боль­шую вы­со­ту этого па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27612",
+      "task": "56209",
+      "context": {
+        "problem_id": "1403f05b-4bb3-4b3f-8a2b-bc973945e9bc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь па­рал­ле­ло­грам­ма равна 54, две его сто­ро­ны равны 18 и 36. Най­ди­те боль­шую вы­со­ту этого па­рал­ле­ло­грам­ма.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27613",
+      "task": "27613",
+      "context": {
+        "problem_id": "f62d7259-e28b-4540-bdb2-004c54db274f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:56.123395+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь ромба, если его вы­со­та равна 2, а ост­рый угол 30°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Пло­щадь ромба равна про­из­ве­де­нию квад­ра­та длины его сто­ро­ны на синус его угла. С дру­гой сто­ро­ны, пло­щадь ромба равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Сле­до­ва­тель­но, если сто­ро­на ромба равна <i>a</i>, то  <span data-inline-latex=\"a^{2}\\cdot \\sin 30^{\\circ}=2\\cdot a\"></span>. Из по­лу­чен­но­го урав­не­ния  <span data-inline-latex=\"a=4\"></span>, по­это­му  <span data-inline-latex=\"S=2\\cdot 4=8\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть ост­рым углом ромба яв­ля­ет­ся угол <var data-math-identifier=\"A\">A</var>. Про­ве­дем вы­со­ту ромба из вер­ши­ны <var data-math-identifier=\"B\">B</var> к сто­ро­не <var data-math-identifier=\"AD\">AD</var> и рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"ABH\">ABH</var>, где точка <var data-math-identifier=\"H\">H</var>  — точка пе­ре­се­че­ния вы­со­ты и сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Угол <var data-math-identifier=\"A\">A</var> равен 30°, сле­до­ва­тель­но,  <span data-inline-latex=\"AB=2BH\"></span>, по­сколь­ку катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=2\\cdot 2=4\"></span>. В ромбе все сто­ро­ны равны, тогда пло­щадь ромба</p><center><p> <span data-inline-latex=\"S_{ABCD}=AD\\cdot BH=AB\\cdot BH=2\\cdot 4=8\"></span>.</p></center></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:35:34.643284+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Най­ди­те пло­щадь ромба, если его вы­со­та равна 2, а ост­рый угол 30°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Пло­щадь ромба равна про­из­ве­де­нию квад­ра­та длины его сто­ро­ны на синус его угла. С дру­гой сто­ро­ны, пло­щадь ромба равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Сле­до­ва­тель­но, если сто­ро­на ромба равна <i>a</i>, то  <span data-inline-latex=\"a^{2}\\cdot \\sin 30^{\\circ}=2\\cdot a\"></span>. Из по­лу­чен­но­го урав­не­ния  <span data-inline-latex=\"a=4\"></span>, по­это­му  <span data-inline-latex=\"S=2\\cdot 4=8\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть ост­рым углом ромба яв­ля­ет­ся угол <var data-math-identifier=\"A\">A</var>. Про­ве­дем вы­со­ту ромба из вер­ши­ны <var data-math-identifier=\"B\">B</var> к сто­ро­не <var data-math-identifier=\"AD\">AD</var> и рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"ABH\">ABH</var>, где точка <var data-math-identifier=\"H\">H</var>  — точка пе­ре­се­че­ния вы­со­ты и сто­ро­ны <var data-math-identifier=\"AD\">AD</var>. Угол <var data-math-identifier=\"A\">A</var> равен 30°, сле­до­ва­тель­но,  <span data-inline-latex=\"AB=2BH\"></span>, по­сколь­ку катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но,  <span data-inline-latex=\"AB=2\\cdot 2=4\"></span>. В ромбе все сто­ро­ны равны, тогда пло­щадь ромба</p><center><p> <span data-inline-latex=\"S_{ABCD}=AD\\cdot BH=AB\\cdot BH=2\\cdot 4=8\"></span>.</p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27613",
+      "task": "641896",
+      "context": {
+        "problem_id": "a4b1f3d2-b5ac-4d24-a024-88ba540b49a6",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:35.119413+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.080234+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь ромба, если его вы­со­та равна 4, а ост­рый угол равен 30°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.080234+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна про­из­ве­де­нию квад­ра­та длины его сто­ро­ны на синус его угла. С дру­гой сто­ро­ны, пло­щадь ромба равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Сле­до­ва­тель­но, если сто­ро­на ромба равна <i>a</i>, то  <span data-inline-latex=\"a^{2}\\cdot \\sin 30^{\\circ}=4\\cdot a\"></span>. Из по­лу­чен­но­го урав­не­ния  <span data-inline-latex=\"a=8\"></span>, по­это­му  <span data-inline-latex=\"S=4\\cdot 8=32\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.080234+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.080234+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:49.080234+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Най­ди­те пло­щадь ромба, если его вы­со­та равна 4, а ост­рый угол равен 30°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">32</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна про­из­ве­де­нию квад­ра­та длины его сто­ро­ны на синус его угла. С дру­гой сто­ро­ны, пло­щадь ромба равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Сле­до­ва­тель­но, если сто­ро­на ромба равна <i>a</i>, то  <span data-inline-latex=\"a^{2}\\cdot \\sin 30^{\\circ}=4\\cdot a\"></span>. Из по­лу­чен­но­го урав­не­ния  <span data-inline-latex=\"a=8\"></span>, по­это­му  <span data-inline-latex=\"S=4\\cdot 8=32\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27613",
+      "task": "641914",
+      "context": {
+        "problem_id": "aa269f49-14df-4c0c-b7e7-0a5bb6b22158",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:35.168947+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.107345+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь ромба, если его вы­со­та равна 3, а ост­рый угол равен 30°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.107345+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна про­из­ве­де­нию квад­ра­та длины его сто­ро­ны на синус его угла. С дру­гой сто­ро­ны, пло­щадь ромба равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Сле­до­ва­тель­но, если сто­ро­на ромба равна <i>a</i>, то  <span data-inline-latex=\"a^{2}\\cdot \\sin 30^{\\circ}=3\\cdot a\"></span>. Из по­лу­чен­но­го урав­не­ния  <span data-inline-latex=\"a=6\"></span>, по­это­му  <span data-inline-latex=\"S=3\\cdot 6=18\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.107345+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:49.107345+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:49.107345+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Най­ди­те пло­щадь ромба, если его вы­со­та равна 3, а ост­рый угол равен 30°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна про­из­ве­де­нию квад­ра­та длины его сто­ро­ны на синус его угла. С дру­гой сто­ро­ны, пло­щадь ромба равна про­из­ве­де­нию длины его ос­но­ва­ния на длину вы­со­ты, опу­щен­ной на это ос­но­ва­ние. Сле­до­ва­тель­но, если сто­ро­на ромба равна <i>a</i>, то  <span data-inline-latex=\"a^{2}\\cdot \\sin 30^{\\circ}=3\\cdot a\"></span>. Из по­лу­чен­но­го урав­не­ния  <span data-inline-latex=\"a=6\"></span>, по­это­му  <span data-inline-latex=\"S=3\\cdot 6=18\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27613",
+      "task": "56257",
+      "context": {
+        "problem_id": "3b5aab9c-25f9-4a05-a7e4-fc8877364a13",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T00:29:31.577533+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те пло­щадь ромба, если его вы­со­та равна 47, а ост­рый угол <span data-inline-latex=\"30^{\\circ}\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T00:29:31.577533+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те пло­щадь ромба, если его вы­со­та равна 47, а ост­рый угол <span data-inline-latex=\"30^{\\circ}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4418</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27614",
+      "task": "27614",
+      "context": {
+        "problem_id": "1d30ddcb-4de1-48e1-a937-b62d85f747fc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:51.201811+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:59.058243+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь ромба, если его диа­го­на­ли равны 4 и 12.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:59.058243+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 4\\cdot 12=24\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:59.058243+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Най­ди­те пло­щадь ромба, если его диа­го­на­ли равны 4 и 12.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 4\\cdot 12=24\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27614",
+      "task": "548258",
+      "context": {
+        "problem_id": "434be10c-f0a7-4ecd-91df-d0fe82b6d6ae",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:10:41.262708+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:59.251252+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь ромба, если его диа­го­на­ли равны 4 и 38.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:59.251252+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 4\\cdot 38=76\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:59.251252+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Най­ди­те пло­щадь ромба, если его диа­го­на­ли равны 4 и 38.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">76</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 4\\cdot 38=76\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27614",
+      "task": "548286",
+      "context": {
+        "problem_id": "fc874898-c3e0-4506-85cc-49268be5df64",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:10:48.136919+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:50:40.808444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь ромба, если его диа­го­на­ли равны 15 и 6.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:50:40.808444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 15\\cdot 6=45\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:50:40.808444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Най­ди­те пло­щадь ромба, если его диа­го­на­ли равны 15 и 6.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 15\\cdot 6=45\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27614",
+      "task": "56305",
+      "context": {
+        "problem_id": "b5804a6e-3a34-41fd-ac51-1e5b8402b325",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те пло­щадь ромба, если его диа­го­на­ли равны 14 и 6.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">42</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27615",
+      "task": "27615",
+      "context": {
+        "problem_id": "f90df9a9-ce5e-4816-8315-d20f690e0be1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:56.180687+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:35:45.834498+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь ромба равна 18. Одна из его диа­го­на­лей равна 12. Най­ди­те дру­гую диа­го­наль.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:35:45.834498+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 12\\iff 6a=18\\iff a=3\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:35:45.834498+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Пло­щадь ромба равна 18. Одна из его диа­го­на­лей равна 12. Най­ди­те дру­гую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 12\\iff 6a=18\\iff a=3\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27615",
+      "task": "56355",
+      "context": {
+        "problem_id": "d536705f-1698-4cea-b8d2-97bf26539d44",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:35.316257+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:35:45.516698+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь ромба равна 66. Одна из его диа­го­на­лей равна 4. Най­ди­те дру­гую диа­го­наль.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:35:45.516698+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 4\\iff 2a=66\\iff a=33\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:35:45.516698+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Пло­щадь ромба равна 66. Одна из его диа­го­на­лей равна 4. Най­ди­те дру­гую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">33</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 4\\iff 2a=66\\iff a=33\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27615",
+      "task": "56361",
+      "context": {
+        "problem_id": "7d24da03-afcc-49ff-865d-5314c96c6a64",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:30.476474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:35:36.593578+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь ромба равна 30. Одна из его диа­го­на­лей равна 6. Най­ди­те дру­гую диа­го­наль.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:35:36.593578+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 6\\iff 3a=30\\iff a=10\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:35:36.593578+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Пло­щадь ромба равна 30. Одна из его диа­го­на­лей равна 6. Най­ди­те дру­гую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 6\\iff 3a=30\\iff a=10\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27615",
+      "task": "56363",
+      "context": {
+        "problem_id": "b901c87b-68c1-4fbb-a0d2-724346295cc7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:51.207912+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:35:37.264279+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь ромба равна 24. Одна из его диа­го­на­лей равна 6. Най­ди­те дру­гую диа­го­наль.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:35:37.264279+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 6\\iff 3a=24\\iff a=8\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:35:37.264279+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Пло­щадь ромба равна 24. Одна из его диа­го­на­лей равна 6. Най­ди­те дру­гую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Сле­до­ва­тель­но, если <i>a</i>  — длина ис­ко­мой диа­го­на­ли, то</p><center><p> <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 6\\iff 3a=24\\iff a=8\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27616",
+      "task": "27616",
+      "context": {
+        "problem_id": "d27d8d4a-0a97-47c3-ba98-6040c6e3de36",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:54.898813+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.422120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь ромба равна 6. Одна из его диа­го­на­лей в 3 раза боль­ше дру­гой. Най­ди­те мень­шую диа­го­наль.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.422120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Пусть мень­шая из диа­го­на­лей равна <i>a</i>, тогда боль­шая равна 3<i>a</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 3a=6\"></span>, от­ку­да  <span data-inline-latex=\"a=2\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.422120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.422120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Пло­щадь ромба равна 6. Одна из его диа­го­на­лей в 3 раза боль­ше дру­гой. Най­ди­те мень­шую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Пусть мень­шая из диа­го­на­лей равна <i>a</i>, тогда боль­шая равна 3<i>a</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 3a=6\"></span>, от­ку­да  <span data-inline-latex=\"a=2\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27616",
+      "task": "56405",
+      "context": {
+        "problem_id": "9c71d2cc-f23a-42a0-b4f0-4e1b31895c24",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:51.480101+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.131474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь ромба равна 867. Одна из его диа­го­на­лей в 6 раз боль­ше дру­гой. Най­ди­те мень­шую диа­го­наль.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.131474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Пусть мень­шая из диа­го­на­лей равна <i>a</i>, тогда боль­шая равна 6<i>a</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 6a=867\"></span>, от­ку­да  <span data-inline-latex=\"a=17\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.131474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:21:09.131474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>Пло­щадь ромба равна 867. Одна из его диа­го­на­лей в 6 раз боль­ше дру­гой. Най­ди­те мень­шую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">17</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Пусть мень­шая из диа­го­на­лей равна <i>a</i>, тогда боль­шая равна 6<i>a</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 6a=867\"></span>, от­ку­да  <span data-inline-latex=\"a=17\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27616",
+      "task": "56453",
+      "context": {
+        "problem_id": "1c5d2aa5-dc1a-4662-867f-637f60f082e5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:44.300003+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+                "html": "<img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:21:07.757678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Пусть мень­шая из диа­го­на­лей равна <i>a</i>, тогда боль­шая равна 4<i>a</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 4a=18\"></span>, от­ку­да  <span data-inline-latex=\"a=3\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:21:07.757678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:21:07.757678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a581314-6063-4c87-95eb-073086a172f4",
+              "kind": "ordinary_image",
+              "asset_id": "0a581314-6063-4c87-95eb-073086a172f4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь ромба равна 18. Одна из его диа­го­на­лей в 4 раза боль­ше дру­гой. Най­ди­те мень­шую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a581314-6063-4c87-95eb-073086a172f4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a581314-6063-4c87-95eb-073086a172f4\"/></p><p>Пло­щадь ромба равна по­ло­ви­не про­из­ве­де­ния длин его диа­го­на­лей. Пусть мень­шая из диа­го­на­лей равна <i>a</i>, тогда боль­шая равна 4<i>a</i>. Сле­до­ва­тель­но,  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot a\\cdot 4a=18\"></span>, от­ку­да  <span data-inline-latex=\"a=3\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27616",
+      "task": "56407",
+      "context": {
+        "problem_id": "0e1523be-8c54-418e-868e-542e44ba0c58",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь ромба равна 361. Одна из его диа­го­на­лей в 2 раза боль­ше дру­гой. Най­ди­те мень­шую диа­го­наль.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">19</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

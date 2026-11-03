@@ -38,11 +38,11 @@ def _style(line):
     }
 
 
-def _corner(root, o, p, q, style, name):
+def _corner(root, o, p, q, style, name, *, size=7.688):
     u = (p[0] - o[0], p[1] - o[1])
     v = (q[0] - o[0], q[1] - o[1])
-    u = tuple(7.688 * z / math.hypot(*u) for z in u)
-    v = tuple(7.688 * z / math.hypot(*v) for z in v)
+    u = tuple(size * z / math.hypot(*u) for z in u)
+    v = tuple(size * z / math.hypot(*v) for z in v)
     points = [
         (o[0] + u[0], o[1] + u[1]),
         (o[0] + u[0] + v[0], o[1] + u[1] + v[1]),

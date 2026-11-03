@@ -21,6 +21,43 @@ PROFILES = tuple(
         rewrite_existing_solution=True,
     )
     for key, identifier, index, rule in (
+        (
+            "27436",
+            "e989a6f9-18f6-45e9-a084-2d5e9294e132",
+            0,
+            "parallelogram-sine-greater-height",
+        ),
+        (
+            "27611",
+            "213db071-d7cb-4b31-9c01-adefaa299371",
+            8,
+            "parallelogram-base-height-transfer",
+        ),
+        (
+            "27612",
+            "1cacd2f6-bd07-45c7-b945-ea61a66b1419",
+            9,
+            "parallelogram-area-greater-height",
+        ),
+        (
+            "27613",
+            "67ea3c5c-0452-4b50-b5a8-4a58460c1544",
+            10,
+            "rhombus-height-thirty-area",
+        ),
+        ("27614", "402797f0-041d-4bb3-8ec5-c925dc2cf1aa", 11, "rhombus-diagonals-area"),
+        (
+            "27615",
+            "9fd6095f-9221-475f-8ae8-01b7f84e4cf0",
+            12,
+            "rhombus-area-known-diagonal",
+        ),
+        (
+            "27616",
+            "5f2f0435-f250-427f-b48a-800671449d79",
+            13,
+            "rhombus-area-diagonal-factor-small",
+        ),
         ("27582", "99f7646a-3ef6-4ef7-8a55-da75d65a624e", 1, "square-diagonal-area"),
         (
             "27601",
