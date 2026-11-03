@@ -602,6 +602,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27792-equilateral-height-from-side",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27793",
@@ -616,6 +617,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27793-equilateral-side-from-height",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27794",
@@ -630,6 +632,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27794-vertex-angle-from-base-altitude",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27795",

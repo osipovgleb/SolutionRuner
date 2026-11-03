@@ -200,20 +200,26 @@ HANDLERS = (
         "solution_runner.pipelines.triangles.isosceles.planner:build_group_27760_repair_plan",
         inputs=(("parent_condition_asset_id", "parent_asset_id"),),
     ),
-    HandlerSpec(
-        "isosceles-triangle-27792-equilateral-height-from-side",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27792_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27793-equilateral-side-from-height",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27793_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27794-vertex-angle-from-base-altitude",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27794_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.isosceles.base_height_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.isosceles.base_height_figures:diagram_specs",
+        )
+        for rule in (
+            "isosceles-triangle-27792-equilateral-height-from-side",
+            "isosceles-triangle-27793-equilateral-side-from-height",
+            "isosceles-triangle-27794-vertex-angle-from-base-altitude",
+        )
     ),
     HandlerSpec(
         "isosceles-triangle-27795-altitude-from-side-vertex-angle",

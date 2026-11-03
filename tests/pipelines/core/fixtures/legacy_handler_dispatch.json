@@ -872,25 +872,37 @@
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27792-equilateral-height-from-side": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27792_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.base_height_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27792-equilateral-height-from-side"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27793-equilateral-side-from-height": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27793_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.base_height_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27793-equilateral-side-from-height"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27794-vertex-angle-from-base-altitude": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27794_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.base_height_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27794-vertex-angle-from-base-altitude"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
