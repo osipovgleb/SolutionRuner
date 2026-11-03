@@ -15,6 +15,8 @@ from .midpoint_assets import PREFIX, read_assets, seed
 from .midpoint_model import read_question
 from .midpoint_sources import (
     HEIGHT_CONDITION,
+    PERIMETER_CONDITION,
+    PERIMETER_FIGURE,
     SOURCES,
     TRAPEZOID_HEIGHT,
     TRAPEZOID_MEDIAN,
@@ -72,6 +74,7 @@ def _select_figures(model, height_only, assets, owners):
         )
         + (TRIANGLE_HEIGHT,),
         "varignon": (VARIGNON_FIGURE,),
+        "perimeter": (PERIMETER_CONDITION, PERIMETER_FIGURE),
     }[model.mode]
     figures, used = [], set()
     for preferred in roles:

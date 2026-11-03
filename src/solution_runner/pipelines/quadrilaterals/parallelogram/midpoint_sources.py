@@ -5,13 +5,15 @@ import hashlib
 from importlib.resources import files
 
 from ...core.errors import ContentPlanError
-from .midpoint_model import HEIGHT, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON
+from .midpoint_model import HEIGHT, PERIMETER, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON
 
 TRAPEZOID_HEIGHT = "026445da-c5cc-421d-9617-99a9526428a5"
 TRAPEZOID_MEDIAN = "66e2ea05-1d95-4964-8611-efc5342d8806"
 VARIGNON_FIGURE = "ccc9565b-f51d-483b-8f52-550bae30a7db"
 TRIANGLE_HEIGHT = "40db11b0-156b-414f-a046-ca6e41b37516"
 HEIGHT_CONDITION = "f751e689-ec08-4bc6-9de7-d55c46285ba8"
+PERIMETER_CONDITION = "4a66f017-c295-4d23-83da-a41bb11054dc"
+PERIMETER_FIGURE = "043c5742-ab3c-47e3-a9d5-d079a318087a"
 # Each frame maps the canonical mathematical roles to actual source lettering.
 SOURCES = {
     TRAPEZOID_HEIGHT: ("trapezoid", "ABCD", "height", "ABDCEh"),
@@ -29,21 +31,28 @@ SOURCES = {
     "313e1a07-bef2-45c4-ab67-409bc153050f": ("triangle", "BCDA", "height", "ABCDEH"),
     "b084d4ab-37d1-48f6-87f7-98875970f979": ("triangle", "BCDA", "condition", "ABCDE"),
     HEIGHT_CONDITION: ("trapezoid", "DCBA", "condition", "ABCDE"),
+    PERIMETER_CONDITION: ("perimeter", "ABCD", "condition", "ABDC"),
+    PERIMETER_FIGURE: ("perimeter", "ABCD", "perimeter", "ABDC"),
 }
 PARENTS = {
+    PERIMETER: (
+        PERIMETER_CONDITION,
+        (("image_2", PERIMETER_FIGURE),),
+        "687b1a8ff34a07b587e68de0901bef6a43db93a09b74d529bed79b72a200642b",
+    ),
     TWO_TRAPEZOID: (
         TRAPEZOID_HEIGHT,
-        (TRAPEZOID_HEIGHT, TRAPEZOID_MEDIAN),
+        (("image_1", TRAPEZOID_HEIGHT), ("image_2", TRAPEZOID_MEDIAN)),
         "15f2a14ba8c5e212fd1f7f986a57d556d8b72cc474a68f0213afcc63441c2b99",
     ),
     VARIGNON: (
         VARIGNON_FIGURE,
-        (VARIGNON_FIGURE,),
+        (("image_1", VARIGNON_FIGURE),),
         "78f8bb5bcc90658105a717aa48c23d737fc836efe8287be92807ef0c444206a5",
     ),
     TWO_TRIANGLE: (
         TRIANGLE_HEIGHT,
-        (TRIANGLE_HEIGHT,),
+        (("image_1", TRIANGLE_HEIGHT),),
         "c03ffc94898f1284fff63f91410c5ca724ff7358315859c5ccc5eb424263d528",
     ),
     HEIGHT: (
@@ -54,6 +63,8 @@ PARENTS = {
 }
 
 _HASHES = {
+    "043c5742-ab3c-47e3-a9d5-d079a318087a": "4098d9d017952acab51c80baf9cdd0f541c44ab27631cdc725a260fad689d846",
+    "4a66f017-c295-4d23-83da-a41bb11054dc": "4679367f266ed109a9d07b5098c52ea7b4efaf67eeb733bd0a4e0b8275aba675",
     "026445da-c5cc-421d-9617-99a9526428a5": "72961d0ea2767f534b601d6c7b414500a037ea8ff8b4cb94920f323a666863c7",
     "17166b67-74e2-4ed6-8e78-201cc0d2152f": "87f407727f29399c2e61bc2849088c50a0ac9841176694038283ddb702fd8c02",
     "313e1a07-bef2-45c4-ab67-409bc153050f": "104c69a59ea3a22a9a123f63c8407ac989783a80b544b6b2ede5b5905541aa88",
@@ -88,7 +99,7 @@ def review_parent(rule, identifier, html, assets):
         or hashlib.sha256(html.encode()).hexdigest() != digest
     ):
         raise ContentPlanError("the reviewed midpoint parent method changed")
-    expected = [("image_" + str(i + 1), source) for i, source in enumerate(figures)]
+    expected = list(figures)
     if not isinstance(assets, (list, tuple)) or any(
         not isinstance(a, dict) for a in assets
     ):
@@ -99,5 +110,5 @@ def review_parent(rule, identifier, html, assets):
         a.get("url") != "/assets/" + a["source_asset_id"] for a in assets
     ):
         raise ContentPlanError("the reviewed parent midpoint figures changed")
-    for source in (primary, *figures):
+    for source in (primary, *(source for _, source in figures)):
         source_bytes(source)

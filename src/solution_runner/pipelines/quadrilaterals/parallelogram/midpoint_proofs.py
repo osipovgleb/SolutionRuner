@@ -3,7 +3,7 @@
 from ...probability.common import line
 from ...triangles.right.altitude_methods import solution_section
 from ...triangles.right.altitude_parent import exact_answer
-from .midpoint_model import HEIGHT, TWO_TRAPEZOID, TWO_TRIANGLE
+from .midpoint_model import HEIGHT, PERIMETER, TWO_TRAPEZOID, TWO_TRIANGLE
 
 
 def _number(value):
@@ -109,6 +109,22 @@ def _varignon(m, picture):
     )
 
 
+def _perimeter(m, picture):
+    first, second = map(_number, m.diagonals)
+    return (
+        picture
+        + "<p>Стороны искомого четырёхугольника равны средним линиям треугольников, образуемых диагоналями и сторонами данного четырёхугольника. Обозначим диагонали исходного четырёхугольника AC и BD:</p>"
+        + line("AC=" + first)
+        + line("BD=" + second)
+        + "<p>Таким образом, две стороны искомого четырёхугольника равны половине AC, а две другие — половине BD. Сложим длины четырёх сторон:</p>"
+        + line(r"P=\frac{1}{2}AC+\frac{1}{2}DB+\frac{1}{2}BD+\frac{1}{2}CA")
+        + line(r"P=\frac{AC+CA}{2}+\frac{BD+DB}{2}")
+        + line("P=AC+BD")
+        + line("P=" + first + "+" + second)
+        + line("P=" + _number(m.answer))
+    )
+
+
 def render(m, rule, pictures):
     if rule in {TWO_TRAPEZOID, HEIGHT}:
         first = _trapezoid(m, pictures.get("height", ""), one_method=rule == HEIGHT)
@@ -117,6 +133,8 @@ def render(m, rule, pictures):
         )
     elif rule == TWO_TRIANGLE:
         first, second = _triangle_height(m, pictures["height"]), _triangle_median(m)
+    elif rule == PERIMETER:
+        first, second = _perimeter(m, pictures["perimeter"]), None
     else:
         first, second = _varignon(m, pictures["varignon"]), None
     return solution_section("Решение", first) + (

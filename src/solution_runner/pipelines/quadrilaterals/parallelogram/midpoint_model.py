@@ -1,4 +1,4 @@
-"""Exact areas derived from the complete midpoint and polygon incidence."""
+"""Exact areas and perimeters from complete midpoint questions."""
 
 import re
 from dataclasses import dataclass
@@ -15,11 +15,13 @@ TWO_TRAPEZOID = "parallelogram-midpoint-trapezoid-two-methods"
 VARIGNON = "parallelogram-midpoint-varignon-area"
 TWO_TRIANGLE = "parallelogram-midpoint-triangle-two-methods"
 HEIGHT = "parallelogram-665285-midpoint-trapezoid-area"
+PERIMETER = "quadrilateral-midpoint-varignon-perimeter"
 RULES = {
     TWO_TRAPEZOID: "trapezoid",
     VARIGNON: "varignon",
     TWO_TRIANGLE: "triangle",
     HEIGHT: "trapezoid",
+    PERIMETER: "perimeter",
 }
 FRAMES = tuple(s[i:] + s[:i] for s in ("ABCD", "DCBA") for i in range(4))
 
@@ -46,12 +48,23 @@ class MidpointArea:
             }[self.mode]
         )
 
-    def require_rule(self, rule):
-        if RULES.get(rule) != self.mode:
-            raise ContentPlanError(
-                "the complete midpoint question differs from its rule"
-            )
-        return self
+
+@dataclass(frozen=True)
+class MidpointPerimeter:
+    diagonals: tuple[sp.Rational, sp.Rational]
+    mode = "perimeter"
+    frame = "ABCD"
+
+    @property
+    def answer(self):
+        return sum(self.diagonals)
+
+
+def _positive(raw):
+    value = sp.Rational(raw.replace("{,}", ".").replace(",", "."))
+    if value <= 0:
+        raise ContentPlanError("the given geometric quantity must be positive")
+    return value
 
 
 def _cyclic(polygon, expected):
@@ -69,12 +82,17 @@ def read_question(html, source=None):
         text = _text(html, source, labels="ABCDE", extra_identifiers=identifiers)
     except AltitudeSolveError as exc:
         raise ContentPlanError(str(exc)) from exc
+    perimeter = re.fullmatch(
+        rf"Диагонали четыр[её]хугольника равны\s+({NUMBER})\s+и\s+({NUMBER})\s*\.\s*"
+        r"Найдите периметр четыр[её]хугольника, вершинами которого являются середины сторон данного четыр[её]хугольника\s*\.",
+        text,
+    )
+    if perimeter:
+        return MidpointPerimeter(tuple(_positive(v) for v in perimeter.groups()))
     start = re.match(rf"Площадь параллелограмма ABCD равна\s+({NUMBER})\s*\.\s*", text)
     if start is None:
         raise ContentPlanError("one positive complete parallelogram area is required")
-    area = sp.Rational(start[1].replace("{,}", ".").replace(",", "."))
-    if area <= 0:
-        raise ContentPlanError("the given area must be positive")
+    area = _positive(start[1])
     rest = text[start.end() :]
     if re.fullmatch(
         r"Найдите площадь параллелограмма A'B'C'D'\s*,\s*вершинами которого являются середины сторон данного параллелограмма\s*\.",

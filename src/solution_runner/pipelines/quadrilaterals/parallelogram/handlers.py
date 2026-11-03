@@ -2,7 +2,7 @@
 
 from solution_runner.pipelines.core.handlers import HandlerSpec
 
-from .midpoint_model import HEIGHT, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON
+from .midpoint_model import HEIGHT, PERIMETER, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON
 
 HANDLERS = tuple(
     HandlerSpec(
@@ -20,5 +20,5 @@ HANDLERS = tuple(
         verify_content_readback=True,
         diagram_builder="solution_runner.pipelines.quadrilaterals.parallelogram.midpoint_figures:diagram_specs",
     )
-    for rule in (HEIGHT, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON)
+    for rule in (HEIGHT, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON, PERIMETER)
 )

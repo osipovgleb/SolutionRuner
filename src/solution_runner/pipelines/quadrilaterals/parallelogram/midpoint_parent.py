@@ -6,7 +6,7 @@ from ...triangles.isosceles.planner import RepairPlan, _section
 from ...triangles.right.altitude_parent import exact_answer
 from ...triangles.right.basic_parent import _targeted
 from .midpoint_figures import prepare as prepare_figures
-from .midpoint_model import HEIGHT
+from .midpoint_model import HEIGHT, RULES
 from .midpoint_proofs import render
 from .midpoint_sources import review_parent
 
@@ -29,7 +29,8 @@ def prepare(
     model, height_only, changes, pictures, keys = prepare_figures(
         context, generated_solution_assets
     )
-    model.require_rule(content_rule_key)
+    if RULES.get(content_rule_key) != model.mode:
+        raise ContentPlanError("the complete midpoint question differs from its rule")
     if height_only != (content_rule_key == HEIGHT):
         raise ContentPlanError("the midpoint figures differ from the parent methods")
     content = context["normalized_content"]

@@ -2,7 +2,7 @@
 
 from solution_runner.pipelines.core.profile_definitions import _profile
 
-from .midpoint_model import HEIGHT, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON
+from .midpoint_model import HEIGHT, PERIMETER, TWO_TRAPEZOID, TWO_TRIANGLE, VARIGNON
 
 PROFILES = tuple(
     _profile(
@@ -21,6 +21,7 @@ PROFILES = tuple(
         rewrite_existing_solution=True,
     )
     for key, identifier, index, rule in (
+        ("27845", "0638b40d-6f64-4dfc-8398-d598e5334386", 27, PERIMETER),
         ("317338", "07a0cb21-4434-46af-b91b-112adf950a2a", 30, TWO_TRAPEZOID),
         ("319056", "acad8e12-9935-4d79-9a1f-3aface7f792a", 31, VARIGNON),
         ("319057", "10245d06-828f-44a3-a575-e92fef7a32fc", 32, TWO_TRIANGLE),
