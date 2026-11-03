@@ -40,6 +40,12 @@ class BasicTriangle:
         return sp.simplify(1 / sp.sqrt(1 + t * t))
 
     @property
+    def sine(self):
+        if self.function == "sin":
+            return self.function_value
+        return sp.simplify(sp.sqrt(1 - self.cosine**2))
+
+    @property
     def side(self):
         return (
             self.given_length
