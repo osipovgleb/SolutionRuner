@@ -288,6 +288,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27345-obtuse-sine-from-side-and-altitude",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27346",
@@ -302,6 +303,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27346-obtuse-cosine-from-side-and-altitude",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27347",
@@ -316,6 +318,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27347-obtuse-tangent-from-side-and-altitude",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27349",
@@ -330,6 +333,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27349-obtuse-cosine-from-side-and-projection",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27350",
@@ -344,6 +348,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27350-obtuse-tangent-from-side-and-projection",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27351",
@@ -358,6 +363,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27351-obtuse-sine-from-altitude-and-projection",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27352",
@@ -372,6 +378,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27352-obtuse-cosine-from-altitude-and-projection",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27353",
@@ -386,6 +393,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27353-obtuse-tangent-from-altitude-and-projection",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27589",

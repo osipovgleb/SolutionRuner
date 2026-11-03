@@ -114,6 +114,11 @@ def _identity(key, source, diagram, generated):
 def prepare(context, condition, generated):
     _model, current, _mode, key, source, diagram = selection(context)
     identifier, url = _identity(key, source, diagram, generated)
+    return condition_changes(context, condition, current, key, identifier, url)
+
+
+def condition_changes(context, condition, current, key, identifier, url):
+    """Replace a reviewed condition picture without changing the question text."""
     old_key = current["asset_key"]
     soup = BeautifulSoup(condition["html"], "html.parser")
     images = soup.find_all("img")

@@ -121,45 +121,31 @@ HANDLERS = (
             "isosceles-triangle-27331-cosine-from-altitude-and-base",
         )
     ),
-    HandlerSpec(
-        "isosceles-triangle-27345-obtuse-sine-from-side-and-altitude",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27345_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27346-obtuse-cosine-from-side-and-altitude",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27346_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27347-obtuse-tangent-from-side-and-altitude",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27347_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27349-obtuse-cosine-from-side-and-projection",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27349_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27350-obtuse-tangent-from-side-and-projection",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27350_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27351-obtuse-sine-from-altitude-and-projection",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27351_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27352-obtuse-cosine-from-altitude-and-projection",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27352_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27353-obtuse-tangent-from-altitude-and-projection",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27353_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.isosceles.obtuse_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.isosceles.obtuse_figures:diagram_specs",
+        )
+        for rule in (
+            "isosceles-triangle-27345-obtuse-sine-from-side-and-altitude",
+            "isosceles-triangle-27346-obtuse-cosine-from-side-and-altitude",
+            "isosceles-triangle-27347-obtuse-tangent-from-side-and-altitude",
+            "isosceles-triangle-27349-obtuse-cosine-from-side-and-projection",
+            "isosceles-triangle-27350-obtuse-tangent-from-side-and-projection",
+            "isosceles-triangle-27351-obtuse-sine-from-altitude-and-projection",
+            "isosceles-triangle-27352-obtuse-cosine-from-altitude-and-projection",
+            "isosceles-triangle-27353-obtuse-tangent-from-altitude-and-projection",
+        )
     ),
     HandlerSpec(
         "isosceles-triangle-27589-area-from-side-and-30-degree-vertex-angle",
