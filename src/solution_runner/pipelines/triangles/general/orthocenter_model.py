@@ -12,12 +12,16 @@ from ..right.altitude_solver import AltitudeSolveError
 from .altitude_quad_model import _DEGREES
 from .incenter_model import _RAY
 
+RAY_RULE = "general-triangle-27779-orthocenter-altitudes-angle"
+LINES_RULE = "general-triangle-27763-altitudes-angle-sum"
+
 
 @dataclass(frozen=True)
 class OrthocenterAngle:
     frame: str
     alpha: sp.Rational
     beta: sp.Rational
+    mode: str = "rays"
 
     def name(self, text):
         names = dict(zip("ABC", self.frame)) | {n: n for n in "DEFO"}
@@ -29,7 +33,37 @@ class OrthocenterAngle:
 
     @property
     def answer(self):
+        if self.mode == "lines":
+            return max(self.alpha + self.beta, self.gamma)
         return min(self.beta, 180 - self.beta)
+
+    def require_rule(self, rule):
+        if {RAY_RULE: "rays", LINES_RULE: "lines"}.get(rule) != self.mode:
+            raise ContentPlanError(
+                "the complete altitude question differs from the registered method"
+            )
+        return self
+
+
+def _read_lines(text):
+    match = re.fullmatch(
+        r"Два угла треугольника равны "
+        + _DEGREES
+        + r" и "
+        + _DEGREES
+        + r"\. Найдите тупой угол, который образуют высоты треугольника, выходящие из вершин этих углов\. Ответ дайте в градусах\.",
+        text,
+    )
+    if match is None:
+        raise ContentPlanError(
+            "one complete obtuse angle-between-altitudes question is required"
+        )
+    model = OrthocenterAngle("ABC", _value(match[1]), _value(match[2]), "lines")
+    if model.gamma <= 0 or model.gamma == 90:
+        raise ContentPlanError(
+            "the triangle is degenerate or its altitude lines form no obtuse angle"
+        )
+    return model
 
 
 def _facts(text):
@@ -70,6 +104,8 @@ def read_question(html, source):
     try:
         text = _text(html, source, labels="ABCDEFO")
         text = re.sub(r"\s+([,.])", r"\1", text)
+        if text.startswith("Два угла треугольника"):
+            return _read_lines(text)
         end = "Ответ дайте в градусах."
         if not text.endswith(end) or text.count("Найдите") != 1:
             raise ContentPlanError(

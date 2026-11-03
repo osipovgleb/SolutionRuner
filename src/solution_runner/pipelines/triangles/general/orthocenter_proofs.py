@@ -6,20 +6,23 @@ from ...core.errors import ContentPlanError
 from ...probability.common import line
 from ..isosceles.angle_proofs import angle, degree
 from ..right.altitude_methods import solution_section
+from .altitude_lines_proofs import render as render_lines
+from .orthocenter_model import LINES_RULE, RAY_RULE
 
 
-def review_parent(html):
-    if (
-        not isinstance(html, str)
-        or hashlib.sha256(html.encode()).hexdigest()
-        != "335b0e8812cce6c6854a496bae86145eec2d2338c2ab1db89aaa5fb0db168085"
-    ):
+def review_parent(html, rule=RAY_RULE):
+    if not isinstance(html, str) or hashlib.sha256(html.encode()).hexdigest() != {
+        RAY_RULE: "335b0e8812cce6c6854a496bae86145eec2d2338c2ab1db89aaa5fb0db168085",
+        LINES_RULE: "41e9af4c094fadb395884bf22d005ef5c91d31e1704d708848c8d11064349271",
+    }.get(rule):
         raise ContentPlanError(
             "the reviewed perpendicular-altitudes parent method changed"
         )
 
 
 def render(m):
+    if m.mode == "lines":
+        return render_lines(m)
     b, afo, oaf, aof = [angle(m.name(n)) for n in ["B", "AFO", "OAF", "AOF"]]
     complement = 90 - m.answer
     relation = r"90^{\circ}-" + b if m.beta < 90 else b + r"-90^{\circ}"

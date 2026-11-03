@@ -13,8 +13,13 @@ from .orthocenter_svg import orthocenter_svg
 from .simple_angle_figures import _remapped
 
 SOURCE = "86889ade-4724-487b-b241-b45b40f5c3f5"
-KEYS = {SOURCE: "orthocenter_condition"}
-_HASHES = {SOURCE: "607c561f959935b5e7636999c639b1b0d6c0f0b5cd680a0f819b862dbb807656"}
+LINES_SOURCE = "e0a9ce9a-f9d4-4ab4-b09b-59e0487605da"
+SOURCES = {"rays": SOURCE, "lines": LINES_SOURCE}
+KEYS = {SOURCE: "orthocenter_condition", LINES_SOURCE: "altitude_lines_condition"}
+_HASHES = {
+    SOURCE: "607c561f959935b5e7636999c639b1b0d6c0f0b5cd680a0f819b862dbb807656",
+    LINES_SOURCE: "73a3e9135d36c850c027a890424a39769d8b51348d87f5365552bfa508185551",
+}
 
 
 def source_bytes(source):
@@ -33,6 +38,10 @@ def selection(context):
         context, KEYS, source_bytes
     )
     model = read_question(html, asset["asset_id"])
+    if source != SOURCES[model.mode]:
+        raise ContentPlanError(
+            "the source diagram depicts a different altitude question"
+        )
     if max(model.alpha, model.beta, model.gamma) >= 90:
         diagram = spec(KEYS[source], orthocenter_svg(model, raw))
     elif model.frame != "ABC":

@@ -1,4 +1,4 @@
-"""Draw all three altitudes, their true extensions and coincident right-angle points."""
+"""Draw two or three altitudes, their extensions and coincident right-angle points."""
 
 import math
 import xml.etree.ElementTree as ET
@@ -38,11 +38,26 @@ def _points(model):
     }
     if model.gamma == 90:
         points.update({n: points["C"] for n in "DEO"})
+    if model.alpha == 90:
+        points["C"] = (0, cy)
+        points.update({n: points["A"] for n in "EO"})
+    if model.beta == 90:
+        points["C"] = (100, cy)
+        points.update({n: points["B"] for n in "DO"})
+    if model.mode == "lines":
+        points.pop("F")
     xs, ys = zip(*points.values())
     scale = 300 / max(max(xs) - min(xs), max(ys) - min(ys))
-    edges = ["AB", "AC", "BC", "AD", "BE", "CF", "AF", "FO", "AO"]
-    if model.gamma != 90:
-        edges += ["CD", "CE", "CO", "DO", "EO"]
+    if model.mode == "lines":
+        edges = ["AB", "AC", "BC", "AD", "BE", "CD", "CE", "CO"]
+        if model.alpha != 90:
+            edges += ["AE", "AO", "EO"]
+        if model.beta != 90:
+            edges += ["BD", "BO", "DO"]
+    else:
+        edges = ["AB", "AC", "BC", "AD", "BE", "CF", "AF", "FO", "AO"]
+        if model.gamma != 90:
+            edges += ["CD", "CE", "CO", "DO", "EO"]
     if any(math.dist(points[e[0]], points[e[1]]) * scale < 9 for e in edges):
         raise ContentPlanError(
             "the distinct orthocenter points collapse at the reviewed SVG scale"
@@ -100,9 +115,10 @@ def _labels(root, glyphs, model, points, black):
 def orthocenter_svg(model, raw):
     original = ET.fromstring(raw)
     groups = original.findall(_tag("g"))
-    if len(groups) != 7:
-        raise ContentPlanError("the reviewed ABCDEFO lettering changed")
-    glyphs = dict(zip("ABCDEFO", groups))
+    names = "ABCDEO" if model.mode == "lines" else "ABCDEFO"
+    if len(groups) != len(names):
+        raise ContentPlanError("the reviewed orthocenter lettering changed")
+    glyphs = dict(zip(names, groups))
     lines = original.findall(_tag("line"))
     black, blue = [
         _style(next(e for e in lines if e.get("stroke") == color))
@@ -112,20 +128,28 @@ def orthocenter_svg(model, raw):
     root = ET.Element(_tag("svg"), dict(original.attrib))
     for side in ["AB", "BC", "CA"]:
         _line(root, points[side[0]], points[side[1]], black, side)
-    for origin, foot, side in [("A", "D", "BC"), ("B", "E", "CA"), ("C", "F", "AB")]:
+    cyan = (
+        _style(next(e for e in lines if e.get("stroke") == "#007EA5"))
+        if model.mode == "lines"
+        else blue
+    )
+    heights = [("A", "D", "BC", cyan), ("B", "E", "CA", blue)]
+    if model.mode == "rays":
+        heights.append(("C", "F", "AB", blue))
+    for origin, foot, side, style in heights:
         _extension(root, points, side, foot, black)
-        _line(root, points[origin], points[foot], blue, origin + foot)
+        _line(root, points[origin], points[foot], style, origin + foot)
         _extension(
             root,
             points,
             origin + foot,
             "O",
-            blue,
+            style,
             name="altitude-extension-" + origin + foot,
         )
         vertex = next(n for n in side if math.dist(points[n], points[foot]) > 1e-6)
         _corner(
-            root, points[foot], points[origin], points[vertex], blue, "right-" + foot
+            root, points[foot], points[origin], points[vertex], style, "right-" + foot
         )
     boxes = _labels(root, glyphs, model, points, black)
     xs, ys = zip(*points.values())
