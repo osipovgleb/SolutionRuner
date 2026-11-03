@@ -11,6 +11,7 @@ from solution_runner.pipelines.core.content_runtime import (
     _apply_record,
     _prepared_record,
 )
+from solution_runner.pipelines.core.handler_registry import get_handler
 
 
 def prepared(case, gateway):
@@ -41,10 +42,13 @@ def test_native_frozen_roundtrips_reuse_sources_and_resume_without_uploads(case)
     assert record["status"] == "prepared", record
     assert record["expected_answer"] == plan(case).answer
     assert not gateway.uploads and not gateway.writes
+    expected = len(
+        get_handler(GROUPS[case["group"]]["rule"]).diagram_specs(case["context"])
+    )
     assert apply_offline(case, gateway, record)["status"] == "applied"
-    assert not gateway.uploads and len(gateway.writes) == 1
+    assert len(gateway.uploads) == expected and len(gateway.writes) == 1
     assert apply_offline(case, gateway, record)["status"] == "already_complete"
-    assert not gateway.uploads and len(gateway.writes) == 1
+    assert len(gateway.uploads) == expected and len(gateway.writes) == 1
     assert read(gateway.context) == read(case["context"])
     assert section(gateway.context, "source") == section(case["context"], "source")
 

@@ -12,6 +12,7 @@ SINES = {
     150: sp.Rational(1, 2),
 }
 MODES = {
+    "polygon_vertices",
     "right_radius",
     "right_hypotenuse",
     "right_legs",
@@ -25,6 +26,14 @@ MODES = {
 
 def variables(m):
     v = m.given[0]
+    if m.mode == "polygon_vertices":
+        return {
+            "n": 360 / (180 - v),
+            r"\alpha": v,
+            r"\angle OAB": v / 2,
+            r"\angle ABO": v / 2,
+            r"\angle AOB": 180 - v,
+        }
     if m.mode.startswith("right_"):
         if m.mode == "right_legs":
             a, b = m.given[:2]

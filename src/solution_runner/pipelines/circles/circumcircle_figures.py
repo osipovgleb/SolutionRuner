@@ -1,9 +1,14 @@
 """Reuse the exact regular-triangle circumcircle constructions."""
 
+from bs4 import BeautifulSoup
+
 from ..core.errors import ContentPlanError
+from ..quadrilaterals.quantity_content import read_content
+from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import condition_changes
-from . import static_figures
+from . import circumcircle_polygon_figures, static_figures
 from .circumcircle_model import read_question
+from .circumcircle_polygon_svg import SOURCE as POLYGON_SOURCE
 
 ACUTE = ("f0cf673f-8658-42ed-a2e3-58b4debfd315", "76a7c802-b4a8-4880-af3c-e4e7855a95f9")
 RIGHT = ("a124add8-430b-4761-ad72-2f022dc85c73",)
@@ -13,6 +18,7 @@ OBTUSE = (
     "e5506a55-6c96-4c42-b5bd-b826625e6e4f",
 )
 SOURCES = {
+    "polygon_vertices": (POLYGON_SOURCE,),
     "right_radius": RIGHT,
     "right_hypotenuse": RIGHT,
     "right_legs": RIGHT,
@@ -31,12 +37,30 @@ SOURCES = {
 DETAILS = {"hexagon_side": (("equilateral", "da152d89-1c61-4571-a592-42f5eb10c818"),)}
 
 
+def context_model(context):
+    content, _, _ = read_content(
+        context, {"image_1", "image_2", circumcircle_polygon_figures.KEY}
+    )
+    condition = _section(content, "condition")
+    if condition is None:
+        raise ContentPlanError("one complete circumcircle condition is required")
+    images = BeautifulSoup(condition["html"], "html.parser").find_all("img")
+    source = images[0].get("data-asset-id") if len(images) == 1 else None
+    return read_question(condition["html"], source)
+
+
 def diagram_specs(context):
+    model = context_model(context)
+    if model.mode == "polygon_vertices":
+        return circumcircle_polygon_figures.diagram_specs(context, model)
     static_figures.selection(context, read_question, SOURCES, DETAILS, {})
     return ()
 
 
 def prepare(context, generated):
+    candidate = context_model(context)
+    if candidate.mode == "polygon_vertices":
+        return circumcircle_polygon_figures.prepare(context, candidate, generated)
     model, condition, assets = static_figures.selection(
         context, read_question, SOURCES, DETAILS, {}
     )

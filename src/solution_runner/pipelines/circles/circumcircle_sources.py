@@ -66,6 +66,11 @@ PARENTS = {
         (),
         "516b73c0536d3dd12e16f1c29f42082d8124d1ed10209e5a3d25221fa25e2a31",
     ),
+    "circle-circumcircle-regular-polygon-vertices": (
+        "74e2aecb-16e7-40f6-ab61-27c776153928",
+        (("image_1", "74e2aecb-16e7-40f6-ab61-27c776153928"),),
+        "631e3aba3731cb0601bfcbcbf23821ab91f9c83b7da843c1c21e64c69332708b",
+    ),
 }
 
 SOURCES = {
@@ -124,5 +129,9 @@ SOURCES = {
     "fa1bc6d0-29ea-4a5f-b993-740152b343d8": (
         "fa1bc6d0-29ea-4a5f-b993-740152b343d8",
         "9dd1dbfdff6e0bc75721a801e6778a0fa84060ae0be6a29c585b7128289fb4f5",
+    ),
+    "74e2aecb-16e7-40f6-ab61-27c776153928": (
+        "74e2aecb-16e7-40f6-ab61-27c776153928",
+        "7b505329017032f1331d7b880d17861fcd63a04d00f3be2f1caa6e433d74cd5b",
     ),
 }

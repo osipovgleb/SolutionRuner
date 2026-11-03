@@ -118,5 +118,11 @@ PROFILES += tuple(
             25,
             "circle-circumcircle-hexagon-diameter-perimeter",
         ),
+        (
+            "27930",
+            "71e00066-47c3-4476-9128-9b03d42de288",
+            26,
+            "circle-circumcircle-regular-polygon-vertices",
+        ),
     )
 )

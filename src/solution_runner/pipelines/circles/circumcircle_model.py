@@ -13,6 +13,7 @@ from .angle_model import DEGREE
 from .incircle_model import _positive
 
 RULES = {
+    "circle-circumcircle-regular-polygon-vertices": "polygon_vertices",
     "circle-circumcircle-right-radius-hypotenuse": "right_radius",
     "circle-circumcircle-right-hypotenuse-radius": "right_hypotenuse",
     "circle-circumcircle-right-radius-legs": "right_legs",
@@ -28,6 +29,7 @@ RULES = {
     "circle-circumcircle-equilateral-height-radius": "height_radius",
 }
 PATTERNS = {
+    "polygon_vertices": rf"Угол между двумя соседними сторонами правильного многоугольника, вписанного в окружность, равен\s+(.+?)\s*{DEGREE}\s*\.\s*Найдите число вершин многоугольника\s*\.",
     "right_radius": r"Гипотенуза прямоугольного треугольника равна\s+(.+?)\s*\.\s*Найдите радиус описанной окружности этого треугольника\s*\.",
     "right_hypotenuse": r"Радиус окружности, описанной около прямоугольного треугольника, равен\s+(.+?)\s*\.\s*Найдите гипотенузу этого треугольника\s*\.",
     "right_legs": rf"[ВB] треугольнике ABC\s+(?:(?:сторона|стороны)\s+)?AC\s*=\s*(.+?)\s*,\s*BC\s*=\s*(.+?)\s*,\s*угол C равен\s+(.+?)\s*{DEGREE}\s*\.\s*Найдите радиус описанной окружности этого треугольника\s*\.",
@@ -43,6 +45,7 @@ PATTERNS = {
     "height_radius": r"Радиус окружности, описанной около правильного треугольника, равен\s+(.+?)\s*\.\s*Найдите высоту этого треугольника\s*\.",
 }
 FORMULAS = {
+    "polygon_vertices": lambda v: 360 / (180 - v[0]),
     "right_radius": lambda v: v[0] / 2,
     "right_hypotenuse": lambda v: 2 * v[0],
     "right_legs": lambda v: sp.sqrt(v[0] ** 2 + v[1] ** 2) / 2,
@@ -74,6 +77,16 @@ def read_question(html, source=None):
             match = re.fullmatch(pattern, text)
             if match:
                 given = tuple(_positive(v) for v in match.groups())
+                if mode == "polygon_vertices":
+                    if given[0] >= 180:
+                        raise ContentPlanError(
+                            "a regular-polygon interior angle must be below 180"
+                        )
+                    n = sp.simplify(FORMULAS[mode](given))
+                    if n.is_Integer is not True or n < 3:
+                        raise ContentPlanError(
+                            "the regular polygon must have an integral number of at least three vertices"
+                        )
                 if mode == "right_legs_angle_first":
                     given, mode = given[1:] + given[:1], "right_legs"
                 if mode == "right_legs" and given[2] != 90:
