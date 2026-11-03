@@ -155,7 +155,7 @@ def test_native_answer_and_every_proof_equality_match_independent_coordinates(ca
     )
     for formula in formulas:
         for statement in re.split(
-            r"\\Longrightarrow|,\\quad", formula["data-inline-latex"]
+            r"\\Longrightarrow|\\iff|,\\quad", formula["data-inline-latex"]
         ):
             parts = statement.split("=")
             assert len(parts) >= 2
@@ -296,3 +296,50 @@ def test_changed_multiple_parent_methods_are_not_silently_simplified(alteration)
     assert changed != original
     with pytest.raises(ContentPlanError):
         plan(case, parent=changed)
+
+
+@pytest.mark.parametrize(
+    "case",
+    [c for c in CASES if c["group"] in {"27268", "27271"}],
+    ids=lambda c: c["task"],
+)
+def test_projection_methods_keep_all_parent_sections_and_their_order(case):
+    methods = BeautifulSoup(solution_html(plan(case)), "html.parser").select("section")
+    titles = [m["data-solution-title"] for m in methods]
+    assert titles == ["Решение"] + ["Альтернативное решение."] * (
+        2 if case["group"] == "27268" else 1
+    )
+    forms = [
+        [f["data-inline-latex"] for f in m.select("[data-inline-latex]")]
+        for m in methods
+    ]
+    assert forms[0][0].startswith(r"AH=AC\cos A=")
+    assert (
+        r"\sqrt{1-\cos^2 A}" in forms[0][0]
+        if case["group"] == "27271"
+        else r"1-\sin^2 A" in forms[0][0]
+    )
+    assert forms[1][-1].startswith("AH=AB-HB=")
+    if case["group"] == "27268":
+        assert forms[2][1].startswith("AC^2=AB^2-BC^2=")
+        assert forms[2][-1].startswith(r"AC^2=AB\cdot AH\iff AH=")
+
+
+@pytest.mark.parametrize("group", ["27268", "27271"])
+@pytest.mark.parametrize("alteration", ["omit", "reorder", "formula"])
+def test_projection_parent_changes_cannot_drop_or_replace_an_unreviewed_method(
+    group, alteration
+):
+    case = next(c for c in CASES if c["group"] == group and c["task"] != group)
+    soup = BeautifulSoup(
+        section(PARENTS[group]["context"], "solution")["html"], "html.parser"
+    )
+    methods = soup.select("section")
+    if alteration == "omit":
+        methods[-1].decompose()
+    elif alteration == "reorder":
+        methods[0].insert_before(methods[-1].extract())
+    else:
+        methods[-1].select_one("[data-inline-latex]")["data-inline-latex"] = "AH=BC+AB"
+    with pytest.raises(ContentPlanError):
+        plan(case, parent=str(soup))

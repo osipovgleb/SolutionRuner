@@ -15,7 +15,7 @@ from ...probability import solution_diagrams as diagrams
 from ...probability.common import line
 from ...word_problems.math_common import fraction
 from .altitude_input import canonical_condition
-from .altitude_methods import tangent_parent, tangent_solutions
+from .altitude_methods import multiple_parent, tangent_solutions
 from .altitude_solver import AltitudeSolveError, solve_altitude_condition
 
 _SOURCES = {
@@ -93,7 +93,7 @@ def _method(expression):
 def _parent(html):
     soup = BeautifulSoup(html, "html.parser")
     if len(soup.select('section[data-content-kind="solution"]')) > 1:
-        return tangent_parent(soup)
+        return multiple_parent(soup)
     if re.search(
         r"(?:второй|третий)\s+способ|альтернативное|другое\s+решение",
         soup.get_text(" ", strip=True),
@@ -290,6 +290,10 @@ def _figures(content, parent_asset_id, illustrated):
 
 
 def _render(kind, solved, *, answer, mirrored, reversed_segments, image):
+    if kind in {"projection_sinA_methods", "projection_cosA_methods"}:
+        from .altitude_projection_methods import render
+
+        return render(kind, _display(solved), answer)
     if kind == "tangent_bh_methods":
         return tangent_solutions(_display(solved), answer)
     reflected = (

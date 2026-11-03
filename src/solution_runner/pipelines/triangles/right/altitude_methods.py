@@ -5,51 +5,66 @@ from ...word_problems.math_common import fraction
 from .altitude_solver import AltitudeSolveError
 
 
-def tangent_parent(soup):
+def review_sections(soup, expected):
     sections = soup.select('section[data-content-kind="solution"]')
-    expected = (
-        (r"BH=CH\tg\angleHCB=CH\tgA=AH\tg^2A=",),
-        (
-            r"\tgA=\frac{CH}{AH}",
-            r"CH=AH\cdot\tgA=",
-            r"CH^2=AH\cdotHB",
-            r"BH=\frac{CH^2}{AH}=",
-        ),
-    )
     if (
-        len(sections) != 2
-        or len(soup.select("[data-inline-latex]")) != 5
+        len(sections) != len(expected)
+        or len(soup.select("[data-inline-latex]"))
+        != sum(len(forms) for _, forms in expected)
         or soup.find("img")
     ):
         raise AltitudeSolveError("every parent method must be reviewed")
-    for section, prefixes in zip(sections, expected, strict=True):
+    for section, (title, prefixes) in zip(sections, expected, strict=True):
         forms = [
             "".join(node["data-inline-latex"].split()).replace("^{2}", "^2")
             for node in section.select("[data-inline-latex]")
         ]
-        if len(forms) != len(prefixes) or any(
-            not formula.startswith(prefix)
-            for formula, prefix in zip(forms, prefixes, strict=True)
+        if (
+            section.get("data-solution-title") != title
+            or len(forms) != len(prefixes)
+            or any(
+                not formula.startswith(prefix)
+                for formula, prefix in zip(forms, prefixes, strict=True)
+            )
         ):
             raise AltitudeSolveError("every parent method must be reviewed")
-    if [s.get("data-solution-title") for s in sections] != [
-        "Решение",
-        "Приведем другое решение.",
-    ]:
-        raise AltitudeSolveError("the parent method titles have not been reviewed")
+
+
+def multiple_parent(soup):
+    first = soup.select_one("[data-inline-latex]")
+    if first is not None and first["data-inline-latex"].startswith("AH="):
+        from .altitude_projection_methods import parent
+
+        return parent(soup)
+    review_sections(
+        soup,
+        (
+            ("Решение", (r"BH=CH\tg\angleHCB=CH\tgA=AH\tg^2A=",)),
+            (
+                "Приведем другое решение.",
+                (
+                    r"\tgA=\frac{CH}{AH}",
+                    r"CH=AH\cdot\tgA=",
+                    r"CH^2=AH\cdotHB",
+                    r"BH=\frac{CH^2}{AH}=",
+                ),
+            ),
+        ),
+    )
     return "tangent_bh_methods", "BH", {"AH", "tgA"}, False, False, False
 
 
-def tangent_solutions(values, answer):
-    def section(title, body):
-        return (
-            '<section data-content-kind="solution" data-solution-title="'
-            + title
-            + '">'
-            + body
-            + "</section>"
-        )
+def solution_section(title, body):
+    return (
+        '<section data-content-kind="solution" data-solution-title="'
+        + title
+        + '">'
+        + body
+        + "</section>"
+    )
 
+
+def tangent_solutions(values, answer):
     answer = answer.replace(",", "{,}")
     first = (
         "<p>Углы A и HCB равны как углы со взаимно перпендикулярными сторонами. "
@@ -86,4 +101,6 @@ def tangent_solutions(values, answer):
             + answer
         )
     )
-    return section("Решение", first) + section("Приведем другое решение.", second)
+    return solution_section("Решение", first) + solution_section(
+        "Приведем другое решение.", second
+    )
