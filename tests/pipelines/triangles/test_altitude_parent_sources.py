@@ -2,7 +2,6 @@
 
 import gzip
 import hashlib
-import json
 import re
 from copy import deepcopy
 from functools import cache
@@ -10,12 +9,20 @@ from pathlib import Path
 
 import pytest
 import sympy as sp
+from altitude_source_cases import (
+    CASES,
+    DATA,
+    GROUPS,
+    SUPPORTED,
+    plan,
+    section,
+    solution_html,
+)
 from bs4 import BeautifulSoup
 
 from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.core.handler_registry import get_handler
-from solution_runner.pipelines.core.handlers import PlanInput
 from solution_runner.pipelines.equations.trig_parser import TrigonometricParser
 from solution_runner.pipelines.triangles.right import altitude_parent
 from solution_runner.pipelines.triangles.right.altitude_input import canonical_condition
@@ -24,39 +31,7 @@ from solution_runner.pipelines.triangles.right.altitude_solver import (
     _parse_positive_value,
 )
 
-DATA = json.loads(
-    (Path(__file__).parent / "fixtures/category_1_altitude_sources.json").read_text()
-)
-GROUPS = {g["key"]: g for g in DATA["groups"]}
-CASES = DATA["cases"]
-SUPPORTED = [c for c in CASES if c["status"] == "supported"]
-PARENTS = {c["group"]: c for c in CASES if c["group"] == c["task"]}
 U, V = sp.symbols("u v", positive=True)
-
-
-def section(context, key):
-    return next(s for s in context["normalized_content"]["sections"] if s["key"] == key)
-
-
-def plan(case, context=None, parent=None):
-    group = GROUPS[case["group"]]
-    return get_handler("right-triangle-altitude-universal").plan(
-        PlanInput(
-            context or case["context"],
-            parent_asset_id=group["condition_asset_id"],
-            parent_solution_html=parent
-            if parent is not None
-            else section(PARENTS[case["group"]]["context"], "solution")["html"],
-        )
-    )
-
-
-def solution_html(result):
-    return next(
-        t["value"]["html"]
-        for t in result.transformations
-        if t["transformation_target_id"].startswith("section:solution")
-    )
 
 
 @cache
@@ -96,13 +71,24 @@ def coordinates(group, task):
         if root[U].is_positive and root[V].is_positive
     ]
     assert len(roots) == 1
-    return {
+    values = {
         key: sp.simplify(sp.sqrt(value.subs(roots[0])))
         for key, value in squares.items()
     }
+    variable = {"27267": "BC", "27265": "AH", "27266": "BH"}.get(group)
+    if variable:
+        values["x"] = values[variable]
+    return values
 
 
 def numeric_formula(text, values):
+    if "x" in values:
+        text = re.sub(
+            r"(?<![A-Za-z])x(?![A-Za-z])",
+            lambda _: "(" + sp.latex(values["x"]) + ")",
+            text,
+        )
+
     def trig(match):
         angle = match[3] or match[4]
         angle = (
@@ -258,88 +244,3 @@ def test_figure_gap_preserves_the_entire_radical_height_value():
     )
     with pytest.raises(AltitudeSolveError):
         canonical_condition(invalid, source=GROUPS[case["group"]]["condition_asset_id"])
-
-
-@pytest.mark.parametrize("task", ["27357", "19899", "19901", "19903"])
-def test_both_tangent_methods_keep_the_parent_order_and_titles(task):
-    case = next(c for c in CASES if c["task"] == task)
-    soup = BeautifulSoup(solution_html(plan(case)), "html.parser")
-    methods = soup.select('section[data-content-kind="solution"]')
-    assert [m["data-solution-title"] for m in methods] == [
-        "Решение",
-        "Приведем другое решение.",
-    ]
-    formulas = [
-        [f["data-inline-latex"] for f in method.select("[data-inline-latex]")]
-        for method in methods
-    ]
-    assert len(formulas[0]) == 1 and len(formulas[1]) == 4
-    assert formulas[0][0].startswith(r"BH=CH\tg\angle HCB=CH\tg A=AH\tg^2 A=")
-    assert formulas[1][0] == r"\tg A=\frac{CH}{AH}"
-    assert formulas[1][2] == r"CH^2=AH\cdot HB"
-    assert formulas[1][3].startswith(r"BH=\frac{CH^2}{AH}=")
-
-
-@pytest.mark.parametrize("alteration", ["metric", "title", "extra_method"])
-def test_changed_multiple_parent_methods_are_not_silently_simplified(alteration):
-    case = next(c for c in CASES if c["task"] == "19899")
-    original = section(PARENTS["27357"]["context"], "solution")["html"]
-    if alteration == "metric":
-        changed = original.replace(r"CH^{2}=AH\cdot HB", r"CH^{2}=AH+HB")
-    elif alteration == "title":
-        changed = original.replace("Приведем другое решение.", "Третий способ")
-    else:
-        changed = (
-            original
-            + '<section data-content-kind="solution"><p>Ещё способ.</p></section>'
-        )
-    assert changed != original
-    with pytest.raises(ContentPlanError):
-        plan(case, parent=changed)
-
-
-@pytest.mark.parametrize(
-    "case",
-    [c for c in CASES if c["group"] in {"27268", "27271"}],
-    ids=lambda c: c["task"],
-)
-def test_projection_methods_keep_all_parent_sections_and_their_order(case):
-    methods = BeautifulSoup(solution_html(plan(case)), "html.parser").select("section")
-    titles = [m["data-solution-title"] for m in methods]
-    assert titles == ["Решение"] + ["Альтернативное решение."] * (
-        2 if case["group"] == "27268" else 1
-    )
-    forms = [
-        [f["data-inline-latex"] for f in m.select("[data-inline-latex]")]
-        for m in methods
-    ]
-    assert forms[0][0].startswith(r"AH=AC\cos A=")
-    assert (
-        r"\sqrt{1-\cos^2 A}" in forms[0][0]
-        if case["group"] == "27271"
-        else r"1-\sin^2 A" in forms[0][0]
-    )
-    assert forms[1][-1].startswith("AH=AB-HB=")
-    if case["group"] == "27268":
-        assert forms[2][1].startswith("AC^2=AB^2-BC^2=")
-        assert forms[2][-1].startswith(r"AC^2=AB\cdot AH\iff AH=")
-
-
-@pytest.mark.parametrize("group", ["27268", "27271"])
-@pytest.mark.parametrize("alteration", ["omit", "reorder", "formula"])
-def test_projection_parent_changes_cannot_drop_or_replace_an_unreviewed_method(
-    group, alteration
-):
-    case = next(c for c in CASES if c["group"] == group and c["task"] != group)
-    soup = BeautifulSoup(
-        section(PARENTS[group]["context"], "solution")["html"], "html.parser"
-    )
-    methods = soup.select("section")
-    if alteration == "omit":
-        methods[-1].decompose()
-    elif alteration == "reorder":
-        methods[0].insert_before(methods[-1].extract())
-    else:
-        methods[-1].select_one("[data-inline-latex]")["data-inline-latex"] = "AH=BC+AB"
-    with pytest.raises(ContentPlanError):
-        plan(case, parent=str(soup))

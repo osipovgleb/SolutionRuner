@@ -94,6 +94,10 @@ def _parent(html):
     soup = BeautifulSoup(html, "html.parser")
     if len(soup.select('section[data-content-kind="solution"]')) > 1:
         return multiple_parent(soup)
+    if soup.select('section[data-content-kind="solution"]'):
+        raise AltitudeSolveError(
+            "the structured parent requires its complete reviewed methods"
+        )
     if re.search(
         r"(?:второй|третий)\s+способ|альтернативное|другое\s+решение",
         soup.get_text(" ", strip=True),
@@ -290,6 +294,18 @@ def _figures(content, parent_asset_id, illustrated):
 
 
 def _render(kind, solved, *, answer, mirrored, reversed_segments, image):
+    if kind in {"hypotenuse_ah_methods", "hypotenuse_bh_methods"}:
+        from .altitude_hypotenuse_methods import render
+
+        return render(kind, _display(solved), answer)
+    if kind == "complementary_height_methods":
+        from .altitude_complement_methods import render
+
+        return render(solved, _display(solved), answer)
+    if kind == "height_tangent_methods":
+        from .altitude_ratio_methods import render
+
+        return render(solved, _display(solved), answer)
     if kind in {"projection_sinA_methods", "projection_cosA_methods"}:
         from .altitude_projection_methods import render
 

@@ -1,5 +1,7 @@
 """Reviewed multiple-method altitude proofs sharing the exact inferred values."""
 
+import re
+
 from ...probability.common import line
 from ...word_problems.math_common import fraction
 from .altitude_solver import AltitudeSolveError
@@ -23,7 +25,11 @@ def review_sections(soup, expected):
             section.get("data-solution-title") != title
             or len(forms) != len(prefixes)
             or any(
-                not formula.startswith(prefix)
+                not (
+                    prefix.match(formula)
+                    if isinstance(prefix, re.Pattern)
+                    else formula.startswith(prefix)
+                )
                 for formula, prefix in zip(forms, prefixes, strict=True)
             )
         ):
@@ -32,8 +38,24 @@ def review_sections(soup, expected):
 
 def multiple_parent(soup):
     first = soup.select_one("[data-inline-latex]")
+    if first is not None and (
+        first["data-inline-latex"].startswith("AH=AC")
+        and "AB" in first["data-inline-latex"]
+        or first["data-inline-latex"].startswith(r"BH=CB\sin")
+    ):
+        from .altitude_hypotenuse_methods import parent
+
+        return parent(soup)
+    if first is not None and first["data-inline-latex"].startswith(r"CH=BC\cos"):
+        from .altitude_complement_methods import parent
+
+        return parent(soup)
     if first is not None and first["data-inline-latex"].startswith("AH="):
         from .altitude_projection_methods import parent
+
+        return parent(soup)
+    if first is not None and first["data-inline-latex"].startswith(r"CH=AC\sin"):
+        from .altitude_ratio_methods import parent
 
         return parent(soup)
     review_sections(
