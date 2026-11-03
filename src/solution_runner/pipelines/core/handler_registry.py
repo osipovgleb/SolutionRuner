@@ -18,6 +18,7 @@ from solution_runner.pipelines.quadrilaterals.parallelogram.handlers import (
 from solution_runner.pipelines.quadrilaterals.trapezoid.handlers import (
     HANDLERS as TRAPEZOIDS,
 )
+from solution_runner.pipelines.solids.handlers import HANDLERS as SOLIDS
 from solution_runner.pipelines.statistics.handlers import HANDLERS as STATISTICS
 from solution_runner.pipelines.triangles.general.handlers import (
     HANDLERS as GENERAL_TRIANGLES,
@@ -50,6 +51,7 @@ HANDLERS = build_registry(
         *FUNCTION_GRAPHS,
         *CALCULUS,
         *CIRCLES,
+        *SOLIDS,
         *GENERAL_TRIANGLES,
         *ISOSCELES_TRIANGLES,
         *PARALLELOGRAMS,
@@ -80,6 +82,7 @@ def reload_handler_registry():
         "function_graphs",
         "calculus",
         "circles",
+        "solids",
         "triangles.general",
         "triangles.isosceles",
         "quadrilaterals.parallelogram",

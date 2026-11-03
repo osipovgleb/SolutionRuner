@@ -14,6 +14,13 @@ def test_all_registered_ege_profile_groups_have_navigation():
 
 
 def test_teacherhelper_navigation_uses_source_site_from_the_same_catalog():
+    assert teacherhelper_navigation(get_group_profile("27056")) == {
+        "source_site_id": "4e79360f-d623-4d50-9e85-67858ac1bc85",
+        "snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "category_id": "b8079da9-e2b7-4a02-827a-6fb8d2278ba8",
+        "theme_id": "3489989a-cbeb-487d-a6c2-427548c7044e",
+        "group_id": "fb3806a5-38b0-4e7a-8bae-e68958101a7d",
+    }
     assert teacherhelper_navigation(get_group_profile("26656")) == {
         "source_site_id": "4e79360f-d623-4d50-9e85-67858ac1bc85",
         "snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",

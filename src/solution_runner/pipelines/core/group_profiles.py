@@ -40,6 +40,7 @@ _PROFILE_MODULES = (
     "solution_runner.pipelines.function_graphs.profiles",
     "solution_runner.pipelines.calculus.profiles",
     "solution_runner.pipelines.circles.profiles",
+    "solution_runner.pipelines.solids.profiles",
     "solution_runner.pipelines.vectors.profiles",
     "solution_runner.pipelines.triangles.general.profiles",
     "solution_runner.pipelines.quadrilaterals.parallelogram.profiles",
