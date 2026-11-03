@@ -908,33 +908,49 @@
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27795-altitude-from-side-vertex-angle": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27795_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.vertex_altitude_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27795-altitude-from-side-vertex-angle"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27796-angle-from-side-altitude": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27796_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.vertex_altitude_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27796-angle-from-side-altitude"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27797-side-from-altitude-vertex-angle": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27797_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.vertex_altitude_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27797-side-from-altitude-vertex-angle"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27798-obtuse-altitude-from-side-angle": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27798_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.vertex_altitude_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27798-obtuse-altitude-from-side-angle"
     },
     "constraints": {},
     "requires_parent_condition_asset": true

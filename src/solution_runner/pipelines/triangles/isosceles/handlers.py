@@ -221,25 +221,27 @@ HANDLERS = (
             "isosceles-triangle-27794-vertex-angle-from-base-altitude",
         )
     ),
-    HandlerSpec(
-        "isosceles-triangle-27795-altitude-from-side-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27795_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27796-angle-from-side-altitude",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27796_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27797-side-from-altitude-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27797_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27798-obtuse-altitude-from-side-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27798_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.isosceles.vertex_altitude_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.isosceles.vertex_altitude_figures:diagram_specs",
+        )
+        for rule in (
+            "isosceles-triangle-27795-altitude-from-side-vertex-angle",
+            "isosceles-triangle-27796-angle-from-side-altitude",
+            "isosceles-triangle-27797-side-from-altitude-vertex-angle",
+            "isosceles-triangle-27798-obtuse-altitude-from-side-angle",
+        )
     ),
     *(
         HandlerSpec(

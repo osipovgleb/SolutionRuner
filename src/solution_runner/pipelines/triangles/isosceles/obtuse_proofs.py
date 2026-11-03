@@ -133,7 +133,7 @@ def _area_method(m):
             + "}{"
             + number(m.side**2 / 2)
             + "}="
-            + number(m.answer)
+            + number(m.height / m.side)
         )
     )
 

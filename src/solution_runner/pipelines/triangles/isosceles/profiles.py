@@ -647,6 +647,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27795-altitude-from-side-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27796",
@@ -661,6 +662,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27796-angle-from-side-altitude",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27797",
@@ -675,6 +677,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27797-side-from-altitude-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27798",
@@ -689,6 +692,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27798-obtuse-altitude-from-side-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27799",
