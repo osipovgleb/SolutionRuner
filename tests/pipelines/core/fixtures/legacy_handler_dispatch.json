@@ -408,50 +408,73 @@
     "requires_parent_condition_asset": false
   },
   "isosceles-triangle-27284-base-from-sine": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.basic_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27284-base-from-sine"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27285-side-from-base-sine": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27285_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.basic_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27285-side-from-base-sine"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27286-base-from-cosine": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27286_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.basic_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27286-base-from-cosine"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27287-side-from-base-cosine": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27287_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.basic_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27287-side-from-base-cosine"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27288-base-from-tangent": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27288_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.basic_parent:prepare",
     "kwargs": {
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_condition_asset_id": "@parent_asset_id",
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27288-base-from-tangent"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "isosceles-triangle-27289-side-from-base-tangent": {
-    "target": "solution_runner.pipelines.triangles.isosceles.planner:build_group_27289_repair_plan",
+    "target": "solution_runner.pipelines.triangles.isosceles.basic_parent:prepare",
     "kwargs": {
       "parent_condition_asset_id": "@parent_asset_id",
-      "parent_solution_assets": "@parent_solution_assets"
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "isosceles-triangle-27289-side-from-base-tangent"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
