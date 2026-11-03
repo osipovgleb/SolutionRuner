@@ -1,10 +1,11 @@
-"""Prepare the seven reviewed internal/exterior angle families with one handler."""
+"""Prepare reviewed internal, exterior and altitude angle families with one handler."""
 
 from ...core.errors import ContentPlanError
 from ...probability import solution_diagrams as diagrams
 from ..right.altitude_parent import exact_answer
 from ..right.basic_parent import _targeted
 from .angle_figures import (
+    ALTITUDE,
     DIFFERENCE,
     EXTERIOR_BASE,
     EXTERIOR_GIVEN,
@@ -17,6 +18,7 @@ from .area_figures import ACUTE
 from .planner import RepairPlan, _section
 
 _PARENTS = {
+    "isosceles-triangle-27760-vertex-angle-from-altitude-angle": ALTITUDE,
     "isosceles-triangle-27744-vertex-angle-from-base-angle": ACUTE,
     "isosceles-triangle-27745-base-angle-from-vertex-angle": ACUTE,
     "isosceles-triangle-27746-exterior-angle-from-vertex-angle": EXTERIOR_BASE,

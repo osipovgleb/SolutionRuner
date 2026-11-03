@@ -588,6 +588,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27760-vertex-angle-from-altitude-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27792",

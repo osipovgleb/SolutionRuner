@@ -193,12 +193,8 @@ HANDLERS = (
             "isosceles-triangle-27748-base-angle-from-exterior-vertex-angle",
             "isosceles-triangle-27750-smaller-angle-from-larger-angle",
             "isosceles-triangle-27754-smaller-angle-from-angle-difference",
+            "isosceles-triangle-27760-vertex-angle-from-altitude-angle",
         )
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27760-vertex-angle-from-altitude-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27760_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
     ),
     *(
         HandlerSpec(

@@ -1,6 +1,7 @@
 """Preserve the seven parent angle methods with explicit supplementary steps."""
 
 import hashlib
+from dataclasses import replace
 
 from ...core.errors import ContentPlanError
 from ...probability.common import line
@@ -8,6 +9,7 @@ from ..right.altitude_methods import solution_section
 from .side_altitude_proofs import number
 
 _PARENTS = {
+    "isosceles-triangle-27760-vertex-angle-from-altitude-angle": "807cceb27eef28eff280b816d2eaa1b3347583f24e14ac40869d66c3bba5df9b",
     "isosceles-triangle-27744-vertex-angle-from-base-angle": "b096071cbb801dc1b24149b5ec08f7d7cbb4f57fca8ef1af2512611c3dbe87e5",
     "isosceles-triangle-27745-base-angle-from-vertex-angle": "894733d3fc6d4709b2445bb55fab9a062836089f637e12c8a41d2799def27c1c",
     "isosceles-triangle-27746-exterior-angle-from-vertex-angle": "16d78601a2d7ea852a66b014869c60cb3d0560a796416d87f21ede48986ff411",
@@ -98,9 +100,22 @@ def _difference(m):
     )
 
 
+def _altitude(m):
+    p, q = m.altitude_vertex, m.other_base_vertex
+    body = (
+        f"<p>Так как {p}D — высота, треугольник {p}{q}D прямоугольный. Найдем угол при основании:</p>"
+        + line(angle(q) + r"=90^{\circ}-" + angle(m.given_vertex))
+        + line(angle(q) + r"=90^{\circ}-" + degree(m.given_value))
+        + line(angle(q) + "=" + degree(m.base_angle))
+    )
+    return body + _vertex(replace(m, given_vertex=q))
+
+
 def render(m, rule):
     m.require_rule(rule)
-    if m.given_kind == "difference":
+    if m.given_kind == "altitude":
+        body = _altitude(m)
+    elif m.given_kind == "difference":
         body = _difference(m)
     elif m.given_kind.startswith("external_"):
         body = _external(m)

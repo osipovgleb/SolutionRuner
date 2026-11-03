@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 
 from ...core.errors import ContentPlanError
 from ...probability.solution_diagrams import spec
+from .altitude_angle_svg import altitude_svg
 from .angle_model import read_question
 from .angle_svg import exterior_svg
 from .area_figures import ACUTE, NARROW, OBTUSE, plain_triangle_svg
@@ -22,8 +23,10 @@ EXTERIOR_GIVEN = "a7eed42f-2d29-485b-967e-3bb02c95b67c"
 EXTERIOR_VERTEX = "158dae5e-720d-40cb-8a48-169bfb01c141"
 LARGER = "0b17fb29-6d2a-4a25-bb98-225021087bef"
 DIFFERENCE = "8fc51584-29f8-4227-8d92-7a8081892eb9"
+ALTITUDE = "b1d8b726-29ef-4d29-80b9-eba3cdd92cf2"
 KEY = "isosceles_angle_condition"
 _HASHES = {
+    ALTITUDE: "a03dbfe0924b1b4b778f9a54edeb73912475f185d61dd052366b912956a3329c",
     EXTERIOR_BASE: "164086954ed0a7c6d2ffa035eaa91b382786a5a85fd946594d5b35c8beeeeae0",
     EXTERIOR_GIVEN: "465f22c20400f14f5c2b25e0077ef9e62a8140ad85d144712a50f1b84c7e7c55",
     EXTERIOR_VERTEX: "e0a0bd671f6af6f40bb24ff228148bef8db51175c167c66e8e34e870cdc16150",
@@ -46,6 +49,11 @@ def source_bytes(source):
 
 
 def _drawing(model, current):
+    if model.given_kind == "altitude":
+        raw = source_bytes(ALTITUDE)
+        if model.apex == "C" and model.altitude_vertex == "A" and model.topology == 1:
+            return "image_1", ALTITUDE, None
+        return KEY, ALTITUDE, spec(KEY, altitude_svg(model, raw))
     if model.requested_kind == "external_base" or model.given_kind.startswith(
         "external_"
     ):

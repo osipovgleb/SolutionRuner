@@ -10,6 +10,7 @@ from ..right.altitude_input import _text
 from ..right.altitude_solver import AltitudeSolveError
 
 RULES = {
+    "isosceles-triangle-27760-vertex-angle-from-altitude-angle": ("altitude", "vertex"),
     "isosceles-triangle-27744-vertex-angle-from-base-angle": ("base", "vertex"),
     "isosceles-triangle-27745-base-angle-from-vertex-angle": ("vertex", "base"),
     "isosceles-triangle-27746-exterior-angle-from-vertex-angle": (
@@ -52,6 +53,14 @@ class AngleTriangle:
     @property
     def base_angle(self):
         return (180 - self.apex_angle) / 2
+
+    @property
+    def altitude_vertex(self):
+        return self.given_vertex[1]
+
+    @property
+    def other_base_vertex(self):
+        return next(v for v in self.base_vertices if v != self.altitude_vertex)
 
     @property
     def answer(self):
@@ -97,6 +106,7 @@ def _model(apex, kind, vertex, value, target, requested):
         "external_vertex": 180 - value,
         "larger": value,
         "difference": (180 + 2 * value) / 3,
+        "altitude": 2 * value,
     }[kind]
     if not 0 < apex_angle < 180:
         raise ContentPlanError(
@@ -109,6 +119,7 @@ def _facts(text):
     equal = None
     given = None
     declaration = None
+    height = None
     while text.strip(" ,."):
         text = text.lstrip(" ,.")
         sides = re.match(
@@ -123,9 +134,10 @@ def _facts(text):
             + r") равны\b",
             text,
         )
-        angle = re.match(r"угол ([ABC]) равен " + _DEGREES, text)
+        angle = re.match(r"угол ([ABC]|[ABCD]{3}) равен " + _DEGREES, text)
         external = re.match(r"Внешний угол при вершине ([ABC]) равен " + _DEGREES, text)
         stated = re.match(r"угол ([ABC][ABC]D) [—–-] внешний\b", text)
+        altitude = re.match(r"([ABC]D|D[ABC]) [—–-] высота\b", text)
         if sides and equal is None:
             equal = (sides[1] or sides[3], sides[2] or sides[4])
             end = sides.end()
@@ -136,6 +148,9 @@ def _facts(text):
         elif stated and declaration is None:
             declaration = stated[1]
             end = stated.end()
+        elif altitude and height is None:
+            height = altitude[1].replace("D", "")
+            end = altitude.end()
         else:
             raise ContentPlanError("an unreviewed or repeated angle statement remains")
         text = text[end:]
@@ -146,20 +161,42 @@ def _facts(text):
     common = set(equal[0]) & set(equal[1])
     if len(common) != 1 or set("".join(equal)) != set("ABC"):
         raise ContentPlanError("two distinct equal sides must define the apex")
-    return common.pop(), given, declaration
+    return common.pop(), given, declaration, height
+
+
+def _altitude(apex, given, height, target, declaration):
+    external, vertex, value = given
+    if (
+        height == apex
+        or declaration is not None
+        or external
+        or len(vertex) != 3
+        or vertex[1] != height
+        or set(vertex[::2]) != (set("ABCD") - {apex, height})
+        or target[1]
+        or target[2] != apex
+    ):
+        raise ContentPlanError(
+            "the altitude angle must lie between the base and height at a base vertex"
+        )
+    return _model(apex, "altitude", vertex, value, "vertex", apex)
 
 
 def _named(given, request):
     prefix = re.match(r"[ВB] треугольнике ABC\s+", given)
     if prefix is None:
         raise ContentPlanError("the complete named triangle setup is required")
-    apex, (external, vertex, value), declaration = _facts(given[prefix.end() :])
+    apex, (external, vertex, value), declaration, height = _facts(given[prefix.end() :])
     kind = ("external_" if external else "") + ("vertex" if vertex == apex else "base")
     target = re.fullmatch(r"\s*(внешний )?угол ([ABC]|[ABC][ABC]D)\s*\.\s*", request)
     if target is None:
         raise ContentPlanError(
             "one complete internal or exterior angle request is required"
         )
+    if height is not None:
+        return _altitude(apex, (external, vertex, value), height, target, declaration)
+    if len(vertex) != 1:
+        raise ContentPlanError("a three-letter angle requires its reviewed altitude")
     requested = target[2]
     if target[1]:
         if (
