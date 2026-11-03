@@ -13,7 +13,24 @@ from .angle_svg import SOURCE, figure_svg
 from .quantity_sources import source_bytes
 
 KEY = "circle_two_arcs"
+LEGACY_RATIO_DETAIL = "efe00e1f-ac2e-450b-aa7d-166764145c7b"
 SOURCES = {
+    "cyclic_opposite": ("b2848d10-0706-4113-b70b-fee6abd8eb06",),
+    "triangle_arc_ratio": (
+        "93bf921d-8eb2-48ae-ac48-10b377c66641",
+        "02f4ca89-190b-489e-8a40-02295b1a6991",
+    ),
+    "cyclic_four_arcs": ("b2848d10-0706-4113-b70b-fee6abd8eb06",),
+    "cyclic_arc_ratio": ("b2848d10-0706-4113-b70b-fee6abd8eb06",),
+    "cyclic_sum": (
+        "81716d48-eee4-4e17-884b-3ef8bedd9276",
+        "fe7c367d-af9e-4cfd-8626-cf65c3c64ac2",
+    ),
+    "cyclic_difference": ("5cbeeb21-d482-4558-8370-cf2fa3dea811",),
+    "cyclic_largest": (
+        "a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+        "fd4a0e7f-e14a-49f6-a218-c19216826aed",
+    ),
     "central_difference": ("515f640e-4cd6-40ee-94b4-d171ac58f6ad",),
     "difference_equation": ("e37b7d86-ef1d-473b-8ef1-2777aefff55d",),
     "fraction": (
@@ -39,7 +56,7 @@ SOURCES = {
 
 
 def selection(context):
-    content, assets, owners = read_content(context, {"image_1", KEY})
+    content, assets, owners = read_content(context, {"image_1", "image_2", KEY})
     condition = _section(content, "condition")
     if condition is None:
         raise ContentPlanError("one complete circle-angle condition is required")
@@ -50,6 +67,15 @@ def selection(context):
     if images:
         images[0]["data-asset-key"] = "image_1"
     model = read_question(str(soup), images[0]["data-asset-id"] if images else None)
+    legacy = assets.pop("image_2", None)
+    if legacy is not None:
+        if (
+            model.mode != "triangle_arc_ratio"
+            or legacy["asset_id"] != LEGACY_RATIO_DETAIL
+            or owners["image_2"] != "solution"
+        ):
+            raise ContentPlanError("the extra ratio diagram belongs to another method")
+        source_bytes(LEGACY_RATIO_DETAIL)
     if len(assets) > 1:
         raise ContentPlanError("duplicate circle-angle pictures")
     for key, asset in assets.items():

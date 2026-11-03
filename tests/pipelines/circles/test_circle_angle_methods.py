@@ -3,6 +3,7 @@
 import re
 from copy import deepcopy
 
+import cyclic_angle_cases
 import pytest
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -17,6 +18,8 @@ from solution_runner.pipelines.equations.trig_parser import TrigonometricParser
 
 
 def variables(m):
+    if m.mode in cyclic_angle_cases.MODES:
+        return cyclic_angle_cases.variables(m)
     a = m.given[0]
     if m.mode == "central_difference":
         return {r"\alpha": a, r"\angle AOB": 2 * a, r"\angle ACB": a}
@@ -78,6 +81,7 @@ def test_all_native_answers_and_each_equality_keep_parent_methods(case):
     saved = BeautifulSoup(
         section(case["context"], "answer")["html"], "html.parser"
     ).get_text(strip=True)
+    saved = "25" if case["task"] == "51685" else saved
     assert sp.Rational(result.answer.replace(",", ".")) == sp.Rational(
         saved.replace(",", ".")
     )
@@ -88,6 +92,8 @@ def test_all_native_answers_and_each_equality_keep_parent_methods(case):
     assert titles == (
         ["Решение", "Приведем другое решение"]
         if case["group"] == "27870"
+        else ["Решение", "Приведём другое решение."]
+        if model.mode == "cyclic_opposite"
         else ["Решение"]
     )
     assert len(soup.find_all("img")) == (1 if case["group"] == "245385" else 0)

@@ -9,8 +9,10 @@ from ..core.errors import ContentPlanError
 from ..quadrilaterals.trapezoid.isosceles_model import DEGREE
 from ..triangles.right.altitude_input import _text
 from ..triangles.right.altitude_solver import AltitudeSolveError, _parse_positive_value
+from . import cyclic_angle_model
 
 RULES = {
+    **cyclic_angle_model.RULES,
     "circle-central-angle-difference": "central_difference",
     "circle-inscribed-angle-difference": "difference_equation",
     "circle-inscribed-angle-arc-fraction": "fraction",
@@ -22,6 +24,7 @@ RULES = {
 END = r"\s*\.\s*Ответ дайте в градусах\s*\."
 DIAMETERS = r"(?:[ВB] окружности с центром O\s+(?:отрезки\s+)?AC\s+и\s+BD\s*[—–-]\s*диаметры|Отрезки AC\s+и\s+BD\s*[—–-]\s*диаметры окружности с центром O\s*)\s*\.\s*"
 PATTERNS = (
+    *((mode, pattern + END) for mode, pattern in cyclic_angle_model.PATTERNS),
     (
         "central_difference",
         rf"Найдите центральный угол AOB\s*,\s*если он на\s+(.+?)\s*{DEGREE}\s+больше вписанного угла ACB\s*,\s*опирающегося на ту же дугу"
@@ -87,6 +90,8 @@ def _model(mode, groups, text):
         _parse_positive_value(v.removesuffix("%").strip() if percent else v)
         for v in values
     )
+    if mode in cyclic_angle_model.RULES.values():
+        return CircleAngle(mode, given, cyclic_angle_model.solve(mode, given))
     a, b = given[0], given[1] if len(given) == 2 else sp.S.Zero
     fraction = a / 100 if percent else a
     near = b - 2 * a
@@ -139,6 +144,7 @@ def read_question(html, source=None):
             source,
             labels="ABCDEO",
             extra_identifiers=(
+                "ABCD",
                 "AOB",
                 "ACB",
                 "AOD",

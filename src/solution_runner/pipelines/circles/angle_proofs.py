@@ -3,6 +3,7 @@
 from ..probability.common import line
 from ..quadrilaterals.parallelogram.rectangle_proofs import value
 from ..triangles.right.altitude_methods import solution_section
+from . import cyclic_angle_proofs
 
 
 def _central(m):
@@ -186,6 +187,8 @@ def _secants(m):
 
 
 def render(m, pictures):
+    if m.mode in cyclic_angle_proofs.MODES:
+        return cyclic_angle_proofs.render(m)
     method = {
         "central_difference": _central,
         "difference_equation": _difference,

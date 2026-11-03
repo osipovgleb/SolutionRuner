@@ -99,6 +99,41 @@ PARENTS = {
         (),
         "fbfa499cd253b0b08f8a8638ffcdc00aeccc014bb884d41e2717b074ce8f6c20",
     ),
+    "circle-three-arc-ratio-largest-angle": (
+        "93bf921d-8eb2-48ae-ac48-10b377c66641",
+        (),
+        "f2936739ac6df073e2590ba5990c78726bc2b652db6857b00dd4cc7eafba654f",
+    ),
+    "circle-cyclic-opposite-angle": (
+        "b2848d10-0706-4113-b70b-fee6abd8eb06",
+        (),
+        "641e7d0817c922be3ccb7cc04ff584daa08aaada445475bc6b1472cace4c3543",
+    ),
+    "circle-cyclic-four-arcs-angle": (
+        "b2848d10-0706-4113-b70b-fee6abd8eb06",
+        (),
+        "c96ef012bdb5228797769127a9d59d3cec891cf37d1c3763dc7feb81b4b7642a",
+    ),
+    "circle-cyclic-four-arc-ratio": (
+        "b2848d10-0706-4113-b70b-fee6abd8eb06",
+        (),
+        "77f6310053cbbc8d8e5611bd4c61cae897e558d031c69f1450c674bef61752f0",
+    ),
+    "circle-cyclic-angle-sum": (
+        "81716d48-eee4-4e17-884b-3ef8bedd9276",
+        (),
+        "340f9aab370c063ff8fbe3c446f87b84e5e283da3cd34999c3530550745eec91",
+    ),
+    "circle-cyclic-angle-difference": (
+        "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+        (),
+        "c27c7bcd5bca3a58645127b1d44895b06733a98e0841f255b073d93a6da3f53a",
+    ),
+    "circle-cyclic-unnamed-largest-angle": (
+        "a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+        (),
+        "0797706965a1113a62d382819204e25a1eec96fc19a4ab1554f4ab339ff84dce",
+    ),
 }
 
 SOURCES = {
@@ -189,6 +224,42 @@ SOURCES = {
     "fa9b1335-5d14-421c-ad1f-f75492af3f92": (
         "fa9b1335-5d14-421c-ad1f-f75492af3f92",
         "695d8753a9320b6b99a2f5ba0b0c5bedf8c33cb44459fb788fb80a874bac01b7",
+    ),
+    "93bf921d-8eb2-48ae-ac48-10b377c66641": (
+        "93bf921d-8eb2-48ae-ac48-10b377c66641",
+        "68b52d35936f2b4e134d5fa11d3c8122ffb28ff1457099c5b7b51409caec2709",
+    ),
+    "02f4ca89-190b-489e-8a40-02295b1a6991": (
+        "02f4ca89-190b-489e-8a40-02295b1a6991",
+        "2dfb79636b86b482eb23fcd850a47a4dfa5cc4ca1da07bace46e4668ec1492b4",
+    ),
+    "efe00e1f-ac2e-450b-aa7d-166764145c7b": (
+        "efe00e1f-ac2e-450b-aa7d-166764145c7b",
+        "dfbe7e81387756db50a7a3f399423c6ab89cde9158fb57cbd56b0397ab2e4bc3",
+    ),
+    "b2848d10-0706-4113-b70b-fee6abd8eb06": (
+        "b2848d10-0706-4113-b70b-fee6abd8eb06",
+        "e3737dc4fd4613e554517b118df3e98d007753d9a4f601c39bdde65153f0a6ec",
+    ),
+    "81716d48-eee4-4e17-884b-3ef8bedd9276": (
+        "81716d48-eee4-4e17-884b-3ef8bedd9276",
+        "df807b2e52b236540d4e6643e318141a0be94caa4972e61ddec98f6de1181b60",
+    ),
+    "fe7c367d-af9e-4cfd-8626-cf65c3c64ac2": (
+        "fe7c367d-af9e-4cfd-8626-cf65c3c64ac2",
+        "0248c082fbf7c2759b9db9692e044e45d7649c7cf8b7b40ebe436d739106ca83",
+    ),
+    "5cbeeb21-d482-4558-8370-cf2fa3dea811": (
+        "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+        "65f3383abab5d41791c0120c59baa73ab2e828a82e0169e489fd3de366c78892",
+    ),
+    "a581e5c7-5ae0-4d79-83a1-c70ea8452116": (
+        "a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+        "18bd3666e90cbb219afa7d325fd8957e85b69bb6d910d76bc17cf8a8b72a922d",
+    ),
+    "fd4a0e7f-e14a-49f6-a218-c19216826aed": (
+        "fd4a0e7f-e14a-49f6-a218-c19216826aed",
+        "ef4e17252e4d76335bce927dd6a7cdf1bbb09ae16bc955a41314784b49153219",
     ),
 }
 

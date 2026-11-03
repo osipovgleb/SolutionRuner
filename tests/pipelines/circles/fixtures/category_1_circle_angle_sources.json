@@ -34,6 +34,76 @@
       "key": "27886",
       "group_uuid": "fe5407fd-b5ad-4576-a7ae-b0895618a0f9",
       "rule": "circle-secant-angle-arc-difference"
+    },
+    {
+      "key": "27868",
+      "group_uuid": "90b1b3a9-fc55-46dd-80f8-2846723832df",
+      "rule": "circle-three-arc-ratio-largest-angle",
+      "sample_tasks": [
+        "51383",
+        "51385",
+        "51387"
+      ]
+    },
+    {
+      "key": "27871",
+      "group_uuid": "a34819ca-0a4d-4029-b43a-8e3aaaa8a056",
+      "rule": "circle-cyclic-opposite-angle",
+      "sample_tasks": [
+        "51569",
+        "51571",
+        "51573"
+      ]
+    },
+    {
+      "key": "27872",
+      "group_uuid": "ea47ffff-1e1b-41b6-95e9-5e630190605e",
+      "rule": "circle-cyclic-four-arcs-angle",
+      "sample_tasks": [
+        "51631",
+        "51677",
+        "674958"
+      ]
+    },
+    {
+      "key": "27873",
+      "group_uuid": "fe617ce1-91d6-40ba-acd2-1610331be822",
+      "rule": "circle-cyclic-four-arc-ratio",
+      "sample_tasks": [
+        "51681",
+        "51683",
+        "51685"
+      ]
+    },
+    {
+      "key": "27875",
+      "group_uuid": "bd64cfb9-2c71-40e6-9213-5444686bb294",
+      "rule": "circle-cyclic-angle-sum",
+      "sample_tasks": [
+        "26221",
+        "51796",
+        "660708"
+      ]
+    },
+    {
+      "key": "27876",
+      "group_uuid": "dad8fad4-e44c-43d5-9147-ab91374a7310",
+      "rule": "circle-cyclic-angle-difference",
+      "sample_tasks": [
+        "51839",
+        "51841",
+        "51843"
+      ]
+    },
+    {
+      "key": "27927",
+      "group_uuid": "22f73a56-fa74-4af8-80ff-ea8ebf5649c5",
+      "rule": "circle-cyclic-unnamed-largest-angle",
+      "sample_tasks": [
+        "53965",
+        "53973",
+        "505441"
+      ]
     }
   ],
   "cases": [
@@ -3369,6 +3439,3173 @@
             {
               "key": "solution",
               "html": "<p>Пусть ис­ко­мый угол равен <i>x</i>, тогда дуга <var data-math-identifier=\"DE\">DE</var> равна 2<i>x</i>. Угол между се­ку­щи­ми <var data-math-identifier=\"CB\">CB</var> и <var data-math-identifier=\"CA\">CA</var> равен по­лу­раз­но­сти дуг <var data-math-identifier=\"AB\">AB</var> и <var data-math-identifier=\"DE\">DE</var>:</p><center><p> <span data-inline-latex=\"\\frac{144^{\\circ}-2x}{2}=51^{\\circ}\\iff 72^{\\circ}-x=51^{\\circ}\\iff x=21^{\\circ}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27868",
+      "task": "27868",
+      "context": {
+        "problem_id": "d89d3845-46ed-418e-8df6-65fcfe97ea84",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:52.975248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/93bf921d-8eb2-48ae-ac48-10b377c66641",
+                "html": "<img alt=\"\" data-asset-id=\"93bf921d-8eb2-48ae-ac48-10b377c66641\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/93bf921d-8eb2-48ae-ac48-10b377c66641\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "93bf921d-8eb2-48ae-ac48-10b377c66641",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:02.254465+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"93bf921d-8eb2-48ae-ac48-10b377c66641\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как 1 : 3 : 5. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:02.254465+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть мень­шая часть окруж­но­сти равна <i>x</i>, тогда</p><center><p><span data-inline-latex=\"x+3x+5x=360^{\\circ}\\iff x=40^{\\circ}\"></span> .</p></center><p>Боль­ший угол опи­ра­ет­ся на боль­шую дугу; впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся. Сле­до­ва­тель­но, ис­ко­мый угол равен по­ло­ви­не от 5 · 40° или 100°.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:02.254465+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/93bf921d-8eb2-48ae-ac48-10b377c66641",
+              "kind": "ordinary_image",
+              "asset_id": "93bf921d-8eb2-48ae-ac48-10b377c66641",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"93bf921d-8eb2-48ae-ac48-10b377c66641\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/93bf921d-8eb2-48ae-ac48-10b377c66641\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как 1 : 3 : 5. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">100</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть мень­шая часть окруж­но­сти равна <i>x</i>, тогда</p><center><p><span data-inline-latex=\"x+3x+5x=360^{\\circ}\\iff x=40^{\\circ}\"></span> .</p></center><p>Боль­ший угол опи­ра­ет­ся на боль­шую дугу; впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся. Сле­до­ва­тель­но, ис­ко­мый угол равен по­ло­ви­не от 5 · 40° или 100°.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27868",
+      "task": "51383",
+      "context": {
+        "problem_id": "babf4e4f-714e-4ccd-8637-c9c4078e13f9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:50.990568+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/02f4ca89-190b-489e-8a40-02295b1a6991",
+                "html": "<img alt=\"\" data-asset-id=\"02f4ca89-190b-489e-8a40-02295b1a6991\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/02f4ca89-190b-489e-8a40-02295b1a6991\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "02f4ca89-190b-489e-8a40-02295b1a6991",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:50.990568+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/efe00e1f-ac2e-450b-aa7d-166764145c7b",
+                "html": "<img alt=\"\" data-asset-id=\"efe00e1f-ac2e-450b-aa7d-166764145c7b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/efe00e1f-ac2e-450b-aa7d-166764145c7b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "efe00e1f-ac2e-450b-aa7d-166764145c7b",
+                "position": 1,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:54:01.907746+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"02f4ca89-190b-489e-8a40-02295b1a6991\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как 1 : 8 : 9. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:01.907746+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть мень­шая часть окруж­но­сти равна <i>x</i>, тогда</p><center><p><span data-inline-latex=\"x+8x+9x=360^{\\circ}\\iff x=20^{\\circ}\"></span> .</p></center><p>Боль­ший угол опи­ра­ет­ся на боль­шую дугу; впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся. Сле­до­ва­тель­но, ис­ко­мый угол равен по­ло­ви­не от 9 · 20° или 90°.</p><p><img alt=\"\" data-asset-id=\"efe00e1f-ac2e-450b-aa7d-166764145c7b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p><b>При­ме­ча­ние Решу ЕГЭ.</b></p><p>В от­кры­том банке за­да­ний ЕГЭ к этому за­да­нию при­ве­ден дру­гой ри­су­нок (см. спра­ва). На этом ри­сун­ке от­ме­чен центр окруж­но­сти, не ле­жа­щий на сто­ро­не <i>АС</i>, в то время как после ре­ше­ния за­да­чи вы­яс­ня­ет­ся, что сто­ро­на <i>АС</i>  — диа­метр. Мы устра­ни­ли ука­зан­ное про­ти­во­ре­чие.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:01.907746+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/02f4ca89-190b-489e-8a40-02295b1a6991",
+              "kind": "ordinary_image",
+              "asset_id": "02f4ca89-190b-489e-8a40-02295b1a6991",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/efe00e1f-ac2e-450b-aa7d-166764145c7b",
+              "kind": "ordinary_image",
+              "asset_id": "efe00e1f-ac2e-450b-aa7d-166764145c7b",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"02f4ca89-190b-489e-8a40-02295b1a6991\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/02f4ca89-190b-489e-8a40-02295b1a6991\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как 1 : 8 : 9. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">90</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть мень­шая часть окруж­но­сти равна <i>x</i>, тогда</p><center><p><span data-inline-latex=\"x+8x+9x=360^{\\circ}\\iff x=20^{\\circ}\"></span> .</p></center><p>Боль­ший угол опи­ра­ет­ся на боль­шую дугу; впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся. Сле­до­ва­тель­но, ис­ко­мый угол равен по­ло­ви­не от 9 · 20° или 90°.</p><p><img alt=\"\" data-asset-id=\"efe00e1f-ac2e-450b-aa7d-166764145c7b\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/efe00e1f-ac2e-450b-aa7d-166764145c7b\"/></p><p><b>При­ме­ча­ние Решу ЕГЭ.</b></p><p>В от­кры­том банке за­да­ний ЕГЭ к этому за­да­нию при­ве­ден дру­гой ри­су­нок (см. спра­ва). На этом ри­сун­ке от­ме­чен центр окруж­но­сти, не ле­жа­щий на сто­ро­не <i>АС</i>, в то время как после ре­ше­ния за­да­чи вы­яс­ня­ет­ся, что сто­ро­на <i>АС</i>  — диа­метр. Мы устра­ни­ли ука­зан­ное про­ти­во­ре­чие.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27868",
+      "task": "51385",
+      "context": {
+        "problem_id": "88629699-c5d8-4622-8476-9cf3f41c213b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:49.403680+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/93bf921d-8eb2-48ae-ac48-10b377c66641",
+                "html": "<img alt=\"\" data-asset-id=\"93bf921d-8eb2-48ae-ac48-10b377c66641\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/93bf921d-8eb2-48ae-ac48-10b377c66641\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "93bf921d-8eb2-48ae-ac48-10b377c66641",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:00.672851+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"93bf921d-8eb2-48ae-ac48-10b377c66641\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как 1 : 6 : 11. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:00.672851+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть мень­шая часть окруж­но­сти равна <i>x</i> тогда</p><center><p><span data-inline-latex=\"x+6x+11x=360^{\\circ}\\iff x=20^{\\circ}\"></span> .</p></center><p>Боль­ший угол опи­ра­ет­ся на боль­шую дугу; впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся. Сле­до­ва­тель­но, он равен 1/2 · 11 · 20° = 110°.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:00.672851+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/93bf921d-8eb2-48ae-ac48-10b377c66641",
+              "kind": "ordinary_image",
+              "asset_id": "93bf921d-8eb2-48ae-ac48-10b377c66641",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"93bf921d-8eb2-48ae-ac48-10b377c66641\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/93bf921d-8eb2-48ae-ac48-10b377c66641\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как 1 : 6 : 11. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">110</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть мень­шая часть окруж­но­сти равна <i>x</i> тогда</p><center><p><span data-inline-latex=\"x+6x+11x=360^{\\circ}\\iff x=20^{\\circ}\"></span> .</p></center><p>Боль­ший угол опи­ра­ет­ся на боль­шую дугу; впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся. Сле­до­ва­тель­но, он равен 1/2 · 11 · 20° = 110°.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27868",
+      "task": "51387",
+      "context": {
+        "problem_id": "62eec220-92fd-4f69-9b4d-3c5b0ca9f1ba",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T21:32:04.796479+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как <span data-inline-latex=\"3\\colon 8\\colon 25\"></span>. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T21:32:04.796479+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, рас­по­ло­жен­ные на окруж­но­сти, делят ее на три дуги, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся как <span data-inline-latex=\"3\\colon 8\\colon 25\"></span>. Най­ди­те боль­ший угол тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">125</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27871",
+      "task": "27871",
+      "context": {
+        "problem_id": "3e91d1e1-4d9b-4777-85b2-79b0e62f21c3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:55.005973+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.020579+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен 58°. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.020579+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Cумма про­ти­во­по­лож­ных углов че­ты­рех­уголь­ни­ка, впи­сан­но­го в окруж­ность, равна 180°, по­это­му</p><center><p><span data-inline-latex=\"\\angle C=180^{\\circ}-\\angle A=180^{\\circ}-58^{\\circ}=122^{\\circ}\"></span> .</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>Угол <var data-math-identifier=\"A\">A</var> впи­сан­ный и опи­ра­ет­ся на дугу <var data-math-identifier=\"BCD\">BCD</var>, сле­до­ва­тель­но, он равен по­ло­ви­не дуги <var data-math-identifier=\"BCD\">BCD</var>, зна­чит, гра­дус­ная мера <nobr>дуги <var data-math-identifier=\"BCD\">BCD</var></nobr> равна 116°. Гра­дус­ная мера дуги <var data-math-identifier=\"BAD\">BAD</var> равна <nobr>360° − 116° = 244°.</nobr> Угол <var data-math-identifier=\"C\">C</var> впи­сан­ный и опи­ра­ет­ся на дугу <var data-math-identifier=\"BAD\">BAD</var>, сле­до­ва­тель­но, он равен по­ло­ви­не <nobr>дуги <var data-math-identifier=\"BAD\">BAD</var>,</nobr> то есть 122°.</p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.020579+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен 58°. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">122</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Cумма про­ти­во­по­лож­ных углов че­ты­рех­уголь­ни­ка, впи­сан­но­го в окруж­ность, равна 180°, по­это­му</p><center><p><span data-inline-latex=\"\\angle C=180^{\\circ}-\\angle A=180^{\\circ}-58^{\\circ}=122^{\\circ}\"></span> .</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>Угол <var data-math-identifier=\"A\">A</var> впи­сан­ный и опи­ра­ет­ся на дугу <var data-math-identifier=\"BCD\">BCD</var>, сле­до­ва­тель­но, он равен по­ло­ви­не дуги <var data-math-identifier=\"BCD\">BCD</var>, зна­чит, гра­дус­ная мера <nobr>дуги <var data-math-identifier=\"BCD\">BCD</var></nobr> равна 116°. Гра­дус­ная мера дуги <var data-math-identifier=\"BAD\">BAD</var> равна <nobr>360° − 116° = 244°.</nobr> Угол <var data-math-identifier=\"C\">C</var> впи­сан­ный и опи­ра­ет­ся на дугу <var data-math-identifier=\"BAD\">BAD</var>, сле­до­ва­тель­но, он равен по­ло­ви­не <nobr>дуги <var data-math-identifier=\"BAD\">BAD</var>,</nobr> то есть 122°.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27871",
+      "task": "51569",
+      "context": {
+        "problem_id": "84f89626-0f32-42c9-bf6f-566ae49e621e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:03.181209+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.593039+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен 48°. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.593039+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Cумма про­ти­во­по­лож­ных углов че­ты­рех­уголь­ни­ка, впи­сан­но­го в окруж­ность, равна 180°, по­это­му</p><center><p><span data-inline-latex=\"\\angle C=180^{\\circ}-\\angle A=180^{\\circ}-48^{\\circ}=132^{\\circ}\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.593039+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен 48°. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">132</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Cумма про­ти­во­по­лож­ных углов че­ты­рех­уголь­ни­ка, впи­сан­но­го в окруж­ность, равна 180°, по­это­му</p><center><p><span data-inline-latex=\"\\angle C=180^{\\circ}-\\angle A=180^{\\circ}-48^{\\circ}=132^{\\circ}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27871",
+      "task": "51571",
+      "context": {
+        "problem_id": "97071ffe-e89d-4154-856a-2d92e19a3bf9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:05.471152+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.715121+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен 26°. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.715121+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Cумма про­ти­во­по­лож­ных углов че­ты­рех­уголь­ни­ка, впи­сан­но­го в окруж­ность, равна 180°, по­это­му</p><center><p><span data-inline-latex=\"\\angle C=180^{\\circ}-\\angle A=180^{\\circ}-26^{\\circ}=154^{\\circ}\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:55.715121+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен 26°. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">154</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Cумма про­ти­во­по­лож­ных углов че­ты­рех­уголь­ни­ка, впи­сан­но­го в окруж­ность, равна 180°, по­это­му</p><center><p><span data-inline-latex=\"\\angle C=180^{\\circ}-\\angle A=180^{\\circ}-26^{\\circ}=154^{\\circ}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27871",
+      "task": "51573",
+      "context": {
+        "problem_id": "ea90e192-17f6-4009-8f79-ecab6d0496dd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:25.573014+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:45:56.524470+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен <span data-inline-latex=\"58^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:56.524470+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>, впи­сан­но­го в окруж­ность, равен <span data-inline-latex=\"58^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"C\">C</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">122</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27872",
+      "task": "27872",
+      "context": {
+        "problem_id": "42209934-d32b-4041-858b-e5e39a9f5695",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:54.085397+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:42:51.062274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но <span data-inline-latex=\"95^{\\circ}\"></span>, <span data-inline-latex=\"49^{\\circ}\"></span>, <span data-inline-latex=\"71^{\\circ}\"></span>, <span data-inline-latex=\"145^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:42:51.062274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит</p><center><p><span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(145^{\\circ}+71^{\\circ})=108^{\\circ}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:42:51.062274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:42:51.062274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:42:51.062274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:42:51.062274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:42:51.062274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но <span data-inline-latex=\"95^{\\circ}\"></span>, <span data-inline-latex=\"49^{\\circ}\"></span>, <span data-inline-latex=\"71^{\\circ}\"></span>, <span data-inline-latex=\"145^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">108</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит</p><center><p><span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(145^{\\circ}+71^{\\circ})=108^{\\circ}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27872",
+      "task": "51631",
+      "context": {
+        "problem_id": "49e851e6-d34e-4d06-99f9-59c553c2c6a3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:54.144316+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:42:51.153547+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но 76°, 101°, 106°, 77°. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:42:51.153547+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(77^{\\circ}+106^{\\circ})=91{,}5^{\\circ}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:42:51.153547+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но 76°, 101°, 106°, 77°. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">91,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(77^{\\circ}+106^{\\circ})=91{,}5^{\\circ}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27872",
+      "task": "51677",
+      "context": {
+        "problem_id": "ea14d05e-1c7b-4c0f-9a6b-70404432f312",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:04.221591+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:43:40.278503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но <span data-inline-latex=\"50^{\\circ}\"></span>, <span data-inline-latex=\"23^{\\circ}\"></span>, <span data-inline-latex=\"25^{\\circ}\"></span>, <span data-inline-latex=\"262^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:43:40.278503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит</p><center><p> <span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(262^{\\circ}+25^{\\circ})=143{,}5^{\\circ}\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:43:40.278503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:43:40.278503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:43:40.278503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:43:40.278503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:43:40.278503+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но <span data-inline-latex=\"50^{\\circ}\"></span>, <span data-inline-latex=\"23^{\\circ}\"></span>, <span data-inline-latex=\"25^{\\circ}\"></span>, <span data-inline-latex=\"262^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">143,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=81249043\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 11.02.2025 вариант МА2410309</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит</p><center><p> <span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(262^{\\circ}+25^{\\circ})=143{,}5^{\\circ}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27872",
+      "task": "674958",
+      "context": {
+        "problem_id": "1deb567c-42d0-4293-b1ea-e304a41ca158",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:35.159552+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:42:50.754260+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но 83°, 81°, 64°, 132°. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:42:50.754260+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p> <span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(64^{\\circ}+132^{\\circ})=98^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:42:50.754260+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Сто­ро­ны че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var> <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var> стя­ги­ва­ют дуги опи­сан­ной окруж­но­сти, гра­дус­ные ве­ли­чи­ны ко­то­рых равны со­от­вет­ствен­но 83°, 81°, 64°, 132°. Най­ди­те угол <var data-math-identifier=\"B\">B</var> этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">98</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=81257590\" rel=\"noreferrer noopener\" target=\"_blank\">СтатГрад: Тренировочная работа 11.02.2025 вариант МА2410310</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p> <span data-inline-latex=\"\\angle B=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(64^{\\circ}+132^{\\circ})=98^{\\circ}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27873",
+      "task": "27873",
+      "context": {
+        "problem_id": "685cee8e-1927-409e-a3bb-0ae0bf040b1e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:20.107656+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:28.862543+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как 4 : 2 : 3 : 6. Най­ди­те <nobr>угол <var data-math-identifier=\"A\">A</var></nobr> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:41.418758+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть дуга <var data-math-identifier=\"AB\">AB</var> равна 4<i>x</i>, тогда </p><center><p><span data-inline-latex=\"4x+2x+3x+6x=360^{\\circ}\\iff x=24^{\\circ}\"></span> .</p></center><p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но, </p><center><p><span data-inline-latex=\"\\angle A=\\frac{1}{2}(\\cup BC+\\cup CD)=\\frac{1}{2}(2x+3x)=\\frac{120^\\circ}{2}=60^\\circ.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:41.418758+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:56:41.418758+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как 4 : 2 : 3 : 6. Най­ди­те <nobr>угол <var data-math-identifier=\"A\">A</var></nobr> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть дуга <var data-math-identifier=\"AB\">AB</var> равна 4<i>x</i>, тогда </p><center><p><span data-inline-latex=\"4x+2x+3x+6x=360^{\\circ}\\iff x=24^{\\circ}\"></span> .</p></center><p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но, </p><center><p><span data-inline-latex=\"\\angle A=\\frac{1}{2}(\\cup BC+\\cup CD)=\\frac{1}{2}(2x+3x)=\\frac{120^\\circ}{2}=60^\\circ.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27873",
+      "task": "51681",
+      "context": {
+        "problem_id": "b57fd01b-bf70-408d-914c-95ca027c50e9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:32.663050+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:29.252860+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как 1 : 3 : 15 : 17. Най­ди­те угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:41.119645+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть дуга <var data-math-identifier=\"AB\">AB</var> равна <i>x,</i> тогда </p><center><p><span data-inline-latex=\"x+3x+15x+17x=360^{\\circ}\\iff x=10^{\\circ}\"></span> .</p></center><p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но, </p><center><p><span data-inline-latex=\"\\angle A=\\frac{1}{2}(\\cup BC+\\cup CD)=\\frac{1}{2}(3x+15x)=\\frac{180^\\circ}{2}=90^\\circ.\"></span></p></center><p><b>При­ме­ча­ние.</b></p><p>За­ме­тим, что со­ста­ви­те­ли ЕГЭ дали в усло­вии ри­су­нок, не со­от­вет­ству­ю­щий вы­чис­лен­ным зна­че­ни­ям углов.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:41.119645+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:56:41.119645+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как 1 : 3 : 15 : 17. Най­ди­те угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">90</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть дуга <var data-math-identifier=\"AB\">AB</var> равна <i>x,</i> тогда </p><center><p><span data-inline-latex=\"x+3x+15x+17x=360^{\\circ}\\iff x=10^{\\circ}\"></span> .</p></center><p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но, </p><center><p><span data-inline-latex=\"\\angle A=\\frac{1}{2}(\\cup BC+\\cup CD)=\\frac{1}{2}(3x+15x)=\\frac{180^\\circ}{2}=90^\\circ.\"></span></p></center><p><b>При­ме­ча­ние.</b></p><p>За­ме­тим, что со­ста­ви­те­ли ЕГЭ дали в усло­вии ри­су­нок, не со­от­вет­ству­ю­щий вы­чис­лен­ным зна­че­ни­ям углов.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27873",
+      "task": "51683",
+      "context": {
+        "problem_id": "cc3f2fd7-a2bd-4d1a-bed7-9bacce3e2cfb",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:34.063713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:29.646918+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как <span data-inline-latex=\"1\\colon 2\\colon 7\\colon 26\"></span>. Най­ди­те угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:29.646918+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как <span data-inline-latex=\"1\\colon 2\\colon 7\\colon 26\"></span>. Най­ди­те угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27873",
+      "task": "51685",
+      "context": {
+        "problem_id": "d87d6b58-bfe7-45a5-a0ec-580e218e49fa",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:34.162489+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "html": "<img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:29.905935+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как <span data-inline-latex=\"1\\colon 2\\colon 3\\colon 30\"></span>. Най­ди­те угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:29.905935+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "kind": "ordinary_image",
+              "asset_id": "b2848d10-0706-4113-b70b-fee6abd8eb06",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b2848d10-0706-4113-b70b-fee6abd8eb06\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b2848d10-0706-4113-b70b-fee6abd8eb06\"/>Точки <var data-math-identifier=\"A\">A</var>, <var data-math-identifier=\"B\">B</var>, <var data-math-identifier=\"C\">C</var>, <var data-math-identifier=\"D\">D</var>, рас­по­ло­жен­ные на окруж­но­сти, делят эту окруж­ность на че­ты­ре дуги <var data-math-identifier=\"AB\">AB</var>, <var data-math-identifier=\"BC\">BC</var>, <var data-math-identifier=\"CD\">CD</var> и <var data-math-identifier=\"AD\">AD</var>, гра­дус­ные ве­ли­чи­ны ко­то­рых от­но­сят­ся со­от­вет­ствен­но как <span data-inline-latex=\"1\\colon 2\\colon 3\\colon 30\"></span>. Най­ди­те угол <var data-math-identifier=\"A\">A</var> че­ты­рех­уголь­ни­ка <var data-math-identifier=\"ABCD\">ABCD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27875",
+      "task": "27875",
+      "context": {
+        "problem_id": "cb9e540d-d072-49d1-9467-7a6294e8f962",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:37.609704+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/81716d48-eee4-4e17-884b-3ef8bedd9276",
+                "html": "<img alt=\"\" data-asset-id=\"81716d48-eee4-4e17-884b-3ef8bedd9276\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/81716d48-eee4-4e17-884b-3ef8bedd9276\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "81716d48-eee4-4e17-884b-3ef8bedd9276",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:10:30.126727+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:10:30.126727+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\overset{\\frown}{ADC}=\\frac{1}{2}\\left(\\overset{\\frown}{AD}+\\overset{\\frown}{CD}\\right)=\\angle ABD+\\angle CAD=110^{\\circ}.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/81716d48-eee4-4e17-884b-3ef8bedd9276",
+              "kind": "ordinary_image",
+              "asset_id": "81716d48-eee4-4e17-884b-3ef8bedd9276",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"81716d48-eee4-4e17-884b-3ef8bedd9276\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/81716d48-eee4-4e17-884b-3ef8bedd9276\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABD\">ABD</var> равен 75°, угол <var data-math-identifier=\"CAD\">CAD</var> равен 35°. Най­ди­те угол <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">110</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84941970\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 04.07.2025. Основная волна, добровольная пересдача. Разные города. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\overset{\\frown}{ADC}=\\frac{1}{2}\\left(\\overset{\\frown}{AD}+\\overset{\\frown}{CD}\\right)=\\angle ABD+\\angle CAD=110^{\\circ}.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27875",
+      "task": "26221",
+      "context": {
+        "problem_id": "2daec2e4-05f3-465f-8501-997b4171078c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-08-27T10:10:57.024521+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/81716d48-eee4-4e17-884b-3ef8bedd9276",
+                "html": "<img alt=\"\" data-asset-id=\"81716d48-eee4-4e17-884b-3ef8bedd9276\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/81716d48-eee4-4e17-884b-3ef8bedd9276\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "81716d48-eee4-4e17-884b-3ef8bedd9276",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:09:51.752271+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:09:51.752271+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(\\cup AD+\\cup CD)=\\angle ABD+\\angle CAD=110^\\circ.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/81716d48-eee4-4e17-884b-3ef8bedd9276",
+              "kind": "ordinary_image",
+              "asset_id": "81716d48-eee4-4e17-884b-3ef8bedd9276",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"81716d48-eee4-4e17-884b-3ef8bedd9276\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/81716d48-eee4-4e17-884b-3ef8bedd9276\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABD\">ABD</var> равен 75°, угол <var data-math-identifier=\"CAD\">CAD</var> равен 35°. Най­ди­те угол <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">110</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84942153\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 04.07.2025. Основная волна, добровольная пересдача. Разные города. Вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(\\cup AD+\\cup CD)=\\angle ABD+\\angle CAD=110^\\circ.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27875",
+      "task": "51796",
+      "context": {
+        "problem_id": "3cafc197-58ea-45f7-827b-5cf7ebd8b055",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:48.075255+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/81716d48-eee4-4e17-884b-3ef8bedd9276",
+                "html": "<img alt=\"\" data-asset-id=\"81716d48-eee4-4e17-884b-3ef8bedd9276\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/81716d48-eee4-4e17-884b-3ef8bedd9276\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "81716d48-eee4-4e17-884b-3ef8bedd9276",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:10:05.682613+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"81716d48-eee4-4e17-884b-3ef8bedd9276\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"81^{\\circ}\"></span>, угол <var data-math-identifier=\"CAD\">CAD</var> равен <span data-inline-latex=\"31^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:10:05.682613+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:10:05.682613+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:10:05.682613+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:10:05.682613+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(\\cup AD+\\cup CD)=\\angle ABD+\\angle CAD=112^\\circ.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/81716d48-eee4-4e17-884b-3ef8bedd9276",
+              "kind": "ordinary_image",
+              "asset_id": "81716d48-eee4-4e17-884b-3ef8bedd9276",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"81716d48-eee4-4e17-884b-3ef8bedd9276\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/81716d48-eee4-4e17-884b-3ef8bedd9276\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"81^{\\circ}\"></span>, угол <var data-math-identifier=\"CAD\">CAD</var> равен <span data-inline-latex=\"31^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">112</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=76998153\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 31.05.2024. Основная волна. Урал</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит,</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(\\cup AD+\\cup CD)=\\angle ABD+\\angle CAD=112^\\circ.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27875",
+      "task": "660708",
+      "context": {
+        "problem_id": "53da97bf-b6d9-4deb-9220-80da1e51566b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:32.051390+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fe7c367d-af9e-4cfd-8626-cf65c3c64ac2",
+                "html": "<img alt=\"\" data-asset-id=\"fe7c367d-af9e-4cfd-8626-cf65c3c64ac2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fe7c367d-af9e-4cfd-8626-cf65c3c64ac2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fe7c367d-af9e-4cfd-8626-cf65c3c64ac2",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:10:11.016945+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fe7c367d-af9e-4cfd-8626-cf65c3c64ac2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"56^{\\circ}\"></span>, угол <var data-math-identifier=\"CAD\">CAD</var> равен <span data-inline-latex=\"53^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:10:11.016945+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:10:11.016945+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:10:11.016945+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:10:11.016945+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(\\cup AD+\\cup CD)=\\angle ABD+\\angle CAD=109^\\circ.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fe7c367d-af9e-4cfd-8626-cf65c3c64ac2",
+              "kind": "ordinary_image",
+              "asset_id": "fe7c367d-af9e-4cfd-8626-cf65c3c64ac2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fe7c367d-af9e-4cfd-8626-cf65c3c64ac2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fe7c367d-af9e-4cfd-8626-cf65c3c64ac2\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"56^{\\circ}\"></span>, угол <var data-math-identifier=\"CAD\">CAD</var> равен <span data-inline-latex=\"53^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ABC\">ABC</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">109</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=76963436\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 31.05.2024. Основная волна. Дальний Восток</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, зна­чит</p><center><p><span data-inline-latex=\"\\angle ABC=\\frac{1}{2}\\cup ADC=\\frac{1}{2}(\\cup AD+\\cup CD)=\\angle ABD+\\angle CAD=109^\\circ.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27876",
+      "task": "27876",
+      "context": {
+        "problem_id": "d37c9a2d-0e0a-43eb-bc38-077e4ed9c036",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:24.715697+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "html": "<img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:52:58.711153+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:52:58.711153+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но,</p><center><p><span data-inline-latex=\"\\angle CAD = \\frac{1}{2}\\cup CD = \\frac{1}{2}(\\cup ADC - \\cup AD) = \\angle ABC - \\angle ABD = 40^\\circ.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "kind": "ordinary_image",
+              "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABC\">ABC</var> равен 110°, угол <var data-math-identifier=\"ABD\">ABD</var> равен 70°. Най­ди­те угол <var data-math-identifier=\"CAD\">CAD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">40</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=76974319\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 31.05.2024. Основная волна. Сибирь, Центр</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но,</p><center><p><span data-inline-latex=\"\\angle CAD = \\frac{1}{2}\\cup CD = \\frac{1}{2}(\\cup ADC - \\cup AD) = \\angle ABC - \\angle ABD = 40^\\circ.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27876",
+      "task": "51839",
+      "context": {
+        "problem_id": "f992bd31-15f1-4721-9b3e-68d943a51661",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:27.344681+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "html": "<img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:52:47.621643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:52:47.621643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но,</p><center><p><span data-inline-latex=\"\\angle CAD=\\frac{1}{2}\\cup CD=\\frac{1}{2}(\\cup ADC-\\cup AD)=\\angle ABC-\\angle ABD=77^\\circ.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "kind": "ordinary_image",
+              "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABC\">ABC</var> равен 120°, угол <var data-math-identifier=\"ABD\">ABD</var> равен 43°. Най­ди­те угол <var data-math-identifier=\"CAD\">CAD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">77</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Впи­сан­ный угол равен по­ло­ви­не дуги, на ко­то­рую он опи­ра­ет­ся, сле­до­ва­тель­но,</p><center><p><span data-inline-latex=\"\\angle CAD=\\frac{1}{2}\\cup CD=\\frac{1}{2}(\\cup ADC-\\cup AD)=\\angle ABC-\\angle ABD=77^\\circ.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27876",
+      "task": "51841",
+      "context": {
+        "problem_id": "8fe0eadc-ef5a-4f9f-947e-b978c7aad284",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:23.032057+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "html": "<img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:52:33.330420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABC\">ABC</var> равен <span data-inline-latex=\"102^{\\circ}\"></span>, угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"16^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"CAD\">CAD</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:52:33.330420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:52:33.330420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "kind": "ordinary_image",
+              "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABC\">ABC</var> равен <span data-inline-latex=\"102^{\\circ}\"></span>, угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"16^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"CAD\">CAD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">86</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27876",
+      "task": "51843",
+      "context": {
+        "problem_id": "d877d020-39bd-4a2d-8be9-e32cd7756acf",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:24.740279+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "html": "<img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:52:33.831797+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABC\">ABC</var> равен <span data-inline-latex=\"56^{\\circ}\"></span>, угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"36^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"CAD\">CAD</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:52:33.831797+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:52:33.831797+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "kind": "ordinary_image",
+              "asset_id": "5cbeeb21-d482-4558-8370-cf2fa3dea811",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5cbeeb21-d482-4558-8370-cf2fa3dea811\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cbeeb21-d482-4558-8370-cf2fa3dea811\"/>Че­ты­рех­уголь­ник <var data-math-identifier=\"ABCD\">ABCD</var> впи­сан в окруж­ность. Угол <var data-math-identifier=\"ABC\">ABC</var> равен <span data-inline-latex=\"56^{\\circ}\"></span>, угол <var data-math-identifier=\"ABD\">ABD</var> равен <span data-inline-latex=\"36^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"CAD\">CAD</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27927",
+      "task": "27927",
+      "context": {
+        "problem_id": "9d548ff8-97de-4d1e-9278-31985c3fddfc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:22.917967+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+                "html": "<img alt=\"\" data-asset-id=\"a581e5c7-5ae0-4d79-83a1-c70ea8452116\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+              "kind": "ordinary_image",
+              "asset_id": "a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a581e5c7-5ae0-4d79-83a1-c70ea8452116\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116\"/> Два угла впи­сан­но­го в окруж­ность че­ты­рех­уголь­ни­ка равны 82° и 58°. Най­ди­те боль­ший из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">122</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34002261\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 10.07.2020. Основная волна. Москва</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма про­ти­во­по­лож­ных углов впи­сан­но­го че­ты­рех­уголь­ни­ка равна 180°. Боль­ший из остав­ших­ся углов лежит на­про­тив мень­ше­го из ука­зан­ных в усло­вии. По­это­му он равен 180° − 58°  =  122°.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27927",
+      "task": "53965",
+      "context": {
+        "problem_id": "fa7ef38c-7684-40af-bdf9-35f7533e5bc6",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:26.164484+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed",
+                "html": "<img alt=\"\" data-asset-id=\"fd4a0e7f-e14a-49f6-a218-c19216826aed\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fd4a0e7f-e14a-49f6-a218-c19216826aed",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed",
+              "kind": "ordinary_image",
+              "asset_id": "fd4a0e7f-e14a-49f6-a218-c19216826aed",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fd4a0e7f-e14a-49f6-a218-c19216826aed\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed\"/>Два угла впи­сан­но­го в окруж­ность че­ты­рех­уголь­ни­ка равны 16° и 33°. Най­ди­те боль­ший из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">164</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма про­ти­во­по­лож­ных углов впи­сан­но­го че­ты­рех­уголь­ни­ка равна 180°. Боль­ший из остав­ших­ся углов лежит на­про­тив мень­ше­го из ука­зан­ных в усло­вии. По­это­му он равен 180° − 16°  =  164°.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27927",
+      "task": "53973",
+      "context": {
+        "problem_id": "48e0e6b7-2275-4652-b8a9-7bfe45e01645",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:17.072509+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed",
+                "html": "<img alt=\"\" data-asset-id=\"fd4a0e7f-e14a-49f6-a218-c19216826aed\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fd4a0e7f-e14a-49f6-a218-c19216826aed",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed",
+              "kind": "ordinary_image",
+              "asset_id": "fd4a0e7f-e14a-49f6-a218-c19216826aed",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fd4a0e7f-e14a-49f6-a218-c19216826aed\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fd4a0e7f-e14a-49f6-a218-c19216826aed\"/>Два угла впи­сан­но­го в окруж­ность че­ты­рех­уголь­ни­ка равны 24° и 67°. Най­ди­те боль­ший из остав­ших­ся углов. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">156</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма про­ти­во­по­лож­ных углов впи­сан­но­го че­ты­рех­уголь­ни­ка равна 180°. Боль­ший из остав­ших­ся углов лежит на­про­тив мень­ше­го из ука­зан­ных в усло­вии. По­это­му он равен 180° − 24°  =  156°.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27927",
+      "task": "505441",
+      "context": {
+        "problem_id": "f5e1fcb9-87bd-4b74-b9ee-906e13125d87",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:26.100966+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+                "html": "<img alt=\"\" data-asset-id=\"a581e5c7-5ae0-4d79-83a1-c70ea8452116\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+              "kind": "ordinary_image",
+              "asset_id": "a581e5c7-5ae0-4d79-83a1-c70ea8452116",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a581e5c7-5ae0-4d79-83a1-c70ea8452116\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a581e5c7-5ae0-4d79-83a1-c70ea8452116\"/>Два угла впи­сан­но­го в окруж­ность че­ты­рех­уголь­ни­ка равны 65° и 41°. Най­ди­те боль­ший из остав­ших­ся углов этого че­ты­рех­уголь­ни­ка. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">139</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=5317688\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 05.06.2014. Основная волна. Запад</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма про­ти­во­по­лож­ных углов впи­сан­но­го в окруж­ность четырёхуголь­ни­ка равна 180°, по­это­му за­дан­ные углы  — смеж­ные. Боль­ший из остав­ших­ся углов даёт в сумме с мень­шим из за­дан­ных 180°, по­это­му он равен 180° − 41°  =  139°.</p>",
               "title": "Решение",
               "asset_keys": [],
               "section_id": "solution:1",

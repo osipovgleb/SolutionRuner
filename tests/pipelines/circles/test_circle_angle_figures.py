@@ -28,13 +28,17 @@ def test_source_svg_bytes_are_pinned_and_native_circles_are_retained(source):
     rings = root.findall(_tag("circle")) + [
         path
         for path in root.findall(_tag("path"))
-        if path.get("stroke") == "#0D0F0F" and path.get("fill") == "none"
+        if path.get("stroke") == "#0D0F0F"
+        and path.get("fill") == "none"
+        and path.get("d", "").strip().lower().endswith("z")
     ]
     assert len(rings) == 1
     if rings[0].tag == _tag("path"):
         assert rings[0].get("d").strip().endswith("z")
     assert not list(root.iter(_tag("image")))
-    assert len(root.findall(_tag("line"))) >= 2
+    assert len(root.findall(_tag("line"))) >= 2 or any(
+        len(p.get("points", "").split()) >= 3 for p in root.findall(_tag("polygon"))
+    )
     assert source in {s for row in SOURCES.values() for s in row}
 
 

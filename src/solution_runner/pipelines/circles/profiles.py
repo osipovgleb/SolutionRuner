@@ -235,27 +235,6 @@ PROFILES += tuple(
             14,
             "circle-incircle-isosceles-tangent-perimeter",
         ),
-    )
-)
-
-
-PROFILES += tuple(
-    _profile(
-        key,
-        identifier,
-        index,
-        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
-        category_key="1",
-        theme_title="Вписанные окружности",
-        theme_order_index=7,
-        snapshot_theme_id="2dfc57fc-a5b9-41e7-a335-28e80d18faa0",
-        expected_vertices=None,
-        strategy_key=None,
-        workflow_kind="content_rule",
-        content_rule_key=rule,
-        rewrite_existing_solution=True,
-    )
-    for key, identifier, index, rule in (
         (
             "27913",
             "9787602f-3b73-49a6-b9c4-e50bc8726ce9",
@@ -280,27 +259,6 @@ PROFILES += tuple(
             10,
             "circle-incircle-hexagon-radius",
         ),
-    )
-)
-
-
-PROFILES += tuple(
-    _profile(
-        key,
-        identifier,
-        index,
-        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
-        category_key="1",
-        theme_title="Вписанные окружности",
-        theme_order_index=7,
-        snapshot_theme_id="2dfc57fc-a5b9-41e7-a335-28e80d18faa0",
-        expected_vertices=None,
-        strategy_key=None,
-        workflow_kind="content_rule",
-        content_rule_key=rule,
-        rewrite_existing_solution=True,
-    )
-    for key, identifier, index, rule in (
         (
             "27936",
             "2cf9c19b-91fa-4cd5-ace0-28f539eda4bb",
@@ -348,6 +306,64 @@ PROFILES += tuple(
             "e76f62c5-787d-4a9f-ac8d-8c8c3dbe3dc9",
             23,
             "circle-incircle-quadrilateral-opposite-side",
+        ),
+    )
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        identifier,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="1",
+        theme_title="Описанные окружности",
+        theme_order_index=8,
+        snapshot_theme_id="dde26ca5-b012-4e0a-99d2-feec2c147fd6",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, identifier, index, rule in (
+        (
+            "27868",
+            "90b1b3a9-fc55-46dd-80f8-2846723832df",
+            0,
+            "circle-three-arc-ratio-largest-angle",
+        ),
+        (
+            "27871",
+            "a34819ca-0a4d-4029-b43a-8e3aaaa8a056",
+            1,
+            "circle-cyclic-opposite-angle",
+        ),
+        (
+            "27872",
+            "ea47ffff-1e1b-41b6-95e9-5e630190605e",
+            2,
+            "circle-cyclic-four-arcs-angle",
+        ),
+        (
+            "27873",
+            "fe617ce1-91d6-40ba-acd2-1610331be822",
+            3,
+            "circle-cyclic-four-arc-ratio",
+        ),
+        ("27875", "bd64cfb9-2c71-40e6-9213-5444686bb294", 4, "circle-cyclic-angle-sum"),
+        (
+            "27876",
+            "dad8fad4-e44c-43d5-9147-ab91374a7310",
+            5,
+            "circle-cyclic-angle-difference",
+        ),
+        (
+            "27927",
+            "22f73a56-fa74-4af8-80ff-ea8ebf5649c5",
+            24,
+            "circle-cyclic-unnamed-largest-angle",
         ),
     )
 )
