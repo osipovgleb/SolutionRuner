@@ -258,3 +258,41 @@ def test_figure_gap_preserves_the_entire_radical_height_value():
     )
     with pytest.raises(AltitudeSolveError):
         canonical_condition(invalid, source=GROUPS[case["group"]]["condition_asset_id"])
+
+
+@pytest.mark.parametrize("task", ["27357", "19899", "19901", "19903"])
+def test_both_tangent_methods_keep_the_parent_order_and_titles(task):
+    case = next(c for c in CASES if c["task"] == task)
+    soup = BeautifulSoup(solution_html(plan(case)), "html.parser")
+    methods = soup.select('section[data-content-kind="solution"]')
+    assert [m["data-solution-title"] for m in methods] == [
+        "Решение",
+        "Приведем другое решение.",
+    ]
+    formulas = [
+        [f["data-inline-latex"] for f in method.select("[data-inline-latex]")]
+        for method in methods
+    ]
+    assert len(formulas[0]) == 1 and len(formulas[1]) == 4
+    assert formulas[0][0].startswith(r"BH=CH\tg\angle HCB=CH\tg A=AH\tg^2 A=")
+    assert formulas[1][0] == r"\tg A=\frac{CH}{AH}"
+    assert formulas[1][2] == r"CH^2=AH\cdot HB"
+    assert formulas[1][3].startswith(r"BH=\frac{CH^2}{AH}=")
+
+
+@pytest.mark.parametrize("alteration", ["metric", "title", "extra_method"])
+def test_changed_multiple_parent_methods_are_not_silently_simplified(alteration):
+    case = next(c for c in CASES if c["task"] == "19899")
+    original = section(PARENTS["27357"]["context"], "solution")["html"]
+    if alteration == "metric":
+        changed = original.replace(r"CH^{2}=AH\cdot HB", r"CH^{2}=AH+HB")
+    elif alteration == "title":
+        changed = original.replace("Приведем другое решение.", "Третий способ")
+    else:
+        changed = (
+            original
+            + '<section data-content-kind="solution"><p>Ещё способ.</p></section>'
+        )
+    assert changed != original
+    with pytest.raises(ContentPlanError):
+        plan(case, parent=changed)
