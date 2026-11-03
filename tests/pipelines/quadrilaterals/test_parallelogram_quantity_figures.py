@@ -209,7 +209,39 @@ def test_compatible_numeric_parent_is_reused_and_not_regenerated():
 
 
 @pytest.mark.parametrize(
-    "group", ["27436", "27611", "27612", "27613", "27614", "27615", "27616"]
+    "case",
+    [c for c in CASES if c["group"] in {"27817", "27828", "27829"}],
+    ids=lambda c: c["task"],
+)
+def test_new_rhombus_native_figures_are_reused_exactly_without_duplicates(case):
+    context = deepcopy(case["context"])
+    assets = deepcopy(context["normalized_content"]["assets"])
+    assert diagram_specs(context) == ()
+    assert source_bytes(assets[0]["asset_id"]).startswith(b"<?xml")
+    result = plan(case, context)
+    assert not any(
+        t["transformation_target_id"].startswith("asset:")
+        for t in result.transformations
+    )
+    replay(context, result.transformations)
+    assert context["normalized_content"]["assets"] == assets
+    assert plan(case, context).transformations == ()
+
+
+@pytest.mark.parametrize(
+    "group",
+    [
+        "27436",
+        "27611",
+        "27612",
+        "27613",
+        "27614",
+        "27615",
+        "27616",
+        "27817",
+        "27828",
+        "27829",
+    ],
 )
 @pytest.mark.parametrize(
     "change", ["foreign", "url", "keys", "extra_image", "instruction"]

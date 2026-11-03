@@ -103,7 +103,11 @@ def selection(context):
         if model.mode == "transfer"
         else BARE
         if model.mode == "height"
-        else RHOMBUS
+        else {
+            "sixty_height": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+            "sixty_diagonal": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+            "ratio_height": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+        }.get(model.mode, RHOMBUS)
     )
     source_bytes(primary)
     if model.mode == "transfer":

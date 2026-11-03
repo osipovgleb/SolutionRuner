@@ -1,8 +1,11 @@
 """The parent's direct and inverse diagonal products and both thirty-degree methods."""
 
+import sympy as sp
+
 from ...probability.common import line
 from ...triangles.right.altitude_methods import solution_section
 from .rectangle_proofs import value
+from .rhombus_diagonal_proofs import render as render_diagonal
 
 
 def _thirty(m):
@@ -88,10 +91,74 @@ def _factor(m):
     )
 
 
+def _sixty_height(m):
+    return (
+        "<p>Проведём высоту BH к стороне AD. В прямоугольном треугольнике ABH по определению синуса получаем:</p>"
+        + line(r"BH=AB\sin\angle A")
+        + line("AB=" + value(m.a))
+        + line(r"\angle A=60^{\circ}")
+        + "<p>Подставим сторону ромба и значение синуса 60°:</p>"
+        + line("BH=" + value(m.a) + r"\cdot\sin 60^{\circ}")
+        + line("BH=" + value(m.a) + r"\cdot\frac{\sqrt{3}}{2}")
+        + line("BH=" + value(m.answer))
+    )
+
+
+def _ratio_height(m):
+    first, second, perimeter = m.given
+    x = sp.simplify(m.a / sp.sqrt(first**2 + second**2))
+    prefix = (
+        "<p>Все стороны ромба равны. Найдём сторону по периметру. Диагонали ромба перпендикулярны и точкой пересечения делятся пополам. Пусть O — точка их пересечения, OB=r·x, AO=s·x, где r:s — данное отношение диагоналей:</p>"
+        + line(r"AB=\frac{" + value(perimeter) + "}{4}=" + value(m.a))
+        + line("OB=" + value(first) + r"\cdot x,\quad AO=" + value(second) + r"\cdot x")
+        + line("AO^2+OB^2=AB^2")
+        + line(value(first**2 + second**2) + "x^2=" + value(m.a**2))
+        + line("x=" + value(x))
+    )
+    direct = (
+        "<p>Площадь прямоугольного треугольника AOB равна половине произведения катетов и половине произведения гипотенузы на высоту h. Поэтому:</p>"
+        + line(r"h=\frac{AO\cdot OB}{AB}")
+        + line(
+            r"h=\frac{"
+            + value(m.diagonals[1] / 2)
+            + r"\cdot "
+            + value(m.diagonals[0] / 2)
+            + "}{"
+            + value(m.a)
+            + "}="
+            + value(m.answer / 2)
+        )
+        + "<p>O лежит на биссектрисе угла A, поэтому расстояния от O до AB и AD равны h. Кроме того, O — середина BD, а D лежит на AD. Значит, расстояние от B до AD вдвое больше h. Высота ромба равна:</p>"
+        + line(r"H=2h=2\cdot " + value(m.answer / 2) + "=" + value(m.answer))
+    )
+    area = (
+        "<p>Удвоим половины диагоналей и найдём площадь ромба как половину произведения диагоналей:</p>"
+        + line("d_1=2OB=" + value(m.diagonals[0]))
+        + line("d_2=2AO=" + value(m.diagonals[1]))
+        + line(r"S=\frac{d_1d_2}{2}=" + value(m.area))
+        + "<p>С другой стороны, площадь равна произведению стороны a на высоту h. Подставим найденные величины:</p>"
+        + line("S=ah")
+        + line(value(m.a) + "h=" + value(m.area))
+        + line(r"h=\frac{" + value(m.area) + "}{" + value(m.a) + "}=" + value(m.answer))
+    )
+    return solution_section("Решение", prefix + direct) + solution_section(
+        "Альтернативное решение.", prefix + area
+    )
+
+
 def render(m):
     if m.mode == "thirty":
         return _thirty(m)
+    if m.mode == "sixty_diagonal":
+        return render_diagonal(m)
+    if m.mode == "ratio_height":
+        return _ratio_height(m)
     return solution_section(
         "Решение",
-        {"diagonals": _diagonals, "other": _other, "factor": _factor}[m.mode](m),
+        {
+            "diagonals": _diagonals,
+            "other": _other,
+            "factor": _factor,
+            "sixty_height": _sixty_height,
+        }[m.mode](m),
     )

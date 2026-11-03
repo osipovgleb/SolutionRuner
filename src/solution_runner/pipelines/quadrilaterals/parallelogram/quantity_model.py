@@ -17,6 +17,9 @@ RULES = {
     "rhombus-diagonals-area": "diagonals",
     "rhombus-area-known-diagonal": "other",
     "rhombus-area-diagonal-factor-small": "factor",
+    "rhombus-side-sixty-height": "sixty_height",
+    "rhombus-side-sixty-long-diagonal": "sixty_diagonal",
+    "rhombus-diagonal-ratio-perimeter-height": "ratio_height",
 }
 PATTERNS = {
     "sine": r"[ВB] параллелограмме ABCD AB\s*=\s*(.+?)\s*,\s*AD\s*=\s*(.+?)\s*,\s*\\sin\s*A\s*=\s*(.+?)\s*\.\s*Найдите большую высоту параллелограмма\s*\.",
@@ -26,6 +29,9 @@ PATTERNS = {
     "diagonals": r"Найдите площадь ромба, если его диагонали равны\s+(.+?)\s+и\s+(.+?)\s*\.",
     "other": r"Площадь ромба равна\s+(.+?)\s*\.\s*Одна из его диагоналей равна\s+(.+?)\s*\.\s*Найдите другую диагональ\s*\.",
     "factor": r"Площадь ромба равна\s+(.+?)\s*\.\s*Одна из его диагоналей в\s+(.+?)\s+раз(?:а)? больше другой\s*\.\s*Найдите меньшую диагональ\s*\.",
+    "sixty_height": r"Найдите высоту ромба, сторона которого равна\s+(.+?)\s*,\s*а острый угол равен\s*60(?:°|\^\{?\\circ\}?)\s*\.",
+    "sixty_diagonal": r"Найдите большую диагональ ромба, сторона которого равна\s+(.+?)\s*,\s*а острый угол равен\s*60(?:°|\^\{?\\circ\}?)\s*\.",
+    "ratio_height": r"Диагонали ромба относятся как\s+(.+?)\s*(?::|\\colon)\s*(.+?)\s*\.\s*Периметр ромба равен\s+(.+?)\s*\.\s*Найдите высоту ромба\s*\.",
 }
 
 
@@ -62,7 +68,7 @@ class Parallelogram:
     def answer(self):
         if self.mode in {"thirty", "diagonals"}:
             return self.area
-        if self.mode == "other":
+        if self.mode in {"other", "sixty_diagonal"}:
             return self.diagonals[1]
         if self.mode == "factor":
             return self.diagonals[0]
@@ -74,7 +80,22 @@ class Parallelogram:
 def _rhombus(mode, given):
     if mode == "thirty":
         return Parallelogram(mode, given, 2 * given[0], 2 * given[0], sp.Rational(1, 2))
-    if mode == "diagonals":
+    if mode in {"sixty_height", "sixty_diagonal"}:
+        side = given[0]
+        return Parallelogram(
+            mode,
+            given,
+            side,
+            side,
+            sp.sqrt(3) / 2,
+            diagonals=(side, sp.simplify(side * sp.sqrt(3))),
+        )
+    if mode == "ratio_height":
+        first, second, perimeter = given
+        side = perimeter / 4
+        scale = side / sp.sqrt(first**2 + second**2)
+        diagonals = tuple(sp.simplify(2 * v * scale) for v in given[:2])
+    elif mode == "diagonals":
         diagonals = given
     elif mode == "other":
         area, known = given

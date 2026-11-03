@@ -17,7 +17,7 @@ from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.equations.trig_parser import TrigonometricParser
 
 
-def verify(html, m):
+def _variables(m):
     vals = {"S": m.area}
     if m.mode == "sine":
         vals.update(
@@ -46,21 +46,62 @@ def verify(html, m):
         vals.update(a=m.first_height, b=m.second_height, h=m.answer)
     elif m.mode == "thirty":
         vals.update(a=m.a, h=m.given[0], AB=m.a, AD=m.a, BH=m.given[0])
+    elif m.mode in {"sixty_height", "sixty_diagonal"}:
+        vals.update(
+            AB=m.a,
+            AD=m.a,
+            BC=m.a,
+            DB=m.a,
+            AC=m.diagonals[1],
+            BH=m.first_height,
+            AK=m.diagonals[1] / 2,
+            AO=m.diagonals[1] / 2,
+            BO=m.a / 2,
+        )
+    elif m.mode == "ratio_height":
+        r, s, _ = m.given
+        vals.update(
+            AB=m.a,
+            AO=m.diagonals[1] / 2,
+            OB=m.diagonals[0] / 2,
+            a=m.a,
+            x=m.a / sp.sqrt(r * r + s * s),
+            H=m.answer,
+            d_1=m.diagonals[0],
+            d_2=m.diagonals[1],
+        )
     elif m.mode == "diagonals":
         vals.update(d_1=m.diagonals[0], d_2=m.diagonals[1])
     elif m.mode == "other":
         vals.update(a=m.diagonals[1], d=m.diagonals[0])
     else:
         vals.update(a=m.diagonals[0], k=m.given[1])
+    return vals
+
+
+def verify(html, m):
+    vals = _variables(m)
     special = {
+        r"\sin\angle A": m.sine,
+        r"\cos\angle ABC": -sp.Rational(1, 2),
+        r"\angle ABC": 120,
+        r"\angle BAK": 30,
+        r"\angle BAO": 30,
+        r"\cos 120^{\circ}": -sp.Rational(1, 2),
+        r"\cos 30^{\circ}": sp.sqrt(3) / 2,
+        r"\sin 120^{\circ}": sp.sqrt(3) / 2,
+        r"\sin 60^{\circ}": sp.sqrt(3) / 2,
         r"\sin A": m.sine,
         r"\sin 30^{\circ}": sp.Rational(1, 2),
-        r"\angle A": 30,
+        r"\angle A": 60 if m.mode.startswith("sixty") else 30,
         r"S_{ABCD}": m.area,
         r"\max(a,b)": m.answer,
     }
     for tag in BeautifulSoup(html, "html.parser").select("[data-inline-latex]"):
         formula = tag["data-inline-latex"]
+        if m.mode == "ratio_height":
+            method = tag.find_parent("section")["data-solution-title"]
+            vals["h"] = m.answer / 2 if method == "Решение" else m.answer
         for label, val in special.items():
             formula = formula.replace(label, "(" + sp.latex(val) + ")")
         formula = formula.replace(r"^{\circ}", "").replace("d_1d_2", "d_1 d_2")
@@ -98,14 +139,18 @@ def test_all_native_methods_formulas_figures_and_source_answers(case):
     old = BeautifulSoup(
         section(case["context"], "answer")["html"], "html.parser"
     ).get_text(strip=True)
-    assert float(result.answer.replace(",", ".")) == float(old.replace(",", "."))
+    assert float(result.answer.replace(",", ".")) == float(
+        case.get("expected_answer", old).replace(",", ".")
+    )
     html = solution_html(result)
     verify(html, m)
     soup = BeautifulSoup(html, "html.parser")
     methods = soup.select("section")
     assert [s["data-solution-title"] for s in methods] == (
         ["Решение", "Альтернативное решение."]
-        if m.mode in {"sine", "thirty"}
+        if m.mode in {"sine", "thirty", "ratio_height"}
+        else ["Решение"] + ["Альтернативное решение."] * 4
+        if m.mode == "sixty_diagonal"
         else ["Решение"]
     )
     assert len(soup.find_all("img")) == (2 if m.mode == "transfer" else 0)

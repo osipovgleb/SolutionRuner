@@ -22,6 +22,24 @@ PROFILES = tuple(
     )
     for key, identifier, index, rule in (
         (
+            "27817",
+            "1343b073-2144-402b-a340-cdca2045ae4a",
+            19,
+            "rhombus-side-sixty-height",
+        ),
+        (
+            "27828",
+            "f0989282-8175-40f1-aa1a-7ce312b66ddd",
+            25,
+            "rhombus-side-sixty-long-diagonal",
+        ),
+        (
+            "27829",
+            "624a3e18-4dcc-4a89-88d1-d917ad67404a",
+            26,
+            "rhombus-diagonal-ratio-perimeter-height",
+        ),
+        (
             "27436",
             "e989a6f9-18f6-45e9-a084-2d5e9294e132",
             0,

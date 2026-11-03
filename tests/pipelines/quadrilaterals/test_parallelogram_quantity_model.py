@@ -61,13 +61,15 @@ def test_all_native_answers_side_lengths_height_and_vector_area(case):
     assert area == pytest.approx(float(m.area))
     assert first == pytest.approx(float(m.first_height))
     assert second == pytest.approx(float(m.second_height))
-    if m.mode in {"sine", "height"}:
+    if m.mode in {"sine", "height", "sixty_height", "ratio_height"}:
         expected = max(first, second)
     elif m.mode == "transfer":
         assert first == pytest.approx(float(m.given[2]))
         expected = second
     elif m.mode in {"thirty", "diagonals"}:
         expected = area
+    elif m.mode == "sixty_diagonal":
+        expected = math.dist((0, 0), (u[0] + v[0], u[1] + v[1]))
     elif m.mode == "other":
         expected = 2 * float(m.given[0]) / float(m.given[1])
     else:
@@ -76,7 +78,9 @@ def test_all_native_answers_side_lengths_height_and_vector_area(case):
     saved = BeautifulSoup(
         section(case["context"], "answer")["html"], "html.parser"
     ).get_text(strip=True)
-    assert float(Fraction(saved.replace(",", "."))) == pytest.approx(expected)
+    assert float(
+        Fraction(case.get("expected_answer", saved).replace(",", "."))
+    ) == pytest.approx(expected)
     if m.diagonals:
         first, second = map(float, m.diagonals)
         assert a == pytest.approx(b)
@@ -140,3 +144,44 @@ def test_native_projection_really_changes_side_incidence_and_equal_side_case():
     assert models["44411"].a == models["44411"].b
     assert models["56155"].projection > models["56155"].a
     assert models["549315"].projection < models["549315"].a
+
+
+@pytest.mark.parametrize(
+    "r,s,perimeter", [(1, 1, 40), (1, 9, 164), (9, 1, 164), (4, 7, 65)]
+)
+def test_ratio_height_from_independent_area_and_perimeter(r, s, perimeter):
+    m = read_question(
+        f"<p>Диагонали ромба относятся как {r}:{s}. Периметр ромба равен {perimeter}. Найдите высоту ромба.</p>"
+    )
+    side = perimeter / 4
+    short_half = side * r / math.hypot(r, s)
+    long_half = side * s / math.hypot(r, s)
+    assert float(m.answer) == pytest.approx(2 * short_half * long_half / side)
+    assert 0 < float(m.answer) <= side
+
+
+def test_native_50137_saved_answer_exceeds_side_and_is_corrected_locally():
+    case = next(c for c in CASES if c["task"] == "50137")
+    m = read(case["context"])
+    assert m.a == Fraction(65, 4) and m.answer == 14
+    assert (
+        BeautifulSoup(
+            section(case["context"], "answer")["html"], "html.parser"
+        ).get_text(strip=True)
+        == "28"
+    )
+
+
+@pytest.mark.parametrize(
+    "html",
+    [
+        "Найдите высоту ромба, сторона которого равна 3, а острый угол равен 30°.",
+        "Найдите большую диагональ ромба, сторона которого равна -3, а острый угол равен 60°.",
+        "Диагонали ромба относятся как 0:4. Периметр ромба равен 40. Найдите высоту ромба.",
+        "Диагонали ромба относятся как 3:4. Периметр ромба равен -40. Найдите высоту ромба.",
+        "Диагонали ромба относятся как 3:4. Периметр ромба равен 40. Найдите высоту ромба. Округлите ответ.",
+    ],
+)
+def test_new_rhombus_invalid_or_unreviewed_questions_fail_closed(html):
+    with pytest.raises(ContentPlanError):
+        read_question("<p>" + html + "</p>")

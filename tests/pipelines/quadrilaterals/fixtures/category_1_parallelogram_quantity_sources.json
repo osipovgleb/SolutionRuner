@@ -41,6 +41,24 @@
       "size": 26,
       "group_uuid": "5f2f0435-f250-427f-b48a-800671449d79",
       "rule": "rhombus-area-diagonal-factor-small"
+    },
+    {
+      "key": "27817",
+      "size": 26,
+      "group_uuid": "1343b073-2144-402b-a340-cdca2045ae4a",
+      "rule": "rhombus-side-sixty-height"
+    },
+    {
+      "key": "27828",
+      "size": 26,
+      "group_uuid": "f0989282-8175-40f1-aa1a-7ce312b66ddd",
+      "rule": "rhombus-side-sixty-long-diagonal"
+    },
+    {
+      "key": "27829",
+      "size": 25,
+      "group_uuid": "624a3e18-4dcc-4a89-88d1-d917ad67404a",
+      "rule": "rhombus-diagonal-ratio-perimeter-height"
     }
   ],
   "cases": [
@@ -3090,6 +3108,1669 @@
           }
         }
       }
+    },
+    {
+      "group": "27817",
+      "task": "27817",
+      "context": {
+        "problem_id": "7f024564-6124-4a4c-b7cd-ed9a1b069e9a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:40.357836+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "html": "<img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:49.551103+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:49.551103+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>По опре­де­ле­нию си­ну­са по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"BH=AB\\sin \\angle A=\\sqrt{3}\\cdot \\sin 60^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=1{,}5\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:49.551103+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:49.551103+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "kind": "ordinary_image",
+              "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По опре­де­ле­нию си­ну­са по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"BH=AB\\sin \\angle A=\\sqrt{3}\\cdot \\sin 60^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=1{,}5\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27817",
+      "task": "49655",
+      "context": {
+        "problem_id": "af93853d-ad96-4d82-ad8d-cf26181ab9b0",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:40.540726+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "html": "<img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:50.726810+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"11\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:50.726810+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>По опре­де­ле­нию си­ну­са по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"BH=AB\\sin \\angle A=11\\sqrt{3}\\cdot \\sin 60^{\\circ}=11\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=16{,}5\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:50.726810+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:50.726810+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "kind": "ordinary_image",
+              "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"11\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">16,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По опре­де­ле­нию си­ну­са по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"BH=AB\\sin \\angle A=11\\sqrt{3}\\cdot \\sin 60^{\\circ}=11\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=16{,}5\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27817",
+      "task": "49657",
+      "context": {
+        "problem_id": "05a1cb3f-6a94-4bd0-979c-a1c53c063f98",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:35.851213+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "html": "<img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:48.052147+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"21\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:48.052147+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:48.052147+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "kind": "ordinary_image",
+              "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"21\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">31,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27817",
+      "task": "49659",
+      "context": {
+        "problem_id": "abf4e73b-5e37-42ed-bf36-9544b4deabcf",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:40.509699+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "html": "<img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:50.703067+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"14\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:50.703067+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:50.703067+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "kind": "ordinary_image",
+              "asset_id": "0f9596a2-7160-4a52-8155-cdecf3de5824",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"0f9596a2-7160-4a52-8155-cdecf3de5824\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0f9596a2-7160-4a52-8155-cdecf3de5824\"/>Най­ди­те вы­со­ту ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"14\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">21</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27828",
+      "task": "27828",
+      "context": {
+        "problem_id": "278ef5a2-4054-4db0-9bf7-4d758b3829fb",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:15.821158+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "html": "<img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тупой угол ромба <nobr>равен  <span data-inline-latex=\"180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</nobr> Вос­поль­зу­ем­ся тео­ре­мой ко­си­ну­сов:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{AB^{2}+BC^{2}-2AB\\cdot BC\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}-2AB^{2}\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}\\cdot (1-\\cos 120^{\\circ})}=\\sqrt{6\\cdot (1+0{,}5)}=3\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Тупой угол ромба <nobr>равен  <span data-inline-latex=\"180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</nobr> Диа­го­наль ромба делит угол по­по­лам, по­это­му по­лу­чим тре­уголь­ник <nobr>с уг­ла­ми 120°, 30° и 30°,</nobr> от­ку­да по тео­ре­ме си­ну­сов:</p><center><p> <span data-inline-latex=\"\\frac{AC}{\\sin 120^{\\circ}}=\\frac{BC}{\\sin 30^{\\circ}}\\iff AC=\\frac{\\sqrt{3}\\cdot \\sin 120^{\\circ}}{\\sin 30^{\\circ}}\\iff AC=\\frac{\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}}{\\frac{1}{2}}\\iff AC=3\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть точка <var data-math-identifier=\"K\">K</var>  — точка пе­ре­се­че­ния диа­го­на­лей ромба. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом, по­это­му тре­уголь­ник <var data-math-identifier=\"ABK\">ABK</var>  — пря­мо­уголь­ный. Диа­го­наль ромба делит угол по­по­лам, по­это­му  <span data-inline-latex=\"\\angle BAK=30^{\\circ}\"></span>. Сле­до­ва­тель­но,</p><p> <span data-inline-latex=\"AK=AB\\cos 30^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=\\frac{3}{2}\"></span> , <br/> <span data-inline-latex=\"AC=2\\cdot \\frac{3}{2}=3\"></span>.</p><p></p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть точка <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния диа­го­на­лей ромба. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом, по­это­му тре­уголь­ник <var data-math-identifier=\"ABO\">ABO</var>  — пря­мо­уголь­ный. Диа­го­наль ромба делит угол по­по­лам, по­это­му  <span data-inline-latex=\"\\angle BAO=30^{\\circ}\"></span>. Катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но,  <span data-inline-latex=\"BO=\\frac{1}{2}\\cdot AB=\\frac{\\sqrt{3}}{2}\"></span> .  </p><p>Най­дем от­ре­зок <var data-math-identifier=\"AO\">AO</var> по тео­ре­ме Пи­фа­го­ра:</p><center><p> <span data-inline-latex=\"(\\frac{\\sqrt{3}}{2})^{2}+AO^{2}=(\\sqrt{3})^{2}\\iff \\frac{3}{4}+AO^{2}=3\\iff AO^{2}=\\frac{9}{4}\"></span> , </p></center><p>от­ку­да  <span data-inline-latex=\"AO=\\frac{3}{2}\"></span> . Диа­го­на­ли ромба точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам, по­это­му диа­го­наль  <span data-inline-latex=\"AC=\\frac{3}{2}\\cdot 2=3\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Най­дем пло­щадь ромба двумя спо­со­ба­ми:  <span data-inline-latex=\"S=AB\\cdot AD\\sin \\angle A=\\frac{1}{2}DB\\cdot AC\"></span>. В рав­но­бед­рен­ном тре­уголь­ни­ке <i>АВD</i> угол <i>А</i> равен 60°. Сле­до­ва­тель­но, этот тре­уголь­ник рав­но­сто­рон­ний:  <span data-inline-latex=\"DB=AB\"></span>. Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"AC=2AB\\sin \\angle A=2\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=3\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T16:01:41.744878+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "kind": "ordinary_image",
+              "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тупой угол ромба <nobr>равен  <span data-inline-latex=\"180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</nobr> Вос­поль­зу­ем­ся тео­ре­мой ко­си­ну­сов:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{AB^{2}+BC^{2}-2AB\\cdot BC\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}-2AB^{2}\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}\\cdot (1-\\cos 120^{\\circ})}=\\sqrt{6\\cdot (1+0{,}5)}=3\"></span>.</span></p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Тупой угол ромба <nobr>равен  <span data-inline-latex=\"180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</nobr> Диа­го­наль ромба делит угол по­по­лам, по­это­му по­лу­чим тре­уголь­ник <nobr>с уг­ла­ми 120°, 30° и 30°,</nobr> от­ку­да по тео­ре­ме си­ну­сов:</p><center><p> <span data-inline-latex=\"\\frac{AC}{\\sin 120^{\\circ}}=\\frac{BC}{\\sin 30^{\\circ}}\\iff AC=\\frac{\\sqrt{3}\\cdot \\sin 120^{\\circ}}{\\sin 30^{\\circ}}\\iff AC=\\frac{\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}}{\\frac{1}{2}}\\iff AC=3\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть точка <var data-math-identifier=\"K\">K</var>  — точка пе­ре­се­че­ния диа­го­на­лей ромба. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом, по­это­му тре­уголь­ник <var data-math-identifier=\"ABK\">ABK</var>  — пря­мо­уголь­ный. Диа­го­наль ромба делит угол по­по­лам, по­это­му  <span data-inline-latex=\"\\angle BAK=30^{\\circ}\"></span>. Сле­до­ва­тель­но,</p><p> <span data-inline-latex=\"AK=AB\\cos 30^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=\\frac{3}{2}\"></span> , <br/> <span data-inline-latex=\"AC=2\\cdot \\frac{3}{2}=3\"></span>.</p><p></p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Пусть точка <var data-math-identifier=\"O\">O</var>  — точка пе­ре­се­че­ния диа­го­на­лей ромба. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом, по­это­му тре­уголь­ник <var data-math-identifier=\"ABO\">ABO</var>  — пря­мо­уголь­ный. Диа­го­наль ромба делит угол по­по­лам, по­это­му  <span data-inline-latex=\"\\angle BAO=30^{\\circ}\"></span>. Катет, ле­жа­щий про­тив угла в 30°, равен по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но,  <span data-inline-latex=\"BO=\\frac{1}{2}\\cdot AB=\\frac{\\sqrt{3}}{2}\"></span> .  </p><p>Най­дем от­ре­зок <var data-math-identifier=\"AO\">AO</var> по тео­ре­ме Пи­фа­го­ра:</p><center><p> <span data-inline-latex=\"(\\frac{\\sqrt{3}}{2})^{2}+AO^{2}=(\\sqrt{3})^{2}\\iff \\frac{3}{4}+AO^{2}=3\\iff AO^{2}=\\frac{9}{4}\"></span> , </p></center><p>от­ку­да  <span data-inline-latex=\"AO=\\frac{3}{2}\"></span> . Диа­го­на­ли ромба точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам, по­это­му диа­го­наль  <span data-inline-latex=\"AC=\\frac{3}{2}\\cdot 2=3\"></span>.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Най­дем пло­щадь ромба двумя спо­со­ба­ми:  <span data-inline-latex=\"S=AB\\cdot AD\\sin \\angle A=\\frac{1}{2}DB\\cdot AC\"></span>. В рав­но­бед­рен­ном тре­уголь­ни­ке <i>АВD</i> угол <i>А</i> равен 60°. Сле­до­ва­тель­но, этот тре­уголь­ник рав­но­сто­рон­ний:  <span data-inline-latex=\"DB=AB\"></span>. Таким об­ра­зом,</p><center><p> <span data-inline-latex=\"AC=2AB\\sin \\angle A=2\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=3\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27828",
+      "task": "50083",
+      "context": {
+        "problem_id": "fb77aa6d-c257-4ed7-b2d5-e1dcd97ee969",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:23.560962+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "html": "<img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:01:44.472063+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"11\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:01:44.472063+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тупой угол ромба <nobr>равен  <span data-inline-latex=\"180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</nobr> Вос­поль­зу­ем­ся тео­ре­мой ко­си­ну­сов:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{AB^{2}+BC^{2}-2AB\\cdot BC\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}-2AB^{2}\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}\\cdot (1-\\cos 120^{\\circ})}=\\sqrt{2\\cdot 121\\cdot 3\\cdot (1+0{,}5)}=33\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:01:44.472063+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:01:44.472063+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:01:44.472063+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:01:44.472063+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "kind": "ordinary_image",
+              "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го <nobr>равна  <span data-inline-latex=\"11\\sqrt{3}\"></span> ,</nobr> а ост­рый угол равен 60°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">33</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тупой угол ромба <nobr>равен  <span data-inline-latex=\"180^{\\circ}-60^{\\circ}=120^{\\circ}\"></span>.</nobr> Вос­поль­зу­ем­ся тео­ре­мой ко­си­ну­сов:</p><center><p><span> <span data-inline-latex=\"AC=\\sqrt{AB^{2}+BC^{2}-2AB\\cdot BC\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}-2AB^{2}\\cdot \\cos \\angle ABC}=\\sqrt{2AB^{2}\\cdot (1-\\cos 120^{\\circ})}=\\sqrt{2\\cdot 121\\cdot 3\\cdot (1+0{,}5)}=33\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27828",
+      "task": "50085",
+      "context": {
+        "problem_id": "7cd8a113-3a10-488f-8113-5531c51c0886",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:17.353861+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "html": "<img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:01:42.442078+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"5{,}5\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:01:42.442078+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:01:42.442078+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "kind": "ordinary_image",
+              "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"5{,}5\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">16,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27828",
+      "task": "50087",
+      "context": {
+        "problem_id": "d8970544-5d86-4f49-b315-f1d26f0cdf23",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:22.500079+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "html": "<img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:01:43.828213+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"2{,}5\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:01:43.828213+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:01:43.828213+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "kind": "ordinary_image",
+              "asset_id": "d079942f-59e2-4f99-8e45-e295851aa7c1",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d079942f-59e2-4f99-8e45-e295851aa7c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d079942f-59e2-4f99-8e45-e295851aa7c1\"/>Най­ди­те боль­шую диа­го­наль ромба, сто­ро­на ко­то­ро­го равна <span data-inline-latex=\"2{,}5\\sqrt{3}\"></span> , а ост­рый угол равен <span data-inline-latex=\"60^{\\circ}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27829",
+      "task": "27829",
+      "context": {
+        "problem_id": "33e68177-4f06-4be7-b909-cb1aedf00eac",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:41.767797+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "html": "<img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­на­ли ромба от­но­сят­ся как 3 : 4. Пе­ри­метр ромба равен 200. Най­ди­те вы­со­ту ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>За­ме­тим, что сто­ро­на ромба равна 50. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам. Пусть  <span data-inline-latex=\"OB=3x\"></span>, тогда  <span data-inline-latex=\"AO=4x\"></span>. По тео­ре­ме Пи­фа­го­ра  <span data-inline-latex=\"AO^{2}+OB^{2}=AB^{2}\"></span> , по­это­му  <span data-inline-latex=\"25x^{2}=2500\"></span>, от­ку­да  <span data-inline-latex=\"x=10\"></span>. Сле­до­ва­тель­но, вы­со­та тре­уголь­ни­ка <var data-math-identifier=\"AOB\">AOB</var> равна</p><center><p> <span data-inline-latex=\"h=\\frac{AO\\cdot OB}{AB}=\\frac{4x\\cdot 3x}{5x}=\\frac{12x}{5}=\\frac{12\\cdot 10}{5}=24\"></span>. </p></center><p>Таким об­ра­зом, вы­со­та ромба <nobr>равна  <span data-inline-latex=\"2h=48\"></span>.</nobr></p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>За­ме­тим, что сто­ро­на ромба равна 50. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам. Пусть  <span data-inline-latex=\"OB=3x\"></span>, тогда  <span data-inline-latex=\"AO=4x\"></span>. По тео­ре­ме Пи­фа­го­ра  <span data-inline-latex=\"AO^{2}+OB^{2}=AB^{2}\"></span> , по­это­му  <span data-inline-latex=\"25x^{2}=2500\"></span>, от­ку­да  <span data-inline-latex=\"x=10\"></span>. Диа­го­на­ли ромба со­от­вет­ствен­но равны  <span data-inline-latex=\"d_1=6x=60\"></span>,  <span data-inline-latex=\"d_2=8x=80\"></span>. Пло­щадь ромба равна  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot d_1\\cdot d_2=2400\"></span>, или, с дру­гой сто­ро­ны,  <span data-inline-latex=\"S=ah\"></span>. По­лу­чим урав­не­ние  <span data-inline-latex=\"50h=2400\"></span>, от­ку­да  <span data-inline-latex=\"h=48\"></span>.</p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T16:15:17.183054+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "kind": "ordinary_image",
+              "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>Диа­го­на­ли ромба от­но­сят­ся как 3 : 4. Пе­ри­метр ромба равен 200. Най­ди­те вы­со­ту ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">48</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>За­ме­тим, что сто­ро­на ромба равна 50. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам. Пусть  <span data-inline-latex=\"OB=3x\"></span>, тогда  <span data-inline-latex=\"AO=4x\"></span>. По тео­ре­ме Пи­фа­го­ра  <span data-inline-latex=\"AO^{2}+OB^{2}=AB^{2}\"></span> , по­это­му  <span data-inline-latex=\"25x^{2}=2500\"></span>, от­ку­да  <span data-inline-latex=\"x=10\"></span>. Сле­до­ва­тель­но, вы­со­та тре­уголь­ни­ка <var data-math-identifier=\"AOB\">AOB</var> равна</p><center><p> <span data-inline-latex=\"h=\\frac{AO\\cdot OB}{AB}=\\frac{4x\\cdot 3x}{5x}=\\frac{12x}{5}=\\frac{12\\cdot 10}{5}=24\"></span>. </p></center><p>Таким об­ра­зом, вы­со­та ромба <nobr>равна  <span data-inline-latex=\"2h=48\"></span>.</nobr></p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>За­ме­тим, что сто­ро­на ромба равна 50. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам. Пусть  <span data-inline-latex=\"OB=3x\"></span>, тогда  <span data-inline-latex=\"AO=4x\"></span>. По тео­ре­ме Пи­фа­го­ра  <span data-inline-latex=\"AO^{2}+OB^{2}=AB^{2}\"></span> , по­это­му  <span data-inline-latex=\"25x^{2}=2500\"></span>, от­ку­да  <span data-inline-latex=\"x=10\"></span>. Диа­го­на­ли ромба со­от­вет­ствен­но равны  <span data-inline-latex=\"d_1=6x=60\"></span>,  <span data-inline-latex=\"d_2=8x=80\"></span>. Пло­щадь ромба равна  <span data-inline-latex=\"S=\\frac{1}{2}\\cdot d_1\\cdot d_2=2400\"></span>, или, с дру­гой сто­ро­ны,  <span data-inline-latex=\"S=ah\"></span>. По­лу­чим урав­не­ние  <span data-inline-latex=\"50h=2400\"></span>, от­ку­да  <span data-inline-latex=\"h=48\"></span>.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27829",
+      "task": "50133",
+      "context": {
+        "problem_id": "bc6511dd-7cc3-45c9-ba9e-ab6367d1d3a8",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:51.692409+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "html": "<img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­на­ли ромба от­но­сят­ся как 1 : 9. Пе­ри­метр ромба равен 164. Най­ди­те вы­со­ту ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>За­ме­тим, что сто­ро­на ромба равна 41. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам. Пусть  <span data-inline-latex=\"OB=x\"></span>, тогда  <span data-inline-latex=\"AO=9x\"></span>. По тео­ре­ме Пи­фа­го­ра  <span data-inline-latex=\"AO^{2}+OB^{2}=AB^{2}\"></span> , по­это­му  <span data-inline-latex=\"82x^{2}=1681\"></span>, от­ку­да  <span data-inline-latex=\"x=\\sqrt{20{,}5}\"></span> . Сле­до­ва­тель­но, вы­со­та тре­уголь­ни­ка <var data-math-identifier=\"AOB\">AOB</var> равна</p><center><p> <span data-inline-latex=\"h=\\frac{AO\\cdot OB}{AB}=\\frac{9x\\cdot x}{41}=\\frac{9x^{2}}{41}=\\frac{9\\cdot 20{,}5}{41}=\\frac{9}{2}\"></span> . </p></center><p>Таким об­ра­зом, вы­со­та ромба <nobr>равна  <span data-inline-latex=\"2h=9\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:15:18.477466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "kind": "ordinary_image",
+              "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>Диа­го­на­ли ромба от­но­сят­ся как 1 : 9. Пе­ри­метр ромба равен 164. Най­ди­те вы­со­ту ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­ме­тим, что сто­ро­на ромба равна 41. Диа­го­на­ли ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам. Пусть  <span data-inline-latex=\"OB=x\"></span>, тогда  <span data-inline-latex=\"AO=9x\"></span>. По тео­ре­ме Пи­фа­го­ра  <span data-inline-latex=\"AO^{2}+OB^{2}=AB^{2}\"></span> , по­это­му  <span data-inline-latex=\"82x^{2}=1681\"></span>, от­ку­да  <span data-inline-latex=\"x=\\sqrt{20{,}5}\"></span> . Сле­до­ва­тель­но, вы­со­та тре­уголь­ни­ка <var data-math-identifier=\"AOB\">AOB</var> равна</p><center><p> <span data-inline-latex=\"h=\\frac{AO\\cdot OB}{AB}=\\frac{9x\\cdot x}{41}=\\frac{9x^{2}}{41}=\\frac{9\\cdot 20{,}5}{41}=\\frac{9}{2}\"></span> . </p></center><p>Таким об­ра­зом, вы­со­та ромба <nobr>равна  <span data-inline-latex=\"2h=9\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27829",
+      "task": "50135",
+      "context": {
+        "problem_id": "cde7ddb3-5ac8-414b-b56d-04d7903da462",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:54.857717+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "html": "<img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:15:18.625423+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­на­ли ромба от­но­сят­ся как <span data-inline-latex=\"1\\colon 3\"></span>. Пе­ри­метр ромба равен 90. Най­ди­те вы­со­ту ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:15:18.625423+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "kind": "ordinary_image",
+              "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>Диа­го­на­ли ромба от­но­сят­ся как <span data-inline-latex=\"1\\colon 3\"></span>. Пе­ри­метр ромба равен 90. Най­ди­те вы­со­ту ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27829",
+      "task": "50137",
+      "context": {
+        "problem_id": "23f71965-8af4-4f5c-9fa7-5e73c88150a8",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:41.422739+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "html": "<img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:15:16.892266+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Диа­го­на­ли ромба от­но­сят­ся как <span data-inline-latex=\"4\\colon 7\"></span>. Пе­ри­метр ромба равен 65. Най­ди­те вы­со­ту ромба.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:15:16.892266+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "kind": "ordinary_image",
+              "asset_id": "fc78faa7-5ccc-40bd-8519-e9d4a1629853",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc78faa7-5ccc-40bd-8519-e9d4a1629853\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc78faa7-5ccc-40bd-8519-e9d4a1629853\"/>Диа­го­на­ли ромба от­но­сят­ся как <span data-inline-latex=\"4\\colon 7\"></span>. Пе­ри­метр ромба равен 65. Най­ди­те вы­со­ту ромба.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">28</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "14"
     }
   ]
 }
