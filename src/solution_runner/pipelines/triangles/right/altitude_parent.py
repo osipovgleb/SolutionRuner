@@ -17,6 +17,7 @@ from ...word_problems.math_common import fraction
 from .altitude_input import canonical_condition
 from .altitude_methods import multiple_parent, tangent_solutions
 from .altitude_solver import AltitudeSolveError, solve_altitude_condition
+from .altitude_transcription import repair_condition
 
 _SOURCES = {
     "a99e8a50-d3f3-4b22-ab0a-0a334b60e1fc": "a0a5d4eba1fdc72d87e26054f0ccda8e2f147504300529b86fd3d073713ccc94",
@@ -371,6 +372,7 @@ def prepare(context, *, parent_asset_id, parent_solution_html):
     kind, requested, known, reverse_bc, reverse_bh, illustrated = _parent(
         parent_solution_html
     )
+    context, condition_changes = repair_condition(context, parent_asset_id)
     content = context["normalized_content"]
     condition = _section(content, "condition")
     canonical = canonical_condition(condition["html"], source=parent_asset_id)
@@ -416,4 +418,4 @@ def prepare(context, *, parent_asset_id, parent_solution_html):
         keys,
         changes,
     )
-    return RepairPlan(plan.answer, plan.transformations)
+    return RepairPlan(plan.answer, condition_changes + plan.transformations)

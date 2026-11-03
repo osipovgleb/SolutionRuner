@@ -1,10 +1,9 @@
 """Replay reviewed source transcriptions only for the exact damaged question."""
 
-import hashlib
 import json
-from copy import deepcopy
 from pathlib import Path
 
+from ..core.condition_transcriptions import transcribe_condition
 from ..probability.common import UnsupportedCondition
 from ..triangles.isosceles.planner import (
     _normalized_content,
@@ -27,13 +26,10 @@ def repair_verified_condition(context, *, validate=read_math_markup):
     html = condition.get("html", "")
     if not isinstance(html, str):
         raise UnsupportedCondition("a canonical condition HTML string is required")
-    digest = hashlib.sha256(html.encode()).hexdigest()
-    row = _TRANSCRIPTIONS.get(digest)
-    if row is None or html != row["before_html"]:
+    prepared, repaired_html = transcribe_condition(
+        context, condition, _TRANSCRIPTIONS, validate=validate
+    )
+    if repaired_html is None:
         return context, None
-    copied = deepcopy(context)
-    fixed = _section(copied["normalized_content"], "condition")
-    fixed["html"] = row["after_html"]
-    validate(copied)
-    change = _section_transformation(condition, "condition", "Условие", fixed["html"])
-    return copied, change
+    change = _section_transformation(condition, "condition", "Условие", repaired_html)
+    return prepared, change

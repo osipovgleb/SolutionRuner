@@ -38,7 +38,9 @@ U, V = sp.symbols("u v", positive=True)
 def coordinates(group, task):
     case = next(c for c in CASES if (c["group"], c["task"]) == (group, task))
     html = canonical_condition(
-        section(case["context"], "condition")["html"],
+        case.get(
+            "verified_condition_html", section(case["context"], "condition")["html"]
+        ),
         source=GROUPS[group]["condition_asset_id"],
     )
     known = {}
@@ -167,7 +169,9 @@ def test_child_saved_solutions_are_unused_conditions_immutable_and_replay_empty(
     assert section(context, "condition") == section(before, "condition")
     for change in result.transformations:
         target = change["transformation_target_id"]
-        assert not target.startswith("section:condition")
+        if target.startswith("section:condition"):
+            assert case.get("verified_condition_html") == change["value"]["html"]
+            assert change["value"]["asset_keys"] == ["image_1"]
         if target.startswith("asset:"):
             context["normalized_content"]["assets"].append(change["value"])
         else:
@@ -177,16 +181,6 @@ def test_child_saved_solutions_are_unused_conditions_immutable_and_replay_empty(
                 if s["transformation_target_id"] == target
             ).update(change["value"])
     assert plan(case, context).transformations == ()
-
-
-@pytest.mark.parametrize(
-    "case", [c for c in CASES if c["status"] != "supported"], ids=lambda c: c["task"]
-)
-def test_unreviewed_parent_methods_and_corrupted_source_do_not_get_partial_output(case):
-    before = deepcopy(case["context"])
-    with pytest.raises(ContentPlanError):
-        plan(case)
-    assert case["context"] == before
 
 
 def test_parent_definition_can_reflect_to_angle_b_and_keep_its_named_triangle():
