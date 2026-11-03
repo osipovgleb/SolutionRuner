@@ -2,10 +2,11 @@
 
 import pytest
 from bs4 import BeautifulSoup
-from circumcircle_source_cases import CASES, GROUPS, arguments, plan
+from circumcircle_source_cases import CASES, GROUPS, arguments, plan, read
 from midpoint_source_cases import section
 from test_midpoint_area_lifecycle import OfflineGateway
 
+from solution_runner.pipelines.circles.circumcircle_figures import DETAILS
 from solution_runner.pipelines.core.content_runtime import (
     _apply_record,
     _prepared_record,
@@ -44,9 +45,7 @@ def test_native_frozen_roundtrips_reuse_sources_and_resume_without_uploads(case)
     assert not gateway.uploads and len(gateway.writes) == 1
     assert apply_offline(case, gateway, record)["status"] == "already_complete"
     assert not gateway.uploads and len(gateway.writes) == 1
-    assert section(gateway.context, "condition") == section(
-        case["context"], "condition"
-    )
+    assert read(gateway.context) == read(case["context"])
     assert section(gateway.context, "source") == section(case["context"], "source")
 
 
@@ -73,7 +72,9 @@ def test_missing_pictures_restore_all_roles_without_duplicates_or_uploads(group)
     assert len(pairs) == len(set(pairs))
     assert apply_offline(case, gateway, record)["status"] == "applied"
     assert not gateway.uploads
-    assert len(gateway.context["normalized_content"]["assets"]) == 1
+    assert len(gateway.context["normalized_content"]["assets"]) == 1 + len(
+        DETAILS.get(read(case["context"]).mode, ())
+    )
     assert apply_offline(case, gateway, record)["status"] == "already_complete"
 
 

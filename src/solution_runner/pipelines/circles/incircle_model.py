@@ -111,7 +111,7 @@ def _positive(raw):
         or amount.is_finite is not True
         or amount.is_positive is not True
     ):
-        raise ContentPlanError("circle lengths must be positive finite real numbers")
+        raise ContentPlanError("circle values must be positive finite real numbers")
     return amount
 
 

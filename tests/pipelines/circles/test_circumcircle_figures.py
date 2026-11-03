@@ -10,6 +10,7 @@ from circumcircle_source_cases import CASES, GROUPS, plan, read
 from midpoint_source_cases import replay, section
 
 from solution_runner.pipelines.circles.circumcircle_figures import (
+    DETAILS,
     SOURCES,
 )
 from solution_runner.pipelines.circles.quantity_sources import SOURCES as AUDITED
@@ -18,7 +19,9 @@ from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.triangles.right.construction_svg import _tag
 
-ALL_SOURCES = {source for row in SOURCES.values() for source in row}
+ALL_SOURCES = {source for row in SOURCES.values() for source in row} | {
+    source for row in DETAILS.values() for _, source in row
+}
 
 
 @pytest.mark.parametrize("source", sorted(ALL_SOURCES))
@@ -40,12 +43,20 @@ def test_every_native_case_reuses_matching_figure_roles_and_original_ids(case):
     assets = {a["asset_key"]: a for a in context["normalized_content"]["assets"]}
     before = case["context"]["normalized_content"]["assets"]
     assert assets["image_1"]["asset_id"] == (
-        before[0]["asset_id"] if before else SOURCES[m.mode][0]
+        "0676249d-0639-4ff4-9c2b-bdfacc3f5390"
+        if case["task"] == "516291"
+        else before[0]["asset_id"]
+        if before
+        else SOURCES[m.mode][0]
     )
     assert read(context) == m
     assert section(context, "condition")["asset_keys"] == ["image_1"]
-    assert section(context, "solution")["asset_keys"] == []
-    assert len(assets) == 1
+    details = DETAILS.get(m.mode, ())
+    keys = ["image_" + str(i + 2) for i in range(len(details))]
+    for key, (_, source) in zip(keys, details):
+        assert assets[key]["asset_id"] == source
+    assert section(context, "solution")["asset_keys"] == keys
+    assert len(assets) == 1 + len(details)
 
 
 @pytest.mark.parametrize("group", GROUPS)

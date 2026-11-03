@@ -5,6 +5,7 @@ import sympy as sp
 from ..probability.common import line
 from ..quadrilaterals.parallelogram.rectangle_proofs import bracket, value
 from ..triangles.right.altitude_methods import solution_section
+from . import circumcircle_quantity_proofs
 
 INTRO = "<p>Треугольник ABC правильный, значит, все его углы равны 60°. По теореме синусов:</p>"
 
@@ -93,6 +94,8 @@ def _height_radius(m):
 
 
 def render(m, pictures):
+    if m.mode in circumcircle_quantity_proofs.MODES:
+        return circumcircle_quantity_proofs.render(m, pictures)
     return {
         "radius_side": _radius_side,
         "side_radius": _side_radius,

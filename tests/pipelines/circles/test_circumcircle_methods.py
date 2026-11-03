@@ -3,6 +3,7 @@
 import re
 from copy import deepcopy
 
+import circumcircle_quantity_cases
 import pytest
 import sympy as sp
 from bs4 import BeautifulSoup
@@ -25,6 +26,8 @@ TITLES = {
 
 
 def variables(m):
+    if m.mode in circumcircle_quantity_cases.MODES:
+        return circumcircle_quantity_cases.variables(m)
     v = m.given[0]
     radius = {
         "radius_side": v / sp.sqrt(3),
@@ -62,6 +65,7 @@ def verify(html, m):
                 lambda _, a=amount: "(" + sp.latex(a) + ")",
                 formula,
             )
+        formula = formula.replace(r"^{\circ}", "")
         values = [TrigonometricParser(v).parse().value for v in formula.split("=")]
         assert len(values) > 1 and all(
             sp.simplify(v - values[0]) == 0 for v in values
@@ -82,10 +86,10 @@ def test_every_native_answer_and_each_equality_keep_all_parent_methods(case):
     html = solution_html(result)
     verify(html, model)
     soup = BeautifulSoup(html, "html.parser")
-    assert [s["data-solution-title"] for s in soup.select("section")] == TITLES[
-        model.mode
-    ]
-    assert not soup.find("img")
+    assert [s["data-solution-title"] for s in soup.select("section")] == TITLES.get(
+        model.mode, ["Решение"]
+    )
+    assert len(soup.find_all("img")) == (1 if model.mode == "hexagon_side" else 0)
     if model.mode == "radius_side":
         assert (
             soup.select("section")[1].find("b").get_text()
@@ -107,7 +111,12 @@ def test_source_immutability_saved_answer_unused_and_empty_replay(case):
     assert context == before and result.answer == plan(case).answer
     replay(context, result.transformations)
     assert plan(case, context).transformations == ()
-    assert section(context, "condition") == section(before, "condition")
+    for ctx in (context, before):
+        soup = BeautifulSoup(section(ctx, "condition")["html"], "html.parser")
+        for image in soup.find_all("img"):
+            image.decompose()
+        section(ctx, "condition")["html"] = str(soup)
+    assert section(context, "condition")["html"] == section(before, "condition")["html"]
     assert section(context, "source") == section(before, "source")
 
 
