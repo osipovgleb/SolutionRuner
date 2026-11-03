@@ -18,6 +18,8 @@ OBTUSE = (
     "e5506a55-6c96-4c42-b5bd-b826625e6e4f",
 )
 SOURCES = {
+    "trapezoid_leg": ("e16597a7-9e5c-45b4-b551-8590fe806922",),
+    "trapezoid_radius": ("8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",),
     "polygon_vertices": (POLYGON_SOURCE,),
     "right_radius": RIGHT,
     "right_hypotenuse": RIGHT,
@@ -34,7 +36,10 @@ SOURCES = {
 }
 
 
-DETAILS = {"hexagon_side": (("equilateral", "da152d89-1c61-4571-a592-42f5eb10c818"),)}
+DETAILS = {
+    "hexagon_side": (("equilateral", "da152d89-1c61-4571-a592-42f5eb10c818"),),
+    "trapezoid_radius": (("projection", "fc89bc2b-18eb-447d-9299-1639f467c25e"),),
+}
 
 
 def context_model(context):

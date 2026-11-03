@@ -12,6 +12,8 @@ SINES = {
     150: sp.Rational(1, 2),
 }
 MODES = {
+    "trapezoid_leg",
+    "trapezoid_radius",
     "polygon_vertices",
     "right_radius",
     "right_hypotenuse",
@@ -26,6 +28,33 @@ MODES = {
 
 def variables(m):
     v = m.given[0]
+    if m.mode == "trapezoid_leg":
+        perimeter, midline = m.given
+        leg = perimeter / 2 - midline
+        d = min(midline / 2, leg / 2)
+        return {
+            "P_{ABCD}": perimeter,
+            "FE": midline,
+            "AB": midline + d,
+            "CD": midline - d,
+            "AD": leg,
+            "BC": leg,
+        }
+    if m.mode == "trapezoid_radius":
+        return {
+            "AB": v,
+            "AD": v / 2,
+            "DC": v / 2,
+            "AH": v / 4,
+            "R": v / 2,
+            r"\angle A": 60,
+            r"\angle DCA": 30,
+            r"\angle DCB": 120,
+            r"\angle ACB": 90,
+            r"\cos60^{\circ}": sp.Rational(1, 2),
+            r"\sin \angle DCA": sp.Rational(1, 2),
+            r"\sin30^{\circ}": sp.Rational(1, 2),
+        }
     if m.mode == "polygon_vertices":
         return {
             "n": 360 / (180 - v),

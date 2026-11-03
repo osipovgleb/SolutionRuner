@@ -139,6 +139,26 @@
         "54111",
         "54113"
       ]
+    },
+    {
+      "key": "27924",
+      "group_uuid": "a117f633-d379-47fe-b8c5-06a8eb5bce3f",
+      "rule": "circle-circumcircle-trapezoid-leg-perimeter-midline",
+      "sample_tasks": [
+        "53849",
+        "53851",
+        "53893"
+      ]
+    },
+    {
+      "key": "27925",
+      "group_uuid": "1d61571a-282a-44e2-82e5-2d12d9a05874",
+      "rule": "circle-circumcircle-trapezoid-radius-sixty",
+      "sample_tasks": [
+        "53899",
+        "53943",
+        "53901"
+      ]
     }
   ],
   "cases": [
@@ -6823,6 +6843,1061 @@
             {
               "key": "answer",
               "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27924",
+      "task": "27924",
+      "context": {
+        "problem_id": "97d3fd2c-3d53-4605-8870-0b90573aa3bc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:05.517788+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+                "html": "<img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.241842+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 22, сред­няя линия равна 5. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.241842+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тра­пе­ция <i>ABCD</i>  — рав­но­бед­рен­ная, так как окруж­ность можно опи­сать толь­ко во­круг рав­но­бед­рен­ной тра­пе­ции. Сред­няя линия равна по­лу­сум­ме ос­но­ва­ний, зна­чит, сумма ос­но­ва­ний равна 10. Сле­до­ва­тель­но, сумма бо­ко­вых сто­рон равна 22 − 10  =  12. Тогда каж­дая из бо­ко­вых сто­рон равна 6.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Тра­пе­ция <i>ABCD</i>  — рав­но­бед­рен­ная, так как во­круг нее опи­са­на окруж­ность. Тогда:</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=11-5=6\"></span>. </span></p></center></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.241842+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+              "kind": "ordinary_image",
+              "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 22, сред­няя линия равна 5. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тра­пе­ция <i>ABCD</i>  — рав­но­бед­рен­ная, так как окруж­ность можно опи­сать толь­ко во­круг рав­но­бед­рен­ной тра­пе­ции. Сред­няя линия равна по­лу­сум­ме ос­но­ва­ний, зна­чит, сумма ос­но­ва­ний равна 10. Сле­до­ва­тель­но, сумма бо­ко­вых сто­рон равна 22 − 10  =  12. Тогда каж­дая из бо­ко­вых сто­рон равна 6.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Тра­пе­ция <i>ABCD</i>  — рав­но­бед­рен­ная, так как во­круг нее опи­са­на окруж­ность. Тогда:</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=11-5=6\"></span>. </span></p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27924",
+      "task": "53849",
+      "context": {
+        "problem_id": "7c976695-7ef7-446c-a284-b7f8a7643db1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:03.056428+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+                "html": "<img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:07.939778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 52, сред­няя линия равна 21. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:07.939778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тра­пе­ция <i>ABCD</i> − рав­но­бед­рен­ная, т. к. во­круг неё опи­са­на окруж­ность.</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=26-21=5\"></span>. </span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:07.939778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+              "kind": "ordinary_image",
+              "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 52, сред­няя линия равна 21. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тра­пе­ция <i>ABCD</i> − рав­но­бед­рен­ная, т. к. во­круг неё опи­са­на окруж­ность.</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=26-21=5\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27924",
+      "task": "53851",
+      "context": {
+        "problem_id": "f6198db1-76b1-4616-882d-d1f540828c1f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:29.430448+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+                "html": "<img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.968244+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 48, сред­няя линия равна 19. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.968244+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тра­пе­ция <i>ABCD</i>  — рав­но­бед­рен­ная, т. к. во­круг неё опи­са­на окруж­ность.</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=24-19=5\"></span>. </span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.968244+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+              "kind": "ordinary_image",
+              "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 48, сред­няя линия равна 19. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тра­пе­ция <i>ABCD</i>  — рав­но­бед­рен­ная, т. к. во­круг неё опи­са­на окруж­ность.</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=24-19=5\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27924",
+      "task": "53893",
+      "context": {
+        "problem_id": "abb0e9df-030b-4bd3-9bd8-b61686cfc281",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:18:06.345174+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+                "html": "<img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.582103+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 24, сред­няя линия равна 11. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.582103+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тра­пе­ция <i>ABCD</i> − рав­но­бед­рен­ная, т. к. во­круг неё опи­са­на окруж­ность.</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=12-11=1\"></span>. </span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:08.582103+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e16597a7-9e5c-45b4-b551-8590fe806922",
+              "kind": "ordinary_image",
+              "asset_id": "e16597a7-9e5c-45b4-b551-8590fe806922",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e16597a7-9e5c-45b4-b551-8590fe806922\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e16597a7-9e5c-45b4-b551-8590fe806922\"/>Около тра­пе­ции опи­са­на окруж­ность. Пе­ри­метр тра­пе­ции равен 24, сред­няя линия равна 11. Най­ди­те бо­ко­вую сто­ро­ну тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тра­пе­ция <i>ABCD</i> − рав­но­бед­рен­ная, т. к. во­круг неё опи­са­на окруж­ность.</p><center><p><span><span data-inline-latex=\"AD=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{P_{ABCD}}{2}-\\frac{AB+CD}{2}=\\frac{P_{ABCD}}{2}-FE=12-11=1\"></span>. </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27925",
+      "task": "27925",
+      "context": {
+        "problem_id": "4ce467a4-1440-4504-893b-832485bde2f6",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:24:28.498147+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "html": "<img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:24:28.498147+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc89bc2b-18eb-447d-9299-1639f467c25e",
+                "html": "<img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/fc89bc2b-18eb-447d-9299-1639f467c25e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc89bc2b-18eb-447d-9299-1639f467c25e",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Бо­ко­вая сто­ро­на рав­но­бед­рен­ной тра­пе­ции равна ее мень­ше­му ос­но­ва­нию, угол при ос­но­ва­нии равен 60°, боль­шее ос­но­ва­ние равно 12. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этой тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Окруж­ность, опи­сан­ная во­круг тра­пе­ции, опи­са­на и во­круг тре­уголь­ни­ка <span data-inline-latex=\"ADC\"></span>. Это тре­уголь­ник рав­но­бед­рен­ный, угол при вер­ши­не равен 120°, углы при ос­но­ва­нии равны 30°. Най­дем его бо­ко­вую сто­ро­ну:</p><center><p><span data-inline-latex=\"AD=AB-2AH=AB-2AD\\cos 60^{\\circ}=12-AD\"></span>, </p></center><p>от­ку­да <span data-inline-latex=\"AD=6\"></span>. Тогда по тео­ре­ме си­ну­сов:</p><center><p><span data-inline-latex=\"R=\\frac{AD}{2\\sin \\angle DCA}=\\frac{6}{2\\sin 30^{\\circ}}=6\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение (Р. А., СПб.).\"><p>Хорды <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"DC\">DC</var> и <var data-math-identifier=\"CB\">CB</var> равны, по­это­му равны и стя­ги­ва­е­мые ими дуги. Впи­сан­ный угол <i>А</i> равен 60°, он опи­ра­ет­ся на две из этих дуг и равен по­ло­ви­не их суммы. По­это­му каж­дая из дуг равна 60°,  их сумма равна 180°, а хорда <i>АВ</i> яв­ля­ет­ся диа­мет­ром. От­сю­да по­лу­ча­ем, что ис­ко­мый ра­ди­ус равен 6.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Окруж­ность, опи­сан­ная во­круг тра­пе­ции, опи­са­на и во­круг тре­уголь­ни­ка <span data-inline-latex=\"ADC\"></span>. Это тре­уголь­ник рав­но­бед­рен­ный, угол при вер­ши­не равен 120°, углы при ос­но­ва­нии равны 30°. Тогда</p><center><p><span data-inline-latex=\"\\angle ACB=\\angle DCB-\\angle DCA=120^{\\circ}-30^{circ}=90^{\\circ}\"></span>. </p></center><p>Сле­до­ва­тель­но, угол <var data-math-identifier=\"ACB\">ACB</var> опи­ра­ет­ся на диа­метр, тогда <var data-math-identifier=\"AB\">AB</var>  — диа­метр окруж­но­сти, и <span data-inline-latex=\"R=\\frac{AB}{2}=\\frac{12}{2}=6\"></span>. </p></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:40:24.708925+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "kind": "ordinary_image",
+              "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/fc89bc2b-18eb-447d-9299-1639f467c25e",
+              "kind": "ordinary_image",
+              "asset_id": "fc89bc2b-18eb-447d-9299-1639f467c25e",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/>Бо­ко­вая сто­ро­на рав­но­бед­рен­ной тра­пе­ции равна ее мень­ше­му ос­но­ва­нию, угол при ос­но­ва­нии равен 60°, боль­шее ос­но­ва­ние равно 12. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/fc89bc2b-18eb-447d-9299-1639f467c25e\"/></p><p>Окруж­ность, опи­сан­ная во­круг тра­пе­ции, опи­са­на и во­круг тре­уголь­ни­ка <span data-inline-latex=\"ADC\"></span>. Это тре­уголь­ник рав­но­бед­рен­ный, угол при вер­ши­не равен 120°, углы при ос­но­ва­нии равны 30°. Най­дем его бо­ко­вую сто­ро­ну:</p><center><p><span data-inline-latex=\"AD=AB-2AH=AB-2AD\\cos 60^{\\circ}=12-AD\"></span>, </p></center><p>от­ку­да <span data-inline-latex=\"AD=6\"></span>. Тогда по тео­ре­ме си­ну­сов:</p><center><p><span data-inline-latex=\"R=\\frac{AD}{2\\sin \\angle DCA}=\\frac{6}{2\\sin 30^{\\circ}}=6\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение (Р. А., СПб.).\"><p>Хорды <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"DC\">DC</var> и <var data-math-identifier=\"CB\">CB</var> равны, по­это­му равны и стя­ги­ва­е­мые ими дуги. Впи­сан­ный угол <i>А</i> равен 60°, он опи­ра­ет­ся на две из этих дуг и равен по­ло­ви­не их суммы. По­это­му каж­дая из дуг равна 60°,  их сумма равна 180°, а хорда <i>АВ</i> яв­ля­ет­ся диа­мет­ром. От­сю­да по­лу­ча­ем, что ис­ко­мый ра­ди­ус равен 6.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Окруж­ность, опи­сан­ная во­круг тра­пе­ции, опи­са­на и во­круг тре­уголь­ни­ка <span data-inline-latex=\"ADC\"></span>. Это тре­уголь­ник рав­но­бед­рен­ный, угол при вер­ши­не равен 120°, углы при ос­но­ва­нии равны 30°. Тогда</p><center><p><span data-inline-latex=\"\\angle ACB=\\angle DCB-\\angle DCA=120^{\\circ}-30^{circ}=90^{\\circ}\"></span>. </p></center><p>Сле­до­ва­тель­но, угол <var data-math-identifier=\"ACB\">ACB</var> опи­ра­ет­ся на диа­метр, тогда <var data-math-identifier=\"AB\">AB</var>  — диа­метр окруж­но­сти, и <span data-inline-latex=\"R=\\frac{AB}{2}=\\frac{12}{2}=6\"></span>. </p></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27925",
+      "task": "53899",
+      "context": {
+        "problem_id": "939a817a-b266-459d-8ad5-f55f61342769",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:24:38.204859+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "html": "<img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:24:38.204859+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc89bc2b-18eb-447d-9299-1639f467c25e",
+                "html": "<img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/fc89bc2b-18eb-447d-9299-1639f467c25e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc89bc2b-18eb-447d-9299-1639f467c25e",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:40:25.610516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Бо­ко­вая сто­ро­на рав­но­бед­рен­ной тра­пе­ции равна ее мень­ше­му ос­но­ва­нию, угол при ос­но­ва­нии равен <span data-inline-latex=\"60^{\\circ}\"></span>, боль­шее ос­но­ва­ние равно 38. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этой тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:40:25.610516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Окруж­ность, опи­сан­ная во­круг тра­пе­ции, опи­са­на и во­круг тре­уголь­ни­ка <span data-inline-latex=\"ADC\"></span>. Это тре­уголь­ник рав­но­бед­рен­ный, угол при вер­ши­не равен 120°, углы при ос­но­ва­нии равны 30°. Най­дем его бо­ко­вую сто­ро­ну:</p><center><p><span data-inline-latex=\"AD=AB-2AH=AB-2AD\\cos 60^{\\circ}=38-AD\"></span>, </p></center><p>от­ку­да <span data-inline-latex=\"AD=19\"></span>. Тогда по тео­ре­ме си­ну­сов:</p><center><p><span data-inline-latex=\"R=\\frac{AD}{2\\sin \\angle DCA}=\\frac{19}{2\\sin 30^{\\circ}}=19\"></span>. </p></center><p><i>При­ве­дем дру­гое ре­ше­ние (Р. А., СПб.).</i></p><p>Хорды <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"DC\">DC</var> и <var data-math-identifier=\"CB\">CB</var> равны, по­это­му равны и стя­ги­ва­е­мые ими дуги. Впи­сан­ный угол <i>А</i> равен 60°, он опи­ра­ет­ся на две из этих дуг и равен по­ло­ви­не их суммы. По­это­му каж­дая из дуг равна 60°,  их сумма равна 180°, а хорда <i>АВ</i> яв­ля­ет­ся диа­мет­ром. От­сю­да по­лу­ча­ем, что ис­ко­мый ра­ди­ус равен 19.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:40:25.610516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:40:25.610516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:40:25.610516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:40:25.610516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:40:25.610516+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "kind": "ordinary_image",
+              "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/fc89bc2b-18eb-447d-9299-1639f467c25e",
+              "kind": "ordinary_image",
+              "asset_id": "fc89bc2b-18eb-447d-9299-1639f467c25e",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/> Бо­ко­вая сто­ро­на рав­но­бед­рен­ной тра­пе­ции равна ее мень­ше­му ос­но­ва­нию, угол при ос­но­ва­нии равен <span data-inline-latex=\"60^{\\circ}\"></span>, боль­шее ос­но­ва­ние равно 38. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">19</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/fc89bc2b-18eb-447d-9299-1639f467c25e\"/></p><p>Окруж­ность, опи­сан­ная во­круг тра­пе­ции, опи­са­на и во­круг тре­уголь­ни­ка <span data-inline-latex=\"ADC\"></span>. Это тре­уголь­ник рав­но­бед­рен­ный, угол при вер­ши­не равен 120°, углы при ос­но­ва­нии равны 30°. Най­дем его бо­ко­вую сто­ро­ну:</p><center><p><span data-inline-latex=\"AD=AB-2AH=AB-2AD\\cos 60^{\\circ}=38-AD\"></span>, </p></center><p>от­ку­да <span data-inline-latex=\"AD=19\"></span>. Тогда по тео­ре­ме си­ну­сов:</p><center><p><span data-inline-latex=\"R=\\frac{AD}{2\\sin \\angle DCA}=\\frac{19}{2\\sin 30^{\\circ}}=19\"></span>. </p></center><p><i>При­ве­дем дру­гое ре­ше­ние (Р. А., СПб.).</i></p><p>Хорды <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"DC\">DC</var> и <var data-math-identifier=\"CB\">CB</var> равны, по­это­му равны и стя­ги­ва­е­мые ими дуги. Впи­сан­ный угол <i>А</i> равен 60°, он опи­ра­ет­ся на две из этих дуг и равен по­ло­ви­не их суммы. По­это­му каж­дая из дуг равна 60°,  их сумма равна 180°, а хорда <i>АВ</i> яв­ля­ет­ся диа­мет­ром. От­сю­да по­лу­ча­ем, что ис­ко­мый ра­ди­ус равен 19.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27925",
+      "task": "53943",
+      "context": {
+        "problem_id": "ef6644ad-703a-4907-a48a-9a2300261c8d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:25:02.909183+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "html": "<img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:25:02.909183+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc89bc2b-18eb-447d-9299-1639f467c25e",
+                "html": "<img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/fc89bc2b-18eb-447d-9299-1639f467c25e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc89bc2b-18eb-447d-9299-1639f467c25e",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "kind": "ordinary_image",
+              "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/fc89bc2b-18eb-447d-9299-1639f467c25e",
+              "kind": "ordinary_image",
+              "asset_id": "fc89bc2b-18eb-447d-9299-1639f467c25e",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/>Бо­ко­вая сто­ро­на рав­но­бед­рен­ной тра­пе­ции равна ее мень­ше­му ос­но­ва­нию, угол при ос­но­ва­нии равен 60°, боль­шее ос­но­ва­ние равно 88. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">44</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc89bc2b-18eb-447d-9299-1639f467c25e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/fc89bc2b-18eb-447d-9299-1639f467c25e\"/></p><p>Хорды <var data-math-identifier=\"AD\">AD</var>, <var data-math-identifier=\"DC\">DC</var> и <var data-math-identifier=\"CB\">CB</var> равны, по­это­му равны и стя­ги­ва­е­мые ими дуги. Впи­сан­ный угол <i>DАB</i> равен 60°, он опи­ра­ет­ся на дугу <var data-math-identifier=\"DCB\">DCB</var> по­это­му дуга <var data-math-identifier=\"DCB\">DCB</var> равна 120°, а дуга ADB равна 180°, сле­до­ва­тель­но, хорда <i>АВ</i> яв­ля­ет­ся диа­мет­ром. От­сю­да по­лу­ча­ем, что ис­ко­мый ра­ди­ус равен 44.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27925",
+      "task": "53901",
+      "context": {
+        "problem_id": "c7485203-d589-41db-9987-d3f11b8fa9b1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:24:55.796997+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "html": "<img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:40:25.777764+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Бо­ко­вая сто­ро­на рав­но­бед­рен­ной тра­пе­ции равна ее мень­ше­му ос­но­ва­нию, угол при ос­но­ва­нии равен <span data-inline-latex=\"60^{\\circ}\"></span>, боль­шее ос­но­ва­ние равно 36. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этой тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:40:25.777764+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "kind": "ordinary_image",
+              "asset_id": "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d\"/>Бо­ко­вая сто­ро­на рав­но­бед­рен­ной тра­пе­ции равна ее мень­ше­му ос­но­ва­нию, угол при ос­но­ва­нии равен <span data-inline-latex=\"60^{\\circ}\"></span>, боль­шее ос­но­ва­ние равно 36. Най­ди­те ра­ди­ус опи­сан­ной окруж­но­сти этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
               "title": "Ответ",
               "asset_keys": [],
               "section_id": "answer:1",

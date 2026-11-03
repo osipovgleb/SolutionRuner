@@ -71,6 +71,16 @@ PARENTS = {
         (("image_1", "74e2aecb-16e7-40f6-ab61-27c776153928"),),
         "631e3aba3731cb0601bfcbcbf23821ab91f9c83b7da843c1c21e64c69332708b",
     ),
+    "circle-circumcircle-trapezoid-leg-perimeter-midline": (
+        "e16597a7-9e5c-45b4-b551-8590fe806922",
+        (),
+        "cc57b24f42b7bd0425bc850168cba9b909f9a6021f7c340bbf0f1d8a3896b116",
+    ),
+    "circle-circumcircle-trapezoid-radius-sixty": (
+        "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+        (("image_2", "fc89bc2b-18eb-447d-9299-1639f467c25e"),),
+        "30c910e6b751c092a8147fabb9f3d6f4b708d47ed3c92089235c14f9f0edb99d",
+    ),
 }
 
 SOURCES = {
@@ -133,5 +143,17 @@ SOURCES = {
     "74e2aecb-16e7-40f6-ab61-27c776153928": (
         "74e2aecb-16e7-40f6-ab61-27c776153928",
         "7b505329017032f1331d7b880d17861fcd63a04d00f3be2f1caa6e433d74cd5b",
+    ),
+    "e16597a7-9e5c-45b4-b551-8590fe806922": (
+        "e16597a7-9e5c-45b4-b551-8590fe806922",
+        "70a3822712bb4480ee917bbf9b111c36c85c249421625bed047184df0e1f3567",
+    ),
+    "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d": (
+        "8e9bb8d3-e3b9-43e1-8cb9-7cc00c6b4d4d",
+        "b196dd9beb69a8fcc72b38dae71ef5745978b0a3cdad4ea8baf94416060375ce",
+    ),
+    "fc89bc2b-18eb-447d-9299-1639f467c25e": (
+        "fc89bc2b-18eb-447d-9299-1639f467c25e",
+        "365ddadb491b6001df9286efe31531b13c353a27b24d8515ee460ddfb02fb2ec",
     ),
 }

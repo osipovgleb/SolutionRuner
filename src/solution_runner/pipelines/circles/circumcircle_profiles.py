@@ -124,5 +124,17 @@ PROFILES += tuple(
             26,
             "circle-circumcircle-regular-polygon-vertices",
         ),
+        (
+            "27924",
+            "a117f633-d379-47fe-b8c5-06a8eb5bce3f",
+            21,
+            "circle-circumcircle-trapezoid-leg-perimeter-midline",
+        ),
+        (
+            "27925",
+            "1d61571a-282a-44e2-82e5-2d12d9a05874",
+            22,
+            "circle-circumcircle-trapezoid-radius-sixty",
+        ),
     )
 )

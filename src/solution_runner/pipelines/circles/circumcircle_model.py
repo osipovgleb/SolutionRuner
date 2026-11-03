@@ -13,6 +13,8 @@ from .angle_model import DEGREE
 from .incircle_model import _positive
 
 RULES = {
+    "circle-circumcircle-trapezoid-leg-perimeter-midline": "trapezoid_leg",
+    "circle-circumcircle-trapezoid-radius-sixty": "trapezoid_radius",
     "circle-circumcircle-regular-polygon-vertices": "polygon_vertices",
     "circle-circumcircle-right-radius-hypotenuse": "right_radius",
     "circle-circumcircle-right-hypotenuse-radius": "right_hypotenuse",
@@ -29,6 +31,8 @@ RULES = {
     "circle-circumcircle-equilateral-height-radius": "height_radius",
 }
 PATTERNS = {
+    "trapezoid_leg": r"Около трапеции описана окружность\.\s*Периметр трапеции равен\s+(.+?)\s*,\s*средняя линия равна\s+(.+?)\s*\.\s*Найдите боковую сторону трапеции\s*\.",
+    "trapezoid_radius": rf"Боковая сторона равнобедренной трапеции равна ее меньшему основанию, угол при основании равен\s+(.+?)\s*{DEGREE}\s*,\s*большее основание равно\s+(.+?)\s*\.\s*Найдите радиус описанной окружности этой трапеции\s*\.",
     "polygon_vertices": rf"Угол между двумя соседними сторонами правильного многоугольника, вписанного в окружность, равен\s+(.+?)\s*{DEGREE}\s*\.\s*Найдите число вершин многоугольника\s*\.",
     "right_radius": r"Гипотенуза прямоугольного треугольника равна\s+(.+?)\s*\.\s*Найдите радиус описанной окружности этого треугольника\s*\.",
     "right_hypotenuse": r"Радиус окружности, описанной около прямоугольного треугольника, равен\s+(.+?)\s*\.\s*Найдите гипотенузу этого треугольника\s*\.",
@@ -45,6 +49,8 @@ PATTERNS = {
     "height_radius": r"Радиус окружности, описанной около правильного треугольника, равен\s+(.+?)\s*\.\s*Найдите высоту этого треугольника\s*\.",
 }
 FORMULAS = {
+    "trapezoid_leg": lambda v: v[0] / 2 - v[1],
+    "trapezoid_radius": lambda v: v[0] / 2,
     "polygon_vertices": lambda v: 360 / (180 - v[0]),
     "right_radius": lambda v: v[0] / 2,
     "right_hypotenuse": lambda v: 2 * v[0],
@@ -77,6 +83,16 @@ def read_question(html, source=None):
             match = re.fullmatch(pattern, text)
             if match:
                 given = tuple(_positive(v) for v in match.groups())
+                if mode == "trapezoid_leg" and given[0] <= 2 * given[1]:
+                    raise ContentPlanError(
+                        "the cyclic trapezoid must have positive legs"
+                    )
+                if mode == "trapezoid_radius":
+                    given = given[::-1]
+                    if given[1] != 60:
+                        raise ContentPlanError(
+                            "the reviewed trapezoid diameter proof requires a 60-degree base angle"
+                        )
                 if mode == "polygon_vertices":
                     if given[0] >= 180:
                         raise ContentPlanError(
