@@ -227,11 +227,13 @@
     "requires_parent_condition_asset": true
   },
   "general-triangle-27762-orthocenter-angle": {
-    "target": "solution_runner.pipelines.triangles.general.angle_planner:build_repair_plan",
+    "target": "solution_runner.pipelines.triangles.general.altitude_quad_parent:prepare",
     "kwargs": {
-      "rule": "general-triangle-27762-orthocenter-angle",
+      "parent_condition_asset_id": "@parent_asset_id",
       "parent_solution_html": "@parent_solution_html",
-      "parent_condition_asset_id": "@parent_asset_id"
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "general-triangle-27762-orthocenter-angle"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
@@ -360,12 +362,13 @@
     "requires_parent_condition_asset": true
   },
   "general-triangle-500142-altitudes-obtuse-angle": {
-    "target": "solution_runner.pipelines.triangles.general.next_group_planner:build_repair_plan",
+    "target": "solution_runner.pipelines.triangles.general.altitude_quad_parent:prepare",
     "kwargs": {
-      "rule": "general-triangle-500142-altitudes-obtuse-angle",
-      "parent_solution_html": "@parent_solution_html",
       "parent_condition_asset_id": "@parent_asset_id",
-      "parent_solution_assets": "@parent_solution_assets"
+      "parent_solution_html": "@parent_solution_html",
+      "parent_solution_assets": "@parent_solution_assets",
+      "generated_solution_assets": "@generated_solution_assets",
+      "content_rule_key": "general-triangle-500142-altitudes-obtuse-angle"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
