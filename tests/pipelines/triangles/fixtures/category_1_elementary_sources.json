@@ -1,0 +1,898 @@
+{
+  "groups": [
+    {
+      "key": "27617",
+      "group_uuid": "96477e5e-4194-4211-95ba-683876577f4f",
+      "group_size": 26,
+      "rule": "right-triangle-leg-hypotenuse-area",
+      "parent_asset": "a6653ffc-0e3b-4423-98e0-e2777653995f"
+    },
+    {
+      "key": "27618",
+      "group_uuid": "3d399961-7f2c-4c8f-a97d-69ec6df8d19b",
+      "group_size": 26,
+      "rule": "right-triangle-area-leg-difference",
+      "parent_asset": "a6653ffc-0e3b-4423-98e0-e2777653995f"
+    },
+    {
+      "key": "27742",
+      "group_uuid": "6bb5c896-1064-4510-bd34-9b625ae544fa",
+      "group_size": 47,
+      "rule": "right-triangle-acute-angle-difference",
+      "parent_asset": "a6653ffc-0e3b-4423-98e0-e2777653995f"
+    },
+    {
+      "key": "27753",
+      "group_uuid": "1cb9af83-8463-44ba-a407-de890b23e646",
+      "group_size": 23,
+      "rule": "right-triangle-acute-angle-ratio",
+      "parent_asset": "a6653ffc-0e3b-4423-98e0-e2777653995f"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27617",
+      "task": "27617",
+      "context": {
+        "problem_id": "84e9ef47-7ae9-4d86-bc9d-cf92349bf00c",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Най­ди­те пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка, если его катет и ги­по­те­ну­за равны со­от­вет­ствен­но 6 и 10.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка равна по­ло­ви­не про­из­ве­де­ния его ка­те­тов. По тео­ре­ме Пи­фа­го­ра <i>a</i><sup>2</sup>  =  100 − 36  =  64, <i>a</i>  =  8, где <i>a</i>  — вто­рой катет. По­это­му</p><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot 6\\cdot 8=24\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27617",
+      "task": "56455",
+      "context": {
+        "problem_id": "66e41ef7-589b-413a-8133-5a8b4dc91528",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка, если его катет и ги­по­те­ну­за равны со­от­вет­ствен­но 36 и 39.</p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-content-rule=\"right-triangle-leg-hypotenuse-area\" data-solution-title=\"Решение\"><p>По теореме Пифагора найдём второй катет:</p><center><p><span data-inline-latex=\"b=\\sqrt{39^{2}-36^{2}}=15\"></span></p></center><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot36\\cdot15=270\"></span></p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">270</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27617",
+      "task": "56457",
+      "context": {
+        "problem_id": "c3ed2431-ffa0-4954-aa79-f0d2adc77429",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка, если его катет и ги­по­те­ну­за равны со­от­вет­ствен­но 36 и 45.</p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-content-rule=\"right-triangle-leg-hypotenuse-area\" data-solution-title=\"Решение\"><p>По теореме Пифагора найдём второй катет:</p><center><p><span data-inline-latex=\"b=\\sqrt{45^{2}-36^{2}}=27\"></span></p></center><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot36\\cdot27=486\"></span></p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">486</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27617",
+      "task": "56459",
+      "context": {
+        "problem_id": "d97cba40-296c-4b77-ad88-fe655ee1fc5a",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка, если его катет и ги­по­те­ну­за равны со­от­вет­ствен­но 18 и 30.</p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-content-rule=\"right-triangle-leg-hypotenuse-area\" data-solution-title=\"Решение\"><p>По теореме Пифагора найдём второй катет:</p><center><p><span data-inline-latex=\"b=\\sqrt{30^{2}-18^{2}}=24\"></span></p></center><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot18\\cdot24=216\"></span></p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">216</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27618",
+      "task": "27618",
+      "context": {
+        "problem_id": "6f20d201-65d7-4da1-a867-b6e86a69e9fe",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка равна 24. Один из его ка­те­тов на 2 боль­ше дру­го­го. Най­ди­те мень­ший катет.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>x</i>  — мень­ший катет, тогда <i>x</i> + 2  — боль­ший. Пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка равна по­ло­ви­не про­из­ве­де­ния ка­те­тов: </p><center><p><span> <span data-inline-latex=\"\\frac{1}{2}x(x+2)=24\\iff x(x+2)=48\\iff x^{2}+2x-48=0\\iff \\begin{cases}\\left[\\begin{aligned}x=6\\\\x=-8\\end{aligned}\\right.\\\\x\\gt 0\\end{cases}.\\quad \\iff x=6\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27618",
+      "task": "56505",
+      "context": {
+        "problem_id": "67942b19-3104-4e4e-86e4-758472b4bdb0",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка равна 60. Один из его ка­те­тов на 2 боль­ше дру­го­го. Най­ди­те мень­ший катет.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>x</i>  — мень­ший катет, тогда <i>x</i> + 2  — боль­ший. Пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка равна по­ло­ви­не про­из­ве­де­ния ка­те­тов: </p><center><p><span> <span data-inline-latex=\"\\frac{1}{2}x(x+2)=60\\iff x(x+2)=120\\iff x^{2}+2x-120=0\\iff \\begin{cases}\\left[\\begin{aligned}x=10\\\\x=-12\\end{aligned}\\right.\\\\x\\gt 0\\end{cases}.\\quad \\iff x=10\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27618",
+      "task": "56507",
+      "context": {
+        "problem_id": "dbafb745-0b48-4655-87a6-9b4805a9241e",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка равна 2. Один из его ка­те­тов на 3 боль­ше дру­го­го. Най­ди­те мень­ший катет. </p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-content-rule=\"right-triangle-area-leg-difference\" data-solution-title=\"Решение\"><p>Пусть <span data-inline-latex=\"x\"></span> — меньший катет, тогда второй <span data-inline-latex=\"x+3\"></span>:</p><center><p><span data-inline-latex=\"\\frac{1}{2}x(x+3)=2\\iff x(x+3)=4\\iff x^{2}+3x-4=0\\iff \\begin{cases}\\left[\\begin{aligned}x=1\\\\x=-4\\end{aligned}\\right.\\\\x\\gt 0\\end{cases}\\iff x=1\"></span></p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27618",
+      "task": "56509",
+      "context": {
+        "problem_id": "a7ebf516-d2fb-481c-8321-862d308076d3",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь пря­мо­уголь­но­го тре­уголь­ни­ка равна 104. Один из его ка­те­тов на 3 боль­ше дру­го­го. Най­ди­те мень­ший катет. </p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-content-rule=\"right-triangle-area-leg-difference\" data-solution-title=\"Решение\"><p>Пусть <span data-inline-latex=\"x\"></span> — меньший катет, тогда второй <span data-inline-latex=\"x+3\"></span>:</p><center><p><span data-inline-latex=\"\\frac{1}{2}x(x+3)=104\\iff x(x+3)=208\\iff x^{2}+3x-208=0\\iff \\begin{cases}\\left[\\begin{aligned}x=13\\\\x=-16\\end{aligned}\\right.\\\\x\\gt 0\\end{cases}\\iff x=13\"></span></p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27742",
+      "task": "27742",
+      "context": {
+        "problem_id": "5468d40c-ef14-4fac-bc20-1345506ef2cd",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка на 32° боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">61</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма ост­рых углов пря­мо­уголь­но­го тре­уголь­ни­ка равна 90°, а их раз­ность по усло­вию равна 32°, по­лу­ча­ем си­сте­му урав­не­ний:</p><center><p> <span data-inline-latex=\"\\begin{cases}\\angle A-\\angle B=32^{\\circ}\\\\\\angle A+\\angle B=90^{\\circ}\\end{cases}\\iff \\begin{cases}\\angle A=61^{\\circ}\\\\\\angle B=29^{\\circ}\\end{cases}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27742",
+      "task": "509598",
+      "context": {
+        "problem_id": "3ea9a332-28ad-410f-b37b-bf9e493fb625",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка на 38° боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">64</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма ост­рых углов пря­мо­уголь­но­го тре­уголь­ни­ка равна 90°, а их раз­ность по усло­вию равна 38°, по­лу­ча­ем си­сте­му урав­не­ний:</p><center><p> <span data-inline-latex=\"\\begin{cases}\\angle A-\\angle B=38^{\\circ}\\\\\\angle A+\\angle B=90^{\\circ}\\end{cases}\\iff \\begin{cases}\\angle A=64^{\\circ}\\\\\\angle B=26^{\\circ}\\end{cases}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27742",
+      "task": "689053",
+      "context": {
+        "problem_id": "6a849e7b-ea41-4e25-8bb7-2a8ec680b663",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка на 6° боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">48</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сумма ост­рых углов пря­мо­уголь­но­го тре­уголь­ни­ка равна 90°, а их раз­ность по усло­вию равна 6°, по­лу­ча­ем си­сте­му урав­не­ний: </p><center><p> <span data-inline-latex=\"\\begin{cases}\\angle A-\\angle B=6^{\\circ}\\\\\\angle A+\\angle B=90^{\\circ}\\end{cases}\\iff \\begin{cases}\\angle A=48^{\\circ}\\\\\\angle B=42^{\\circ}\\end{cases}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27742",
+      "task": "45947",
+      "context": {
+        "problem_id": "fdf8e866-ef5d-4d21-8e70-9c63174d0085",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка на <span data-inline-latex=\"6^{\\circ}\"></span> боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Сумма острых углов прямоугольного треугольника равна 90°:</p><center></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">48</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27753",
+      "task": "27753",
+      "context": {
+        "problem_id": "862b4a06-67e3-40f5-b3f2-4fe945829aa8",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка в 4 раза боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">72</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть <i>x</i>  — мень­ший ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка, тогда боль­ший ост­рый угол будет равен <span data-inline-latex=\"4x\"></span>. Имеем: <span data-inline-latex=\"x+4x=90^{\\circ}\"></span>. По­это­му <i>x</i>  =  18°.  Зна­чит, боль­ший ост­рый угол равен <span data-inline-latex=\"4x=4\\cdot 18^{\\circ}=72^{\\circ}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27753",
+      "task": "46755",
+      "context": {
+        "problem_id": "c7160799-25b1-4f2f-8375-317b63945bc7",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка в </p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure> <span data-inline-latex=\"\\frac{19}{11}\"></span>  раза боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Пусть углы пропорциональны данным числам:</p><center></center><center></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">57</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27753",
+      "task": "46757",
+      "context": {
+        "problem_id": "d45b98e2-ec55-448b-aa12-a60d41278306",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка в </p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure> <span data-inline-latex=\"\\frac{8}{7}\"></span>  раза боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Пусть углы пропорциональны данным числам:</p><center></center><center></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">48</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27753",
+      "task": "46759",
+      "context": {
+        "problem_id": "53f7dab6-3ea2-4904-b44a-edadc872f19a",
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "kind": "ordinary_image",
+              "asset_id": "a6653ffc-0e3b-4423-98e0-e2777653995f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Один ост­рый угол пря­мо­уголь­но­го тре­уголь­ни­ка в </p><figure><img alt=\"\" data-asset-id=\"a6653ffc-0e3b-4423-98e0-e2777653995f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a6653ffc-0e3b-4423-98e0-e2777653995f\"/></figure> <span data-inline-latex=\"\\frac{41}{4}\"></span>  раза боль­ше дру­го­го. Най­ди­те боль­ший ост­рый угол. Ответ дайте в гра­ду­сах.",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Пусть углы пропорциональны данным числам:</p><center></center><center></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">82</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

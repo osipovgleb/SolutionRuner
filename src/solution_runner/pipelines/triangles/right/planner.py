@@ -1515,9 +1515,22 @@ def build_elementary_repair_plan(
     *,
     parent_asset_id: str,
     content_rule_key: str,
+    parent_solution_html: str | None = None,
 ) -> RepairPlan:
     """Return a strict image, solution, and answer repair for one elementary rule."""
 
+    if parent_solution_html is not None:
+        from .elementary_parent import prepare
+
+        try:
+            return prepare(
+                context,
+                parent_asset_id=parent_asset_id,
+                parent_solution_html=parent_solution_html,
+                content_rule_key=content_rule_key,
+            )
+        except AltitudeSolveError as exc:
+            raise RightTrianglePlanError(str(exc)) from exc
     content = context.get("normalized_content")
     if (
         not isinstance(content, dict)

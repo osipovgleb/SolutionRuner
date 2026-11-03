@@ -11,6 +11,7 @@ from basic_source_cases import parent_html
 from solution_runner.pipelines.triangles.right.planner import (
     RightTrianglePlanError,
     build_altitude_repair_plan,
+    build_elementary_repair_plan,
     build_repair_plan,
     build_tangent_bc_repair_plan,
     build_universal_repair_plan,
@@ -227,7 +228,7 @@ def _elementary_context(condition_html: str, *, answer: str) -> dict:
         ),
     ],
 )
-def test_elementary_content_rules_build_exact_parent_style_solutions(
+def test_legacy_elementary_content_rules_build_exact_parent_style_solutions(
     content_rule_key: str,
     condition_html: str,
     answer: str,
@@ -235,7 +236,7 @@ def test_elementary_content_rules_build_exact_parent_style_solutions(
 ) -> None:
     """Catch a wrong formula family or non-deterministic condition parser."""
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         _elementary_context(condition_html, answer=answer),
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key=content_rule_key,
@@ -251,7 +252,7 @@ def test_elementary_content_rules_build_exact_parent_style_solutions(
     assert "</span>.</p>" not in solution
 
 
-def test_area_leg_difference_intro_names_both_legs_with_inline_latex() -> None:
+def test_legacy_area_leg_difference_intro_names_both_legs_with_inline_latex() -> None:
     """Keep the variable assignment explicit before the quadratic chain."""
 
     condition = (
@@ -259,7 +260,7 @@ def test_area_leg_difference_intro_names_both_legs_with_inline_latex() -> None:
         "катетов на 3 больше другого. Найдите меньший катет.</p>"
     )
 
-    plan = _build_content_plan(
+    plan = build_elementary_repair_plan(
         _elementary_context(condition, answer="13"),
         parent_asset_id=PARENT_ASSET_ID,
         content_rule_key="right-triangle-area-leg-difference",

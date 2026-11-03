@@ -15,10 +15,10 @@ _SOURCES = {
 }
 
 
-def _figure(content, condition, source):
+def _figure(content, condition, source, *, sources=None):
     from .planner import _asset_transformation
 
-    _source(source, sources=_SOURCES)
+    _source(source, sources=_SOURCES if sources is None else sources)
     images = BeautifulSoup(condition["html"], "html.parser").find_all("img")
     assets = content.get("assets", [])
     if not isinstance(assets, list):

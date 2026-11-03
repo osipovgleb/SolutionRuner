@@ -11,13 +11,19 @@ HANDLERS = (
     HandlerSpec(
         "right-triangle-acute-angle-difference",
         "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
         options=(("content_rule_key", "right-triangle-acute-angle-difference"),),
     ),
     HandlerSpec(
         "right-triangle-acute-angle-ratio",
         "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
         options=(("content_rule_key", "right-triangle-acute-angle-ratio"),),
     ),
     HandlerSpec(
@@ -61,7 +67,10 @@ HANDLERS = (
     HandlerSpec(
         "right-triangle-area-leg-difference",
         "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
         options=(("content_rule_key", "right-triangle-area-leg-difference"),),
     ),
     HandlerSpec(
@@ -107,7 +116,10 @@ HANDLERS = (
     HandlerSpec(
         "right-triangle-leg-hypotenuse-area",
         "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
-        inputs=(("parent_asset_id", "parent_asset_id"),),
+        inputs=(
+            ("parent_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+        ),
         options=(("content_rule_key", "right-triangle-leg-hypotenuse-area"),),
     ),
     HandlerSpec(

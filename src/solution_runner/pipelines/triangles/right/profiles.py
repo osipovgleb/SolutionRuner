@@ -242,6 +242,7 @@ PROFILES = (
             strategy_key=None,
             workflow_kind="content_rule",
             content_rule_key=content_rule_key,
+            rewrite_existing_solution=True,
         )
         for group_key, source_group_id, order_index, content_rule_key in (
             (
