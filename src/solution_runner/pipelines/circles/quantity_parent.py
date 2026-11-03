@@ -6,6 +6,9 @@ from . import (
     angle_figures,
     angle_model,
     angle_proofs,
+    circumcircle_figures,
+    circumcircle_model,
+    circumcircle_proofs,
     incircle_figures,
     incircle_model,
     incircle_proofs,
@@ -16,6 +19,14 @@ from . import (
 from .quantity_sources import review_parent
 
 FAMILIES = {
+    **dict.fromkeys(
+        circumcircle_model.RULES,
+        (
+            circumcircle_model.RULES,
+            circumcircle_figures.prepare,
+            circumcircle_proofs.render,
+        ),
+    ),
     **dict.fromkeys(
         angle_model.RULES,
         (angle_model.RULES, angle_figures.prepare, angle_proofs.render),

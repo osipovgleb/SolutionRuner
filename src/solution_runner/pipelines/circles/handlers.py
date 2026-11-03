@@ -2,6 +2,7 @@
 
 from ..core.handlers import HandlerSpec
 from .angle_model import RULES as ANGLE_RULES
+from .circumcircle_model import RULES as CIRCUMCIRCLE_RULES
 from .incircle_model import RULES as INCIRCLE_RULES
 from .tangent_model import RULES as TANGENT_RULES
 
@@ -23,6 +24,10 @@ HANDLERS = tuple(
         diagram_builder=builder,
     )
     for rules, builder in (
+        (
+            CIRCUMCIRCLE_RULES,
+            "solution_runner.pipelines.circles.circumcircle_figures:diagram_specs",
+        ),
         (ANGLE_RULES, "solution_runner.pipelines.circles.angle_figures:diagram_specs"),
         (
             TANGENT_RULES,

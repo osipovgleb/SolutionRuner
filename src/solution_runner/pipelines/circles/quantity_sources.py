@@ -5,6 +5,8 @@ import hashlib
 from importlib.resources import files
 
 from ..core.errors import ContentPlanError
+from .circumcircle_sources import PARENTS as CIRCUMCIRCLE_PARENTS
+from .circumcircle_sources import SOURCES as CIRCUMCIRCLE_SOURCES
 from .incircle_sources import PARENTS as INCIRCLE_PARENTS
 from .incircle_sources import SOURCES as INCIRCLE_SOURCES
 
@@ -264,8 +266,8 @@ SOURCES = {
 }
 
 
-PARENTS = PARENTS | INCIRCLE_PARENTS
-SOURCES = SOURCES | INCIRCLE_SOURCES
+PARENTS = PARENTS | INCIRCLE_PARENTS | CIRCUMCIRCLE_PARENTS
+SOURCES = SOURCES | INCIRCLE_SOURCES | CIRCUMCIRCLE_SOURCES
 
 
 def source_bytes(source):

@@ -1,6 +1,7 @@
 """Explicit bindings for the central and inscribed angle theme."""
 
 from ..core.profile_definitions import _profile
+from .circumcircle_profiles import PROFILES as CIRCUMCIRCLE_PROFILES
 
 PROFILES = tuple(
     _profile(
@@ -367,3 +368,6 @@ PROFILES += tuple(
         ),
     )
 )
+
+
+PROFILES += CIRCUMCIRCLE_PROFILES

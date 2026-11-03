@@ -1,0 +1,1971 @@
+{
+  "groups": [
+    {
+      "key": "27892",
+      "group_uuid": "b7e8fd2a-398e-4f2e-8cab-faee5b6fc913",
+      "rule": "circle-circumcircle-equilateral-radius-side",
+      "sample_tasks": [
+        "52399",
+        "52401",
+        "52403"
+      ]
+    },
+    {
+      "key": "27893",
+      "group_uuid": "f0ad1c67-ecf7-4b7c-b615-f0eda1e170b1",
+      "rule": "circle-circumcircle-equilateral-side-radius",
+      "sample_tasks": [
+        "52449",
+        "52451",
+        "52493"
+      ]
+    },
+    {
+      "key": "27894",
+      "group_uuid": "00a7216a-0b8d-411c-bd1a-965bf730f925",
+      "rule": "circle-circumcircle-equilateral-radius-height",
+      "sample_tasks": [
+        "52499",
+        "52501",
+        "52503"
+      ]
+    },
+    {
+      "key": "27895",
+      "group_uuid": "1aca2d8a-1f6e-4f85-a57f-887a0d50ccfb",
+      "rule": "circle-circumcircle-equilateral-height-radius",
+      "sample_tasks": [
+        "52549",
+        "52551",
+        "52553"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "27892",
+      "task": "27892",
+      "context": {
+        "problem_id": "c3110e5f-e028-44be-8721-5e860cf6bae8",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:26.221251+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "html": "<img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна  <span data-inline-latex=\"\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{\\sqrt{3}}{2\\sin 60^{\\circ}}=\\frac{\\sqrt{3}}{2}\\cdot \\frac{2}{\\sqrt{3}}=1\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Ра­ди­ус <var data-math-identifier=\"R\">R</var> окруж­но­сти, опи­сан­ной во­круг пра­виль­но­го тре­уголь­ни­ка, и сто­ро­на <i>a</i> этого тре­уголь­ни­ка свя­за­ны со­от­но­ше­ни­ем:</p><center><p><span data-inline-latex=\"R=\\frac{a\\sqrt{3}}{3}\"></span> , </p></center><p>тогда </p><center><p><span data-inline-latex=\"R=\\frac{\\sqrt{3}\\cdot \\sqrt{3}}{3}=1\"></span>. </p></center><p><b>При­ве­дем еще одно ре­ше­ние.</b></p><p>Центр окруж­но­сти, опи­сан­ной во­круг пра­виль­но­го тре­уголь­ни­ка, на­хо­дит­ся в точке пе­ре­се­че­ния его ме­ди­ан (бис­сек­трис, высот). Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°, тогда его вы­со­та <i>h</i> равна:</p><center><p><span data-inline-latex=\"h=a\\sin 60^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=\\frac{3}{2}\"></span> . </p></center><p>Ме­ди­а­ны точ­кой пе­ре­се­че­ния де­лят­ся в от­но­ше­нии 2:1, счи­тая от вер­ши­ны, тогда</p><center><p><span data-inline-latex=\"R=\\frac{2}{3}h=\\frac{2}{3}\\cdot \\frac{3}{2}=1\"></span>. </p></center></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:00:26.305670+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "kind": "ordinary_image",
+              "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/>Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна  <span data-inline-latex=\"\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{\\sqrt{3}}{2\\sin 60^{\\circ}}=\\frac{\\sqrt{3}}{2}\\cdot \\frac{2}{\\sqrt{3}}=1\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Ра­ди­ус <var data-math-identifier=\"R\">R</var> окруж­но­сти, опи­сан­ной во­круг пра­виль­но­го тре­уголь­ни­ка, и сто­ро­на <i>a</i> этого тре­уголь­ни­ка свя­за­ны со­от­но­ше­ни­ем:</p><center><p><span data-inline-latex=\"R=\\frac{a\\sqrt{3}}{3}\"></span> , </p></center><p>тогда </p><center><p><span data-inline-latex=\"R=\\frac{\\sqrt{3}\\cdot \\sqrt{3}}{3}=1\"></span>. </p></center><p><b>При­ве­дем еще одно ре­ше­ние.</b></p><p>Центр окруж­но­сти, опи­сан­ной во­круг пра­виль­но­го тре­уголь­ни­ка, на­хо­дит­ся в точке пе­ре­се­че­ния его ме­ди­ан (бис­сек­трис, высот). Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°, тогда его вы­со­та <i>h</i> равна:</p><center><p><span data-inline-latex=\"h=a\\sin 60^{\\circ}=\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=\\frac{3}{2}\"></span> . </p></center><p>Ме­ди­а­ны точ­кой пе­ре­се­че­ния де­лят­ся в от­но­ше­нии 2:1, счи­тая от вер­ши­ны, тогда</p><center><p><span data-inline-latex=\"R=\\frac{2}{3}h=\\frac{2}{3}\\cdot \\frac{3}{2}=1\"></span>. </p></center></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27892",
+      "task": "52399",
+      "context": {
+        "problem_id": "e4362404-0cca-4b3b-846f-371baf00e872",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:28.007091+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "html": "<img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.597115+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна <span data-inline-latex=\"22\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.597115+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin A}=\\frac{22\\sqrt{3}}{2\\sin 60^{\\circ}}=\\frac{22\\sqrt{3}}{2}\\cdot \\frac{2}{\\sqrt{3}}=22\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.597115+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:00:26.597115+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "kind": "ordinary_image",
+              "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/>Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна <span data-inline-latex=\"22\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin A}=\\frac{22\\sqrt{3}}{2\\sin 60^{\\circ}}=\\frac{22\\sqrt{3}}{2}\\cdot \\frac{2}{\\sqrt{3}}=22\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27892",
+      "task": "52401",
+      "context": {
+        "problem_id": "6240cae1-d1d2-41fa-96ae-59de485c3332",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:26.043422+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "html": "<img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:17.722490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна <span data-inline-latex=\"34\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:17.722490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны по 60°. Тогда</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin A}=\\frac{34\\sqrt{3}}{2\\sin 60^{\\circ}}=\\frac{34\\sqrt{3}}{2}\\cdot \\frac{2}{\\sqrt{3}}=34\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:00:17.722490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:00:17.722490+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "kind": "ordinary_image",
+              "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/> Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна <span data-inline-latex=\"34\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">34</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны по 60°. Тогда</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin A}=\\frac{34\\sqrt{3}}{2\\sin 60^{\\circ}}=\\frac{34\\sqrt{3}}{2}\\cdot \\frac{2}{\\sqrt{3}}=34\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27892",
+      "task": "52403",
+      "context": {
+        "problem_id": "133ba8bc-3109-4c8c-83e4-4e25cfba8869",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:21.345307+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "html": "<img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:16.690781+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна <span data-inline-latex=\"8\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:16.690781+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "kind": "ordinary_image",
+              "asset_id": "1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1725d5a4-9cd0-4fc3-903b-b5406c8fa4c0\"/>Сто­ро­на пра­виль­но­го тре­уголь­ни­ка равна <span data-inline-latex=\"8\\sqrt{3}\"></span> . Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27893",
+      "task": "27893",
+      "context": {
+        "problem_id": "adebff3a-9a87-4acc-9f7d-80712c3e7800",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:20.228838+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "html": "<img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:38:36.178638+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен  <span data-inline-latex=\"\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:38:36.178638+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\sqrt{3}\\sin 60^{\\circ}=2\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=3\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:38:36.178638+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:38:36.178638+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "kind": "ordinary_image",
+              "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен  <span data-inline-latex=\"\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\sqrt{3}\\sin 60^{\\circ}=2\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=3\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27893",
+      "task": "52449",
+      "context": {
+        "problem_id": "020d8039-f790-41f7-96b2-3e41fe530b0f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:14.148695+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "html": "<img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.059159+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен <span data-inline-latex=\"42\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.059159+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по 60°. Тогда</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\cdot 42\\sqrt{3}\\cdot \\sin 60^{\\circ}=84\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=126\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.059159+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.059159+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "kind": "ordinary_image",
+              "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен <span data-inline-latex=\"42\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">126</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по 60°. Тогда</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\cdot 42\\sqrt{3}\\cdot \\sin 60^{\\circ}=84\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=126\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27893",
+      "task": "52451",
+      "context": {
+        "problem_id": "6ca13cf1-cf2d-4197-9af1-6470c323ccdc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:20.135479+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "html": "<img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.564738+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен <span data-inline-latex=\"17\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.564738+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по 60°. Тогда</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\cdot 17\\sqrt{3}\\sin 60^{\\circ}=2\\cdot 17\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=51\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.564738+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.564738+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "kind": "ordinary_image",
+              "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/> Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен <span data-inline-latex=\"17\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">51</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по 60°. Тогда</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\cdot 17\\sqrt{3}\\sin 60^{\\circ}=2\\cdot 17\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=51\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27893",
+      "task": "52493",
+      "context": {
+        "problem_id": "2fd8bb49-9f28-4ff3-81d0-26e79e9328ae",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:15.937536+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "html": "<img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.295144+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен <span data-inline-latex=\"20\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.295144+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда имеем:</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\cdot 20\\sqrt{3}\\sin 60^{\\circ}=2\\cdot 20\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=60\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.295144+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:38:35.295144+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "kind": "ordinary_image",
+              "asset_id": "649e19b9-b2f8-4b20-b1dd-d55b8678de65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"649e19b9-b2f8-4b20-b1dd-d55b8678de65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/649e19b9-b2f8-4b20-b1dd-d55b8678de65\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен <span data-inline-latex=\"20\\sqrt{3}\"></span> . Най­ди­те сто­ро­ну этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны 60°. Тогда имеем:</p><center><p><span data-inline-latex=\"CB=2R\\sin A=2\\cdot 20\\sqrt{3}\\sin 60^{\\circ}=2\\cdot 20\\sqrt{3}\\cdot \\frac{\\sqrt{3}}{2}=60\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27894",
+      "task": "27894",
+      "context": {
+        "problem_id": "7025bf19-9d9e-4810-8691-55b69065b534",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:25.398822+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+                "html": "<img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.099370+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Вы­со­та пра­виль­но­го тре­уголь­ни­ка равна 3. Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.099370+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> . По тео­ре­ме си­ну­сов имеем:</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{CH}{2\\sin A\\cdot \\sin B}=\\frac{3}{2\\sin^{2} 60^{\\circ}}=\\frac{3}{2}\\cdot \\frac{4}{3}=2\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>В пра­виль­ном тре­уголь­ни­ке ра­ди­ус опи­сан­ной окруж­но­сти равен двум тре­тьим вы­со­ты. По­это­му он <nobr>равен 2.</nobr></p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.099370+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.099370+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+              "kind": "ordinary_image",
+              "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>Вы­со­та пра­виль­но­го тре­уголь­ни­ка равна 3. Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> . По тео­ре­ме си­ну­сов имеем:</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{CH}{2\\sin A\\cdot \\sin B}=\\frac{3}{2\\sin^{2} 60^{\\circ}}=\\frac{3}{2}\\cdot \\frac{4}{3}=2\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>В пра­виль­ном тре­уголь­ни­ке ра­ди­ус опи­сан­ной окруж­но­сти равен двум тре­тьим вы­со­ты. По­это­му он <nobr>равен 2.</nobr></p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27894",
+      "task": "52499",
+      "context": {
+        "problem_id": "89f0c25b-5ce3-49ca-be85-4084268de5bc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:25.603128+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+                "html": "<img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.463335+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Вы­со­та пра­виль­но­го тре­уголь­ни­ка равна 33. Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.463335+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> . По тео­ре­ме си­ну­сов имеем:</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{CH}{2\\sin A\\cdot \\sin B}=\\frac{33}{2\\sin^{2} 60^{\\circ}}=\\frac{33}{2}\\cdot \\frac{4}{3}=22\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>В пра­виль­ном тре­уголь­ни­ке ра­ди­ус опи­сан­ной окруж­но­сти равен двум тре­тим вы­со­ты. По­это­му он равен 22.</p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.463335+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:27:52.463335+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+              "kind": "ordinary_image",
+              "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>Вы­со­та пра­виль­но­го тре­уголь­ни­ка равна 33. Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> . По тео­ре­ме си­ну­сов имеем:</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{CH}{2\\sin A\\cdot \\sin B}=\\frac{33}{2\\sin^{2} 60^{\\circ}}=\\frac{33}{2}\\cdot \\frac{4}{3}=22\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>В пра­виль­ном тре­уголь­ни­ке ра­ди­ус опи­сан­ной окруж­но­сти равен двум тре­тим вы­со­ты. По­это­му он равен 22.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27894",
+      "task": "52501",
+      "context": {
+        "problem_id": "36dccedc-e0fd-47a1-a2fe-dad8ad3b0d42",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:30.861663+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+                "html": "<img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:27:51.735195+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Вы­со­та пра­виль­но­го тре­уголь­ни­ка равна 99. Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:27:51.735195+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> . По тео­ре­ме си­ну­сов имеем:</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{CH}{2\\sin A\\cdot \\sin B}=\\frac{99}{2\\sin^{2} 60^{\\circ}}=\\frac{99}{2}\\cdot \\frac{4}{3}=66\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>В пра­виль­ном тре­уголь­ни­ке ра­ди­ус опи­сан­ной окруж­но­сти равен двум тре­тьим вы­со­ты. По­это­му он равен 66.</p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:27:51.735195+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:27:51.735195+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+              "kind": "ordinary_image",
+              "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>Вы­со­та пра­виль­но­го тре­уголь­ни­ка равна 99. Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">66</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> . По тео­ре­ме си­ну­сов имеем:</p><center><p><span data-inline-latex=\"R=\\frac{AC}{2\\sin B}=\\frac{CH}{2\\sin A\\cdot \\sin B}=\\frac{99}{2\\sin^{2} 60^{\\circ}}=\\frac{99}{2}\\cdot \\frac{4}{3}=66\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение.\"><p>В пра­виль­ном тре­уголь­ни­ке ра­ди­ус опи­сан­ной окруж­но­сти равен двум тре­тьим вы­со­ты. По­это­му он равен 66.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27894",
+      "task": "52503",
+      "context": {
+        "problem_id": "5589f394-6e37-4989-92de-ea5222608062",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:19.659375+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+                "html": "<img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/91400a21-c013-48da-a644-d3bde6a3c153",
+              "kind": "ordinary_image",
+              "asset_id": "91400a21-c013-48da-a644-d3bde6a3c153",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"91400a21-c013-48da-a644-d3bde6a3c153\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/91400a21-c013-48da-a644-d3bde6a3c153\"/>Вы­со­та пра­виль­но­го тре­уголь­ни­ка равна 63. Най­ди­те ра­ди­ус окруж­но­сти, опи­сан­ной около этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">42</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27895",
+      "task": "27895",
+      "context": {
+        "problem_id": "45507f4a-ff8c-4fd0-a900-007877c31efc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:37.463248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "html": "<img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.606410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен 3. Най­ди­те вы­со­ту этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.606410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны по 60°. Имеем:</p><center><p><span data-inline-latex=\"CH=AC\\sin A=2R\\sin B\\sin A=2\\cdot 3\\sin^{2} 60^{\\circ}=6\\cdot \\frac{3}{4}=4{,}5\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Центр окруж­но­сти, опи­сан­ной во­круг тре­уголь­ни­ка, лежит в точке пе­ре­се­че­ния се­ре­дин­ных пер­пен­ди­ку­ля­ров к его сто­ро­нам. Если тре­уголь­ник пра­виль­ный, в этой же точке пе­ре­се­ка­ют­ся ме­ди­а­ны тре­уголь­ни­ка (они же бис­сек­три­сы и вы­со­ты). Ме­ди­а­ны точ­кой пе­ре­се­че­ния де­лят­ся в от­но­ше­нии 2:1, счи­тая от вер­ши­ны. Сле­до­ва­тель­но, <span data-inline-latex=\"OC\\colon OH=2\\colon 1\"></span>, от­ку­да:</p><center><p><span data-inline-latex=\"OH=\\frac{OC}{2}=\\frac{3}{2}=1{,}5\"></span>. </p></center><p> Тогда <var data-math-identifier=\"CH\">CH</var>  =  <var data-math-identifier=\"CO\">CO</var> + <var data-math-identifier=\"OH\">OH</var>  =  3 + 1,5  =  4,5.</p></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.606410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.606410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:49:57.606410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "kind": "ordinary_image",
+              "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен 3. Най­ди­те вы­со­ту этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все его углы равны по 60°. Имеем:</p><center><p><span data-inline-latex=\"CH=AC\\sin A=2R\\sin B\\sin A=2\\cdot 3\\sin^{2} 60^{\\circ}=6\\cdot \\frac{3}{4}=4{,}5\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведем другое решение.\"><p>Центр окруж­но­сти, опи­сан­ной во­круг тре­уголь­ни­ка, лежит в точке пе­ре­се­че­ния се­ре­дин­ных пер­пен­ди­ку­ля­ров к его сто­ро­нам. Если тре­уголь­ник пра­виль­ный, в этой же точке пе­ре­се­ка­ют­ся ме­ди­а­ны тре­уголь­ни­ка (они же бис­сек­три­сы и вы­со­ты). Ме­ди­а­ны точ­кой пе­ре­се­че­ния де­лят­ся в от­но­ше­нии 2:1, счи­тая от вер­ши­ны. Сле­до­ва­тель­но, <span data-inline-latex=\"OC\\colon OH=2\\colon 1\"></span>, от­ку­да:</p><center><p><span data-inline-latex=\"OH=\\frac{OC}{2}=\\frac{3}{2}=1{,}5\"></span>. </p></center><p> Тогда <var data-math-identifier=\"CH\">CH</var>  =  <var data-math-identifier=\"CO\">CO</var> + <var data-math-identifier=\"OH\">OH</var>  =  3 + 1,5  =  4,5.</p></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27895",
+      "task": "52549",
+      "context": {
+        "problem_id": "71789760-3be9-4b0e-bbca-236db00eeea2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:40.241270+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "html": "<img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:50:01.210647+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен 2. Най­ди­те вы­со­ту этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:50:01.210647+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по 60°.</p><center><p><span data-inline-latex=\"CH=AC\\sin A=2R\\sin B\\sin A=2\\cdot 2\\sin^{2} 60^{\\circ}=4\\cdot \\frac{3}{4}=3\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:50:01.210647+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "kind": "ordinary_image",
+              "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен 2. Най­ди­те вы­со­ту этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по 60°.</p><center><p><span data-inline-latex=\"CH=AC\\sin A=2R\\sin B\\sin A=2\\cdot 2\\sin^{2} 60^{\\circ}=4\\cdot \\frac{3}{4}=3\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27895",
+      "task": "52551",
+      "context": {
+        "problem_id": "30014f8b-401b-4586-86b3-1b1565b0ed9f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:37.402897+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "html": "<img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.307637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен 30. Най­ди­те вы­со­ту этого тре­уголь­ни­ка.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.307637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> .</p><center><p><span data-inline-latex=\"CH=AC\\sin A=2R\\sin B\\sin A=2\\cdot 30\\sin^{2} 60^{\\circ}=60\\cdot \\frac{3}{4}=45\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.307637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:57.307637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "kind": "ordinary_image",
+              "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен 30. Най­ди­те вы­со­ту этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var> пра­виль­ный, зна­чит, все углы равны по <span data-inline-latex=\"60^{\\circ}\"></span> .</p><center><p><span data-inline-latex=\"CH=AC\\sin A=2R\\sin B\\sin A=2\\cdot 30\\sin^{2} 60^{\\circ}=60\\cdot \\frac{3}{4}=45\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27895",
+      "task": "52553",
+      "context": {
+        "problem_id": "0280b6cd-c931-49b8-b04d-6bc9dcdcc6d5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:35.709932+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "html": "<img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "kind": "ordinary_image",
+              "asset_id": "880b35c8-fb7d-462e-b041-a41ddce9bd5a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"880b35c8-fb7d-462e-b041-a41ddce9bd5a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/880b35c8-fb7d-462e-b041-a41ddce9bd5a\"/>Ра­ди­ус окруж­но­сти, опи­сан­ной около пра­виль­но­го тре­уголь­ни­ка, равен 82. Най­ди­те вы­со­ту этого тре­уголь­ни­ка.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">123</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
