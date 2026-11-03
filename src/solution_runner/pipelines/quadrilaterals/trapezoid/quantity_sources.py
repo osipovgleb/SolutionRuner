@@ -1,4 +1,4 @@
-"""Audited parent methods and exact SVG aliases for isosceles trapezoids."""
+"""Audited parent methods and exact SVG aliases for quantitative trapezoid rules."""
 
 import gzip
 import hashlib
@@ -72,7 +72,28 @@ PARENTS = {
         (("image_2", "d64f66e0-9b41-447f-8d93-e95acc9eb921"),),
         "d86e44017a05220518cbb0b7cfe48e0396ca1013f25eecacf0e0b676bb11bdda",
     ),
+    "right-trapezoid-bases-angle-area": (
+        "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+        (("image_2", "430c4b07-05ce-48ae-bb19-d627292be3ab"),),
+        "7c054bca9b31f3e9fca16dde1291af11c2ad186a44335d201f3bd225159fb004",
+    ),
+    "right-trapezoid-bases-area-angle": (
+        "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+        (("image_2", "430c4b07-05ce-48ae-bb19-d627292be3ab"),),
+        "3417f63093a9040aba634cd11138f1b05f859e696d021940a294f6a5eb505fcd",
+    ),
+    "trapezoid-bases-side-angle-area": (
+        "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+        (("image_2", "9980f325-ad01-49c6-b594-4e9b42f08e96"),),
+        "c8c05b9a7869210a5632c2b5c6e45aa6a598fdd289a608971fd3a6949e356ba2",
+    ),
+    "trapezoid-bases-side-area-angle": (
+        "d4486391-77ae-402d-abd1-75b98891adec",
+        (("image_2", "ef5e7267-3207-4fa4-9339-efd4e38b9cb4"),),
+        "792b617e20d39e22835ba014f7da0110f225bcc4c52d0e99dcc6bedd042f4dc8",
+    ),
 }
+
 SOURCES = {
     "590b89bd-3f93-494c-a26c-e162137e6f71": (
         "590b89bd-3f93-494c-a26c-e162137e6f71",
@@ -106,18 +127,42 @@ SOURCES = {
         "a7aa0827-7b1f-4364-8469-437dfe2fe497",
         "324847f731e027e12a8da51af4a68988c0409b8fac14f09573c8f3f1ad8c2e12",
     ),
+    "9e4b66d6-e7a7-4734-bc73-0e8776d5511e": (
+        "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+        "440095ccf9126e8bdf0a1831a0798b119a31feb0f8c57e895028cd20dab1bb4f",
+    ),
+    "430c4b07-05ce-48ae-bb19-d627292be3ab": (
+        "430c4b07-05ce-48ae-bb19-d627292be3ab",
+        "b8b2967fba1ae2701f26258dd861698eb9df9df2badab2519d544f97e5ef0deb",
+    ),
+    "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55": (
+        "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+        "3fdbe7c4f53d23a86280c1c430d1d5e5c572707416bcaffd153ea254293c4477",
+    ),
+    "9980f325-ad01-49c6-b594-4e9b42f08e96": (
+        "9980f325-ad01-49c6-b594-4e9b42f08e96",
+        "c51ada3029d9ec94b28fb59b484ab4c6c4e0d1438ac17de4dbae0e8c1ddd1b91",
+    ),
+    "d4486391-77ae-402d-abd1-75b98891adec": (
+        "d4486391-77ae-402d-abd1-75b98891adec",
+        "6f28d812db859af728b97302c8caeb6d63af38c0a4e7da656ef9f7234fd86324",
+    ),
+    "ef5e7267-3207-4fa4-9339-efd4e38b9cb4": (
+        "ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+        "30d5e4337dcb946374ed9064d97880f17a507429f209af49754e78073f9eaf1d",
+    ),
 }
 
 
 def source_bytes(source):
     if source not in SOURCES:
-        raise ContentPlanError("the isosceles-trapezoid source needs a review")
+        raise ContentPlanError("the trapezoid source needs a review")
     canonical, digest = SOURCES[source]
     raw = gzip.decompress(
         files(__package__).joinpath("assets/" + canonical + ".svgz").read_bytes()
     )
     if hashlib.sha256(raw).hexdigest() != digest:
-        raise ContentPlanError("the reviewed isosceles-trapezoid SVG changed")
+        raise ContentPlanError("the reviewed trapezoid SVG changed")
     return raw
 
 

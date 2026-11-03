@@ -8,7 +8,7 @@ from ...triangles.general.angle_label_positions import _position
 from ...triangles.isosceles.basic_figures import canvas_svg
 from ...triangles.isosceles.side_altitude_svg import _corner, _place, _style
 from ...triangles.right.construction_svg import _bounds, _line, _tag
-from .isosceles_sources import source_bytes
+from .quantity_sources import source_bytes
 
 CE = "42c396d3-3418-40f8-b80e-1eb6102702a1"
 MARKED = "a7aa0827-7b1f-4364-8469-437dfe2fe497"

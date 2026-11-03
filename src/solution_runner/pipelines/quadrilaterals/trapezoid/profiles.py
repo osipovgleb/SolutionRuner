@@ -43,6 +43,30 @@ PROFILES += tuple(
     )
     for key, identifier, index, rule in (
         (
+            "27633",
+            "8bfe166f-319f-4727-b562-8f0bf6345ea7",
+            8,
+            "right-trapezoid-bases-angle-area",
+        ),
+        (
+            "27634",
+            "ebcaabce-93b7-4366-8b47-82d72dfb0978",
+            9,
+            "right-trapezoid-bases-area-angle",
+        ),
+        (
+            "27637",
+            "1d1ad64c-7b00-43cc-80b9-7912d06dfdf9",
+            12,
+            "trapezoid-bases-side-angle-area",
+        ),
+        (
+            "27638",
+            "f7dace09-2ab7-48d9-9e94-f56be43cc026",
+            13,
+            "trapezoid-bases-side-area-angle",
+        ),
+        (
             "27439",
             "2d5a623e-a06b-4479-a04d-a3e7935f6d9c",
             0,

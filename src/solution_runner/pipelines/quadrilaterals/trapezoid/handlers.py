@@ -2,7 +2,8 @@
 
 from solution_runner.pipelines.core.handlers import HandlerSpec
 
-from .isosceles_model import RULES
+from .altitude_model import RULES as ALTITUDE_RULES
+from .isosceles_model import RULES as ISO_RULES
 
 HANDLERS = (
     HandlerSpec(
@@ -16,7 +17,7 @@ HANDLERS = (
 HANDLERS += tuple(
     HandlerSpec(
         rule,
-        "solution_runner.pipelines.quadrilaterals.trapezoid.isosceles_parent:prepare",
+        "solution_runner.pipelines.quadrilaterals.trapezoid.quantity_parent:prepare",
         inputs=(
             ("parent_condition_asset_id", "parent_asset_id"),
             ("parent_solution_html", "parent_solution_html"),
@@ -28,7 +29,17 @@ HANDLERS += tuple(
         requires_frozen_manifest=True,
         verify_content_readback=True,
         strict_frozen_input=True,
-        diagram_builder="solution_runner.pipelines.quadrilaterals.trapezoid.isosceles_figures:diagram_specs",
+        diagram_builder=builder,
     )
-    for rule in RULES
+    for rules, builder in (
+        (
+            ISO_RULES,
+            "solution_runner.pipelines.quadrilaterals.trapezoid.isosceles_figures:diagram_specs",
+        ),
+        (
+            ALTITUDE_RULES,
+            "solution_runner.pipelines.quadrilaterals.trapezoid.altitude_figures:diagram_specs",
+        ),
+    )
+    for rule in rules
 )

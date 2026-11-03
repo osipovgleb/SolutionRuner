@@ -13,14 +13,14 @@ from midpoint_source_cases import replay, section
 
 from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.core.handler_registry import get_handler
-from solution_runner.pipelines.quadrilaterals.trapezoid.isosceles_sources import (
-    source_bytes,
-)
 from solution_runner.pipelines.quadrilaterals.trapezoid.isosceles_svg import (
     CE,
     MARKED,
     PLAIN,
     figure_svg,
+)
+from solution_runner.pipelines.quadrilaterals.trapezoid.quantity_sources import (
+    source_bytes,
 )
 from solution_runner.pipelines.triangles.general.angle_label_positions import (
     _intersects,

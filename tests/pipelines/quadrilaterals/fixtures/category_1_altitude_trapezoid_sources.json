@@ -1,0 +1,1860 @@
+{
+  "groups": [
+    {
+      "key": "27633",
+      "size": 26,
+      "group_uuid": "8bfe166f-319f-4727-b562-8f0bf6345ea7",
+      "rule": "right-trapezoid-bases-angle-area"
+    },
+    {
+      "key": "27634",
+      "size": 26,
+      "group_uuid": "ebcaabce-93b7-4366-8b47-82d72dfb0978",
+      "rule": "right-trapezoid-bases-area-angle"
+    },
+    {
+      "key": "27637",
+      "size": 26,
+      "group_uuid": "1d1ad64c-7b00-43cc-80b9-7912d06dfdf9",
+      "rule": "trapezoid-bases-side-angle-area"
+    },
+    {
+      "key": "27638",
+      "size": 26,
+      "group_uuid": "f7dace09-2ab7-48d9-9e94-f56be43cc026",
+      "rule": "trapezoid-bases-side-area-angle"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27633",
+      "task": "27633",
+      "context": {
+        "problem_id": "27fd914c-b37b-47a8-bd75-d1f5a2a37d72",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:06.756691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "html": "<img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:06.756691+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "html": "<img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:53:59.591802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 6 и 2, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол 45°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:53:59.591802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var>. Тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — пря­мо­уголь­ный с  <span data-inline-latex=\"\\angle CDA=45^{\\circ}\"></span>, зна­чит, он также рав­но­бед­рен­ный:  <span data-inline-latex=\"CH=HD=4\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH=4\\cdot 4=16\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:53:59.591802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:53:59.591802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:53:59.591802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "kind": "ordinary_image",
+              "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "kind": "ordinary_image",
+              "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 6 и 2, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол 45°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">16</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var>. Тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — пря­мо­уголь­ный с  <span data-inline-latex=\"\\angle CDA=45^{\\circ}\"></span>, зна­чит, он также рав­но­бед­рен­ный:  <span data-inline-latex=\"CH=HD=4\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH=4\\cdot 4=16\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27633",
+      "task": "57157",
+      "context": {
+        "problem_id": "41502624-df15-4f49-9c2d-a06406626f00",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:07.922438+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "html": "<img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:07.922438+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "html": "<img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:53:59.888477+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 1 и 7, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол 45°.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:53:59.888477+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var>. Тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — пря­мо­уголь­ный с  <span data-inline-latex=\"\\angle CDA=45^{\\circ}\"></span>, зна­чит, он также рав­но­бед­рен­ный:  <span data-inline-latex=\"CH=HD=6\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH=4\\cdot 6=24\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:53:59.888477+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:53:59.888477+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:53:59.888477+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "kind": "ordinary_image",
+              "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "kind": "ordinary_image",
+              "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 1 и 7, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол 45°.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/></p><p>Про­ве­дем вы­со­ту <var data-math-identifier=\"CH\">CH</var>. Тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — пря­мо­уголь­ный с  <span data-inline-latex=\"\\angle CDA=45^{\\circ}\"></span>, зна­чит, он также рав­но­бед­рен­ный:  <span data-inline-latex=\"CH=HD=6\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH=4\\cdot 6=24\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27633",
+      "task": "57159",
+      "context": {
+        "problem_id": "9c31cab7-79da-4d76-a137-69c1e5a81fcb",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T21:32:05.273994+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 4 и 16, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол <span data-inline-latex=\"45^{\\circ}\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T21:32:05.273994+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 4 и 16, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол <span data-inline-latex=\"45^{\\circ}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">120</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27633",
+      "task": "57161",
+      "context": {
+        "problem_id": "3e4935a4-f910-4970-b151-f21265c436b1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T21:32:04.593634+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 2 и 14, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол <span data-inline-latex=\"45^{\\circ}\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T21:32:04.593634+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те пло­щадь пря­мо­уголь­ной тра­пе­ции, ос­но­ва­ния ко­то­рой равны 2 и 14, боль­шая бо­ко­вая сто­ро­на со­став­ля­ет с ос­но­ва­ни­ем угол <span data-inline-latex=\"45^{\\circ}\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">96</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27634",
+      "task": "27634",
+      "context": {
+        "problem_id": "876cd90e-928a-48c2-96ac-8ba38d45c3aa",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:14.078515+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "html": "<img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:13:14.078515+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "html": "<img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:49:53.306330+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния пря­мо­уголь­ной тра­пе­ции равны 12 и 4. Ее пло­щадь равна 64. Най­ди­те ост­рый угол этой тра­пе­ции. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:53.306330+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Най­дем длину вы­со­ты <var data-math-identifier=\"CH\">CH</var> из фор­му­лы пло­ща­ди тра­пе­ции:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH\\iff CH=\\frac{2S_{ABCD}}{AD+BC}\\iff CH=\\frac{2\\cdot 64}{16}\\iff CH=8\"></span>. </p></center><p>В пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  <span data-inline-latex=\"HD=AD-BC=8\"></span>, то есть  <span data-inline-latex=\"CH=HD\"></span>. Сле­до­ва­тель­но, тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — рав­но­бед­рен­ный и пря­мо­уголь­ный, тогда его ост­рые углы равны 45°.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:53.306330+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:53.306330+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:49:53.306330+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "kind": "ordinary_image",
+              "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "kind": "ordinary_image",
+              "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>Ос­но­ва­ния пря­мо­уголь­ной тра­пе­ции равны 12 и 4. Ее пло­щадь равна 64. Най­ди­те ост­рый угол этой тра­пе­ции. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/></p><p>Най­дем длину вы­со­ты <var data-math-identifier=\"CH\">CH</var> из фор­му­лы пло­ща­ди тра­пе­ции:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH\\iff CH=\\frac{2S_{ABCD}}{AD+BC}\\iff CH=\\frac{2\\cdot 64}{16}\\iff CH=8\"></span>. </p></center><p>В пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var> <span data-inline-latex=\"HD=AD-BC=8\"></span>, то есть  <span data-inline-latex=\"CH=HD\"></span>. Сле­до­ва­тель­но, тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — рав­но­бед­рен­ный и пря­мо­уголь­ный, тогда его ост­рые углы равны 45°.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27634",
+      "task": "57207",
+      "context": {
+        "problem_id": "0d6ccbb5-4bf1-481d-9db9-552c39e692e7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:06.836487+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "html": "<img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:13:06.836487+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "html": "<img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:49:54.136532+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния пря­мо­уголь­ной тра­пе­ции равны 14 и 18. Ее пло­щадь равна 64. Най­ди­те ост­рый угол этой тра­пе­ции. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:54.136532+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Най­дем длину вы­со­ты <var data-math-identifier=\"CH\">CH</var> из фор­му­лы пло­ща­ди тра­пе­ции:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH\\iff CH=\\frac{2S_{ABCD}}{AD+BC}\\iff CH=\\frac{2\\cdot 64}{32}\\iff CH=4\"></span>. </p></center><p>В пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  <span data-inline-latex=\"HD=AD-BC=4\"></span>, то есть  <span data-inline-latex=\"CH=HD\"></span>. Сле­до­ва­тель­но, тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — рав­но­бед­рен­ный и пря­мо­уголь­ный, тогда его ост­рые углы равны 45°.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:54.136532+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:54.136532+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:49:54.136532+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "kind": "ordinary_image",
+              "asset_id": "9e4b66d6-e7a7-4734-bc73-0e8776d5511e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "kind": "ordinary_image",
+              "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9e4b66d6-e7a7-4734-bc73-0e8776d5511e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9e4b66d6-e7a7-4734-bc73-0e8776d5511e\"/>Ос­но­ва­ния пря­мо­уголь­ной тра­пе­ции равны 14 и 18. Ее пло­щадь равна 64. Най­ди­те ост­рый угол этой тра­пе­ции. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/></p><p>Най­дем длину вы­со­ты <var data-math-identifier=\"CH\">CH</var> из фор­му­лы пло­ща­ди тра­пе­ции:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH\\iff CH=\\frac{2S_{ABCD}}{AD+BC}\\iff CH=\\frac{2\\cdot 64}{32}\\iff CH=4\"></span>. </p></center><p>В пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var> <span data-inline-latex=\"HD=AD-BC=4\"></span>, то есть  <span data-inline-latex=\"CH=HD\"></span>. Сле­до­ва­тель­но, тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — рав­но­бед­рен­ный и пря­мо­уголь­ный, тогда его ост­рые углы равны 45°.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27634",
+      "task": "57223",
+      "context": {
+        "problem_id": "6025318c-7708-4bda-8565-f528cad7b780",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:07.121918+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "html": "<img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:55.807329+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Най­дем длину вы­со­ты <var data-math-identifier=\"CH\">CH</var> из фор­му­лы пло­ща­ди тра­пе­ции:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH\\iff CH=\\frac{2S_{ABCD}}{AD+BC}\\iff CH=\\frac{2\\cdot 152}{38}\\iff CH=8\"></span>. </p></center><p>В пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  <span data-inline-latex=\"HD=AD-BC=8\"></span>, то есть  <span data-inline-latex=\"CH=HD\"></span>. Сле­до­ва­тель­но, тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — рав­но­бед­рен­ный и пря­мо­уголь­ный, тогда его ост­рые углы равны 45°.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:55.807329+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:55.807329+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:49:55.807329+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "kind": "ordinary_image",
+              "asset_id": "430c4b07-05ce-48ae-bb19-d627292be3ab",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ос­но­ва­ния пря­мо­уголь­ной тра­пе­ции равны 15 и 23. Ее пло­щадь равна 152. Най­ди­те ост­рый угол этой тра­пе­ции. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"430c4b07-05ce-48ae-bb19-d627292be3ab\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/430c4b07-05ce-48ae-bb19-d627292be3ab\"/></p><p>Най­дем длину вы­со­ты <var data-math-identifier=\"CH\">CH</var> из фор­му­лы пло­ща­ди тра­пе­ции:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot CH\\iff CH=\\frac{2S_{ABCD}}{AD+BC}\\iff CH=\\frac{2\\cdot 152}{38}\\iff CH=8\"></span>. </p></center><p>В пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var> <span data-inline-latex=\"HD=AD-BC=8\"></span>, то есть  <span data-inline-latex=\"CH=HD\"></span>. Сле­до­ва­тель­но, тре­уголь­ник <var data-math-identifier=\"CHD\">CHD</var>  — рав­но­бед­рен­ный и пря­мо­уголь­ный, тогда его ост­рые углы равны 45°.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27634",
+      "task": "57209",
+      "context": {
+        "problem_id": "0246d3b1-51f2-4b23-83a5-0802a202fa40",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ос­но­ва­ния пря­мо­уголь­ной тра­пе­ции равны 13 и 17. Ее пло­щадь равна 60. Най­ди­те ост­рый угол этой тра­пе­ции. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27637",
+      "task": "27637",
+      "context": {
+        "problem_id": "dab90d00-d803-4e90-8ddb-ea6d1aa270f5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:24:56.350398+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+                "html": "<img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:24:56.350398+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9980f325-ad01-49c6-b594-4e9b42f08e96",
+                "html": "<img alt=\"\" data-asset-id=\"9980f325-ad01-49c6-b594-4e9b42f08e96\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/9980f325-ad01-49c6-b594-4e9b42f08e96\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9980f325-ad01-49c6-b594-4e9b42f08e96",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:39:07.888085+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 18 и 6, бо­ко­вая сто­ро­на, рав­ная 7, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол 150°. Най­ди­те пло­щадь тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:07.888085+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9980f325-ad01-49c6-b594-4e9b42f08e96\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ост­рый угол тра­пе­ции равен 30°. Най­дем вы­со­ту <var data-math-identifier=\"BH\">BH</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ABH\">ABH</var>:</p><center><p> <span data-inline-latex=\"BH=AB\\cdot \\sin BAD=7\\cdot \\frac{1}{2}=3{,}5\"></span>.</p></center><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot BH=\\frac{18+6}{2}\\cdot 3{,}5=42\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:39:07.888085+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:39:07.888085+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+              "kind": "ordinary_image",
+              "asset_id": "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/9980f325-ad01-49c6-b594-4e9b42f08e96",
+              "kind": "ordinary_image",
+              "asset_id": "9980f325-ad01-49c6-b594-4e9b42f08e96",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\"/>Ос­но­ва­ния тра­пе­ции равны 18 и 6, бо­ко­вая сто­ро­на, рав­ная 7, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол 150°. Най­ди­те пло­щадь тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">42</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"9980f325-ad01-49c6-b594-4e9b42f08e96\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/9980f325-ad01-49c6-b594-4e9b42f08e96\"/></p><p>Ост­рый угол тра­пе­ции равен 30°. Най­дем вы­со­ту <var data-math-identifier=\"BH\">BH</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ABH\">ABH</var>:</p><center><p> <span data-inline-latex=\"BH=AB\\cdot \\sin BAD=7\\cdot \\frac{1}{2}=3{,}5\"></span>.</p></center><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot BH=\\frac{18+6}{2}\\cdot 3{,}5=42\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27637",
+      "task": "61405",
+      "context": {
+        "problem_id": "44701fdf-3629-406d-8d8e-fee4da1dc62d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:24:27.114117+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+                "html": "<img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:24:27.114117+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9980f325-ad01-49c6-b594-4e9b42f08e96",
+                "html": "<img alt=\"\" data-asset-id=\"9980f325-ad01-49c6-b594-4e9b42f08e96\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/9980f325-ad01-49c6-b594-4e9b42f08e96\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9980f325-ad01-49c6-b594-4e9b42f08e96",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:39:05.554476+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 10 и 20, бо­ко­вая сто­ро­на, рав­ная 8, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол 150°. Най­ди­те пло­щадь тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:05.554476+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9980f325-ad01-49c6-b594-4e9b42f08e96\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ост­рый угол тра­пе­ции равен 30°. Най­дем вы­со­ту <var data-math-identifier=\"BH\">BH</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ABH\">ABH</var>:</p><center><p> <span data-inline-latex=\"BH=AB\\cdot \\sin BAD=8\\cdot \\frac{1}{2}=4\"></span>.</p></center><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot BH=\\frac{20+10}{2}\\cdot 4=60\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:39:05.554476+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:39:05.554476+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+              "kind": "ordinary_image",
+              "asset_id": "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/9980f325-ad01-49c6-b594-4e9b42f08e96",
+              "kind": "ordinary_image",
+              "asset_id": "9980f325-ad01-49c6-b594-4e9b42f08e96",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\"/>Ос­но­ва­ния тра­пе­ции равны 10 и 20, бо­ко­вая сто­ро­на, рав­ная 8, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол 150°. Най­ди­те пло­щадь тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"9980f325-ad01-49c6-b594-4e9b42f08e96\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/9980f325-ad01-49c6-b594-4e9b42f08e96\"/></p><p>Ост­рый угол тра­пе­ции равен 30°. Най­дем вы­со­ту <var data-math-identifier=\"BH\">BH</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"ABH\">ABH</var>:</p><center><p> <span data-inline-latex=\"BH=AB\\cdot \\sin BAD=8\\cdot \\frac{1}{2}=4\"></span>.</p></center><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты:</p><center><p> <span data-inline-latex=\"S_{ABCD}=\\frac{AD+BC}{2}\\cdot BH=\\frac{20+10}{2}\\cdot 4=60\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27637",
+      "task": "61407",
+      "context": {
+        "problem_id": "1609979d-8283-4eb4-9ab6-7ac2eae3f966",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:13.215083+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+                "html": "<img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:39:03.916318+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 6 и 16, бо­ко­вая сто­ро­на, рав­ная 2, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол <span data-inline-latex=\"150^{\\circ}\"></span>. Най­ди­те пло­щадь тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:03.916318+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+              "kind": "ordinary_image",
+              "asset_id": "5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5f0e1c64-5dcf-4fff-a38b-dcc047ec2a55\"/>Ос­но­ва­ния тра­пе­ции равны 6 и 16, бо­ко­вая сто­ро­на, рав­ная 2, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол <span data-inline-latex=\"150^{\\circ}\"></span>. Най­ди­те пло­щадь тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">11</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27637",
+      "task": "61409",
+      "context": {
+        "problem_id": "3515947c-b8b6-4fec-82fc-41dd83a8f3e1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T00:52:18.486652+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Ос­но­ва­ния тра­пе­ции равны 10 и 16, бо­ко­вая сто­ро­на, рав­ная 2, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол <span data-inline-latex=\"150^{\\circ}\"></span>. Най­ди­те пло­щадь тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T00:52:18.486652+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ос­но­ва­ния тра­пе­ции равны 10 и 16, бо­ко­вая сто­ро­на, рав­ная 2, об­ра­зу­ет с одним из ос­но­ва­ний тра­пе­ции угол <span data-inline-latex=\"150^{\\circ}\"></span>. Най­ди­те пло­щадь тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27638",
+      "task": "27638",
+      "context": {
+        "problem_id": "2e3b4b33-b993-43e4-b685-d795a851cb4e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:30.793375+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d4486391-77ae-402d-abd1-75b98891adec",
+                "html": "<img alt=\"\" data-asset-id=\"d4486391-77ae-402d-abd1-75b98891adec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d4486391-77ae-402d-abd1-75b98891adec\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d4486391-77ae-402d-abd1-75b98891adec",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:12:30.793375+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+                "html": "<img alt=\"\" data-asset-id=\"ef5e7267-3207-4fa4-9339-efd4e38b9cb4\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:10:32.867803+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d4486391-77ae-402d-abd1-75b98891adec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 27 и 9, бо­ко­вая сто­ро­на равна 8. Пло­щадь тра­пе­ции равна 72. Най­ди­те ост­рый угол тра­пе­ции, при­ле­жа­щий к дан­ной бо­ко­вой сто­ро­не. Ответ вы­ра­зи­те в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:10:32.867803+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ef5e7267-3207-4fa4-9339-efd4e38b9cb4\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты. Пусть вы­со­та равна <i>h</i>, тогда </p><center><p> <span data-inline-latex=\"S=\\frac{27+9}{2}\\cdot h=72\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"h=4\"></span>. Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник, ги­по­те­ну­зой ко­то­ро­го яв­ля­ет­ся бо­ко­вая сто­ро­на тра­пе­ции, рав­ная 8, а ка­те­том  — вы­со­та тра­пе­ции (см. рис.). Длина ка­те­та равна по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но, он лежит на­про­тив угла 30°.</p><p><b>При­ме­ча­ние</b>.</p><p>За­ме­тим, что тра­пе­ция не яв­ля­ет­ся рав­но­бед­рен­ной. За­ин­те­ре­со­ван­ные чи­та­те­ли могут са­мо­сто­я­тель­но найти вто­рую бо­ко­вую сто­ро­ну этой тра­пе­ции.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:10:32.867803+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:10:32.867803+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d4486391-77ae-402d-abd1-75b98891adec",
+              "kind": "ordinary_image",
+              "asset_id": "d4486391-77ae-402d-abd1-75b98891adec",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+              "kind": "ordinary_image",
+              "asset_id": "ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d4486391-77ae-402d-abd1-75b98891adec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d4486391-77ae-402d-abd1-75b98891adec\"/>Ос­но­ва­ния тра­пе­ции равны 27 и 9, бо­ко­вая сто­ро­на равна 8. Пло­щадь тра­пе­ции равна 72. Най­ди­те ост­рый угол тра­пе­ции, при­ле­жа­щий к дан­ной бо­ко­вой сто­ро­не. Ответ вы­ра­зи­те в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"ef5e7267-3207-4fa4-9339-efd4e38b9cb4\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4\"/></p><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты. Пусть вы­со­та равна <i>h</i>, тогда </p><center><p> <span data-inline-latex=\"S=\\frac{27+9}{2}\\cdot h=72\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"h=4\"></span>. Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник, ги­по­те­ну­зой ко­то­ро­го яв­ля­ет­ся бо­ко­вая сто­ро­на тра­пе­ции, рав­ная 8, а ка­те­том  — вы­со­та тра­пе­ции (см. рис.). Длина ка­те­та равна по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но, он лежит на­про­тив угла 30°.</p><p><b>При­ме­ча­ние</b>.</p><p>За­ме­тим, что тра­пе­ция не яв­ля­ет­ся рав­но­бед­рен­ной. За­ин­те­ре­со­ван­ные чи­та­те­ли могут са­мо­сто­я­тель­но найти вто­рую бо­ко­вую сто­ро­ну этой тра­пе­ции.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27638",
+      "task": "57307",
+      "context": {
+        "problem_id": "f1c1fc5e-f7d7-4399-858d-b201fabdde12",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:30.196221+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d4486391-77ae-402d-abd1-75b98891adec",
+                "html": "<img alt=\"\" data-asset-id=\"d4486391-77ae-402d-abd1-75b98891adec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d4486391-77ae-402d-abd1-75b98891adec\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d4486391-77ae-402d-abd1-75b98891adec",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:13:30.196221+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+                "html": "<img alt=\"\" data-asset-id=\"ef5e7267-3207-4fa4-9339-efd4e38b9cb4\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:10:35.391778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d4486391-77ae-402d-abd1-75b98891adec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 5 и 11, бо­ко­вая сто­ро­на равна 9. Пло­щадь тра­пе­ции равна 36. Най­ди­те ост­рый угол тра­пе­ции, при­ле­жа­щий к дан­ной бо­ко­вой сто­ро­не. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:10:35.391778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ef5e7267-3207-4fa4-9339-efd4e38b9cb4\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты. Пусть вы­со­та равна <i>h</i>, тогда </p><center><p> <span data-inline-latex=\"S=\\frac{11+5}{2}\\cdot h=36\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"h=4{,}5\"></span>. Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник, ги­по­те­ну­зой ко­то­ро­го яв­ля­ет­ся бо­ко­вая сто­ро­на тра­пе­ции, рав­ная 9, а ка­те­том  — вы­со­та тра­пе­ции (см. рис.). Длина ка­те­та равна по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но, он лежит на­про­тив угла 30°.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:10:35.391778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:10:35.391778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d4486391-77ae-402d-abd1-75b98891adec",
+              "kind": "ordinary_image",
+              "asset_id": "d4486391-77ae-402d-abd1-75b98891adec",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+              "kind": "ordinary_image",
+              "asset_id": "ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d4486391-77ae-402d-abd1-75b98891adec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d4486391-77ae-402d-abd1-75b98891adec\"/>Ос­но­ва­ния тра­пе­ции равны 5 и 11, бо­ко­вая сто­ро­на равна 9. Пло­щадь тра­пе­ции равна 36. Най­ди­те ост­рый угол тра­пе­ции, при­ле­жа­щий к дан­ной бо­ко­вой сто­ро­не. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"ef5e7267-3207-4fa4-9339-efd4e38b9cb4\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/ef5e7267-3207-4fa4-9339-efd4e38b9cb4\"/></p><p>Пло­щадь тра­пе­ции равна про­из­ве­де­нию по­лу­сум­мы длин ос­но­ва­ний на длину вы­со­ты. Пусть вы­со­та равна <i>h</i>, тогда </p><center><p> <span data-inline-latex=\"S=\\frac{11+5}{2}\\cdot h=36\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"h=4{,}5\"></span>. Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник, ги­по­те­ну­зой ко­то­ро­го яв­ля­ет­ся бо­ко­вая сто­ро­на тра­пе­ции, рав­ная 9, а ка­те­том  — вы­со­та тра­пе­ции (см. рис.). Длина ка­те­та равна по­ло­ви­не ги­по­те­ну­зы. Сле­до­ва­тель­но, он лежит на­про­тив угла 30°.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27638",
+      "task": "57309",
+      "context": {
+        "problem_id": "6fc75636-9ea2-422e-abf3-031bccc49ca1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ос­но­ва­ния тра­пе­ции равны 14 и 26, бо­ко­вая сто­ро­на равна 13. Пло­щадь тра­пе­ции равна 130. Най­ди­те ост­рый угол тра­пе­ции, при­ле­жа­щий к дан­ной бо­ко­вой сто­ро­не. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27638",
+      "task": "57311",
+      "context": {
+        "problem_id": "8fb727e1-5f36-4b59-adbb-36c28cacd062",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ос­но­ва­ния тра­пе­ции равны 9 и 15, бо­ко­вая сто­ро­на равна 4. Пло­щадь тра­пе­ции равна 24. Най­ди­те ост­рый угол тра­пе­ции, при­ле­жа­щий к дан­ной бо­ко­вой сто­ро­не. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">30</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

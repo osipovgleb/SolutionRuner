@@ -9,8 +9,8 @@ from ...triangles.isosceles.side_altitude_figures import _identity, condition_ch
 from ..parallelogram.midpoint_figures import _attach
 from ..quantity_content import read_content
 from .isosceles_model import read_question
-from .isosceles_sources import PARENTS, source_bytes
 from .isosceles_svg import CE, MARKED, PLAIN, figure_svg
+from .quantity_sources import PARENTS, source_bytes
 
 CE_BARE = "46d25626-a77d-4eaf-bcef-1bb477ec17e0"
 MARKED_BARE = "3be35d9e-e571-40e8-8a82-e1a0366359ac"
