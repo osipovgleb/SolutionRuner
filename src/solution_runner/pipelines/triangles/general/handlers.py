@@ -131,13 +131,17 @@ HANDLERS = (
     ),
     HandlerSpec(
         "general-triangle-27757-altitude-angle",
-        "solution_runner.pipelines.triangles.general.angle_planner:build_repair_plan",
+        "solution_runner.pipelines.triangles.general.height_subtraction_parent:prepare",
         inputs=(
-            ("parent_solution_html", "parent_solution_html"),
             ("parent_condition_asset_id", "parent_asset_id"),
+            ("parent_solution_html", "parent_solution_html"),
+            ("parent_solution_assets", "parent_solution_assets"),
+            ("generated_solution_assets", "generated_solution_assets"),
         ),
-        options=(("rule", "general-triangle-27757-altitude-angle"),),
         parent_from_group_listing=True,
+        requires_frozen_manifest=True,
+        verify_content_readback=True,
+        diagram_builder="solution_runner.pipelines.triangles.general.height_subtraction_figures:diagram_specs",
     ),
     HandlerSpec(
         "general-triangle-27763-altitudes-angle-sum",

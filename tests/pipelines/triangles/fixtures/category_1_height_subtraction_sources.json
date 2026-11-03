@@ -1,0 +1,533 @@
+{
+  "groups": [
+    {
+      "key": "27757",
+      "size": 25,
+      "rule": "general-triangle-27757-altitude-angle"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27757",
+      "task": "27757",
+      "context": {
+        "problem_id": "85139e32-4f65-448d-9bb5-37c5a41e932e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:53.612296+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "html": "<img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:17:20.251778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен 30°, угол <i>В</i>  — тупой, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен 22°. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:17:20.251778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-30^{\\circ}-22^{\\circ}=38^{\\circ}\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:17:20.251778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "kind": "ordinary_image",
+              "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен 30°, угол <i>В</i>  — тупой, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен 22°. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">38</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-30^{\\circ}-22^{\\circ}=38^{\\circ}\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27757",
+      "task": "47007",
+      "context": {
+        "problem_id": "210ba7c7-4c50-46ef-8408-e14ab1256d0c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:46.203429+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "html": "<img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-09-05T22:18:28.803955+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-30^{\\circ}-22^{\\circ}=38^{\\circ}\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-09-05T22:27:48.932325+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-60^{\\circ}-19^{\\circ}=11^{\\circ}\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:17:18.747316+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <span data-inline-latex=\"60^{\\circ}\"></span>, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен <span data-inline-latex=\"19^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:17:18.747316+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:17:18.747316+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "kind": "ordinary_image",
+              "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <span data-inline-latex=\"60^{\\circ}\"></span>, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен <span data-inline-latex=\"19^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-60^{\\circ}-19^{\\circ}=11^{\\circ}\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">11</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27757",
+      "task": "47009",
+      "context": {
+        "problem_id": "7c54782b-fd75-4ae9-905b-f72d79d1dcb8",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 10,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:53.532509+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "html": "<img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-09-05T22:33:49.912294+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p><span data-effect=\"spaced\">8</span></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-09-05T22:33:49.912294+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-4^{\\circ}-78^{\\circ}=8^{\\circ}\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T16:17:20.126153+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <span data-inline-latex=\"4^{\\circ}\"></span>, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен <span data-inline-latex=\"78^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:17:20.126153+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:17:20.126153+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "kind": "ordinary_image",
+              "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <span data-inline-latex=\"4^{\\circ}\"></span>, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен <span data-inline-latex=\"78^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-4^{\\circ}-78^{\\circ}=8^{\\circ}\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27757",
+      "task": "47011",
+      "context": {
+        "problem_id": "931f5124-ec94-48df-9085-94bf78fb10bd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 10,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:56.002576+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "html": "<img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-09-05T22:33:49.545606+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-84^{\\circ}-4^{\\circ}=2^{\\circ}\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T16:17:20.820014+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <span data-inline-latex=\"84^{\\circ}\"></span>, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен <span data-inline-latex=\"4^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:17:20.820014+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:17:20.820014+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "kind": "ordinary_image",
+              "asset_id": "a1ea1011-33a4-40e6-9512-dcd0909c8cb4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a1ea1011-33a4-40e6-9512-dcd0909c8cb4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a1ea1011-33a4-40e6-9512-dcd0909c8cb4\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <span data-inline-latex=\"84^{\\circ}\"></span>, <var data-math-identifier=\"CH\">CH</var>  — вы­со­та, угол <var data-math-identifier=\"BCH\">BCH</var> равен <span data-inline-latex=\"4^{\\circ}\"></span>. Най­ди­те угол <var data-math-identifier=\"ACB\">ACB</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p><span> <span data-inline-latex=\"\\angle ACB=\\angle ACH-\\angle BCH=(90^{\\circ}-\\angle A)-\\angle BCH=90^{\\circ}-84^{\\circ}-4^{\\circ}=2^{\\circ}\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}
