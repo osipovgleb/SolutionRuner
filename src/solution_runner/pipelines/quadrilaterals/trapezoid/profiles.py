@@ -1,18 +1,124 @@
 """Group bindings for this domain; handler implementations live separately."""
+
 from solution_runner.pipelines.core.profile_definitions import (
     _profile,
 )
 
 PROFILES = (
     _profile(
-                "77152", "913dd919-8d79-4ddc-be8c-f87a128e04c9", 25,
-                catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
-                category_key="1", theme_title="Трапеция",
-                theme_order_index=4, snapshot_theme_id="4b4fdec3-28d2-4d56-b662-9795d37d443b",
-                expected_vertices=None, strategy_key=None, workflow_kind="content_rule",
-                content_rule_key="trapezoid-77152-isosceles-leg-from-sine",
-                rewrite_existing_solution=True,
-                condition_asset_id="324c1800-e987-4e60-9cb7-f41cc3d0254c",
-                condition_asset_sha256="7a40fc7067bd9d2358cd717894f3eb0a62ecb4b3dd573278137f2f58c863236d",
-            ),
+        "77152",
+        "913dd919-8d79-4ddc-be8c-f87a128e04c9",
+        25,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="1",
+        theme_title="Трапеция",
+        theme_order_index=4,
+        snapshot_theme_id="4b4fdec3-28d2-4d56-b662-9795d37d443b",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="trapezoid-77152-isosceles-leg-from-sine",
+        rewrite_existing_solution=True,
+        condition_asset_id="324c1800-e987-4e60-9cb7-f41cc3d0254c",
+        condition_asset_sha256="7a40fc7067bd9d2358cd717894f3eb0a62ecb4b3dd573278137f2f58c863236d",
+    ),
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        identifier,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="1",
+        theme_title="Трапеция",
+        theme_order_index=4,
+        snapshot_theme_id="4b4fdec3-28d2-4d56-b662-9795d37d443b",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, identifier, index, rule in (
+        (
+            "27439",
+            "2d5a623e-a06b-4479-a04d-a3e7935f6d9c",
+            0,
+            "isosceles-trapezoid-bases-leg-sine",
+        ),
+        (
+            "27440",
+            "fd2b274a-6258-4749-90cc-e7429dfb7f8c",
+            1,
+            "isosceles-trapezoid-bases-cosine-leg",
+        ),
+        (
+            "27441",
+            "ba54ab7a-4d49-498c-9a40-7df51a02b7d1",
+            2,
+            "isosceles-trapezoid-leg-sine-small-base",
+        ),
+        (
+            "27442",
+            "69c80e90-985f-4197-bcee-5b2209429a47",
+            3,
+            "isosceles-trapezoid-bases-tangent-height",
+        ),
+        (
+            "27443",
+            "abcb7fab-e061-4a27-9291-7076fdae025f",
+            4,
+            "isosceles-trapezoid-height-tangent-large-base",
+        ),
+        (
+            "27444",
+            "b8741a16-50be-46d4-b49b-2f4b73a28e4c",
+            5,
+            "isosceles-trapezoid-bases-height-tangent",
+        ),
+        (
+            "27631",
+            "3348ed08-44a3-471f-83d3-523e4e9edba9",
+            6,
+            "isosceles-trapezoid-bases-perimeter-area",
+        ),
+        (
+            "27632",
+            "df09762b-e9b0-4f00-ae1d-a4d1a63e1f32",
+            7,
+            "isosceles-trapezoid-bases-area-perimeter",
+        ),
+        (
+            "27635",
+            "bb6d07a0-270f-4056-81b7-47d9bffaa1ca",
+            10,
+            "isosceles-trapezoid-bases-leg-area",
+        ),
+        (
+            "27636",
+            "fa4868bb-23d4-43de-8402-ebcf65dc0d3a",
+            11,
+            "isosceles-trapezoid-bases-area-leg",
+        ),
+        (
+            "27833",
+            "93c82988-b1dc-475b-8cd8-64db8459b547",
+            17,
+            "isosceles-trapezoid-leg-sixty-small-base",
+        ),
+        (
+            "27834",
+            "b90e85b3-bade-4e85-a93b-9a9d369f4d28",
+            18,
+            "isosceles-trapezoid-bases-sixty-perimeter",
+        ),
+        (
+            "27837",
+            "9794a346-d280-478c-ae90-e7214c5d6895",
+            21,
+            "isosceles-trapezoid-bases-fortyfive-height",
+        ),
+    )
 )

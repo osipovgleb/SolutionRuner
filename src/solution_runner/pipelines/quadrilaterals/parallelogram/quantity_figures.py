@@ -6,6 +6,7 @@ from ...core.errors import ContentPlanError
 from ...probability.solution_diagrams import spec
 from ...triangles.isosceles.planner import _section
 from ...triangles.isosceles.side_altitude_figures import _identity, condition_changes
+from ..quantity_content import read_content
 from .bisector_figures import prepare as prepare_rhombus
 from .bisector_figures import selection as select_rhombus
 from .bisector_svg import DOUBLE_SOURCE, RATIO_KEY, RATIO_SOURCE, RHOMBUS_KEY
@@ -22,75 +23,10 @@ SINE_KEY = "quantity_sine_condition"
 DETAIL_KEY = "quantity_transfer_detail"
 
 
-def _content(context):
-    content = context.get("normalized_content")
-    if (
-        not isinstance(content, dict)
-        or content.get("format") != "teacherhelper-normalized"
-        or content.get("schema_version") != 3
-    ):
-        raise ContentPlanError("schema-v3 normalized quantity content is required")
-    sections, assets = content.get("sections"), content.get("assets")
-    if (
-        not isinstance(sections, list)
-        or any(not isinstance(s, dict) for s in sections)
-        or not isinstance(assets, list)
-        or any(not isinstance(a, dict) for a in assets)
-    ):
-        raise ContentPlanError(
-            "complete quantity sections and asset metadata are required"
-        )
-    by_key = {a.get("asset_key"): a for a in assets}
-    if len(by_key) != len(assets) or set(by_key) - {
-        "image_1",
-        "image_2",
-        SINE_KEY,
-        DETAIL_KEY,
-        RATIO_KEY,
-        RHOMBUS_KEY,
-    }:
-        raise ContentPlanError("unknown or duplicate quantity assets")
-    for a in assets:
-        identifier = a.get("asset_id")
-        if (
-            not isinstance(identifier, str)
-            or not identifier
-            or a.get("kind") != "ordinary_image"
-            or a.get("url") != "/assets/" + identifier
-        ):
-            raise ContentPlanError("quantity asset metadata changed")
-    owners = {}
-    for section in sections:
-        if not isinstance(section.get("html"), str):
-            raise ContentPlanError("complete quantity section HTML is required")
-        keys = []
-        for image in BeautifulSoup(section["html"], "html.parser").find_all("img"):
-            key = image.get("data-asset-key")
-            if (
-                key not in by_key
-                or key in owners
-                or section.get("key") not in {"condition", "solution"}
-            ):
-                raise ContentPlanError("ambiguous quantity figure ownership")
-            asset = by_key[key]
-            if (
-                image.get("data-asset-id") != asset["asset_id"]
-                or image.get("src") != asset["url"]
-                or image.get("data-transformation-target-id", "asset:" + key)
-                != "asset:" + key
-            ):
-                raise ContentPlanError("the quantity image differs from its metadata")
-            owners[key] = section["key"]
-            keys.append(key)
-        if section.get("asset_keys", []) != keys:
-            raise ContentPlanError("quantity section keys differ from image references")
-    if set(owners) != set(by_key):
-        raise ContentPlanError("unreferenced quantity asset metadata")
-    return content, by_key, owners
-
-
 def selection(context):
-    content, assets, owners = _content(context)
+    content, assets, owners = read_content(
+        context, {"image_1", "image_2", SINE_KEY, DETAIL_KEY, RATIO_KEY, RHOMBUS_KEY}
+    )
     condition = _section(content, "condition")
     if condition is None:
         raise ContentPlanError("one quantity condition is required")

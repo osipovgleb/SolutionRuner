@@ -180,6 +180,10 @@ def condition_changes(context, condition, current, key, identifier, url):
             )
     if any(
         a.get("asset_key") == "image_2" for a in context["normalized_content"]["assets"]
+    ) and not any(
+        t.get("transformation_target_id") == "asset:image_2"
+        and t.get("operation") == "remove"
+        for t in changes
     ):
         changes.append(
             {"transformation_target_id": "asset:image_2", "operation": "remove"}
