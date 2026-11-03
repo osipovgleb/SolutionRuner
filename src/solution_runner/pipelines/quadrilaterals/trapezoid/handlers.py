@@ -4,6 +4,7 @@ from solution_runner.pipelines.core.handlers import HandlerSpec
 
 from .altitude_model import RULES as ALTITUDE_RULES
 from .isosceles_model import RULES as ISO_RULES
+from .midline_model import RULES as MIDLINE_RULES
 
 HANDLERS = (
     HandlerSpec(
@@ -39,6 +40,10 @@ HANDLERS += tuple(
         (
             ALTITUDE_RULES,
             "solution_runner.pipelines.quadrilaterals.trapezoid.altitude_figures:diagram_specs",
+        ),
+        (
+            MIDLINE_RULES,
+            "solution_runner.pipelines.quadrilaterals.trapezoid.midline_figures:diagram_specs",
         ),
     )
     for rule in rules

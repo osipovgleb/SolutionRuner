@@ -1,0 +1,3301 @@
+{
+  "groups": [
+    {
+      "key": "27818",
+      "group_uuid": "f102c8c9-9516-4807-897b-3264aebeffb1",
+      "rule": "isosceles-trapezoid-opposite-angle-difference"
+    },
+    {
+      "key": "27820",
+      "group_uuid": "e54bab17-dfb1-4c3b-9e2a-305332eec3d0",
+      "rule": "trapezoid-midline-small-large-base"
+    },
+    {
+      "key": "27821",
+      "group_uuid": "90863877-a7b2-4d70-85b9-de79bbb6f3c1",
+      "rule": "trapezoid-diagonal-midline-piece"
+    },
+    {
+      "key": "27835",
+      "group_uuid": "0ac34681-40ec-409a-89ff-e6a8f5e33b82",
+      "rule": "trapezoid-parallel-cut-perimeter"
+    },
+    {
+      "key": "27836",
+      "group_uuid": "34fd9233-5038-44be-abd5-8b688ef964c8",
+      "rule": "isosceles-trapezoid-height-base-parts-midline"
+    },
+    {
+      "key": "27838",
+      "group_uuid": "61ad3e47-d1d5-40ed-ba1d-0e1a1942de64",
+      "rule": "trapezoid-perimeter-legs-midline"
+    },
+    {
+      "key": "27843",
+      "group_uuid": "0d27f82a-b15c-4334-b72c-4f40aabd2237",
+      "rule": "trapezoid-diagonal-midpoints-segment"
+    },
+    {
+      "key": "27844",
+      "group_uuid": "f26b39a4-2c98-4179-a799-559bb6864319",
+      "rule": "isosceles-trapezoid-perpendicular-diagonals-midline"
+    }
+  ],
+  "cases": [
+    {
+      "group": "27818",
+      "task": "27818",
+      "context": {
+        "problem_id": "2de29be1-c404-4fb1-8274-ddd4f74e0af2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:30.790090+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "html": "<img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:08:16.872968+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна 50°? Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:08:16.872968+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Раз­ность про­ти­во­ле­жа­щих углов равна 50°, а их сумма равна 180°, по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\begin{cases}\\angle C-\\angle A=50^{\\circ}\\\\\\angle C+\\angle A=180^{\\circ}\\end{cases}\\iff \\begin{cases}2\\angle C=230^{\\circ}\\\\\\angle A=180^{\\circ}-\\angle C\\end{cases}\\iff \\begin{cases}\\angle C=115^{\\circ}\\\\\\angle A=65^{\\circ}\\end{cases}\"></span> .</p></center><p>Боль­ший угол равен 115°.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:08:16.872968+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "kind": "ordinary_image",
+              "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна 50°? Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">115</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Раз­ность про­ти­во­ле­жа­щих углов равна 50°, а их сумма равна 180°, по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\begin{cases}\\angle C-\\angle A=50^{\\circ}\\\\\\angle C+\\angle A=180^{\\circ}\\end{cases}\\iff \\begin{cases}2\\angle C=230^{\\circ}\\\\\\angle A=180^{\\circ}-\\angle C\\end{cases}\\iff \\begin{cases}\\angle C=115^{\\circ}\\\\\\angle A=65^{\\circ}\\end{cases}\"></span> .</p></center><p>Боль­ший угол равен 115°.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27818",
+      "task": "49705",
+      "context": {
+        "problem_id": "64e52bd1-6c04-4fe0-8e85-ed4bbbcca1f4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:19.735014+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "html": "<img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:08:17.487537+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна 70°? Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:08:17.487537+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Раз­ность про­ти­во­ле­жа­щих углов равна 70°, а их сумма равна 180°, по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\begin{cases}\\angle C-\\angle A=70^{\\circ}\\\\\\angle C+\\angle A=180^{\\circ}\\end{cases}\\iff \\begin{cases}2\\angle C=250^{\\circ}\\\\\\angle A=180^{\\circ}-\\angle C\\end{cases}\\iff \\begin{cases}\\angle C=125^{\\circ}\\\\\\angle A=55^{\\circ}\\end{cases}\"></span> .</p></center><p>Боль­ший угол равен 125°.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:08:17.487537+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "kind": "ordinary_image",
+              "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна 70°? Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">125</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Раз­ность про­ти­во­ле­жа­щих углов равна 70°, а их сумма равна 180°, по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\begin{cases}\\angle C-\\angle A=70^{\\circ}\\\\\\angle C+\\angle A=180^{\\circ}\\end{cases}\\iff \\begin{cases}2\\angle C=250^{\\circ}\\\\\\angle A=180^{\\circ}-\\angle C\\end{cases}\\iff \\begin{cases}\\angle C=125^{\\circ}\\\\\\angle A=55^{\\circ}\\end{cases}\"></span> .</p></center><p>Боль­ший угол равен 125°.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27818",
+      "task": "49707",
+      "context": {
+        "problem_id": "6be744b7-6257-4cf3-9d82-198baf5d53fe",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:19.810494+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "html": "<img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:08:17.536834+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна <span data-inline-latex=\"50^{\\circ}\"></span>? Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:08:17.536834+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "kind": "ordinary_image",
+              "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна <span data-inline-latex=\"50^{\\circ}\"></span>? Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">115</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27818",
+      "task": "49709",
+      "context": {
+        "problem_id": "ee894fe4-7096-4b1b-bb5f-8e356cec4523",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:30.162279+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "html": "<img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:08:18.881826+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна <span data-inline-latex=\"10^{\\circ}\"></span>? Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:08:18.881826+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "kind": "ordinary_image",
+              "asset_id": "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3be35d9e-e571-40e8-8a82-e1a0366359ac\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3be35d9e-e571-40e8-8a82-e1a0366359ac\"/>Чему равен боль­ший угол рав­но­бед­рен­ной тра­пе­ции, если из­вест­но, что раз­ность про­ти­во­ле­жа­щих углов равна <span data-inline-latex=\"10^{\\circ}\"></span>? Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">95</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27820",
+      "task": "27820",
+      "context": {
+        "problem_id": "f21ad29e-0f75-4b6b-8150-ad9d7af0c691",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:30.214374+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "html": "<img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:15:22.954489+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Сред­няя линия тра­пе­ции равна 28, а мень­шее ос­но­ва­ние равно 18. Най­ди­те боль­шее ос­но­ва­ние тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:15:22.954489+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть длина боль­ше­го ос­но­ва­ния равна <i>x</i>. Сред­няя линия равна по­лу­сум­ме длин ос­но­ва­ний, <nobr>по­это­му  <span data-inline-latex=\"18+x=2\\cdot 28\"></span>,</nobr> <nobr>от­ку­да  <span data-inline-latex=\"x=38\"></span>.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:15:22.954489+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:15:22.954489+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "kind": "ordinary_image",
+              "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>Сред­няя линия тра­пе­ции равна 28, а мень­шее ос­но­ва­ние равно 18. Най­ди­те боль­шее ос­но­ва­ние тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">38</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть длина боль­ше­го ос­но­ва­ния равна <i>x</i>. Сред­няя линия равна по­лу­сум­ме длин ос­но­ва­ний, <nobr>по­это­му  <span data-inline-latex=\"18+x=2\\cdot 28\"></span>,</nobr> <nobr>от­ку­да  <span data-inline-latex=\"x=38\"></span>.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27820",
+      "task": "49799",
+      "context": {
+        "problem_id": "1c71b722-103d-4dfc-974b-9a8e07e461ed",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:30.598439+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "html": "<img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "kind": "ordinary_image",
+              "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>Сред­няя линия тра­пе­ции равна 45, а мень­шее ос­но­ва­ние равно 37. Най­ди­те боль­шее ос­но­ва­ние тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">53</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27820",
+      "task": "49801",
+      "context": {
+        "problem_id": "3c6250c4-ca1b-45a1-bff7-819c893701e6",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:13.811261+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "html": "<img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "kind": "ordinary_image",
+              "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>Сред­няя линия тра­пе­ции равна 51, а мень­шее ос­но­ва­ние равно 43. Най­ди­те боль­шее ос­но­ва­ние тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">59</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27820",
+      "task": "49803",
+      "context": {
+        "problem_id": "12b7c281-6c97-4a9f-ae4e-375a39c2b213",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:34.085502+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "html": "<img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "kind": "ordinary_image",
+              "asset_id": "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"2d5e6a8f-e987-4de5-a714-a05c39e6700b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2d5e6a8f-e987-4de5-a714-a05c39e6700b\"/>Сред­няя линия тра­пе­ции равна 47, а мень­шее ос­но­ва­ние равно 39. Най­ди­те боль­шее ос­но­ва­ние тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27821",
+      "task": "27821",
+      "context": {
+        "problem_id": "732bfd80-aa89-4877-9e77-04d789b63a5f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:50.462104+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/18705ade-6142-4b59-af59-6f7b7ada9af7",
+                "html": "<img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/18705ade-6142-4b59-af59-6f7b7ada9af7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "18705ade-6142-4b59-af59-6f7b7ada9af7",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:05:57.636304+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 4 и 10. Най­ди­те боль­ший из от­рез­ков, на ко­то­рые делит сред­нюю линию этой тра­пе­ции одна из ее диа­го­на­лей.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:05:57.636304+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Боль­ший от­ре­зок сред­ней линии тра­пе­ции яв­ля­ет­ся сред­ней ли­ни­ей тре­уголь­ни­ка <var data-math-identifier=\"ABD\">ABD</var>, а зна­чит, равен по­ло­ви­не его ос­но­ва­ния:</p><center><p> <span data-inline-latex=\"EO=\\frac{1}{2}AD=\\frac{1}{2}\\cdot 10=5\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:05:57.636304+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/18705ade-6142-4b59-af59-6f7b7ada9af7",
+              "kind": "ordinary_image",
+              "asset_id": "18705ade-6142-4b59-af59-6f7b7ada9af7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/18705ade-6142-4b59-af59-6f7b7ada9af7\"/>Ос­но­ва­ния тра­пе­ции равны 4 и 10. Най­ди­те боль­ший из от­рез­ков, на ко­то­рые делит сред­нюю линию этой тра­пе­ции одна из ее диа­го­на­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=77409203\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2025 по математике. Профильный уровень</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Боль­ший от­ре­зок сред­ней линии тра­пе­ции яв­ля­ет­ся сред­ней ли­ни­ей тре­уголь­ни­ка <var data-math-identifier=\"ABD\">ABD</var>, а зна­чит, равен по­ло­ви­не его ос­но­ва­ния:</p><center><p> <span data-inline-latex=\"EO=\\frac{1}{2}AD=\\frac{1}{2}\\cdot 10=5\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27821",
+      "task": "525370",
+      "context": {
+        "problem_id": "a57fd06a-8b0e-4be6-be73-e410fce708da",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:36.184778+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/18705ade-6142-4b59-af59-6f7b7ada9af7",
+                "html": "<img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/18705ade-6142-4b59-af59-6f7b7ada9af7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "18705ade-6142-4b59-af59-6f7b7ada9af7",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:05:58.651117+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 6 и 8. Най­ди­те боль­ший из от­рез­ков, на ко­то­рые делит сред­нюю линию этой тра­пе­ции одна из ее диа­го­на­лей.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:05:58.651117+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Боль­ший от­ре­зок сред­ней линии тра­пе­ции яв­ля­ет­ся сред­ней ли­ни­ей тре­уголь­ни­ка <var data-math-identifier=\"ABD\">ABD</var>, а зна­чит, равен по­ло­ви­не его ос­но­ва­ния:</p><center><p> <span data-inline-latex=\"EO=\\frac{1}{2}AD=\\frac{1}{2}\\cdot 8=4\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:05:58.651117+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/18705ade-6142-4b59-af59-6f7b7ada9af7",
+              "kind": "ordinary_image",
+              "asset_id": "18705ade-6142-4b59-af59-6f7b7ada9af7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/18705ade-6142-4b59-af59-6f7b7ada9af7\"/>Ос­но­ва­ния тра­пе­ции равны 6 и 8. Най­ди­те боль­ший из от­рез­ков, на ко­то­рые делит сред­нюю линию этой тра­пе­ции одна из ее диа­го­на­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=22990334\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 10.04.2019. Досрочная волна, резервный день</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Боль­ший от­ре­зок сред­ней линии тра­пе­ции яв­ля­ет­ся сред­ней ли­ни­ей тре­уголь­ни­ка <var data-math-identifier=\"ABD\">ABD</var>, а зна­чит, равен по­ло­ви­не его ос­но­ва­ния:</p><center><p> <span data-inline-latex=\"EO=\\frac{1}{2}AD=\\frac{1}{2}\\cdot 8=4\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27821",
+      "task": "562750",
+      "context": {
+        "problem_id": "28ca8bfe-ca63-416b-a523-2e8470c3ef47",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:02.787500+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/18705ade-6142-4b59-af59-6f7b7ada9af7",
+                "html": "<img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/18705ade-6142-4b59-af59-6f7b7ada9af7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "18705ade-6142-4b59-af59-6f7b7ada9af7",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:05:56.451918+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 5 и 9. Най­ди­те боль­ший из от­рез­ков, на ко­то­рые делит сред­нюю линию этой тра­пе­ции одна из ее диа­го­на­лей.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:05:56.451918+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Боль­ший от­ре­зок сред­ней линии тра­пе­ции яв­ля­ет­ся сред­ней ли­ни­ей тре­уголь­ни­ка <var data-math-identifier=\"ABD\">ABD</var>, а зна­чит, равен по­ло­ви­не его ос­но­ва­ния:</p><center><p> <span data-inline-latex=\"EO=\\frac{1}{2}AD=\\frac{1}{2}\\cdot 9=4{,}5\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:05:56.451918+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/18705ade-6142-4b59-af59-6f7b7ada9af7",
+              "kind": "ordinary_image",
+              "asset_id": "18705ade-6142-4b59-af59-6f7b7ada9af7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"18705ade-6142-4b59-af59-6f7b7ada9af7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/18705ade-6142-4b59-af59-6f7b7ada9af7\"/>Ос­но­ва­ния тра­пе­ции равны 5 и 9. Най­ди­те боль­ший из от­рез­ков, на ко­то­рые делит сред­нюю линию этой тра­пе­ции одна из ее диа­го­на­лей.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=39006077\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 2021 года. Досрочная волна</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Боль­ший от­ре­зок сред­ней линии тра­пе­ции яв­ля­ет­ся сред­ней ли­ни­ей тре­уголь­ни­ка <var data-math-identifier=\"ABD\">ABD</var>, а зна­чит, равен по­ло­ви­не его ос­но­ва­ния:</p><center><p> <span data-inline-latex=\"EO=\\frac{1}{2}AD=\\frac{1}{2}\\cdot 9=4{,}5\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27835",
+      "task": "27835",
+      "context": {
+        "problem_id": "6d19e6f9-f01e-427e-b2e1-0d6c00c24439",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:32.331247+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+                "html": "<img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.503802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пря­мая, про­ве­ден­ная па­рал­лель­но бо­ко­вой сто­ро­не тра­пе­ции через конец мень­ше­го ос­но­ва­ния, рав­но­го 4, от­се­ка­ет тре­уголь­ник, пе­ри­метр ко­то­ро­го равен 15. Най­ди­те пе­ри­метр тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.503802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>За­ме­тим, что че­ты­рех­уголь­ник <i>EBCD</i>  — па­рал­ле­ло­грамм. Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны. Сле­до­ва­тель­но,</p><center><p><span> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+AD=AB+BC+BE+(AE+ED)=AB+BE+AE+BC+ED=(AB+BE+AE)+2BC=P_{ABE}+2BC=15+8=23\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.503802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.503802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+              "kind": "ordinary_image",
+              "asset_id": "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\"/>Пря­мая, про­ве­ден­ная па­рал­лель­но бо­ко­вой сто­ро­не тра­пе­ции через конец мень­ше­го ос­но­ва­ния, рав­но­го 4, от­се­ка­ет тре­уголь­ник, пе­ри­метр ко­то­ро­го равен 15. Най­ди­те пе­ри­метр тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">23</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­ме­тим, что че­ты­рех­уголь­ник <i>EBCD</i>  — па­рал­ле­ло­грамм. Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны. Сле­до­ва­тель­но,</p><center><p><span> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+AD=AB+BC+BE+(AE+ED)=AB+BE+AE+BC+ED=(AB+BE+AE)+2BC=P_{ABE}+2BC=15+8=23\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27835",
+      "task": "50433",
+      "context": {
+        "problem_id": "88704541-a81a-4f60-a96f-8c75eade598a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:32.347078+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+                "html": "<img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.867391+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пря­мая, про­ве­ден­ная па­рал­лель­но бо­ко­вой сто­ро­не тра­пе­ции через конец мень­ше­го ос­но­ва­ния, рав­но­го 19, от­се­ка­ет тре­уголь­ник, пе­ри­метр ко­то­ро­го равен 39. Най­ди­те пе­ри­метр тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.867391+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>За­ме­тим, что че­ты­рех­уголь­ник <i>EBCD</i>  — па­рал­ле­ло­грамм. Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны. Сле­до­ва­тель­но,</p><center><p><span> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+AD=AB+BC+BE+(AE+ED)=AB+BE+AE+BC+ED=(AB+BE+AE)+2BC=P_{ABE}+2BC=39+38=77\"></span>.</span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.867391+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:06:40.867391+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+              "kind": "ordinary_image",
+              "asset_id": "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\"/>Пря­мая, про­ве­ден­ная па­рал­лель­но бо­ко­вой сто­ро­не тра­пе­ции через конец мень­ше­го ос­но­ва­ния, рав­но­го 19, от­се­ка­ет тре­уголь­ник, пе­ри­метр ко­то­ро­го равен 39. Най­ди­те пе­ри­метр тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">77</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>За­ме­тим, что че­ты­рех­уголь­ник <i>EBCD</i>  — па­рал­ле­ло­грамм. Про­ти­во­по­лож­ные сто­ро­ны па­рал­ле­ло­грам­ма по­пар­но равны. Сле­до­ва­тель­но,</p><center><p><span> <span data-inline-latex=\"P_{ABCD}=AB+BC+CD+AD=AB+BC+BE+(AE+ED)=AB+BE+AE+BC+ED=(AB+BE+AE)+2BC=P_{ABE}+2BC=39+38=77\"></span>.</span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27835",
+      "task": "50435",
+      "context": {
+        "problem_id": "ce75b76c-9d37-4f3d-b272-5f640a684203",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:34.077375+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+                "html": "<img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+              "kind": "ordinary_image",
+              "asset_id": "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58dcfe8c-cfbb-4aee-8e48-060acaa9f0af\"/>Пря­мая, про­ве­ден­ная па­рал­лель­но бо­ко­вой сто­ро­не тра­пе­ции через конец мень­ше­го ос­но­ва­ния, рав­но­го 25, от­се­ка­ет тре­уголь­ник, пе­ри­метр ко­то­ро­го равен 51. Най­ди­те пе­ри­метр тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">101</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27835",
+      "task": "50437",
+      "context": {
+        "problem_id": "92948f31-89e2-4f54-bd96-3ac8fdafae1e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:32.437168+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e32a4336-7ffb-4fb4-bf6c-e979316d6e6a",
+                "html": "<img alt=\"\" data-asset-id=\"e32a4336-7ffb-4fb4-bf6c-e979316d6e6a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e32a4336-7ffb-4fb4-bf6c-e979316d6e6a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e32a4336-7ffb-4fb4-bf6c-e979316d6e6a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e32a4336-7ffb-4fb4-bf6c-e979316d6e6a",
+              "kind": "ordinary_image",
+              "asset_id": "e32a4336-7ffb-4fb4-bf6c-e979316d6e6a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e32a4336-7ffb-4fb4-bf6c-e979316d6e6a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e32a4336-7ffb-4fb4-bf6c-e979316d6e6a\"/>Пря­мая, про­ве­ден­ная па­рал­лель­но бо­ко­вой сто­ро­не тра­пе­ции через конец мень­ше­го ос­но­ва­ния, рав­но­го 18, от­се­ка­ет тре­уголь­ник, пе­ри­метр ко­то­ро­го равен 37. Най­ди­те пе­ри­метр тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">73</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27836",
+      "task": "27836",
+      "context": {
+        "problem_id": "2d31c399-2bff-48a0-884b-c3a3e190b897",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:51.365565+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "html": "<img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:13.339687+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пер­пен­ди­ку­ляр, опу­щен­ный из вер­ши­ны ту­по­го угла на боль­шее ос­но­ва­ние рав­но­бед­рен­ной тра­пе­ции, делит его на части, име­ю­щие длины 10 и 4. Най­ди­те сред­нюю линию этой тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:13.339687+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Cред­няя линия тра­пе­ции равна</p><center><p> <span data-inline-latex=\"\\frac{AD+BC}{2}=\\frac{(AE+ED)+(AE-ED)}{2}=AE=10\"></span>. </p></center><p><b>При­ме­ча­ние</b>.</p><p>Вы­со­та, опу­щен­ная из вер­ши­ны ту­по­го угла рав­но­бед­рен­ной тра­пе­ции, делит боль­шее ос­но­ва­ние тра­пе­ции на два от­рез­ка, длина боль­ше­го из ко­то­рых равна по­лу­сум­ме длин ос­но­ва­ний, то есть сред­ней линии, а длина мень­ше­го  — по­лу­раз­но­сти длин ос­но­ва­ний.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:13.339687+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "kind": "ordinary_image",
+              "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>Пер­пен­ди­ку­ляр, опу­щен­ный из вер­ши­ны ту­по­го угла на боль­шее ос­но­ва­ние рав­но­бед­рен­ной тра­пе­ции, делит его на части, име­ю­щие длины 10 и 4. Най­ди­те сред­нюю линию этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Cред­няя линия тра­пе­ции равна</p><center><p> <span data-inline-latex=\"\\frac{AD+BC}{2}=\\frac{(AE+ED)+(AE-ED)}{2}=AE=10\"></span>. </p></center><p><b>При­ме­ча­ние</b>.</p><p>Вы­со­та, опу­щен­ная из вер­ши­ны ту­по­го угла рав­но­бед­рен­ной тра­пе­ции, делит боль­шее ос­но­ва­ние тра­пе­ции на два от­рез­ка, длина боль­ше­го из ко­то­рых равна по­лу­сум­ме длин ос­но­ва­ний, то есть сред­ней линии, а длина мень­ше­го  — по­лу­раз­но­сти длин ос­но­ва­ний.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27836",
+      "task": "50483",
+      "context": {
+        "problem_id": "a64298cc-efda-4fa9-932b-90b493af2787",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:52.740239+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "html": "<img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:14.351748+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пер­пен­ди­ку­ляр, опу­щен­ный из вер­ши­ны ту­по­го угла на боль­шее ос­но­ва­ние рав­но­бед­рен­ной тра­пе­ции, делит его на части, име­ю­щие длины 74 и 41. Най­ди­те сред­нюю линию этой тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:14.351748+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Cред­няя линия тра­пе­ции равна</p><center><p> <span data-inline-latex=\"\\frac{AD+BC}{2}=\\frac{(AE+ED)+(AE-ED)}{2}=AE=74\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:14.351748+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "kind": "ordinary_image",
+              "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>Пер­пен­ди­ку­ляр, опу­щен­ный из вер­ши­ны ту­по­го угла на боль­шее ос­но­ва­ние рав­но­бед­рен­ной тра­пе­ции, делит его на части, име­ю­щие длины 74 и 41. Най­ди­те сред­нюю линию этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">74</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Cред­няя линия тра­пе­ции равна</p><center><p> <span data-inline-latex=\"\\frac{AD+BC}{2}=\\frac{(AE+ED)+(AE-ED)}{2}=AE=74\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27836",
+      "task": "50527",
+      "context": {
+        "problem_id": "fa01a2de-2177-48b5-a67c-66ebd6fa7041",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:55.215979+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "html": "<img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:15.708990+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пер­пен­ди­ку­ляр, опу­щен­ный из вер­ши­ны ту­по­го угла на боль­шее ос­но­ва­ние рав­но­бед­рен­ной тра­пе­ции, делит его на части, име­ю­щие длины 38 и 23. Най­ди­те сред­нюю линию этой тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:15.708990+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Сред­няя линия тра­пе­ции равна</p><center><p> <span data-inline-latex=\"\\frac{AD+BC}{2}=\\frac{(AE+ED)+(AE-ED)}{2}=AE=38\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:15.708990+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "kind": "ordinary_image",
+              "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>Пер­пен­ди­ку­ляр, опу­щен­ный из вер­ши­ны ту­по­го угла на боль­шее ос­но­ва­ние рав­но­бед­рен­ной тра­пе­ции, делит его на части, име­ю­щие длины 38 и 23. Най­ди­те сред­нюю линию этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">38</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Сред­няя линия тра­пе­ции равна</p><center><p> <span data-inline-latex=\"\\frac{AD+BC}{2}=\\frac{(AE+ED)+(AE-ED)}{2}=AE=38\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27836",
+      "task": "50485",
+      "context": {
+        "problem_id": "23603897-b9c2-42cf-ae83-6fe3ea425229",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:51.299073+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "html": "<img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "kind": "ordinary_image",
+              "asset_id": "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"fc0d0177-148c-48b1-a8da-a25a5a72a6cc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fc0d0177-148c-48b1-a8da-a25a5a72a6cc\"/>Пер­пен­ди­ку­ляр, опу­щен­ный из вер­ши­ны ту­по­го угла на боль­шее ос­но­ва­ние рав­но­бед­рен­ной тра­пе­ции, делит его на части, име­ю­щие длины 102 и 55. Най­ди­те сред­нюю линию этой тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">102</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27838",
+      "task": "27838",
+      "context": {
+        "problem_id": "35f92a12-9fe0-444a-b655-b4e822371ad4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:00.250961+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+                "html": "<img alt=\"\" data-asset-id=\"bb0a47c4-4d4b-4e42-be3b-18afb98da371\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:50.684710+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"bb0a47c4-4d4b-4e42-be3b-18afb98da371\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пе­ри­метр тра­пе­ции равен 50, а сумма двух про­ти­во­по­лож­ных не­па­рал­лель­ных сто­рон равна 20. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:50.684710+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=\\frac{AD+BC}{2}=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{50-20}{2}=15\"></span>. </p></center><p>-----------------------------------------------</p><p>За­да­чи нет в От­кры­том банке</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:54:50.684710+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+              "kind": "ordinary_image",
+              "asset_id": "bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bb0a47c4-4d4b-4e42-be3b-18afb98da371\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371\"/>Пе­ри­метр тра­пе­ции равен 50, а сумма двух про­ти­во­по­лож­ных не­па­рал­лель­ных сто­рон равна 20. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По­сле­до­ва­тель­но по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=\\frac{AD+BC}{2}=\\frac{P_{ABCD}-(AB+CD)}{2}=\\frac{50-20}{2}=15\"></span>. </p></center><p>-----------------------------------------------</p><p>За­да­чи нет в От­кры­том банке</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27838",
+      "task": "50583",
+      "context": {
+        "problem_id": "4d18c285-6c74-49a0-8f99-4428a1a245a9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:00.390789+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+                "html": "<img alt=\"\" data-asset-id=\"bb0a47c4-4d4b-4e42-be3b-18afb98da371\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+              "kind": "ordinary_image",
+              "asset_id": "bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bb0a47c4-4d4b-4e42-be3b-18afb98da371\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371\"/>Пе­ри­метр тра­пе­ции равен 72, а сумма не­па­рал­лель­ных сто­рон равна 50. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">11</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27838",
+      "task": "50585",
+      "context": {
+        "problem_id": "a9375cce-702d-436e-abad-757c913857bd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:03.570316+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/835914ef-4287-4fbc-9c08-0526dfe87936",
+                "html": "<img alt=\"\" data-asset-id=\"835914ef-4287-4fbc-9c08-0526dfe87936\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/835914ef-4287-4fbc-9c08-0526dfe87936\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "835914ef-4287-4fbc-9c08-0526dfe87936",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/835914ef-4287-4fbc-9c08-0526dfe87936",
+              "kind": "ordinary_image",
+              "asset_id": "835914ef-4287-4fbc-9c08-0526dfe87936",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"835914ef-4287-4fbc-9c08-0526dfe87936\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/835914ef-4287-4fbc-9c08-0526dfe87936\"/>Пе­ри­метр тра­пе­ции равен 120, а сумма не­па­рал­лель­ных сто­рон равна 102. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27838",
+      "task": "50587",
+      "context": {
+        "problem_id": "654396b0-b7c1-447e-bbf5-21c83155c2fa",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:02.099916+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+                "html": "<img alt=\"\" data-asset-id=\"bb0a47c4-4d4b-4e42-be3b-18afb98da371\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+              "kind": "ordinary_image",
+              "asset_id": "bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bb0a47c4-4d4b-4e42-be3b-18afb98da371\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bb0a47c4-4d4b-4e42-be3b-18afb98da371\"/>Пе­ри­метр тра­пе­ции равен 112, а сумма не­па­рал­лель­ных сто­рон равна 70. Най­ди­те сред­нюю линию тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">21</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27843",
+      "task": "27843",
+      "context": {
+        "problem_id": "a9209be6-ec1f-4db6-a401-e78d8bdd1603",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:40.495630+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+                "html": "<img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:40.495630+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "html": "<img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:49:58.028789+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 3 и 2. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:58.028789+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=1\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=2{,}5-2=0{,}5\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p>От­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции, равен по­лу­раз­но­сти длин боль­ше­го и мень­ше­го ос­но­ва­ний. Сле­до­ва­тель­но, он <nobr>равен  <span data-inline-latex=\"(3-2)\\colon 2=0{,}5\"></span>.</nobr></p></section>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:58.028789+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:58.028789+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:49:58.028789+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+              "kind": "ordinary_image",
+              "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "kind": "ordinary_image",
+              "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>Ос­но­ва­ния тра­пе­ции равны 3 и 2. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=1\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=2{,}5-2=0{,}5\"></span>. </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение\"><p>От­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции, равен по­лу­раз­но­сти длин боль­ше­го и мень­ше­го ос­но­ва­ний. Сле­до­ва­тель­но, он <nobr>равен  <span data-inline-latex=\"(3-2)\\colon 2=0{,}5\"></span>.</nobr></p></section>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27843",
+      "task": "50833",
+      "context": {
+        "problem_id": "f5ada0b5-196a-4b23-9245-e67016b22e7c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:41.871493+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+                "html": "<img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:41.871493+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "html": "<img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:49:58.783206+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 12 и 60. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:58.783206+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=6\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=36-12=24\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:58.783206+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:58.783206+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+              "kind": "ordinary_image",
+              "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "kind": "ordinary_image",
+              "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>Ос­но­ва­ния тра­пе­ции равны 12 и 60. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">24</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=6\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=36-12=24\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27843",
+      "task": "50835",
+      "context": {
+        "problem_id": "20a9eeb1-fccc-4e69-a14a-65e338001cb4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:18.754687+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+                "html": "<img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:14:18.754687+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "html": "<img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:49:56.732676+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 6 и 48. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:56.732676+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=3\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=27-6=21\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:56.732676+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:56.732676+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+              "kind": "ordinary_image",
+              "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "kind": "ordinary_image",
+              "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>Ос­но­ва­ния тра­пе­ции равны 6 и 48. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">21</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=3\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=27-6=21\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27843",
+      "task": "50837",
+      "context": {
+        "problem_id": "0269bf51-acaf-41dd-bc80-cfa1e44f521a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:22.095929+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+                "html": "<img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:14:22.095929+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "html": "<img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:49:53.968460+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ос­но­ва­ния тра­пе­ции равны 8 и 20. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:53.968460+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=4\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=14-8=6\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:53.968460+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:53.968460+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f3300198-af16-408a-820a-0ec46476be90",
+              "kind": "ordinary_image",
+              "asset_id": "f3300198-af16-408a-820a-0ec46476be90",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "kind": "ordinary_image",
+              "asset_id": "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f3300198-af16-408a-820a-0ec46476be90\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f3300198-af16-408a-820a-0ec46476be90\"/>Ос­но­ва­ния тра­пе­ции равны 8 и 20. Най­ди­те от­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны диа­го­на­лей тра­пе­ции.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"cba9307b-727e-42e2-b2a7-29d6ad501c31\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/cba9307b-727e-42e2-b2a7-29d6ad501c31\"/></p><p>Пусть от­ре­зок <var data-math-identifier=\"KM\">KM</var>  — сред­няя линия тра­пе­ции. От­рез­ки <var data-math-identifier=\"EK\">EK</var> и <var data-math-identifier=\"FM\">FM</var> яв­ля­ют­ся сред­ни­ми ли­ни­я­ми тре­уголь­ни­ков <var data-math-identifier=\"ABC\">ABC</var> и <var data-math-identifier=\"DBC\">DBC</var>, по­это­му  <span data-inline-latex=\"EK=FM=\\frac{BC}{2}=4\"></span>.  По­лу­ча­ем:</p><center><p> <span data-inline-latex=\"EF=KM-EK-FM=\\frac{BC+AD}{2}-BC=14-8=6\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27844",
+      "task": "27844",
+      "context": {
+        "problem_id": "04c0e6f2-66cf-4052-8c72-a0219419685f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:14.299138+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+                "html": "<img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+              "kind": "ordinary_image",
+              "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>В рав­но­бед­рен­ной тра­пе­ции диа­го­на­ли пер­пен­ди­ку­ляр­ны. Вы­со­та тра­пе­ции равна 12. Най­ди­те ее сред­нюю линию.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В тра­пе­ции, диа­го­на­ли ко­то­рой пер­пен­ди­ку­ляр­ны, сред­няя линия равна от­рез­ку, со­еди­ня­ю­ще­му се­ре­ди­ны ос­но­ва­ний (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3011\" rel=\"noreferrer noopener\" target=\"_blank\">3011</a>). От­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны ос­но­ва­ний рав­но­бед­рен­ной тра­пе­ции, яв­ля­ет­ся ее вы­со­той (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3409\" rel=\"noreferrer noopener\" target=\"_blank\">3409</a>). Сле­до­ва­тель­но, в рав­но­бед­рен­ной тра­пе­ции со вза­им­но пер­пен­ди­ку­ляр­ны­ми диа­го­на­ля­ми сред­няя линия равна вы­со­те. По­это­му сред­няя линия равна 12.</p><p><b>При­ме­ча­ние.</b></p><p>Об этих и дру­гих свой­ствах тра­пе­ции можно про­чи­тать здесь: , .</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27844",
+      "task": "50881",
+      "context": {
+        "problem_id": "be464aff-1fbd-44a4-8d63-081dcb39c112",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:21.732330+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+                "html": "<img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+              "kind": "ordinary_image",
+              "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>В рав­но­бед­рен­ной тра­пе­ции диа­го­на­ли пер­пен­ди­ку­ляр­ны. Вы­со­та тра­пе­ции равна 46. Най­ди­те ее сред­нюю линию.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">46</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В тра­пе­ции, диа­го­на­ли ко­то­рой пер­пен­ди­ку­ляр­ны, сред­няя линия равна от­рез­ку, со­еди­ня­ю­ще­му се­ре­ди­ны ос­но­ва­ний (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3011\" rel=\"noreferrer noopener\" target=\"_blank\">3011</a>). От­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны ос­но­ва­ний рав­но­бед­рен­ной тра­пе­ции, яв­ля­ет­ся ее вы­со­той (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3409\" rel=\"noreferrer noopener\" target=\"_blank\">3409</a>). Сле­до­ва­тель­но, в рав­но­бед­рен­ной тра­пе­ции со вза­им­но пер­пен­ди­ку­ляр­ны­ми диа­го­на­ля­ми сред­няя линия равна вы­со­те. По­это­му сред­няя линия равна 46.</p><p><b>При­ме­ча­ние.</b></p><p>Об этих и дру­гих свой­ствах тра­пе­ции можно про­чи­тать здесь: , .</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27844",
+      "task": "50925",
+      "context": {
+        "problem_id": "a05aa779-d221-4b00-a4c9-092f8b0ccfb7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:18.441588+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+                "html": "<img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+              "kind": "ordinary_image",
+              "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>В рав­но­бед­рен­ной тра­пе­ции диа­го­на­ли пер­пен­ди­ку­ляр­ны. Вы­со­та тра­пе­ции равна 9. Най­ди­те ее сред­нюю линию.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В тра­пе­ции, диа­го­на­ли ко­то­рой пер­пен­ди­ку­ляр­ны, сред­няя линия равна от­рез­ку, со­еди­ня­ю­ще­му се­ре­ди­ны ос­но­ва­ний (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3011\" rel=\"noreferrer noopener\" target=\"_blank\">3011</a>). От­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны ос­но­ва­ний рав­но­бед­рен­ной тра­пе­ции, яв­ля­ет­ся ее вы­со­той (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3409\" rel=\"noreferrer noopener\" target=\"_blank\">3409</a>). Сле­до­ва­тель­но, в рав­но­бед­рен­ной тра­пе­ции со вза­им­но пер­пен­ди­ку­ляр­ны­ми диа­го­на­ля­ми сред­няя линия равна вы­со­те. По­это­му сред­няя линия равна 9.</p><p><b>При­ме­ча­ние.</b></p><p>Об этих и дру­гих свой­ствах тра­пе­ции можно про­чи­тать здесь: , .</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27844",
+      "task": "548504",
+      "context": {
+        "problem_id": "9709ddeb-60fd-4638-b655-272f419b6c6a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:18.415212+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+                "html": "<img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/700ce947-e033-41d3-bddb-4b72b949870e",
+              "kind": "ordinary_image",
+              "asset_id": "700ce947-e033-41d3-bddb-4b72b949870e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"700ce947-e033-41d3-bddb-4b72b949870e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/700ce947-e033-41d3-bddb-4b72b949870e\"/>В рав­но­бед­рен­ной тра­пе­ции диа­го­на­ли пер­пен­ди­ку­ляр­ны. Вы­со­та тра­пе­ции равна 18. Най­ди­те ее сред­нюю линию.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>В тра­пе­ции, диа­го­на­ли ко­то­рой пер­пен­ди­ку­ляр­ны, сред­няя линия равна от­рез­ку, со­еди­ня­ю­ще­му се­ре­ди­ны ос­но­ва­ний (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3011\" rel=\"noreferrer noopener\" target=\"_blank\">3011</a>). От­ре­зок, со­еди­ня­ю­щий се­ре­ди­ны ос­но­ва­ний рав­но­бед­рен­ной тра­пе­ции, яв­ля­ет­ся ее вы­со­той (см. <a href=\"https://planimetry-urok.sdamgia.ru/problem?id=3409\" rel=\"noreferrer noopener\" target=\"_blank\">3409</a>). Сле­до­ва­тель­но, в рав­но­бед­рен­ной тра­пе­ции со вза­им­но пер­пен­ди­ку­ляр­ны­ми диа­го­на­ля­ми сред­няя линия равна вы­со­те. По­это­му сред­няя линия равна 18.</p><p><b>При­ме­ча­ние.</b></p><p>Об этих и дру­гих свой­ствах тра­пе­ции можно про­чи­тать здесь: , .</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

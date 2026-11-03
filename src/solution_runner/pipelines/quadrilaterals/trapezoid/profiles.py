@@ -43,6 +43,54 @@ PROFILES += tuple(
     )
     for key, identifier, index, rule in (
         (
+            "27818",
+            "f102c8c9-9516-4807-897b-3264aebeffb1",
+            14,
+            "isosceles-trapezoid-opposite-angle-difference",
+        ),
+        (
+            "27820",
+            "e54bab17-dfb1-4c3b-9e2a-305332eec3d0",
+            15,
+            "trapezoid-midline-small-large-base",
+        ),
+        (
+            "27821",
+            "90863877-a7b2-4d70-85b9-de79bbb6f3c1",
+            16,
+            "trapezoid-diagonal-midline-piece",
+        ),
+        (
+            "27835",
+            "0ac34681-40ec-409a-89ff-e6a8f5e33b82",
+            19,
+            "trapezoid-parallel-cut-perimeter",
+        ),
+        (
+            "27836",
+            "34fd9233-5038-44be-abd5-8b688ef964c8",
+            20,
+            "isosceles-trapezoid-height-base-parts-midline",
+        ),
+        (
+            "27838",
+            "61ad3e47-d1d5-40ed-ba1d-0e1a1942de64",
+            22,
+            "trapezoid-perimeter-legs-midline",
+        ),
+        (
+            "27843",
+            "0d27f82a-b15c-4334-b72c-4f40aabd2237",
+            23,
+            "trapezoid-diagonal-midpoints-segment",
+        ),
+        (
+            "27844",
+            "f26b39a4-2c98-4179-a799-559bb6864319",
+            24,
+            "isosceles-trapezoid-perpendicular-diagonals-midline",
+        ),
+        (
             "27633",
             "8bfe166f-319f-4727-b562-8f0bf6345ea7",
             8,

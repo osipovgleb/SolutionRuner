@@ -9,6 +9,9 @@ from . import (
     isosceles_figures,
     isosceles_model,
     isosceles_proofs,
+    midline_figures,
+    midline_model,
+    midline_proofs,
 )
 from .quantity_sources import review_parent
 
@@ -20,6 +23,10 @@ FAMILIES = {
     **dict.fromkeys(
         altitude_model.RULES,
         (altitude_model.RULES, altitude_figures.prepare, altitude_proofs.render),
+    ),
+    **dict.fromkeys(
+        midline_model.RULES,
+        (midline_model.RULES, midline_figures.prepare, midline_proofs.render),
     ),
 }
 

@@ -92,6 +92,46 @@ PARENTS = {
         (("image_2", "ef5e7267-3207-4fa4-9339-efd4e38b9cb4"),),
         "792b617e20d39e22835ba014f7da0110f225bcc4c52d0e99dcc6bedd042f4dc8",
     ),
+    "isosceles-trapezoid-opposite-angle-difference": (
+        "3be35d9e-e571-40e8-8a82-e1a0366359ac",
+        (),
+        "96799e1a9c065b031488c82e2f8839fd582421a77f94bfcd7fedb1b801eb5ced",
+    ),
+    "trapezoid-midline-small-large-base": (
+        "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+        (),
+        "e387f9941a8e94592e22a4fd9ded46b7d7c38ce5de6e578e45cc8b2a3e246f6b",
+    ),
+    "trapezoid-diagonal-midline-piece": (
+        "18705ade-6142-4b59-af59-6f7b7ada9af7",
+        (),
+        "bdb0a6331c9d47f4816dac7a43401b2e7eb74a7fed0080fd14f466e636f78222",
+    ),
+    "trapezoid-parallel-cut-perimeter": (
+        "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+        (),
+        "bf0bcedbd8dfa9a99b2e9721a6530d6d7404d356a799865a320547e5cf9182ad",
+    ),
+    "isosceles-trapezoid-height-base-parts-midline": (
+        "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+        (),
+        "ec83c59b0b6326c7f89a63b1bf1ae6ae73fccadd2d4f813fb5aa04fcf5d9add1",
+    ),
+    "trapezoid-perimeter-legs-midline": (
+        "bb0a47c4-4d4b-4e42-be3b-18afb98da371",
+        (),
+        "57cedf58151265a43c82c546f52a0b6c8883b9230c019a7e398ae1b15cb8d0ed",
+    ),
+    "trapezoid-diagonal-midpoints-segment": (
+        "f3300198-af16-408a-820a-0ec46476be90",
+        (("image_2", "cba9307b-727e-42e2-b2a7-29d6ad501c31"),),
+        "20c6725d2a3e2173d270d758da2f6c7e5e79e20472bc5f88ce3260a6505fc3df",
+    ),
+    "isosceles-trapezoid-perpendicular-diagonals-midline": (
+        "700ce947-e033-41d3-bddb-4b72b949870e",
+        (),
+        "7566f5317a46bd08905bca1217d895a05fe2c6e4043844e5ea2ca2d269914301",
+    ),
 }
 
 SOURCES = {
@@ -150,6 +190,46 @@ SOURCES = {
     "ef5e7267-3207-4fa4-9339-efd4e38b9cb4": (
         "ef5e7267-3207-4fa4-9339-efd4e38b9cb4",
         "30d5e4337dcb946374ed9064d97880f17a507429f209af49754e78073f9eaf1d",
+    ),
+    "18705ade-6142-4b59-af59-6f7b7ada9af7": (
+        "18705ade-6142-4b59-af59-6f7b7ada9af7",
+        "f2f5185f9e73c065a76cc7081d5ae5d2ca2fddfd899dce9858de32f68a9bc7f4",
+    ),
+    "2d5e6a8f-e987-4de5-a714-a05c39e6700b": (
+        "2d5e6a8f-e987-4de5-a714-a05c39e6700b",
+        "dfedef5ad5662d41442c5e9bfdcc43a7af434f72323252e64d1f2f4289764fd3",
+    ),
+    "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af": (
+        "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+        "780047132eb9c96ca1536db8f1dd5aafab46c286a6b9d129a0bb4e1531155acb",
+    ),
+    "700ce947-e033-41d3-bddb-4b72b949870e": (
+        "700ce947-e033-41d3-bddb-4b72b949870e",
+        "7c581ec9903f5cb0ac0a9995d5412fbf1337c0bbcda6f88fcf7616d03c00b12b",
+    ),
+    "835914ef-4287-4fbc-9c08-0526dfe87936": (
+        "835914ef-4287-4fbc-9c08-0526dfe87936",
+        "de9cbc3f15c76b7986ad6d44521cd7ef02f9d3356762def22c1eb0c507f3f794",
+    ),
+    "bb0a47c4-4d4b-4e42-be3b-18afb98da371": (
+        "835914ef-4287-4fbc-9c08-0526dfe87936",
+        "de9cbc3f15c76b7986ad6d44521cd7ef02f9d3356762def22c1eb0c507f3f794",
+    ),
+    "cba9307b-727e-42e2-b2a7-29d6ad501c31": (
+        "cba9307b-727e-42e2-b2a7-29d6ad501c31",
+        "83679040790735de61fdff4512d0fa58f640ae94d341589f250a07810c1ef04d",
+    ),
+    "e32a4336-7ffb-4fb4-bf6c-e979316d6e6a": (
+        "58dcfe8c-cfbb-4aee-8e48-060acaa9f0af",
+        "780047132eb9c96ca1536db8f1dd5aafab46c286a6b9d129a0bb4e1531155acb",
+    ),
+    "f3300198-af16-408a-820a-0ec46476be90": (
+        "f3300198-af16-408a-820a-0ec46476be90",
+        "e384b2e5ff68da9956a9e8ccf6a3f558be166a293f7e408599c2e0850e9bbbbc",
+    ),
+    "fc0d0177-148c-48b1-a8da-a25a5a72a6cc": (
+        "fc0d0177-148c-48b1-a8da-a25a5a72a6cc",
+        "3547b4b5fe7d9b1dafea8b130b4a9837902cfad1905cf99016503a505135f6cd",
     ),
 }
 
