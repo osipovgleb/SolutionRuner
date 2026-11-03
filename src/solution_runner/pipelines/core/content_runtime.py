@@ -856,6 +856,8 @@ def _apply_record(
                 refreshed,
                 parent_asset_id=parent_asset_id,
                 content_rule_key=content_rule_key,
+                parent_solution_assets=parent_solution_assets,
+                parent_solution_html=parent_solution_html,
                 generated_solution_assets=refreshed_assets,
             )
             verified_transformations = verified.transformations

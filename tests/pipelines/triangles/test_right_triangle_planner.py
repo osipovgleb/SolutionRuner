@@ -622,7 +622,7 @@ def test_legacy_angle_and_altitude_content_rules_build_exact_solutions(
     ]
 
 
-def test_angle_runner_rejects_an_unrelated_requested_angle() -> None:
+def test_legacy_angle_runner_rejects_an_unrelated_requested_angle() -> None:
     """Block a task instead of applying the nearest-looking angle formula."""
 
     condition = (
@@ -631,7 +631,7 @@ def test_angle_runner_rejects_an_unrelated_requested_angle() -> None:
     )
 
     with pytest.raises(RightTrianglePlanError, match="altitude and bisector"):
-        _build_content_plan(
+        build_elementary_repair_plan(
             _elementary_context(condition, answer="16"),
             parent_asset_id=PARENT_ASSET_ID,
             content_rule_key="right-triangle-altitude-bisector-angle",

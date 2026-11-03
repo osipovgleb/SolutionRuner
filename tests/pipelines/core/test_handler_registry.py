@@ -43,6 +43,7 @@ def test_every_legacy_route_and_argument_is_preserved(key, monkeypatch):
         parent_solution_html="@parent_solution_html",
         parent_solution_assets="@parent_solution_assets",
         current_asset_content_type="@current_asset_content_type",
+        generated_solution_assets="@generated_solution_assets",
     ) is sentinel
 
 

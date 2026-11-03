@@ -854,19 +854,23 @@
     "requires_parent_condition_asset": true
   },
   "right-triangle-altitude-bisector-angle": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_ray_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-altitude-bisector-angle"
+      "content_rule_key": "right-triangle-altitude-bisector-angle",
+      "parent_solution_html": "@parent_solution_html",
+      "generated_solution_assets": "@generated_solution_assets"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "right-triangle-altitude-bisector-inverse": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_ray_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-altitude-bisector-inverse"
+      "content_rule_key": "right-triangle-altitude-bisector-inverse",
+      "parent_solution_html": "@parent_solution_html",
+      "generated_solution_assets": "@generated_solution_assets"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
@@ -882,19 +886,23 @@
     "requires_parent_condition_asset": true
   },
   "right-triangle-altitude-line-angle": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_ray_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-altitude-line-angle"
+      "content_rule_key": "right-triangle-altitude-line-angle",
+      "parent_solution_html": "@parent_solution_html",
+      "generated_solution_assets": "@generated_solution_assets"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "right-triangle-altitude-median-inverse": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_ray_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-altitude-median-inverse"
+      "content_rule_key": "right-triangle-altitude-median-inverse",
+      "parent_solution_html": "@parent_solution_html",
+      "generated_solution_assets": "@generated_solution_assets"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
@@ -929,19 +937,23 @@
     "requires_parent_condition_asset": true
   },
   "right-triangle-bisector-median-angle": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_ray_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-bisector-median-angle"
+      "content_rule_key": "right-triangle-bisector-median-angle",
+      "parent_solution_html": "@parent_solution_html",
+      "generated_solution_assets": "@generated_solution_assets"
     },
     "constraints": {},
     "requires_parent_condition_asset": true
   },
   "right-triangle-bisector-median-inverse": {
-    "target": "solution_runner.pipelines.triangles.right.planner:build_elementary_repair_plan",
+    "target": "solution_runner.pipelines.triangles.right.construction_ray_parent:prepare",
     "kwargs": {
       "parent_asset_id": "@parent_asset_id",
-      "content_rule_key": "right-triangle-bisector-median-inverse"
+      "content_rule_key": "right-triangle-bisector-median-inverse",
+      "parent_solution_html": "@parent_solution_html",
+      "generated_solution_assets": "@generated_solution_assets"
     },
     "constraints": {},
     "requires_parent_condition_asset": true

@@ -158,14 +158,7 @@ PROFILES = (
             strategy_key=None,
             workflow_kind="content_rule",
             content_rule_key=content_rule_key,
-            rewrite_existing_solution=content_rule_key
-            in {
-                "right-triangle-median-angle",
-                "right-triangle-bisector-intersection-angle",
-                "right-triangle-altitude-length",
-                "right-triangle-hypotenuse-projection-ah",
-                "right-triangle-hypotenuse-projection-bh",
-            },
+            rewrite_existing_solution=True,
         )
         for group_key, source_group_id, order_index, content_rule_key in (
             (
