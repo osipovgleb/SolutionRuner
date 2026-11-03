@@ -9,18 +9,22 @@ from ...probability.solution_diagrams import spec
 from ..isosceles.side_altitude_figures import _identity, condition_changes
 from .angle_sources import reviewed_condition
 from .equal_side_model import read_question
+from .exterior_bisector_svg import exterior_svg
 from .simple_angle_figures import _remapped
 
 EXTENSION = "2e9951a8-0515-442e-a55d-4cd9f3c803f7"
 CONGRUENT = "cf3bda48-a265-42a2-b690-1f890d0d1566"
-SOURCES = {"extension": EXTENSION, "congruent": CONGRUENT}
+EXTERIOR = "ac8920ea-6ec7-4a2d-a861-708f43a3ba02"
+SOURCES = {"extension": EXTENSION, "congruent": CONGRUENT, "exterior": EXTERIOR}
 KEYS = {
     EXTENSION: "equal_side_extension_condition",
     CONGRUENT: "equal_side_congruent_condition",
+    EXTERIOR: "equal_side_exterior_condition",
 }
 _HASHES = {
     EXTENSION: "57d576845bd1458e7a0e090c24b628f89f4355b7a141de743d45f1c09f0469ae",
     CONGRUENT: "669bf9990030cf20015ccbe5039cbaaff365f684348ebd7bd1ab6e5c13dc57ed",
+    EXTERIOR: "b5ba4bf8e21160602f0a0144b59ddacb7b734cdd72eee7c02f22718216337a88",
 }
 
 
@@ -44,7 +48,9 @@ def selection(context):
         raise ContentPlanError(
             "the source diagram depicts a different equal-side construction"
         )
-    if model.frame != "ABC":
+    if model.mode == "exterior" and model.alpha > model.beta:
+        diagram = spec(KEYS[source], exterior_svg(model, raw))
+    elif model.frame != "ABC":
         diagram = spec(
             KEYS[source],
             _remapped(model, raw, "ABDC" if model.mode == "extension" else "ABCDE"),

@@ -1,7 +1,6 @@
 """Verify both parent methods against independent equal-side constructions."""
 
 import itertools
-import math
 import re
 from copy import deepcopy
 
@@ -9,8 +8,7 @@ import pytest
 import sympy as sp
 from bs4 import BeautifulSoup
 from equal_side_cases import CASES, GROUPS, PARENTS, parent_html, plan, section
-from test_altitude_quad_preparation import angle
-from test_orthocenter_preparation import coordinates
+from equal_side_geometry import checked_values
 from test_two_ray_frozen_lifecycle import OfflineGateway
 from test_two_ray_source_methods import replay
 
@@ -29,72 +27,30 @@ from solution_runner.pipelines.triangles.general.equal_side_figures import (
 )
 
 FRAMES = ["".join(p) for p in itertools.permutations("ABC")]
-GROUP = {"extension": "27769", "congruent": "27776"}
+GROUP = {"extension": "27769", "congruent": "27776", "exterior": "27777"}
 
 
 def synthetic(mode, frame="ABC", values=None):
     case = PARENTS[GROUP[mode]]
     ctx = deepcopy(case["context"])
     image = BeautifulSoup(section(ctx, "condition")["html"], "html.parser").img
-    first, second = values or ((44, 62) if mode == "extension" else (45, 85))
+    first, second = (
+        values
+        or {"extension": (44, 62), "congruent": (45, 85), "exterior": (30, 86)}[mode]
+    )
     a, b, c = frame
     if mode == "extension":
         text = f"В треугольнике ABC угол {a} равен {first}°, угол {c} равен {second}°. На продолжении стороны {a}{b} за точку {b} отложен отрезок {b}D, равный стороне {b}{c}. Найдите угол D треугольника {b}{c}D. Ответ дайте в градусах."
-    else:
+    elif mode == "congruent":
         text = f"В треугольнике ABC угол {b} равен {first}°, угол {c} равен {second}°. {a}D — биссектриса, E — такая точка на {a}{b}, что {a}E = {a}{c}. Найдите угол {b}DE. Ответ дайте в градусах."
+    else:
+        text = f"В треугольнике ABC угол {a} равен {first}°, угол {b} равен {second}°. {c}D — биссектриса внешнего угла при вершине {c}, причем точка D лежит на прямой {a}{b}. На продолжении стороны {a}{c} за точку {c} выбрана такая точка E, что {c}E = {c}{b}. Найдите угол {b}DE. Ответ дайте в градусах."
     section(ctx, "condition")["html"] = f"<p>{image}{text}</p>"
     return case, ctx
 
 
 def check_rows(html, m):
-    points = coordinates(m.alpha, m.beta)
-    if m.mode == "extension":
-        length = math.dist(points["B"], points["C"])
-        points["D"] = (points["B"][0] + length, 0)
-        assert points["A"][0] < points["B"][0] < points["D"][0]
-        assert abs(math.dist(points["B"], points["D"]) - length) < 1e-9
-        values = {
-            "A": m.alpha,
-            "B": m.beta,
-            "C": m.gamma,
-            "CBD": 180 - m.beta,
-            "D": m.beta / 2,
-        }
-        for name, value in [
-            ("ABC", m.beta),
-            ("CBD", 180 - m.beta),
-            ("BDC", m.beta / 2),
-            ("BCD", m.beta / 2),
-        ]:
-            assert abs(angle(points, name) - float(value)) < 1e-8
-        count = 9
-    else:
-        length = math.dist(points["A"], points["C"])
-        base = math.dist(points["A"], points["B"])
-        points["E"] = (length, 0)
-        points["D"] = tuple(
-            (length * points["B"][i] + base * points["C"][i]) / (length + base)
-            for i in [0, 1]
-        )
-        assert 0 < points["E"][0] < points["B"][0]
-        assert (
-            abs(
-                math.dist(points["D"], points["C"])
-                - math.dist(points["D"], points["E"])
-            )
-            < 1e-8
-        )
-        assert abs(angle(points, "CAD") - angle(points, "EAD")) < 1e-8
-        values = {
-            "B": m.beta,
-            "C": m.gamma,
-            "DEA": m.gamma,
-            "DEB": 180 - m.gamma,
-            "BDE": m.gamma - m.beta,
-        }
-        for name in ["DEA", "DEB", "BDE"]:
-            assert abs(angle(points, name) - float(values[name])) < 1e-8
-        count = 7
+    values, count = checked_values(m)
     reverse = dict(zip(m.frame + "DE", "ABCDE"))
     rows = BeautifulSoup(html, "html.parser").select("center [data-inline-latex]")
     assert len(rows) == count

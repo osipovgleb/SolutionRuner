@@ -14,6 +14,7 @@ from .altitude_quad_model import _DEGREES
 RULES = {
     "general-triangle-27769-extension-isosceles-angle": "extension",
     "general-triangle-27776-bisector-congruent-angle": "congruent",
+    "general-triangle-27777-exterior-bisector-isosceles-angle": "exterior",
 }
 
 
@@ -29,19 +30,27 @@ class EqualSideAngle:
 
     @property
     def alpha(self):
-        return self.values[0] if self.mode == "extension" else 180 - sum(self.values)
+        return 180 - sum(self.values) if self.mode == "congruent" else self.values[0]
 
     @property
     def beta(self):
-        return 180 - sum(self.values) if self.mode == "extension" else self.values[0]
+        if self.mode == "extension":
+            return 180 - sum(self.values)
+        return self.values[0] if self.mode == "congruent" else self.values[1]
 
     @property
     def gamma(self):
-        return self.values[1]
+        return 180 - sum(self.values) if self.mode == "exterior" else self.values[1]
 
     @property
     def answer(self):
-        return self.beta / 2 if self.mode == "extension" else self.gamma - self.beta
+        if self.mode == "extension":
+            return self.beta / 2
+        return (
+            self.gamma - self.beta
+            if self.mode == "congruent"
+            else abs(self.beta - self.alpha)
+        )
 
     def require_rule(self, rule):
         if RULES.get(rule) != self.mode:
@@ -103,6 +112,36 @@ def _congruent(text, request, angles):
     return EqualSideAngle("congruent", a + b + c, (angles[b], angles[c]))
 
 
+def _exterior(text, request, angles):
+    match = re.fullmatch(
+        r"(?P<c>[ABC])D [—–-] биссектриса внешнего угла при вершине (?P=c), причем точка D лежит на прямой (?P<base>[ABC]{2})\. "
+        r"На продолжении стороны (?P<a>[ABC])(?P=c) за точку (?P=c) выбрана такая точка E, что (?P<first>[ABCDE]{2})\s*=\s*(?P<second>[ABCDE]{2})\.",
+        text,
+    )
+    target = re.fullmatch(r"\s*угол ([ABCDE]{3})\.\s*", request)
+    if match is None or target is None or match["a"] == match["c"]:
+        raise ContentPlanError(
+            "one complete exterior-bisector equal-side construction is required"
+        )
+    a, c = match["a"], match["c"]
+    b = (set("ABC") - {a, c}).pop()
+    equality = {frozenset(match["first"]), frozenset(match["second"])}
+    if (
+        set(match["base"]) != {a, b}
+        or equality != {frozenset(c + "E"), frozenset(c + b)}
+        or set(angles) != {a, b}
+        or target[1] not in {b + "DE", "ED" + b}
+    ):
+        raise ContentPlanError(
+            "the exterior bisector, equal extension or requested rays changed"
+        )
+    if angles[a] == angles[b]:
+        raise ContentPlanError(
+            "the exterior bisector is parallel to AB and has no finite point D"
+        )
+    return EqualSideAngle("exterior", a + b + c, (angles[a], angles[b]))
+
+
 def read_question(html, source):
     try:
         text = re.sub(r"\s+([,.])", r"\1", _text(html, source, labels="ABCDE"))
@@ -119,9 +158,13 @@ def read_question(html, source):
                 raise ContentPlanError("a given vertex angle is repeated")
             angles[match[1]] = _value(match[2])
             rest = rest[match.end() :].lstrip(" ,.")
-        model = (_extension if rest.startswith("На продолжении") else _congruent)(
-            rest.strip(), request, angles
-        )
+        if rest.startswith("На продолжении"):
+            constructor = _extension
+        elif re.match(r"[ABC]D [—–-] биссектриса внешнего", rest):
+            constructor = _exterior
+        else:
+            constructor = _congruent
+        model = constructor(rest.strip(), request, angles)
         if sum(model.values) >= 180:
             raise ContentPlanError(
                 "the given angles must define a nondegenerate triangle"

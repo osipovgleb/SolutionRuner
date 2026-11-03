@@ -197,18 +197,8 @@ HANDLERS = (
         for rule in (
             "general-triangle-27769-extension-isosceles-angle",
             "general-triangle-27776-bisector-congruent-angle",
+            "general-triangle-27777-exterior-bisector-isosceles-angle",
         )
-    ),
-    HandlerSpec(
-        "general-triangle-27777-exterior-bisector-isosceles-angle",
-        "solution_runner.pipelines.triangles.general.next_group_planner:build_repair_plan",
-        inputs=(
-            ("parent_solution_html", "parent_solution_html"),
-            ("parent_condition_asset_id", "parent_asset_id"),
-            ("parent_solution_assets", "parent_solution_assets"),
-        ),
-        options=(("rule", "general-triangle-27777-exterior-bisector-isosceles-angle"),),
-        parent_from_group_listing=True,
     ),
     HandlerSpec(
         "general-triangle-27779-orthocenter-altitudes-angle",

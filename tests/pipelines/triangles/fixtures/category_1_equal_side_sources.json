@@ -9,6 +9,11 @@
       "key": "27776",
       "size": 28,
       "rule": "general-triangle-27776-bisector-congruent-angle"
+    },
+    {
+      "key": "27777",
+      "size": 27,
+      "rule": "general-triangle-27777-exterior-bisector-isosceles-angle"
     }
   ],
   "cases": [
@@ -865,6 +870,545 @@
               "asset_keys": [],
               "section_id": "solution:1",
               "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27777",
+      "task": "27777",
+      "context": {
+        "problem_id": "2594697d-e227-4185-a518-77c6db76e38e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:46.271456+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "html": "<img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-09-06T00:15:56.678305+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=58^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=94^{\\circ}\"></span>,</p></center><p></p><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-58^{\\circ}-94^{\\circ})=2\\cdot 28^{\\circ}=56^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "kind": "ordinary_image",
+              "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен 30°, угол <var data-math-identifier=\"B\">B</var> равен 86°, <var data-math-identifier=\"CD\">CD</var>  — бис­сек­три­са внеш­не­го угла при вер­ши­не <var data-math-identifier=\"C\">C</var>, при­чем точка <var data-math-identifier=\"D\">D</var> лежит на пря­мой <var data-math-identifier=\"AB\">AB</var>. На про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AC\">AC</var> за точку <var data-math-identifier=\"C\">C</var> вы­бра­на такая точка <var data-math-identifier=\"E\">E</var>, что <var data-math-identifier=\"CE\">CE</var>  =  <var data-math-identifier=\"CB\">CB</var>. Най­ди­те угол <var data-math-identifier=\"BDE\">BDE</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">56</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=58^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=94^{\\circ}\"></span>,</p></center><p></p><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-58^{\\circ}-94^{\\circ})=2\\cdot 28^{\\circ}=56^{\\circ}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27777",
+      "task": "47943",
+      "context": {
+        "problem_id": "f32e7d80-37bf-4497-a09b-8e75bfc213e4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 12,
+          "items": [
+            {
+              "at": "2026-09-05T23:12:02.210723+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=31{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=134^{\\circ}\"></span>,</p><p></p><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-31{,}5^{\\circ}-134^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:09:00.236149+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "html": "<img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T05:11:22.757883+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"17^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"46^{\\circ}\"></span>, <var data-math-identifier=\"CD\">CD</var>  — бис­сек­три­са внеш­не­го угла при вер­ши­не <var data-math-identifier=\"C\">C</var>, при­чем точка <var data-math-identifier=\"D\">D</var> лежит на пря­мой <var data-math-identifier=\"AB\">AB</var>. На про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AC\">AC</var> за точку <var data-math-identifier=\"C\">C</var> вы­бра­на такая точка <var data-math-identifier=\"E\">E</var>, что <span data-inline-latex=\"CE=CB\"></span>. Най­ди­те угол <var data-math-identifier=\"BDE\">BDE</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:11:22.757883+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=31{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=134^{\\circ}\"></span>,</p><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-31{,}5^{\\circ}-134^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T05:11:22.757883+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T05:11:22.757883+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T05:11:22.757883+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "kind": "ordinary_image",
+              "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/><span data-inline-latex=\"17^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"46^{\\circ}\"></span>, <var data-math-identifier=\"CD\">CD</var>  — бис­сек­три­са внеш­не­го угла при вер­ши­не <var data-math-identifier=\"C\">C</var>, при­чем точка <var data-math-identifier=\"D\">D</var> лежит на пря­мой <var data-math-identifier=\"AB\">AB</var>. На про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AC\">AC</var> за точку <var data-math-identifier=\"C\">C</var> вы­бра­на такая точка <var data-math-identifier=\"E\">E</var>, что <span data-inline-latex=\"CE=CB\"></span>. Най­ди­те угол <var data-math-identifier=\"BDE\">BDE</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=31{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=134^{\\circ}\"></span>,</p><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-31{,}5^{\\circ}-134^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">29</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27777",
+      "task": "47945",
+      "context": {
+        "problem_id": "c17d316e-2b14-42a3-873e-f8fa74846005",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-09-06T00:09:27.550723+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=49{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=116^{\\circ}\"></span>,</p></center><p></p><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-49{,}5^{\\circ}-116^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:08:53.656698+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "html": "<img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T05:11:14.814076+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"35^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"64^{\\circ}\"></span>, <var data-math-identifier=\"CD\">CD</var>  — бис­сек­три­са внеш­не­го угла при вер­ши­не <var data-math-identifier=\"C\">C</var>, при­чем точка <var data-math-identifier=\"D\">D</var> лежит на пря­мой <var data-math-identifier=\"AB\">AB</var>. На про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AC\">AC</var> за точку <var data-math-identifier=\"C\">C</var> вы­бра­на такая точка <var data-math-identifier=\"E\">E</var>, что <span data-inline-latex=\"CE=CB\"></span>. Най­ди­те угол <var data-math-identifier=\"BDE\">BDE</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:11:14.814076+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=49{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=116^{\\circ}\"></span>,</p></center><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-49{,}5^{\\circ}-116^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T05:11:14.814076+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T05:11:14.814076+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T05:11:14.814076+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "kind": "ordinary_image",
+              "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/><span data-inline-latex=\"35^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"64^{\\circ}\"></span>, <var data-math-identifier=\"CD\">CD</var>  — бис­сек­три­са внеш­не­го угла при вер­ши­не <var data-math-identifier=\"C\">C</var>, при­чем точка <var data-math-identifier=\"D\">D</var> лежит на пря­мой <var data-math-identifier=\"AB\">AB</var>. На про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AC\">AC</var> за точку <var data-math-identifier=\"C\">C</var> вы­бра­на такая точка <var data-math-identifier=\"E\">E</var>, что <span data-inline-latex=\"CE=CB\"></span>. Най­ди­те угол <var data-math-identifier=\"BDE\">BDE</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=49{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=116^{\\circ}\"></span>,</p></center><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-49{,}5^{\\circ}-116^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">29</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27777",
+      "task": "47947",
+      "context": {
+        "problem_id": "2feca81b-1774-435d-b40e-b3fbcd0424a3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-09-06T00:09:27.674293+00:00",
+              "by": {
+                "type": "mcp"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=73{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=92^{\\circ}\"></span>,</p></center><p></p><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-73{,}5^{\\circ}-92^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "add",
+              "transformation_target_id": "section:solution"
+            },
+            {
+              "at": "2026-10-02T05:08:33.477533+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "html": "<img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "add",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T05:10:27.325164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><span data-inline-latex=\"59^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"88^{\\circ}\"></span>, <var data-math-identifier=\"CD\">CD</var>  — бис­сек­три­са внеш­не­го угла при вер­ши­не <var data-math-identifier=\"C\">C</var>, при­чем точка <var data-math-identifier=\"D\">D</var> лежит на пря­мой <var data-math-identifier=\"AB\">AB</var>. На про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AC\">AC</var> за точку <var data-math-identifier=\"C\">C</var> вы­бра­на такая точка <var data-math-identifier=\"E\">E</var>, что <span data-inline-latex=\"CE=CB\"></span>. Най­ди­те угол <var data-math-identifier=\"BDE\">BDE</var>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T05:10:27.325164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=73{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=92^{\\circ}\"></span>,</p></center><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-73{,}5^{\\circ}-92^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T05:10:27.325164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T05:10:27.325164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T05:10:27.325164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "kind": "ordinary_image",
+              "asset_id": "ac8920ea-6ec7-4a2d-a861-708f43a3ba02",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В тре­уголь­ни­ке <var data-math-identifier=\"ABC\">ABC</var> угол <var data-math-identifier=\"A\">A</var> равен <img alt=\"\" data-asset-id=\"ac8920ea-6ec7-4a2d-a861-708f43a3ba02\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ac8920ea-6ec7-4a2d-a861-708f43a3ba02\"/><span data-inline-latex=\"59^{\\circ}\"></span>, угол <var data-math-identifier=\"B\">B</var> равен <span data-inline-latex=\"88^{\\circ}\"></span>, <var data-math-identifier=\"CD\">CD</var>  — бис­сек­три­са внеш­не­го угла при вер­ши­не <var data-math-identifier=\"C\">C</var>, при­чем точка <var data-math-identifier=\"D\">D</var> лежит на пря­мой <var data-math-identifier=\"AB\">AB</var>. На про­дол­же­нии сто­ро­ны <var data-math-identifier=\"AC\">AC</var> за точку <var data-math-identifier=\"C\">C</var> вы­бра­на такая точка <var data-math-identifier=\"E\">E</var>, что <span data-inline-latex=\"CE=CB\"></span>. Най­ди­те угол <var data-math-identifier=\"BDE\">BDE</var>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Тре­уголь­ни­ки <var data-math-identifier=\"CBD\">CBD</var> и <var data-math-identifier=\"ECD\">ECD</var> равны по двум сто­ро­нам и углу между ними, по­это­му  <span data-inline-latex=\"\\angle BDC=\\angle CDE\"></span>. Сле­до­ва­тель­но,</p><center><p> <span data-inline-latex=\"\\angle BDE=2\\angle BDC=2(180^{\\circ}-\\angle BCD-\\angle CBD)\"></span> .</p></center><p>Учи­ты­вая, что</p><center><p> <span data-inline-latex=\"\\angle BCD=\\frac{\\angle BCE}{2}=\\frac{\\angle A+\\angle B}{2}=73{,}5^{\\circ}\"></span>, <br/> <span data-inline-latex=\"\\angle CBD=180^{\\circ}-\\angle B=92^{\\circ}\"></span>,</p></center><p>по­лу­ча­ем</p><center><p> <span data-inline-latex=\"\\angle BDE=2(180^{\\circ}-73{,}5^{\\circ}-92^{\\circ})=2\\cdot 14{,}5^{\\circ}=29^{\\circ}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">29</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
             }
           ],
           "schema_version": 3,

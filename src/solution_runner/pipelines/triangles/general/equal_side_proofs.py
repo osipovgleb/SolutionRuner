@@ -10,6 +10,7 @@ from ..right.altitude_methods import solution_section
 PARENTS = {
     "general-triangle-27769-extension-isosceles-angle": "4ce83d90824297e088fe7a5716550f7b890f0dd7f6250a0c961cb66b1a384a8e",
     "general-triangle-27776-bisector-congruent-angle": "04317116ca7b2d2aef49735495a9d13868072772761de6ea75258a7f5141e3fe",
+    "general-triangle-27777-exterior-bisector-isosceles-angle": "9e2b21ac2516cc26b64af649e1e2717cecb057391712981dcccf84465194bdfb",
 }
 
 
@@ -56,7 +57,48 @@ def _congruent(m):
     )
 
 
-def render(model):
-    return solution_section(
-        "Решение", (_extension if model.mode == "extension" else _congruent)(model)
+def _exterior(m):
+    a, b, bdc, bcd, cbd, bde = [
+        angle(m.name(n)) for n in ["A", "B", "BDC", "BCD", "CBD", "BDE"]
+    ]
+    forward = m.beta > m.alpha
+    half = (m.alpha + m.beta) / 2
+    phi = half if forward else 180 - half
+    adjacent = 180 - m.beta if forward else m.beta
+    numerator = a + "+" + b
+    numeric = degree(m.alpha) + "+" + degree(m.beta)
+    formula = r"\frac{" + numerator + "}{2}"
+    substitution = r"\frac{" + numeric + "}{2}"
+    if not forward:
+        formula, substitution = (
+            r"180^{\circ}-" + formula,
+            r"180^{\circ}-" + substitution,
+        )
+    location = (
+        f"Точка D лежит на продолжении {m.name('AB')} за {m.name('B')}."
+        if forward
+        else f"Точка D лежит на продолжении {m.name('BA')} за {m.name('A')}. Луч {m.name('CD')} противоположен биссектрисе угла {m.name('BCE')}."
     )
+    cbd_relation = r"180^{\circ}-" + b if forward else b
+    cbd_substitution = r"180^{\circ}-" + degree(m.beta) if forward else degree(m.beta)
+    return (
+        f"<p>Треугольники {m.name('CBD')} и {m.name('ECD')} равны по двум сторонам и углу между ними: {m.name('CB')} = {m.name('CE')}, {m.name('CD')} — общая сторона, а углы при {m.name('C')} равны благодаря внешней биссектрисе. Поэтому углы {m.name('BDC')} и {m.name('CDE')} равны. {location} Следовательно:</p>"
+        + line(bde + "=2" + bdc)
+        + f"<p>Внешний угол {m.name('BCE')} равен сумме углов {m.name('A')} и {m.name('B')}. Учитывая положение луча {m.name('CD')}, найдём два угла треугольника {m.name('BCD')}:</p>"
+        + line(bcd + "=" + formula)
+        + line(bcd + "=" + substitution)
+        + line(bcd + "=" + degree(phi))
+        + line(cbd + "=" + cbd_relation)
+        + line(cbd + "=" + cbd_substitution)
+        + (line(cbd + "=" + degree(adjacent)) if forward else "")
+        + f"<p>Угол {m.name('BDC')} дополняет сумму двух других углов треугольника {m.name('BCD')} до 180°. Подставим найденные углы и удвоим результат:</p>"
+        + line(bde + r"=2(180^{\circ}-" + degree(phi) + "-" + degree(adjacent) + ")")
+        + line(bde + r"=2\cdot" + degree(m.answer / 2) + "=" + degree(m.answer))
+    )
+
+
+def render(model):
+    method = {"extension": _extension, "congruent": _congruent, "exterior": _exterior}[
+        model.mode
+    ]
+    return solution_section("Решение", method(model))
