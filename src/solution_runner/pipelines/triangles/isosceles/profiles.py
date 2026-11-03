@@ -408,6 +408,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27589-area-from-side-and-30-degree-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27590",
@@ -422,6 +423,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27590-area-from-side-and-150-degree-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27619",
@@ -436,6 +438,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27619-area-from-side-and-base",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27620",
@@ -450,6 +453,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27620-side-from-area-and-30-degree-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27621",
@@ -464,6 +468,7 @@ PROFILES = (
         strategy_key=None,
         workflow_kind="content_rule",
         content_rule_key="isosceles-triangle-27621-side-from-area-and-150-degree-vertex-angle",
+        rewrite_existing_solution=True,
     ),
     _profile(
         "27744",

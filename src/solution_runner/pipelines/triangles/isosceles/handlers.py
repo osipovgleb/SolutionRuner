@@ -147,30 +147,28 @@ HANDLERS = (
             "isosceles-triangle-27353-obtuse-tangent-from-altitude-and-projection",
         )
     ),
-    HandlerSpec(
-        "isosceles-triangle-27589-area-from-side-and-30-degree-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27589_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27590-area-from-side-and-150-degree-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27590_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27619-area-from-side-and-base",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27619_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27620-side-from-area-and-30-degree-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27620_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
-    ),
-    HandlerSpec(
-        "isosceles-triangle-27621-side-from-area-and-150-degree-vertex-angle",
-        "solution_runner.pipelines.triangles.isosceles.planner:build_group_27621_repair_plan",
-        inputs=(("parent_condition_asset_id", "parent_asset_id"),),
+    *(
+        HandlerSpec(
+            rule,
+            "solution_runner.pipelines.triangles.isosceles.area_parent:prepare",
+            inputs=(
+                ("parent_condition_asset_id", "parent_asset_id"),
+                ("parent_solution_html", "parent_solution_html"),
+                ("parent_solution_assets", "parent_solution_assets"),
+                ("generated_solution_assets", "generated_solution_assets"),
+            ),
+            options=(("content_rule_key", rule),),
+            requires_frozen_manifest=True,
+            verify_content_readback=True,
+            diagram_builder="solution_runner.pipelines.triangles.isosceles.area_figures:diagram_specs",
+        )
+        for rule in (
+            "isosceles-triangle-27589-area-from-side-and-30-degree-vertex-angle",
+            "isosceles-triangle-27590-area-from-side-and-150-degree-vertex-angle",
+            "isosceles-triangle-27619-area-from-side-and-base",
+            "isosceles-triangle-27620-side-from-area-and-30-degree-vertex-angle",
+            "isosceles-triangle-27621-side-from-area-and-150-degree-vertex-angle",
+        )
     ),
     HandlerSpec(
         "isosceles-triangle-27744-vertex-angle-from-base-angle",
