@@ -39,16 +39,14 @@ def source_bytes(source):
     return raw
 
 
-def uncropped_svg():
-    root = ET.fromstring(source_bytes(BARE))
+def canvas_svg(root, boxes):
     x, y, width, height = map(float, root.get("viewBox").split())
     left, top, right, bottom = x, y, x + width, y + height
-    for rect in root.iter("{" + _NS + "}rect"):
-        rx, ry = float(rect.get("x", 0)), float(rect.get("y", 0))
+    for rx, ry, rw, rh in boxes:
         left, top = min(left, rx), min(top, ry)
         right, bottom = (
-            max(right, rx + float(rect.get("width"))),
-            max(bottom, ry + float(rect.get("height"))),
+            max(right, rx + rw),
+            max(bottom, ry + rh),
         )
     left, top, right, bottom = left - 2, top - 2, right + 2, bottom + 2
     box = " ".join(
@@ -60,6 +58,24 @@ def uncropped_svg():
     root.set("height", f"{bottom - top:.6f}px")
     root.set("enable-background", "new " + box)
     return ET.tostring(root, encoding="unicode")
+
+
+def uncrop_svg(raw):
+    root = ET.fromstring(raw)
+    boxes = [
+        (
+            float(r.get("x", 0)),
+            float(r.get("y", 0)),
+            float(r.get("width")),
+            float(r.get("height")),
+        )
+        for r in root.iter("{" + _NS + "}rect")
+    ]
+    return canvas_svg(root, boxes)
+
+
+def uncropped_svg():
+    return uncrop_svg(source_bytes(BARE))
 
 
 def diagram_specs(context):
