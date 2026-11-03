@@ -82,8 +82,10 @@ class FakeMCP:
 
 def freeze(gateway, contexts, *, rewrite_existing_solution=False):
     profile = get_group_profile("27591")
-    if rewrite_existing_solution:
-        profile = replace(profile, existing_solution_policy="rewrite")
+    profile = replace(
+        profile,
+        existing_solution_policy="rewrite" if rewrite_existing_solution else "preserve",
+    )
     targets = tuple(
         ProblemTarget(
             c["problem_id"], c["source_problem_id"], profile.source_group_id, "27591", i
@@ -111,9 +113,11 @@ def apply(gateway, manifest, tmp_path):
     )
 
 
-def test_parent_is_unchanged_and_child_uses_parent_proof_and_asset():
+def test_parent_and_child_use_expanded_parent_method_and_asset():
     assert plan(FIXTURES[0]).answer == "24"
-    assert plan(FIXTURES[0]).transformations == ()
+    assert [
+        t["transformation_target_id"] for t in plan(FIXTURES[0]).transformations
+    ] == ["section:solution:1"]
     result = plan(FIXTURES[1])
     assert result.answer == "32"
     assert [t["transformation_target_id"] for t in result.transformations] == [
@@ -224,7 +228,7 @@ def test_wrong_existing_solution_is_repaired(tmp_path, html):
     assert plan(gateway.contexts[context["problem_id"]]).transformations == ()
 
 
-def test_default_preserve_policy_keeps_an_existing_editorial_solution(tmp_path):
+def test_explicit_preserve_policy_keeps_an_existing_editorial_solution(tmp_path):
     context = deepcopy(FIXTURES[0])
     section(context, "solution")["html"] = "<p>Редакторское решение.</p>"
     gateway = FakeMCP(context)
