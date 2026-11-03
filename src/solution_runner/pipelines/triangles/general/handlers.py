@@ -123,8 +123,11 @@ HANDLERS = (
         inputs=(
             ("parent_condition_asset_id", "parent_asset_id"),
             ("parent_solution_html", "parent_solution_html"),
+            ("parent_solution_assets", "parent_solution_assets"),
         ),
         parent_from_group_listing=True,
+        requires_frozen_manifest=True,
+        verify_content_readback=True,
     ),
     HandlerSpec(
         "general-triangle-27757-altitude-angle",

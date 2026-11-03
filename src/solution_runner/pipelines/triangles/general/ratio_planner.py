@@ -2,19 +2,20 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
+import hashlib
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
 
+from ...probability.common import line
 from ..isosceles.planner import (
     _normalized_content,
     _section,
     _section_transformation,
 )
 from ..right.planner import RepairPlan, RightTrianglePlanError
-
 
 RULE = "general-triangle-27752-angle-ratio"
 CONDITION_ASSET_ID = "74d09078-6b65-4331-ab6f-2b3c7e7dbe84"
@@ -42,8 +43,15 @@ def _condition_text(condition_html: str) -> str:
         raise RightTrianglePlanError("condition contains duplicate image markup")
     for wrapper in image_wrappers:
         children = [item for item in wrapper.children if getattr(item, "name", None)]
-        if len(children) != 1 or children[0].name != "img":
-            raise RightTrianglePlanError("condition contains unsupported centered markup")
+        if (
+            len(children) != 1
+            or children[0].name != "img"
+            or wrapper.get_text(strip=True)
+            or wrapper.attrs
+        ):
+            raise RightTrianglePlanError(
+                "condition contains unsupported centered markup"
+            )
         image = children[0]
         if (
             image.get("data-asset-key") != "image_1"
@@ -76,12 +84,17 @@ def _condition_text(condition_html: str) -> str:
         raise RightTrianglePlanError("condition must contain at most one inline ratio")
     for formula in formulas:
         if formula.get_text("", strip=True):
-            raise RightTrianglePlanError("inline ratio contains conflicting fallback text")
+            raise RightTrianglePlanError(
+                "inline ratio contains conflicting fallback text"
+            )
         raw = str(formula.get("data-inline-latex") or "")
-        if re.fullmatch(
-            r"[1-9]\d{0,5}\s*\\colon\s*[1-9]\d{0,5}\s*\\colon\s*[1-9]\d{0,5}",
-            raw,
-        ) is None:
+        if (
+            re.fullmatch(
+                r"[1-9]\d{0,5}\s*\\colon\s*[1-9]\d{0,5}\s*\\colon\s*[1-9]\d{0,5}",
+                raw,
+            )
+            is None
+        ):
             raise RightTrianglePlanError("inline ratio has an unsupported form")
         formula.replace_with(raw)
     return " ".join(
@@ -96,7 +109,9 @@ def _parse_ratio(condition_html: str) -> tuple[int, int, int]:
     text = _condition_text(condition_html)
     match = _CONDITION.fullmatch(text)
     if match is None:
-        raise RightTrianglePlanError("condition does not match the registered angle-ratio rule")
+        raise RightTrianglePlanError(
+            "condition does not match the registered angle-ratio rule"
+        )
     return tuple(int(match.group(name)) for name in ("a", "b", "c"))
 
 
@@ -114,24 +129,31 @@ def _solution_html(ratio: tuple[int, int, int]) -> tuple[int, str]:
     answer_value = answer.numerator
     terms = tuple(_term(value) for value in ratio)
     sum_formula = "+".join(terms)
-    first_row = (
-        rf"{sum_formula}=180^{{\circ}}\iff "
-        rf"{total}x=180^{{\circ}}\iff x={unit_value}^{{\circ}}"
-    )
+    rows = [
+        sum_formula + r"=180^{\circ}",
+        "(" + "+".join(str(n) for n in ratio) + r")x=180^{\circ}",
+        rf"{total}x=180^{{\circ}}",
+        rf"x=\frac{{180^{{\circ}}}}{{{total}}}",
+        rf"x={unit_value}^{{\circ}}",
+    ]
     least = min(ratio)
-    last_row = (
-        rf"{least}x={least}\cdot{unit_value}^{{\circ}}={answer_value}^{{\circ}}"
-        if least != 1
-        else rf"x={unit_value}^{{\circ}}"
-    )
+    conclusion = 'Наименьший угол равен <span data-inline-latex="x"></span>.'
+    if least != 1:
+        rows.extend(
+            [
+                rf"{least}x={least}\cdot{unit_value}^{{\circ}}",
+                rf"{least}x={answer_value}^{{\circ}}",
+            ]
+        )
+        conclusion = f'Наименьший угол равен <span data-inline-latex="{least}x"></span>. Вычислим его:'
     html = (
         f"<p>Пусть углы треугольника равны "
         f'<span data-inline-latex="{terms[0]}"></span>, '
         f'<span data-inline-latex="{terms[1]}"></span> и '
-        f'<span data-inline-latex="{terms[2]}"></span>. Тогда</p>'
-        f'<center><p><span data-inline-latex="{first_row}"></span>.</p></center>'
-        "<p>Следовательно,</p>"
-        f'<center><p><span data-inline-latex="{last_row}"></span>.</p></center>'
+        f'<span data-inline-latex="{terms[2]}"></span>. Тогда по сумме углов треугольника:</p>'
+        + "".join(line(row) for row in rows[:5])
+        + f"<p>Следовательно, {conclusion}</p>"
+        + "".join(line(row) for row in rows[5:])
     )
     return answer_value, html
 
@@ -175,6 +197,8 @@ def _condition_has_asset(content: dict[str, Any], condition: dict[str, Any]) -> 
     if not isinstance(assets, list):
         raise RightTrianglePlanError("normalized assets must be a list")
     ordinary = [item for item in assets if isinstance(item, dict)]
+    if len(ordinary) != len(assets):
+        raise RightTrianglePlanError("normalized assets must contain objects")
     if not ordinary:
         if condition.get("asset_keys") not in (None, []):
             raise RightTrianglePlanError("condition asset references are unresolved")
@@ -193,8 +217,12 @@ def _condition_has_asset(content: dict[str, Any], condition: dict[str, Any]) -> 
     if tuple(condition.get("asset_keys") or ()) != ("image_1",):
         raise RightTrianglePlanError("condition does not own the registered asset")
     for section in content.get("sections", []):
-        if section is not condition and "image_1" in tuple(section.get("asset_keys") or ()):
-            raise RightTrianglePlanError("registered asset is attached outside the condition")
+        if section is not condition and "image_1" in tuple(
+            section.get("asset_keys") or ()
+        ):
+            raise RightTrianglePlanError(
+                "registered asset is attached outside the condition"
+            )
     return True
 
 
@@ -203,10 +231,17 @@ def build_repair_plan(
     *,
     parent_condition_asset_id: str,
     parent_solution_html: str = "",
+    parent_solution_assets: tuple[dict[str, str], ...] = (),
 ) -> RepairPlan:
     """Build an exact solution, answer, and shared-condition-asset repair."""
 
-    del parent_solution_html
+    if (
+        not isinstance(parent_solution_html, str)
+        or hashlib.sha256(parent_solution_html.encode()).hexdigest()
+        != "a2fa5ed0ea230a8306dcfb924f7b96c3eb975e6b4b0224a9889dbba329b4d44b"
+        or parent_solution_assets
+    ):
+        raise RightTrianglePlanError("the reviewed angle-ratio parent method changed")
     if parent_condition_asset_id != CONDITION_ASSET_ID:
         raise RightTrianglePlanError("registered group condition asset changed")
     content = _normalized_content(context)

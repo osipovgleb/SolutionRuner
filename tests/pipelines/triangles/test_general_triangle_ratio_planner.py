@@ -2,18 +2,19 @@
 
 from __future__ import annotations
 
+import json
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 
+from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.triangles.general.ratio_planner import (
-    CONDITION_ASSET_ALT,
     CONDITION_ASSET_ID,
     CONDITION_ASSET_SHA256,
     RULE,
     build_repair_plan,
 )
-from solution_runner.pipelines.core.group_profiles import get_group_profile
 from solution_runner.pipelines.triangles.right.planner import (
     RightTrianglePlanError,
 )
@@ -21,6 +22,14 @@ from solution_runner.pipelines.triangles.right.runtime import (
     _pinned_condition_asset_id,
 )
 
+NATIVE = json.loads(
+    (Path(__file__).parent / "fixtures/category_1_angle_ratio_sources.json").read_text()
+)
+PARENT_HTML = next(
+    s["html"]
+    for s in NATIVE["cases"][0]["context"]["normalized_content"]["sections"]
+    if s["key"] == "solution"
+)
 
 PARENT = {
     "problem_id": "11a2a614-4daf-412f-b03a-f33eab3e7e11",
@@ -74,7 +83,7 @@ REPAIR_CHILD = {
                 "title": "Условие",
                 "asset_keys": [],
                 "html": (
-                    '<p>Углы тре­уголь­ни­ка от­но­сят­ся как '
+                    "<p>Углы тре­уголь­ни­ка от­но­сят­ся как "
                     '<span data-inline-latex="3\\colon 13\\colon 14"></span>. '
                     "Най­ди­те мень­ший из них. Ответ дайте в гра­ду­сах.</p>"
                 ),
@@ -104,6 +113,7 @@ def _plan(context: dict):
     return build_repair_plan(
         context,
         parent_condition_asset_id=CONDITION_ASSET_ID,
+        parent_solution_html=PARENT_HTML,
     )
 
 
@@ -169,14 +179,14 @@ def test_group_27752_profile_pins_scope_rule_and_shared_svg() -> None:
         (
             PARENT,
             "40",
-            r"2x+3x+4x=180^{\circ}\iff 9x=180^{\circ}\iff x=20^{\circ}",
-            r"2x=2\cdot20^{\circ}=40^{\circ}",
+            r"9x=180^{\circ}",
+            r"2x=40^{\circ}",
         ),
         (
             REPAIR_CHILD,
             "18",
-            r"3x+13x+14x=180^{\circ}\iff 30x=180^{\circ}\iff x=6^{\circ}",
-            r"3x=3\cdot6^{\circ}=18^{\circ}",
+            r"30x=180^{\circ}",
+            r"3x=18^{\circ}",
         ),
     ],
 )
@@ -189,11 +199,14 @@ def test_parent_and_real_repair_child_receive_adapted_latex_solution(
     assert plan.answer == answer
     assert formula in solution
     assert last_formula in solution
-    assert solution.count("<p>") == 4
-    assert "<p>Следовательно,</p>" in solution
+    assert solution.count("<center>") == 7
+    assert "<p>Следовательно," in solution
     assert "Наименьшему коэффициенту" not in solution
     assert "Ответ:" not in solution
-    assert _transformation(plan, "asset:image_1")["value"]["asset_id"] == CONDITION_ASSET_ID
+    assert (
+        _transformation(plan, "asset:image_1")["value"]["asset_id"]
+        == CONDITION_ASSET_ID
+    )
 
 
 @pytest.mark.parametrize("stored", [None, "", "<p>-</p>", "<p>999</p>"])
@@ -216,7 +229,7 @@ def test_missing_malformed_or_wrong_answer_is_repaired(stored: str | None) -> No
     [
         "<p>Углы треугольника относятся как 0 : 3 : 4. Найдите меньший из них. Ответ дайте в градусах.</p>",
         "<p>Углы треугольника относятся как 2 : 3 : 4. Найдите больший из них. Ответ дайте в градусах.</p>",
-        "<p style=\"display:none\">Углы треугольника относятся как 2 : 3 : 4. Найдите меньший из них. Ответ дайте в градусах.</p>",
+        '<p style="display:none">Углы треугольника относятся как 2 : 3 : 4. Найдите меньший из них. Ответ дайте в градусах.</p>',
         "<p>Углы треугольника относятся как 2 : 3 : 6. Найдите меньший из них. Ответ дайте в градусах.</p>",
     ],
 )
@@ -232,7 +245,11 @@ def test_foreign_or_duplicate_condition_assets_fail_closed() -> None:
     for assets in (
         [{"asset_key": "image_1", "asset_id": "foreign", "kind": "ordinary_image"}],
         [
-            {"asset_key": "image_1", "asset_id": CONDITION_ASSET_ID, "kind": "ordinary_image"},
+            {
+                "asset_key": "image_1",
+                "asset_id": CONDITION_ASSET_ID,
+                "kind": "ordinary_image",
+            },
             {"asset_key": "image_2", "asset_id": "foreign", "kind": "ordinary_image"},
         ],
     ):
