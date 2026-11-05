@@ -1,6 +1,7 @@
 """Declare solid families once with strict frozen preparation and readback."""
 
 from ..core.handlers import HandlerSpec
+from .box_section_sources import PARENTS as SECTIONS
 from .box_sources import PARENTS as BOX
 from .cube_sources import PARENTS as CUBE
 from .distance_sources import PARENTS as DISTANCES
@@ -53,6 +54,14 @@ HANDLERS = tuple(
                 "solid-polyhedron-pyramid-with-note": "solution_runner.pipelines.solids.polyhedron_figures:note_specs",
                 "solid-polyhedron-triangle-pyramid": "solution_runner.pipelines.solids.polyhedron_figures:triangle_specs",
                 "solid-polyhedron-face-pyramid": "solution_runner.pipelines.solids.polyhedron_figures:face_specs",
+            },
+        ),
+        (
+            SECTIONS,
+            "solution_runner.pipelines.solids.box_section_parent:prepare",
+            {
+                "solid-box-vertical-section": "solution_runner.pipelines.solids.box_section_figures:vertical_specs",
+                "solid-box-oblique-section": "solution_runner.pipelines.solids.box_section_figures:oblique_specs",
             },
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
