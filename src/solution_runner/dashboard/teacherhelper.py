@@ -88,6 +88,10 @@ CATEGORY_IDS = {
     ): "c46da7fb-daf2-4509-b721-88edeb688aa0",
     (
         "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        "15",
+    ): "0e4da486-32f7-4410-b2b9-81a73beac39b",
+    (
+        "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
         "17",
     ): "7c0adfb2-67b5-4f4d-b823-e0ff9c2d3a81",
     (

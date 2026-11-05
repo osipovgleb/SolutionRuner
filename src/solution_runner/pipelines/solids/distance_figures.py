@@ -10,11 +10,11 @@ from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import _identity
 from ..triangles.right.basic_parent import _targeted
 from ..word_problems.common import rewrite
-from . import distance_svg
+from . import distance_svg, spatial_distance_sources, spatial_distance_svg
 from .box_condition_repairs import restore_html
 from .box_distance_geometry import blue
-from .box_distance_model import read_question
 from .distance_sources import FIGURES, MODE_SOURCES, source_bytes
+from .spatial_distance_model import MODES, read_question
 
 CONDITION = "box_distance_condition"
 SOLUTION = "box_distance_solution"
@@ -32,7 +32,12 @@ ROLES = {
 }
 
 
-def compatible(model, source, role):
+ROLES = ROLES | spatial_distance_sources.ROLES
+
+
+def compatible(model, source, role, slot=None):
+    if model.mode in MODES:
+        return spatial_distance_sources.compatible(model, source, role, slot)
     data = FIGURES[source]
     required, allowed = blue(model, role)
     marked = {tuple(x) for x in data["blue"]}
@@ -60,9 +65,20 @@ def _read(context):
         images[0]["data-transformation-target-id"] = "asset:image_1"
     model = read_question(str(soup), source)
     for key, a in assets.items():
+        allowed = (
+            {"image_1", "image_2"}
+            if model.mode == "pyramid_skew_midpoint"
+            else {"image_1", SOLUTION}
+        )
+        if model.mode in MODES and (key not in allowed or owners[key] != "solution"):
+            raise ContentPlanError(
+                "the proof-only spatial diagrams belong to the solution"
+            )
         expected = (
             "condition"
-            if key == CONDITION or key == "image_1" and model.mode != "diagonal"
+            if key == CONDITION
+            or key == "image_1"
+            and model.mode not in {"diagonal", *MODES}
             else "solution"
         )
         if (
@@ -78,6 +94,14 @@ def _read(context):
         if key in {"image_1", "image_2"}:
             if a["asset_id"] not in MODE_SOURCES[model.mode]:
                 raise ContentPlanError("the spatial figure needs review")
+            if (
+                model.mode in MODES
+                and spatial_distance_sources.DATA["figures"][a["asset_id"]]["slot"]
+                != key
+            ):
+                raise ContentPlanError(
+                    "the proof diagram occupies another reviewed slot"
+                )
             source_bytes(a["asset_id"])
     return model, condition, restored, assets, owners
 
@@ -91,6 +115,8 @@ def selection(context):
             for k, a in assets.items()
             if owners[k] == role and not (m.mode == "edge" and role == "solution")
         ]
+        if m.mode in MODES:
+            current = [a for a in current if a["asset_key"] in {native_key, SOLUTION}]
         if len(current) > 1:
             raise ContentPlanError("duplicate spatial figures have the same role")
         old = current[0] if current else None
@@ -100,9 +126,20 @@ def selection(context):
             + [base]
             + list(MODE_SOURCES[m.mode])
         )
-        source = next((s for s in candidates if compatible(m, s, role)), None)
+        source = next(
+            (s for s in candidates if compatible(m, s, role, native_key)), None
+        )
         key = native_key if source else CONDITION if role == "condition" else SOLUTION
-        drawing = None if source else spec(key, distance_svg.figure_svg(m, base, role))
+        drawing = (
+            None
+            if source
+            else spec(
+                key,
+                spatial_distance_svg.render(m)
+                if m.mode in MODES
+                else distance_svg.figure_svg(m, base, role),
+            )
+        )
         figures.append((role, old, source or base, key, drawing))
     return m, condition, restored, assets, figures
 
@@ -165,7 +202,7 @@ def prepare(context, generated):
                 _condition_change(condition, restored, image, old, key, identifier)
             )
         else:
-            pictures["solution"] = image
+            pictures[key if m.mode in MODES else "solution"] = image
             keys.append(key)
     for key in set(assets) - desired:
         if not any(
@@ -176,4 +213,9 @@ def prepare(context, generated):
             changes.append(
                 {"transformation_target_id": "asset:" + key, "operation": "remove"}
             )
-    return m, tuple(changes), pictures.get("solution", ""), tuple(keys)
+    return (
+        m,
+        tuple(changes),
+        pictures if m.mode in MODES else pictures.get("solution", ""),
+        tuple(keys),
+    )

@@ -155,6 +155,10 @@ def _space_distance(m, picture, s):
 
 
 def render(m, picture):
+    from . import spatial_distance_model, spatial_distance_proofs
+
+    if m.mode in spatial_distance_model.MODES:
+        return spatial_distance_proofs.render(m, picture)
     s = scene(m)
     if m.mode == "edge":
         return _inverse(m, picture, s)

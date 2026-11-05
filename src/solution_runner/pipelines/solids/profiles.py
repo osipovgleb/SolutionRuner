@@ -12,6 +12,7 @@ from .orthogonal_profiles import PROFILES as ORTHOGONAL_PROFILES
 from .polyhedron_profiles import PROFILES as POLYHEDRON_PROFILES
 from .prism_profiles import PROFILES as PRISM_PROFILES
 from .pyramid_profiles import PROFILES as PYRAMID_PROFILES
+from .spatial_distance_profiles import PROFILES as SPATIAL_DISTANCE_PROFILES
 from .sphere_profiles import PROFILES as SPHERE_PROFILES
 from .vertex_angle_profiles import PROFILES as VERTEX_ANGLE_PROFILES
 
@@ -116,3 +117,6 @@ PROFILES += PYRAMID_PROFILES
 PROFILES += COMBINED_PROFILES
 
 PROFILES += ORTHOGONAL_PROFILES
+
+
+PROFILES += SPATIAL_DISTANCE_PROFILES

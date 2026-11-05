@@ -1,5 +1,7 @@
 """Reviewed spatial-distance parents, numeric figures and marked segments."""
 
+from . import spatial_distance_sources
+
 RULES = {
     "solid-box-distance-squared": "distance_squared",
     "solid-box-vertex-distance": "distance",
@@ -187,3 +189,9 @@ def review_parent(rule, primary, html, assets):
     return source_assets.review_parent(
         rule, primary, html, assets, parents=PARENTS, sources=SOURCES
     )
+
+
+RULES = RULES | spatial_distance_sources.RULES
+PARENTS = PARENTS | spatial_distance_sources.PARENTS
+SOURCES = SOURCES | spatial_distance_sources.SOURCES
+MODE_SOURCES = MODE_SOURCES | spatial_distance_sources.MODE_SOURCES
