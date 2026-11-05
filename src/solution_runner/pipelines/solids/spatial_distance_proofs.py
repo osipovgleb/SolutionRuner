@@ -171,6 +171,8 @@ def _box(m, pictures):
 
 def render(m, pictures):
     from . import (
+        cube_plane_section_model,
+        cube_plane_section_proofs,
         prism_separation_model,
         prism_separation_proofs,
         spatial_altitude_model,
@@ -179,8 +181,14 @@ def render(m, pictures):
         spatial_metric_proofs,
         spatial_plane_model,
         spatial_plane_proofs,
+        spatial_section_model,
+        spatial_section_proofs,
     )
 
+    if m.mode in spatial_section_model.MODES:
+        return spatial_section_proofs.render(m, pictures)
+    if m.mode in cube_plane_section_model.MODES:
+        return cube_plane_section_proofs.render(m, pictures)
     if m.mode in spatial_altitude_model.MODES:
         return spatial_altitude_proofs.render(m, pictures)
     if m.mode in prism_separation_model.MODES:

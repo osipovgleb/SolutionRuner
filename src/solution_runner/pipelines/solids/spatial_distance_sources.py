@@ -8,6 +8,19 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-cube-midplane-volume-distance": (
+        "cube_base_plane_distance",
+        "cube_vertical_plane_distance",
+    ),
+    "solid-rectangular-pyramid-parallel-section": "pyramid_parallel_section_height",
+    "solid-triangle-pyramid-bisector-section": (
+        "triangle_bisector_section_edge",
+        "triangle_bisector_section_area",
+    ),
+    "solid-square-pyramid-parallel-section": (
+        "pyramid_parallel_section_area",
+        "pyramid_parallel_section_angle",
+    ),
     "solid-rectangular-pyramid-altitude": (
         "rectangular_pyramid_distance",
         "rectangular_pyramid_angle",
@@ -57,6 +70,30 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    "cube_base_plane_distance": (
+        ("solution", "image_1", "554860bc-05fd-4543-a1a5-033b62595aaf"),
+        ("solution", "image_2", "a0825224-ae99-467c-8821-f211cdd4f66d"),
+    ),
+    "cube_vertical_plane_distance": (
+        ("solution", "image_1", "b71f92af-059b-431f-86e5-210da544f331"),
+        ("solution", "image_2", "d1ee9696-4e38-4ef0-9634-f685fa36446b"),
+    ),
+    "pyramid_parallel_section_height": (
+        ("solution", "image_1", "83267fa9-e42c-43a6-8954-fcbd9451ab25"),
+    ),
+    "triangle_bisector_section_edge": (
+        ("solution", "image_1", "fa6eb3eb-f0aa-4db0-ad43-b80685420ef9"),
+    ),
+    "triangle_bisector_section_area": (
+        ("solution", "image_1", "fa6eb3eb-f0aa-4db0-ad43-b80685420ef9"),
+    ),
+    "pyramid_parallel_section_area": (
+        ("solution", "image_1", "b0161b2a-665d-4e9d-8da8-49431e26eeac"),
+        ("solution", "image_2", "b062f3b9-4d51-4cd9-9b17-05ec47180101"),
+    ),
+    "pyramid_parallel_section_angle": (
+        ("solution", "image_1", "ff8131d0-eddf-40d3-ab66-d2c57ea797f1"),
+    ),
     "rectangular_pyramid_distance": (
         ("solution", "image_1", "38d4bcc9-4139-426b-aadd-a55612638acd"),
     ),

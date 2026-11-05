@@ -9,10 +9,12 @@ from bs4 import BeautifulSoup
 from ..core.errors import ContentPlanError
 from . import box_coordinates as c
 from . import (
+    cube_plane_section_model,
     prism_separation_model,
     spatial_altitude_model,
     spatial_metric_model,
     spatial_plane_model,
+    spatial_section_model,
 )
 from .box_distance_model import read_question as read_box
 from .measurements import positive
@@ -28,6 +30,8 @@ MODES = (
     | spatial_plane_model.MODES
     | spatial_altitude_model.MODES
     | prism_separation_model.MODES
+    | spatial_section_model.MODES
+    | cube_plane_section_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -155,9 +159,8 @@ def _pyramid(groups, fields):
 
 
 def read_question(html, source=None):
-    if "Докажите" not in BeautifulSoup(html, "html.parser").get_text().replace(
-        "\xad", ""
-    ):
+    raw_text = BeautifulSoup(html, "html.parser").get_text().replace("\xad", "")
+    if not any(action in raw_text for action in ("Докажите", "Постройте")):
         return read_box(html, source)
     raw = condition_text(html, source)
     match = re.fullmatch(BOX, raw)
@@ -174,7 +177,12 @@ def read_question(html, source=None):
     plane = spatial_plane_model.read(raw)
     if plane is not None:
         return plane
-    for reader in (spatial_altitude_model.read, prism_separation_model.read):
+    for reader in (
+        spatial_altitude_model.read,
+        prism_separation_model.read,
+        spatial_section_model.read,
+        cube_plane_section_model.read,
+    ):
         found = reader(raw)
         if found is not None:
             return found
