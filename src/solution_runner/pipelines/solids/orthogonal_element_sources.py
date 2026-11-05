@@ -11,6 +11,18 @@ from .orthogonal_element_geometry import frame
 DATA = json.loads(
     files(__package__).joinpath("assets/orthogonal_element_sources.json").read_text()
 )
+PARENTS = {
+    rule: (primary, tuple(tuple(a) for a in pictures), digest)
+    for rule, (primary, pictures, digest) in DATA["parents"].items()
+}
+METHODS = DATA["methods"]
+
+
+def review_parent(rule, primary, html, assets):
+    source_assets.review_parent(
+        rule, primary, html, assets, parents=PARENTS, sources=DATA["sources"]
+    )
+    points(primary)
 
 
 def source_bytes(source):

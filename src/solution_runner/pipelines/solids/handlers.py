@@ -10,6 +10,7 @@ from .cube_sources import PARENTS as CUBE
 from .cylinder_sources import PARENTS as CYLINDERS
 from .distance_sources import PARENTS as DISTANCES
 from .line_angle_sources import PARENTS as LINE_ANGLES
+from .orthogonal_element_sources import PARENTS as ELEMENTS
 from .orthogonal_sources import PARENTS as ORTHOGONAL
 from .polyhedron_sources import PARENTS as POLYHEDRA
 from .prism_sources import PARENTS as PRISMS
@@ -92,6 +93,11 @@ HANDLERS = tuple(
             ORTHOGONAL,
             "solution_runner.pipelines.solids.orthogonal_parent:prepare",
             None,
+        ),
+        (
+            ELEMENTS,
+            "solution_runner.pipelines.solids.orthogonal_parent:prepare",
+            "solution_runner.pipelines.solids.orthogonal_element_figures:diagram_specs",
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
         (SPHERES, "solution_runner.pipelines.solids.sphere_parent:prepare", None),
