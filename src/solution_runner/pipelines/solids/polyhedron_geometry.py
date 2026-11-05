@@ -54,8 +54,13 @@ class Polyhedron:
         )
 
 
-def _pyramid(names):
-    for axis, level in itertools.product((2, 0, 1), (0, 1)):
+def _pyramid(names, preferred_axis=None):
+    axes = (
+        (2, 0, 1)
+        if preferred_axis is None
+        else (preferred_axis, *(i for i in (2, 0, 1) if i != preferred_axis))
+    )
+    for axis, level in itertools.product(axes, (0, 1)):
         base = tuple(n for n in names if VERTICES[n][axis] == level)
         if len(base) != len(names) - 1:
             continue
@@ -105,7 +110,7 @@ def _prism(names):
     raise ContentPlanError("the six vertices must form a triangular prism of the box")
 
 
-def recognize(names):
+def recognize(names, *, preferred_axis=None):
     if (
         not isinstance(names, (tuple, list))
         or len(names) not in (4, 5, 6)
@@ -115,5 +120,7 @@ def recognize(names):
         raise ContentPlanError(
             "four, five or six distinct canonical solid vertices are required"
         )
+    if preferred_axis is not None and preferred_axis not in (0, 1, 2):
+        raise ContentPlanError("a canonical parent height axis is required")
     ordered = tuple(n for n in VERTICES if n in names)
-    return _prism(ordered) if len(ordered) == 6 else _pyramid(ordered)
+    return _prism(ordered) if len(ordered) == 6 else _pyramid(ordered, preferred_axis)

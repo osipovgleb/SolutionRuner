@@ -22,9 +22,9 @@ class PolyhedronVolume:
     answer: sp.Expr
 
 
-def read_question(html, source=None):
+def read_question(html, source=None, *, preferred_axis=None):
     names, mode, raw, kind = read_condition(html, source)
-    solid = recognize(names)
+    solid = recognize(names, preferred_axis=preferred_axis)
     if (
         kind == "prism"
         and solid.kind != "prism"

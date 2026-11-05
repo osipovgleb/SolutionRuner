@@ -5,6 +5,7 @@ from .box_sources import PARENTS as BOX
 from .cube_sources import PARENTS as CUBE
 from .distance_sources import PARENTS as DISTANCES
 from .line_angle_sources import PARENTS as LINE_ANGLES
+from .polyhedron_sources import PARENTS as POLYHEDRA
 from .vertex_angle_sources import PARENTS as VERTEX_ANGLES
 
 HANDLERS = tuple(
@@ -41,6 +42,17 @@ HANDLERS = tuple(
             {
                 "solid-box-angle-from-face-diagonal": "solution_runner.pipelines.solids.vertex_angle_figures:solution_specs",
                 "solid-box-angle-from-base-diagonal": "solution_runner.pipelines.solids.vertex_angle_figures:condition_specs",
+            },
+        ),
+        (
+            POLYHEDRA,
+            "solution_runner.pipelines.solids.polyhedron_parent:prepare",
+            {
+                "solid-polyhedron-central-tetrahedron": "solution_runner.pipelines.solids.polyhedron_figures:central_specs",
+                "solid-polyhedron-half-box": "solution_runner.pipelines.solids.polyhedron_figures:prism_specs",
+                "solid-polyhedron-pyramid-with-note": "solution_runner.pipelines.solids.polyhedron_figures:note_specs",
+                "solid-polyhedron-triangle-pyramid": "solution_runner.pipelines.solids.polyhedron_figures:triangle_specs",
+                "solid-polyhedron-face-pyramid": "solution_runner.pipelines.solids.polyhedron_figures:face_specs",
             },
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
