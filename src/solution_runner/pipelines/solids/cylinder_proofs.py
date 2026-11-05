@@ -4,6 +4,7 @@ import sympy as sp
 
 from ..probability.common import line
 from ..quadrilaterals.parallelogram.rectangle_proofs import bracket, value
+from . import cylinder_cut_proofs
 
 
 def _displacement(m):
@@ -204,6 +205,9 @@ def render(m, picture=""):
     if m.mode == "diameter":
         return _diameter(m, picture)
     return {
+        "sector": cylinder_cut_proofs.sector,
+        "stepped": cylinder_cut_proofs.stepped,
+        "annular": cylinder_cut_proofs.annular,
         "displacement": _displacement,
         "transfer": _transfer,
         "volume_ratio": _volume_ratio,

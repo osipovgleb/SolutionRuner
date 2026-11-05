@@ -1,6 +1,7 @@
 """Pin reviewed cylinder methods and mathematically identified unnumbered figures."""
 
 from . import source_assets
+from .cylinder_cut import DATA as CUT_DATA
 
 PARENTS = {
     "solid-cylinder-immersed-displacement": (
@@ -117,6 +118,15 @@ MODE_SOURCES = {
     "diameter": BASIC,
     "axial_lateral": ("3b0fb301-3f6f-4c93-ae42-89c547017e1e",),
 }
+
+
+PARENTS.update(CUT_DATA["parents"])
+RULES.update(CUT_DATA["rules"])
+SOURCES.update(CUT_DATA["sources"])
+for _mode in ("sector", "stepped", "annular"):
+    MODE_SOURCES[_mode] = tuple(
+        source for source, f in CUT_DATA["figures"].items() if f["mode"] == _mode
+    )
 
 
 def source_bytes(source):

@@ -22,10 +22,10 @@ PICTURED = tuple(c for c in CASES if c["context"]["normalized_content"]["assets"
 @pytest.mark.parametrize("source", SOURCES)
 def test_reviewed_source_bytes_are_exact_without_embedded_raster(source):
     raw = source_bytes(source)
-    assert (
-        hashlib.sha256(raw).hexdigest() == SOURCES[source][1]
-        and b"<svg" in raw
-        and b"<image" not in raw
+    assert hashlib.sha256(raw).hexdigest() == SOURCES[source][1] and (
+        raw.startswith(b"\x89PNG\r\n\x1a\n")
+        if SOURCES[source][0].endswith(".png")
+        else b"<svg" in raw and b"<image" not in raw
     )
 
 

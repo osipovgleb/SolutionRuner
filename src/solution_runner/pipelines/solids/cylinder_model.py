@@ -7,6 +7,7 @@ import sympy as sp
 
 from ..core.errors import ContentPlanError
 from ..probability.common import UnsupportedCondition
+from . import cylinder_cut
 from .cylinder_input import text
 from .measurements import positive
 
@@ -121,6 +122,11 @@ def _solve(mode, kind, groups):
 
 def read_question(html, source=None):
     raw = text(html, source)
+    if re.fullmatch(
+        r"Найдите объем V части цилиндра, изображенной на рисунке\. В ответе укажите\s+(?:\\frac\{V\}\{\\pi\}|V\\div\s*\\pi)\s*\.",
+        raw,
+    ):
+        return cylinder_cut.read(source)
     try:
         for mode, kind, pattern in PATTERNS:
             match = re.fullmatch(pattern, raw)

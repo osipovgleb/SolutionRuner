@@ -73,5 +73,41 @@ PROFILES = tuple(
             16,
             "solid-cylinder-diameter-from-lateral",
         ),
+        (
+            "27196",
+            "1eb8fae4-d84f-47d1-9dfa-d52fd71cb7a0",
+            8,
+            "solid-cylinder-quarter-volume",
+        ),
+        (
+            "27197",
+            "b6b4be5d-af42-4ce2-bfcd-750fd888a0bc",
+            9,
+            "solid-cylinder-major-quarter-volume",
+        ),
+        (
+            "27198",
+            "5b53a03e-e4a8-4479-9b84-46974b050803",
+            10,
+            "solid-cylinder-sixth-volume",
+        ),
+        (
+            "27199",
+            "4931f1a0-8a24-43ef-accc-043f0d9bc84e",
+            11,
+            "solid-cylinder-major-sixth-volume",
+        ),
+        (
+            "27200",
+            "bd757eb8-eb70-4b18-9043-91d8bd30d8e1",
+            12,
+            "solid-cylinder-stepped-volume",
+        ),
+        (
+            "27201",
+            "830e1d0b-eb8b-4261-b6bb-4104361442ce",
+            13,
+            "solid-cylinder-annular-volume",
+        ),
     )
 )

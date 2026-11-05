@@ -1,0 +1,3254 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "27196",
+      "group_uuid": "1eb8fae4-d84f-47d1-9dfa-d52fd71cb7a0",
+      "size": 5,
+      "order_index": 8,
+      "rule": "solid-cylinder-quarter-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25739",
+        "25733",
+        "25735"
+      ]
+    },
+    {
+      "key": "27197",
+      "group_uuid": "b6b4be5d-af42-4ce2-bfcd-750fd888a0bc",
+      "size": 5,
+      "order_index": 9,
+      "rule": "solid-cylinder-major-quarter-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25743",
+        "25745",
+        "25747"
+      ]
+    },
+    {
+      "key": "27198",
+      "group_uuid": "5b53a03e-e4a8-4479-9b84-46974b050803",
+      "size": 5,
+      "order_index": 10,
+      "rule": "solid-cylinder-sixth-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25755",
+        "25753",
+        "25757"
+      ]
+    },
+    {
+      "key": "27199",
+      "group_uuid": "4931f1a0-8a24-43ef-accc-043f0d9bc84e",
+      "size": 5,
+      "order_index": 11,
+      "rule": "solid-cylinder-major-sixth-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25769",
+        "25763",
+        "25765"
+      ]
+    },
+    {
+      "key": "27200",
+      "group_uuid": "bd757eb8-eb70-4b18-9043-91d8bd30d8e1",
+      "size": 5,
+      "order_index": 12,
+      "rule": "solid-cylinder-stepped-volume",
+      "mode": "stepped",
+      "sample_tasks": [
+        "25773",
+        "25775",
+        "25777"
+      ]
+    },
+    {
+      "key": "27201",
+      "group_uuid": "830e1d0b-eb8b-4261-b6bb-4104361442ce",
+      "size": 5,
+      "order_index": 13,
+      "rule": "solid-cylinder-annular-volume",
+      "mode": "annular",
+      "sample_tasks": [
+        "25783",
+        "25785",
+        "25787"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "27196",
+      "task": "27196",
+      "context": {
+        "problem_id": "f9b7da1c-e093-4a2e-866a-e97affddc646",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:32:55.219795+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7a272330-14fc-4139-9138-6a784a07e279",
+                "html": "<img alt=\"\" data-asset-id=\"7a272330-14fc-4139-9138-6a784a07e279\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a272330-14fc-4139-9138-6a784a07e279\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7a272330-14fc-4139-9138-6a784a07e279",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.634208+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"7a272330-14fc-4139-9138-6a784a07e279\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.634208+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{90^{\\circ}}{360^{\\circ}}V_{\\mathrm{цил}}=\\frac{1}{4}V_{\\mathrm{цил}}=\\frac{1}{4}\\pi r^{2}h=\\frac{1}{4}\\pi\\cdot 6^{2}\\cdot 5=45\\pi\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.634208+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.634208+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7a272330-14fc-4139-9138-6a784a07e279",
+              "kind": "ordinary_image",
+              "asset_id": "7a272330-14fc-4139-9138-6a784a07e279",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7a272330-14fc-4139-9138-6a784a07e279\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a272330-14fc-4139-9138-6a784a07e279\"/> Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{90^{\\circ}}{360^{\\circ}}V_{\\mathrm{цил}}=\\frac{1}{4}V_{\\mathrm{цил}}=\\frac{1}{4}\\pi r^{2}h=\\frac{1}{4}\\pi\\cdot 6^{2}\\cdot 5=45\\pi\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27196",
+      "task": "25739",
+      "context": {
+        "problem_id": "3f07280a-35ae-418c-b314-8bd983e27672",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:32:18.401644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5caedfef-e534-4f7a-b192-c372296c20c7",
+                "html": "<img alt=\"\" data-asset-id=\"5caedfef-e534-4f7a-b192-c372296c20c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5caedfef-e534-4f7a-b192-c372296c20c7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5caedfef-e534-4f7a-b192-c372296c20c7",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:46.556665+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5caedfef-e534-4f7a-b192-c372296c20c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:46.556665+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{90^{\\circ}}{360^{\\circ}}V_{\\mathrm{цил}}=\\frac{1}{4}V_{\\mathrm{цил}}=\\frac{1}{4}\\pi r^{2}h=\\frac{1}{4}\\pi\\cdot 3^{2}\\cdot 4=9\\pi\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:36:46.556665+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:36:46.556665+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5caedfef-e534-4f7a-b192-c372296c20c7",
+              "kind": "ordinary_image",
+              "asset_id": "5caedfef-e534-4f7a-b192-c372296c20c7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5caedfef-e534-4f7a-b192-c372296c20c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5caedfef-e534-4f7a-b192-c372296c20c7\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{90^{\\circ}}{360^{\\circ}}V_{\\mathrm{цил}}=\\frac{1}{4}V_{\\mathrm{цил}}=\\frac{1}{4}\\pi r^{2}h=\\frac{1}{4}\\pi\\cdot 3^{2}\\cdot 4=9\\pi\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27196",
+      "task": "25733",
+      "context": {
+        "problem_id": "514d2895-0286-4a67-b981-e12b21e8cf5d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:32:23.435030+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/204b381c-7e6c-4b4d-b839-c284d664225a",
+                "html": "<img alt=\"\" data-asset-id=\"204b381c-7e6c-4b4d-b839-c284d664225a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/204b381c-7e6c-4b4d-b839-c284d664225a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "204b381c-7e6c-4b4d-b839-c284d664225a",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:49.405479+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"204b381c-7e6c-4b4d-b839-c284d664225a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:49.405479+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/204b381c-7e6c-4b4d-b839-c284d664225a",
+              "kind": "ordinary_image",
+              "asset_id": "204b381c-7e6c-4b4d-b839-c284d664225a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"204b381c-7e6c-4b4d-b839-c284d664225a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/204b381c-7e6c-4b4d-b839-c284d664225a\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">ь</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "2",
+      "source_answer_issue": "повреждённый ответ «ь»"
+    },
+    {
+      "group": "27196",
+      "task": "25735",
+      "context": {
+        "problem_id": "f3bb6dc3-c731-43fb-b164-a653e45af442",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:32:38.356898+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d",
+                "html": "<img alt=\"\" data-asset-id=\"354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.612353+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.612353+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d",
+              "kind": "ordinary_image",
+              "asset_id": "354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/354b6ff2-d0dc-433b-acd3-3b2ab5a2a10d\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">63</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27196",
+      "task": "25737",
+      "context": {
+        "problem_id": "d350dffb-e50e-48d6-b0be-1f8f07c825ec",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:32:54.891261+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8",
+                "html": "<img alt=\"\" data-asset-id=\"398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.230311+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:51.230311+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8",
+              "kind": "ordinary_image",
+              "asset_id": "398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/398c7e7a-7fe0-4044-b4a5-f0d0fe92a0a8\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">32</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27197",
+      "task": "27197",
+      "context": {
+        "problem_id": "58c14a0d-d953-43d7-992b-b232bcef8982",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:11.846466+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9698bbea-0996-41ab-ac48-71d216818b6c",
+                "html": "<img alt=\"\" data-asset-id=\"9698bbea-0996-41ab-ac48-71d216818b6c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9698bbea-0996-41ab-ac48-71d216818b6c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9698bbea-0996-41ab-ac48-71d216818b6c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:34:12.985501+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9698bbea-0996-41ab-ac48-71d216818b6c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:34:12.985501+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{270^{\\circ}}{360^{\\circ}}\\pi R^{2}H=\\frac{3}{4}\\cdot 1\\cdot 5\\pi=3{,}75\\pi\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:34:12.985501+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:34:12.985501+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9698bbea-0996-41ab-ac48-71d216818b6c",
+              "kind": "ordinary_image",
+              "asset_id": "9698bbea-0996-41ab-ac48-71d216818b6c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9698bbea-0996-41ab-ac48-71d216818b6c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9698bbea-0996-41ab-ac48-71d216818b6c\"/> Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3,75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{270^{\\circ}}{360^{\\circ}}\\pi R^{2}H=\\frac{3}{4}\\cdot 1\\cdot 5\\pi=3{,}75\\pi\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27197",
+      "task": "25743",
+      "context": {
+        "problem_id": "ff57bdda-94af-4493-8e9b-b96dc85a358f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:24.629734+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/83da7163-fcfc-46b5-a2c9-422fa521d2c9",
+                "html": "<img alt=\"\" data-asset-id=\"83da7163-fcfc-46b5-a2c9-422fa521d2c9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83da7163-fcfc-46b5-a2c9-422fa521d2c9\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "83da7163-fcfc-46b5-a2c9-422fa521d2c9",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:34:15.600252+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"83da7163-fcfc-46b5-a2c9-422fa521d2c9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:34:15.600252+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83da7163-fcfc-46b5-a2c9-422fa521d2c9",
+              "kind": "ordinary_image",
+              "asset_id": "83da7163-fcfc-46b5-a2c9-422fa521d2c9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"83da7163-fcfc-46b5-a2c9-422fa521d2c9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83da7163-fcfc-46b5-a2c9-422fa521d2c9\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">15</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27197",
+      "task": "25745",
+      "context": {
+        "problem_id": "3b1b6f2a-4831-4efe-8603-933675a3fa0b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:40.830389+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1fc99132-bb6d-473e-9912-ebbe30e176ec",
+                "html": "<img alt=\"\" data-asset-id=\"1fc99132-bb6d-473e-9912-ebbe30e176ec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1fc99132-bb6d-473e-9912-ebbe30e176ec\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1fc99132-bb6d-473e-9912-ebbe30e176ec",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:34:09.488723+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"1fc99132-bb6d-473e-9912-ebbe30e176ec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:34:09.488723+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1fc99132-bb6d-473e-9912-ebbe30e176ec",
+              "kind": "ordinary_image",
+              "asset_id": "1fc99132-bb6d-473e-9912-ebbe30e176ec",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"1fc99132-bb6d-473e-9912-ebbe30e176ec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1fc99132-bb6d-473e-9912-ebbe30e176ec\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">150</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27197",
+      "task": "25747",
+      "context": {
+        "problem_id": "8e50116e-7b9b-4a2e-8f54-b58cf954f921",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:18.363067+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7a3db2fa-3c63-4417-9636-f1ecd3b27f39",
+                "html": "<img alt=\"\" data-asset-id=\"7a3db2fa-3c63-4417-9636-f1ecd3b27f39\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a3db2fa-3c63-4417-9636-f1ecd3b27f39\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7a3db2fa-3c63-4417-9636-f1ecd3b27f39",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:34:13.507624+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"7a3db2fa-3c63-4417-9636-f1ecd3b27f39\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:34:13.507624+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7a3db2fa-3c63-4417-9636-f1ecd3b27f39",
+              "kind": "ordinary_image",
+              "asset_id": "7a3db2fa-3c63-4417-9636-f1ecd3b27f39",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"7a3db2fa-3c63-4417-9636-f1ecd3b27f39\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a3db2fa-3c63-4417-9636-f1ecd3b27f39\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">31,25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "93.75",
+      "source_answer_issue": "сохранено 31,25, но рисунок задаёт 270°, r=5, h=5"
+    },
+    {
+      "group": "27197",
+      "task": "25749",
+      "context": {
+        "problem_id": "e03270c0-3312-4978-910c-eda4ea92db3a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:17.775851+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7a32c264-5c90-4fa7-990b-eff31173f85b",
+                "html": "<img alt=\"\" data-asset-id=\"7a32c264-5c90-4fa7-990b-eff31173f85b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a32c264-5c90-4fa7-990b-eff31173f85b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7a32c264-5c90-4fa7-990b-eff31173f85b",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:34:15.191969+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"7a32c264-5c90-4fa7-990b-eff31173f85b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:34:15.191969+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7a32c264-5c90-4fa7-990b-eff31173f85b",
+              "kind": "ordinary_image",
+              "asset_id": "7a32c264-5c90-4fa7-990b-eff31173f85b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"7a32c264-5c90-4fa7-990b-eff31173f85b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a32c264-5c90-4fa7-990b-eff31173f85b\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">108</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27198",
+      "task": "27198",
+      "context": {
+        "problem_id": "6f57e6bc-3950-4b6c-be25-d9b8749f4f06",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:30:02.079928+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/382efb94-70c3-42d3-8fea-1faf54f34e62",
+                "html": "<img alt=\"\" data-asset-id=\"382efb94-70c3-42d3-8fea-1faf54f34e62\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/382efb94-70c3-42d3-8fea-1faf54f34e62\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "382efb94-70c3-42d3-8fea-1faf54f34e62",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:27:41.411774+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"382efb94-70c3-42d3-8fea-1faf54f34e62\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:27:41.411774+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:27:41.411774+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:27:41.411774+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ци­лин­дра равен </p><center><p><span data-inline-latex=\"\\frac{60^\\circ}{360^\\circ}\\pi R^2 H = \\frac{1}{6}12^2\\cdot 6\\pi = 144\\pi.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/382efb94-70c3-42d3-8fea-1faf54f34e62",
+              "kind": "ordinary_image",
+              "asset_id": "382efb94-70c3-42d3-8fea-1faf54f34e62",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"382efb94-70c3-42d3-8fea-1faf54f34e62\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/382efb94-70c3-42d3-8fea-1faf54f34e62\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">144</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ци­лин­дра равен </p><center><p><span data-inline-latex=\"\\frac{60^\\circ}{360^\\circ}\\pi R^2 H = \\frac{1}{6}12^2\\cdot 6\\pi = 144\\pi.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27198",
+      "task": "25755",
+      "context": {
+        "problem_id": "77749bd6-bce2-465c-9f9c-75b2fe302313",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:30:02.181117+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e6363f30-453d-4021-9d87-ec14314dc565",
+                "html": "<img alt=\"\" data-asset-id=\"e6363f30-453d-4021-9d87-ec14314dc565\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e6363f30-453d-4021-9d87-ec14314dc565\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e6363f30-453d-4021-9d87-ec14314dc565",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:28:32.668678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e6363f30-453d-4021-9d87-ec14314dc565\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те <nobr>ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</nobr></p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:28:32.668678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:28:32.668678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:28:32.668678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p><span data-inline-latex=\"\\frac{60^{\\circ}}{360^{\\circ}}\\pi R^2 H=\\frac{1}{6}15^2\\cdot 3\\pi=112{,}5\\pi.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e6363f30-453d-4021-9d87-ec14314dc565",
+              "kind": "ordinary_image",
+              "asset_id": "e6363f30-453d-4021-9d87-ec14314dc565",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e6363f30-453d-4021-9d87-ec14314dc565\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e6363f30-453d-4021-9d87-ec14314dc565\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те <nobr>ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</nobr></p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">112,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p><span data-inline-latex=\"\\frac{60^{\\circ}}{360^{\\circ}}\\pi R^2 H=\\frac{1}{6}15^2\\cdot 3\\pi=112{,}5\\pi.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27198",
+      "task": "25753",
+      "context": {
+        "problem_id": "d3778c1a-0db9-449c-98b5-480a8cbf3f9e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:10.248474+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/05da9c85-7ea9-4054-9392-30642b1992e2",
+                "html": "<img alt=\"\" data-asset-id=\"05da9c85-7ea9-4054-9392-30642b1992e2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/05da9c85-7ea9-4054-9392-30642b1992e2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "05da9c85-7ea9-4054-9392-30642b1992e2",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:18.163463+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"05da9c85-7ea9-4054-9392-30642b1992e2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:18.163463+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/05da9c85-7ea9-4054-9392-30642b1992e2",
+              "kind": "ordinary_image",
+              "asset_id": "05da9c85-7ea9-4054-9392-30642b1992e2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"05da9c85-7ea9-4054-9392-30642b1992e2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/05da9c85-7ea9-4054-9392-30642b1992e2\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27198",
+      "task": "25757",
+      "context": {
+        "problem_id": "33ba2de3-81db-451f-9547-0da91f239a1a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:24:45.917252+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/03104f75-97b6-47c9-8436-df06c97f2445",
+                "html": "<img alt=\"\" data-asset-id=\"03104f75-97b6-47c9-8436-df06c97f2445\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/03104f75-97b6-47c9-8436-df06c97f2445\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "03104f75-97b6-47c9-8436-df06c97f2445",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:05.775375+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"03104f75-97b6-47c9-8436-df06c97f2445\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:05.775375+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/03104f75-97b6-47c9-8436-df06c97f2445",
+              "kind": "ordinary_image",
+              "asset_id": "03104f75-97b6-47c9-8436-df06c97f2445",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"03104f75-97b6-47c9-8436-df06c97f2445\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/03104f75-97b6-47c9-8436-df06c97f2445\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">187,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27198",
+      "task": "25759",
+      "context": {
+        "problem_id": "606898cf-3964-45f8-85d2-af2c5f1a635e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:29:56.963012+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9f58c067-62c8-48eb-a33a-835e534f586e",
+                "html": "<img alt=\"\" data-asset-id=\"9f58c067-62c8-48eb-a33a-835e534f586e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9f58c067-62c8-48eb-a33a-835e534f586e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9f58c067-62c8-48eb-a33a-835e534f586e",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:06.401012+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"9f58c067-62c8-48eb-a33a-835e534f586e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:06.401012+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9f58c067-62c8-48eb-a33a-835e534f586e",
+              "kind": "ordinary_image",
+              "asset_id": "9f58c067-62c8-48eb-a33a-835e534f586e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"9f58c067-62c8-48eb-a33a-835e534f586e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9f58c067-62c8-48eb-a33a-835e534f586e\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">192</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27199",
+      "task": "27199",
+      "context": {
+        "problem_id": "b4d95cd0-86ef-4964-8152-78a19d571b93",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:20:02.136425+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/045082b0-4d88-4592-b53c-f7a60c8d2388",
+                "html": "<img alt=\"\" data-asset-id=\"045082b0-4d88-4592-b53c-f7a60c8d2388\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/045082b0-4d88-4592-b53c-f7a60c8d2388\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "045082b0-4d88-4592-b53c-f7a60c8d2388",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:33.164348+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"045082b0-4d88-4592-b53c-f7a60c8d2388\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:33.164348+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{300^{\\circ}}{360^{\\circ}}\\pi r^{2}h=\\frac{5}{6}\\cdot 5\\pi\\cdot 15^{2}=937{,}5\\pi\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:06:33.164348+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:06:33.164348+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/045082b0-4d88-4592-b53c-f7a60c8d2388",
+              "kind": "ordinary_image",
+              "asset_id": "045082b0-4d88-4592-b53c-f7a60c8d2388",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"045082b0-4d88-4592-b53c-f7a60c8d2388\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/045082b0-4d88-4592-b53c-f7a60c8d2388\"/> Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">937,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{300^{\\circ}}{360^{\\circ}}\\pi r^{2}h=\\frac{5}{6}\\cdot 5\\pi\\cdot 15^{2}=937{,}5\\pi\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27199",
+      "task": "25769",
+      "context": {
+        "problem_id": "23ef5128-2b8a-4ef1-9939-86a83f3e6992",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:46.246286+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b345bc5f-a467-439a-b856-8233844355a7",
+                "html": "<img alt=\"\" data-asset-id=\"b345bc5f-a467-439a-b856-8233844355a7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b345bc5f-a467-439a-b856-8233844355a7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b345bc5f-a467-439a-b856-8233844355a7",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:02:40.978358+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b345bc5f-a467-439a-b856-8233844355a7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:02:40.978358+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{300^{\\circ}}{360^{\\circ}}\\pi r^{2}h=\\frac{5}{6}\\pi\\cdot 18^{2}\\cdot 1=270\\pi\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:02:40.978358+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:02:40.978358+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b345bc5f-a467-439a-b856-8233844355a7",
+              "kind": "ordinary_image",
+              "asset_id": "b345bc5f-a467-439a-b856-8233844355a7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"b345bc5f-a467-439a-b856-8233844355a7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b345bc5f-a467-439a-b856-8233844355a7\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">270</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ци­лин­дра  равен </p><center><p> <span data-inline-latex=\"\\frac{300^{\\circ}}{360^{\\circ}}\\pi r^{2}h=\\frac{5}{6}\\pi\\cdot 18^{2}\\cdot 1=270\\pi\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27199",
+      "task": "25763",
+      "context": {
+        "problem_id": "2ba8147a-30d2-4638-b4af-d9c9ecb2204a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:46.332671+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6a79bf78-084e-4789-ad53-d6cd7e504b69",
+                "html": "<img alt=\"\" data-asset-id=\"6a79bf78-084e-4789-ad53-d6cd7e504b69\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a79bf78-084e-4789-ad53-d6cd7e504b69\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6a79bf78-084e-4789-ad53-d6cd7e504b69",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:02:41.054092+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"6a79bf78-084e-4789-ad53-d6cd7e504b69\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:02:41.054092+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6a79bf78-084e-4789-ad53-d6cd7e504b69",
+              "kind": "ordinary_image",
+              "asset_id": "6a79bf78-084e-4789-ad53-d6cd7e504b69",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"6a79bf78-084e-4789-ad53-d6cd7e504b69\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a79bf78-084e-4789-ad53-d6cd7e504b69\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1125</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27199",
+      "task": "25765",
+      "context": {
+        "problem_id": "7c50c496-aa80-43a5-ac42-a8a4d1ee531c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:53.528400+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ea480f83-b7d2-46e7-9926-625594632c65",
+                "html": "<img alt=\"\" data-asset-id=\"ea480f83-b7d2-46e7-9926-625594632c65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ea480f83-b7d2-46e7-9926-625594632c65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ea480f83-b7d2-46e7-9926-625594632c65",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:32.633429+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"ea480f83-b7d2-46e7-9926-625594632c65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:32.633429+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ea480f83-b7d2-46e7-9926-625594632c65",
+              "kind": "ordinary_image",
+              "asset_id": "ea480f83-b7d2-46e7-9926-625594632c65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"ea480f83-b7d2-46e7-9926-625594632c65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ea480f83-b7d2-46e7-9926-625594632c65\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">135</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27199",
+      "task": "25767",
+      "context": {
+        "problem_id": "07453126-fe53-4a1e-a5c8-f12a8c1e1877",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:07.950235+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d8525817-5d24-4d11-bf00-76fe29f9de80",
+                "html": "<img alt=\"\" data-asset-id=\"d8525817-5d24-4d11-bf00-76fe29f9de80\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d8525817-5d24-4d11-bf00-76fe29f9de80\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d8525817-5d24-4d11-bf00-76fe29f9de80",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:02:39.463362+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"d8525817-5d24-4d11-bf00-76fe29f9de80\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:02:39.463362+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d8525817-5d24-4d11-bf00-76fe29f9de80",
+              "kind": "ordinary_image",
+              "asset_id": "d8525817-5d24-4d11-bf00-76fe29f9de80",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"d8525817-5d24-4d11-bf00-76fe29f9de80\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d8525817-5d24-4d11-bf00-76fe29f9de80\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2432</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "2160",
+      "source_answer_issue": "сохранено 2432, но рисунок задаёт 300°, r=18, h=8"
+    },
+    {
+      "group": "27200",
+      "task": "27200",
+      "context": {
+        "problem_id": "feaca9a1-d878-4385-b846-5ce3d117dc3c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:57.782107+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f94e0669-8d3c-4668-937b-091c57699796",
+                "html": "<img alt=\"\" data-asset-id=\"f94e0669-8d3c-4668-937b-091c57699796\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f94e0669-8d3c-4668-937b-091c57699796\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f94e0669-8d3c-4668-937b-091c57699796",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.963962+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f94e0669-8d3c-4668-937b-091c57699796\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.963962+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной фи­гу­ры равен сумме объ­е­мов ци­лин­дра с ра­ди­у­сом ос­но­ва­ния 2 и вы­со­той 3 и по­ло­ви­ны ци­лин­дра с тем же ра­ди­у­сом ос­но­ва­ния и вы­со­той 1:</p><center><p><span data-inline-latex=\"V=\\pi R^{2}(H_1+\\frac{1}{2}H_2)=\\pi\\cdot 2^{2}(3+0{,}5)=14\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.963962+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.963962+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f94e0669-8d3c-4668-937b-091c57699796",
+              "kind": "ordinary_image",
+              "asset_id": "f94e0669-8d3c-4668-937b-091c57699796",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f94e0669-8d3c-4668-937b-091c57699796\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f94e0669-8d3c-4668-937b-091c57699796\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">14</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной фи­гу­ры равен сумме объ­е­мов ци­лин­дра с ра­ди­у­сом ос­но­ва­ния 2 и вы­со­той 3 и по­ло­ви­ны ци­лин­дра с тем же ра­ди­у­сом ос­но­ва­ния и вы­со­той 1:</p><center><p><span data-inline-latex=\"V=\\pi R^{2}(H_1+\\frac{1}{2}H_2)=\\pi\\cdot 2^{2}(3+0{,}5)=14\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27200",
+      "task": "25773",
+      "context": {
+        "problem_id": "d7600437-179a-4b08-974a-dbdc90856422",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:53.169545+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f0af627b-f957-4836-8aa1-e7b88cf84d68",
+                "html": "<img alt=\"\" data-asset-id=\"f0af627b-f957-4836-8aa1-e7b88cf84d68\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f0af627b-f957-4836-8aa1-e7b88cf84d68\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f0af627b-f957-4836-8aa1-e7b88cf84d68",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.440361+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"f0af627b-f957-4836-8aa1-e7b88cf84d68\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.440361+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f0af627b-f957-4836-8aa1-e7b88cf84d68",
+              "kind": "ordinary_image",
+              "asset_id": "f0af627b-f957-4836-8aa1-e7b88cf84d68",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"f0af627b-f957-4836-8aa1-e7b88cf84d68\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f0af627b-f957-4836-8aa1-e7b88cf84d68\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27200",
+      "task": "25775",
+      "context": {
+        "problem_id": "110e8a5d-e5ce-4505-9714-6bcef731404f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 10,
+          "items": [
+            {
+              "at": "2026-10-01T19:37:41.201975+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/940d628e-780c-4758-a3da-83f98412319b",
+                "html": "<img alt=\"\" data-asset-id=\"940d628e-780c-4758-a3da-83f98412319b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/940d628e-780c-4758-a3da-83f98412319b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "940d628e-780c-4758-a3da-83f98412319b",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:36.247189+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"940d628e-780c-4758-a3da-83f98412319b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:36.247189+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/940d628e-780c-4758-a3da-83f98412319b",
+              "kind": "ordinary_image",
+              "asset_id": "940d628e-780c-4758-a3da-83f98412319b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"940d628e-780c-4758-a3da-83f98412319b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/940d628e-780c-4758-a3da-83f98412319b\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">64</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27200",
+      "task": "25777",
+      "context": {
+        "problem_id": "ce1f86f0-61cd-4548-be60-b56d8aa53d83",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:55.365018+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/54cefda2-3a55-4cee-8121-a8862b0024ff",
+                "html": "<img alt=\"\" data-asset-id=\"54cefda2-3a55-4cee-8121-a8862b0024ff\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/54cefda2-3a55-4cee-8121-a8862b0024ff\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "54cefda2-3a55-4cee-8121-a8862b0024ff",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.223962+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"54cefda2-3a55-4cee-8121-a8862b0024ff\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:38.223962+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/54cefda2-3a55-4cee-8121-a8862b0024ff",
+              "kind": "ordinary_image",
+              "asset_id": "54cefda2-3a55-4cee-8121-a8862b0024ff",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"54cefda2-3a55-4cee-8121-a8862b0024ff\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/54cefda2-3a55-4cee-8121-a8862b0024ff\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27200",
+      "task": "25779",
+      "context": {
+        "problem_id": "0769b484-b562-4e1e-b69e-5e34fa107bc0",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 10,
+          "items": [
+            {
+              "at": "2026-10-01T19:37:41.165808+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/aca4c32f-8ff1-45de-9953-0319f070fed2",
+                "html": "<img alt=\"\" data-asset-id=\"aca4c32f-8ff1-45de-9953-0319f070fed2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/aca4c32f-8ff1-45de-9953-0319f070fed2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "aca4c32f-8ff1-45de-9953-0319f070fed2",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:06:34.074711+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"aca4c32f-8ff1-45de-9953-0319f070fed2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:06:34.074711+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/aca4c32f-8ff1-45de-9953-0319f070fed2",
+              "kind": "ordinary_image",
+              "asset_id": "aca4c32f-8ff1-45de-9953-0319f070fed2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"aca4c32f-8ff1-45de-9953-0319f070fed2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/aca4c32f-8ff1-45de-9953-0319f070fed2\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">56</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27201",
+      "task": "27201",
+      "context": {
+        "problem_id": "bd16e130-4102-40fe-9580-92829061387d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:12.565828+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/47f1559c-c7ff-4c6d-82da-97c2f85ad7d8",
+                "html": "<img alt=\"\" data-asset-id=\"47f1559c-c7ff-4c6d-82da-97c2f85ad7d8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/47f1559c-c7ff-4c6d-82da-97c2f85ad7d8\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "47f1559c-c7ff-4c6d-82da-97c2f85ad7d8",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:38.850097+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"47f1559c-c7ff-4c6d-82da-97c2f85ad7d8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:38.850097+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной фи­гу­ры равен раз­но­сти объ­е­мов ци­лин­дра с ра­ди­у­сом ос­но­ва­ния 5 и вы­со­той 5 и ци­лин­дра с той же вы­со­той и ра­ди­у­сом ос­но­ва­ния 2:</p><center><p><span data-inline-latex=\"V=\\pi H(R_1^{2}-R_2^{2})=5\\pi(25-4)=105\\pi\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:36:38.850097+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:36:38.850097+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/47f1559c-c7ff-4c6d-82da-97c2f85ad7d8",
+              "kind": "ordinary_image",
+              "asset_id": "47f1559c-c7ff-4c6d-82da-97c2f85ad7d8",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"47f1559c-c7ff-4c6d-82da-97c2f85ad7d8\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/47f1559c-c7ff-4c6d-82da-97c2f85ad7d8\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">105</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной фи­гу­ры равен раз­но­сти объ­е­мов ци­лин­дра с ра­ди­у­сом ос­но­ва­ния 5 и вы­со­той 5 и ци­лин­дра с той же вы­со­той и ра­ди­у­сом ос­но­ва­ния 2:</p><center><p><span data-inline-latex=\"V=\\pi H(R_1^{2}-R_2^{2})=5\\pi(25-4)=105\\pi\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27201",
+      "task": "25783",
+      "context": {
+        "problem_id": "3ff39121-7ee5-49dd-a48a-6dff209b2023",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:33:42.414125+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c997bccb-2f8f-492e-9745-fac1d81438fd",
+                "html": "<img alt=\"\" data-asset-id=\"c997bccb-2f8f-492e-9745-fac1d81438fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c997bccb-2f8f-492e-9745-fac1d81438fd\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c997bccb-2f8f-492e-9745-fac1d81438fd",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:37.644796+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"c997bccb-2f8f-492e-9745-fac1d81438fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:37.644796+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c997bccb-2f8f-492e-9745-fac1d81438fd",
+              "kind": "ordinary_image",
+              "asset_id": "c997bccb-2f8f-492e-9745-fac1d81438fd",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"c997bccb-2f8f-492e-9745-fac1d81438fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c997bccb-2f8f-492e-9745-fac1d81438fd\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">,</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "120",
+      "source_answer_issue": "повреждённый ответ «,»"
+    },
+    {
+      "group": "27201",
+      "task": "25785",
+      "context": {
+        "problem_id": "9da1a628-b3fb-46c8-8f0c-9361a14a509d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:18.507598+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b639c22a-736a-4c31-b553-64bdcaaee9eb",
+                "html": "<img alt=\"\" data-asset-id=\"b639c22a-736a-4c31-b553-64bdcaaee9eb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b639c22a-736a-4c31-b553-64bdcaaee9eb\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b639c22a-736a-4c31-b553-64bdcaaee9eb",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:38.287642+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"b639c22a-736a-4c31-b553-64bdcaaee9eb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:38.287642+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b639c22a-736a-4c31-b553-64bdcaaee9eb",
+              "kind": "ordinary_image",
+              "asset_id": "b639c22a-736a-4c31-b553-64bdcaaee9eb",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"b639c22a-736a-4c31-b553-64bdcaaee9eb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b639c22a-736a-4c31-b553-64bdcaaee9eb\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27201",
+      "task": "25787",
+      "context": {
+        "problem_id": "3cb76b95-7791-42f6-ac95-907afd3293fd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:58.597802+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f56911fc-e558-42d1-ba62-69dc75704f3d",
+                "html": "<img alt=\"\" data-asset-id=\"f56911fc-e558-42d1-ba62-69dc75704f3d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f56911fc-e558-42d1-ba62-69dc75704f3d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f56911fc-e558-42d1-ba62-69dc75704f3d",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:34:18.838693+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"f56911fc-e558-42d1-ba62-69dc75704f3d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:34:18.838693+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f56911fc-e558-42d1-ba62-69dc75704f3d",
+              "kind": "ordinary_image",
+              "asset_id": "f56911fc-e558-42d1-ba62-69dc75704f3d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"f56911fc-e558-42d1-ba62-69dc75704f3d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f56911fc-e558-42d1-ba62-69dc75704f3d\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">96</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27201",
+      "task": "25789",
+      "context": {
+        "problem_id": "69d3076e-08e5-4446-86cc-69b967fa8859",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:34:12.047484+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2737525b-1510-460d-b926-f6b0d38bdc66",
+                "html": "<img alt=\"\" data-asset-id=\"2737525b-1510-460d-b926-f6b0d38bdc66\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2737525b-1510-460d-b926-f6b0d38bdc66\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2737525b-1510-460d-b926-f6b0d38bdc66",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:36:37.895873+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"2737525b-1510-460d-b926-f6b0d38bdc66\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:36:37.895873+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2737525b-1510-460d-b926-f6b0d38bdc66",
+              "kind": "ordinary_image",
+              "asset_id": "2737525b-1510-460d-b926-f6b0d38bdc66",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ци­лин­дра, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"2737525b-1510-460d-b926-f6b0d38bdc66\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2737525b-1510-460d-b926-f6b0d38bdc66\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">100</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "180",
+      "source_answer_issue": "сохранено 100, но рисунок задаёт R=7, r=2, h=4"
+    }
+  ]
+}
