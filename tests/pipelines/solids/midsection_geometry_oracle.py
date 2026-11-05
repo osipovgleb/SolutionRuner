@@ -131,7 +131,42 @@ def perpendicular(m):
     )
 
 
+def adjacent(m):
+    a, e = (dict(m.given)[n] for n in ("a", "e"))
+    h = sp.sqrt(e * e - a * a / 2)
+    A, B = sp.Matrix([0, 0, 0]), sp.Matrix([a, 0, 0])
+    C, D = sp.Matrix([a, a, 0]), sp.Matrix([0, a, 0])
+    O = (A + C) / 2
+    S = O + sp.Matrix([0, 0, h])
+    X, Y = (A + B) / 2, (B + C) / 2
+    F = (X + Y) / 2
+    x, y, f = (
+        m.symbols.get(k, v)
+        for k, v in (("on_AB", "K"), ("on_BC", "M"), ("height_foot", "P"))
+    )
+    assert sp.simplify((S - F).dot(Y - X)) == 0
+    assert sp.simplify((S - D).dot(Y - X)) == 0
+    assert sp.simplify((D - F).norm() / (B - F).norm()) == 3
+    small = area(B, X, Y)
+    assert sp.simplify(small / (a * a - small)) == sp.Rational(1, 7)
+    answer = area(S, X, Y)
+    return (
+        {"A": A, "B": B, "C": C, "D": D, "S": S, "O": O, x: X, y: Y, f: F},
+        {
+            "S_{ABCD}": a * a,
+            "S_{B" + y + x + "}": small,
+            "S_{" + x + "ADC" + y + "}": a * a - small,
+            "V_{SB" + y + x + "}": small * h / 3,
+            "V_{S" + x + "ADC" + y + "}": (a * a - small) * h / 3,
+            "S_{S" + x + y + "}": answer,
+        },
+        answer,
+    )
+
+
 def geometry(m):
+    if m.mode == "square_adjacent_midpoint_area":
+        return adjacent(m)
     if m.mode == "triangle_vertical_section_area":
         return vertical(m)
     if m.mode.startswith("reflected_"):

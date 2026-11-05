@@ -1,0 +1,799 @@
+{
+  "groups": [
+    {
+      "key": "500639",
+      "rule": "solid-square-pyramid-adjacent-midpoint-section",
+      "sample_tasks": [
+        "507830",
+        "511345",
+        "511501"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "500639",
+      "task": "500639",
+      "context": {
+        "problem_id": "556a46f4-1d80-4671-a031-2f1fbfb81c37",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:01.925992+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/737cbb00-8786-4ec3-a18c-8b050c7ab81e",
+                "html": "<img alt=\"\" data-asset-id=\"737cbb00-8786-4ec3-a18c-8b050c7ab81e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/737cbb00-8786-4ec3-a18c-8b050c7ab81e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "737cbb00-8786-4ec3-a18c-8b050c7ab81e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пра­виль­ной четырёхуголь­ной пи­ра­ми­де <var data-math-identifier=\"SABCD\">SABCD</var> с ос­но­ва­ни­ем <var data-math-identifier=\"ABCD\">ABCD</var> про­ве­де­но се­че­ние через се­ре­ди­ны ребер <i>АВ</i> и <i>ВС</i> и вер­ши­ну <var data-math-identifier=\"S\">S</var>. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что ука­зан­ное се­че­ние делит объем пи­ра­ми­ды в от­но­ше­нии <span data-inline-latex=\"1\\colon 7\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те пло­щадь этого се­че­ния, если все ребра пи­ра­ми­ды равны 8.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><span data-inline-latex=\"8\\sqrt{5}\"></span> .</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"737cbb00-8786-4ec3-a18c-8b050c7ab81e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <var data-math-identifier=\"M\">M</var>  — се­ре­ди­на <var data-math-identifier=\"AB\">AB</var>, а <var data-math-identifier=\"N\">N</var>  — се­ре­ди­на <var data-math-identifier=\"BC\">BC</var>. Плос­кость <var data-math-identifier=\"SMN\">SMN</var> делит пи­ра­ми­ду на пи­ра­ми­ды <var data-math-identifier=\"SBNM\">SBNM</var> и <var data-math-identifier=\"SMADCN\">SMADCN</var>. У этих пи­ра­мид общая вы­со­та, про­ве­ден­ная из вер­ши­ны <var data-math-identifier=\"S\">S</var>, по­это­му их объ­е­мы от­но­сят­ся как пло­ща­ди мно­го­уголь­ни­ков <var data-math-identifier=\"BNM\">BNM</var> и <var data-math-identifier=\"MADCN\">MADCN</var>. Пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"BNM\">BNM</var> равна по­ло­ви­не от чет­вер­ти квад­ра­та <var data-math-identifier=\"ABCD\">ABCD</var>, то есть <span data-inline-latex=\"S_{BNM}=1\\div 8\\cdot S_{ABCD}\"></span>, по­это­му <span data-inline-latex=\"V_{SBNM}\\colon V_{SMADCN}=S_{BNM}\\colon S_{MADCN}=1\\div 8\\colon (1-1\\div 8)=1\\colon 7\"></span>.</li><li data-list-marker=\"б)\">Пло­щадь се­че­ния равна пло­ща­ди тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Най­дем по­сле­до­ва­тель­но <var data-math-identifier=\"SM\">SM</var>, <var data-math-identifier=\"MN\">MN</var> и <var data-math-identifier=\"SN\">SN</var>.</li></ol><p><var data-math-identifier=\"SM\">SM</var> и <var data-math-identifier=\"SN\">SN</var>  — ме­ди­а­ны тре­уголь­ни­ков <var data-math-identifier=\"SAB\">SAB</var> и <var data-math-identifier=\"SBC\">SBC</var> со­от­вет­ствен­но. Эти тре­уголь­ни­ки рав­но­сто­рон­ние (по­сколь­ку все ребра пи­ра­ми­ды оди­на­ко­вой длины), по­это­му</p><center><p><span data-inline-latex=\"SM=SN=\\frac{\\sqrt{3}}{2}\\cdot 8=4\\sqrt{3}\"></span> . </p></center><p>Най­дем те­перь <var data-math-identifier=\"MN\">MN</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"MBN\">MBN</var>. В нем ка­те­ты равны 4. Ги­по­те­ну­за <var data-math-identifier=\"MN\">MN</var> по тео­ре­ме Пи­фа­го­ра будет равна <span data-inline-latex=\"4\\sqrt{2}\"></span> .</p><p>Те­перь най­дем пло­щадь рав­но­бед­рен­но­го тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Для этого про­ве­дем вы­со­ту <var data-math-identifier=\"SH\">SH</var>, по тео­ре­ме Пи­фа­го­ра рав­ную <span data-inline-latex=\"2\\sqrt{10}\"></span> , и вы­чис­лим пло­щадь: </p><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot SH\\cdot MN=\\frac{1}{2}\\cdot 2\\sqrt{10}\\cdot 4\\sqrt{2}=8\\sqrt{5}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:58:38.902269+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/737cbb00-8786-4ec3-a18c-8b050c7ab81e",
+              "kind": "ordinary_image",
+              "asset_id": "737cbb00-8786-4ec3-a18c-8b050c7ab81e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной четырёхуголь­ной пи­ра­ми­де <var data-math-identifier=\"SABCD\">SABCD</var> с ос­но­ва­ни­ем <var data-math-identifier=\"ABCD\">ABCD</var> про­ве­де­но се­че­ние через се­ре­ди­ны ребер <i>АВ</i> и <i>ВС</i> и вер­ши­ну <var data-math-identifier=\"S\">S</var>. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что ука­зан­ное се­че­ние делит объем пи­ра­ми­ды в от­но­ше­нии <span data-inline-latex=\"1\\colon 7\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те пло­щадь этого се­че­ния, если все ребра пи­ра­ми­ды равны 8.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-inline-latex=\"8\\sqrt{5}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"737cbb00-8786-4ec3-a18c-8b050c7ab81e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/737cbb00-8786-4ec3-a18c-8b050c7ab81e\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <var data-math-identifier=\"M\">M</var>  — се­ре­ди­на <var data-math-identifier=\"AB\">AB</var>, а <var data-math-identifier=\"N\">N</var>  — се­ре­ди­на <var data-math-identifier=\"BC\">BC</var>. Плос­кость <var data-math-identifier=\"SMN\">SMN</var> делит пи­ра­ми­ду на пи­ра­ми­ды <var data-math-identifier=\"SBNM\">SBNM</var> и <var data-math-identifier=\"SMADCN\">SMADCN</var>. У этих пи­ра­мид общая вы­со­та, про­ве­ден­ная из вер­ши­ны <var data-math-identifier=\"S\">S</var>, по­это­му их объ­е­мы от­но­сят­ся как пло­ща­ди мно­го­уголь­ни­ков <var data-math-identifier=\"BNM\">BNM</var> и <var data-math-identifier=\"MADCN\">MADCN</var>. Пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"BNM\">BNM</var> равна по­ло­ви­не от чет­вер­ти квад­ра­та <var data-math-identifier=\"ABCD\">ABCD</var>, то есть <span data-inline-latex=\"S_{BNM}=1\\div 8\\cdot S_{ABCD}\"></span>, по­это­му <span data-inline-latex=\"V_{SBNM}\\colon V_{SMADCN}=S_{BNM}\\colon S_{MADCN}=1\\div 8\\colon (1-1\\div 8)=1\\colon 7\"></span>.</li><li data-list-marker=\"б)\">Пло­щадь се­че­ния равна пло­ща­ди тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Най­дем по­сле­до­ва­тель­но <var data-math-identifier=\"SM\">SM</var>, <var data-math-identifier=\"MN\">MN</var> и <var data-math-identifier=\"SN\">SN</var>.</li></ol><p><var data-math-identifier=\"SM\">SM</var> и <var data-math-identifier=\"SN\">SN</var>  — ме­ди­а­ны тре­уголь­ни­ков <var data-math-identifier=\"SAB\">SAB</var> и <var data-math-identifier=\"SBC\">SBC</var> со­от­вет­ствен­но. Эти тре­уголь­ни­ки рав­но­сто­рон­ние (по­сколь­ку все ребра пи­ра­ми­ды оди­на­ко­вой длины), по­это­му</p><center><p><span data-inline-latex=\"SM=SN=\\frac{\\sqrt{3}}{2}\\cdot 8=4\\sqrt{3}\"></span> . </p></center><p>Най­дем те­перь <var data-math-identifier=\"MN\">MN</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"MBN\">MBN</var>. В нем ка­те­ты равны 4. Ги­по­те­ну­за <var data-math-identifier=\"MN\">MN</var> по тео­ре­ме Пи­фа­го­ра будет равна <span data-inline-latex=\"4\\sqrt{2}\"></span> .</p><p>Те­перь най­дем пло­щадь рав­но­бед­рен­но­го тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Для этого про­ве­дем вы­со­ту <var data-math-identifier=\"SH\">SH</var>, по тео­ре­ме Пи­фа­го­ра рав­ную <span data-inline-latex=\"2\\sqrt{10}\"></span> , и вы­чис­лим пло­щадь: </p><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot SH\\cdot MN=\\frac{1}{2}\\cdot 2\\sqrt{10}\\cdot 4\\sqrt{2}=8\\sqrt{5}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "500639",
+      "task": "507830",
+      "context": {
+        "problem_id": "b8780d00-df82-41be-b181-e476b1df5ebf",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:06.108537+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c6006403-f34f-41d4-9a22-344d5709e7c7",
+                "html": "<img alt=\"\" data-asset-id=\"c6006403-f34f-41d4-9a22-344d5709e7c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c6006403-f34f-41d4-9a22-344d5709e7c7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c6006403-f34f-41d4-9a22-344d5709e7c7",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пра­виль­ной четырёхуголь­ной пи­ра­ми­де <var data-math-identifier=\"SABCD\">SABCD</var> с ос­но­ва­ни­ем <var data-math-identifier=\"ABCD\">ABCD</var> про­ве­де­но се­че­ние через се­ре­ди­ны рёбер <var data-math-identifier=\"AB\">AB</var> и <var data-math-identifier=\"BC\">BC</var> и вер­ши­ну <var data-math-identifier=\"S\">S</var>. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что плос­кость се­че­ния делит от­ре­зок <var data-math-identifier=\"DB\">DB</var> в от­но­ше­нии <span data-inline-latex=\"3\\colon 1\"></span>, счи­тая от вер­ши­ны <var data-math-identifier=\"D\">D</var></li><li data-list-marker=\"б)\">Най­ди­те пло­щадь этого се­че­ния, если бо­ко­вое ребро пи­ра­ми­ды равно 5, а сто­ро­на ос­но­ва­ния равна 4.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\sqrt{38}\"></span> .</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"c6006403-f34f-41d4-9a22-344d5709e7c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Изоб­ра­зим ука­зан­ное в усло­вии се­че­ние  — тре­уголь­ник <var data-math-identifier=\"SKM\">SKM</var>; за­ме­тим, что <var data-math-identifier=\"KM\">KM</var> - сред­няя линия тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, по­это­му она делит по­по­лам от­ре­зок <var data-math-identifier=\"BO\">BO</var>, где <var data-math-identifier=\"O\">O</var> - центр квад­ра­та <var data-math-identifier=\"ABCD\">ABCD</var>. А зна­чит, диа­го­наль квад­ра­та де­лит­ся этой плос­ко­стью в от­но­ше­нии 3:1, что и тре­бо­ва­лось до­ка­зать.</li><li data-list-marker=\"б)\">Вы­чис­лим <span data-inline-latex=\"KM=\\frac{1}{2}AC=\\frac{1}{2}\\cdot 4\\sqrt{2}=2\\sqrt{2}\"></span> .</li></ol><p>Про­ведём в тре­уголь­ни­ке <var data-math-identifier=\"SKM\">SKM</var> вы­со­ту <var data-math-identifier=\"SP\">SP</var>. Точка <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на <var data-math-identifier=\"KM\">KM</var>.</p><p>Зна­чит, <span data-inline-latex=\"KP=\\frac{1}{2}KM=\\sqrt{2}\"></span> .</p><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SKA\">SKA</var> на­хо­дим </p><center><p><span data-inline-latex=\"SK=\\sqrt{SA^{2}-AK^{2}}=\\sqrt{25-4}=\\sqrt{21}\"></span> .</p></center><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SPK\">SPK</var></p><center><p><span data-inline-latex=\"SP=\\sqrt{SK^{2}-KP^{2}}=\\sqrt{21-2}=\\sqrt{19}\"></span> .</p></center><p>Тогда</p><center><p><span data-inline-latex=\"S_{SKM}=\\frac{1}{2}KM\\cdot SP=\\frac{1}{2}\\cdot 2\\sqrt{2}\\cdot \\sqrt{19}=\\sqrt{38}\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:58:40.678242+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c6006403-f34f-41d4-9a22-344d5709e7c7",
+              "kind": "ordinary_image",
+              "asset_id": "c6006403-f34f-41d4-9a22-344d5709e7c7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной четырёхуголь­ной пи­ра­ми­де <var data-math-identifier=\"SABCD\">SABCD</var> с ос­но­ва­ни­ем <var data-math-identifier=\"ABCD\">ABCD</var> про­ве­де­но се­че­ние через се­ре­ди­ны рёбер <var data-math-identifier=\"AB\">AB</var> и <var data-math-identifier=\"BC\">BC</var> и вер­ши­ну <var data-math-identifier=\"S\">S</var>. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что плос­кость се­че­ния делит от­ре­зок <var data-math-identifier=\"DB\">DB</var> в от­но­ше­нии <span data-inline-latex=\"3\\colon 1\"></span>, счи­тая от вер­ши­ны <var data-math-identifier=\"D\">D</var></li><li data-list-marker=\"б)\">Най­ди­те пло­щадь этого се­че­ния, если бо­ко­вое ребро пи­ра­ми­ды равно 5, а сто­ро­на ос­но­ва­ния равна 4.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\sqrt{38}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"c6006403-f34f-41d4-9a22-344d5709e7c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c6006403-f34f-41d4-9a22-344d5709e7c7\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Изоб­ра­зим ука­зан­ное в усло­вии се­че­ние  — тре­уголь­ник <var data-math-identifier=\"SKM\">SKM</var>; за­ме­тим, что <var data-math-identifier=\"KM\">KM</var> - сред­няя линия тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, по­это­му она делит по­по­лам от­ре­зок <var data-math-identifier=\"BO\">BO</var>, где <var data-math-identifier=\"O\">O</var> - центр квад­ра­та <var data-math-identifier=\"ABCD\">ABCD</var>. А зна­чит, диа­го­наль квад­ра­та де­лит­ся этой плос­ко­стью в от­но­ше­нии 3:1, что и тре­бо­ва­лось до­ка­зать.</li><li data-list-marker=\"б)\">Вы­чис­лим <span data-inline-latex=\"KM=\\frac{1}{2}AC=\\frac{1}{2}\\cdot 4\\sqrt{2}=2\\sqrt{2}\"></span> .</li></ol><p>Про­ведём в тре­уголь­ни­ке <var data-math-identifier=\"SKM\">SKM</var> вы­со­ту <var data-math-identifier=\"SP\">SP</var>. Точка <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на <var data-math-identifier=\"KM\">KM</var>.</p><p>Зна­чит, <span data-inline-latex=\"KP=\\frac{1}{2}KM=\\sqrt{2}\"></span> .</p><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SKA\">SKA</var> на­хо­дим </p><center><p><span data-inline-latex=\"SK=\\sqrt{SA^{2}-AK^{2}}=\\sqrt{25-4}=\\sqrt{21}\"></span> .</p></center><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SPK\">SPK</var></p><center><p><span data-inline-latex=\"SP=\\sqrt{SK^{2}-KP^{2}}=\\sqrt{21-2}=\\sqrt{19}\"></span> .</p></center><p>Тогда</p><center><p><span data-inline-latex=\"S_{SKM}=\\frac{1}{2}KM\\cdot SP=\\frac{1}{2}\\cdot 2\\sqrt{2}\\cdot \\sqrt{19}=\\sqrt{38}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "500639",
+      "task": "511345",
+      "context": {
+        "problem_id": "df9d0439-b6f4-473d-8506-bae133e66081",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:12.306165+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/eca3e42b-28e5-4f08-a9d7-f0133985331e",
+                "html": "<img alt=\"\" data-asset-id=\"eca3e42b-28e5-4f08-a9d7-f0133985331e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/eca3e42b-28e5-4f08-a9d7-f0133985331e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "eca3e42b-28e5-4f08-a9d7-f0133985331e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><span data-inline-latex=\"2\\sqrt{5}\"></span> .</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"eca3e42b-28e5-4f08-a9d7-f0133985331e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <var data-math-identifier=\"M\">M</var>  — се­ре­ди­на <var data-math-identifier=\"AB\">AB</var>, а <var data-math-identifier=\"N\">N</var>  — се­ре­ди­на <var data-math-identifier=\"BC\">BC</var>. Плос­кость <var data-math-identifier=\"SMN\">SMN</var> делит пи­ра­ми­ду на пи­ра­ми­ды <var data-math-identifier=\"SBNM\">SBNM</var> и <var data-math-identifier=\"SMADCN\">SMADCN</var>. У этих пи­ра­мид общая вы­со­та, про­ве­ден­ная из вер­ши­ны <var data-math-identifier=\"S\">S</var>, по­это­му их объ­е­мы от­но­сят­ся как пло­ща­ди мно­го­уголь­ни­ков <var data-math-identifier=\"BNM\">BNM</var> и <var data-math-identifier=\"MADCN\">MADCN</var>. Пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"BNM\">BNM</var> равна по­ло­ви­не от чет­вер­ти квад­ра­та <var data-math-identifier=\"ABCD\">ABCD</var>, то есть <span data-inline-latex=\"S_{BNM}=1\\div 8\\cdot S_{ABCD}\"></span>, по­это­му <span data-inline-latex=\"V_{SBNM}\\colon V_{SMADCN}=S_{BNM}\\colon S_{MADCN}=1\\div 8\\colon (1-1\\div 8)=1\\colon 7\"></span>.</li><li data-list-marker=\"б)\">Пло­щадь се­че­ния равна пло­ща­ди тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Най­дем по­сле­до­ва­тель­но <var data-math-identifier=\"SM\">SM</var>, <var data-math-identifier=\"MN\">MN</var> и <var data-math-identifier=\"SN\">SN</var>. От­рез­ки <var data-math-identifier=\"SM\">SM</var> и <var data-math-identifier=\"SN\">SN</var>  — ме­ди­а­ны тре­уголь­ни­ков <var data-math-identifier=\"SAB\">SAB</var> и <var data-math-identifier=\"SBC\">SBC</var> со­от­вет­ствен­но. Т. к. эти тре­уголь­ни­ки рав­но­сто­рон­ние (по­сколь­ку все ребра пи­ра­ми­ды оди­на­ко­вой длины),  </li></ol><center><p><span data-inline-latex=\"SM=SN=\\frac{\\sqrt{3}}{2}\\cdot 4=2\\sqrt{3}\"></span> . </p></center><p>Най­дем те­перь <var data-math-identifier=\"MN\">MN</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"MBN\">MBN</var>. В нем ка­те­ты равны 2. Ги­по­те­ну­за <var data-math-identifier=\"MN\">MN</var>, по тео­ре­ме Пи­фа­го­ра, будет равна <span data-inline-latex=\"2\\sqrt{2}\"></span> .</p><p>Те­перь най­дем пло­щадь рав­но­бед­рен­но­го тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Для этого про­ве­дем вы­со­ту <var data-math-identifier=\"SH\">SH</var>, по тео­ре­ме Пи­фа­го­ра рав­ную  <span data-inline-latex=\"\\sqrt{10}\"></span> , и вы­чис­лим пло­щадь: </p><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot SH\\cdot MN=\\frac{1}{2}\\cdot \\sqrt{10}\\cdot 2\\sqrt{2}=2\\sqrt{5}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:58:41.141528+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/eca3e42b-28e5-4f08-a9d7-f0133985331e",
+              "kind": "ordinary_image",
+              "asset_id": "eca3e42b-28e5-4f08-a9d7-f0133985331e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной четырёхуголь­ной пи­ра­ми­де <var data-math-identifier=\"SABCD\">SABCD</var> с ос­но­ва­ни­ем <var data-math-identifier=\"ABCD\">ABCD</var> про­ве­де­но се­че­ние через се­ре­ди­ны ребер <i>АВ</i> и <i>ВС</i> и вер­ши­ну <var data-math-identifier=\"S\">S</var>. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что ука­зан­ное се­че­ние делит объем пи­ра­ми­ды в от­но­ше­нии 1 : 7.</li><li data-list-marker=\"б)\">Най­ди­те пло­щадь этого се­че­ния, если все ребра пи­ра­ми­ды равны 4.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-inline-latex=\"2\\sqrt{5}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"eca3e42b-28e5-4f08-a9d7-f0133985331e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/eca3e42b-28e5-4f08-a9d7-f0133985331e\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <var data-math-identifier=\"M\">M</var>  — се­ре­ди­на <var data-math-identifier=\"AB\">AB</var>, а <var data-math-identifier=\"N\">N</var>  — се­ре­ди­на <var data-math-identifier=\"BC\">BC</var>. Плос­кость <var data-math-identifier=\"SMN\">SMN</var> делит пи­ра­ми­ду на пи­ра­ми­ды <var data-math-identifier=\"SBNM\">SBNM</var> и <var data-math-identifier=\"SMADCN\">SMADCN</var>. У этих пи­ра­мид общая вы­со­та, про­ве­ден­ная из вер­ши­ны <var data-math-identifier=\"S\">S</var>, по­это­му их объ­е­мы от­но­сят­ся как пло­ща­ди мно­го­уголь­ни­ков <var data-math-identifier=\"BNM\">BNM</var> и <var data-math-identifier=\"MADCN\">MADCN</var>. Пло­щадь тре­уголь­ни­ка <var data-math-identifier=\"BNM\">BNM</var> равна по­ло­ви­не от чет­вер­ти квад­ра­та <var data-math-identifier=\"ABCD\">ABCD</var>, то есть <span data-inline-latex=\"S_{BNM}=1\\div 8\\cdot S_{ABCD}\"></span>, по­это­му <span data-inline-latex=\"V_{SBNM}\\colon V_{SMADCN}=S_{BNM}\\colon S_{MADCN}=1\\div 8\\colon (1-1\\div 8)=1\\colon 7\"></span>.</li><li data-list-marker=\"б)\">Пло­щадь се­че­ния равна пло­ща­ди тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Най­дем по­сле­до­ва­тель­но <var data-math-identifier=\"SM\">SM</var>, <var data-math-identifier=\"MN\">MN</var> и <var data-math-identifier=\"SN\">SN</var>. От­рез­ки <var data-math-identifier=\"SM\">SM</var> и <var data-math-identifier=\"SN\">SN</var>  — ме­ди­а­ны тре­уголь­ни­ков <var data-math-identifier=\"SAB\">SAB</var> и <var data-math-identifier=\"SBC\">SBC</var> со­от­вет­ствен­но. Т. к. эти тре­уголь­ни­ки рав­но­сто­рон­ние (по­сколь­ку все ребра пи­ра­ми­ды оди­на­ко­вой длины),  </li></ol><center><p><span data-inline-latex=\"SM=SN=\\frac{\\sqrt{3}}{2}\\cdot 4=2\\sqrt{3}\"></span> . </p></center><p>Най­дем те­перь <var data-math-identifier=\"MN\">MN</var> из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"MBN\">MBN</var>. В нем ка­те­ты равны 2. Ги­по­те­ну­за <var data-math-identifier=\"MN\">MN</var>, по тео­ре­ме Пи­фа­го­ра, будет равна <span data-inline-latex=\"2\\sqrt{2}\"></span> .</p><p>Те­перь най­дем пло­щадь рав­но­бед­рен­но­го тре­уголь­ни­ка <var data-math-identifier=\"SMN\">SMN</var>. Для этого про­ве­дем вы­со­ту <var data-math-identifier=\"SH\">SH</var>, по тео­ре­ме Пи­фа­го­ра рав­ную  <span data-inline-latex=\"\\sqrt{10}\"></span> , и вы­чис­лим пло­щадь: </p><center><p><span data-inline-latex=\"S=\\frac{1}{2}\\cdot SH\\cdot MN=\\frac{1}{2}\\cdot \\sqrt{10}\\cdot 2\\sqrt{2}=2\\sqrt{5}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "500639",
+      "task": "511501",
+      "context": {
+        "problem_id": "510770fb-853f-4a71-af3e-1c1d403ea6b7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:20:39.223385+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c6006403-f34f-41d4-9a22-344d5709e7c7",
+                "html": "<img alt=\"\" data-asset-id=\"c6006403-f34f-41d4-9a22-344d5709e7c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c6006403-f34f-41d4-9a22-344d5709e7c7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c6006403-f34f-41d4-9a22-344d5709e7c7",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><span data-inline-latex=\"3\\sqrt{230}\"></span> .</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"c6006403-f34f-41d4-9a22-344d5709e7c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Про­ек­ци­ей <var data-math-identifier=\"SD\">SD</var> на плос­кость <var data-math-identifier=\"ABCD\">ABCD</var> будет яв­лять­ся пря­мая <var data-math-identifier=\"BD\">BD</var>. <span data-inline-latex=\"BD\\perp AC\"></span> как диа­го­на­ли квад­ра­та, а <span data-inline-latex=\"MK\\parallel AC\"></span>, как сред­няя линия тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Зна­чит, <span data-inline-latex=\"MK\\perp BD\"></span> и, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"MK\\perp SD\"></span>.</li><li data-list-marker=\"б)\">Изоб­ра­зим ука­зан­ное в усло­вии се­че­ние  — тре­уголь­ник <var data-math-identifier=\"SKM\">SKM</var>:</li></ol><center><p><span data-inline-latex=\"KM=\\frac{1}{2}AC=\\frac{1}{2}\\cdot 12\\sqrt{2}=6\\sqrt{2}\"></span> .</p></center><p>Про­ведём в тре­уголь­ни­ке <var data-math-identifier=\"SKM\">SKM</var> вы­со­ту <var data-math-identifier=\"SP\">SP</var>. Точка <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на <var data-math-identifier=\"KM\">KM</var>.</p><p>Зна­чит, <span data-inline-latex=\"KP=\\frac{1}{2}KM=3\\sqrt{2}\"></span> .</p><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SKA\">SKA</var> на­хо­дим </p><center><p><span data-inline-latex=\"SK=\\sqrt{SA^{2}-AK^{2}}=\\sqrt{169-36}=\\sqrt{133}\"></span> .</p></center><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SPK\">SPK</var></p><center><p><span data-inline-latex=\"SP=\\sqrt{SK^{2}-KP^{2}}=\\sqrt{133-18}=\\sqrt{115}\"></span> .</p></center><p>Тогда</p><center><p><span data-inline-latex=\"S_{SKM}=\\frac{1}{2}KM\\cdot SP=\\frac{1}{2}\\cdot 6\\sqrt{2}\\cdot \\sqrt{115}=3\\sqrt{230}\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:57:11.133981+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c6006403-f34f-41d4-9a22-344d5709e7c7",
+              "kind": "ordinary_image",
+              "asset_id": "c6006403-f34f-41d4-9a22-344d5709e7c7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной четырёхуголь­ной пи­ра­ми­де <var data-math-identifier=\"SABCD\">SABCD</var> с ос­но­ва­ни­ем <var data-math-identifier=\"ABCD\">ABCD</var> через точки <var data-math-identifier=\"K\">K</var> и <var data-math-identifier=\"M\">M</var>  — се­ре­ди­ны рёбер <var data-math-identifier=\"AB\">AB</var> и <var data-math-identifier=\"BC\">BC</var> со­от­вет­ствен­но и вер­ши­ну <var data-math-identifier=\"S\">S</var> про­ве­де­но се­че­ние. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что пря­мые <var data-math-identifier=\"MK\">MK</var> и <var data-math-identifier=\"SD\">SD</var> пер­пен­ди­ку­ляр­ны.</li><li data-list-marker=\"б)\">Най­ди­те пло­щадь этого се­че­ния, если бо­ко­вое ребро пи­ра­ми­ды равно 13, а сто­ро­на ос­но­ва­ния равна  12.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-inline-latex=\"3\\sqrt{230}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"c6006403-f34f-41d4-9a22-344d5709e7c7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c6006403-f34f-41d4-9a22-344d5709e7c7\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Про­ек­ци­ей <var data-math-identifier=\"SD\">SD</var> на плос­кость <var data-math-identifier=\"ABCD\">ABCD</var> будет яв­лять­ся пря­мая <var data-math-identifier=\"BD\">BD</var>. <span data-inline-latex=\"BD\\perp AC\"></span> как диа­го­на­ли квад­ра­та, а <span data-inline-latex=\"MK\\parallel AC\"></span>, как сред­няя линия тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>. Зна­чит, <span data-inline-latex=\"MK\\perp BD\"></span> и, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"MK\\perp SD\"></span>.</li><li data-list-marker=\"б)\">Изоб­ра­зим ука­зан­ное в усло­вии се­че­ние  — тре­уголь­ник <var data-math-identifier=\"SKM\">SKM</var>:</li></ol><center><p><span data-inline-latex=\"KM=\\frac{1}{2}AC=\\frac{1}{2}\\cdot 12\\sqrt{2}=6\\sqrt{2}\"></span> .</p></center><p>Про­ведём в тре­уголь­ни­ке <var data-math-identifier=\"SKM\">SKM</var> вы­со­ту <var data-math-identifier=\"SP\">SP</var>. Точка <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на <var data-math-identifier=\"KM\">KM</var>.</p><p>Зна­чит, <span data-inline-latex=\"KP=\\frac{1}{2}KM=3\\sqrt{2}\"></span> .</p><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SKA\">SKA</var> на­хо­дим </p><center><p><span data-inline-latex=\"SK=\\sqrt{SA^{2}-AK^{2}}=\\sqrt{169-36}=\\sqrt{133}\"></span> .</p></center><p>Из тре­уголь­ни­ка <var data-math-identifier=\"SPK\">SPK</var></p><center><p><span data-inline-latex=\"SP=\\sqrt{SK^{2}-KP^{2}}=\\sqrt{133-18}=\\sqrt{115}\"></span> .</p></center><p>Тогда</p><center><p><span data-inline-latex=\"S_{SKM}=\\frac{1}{2}KM\\cdot SP=\\frac{1}{2}\\cdot 6\\sqrt{2}\\cdot \\sqrt{115}=3\\sqrt{230}\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

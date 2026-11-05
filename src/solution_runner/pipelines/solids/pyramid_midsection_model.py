@@ -1,10 +1,12 @@
 """Read midpoint, reflected-apex and median-section proofs in regular pyramids."""
 
 import re
+from dataclasses import replace
 
 import sympy as sp
 
 from ..core.errors import ContentPlanError
+from ..word_problems.common import UnsupportedCondition
 from .measurements import positive
 from .pyramid_model import regular
 from .spatial_metric_model import model
@@ -14,6 +16,7 @@ MODES = {
     "reflected_triangle_section_midline",
     "reflected_square_section_midline",
     "square_median_section_area",
+    "square_adjacent_midpoint_area",
 }
 VERTICAL = (
     r"[ВB] правильной треугольной пирамиде SABC сторона основания AB равна (.+?), а боковое ребро SA равно (.+?)\. "
@@ -43,6 +46,62 @@ POINT_REQUEST = (
     + PERPENDICULAR
     + r"Найдите площадь сечения пирамиды плоскостью, проходящей через точки B и N параллельно прямой AC\."
 )
+ADJACENT_HEADER = r"[ВB] правильной четырехугольной пирамиде SABCD с основанием ABCD "
+ADJACENT_FREE = r"проведено сечение через середины ребер AB и BC и вершину S\. "
+ADJACENT_NAMED = r"через точки K и M [—–-] середины ребер AB и BC соответственно и вершину S проведено сечение\. "
+ADJACENT_VOLUME = r"Докажите, что указанное сечение делит объем пирамиды в отношении (.+?):\s*(.+?)\. "
+ADJACENT_RATIO = r"Докажите, что плоскость сечения делит отрезок DB в отношении (.+?):\s*(.+?), считая от вершины D\.? "
+ADJACENT_PERP = r"Докажите, что прямые MK и SD перпендикулярны\. "
+ADJACENT_ALL = r"Найдите площадь этого сечения, если все ребра пирамиды равны (.+?)\."
+ADJACENT_GIVEN = r"Найдите площадь этого сечения, если боковое ребро пирамиды равно (.+?), а сторона основания равна (.+?)\."
+
+
+def _adjacent(groups, kind, claim, equal):
+    if claim != "perpendicular":
+        p, q = map(positive, groups[:2])
+        expected = sp.Rational(1, 7) if claim == "volume" else sp.Integer(3)
+        if sp.simplify(p / q - expected) != 0:
+            raise ContentPlanError(
+                "the adjacent-midpoint section does not prove this ratio"
+            )
+        groups = groups[2:]
+    e = positive(groups[0])
+    a = e if equal else positive(groups[1])
+    dims = regular("square", {"a": a, "e": e})
+    dims.update(
+        section_base=a / sp.sqrt(2),
+        face_median=sp.sqrt(e * e - a * a / 4),
+        section_height=sp.sqrt(e * e - 3 * a * a / 8),
+    )
+    result = model(
+        "square_adjacent_midpoint_area",
+        (("e", e), ("a", a)),
+        dims,
+        (kind, claim),
+        dims["section_base"] * dims["section_height"] / 2,
+    )
+    return replace(result, squares=(a * a, e * e))
+
+
+def _read_adjacent(raw):
+    raw = raw.replace(r"\colon", ":")
+    for intro, claim_pattern, kind, claim in (
+        (ADJACENT_FREE, ADJACENT_VOLUME, "free", "volume"),
+        (ADJACENT_FREE, ADJACENT_RATIO, "free", "diagonal_ratio"),
+        (ADJACENT_NAMED, ADJACENT_PERP, "named", "perpendicular"),
+    ):
+        for measurements, equal in ((ADJACENT_ALL, True), (ADJACENT_GIVEN, False)):
+            match = re.fullmatch(
+                ADJACENT_HEADER + intro + claim_pattern + measurements, raw
+            )
+            if match:
+                try:
+                    return _adjacent(match.groups(), kind, claim, equal)
+                except UnsupportedCondition as exc:
+                    raise ContentPlanError(
+                        "complete numeric section measurements are required"
+                    ) from exc
+    return None
 
 
 def _vertical(groups):
@@ -127,4 +186,4 @@ def read(raw):
         match = re.fullmatch(pattern, raw)
         if match:
             return solve(match.groups())
-    return None
+    return _read_adjacent(raw)

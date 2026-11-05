@@ -8,6 +8,7 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-square-pyramid-adjacent-midpoint-section": "square_adjacent_midpoint_area",
     "solid-triangle-pyramid-vertical-midsection": "triangle_vertical_section_area",
     "solid-pyramid-reflected-apex-section": (
         "reflected_triangle_section_midline",
@@ -77,6 +78,9 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    "square_adjacent_midpoint_area": (
+        ("solution", "image_1", "737cbb00-8786-4ec3-a18c-8b050c7ab81e"),
+    ),
     "triangle_vertical_section_area": (
         ("solution", "image_1", "6ceb8276-18bf-4e14-bf44-a2386fc9d27d"),
     ),
@@ -225,6 +229,12 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if model.mode == "square_adjacent_midpoint_area":
+        for source in MODE_SOURCES[model.mode]:
+            if "squares" in DATA["figures"][source] and compatible(
+                model, source, "solution", "image_1"
+            ):
+                return (("solution", "image_1", source),)
     if (
         model.mode == "triangle_prism_section_distance"
         and model.symbols.get("section_layout") == "midpoints"

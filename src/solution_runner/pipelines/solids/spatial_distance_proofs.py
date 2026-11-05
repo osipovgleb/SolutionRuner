@@ -171,6 +171,7 @@ def _box(m, pictures):
 
 def render(m, pictures):
     from . import (
+        adjacent_midpoint_proof,
         cube_plane_section_model,
         cube_plane_section_proofs,
         prism_separation_model,
@@ -193,6 +194,8 @@ def render(m, pictures):
     if m.mode in pyramid_perpendicular_section_model.MODES:
         return pyramid_perpendicular_section_proof.render(m, pictures)
     if m.mode in pyramid_midsection_model.MODES:
+        if m.mode == "square_adjacent_midpoint_area":
+            return adjacent_midpoint_proof.render(m, pictures)
         if m.mode in {
             "reflected_triangle_section_midline",
             "reflected_square_section_midline",
