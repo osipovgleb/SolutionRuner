@@ -226,5 +226,14 @@ PROFILES = tuple(
             "33f0a331-a98b-4359-85d7-fb39e75bf0e9",
             "solid-square-pyramid-adjacent-midpoint-section",
         ),
+        (
+            "562034",
+            "39429e4f-48ac-4f09-b2b1-d422cbfef3de",
+            36,
+            "Сечения пирамид",
+            3,
+            "33f0a331-a98b-4359-85d7-fb39e75bf0e9",
+            "solid-square-pyramid-vertical-vertex-section",
+        ),
     )
 )

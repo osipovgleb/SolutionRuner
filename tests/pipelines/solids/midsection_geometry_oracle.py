@@ -164,7 +164,33 @@ def adjacent(m):
     )
 
 
+def vertical_vertex(m):
+    a, e, am, sk = (dict(m.given)[k] for k in ("a", "e", "AM", "SK"))
+    A, B = sp.Matrix([a, 0, 0]), sp.zeros(3, 1)
+    C, D = sp.Matrix([0, a, 0]), sp.Matrix([a, a, 0])
+    O = (A + C) / 2
+    S = O + sp.Matrix([0, 0, sp.sqrt(e * e - a * a / 2)])
+    M, K = A + am / a * (B - A), S + sk / e * (B - S)
+    F = sp.Matrix([K[0], K[1], 0])
+    normal = (K - M).cross(F - M)
+    assert normal[2] == 0 and sp.simplify(normal.dot(C - M)) == 0
+    sides = [sp.simplify(normal.dot(P - M)) for P in (A, D, S, B)]
+    assert all(sides[i] * sides[0] > 0 for i in (1, 2)) and sides[3] * sides[0] < 0
+    assert sp.simplify((F - B).cross(D - B).norm()) == 0
+    assert sp.simplify((F - M).cross(C - M).norm()) == 0
+    assert sp.simplify((K - F).dot(C - M)) == 0
+    points = {"A": A, "B": B, "C": C, "D": D, "O": O, "S": S, "M": M, "K": K}
+    if m.symbols.get("method") == "coincident_feet":
+        points.update(H=F, H_1=F)
+    else:
+        points.update(L=F, H=C, N=C)
+    answer = area(M, K, C)
+    return points, {"S_{MKC}": answer}, answer
+
+
 def geometry(m):
+    if m.mode == "square_vertical_vertex_area":
+        return vertical_vertex(m)
     if m.mode == "square_adjacent_midpoint_area":
         return adjacent(m)
     if m.mode == "triangle_vertical_section_area":

@@ -8,6 +8,7 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-square-pyramid-vertical-vertex-section": "square_vertical_vertex_area",
     "solid-square-pyramid-adjacent-midpoint-section": "square_adjacent_midpoint_area",
     "solid-triangle-pyramid-vertical-midsection": "triangle_vertical_section_area",
     "solid-pyramid-reflected-apex-section": (
@@ -78,6 +79,9 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    "square_vertical_vertex_area": (
+        ("solution", "image_1", "29df316f-7cb6-4aa0-b1f8-f0e5cc489697"),
+    ),
     "square_adjacent_midpoint_area": (
         ("solution", "image_1", "737cbb00-8786-4ec3-a18c-8b050c7ab81e"),
     ),
@@ -188,9 +192,10 @@ def compatible(model, source, role, slot):
         or entry["slot"] != slot
     ):
         return False
-    if model.mode == "ratio_plane_distance" and entry.get(
-        "method"
-    ) != model.symbols.get("method"):
+    if model.mode in {
+        "ratio_plane_distance",
+        "square_vertical_vertex_area",
+    } and entry.get("method") != model.symbols.get("method"):
         return False
     if entry.get("reusable") is False:
         return False
@@ -211,6 +216,13 @@ def compatible(model, source, role, slot):
 
 
 def reviewed_model(model, assets):
+    if model.mode == "square_vertical_vertex_area":
+        source = assets["image_1"]["asset_id"] if "image_1" in assets else None
+        entry = DATA["figures"].get(source, {})
+        method = entry.get("method", "base_intersection")
+        if {"image_2", "image_3"} & set(assets):
+            method = "coincident_feet"
+        return replace(model, symbols={"method": method})
     if model.mode in {
         "square_prism_section_distance",
         "triangle_prism_section_distance",
@@ -229,6 +241,15 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if (
+        model.mode == "square_vertical_vertex_area"
+        and model.symbols.get("method") == "coincident_feet"
+    ):
+        return (
+            ("solution", "image_1", "1c6739bb-63b8-419b-a911-d443bc53f196"),
+            ("solution", "image_2", "4f04ca73-822f-4a2e-8b8e-7db35b690865"),
+            ("solution", "image_3", "d314c176-dae2-444c-8e09-43d0a172f4f6"),
+        )
     if model.mode == "square_adjacent_midpoint_area":
         for source in MODE_SOURCES[model.mode]:
             if "squares" in DATA["figures"][source] and compatible(

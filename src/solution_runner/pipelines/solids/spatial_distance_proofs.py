@@ -180,6 +180,8 @@ def render(m, pictures):
         pyramid_midsection_proofs,
         pyramid_perpendicular_section_model,
         pyramid_perpendicular_section_proof,
+        pyramid_vertical_cut_model,
+        pyramid_vertical_cut_proof,
         reflected_section_proofs,
         spatial_altitude_model,
         spatial_altitude_proofs,
@@ -191,6 +193,8 @@ def render(m, pictures):
         spatial_section_proofs,
     )
 
+    if m.mode in pyramid_vertical_cut_model.MODES:
+        return pyramid_vertical_cut_proof.render(m, pictures)
     if m.mode in pyramid_perpendicular_section_model.MODES:
         return pyramid_perpendicular_section_proof.render(m, pictures)
     if m.mode in pyramid_midsection_model.MODES:

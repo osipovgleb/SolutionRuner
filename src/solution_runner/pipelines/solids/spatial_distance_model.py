@@ -13,6 +13,7 @@ from . import (
     prism_separation_model,
     pyramid_midsection_model,
     pyramid_perpendicular_section_model,
+    pyramid_vertical_cut_model,
     spatial_altitude_model,
     spatial_metric_model,
     spatial_plane_model,
@@ -36,6 +37,7 @@ MODES = (
     | cube_plane_section_model.MODES
     | pyramid_midsection_model.MODES
     | pyramid_perpendicular_section_model.MODES
+    | pyramid_vertical_cut_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -198,6 +200,7 @@ def read_question(html, source=None):
         cube_plane_section_model.read,
         pyramid_midsection_model.read,
         pyramid_perpendicular_section_model.read,
+        pyramid_vertical_cut_model.read,
     ):
         found = reader(raw)
         if found is not None:
