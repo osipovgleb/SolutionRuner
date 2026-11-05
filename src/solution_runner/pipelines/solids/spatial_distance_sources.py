@@ -8,6 +8,13 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-triangle-pyramid-vertical-midsection": "triangle_vertical_section_area",
+    "solid-pyramid-reflected-apex-section": (
+        "reflected_triangle_section_midline",
+        "reflected_square_section_midline",
+    ),
+    "solid-square-pyramid-centroid-section": "square_median_section_area",
+    "solid-triangle-pyramid-perpendicular-section": "triangle_perpendicular_section_area",
     "solid-cube-midplane-volume-distance": (
         "cube_base_plane_distance",
         "cube_vertical_plane_distance",
@@ -70,6 +77,21 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    "triangle_vertical_section_area": (
+        ("solution", "image_1", "6ceb8276-18bf-4e14-bf44-a2386fc9d27d"),
+    ),
+    "reflected_triangle_section_midline": (
+        ("solution", "image_1", "2e526a67-1049-4f21-b7a6-8f593ed97c6d"),
+    ),
+    "reflected_square_section_midline": (
+        ("solution", "image_1", "0bcf83c6-133d-4245-8170-c9b5d153fb68"),
+    ),
+    "square_median_section_area": (
+        ("solution", "image_1", "5e419167-6d4e-4098-bddd-9fd5345e49b8"),
+    ),
+    "triangle_perpendicular_section_area": (
+        ("solution", "image_1", "27f83f0e-09f6-4361-9f69-3c3e0233f1ce"),
+    ),
     "cube_base_plane_distance": (
         ("solution", "image_1", "554860bc-05fd-4543-a1a5-033b62595aaf"),
         ("solution", "image_2", "a0825224-ae99-467c-8821-f211cdd4f66d"),

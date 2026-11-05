@@ -11,6 +11,8 @@ from . import box_coordinates as c
 from . import (
     cube_plane_section_model,
     prism_separation_model,
+    pyramid_midsection_model,
+    pyramid_perpendicular_section_model,
     spatial_altitude_model,
     spatial_metric_model,
     spatial_plane_model,
@@ -32,6 +34,8 @@ MODES = (
     | prism_separation_model.MODES
     | spatial_section_model.MODES
     | cube_plane_section_model.MODES
+    | pyramid_midsection_model.MODES
+    | pyramid_perpendicular_section_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -161,7 +165,17 @@ def _pyramid(groups, fields):
 def read_question(html, source=None):
     raw_text = BeautifulSoup(html, "html.parser").get_text().replace("\xad", "")
     if not any(action in raw_text for action in ("Докажите", "Постройте")):
-        return read_box(html, source)
+        try:
+            return read_box(html, source)
+        except ContentPlanError as box_error:
+            try:
+                raw = condition_text(html, source)
+            except ContentPlanError:
+                raise box_error
+            section = pyramid_perpendicular_section_model.read(raw)
+            if section is None:
+                raise
+            return section
     raw = condition_text(html, source)
     match = re.fullmatch(BOX, raw)
     if match:
@@ -182,6 +196,8 @@ def read_question(html, source=None):
         prism_separation_model.read,
         spatial_section_model.read,
         cube_plane_section_model.read,
+        pyramid_midsection_model.read,
+        pyramid_perpendicular_section_model.read,
     ):
         found = reader(raw)
         if found is not None:

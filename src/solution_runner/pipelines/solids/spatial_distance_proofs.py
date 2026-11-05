@@ -175,6 +175,11 @@ def render(m, pictures):
         cube_plane_section_proofs,
         prism_separation_model,
         prism_separation_proofs,
+        pyramid_midsection_model,
+        pyramid_midsection_proofs,
+        pyramid_perpendicular_section_model,
+        pyramid_perpendicular_section_proof,
+        reflected_section_proofs,
         spatial_altitude_model,
         spatial_altitude_proofs,
         spatial_metric_model,
@@ -185,6 +190,15 @@ def render(m, pictures):
         spatial_section_proofs,
     )
 
+    if m.mode in pyramid_perpendicular_section_model.MODES:
+        return pyramid_perpendicular_section_proof.render(m, pictures)
+    if m.mode in pyramid_midsection_model.MODES:
+        if m.mode in {
+            "reflected_triangle_section_midline",
+            "reflected_square_section_midline",
+        }:
+            return reflected_section_proofs.render(m, pictures)
+        return pyramid_midsection_proofs.render(m, pictures)
     if m.mode in spatial_section_model.MODES:
         return spatial_section_proofs.render(m, pictures)
     if m.mode in cube_plane_section_model.MODES:
