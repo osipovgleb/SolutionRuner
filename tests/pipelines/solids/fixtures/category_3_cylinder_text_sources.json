@@ -1,0 +1,4100 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "27045",
+      "group_uuid": "0425aa28-ab86-4ed5-aadc-d32003b332ac",
+      "size": 35,
+      "order_index": 0,
+      "rule": "solid-cylinder-immersed-displacement",
+      "mode": "displacement",
+      "sample_tasks": [
+        "4905",
+        "4907",
+        "4911"
+      ]
+    },
+    {
+      "key": "27046",
+      "group_uuid": "c90a5190-936f-4a7d-aac0-8d65f6a59f22",
+      "size": 35,
+      "order_index": 1,
+      "rule": "solid-cylinder-liquid-transfer",
+      "mode": "transfer",
+      "sample_tasks": [
+        "4921",
+        "72061",
+        "72105"
+      ]
+    },
+    {
+      "key": "27053",
+      "group_uuid": "14f50164-b4b8-445e-925f-70af6d88592a",
+      "size": 28,
+      "order_index": 2,
+      "rule": "solid-cylinder-volume-scaling",
+      "mode": "volume_ratio",
+      "sample_tasks": [
+        "5037",
+        "72403",
+        "630090"
+      ]
+    },
+    {
+      "key": "27058",
+      "group_uuid": "36c3850c-11e3-4f79-9360-1b511eda3c57",
+      "size": 24,
+      "order_index": 3,
+      "rule": "solid-cylinder-lateral-from-radius",
+      "mode": "lateral",
+      "sample_tasks": [
+        "72673",
+        "72675",
+        "72677"
+      ]
+    },
+    {
+      "key": "27133",
+      "group_uuid": "6ef99f63-d592-48b1-93cf-3a13a81d4416",
+      "size": 25,
+      "order_index": 6,
+      "rule": "solid-cylinder-lateral-from-circumference",
+      "mode": "lateral",
+      "sample_tasks": [
+        "75599",
+        "75601",
+        "75603"
+      ]
+    },
+    {
+      "key": "27173",
+      "group_uuid": "3126cbb8-66ab-47fd-819b-eb42ab3ae2d5",
+      "size": 26,
+      "order_index": 7,
+      "rule": "solid-cylinder-lateral-from-axial-area",
+      "mode": "axial_lateral",
+      "sample_tasks": [
+        "76555",
+        "76561",
+        "76557"
+      ]
+    },
+    {
+      "key": "245358",
+      "group_uuid": "3f6b2165-78e6-4579-b6f3-8b7722541a8a",
+      "size": 115,
+      "order_index": 14,
+      "rule": "solid-cylinder-height-from-circumference",
+      "mode": "height",
+      "sample_tasks": [
+        "927",
+        "270347",
+        "270567"
+      ]
+    },
+    {
+      "key": "284361",
+      "group_uuid": "ca1b1372-949c-4edd-9c46-96b231479052",
+      "size": 26,
+      "order_index": 15,
+      "rule": "solid-cylinder-height-from-diameter",
+      "mode": "height",
+      "sample_tasks": [
+        "925",
+        "926",
+        "928"
+      ]
+    },
+    {
+      "key": "284362",
+      "group_uuid": "a9723d75-1a4f-4b1c-8d83-a933436d0085",
+      "size": 22,
+      "order_index": 16,
+      "rule": "solid-cylinder-diameter-from-lateral",
+      "mode": "diameter",
+      "sample_tasks": [
+        "285799",
+        "285839",
+        "285801"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "27045",
+      "task": "27045",
+      "context": {
+        "problem_id": "30d96513-07a3-4d6b-9cf1-75c6a9d44b7e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:23.729856+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "html": "<img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:53.111204+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 2000 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 12 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 9 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:53.111204+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 9/⁠12 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{9}{12}\\cdot 2000=\\frac{3}{4}\\cdot 2000=1500\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:53.111204+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "kind": "ordinary_image",
+              "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 2000 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 12 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 9 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1500</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 9/⁠12 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{9}{12}\\cdot 2000=\\frac{3}{4}\\cdot 2000=1500\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27045",
+      "task": "4905",
+      "context": {
+        "problem_id": "c415073e-e53f-40f4-b136-265152080940",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:25.470531+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "html": "<img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:46.545753+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 2000 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 12 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 9 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:46.545753+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 9/12 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{9}{12}\\cdot 2000=\\frac{3}{4}\\cdot 2000=1500\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:46.545753+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "kind": "ordinary_image",
+              "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 2000 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 12 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 9 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1500</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 9/12 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{9}{12}\\cdot 2000=\\frac{3}{4}\\cdot 2000=1500\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27045",
+      "task": "4907",
+      "context": {
+        "problem_id": "0582e86a-3726-4735-ac23-0be16c354a75",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:22.403440+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "html": "<img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:52.420062+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 1200 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 12 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 10 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:52.420062+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 10/12 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{10}{12}\\cdot 1200=\\frac{5}{6}\\cdot 1200=1000\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:52.420062+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "kind": "ordinary_image",
+              "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 1200 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 12 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 10 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=17852146\" rel=\"noreferrer noopener\" target=\"_blank\">Досрочный ЕГЭ по математике (Центр) 30.03.2018</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 10/12 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{10}{12}\\cdot 1200=\\frac{5}{6}\\cdot 1200=1000\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27045",
+      "task": "4911",
+      "context": {
+        "problem_id": "98211325-2e0d-4d90-a8b2-4909031a5890",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:25.115815+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "html": "<img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.541593+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 1200 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 15 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 12 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.541593+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>По за­ко­ну Ар­хи­ме­да объем де­та­ли равен объ­е­му вы­тес­нен­ной ею жид­ко­сти. Объем вы­тес­нен­ной жид­ко­сти <nobr>равен  <span data-inline-latex=\"\\frac{12}{15}\"></span>  ис­ход­но­го</nobr> объ­е­ма:</p><center><p> <span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{12}{15}\\cdot 1200=\\frac{4}{5}\\cdot 1200=960\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.541593+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.541593+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "kind": "ordinary_image",
+              "asset_id": "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"6a9b9977-189d-4517-beba-1c2a0a82e51c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/6a9b9977-189d-4517-beba-1c2a0a82e51c\"/>В ци­лин­дри­че­ский сосуд на­ли­ли 1200 см<sup>3</sup> воды. Уро­вень воды при этом до­сти­га­ет вы­со­ты 15 см. В жид­кость пол­но­стью по­гру­зи­ли де­таль. При этом уро­вень жид­ко­сти в со­су­де под­нял­ся на 12 см. Чему равен объем де­та­ли? Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">960</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>По за­ко­ну Ар­хи­ме­да объем де­та­ли равен объ­е­му вы­тес­нен­ной ею жид­ко­сти. Объем вы­тес­нен­ной жид­ко­сти <nobr>равен  <span data-inline-latex=\"\\frac{12}{15}\"></span>  ис­ход­но­го</nobr> объ­е­ма:</p><center><p> <span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{12}{15}\\cdot 1200=\\frac{4}{5}\\cdot 1200=960\\,\\mathrm{см}^{3}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27046",
+      "task": "27046",
+      "context": {
+        "problem_id": "0338a295-ba43-47e8-99a2-5970a959871a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:06.885019+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a8b286be-6a64-4748-be89-9768c4cb8de9",
+                "html": "<img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a8b286be-6a64-4748-be89-9768c4cb8de9\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a8b286be-6a64-4748-be89-9768c4cb8de9",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:52.814743+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 16 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в <nobr>2 раза</nobr> боль­ше пер­во­го? Ответ дайте в сан­ти­мет­рах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:52.814743+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем ци­лин­дри­че­ско­го со­су­да вы­ра­жа­ет­ся через его диа­метр и вы­со­ту как <span data-inline-latex=\"V=H\\frac{\\pi d^{2}}{4}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в <nobr>2 раза</nobr> вы­со­та рав­но­го объ­е­ма жид­ко­сти <span data-inline-latex=\"H=\\frac{4V}{\\pi d^{2}}\"></span>  умень­шит­ся в <nobr>4 раза</nobr> и ста­нет <nobr>равна 4.</nobr></p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:52.814743+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:47:52.814743+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a8b286be-6a64-4748-be89-9768c4cb8de9",
+              "kind": "ordinary_image",
+              "asset_id": "a8b286be-6a64-4748-be89-9768c4cb8de9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a8b286be-6a64-4748-be89-9768c4cb8de9\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 16 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в <nobr>2 раза</nobr> боль­ше пер­во­го? Ответ дайте в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=8163627\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2016 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=5465234\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2015 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=11672190\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2017 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=34177309\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2021 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=41538304\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2022 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47841143\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2023 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=54540650\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2024 по математике. Профильный уровень</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=24868796\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2020 по математике. Профильный уровень</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем ци­лин­дри­че­ско­го со­су­да вы­ра­жа­ет­ся через его диа­метр и вы­со­ту как <span data-inline-latex=\"V=H\\frac{\\pi d^{2}}{4}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в <nobr>2 раза</nobr> вы­со­та рав­но­го объ­е­ма жид­ко­сти <span data-inline-latex=\"H=\\frac{4V}{\\pi d^{2}}\"></span>  умень­шит­ся в <nobr>4 раза</nobr> и ста­нет <nobr>равна 4.</nobr></p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27046",
+      "task": "4921",
+      "context": {
+        "problem_id": "bf887b43-6e62-4c7b-8b03-bfc04d173130",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:13.395043+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/888f9f28-5f69-4052-b73c-5f7da2b2abc6",
+                "html": "<img alt=\"\" data-asset-id=\"888f9f28-5f69-4052-b73c-5f7da2b2abc6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/888f9f28-5f69-4052-b73c-5f7da2b2abc6\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "888f9f28-5f69-4052-b73c-5f7da2b2abc6",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:57.172811+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"888f9f28-5f69-4052-b73c-5f7da2b2abc6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 8 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в 2 раза боль­ше пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:57.172811+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем ци­лин­дри­че­ско­го со­су­да вы­ра­жа­ет­ся через его диа­метр и вы­со­ту как <span data-inline-latex=\"V=H\\frac{\\pi d^{2}}{4}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в 2 раза вы­со­та рав­но­го объ­е­ма жид­ко­сти <span data-inline-latex=\"H=\\frac{4V}{\\pi d^{2}}\"></span>  умень­шит­ся в 4 раза и ста­нет равна 2.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:57.172811+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:47:57.172811+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/888f9f28-5f69-4052-b73c-5f7da2b2abc6",
+              "kind": "ordinary_image",
+              "asset_id": "888f9f28-5f69-4052-b73c-5f7da2b2abc6",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"888f9f28-5f69-4052-b73c-5f7da2b2abc6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/888f9f28-5f69-4052-b73c-5f7da2b2abc6\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 8 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в 2 раза боль­ше пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем ци­лин­дри­че­ско­го со­су­да вы­ра­жа­ет­ся через его диа­метр и вы­со­ту как <span data-inline-latex=\"V=H\\frac{\\pi d^{2}}{4}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в 2 раза вы­со­та рав­но­го объ­е­ма жид­ко­сти <span data-inline-latex=\"H=\\frac{4V}{\\pi d^{2}}\"></span>  умень­шит­ся в 4 раза и ста­нет равна 2.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27046",
+      "task": "72061",
+      "context": {
+        "problem_id": "e112eb9e-517b-43d5-8bf8-3f82023993ce",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:14.941753+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a8b286be-6a64-4748-be89-9768c4cb8de9",
+                "html": "<img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a8b286be-6a64-4748-be89-9768c4cb8de9\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a8b286be-6a64-4748-be89-9768c4cb8de9",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.244467+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 180 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в 6 раз боль­ше пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.244467+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем ци­лин­дри­че­ско­го со­су­да вы­ра­жа­ет­ся через его диа­метр и вы­со­ту как <span data-inline-latex=\"V=H\\frac{\\pi d^{2}}{4}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в шесть раз вы­со­та рав­но­го объ­е­ма жид­ко­сти <span data-inline-latex=\"H=\\frac{4V}{\\pi d^{2}}\"></span>  умень­шит­ся в 36 раз и ста­нет равна 5.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.244467+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.244467+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a8b286be-6a64-4748-be89-9768c4cb8de9",
+              "kind": "ordinary_image",
+              "asset_id": "a8b286be-6a64-4748-be89-9768c4cb8de9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a8b286be-6a64-4748-be89-9768c4cb8de9\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 180 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в 6 раз боль­ше пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем ци­лин­дри­че­ско­го со­су­да вы­ра­жа­ет­ся через его диа­метр и вы­со­ту как <span data-inline-latex=\"V=H\\frac{\\pi d^{2}}{4}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в шесть раз вы­со­та рав­но­го объ­е­ма жид­ко­сти <span data-inline-latex=\"H=\\frac{4V}{\\pi d^{2}}\"></span>  умень­шит­ся в 36 раз и ста­нет равна 5.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27046",
+      "task": "72105",
+      "context": {
+        "problem_id": "dc171562-31f3-436d-a063-fd9dfeb5e980",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:13.605306+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a8b286be-6a64-4748-be89-9768c4cb8de9",
+                "html": "<img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a8b286be-6a64-4748-be89-9768c4cb8de9\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a8b286be-6a64-4748-be89-9768c4cb8de9",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.175091+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 128 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в 8 раз боль­ше пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.175091+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем ци­лин­дра вы­ра­жа­ет­ся через его диа­метр и вы­со­ту фор­му­лой <span data-inline-latex=\"V=\\frac{\\pi d^{2}}{4}h\"></span>,  от­ку­да <span data-inline-latex=\"h=\\frac{4V}{\\pi d^{2}}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в во­семь раз вы­со­та жид­ко­сти умень­шит­ся в 64 раза. По­это­му уро­вень жид­ко­сти во вто­ром со­су­де будет на­хо­дить­ся на вы­со­те  <span data-inline-latex=\"\\frac{128}{64}=2\"></span>  см.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.175091+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:47:58.175091+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:47:58.175091+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a8b286be-6a64-4748-be89-9768c4cb8de9",
+              "kind": "ordinary_image",
+              "asset_id": "a8b286be-6a64-4748-be89-9768c4cb8de9",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"a8b286be-6a64-4748-be89-9768c4cb8de9\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a8b286be-6a64-4748-be89-9768c4cb8de9\"/>В ци­лин­дри­че­ском со­су­де уро­вень жид­ко­сти до­сти­га­ет 128 см. На какой вы­со­те будет на­хо­дить­ся уро­вень жид­ко­сти, если ее пе­ре­лить во вто­рой сосуд, диа­метр ко­то­ро­го в 8 раз боль­ше пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем ци­лин­дра вы­ра­жа­ет­ся через его диа­метр и вы­со­ту фор­му­лой <span data-inline-latex=\"V=\\frac{\\pi d^{2}}{4}h\"></span>,  от­ку­да <span data-inline-latex=\"h=\\frac{4V}{\\pi d^{2}}\"></span> .  При уве­ли­че­нии диа­мет­ра со­су­да в во­семь раз вы­со­та жид­ко­сти умень­шит­ся в 64 раза. По­это­му уро­вень жид­ко­сти во вто­ром со­су­де будет на­хо­дить­ся на вы­со­те  <span data-inline-latex=\"\\frac{128}{64}=2\"></span>  см.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27053",
+      "task": "27053",
+      "context": {
+        "problem_id": "2d41ce4e-e169-46e5-819f-237c1192393b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T23:56:30.789387+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}H_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}H_2\"></span>, где <var data-math-identifier=\"R\">R</var><sub>1, 2</sub>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, <var data-math-identifier=\"H\">H</var><sub>1, 2</sub>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"H_2=3H_1\"></span>, <span data-inline-latex=\"R_2=0{,}5R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^{2}H_2=\\pi\\cdot (\\frac{R_1}{2})^{2}\\cdot 3H_1=\\frac{3}{4}\\pi R_1^{2}h_1=\\frac{3}{4}V_1=\\frac{3}{4}\\cdot 12=9\\,\\mathrm{м}^{3}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-01T23:56:30.789387+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T23:56:30.789387+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T23:56:30.789387+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T23:56:30.789387+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T23:56:30.789387+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Объем пер­во­го ци­лин­дра равен 12 м<sup>3</sup>. У вто­ро­го ци­лин­дра вы­со­та в три раза боль­ше, а ра­ди­ус ос­но­ва­ния  — в два раза мень­ше, чем у пер­во­го. Най­ди­те объем вто­ро­го ци­лин­дра. Ответ дайте в ку­би­че­ских мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=853805\" rel=\"noreferrer noopener\" target=\"_blank\">Демонстрационная версия ЕГЭ—2013 по математике</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=2479053\" rel=\"noreferrer noopener\" target=\"_blank\">Проект демонстрационной версии ЕГЭ—2014 по математике</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}H_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}H_2\"></span>, где <var data-math-identifier=\"R\">R</var><sub>1, 2</sub>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, <var data-math-identifier=\"H\">H</var><sub>1, 2</sub>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"H_2=3H_1\"></span>, <span data-inline-latex=\"R_2=0{,}5R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^{2}H_2=\\pi\\cdot (\\frac{R_1}{2})^{2}\\cdot 3H_1=\\frac{3}{4}\\pi R_1^{2}h_1=\\frac{3}{4}V_1=\\frac{3}{4}\\cdot 12=9\\,\\mathrm{м}^{3}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27053",
+      "task": "5037",
+      "context": {
+        "problem_id": "68b4a0ee-6f0f-44d1-9ede-a06013c1ac7b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T23:56:30.903728+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}H_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}H_2\"></span>, где <var data-math-identifier=\"R\">R</var><sub>1, 2</sub>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, H<sub>1, 2</sub>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"H_2=3H_1\"></span>, <span data-inline-latex=\"R_2=0{,}5R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^{2}H_2=\\pi\\cdot (\\frac{R_1}{2})^{2}\\cdot 3H_1=\\frac{3}{4}\\pi R_1^{2}h_1=\\frac{3}{4}V_1=\\frac{3}{4}\\cdot 12=9\\,\\mathrm{м}^{3}\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-01T23:56:30.903728+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T23:56:30.903728+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T23:56:30.903728+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T23:56:30.903728+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T23:56:30.903728+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Объем пер­во­го ци­лин­дра равен 12 м<sup>3</sup>. У вто­ро­го ци­лин­дра вы­со­та в три раза боль­ше, а ра­ди­ус ос­но­ва­ния  — в два раза мень­ше, чем у пер­во­го. Най­ди­те объем вто­ро­го ци­лин­дра. Ответ дайте в ку­би­че­ских мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}H_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}H_2\"></span>, где <var data-math-identifier=\"R\">R</var><sub>1, 2</sub>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, H<sub>1, 2</sub>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"H_2=3H_1\"></span>, <span data-inline-latex=\"R_2=0{,}5R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^{2}H_2=\\pi\\cdot (\\frac{R_1}{2})^{2}\\cdot 3H_1=\\frac{3}{4}\\pi R_1^{2}h_1=\\frac{3}{4}V_1=\\frac{3}{4}\\cdot 12=9\\,\\mathrm{м}^{3}\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27053",
+      "task": "72403",
+      "context": {
+        "problem_id": "c7f666b2-85b4-4974-b939-3ff12e3c5eb3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}h_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}h_2\"></span>, где <span data-inline-latex=\"R_{1{,}2}\"></span>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, <span data-inline-latex=\"h_{1{,}2}\"></span>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"h_2=3h_1\"></span>, <span data-inline-latex=\"R_2=0{,}5R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^2h_2=\\pi\\left(\\frac{R_1}{2}\\right)^2 3h_1=\\frac{3}{4}(\\pi R_1^2h_1)=\\frac{3}{4}V_1.\"></span></p></center>Тогда<center><p><span data-inline-latex=\"V_2=\\frac{3}{4}\\cdot 30=22{,}5\"></span>  м<sup>3</sup>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-01T23:56:46.161454+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Объем пер­во­го ци­лин­дра равен 30 м<sup>3</sup>. У вто­ро­го ци­лин­дра вы­со­та в три раза боль­ше, а ра­ди­ус ос­но­ва­ния  — в два раза мень­ше, чем у пер­во­го. Най­ди­те объем вто­ро­го ци­лин­дра. Ответ дайте в ку­би­че­ских мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">22,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}h_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}h_2\"></span>, где <span data-inline-latex=\"R_{1{,}2}\"></span>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, <span data-inline-latex=\"h_{1{,}2}\"></span>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"h_2=3h_1\"></span>, <span data-inline-latex=\"R_2=0{,}5R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^2h_2=\\pi\\left(\\frac{R_1}{2}\\right)^2 3h_1=\\frac{3}{4}(\\pi R_1^2h_1)=\\frac{3}{4}V_1.\"></span></p></center>Тогда<center><p><span data-inline-latex=\"V_2=\\frac{3}{4}\\cdot 30=22{,}5\"></span>  м<sup>3</sup>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27053",
+      "task": "630090",
+      "context": {
+        "problem_id": "aa3b7e53-4e84-4773-92c4-c19c411a3760",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T23:56:31.042094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}H_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}H_2\"></span>, где <var data-math-identifier=\"R\">R</var><sub>1, 2</sub>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, <var data-math-identifier=\"H\">H</var><sub>1, 2</sub>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"2H_2=H_1\"></span>, <span data-inline-latex=\"R_2=3R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^{2}H_2=\\pi\\cdot (3R_1)^{2}\\cdot \\frac{H_1}{2}=\\frac{9}{2}\\pi R_1^{2}H_1=\\frac{9}{2}V_1=\\frac{9}{2}\\cdot 6=27\\,\\mathrm{м}^{3}\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-01T23:56:31.042094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T23:56:31.042094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T23:56:31.042094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T23:56:31.042094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T23:56:31.042094+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Объём пер­во­го ци­лин­дра равен 6 м<sup>3</sup>. У вто­ро­го ци­лин­дра вы­со­та в два раза мень­ше, а ра­ди­ус ос­но­ва­ния в три раза боль­ше, чем у пер­во­го. Найди объём вто­ро­го ци­лин­дра (в м<sup>3</sup>).</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">27</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=47341251\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 02.06.2022. Основная волна. Восток</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пусть объём пер­во­го ци­лин­дра равен <span data-inline-latex=\"V_1=\\pi R_1^{2}H_1\"></span>, объём вто­ро­го  — <span data-inline-latex=\"V_2=\\pi R_2^{2}H_2\"></span>, где <var data-math-identifier=\"R\">R</var><sub>1, 2</sub>  — ра­ди­у­сы ос­но­ва­ний ци­лин­дров, <var data-math-identifier=\"H\">H</var><sub>1, 2</sub>  — их вы­со­ты. По усло­вию <span data-inline-latex=\"2H_2=H_1\"></span>, <span data-inline-latex=\"R_2=3R_1\"></span>. Вы­ра­зим объём вто­ро­го ци­лин­дра через объём пер­во­го:</p><center><p><span data-inline-latex=\"V_2=\\pi R_2^{2}H_2=\\pi\\cdot (3R_1)^{2}\\cdot \\frac{H_1}{2}=\\frac{9}{2}\\pi R_1^{2}H_1=\\frac{9}{2}V_1=\\frac{9}{2}\\cdot 6=27\\,\\mathrm{м}^{3}\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27058",
+      "task": "27058",
+      "context": {
+        "problem_id": "b109959e-814e-4796-9c79-0091f21dcb8f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:28:03.619104+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5209585b-38b8-45a9-ace4-35712364c282",
+                "html": "<img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5209585b-38b8-45a9-ace4-35712364c282\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5209585b-38b8-45a9-ace4-35712364c282",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:40:30.438677+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 2, вы­со­та равна 3. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:40:30.438677+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра <span data-inline-latex=\"S=2\\pi rH\"></span>, по­это­му <span data-inline-latex=\"S=2\\pi\\cdot 2\\cdot 3=12\\pi\"></span> . </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:40:30.438677+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:40:30.438677+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:40:30.438677+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5209585b-38b8-45a9-ace4-35712364c282",
+              "kind": "ordinary_image",
+              "asset_id": "5209585b-38b8-45a9-ace4-35712364c282",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5209585b-38b8-45a9-ace4-35712364c282\"/> Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 2, вы­со­та равна 3. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра <span data-inline-latex=\"S=2\\pi rH\"></span>, по­это­му <span data-inline-latex=\"S=2\\pi\\cdot 2\\cdot 3=12\\pi\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27058",
+      "task": "72673",
+      "context": {
+        "problem_id": "181c78d9-f9bb-403d-96f0-5303e1baa8ad",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T01:02:00.561732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 7, вы­со­та равна 10. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T01:02:00.561732+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 7, вы­со­та равна 10. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">140</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27058",
+      "task": "72675",
+      "context": {
+        "problem_id": "b9145ef4-a474-4ecf-bcf4-c039fc15c126",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T01:02:42.957447+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 3, вы­со­та равна 6. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T01:02:42.957447+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 3, вы­со­та равна 6. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">36</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27058",
+      "task": "72677",
+      "context": {
+        "problem_id": "a8bd77ca-89b6-45ac-b0ce-93f6e2dd7f46",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T01:02:42.861774+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 10, вы­со­та равна 3. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T01:02:42.861774+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­ди­ус ос­но­ва­ния ци­лин­дра равен 10, вы­со­та равна 3. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">60</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27133",
+      "task": "27133",
+      "context": {
+        "problem_id": "66987fee-610e-4694-a022-8219d2f65ecf",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:43.151803+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5209585b-38b8-45a9-ace4-35712364c282",
+                "html": "<img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5209585b-38b8-45a9-ace4-35712364c282\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5209585b-38b8-45a9-ace4-35712364c282",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:53.911120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 3, вы­со­та равна 2. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:53.911120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"S=2\\pi rh=Ch\"></span>, где <var data-math-identifier=\"C\">C</var>  — длина окруж­но­сти ос­но­ва­ния. По­это­му <span data-inline-latex=\"S=3\\cdot 2=6\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:53.911120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:53.911120+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5209585b-38b8-45a9-ace4-35712364c282",
+              "kind": "ordinary_image",
+              "asset_id": "5209585b-38b8-45a9-ace4-35712364c282",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5209585b-38b8-45a9-ace4-35712364c282\"/> Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 3, вы­со­та равна 2. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"S=2\\pi rh=Ch\"></span>, где <var data-math-identifier=\"C\">C</var>  — длина окруж­но­сти ос­но­ва­ния. По­это­му <span data-inline-latex=\"S=3\\cdot 2=6\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27133",
+      "task": "75599",
+      "context": {
+        "problem_id": "9da05bcf-0cc5-4590-a245-cf4ee0efc6e1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:44.671564+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5209585b-38b8-45a9-ace4-35712364c282",
+                "html": "<img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5209585b-38b8-45a9-ace4-35712364c282\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5209585b-38b8-45a9-ace4-35712364c282",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.645386+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 3, вы­со­та равна 4. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.645386+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"S=2\\pi rh=Ch\"></span>, где <var data-math-identifier=\"C\">C</var> − длина окруж­но­сти ос­но­ва­ния. По­это­му <span data-inline-latex=\"S=3\\cdot 4=12\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.645386+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:45.645386+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5209585b-38b8-45a9-ace4-35712364c282",
+              "kind": "ordinary_image",
+              "asset_id": "5209585b-38b8-45a9-ace4-35712364c282",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"5209585b-38b8-45a9-ace4-35712364c282\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5209585b-38b8-45a9-ace4-35712364c282\"/>Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 3, вы­со­та равна 4. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"S=2\\pi rh=Ch\"></span>, где <var data-math-identifier=\"C\">C</var> − длина окруж­но­сти ос­но­ва­ния. По­это­му <span data-inline-latex=\"S=3\\cdot 4=12\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27133",
+      "task": "75601",
+      "context": {
+        "problem_id": "7fd52d2b-d31b-4339-879c-e27e6e09cbe7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 5, вы­со­та равна 2. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра. </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27133",
+      "task": "75603",
+      "context": {
+        "problem_id": "f63bfd48-acc2-4b49-97c8-f573ef4cb633",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 3, вы­со­та равна 6. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра. </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27173",
+      "task": "27173",
+      "context": {
+        "problem_id": "9e1a4175-de96-463e-9555-9d12baba42f0",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:21.091703+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+                "html": "<img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.630686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 4. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.630686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна <span data-inline-latex=\"S=2rh\"></span>, так как это пря­мо­уголь­ник. Тогда для пло­ща­ди бо­ко­вой по­верх­но­сти имеем:</p><center><p><span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh=S_1\\pi=4\\pi\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.630686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.630686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:58:16.630686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+              "kind": "ordinary_image",
+              "asset_id": "3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e\"/>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 4. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна <span data-inline-latex=\"S=2rh\"></span>, так как это пря­мо­уголь­ник. Тогда для пло­ща­ди бо­ко­вой по­верх­но­сти имеем:</p><center><p><span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh=S_1\\pi=4\\pi\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27173",
+      "task": "76555",
+      "context": {
+        "problem_id": "6f4af54f-1ff1-4a22-99d9-94c54548edb9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:20.748867+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+                "html": "<img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.074233+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 7. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.074233+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна <span data-inline-latex=\"S=2rh\"></span>, так как это пря­мо­уголь­ник. Тогда для пло­ща­ди бо­ко­вой по­верх­но­сти имеем:</p><center><p><span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh=S_1\\pi=7\\pi\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.074233+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:16.074233+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:58:16.074233+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+              "kind": "ordinary_image",
+              "asset_id": "3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e\"/>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 7. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна <span data-inline-latex=\"S=2rh\"></span>, так как это пря­мо­уголь­ник. Тогда для пло­ща­ди бо­ко­вой по­верх­но­сти имеем:</p><center><p><span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh=S_1\\pi=7\\pi\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27173",
+      "task": "76561",
+      "context": {
+        "problem_id": "dba424e5-5868-4427-8447-8a9e98c8cee1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 19,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:55.352240+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+                "html": "<img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:58:39.915551+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 9. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:58:39.915551+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:58:39.915551+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:58:39.915551+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:58:39.915551+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна <span data-inline-latex=\"S_{\\text{бок.}}=2\\pi rh,\"></span> так как это пря­мо­уголь­ник. Пло­щадь бо­ко­вой по­верх­но­сти</p><center><p><span data-inline-latex=\"S_{\\text{бок}}=2\\pi rh=S_{\\text{ос.сеч}}\\pi=9\\pi.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+              "kind": "ordinary_image",
+              "asset_id": "3b0fb301-3f6f-4c93-ae42-89c547017e1e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"3b0fb301-3f6f-4c93-ae42-89c547017e1e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3b0fb301-3f6f-4c93-ae42-89c547017e1e\"/>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 9. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна <span data-inline-latex=\"S_{\\text{бок.}}=2\\pi rh,\"></span> так как это пря­мо­уголь­ник. Пло­щадь бо­ко­вой по­верх­но­сти</p><center><p><span data-inline-latex=\"S_{\\text{бок}}=2\\pi rh=S_{\\text{ос.сеч}}\\pi=9\\pi.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27173",
+      "task": "76557",
+      "context": {
+        "problem_id": "66e6a082-e5a4-4104-b47a-d5264116ad53",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T21:55:58.442158+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 14. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T21:55:58.442158+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь осе­во­го се­че­ния ци­лин­дра равна 14. Най­ди­те пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">14</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "245358",
+      "task": "245358",
+      "context": {
+        "problem_id": "4e0e921c-6ae5-4109-a1e1-ecff10ad0a52",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:50.057517+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "html": "<img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "kind": "ordinary_image",
+              "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 3. Пло­щадь бо­ко­вой по­верх­но­сти равна 6. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна про­из­ве­де­нию длины окруж­но­сти, ле­жа­щей в ос­но­ва­нии, на вы­со­ту. По­это­му вы­со­та ци­лин­дра равна 2.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "245358",
+      "task": "927",
+      "context": {
+        "problem_id": "90e65b06-3f22-4ecc-b0da-686e00602c9b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 11,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:52.626514+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "html": "<img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:09.901495+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 14 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 2. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:09.901495+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{14\\pi}{2\\pi}=7\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:09.901495+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:09.901495+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "kind": "ordinary_image",
+              "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 14 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 2. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{14\\pi}{2\\pi}=7\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "245358",
+      "task": "270347",
+      "context": {
+        "problem_id": "4007708b-7600-4558-ae09-8f67c78bbec7",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:49.993667+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "html": "<img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "kind": "ordinary_image",
+              "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 14. Пло­щадь бо­ко­вой по­верх­но­сти равна 182. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна про­из­ве­де­нию длины окруж­но­сти, ле­жа­щей в ос­но­ва­нии, на вы­со­ту. По­это­му вы­со­та ци­лин­дра равна 13.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "245358",
+      "task": "270567",
+      "context": {
+        "problem_id": "ef7e1ed4-3b78-4f75-a277-b6413dd67e95",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:45:55.119410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "html": "<img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "kind": "ordinary_image",
+              "asset_id": "d9a6d82b-867c-4e92-9008-ad8effb419c2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d9a6d82b-867c-4e92-9008-ad8effb419c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d9a6d82b-867c-4e92-9008-ad8effb419c2\"/>Длина окруж­но­сти ос­но­ва­ния ци­лин­дра равна 1. Пло­щадь бо­ко­вой по­верх­но­сти равна 2. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна про­из­ве­де­нию длины окруж­но­сти, ле­жа­щей в ос­но­ва­нии, на вы­со­ту. По­это­му вы­со­та ци­лин­дра равна 2.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284361",
+      "task": "284361",
+      "context": {
+        "problem_id": "58047a9d-6810-4981-838e-4a531f8e4811",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:10.052529+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2",
+                "html": "<img alt=\"\" data-asset-id=\"7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:46.249261+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"2\\pi\"></span> , а диа­метр ос­но­ва­ния  — 1. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:46.249261+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле: <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит, </p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi r}=\\frac{2\\pi}{2\\pi\\cdot \\frac{d}{2}}=2\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:46.249261+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:46.249261+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:49:46.249261+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2",
+              "kind": "ordinary_image",
+              "asset_id": "7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a10fe04-190a-4ac4-b0a8-4f6c58edbcb2\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"2\\pi\"></span> , а диа­метр ос­но­ва­ния  — 1. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле: <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит, </p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi r}=\\frac{2\\pi}{2\\pi\\cdot \\frac{d}{2}}=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284361",
+      "task": "925",
+      "context": {
+        "problem_id": "54726394-2f30-4f82-b06b-e21275e521fd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:09.994209+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051",
+                "html": "<img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e8d2f001-6fc2-4340-a672-9bd835b8f051",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.875876+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 21 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 7. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.875876+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{21\\pi}{7\\pi}=3\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.875876+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.875876+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051",
+              "kind": "ordinary_image",
+              "asset_id": "e8d2f001-6fc2-4340-a672-9bd835b8f051",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 21 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 7. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{21\\pi}{7\\pi}=3\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284361",
+      "task": "926",
+      "context": {
+        "problem_id": "e84a14c3-75af-4936-a105-75e5c0f79681",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:15.018231+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051",
+                "html": "<img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e8d2f001-6fc2-4340-a672-9bd835b8f051",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:48.653836+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 18 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 9. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:48.653836+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{18\\pi}{9\\pi}=2\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:48.653836+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:48.653836+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051",
+              "kind": "ordinary_image",
+              "asset_id": "e8d2f001-6fc2-4340-a672-9bd835b8f051",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 18 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 9. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{18\\pi}{9\\pi}=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284361",
+      "task": "928",
+      "context": {
+        "problem_id": "143da699-e51b-4541-975e-00214e8452ee",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:12.051280+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051",
+                "html": "<img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e8d2f001-6fc2-4340-a672-9bd835b8f051",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.561705+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 9 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 3. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.561705+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{9\\pi}{3\\pi}=3\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.561705+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:49:45.561705+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051",
+              "kind": "ordinary_image",
+              "asset_id": "e8d2f001-6fc2-4340-a672-9bd835b8f051",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"e8d2f001-6fc2-4340-a672-9bd835b8f051\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e8d2f001-6fc2-4340-a672-9bd835b8f051\"/>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна 9 <span data-inline-latex=\"\\pi\"></span> , а диа­метр ос­но­ва­ния равен 3. Най­ди­те вы­со­ту ци­лин­дра.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>вы­со­та ци­лин­дра равна</p><center><p><span data-inline-latex=\"h=\\frac{S_{\\mathrm{бок}}}{2\\pi R}=\\frac{S_{\\mathrm{бок}}}{\\pi D}=\\frac{9\\pi}{3\\pi}=3\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284362",
+      "task": "284362",
+      "context": {
+        "problem_id": "d98f0a13-6836-445f-b319-9a2146f684ca",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:44.500299+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f421f999-42e5-497b-8387-9b0a26dcf645",
+                "html": "<img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f421f999-42e5-497b-8387-9b0a26dcf645\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f421f999-42e5-497b-8387-9b0a26dcf645",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.052105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"2\\pi\"></span> , а вы­со­та  — 1. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.052105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит, </p><center><p><span data-inline-latex=\"d=2r=2\\frac{S_{\\mathrm{бок}}}{2\\pi h}=\\frac{2\\pi}{\\pi h}=2\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.052105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.052105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:31:10.052105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f421f999-42e5-497b-8387-9b0a26dcf645",
+              "kind": "ordinary_image",
+              "asset_id": "f421f999-42e5-497b-8387-9b0a26dcf645",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"2\\pi\"></span> , а вы­со­та  — 1. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f421f999-42e5-497b-8387-9b0a26dcf645\"/></p><p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит, </p><center><p><span data-inline-latex=\"d=2r=2\\frac{S_{\\mathrm{бок}}}{2\\pi h}=\\frac{2\\pi}{\\pi h}=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284362",
+      "task": "285799",
+      "context": {
+        "problem_id": "db085952-5d14-4888-a57d-09906d4f96f1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:44.529952+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f421f999-42e5-497b-8387-9b0a26dcf645",
+                "html": "<img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f421f999-42e5-497b-8387-9b0a26dcf645\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f421f999-42e5-497b-8387-9b0a26dcf645",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.082600+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"12\\pi\"></span> , а вы­со­та  — 2. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.082600+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле: <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит, </p><center><p><span data-inline-latex=\"d=2r=\\frac{S_{\\mathrm{бок}}}{\\pi h}=\\frac{12\\pi}{2\\pi}=6\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.082600+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:31:10.082600+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:31:10.082600+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f421f999-42e5-497b-8387-9b0a26dcf645",
+              "kind": "ordinary_image",
+              "asset_id": "f421f999-42e5-497b-8387-9b0a26dcf645",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"12\\pi\"></span> , а вы­со­та  — 2. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f421f999-42e5-497b-8387-9b0a26dcf645\"/></p><p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле: <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит, </p><center><p><span data-inline-latex=\"d=2r=\\frac{S_{\\mathrm{бок}}}{\\pi h}=\\frac{12\\pi}{2\\pi}=6\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284362",
+      "task": "285839",
+      "context": {
+        "problem_id": "f7c7cdd0-8d9f-43c7-ac66-984d1afac9f5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:47.296763+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f421f999-42e5-497b-8387-9b0a26dcf645",
+                "html": "<img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f421f999-42e5-497b-8387-9b0a26dcf645\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f421f999-42e5-497b-8387-9b0a26dcf645",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:30.769048+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"36\\pi\"></span> , а вы­со­та  — 4. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:30.769048+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле: <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит,</p><center><p><span data-inline-latex=\"d=2r=\\frac{S_{\\mathrm{бок}}}{\\pi h}=\\frac{36\\pi}{4\\pi}=9\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:30.769048+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:30.769048+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:30.769048+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f421f999-42e5-497b-8387-9b0a26dcf645",
+              "kind": "ordinary_image",
+              "asset_id": "f421f999-42e5-497b-8387-9b0a26dcf645",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"36\\pi\"></span> , а вы­со­та  — 4. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"f421f999-42e5-497b-8387-9b0a26dcf645\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f421f999-42e5-497b-8387-9b0a26dcf645\"/></p><p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра на­хо­дит­ся по фор­му­ле: <span data-inline-latex=\"S_{\\mathrm{бок}}=2\\pi rh\"></span>, зна­чит,</p><center><p><span data-inline-latex=\"d=2r=\\frac{S_{\\mathrm{бок}}}{\\pi h}=\\frac{36\\pi}{4\\pi}=9\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "284362",
+      "task": "285801",
+      "context": {
+        "problem_id": "38b8f261-d4ed-4a79-a709-a38f9377180e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-10-02T00:15:49.669343+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"64\\pi\"></span> , а вы­со­та  — 8</p><p>. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T00:15:49.669343+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Пло­щадь бо­ко­вой по­верх­но­сти ци­лин­дра равна <span data-inline-latex=\"64\\pi\"></span> , а вы­со­та  — 8</p><p>. Най­ди­те диа­метр ос­но­ва­ния.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

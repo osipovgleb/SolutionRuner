@@ -7,10 +7,10 @@ import sympy as sp
 from bs4 import BeautifulSoup
 
 from ..core.errors import ContentPlanError
-from ..equations.power_arithmetic import ScalarParser
-from ..probability.common import COUNT, UnsupportedCondition, count
+from ..probability.common import UnsupportedCondition
 from ..triangles.right.altitude_input import _text
 from ..triangles.right.altitude_solver import AltitudeSolveError
+from .measurements import positive as _positive
 
 GREAT_CIRCLE = r"Площадь большого круга шара равна\s+(.+?)\s*\.\s*Найдите площадь поверхности шара\s*\."
 INCREASE = r"Во сколько раз увеличится объем шара, если его радиус увеличить в\s+(.+?)\s+раза?\s*\?"
@@ -35,27 +35,6 @@ class SphereQuantity:
         return sp.simplify(
             self.given[0] ** sp.Rational(1, 3 if self.input_kind == "volume" else 1)
         )
-
-
-def _positive(raw, *, words=False):
-    if re.search(r"\d\s+\d", raw):
-        if re.fullmatch(r"[1-9]\d{0,2}(?: \d{3})+(?:[,.]\d+)?", raw) is None:
-            raise ContentPlanError("sphere digit groups must be unambiguous thousands")
-        raw = raw.replace(" ", "")
-    amount = (
-        sp.Integer(count(raw))
-        if words and re.fullmatch(COUNT, raw)
-        else ScalarParser(raw).parse()
-    )
-    if (
-        amount.is_positive is not True
-        or amount.is_real is not True
-        or amount.is_finite is not True
-    ):
-        raise ContentPlanError(
-            "sphere measurements must be positive finite real values"
-        )
-    return amount
 
 
 def _ratio(match):

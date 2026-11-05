@@ -1,0 +1,77 @@
+"""Explicit bindings for reviewed text-given cylinder methods."""
+
+from ..core.profile_definitions import _profile
+
+PROFILES = tuple(
+    _profile(
+        key,
+        uid,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="3",
+        theme_title="Цилиндр",
+        theme_order_index=8,
+        snapshot_theme_id="b82ece70-f9b4-47dd-9500-c546e10e8c35",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, uid, index, rule in (
+        (
+            "27045",
+            "0425aa28-ab86-4ed5-aadc-d32003b332ac",
+            0,
+            "solid-cylinder-immersed-displacement",
+        ),
+        (
+            "27046",
+            "c90a5190-936f-4a7d-aac0-8d65f6a59f22",
+            1,
+            "solid-cylinder-liquid-transfer",
+        ),
+        (
+            "27053",
+            "14f50164-b4b8-445e-925f-70af6d88592a",
+            2,
+            "solid-cylinder-volume-scaling",
+        ),
+        (
+            "27058",
+            "36c3850c-11e3-4f79-9360-1b511eda3c57",
+            3,
+            "solid-cylinder-lateral-from-radius",
+        ),
+        (
+            "27133",
+            "6ef99f63-d592-48b1-93cf-3a13a81d4416",
+            6,
+            "solid-cylinder-lateral-from-circumference",
+        ),
+        (
+            "27173",
+            "3126cbb8-66ab-47fd-819b-eb42ab3ae2d5",
+            7,
+            "solid-cylinder-lateral-from-axial-area",
+        ),
+        (
+            "245358",
+            "3f6b2165-78e6-4579-b6f3-8b7722541a8a",
+            14,
+            "solid-cylinder-height-from-circumference",
+        ),
+        (
+            "284361",
+            "ca1b1372-949c-4edd-9c46-96b231479052",
+            15,
+            "solid-cylinder-height-from-diameter",
+        ),
+        (
+            "284362",
+            "a9723d75-1a4f-4b1c-8d83-a933436d0085",
+            16,
+            "solid-cylinder-diameter-from-lateral",
+        ),
+    )
+)
