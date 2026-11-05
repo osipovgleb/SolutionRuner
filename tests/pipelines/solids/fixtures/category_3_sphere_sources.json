@@ -1,0 +1,2939 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "27059",
+      "group_uuid": "649a0bf3-cbb6-48d8-8908-99bd8ecfc589",
+      "size": 27,
+      "order_index": 0,
+      "rule": "solid-sphere-great-circle-surface",
+      "mode": "great_circle_surface",
+      "sample_tasks": [
+        "5049",
+        "27185",
+        "72759"
+      ]
+    },
+    {
+      "key": "27072",
+      "group_uuid": "6e6383b3-a1b2-435c-a4f2-d42de126e2ee",
+      "size": 28,
+      "order_index": 1,
+      "rule": "solid-sphere-surface-from-radius-ratio",
+      "mode": "surface_factor",
+      "sample_tasks": [
+        "5075",
+        "73287",
+        "520653"
+      ]
+    },
+    {
+      "key": "27097",
+      "group_uuid": "a57cfc48-a629-473b-812e-53e877feb218",
+      "size": 8,
+      "order_index": 2,
+      "rule": "solid-sphere-volume-factor",
+      "mode": "volume_factor",
+      "sample_tasks": [
+        "74403",
+        "74405",
+        "74407"
+      ]
+    },
+    {
+      "key": "27125",
+      "group_uuid": "106905e5-1fa0-4fa9-9267-3a850970fc8c",
+      "size": 5,
+      "order_index": 3,
+      "rule": "solid-sphere-sum-volumes-radius",
+      "mode": "combined_radius_volume",
+      "sample_tasks": [
+        "75307",
+        "75309",
+        "75311"
+      ]
+    },
+    {
+      "key": "27162",
+      "group_uuid": "191c8df9-2bca-42b4-8018-999bbae698c9",
+      "size": 8,
+      "order_index": 4,
+      "rule": "solid-sphere-surface-from-volume-ratio",
+      "mode": "surface_factor",
+      "sample_tasks": [
+        "76349",
+        "76355",
+        "505443"
+      ]
+    },
+    {
+      "key": "27163",
+      "group_uuid": "7110dad8-8730-4d3c-abfe-3a3b0753d08d",
+      "size": 12,
+      "order_index": 5,
+      "rule": "solid-sphere-sum-surfaces-radius",
+      "mode": "combined_radius_area",
+      "sample_tasks": [
+        "76361",
+        "76377",
+        "76363"
+      ]
+    },
+    {
+      "key": "27174",
+      "group_uuid": "864b2c71-a817-4bbc-bcb2-5573b52ce7ec",
+      "size": 5,
+      "order_index": 6,
+      "rule": "solid-sphere-surface-from-pi-volume",
+      "mode": "surface_over_pi",
+      "sample_tasks": [
+        "76605",
+        "76607",
+        "76609"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "27059",
+      "task": "27059",
+      "context": {
+        "problem_id": "5d30d3fe-bead-4d50-837b-26c64e68d115",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:51.621306+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+                "html": "<img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+              "kind": "ordinary_image",
+              "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/>Пло­щадь боль­шо­го круга шара равна 3. Най­ди­те пло­щадь по­верх­но­сти шара.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь боль­шо­го круга равна π<var data-math-identifier=\"R\">R</var><sup>2</sup>, а пло­щадь по­верх­но­сти шара равна 4π<var data-math-identifier=\"R\">R</var><sup>2</sup>, где R  — ра­ди­ус шара. Сле­до­ва­тель­но, ис­ко­мая пло­щадь равна 12.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27059",
+      "task": "5049",
+      "context": {
+        "problem_id": "1f9eea78-4da9-4c90-9e6b-3b01d379d22b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:16.883898+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+                "html": "<img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+              "kind": "ordinary_image",
+              "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/> Пло­щадь боль­шо­го круга шара равна 3. Най­ди­те пло­щадь по­верх­но­сти шара.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь боль­шо­го круга равна π<var data-math-identifier=\"R\">R</var><sup>2</sup>, а пло­щадь по­верх­но­сти шара равна 4π<var data-math-identifier=\"R\">R</var><sup>2</sup>, где R  — ра­ди­ус шара. Сле­до­ва­тель­но, ис­ко­мая пло­щадь равна 12.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27059",
+      "task": "27185",
+      "context": {
+        "problem_id": "5962de32-d4e7-438a-a3d9-28bf17e60f5b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:51.612153+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+                "html": "<img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+              "kind": "ordinary_image",
+              "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/>Пло­щадь боль­шо­го круга шара равна 1. Най­ди­те пло­щадь по­верх­но­сти шара.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь боль­шо­го круга равна π<var data-math-identifier=\"R\">R</var><sup>2</sup>, а пло­щадь по­верх­но­сти шара равна 4π<var data-math-identifier=\"R\">R</var><sup>2</sup>, где R  — ра­ди­ус шара. Сле­до­ва­тель­но, ис­ко­мая пло­щадь равна 4.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27059",
+      "task": "72759",
+      "context": {
+        "problem_id": "303e8d43-f970-46db-b4a6-2a00f6246b82",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:21.064715+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+                "html": "<img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:22:27.792036+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пло­щадь боль­шо­го круга шара равна 24. Най­ди­те пло­щадь по­верх­но­сти шара.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:22:27.792036+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь боль­шо­го круга <nobr>равна  <span data-inline-latex=\"\\pi R^{2}\"></span> ,</nobr> а пло­щадь по­верх­но­сти шара <nobr>равна  <span data-inline-latex=\"4\\pi R^{2}\"></span> ,</nobr> где <var data-math-identifier=\"R\">R</var>  — ра­ди­ус шара. Сле­до­ва­тель­но, ис­ко­мая пло­щадь равна 96.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:22:27.792036+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:22:27.792036+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d95b4646-f780-4918-a15e-d51589cb18c4",
+              "kind": "ordinary_image",
+              "asset_id": "d95b4646-f780-4918-a15e-d51589cb18c4",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d95b4646-f780-4918-a15e-d51589cb18c4\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d95b4646-f780-4918-a15e-d51589cb18c4\"/>Пло­щадь боль­шо­го круга шара равна 24. Най­ди­те пло­щадь по­верх­но­сти шара.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">96</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь боль­шо­го круга <nobr>равна  <span data-inline-latex=\"\\pi R^{2}\"></span> ,</nobr> а пло­щадь по­верх­но­сти шара <nobr>равна  <span data-inline-latex=\"4\\pi R^{2}\"></span> ,</nobr> где <var data-math-identifier=\"R\">R</var>  — ра­ди­ус шара. Сле­до­ва­тель­но, ис­ко­мая пло­щадь равна 96.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27072",
+      "task": "27072",
+      "context": {
+        "problem_id": "75f21a3f-16c1-4e44-b7e4-474e98a6501f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:43.294437+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:31.431505+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Даны два шара. Ра­ди­ус пер­во­го шара в 2 раза боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:31.431505+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са вдвое пло­щадь уве­ли­чит­ся в 2<sup>2</sup>  =  4 раза.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:31.431505+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>Даны два шара. Ра­ди­ус пер­во­го шара в 2 раза боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са вдвое пло­щадь уве­ли­чит­ся в 2<sup>2</sup>  =  4 раза.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27072",
+      "task": "5075",
+      "context": {
+        "problem_id": "c2dfb0e3-8f36-496c-9223-7cdc05522ca5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:44.932830+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:32.190527+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Дано два шара. Ра­ди­ус пер­во­го шара в 60 раз боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:32.190527+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са в 60 раз пло­щадь уве­ли­чит­ся в 60<sup>2</sup>  =  3600 раза.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:32.190527+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>Дано два шара. Ра­ди­ус пер­во­го шара в 60 раз боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3600</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са в 60 раз пло­щадь уве­ли­чит­ся в 60<sup>2</sup>  =  3600 раза.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27072",
+      "task": "73287",
+      "context": {
+        "problem_id": "acb55883-3dd7-4f74-836e-b327e79cea4b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:44.745702+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:32.017363+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Дано два шара. Ра­ди­ус пер­во­го шара в 45 раз боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:32.017363+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са в 45 раз пло­щадь уве­ли­чит­ся в 45<sup>2</sup>  =  2025 раз.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:32.017363+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>Дано два шара. Ра­ди­ус пер­во­го шара в 45 раз боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2025</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са в 45 раз пло­щадь уве­ли­чит­ся в 45<sup>2</sup>  =  2025 раз.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27072",
+      "task": "520653",
+      "context": {
+        "problem_id": "6e47182e-eb8b-484f-9c95-7bbe5eb2b3aa",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:43.188594+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:56:31.385301+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Дано два шара. Ра­ди­ус пер­во­го шара в 14 раз боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:56:31.385301+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са в 14 раз пло­щадь уве­ли­чит­ся в 14<sup>2</sup>  =  196 раз.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:56:31.385301+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>Дано два шара. Ра­ди­ус пер­во­го шара в 14 раз боль­ше ра­ди­у­са вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">196</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­щадь по­верх­но­сти шара вы­ра­жа­ет­ся через его ра­ди­ус фор­му­лой <span data-inline-latex=\"S=4\\pi r^{2}\"></span> , по­это­му при уве­ли­че­нии ра­ди­у­са в 14 раз пло­щадь уве­ли­чит­ся в 14<sup>2</sup>  =  196 раз.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27097",
+      "task": "27097",
+      "context": {
+        "problem_id": "dcbbfdbb-4ada-4350-9f9e-0ee36631490d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:43.119212+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "html": "<img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:47:30.248629+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Во сколь­ко раз уве­ли­чит­ся объем шара, если его ра­ди­ус уве­ли­чить в три раза?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:47:30.248629+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем шара ра­ди­у­са <i>r</i> равен </p><center><p><span data-inline-latex=\"V=\\frac{4}{3}\\pi r^{3}\"></span> . </p></center><p>При уве­ли­че­нии ра­ди­у­са втрое объем шара уве­ли­чит­ся в 27 раз. </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:47:30.248629+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "kind": "ordinary_image",
+              "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>Во сколь­ко раз уве­ли­чит­ся объем шара, если его ра­ди­ус уве­ли­чить в три раза?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">27</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем шара ра­ди­у­са <i>r</i> равен </p><center><p><span data-inline-latex=\"V=\\frac{4}{3}\\pi r^{3}\"></span> . </p></center><p>При уве­ли­че­нии ра­ди­у­са втрое объем шара уве­ли­чит­ся в 27 раз. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27097",
+      "task": "74403",
+      "context": {
+        "problem_id": "4635029f-635b-48b6-a63b-a75cc9d130cb",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:38.229652+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "html": "<img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:47:28.763497+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Во сколь­ко раз уве­ли­чит­ся объем шара, если его ра­ди­ус уве­ли­чить в де­сять раз?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:47:28.763497+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем шара ра­ди­у­са <i>r</i> равен </p><center><p><span data-inline-latex=\"V=\\frac{4}{3}\\pi r^{3}\"></span> . </p></center><p>По­это­му при уве­ли­че­нии ра­ди­у­са в 10 раз, объем шара уве­ли­чит­ся в 1000 раз. </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:47:28.763497+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "kind": "ordinary_image",
+              "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>Во сколь­ко раз уве­ли­чит­ся объем шара, если его ра­ди­ус уве­ли­чить в де­сять раз?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем шара ра­ди­у­са <i>r</i> равен </p><center><p><span data-inline-latex=\"V=\\frac{4}{3}\\pi r^{3}\"></span> . </p></center><p>По­это­му при уве­ли­че­нии ра­ди­у­са в 10 раз, объем шара уве­ли­чит­ся в 1000 раз. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27097",
+      "task": "74405",
+      "context": {
+        "problem_id": "ad09b6ad-f568-453e-a654-267e71a74dd4",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Во сколь­ко раз уве­ли­чит­ся объем шара, если его ра­ди­ус уве­ли­чить в че­ты­ре раза? </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">64</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27097",
+      "task": "74407",
+      "context": {
+        "problem_id": "703e93fc-a94f-4f9b-b1c8-345bab54224c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Во сколь­ко раз уве­ли­чит­ся объем шара, если его ра­ди­ус уве­ли­чить в пять раз? </p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">125</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27125",
+      "task": "27125",
+      "context": {
+        "problem_id": "bcb41958-10d8-4fea-bb0e-954d2256058b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T07:22:32.007105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объём шара вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> .  По­это­му cумма объёмов трёх шаров равна </p><center><p><span> <span data-inline-latex=\"\\frac{4}{3}\\pi\\cdot 6^{3}+\\frac{4}{3}\\pi\\cdot 8^{3}+\\frac{4}{3}\\pi\\cdot 10^{3}=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot (3^{3}+4^{3}+5^{3})=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot 6^{3}=\\frac{4}{3}\\pi\\cdot 12^{3}\"></span> . </span></p></center><p>Сле­до­ва­тель­но, ис­ко­мый ра­ди­ус равен 12.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T07:22:32.007105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T07:22:32.007105+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­ди­у­сы трех шаров равны 6, 8 и 10. Най­ди­те ра­ди­ус шара, объем ко­то­ро­го равен сумме их объ­е­мов.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">12</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объём шара вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> .  По­это­му cумма объёмов трёх шаров равна </p><center><p><span> <span data-inline-latex=\"\\frac{4}{3}\\pi\\cdot 6^{3}+\\frac{4}{3}\\pi\\cdot 8^{3}+\\frac{4}{3}\\pi\\cdot 10^{3}=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot (3^{3}+4^{3}+5^{3})=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot 6^{3}=\\frac{4}{3}\\pi\\cdot 12^{3}\"></span> . </span></p></center><p>Сле­до­ва­тель­но, ис­ко­мый ра­ди­ус равен 12.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27125",
+      "task": "75307",
+      "context": {
+        "problem_id": "d3581422-864d-43c3-80d1-c30c97526409",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T07:22:32.062599+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объём шара вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> .  По­это­му cумма объёмов трёх шаров равна </p><center><p> <span data-inline-latex=\"\\frac{4}{3}\\pi\\cdot 6^{3}+\\frac{4}{3}\\pi\\cdot 8^{3}+\\frac{4}{3}\\pi\\cdot 1^{3}=\\frac{4}{3}\\pi\\cdot (6^{3}+8^{3}+1^{3})=\\frac{4}{3}\\pi\\cdot 729=\\frac{4}{3}\\pi\\cdot 9^{3}\"></span> . </p></center><p>Сле­до­ва­тель­но, ис­ко­мый ра­ди­ус равен 9.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T07:22:32.062599+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T07:22:32.062599+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­ди­у­сы трех шаров равны 1, 6 и 8. Най­ди­те ра­ди­ус шара, объем ко­то­ро­го равен сумме их объ­е­мов.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объём шара вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> .  По­это­му cумма объёмов трёх шаров равна </p><center><p> <span data-inline-latex=\"\\frac{4}{3}\\pi\\cdot 6^{3}+\\frac{4}{3}\\pi\\cdot 8^{3}+\\frac{4}{3}\\pi\\cdot 1^{3}=\\frac{4}{3}\\pi\\cdot (6^{3}+8^{3}+1^{3})=\\frac{4}{3}\\pi\\cdot 729=\\frac{4}{3}\\pi\\cdot 9^{3}\"></span> . </p></center><p>Сле­до­ва­тель­но, ис­ко­мый ра­ди­ус равен 9.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27125",
+      "task": "75309",
+      "context": {
+        "problem_id": "528833db-8f52-4d0d-bf98-b3cbf0592638",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T07:21:41.144513+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объём шара вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> .  По­это­му cумма объёмов трёх шаров равна </p><center><p><span> <span data-inline-latex=\"\\frac{4}{3}\\pi\\cdot 2^{3}+\\frac{4}{3}\\pi\\cdot 12^{3}+\\frac{4}{3}\\pi\\cdot 16^{3}=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot (1+6^{3}+8^{3})=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot 9^{3}=\\frac{4}{3}\\pi\\cdot 18^{3}\"></span> . </span></p></center><p>Сле­до­ва­тель­но, ис­ко­мый ра­ди­ус равен 18.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T07:21:41.144513+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T07:21:41.144513+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­ди­у­сы трех шаров равны 2, 12 и 16. Най­ди­те ра­ди­ус шара, объем ко­то­ро­го равен сумме их объ­е­мов.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">18</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объём шара вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> .  По­это­му cумма объёмов трёх шаров равна </p><center><p><span> <span data-inline-latex=\"\\frac{4}{3}\\pi\\cdot 2^{3}+\\frac{4}{3}\\pi\\cdot 12^{3}+\\frac{4}{3}\\pi\\cdot 16^{3}=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot (1+6^{3}+8^{3})=\\frac{4}{3}\\pi\\cdot 2^{3}\\cdot 9^{3}=\\frac{4}{3}\\pi\\cdot 18^{3}\"></span> . </span></p></center><p>Сле­до­ва­тель­но, ис­ко­мый ра­ди­ус равен 18.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27125",
+      "task": "75311",
+      "context": {
+        "problem_id": "eb5d254f-498f-4897-adb2-4920021b325a",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 0,
+          "items": []
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Ра­ди­у­сы трех шаров равны 6, 8 и 10. Най­ди­те ра­ди­ус шара, объем ко­то­ро­го равен сумме их объ­е­мов.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "12",
+      "source_note": "Saved answer 0 contradicts complete radii 6,8,10; independent sum of cubes1728 gives12. Original context unchanged."
+    },
+    {
+      "group": "27162",
+      "task": "27162",
+      "context": {
+        "problem_id": "d8a17573-cf4f-4a16-a7a8-0f4fd16f1f16",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:24.334082+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.776965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Объем пер­во­го шара в 27 раз боль­ше объ­е­ма вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.776965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­дем от­но­ше­ние объ­е­мов шаров:</p><center><p> <span data-inline-latex=\"\\frac{V_1}{V_2}=\\frac{R_1^{3}}{R_2^{3}}=27\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"\\frac{R_1}{R_2}=3\"></span>.  Пло­ща­ди их по­верх­но­стей со­от­но­сят­ся как квад­ра­ты ра­ди­у­сов:</p><center><p> <span data-inline-latex=\"\\frac{S_1}{S_2}=\\frac{R_1^{2}}{R_2^{2}}=(\\frac{R_1}{R_2})^{2}=9\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.776965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.776965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:39.776965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/> Объем пер­во­го шара в 27 раз боль­ше объ­е­ма вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">9</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Най­дем от­но­ше­ние объ­е­мов шаров:</p><center><p> <span data-inline-latex=\"\\frac{V_1}{V_2}=\\frac{R_1^{3}}{R_2^{3}}=27\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"\\frac{R_1}{R_2}=3\"></span>.  Пло­ща­ди их по­верх­но­стей со­от­но­сят­ся как квад­ра­ты ра­ди­у­сов:</p><center><p> <span data-inline-latex=\"\\frac{S_1}{S_2}=\\frac{R_1^{2}}{R_2^{2}}=(\\frac{R_1}{R_2})^{2}=9\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27162",
+      "task": "76349",
+      "context": {
+        "problem_id": "a270a13e-339e-4bd1-bc6f-0020b9b6af92",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:23.974494+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.551444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Объем вто­ро­го шара в 1331 раз боль­ше объ­е­ма пер­во­го. Во сколь­ко раз пло­щадь по­верх­но­сти вто­ро­го шара боль­ше пло­ща­ди по­верх­но­сти пер­во­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.551444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объ­е­мы шаров со­от­но­сят­ся как кубы их ра­ди­у­сов:</p><center><p> <span data-inline-latex=\"\\frac{V_1}{V_2}=\\frac{R_1^{3}}{R_2^{3}}=(\\frac{R_1}{R_2})^{3}=1331\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"\\frac{R_1}{R_2}=11\"></span>.  Пло­ща­ди их по­верх­но­стей со­от­но­сят­ся как квад­ра­ты ра­ди­у­сов:</p><center><p> <span data-inline-latex=\"\\frac{S_1}{S_2}=\\frac{R_1^{2}}{R_2^{2}}=(\\frac{R_1}{R_2})^{2}=121\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.551444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.551444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:39.551444+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>Объем вто­ро­го шара в 1331 раз боль­ше объ­е­ма пер­во­го. Во сколь­ко раз пло­щадь по­верх­но­сти вто­ро­го шара боль­ше пло­ща­ди по­верх­но­сти пер­во­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">121</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объ­е­мы шаров со­от­но­сят­ся как кубы их ра­ди­у­сов:</p><center><p> <span data-inline-latex=\"\\frac{V_1}{V_2}=\\frac{R_1^{3}}{R_2^{3}}=(\\frac{R_1}{R_2})^{3}=1331\"></span>, </p></center><p>от­ку­да  <span data-inline-latex=\"\\frac{R_1}{R_2}=11\"></span>.  Пло­ща­ди их по­верх­но­стей со­от­но­сят­ся как квад­ра­ты ра­ди­у­сов:</p><center><p> <span data-inline-latex=\"\\frac{S_1}{S_2}=\\frac{R_1^{2}}{R_2^{2}}=(\\frac{R_1}{R_2})^{2}=121\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27162",
+      "task": "76355",
+      "context": {
+        "problem_id": "11db40fb-4a87-4098-a223-c2d4795c7a43",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:11.946084+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:35.910642+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Объем пер­во­го шара в 2197 раз боль­ше объ­е­ма вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:35.910642+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объ­е­мы шаров со­от­но­сят­ся как </p><center><p> <span data-inline-latex=\"\\frac{V_1}{V_2}=\\frac{R_1^{3}}{R_2^{3}}=2197\"></span>, </p></center><p>От­ку­да  <span data-inline-latex=\"\\frac{R_1}{R_2}=13\"></span>.  Пло­ща­ди их по­верх­но­стей со­от­но­сят­ся как </p><center><p> <span data-inline-latex=\"\\frac{S_1}{S_2}=\\frac{R_1^{2}}{R_2^{2}}=(\\frac{R_1}{R_2})^{2}=169\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:35.910642+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:33:35.910642+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:33:35.910642+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>Объем пер­во­го шара в 2197 раз боль­ше объ­е­ма вто­ро­го. Во сколь­ко раз пло­щадь по­верх­но­сти пер­во­го шара боль­ше пло­ща­ди по­верх­но­сти вто­ро­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">169</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объ­е­мы шаров со­от­но­сят­ся как </p><center><p> <span data-inline-latex=\"\\frac{V_1}{V_2}=\\frac{R_1^{3}}{R_2^{3}}=2197\"></span>, </p></center><p>От­ку­да  <span data-inline-latex=\"\\frac{R_1}{R_2}=13\"></span>.  Пло­ща­ди их по­верх­но­стей со­от­но­сят­ся как </p><center><p> <span data-inline-latex=\"\\frac{S_1}{S_2}=\\frac{R_1^{2}}{R_2^{2}}=(\\frac{R_1}{R_2})^{2}=169\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27162",
+      "task": "505443",
+      "context": {
+        "problem_id": "f6c5ac6c-87e5-48cf-ac06-7e6c99becc08",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:26.111307+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "html": "<img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.893983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Даны два шара. Диа­метр вто­ро­го шара в 8 раз боль­ше диа­мет­ра пер­во­го. Во сколь­ко раз пло­щадь по­верх­но­сти вто­ро­го шара боль­ше пло­ща­ди по­верх­но­сти пер­во­го?</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.893983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Пло­ща­ди по­верх­но­стей шаров от­но­сят­ся как квад­ра­ты их ра­ди­у­сов, по­это­му:</p><center><p> <span data-inline-latex=\"\\frac{S_2}{S_1}=\\frac{R_2^{2}}{R_1^{2}}=(\\frac{R_2}{R_1})^{2}=(\\frac{d_2}{d_1})^{2}=64\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:33:39.893983+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "kind": "ordinary_image",
+              "asset_id": "1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1f9a7a72-15ca-4ec5-856e-88f6ad7c7f65\"/>Даны два шара. Диа­метр вто­ро­го шара в 8 раз боль­ше диа­мет­ра пер­во­го. Во сколь­ко раз пло­щадь по­верх­но­сти вто­ро­го шара боль­ше пло­ща­ди по­верх­но­сти пер­во­го?</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">64</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=5317688\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 05.06.2014. Основная волна. Запад</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Пло­ща­ди по­верх­но­стей шаров от­но­сят­ся как квад­ра­ты их ра­ди­у­сов, по­это­му:</p><center><p> <span data-inline-latex=\"\\frac{S_2}{S_1}=\\frac{R_2^{2}}{R_1^{2}}=(\\frac{R_2}{R_1})^{2}=(\\frac{d_2}{d_1})^{2}=64\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27163",
+      "task": "27163",
+      "context": {
+        "problem_id": "3babb4c0-dd32-49a0-9b6a-84136f68bdc8",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:41.831992+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+                "html": "<img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:20:16.573032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­у­сы двух шаров равны 6 и 8. Най­ди­те ра­ди­ус шара, пло­щадь по­верх­но­сти ко­то­ро­го равна сумме пло­ща­дей по­верх­но­стей двух дан­ных шаров.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:16.573032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Из усло­вия <span data-inline-latex=\"S_3=S_1+S_2\"></span> на­хо­дим:</p><center><p><span data-inline-latex=\"4\\pi R_3^{2}=4\\pi R_1^{2}+4\\pi R_2^{2}\\iff R_3=\\sqrt{R_1}^{2}+R_2^{2}\\iff R_3=10\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:16.573032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:16.573032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+              "kind": "ordinary_image",
+              "asset_id": "f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\"/>Ра­ди­у­сы двух шаров равны 6 и 8. Най­ди­те ра­ди­ус шара, пло­щадь по­верх­но­сти ко­то­ро­го равна сумме пло­ща­дей по­верх­но­стей двух дан­ных шаров.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">10</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Из усло­вия <span data-inline-latex=\"S_3=S_1+S_2\"></span> на­хо­дим:</p><center><p><span data-inline-latex=\"4\\pi R_3^{2}=4\\pi R_1^{2}+4\\pi R_2^{2}\\iff R_3=\\sqrt{R_1}^{2}+R_2^{2}\\iff R_3=10\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27163",
+      "task": "76361",
+      "context": {
+        "problem_id": "fceb10ac-f573-4c4b-954a-1fafefffa922",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:22:14.361752+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+                "html": "<img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.582296+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­у­сы двух шаров равны 32 и 60. Най­ди­те ра­ди­ус шара, пло­щадь по­верх­но­сти ко­то­ро­го равна сумме пло­ща­дей по­верх­но­стей двух дан­ных шаров.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.582296+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Из усло­вия <span data-inline-latex=\"S_3=S_1+S_2\"></span> на­хо­дим:</p><center><p><span data-inline-latex=\"4\\pi R_3^{2}=4\\pi R_1^{2}+4\\pi R_2^{2}\\iff R_3=\\sqrt{R_1}^{2}+R_2^{2}\\iff R_3=68\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.582296+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:25.582296+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+              "kind": "ordinary_image",
+              "asset_id": "f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\"/>Ра­ди­у­сы двух шаров равны 32 и 60. Най­ди­те ра­ди­ус шара, пло­щадь по­верх­но­сти ко­то­ро­го равна сумме пло­ща­дей по­верх­но­стей двух дан­ных шаров.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">68</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Из усло­вия <span data-inline-latex=\"S_3=S_1+S_2\"></span> на­хо­дим:</p><center><p><span data-inline-latex=\"4\\pi R_3^{2}=4\\pi R_1^{2}+4\\pi R_2^{2}\\iff R_3=\\sqrt{R_1}^{2}+R_2^{2}\\iff R_3=68\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27163",
+      "task": "76377",
+      "context": {
+        "problem_id": "accd88c1-e2ce-4780-ae87-005c51747ed9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:51.589158+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+                "html": "<img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:20:24.636429+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Ра­ди­у­сы двух шаров равны 21 и 72. Най­ди­те ра­ди­ус шара, пло­щадь по­верх­но­сти ко­то­ро­го равна сумме пло­ща­дей по­верх­но­стей двух дан­ных шаров.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:20:24.636429+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Из усло­вия <span data-inline-latex=\"S_3=S_1+S_2\"></span> на­хо­дим:</p><center><p><span data-inline-latex=\"4\\pi R_3^{2}=4\\pi R_1^{2}+4\\pi R_2^{2}\\iff R_3=\\sqrt{R_1}^{2}+R_2^{2}\\iff R_3=75\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:20:24.636429+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:20:24.636429+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+              "kind": "ordinary_image",
+              "asset_id": "f8eb4e81-eee1-450b-a1c5-330b78ebb1fd",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f8eb4e81-eee1-450b-a1c5-330b78ebb1fd\"/>Ра­ди­у­сы двух шаров равны 21 и 72. Най­ди­те ра­ди­ус шара, пло­щадь по­верх­но­сти ко­то­ро­го равна сумме пло­ща­дей по­верх­но­стей двух дан­ных шаров.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Из усло­вия <span data-inline-latex=\"S_3=S_1+S_2\"></span> на­хо­дим:</p><center><p><span data-inline-latex=\"4\\pi R_3^{2}=4\\pi R_1^{2}+4\\pi R_2^{2}\\iff R_3=\\sqrt{R_1}^{2}+R_2^{2}\\iff R_3=75\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27163",
+      "task": "76363",
+      "context": {
+        "problem_id": "721391ed-a169-40a2-8c6d-99c7bc50a025",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 2,
+          "items": [
+            {
+              "at": "2026-08-27T10:21:48.878209+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/14103aaf-178e-4060-b49c-dadde8b6f6b5",
+                "html": "<img alt=\"\" data-asset-id=\"14103aaf-178e-4060-b49c-dadde8b6f6b5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/14103aaf-178e-4060-b49c-dadde8b6f6b5\" width=\"250\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "14103aaf-178e-4060-b49c-dadde8b6f6b5",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/14103aaf-178e-4060-b49c-dadde8b6f6b5",
+              "kind": "ordinary_image",
+              "asset_id": "14103aaf-178e-4060-b49c-dadde8b6f6b5",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"14103aaf-178e-4060-b49c-dadde8b6f6b5\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/14103aaf-178e-4060-b49c-dadde8b6f6b5\" width=\"250\"/>Ра­ди­у­сы двух шаров равны 7 и 24. Най­ди­те ра­ди­ус шара, пло­щадь по­верх­но­сти ко­то­ро­го равна сумме пло­ща­дей по­верх­но­стей двух дан­ных шаров.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">25</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27174",
+      "task": "27174",
+      "context": {
+        "problem_id": "361541c1-1acb-4ecc-bf0c-b7d72887f754",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:20.241111+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "html": "<img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:05:58.488550+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Объем шара равен 288  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:05:58.488550+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем шара ра­ди­у­са <var data-math-identifier=\"R\">R</var> вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> ,  от­ку­да </p><center><p><span data-inline-latex=\"R=\\sqrt[3]{\\frac{3V}{4\\pi}}=\\sqrt[3]{\\frac{3\\cdot 288\\pi}{4\\pi}}=6\"></span>. </p></center><p>Пло­щадь его по­верх­но­сти: </p><center><p><span data-inline-latex=\"S=4\\pi R^2=4\\pi 6^2=144\\pi.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:05:58.488550+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:05:58.488550+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:05:58.488550+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:05:58.488550+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "kind": "ordinary_image",
+              "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>Объем шара равен 288  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">144</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем шара ра­ди­у­са <var data-math-identifier=\"R\">R</var> вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> ,  от­ку­да </p><center><p><span data-inline-latex=\"R=\\sqrt[3]{\\frac{3V}{4\\pi}}=\\sqrt[3]{\\frac{3\\cdot 288\\pi}{4\\pi}}=6\"></span>. </p></center><p>Пло­щадь его по­верх­но­сти: </p><center><p><span data-inline-latex=\"S=4\\pi R^2=4\\pi 6^2=144\\pi.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27174",
+      "task": "76605",
+      "context": {
+        "problem_id": "fb443a8c-0834-4409-b329-d85eb39ec8d3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:19:41.677015+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "html": "<img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:01:56.642973+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Объем шара равен 18 432  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:01:56.642973+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем шара ра­ди­у­са <var data-math-identifier=\"R\">R</var> вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> ,  от­ку­да </p><center><p><span data-inline-latex=\"R=\\sqrt[3]{\\frac{3V}{4\\pi}}=\\sqrt[3]{\\frac{3\\cdot 18432\\pi}{4\\pi}}=\\sqrt[3]{3\\cdot 3\\cdot 3\\cdot 512}=24\"></span>. </p></center><p> Пло­щадь его по­верх­но­сти: </p><center><p><span data-inline-latex=\"S=4\\pi R^{2}=4\\pi\\cdot 24^{2}=2304\\cdot \\pi\"></span> .</p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:01:56.642973+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:01:56.642973+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:01:56.642973+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:01:56.642973+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "kind": "ordinary_image",
+              "asset_id": "ef77deff-825b-435b-a9f9-3a5f5cbc3a5d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef77deff-825b-435b-a9f9-3a5f5cbc3a5d\"/>Объем шара равен 18 432  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2304</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем шара ра­ди­у­са <var data-math-identifier=\"R\">R</var> вы­чис­ля­ет­ся по фор­му­ле <span data-inline-latex=\"V=\\frac{4}{3}\\pi R^{3}\"></span> ,  от­ку­да </p><center><p><span data-inline-latex=\"R=\\sqrt[3]{\\frac{3V}{4\\pi}}=\\sqrt[3]{\\frac{3\\cdot 18432\\pi}{4\\pi}}=\\sqrt[3]{3\\cdot 3\\cdot 3\\cdot 512}=24\"></span>. </p></center><p> Пло­щадь его по­верх­но­сти: </p><center><p><span data-inline-latex=\"S=4\\pi R^{2}=4\\pi\\cdot 24^{2}=2304\\cdot \\pi\"></span> .</p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27174",
+      "task": "76607",
+      "context": {
+        "problem_id": "259550a8-405f-4766-9920-4db96d6de6a3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T02:26:38.486364+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем шара равен 12348  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T02:26:38.486364+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Объем шара равен 12348  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1764</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27174",
+      "task": "76609",
+      "context": {
+        "problem_id": "9ac6bed3-268c-43d8-bb58-c646ae762b9f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T02:27:47.777089+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем шара равен 26244  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T02:27:47.777089+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Объем шара равен 26244  <span data-inline-latex=\"\\pi\"></span> . Най­ди­те пло­щадь его по­верх­но­сти, де­лен­ную на  <span data-inline-latex=\"\\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">2916</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

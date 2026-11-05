@@ -8,6 +8,7 @@ from .cube_sources import PARENTS as CUBE
 from .distance_sources import PARENTS as DISTANCES
 from .line_angle_sources import PARENTS as LINE_ANGLES
 from .polyhedron_sources import PARENTS as POLYHEDRA
+from .sphere_sources import PARENTS as SPHERES
 from .vertex_angle_sources import PARENTS as VERTEX_ANGLES
 
 HANDLERS = tuple(
@@ -22,6 +23,7 @@ HANDLERS = tuple(
         ),
         options=(("content_rule_key", rule),),
         parent_from_group_listing=True,
+        requires_parent_condition_asset=parents[rule][0] is not None,
         requires_frozen_manifest=True,
         verify_content_readback=True,
         strict_frozen_input=True,
@@ -71,6 +73,7 @@ HANDLERS = tuple(
             "solution_runner.pipelines.solids.box_midpoint_figures:diagram_specs",
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
+        (SPHERES, "solution_runner.pipelines.solids.sphere_parent:prepare", None),
         (
             DISTANCES,
             "solution_runner.pipelines.solids.distance_parent:prepare",

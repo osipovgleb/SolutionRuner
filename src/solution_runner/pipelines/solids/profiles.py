@@ -6,6 +6,7 @@ from .box_section_profiles import PROFILES as SECTION_PROFILES
 from .distance_profiles import PROFILES as DISTANCE_PROFILES
 from .line_angle_profiles import PROFILES as LINE_ANGLE_PROFILES
 from .polyhedron_profiles import PROFILES as POLYHEDRON_PROFILES
+from .sphere_profiles import PROFILES as SPHERE_PROFILES
 from .vertex_angle_profiles import PROFILES as VERTEX_ANGLE_PROFILES
 
 PROFILES = tuple(
@@ -98,4 +99,4 @@ PROFILES += (
     BOX_PROFILES + DISTANCE_PROFILES + LINE_ANGLE_PROFILES + VERTEX_ANGLE_PROFILES
 )
 
-PROFILES += POLYHEDRON_PROFILES + SECTION_PROFILES
+PROFILES += POLYHEDRON_PROFILES + SECTION_PROFILES + SPHERE_PROFILES
