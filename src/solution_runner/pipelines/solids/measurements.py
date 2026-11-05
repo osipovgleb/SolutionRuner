@@ -32,3 +32,10 @@ def positive(raw, *, words=False, pi=False):
     ):
         raise ContentPlanError("solid measurements must be positive finite real values")
     return amount
+
+
+def sector_fraction(angle, kind):
+    angle = positive(str(angle))
+    if angle >= 360 or kind not in {"kept", "removed"}:
+        raise ContentPlanError("a proper kept or removed sector angle is required")
+    return sp.simplify((angle if kind == "kept" else 360 - angle) / 360)

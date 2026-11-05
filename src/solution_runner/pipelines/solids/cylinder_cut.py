@@ -6,7 +6,7 @@ from importlib.resources import files
 import sympy as sp
 
 from ..core.errors import ContentPlanError
-from .measurements import positive
+from .measurements import positive, sector_fraction
 
 DATA = json.loads(
     files(__package__).joinpath("assets/cylinder_cut_inputs.json").read_text()
@@ -19,10 +19,7 @@ def solve(mode, kind, given):
         raise ContentPlanError("three reviewed cylinder dimensions are required")
     if mode == "sector":
         radius, height, angle = values
-        if angle >= 360 or kind not in {"kept", "removed"}:
-            raise ContentPlanError("a proper kept or removed sector angle is required")
-        retained = angle if kind == "kept" else 360 - angle
-        answer = radius**2 * height * retained / 360
+        answer = radius**2 * height * sector_fraction(angle, kind)
     elif mode == "stepped":
         radius, total, base = values
         if total < base:

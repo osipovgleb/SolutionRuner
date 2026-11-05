@@ -38,7 +38,9 @@ NUMBERED = "30afa840-b907-426f-9ae9-910c180b5526"
 
 
 def compatible(m, source):
-    if m.mode == "similarity":
+    if m.mode == "sector":
+        allowed = DATA["sectors"]
+    elif m.mode == "similarity":
         allowed = LIQUID if m.kind == "liquid" else SIMILAR
     elif m.input_kind == "diameter_apex":
         allowed = ("0005dd49-93f6-4a3e-96d6-a5424acc7f08",)

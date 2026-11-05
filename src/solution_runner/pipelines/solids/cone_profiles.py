@@ -145,5 +145,29 @@ PROFILES = tuple(
             25,
             "solid-cone-axial-from-diameter-slant",
         ),
+        (
+            "27202",
+            "ccaaa196-0e4b-4906-bbe5-5310b3d48b3b",
+            14,
+            "solid-cone-quarter-volume",
+        ),
+        (
+            "27203",
+            "015878a2-107e-4495-8be7-d637240ab845",
+            15,
+            "solid-cone-major-quarter-volume",
+        ),
+        (
+            "27204",
+            "aaee81ba-1ec7-436f-beb2-d4010b2481c1",
+            16,
+            "solid-cone-sixth-volume",
+        ),
+        (
+            "27205",
+            "611a10fb-0ce2-4633-a065-651f5a35a3c8",
+            17,
+            "solid-cone-major-sixth-volume",
+        ),
     )
 )

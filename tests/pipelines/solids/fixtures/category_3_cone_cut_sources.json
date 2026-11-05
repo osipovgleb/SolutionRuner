@@ -1,0 +1,2365 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "27202",
+      "group_uuid": "ccaaa196-0e4b-4906-bbe5-5310b3d48b3b",
+      "size": 5,
+      "order_index": 14,
+      "rule": "solid-cone-quarter-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25793",
+        "25795",
+        "25797"
+      ]
+    },
+    {
+      "key": "27203",
+      "group_uuid": "015878a2-107e-4495-8be7-d637240ab845",
+      "size": 6,
+      "order_index": 15,
+      "rule": "solid-cone-major-quarter-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25801",
+        "25803",
+        "25805"
+      ]
+    },
+    {
+      "key": "27204",
+      "group_uuid": "aaee81ba-1ec7-436f-beb2-d4010b2481c1",
+      "size": 5,
+      "order_index": 16,
+      "rule": "solid-cone-sixth-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25813",
+        "25815",
+        "25817"
+      ]
+    },
+    {
+      "key": "27205",
+      "group_uuid": "611a10fb-0ce2-4633-a065-651f5a35a3c8",
+      "size": 6,
+      "order_index": 17,
+      "rule": "solid-cone-major-sixth-volume",
+      "mode": "sector",
+      "sample_tasks": [
+        "25821",
+        "25823",
+        "25825"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "27202",
+      "task": "27202",
+      "context": {
+        "problem_id": "1e6c9535-e32d-487e-b173-31e218702735",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:51.526068+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d595f098-d8ab-43f7-b1f2-ee5f373d696e",
+                "html": "<img alt=\"\" data-asset-id=\"d595f098-d8ab-43f7-b1f2-ee5f373d696e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d595f098-d8ab-43f7-b1f2-ee5f373d696e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d595f098-d8ab-43f7-b1f2-ee5f373d696e",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:51:58.521549+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d595f098-d8ab-43f7-b1f2-ee5f373d696e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:51:58.521549+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:51:58.521549+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:51:58.521549+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ко­ну­са  равен</p><center><p><span data-inline-latex=\"\\frac{90^\\circ}{360^\\circ}-\\frac{1}{3}\\pi R^2H=\\frac{1}{12}9^2\\cdot13\\pi=87{,}75\\pi.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d595f098-d8ab-43f7-b1f2-ee5f373d696e",
+              "kind": "ordinary_image",
+              "asset_id": "d595f098-d8ab-43f7-b1f2-ee5f373d696e",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d595f098-d8ab-43f7-b1f2-ee5f373d696e\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d595f098-d8ab-43f7-b1f2-ee5f373d696e\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">87,75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ко­ну­са  равен</p><center><p><span data-inline-latex=\"\\frac{90^\\circ}{360^\\circ}-\\frac{1}{3}\\pi R^2H=\\frac{1}{12}9^2\\cdot13\\pi=87{,}75\\pi.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27202",
+      "task": "25793",
+      "context": {
+        "problem_id": "e407f2bc-d283-4ad7-961e-fa6bd7e09dcc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:19.323678+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/7be1e719-64d0-4251-aac2-5f2642b3710c",
+                "html": "<img alt=\"\" data-asset-id=\"7be1e719-64d0-4251-aac2-5f2642b3710c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7be1e719-64d0-4251-aac2-5f2642b3710c\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "7be1e719-64d0-4251-aac2-5f2642b3710c",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:48:15.635216+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"7be1e719-64d0-4251-aac2-5f2642b3710c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:48:15.635216+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/7be1e719-64d0-4251-aac2-5f2642b3710c",
+              "kind": "ordinary_image",
+              "asset_id": "7be1e719-64d0-4251-aac2-5f2642b3710c",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"7be1e719-64d0-4251-aac2-5f2642b3710c\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7be1e719-64d0-4251-aac2-5f2642b3710c\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">216</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27202",
+      "task": "25795",
+      "context": {
+        "problem_id": "3983d7bc-6c11-4bbd-9f7c-584c82b3b0e1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:13.245026+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/99107bac-afb4-43c6-b84b-8534a7d82b46",
+                "html": "<img alt=\"\" data-asset-id=\"99107bac-afb4-43c6-b84b-8534a7d82b46\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/99107bac-afb4-43c6-b84b-8534a7d82b46\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "99107bac-afb4-43c6-b84b-8534a7d82b46",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:48:13.710601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"99107bac-afb4-43c6-b84b-8534a7d82b46\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:48:13.710601+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/99107bac-afb4-43c6-b84b-8534a7d82b46",
+              "kind": "ordinary_image",
+              "asset_id": "99107bac-afb4-43c6-b84b-8534a7d82b46",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"99107bac-afb4-43c6-b84b-8534a7d82b46\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/99107bac-afb4-43c6-b84b-8534a7d82b46\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">337,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27202",
+      "task": "25797",
+      "context": {
+        "problem_id": "4424ccf1-5b10-4277-9cc4-23d2b1fab0af",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:13.282915+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5616ef80-6107-4695-948e-997dafe32657",
+                "html": "<img alt=\"\" data-asset-id=\"5616ef80-6107-4695-948e-997dafe32657\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5616ef80-6107-4695-948e-997dafe32657\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5616ef80-6107-4695-948e-997dafe32657",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:48:14.046548+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"5616ef80-6107-4695-948e-997dafe32657\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:48:14.046548+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5616ef80-6107-4695-948e-997dafe32657",
+              "kind": "ordinary_image",
+              "asset_id": "5616ef80-6107-4695-948e-997dafe32657",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"5616ef80-6107-4695-948e-997dafe32657\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5616ef80-6107-4695-948e-997dafe32657\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "74.25",
+      "source_answer_issue": "сохранено 1; рисунок задаёт r=9, h=11, оставлено 90°"
+    },
+    {
+      "group": "27202",
+      "task": "25799",
+      "context": {
+        "problem_id": "85ddafa7-5e6b-4508-8797-ec066b7e2f46",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:07.900178+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ff7e8d56-fc50-4795-9ed0-ae511024ec72",
+                "html": "<img alt=\"\" data-asset-id=\"ff7e8d56-fc50-4795-9ed0-ae511024ec72\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ff7e8d56-fc50-4795-9ed0-ae511024ec72\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ff7e8d56-fc50-4795-9ed0-ae511024ec72",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:48:14.701808+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"ff7e8d56-fc50-4795-9ed0-ae511024ec72\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:48:14.701808+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ff7e8d56-fc50-4795-9ed0-ae511024ec72",
+              "kind": "ordinary_image",
+              "asset_id": "ff7e8d56-fc50-4795-9ed0-ae511024ec72",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"ff7e8d56-fc50-4795-9ed0-ae511024ec72\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ff7e8d56-fc50-4795-9ed0-ae511024ec72\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">126</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "42",
+      "source_answer_issue": "сохранено 126; r=6, h=14, оставлено 90°; в исходном ответе пропущен множитель 1/3 конуса"
+    },
+    {
+      "group": "27203",
+      "task": "27203",
+      "context": {
+        "problem_id": "0af968f1-cc3f-4cdd-9eb0-c141d800a6eb",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:18.557748+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/83ea6df9-cdb9-45ed-982f-893af3e34479",
+                "html": "<img alt=\"\" data-asset-id=\"83ea6df9-cdb9-45ed-982f-893af3e34479\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83ea6df9-cdb9-45ed-982f-893af3e34479\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "83ea6df9-cdb9-45ed-982f-893af3e34479",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:27.723963+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"83ea6df9-cdb9-45ed-982f-893af3e34479\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:27.723963+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ко­ну­са  равен</p><center><p> <span data-inline-latex=\"\\frac{270^{\\circ}}{360^{\\circ}}V_{\\mathrm{кон}}=\\frac{3}{4}V_{\\mathrm{кон}}=\\frac{3}{4}\\cdot \\frac{1}{3}\\pi r^{2}h=\\frac{1}{4}\\cdot 9^{2}\\cdot 12\\pi=243\\pi\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:00:27.723963+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:00:27.723963+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83ea6df9-cdb9-45ed-982f-893af3e34479",
+              "kind": "ordinary_image",
+              "asset_id": "83ea6df9-cdb9-45ed-982f-893af3e34479",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"83ea6df9-cdb9-45ed-982f-893af3e34479\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83ea6df9-cdb9-45ed-982f-893af3e34479\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">243</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ко­ну­са  равен</p><center><p> <span data-inline-latex=\"\\frac{270^{\\circ}}{360^{\\circ}}V_{\\mathrm{кон}}=\\frac{3}{4}V_{\\mathrm{кон}}=\\frac{3}{4}\\cdot \\frac{1}{3}\\pi r^{2}h=\\frac{1}{4}\\cdot 9^{2}\\cdot 12\\pi=243\\pi\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27203",
+      "task": "25801",
+      "context": {
+        "problem_id": "5ca2264d-ace7-413a-a84d-981bc38f9880",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:23.926350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/83ea6df9-cdb9-45ed-982f-893af3e34479",
+                "html": "<img alt=\"\" data-asset-id=\"83ea6df9-cdb9-45ed-982f-893af3e34479\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83ea6df9-cdb9-45ed-982f-893af3e34479\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "83ea6df9-cdb9-45ed-982f-893af3e34479",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:28.332130+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"83ea6df9-cdb9-45ed-982f-893af3e34479\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:28.332130+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ко­ну­са  равен</p><center><p> <span data-inline-latex=\"\\frac{270^{\\circ}}{360^{\\circ}}V_{\\mathrm{кон}}=\\frac{3}{4}V_{\\mathrm{кон}}=\\frac{3}{4}\\cdot \\frac{1}{3}\\pi r^{2}h=\\frac{1}{4}\\cdot 9^{2}\\cdot 12\\pi=243\\pi\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:00:28.332130+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:00:28.332130+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/83ea6df9-cdb9-45ed-982f-893af3e34479",
+              "kind": "ordinary_image",
+              "asset_id": "83ea6df9-cdb9-45ed-982f-893af3e34479",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"83ea6df9-cdb9-45ed-982f-893af3e34479\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/83ea6df9-cdb9-45ed-982f-893af3e34479\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">243</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ко­ну­са  равен</p><center><p> <span data-inline-latex=\"\\frac{270^{\\circ}}{360^{\\circ}}V_{\\mathrm{кон}}=\\frac{3}{4}V_{\\mathrm{кон}}=\\frac{3}{4}\\cdot \\frac{1}{3}\\pi r^{2}h=\\frac{1}{4}\\cdot 9^{2}\\cdot 12\\pi=243\\pi\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27203",
+      "task": "25803",
+      "context": {
+        "problem_id": "ebf58313-a798-4568-b958-02ecd58be490",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:26.938325+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bdc79fe7-1513-466b-8476-73c97c8b9147",
+                "html": "<img alt=\"\" data-asset-id=\"bdc79fe7-1513-466b-8476-73c97c8b9147\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bdc79fe7-1513-466b-8476-73c97c8b9147\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bdc79fe7-1513-466b-8476-73c97c8b9147",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:29.729020+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"bdc79fe7-1513-466b-8476-73c97c8b9147\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:29.729020+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bdc79fe7-1513-466b-8476-73c97c8b9147",
+              "kind": "ordinary_image",
+              "asset_id": "bdc79fe7-1513-466b-8476-73c97c8b9147",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"bdc79fe7-1513-466b-8476-73c97c8b9147\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bdc79fe7-1513-466b-8476-73c97c8b9147\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">243</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27203",
+      "task": "25805",
+      "context": {
+        "problem_id": "e1109339-8b7c-4f3f-b2e1-8dd006dcb693",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:26.886069+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/5cad6f70-29fe-47b8-9c9a-211fce00858f",
+                "html": "<img alt=\"\" data-asset-id=\"5cad6f70-29fe-47b8-9c9a-211fce00858f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cad6f70-29fe-47b8-9c9a-211fce00858f\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "5cad6f70-29fe-47b8-9c9a-211fce00858f",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:29.623833+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"5cad6f70-29fe-47b8-9c9a-211fce00858f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:29.623833+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/5cad6f70-29fe-47b8-9c9a-211fce00858f",
+              "kind": "ordinary_image",
+              "asset_id": "5cad6f70-29fe-47b8-9c9a-211fce00858f",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"5cad6f70-29fe-47b8-9c9a-211fce00858f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/5cad6f70-29fe-47b8-9c9a-211fce00858f\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">117</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27203",
+      "task": "25807",
+      "context": {
+        "problem_id": "062fdb4b-d417-4151-a4a0-e594e5952642",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:22.443009+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/a3549f81-c952-4746-81f2-e11edd6286b7",
+                "html": "<img alt=\"\" data-asset-id=\"a3549f81-c952-4746-81f2-e11edd6286b7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a3549f81-c952-4746-81f2-e11edd6286b7\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "a3549f81-c952-4746-81f2-e11edd6286b7",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:27.059133+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"a3549f81-c952-4746-81f2-e11edd6286b7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:27.059133+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/a3549f81-c952-4746-81f2-e11edd6286b7",
+              "kind": "ordinary_image",
+              "asset_id": "a3549f81-c952-4746-81f2-e11edd6286b7",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"a3549f81-c952-4746-81f2-e11edd6286b7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/a3549f81-c952-4746-81f2-e11edd6286b7\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">222,75</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27203",
+      "task": "25809",
+      "context": {
+        "problem_id": "e424782d-4e81-4bbe-97f2-6e7efcdb3698",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:26.893862+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/fd6ea881-e3af-4b6a-bf61-bc2610097ab1",
+                "html": "<img alt=\"\" data-asset-id=\"fd6ea881-e3af-4b6a-bf61-bc2610097ab1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fd6ea881-e3af-4b6a-bf61-bc2610097ab1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "fd6ea881-e3af-4b6a-bf61-bc2610097ab1",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:00:29.637092+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"fd6ea881-e3af-4b6a-bf61-bc2610097ab1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:00:29.637092+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/fd6ea881-e3af-4b6a-bf61-bc2610097ab1",
+              "kind": "ordinary_image",
+              "asset_id": "fd6ea881-e3af-4b6a-bf61-bc2610097ab1",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"fd6ea881-e3af-4b6a-bf61-bc2610097ab1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/fd6ea881-e3af-4b6a-bf61-bc2610097ab1\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">504</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27204",
+      "task": "27204",
+      "context": {
+        "problem_id": "77c97ba0-e38b-438c-9452-9d6d3dba7569",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:50.051559+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/562dcd18-c126-4647-b573-480947794509",
+                "html": "<img alt=\"\" data-asset-id=\"562dcd18-c126-4647-b573-480947794509\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/562dcd18-c126-4647-b573-480947794509\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "562dcd18-c126-4647-b573-480947794509",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:31:24.808194+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"562dcd18-c126-4647-b573-480947794509\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:31:24.808194+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:31:24.808194+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:31:24.808194+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ко­ну­са равен </p><center><p><span data-inline-latex=\"\\frac{60^\\circ}{360^\\circ}\\cdot\\frac{1}{3}\\pi R^2H=\\frac{1}{18}12^2\\cdot27\\pi=216\\pi.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/562dcd18-c126-4647-b573-480947794509",
+              "kind": "ordinary_image",
+              "asset_id": "562dcd18-c126-4647-b573-480947794509",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"562dcd18-c126-4647-b573-480947794509\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/562dcd18-c126-4647-b573-480947794509\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">216</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ко­ну­са равен </p><center><p><span data-inline-latex=\"\\frac{60^\\circ}{360^\\circ}\\cdot\\frac{1}{3}\\pi R^2H=\\frac{1}{18}12^2\\cdot27\\pi=216\\pi.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27204",
+      "task": "25813",
+      "context": {
+        "problem_id": "633fc69d-7280-425e-8a4a-504ca884a4a5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:11.450492+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/97029221-eeb4-4919-a6dc-fb926d9f6a91",
+                "html": "<img alt=\"\" data-asset-id=\"97029221-eeb4-4919-a6dc-fb926d9f6a91\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/97029221-eeb4-4919-a6dc-fb926d9f6a91\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "97029221-eeb4-4919-a6dc-fb926d9f6a91",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:24:44.206860+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"97029221-eeb4-4919-a6dc-fb926d9f6a91\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:24:44.206860+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/97029221-eeb4-4919-a6dc-fb926d9f6a91",
+              "kind": "ordinary_image",
+              "asset_id": "97029221-eeb4-4919-a6dc-fb926d9f6a91",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"97029221-eeb4-4919-a6dc-fb926d9f6a91\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/97029221-eeb4-4919-a6dc-fb926d9f6a91\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">337,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27204",
+      "task": "25815",
+      "context": {
+        "problem_id": "a04d0d4d-805f-4628-b07a-aadf00b9d60e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:50.611159+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3f92eed1-cb72-41dd-944b-f86296e9e9c1",
+                "html": "<img alt=\"\" data-asset-id=\"3f92eed1-cb72-41dd-944b-f86296e9e9c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3f92eed1-cb72-41dd-944b-f86296e9e9c1\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3f92eed1-cb72-41dd-944b-f86296e9e9c1",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:24:48.083267+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"3f92eed1-cb72-41dd-944b-f86296e9e9c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:24:48.083267+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3f92eed1-cb72-41dd-944b-f86296e9e9c1",
+              "kind": "ordinary_image",
+              "asset_id": "3f92eed1-cb72-41dd-944b-f86296e9e9c1",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"3f92eed1-cb72-41dd-944b-f86296e9e9c1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3f92eed1-cb72-41dd-944b-f86296e9e9c1\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">264</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27204",
+      "task": "25817",
+      "context": {
+        "problem_id": "dded674e-3b4d-4d69-90cc-84df91af3acd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:58.794340+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/86200ede-6094-4cd7-897f-dacf145c0aec",
+                "html": "<img alt=\"\" data-asset-id=\"86200ede-6094-4cd7-897f-dacf145c0aec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86200ede-6094-4cd7-897f-dacf145c0aec\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "86200ede-6094-4cd7-897f-dacf145c0aec",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:24:48.768323+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"86200ede-6094-4cd7-897f-dacf145c0aec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:24:48.768323+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/86200ede-6094-4cd7-897f-dacf145c0aec",
+              "kind": "ordinary_image",
+              "asset_id": "86200ede-6094-4cd7-897f-dacf145c0aec",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"86200ede-6094-4cd7-897f-dacf145c0aec\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/86200ede-6094-4cd7-897f-dacf145c0aec\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">648</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27204",
+      "task": "25819",
+      "context": {
+        "problem_id": "e5a1acc6-e051-4920-aca6-6102248d6235",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:58.894680+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/1617ae2e-03d7-4b20-93c6-a06a5e270c83",
+                "html": "<img alt=\"\" data-asset-id=\"1617ae2e-03d7-4b20-93c6-a06a5e270c83\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1617ae2e-03d7-4b20-93c6-a06a5e270c83\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "1617ae2e-03d7-4b20-93c6-a06a5e270c83",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:24:48.792626+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"1617ae2e-03d7-4b20-93c6-a06a5e270c83\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:24:48.792626+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/1617ae2e-03d7-4b20-93c6-a06a5e270c83",
+              "kind": "ordinary_image",
+              "asset_id": "1617ae2e-03d7-4b20-93c6-a06a5e270c83",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"1617ae2e-03d7-4b20-93c6-a06a5e270c83\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1617ae2e-03d7-4b20-93c6-a06a5e270c83\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">216</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27205",
+      "task": "27205",
+      "context": {
+        "problem_id": "a706441b-5a3c-47a4-9653-b2df67ec621c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:03.533348+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38",
+                "html": "<img alt=\"\" data-asset-id=\"4609805f-4e43-45d7-8c30-b5db4fb90b38\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "4609805f-4e43-45d7-8c30-b5db4fb90b38",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:51.319686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"4609805f-4e43-45d7-8c30-b5db4fb90b38\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:51.319686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:54:51.319686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:54:51.319686+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ко­ну­са  равен </p><center><p><span data-inline-latex=\"\\frac{300^\\circ}{360^\\circ}\\cdot\\frac{1}{3}\\pi R^2H=\\frac{5}{18}\\cdot 9^2\\cdot 27\\pi=607{,}5\\pi\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38",
+              "kind": "ordinary_image",
+              "asset_id": "4609805f-4e43-45d7-8c30-b5db4fb90b38",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"4609805f-4e43-45d7-8c30-b5db4fb90b38\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те  <span data-inline-latex=\"\\frac{V}{\\pi}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">607,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ко­ну­са  равен </p><center><p><span data-inline-latex=\"\\frac{300^\\circ}{360^\\circ}\\cdot\\frac{1}{3}\\pi R^2H=\\frac{5}{18}\\cdot 9^2\\cdot 27\\pi=607{,}5\\pi\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27205",
+      "task": "25821",
+      "context": {
+        "problem_id": "f197f0e5-0521-4609-9d55-d389be6a6b97",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:05.160378+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38",
+                "html": "<img alt=\"\" data-asset-id=\"4609805f-4e43-45d7-8c30-b5db4fb90b38\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "4609805f-4e43-45d7-8c30-b5db4fb90b38",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:55.935377+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"4609805f-4e43-45d7-8c30-b5db4fb90b38\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:55.935377+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:54:55.935377+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:54:55.935377+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем дан­ной части ко­ну­са  равен </p><center><p><span data-inline-latex=\"\\frac{300^\\circ}{360^\\circ}\\cdot\\frac{1}{3}\\pi R^2H=\\frac{5}{18}\\cdot 9^2\\cdot 27\\pi=607{,}5\\pi.\"></span></p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38",
+              "kind": "ordinary_image",
+              "asset_id": "4609805f-4e43-45d7-8c30-b5db4fb90b38",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"4609805f-4e43-45d7-8c30-b5db4fb90b38\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4609805f-4e43-45d7-8c30-b5db4fb90b38\"/>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">607,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем дан­ной части ко­ну­са  равен </p><center><p><span data-inline-latex=\"\\frac{300^\\circ}{360^\\circ}\\cdot\\frac{1}{3}\\pi R^2H=\\frac{5}{18}\\cdot 9^2\\cdot 27\\pi=607{,}5\\pi.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27205",
+      "task": "25823",
+      "context": {
+        "problem_id": "d237f6d2-435c-492e-b689-8d2d917c6f16",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:08.580825+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb",
+                "html": "<img alt=\"\" data-asset-id=\"d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:29.263212+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:29.263212+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb",
+              "kind": "ordinary_image",
+              "asset_id": "d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d8e7e582-b66d-4b9f-94eb-5a7d5ad08bcb\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">3510</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27205",
+      "task": "25825",
+      "context": {
+        "problem_id": "ff2ab4e0-87ad-494a-a568-2f51fc0cd892",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:07.259079+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/792529e7-2ec2-4ca8-9947-1759981fd1a6",
+                "html": "<img alt=\"\" data-asset-id=\"792529e7-2ec2-4ca8-9947-1759981fd1a6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/792529e7-2ec2-4ca8-9947-1759981fd1a6\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "792529e7-2ec2-4ca8-9947-1759981fd1a6",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:29.570705+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"792529e7-2ec2-4ca8-9947-1759981fd1a6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:29.570705+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/792529e7-2ec2-4ca8-9947-1759981fd1a6",
+              "kind": "ordinary_image",
+              "asset_id": "792529e7-2ec2-4ca8-9947-1759981fd1a6",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"792529e7-2ec2-4ca8-9947-1759981fd1a6\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/792529e7-2ec2-4ca8-9947-1759981fd1a6\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">000</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "840",
+      "source_answer_issue": "повреждённый ответ 000; r=12, h=21, оставлено 300°"
+    },
+    {
+      "group": "27205",
+      "task": "25827",
+      "context": {
+        "problem_id": "1fc0a9ad-9dac-4f25-a9f3-375309ff03d3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:01.758265+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/bc1d5c31-6e30-4022-8cb0-30926472ec74",
+                "html": "<img alt=\"\" data-asset-id=\"bc1d5c31-6e30-4022-8cb0-30926472ec74\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bc1d5c31-6e30-4022-8cb0-30926472ec74\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "bc1d5c31-6e30-4022-8cb0-30926472ec74",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:23.478640+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"bc1d5c31-6e30-4022-8cb0-30926472ec74\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:23.478640+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/bc1d5c31-6e30-4022-8cb0-30926472ec74",
+              "kind": "ordinary_image",
+              "asset_id": "bc1d5c31-6e30-4022-8cb0-30926472ec74",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"bc1d5c31-6e30-4022-8cb0-30926472ec74\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/bc1d5c31-6e30-4022-8cb0-30926472ec74\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "expected_answer": "2970",
+      "source_answer_issue": "повреждённый ответ 0; r=18, h=33, оставлено 300°"
+    },
+    {
+      "group": "27205",
+      "task": "25829",
+      "context": {
+        "problem_id": "0357c1ba-cb3d-4329-bfd7-d7ee1c084887",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:11:58.690502+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/3f4bf975-dfdb-40f9-990a-434e7a53ae42",
+                "html": "<img alt=\"\" data-asset-id=\"3f4bf975-dfdb-40f9-990a-434e7a53ae42\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3f4bf975-dfdb-40f9-990a-434e7a53ae42\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "3f4bf975-dfdb-40f9-990a-434e7a53ae42",
+                "position": 1,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:54:23.088376+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"3f4bf975-dfdb-40f9-990a-434e7a53ae42\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:54:23.088376+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/3f4bf975-dfdb-40f9-990a-434e7a53ae42",
+              "kind": "ordinary_image",
+              "asset_id": "3f4bf975-dfdb-40f9-990a-434e7a53ae42",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те объем <var data-math-identifier=\"V\">V</var> части ко­ну­са, изоб­ра­жен­ной на ри­сун­ке. В от­ве­те ука­жи­те <span data-inline-latex=\"V\\div \\pi\"></span> .</p><img alt=\"\" data-asset-id=\"3f4bf975-dfdb-40f9-990a-434e7a53ae42\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3f4bf975-dfdb-40f9-990a-434e7a53ae42\"/>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1875</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

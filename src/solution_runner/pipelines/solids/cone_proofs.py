@@ -4,6 +4,7 @@ import sympy as sp
 
 from ..probability.common import line
 from ..quadrilaterals.parallelogram.rectangle_proofs import bracket, value
+from .cone_cut_proofs import render as sector
 from .cone_dimension_proofs import dimensions
 from .cone_similarity_proofs import render as similar
 
@@ -89,5 +90,10 @@ def _geometry(m):
 
 def render(m, picture=""):
     return ("<p>" + picture + "</p>" if picture else "") + (
-        _geometry(m) if m.mode == "geometry" else similar(m)
+        {
+            "geometry": _geometry,
+            "scale": similar,
+            "similarity": similar,
+            "sector": sector,
+        }[m.mode](m)
     )

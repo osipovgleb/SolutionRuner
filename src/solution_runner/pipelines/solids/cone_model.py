@@ -157,6 +157,13 @@ def read_question(html, source=None):
     from .cone_similarity import read as similarity
 
     raw = text(html, source)
+    if re.fullmatch(
+        r"Найдите объем V части конуса, изображенной на рисунке\. В ответе укажите\s+(?:\\frac\{V\}\{\\pi\}|V\\div\s*\\pi)\s*\.",
+        raw,
+    ):
+        from .cone_cut import read
+
+        return read(source)
     try:
         m = similarity(raw, source) or _special(raw)
         if m:
