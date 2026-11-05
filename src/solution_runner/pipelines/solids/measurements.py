@@ -5,7 +5,7 @@ import re
 import sympy as sp
 
 from ..core.errors import ContentPlanError
-from ..equations.power_arithmetic import ScalarParser
+from ..equations.power_arithmetic import ScalarParser, rational
 from ..probability.common import COUNT, count
 
 
@@ -22,7 +22,7 @@ def positive(raw, *, words=False, pi=False):
     amount = (
         sp.Integer(count(raw))
         if words and re.fullmatch(COUNT, raw)
-        else ScalarParser(raw).parse()
+        else ScalarParser(_decimal_roots(raw)).parse()
     )
     amount *= multiplier
     if (
@@ -39,3 +39,17 @@ def sector_fraction(angle, kind):
     if angle >= 360 or kind not in {"kept", "removed"}:
         raise ContentPlanError("a proper kept or removed sector angle is required")
     return sp.simplify((angle if kind == "kept" else 360 - angle) / 360)
+
+
+def _decimal_roots(raw):
+    def rewrite(match):
+        amount = rational(match[1].replace("{,}", ".").replace(",", "."))
+        numerator, denominator = amount.as_numer_denom()
+        radicand = numerator * denominator
+        if radicand > 999999:
+            raise ContentPlanError(
+                "the solid square root exceeds the supported exact range"
+            )
+        return r"\sqrt{" + str(radicand) + r"}\cdot\frac{1}{" + str(denominator) + "}"
+
+    return re.sub(r"\\sqrt\{(\d{1,6}(?:\{,\}|[,.])\d{1,6})\}", rewrite, raw)

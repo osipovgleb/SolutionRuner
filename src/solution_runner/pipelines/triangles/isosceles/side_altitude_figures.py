@@ -117,7 +117,9 @@ def prepare(context, condition, generated):
     return condition_changes(context, condition, current, key, identifier, url)
 
 
-def condition_changes(context, condition, current, key, identifier, url):
+def condition_changes(
+    context, condition, current, key, identifier, url, *, preserve_assets=()
+):
     """Replace a reviewed condition picture without changing the question text."""
     old_key = current.get("asset_key", "")
     soup = BeautifulSoup(condition["html"], "html.parser")
@@ -178,12 +180,17 @@ def condition_changes(context, condition, current, key, identifier, url):
             changes.append(
                 {"transformation_target_id": "asset:" + old_key, "operation": "remove"}
             )
-    if any(
-        a.get("asset_key") == "image_2" for a in context["normalized_content"]["assets"]
-    ) and not any(
-        t.get("transformation_target_id") == "asset:image_2"
-        and t.get("operation") == "remove"
-        for t in changes
+    if (
+        any(
+            a.get("asset_key") == "image_2"
+            for a in context["normalized_content"]["assets"]
+        )
+        and "image_2" not in preserve_assets
+        and not any(
+            t.get("transformation_target_id") == "asset:image_2"
+            and t.get("operation") == "remove"
+            for t in changes
+        )
     ):
         changes.append(
             {"transformation_target_id": "asset:image_2", "operation": "remove"}

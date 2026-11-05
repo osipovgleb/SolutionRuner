@@ -10,6 +10,7 @@ from .cylinder_sources import PARENTS as CYLINDERS
 from .distance_sources import PARENTS as DISTANCES
 from .line_angle_sources import PARENTS as LINE_ANGLES
 from .polyhedron_sources import PARENTS as POLYHEDRA
+from .prism_sources import PARENTS as PRISMS
 from .sphere_sources import PARENTS as SPHERES
 from .vertex_angle_sources import PARENTS as VERTEX_ANGLES
 
@@ -78,6 +79,7 @@ HANDLERS = tuple(
         (SPHERES, "solution_runner.pipelines.solids.sphere_parent:prepare", None),
         (CYLINDERS, "solution_runner.pipelines.solids.cylinder_parent:prepare", None),
         (CONES, "solution_runner.pipelines.solids.cone_parent:prepare", None),
+        (PRISMS, "solution_runner.pipelines.solids.prism_parent:prepare", None),
         (
             DISTANCES,
             "solution_runner.pipelines.solids.distance_parent:prepare",
