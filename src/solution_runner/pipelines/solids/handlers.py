@@ -3,6 +3,7 @@
 from ..core.handlers import HandlerSpec
 from .box_sources import PARENTS as BOX
 from .cube_sources import PARENTS as CUBE
+from .distance_sources import PARENTS as DISTANCES
 
 HANDLERS = tuple(
     HandlerSpec(
@@ -28,6 +29,11 @@ HANDLERS = tuple(
             "solution_runner.pipelines.solids.cube_figures:diagram_specs",
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
+        (
+            DISTANCES,
+            "solution_runner.pipelines.solids.distance_parent:prepare",
+            "solution_runner.pipelines.solids.distance_figures:diagram_specs",
+        ),
     )
     for rule in parents
 )

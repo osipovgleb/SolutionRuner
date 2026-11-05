@@ -1,0 +1,33 @@
+"""Prepare actual named spatial distances through reviewed parent methods."""
+
+from ..core.errors import ContentPlanError
+from ..quadrilaterals.quantity_repair import repair_quantity
+from . import distance_figures, distance_proofs
+from .distance_sources import RULES, review_parent
+
+
+def prepare(
+    context,
+    *,
+    parent_condition_asset_id,
+    parent_solution_html,
+    parent_solution_assets=(),
+    generated_solution_assets=(),
+    content_rule_key,
+):
+    review_parent(
+        content_rule_key,
+        parent_condition_asset_id,
+        parent_solution_html,
+        parent_solution_assets,
+    )
+    model, changes, picture, keys = distance_figures.prepare(
+        context, generated_solution_assets
+    )
+    if RULES[content_rule_key] != model.mode:
+        raise ContentPlanError(
+            "the complete spatial question differs from its parent method"
+        )
+    return repair_quantity(
+        context, model.answer, distance_proofs.render(model, picture), keys, changes
+    )

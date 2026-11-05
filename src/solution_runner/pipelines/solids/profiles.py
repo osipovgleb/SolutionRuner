@@ -2,6 +2,7 @@
 
 from ..core.profile_definitions import _profile
 from .box_profiles import PROFILES as BOX_PROFILES
+from .distance_profiles import PROFILES as DISTANCE_PROFILES
 
 PROFILES = tuple(
     _profile(
@@ -89,4 +90,4 @@ PROFILES = tuple(
     )
 )
 
-PROFILES += BOX_PROFILES
+PROFILES += BOX_PROFILES + DISTANCE_PROFILES
