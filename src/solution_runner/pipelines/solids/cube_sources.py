@@ -206,44 +206,14 @@ MODE_SOURCES = {
 
 
 def source_bytes(source):
-    import gzip
-    import hashlib
-    from importlib.resources import files
+    from . import source_assets
 
-    from ..core.errors import ContentPlanError
-
-    if source not in SOURCES:
-        raise ContentPlanError("the cube diagram needs review")
-    canonical, digest = SOURCES[source]
-    raw = gzip.decompress(
-        files(__package__).joinpath("assets/" + canonical + ".svgz").read_bytes()
-    )
-    if hashlib.sha256(raw).hexdigest() != digest:
-        raise ContentPlanError("the reviewed cube diagram changed")
-    return raw
+    return source_assets.source_bytes(source, SOURCES)
 
 
 def review_parent(rule, primary, html, assets):
-    import hashlib
+    from . import source_assets
 
-    from ..core.errors import ContentPlanError
-
-    if rule not in PARENTS:
-        raise ContentPlanError("an explicit reviewed cube rule is required")
-    expected, figures, digest = PARENTS[rule]
-    if (
-        primary != expected
-        or not isinstance(html, str)
-        or hashlib.sha256(html.encode()).hexdigest() != digest
-    ):
-        raise ContentPlanError("the complete reviewed cube parent changed")
-    if not isinstance(assets, (tuple, list)) or any(
-        not isinstance(a, dict) for a in assets
-    ):
-        raise ContentPlanError("complete cube parent asset metadata is required")
-    if [(a.get("asset_key"), a.get("source_asset_id")) for a in assets] != list(
-        figures
-    ) or any(a.get("url") != "/assets/" + a["source_asset_id"] for a in assets):
-        raise ContentPlanError("the reviewed cube solution figures changed")
-    for source in (primary, *(s for _, s in figures)):
-        source_bytes(source)
+    return source_assets.review_parent(
+        rule, primary, html, assets, parents=PARENTS, sources=SOURCES
+    )

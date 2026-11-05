@@ -1,6 +1,7 @@
 """Explicit category-three bindings for reviewed cube methods."""
 
 from ..core.profile_definitions import _profile
+from .box_profiles import PROFILES as BOX_PROFILES
 
 PROFILES = tuple(
     _profile(
@@ -87,3 +88,5 @@ PROFILES = tuple(
         ),
     )
 )
+
+PROFILES += BOX_PROFILES

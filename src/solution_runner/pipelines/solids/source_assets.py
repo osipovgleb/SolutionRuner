@@ -1,0 +1,41 @@
+"""Read exact reviewed solid diagrams and verify complete parent method pins."""
+
+import gzip
+import hashlib
+from importlib.resources import files
+
+from ..core.errors import ContentPlanError
+
+
+def source_bytes(source, sources):
+    if source not in sources:
+        raise ContentPlanError("the solid diagram needs review")
+    canonical, digest = sources[source]
+    raw = gzip.decompress(
+        files(__package__).joinpath("assets/" + canonical + ".svgz").read_bytes()
+    )
+    if hashlib.sha256(raw).hexdigest() != digest:
+        raise ContentPlanError("the reviewed solid diagram changed")
+    return raw
+
+
+def review_parent(rule, primary, html, assets, *, parents, sources):
+    if rule not in parents:
+        raise ContentPlanError("an explicit reviewed solid rule is required")
+    expected, figures, digest = parents[rule]
+    if (
+        primary != expected
+        or not isinstance(html, str)
+        or hashlib.sha256(html.encode()).hexdigest() != digest
+    ):
+        raise ContentPlanError("the complete reviewed solid parent changed")
+    if not isinstance(assets, (tuple, list)) or any(
+        not isinstance(a, dict) for a in assets
+    ):
+        raise ContentPlanError("complete solid parent asset metadata is required")
+    if [(a.get("asset_key"), a.get("source_asset_id")) for a in assets] != list(
+        figures
+    ) or any(a.get("url") != "/assets/" + a["source_asset_id"] for a in assets):
+        raise ContentPlanError("the reviewed solid solution figures changed")
+    for source in (primary, *(s for _, s in figures)):
+        source_bytes(source, sources)

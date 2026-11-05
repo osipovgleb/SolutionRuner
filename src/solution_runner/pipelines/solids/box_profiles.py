@@ -1,0 +1,95 @@
+"""Explicit bindings for reviewed rectangular-box measurements."""
+
+from ..core.profile_definitions import _profile
+
+PROFILES = tuple(
+    _profile(
+        key,
+        uid,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="3",
+        theme_title="Прямоугольный параллелепипед",
+        theme_order_index=1,
+        snapshot_theme_id="44b3d94d-87c2-4c6b-891b-43ef7c133aed",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, uid, index, rule in (
+        (
+            "27054",
+            "c314f224-8bd2-469c-9fc1-e0b3febdea0e",
+            0,
+            "solid-box-edge-from-surface",
+        ),
+        (
+            "27060",
+            "ffade492-31ea-4e72-9644-6912460d8aa8",
+            1,
+            "solid-box-diagonal-from-surface",
+        ),
+        (
+            "27076",
+            "134798e8-d62c-41cf-8635-fccd678628bc",
+            2,
+            "solid-box-volume-from-face",
+        ),
+        (
+            "27077",
+            "df927daf-ac1c-46ee-9736-a5aff1f36ccf",
+            3,
+            "solid-box-face-from-volume",
+        ),
+        (
+            "27078",
+            "4f4eed2b-82bc-4761-9e5d-de2ac0a921dc",
+            4,
+            "solid-box-edge-from-face",
+        ),
+        (
+            "27079",
+            "081f954c-9861-4f4d-b0fa-6d08b071ffed",
+            5,
+            "solid-box-edge-from-volume",
+        ),
+        (
+            "27080",
+            "54cc31ce-2a94-4327-98eb-e297d4f8673a",
+            6,
+            "solid-box-cube-edge-from-edges",
+        ),
+        (
+            "27100",
+            "21a2a2d3-e5c8-4bfb-b60e-26bc4e2ded09",
+            7,
+            "solid-box-volume-from-diagonal",
+        ),
+        (
+            "27101",
+            "07d676cd-12b5-456f-96ab-5a79a48b6131",
+            8,
+            "solid-box-diagonal-from-volume",
+        ),
+        (
+            "27128",
+            "97b0324b-a5a7-4e43-be58-8893c5fde0e1",
+            10,
+            "solid-box-surface-from-edges",
+        ),
+        (
+            "27143",
+            "1fd1c2a0-5d71-4840-a7e6-5113df32bd54",
+            11,
+            "solid-box-surface-from-diagonal",
+        ),
+        (
+            "27146",
+            "93cd577d-3330-4687-ac3f-30c1a9779839",
+            12,
+            "solid-box-surface-from-volume",
+        ),
+    )
+)
