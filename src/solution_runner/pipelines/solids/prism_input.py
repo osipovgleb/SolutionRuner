@@ -21,6 +21,19 @@ def text(html, source=None):
     if not isinstance(html, str):
         raise ContentPlanError("complete prism condition HTML is required")
     soup = BeautifulSoup(html, "html.parser")
+    for sup in list(soup.find_all("sup")):
+        previous = sup.previous_sibling
+        if (
+            sup.attrs
+            or sup.find(True)
+            or sup.get_text() != "3"
+            or not isinstance(previous, str)
+            or not previous.rstrip().endswith("см")
+        ):
+            raise ContentPlanError(
+                "only an explicit cubic-centimeter unit superscript is supported"
+            )
+        sup.replace_with("3")
     for tag in list(soup.find_all("i")):
         if (
             not tag.attrs

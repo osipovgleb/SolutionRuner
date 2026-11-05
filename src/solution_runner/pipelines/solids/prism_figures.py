@@ -12,6 +12,7 @@ from .prism_metric_model import KINDS as METRIC_KINDS
 from .prism_model import read_question
 from .prism_region import KIND as REGION_KIND
 from .prism_sources import DEFAULTS, RULES, compatible
+from .prism_water_input import correction
 
 
 def selection(context, *, rule=None):
@@ -81,6 +82,8 @@ def prepare(context, generated, *, rule):
             changes.extend(attached)
             pictures[key] = image
             keys.append(key)
+    if m.kind == "immersion":
+        changes.extend(correction(condition))
     return m, tuple(changes), pictures, tuple(keys)
 
 

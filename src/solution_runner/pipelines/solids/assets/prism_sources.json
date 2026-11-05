@@ -284,6 +284,11 @@
         ]
       ],
       "e99312ff738471f13eca60239b5587c61c4e323e6fc26e5e9742ef785622951a"
+    ],
+    "solid-prism-immersed-detail-and-transfer": [
+      "f69fb42f-bb37-40b5-ab93-ada008c5b714",
+      [],
+      "b8ea75153902f626d3dc3c2a0194e7a217030a014d730dc26975e583379e8352"
     ]
   },
   "rules": {
@@ -405,6 +410,10 @@
     ],
     "solid-prism-hexagonal-vertex-volumes": [
       "regular_vertex_volume"
+    ],
+    "solid-prism-immersed-detail-and-transfer": [
+      "immersion",
+      "transfer"
     ]
   },
   "sources": {
@@ -796,7 +805,8 @@
   "figures": {
     "f69fb42f-bb37-40b5-ab93-ada008c5b714": {
       "kinds": [
-        "transfer"
+        "transfer",
+        "immersion"
       ],
       "slots": [
         [
@@ -2385,6 +2395,12 @@
         "condition",
         "048cbddd-8053-488c-9a82-d7ef8fd24972"
       ]
+    },
+    "immersion": {
+      "image_1": [
+        "condition",
+        "f69fb42f-bb37-40b5-ab93-ada008c5b714"
+      ]
     }
   },
   "metric_slots": {
@@ -3716,5 +3732,37 @@
   "region_conditions": {
     "triangle": "a39e86f1-f74e-4f4e-aa3c-e479b105ea23",
     "hexagon": "efa507fe-1313-4dc8-bcbb-f21d03b156ff"
+  },
+  "water_transcriptions": {
+    "f45bedc7f3981d8c9cbfeb05a6b259e147709671300563eb0f8e85d2355a6ae1": {
+      "corrected_sha256": "734d8b051a6524152e220653c069bd1664283b22389b90071f934b9c26239370",
+      "qualifier": "\u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e",
+      "source_url": "https://iro23.ru/wp-content/uploads/2026/02/\u041f\u0440\u0430\u043a\u0442\u0438\u043a\u0443\u043c-\u043f\u043e-\u0433\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u0438-11-\u043a\u043b\u0430\u0441\u0441-\u0443\u0447\u0435\u043d\u0438\u043a.pdf",
+      "source_sha256": "d01aa72a06ca416eda3da0d0314aadd04c65afbe09bebdfee56f0d4b95cc7542",
+      "pdf_page": 38,
+      "printed_page": 37,
+      "evidence": "exact numeric variant",
+      "editorial_source_url": "https://math-ege.sdamgia.ru/problem?id=27047"
+    },
+    "498772b3224bb7d0aa7ef4f3eab5fcdb92ee8289ae9a5939dbc4c23ac61b6c30": {
+      "corrected_sha256": "cc94339c598dd682a131911d00ca09faadf5f5657bc2171f99da522ab8d5ca78",
+      "qualifier": "\u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e",
+      "source_url": "https://iro23.ru/wp-content/uploads/2026/02/\u041f\u0440\u0430\u043a\u0442\u0438\u043a\u0443\u043c-\u043f\u043e-\u0433\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u0438-11-\u043a\u043b\u0430\u0441\u0441-\u0443\u0447\u0435\u043d\u0438\u043a.pdf",
+      "source_sha256": "d01aa72a06ca416eda3da0d0314aadd04c65afbe09bebdfee56f0d4b95cc7542",
+      "pdf_page": 38,
+      "printed_page": 37,
+      "evidence": "same reviewed template; original editorial solution equates detail and displaced volumes",
+      "editorial_source_url": "https://math-ege.sdamgia.ru/problem?id=72151"
+    },
+    "821e6db3a5997ebde91b75bf015f3e9e809c31cafcdec092746c5adbc86fc3ea": {
+      "corrected_sha256": "8e44025594b0b800adac0fc1210cb60f9020e97f85d4a754e322abe2e61675a7",
+      "qualifier": "\u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e",
+      "source_url": "https://iro23.ru/wp-content/uploads/2026/02/\u041f\u0440\u0430\u043a\u0442\u0438\u043a\u0443\u043c-\u043f\u043e-\u0433\u0435\u043e\u043c\u0435\u0442\u0440\u0438\u0438-11-\u043a\u043b\u0430\u0441\u0441-\u0443\u0447\u0435\u043d\u0438\u043a.pdf",
+      "source_sha256": "d01aa72a06ca416eda3da0d0314aadd04c65afbe09bebdfee56f0d4b95cc7542",
+      "pdf_page": 38,
+      "printed_page": 37,
+      "evidence": "exact numeric variant",
+      "editorial_source_url": "https://math-ege.sdamgia.ru/problem?id=4937"
+    }
   }
 }

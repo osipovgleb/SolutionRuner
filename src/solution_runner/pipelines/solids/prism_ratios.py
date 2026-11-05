@@ -51,3 +51,19 @@ def scale(given):
     return PrismQuantity(
         "similar_surface", (area, factor), sp.simplify(area * ratio**2), ratio=ratio
     )
+
+
+def immersion(given):
+    volume, low, high = (positive(v) for v in given)
+    if high <= low:
+        raise ContentPlanError("full immersion must raise the water level")
+    area = volume / low
+    delta = high - low
+    return PrismQuantity(
+        "immersion",
+        (volume, low, high),
+        sp.simplify(area * delta),
+        area=area,
+        height=delta,
+        ratio=sp.simplify(delta / low),
+    )

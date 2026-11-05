@@ -253,5 +253,11 @@ PROFILES = tuple(
             19,
             "solid-prism-hexagonal-vertex-volumes",
         ),
+        (
+            "27047",
+            "48091896-a02b-42f4-9db6-17b5706ca267",
+            0,
+            "solid-prism-immersed-detail-and-transfer",
+        ),
     )
 )

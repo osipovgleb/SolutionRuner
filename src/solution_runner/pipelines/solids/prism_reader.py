@@ -14,7 +14,7 @@ from .prism_model import (
     section,
     vertex_volume,
 )
-from .prism_ratios import COEFFICIENTS, cut, scale, transfer
+from .prism_ratios import COEFFICIENTS, cut, immersion, scale, transfer
 
 TRI = "ABCA_1B_1C_1"
 SQUARE = "ABCDA_1B_1C_1D_1"
@@ -22,6 +22,11 @@ RIGHT = r"Основанием прямой треугольной призмы 
 MID = r"Через среднюю линию основания треугольной призмы проведена плоскость, параллельная боковому ребру\."
 CORNER = r"треугольной призмы, отсекаемой от (?:куба|него) плоскостью, проходящей через середины двух ребер, выходящих из одной вершины,? и параллельной третьему ребру, выходящему из этой же вершины"
 SPECS = (
+    (
+        "immersion",
+        r"[ВB] сосуд, имеющий форму правильной треугольной призмы, налили\s+(.+?)\s+см3\s*воды и (?:полностью погрузили в воду|полностью в нее погрузили) деталь\. При этом уровень (?:воды|жидкости в сосуде) поднялся с отметки\s+(.+?)\s+см до отметки\s+(.+?)\s+см\. (?:Найдите объем детали|Чему равен объем детали\?)\.? Ответ выразите в\s+см3\.",
+        None,
+    ),
     (
         "transfer",
         r"[ВB] сосуд, имеющий форму правильной треугольной призмы, налили воду\. Уровень воды достигает\s+(.+?)\s+см\. На какой высоте будет находиться уровень воды, если ее перелить в другой (?:такой же сосуд|сосуд такой же формы), у которого сторона основания в\s+(.+?)\s+раза? (больше|меньше), чем у первого\? Ответ выразите в (?:см|сантиметрах)\.",
@@ -168,6 +173,7 @@ def _solve(kind, groups):
         return cut(kind, groups)
     return {
         "transfer": transfer,
+        "immersion": immersion,
         "similar_surface": scale,
         "oblique_rhombus": lambda g: oblique("oblique_rhombus", g),
         "oblique_hex": lambda g: oblique("oblique_hex", g),
@@ -178,7 +184,10 @@ def _solve(kind, groups):
 
 
 def read(html, source=None):
-    raw = text(html, source)
+    from .prism_water_input import clarified
+
+    raw = text(clarified(html), source)
+    raw = re.sub(r"см\s+3", "см3", raw).replace(r"\mathrm{см}^{3}", "см3")
     try:
         for kind, pattern, order in SPECS:
             match = re.fullmatch(pattern, raw)

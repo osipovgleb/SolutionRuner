@@ -1,0 +1,544 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "27047",
+      "group_uuid": "48091896-a02b-42f4-9db6-17b5706ca267",
+      "order_index": 0,
+      "size": 34,
+      "rule": "solid-prism-immersed-detail-and-transfer",
+      "sample_tasks": [
+        "72151",
+        "522089",
+        "4937"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "27047",
+      "task": "27047",
+      "context": {
+        "problem_id": "33e1a94f-e202-4a68-87ae-5a84eb49620e",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:21.071441+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714",
+                "html": "<img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f69fb42f-bb37-40b5-ab93-ada008c5b714",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли 2300 см<sup>3</sup> воды и по­гру­зи­ли в воду де­таль. При этом уро­вень воды под­нял­ся с от­мет­ки 25 см до от­мет­ки 27 см. Най­ди­те объем де­та­ли. Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 2/⁠25 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{2}{25}\\cdot 2300=184\\,\\mathrm{см}^{3}\"></span> . </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Из фор­му­лы для объ­е­ма приз­мы <span data-inline-latex=\"V=S_{\\mathrm{осн}}H\"></span> най­дем пло­щадь ос­но­ва­ния:</p><center><p><span data-inline-latex=\"S_{\\mathrm{осн}}=\\frac{V}{H}=\\frac{2300}{25}=92\\,\\mathrm{см}^{2}\"></span> . </p></center><p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=92\\cdot (27-25)=92\\cdot 2=184\\,\\mathrm{см}^{3}\"></span> .</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><ol data-layout=\"source-numbered\"><li>Най­дем пло­щадь ос­но­ва­ния со­су­да: <span data-inline-latex=\"S=\\frac{V}{h}=\\frac{2300}{25}=92\\,\\mathrm{см}^{2}\"></span> . </li><li>Най­дем сум­мар­ный объем воды и де­та­ли: <span data-inline-latex=\"V=Sh=92\\cdot 27=2484\\,\\mathrm{см}^{3}\"></span> .</li><li>Раз­ность объ­е­мов воды с де­та­лью и на­чаль­но­го объ­е­ма равна объ­е­му де­та­ли: <span data-inline-latex=\"2484-2300=184\\,\\mathrm{см}^{3}\"></span> .</li></ol></section>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:38:46.660161+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714",
+              "kind": "ordinary_image",
+              "asset_id": "f69fb42f-bb37-40b5-ab93-ada008c5b714",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли 2300 см<sup>3</sup> воды и по­гру­зи­ли в воду де­таль. При этом уро­вень воды под­нял­ся с от­мет­ки 25 см до от­мет­ки 27 см. Най­ди­те объем де­та­ли. Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">184</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Объём вы­тес­нен­ной жид­ко­сти равен 2/⁠25 ис­ход­но­го объёма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{2}{25}\\cdot 2300=184\\,\\mathrm{см}^{3}\"></span> . </p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><p>Из фор­му­лы для объ­е­ма приз­мы <span data-inline-latex=\"V=S_{\\mathrm{осн}}H\"></span> най­дем пло­щадь ос­но­ва­ния:</p><center><p><span data-inline-latex=\"S_{\\mathrm{осн}}=\\frac{V}{H}=\\frac{2300}{25}=92\\,\\mathrm{см}^{2}\"></span> . </p></center><p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=92\\cdot (27-25)=92\\cdot 2=184\\,\\mathrm{см}^{3}\"></span> .</p></center></section><section data-content-kind=\"solution\" data-solution-title=\"Альтернативное решение.\"><ol data-layout=\"source-numbered\"><li>Най­дем пло­щадь ос­но­ва­ния со­су­да: <span data-inline-latex=\"S=\\frac{V}{h}=\\frac{2300}{25}=92\\,\\mathrm{см}^{2}\"></span> . </li><li>Най­дем сум­мар­ный объем воды и де­та­ли: <span data-inline-latex=\"V=Sh=92\\cdot 27=2484\\,\\mathrm{см}^{3}\"></span> .</li><li>Раз­ность объ­е­мов воды с де­та­лью и на­чаль­но­го объ­е­ма равна объ­е­му де­та­ли: <span data-inline-latex=\"2484-2300=184\\,\\mathrm{см}^{3}\"></span> .</li></ol></section>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "condition_issue": "в подготовленном плане явно восстанавливается полное погружение; исходный контекст остается прежним"
+    },
+    {
+      "group": "27047",
+      "task": "72151",
+      "context": {
+        "problem_id": "6d585d19-807c-4538-b8b3-fa99f461a36b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:51.748188+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714",
+                "html": "<img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f69fb42f-bb37-40b5-ab93-ada008c5b714",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:38:47.039965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли 2700 см<sup>3</sup> воды и по­гру­зи­ли в воду де­таль. При этом уро­вень воды под­нял­ся с от­мет­ки 20 см до от­мет­ки 33 см. Най­ди­те объем де­та­ли. Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:38:47.039965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Уро­вень воды под­нял­ся на 13 см. Объём вы­тес­нен­ной жид­ко­сти равен 13/20 ис­ход­но­го объ­е­ма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{13}{20}\\cdot 2700=1755\\,\\mathrm{см}^{(3)}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:38:47.039965+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714",
+              "kind": "ordinary_image",
+              "asset_id": "f69fb42f-bb37-40b5-ab93-ada008c5b714",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли 2700 см<sup>3</sup> воды и по­гру­зи­ли в воду де­таль. При этом уро­вень воды под­нял­ся с от­мет­ки 20 см до от­мет­ки 33 см. Най­ди­те объем де­та­ли. Ответ вы­ра­зи­те в см<sup>3</sup>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1755</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объём де­та­ли равен объёму вы­тес­нен­ной ею жид­ко­сти. Уро­вень воды под­нял­ся на 13 см. Объём вы­тес­нен­ной жид­ко­сти равен 13/20 ис­ход­но­го объ­е­ма:</p><center><p><span data-inline-latex=\"V_{\\mathrm{дет}}=\\frac{13}{20}\\cdot 2700=1755\\,\\mathrm{см}^{(3)}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "condition_issue": "в подготовленном плане явно восстанавливается полное погружение; исходный контекст остается прежним"
+    },
+    {
+      "group": "27047",
+      "task": "522089",
+      "context": {
+        "problem_id": "ab0b8e64-2bd6-4dd5-ada2-2aa05e07f6a9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:58.885017+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/08dd1b69-fe9d-4086-8057-6de496b597ad",
+                "html": "<img alt=\"\" data-asset-id=\"08dd1b69-fe9d-4086-8057-6de496b597ad\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/08dd1b69-fe9d-4086-8057-6de496b597ad\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "08dd1b69-fe9d-4086-8057-6de496b597ad",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:38:48.055577+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"08dd1b69-fe9d-4086-8057-6de496b597ad\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли воду. Уро­вень воды до­сти­га­ет 112 см. На какой вы­со­те будет на­хо­дить­ся уро­вень воды, если её пе­ре­лить в дру­гой сосуд такой же формы, у ко­то­ро­го сто­ро­на ос­но­ва­ния в 4 раза боль­ше, чем у пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:39:20.157028+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Объем приз­мы равен про­из­ве­де­нию пло­ща­ди ее ос­но­ва­ния на вы­со­ту и вы­ра­жа­ет­ся через сто­ро­ну ос­но­ва­ния <i>а</i> и вы­со­ту <i>Н</i> фор­му­лой <span data-inline-latex=\"V=\\frac{\\sqrt{3a^2}}{4}H.\"></span> По­это­му <span data-inline-latex=\"H=\\frac{4V}{\\sqrt{3}a^{2}}\"></span> ,  а зна­чит, при уве­ли­че­нии сто­ро­ны <i>а</i> в 4 раза зна­ме­на­тель уве­ли­чит­ся в 16 раз, то есть вы­со­та умень­шит­ся в 16 раз и будет равна 7 см.</p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:39:20.157028+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:39:20.157028+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/08dd1b69-fe9d-4086-8057-6de496b597ad",
+              "kind": "ordinary_image",
+              "asset_id": "08dd1b69-fe9d-4086-8057-6de496b597ad",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"08dd1b69-fe9d-4086-8057-6de496b597ad\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/08dd1b69-fe9d-4086-8057-6de496b597ad\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли воду. Уро­вень воды до­сти­га­ет 112 см. На какой вы­со­те будет на­хо­дить­ся уро­вень воды, если её пе­ре­лить в дру­гой сосуд такой же формы, у ко­то­ро­го сто­ро­на ос­но­ва­ния в 4 раза боль­ше, чем у пер­во­го? Ответ вы­ра­зи­те в сан­ти­мет­рах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">7</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Объем приз­мы равен про­из­ве­де­нию пло­ща­ди ее ос­но­ва­ния на вы­со­ту и вы­ра­жа­ет­ся через сто­ро­ну ос­но­ва­ния <i>а</i> и вы­со­ту <i>Н</i> фор­му­лой <span data-inline-latex=\"V=\\frac{\\sqrt{3a^2}}{4}H.\"></span> По­это­му <span data-inline-latex=\"H=\\frac{4V}{\\sqrt{3}a^{2}}\"></span> ,  а зна­чит, при уве­ли­че­нии сто­ро­ны <i>а</i> в 4 раза зна­ме­на­тель уве­ли­чит­ся в 16 раз, то есть вы­со­та умень­шит­ся в 16 раз и будет равна 7 см.</p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27047",
+      "task": "4937",
+      "context": {
+        "problem_id": "9b272e0b-13a3-4288-be2d-9d661e5e849f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:56.255051+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714",
+                "html": "<img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "f69fb42f-bb37-40b5-ab93-ada008c5b714",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:38:47.759799+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли 1500 <span data-inline-latex=\"\\mathrm{см}^{3}\"></span>  воды и по­гру­зи­ли в воду де­таль. При этом уро­вень воды под­нял­ся с от­мет­ки 25 см до от­мет­ки 28 см. Най­ди­те объем де­та­ли. Ответ вы­ра­зи­те в <span data-inline-latex=\"\\mathrm{см}^{3}\"></span> .</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:38:47.759799+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:38:47.759799+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714",
+              "kind": "ordinary_image",
+              "asset_id": "f69fb42f-bb37-40b5-ab93-ada008c5b714",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"f69fb42f-bb37-40b5-ab93-ada008c5b714\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/f69fb42f-bb37-40b5-ab93-ada008c5b714\"/>В сосуд, име­ю­щий форму пра­виль­ной тре­уголь­ной приз­мы, на­ли­ли 1500 <span data-inline-latex=\"\\mathrm{см}^{3}\"></span>  воды и по­гру­зи­ли в воду де­таль. При этом уро­вень воды под­нял­ся с от­мет­ки 25 см до от­мет­ки 28 см. Най­ди­те объем де­та­ли. Ответ вы­ра­зи­те в <span data-inline-latex=\"\\mathrm{см}^{3}\"></span> .</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">180</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "condition_issue": "в подготовленном плане явно восстанавливается полное погружение; исходный контекст остается прежним"
+    }
+  ]
+}
