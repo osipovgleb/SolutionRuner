@@ -14,9 +14,10 @@ from .box_coordinates import IDENTIFIERS, SEGMENT
 LETTERS = str.maketrans({"А": "A", "В": "B", "С": "C", "Д": "D"})
 
 
-def text(html, source=None):
+def text(html, source=None, *, extra_identifiers=()):
     if not isinstance(html, str):
         raise ContentPlanError("complete geometric box HTML is required")
+    identifiers = (*IDENTIFIERS, *extra_identifiers)
     soup = BeautifulSoup(html, "html.parser")
     if soup.find("img") is not None and (not isinstance(source, str) or not source):
         raise ContentPlanError("a reviewed box figure identity is required")
@@ -41,7 +42,7 @@ def text(html, source=None):
         if (
             not valid
             or previous.find(True) is not None
-            or label + "_1" not in IDENTIFIERS
+            or label + "_1" not in identifiers
         ):
             raise ContentPlanError(
                 "the subscript must belong to a canonical vertex identifier"
@@ -54,7 +55,7 @@ def text(html, source=None):
         span["data-inline-latex"] = span["data-inline-latex"].replace(r"\quad", " ")
     try:
         return (
-            _text(str(soup), source, labels="ABCD", extra_identifiers=IDENTIFIERS)
+            _text(str(soup), source, labels="ABCD", extra_identifiers=identifiers)
             .replace("ё", "е")
             .replace("_{1}", "_1")
         )

@@ -1,0 +1,1551 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "245361",
+      "group_uuid": "8ddeba01-b26a-414e-bd17-01354ff628f6",
+      "rule": "solid-box-angle-from-face-diagonal",
+      "sample_tasks": [
+        "271573",
+        "271811",
+        "271575"
+      ],
+      "size": 121
+    },
+    {
+      "key": "245363",
+      "group_uuid": "f2d5e307-a5f8-45bf-ac16-a952216de42b",
+      "rule": "solid-box-angle-from-base-diagonal",
+      "sample_tasks": [
+        "245362",
+        "272313",
+        "272551"
+      ],
+      "size": 374
+    }
+  ],
+  "cases": [
+    {
+      "group": "245361",
+      "task": "245361",
+      "context": {
+        "problem_id": "8cc26604-e9b0-4e17-a5b3-d8c18c95d6f6",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:49.450378+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63",
+                "html": "<img alt=\"\" data-asset-id=\"50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:49.450378+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2",
+                "html": "<img alt=\"\" data-asset-id=\"8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те угол <span data-inline-latex=\"ABD_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=5\"></span>, <span data-inline-latex=\"AD=4\"></span>, <span data-inline-latex=\"AA_1=3\"></span>. Дайте ответ в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>В пря­мо­уголь­ни­ке <span data-inline-latex=\"AA_1D_1D\"></span> от­ре­зок <span data-inline-latex=\"AD_1\"></span> яв­ля­ет­ся диа­го­на­лью, <span data-inline-latex=\"A_1D_1=AD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"AD_1=\\sqrt{AA_1^2+A_1D_1^2}=\\sqrt{9+16}=5.\"></span></p></center><p>Пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"ABD_1\"></span> рав­но­бед­рен­ный: <span data-inline-latex=\"AB=AD_1=5\"></span>, зна­чит, его ост­рые углы равны 45°.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            },
+            {
+              "at": "2026-10-02T15:45:35.008274+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63",
+              "kind": "ordinary_image",
+              "asset_id": "50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2",
+              "kind": "ordinary_image",
+              "asset_id": "8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/50bc8b3b-c24f-48f2-bb1c-1a41f4f46e63\"/>Най­ди­те угол <span data-inline-latex=\"ABD_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=5\"></span>, <span data-inline-latex=\"AD=4\"></span>, <span data-inline-latex=\"AA_1=3\"></span>. Дайте ответ в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/8b1e6c2a-fdbe-4d22-bd94-89ef488e18f2\"/></p><p>В пря­мо­уголь­ни­ке <span data-inline-latex=\"AA_1D_1D\"></span> от­ре­зок <span data-inline-latex=\"AD_1\"></span> яв­ля­ет­ся диа­го­на­лью, <span data-inline-latex=\"A_1D_1=AD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"AD_1=\\sqrt{AA_1^2+A_1D_1^2}=\\sqrt{9+16}=5.\"></span></p></center><p>Пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"ABD_1\"></span> рав­но­бед­рен­ный: <span data-inline-latex=\"AB=AD_1=5\"></span>, зна­чит, его ост­рые углы равны 45°.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-face-diagonal"
+    },
+    {
+      "group": "245361",
+      "task": "271573",
+      "context": {
+        "problem_id": "121d650c-c8b5-4e5a-b5a7-959bbf3abf33",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:45.583420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/ef22aa49-450e-445c-b231-981065f69a67",
+                "html": "<img alt=\"\" data-asset-id=\"ef22aa49-450e-445c-b231-981065f69a67\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef22aa49-450e-445c-b231-981065f69a67\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "ef22aa49-450e-445c-b231-981065f69a67",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:45.583420+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/830a265c-aa42-4ac6-90b2-40621ff60a8e",
+                "html": "<img alt=\"\" data-asset-id=\"830a265c-aa42-4ac6-90b2-40621ff60a8e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/830a265c-aa42-4ac6-90b2-40621ff60a8e\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "830a265c-aa42-4ac6-90b2-40621ff60a8e",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"ef22aa49-450e-445c-b231-981065f69a67\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Най­ди­те угол <span data-inline-latex=\"ABD_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=17\"></span>, <span data-inline-latex=\"AD=8\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"830a265c-aa42-4ac6-90b2-40621ff60a8e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/> В пря­мо­уголь­ни­ке <span data-inline-latex=\"AA_1D_1D\"></span> от­ре­зок <span data-inline-latex=\"AD_1\"></span> яв­ля­ет­ся диа­го­на­лью, <span data-inline-latex=\"A_1D_1=AD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"AD_1=\\sqrt{AA}_1^{2}+A_1D_1^{2}=\\sqrt{225+64}=17\"></span>.</p></center><p> Пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"ABD_1\"></span> рав­но­бед­рен­ный: <span data-inline-latex=\"AB=AD_1=17\"></span>, зна­чит, его ост­рые углы равны <span data-inline-latex=\"45^{\\circ}\"></span></p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T15:45:22.088637+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/ef22aa49-450e-445c-b231-981065f69a67",
+              "kind": "ordinary_image",
+              "asset_id": "ef22aa49-450e-445c-b231-981065f69a67",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/830a265c-aa42-4ac6-90b2-40621ff60a8e",
+              "kind": "ordinary_image",
+              "asset_id": "830a265c-aa42-4ac6-90b2-40621ff60a8e",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"ef22aa49-450e-445c-b231-981065f69a67\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/ef22aa49-450e-445c-b231-981065f69a67\"/> Най­ди­те угол <span data-inline-latex=\"ABD_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=17\"></span>, <span data-inline-latex=\"AD=8\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"830a265c-aa42-4ac6-90b2-40621ff60a8e\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/830a265c-aa42-4ac6-90b2-40621ff60a8e\"/> В пря­мо­уголь­ни­ке <span data-inline-latex=\"AA_1D_1D\"></span> от­ре­зок <span data-inline-latex=\"AD_1\"></span> яв­ля­ет­ся диа­го­на­лью, <span data-inline-latex=\"A_1D_1=AD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"AD_1=\\sqrt{AA}_1^{2}+A_1D_1^{2}=\\sqrt{225+64}=17\"></span>.</p></center><p> Пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"ABD_1\"></span> рав­но­бед­рен­ный: <span data-inline-latex=\"AB=AD_1=17\"></span>, зна­чит, его ост­рые углы равны <span data-inline-latex=\"45^{\\circ}\"></span></p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-face-diagonal"
+    },
+    {
+      "group": "245361",
+      "task": "271811",
+      "context": {
+        "problem_id": "09e3ab0b-ba03-4a86-8102-bcee299bed57",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:45.334008+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/d04cd2a8-7ba8-4c6a-aa99-a2169227571a",
+                "html": "<img alt=\"\" data-asset-id=\"d04cd2a8-7ba8-4c6a-aa99-a2169227571a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d04cd2a8-7ba8-4c6a-aa99-a2169227571a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "d04cd2a8-7ba8-4c6a-aa99-a2169227571a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:45.334008+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/99e19cfb-6c2e-4878-bca3-73187eb1cfc0",
+                "html": "<img alt=\"\" data-asset-id=\"99e19cfb-6c2e-4878-bca3-73187eb1cfc0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/99e19cfb-6c2e-4878-bca3-73187eb1cfc0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "99e19cfb-6c2e-4878-bca3-73187eb1cfc0",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"d04cd2a8-7ba8-4c6a-aa99-a2169227571a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те угол <span data-inline-latex=\"B_1DD_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=12\"></span>, <span data-inline-latex=\"AD=9\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"99e19cfb-6c2e-4878-bca3-73187eb1cfc0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/> В пря­мо­уголь­ни­ке <span data-inline-latex=\"A_1B_1C_1D_1\"></span> от­ре­зок <span data-inline-latex=\"B_1D_1\"></span> яв­ля­ет­ся диа­го­на­лью, <span data-inline-latex=\"A_1D_1=AD\"></span>, <span data-inline-latex=\"A_1B_1=AB\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"B_1D_1=\\sqrt{A_1B}_1^{2}+A_1D_1^{2}=\\sqrt{144+81}=15\"></span>.</p></center>Пря­мо­уголь­ный тре­уголь­ник<span data-inline-latex=\"B_1D_1D\"></span>рав­но­бед­рен­ный:<span data-inline-latex=\"DD_1=AA_1=15\"></span>,зна­чит, его ост­рые углы равны<span data-inline-latex=\"45^{\\circ}\"></span>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T15:45:22.003807+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/d04cd2a8-7ba8-4c6a-aa99-a2169227571a",
+              "kind": "ordinary_image",
+              "asset_id": "d04cd2a8-7ba8-4c6a-aa99-a2169227571a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/99e19cfb-6c2e-4878-bca3-73187eb1cfc0",
+              "kind": "ordinary_image",
+              "asset_id": "99e19cfb-6c2e-4878-bca3-73187eb1cfc0",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"d04cd2a8-7ba8-4c6a-aa99-a2169227571a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/d04cd2a8-7ba8-4c6a-aa99-a2169227571a\"/>Най­ди­те угол <span data-inline-latex=\"B_1DD_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=12\"></span>, <span data-inline-latex=\"AD=9\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"99e19cfb-6c2e-4878-bca3-73187eb1cfc0\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/99e19cfb-6c2e-4878-bca3-73187eb1cfc0\"/> В пря­мо­уголь­ни­ке <span data-inline-latex=\"A_1B_1C_1D_1\"></span> от­ре­зок <span data-inline-latex=\"B_1D_1\"></span> яв­ля­ет­ся диа­го­на­лью, <span data-inline-latex=\"A_1D_1=AD\"></span>, <span data-inline-latex=\"A_1B_1=AB\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"B_1D_1=\\sqrt{A_1B}_1^{2}+A_1D_1^{2}=\\sqrt{144+81}=15\"></span>.</p></center>Пря­мо­уголь­ный тре­уголь­ник<span data-inline-latex=\"B_1D_1D\"></span>рав­но­бед­рен­ный:<span data-inline-latex=\"DD_1=AA_1=15\"></span>,зна­чит, его ост­рые углы равны<span data-inline-latex=\"45^{\\circ}\"></span>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-face-diagonal"
+    },
+    {
+      "group": "245361",
+      "task": "271575",
+      "context": {
+        "problem_id": "c5fdb700-f26e-47b1-87c4-47a741f99bc9",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T20:39:00.173643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Най­ди­те угол <span data-inline-latex=\"AC_1B_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=15\"></span>, <span data-inline-latex=\"AD=17\"></span>, <span data-inline-latex=\"AA_1=8\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T20:39:00.173643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T20:39:00.173643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T20:39:00.173643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T20:39:00.173643+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Най­ди­те угол <span data-inline-latex=\"AC_1B_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=15\"></span>, <span data-inline-latex=\"AD=17\"></span>, <span data-inline-latex=\"AA_1=8\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-face-diagonal"
+    },
+    {
+      "group": "245363",
+      "task": "245363",
+      "context": {
+        "problem_id": "b8d43464-5a09-4277-88a6-4957608eb2da",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:32.686584+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b",
+                "html": "<img alt=\"\" data-asset-id=\"c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:40:41.092543+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де  <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span>из­вест­но, что <var data-math-identifier=\"AB\">AB</var>  =  4, <var data-math-identifier=\"AD\">AD</var>  =  3, <span data-inline-latex=\"AA_1\"></span>  =  5. Най­ди­те угол  <var data-math-identifier=\"DBD\">DBD</var><sub>1</sub>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:40:41.092543+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"ABD\">ABD</var>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"DB=\\sqrt{AB}^{2}+AD^{2}=\\sqrt{25}=5\"></span>.</p></center><p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"BDD\">BDD</var><sub>1</sub>. По­сколь­ку <var data-math-identifier=\"DB\">DB</var>  =  <var data-math-identifier=\"AA\">AA</var><sub>1</sub>  =  <var data-math-identifier=\"DD\">DD</var><sub>1</sub>, то тре­уголь­ник <var data-math-identifier=\"BDD\">BDD</var><sub>1</sub> яв­ля­ет­ся рав­но­бед­рен­ным, зна­чит, углы при его ос­но­ва­нии равны по <span data-inline-latex=\"45^{\\circ}\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:40:41.092543+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:40:41.092543+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:40:41.092543+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:40:41.092543+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b",
+              "kind": "ordinary_image",
+              "asset_id": "c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/c6f82a07-d4e0-4232-a4ad-5fcb3ba5590b\"/> В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де  <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span>из­вест­но, что <var data-math-identifier=\"AB\">AB</var>  =  4, <var data-math-identifier=\"AD\">AD</var>  =  3, <span data-inline-latex=\"AA_1\"></span>  =  5. Най­ди­те угол  <var data-math-identifier=\"DBD\">DBD</var><sub>1</sub>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"ABD\">ABD</var>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"DB=\\sqrt{AB}^{2}+AD^{2}=\\sqrt{25}=5\"></span>.</p></center><p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"BDD\">BDD</var><sub>1</sub>. По­сколь­ку <var data-math-identifier=\"DB\">DB</var>  =  <var data-math-identifier=\"AA\">AA</var><sub>1</sub>  =  <var data-math-identifier=\"DD\">DD</var><sub>1</sub>, то тре­уголь­ник <var data-math-identifier=\"BDD\">BDD</var><sub>1</sub> яв­ля­ет­ся рав­но­бед­рен­ным, зна­чит, углы при его ос­но­ва­нии равны по <span data-inline-latex=\"45^{\\circ}\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-base-diagonal"
+    },
+    {
+      "group": "245363",
+      "task": "245362",
+      "context": {
+        "problem_id": "6e44bab7-a0a1-4499-a509-c568b0c267ef",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:20.188834+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/79867b1e-a6e6-4f80-a6e4-6c96d8b990c2",
+                "html": "<img alt=\"\" data-asset-id=\"79867b1e-a6e6-4f80-a6e4-6c96d8b990c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/79867b1e-a6e6-4f80-a6e4-6c96d8b990c2\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "79867b1e-a6e6-4f80-a6e4-6c96d8b990c2",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"79867b1e-a6e6-4f80-a6e4-6c96d8b990c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те угол <span data-inline-latex=\"C_1BC\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <var data-math-identifier=\"AB\">AB</var>=5, <var data-math-identifier=\"AD\">AD</var>=4, <span data-inline-latex=\"AA_1\"></span>=4. Дайте ответ в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>грань <span data-inline-latex=\"BB_1C_1C\"></span> яв­ля­ет­ся квад­ра­том со сто­ро­ной 4, а <span data-inline-latex=\"BC_1\"></span> − диа­го­наль этой грани, зна­чит, угол <span data-inline-latex=\"C_1BC\"></span> равен <span data-inline-latex=\"45^{\\circ}\"></span> . </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:40:39.950713+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/79867b1e-a6e6-4f80-a6e4-6c96d8b990c2",
+              "kind": "ordinary_image",
+              "asset_id": "79867b1e-a6e6-4f80-a6e4-6c96d8b990c2",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"79867b1e-a6e6-4f80-a6e4-6c96d8b990c2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/79867b1e-a6e6-4f80-a6e4-6c96d8b990c2\"/>Най­ди­те угол <span data-inline-latex=\"C_1BC\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <var data-math-identifier=\"AB\">AB</var>=5, <var data-math-identifier=\"AD\">AD</var>=4, <span data-inline-latex=\"AA_1\"></span>=4. Дайте ответ в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>грань <span data-inline-latex=\"BB_1C_1C\"></span> яв­ля­ет­ся квад­ра­том со сто­ро­ной 4, а <span data-inline-latex=\"BC_1\"></span> − диа­го­наль этой грани, зна­чит, угол <span data-inline-latex=\"C_1BC\"></span> равен <span data-inline-latex=\"45^{\\circ}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-base-diagonal"
+    },
+    {
+      "group": "245363",
+      "task": "272313",
+      "context": {
+        "problem_id": "81f59364-64a6-4628-a45a-7bf8de3c646c",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:30.478164+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/da473b9b-129b-4a1c-9208-2ff6f71c1ecd",
+                "html": "<img alt=\"\" data-asset-id=\"da473b9b-129b-4a1c-9208-2ff6f71c1ecd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/da473b9b-129b-4a1c-9208-2ff6f71c1ecd\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "da473b9b-129b-4a1c-9208-2ff6f71c1ecd",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"da473b9b-129b-4a1c-9208-2ff6f71c1ecd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Най­ди­те угол <span data-inline-latex=\"BD_1B_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=12\"></span>, <span data-inline-latex=\"AD=9\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"ABD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"DB=\\sqrt{AB}^{2}+AD^{2}=\\sqrt{144+81}=15\"></span>.</p></center><p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"BD_1B_1\"></span>. Так как <var data-math-identifier=\"DB\">DB</var> = <span data-inline-latex=\"BB_1\"></span> = <span data-inline-latex=\"B_1D_1\"></span>, то тре­уголь­ник <span data-inline-latex=\"BD_1B_1\"></span> яв­ля­ет­ся рав­но­бед­рен­ным, зна­чит, углы при его ос­но­ва­нии равны по <span data-inline-latex=\"45^{\\circ}\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T15:40:40.051032+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/da473b9b-129b-4a1c-9208-2ff6f71c1ecd",
+              "kind": "ordinary_image",
+              "asset_id": "da473b9b-129b-4a1c-9208-2ff6f71c1ecd",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"da473b9b-129b-4a1c-9208-2ff6f71c1ecd\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/da473b9b-129b-4a1c-9208-2ff6f71c1ecd\"/> Най­ди­те угол <span data-inline-latex=\"BD_1B_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=12\"></span>, <span data-inline-latex=\"AD=9\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"ABD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"DB=\\sqrt{AB}^{2}+AD^{2}=\\sqrt{144+81}=15\"></span>.</p></center><p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <span data-inline-latex=\"BD_1B_1\"></span>. Так как <var data-math-identifier=\"DB\">DB</var> = <span data-inline-latex=\"BB_1\"></span> = <span data-inline-latex=\"B_1D_1\"></span>, то тре­уголь­ник <span data-inline-latex=\"BD_1B_1\"></span> яв­ля­ет­ся рав­но­бед­рен­ным, зна­чит, углы при его ос­но­ва­нии равны по <span data-inline-latex=\"45^{\\circ}\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-base-diagonal"
+    },
+    {
+      "group": "245363",
+      "task": "272551",
+      "context": {
+        "problem_id": "13474b54-c2dc-4620-8c4a-0cfaf74e8040",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:14:14.552595+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/9b447320-c919-4e84-8a4d-bb2e06dda9c0",
+                "html": "<img alt=\"\" data-asset-id=\"9b447320-c919-4e84-8a4d-bb2e06dda9c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9b447320-c919-4e84-8a4d-bb2e06dda9c0\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "9b447320-c919-4e84-8a4d-bb2e06dda9c0",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"9b447320-c919-4e84-8a4d-bb2e06dda9c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Най­ди­те угол <span data-inline-latex=\"ACA_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=12\"></span>, <span data-inline-latex=\"AD=9\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, в нём <span data-inline-latex=\"BC=AD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"AC=\\sqrt{AB}^{2}+BC^{2}=\\sqrt{12^{2}+9^{2}}=\\sqrt{225}=15\"></span>.</p></center>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник<span data-inline-latex=\"AA_1C\"></span>.Так как<span data-inline-latex=\"AA_1=AC\"></span>,тре­уголь­ник<span data-inline-latex=\"AA_1C\"></span>яв­ля­ет­ся рав­но­бед­рен­ным, зна­чит, углы при его ос­но­ва­нии равны<span data-inline-latex=\"45^{\\circ}\"></span>.",
+                "title": "Решение",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T15:40:39.332095+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/9b447320-c919-4e84-8a4d-bb2e06dda9c0",
+              "kind": "ordinary_image",
+              "asset_id": "9b447320-c919-4e84-8a4d-bb2e06dda9c0",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"9b447320-c919-4e84-8a4d-bb2e06dda9c0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/9b447320-c919-4e84-8a4d-bb2e06dda9c0\"/>Най­ди­те угол <span data-inline-latex=\"ACA_1\"></span> пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да, для ко­то­ро­го <span data-inline-latex=\"AB=12\"></span>, <span data-inline-latex=\"AD=9\"></span>, <span data-inline-latex=\"AA_1=15\"></span>. Ответ дайте в гра­ду­сах.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">45</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник <var data-math-identifier=\"ABC\">ABC</var>, в нём <span data-inline-latex=\"BC=AD\"></span>. По тео­ре­ме Пи­фа­го­ра</p><center><p><span data-inline-latex=\"AC=\\sqrt{AB}^{2}+BC^{2}=\\sqrt{12^{2}+9^{2}}=\\sqrt{225}=15\"></span>.</p></center>Рас­смот­рим пря­мо­уголь­ный тре­уголь­ник<span data-inline-latex=\"AA_1C\"></span>.Так как<span data-inline-latex=\"AA_1=AC\"></span>,тре­уголь­ник<span data-inline-latex=\"AA_1C\"></span>яв­ля­ет­ся рав­но­бед­рен­ным, зна­чит, углы при его ос­но­ва­нии равны<span data-inline-latex=\"45^{\\circ}\"></span>.",
+              "title": "Решение",
+              "asset_keys": [],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      },
+      "rule": "solid-box-angle-from-base-diagonal"
+    }
+  ]
+}
