@@ -10,6 +10,16 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-pyramid-midline-ratio": "pyramid_midline_ratio",
+    "solid-square-pyramid-perpendicular-section-ratio": "square_perpendicular_section_ratio",
+    "solid-triangle-prism-midpoint-section": (
+        "triangle_prism_cut_perimeter",
+        "triangle_prism_cut_area",
+    ),
+    "solid-triangle-prism-isosceles-section": (
+        "triangle_prism_cut_perimeter",
+        "triangle_prism_cut_area",
+    ),
     "solid-regular-triangle-edge-point-section": (
         "regular_triangle_center_cut_area",
         "regular_triangle_general_cut_area",
@@ -72,6 +82,10 @@ def modes(entry):
     return entry.get("modes") or (entry["mode"],)
 
 
+def slots(entry):
+    return tuple(entry.get("slots") or (entry["slot"],))
+
+
 MODE_SOURCES = {
     mode: tuple(
         source for source, entry in DATA["figures"].items() if mode in modes(entry)
@@ -87,6 +101,18 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    "pyramid_midline_ratio": (
+        ("solution", "image_1", "cb43c350-1e5c-4ce3-b113-8cfb8cdcc85c"),
+    ),
+    "square_perpendicular_section_ratio": (
+        ("solution", "image_1", "99e7eb5f-b4ab-4624-97a3-84c0934a9ae8"),
+    ),
+    "triangle_prism_cut_area": (
+        ("solution", "image_1", "95226592-07f1-44c7-acc0-8c9992142ee5"),
+    ),
+    "triangle_prism_cut_perimeter": (
+        ("solution", "image_1", "95226592-07f1-44c7-acc0-8c9992142ee5"),
+    ),
     "regular_triangle_center_cut_area": (
         ("solution", "image_1", "337c2a16-2990-4871-a0ce-7265f8ca9a9d"),
     ),
@@ -206,15 +232,25 @@ def compatible(model, source, role, slot):
         not entry
         or role != "solution"
         or model.mode not in modes(entry)
-        or entry["slot"] != slot
+        or slot not in slots(entry)
     ):
         return False
+    if model.mode == "square_perpendicular_section_ratio":
+        purpose = (
+            "coordinate"
+            if slot == model.symbols.get("coordinate_slot")
+            else "geometric"
+        )
+        if entry.get("purpose") != purpose:
+            return False
     if model.mode in {
         "ratio_plane_distance",
         "square_vertical_vertex_area",
     } and entry.get("method") != model.symbols.get("method"):
         return False
     if entry.get("reusable") is False:
+        return False
+    if entry.get("before_S") and model.q["ratio"] <= 1:
         return False
     if (
         "equal_lengths" in entry
@@ -241,6 +277,23 @@ def compatible(model, source, role, slot):
 
 
 def reviewed_model(model, assets):
+    if model.mode == "square_perpendicular_section_ratio":
+        purposes = {
+            key: DATA["figures"][asset["asset_id"]]["purpose"]
+            for key, asset in assets.items()
+        }
+        coordinate = next(
+            (key for key, purpose in purposes.items() if purpose == "coordinate"), ""
+        )
+        main = next(
+            (key for key, purpose in purposes.items() if purpose == "geometric"),
+            "image_2" if coordinate else "image_1",
+        )
+        if main == "image_2":
+            coordinate = "image_1"
+        return replace(
+            model, symbols={"main_slot": main, "coordinate_slot": coordinate}
+        )
     if model.mode == "regular_triangle_center_cut_area":
         return replace(
             model,
@@ -272,6 +325,26 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if (
+        model.mode in {"triangle_prism_cut_area", "triangle_prism_cut_perimeter"}
+        and model.names[0] == "prove"
+    ):
+        source = (
+            "01277d90-1f23-4c8e-9feb-a6d547735324"
+            if model.names[2] == "prime"
+            else "de08da4f-ac3b-4c9b-9164-3ae9dd185f30"
+            if model.names[1] == "AC"
+            else "5c9be4e5-85bb-45ca-a67a-d1ace6aff3b7"
+        )
+        return (("solution", "image_1", source),)
+    if model.mode == "square_perpendicular_section_ratio":
+        main = model.symbols.get("main_slot", "image_1")
+        coordinate = model.symbols.get("coordinate_slot", "")
+        return (("solution", main, "99e7eb5f-b4ab-4624-97a3-84c0934a9ae8"),) + (
+            (("solution", coordinate, "4c869b58-431f-4ac6-a112-5bb6d4c0535d"),)
+            if coordinate
+            else ()
+        )
     if (
         model.mode == "regular_triangle_center_cut_area"
         and model.symbols.get("second_figure") == "yes"
@@ -319,7 +392,9 @@ def roles(model):
 
 
 def allowed_keys(mode):
-    return {DATA["figures"][source]["slot"] for source in MODE_SOURCES[mode]}
+    return {
+        slot for source in MODE_SOURCES[mode] for slot in slots(DATA["figures"][source])
+    }
 
 
 def with_symbols(model, source):

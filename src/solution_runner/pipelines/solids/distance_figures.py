@@ -13,6 +13,7 @@ from ..word_problems.common import rewrite
 from . import distance_svg, spatial_distance_sources, spatial_distance_svg
 from .box_condition_repairs import restore_html
 from .box_distance_geometry import blue
+from .distance_answer_figures import clean_context
 from .distance_sources import FIGURES, MODE_SOURCES, source_bytes
 from .spatial_distance_model import MODES, read_question
 
@@ -49,7 +50,7 @@ def compatible(model, source, role, slot=None):
 
 def _read(context):
     content, assets, owners = read_content(
-        context, {"image_1", "image_2", "image_3", CONDITION, SOLUTION}
+        clean_context(context), {"image_1", "image_2", "image_3", CONDITION, SOLUTION}
     )
     condition = _section(content, "condition")
     if condition is None:
@@ -98,10 +99,8 @@ def _read(context):
         if key in {"image_1", "image_2", "image_3"}:
             if a["asset_id"] not in MODE_SOURCES[model.mode]:
                 raise ContentPlanError("the spatial figure needs review")
-            if (
-                model.mode in MODES
-                and spatial_distance_sources.DATA["figures"][a["asset_id"]]["slot"]
-                != key
+            if model.mode in MODES and key not in spatial_distance_sources.slots(
+                spatial_distance_sources.DATA["figures"][a["asset_id"]]
             ):
                 raise ContentPlanError(
                     "the proof diagram occupies another reviewed slot"

@@ -3,6 +3,7 @@
 from ..core.errors import ContentPlanError
 from ..quadrilaterals.quantity_repair import repair_quantity
 from . import distance_figures, distance_proofs
+from .distance_answer_figures import repair_answer
 from .distance_sources import RULES, review_parent
 
 
@@ -30,6 +31,9 @@ def prepare(
         raise ContentPlanError(
             "the complete spatial question differs from its parent method"
         )
-    return repair_quantity(
-        context, model.answer, distance_proofs.render(model, picture), keys, changes
+    return repair_answer(
+        repair_quantity(
+            context, model.answer, distance_proofs.render(model, picture), keys, changes
+        ),
+        context,
     )
