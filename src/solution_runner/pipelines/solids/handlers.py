@@ -4,6 +4,7 @@ from ..core.handlers import HandlerSpec
 from .box_midpoint_sources import PARENTS as MIDPOINTS
 from .box_section_sources import PARENTS as SECTIONS
 from .box_sources import PARENTS as BOX
+from .cone_sources import PARENTS as CONES
 from .cube_sources import PARENTS as CUBE
 from .cylinder_sources import PARENTS as CYLINDERS
 from .distance_sources import PARENTS as DISTANCES
@@ -76,6 +77,7 @@ HANDLERS = tuple(
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
         (SPHERES, "solution_runner.pipelines.solids.sphere_parent:prepare", None),
         (CYLINDERS, "solution_runner.pipelines.solids.cylinder_parent:prepare", None),
+        (CONES, "solution_runner.pipelines.solids.cone_parent:prepare", None),
         (
             DISTANCES,
             "solution_runner.pipelines.solids.distance_parent:prepare",
