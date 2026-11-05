@@ -107,6 +107,10 @@ def scene_projection(m, meta):
 
 
 def render(m):
+    if m.mode == "trapezoid_prism_pentagon_area":
+        from .prism_pentagon_cut_svg import render as pentagon
+
+        return pentagon(m)
     if m.mode == "regular_triangle_general_cut_area":
         from .regular_triangle_cut_svg import render as triangle_cut
 

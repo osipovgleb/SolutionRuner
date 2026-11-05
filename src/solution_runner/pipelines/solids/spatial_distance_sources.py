@@ -6,10 +6,13 @@ from importlib.resources import files
 
 import sympy as sp
 
+from . import prism_cut_sources
+
 DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    **prism_cut_sources.RULES,
     "solid-pyramid-midline-ratio": "pyramid_midline_ratio",
     "solid-square-pyramid-perpendicular-section-ratio": "square_perpendicular_section_ratio",
     "solid-triangle-prism-midpoint-section": (
@@ -94,6 +97,7 @@ MODE_SOURCES = {
     for mode in ((allowed,) if isinstance(allowed, str) else allowed)
 }
 GENERATED_MODES = {
+    "trapezoid_prism_pentagon_area",
     "regular_triangle_general_cut_area",
     "box_altitude_comparison",
     "hex_vertex_line_distance",
@@ -101,6 +105,7 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    **prism_cut_sources.ROLES,
     "pyramid_midline_ratio": (
         ("solution", "image_1", "cb43c350-1e5c-4ce3-b113-8cfb8cdcc85c"),
     ),
@@ -246,6 +251,7 @@ def compatible(model, source, role, slot):
     if model.mode in {
         "ratio_plane_distance",
         "square_vertical_vertex_area",
+        "trapezoid_prism_pentagon_area",
     } and entry.get("method") != model.symbols.get("method"):
         return False
     if entry.get("reusable") is False:
@@ -277,6 +283,9 @@ def compatible(model, source, role, slot):
 
 
 def reviewed_model(model, assets):
+    prism = prism_cut_sources.reviewed_model(model)
+    if prism is not None:
+        return prism
     if model.mode == "square_perpendicular_section_ratio":
         purposes = {
             key: DATA["figures"][asset["asset_id"]]["purpose"]
@@ -325,6 +334,9 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    prism = prism_cut_sources.roles(model)
+    if prism is not None:
+        return prism
     if (
         model.mode in {"triangle_prism_cut_area", "triangle_prism_cut_perimeter"}
         and model.names[0] == "prove"

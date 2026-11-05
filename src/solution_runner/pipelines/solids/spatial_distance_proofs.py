@@ -174,10 +174,16 @@ def render(m, pictures):
         adjacent_midpoint_proof,
         cube_plane_section_model,
         cube_plane_section_proofs,
+        prism_diagonal_cut_model,
+        prism_diagonal_cut_proof,
         prism_midpoint_cut_model,
         prism_midpoint_cut_proof,
+        prism_pentagon_cut_model,
+        prism_pentagon_cut_proof,
         prism_separation_model,
         prism_separation_proofs,
+        prism_similarity_cut_model,
+        prism_similarity_cut_proof,
         pyramid_inverse_section_proof,
         pyramid_midline_ratio_proof,
         pyramid_midsection_model,
@@ -202,6 +208,13 @@ def render(m, pictures):
         spatial_section_proofs,
     )
 
+    for family, proof in (
+        (prism_diagonal_cut_model, prism_diagonal_cut_proof),
+        (prism_pentagon_cut_model, prism_pentagon_cut_proof),
+        (prism_similarity_cut_model, prism_similarity_cut_proof),
+    ):
+        if m.mode in family.MODES:
+            return proof.render(m, pictures)
     if m.mode in pyramid_ratio_cut_model.MODES:
         return (
             pyramid_inverse_section_proof.render(m, pictures)

@@ -10,8 +10,11 @@ from ..core.errors import ContentPlanError
 from . import box_coordinates as c
 from . import (
     cube_plane_section_model,
+    prism_diagonal_cut_model,
     prism_midpoint_cut_model,
+    prism_pentagon_cut_model,
     prism_separation_model,
+    prism_similarity_cut_model,
     pyramid_midsection_model,
     pyramid_perpendicular_section_model,
     pyramid_ratio_cut_model,
@@ -46,6 +49,9 @@ MODES = (
     | regular_triangle_cut_model.MODES
     | pyramid_ratio_cut_model.MODES
     | prism_midpoint_cut_model.MODES
+    | prism_diagonal_cut_model.MODES
+    | prism_similarity_cut_model.MODES
+    | prism_pentagon_cut_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -98,7 +104,10 @@ def condition_text(html, source):
             or listing.attrs != {"data-layout": "source-subparts", "type": "a"}
             or len(items) != 2
             or [i.attrs for i in items]
-            != [{"data-list-marker": "а)"}, {"data-list-marker": "б)"}]
+            not in (
+                [{"data-list-marker": "а)"}, {"data-list-marker": "б)"}],
+                [{"data-list-marker": "a)"}, {"data-list-marker": "б)"}],
+            )
             or len(listing.find_all("li")) != 2
             or any(str(v).strip() for v in listing.contents if v not in items)
         ):
@@ -112,6 +121,9 @@ def condition_text(html, source):
     for tag in soup.find_all("i"):
         if not tag.attrs and not tag.find(True):
             tag.string = tag.get_text().translate(letters)
+            if tag.get_text() == "MKC,":
+                tag.string = "MKC"
+                tag.insert_after(",")
             if re.fullmatch(
                 r"[ABCDEFOSHNMTEPLQK]{2}(?:\s*=\s*[ABCDEFOSHNMTEPLQK]{2})+",
                 tag.get_text().strip(),
@@ -121,7 +133,7 @@ def condition_text(html, source):
                 tag.name = "span"
                 tag["data-inline-latex"] = tag.get_text().strip()
                 tag.clear()
-    return text(str(soup), source, labels="ABCDEFOSHNMTEPLQKRαγ")
+    return text(str(soup), source, labels="ABCDEFGOSHNMTEPLQKRαγ")
 
 
 def _box(match):
@@ -227,6 +239,9 @@ def read_question(html, source=None):
         regular_triangle_cut_model.read,
         pyramid_ratio_cut_model.read,
         prism_midpoint_cut_model.read,
+        prism_diagonal_cut_model.read,
+        prism_similarity_cut_model.read,
+        prism_pentagon_cut_model.read,
     ):
         found = reader(raw)
         if found is not None:
