@@ -31,9 +31,12 @@ def prepare(
         raise ContentPlanError(
             "the complete spatial question differs from its parent method"
         )
+    html = distance_proofs.render(model, picture)
+    if model.mode == "box_diagonal_bisector_ratio":
+        from .box_bisector_answer import prepare as ratio_answer
+
+        return ratio_answer(context, model, html, keys, changes)
     return repair_answer(
-        repair_quantity(
-            context, model.answer, distance_proofs.render(model, picture), keys, changes
-        ),
+        repair_quantity(context, model.answer, html, keys, changes),
         context,
     )

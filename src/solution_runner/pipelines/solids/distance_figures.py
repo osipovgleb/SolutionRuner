@@ -50,7 +50,8 @@ def compatible(model, source, role, slot=None):
 
 def _read(context):
     content, assets, owners = read_content(
-        clean_context(context), {"image_1", "image_2", "image_3", CONDITION, SOLUTION}
+        clean_context(context),
+        {"image_1", "image_2", "image_3", "image_4", CONDITION, SOLUTION},
     )
     condition = _section(content, "condition")
     if condition is None:
@@ -73,8 +74,11 @@ def _read(context):
         )
         if model.mode in spatial_distance_sources.GENERATED_MODES:
             allowed.add(SOLUTION)
-        if key == "image_3" and key not in allowed:
-            raise ContentPlanError("the third spatial diagram needs a reviewed method")
+        if key in {"image_3", "image_4"} and key not in allowed:
+            ordinal = "third" if key == "image_3" else "fourth"
+            raise ContentPlanError(
+                f"the {ordinal} spatial diagram needs a reviewed method"
+            )
         if model.mode in MODES and (key not in allowed or owners[key] != "solution"):
             raise ContentPlanError(
                 "the proof-only spatial diagrams belong to the solution"
@@ -96,7 +100,7 @@ def _read(context):
             raise ContentPlanError(
                 "the spatial figure has an unreviewed section or method role"
             )
-        if key in {"image_1", "image_2", "image_3"}:
+        if key in {"image_1", "image_2", "image_3", "image_4"}:
             if a["asset_id"] not in MODE_SOURCES[model.mode]:
                 raise ContentPlanError("the spatial figure needs review")
             if model.mode in MODES and key not in spatial_distance_sources.slots(

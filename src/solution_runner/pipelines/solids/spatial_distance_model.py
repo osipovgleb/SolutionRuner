@@ -9,9 +9,11 @@ from bs4 import BeautifulSoup
 from ..core.errors import ContentPlanError
 from . import box_coordinates as c
 from . import (
+    box_diagonal_cut_model,
     cube_plane_section_model,
     prism_diagonal_cut_model,
     prism_midpoint_cut_model,
+    prism_oblique_cut_model,
     prism_pentagon_cut_model,
     prism_separation_model,
     prism_similarity_cut_model,
@@ -49,6 +51,8 @@ MODES = (
     | regular_triangle_cut_model.MODES
     | pyramid_ratio_cut_model.MODES
     | prism_midpoint_cut_model.MODES
+    | box_diagonal_cut_model.MODES
+    | prism_oblique_cut_model.MODES
     | prism_diagonal_cut_model.MODES
     | prism_similarity_cut_model.MODES
     | prism_pentagon_cut_model.MODES
@@ -133,7 +137,7 @@ def condition_text(html, source):
                 tag.name = "span"
                 tag["data-inline-latex"] = tag.get_text().strip()
                 tag.clear()
-    return text(str(soup), source, labels="ABCDEFGOSHNMTEPLQKRαγ")
+    return text(str(soup), source, labels="ABCDEFGOSHNMTEPLQKRWαγ")
 
 
 def _box(match):
@@ -239,6 +243,8 @@ def read_question(html, source=None):
         regular_triangle_cut_model.read,
         pyramid_ratio_cut_model.read,
         prism_midpoint_cut_model.read,
+        box_diagonal_cut_model.read,
+        prism_oblique_cut_model.read,
         prism_diagonal_cut_model.read,
         prism_similarity_cut_model.read,
         prism_pentagon_cut_model.read,

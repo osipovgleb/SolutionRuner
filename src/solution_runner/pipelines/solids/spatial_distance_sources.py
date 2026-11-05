@@ -254,6 +254,8 @@ def compatible(model, source, role, slot):
         "trapezoid_prism_pentagon_area",
     } and entry.get("method") != model.symbols.get("method"):
         return False
+    if entry.get("requires_rhombus") and not model.q["rhombus"]:
+        return False
     if entry.get("reusable") is False:
         return False
     if entry.get("before_S") and model.q["ratio"] <= 1:
@@ -283,7 +285,7 @@ def compatible(model, source, role, slot):
 
 
 def reviewed_model(model, assets):
-    prism = prism_cut_sources.reviewed_model(model)
+    prism = prism_cut_sources.reviewed_model(model, assets)
     if prism is not None:
         return prism
     if model.mode == "square_perpendicular_section_ratio":
