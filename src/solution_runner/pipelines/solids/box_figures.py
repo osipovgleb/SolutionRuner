@@ -20,6 +20,10 @@ def selection(context):
         raise ContentPlanError("the reviewed box picture belongs in the condition")
     source = images[0].get("data-asset-id") if images else None
     model = read_question(condition["html"], source)
+    if model.mode not in MODE_SOURCES:
+        raise ContentPlanError(
+            "the box question requires a different reviewed figure method"
+        )
     current = assets.get("image_1", {})
     if current:
         if current["asset_id"] not in MODE_SOURCES[model.mode]:

@@ -19,6 +19,7 @@ VOLUME = r"Объем параллелепипеда равен\s+(.+?)\s*\.\s*"
 DIAGONAL = r"Диагональ параллелепипеда равна\s+(.+?)\s*\.\s*"
 FIND = r"Найди(?:те)? "
 PATTERNS = {
+    "square_face_volume": r"Одна из граней прямоугольного параллелепипеда\s*[—–-]\s*квадрат\.\s*Диагональ параллелепипеда равна\s+(.+?)\s+и образует с плоскостью этой грани угол\s+(.+?)°\s*\.\s*Найдите объем параллелепипеда\s*\.",
     "edge_from_surface": TWO
     + SURFACE
     + FIND
@@ -62,7 +63,7 @@ class BoxQuantity:
 
 
 def _givens(mode, groups):
-    if mode in FACE_MODES:
+    if mode in FACE_MODES or mode == "square_face_volume":
         raw = groups
     else:
         parts = re.split(r",\s+|\s+и\s+", groups[0])
@@ -79,6 +80,20 @@ def _givens(mode, groups):
 
 
 def _quantity(mode, v):
+    if mode == "square_face_volume":
+        d, angle = v
+        if angle.is_Rational is not True or (90 - angle).is_positive is not True:
+            raise ContentPlanError(
+                "the diagonal must form an explicit acute degree angle"
+            )
+        height = sp.simplify(d * sp.sin(angle * sp.pi / 180))
+        face_diagonal = sp.simplify(d * sp.cos(angle * sp.pi / 180))
+        if height.has(sp.sin, sp.cos) or face_diagonal.has(sp.sin, sp.cos):
+            raise ContentPlanError(
+                "the parent method requires exact elementary trigonometric values"
+            )
+        a = sp.simplify(face_diagonal / sp.sqrt(2))
+        return (a, a, height), sp.simplify(face_diagonal**2 * height / 2)
     if mode in FACE_MODES:
         return (), sp.simplify(
             v[0] * v[1] if mode == "volume_from_face" else v[0] / v[1]

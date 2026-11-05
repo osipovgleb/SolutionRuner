@@ -26,14 +26,10 @@ class BoxSection:
     answer: sp.Expr
 
 
-def intersection(names):
-    if (
-        len(names) != 3
-        or len(set(names)) != 3
-        or any(n not in c.VERTICES for n in names)
-    ):
-        raise ContentPlanError("three distinct canonical section points are required")
-    a, b, d = (sp.Matrix(c.VERTICES[n]) for n in names)
+def plane_intersection(coordinates):
+    if len(coordinates) != 3:
+        raise ContentPlanError("three section points are required")
+    a, b, d = (sp.Matrix(p) for p in coordinates)
     normal = (b - a).cross(d - a)
     if normal == sp.zeros(3, 1):
         raise ContentPlanError("three noncollinear section points are required")
@@ -49,6 +45,17 @@ def intersection(names):
             points.add(tuple(q))
         if start * end < 0:
             points.add(tuple(p + start / (start - end) * (q - p)))
+    return points
+
+
+def intersection(names):
+    if (
+        len(names) != 3
+        or len(set(names)) != 3
+        or any(n not in c.VERTICES for n in names)
+    ):
+        raise ContentPlanError("three distinct canonical section points are required")
+    points = plane_intersection(tuple(c.VERTICES[n] for n in names))
     labels = {p: n for n, p in c.VERTICES.items()}
     if len(points) != 4 or any(p not in labels for p in points):
         raise ContentPlanError(

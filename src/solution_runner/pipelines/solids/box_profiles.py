@@ -20,6 +20,12 @@ PROFILES = tuple(
     )
     for key, uid, index, rule in (
         (
+            "27103",
+            "8f5f72ae-5105-476a-ac5b-a3f523c36fdd",
+            9,
+            "solid-box-square-face-volume",
+        ),
+        (
             "27054",
             "c314f224-8bd2-469c-9fc1-e0b3febdea0e",
             0,

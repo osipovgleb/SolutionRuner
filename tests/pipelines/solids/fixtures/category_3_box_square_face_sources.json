@@ -1,0 +1,582 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "27103",
+      "group_uuid": "8f5f72ae-5105-476a-ac5b-a3f523c36fdd",
+      "size": 21,
+      "rule": "solid-box-square-face-volume",
+      "order_index": 9,
+      "sample_tasks": [
+        "324301",
+        "324307",
+        "324303"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "27103",
+      "task": "27103",
+      "context": {
+        "problem_id": "249c5d03-9b0f-4e53-be7b-6b4f6a6f62fc",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:59.593030+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/08c7d343-8614-486e-9908-f1fecbfcc25a",
+                "html": "<img alt=\"\" data-asset-id=\"08c7d343-8614-486e-9908-f1fecbfcc25a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/08c7d343-8614-486e-9908-f1fecbfcc25a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "08c7d343-8614-486e-9908-f1fecbfcc25a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:12:59.593030+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+                "html": "<img alt=\"\" data-asset-id=\"4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:53:26.949388+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"08c7d343-8614-486e-9908-f1fecbfcc25a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Одна из гра­ней пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да  — квад­рат. Диа­го­наль па­рал­ле­ле­пи­пе­да равна  <span data-inline-latex=\"\\sqrt{8}\"></span>  и об­ра­зу­ет с плос­ко­стью этой грани <nobr>угол 45°.</nobr> Най­ди­те объем па­рал­ле­ле­пи­пе­да.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:53:26.949388+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ребро па­рал­ле­ле­пи­пе­да, ле­жа­щее на­про­тив угла в 45°, равно  <span data-inline-latex=\"\\sqrt{8}\\sin 45^{\\circ}=2\"></span>, по­сколь­ку об­ра­зу­ет с за­дан­ной диа­го­на­лью и диа­го­на­лью одной из гра­ней (эта грань яв­ля­ет­ся квад­ра­том по усло­вию) рав­но­бед­рен­ный тре­уголь­ник. Диа­го­наль грани, ко­то­рая яв­ля­ет­ся квад­ра­том, тоже <nobr>равна 2.</nobr> Зна­чит, пло­щадь этого квад­ра­та равна по­ло­ви­не про­из­ве­де­ния диа­го­на­лей: <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 2\\cdot 2=2\"></span>.  Тогда объем па­рал­ле­ле­пи­пе­да равен  <span data-inline-latex=\"V=2\\cdot 2=4\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:53:26.949388+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:53:26.949388+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:53:26.949388+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:53:26.949388+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/08c7d343-8614-486e-9908-f1fecbfcc25a",
+              "kind": "ordinary_image",
+              "asset_id": "08c7d343-8614-486e-9908-f1fecbfcc25a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+              "kind": "ordinary_image",
+              "asset_id": "4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"08c7d343-8614-486e-9908-f1fecbfcc25a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/08c7d343-8614-486e-9908-f1fecbfcc25a\"/>Одна из гра­ней пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да  — квад­рат. Диа­го­наль па­рал­ле­ле­пи­пе­да равна  <span data-inline-latex=\"\\sqrt{8}\"></span>  и об­ра­зу­ет с плос­ко­стью этой грани <nobr>угол 45°.</nobr> Най­ди­те объем па­рал­ле­ле­пи­пе­да.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">4</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=79903019\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный экзамен Москва, 10.12.2024. Вариант 1</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\"/></p><p>Ребро па­рал­ле­ле­пи­пе­да, ле­жа­щее на­про­тив угла в 45°, равно  <span data-inline-latex=\"\\sqrt{8}\\sin 45^{\\circ}=2\"></span>, по­сколь­ку об­ра­зу­ет с за­дан­ной диа­го­на­лью и диа­го­на­лью одной из гра­ней (эта грань яв­ля­ет­ся квад­ра­том по усло­вию) рав­но­бед­рен­ный тре­уголь­ник. Диа­го­наль грани, ко­то­рая яв­ля­ет­ся квад­ра­том, тоже <nobr>равна 2.</nobr> Зна­чит, пло­щадь этого квад­ра­та равна по­ло­ви­не про­из­ве­де­ния диа­го­на­лей: <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 2\\cdot 2=2\"></span>.  Тогда объем па­рал­ле­ле­пи­пе­да равен  <span data-inline-latex=\"V=2\\cdot 2=4\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27103",
+      "task": "324301",
+      "context": {
+        "problem_id": "ab20907d-dac8-4113-a168-ec0a78da8b70",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:04.830833+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0e694766-7a31-4a7d-8df0-cfd6d722e362",
+                "html": "<img alt=\"\" data-asset-id=\"0e694766-7a31-4a7d-8df0-cfd6d722e362\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0e694766-7a31-4a7d-8df0-cfd6d722e362\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0e694766-7a31-4a7d-8df0-cfd6d722e362",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:53:29.365865+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0e694766-7a31-4a7d-8df0-cfd6d722e362\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Пусть рёбра па­рал­ле­ле­пи­пе­да, ис­хо­дя из вер­ши­ны <var data-math-identifier=\"D\">D</var> равны <i>a</i>, <i>a</i> и <i>h</i> (см. рис.). Тогда </p><center><p><span data-inline-latex=\"\\angle D_1BD=30^{\\circ},\\quad h=\\frac{1}{2}D_1B=1,\\quad DB=\\sqrt{4-1}=\\sqrt{3}\"></span> .</p></center><p>По­сколь­ку сто­ро­на квад­ра­та в  <span data-inline-latex=\"\\sqrt{2}\"></span>  раз мень­ше его диа­го­на­ли, имеем</p><center><p><span data-inline-latex=\"a=\\frac{DB}{\\sqrt{2}}=\\frac{\\sqrt{3}}{\\sqrt{2}}\"></span> . </p></center><p>Объём па­рал­ле­ле­пи­пе­да равен про­из­ве­де­нию его из­ме­ре­ний:</p><center><p><span data-inline-latex=\"V=\\frac{\\sqrt{3}}{\\sqrt{2}}\\cdot \\frac{\\sqrt{3}}{\\sqrt{2}}\\cdot 1=\\frac{3}{2}\"></span> . </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:53:29.365865+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:53:29.365865+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:53:29.365865+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:53:29.365865+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0e694766-7a31-4a7d-8df0-cfd6d722e362",
+              "kind": "ordinary_image",
+              "asset_id": "0e694766-7a31-4a7d-8df0-cfd6d722e362",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Одна из гра­ней пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да  — квад­рат. Диа­го­наль па­рал­ле­ле­пи­пе­да равна 2 и об­ра­зу­ет с плос­ко­стью этой грани угол 30°. Най­ди­те объем па­рал­ле­ле­пи­пе­да.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">1,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"0e694766-7a31-4a7d-8df0-cfd6d722e362\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0e694766-7a31-4a7d-8df0-cfd6d722e362\"/></p><p>Пусть рёбра па­рал­ле­ле­пи­пе­да, ис­хо­дя из вер­ши­ны <var data-math-identifier=\"D\">D</var> равны <i>a</i>, <i>a</i> и <i>h</i> (см. рис.). Тогда </p><center><p><span data-inline-latex=\"\\angle D_1BD=30^{\\circ},\\quad h=\\frac{1}{2}D_1B=1,\\quad DB=\\sqrt{4-1}=\\sqrt{3}\"></span> .</p></center><p>По­сколь­ку сто­ро­на квад­ра­та в  <span data-inline-latex=\"\\sqrt{2}\"></span>  раз мень­ше его диа­го­на­ли, имеем</p><center><p><span data-inline-latex=\"a=\\frac{DB}{\\sqrt{2}}=\\frac{\\sqrt{3}}{\\sqrt{2}}\"></span> . </p></center><p>Объём па­рал­ле­ле­пи­пе­да равен про­из­ве­де­нию его из­ме­ре­ний:</p><center><p><span data-inline-latex=\"V=\\frac{\\sqrt{3}}{\\sqrt{2}}\\cdot \\frac{\\sqrt{3}}{\\sqrt{2}}\\cdot 1=\\frac{3}{2}\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27103",
+      "task": "324307",
+      "context": {
+        "problem_id": "ec141cf8-0775-4c46-9722-7633f095b655",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:15:14.613227+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/08c7d343-8614-486e-9908-f1fecbfcc25a",
+                "html": "<img alt=\"\" data-asset-id=\"08c7d343-8614-486e-9908-f1fecbfcc25a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/08c7d343-8614-486e-9908-f1fecbfcc25a\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "08c7d343-8614-486e-9908-f1fecbfcc25a",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:15:14.613227+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+                "html": "<img alt=\"\" data-asset-id=\"4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:53:30.786449+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"08c7d343-8614-486e-9908-f1fecbfcc25a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Одна из гра­ней пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да  — квад­рат. Диа­го­наль па­рал­ле­ле­пи­пе­да равна  <span data-inline-latex=\"\\sqrt{18}\"></span>  и об­ра­зу­ет с плос­ко­стью этой грани угол 45°. Най­ди­те объем па­рал­ле­ле­пи­пе­да.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:53:30.786449+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Ребро па­рал­ле­ле­пи­пе­да, ле­жа­щее на­про­тив угла в 45°, равно  <span data-inline-latex=\"\\sqrt{18}\\sin 45^{\\circ}=3\"></span>, по­сколь­ку об­ра­зу­ет с за­дан­ной диа­го­на­лью и диа­го­на­лью одной из гра­ней (эта грань яв­ля­ет­ся квад­ра­том по усло­вию) рав­но­бед­рен­ный тре­уголь­ник. Диа­го­наль грани, ко­то­рая яв­ля­ет­ся квад­ра­том, тоже равна 3. Зна­чит, пло­щадь этого квад­ра­та равна по­ло­ви­не про­из­ве­де­ния диа­го­на­лей: <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 3\\cdot 3=4{,}5\"></span>.   Тогда объем па­рал­ле­ле­пи­пе­да равен  <span data-inline-latex=\"V=4{,}5\\cdot 3=13{,}5\"></span>.</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:53:30.786449+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:53:30.786449+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:53:30.786449+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:53:30.786449+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/08c7d343-8614-486e-9908-f1fecbfcc25a",
+              "kind": "ordinary_image",
+              "asset_id": "08c7d343-8614-486e-9908-f1fecbfcc25a",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+              "kind": "ordinary_image",
+              "asset_id": "4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"08c7d343-8614-486e-9908-f1fecbfcc25a\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/08c7d343-8614-486e-9908-f1fecbfcc25a\"/>Одна из гра­ней пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да  — квад­рат. Диа­го­наль па­рал­ле­ле­пи­пе­да равна  <span data-inline-latex=\"\\sqrt{18}\"></span>  и об­ра­зу­ет с плос­ко­стью этой грани угол 45°. Най­ди­те объем па­рал­ле­ле­пи­пе­да.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">13,5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "source",
+              "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=79935543\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный экзамен Москва, 10.12.2024. Вариант 2</a></p>",
+              "title": "Источник",
+              "asset_keys": [],
+              "section_id": "source:1",
+              "transformation_target_id": "section:source:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/4a7ae0f0-49ed-4c45-8a86-4bad3555fe03\"/></p><p>Ребро па­рал­ле­ле­пи­пе­да, ле­жа­щее на­про­тив угла в 45°, равно  <span data-inline-latex=\"\\sqrt{18}\\sin 45^{\\circ}=3\"></span>, по­сколь­ку об­ра­зу­ет с за­дан­ной диа­го­на­лью и диа­го­на­лью одной из гра­ней (эта грань яв­ля­ет­ся квад­ра­том по усло­вию) рав­но­бед­рен­ный тре­уголь­ник. Диа­го­наль грани, ко­то­рая яв­ля­ет­ся квад­ра­том, тоже равна 3. Зна­чит, пло­щадь этого квад­ра­та равна по­ло­ви­не про­из­ве­де­ния диа­го­на­лей: <span data-inline-latex=\"S=\\frac{1}{2}\\cdot 3\\cdot 3=4{,}5\"></span>.   Тогда объем па­рал­ле­ле­пи­пе­да равен  <span data-inline-latex=\"V=4{,}5\\cdot 3=13{,}5\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "27103",
+      "task": "324303",
+      "context": {
+        "problem_id": "3e5767a2-851b-45a8-99e3-887c1d5038d3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-02T01:59:45.221137+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Одна из гра­ней пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да  — квад­рат. Диа­го­наль па­рал­ле­ле­пи­пе­да равна  <span data-inline-latex=\"\\sqrt{3}\"></span>  и об­ра­зу­ет с плос­ко­стью этой грани угол 60°. Най­ди­те объем па­рал­ле­ле­пи­пе­да.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T01:59:45.221137+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Одна из гра­ней пря­мо­уголь­но­го па­рал­ле­ле­пи­пе­да  — квад­рат. Диа­го­наль па­рал­ле­ле­пи­пе­да равна  <span data-inline-latex=\"\\sqrt{3}\"></span>  и об­ра­зу­ет с плос­ко­стью этой грани угол 60°. Най­ди­те объем па­рал­ле­ле­пи­пе­да.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,5625</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

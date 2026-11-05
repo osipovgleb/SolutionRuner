@@ -4,7 +4,7 @@ import sympy as sp
 
 from ..probability.common import line
 from ..quadrilaterals.parallelogram.rectangle_proofs import bracket, value
-from . import box_face_proofs
+from . import box_face_proofs, box_square_face_proof
 from .box_model import FACE_MODES
 
 SURFACE = "S=2(a_1a_2+a_1a_3+a_2a_3)"
@@ -189,7 +189,9 @@ def _cube(m):
     )
 
 
-def render(m):
+def render(m, picture=""):
+    if m.mode == "square_face_volume":
+        return box_square_face_proof.render(m, picture)
     if m.mode in FACE_MODES:
         return box_face_proofs.render(m)
     if m.mode in {"edge_from_surface", "diagonal_from_surface"}:

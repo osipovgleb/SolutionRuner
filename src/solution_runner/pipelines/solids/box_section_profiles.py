@@ -20,6 +20,12 @@ PROFILES = tuple(
     )
     for key, uid, index, rule in (
         (
+            "315131",
+            "0f90bb18-03e8-4ac5-9467-c9c1c94cf7a5",
+            25,
+            "solid-box-midpoint-section",
+        ),
+        (
             "316552",
             "1aa2e24a-17ce-4abe-a86c-6a72c5f82959",
             26,

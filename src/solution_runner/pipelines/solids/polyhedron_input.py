@@ -16,11 +16,11 @@ def sequence(raw):
     return names if len(set(names)) == len(names) else None
 
 
-def complete_text(html, source=None):
+def complete_text(html, source=None, *, extra_identifiers=()):
     if not isinstance(html, str):
         raise ContentPlanError("one complete polyhedron condition is required")
     soup = BeautifulSoup(html, "html.parser")
-    identifiers = set()
+    identifiers = set(extra_identifiers)
     for tag in soup.find_all(["var", "i", "em"]):
         label = tag.get_text().translate(LETTERS)
         sub = tag.next_sibling

@@ -1,0 +1,688 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "315131",
+      "group_uuid": "0f90bb18-03e8-4ac5-9467-c9c1c94cf7a5",
+      "size": 15,
+      "rule": "solid-box-midpoint-section",
+      "order_index": 25,
+      "sample_tasks": [
+        "505383",
+        "505404",
+        "320123"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "315131",
+      "task": "315131",
+      "context": {
+        "problem_id": "9d86093c-5d70-4fa6-acb6-2ca015fd8059",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:18.641994+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/2efaf127-5406-4957-bb86-06b45529b757",
+                "html": "<img alt=\"\" data-asset-id=\"2efaf127-5406-4957-bb86-06b45529b757\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2efaf127-5406-4957-bb86-06b45529b757\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "2efaf127-5406-4957-bb86-06b45529b757",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> ребро <span data-inline-latex=\"AB=2\"></span>, ребро <span data-inline-latex=\"AD=\\sqrt{5}\"></span> , ребро <span data-inline-latex=\"AA_1=2\"></span>. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <span data-inline-latex=\"BB_1\"></span>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <span data-inline-latex=\"A_1\"></span>,<span data-inline-latex=\"D_1\"></span> и <span data-inline-latex=\"K\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"2efaf127-5406-4957-bb86-06b45529b757\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> Се­че­ние пе­ре­се­ка­ет па­рал­лель­ные грани по па­рал­лель­ным от­рез­кам. По­это­му че­ты­рех­уголь­ник <span data-inline-latex=\"A_1KK_1D_1\"></span>  — па­рал­ле­ло­грамм. Кроме того, ребро <span data-inline-latex=\"A_1D_1\"></span> пер­пен­ди­ку­ляр­но гра­ням <span data-inline-latex=\"DD_1C_1C\"></span> и <span data-inline-latex=\"AA_1B_1B\"></span>, по­это­му углы <span data-inline-latex=\"A_1D_1K_1\"></span> и <span data-inline-latex=\"D_1A_1K\"></span>  — пря­мые. Сле­до­ва­тель­но, се­че­ние <span data-inline-latex=\"A_1KK_1D_1\"></span>  — пря­мо­уголь­ник. </p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <span data-inline-latex=\"A_1B_1K\"></span> по тео­ре­ме Пи­фа­го­ра най­дем <span data-inline-latex=\"A_1K\"></span>:</p><center><p><span data-inline-latex=\"A_1K=\\sqrt{(A_1B_1)^{2}+(B_1K)^{2}}=\\sqrt{4+1}=\\sqrt{5}\"></span> .</p></center><p>Тогда пло­щадь пря­мо­уголь­ни­ка <span data-inline-latex=\"A_1KK_1D_1\"></span> равна: </p><center><p><span data-inline-latex=\"A_1D_1\\cdot A_1K=\\sqrt{5}\\cdot \\sqrt{5}=5\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T16:13:29.640488+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/2efaf127-5406-4957-bb86-06b45529b757",
+              "kind": "ordinary_image",
+              "asset_id": "2efaf127-5406-4957-bb86-06b45529b757",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> ребро <span data-inline-latex=\"AB=2\"></span>, ребро <span data-inline-latex=\"AD=\\sqrt{5}\"></span> , ребро <span data-inline-latex=\"AA_1=2\"></span>. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <span data-inline-latex=\"BB_1\"></span>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <span data-inline-latex=\"A_1\"></span>,<span data-inline-latex=\"D_1\"></span> и <span data-inline-latex=\"K\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"2efaf127-5406-4957-bb86-06b45529b757\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2efaf127-5406-4957-bb86-06b45529b757\"/> Се­че­ние пе­ре­се­ка­ет па­рал­лель­ные грани по па­рал­лель­ным от­рез­кам. По­это­му че­ты­рех­уголь­ник <span data-inline-latex=\"A_1KK_1D_1\"></span>  — па­рал­ле­ло­грамм. Кроме того, ребро <span data-inline-latex=\"A_1D_1\"></span> пер­пен­ди­ку­ляр­но гра­ням <span data-inline-latex=\"DD_1C_1C\"></span> и <span data-inline-latex=\"AA_1B_1B\"></span>, по­это­му углы <span data-inline-latex=\"A_1D_1K_1\"></span> и <span data-inline-latex=\"D_1A_1K\"></span>  — пря­мые. Сле­до­ва­тель­но, се­че­ние <span data-inline-latex=\"A_1KK_1D_1\"></span>  — пря­мо­уголь­ник. </p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <span data-inline-latex=\"A_1B_1K\"></span> по тео­ре­ме Пи­фа­го­ра най­дем <span data-inline-latex=\"A_1K\"></span>:</p><center><p><span data-inline-latex=\"A_1K=\\sqrt{(A_1B_1)^{2}+(B_1K)^{2}}=\\sqrt{4+1}=\\sqrt{5}\"></span> .</p></center><p>Тогда пло­щадь пря­мо­уголь­ни­ка <span data-inline-latex=\"A_1KK_1D_1\"></span> равна: </p><center><p><span data-inline-latex=\"A_1D_1\\cdot A_1K=\\sqrt{5}\\cdot \\sqrt{5}=5\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "315131",
+      "task": "505383",
+      "context": {
+        "problem_id": "7f81d660-675a-47ea-8863-1362dd500d3f",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:16.825326+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/58692e88-f3ef-4bb5-964c-2214c02500d3",
+                "html": "<img alt=\"\" data-asset-id=\"58692e88-f3ef-4bb5-964c-2214c02500d3\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58692e88-f3ef-4bb5-964c-2214c02500d3\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "58692e88-f3ef-4bb5-964c-2214c02500d3",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:17:16.825326+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/e02d6e2f-e656-485c-abbc-439c1790cd86",
+                "html": "<img alt=\"\" data-asset-id=\"e02d6e2f-e656-485c-abbc-439c1790cd86\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e02d6e2f-e656-485c-abbc-439c1790cd86\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "e02d6e2f-e656-485c-abbc-439c1790cd86",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:13:29.198609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"58692e88-f3ef-4bb5-964c-2214c02500d3\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/> В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <var data-math-identifier=\"ABCDA\">ABCDA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> ребро <var data-math-identifier=\"BC\">BC</var>  =  4, ребро  <span data-inline-latex=\"AB=2\\sqrt{5}\"></span> , ребро <var data-math-identifier=\"BB\">BB</var><sub>1</sub>  =  4. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <var data-math-identifier=\"CC\">CC</var><sub>1</sub>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <var data-math-identifier=\"B\">B</var><sub>1</sub>, <var data-math-identifier=\"A\">A</var><sub>1</sub> и <var data-math-identifier=\"K\">K</var>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:29.198609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"e02d6e2f-e656-485c-abbc-439c1790cd86\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Се­че­ние пе­ре­се­ка­ет па­рал­лель­ные грани по па­рал­лель­ным от­рез­кам. По­это­му че­ты­рех­уголь­ник <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"KK\">KK</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub>  — па­рал­ле­ло­грамм. Кроме того, ребро <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub> пер­пен­ди­ку­ляр­но гра­ням <var data-math-identifier=\"BB\">BB</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"C\">C</var> и <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"D\">D</var> по­это­му углы <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var> и <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub>  — пря­мые. Сле­до­ва­тель­но, се­че­ние <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"KK\">KK</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub>  — пря­мо­уголь­ник. </p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub> по тео­ре­ме Пи­фа­го­ра най­дем <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub>:</p><center><p> <span data-inline-latex=\"A_1K_1=\\sqrt{(A_1D_1)^{2}+(D_1K_1)^{2}}=\\sqrt{16+4}=2\\sqrt{5}\"></span> .</p></center><p>Тогда пло­щадь пря­мо­уголь­ни­ка <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"AK\">AK</var><sub>1</sub><var data-math-identifier=\"KB\">KB</var><sub>1</sub> равна: </p><center><p> <span data-inline-latex=\"A_1B_1\\cdot A_1K_1=2\\sqrt{5}\\cdot 2\\sqrt{5}=20\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:29.198609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:29.198609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:13:29.198609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/58692e88-f3ef-4bb5-964c-2214c02500d3",
+              "kind": "ordinary_image",
+              "asset_id": "58692e88-f3ef-4bb5-964c-2214c02500d3",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/e02d6e2f-e656-485c-abbc-439c1790cd86",
+              "kind": "ordinary_image",
+              "asset_id": "e02d6e2f-e656-485c-abbc-439c1790cd86",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"58692e88-f3ef-4bb5-964c-2214c02500d3\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/58692e88-f3ef-4bb5-964c-2214c02500d3\"/> В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <var data-math-identifier=\"ABCDA\">ABCDA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> ребро <var data-math-identifier=\"BC\">BC</var>  =  4, ребро  <span data-inline-latex=\"AB=2\\sqrt{5}\"></span> , ребро <var data-math-identifier=\"BB\">BB</var><sub>1</sub>  =  4. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <var data-math-identifier=\"CC\">CC</var><sub>1</sub>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <var data-math-identifier=\"B\">B</var><sub>1</sub>, <var data-math-identifier=\"A\">A</var><sub>1</sub> и <var data-math-identifier=\"K\">K</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">20</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"e02d6e2f-e656-485c-abbc-439c1790cd86\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/e02d6e2f-e656-485c-abbc-439c1790cd86\"/></p><p>Се­че­ние пе­ре­се­ка­ет па­рал­лель­ные грани по па­рал­лель­ным от­рез­кам. По­это­му че­ты­рех­уголь­ник <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"KK\">KK</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub>  — па­рал­ле­ло­грамм. Кроме того, ребро <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub> пер­пен­ди­ку­ляр­но гра­ням <var data-math-identifier=\"BB\">BB</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"C\">C</var> и <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"D\">D</var> по­это­му углы <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var> и <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub>  — пря­мые. Сле­до­ва­тель­но, се­че­ние <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"KK\">KK</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub>  — пря­мо­уголь­ник. </p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub> по тео­ре­ме Пи­фа­го­ра най­дем <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub>:</p><center><p> <span data-inline-latex=\"A_1K_1=\\sqrt{(A_1D_1)^{2}+(D_1K_1)^{2}}=\\sqrt{16+4}=2\\sqrt{5}\"></span> .</p></center><p>Тогда пло­щадь пря­мо­уголь­ни­ка <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"AK\">AK</var><sub>1</sub><var data-math-identifier=\"KB\">KB</var><sub>1</sub> равна: </p><center><p> <span data-inline-latex=\"A_1B_1\\cdot A_1K_1=2\\sqrt{5}\\cdot 2\\sqrt{5}=20\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "315131",
+      "task": "505404",
+      "context": {
+        "problem_id": "52afaa45-1124-4637-ad8a-34b9ea930613",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:17:15.147183+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/13133a9e-b338-4edb-9eab-d207ac80ddaf",
+                "html": "<img alt=\"\" data-asset-id=\"13133a9e-b338-4edb-9eab-d207ac80ddaf\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/13133a9e-b338-4edb-9eab-d207ac80ddaf\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "13133a9e-b338-4edb-9eab-d207ac80ddaf",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:condition:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:17:15.147183+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/6ce0d751-db14-4b9e-9733-02a6d1000f75",
+                "html": "<img alt=\"\" data-asset-id=\"6ce0d751-db14-4b9e-9733-02a6d1000f75\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/6ce0d751-db14-4b9e-9733-02a6d1000f75\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "6ce0d751-db14-4b9e-9733-02a6d1000f75",
+                "position": 0,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T16:13:28.892294+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"13133a9e-b338-4edb-9eab-d207ac80ddaf\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <var data-math-identifier=\"ABCDA\">ABCDA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> ребро <var data-math-identifier=\"CD\">CD</var>  =  2, ребро  <span data-inline-latex=\"BC=\\sqrt{5}\"></span> , ребро <var data-math-identifier=\"CC\">CC</var><sub>1</sub>  =  2. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <var data-math-identifier=\"DD\">DD</var><sub>1</sub>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <var data-math-identifier=\"C\">C</var><sub>1</sub>, <var data-math-identifier=\"B\">B</var><sub>1</sub> и <var data-math-identifier=\"K\">K</var>.</p>",
+                "title": "Условие",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T16:13:28.892294+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"6ce0d751-db14-4b9e-9733-02a6d1000f75\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><p>Се­че­ние пе­ре­се­ка­ет па­рал­лель­ные грани по па­рал­лель­ным от­рез­кам. По­это­му че­ты­рех­уголь­ник <var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"KK\">KK</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub>  — па­рал­ле­ло­грамм. Кроме того, ребро <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> пер­пен­ди­ку­ляр­но гра­ням <var data-math-identifier=\"DD\">DD</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"C\">C</var> и <var data-math-identifier=\"AA\">AA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"B\">B</var>, по­это­му углы <var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub> и <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"K\">K</var>  — пря­мые. Сле­до­ва­тель­но, се­че­ние <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub><var data-math-identifier=\"KC\">KC</var><sub>1</sub>  — пря­мо­уголь­ник. </p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub> по тео­ре­ме Пи­фа­го­ра най­дем <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub>:</p><center><p> <span data-inline-latex=\"B_1K_1=\\sqrt{(A_1B_1)^{2}+(A_1K_1)^{2}}=\\sqrt{4+1}=\\sqrt{5}\"></span> .</p></center><p>Тогда пло­щадь пря­мо­уголь­ни­ка <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub><var data-math-identifier=\"KC\">KC</var><sub>1</sub> равна: </p><center><p> <span data-inline-latex=\"B_1C_1\\cdot B_1K_1=\\sqrt{5}\\cdot \\sqrt{5}=5\"></span>.</p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T16:13:28.892294+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T16:13:28.892294+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T16:13:28.892294+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/13133a9e-b338-4edb-9eab-d207ac80ddaf",
+              "kind": "ordinary_image",
+              "asset_id": "13133a9e-b338-4edb-9eab-d207ac80ddaf",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/6ce0d751-db14-4b9e-9733-02a6d1000f75",
+              "kind": "ordinary_image",
+              "asset_id": "6ce0d751-db14-4b9e-9733-02a6d1000f75",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p><img alt=\"\" data-asset-id=\"13133a9e-b338-4edb-9eab-d207ac80ddaf\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/13133a9e-b338-4edb-9eab-d207ac80ddaf\"/>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <var data-math-identifier=\"ABCDA\">ABCDA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> ребро <var data-math-identifier=\"CD\">CD</var>  =  2, ребро  <span data-inline-latex=\"BC=\\sqrt{5}\"></span> , ребро <var data-math-identifier=\"CC\">CC</var><sub>1</sub>  =  2. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <var data-math-identifier=\"DD\">DD</var><sub>1</sub>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <var data-math-identifier=\"C\">C</var><sub>1</sub>, <var data-math-identifier=\"B\">B</var><sub>1</sub> и <var data-math-identifier=\"K\">K</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">5</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"6ce0d751-db14-4b9e-9733-02a6d1000f75\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/6ce0d751-db14-4b9e-9733-02a6d1000f75\"/></p><p>Се­че­ние пе­ре­се­ка­ет па­рал­лель­ные грани по па­рал­лель­ным от­рез­кам. По­это­му че­ты­рех­уголь­ник <var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"KK\">KK</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub>  — па­рал­ле­ло­грамм. Кроме того, ребро <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> пер­пен­ди­ку­ляр­но гра­ням <var data-math-identifier=\"DD\">DD</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"C\">C</var> и <var data-math-identifier=\"AA\">AA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"B\">B</var>, по­это­му углы <var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub> и <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"K\">K</var>  — пря­мые. Сле­до­ва­тель­но, се­че­ние <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub><var data-math-identifier=\"KC\">KC</var><sub>1</sub>  — пря­мо­уголь­ник. </p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub> по тео­ре­ме Пи­фа­го­ра най­дем <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub>:</p><center><p> <span data-inline-latex=\"B_1K_1=\\sqrt{(A_1B_1)^{2}+(A_1K_1)^{2}}=\\sqrt{4+1}=\\sqrt{5}\"></span> .</p></center><p>Тогда пло­щадь пря­мо­уголь­ни­ка <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"K\">K</var><sub>1</sub><var data-math-identifier=\"KC\">KC</var><sub>1</sub> равна: </p><center><p> <span data-inline-latex=\"B_1C_1\\cdot B_1K_1=\\sqrt{5}\\cdot \\sqrt{5}=5\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "315131",
+      "task": "320123",
+      "context": {
+        "problem_id": "b435cf8e-0349-49f7-9e28-624ffcbbed37",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T23:07:14.625145+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <var data-math-identifier=\"ABCDA\">ABCDA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> ребро <var data-math-identifier=\"CD\">CD</var>  =  2, ребро  <span data-inline-latex=\"BC=2\\sqrt{2}\"></span> , ребро <var data-math-identifier=\"CC\">CC</var><sub>1</sub>  =  4. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <var data-math-identifier=\"DD\">DD</var><sub>1</sub>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <var data-math-identifier=\"C\">C</var><sub>1</sub>, <var data-math-identifier=\"B\">B</var><sub>1</sub> и <var data-math-identifier=\"K\">K</var>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T23:07:14.625145+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <var data-math-identifier=\"ABCDA\">ABCDA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> ребро <var data-math-identifier=\"CD\">CD</var>  =  2, ребро  <span data-inline-latex=\"BC=2\\sqrt{2}\"></span> , ребро <var data-math-identifier=\"CC\">CC</var><sub>1</sub>  =  4. Точка <var data-math-identifier=\"K\">K</var>  — се­ре­ди­на ребра <var data-math-identifier=\"DD\">DD</var><sub>1</sub>. Най­ди­те пло­щадь се­че­ния, про­хо­дя­ще­го через точки <var data-math-identifier=\"C\">C</var><sub>1</sub>, <var data-math-identifier=\"B\">B</var><sub>1</sub> и <var data-math-identifier=\"K\">K</var>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

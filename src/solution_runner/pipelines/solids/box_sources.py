@@ -1,6 +1,7 @@
 """Reviewed box parent methods and exact compatible source identities."""
 
 RULES = {
+    "solid-box-square-face-volume": "square_face_volume",
     "solid-box-edge-from-surface": "edge_from_surface",
     "solid-box-diagonal-from-surface": "diagonal_from_surface",
     "solid-box-volume-from-face": "volume_from_face",
@@ -16,6 +17,11 @@ RULES = {
 }
 
 PARENTS = {
+    "solid-box-square-face-volume": (
+        "08c7d343-8614-486e-9908-f1fecbfcc25a",
+        (("image_2", "4a7ae0f0-49ed-4c45-8a86-4bad3555fe03"),),
+        "29ce46c03c4545e7ba170b5a7913c8596b40636bcdaf9b6e553899546f8dc5ef",
+    ),
     "solid-box-edge-from-surface": (
         "74132896-50ea-4371-9de4-f847a4e7e7e3",
         (),
@@ -79,6 +85,18 @@ PARENTS = {
 }
 
 SOURCES = {
+    "08c7d343-8614-486e-9908-f1fecbfcc25a": (
+        "08c7d343-8614-486e-9908-f1fecbfcc25a",
+        "6e67f722d74c2458d1f2e461e8fb99c2007b79f12cb9d421eff5c6d05f19ff0c",
+    ),
+    "4a7ae0f0-49ed-4c45-8a86-4bad3555fe03": (
+        "4a7ae0f0-49ed-4c45-8a86-4bad3555fe03",
+        "9dd96416037b97d89d1b6f53abff974e766237373250a6be2aee8d435e09abe8",
+    ),
+    "0e694766-7a31-4a7d-8df0-cfd6d722e362": (
+        "0e694766-7a31-4a7d-8df0-cfd6d722e362",
+        "b6e8ad52661bfec3fb7e9d72fd19a4314b295e06e6c45f4a0e1d105d1edfa1c6",
+    ),
     "3326ee19-f100-4c04-b129-4692f18629a1": (
         "3326ee19-f100-4c04-b129-4692f18629a1",
         "571239ab73c062c246fb2cb27a564a54184b298276f928caf089d80b91ceb303",
