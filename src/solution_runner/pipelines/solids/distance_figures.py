@@ -66,7 +66,9 @@ def _read(context):
     model = read_question(str(soup), source)
     for key, a in assets.items():
         allowed = (
-            {slot for _, slot, _ in ROLES[model.mode]} if model.mode in MODES else set()
+            spatial_distance_sources.allowed_keys(model.mode)
+            if model.mode in MODES
+            else set()
         )
         if model.mode in spatial_distance_sources.GENERATED_MODES:
             allowed.add(SOLUTION)
@@ -108,8 +110,10 @@ def _read(context):
 
 def selection(context):
     m, condition, restored, assets, owners = _read(context)
+    m = spatial_distance_sources.reviewed_model(m, assets) if m.mode in MODES else m
     figures = []
-    for role, native_key, base in ROLES[m.mode]:
+    roles = spatial_distance_sources.roles(m) if m.mode in MODES else ROLES[m.mode]
+    for role, native_key, base in roles:
         current = [
             a
             for k, a in assets.items()
@@ -197,6 +201,8 @@ def prepare(context, generated):
     keys = []
     desired = set()
     for role, old, source, key, drawing in figures:
+        if m.mode in MODES:
+            m = spatial_distance_sources.with_symbols(m, source)
         identifier, url = _identity(
             key,
             source,

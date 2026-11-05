@@ -107,6 +107,10 @@ def scene_projection(m, meta):
 
 
 def render(m):
+    if m.mode == "ratio_plane_distance":
+        from .spatial_plane_svg import render as ratio
+
+        return ratio(m)
     if m.mode != "box_altitude_comparison":
         from . import spatial_metric_svg
 

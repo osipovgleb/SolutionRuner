@@ -1,12 +1,17 @@
 """Pins and exact numeric compatibility for the proof-and-distance methods."""
 
 import json
+from dataclasses import replace
 from importlib.resources import files
 
 DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-prism-projection-height": "prism_projection_height",
+    "solid-pyramid-skew-line-height": "pyramid_skew_height",
+    "solid-hexagonal-prism-plane-distance": "hex_prism_distance",
+    "solid-tetrahedron-ratio-section": ("ratio_plane_distance", "ratio_plane_angle"),
     "solid-tetrahedron-midpoint-distance": "tetra_midpoint_distance",
     "solid-hexagonal-pyramid-point-line-distance": "hex_vertex_line_distance",
     "solid-prism-plane-symmetry-altitude": "prism_plane_altitude",
@@ -22,13 +27,42 @@ SOURCES = {
     source: (entry["canonical"], entry["sha256"])
     for source, entry in DATA["figures"].items()
 }
+
+
+def modes(entry):
+    return entry.get("modes") or (entry["mode"],)
+
+
 MODE_SOURCES = {
-    mode: tuple(s for s, f in DATA["figures"].items() if f["mode"] == mode)
-    for mode in RULES.values()
+    mode: tuple(
+        source for source, entry in DATA["figures"].items() if mode in modes(entry)
+    )
+    for allowed in RULES.values()
+    for mode in ((allowed,) if isinstance(allowed, str) else allowed)
 }
-GENERATED_MODES = {"box_altitude_comparison", "hex_vertex_line_distance"}
+GENERATED_MODES = {
+    "box_altitude_comparison",
+    "hex_vertex_line_distance",
+    "ratio_plane_distance",
+}
 
 ROLES = {
+    "prism_projection_height": (
+        ("solution", "image_1", "998c63f7-b9eb-4cf0-9724-d5963101e87d"),
+    ),
+    "pyramid_skew_height": (
+        ("solution", "image_1", "7961e813-abe2-4665-bfb3-458586d658af"),
+    ),
+    "hex_prism_distance": (
+        ("solution", "image_1", "47fb6f56-165b-40e5-9374-398da1181862"),
+        ("solution", "image_2", "91162f76-b15f-48c4-99c6-d90ac473c71e"),
+    ),
+    "ratio_plane_distance": (
+        ("solution", "image_1", "347eebde-bcea-4a26-82e2-c4d2706cb665"),
+    ),
+    "ratio_plane_angle": (
+        ("solution", "image_1", "3bb014eb-a647-4acc-8ada-d83a1afc2a2d"),
+    ),
     "tetra_midpoint_distance": (
         ("solution", "image_1", "0a3e798d-87fb-4252-ad25-90fd23341788"),
     ),
@@ -57,8 +91,20 @@ def compatible(model, source, role, slot):
     if (
         not entry
         or role != "solution"
-        or entry["mode"] != model.mode
+        or model.mode not in modes(entry)
         or entry["slot"] != slot
+    ):
+        return False
+    if model.mode == "ratio_plane_distance" and entry.get(
+        "method"
+    ) != model.symbols.get("method"):
+        return False
+    if entry.get("reusable") is False:
+        return False
+    if entry.get("top_foot") and not (0 < model.q["foot"] < 1):
+        return False
+    if "names_prefix" in entry and entry["names_prefix"] != list(
+        model.names[: len(entry["names_prefix"])]
     ):
         return False
     if "names" in entry and entry["names"] != list(model.names):
@@ -69,3 +115,35 @@ def compatible(model, source, role, slot):
         entry["squares"] == [str(v) for v in model.squares]
         and entry["names"] == list(model.names)
     )
+
+
+def reviewed_model(model, assets):
+    if model.mode != "ratio_plane_distance":
+        return model
+    source = assets["image_1"]["asset_id"] if "image_1" in assets else None
+    entry = DATA["figures"].get(source)
+    method = entry["method"] if entry and "method" in entry else "perpendicular"
+    if "image_2" in assets:
+        method = "cross_section"
+    return replace(model, symbols={"method": method})
+
+
+def roles(model):
+    if (
+        model.mode == "ratio_plane_distance"
+        and model.symbols.get("method") == "cross_section"
+    ):
+        return (
+            ("solution", "image_1", "3bb014eb-a647-4acc-8ada-d83a1afc2a2d"),
+            ("solution", "image_2", "5a015c60-a807-463f-a5d0-497b80f85aa9"),
+        )
+    return ROLES[model.mode]
+
+
+def allowed_keys(mode):
+    return {DATA["figures"][source]["slot"] for source in MODE_SOURCES[mode]}
+
+
+def with_symbols(model, source):
+    entry = DATA["figures"].get(source, {})
+    return replace(model, symbols=model.symbols | entry.get("symbols", {}))

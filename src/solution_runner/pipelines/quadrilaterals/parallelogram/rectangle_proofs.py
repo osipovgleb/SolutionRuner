@@ -9,7 +9,7 @@ from ...word_problems.math_common import number
 
 def value(x):
     x = sp.simplify(x)
-    return number(x) if x.is_Rational else sp.latex(x)
+    return number(x) if x.is_Rational else sp.latex(x, inv_trig_style="full")
 
 
 def bracket(x):

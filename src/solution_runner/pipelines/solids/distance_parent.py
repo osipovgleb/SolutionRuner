@@ -24,7 +24,9 @@ def prepare(
     model, changes, picture, keys = distance_figures.prepare(
         context, generated_solution_assets
     )
-    if RULES[content_rule_key] != model.mode:
+    allowed = RULES[content_rule_key]
+    allowed = (allowed,) if isinstance(allowed, str) else allowed
+    if model.mode not in allowed:
         raise ContentPlanError(
             "the complete spatial question differs from its parent method"
         )

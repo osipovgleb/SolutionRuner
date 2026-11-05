@@ -1,23 +1,27 @@
 """Read complete proof-and-distance questions using existing solid dimensions."""
 
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import sympy as sp
 from bs4 import BeautifulSoup
 
 from ..core.errors import ContentPlanError
 from . import box_coordinates as c
-from . import spatial_metric_model
+from . import spatial_metric_model, spatial_plane_model
 from .box_distance_model import read_question as read_box
 from .measurements import positive
 from .prism_input import text
 from .pyramid_model import regular
 
-MODES = {
-    "box_altitude_comparison",
-    "pyramid_skew_midpoint",
-} | spatial_metric_model.MODES
+MODES = (
+    {
+        "box_altitude_comparison",
+        "pyramid_skew_midpoint",
+    }
+    | spatial_metric_model.MODES
+    | spatial_plane_model.MODES
+)
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
 BOX = (
@@ -53,6 +57,7 @@ class SpatialDistance:
     names: tuple[str, ...]
     answer: sp.Expr
     squares: tuple[sp.Expr, ...] = ()
+    symbols: dict[str, str] = field(default_factory=dict)
 
 
 def condition_text(html, source):
@@ -80,7 +85,7 @@ def condition_text(html, source):
     for tag in soup.find_all("i"):
         if not tag.attrs and not tag.find(True):
             tag.string = tag.get_text().translate(letters)
-    return text(str(soup), source, labels="ABCDEFOSHNMTEPLQ")
+    return text(str(soup), source, labels="ABCDEFOSHNMTEPLQKα")
 
 
 def _box(match):
@@ -157,4 +162,7 @@ def read_question(html, source=None):
     metric = spatial_metric_model.read(raw)
     if metric is not None:
         return metric
+    plane = spatial_plane_model.read(raw)
+    if plane is not None:
+        return plane
     return read_box(html, source)

@@ -170,7 +170,15 @@ def _box(m, pictures):
 
 
 def render(m, pictures):
-    from . import spatial_metric_model, spatial_metric_proofs
+    from . import (
+        spatial_metric_model,
+        spatial_metric_proofs,
+        spatial_plane_model,
+        spatial_plane_proofs,
+    )
+
+    if m.mode in spatial_plane_model.MODES:
+        return spatial_plane_proofs.render(m, pictures)
 
     if m.mode in spatial_metric_model.MODES:
         return spatial_metric_proofs.render(m, pictures)
