@@ -107,6 +107,10 @@ def scene_projection(m, meta):
 
 
 def render(m):
+    if m.mode == "regular_triangle_general_cut_area":
+        from .regular_triangle_cut_svg import render as triangle_cut
+
+        return triangle_cut(m)
     if m.mode == "ratio_plane_distance":
         from .spatial_plane_svg import render as ratio
 

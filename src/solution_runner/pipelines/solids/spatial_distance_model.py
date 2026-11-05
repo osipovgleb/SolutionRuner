@@ -14,6 +14,7 @@ from . import (
     pyramid_midsection_model,
     pyramid_perpendicular_section_model,
     pyramid_vertical_cut_model,
+    regular_triangle_cut_model,
     right_pyramid_cut_model,
     spatial_altitude_model,
     spatial_metric_model,
@@ -40,6 +41,7 @@ MODES = (
     | pyramid_perpendicular_section_model.MODES
     | pyramid_vertical_cut_model.MODES
     | right_pyramid_cut_model.MODES
+    | regular_triangle_cut_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -183,10 +185,14 @@ def read_question(html, source=None):
                 raw = condition_text(html, source)
             except ContentPlanError:
                 raise box_error
-            section = pyramid_perpendicular_section_model.read(raw)
-            if section is None:
-                raise
-            return section
+            for reader in (
+                pyramid_perpendicular_section_model.read,
+                regular_triangle_cut_model.read,
+            ):
+                section = reader(raw)
+                if section is not None:
+                    return section
+            raise
     raw = condition_text(html, source)
     match = re.fullmatch(BOX, raw)
     if match:
@@ -211,6 +217,7 @@ def read_question(html, source=None):
         pyramid_perpendicular_section_model.read,
         pyramid_vertical_cut_model.read,
         right_pyramid_cut_model.read,
+        regular_triangle_cut_model.read,
     ):
         found = reader(raw)
         if found is not None:

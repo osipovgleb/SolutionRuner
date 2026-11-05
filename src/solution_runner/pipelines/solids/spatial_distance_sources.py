@@ -10,6 +10,10 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-regular-triangle-edge-point-section": (
+        "regular_triangle_center_cut_area",
+        "regular_triangle_general_cut_area",
+    ),
     "solid-right-pyramid-edge-point-section": "right_triangle_pyramid_cut_area",
     "solid-square-pyramid-vertical-vertex-section": "square_vertical_vertex_area",
     "solid-square-pyramid-adjacent-midpoint-section": "square_adjacent_midpoint_area",
@@ -76,12 +80,19 @@ MODE_SOURCES = {
     for mode in ((allowed,) if isinstance(allowed, str) else allowed)
 }
 GENERATED_MODES = {
+    "regular_triangle_general_cut_area",
     "box_altitude_comparison",
     "hex_vertex_line_distance",
     "ratio_plane_distance",
 }
 
 ROLES = {
+    "regular_triangle_center_cut_area": (
+        ("solution", "image_1", "337c2a16-2990-4871-a0ce-7265f8ca9a9d"),
+    ),
+    "regular_triangle_general_cut_area": (
+        ("solution", "image_1", "337c2a16-2990-4871-a0ce-7265f8ca9a9d"),
+    ),
     "right_triangle_pyramid_cut_area": (
         ("solution", "image_1", "a94b39f0-a763-427c-b5f5-48bfafb3d3d6"),
     ),
@@ -230,6 +241,12 @@ def compatible(model, source, role, slot):
 
 
 def reviewed_model(model, assets):
+    if model.mode == "regular_triangle_center_cut_area":
+        return replace(
+            model,
+            symbols=model.symbols
+            | {"second_figure": "yes" if "image_2" in assets else "no"},
+        )
     if model.mode == "square_vertical_vertex_area":
         source = assets["image_1"]["asset_id"] if "image_1" in assets else None
         entry = DATA["figures"].get(source, {})
@@ -255,6 +272,13 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if (
+        model.mode == "regular_triangle_center_cut_area"
+        and model.symbols.get("second_figure") == "yes"
+    ):
+        return ROLES[model.mode] + (
+            ("solution", "image_2", "63b47e31-9870-4d83-9399-a8494aea696e"),
+        )
     if model.mode == "right_triangle_pyramid_cut_area":
         if model.names[0] == "A":
             return (("solution", "image_1", "464b6896-fc0d-48f4-9559-37592ae5c2f1"),)

@@ -1,6 +1,7 @@
 """Place outlined triangle labels without crossing strokes or other labels."""
 
 import itertools
+import math
 
 from ...core.errors import ContentPlanError
 from ..right.construction_svg import _tag
@@ -22,7 +23,7 @@ def _intersects(p, q, box):
     return True
 
 
-def _position(root, point, w, h, boxes, preferred):
+def _position(root, point, w, h, boxes, preferred, *, max_distance=None):
     segments = []
     for line in root.findall(_tag("line")):
         segments.append(
@@ -52,6 +53,11 @@ def _position(root, point, w, h, boxes, preferred):
             ]
         )
     for x, y in candidates:
+        if (
+            max_distance is not None
+            and math.dist(point, (x + w / 2, y + h / 2)) > max_distance
+        ):
+            continue
         if any(
             x < bx + bw + 2 and x + w + 2 > bx and y < by + bh + 2 and y + h + 2 > by
             for bx, by, bw, bh in boxes

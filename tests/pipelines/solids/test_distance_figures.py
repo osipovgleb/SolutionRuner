@@ -1,16 +1,19 @@
 """Exact native reuse and actual projected geometry, labels and image ownership."""
 
 import hashlib
+import io
 import math
 import re
 import xml.etree.ElementTree as ET
 from copy import deepcopy
+from importlib.resources import files
 
 import pytest
 import sympy as sp
 from bs4 import BeautifulSoup
 from distance_source_cases import CASES, GROUPS, generated, plan, read
 from midpoint_source_cases import replay, section
+from PIL import Image
 
 from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.core.handler_registry import get_handler
@@ -28,8 +31,20 @@ from solution_runner.pipelines.triangles.right.construction_svg import _tag
 def test_reviewed_spatial_sources_keep_exact_bytes(source):
     raw = source_bytes(source)
     assert hashlib.sha256(raw).hexdigest() == SOURCES[source][1]
-    assert raw == source_bytes(SOURCES[source][0])
-    assert not list(ET.fromstring(raw).iter(_tag("image")))
+    canonical = SOURCES[source][0]
+    if canonical.endswith(".png"):
+        assert (
+            raw
+            == files("solution_runner.pipelines.solids")
+            .joinpath("assets/" + canonical)
+            .read_bytes()
+        )
+        with Image.open(io.BytesIO(raw)) as picture:
+            assert picture.format == "PNG" and min(picture.size) > 0
+            picture.verify()
+    else:
+        assert raw == source_bytes(canonical)
+        assert not list(ET.fromstring(raw).iter(_tag("image")))
 
 
 @pytest.mark.parametrize("case", CASES, ids=lambda c: c["task"])
