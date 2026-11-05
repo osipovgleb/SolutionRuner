@@ -8,12 +8,16 @@ from bs4 import BeautifulSoup
 
 from ..core.errors import ContentPlanError
 from . import box_coordinates as c
+from . import spatial_metric_model
 from .box_distance_model import read_question as read_box
 from .measurements import positive
 from .prism_input import text
 from .pyramid_model import regular
 
-MODES = {"box_altitude_comparison", "pyramid_skew_midpoint"}
+MODES = {
+    "box_altitude_comparison",
+    "pyramid_skew_midpoint",
+} | spatial_metric_model.MODES
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
 BOX = (
@@ -72,7 +76,11 @@ def condition_text(html, source):
         for item in items:
             item.name, item.attrs = "p", {}
         listing.unwrap()
-    return text(str(soup), source, labels="ABCDSHMNTE")
+    letters = str.maketrans({"М": "M", "Т": "T", "О": "O", "Н": "H", "Р": "P"})
+    for tag in soup.find_all("i"):
+        if not tag.attrs and not tag.find(True):
+            tag.string = tag.get_text().translate(letters)
+    return text(str(soup), source, labels="ABCDEFOSHNMTEPLQ")
 
 
 def _box(match):
@@ -146,4 +154,7 @@ def read_question(html, source=None):
             match = re.fullmatch(PYRAMID + given + MIDPOINTS + altitude + REQUEST, raw)
             if match:
                 return _pyramid(match.groups(), fields)
+    metric = spatial_metric_model.read(raw)
+    if metric is not None:
+        return metric
     return read_box(html, source)

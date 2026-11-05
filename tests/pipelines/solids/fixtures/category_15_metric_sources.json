@@ -1,0 +1,3272 @@
+{
+  "groups": [
+    {
+      "key": "484573",
+      "rule": "solid-tetrahedron-midpoint-distance",
+      "sample_tasks": [
+        "484574",
+        "511291",
+        "511292"
+      ]
+    },
+    {
+      "key": "507763",
+      "rule": "solid-hexagonal-pyramid-point-line-distance",
+      "sample_tasks": [
+        "511484",
+        "507766"
+      ]
+    },
+    {
+      "key": "507778",
+      "rule": "solid-prism-plane-symmetry-altitude",
+      "sample_tasks": [
+        "511491",
+        "507785"
+      ]
+    },
+    {
+      "key": "503000",
+      "rule": "solid-prism-square-skew-distance",
+      "sample_tasks": [
+        "503128",
+        "511380"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "group": "484573",
+      "task": "484573",
+      "context": {
+        "problem_id": "50970798-3232-4e9c-9ec2-671f564651c5",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:29:56.677829+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a3e798d-87fb-4252-ad25-90fd23341788",
+                "html": "<img alt=\"\" data-asset-id=\"0a3e798d-87fb-4252-ad25-90fd23341788\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a3e798d-87fb-4252-ad25-90fd23341788\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a3e798d-87fb-4252-ad25-90fd23341788",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <var data-math-identifier=\"D\">D</var>. Бо­ко­вое ребро пи­ра­ми­ды равно  <span data-inline-latex=\"\\sqrt{43}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{31}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние пи­ра­ми­ды, про­хо­дя­щее через се­ре­ди­ны ребер <var data-math-identifier=\"BD\">BD</var>, <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var>, яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <var data-math-identifier=\"MT\">MT</var>, где точки <var data-math-identifier=\"M\">M</var> и <var data-math-identifier=\"T\">T</var>  — се­ре­ди­ны ребер <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var> со­от­вет­ствен­но.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0a3e798d-87fb-4252-ad25-90fd23341788\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на ребра <span data-inline-latex=\"BD,\\,Q\"></span>  — се­ре­ди­на ребра <span data-inline-latex=\"BC\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"MT\\parallel CD\\parallel QP\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти. <span data-inline-latex=\"MT=\\frac{1}{2}CD=QP\"></span>,  сле­до­ва­тель­но, <var data-math-identifier=\"MTPQ\">MTPQ</var>  — па­рал­ле­ло­грамм. Кроме того, <span data-inline-latex=\"PT\\parallel AB\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AB\\perp CD\"></span> (по­сколь­ку <span data-inline-latex=\"AB\\perp CO\"></span>), по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник. </li><li data-list-marker=\"б)\">По до­ка­зан­но­му в пунк­те а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. По тео­ре­ме Пи­фа­го­ра </li></ol><center><p><span data-inline-latex=\"AO=\\sqrt{AD^{2}-DO^{2}}=2\\sqrt{3}\"></span> .</p></center><p>Тогда <span data-inline-latex=\"AB=\\sqrt{3}\\cdot AO=6\"></span>, от­ку­да <span data-inline-latex=\"PT=\\frac{1}{2}AB=3\"></span>. </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:24:14.977603+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a3e798d-87fb-4252-ad25-90fd23341788",
+              "kind": "ordinary_image",
+              "asset_id": "0a3e798d-87fb-4252-ad25-90fd23341788",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <var data-math-identifier=\"D\">D</var>. Бо­ко­вое ребро пи­ра­ми­ды равно  <span data-inline-latex=\"\\sqrt{43}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{31}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние пи­ра­ми­ды, про­хо­дя­щее через се­ре­ди­ны ребер <var data-math-identifier=\"BD\">BD</var>, <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var>, яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <var data-math-identifier=\"MT\">MT</var>, где точки <var data-math-identifier=\"M\">M</var> и <var data-math-identifier=\"T\">T</var>  — се­ре­ди­ны ребер <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var> со­от­вет­ствен­но.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p>3.</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"0a3e798d-87fb-4252-ad25-90fd23341788\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a3e798d-87fb-4252-ad25-90fd23341788\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на ребра <span data-inline-latex=\"BD,\\,Q\"></span>  — се­ре­ди­на ребра <span data-inline-latex=\"BC\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"MT\\parallel CD\\parallel QP\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти. <span data-inline-latex=\"MT=\\frac{1}{2}CD=QP\"></span>,  сле­до­ва­тель­но, <var data-math-identifier=\"MTPQ\">MTPQ</var>  — па­рал­ле­ло­грамм. Кроме того, <span data-inline-latex=\"PT\\parallel AB\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AB\\perp CD\"></span> (по­сколь­ку <span data-inline-latex=\"AB\\perp CO\"></span>), по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник. </li><li data-list-marker=\"б)\">По до­ка­зан­но­му в пунк­те а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. По тео­ре­ме Пи­фа­го­ра </li></ol><center><p><span data-inline-latex=\"AO=\\sqrt{AD^{2}-DO^{2}}=2\\sqrt{3}\"></span> .</p></center><p>Тогда <span data-inline-latex=\"AB=\\sqrt{3}\\cdot AO=6\"></span>, от­ку­да <span data-inline-latex=\"PT=\\frac{1}{2}AB=3\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "484573",
+      "task": "484574",
+      "context": {
+        "problem_id": "d9a18bbe-39eb-47e9-8f25-a198ff420509",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:12.786057+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/33d68501-95c2-40e6-82fb-db4c44e7429d",
+                "html": "<img alt=\"\" data-asset-id=\"33d68501-95c2-40e6-82fb-db4c44e7429d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/33d68501-95c2-40e6-82fb-db4c44e7429d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "33d68501-95c2-40e6-82fb-db4c44e7429d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <var data-math-identifier=\"D\">D</var>. Сто­ро­на ос­но­ва­ния пи­ра­ми­ды равна  <span data-inline-latex=\"\\sqrt{6}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{30}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние, про­хо­дя­щее через се­ре­ди­ну бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> и точки <nobr><i>М</i> и <i>Т</i></nobr> (се­ре­ди­ны ребер <nobr><i>АС</i> и <i>AВ</i></nobr> со­от­вет­ствен­но), яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <i>МТ</i>.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><span data-inline-latex=\"2\\sqrt{2}\"></span> .</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"33d68501-95c2-40e6-82fb-db4c44e7429d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>а)  Пусть <var data-math-identifier=\"Q\">Q</var> <nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"CD,\\,P\"></span></nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"BD\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"TP\\parallel AD\\parallel MQ\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти.</p><p><span data-inline-latex=\"TP=\\frac{1}{2}AD=MQ\"></span>,  сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> яв­ля­ют­ся вер­ши­на­ми па­рал­ле­ло­грам­ма. </p><p>Кроме того, <span data-inline-latex=\"PQ\\parallel BC\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах, по­сколь­ку <span data-inline-latex=\"AO\\perp BC\"></span>, по­лу­чим <span data-inline-latex=\"AD\\perp BC\"></span>, по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник.</p><p>б)  Пусть точка <var data-math-identifier=\"O\">O</var> яв­ля­ет­ся цен­тром пра­виль­но­го тре­уголь­ни­ка, а сле­до­ва­тель­но, цен­тром опи­сан­ной и впи­сан­ной окруж­но­стей. От­ре­зок <var data-math-identifier=\"AO\">AO</var> яв­ля­ет­ся ра­ди­у­сом опи­сан­ной окруж­но­сти около тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var> он в ко­рень из трёх раз мень­ше его сто­ро­ны. По пунк­ту а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. От­ре­зок <span data-inline-latex=\"AO=\\frac{AB}{\\sqrt{3}}=\\sqrt{2}\"></span> .  </p><p>По тео­ре­ме Пи­фа­го­ра </p> <p><span data-inline-latex=\"AD=\\sqrt{AO^{2}+DO^{2}}=4\\sqrt{2}\"></span> , <span data-inline-latex=\"PT=\\frac{1}{2}AD=2\\sqrt{2}\"></span> . </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:24:18.760592+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/33d68501-95c2-40e6-82fb-db4c44e7429d",
+              "kind": "ordinary_image",
+              "asset_id": "33d68501-95c2-40e6-82fb-db4c44e7429d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <var data-math-identifier=\"D\">D</var>. Сто­ро­на ос­но­ва­ния пи­ра­ми­ды равна  <span data-inline-latex=\"\\sqrt{6}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{30}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние, про­хо­дя­щее через се­ре­ди­ну бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> и точки <nobr><i>М</i> и <i>Т</i></nobr> (се­ре­ди­ны ребер <nobr><i>АС</i> и <i>AВ</i></nobr> со­от­вет­ствен­но), яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <i>МТ</i>.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-inline-latex=\"2\\sqrt{2}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"33d68501-95c2-40e6-82fb-db4c44e7429d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/33d68501-95c2-40e6-82fb-db4c44e7429d\"/></p><p>а)  Пусть <var data-math-identifier=\"Q\">Q</var> <nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"CD,\\,P\"></span></nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"BD\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"TP\\parallel AD\\parallel MQ\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти.</p><p><span data-inline-latex=\"TP=\\frac{1}{2}AD=MQ\"></span>,  сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> яв­ля­ют­ся вер­ши­на­ми па­рал­ле­ло­грам­ма. </p><p>Кроме того, <span data-inline-latex=\"PQ\\parallel BC\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах, по­сколь­ку <span data-inline-latex=\"AO\\perp BC\"></span>, по­лу­чим <span data-inline-latex=\"AD\\perp BC\"></span>, по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник.</p><p>б)  Пусть точка <var data-math-identifier=\"O\">O</var> яв­ля­ет­ся цен­тром пра­виль­но­го тре­уголь­ни­ка, а сле­до­ва­тель­но, цен­тром опи­сан­ной и впи­сан­ной окруж­но­стей. От­ре­зок <var data-math-identifier=\"AO\">AO</var> яв­ля­ет­ся ра­ди­у­сом опи­сан­ной окруж­но­сти около тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var> он в ко­рень из трёх раз мень­ше его сто­ро­ны. По пунк­ту а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. От­ре­зок <span data-inline-latex=\"AO=\\frac{AB}{\\sqrt{3}}=\\sqrt{2}\"></span> .  </p><p>По тео­ре­ме Пи­фа­го­ра </p> <p><span data-inline-latex=\"AD=\\sqrt{AO^{2}+DO^{2}}=4\\sqrt{2}\"></span> , <span data-inline-latex=\"PT=\\frac{1}{2}AD=2\\sqrt{2}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "484573",
+      "task": "511291",
+      "context": {
+        "problem_id": "42630397-63e7-42ba-b10c-b24b1920c727",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:29:56.199130+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0a3e798d-87fb-4252-ad25-90fd23341788",
+                "html": "<img alt=\"\" data-asset-id=\"0a3e798d-87fb-4252-ad25-90fd23341788\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a3e798d-87fb-4252-ad25-90fd23341788\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0a3e798d-87fb-4252-ad25-90fd23341788",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <span data-inline-latex=\"D\"></span>. Бо­ко­вое ребро пи­ра­ми­ды равно  <span data-inline-latex=\"\\sqrt{46}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{19}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние пи­ра­ми­ды, про­хо­дя­щее через се­ре­ди­ны ребер <var data-math-identifier=\"BD\">BD</var>, <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var>, яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <var data-math-identifier=\"MT\">MT</var>, где точки <var data-math-identifier=\"M\">M</var> и <var data-math-identifier=\"T\">T</var>  — се­ре­ди­ны ребер <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var> со­от­вет­ствен­но.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\frac{9}{2}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\"><img alt=\"\" data-asset-id=\"0a3e798d-87fb-4252-ad25-90fd23341788\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>Пусть <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на ребра <span data-inline-latex=\"BD,\\,Q\"></span>  — се­ре­ди­на ребра <span data-inline-latex=\"BC\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"MT\\parallel CD\\parallel QP\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти. <span data-inline-latex=\"MT=\\frac{1}{2}CD=QP\"></span>,  сле­до­ва­тель­но, <var data-math-identifier=\"MTPQ\">MTPQ</var>  — па­рал­ле­ло­грамм. Кроме того, <span data-inline-latex=\"PT\\parallel AB\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AB\\perp CD\"></span> (так как <span data-inline-latex=\"AB\\perp CO\"></span>), по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник. </li><li data-list-marker=\"б)\">По до­ка­зан­но­му в пунк­те а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. По тео­ре­ме Пи­фа­го­ра <center><p><span data-inline-latex=\"AO=\\sqrt{AD^{2}-DO^{2}}=3\\sqrt{3}\"></span> .</p></center><p> Тогда <span data-inline-latex=\"AB=\\sqrt{3}\\cdot AO=9\"></span>, от­ку­да <span data-inline-latex=\"PT=\\frac{1}{2}AB=\\frac{9}{2}\"></span> . </p></li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:24:13.861485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0a3e798d-87fb-4252-ad25-90fd23341788",
+              "kind": "ordinary_image",
+              "asset_id": "0a3e798d-87fb-4252-ad25-90fd23341788",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <span data-inline-latex=\"D\"></span>. Бо­ко­вое ребро пи­ра­ми­ды равно  <span data-inline-latex=\"\\sqrt{46}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{19}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние пи­ра­ми­ды, про­хо­дя­щее через се­ре­ди­ны ребер <var data-math-identifier=\"BD\">BD</var>, <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var>, яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <var data-math-identifier=\"MT\">MT</var>, где точки <var data-math-identifier=\"M\">M</var> и <var data-math-identifier=\"T\">T</var>  — се­ре­ди­ны ребер <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"AD\">AD</var> со­от­вет­ствен­но.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\frac{9}{2}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\"><img alt=\"\" data-asset-id=\"0a3e798d-87fb-4252-ad25-90fd23341788\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0a3e798d-87fb-4252-ad25-90fd23341788\"/>Пусть <var data-math-identifier=\"P\">P</var>  — се­ре­ди­на ребра <span data-inline-latex=\"BD,\\,Q\"></span>  — се­ре­ди­на ребра <span data-inline-latex=\"BC\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"MT\\parallel CD\\parallel QP\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти. <span data-inline-latex=\"MT=\\frac{1}{2}CD=QP\"></span>,  сле­до­ва­тель­но, <var data-math-identifier=\"MTPQ\">MTPQ</var>  — па­рал­ле­ло­грамм. Кроме того, <span data-inline-latex=\"PT\\parallel AB\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AB\\perp CD\"></span> (так как <span data-inline-latex=\"AB\\perp CO\"></span>), по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник. </li><li data-list-marker=\"б)\">По до­ка­зан­но­му в пунк­те а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. По тео­ре­ме Пи­фа­го­ра <center><p><span data-inline-latex=\"AO=\\sqrt{AD^{2}-DO^{2}}=3\\sqrt{3}\"></span> .</p></center><p> Тогда <span data-inline-latex=\"AB=\\sqrt{3}\\cdot AO=9\"></span>, от­ку­да <span data-inline-latex=\"PT=\\frac{1}{2}AB=\\frac{9}{2}\"></span> . </p></li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "484573",
+      "task": "511292",
+      "context": {
+        "problem_id": "340aeee5-0b6c-4931-b366-e843ddf4bee8",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 13,
+          "items": [
+            {
+              "at": "2026-08-27T10:24:46.177485+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/33d68501-95c2-40e6-82fb-db4c44e7429d",
+                "html": "<img alt=\"\" data-asset-id=\"33d68501-95c2-40e6-82fb-db4c44e7429d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/33d68501-95c2-40e6-82fb-db4c44e7429d\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "33d68501-95c2-40e6-82fb-db4c44e7429d",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <var data-math-identifier=\"D\">D</var>. Сто­ро­на ос­но­ва­ния пи­ра­ми­ды равна  <span data-inline-latex=\"\\sqrt{12}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{5}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние, про­хо­дя­щее через се­ре­ди­ну бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> и точки <i>М</i> и <i>Т</i> (се­ре­ди­ны ребер <i>АС</i> и <i>AВ</i> со­от­вет­ствен­но), яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <i>МТ</i>.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\frac{3}{2}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"33d68501-95c2-40e6-82fb-db4c44e7429d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>а)  Пусть <var data-math-identifier=\"Q\">Q</var> <nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"CD,\\,P\"></span></nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"BD\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"TP\\parallel AD\\parallel MQ\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти.</p><p><span data-inline-latex=\"TP=\\frac{1}{2}AD=MQ\"></span>,  сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> яв­ля­ют­ся вер­ши­на­ми па­рал­ле­ло­грам­ма. </p><p>Кроме того, <span data-inline-latex=\"PQ\\parallel BC\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах, так как <span data-inline-latex=\"AO\\perp BC\"></span>, по­лу­чим <span data-inline-latex=\"AD\\perp BC\"></span>, по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник.</p><p>б)  Пусть точка <var data-math-identifier=\"O\">O</var> яв­ля­ет­ся цен­тром пра­виль­но­го тре­уголь­ни­ка, а сле­до­ва­тель­но, цен­тром опи­сан­ной и впи­сан­ной окруж­но­стей. От­ре­зок <var data-math-identifier=\"AO\">AO</var> яв­ля­ет­ся ра­ди­у­сом опи­сан­ной окруж­но­сти около тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var> он в ко­рень из трёх раз мень­ше его сто­ро­ны. По пунк­ту а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. От­ре­зок <span data-inline-latex=\"AO=\\frac{AB}{\\sqrt{3}}=\\sqrt{2}\"></span> .  </p><p>По тео­ре­ме Пи­фа­го­ра </p><p><span data-inline-latex=\"AD=\\sqrt{AO^2+DO^2}=3,\\quad PT=\\frac{1}{2}AD=\\frac{3}{2}.\"></span></p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T17:28:47.518940+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/33d68501-95c2-40e6-82fb-db4c44e7429d",
+              "kind": "ordinary_image",
+              "asset_id": "33d68501-95c2-40e6-82fb-db4c44e7429d",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дана пра­виль­ная тре­уголь­ная пи­ра­ми­да <var data-math-identifier=\"DABC\">DABC</var> с вер­ши­ной <var data-math-identifier=\"D\">D</var>. Сто­ро­на ос­но­ва­ния пи­ра­ми­ды равна  <span data-inline-latex=\"\\sqrt{12}\"></span> , вы­со­та равна  <span data-inline-latex=\"\\sqrt{5}\"></span> . </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что се­че­ние, про­хо­дя­щее через се­ре­ди­ну бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> и точки <i>М</i> и <i>Т</i> (се­ре­ди­ны ребер <i>АС</i> и <i>AВ</i> со­от­вет­ствен­но), яв­ля­ет­ся пря­мо­уголь­ни­ком.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от се­ре­ди­ны бо­ко­во­го ребра <var data-math-identifier=\"BD\">BD</var> до пря­мой <i>МТ</i>.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\frac{3}{2}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"33d68501-95c2-40e6-82fb-db4c44e7429d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/33d68501-95c2-40e6-82fb-db4c44e7429d\"/></p><p>а)  Пусть <var data-math-identifier=\"Q\">Q</var> <nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"CD,\\,P\"></span></nobr>  — се­ре­ди­на ребра <span data-inline-latex=\"BD\"></span>. По тео­ре­ме о сред­ней линии тре­уголь­ни­ка <span data-inline-latex=\"TP\\parallel AD\\parallel MQ\"></span>, сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> лежат в одной плос­ко­сти.</p><p><span data-inline-latex=\"TP=\\frac{1}{2}AD=MQ\"></span>,  сле­до­ва­тель­но, точки <span data-inline-latex=\"M,\\,T,\\,P,\\,Q\"></span> яв­ля­ют­ся вер­ши­на­ми па­рал­ле­ло­грам­ма. </p><p>Кроме того, <span data-inline-latex=\"PQ\\parallel BC\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах, так как <span data-inline-latex=\"AO\\perp BC\"></span>, по­лу­чим <span data-inline-latex=\"AD\\perp BC\"></span>, по­это­му этот па­рал­ле­ло­грамм  — пря­мо­уголь­ник.</p><p>б)  Пусть точка <var data-math-identifier=\"O\">O</var> яв­ля­ет­ся цен­тром пра­виль­но­го тре­уголь­ни­ка, а сле­до­ва­тель­но, цен­тром опи­сан­ной и впи­сан­ной окруж­но­стей. От­ре­зок <var data-math-identifier=\"AO\">AO</var> яв­ля­ет­ся ра­ди­у­сом опи­сан­ной окруж­но­сти около тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var> он в ко­рень из трёх раз мень­ше его сто­ро­ны. По пунк­ту а), ис­ко­мое рас­сто­я­ние есть длина от­рез­ка <span data-inline-latex=\"PT\"></span>. От­ре­зок <span data-inline-latex=\"AO=\\frac{AB}{\\sqrt{3}}=\\sqrt{2}\"></span> .  </p><p>По тео­ре­ме Пи­фа­го­ра </p><p><span data-inline-latex=\"AD=\\sqrt{AO^2+DO^2}=3,\\quad PT=\\frac{1}{2}AD=\\frac{3}{2}.\"></span></p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "507763",
+      "task": "507763",
+      "context": {
+        "problem_id": "b266cafc-ca0d-4e7f-af08-7a34f3fb68d3",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:55.478496+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc",
+                "html": "<img alt=\"\" data-asset-id=\"53d5a0fe-92ff-4f89-824b-742396ce61dc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "53d5a0fe-92ff-4f89-824b-742396ce61dc",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\frac{\\sqrt{39}}{4}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"53d5a0fe-92ff-4f89-824b-742396ce61dc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что в пра­виль­ном ше­сти­уголь­ни­ке диа­го­на­ли <var data-math-identifier=\"AC\">AC</var> и <span data-inline-latex=\"BE\"></span> пер­пен­ди­ку­ляр­ны. Вер­ши­на <var data-math-identifier=\"S\">S</var> про­ек­ти­ру­ет­ся в центр ше­сти­уголь­ни­ка, ко­то­рый лежит на <var data-math-identifier=\"BE\">BE</var>, по­это­му про­ек­ция <var data-math-identifier=\"SE\">SE</var> на плос­кость ос­но­ва­ния  — пря­мая <span data-inline-latex=\"BE\"></span>. Тогда, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"BE\\perp AC\"></span>.</li><li data-list-marker=\"б)\">В тре­уголь­ни­ке <var data-math-identifier=\"ASC\">ASC</var> про­ведём вы­со­ты <var data-math-identifier=\"CM\">CM</var> и <span data-inline-latex=\"SH\"></span>. Ис­ко­мое рас­сто­я­ние  — длина от­рез­ка <span data-inline-latex=\"CM\"></span>. Ясно, что <span data-inline-latex=\"AC\\cdot SH=AS\\cdot CM\"></span>, от­ку­да <span data-inline-latex=\"CM=\\frac{AC\\cdot SH}{AS}\"></span> .  Тре­уголь­ник <var data-math-identifier=\"ASC\">ASC</var> рав­но­бед­рен­ный, <span data-inline-latex=\"AS=SC=2,\\quad AC=\\sqrt{3}\"></span> . Тогда </li></ol><center><p><span data-inline-latex=\"SH=\\sqrt{2^{2}-(\\frac{\\sqrt{3}}{2})^{2}}=\\frac{\\sqrt{13}}{2}\"></span> . </p></center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"CM=\\frac{\\sqrt{3}\\cdot \\sqrt{13}}{2\\cdot 2}=\\frac{\\sqrt{39}}{4}\"></span> . </p><p><b>При­ме­ча­ние.</b></p><p>Длину от­рез­ка <var data-math-identifier=\"AC\">AC</var> можно найти как длину ос­но­ва­ния рав­но­бед­рен­но­го тре­уголь­ни­ка с бо­ко­вы­ми сто­ро­на­ми <var data-math-identifier=\"AB\">AB</var>  =  <var data-math-identifier=\"BC\">BC</var>  =  1 и углом при вер­ши­не, рав­ным 120° (угол пра­виль­но­го ше­сти­уголь­ни­ка).</p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T18:29:15.086455+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc",
+              "kind": "ordinary_image",
+              "asset_id": "53d5a0fe-92ff-4f89-824b-742396ce61dc",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной ше­сти­уголь­ной пи­ра­ми­де <i>SABCDEF</i> сто­ро­ны ос­но­ва­ния равны 1, а бо­ко­вые рёбра равны 2.</p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что пря­мые <var data-math-identifier=\"SE\">SE</var> и <var data-math-identifier=\"AC\">AC</var> пер­пен­ди­ку­ляр­ны.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от точки <var data-math-identifier=\"C\">C</var> до пря­мой <var data-math-identifier=\"SA\">SA</var></li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\frac{\\sqrt{39}}{4}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"53d5a0fe-92ff-4f89-824b-742396ce61dc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что в пра­виль­ном ше­сти­уголь­ни­ке диа­го­на­ли <var data-math-identifier=\"AC\">AC</var> и <span data-inline-latex=\"BE\"></span> пер­пен­ди­ку­ляр­ны. Вер­ши­на <var data-math-identifier=\"S\">S</var> про­ек­ти­ру­ет­ся в центр ше­сти­уголь­ни­ка, ко­то­рый лежит на <var data-math-identifier=\"BE\">BE</var>, по­это­му про­ек­ция <var data-math-identifier=\"SE\">SE</var> на плос­кость ос­но­ва­ния  — пря­мая <span data-inline-latex=\"BE\"></span>. Тогда, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"BE\\perp AC\"></span>.</li><li data-list-marker=\"б)\">В тре­уголь­ни­ке <var data-math-identifier=\"ASC\">ASC</var> про­ведём вы­со­ты <var data-math-identifier=\"CM\">CM</var> и <span data-inline-latex=\"SH\"></span>. Ис­ко­мое рас­сто­я­ние  — длина от­рез­ка <span data-inline-latex=\"CM\"></span>. Ясно, что <span data-inline-latex=\"AC\\cdot SH=AS\\cdot CM\"></span>, от­ку­да <span data-inline-latex=\"CM=\\frac{AC\\cdot SH}{AS}\"></span> .  Тре­уголь­ник <var data-math-identifier=\"ASC\">ASC</var> рав­но­бед­рен­ный, <span data-inline-latex=\"AS=SC=2,\\quad AC=\\sqrt{3}\"></span> . Тогда </li></ol><center><p><span data-inline-latex=\"SH=\\sqrt{2^{2}-(\\frac{\\sqrt{3}}{2})^{2}}=\\frac{\\sqrt{13}}{2}\"></span> . </p></center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"CM=\\frac{\\sqrt{3}\\cdot \\sqrt{13}}{2\\cdot 2}=\\frac{\\sqrt{39}}{4}\"></span> . </p><p><b>При­ме­ча­ние.</b></p><p>Длину от­рез­ка <var data-math-identifier=\"AC\">AC</var> можно найти как длину ос­но­ва­ния рав­но­бед­рен­но­го тре­уголь­ни­ка с бо­ко­вы­ми сто­ро­на­ми <var data-math-identifier=\"AB\">AB</var>  =  <var data-math-identifier=\"BC\">BC</var>  =  1 и углом при вер­ши­не, рав­ным 120° (угол пра­виль­но­го ше­сти­уголь­ни­ка).</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "507763",
+      "task": "511484",
+      "context": {
+        "problem_id": "cfe66c31-15bd-404c-828f-4679722d22f2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:58.604936+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc",
+                "html": "<img alt=\"\" data-asset-id=\"53d5a0fe-92ff-4f89-824b-742396ce61dc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "53d5a0fe-92ff-4f89-824b-742396ce61dc",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\frac{\\sqrt{39}}{2}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"53d5a0fe-92ff-4f89-824b-742396ce61dc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что в пра­виль­ном ше­сти­уголь­ни­ке диа­го­на­ли <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"BE\">BE</var> пер­пен­ди­ку­ляр­ны. Вер­ши­на <var data-math-identifier=\"S\">S</var> про­ек­ти­ру­ет­ся в центр ше­сти­уголь­ни­ка, ко­то­рый лежит на <var data-math-identifier=\"BE\">BE</var>, по­это­му про­ек­ция <var data-math-identifier=\"SE\">SE</var> на плос­кость ос­но­ва­ния  — пря­мая <span data-inline-latex=\"BE\"></span>. Тогда, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"BE\\perp AC\"></span>.</li><li data-list-marker=\"б)\">В тре­уголь­ни­ке <var data-math-identifier=\"ASC\">ASC</var> про­ведём вы­со­ты <var data-math-identifier=\"CM\">CM</var> и <span data-inline-latex=\"SH\"></span>. Ис­ко­мое рас­сто­я­ние  — длина от­рез­ка <span data-inline-latex=\"CM\"></span>. Ясно, что, <span data-inline-latex=\"AC\\cdot SH=AS\\cdot CM\"></span>, от­ку­да <span data-inline-latex=\"CM=\\frac{AC\\cdot SH}{AS}\"></span> .  Тре­уголь­ник <var data-math-identifier=\"ASC\">ASC</var> рав­но­бед­рен­ный, <span data-inline-latex=\"AS=SC=4,\\quad AC=2\\sqrt{3}\"></span>  (длина мень­шей диа­го­на­ли пра­виль­но­го ше­сти­уголь­ни­ка в ко­рень из трёх раз боль­ше его сто­ро­ны). Тогда </li></ol><center><p><span data-inline-latex=\"SH=\\sqrt{4^{2}-(\\sqrt{3})^{2}}=\\sqrt{13}\"></span> .</p></center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"CM=\\frac{\\sqrt{13}\\cdot 2\\sqrt{3}}{4}=\\frac{\\sqrt{39}}{2}\"></span> . </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T18:29:15.465694+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc",
+              "kind": "ordinary_image",
+              "asset_id": "53d5a0fe-92ff-4f89-824b-742396ce61dc",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной ше­сти­уголь­ной пи­ра­ми­де <i>SABCDEF</i>, сто­ро­ны ос­но­ва­ния ко­то­рой равны 2, а бо­ко­вые рёбра равны 4. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что пря­мые <var data-math-identifier=\"SE\">SE</var> и <var data-math-identifier=\"AC\">AC</var> пер­пен­ди­ку­ляр­ны.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от точки <var data-math-identifier=\"C\">C</var> до пря­мой <var data-math-identifier=\"SA\">SA</var></li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\frac{\\sqrt{39}}{2}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"53d5a0fe-92ff-4f89-824b-742396ce61dc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/53d5a0fe-92ff-4f89-824b-742396ce61dc\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что в пра­виль­ном ше­сти­уголь­ни­ке диа­го­на­ли <var data-math-identifier=\"AC\">AC</var> и <var data-math-identifier=\"BE\">BE</var> пер­пен­ди­ку­ляр­ны. Вер­ши­на <var data-math-identifier=\"S\">S</var> про­ек­ти­ру­ет­ся в центр ше­сти­уголь­ни­ка, ко­то­рый лежит на <var data-math-identifier=\"BE\">BE</var>, по­это­му про­ек­ция <var data-math-identifier=\"SE\">SE</var> на плос­кость ос­но­ва­ния  — пря­мая <span data-inline-latex=\"BE\"></span>. Тогда, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"BE\\perp AC\"></span>.</li><li data-list-marker=\"б)\">В тре­уголь­ни­ке <var data-math-identifier=\"ASC\">ASC</var> про­ведём вы­со­ты <var data-math-identifier=\"CM\">CM</var> и <span data-inline-latex=\"SH\"></span>. Ис­ко­мое рас­сто­я­ние  — длина от­рез­ка <span data-inline-latex=\"CM\"></span>. Ясно, что, <span data-inline-latex=\"AC\\cdot SH=AS\\cdot CM\"></span>, от­ку­да <span data-inline-latex=\"CM=\\frac{AC\\cdot SH}{AS}\"></span> .  Тре­уголь­ник <var data-math-identifier=\"ASC\">ASC</var> рав­но­бед­рен­ный, <span data-inline-latex=\"AS=SC=4,\\quad AC=2\\sqrt{3}\"></span>  (длина мень­шей диа­го­на­ли пра­виль­но­го ше­сти­уголь­ни­ка в ко­рень из трёх раз боль­ше его сто­ро­ны). Тогда </li></ol><center><p><span data-inline-latex=\"SH=\\sqrt{4^{2}-(\\sqrt{3})^{2}}=\\sqrt{13}\"></span> .</p></center><p>Сле­до­ва­тель­но, <span data-inline-latex=\"CM=\\frac{\\sqrt{13}\\cdot 2\\sqrt{3}}{4}=\\frac{\\sqrt{39}}{2}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "507763",
+      "task": "507766",
+      "context": {
+        "problem_id": "65fed109-350b-4731-ae46-5d4e9dcf1712",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:31:33.121887+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/b22ab3da-3eae-424e-a35a-8b842bbdef12",
+                "html": "<img alt=\"\" data-asset-id=\"b22ab3da-3eae-424e-a35a-8b842bbdef12\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b22ab3da-3eae-424e-a35a-8b842bbdef12\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "b22ab3da-3eae-424e-a35a-8b842bbdef12",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:29:12.811736+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\sqrt{3}\"></span> .</p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T18:29:12.811736+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"b22ab3da-3eae-424e-a35a-8b842bbdef12\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что в пра­виль­ном ше­сти­уголь­ни­ке диа­го­на­ли <var data-math-identifier=\"AE\">AE</var> и <var data-math-identifier=\"FC\">FC</var> пер­пен­ди­ку­ляр­ны. Вер­ши­на <var data-math-identifier=\"S\">S</var> про­ек­ти­ру­ет­ся в центр ше­сти­уголь­ни­ка, ко­то­рый лежит на <var data-math-identifier=\"FC\">FC</var>, по­это­му про­ек­ция <var data-math-identifier=\"SF\">SF</var> на плос­кость ос­но­ва­ния  — пря­мая <span data-inline-latex=\"FC\"></span>. Тогда, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"SC\\perp AE\"></span>.</li><li data-list-marker=\"б)\">Ра­ди­ус опи­сан­ной около пра­виль­но­го ше­сти­уголь­ни­ка окруж­но­сти равен сто­ро­не ше­сти­уголь­ни­ка. Зна­чит, <span data-inline-latex=\"FC=2\"></span>. По­это­му тре­уголь­ник <var data-math-identifier=\"FSC\">FSC</var>  — рав­но­сто­рон­ний. Сле­до­ва­тель­но, вы­со­та <var data-math-identifier=\"CM\">CM</var> этого тре­уголь­ни­ка равна  <span data-inline-latex=\"\\frac{FS\\cdot \\sqrt{3}}{2}=\\sqrt{3}\"></span> . </li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:29:12.811736+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:29:12.811736+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:29:12.811736+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:29:12.811736+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:29:12.811736+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/b22ab3da-3eae-424e-a35a-8b842bbdef12",
+              "kind": "ordinary_image",
+              "asset_id": "b22ab3da-3eae-424e-a35a-8b842bbdef12",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной ше­сти­уголь­ной пи­ра­ми­де <i>SABCDEF</i>, сто­ро­ны ос­но­ва­ния равны 1, а бо­ко­вые рёбра равны 2.</p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что пря­мые <var data-math-identifier=\"SC\">SC</var> и <var data-math-identifier=\"AE\">AE</var> пер­пен­ди­ку­ляр­ны.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от точки <var data-math-identifier=\"C\">C</var> до пря­мой <var data-math-identifier=\"SF\">SF</var>.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\sqrt{3}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"b22ab3da-3eae-424e-a35a-8b842bbdef12\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b22ab3da-3eae-424e-a35a-8b842bbdef12\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">За­ме­тим, что в пра­виль­ном ше­сти­уголь­ни­ке диа­го­на­ли <var data-math-identifier=\"AE\">AE</var> и <var data-math-identifier=\"FC\">FC</var> пер­пен­ди­ку­ляр­ны. Вер­ши­на <var data-math-identifier=\"S\">S</var> про­ек­ти­ру­ет­ся в центр ше­сти­уголь­ни­ка, ко­то­рый лежит на <var data-math-identifier=\"FC\">FC</var>, по­это­му про­ек­ция <var data-math-identifier=\"SF\">SF</var> на плос­кость ос­но­ва­ния  — пря­мая <span data-inline-latex=\"FC\"></span>. Тогда, по тео­ре­ме о трех пер­пен­ди­ку­ля­рах, <span data-inline-latex=\"SC\\perp AE\"></span>.</li><li data-list-marker=\"б)\">Ра­ди­ус опи­сан­ной около пра­виль­но­го ше­сти­уголь­ни­ка окруж­но­сти равен сто­ро­не ше­сти­уголь­ни­ка. Зна­чит, <span data-inline-latex=\"FC=2\"></span>. По­это­му тре­уголь­ник <var data-math-identifier=\"FSC\">FSC</var>  — рав­но­сто­рон­ний. Сле­до­ва­тель­но, вы­со­та <var data-math-identifier=\"CM\">CM</var> этого тре­уголь­ни­ка равна  <span data-inline-latex=\"\\frac{FS\\cdot \\sqrt{3}}{2}=\\sqrt{3}\"></span> . </li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "507778",
+      "task": "507778",
+      "context": {
+        "problem_id": "a27fa1fd-524f-42b4-adc5-5e60f9d907a2",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:19.213948+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/899d2fbf-54d9-4d31-847d-7e9e6242ee0b",
+                "html": "<img alt=\"\" data-asset-id=\"899d2fbf-54d9-4d31-847d-7e9e6242ee0b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/899d2fbf-54d9-4d31-847d-7e9e6242ee0b\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "899d2fbf-54d9-4d31-847d-7e9e6242ee0b",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\frac{\\sqrt{95}}{10}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"899d2fbf-54d9-4d31-847d-7e9e6242ee0b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Про­ве­дем <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var>. Этот от­ре­зок де­лит­ся плос­ко­стью <var data-math-identifier=\"AB\">AB</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> по­по­лам (диа­го­на­ли пря­мо­уголь­ни­ка точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам). На­клон­ные, про­ве­ден­ные из кон­цов дан­но­го от­рез­ка к плос­ко­сти, равны, по­это­му и рас­сто­я­ния от этих этих кон­цов до дан­ной плос­ко­сти равны.</li><li data-list-marker=\"б)\">Ис­ко­мое рас­сто­я­ние равно вы­со­те <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"H\">H</var> тре­уголь­ни­ка <var data-math-identifier=\"AB\">AB</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>. Тре­уголь­ник рав­но­бед­рен­ный, по­сколь­ку <span data-inline-latex=\"B_1A=AC_1=\\sqrt{5}\"></span> . До­пол­ни­тель­но про­ведём вы­со­ту и ме­ди­а­ну <var data-math-identifier=\"AM\">AM</var> Найдём её длину: <span data-inline-latex=\"AM=\\sqrt{B_1A^{2}-B_1M^{2}}=\\sqrt{5-\\frac{1}{4}}=\\frac{\\sqrt{19}}{2}\"></span> . </li></ol><p>Тогда, <span data-inline-latex=\"S_{AB}{}_1C_1=\\frac{1}{2}B_1C_1\\cdot AM=\\frac{1}{2}AC_1\\cdot B_1H\"></span>,  от­ку­да по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"\\frac{\\sqrt{19}}{2}=\\sqrt{5}\\cdot B_1H\"></span>.  Сле­до­ва­тель­но, <span data-inline-latex=\"B_1H=\\frac{\\sqrt{19}}{2\\sqrt{5}}=\\frac{\\sqrt{95}}{10}\"></span> . </p>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:50:22.166462+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/899d2fbf-54d9-4d31-847d-7e9e6242ee0b",
+              "kind": "ordinary_image",
+              "asset_id": "899d2fbf-54d9-4d31-847d-7e9e6242ee0b",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной тре­уголь­ной приз­ме <var data-math-identifier=\"ABCA\">ABCA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> вы­со­та равна 2, сто­ро­на ос­но­ва­ния равна 1. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что точки <var data-math-identifier=\"A\">A</var><sub>1</sub> и <var data-math-identifier=\"B\">B</var> рав­но­уда­ле­ны от плос­ко­сти <var data-math-identifier=\"AB\">AB</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от точки <var data-math-identifier=\"B\">B</var><sub>1</sub> до пря­мой <var data-math-identifier=\"AC\">AC</var><sub>1</sub>.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\frac{\\sqrt{95}}{10}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"899d2fbf-54d9-4d31-847d-7e9e6242ee0b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/899d2fbf-54d9-4d31-847d-7e9e6242ee0b\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Про­ве­дем <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var>. Этот от­ре­зок де­лит­ся плос­ко­стью <var data-math-identifier=\"AB\">AB</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> по­по­лам (диа­го­на­ли пря­мо­уголь­ни­ка точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам). На­клон­ные, про­ве­ден­ные из кон­цов дан­но­го от­рез­ка к плос­ко­сти, равны, по­это­му и рас­сто­я­ния от этих этих кон­цов до дан­ной плос­ко­сти равны.</li><li data-list-marker=\"б)\">Ис­ко­мое рас­сто­я­ние равно вы­со­те <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"H\">H</var> тре­уголь­ни­ка <var data-math-identifier=\"AB\">AB</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>. Тре­уголь­ник рав­но­бед­рен­ный, по­сколь­ку <span data-inline-latex=\"B_1A=AC_1=\\sqrt{5}\"></span> . До­пол­ни­тель­но про­ведём вы­со­ту и ме­ди­а­ну <var data-math-identifier=\"AM\">AM</var> Найдём её длину: <span data-inline-latex=\"AM=\\sqrt{B_1A^{2}-B_1M^{2}}=\\sqrt{5-\\frac{1}{4}}=\\frac{\\sqrt{19}}{2}\"></span> . </li></ol><p>Тогда, <span data-inline-latex=\"S_{AB}{}_1C_1=\\frac{1}{2}B_1C_1\\cdot AM=\\frac{1}{2}AC_1\\cdot B_1H\"></span>,  от­ку­да по­лу­ча­ем урав­не­ние  <span data-inline-latex=\"\\frac{\\sqrt{19}}{2}=\\sqrt{5}\\cdot B_1H\"></span>.  Сле­до­ва­тель­но, <span data-inline-latex=\"B_1H=\\frac{\\sqrt{19}}{2\\sqrt{5}}=\\frac{\\sqrt{95}}{10}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "507778",
+      "task": "511491",
+      "context": {
+        "problem_id": "860037b5-ddfd-487d-ba42-1433739584df",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 17,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:51.135719+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/76d30ebb-8f58-4418-a46f-3720c2485640",
+                "html": "<img alt=\"\" data-asset-id=\"76d30ebb-8f58-4418-a46f-3720c2485640\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/76d30ebb-8f58-4418-a46f-3720c2485640\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "76d30ebb-8f58-4418-a46f-3720c2485640",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"76d30ebb-8f58-4418-a46f-3720c2485640\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Про­ве­дем <span data-inline-latex=\"AB_1\"></span>. Этот от­ре­зок де­лит­ся плос­ко­стью <span data-inline-latex=\"BA_1C_1\"></span> по­по­лам (диа­го­на­ли пря­мо­уголь­ни­ка точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам). А по­сколь­ку на­клон­ные, про­ве­ден­ные из кон­цов дан­но­го от­рез­ка к плос­ко­сти равны, то и рас­сто­я­ния от этих кон­цов до дан­ной плос­ко­сти равны.</li><li data-list-marker=\"б)\">Ис­ко­мое рас­сто­я­ние равно вы­со­те <span data-inline-latex=\"A_1H\"></span> тре­уголь­ни­ка <span data-inline-latex=\"A_1BC_1\"></span>. Тре­уголь­ник рав­но­бед­рен­ный, по­сколь­ку <span data-inline-latex=\"A_1B=BC_1=5\"></span>. До­пол­ни­тель­но про­ведём вы­со­ту и ме­ди­а­ну <span data-inline-latex=\"BM\"></span>. Найдём её длину: <span data-inline-latex=\"BM=\\sqrt{A_1B^{2}-A_1M^{2}}=\\sqrt{25-4}=\\sqrt{21}\"></span> . пло­щадь тре­уголь­ни­ка <span data-inline-latex=\"A_1BC_1\"></span> равна  <span data-inline-latex=\"\\frac{1}{2}A_1C_1\\cdot BM=\\frac{1}{2}BC_1\\cdot A_1H\"></span>,  от­ку­да по­лу­ча­ем урав­не­ние <span data-inline-latex=\"2\\sqrt{21}=-\\frac{5}{2}\\cdot A_1H\\cdot\"></span> Сле­до­ва­тель­но, <span data-inline-latex=\"A_1H=\\frac{4}{5}-\\sqrt{21}.\"></span></li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T18:54:51.524350+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><span data-inline-latex=\"\\frac{4\\sqrt{21}}{5}\"></span></p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/76d30ebb-8f58-4418-a46f-3720c2485640",
+              "kind": "ordinary_image",
+              "asset_id": "76d30ebb-8f58-4418-a46f-3720c2485640",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной тре­уголь­ной приз­ме <var data-math-identifier=\"ABCA\">ABCA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> вы­со­та равна 3, а ребро ос­но­ва­ния равно 4. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что точки <var data-math-identifier=\"A\">A</var> и <var data-math-identifier=\"B\">B</var><sub>1</sub> рав­но­уда­ле­ны от плос­ко­сти <var data-math-identifier=\"BA\">BA</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от точки <var data-math-identifier=\"A\">A</var><sub>1</sub> до пря­мой <var data-math-identifier=\"BC\">BC</var><sub>1</sub>.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-inline-latex=\"\\frac{4\\sqrt{21}}{5}\"></span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"76d30ebb-8f58-4418-a46f-3720c2485640\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/76d30ebb-8f58-4418-a46f-3720c2485640\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Про­ве­дем <span data-inline-latex=\"AB_1\"></span>. Этот от­ре­зок де­лит­ся плос­ко­стью <span data-inline-latex=\"BA_1C_1\"></span> по­по­лам (диа­го­на­ли пря­мо­уголь­ни­ка точ­кой пе­ре­се­че­ния де­лят­ся по­по­лам). А по­сколь­ку на­клон­ные, про­ве­ден­ные из кон­цов дан­но­го от­рез­ка к плос­ко­сти равны, то и рас­сто­я­ния от этих кон­цов до дан­ной плос­ко­сти равны.</li><li data-list-marker=\"б)\">Ис­ко­мое рас­сто­я­ние равно вы­со­те <span data-inline-latex=\"A_1H\"></span> тре­уголь­ни­ка <span data-inline-latex=\"A_1BC_1\"></span>. Тре­уголь­ник рав­но­бед­рен­ный, по­сколь­ку <span data-inline-latex=\"A_1B=BC_1=5\"></span>. До­пол­ни­тель­но про­ведём вы­со­ту и ме­ди­а­ну <span data-inline-latex=\"BM\"></span>. Найдём её длину: <span data-inline-latex=\"BM=\\sqrt{A_1B^{2}-A_1M^{2}}=\\sqrt{25-4}=\\sqrt{21}\"></span> . пло­щадь тре­уголь­ни­ка <span data-inline-latex=\"A_1BC_1\"></span> равна  <span data-inline-latex=\"\\frac{1}{2}A_1C_1\\cdot BM=\\frac{1}{2}BC_1\\cdot A_1H\"></span>,  от­ку­да по­лу­ча­ем урав­не­ние <span data-inline-latex=\"2\\sqrt{21}=-\\frac{5}{2}\\cdot A_1H\\cdot\"></span> Сле­до­ва­тель­но, <span data-inline-latex=\"A_1H=\\frac{4}{5}-\\sqrt{21}.\"></span></li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "507778",
+      "task": "507785",
+      "context": {
+        "problem_id": "bc81fe2c-94c0-4b10-a3b8-bc67edde300d",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:19.403734+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/76d30ebb-8f58-4418-a46f-3720c2485640",
+                "html": "<img alt=\"\" data-asset-id=\"76d30ebb-8f58-4418-a46f-3720c2485640\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/76d30ebb-8f58-4418-a46f-3720c2485640\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "76d30ebb-8f58-4418-a46f-3720c2485640",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пра­виль­ной тре­уголь­ной приз­ме <var data-math-identifier=\"ABCA\">ABCA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> вы­со­та равна 1, а ребро ос­но­ва­ния равно 2. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что точки <var data-math-identifier=\"A\">A</var> и <span data-inline-latex=\"B_1\"></span> рав­но­уда­ле­ны от плос­ко­сти <span data-inline-latex=\"A_1BC_1\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от точки <var data-math-identifier=\"A\">A</var><sub>1</sub> до пря­мой <var data-math-identifier=\"BC\">BC</var><sub>1</sub>.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p> <span data-inline-latex=\"\\frac{4\\sqrt{5}}{5}\"></span> . </p>",
+                "title": "Ответ",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"76d30ebb-8f58-4418-a46f-3720c2485640\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">От­ре­зок <span data-inline-latex=\"AB_1\"></span> де­лит­ся плос­ко­стью <span data-inline-latex=\"A_1BC_1\"></span> по­по­лам (так как диа­го­на­ли пря­мо­уголь­ни­ка делят друг друга по­по­лам). Если на­клон­ные, про­ве­ден­ные из точек к плос­ко­сти равны, то равны и рас­сто­я­ния от этих точек до плос­ко­сти. По­это­му <var data-math-identifier=\"A\">A</var> и <span data-inline-latex=\"B_1\"></span> рав­но­уда­ле­ны от плос­ко­сти <span data-inline-latex=\"A_1BC_1\"></span>. </li><li data-list-marker=\"б)\">Ис­ко­мое рас­сто­я­ние равно вы­со­те <span data-inline-latex=\"A_1H\"></span> тре­уголь­ни­ка <span data-inline-latex=\"A_1BC_1\"></span>. Тре­уголь­ник рав­но­бед­рен­ный, по­сколь­ку <span data-inline-latex=\"A_1B=BC_1=\\sqrt{5}\"></span> . До­пол­ни­тель­но про­ведём вы­со­ту и ме­ди­а­ну <span data-inline-latex=\"BM\"></span>. Найдём её длину: <span data-inline-latex=\"BM=\\sqrt{A_1B^{2}-A_1M^{2}}=\\sqrt{5-1}=2\"></span>. Тогда <span data-inline-latex=\"S_A{}_1BC_1=\\frac{1}{2}A_1C_1\\cdot BM=\\frac{1}{2}BC_1\\cdot A_1H\"></span>,  от­ку­да по­лу­ча­ем урав­не­ние <span data-inline-latex=\"2=\\frac{\\sqrt{5}}{2}\\cdot A_1H\"></span>.  Сле­до­ва­тель­но, <span data-inline-latex=\"A_1H=\\frac{4}{\\sqrt{5}}=\\frac{4\\sqrt{5}}{5}\"></span> . </li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T18:50:22.584793+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/76d30ebb-8f58-4418-a46f-3720c2485640",
+              "kind": "ordinary_image",
+              "asset_id": "76d30ebb-8f58-4418-a46f-3720c2485640",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пра­виль­ной тре­уголь­ной приз­ме <var data-math-identifier=\"ABCA\">ABCA</var><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> вы­со­та равна 1, а ребро ос­но­ва­ния равно 2. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что точки <var data-math-identifier=\"A\">A</var> и <span data-inline-latex=\"B_1\"></span> рав­но­уда­ле­ны от плос­ко­сти <span data-inline-latex=\"A_1BC_1\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те рас­сто­я­ние от точки <var data-math-identifier=\"A\">A</var><sub>1</sub> до пря­мой <var data-math-identifier=\"BC\">BC</var><sub>1</sub>.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p> <span data-inline-latex=\"\\frac{4\\sqrt{5}}{5}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"76d30ebb-8f58-4418-a46f-3720c2485640\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/76d30ebb-8f58-4418-a46f-3720c2485640\"/></p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">От­ре­зок <span data-inline-latex=\"AB_1\"></span> де­лит­ся плос­ко­стью <span data-inline-latex=\"A_1BC_1\"></span> по­по­лам (так как диа­го­на­ли пря­мо­уголь­ни­ка делят друг друга по­по­лам). Если на­клон­ные, про­ве­ден­ные из точек к плос­ко­сти равны, то равны и рас­сто­я­ния от этих точек до плос­ко­сти. По­это­му <var data-math-identifier=\"A\">A</var> и <span data-inline-latex=\"B_1\"></span> рав­но­уда­ле­ны от плос­ко­сти <span data-inline-latex=\"A_1BC_1\"></span>. </li><li data-list-marker=\"б)\">Ис­ко­мое рас­сто­я­ние равно вы­со­те <span data-inline-latex=\"A_1H\"></span> тре­уголь­ни­ка <span data-inline-latex=\"A_1BC_1\"></span>. Тре­уголь­ник рав­но­бед­рен­ный, по­сколь­ку <span data-inline-latex=\"A_1B=BC_1=\\sqrt{5}\"></span> . До­пол­ни­тель­но про­ведём вы­со­ту и ме­ди­а­ну <span data-inline-latex=\"BM\"></span>. Найдём её длину: <span data-inline-latex=\"BM=\\sqrt{A_1B^{2}-A_1M^{2}}=\\sqrt{5-1}=2\"></span>. Тогда <span data-inline-latex=\"S_A{}_1BC_1=\\frac{1}{2}A_1C_1\\cdot BM=\\frac{1}{2}BC_1\\cdot A_1H\"></span>,  от­ку­да по­лу­ча­ем урав­не­ние <span data-inline-latex=\"2=\\frac{\\sqrt{5}}{2}\\cdot A_1H\"></span>.  Сле­до­ва­тель­но, <span data-inline-latex=\"A_1H=\\frac{4}{\\sqrt{5}}=\\frac{4\\sqrt{5}}{5}\"></span> . </li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "503000",
+      "task": "503000",
+      "context": {
+        "problem_id": "bbea824e-4ad1-45ef-afaf-b71bb376e9bf",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:19.390410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8a9c6676-fa04-4271-a557-ccf630c55a82",
+                "html": "<img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8a9c6676-fa04-4271-a557-ccf630c55a82\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8a9c6676-fa04-4271-a557-ccf630c55a82",
+                "position": 9,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:16:19.390410+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49c3c8ca-95e7-4db4-80e3-981300897954",
+                "html": "<img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/49c3c8ca-95e7-4db4-80e3-981300897954\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49c3c8ca-95e7-4db4-80e3-981300897954",
+                "position": 10,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Дана пра­виль­ная тре­уголь­ная приз­ма <i>ABCA</i><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, все рёбра ос­но­ва­ния ко­то­рой равны <span data-inline-latex=\"2\\sqrt{7}\"></span> . Се­че­ние, про­хо­дя­щее через бо­ко­вое ребро <i>AA</i><sub>1</sub> и се­ре­ди­ну <var data-math-identifier=\"M\">M</var> ребра <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, яв­ля­ет­ся квад­ра­том. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что рас­сто­я­ние между пря­мы­ми <nobr><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var> и <i>AM</i></nobr> равно длине пер­пен­ди­ку­ля­ра, опу­щен­но­го из цен­тра этого квад­ра­та на пря­мую <span data-inline-latex=\"A_1B\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те это рас­сто­я­ние.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть дан­ное се­че­ние приз­мы  — квад­рат <span data-inline-latex=\"AA_1ML\"></span>. Тогда диа­го­на­ли пер­пен­ди­ку­ляр­ны: <span data-inline-latex=\"AM\\perp A_1L\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AM\\perp BC\"></span>. Сле­до­ва­тель­но, <span data-inline-latex=\"AM\\perp A_1BC\"></span>. От­сю­да сле­ду­ет, что ис­ко­мым рас­сто­я­ни­ем между пря­мы­ми <nobr><span data-inline-latex=\"A_1B\"></span> и <var data-math-identifier=\"AM\">AM</var></nobr> яв­ля­ет­ся длина пер­пен­ди­ку­ля­ра <var data-math-identifier=\"OP\">OP</var>, опу­щен­но­го из точки <var data-math-identifier=\"O\">O</var> пе­ре­се­че­ния диа­го­на­лей квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> на пря­мую <span data-inline-latex=\"A_1B\"></span>, так как <span data-inline-latex=\"OP\\perp A_1B\"></span> и <span data-inline-latex=\"OP\\perp AM\"></span>.<section data-layout=\"media-row\" data-layout-align=\"flex-end\"><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p><nobr>Рис. 1</nobr></p></section><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/><p><nobr>Рис. 2</nobr></p></section></section></li><li data-list-marker=\"б)\">Сто­ро­на квад­ра­та  <span data-inline-latex=\"AA_1ML\"></span> равна вы­со­те тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, то есть <span data-inline-latex=\"AL=\\sqrt{21}\"></span> , а его диа­го­наль <span data-inline-latex=\"A_1L=\\sqrt{42}\"></span> . В рав­но­бед­рен­ном тре­уголь­ни­ке <span data-inline-latex=\"A_1BC\"></span> ос­но­ва­ние <span data-inline-latex=\"BC=2\\sqrt{7}\"></span> , бо­ко­вая сто­ро­на <span data-inline-latex=\"A_1B=7\"></span>. От­сю­да, ис­поль­зуя по­до­бие тре­уголь­ни­ков <span data-inline-latex=\"A_1OP\"></span> и <span data-inline-latex=\"A_1BL\"></span>, найдём <center><p><span data-inline-latex=\"OP=\\frac{A_1O\\cdot LB}{A_1B}=\\frac{A_1L\\cdot BC}{4A_1B}=\\frac{\\sqrt{42}\\cdot 2\\sqrt{7}}{4\\cdot 7}=\\frac{\\sqrt{6}}{2}\"></span> . </p></center></li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1",
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_19"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T18:55:34.798644+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8a9c6676-fa04-4271-a557-ccf630c55a82",
+              "kind": "ordinary_image",
+              "asset_id": "8a9c6676-fa04-4271-a557-ccf630c55a82",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/49c3c8ca-95e7-4db4-80e3-981300897954",
+              "kind": "ordinary_image",
+              "asset_id": "49c3c8ca-95e7-4db4-80e3-981300897954",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дана пра­виль­ная тре­уголь­ная приз­ма <i>ABCA</i><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, все рёбра ос­но­ва­ния ко­то­рой равны <span data-inline-latex=\"2\\sqrt{7}\"></span> . Се­че­ние, про­хо­дя­щее через бо­ко­вое ребро <i>AA</i><sub>1</sub> и се­ре­ди­ну <var data-math-identifier=\"M\">M</var> ребра <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, яв­ля­ет­ся квад­ра­том. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что рас­сто­я­ние между пря­мы­ми <nobr><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var> и <i>AM</i></nobr> равно длине пер­пен­ди­ку­ля­ра, опу­щен­но­го из цен­тра этого квад­ра­та на пря­мую <span data-inline-latex=\"A_1B\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те это рас­сто­я­ние.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть дан­ное се­че­ние приз­мы  — квад­рат <span data-inline-latex=\"AA_1ML\"></span>. Тогда диа­го­на­ли пер­пен­ди­ку­ляр­ны: <span data-inline-latex=\"AM\\perp A_1L\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AM\\perp BC\"></span>. Сле­до­ва­тель­но, <span data-inline-latex=\"AM\\perp A_1BC\"></span>. От­сю­да сле­ду­ет, что ис­ко­мым рас­сто­я­ни­ем между пря­мы­ми <nobr><span data-inline-latex=\"A_1B\"></span> и <var data-math-identifier=\"AM\">AM</var></nobr> яв­ля­ет­ся длина пер­пен­ди­ку­ля­ра <var data-math-identifier=\"OP\">OP</var>, опу­щен­но­го из точки <var data-math-identifier=\"O\">O</var> пе­ре­се­че­ния диа­го­на­лей квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> на пря­мую <span data-inline-latex=\"A_1B\"></span>, так как <span data-inline-latex=\"OP\\perp A_1B\"></span> и <span data-inline-latex=\"OP\\perp AM\"></span>.<section data-layout=\"media-row\" data-layout-align=\"flex-end\"><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8a9c6676-fa04-4271-a557-ccf630c55a82\"/><p><nobr>Рис. 1</nobr></p></section><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/49c3c8ca-95e7-4db4-80e3-981300897954\"/><p><nobr>Рис. 2</nobr></p></section></section></li><li data-list-marker=\"б)\">Сто­ро­на квад­ра­та  <span data-inline-latex=\"AA_1ML\"></span> равна вы­со­те тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, то есть <span data-inline-latex=\"AL=\\sqrt{21}\"></span> , а его диа­го­наль <span data-inline-latex=\"A_1L=\\sqrt{42}\"></span> . В рав­но­бед­рен­ном тре­уголь­ни­ке <span data-inline-latex=\"A_1BC\"></span> ос­но­ва­ние <span data-inline-latex=\"BC=2\\sqrt{7}\"></span> , бо­ко­вая сто­ро­на <span data-inline-latex=\"A_1B=7\"></span>. От­сю­да, ис­поль­зуя по­до­бие тре­уголь­ни­ков <span data-inline-latex=\"A_1OP\"></span> и <span data-inline-latex=\"A_1BL\"></span>, найдём <center><p><span data-inline-latex=\"OP=\\frac{A_1O\\cdot LB}{A_1B}=\\frac{A_1L\\cdot BC}{4A_1B}=\\frac{\\sqrt{42}\\cdot 2\\sqrt{7}}{4\\cdot 7}=\\frac{\\sqrt{6}}{2}\"></span> . </p></center></li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1",
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "503000",
+      "task": "503128",
+      "context": {
+        "problem_id": "8a4bdee9-5a7e-4f8f-9a29-0e067770b31b",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:13:59.844110+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8a9c6676-fa04-4271-a557-ccf630c55a82",
+                "html": "<img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8a9c6676-fa04-4271-a557-ccf630c55a82\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8a9c6676-fa04-4271-a557-ccf630c55a82",
+                "position": 9,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:13:59.844110+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49c3c8ca-95e7-4db4-80e3-981300897954",
+                "html": "<img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/49c3c8ca-95e7-4db4-80e3-981300897954\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49c3c8ca-95e7-4db4-80e3-981300897954",
+                "position": 10,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Дана пра­виль­ная тре­уголь­ная приз­ма <i>ABCA</i><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, все ребра ос­но­ва­ния ко­то­рой равны 2. Се­че­ние, про­хо­дя­щее через бо­ко­вое ребро <i>AA</i><sub>1</sub> и се­ре­ди­ну <var data-math-identifier=\"M\">M</var> ребра <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, яв­ля­ет­ся квад­ра­том. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что рас­сто­я­ние между пря­мы­ми <nobr><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var> и <i>AM</i></nobr> равно длине пер­пен­ди­ку­ля­ра, опу­щен­но­го из цен­тра этого квад­ра­та на пря­мую <span data-inline-latex=\"A_1B\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те это рас­сто­я­ние.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть дан­ное се­че­ние приз­мы  — квад­рат <span data-inline-latex=\"AA_1ML\"></span>. Тогда диа­го­на­ли пер­пен­ди­ку­ляр­ны: <span data-inline-latex=\"AM\\perp A_1L\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AM\\perp BC\"></span>. Сле­до­ва­тель­но, <span data-inline-latex=\"AM\\perp A_1BC\"></span>. От­сю­да сле­ду­ет, что ис­ко­мым рас­сто­я­ни­ем между пря­мы­ми <nobr><span data-inline-latex=\"A_1B\"></span> и <var data-math-identifier=\"AM\">AM</var></nobr> яв­ля­ет­ся длина пер­пен­ди­ку­ля­ра <var data-math-identifier=\"OP\">OP</var>, опу­щен­но­го из точки <var data-math-identifier=\"O\">O</var> пе­ре­се­че­ния диа­го­на­лей квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> на пря­мую <span data-inline-latex=\"A_1B\"></span>, так как <span data-inline-latex=\"OP\\perp A_1B\"></span> и <span data-inline-latex=\"OP\\perp AM\"></span>.<section data-layout=\"media-row\" data-layout-align=\"flex-end\"><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p><nobr>Рис. 1</nobr></p></section><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/><p><nobr>Рис. 2</nobr></p></section></section></li><li data-list-marker=\"б)\">Сто­ро­на квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> равна вы­со­те тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, то есть <span data-inline-latex=\"AL=\\sqrt{3}\"></span> , а его диа­го­наль <span data-inline-latex=\"A_1L=\\sqrt{6}\"></span> . В рав­но­бед­рен­ном тре­уголь­ни­ке <span data-inline-latex=\"A_1BC\"></span> ос­но­ва­ние <span data-inline-latex=\"BC=2\"></span>, бо­ко­вая сто­ро­на <span data-inline-latex=\"A_1B=\\sqrt{7}\"></span> . От­сю­да, ис­поль­зуя по­до­бие тре­уголь­ни­ков <span data-inline-latex=\"A_1OP\"></span> и <span data-inline-latex=\"A_1BL\"></span>, найдём <center><p><span data-inline-latex=\"OP=\\frac{A_1O\\cdot LB}{A_1B}=\\frac{A_1L\\cdot BC}{4A_1B}=\\frac{\\sqrt{6}}{2\\sqrt{7}}\"></span> . </p></center></li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1",
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T18:52:42.029609+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8a9c6676-fa04-4271-a557-ccf630c55a82",
+              "kind": "ordinary_image",
+              "asset_id": "8a9c6676-fa04-4271-a557-ccf630c55a82",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/49c3c8ca-95e7-4db4-80e3-981300897954",
+              "kind": "ordinary_image",
+              "asset_id": "49c3c8ca-95e7-4db4-80e3-981300897954",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дана пра­виль­ная тре­уголь­ная приз­ма <i>ABCA</i><sub>1</sub><var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, все ребра ос­но­ва­ния ко­то­рой равны 2. Се­че­ние, про­хо­дя­щее через бо­ко­вое ребро <i>AA</i><sub>1</sub> и се­ре­ди­ну <var data-math-identifier=\"M\">M</var> ребра <var data-math-identifier=\"B\">B</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>, яв­ля­ет­ся квад­ра­том. </p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что рас­сто­я­ние между пря­мы­ми <nobr><var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var> и <i>AM</i></nobr> равно длине пер­пен­ди­ку­ля­ра, опу­щен­но­го из цен­тра этого квад­ра­та на пря­мую <span data-inline-latex=\"A_1B\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те это рас­сто­я­ние.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть дан­ное се­че­ние приз­мы  — квад­рат <span data-inline-latex=\"AA_1ML\"></span>. Тогда диа­го­на­ли пер­пен­ди­ку­ляр­ны: <span data-inline-latex=\"AM\\perp A_1L\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AM\\perp BC\"></span>. Сле­до­ва­тель­но, <span data-inline-latex=\"AM\\perp A_1BC\"></span>. От­сю­да сле­ду­ет, что ис­ко­мым рас­сто­я­ни­ем между пря­мы­ми <nobr><span data-inline-latex=\"A_1B\"></span> и <var data-math-identifier=\"AM\">AM</var></nobr> яв­ля­ет­ся длина пер­пен­ди­ку­ля­ра <var data-math-identifier=\"OP\">OP</var>, опу­щен­но­го из точки <var data-math-identifier=\"O\">O</var> пе­ре­се­че­ния диа­го­на­лей квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> на пря­мую <span data-inline-latex=\"A_1B\"></span>, так как <span data-inline-latex=\"OP\\perp A_1B\"></span> и <span data-inline-latex=\"OP\\perp AM\"></span>.<section data-layout=\"media-row\" data-layout-align=\"flex-end\"><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8a9c6676-fa04-4271-a557-ccf630c55a82\"/><p><nobr>Рис. 1</nobr></p></section><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/49c3c8ca-95e7-4db4-80e3-981300897954\"/><p><nobr>Рис. 2</nobr></p></section></section></li><li data-list-marker=\"б)\">Сто­ро­на квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> равна вы­со­те тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, то есть <span data-inline-latex=\"AL=\\sqrt{3}\"></span> , а его диа­го­наль <span data-inline-latex=\"A_1L=\\sqrt{6}\"></span> . В рав­но­бед­рен­ном тре­уголь­ни­ке <span data-inline-latex=\"A_1BC\"></span> ос­но­ва­ние <span data-inline-latex=\"BC=2\"></span>, бо­ко­вая сто­ро­на <span data-inline-latex=\"A_1B=\\sqrt{7}\"></span> . От­сю­да, ис­поль­зуя по­до­бие тре­уголь­ни­ков <span data-inline-latex=\"A_1OP\"></span> и <span data-inline-latex=\"A_1BL\"></span>, найдём <center><p><span data-inline-latex=\"OP=\\frac{A_1O\\cdot LB}{A_1B}=\\frac{A_1L\\cdot BC}{4A_1B}=\\frac{\\sqrt{6}}{2\\sqrt{7}}\"></span> . </p></center></li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1",
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "503000",
+      "task": "511380",
+      "context": {
+        "problem_id": "e2acac16-f423-4546-a23b-6293441c35bd",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 15,
+          "items": [
+            {
+              "at": "2026-08-27T10:16:13.699196+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/8a9c6676-fa04-4271-a557-ccf630c55a82",
+                "html": "<img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8a9c6676-fa04-4271-a557-ccf630c55a82\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "8a9c6676-fa04-4271-a557-ccf630c55a82",
+                "position": 9,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-08-27T10:16:13.699196+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/49c3c8ca-95e7-4db4-80e3-981300897954",
+                "html": "<img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/49c3c8ca-95e7-4db4-80e3-981300897954\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "49c3c8ca-95e7-4db4-80e3-981300897954",
+                "position": 10,
+                "asset_key": "image_2",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_2"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>Дана пра­виль­ная тре­уголь­ная приз­ма <span data-inline-latex=\"ABCA_1B_1C_1\"></span>, все рёбра ос­но­ва­ния ко­то­рой равны <span data-inline-latex=\"2\\sqrt{5}\"></span> . Се­че­ние, про­хо­дя­щее через бо­ко­вое ребро <span data-inline-latex=\"AA_1\"></span> и се­ре­ди­ну <var data-math-identifier=\"M\">M</var> ребра <span data-inline-latex=\"B_1C_1\"></span>, яв­ля­ет­ся квад­ра­том.</p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что рас­сто­я­ние между пря­мы­ми <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var> и <i>AM</i> равно длине пер­пен­ди­ку­ля­ра, опу­щен­но­го из цен­тра этого квад­ра­та на пря­мую <span data-inline-latex=\"A_1B\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те это рас­сто­я­ние.</li></ol>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть дан­ное се­че­ние приз­мы  — квад­рат <span data-inline-latex=\"AA_1ML\"></span>. Тогда диа­го­на­ли пер­пен­ди­ку­ляр­ны: <span data-inline-latex=\"AM\\perp A_1L\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AM\\perp BC\"></span>. Сле­до­ва­тель­но, <span data-inline-latex=\"AM\\perp A_1BC\"></span>. От­сю­да сле­ду­ет, что ис­ко­мым рас­сто­я­ни­ем между пря­мы­ми <span data-inline-latex=\"A_1B\"></span> и <var data-math-identifier=\"AM\">AM</var> яв­ля­ет­ся длина пер­пен­ди­ку­ля­ра <var data-math-identifier=\"OP\">OP</var>, опу­щен­но­го из точки <var data-math-identifier=\"O\">O</var> пе­ре­се­че­ния диа­го­на­лей квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> на пря­мую <span data-inline-latex=\"A_1B\"></span>, так как <span data-inline-latex=\"OP\\perp A_1B\"></span> и <span data-inline-latex=\"OP\\perp AM\"></span>.<section data-layout=\"media-row\" data-layout-align=\"flex-end\"><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p><nobr>Рис. 1</nobr></p></section><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/><p><nobr>Рис. 2</nobr></p></section></section></li><li data-list-marker=\"б)\">Сто­ро­на квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> равна вы­со­те тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, то есть <span data-inline-latex=\"AL=\\sqrt{15}\"></span> , а его диа­го­наль <span data-inline-latex=\"A_1L=\\sqrt{30}\"></span> . В рав­но­бед­рен­ном тре­уголь­ни­ке <span data-inline-latex=\"A_1BC\"></span> ос­но­ва­ние <span data-inline-latex=\"BC=2\\sqrt{5}\"></span> , бо­ко­вая сто­ро­на <span data-inline-latex=\"A_1B=\\sqrt{35}.\"></span> От­сю­да, ис­поль­зуя по­до­бие тре­уголь­ни­ков <span data-inline-latex=\"A_1OP\"></span> и <span data-inline-latex=\"A_1BL\"></span>, найдём <center><p><span data-inline-latex=\"OP=\\frac{A_1O\\cdot LB}{A_1B}=\\frac{A_1L\\cdot BC}{4A_1B}=\\frac{\\sqrt{30}\\cdot 2\\sqrt{5}}{4\\cdot\\sqrt{35}}=\\frac{\\sqrt{30}}{2\\sqrt{7}}.\"></span></p></center></li></ol>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1",
+                  "image_2"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_10"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_11"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_12"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_13"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_14"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_15"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_16"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_17"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_18"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_20"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_21"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_8"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_9"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_19"
+            },
+            {
+              "at": "2026-10-02T18:56:56.990587+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_22"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/8a9c6676-fa04-4271-a557-ccf630c55a82",
+              "kind": "ordinary_image",
+              "asset_id": "8a9c6676-fa04-4271-a557-ccf630c55a82",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "alt": "",
+              "url": "/assets/49c3c8ca-95e7-4db4-80e3-981300897954",
+              "kind": "ordinary_image",
+              "asset_id": "49c3c8ca-95e7-4db4-80e3-981300897954",
+              "asset_key": "image_2",
+              "transformation_target_id": "asset:image_2"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>Дана пра­виль­ная тре­уголь­ная приз­ма <span data-inline-latex=\"ABCA_1B_1C_1\"></span>, все рёбра ос­но­ва­ния ко­то­рой равны <span data-inline-latex=\"2\\sqrt{5}\"></span> . Се­че­ние, про­хо­дя­щее через бо­ко­вое ребро <span data-inline-latex=\"AA_1\"></span> и се­ре­ди­ну <var data-math-identifier=\"M\">M</var> ребра <span data-inline-latex=\"B_1C_1\"></span>, яв­ля­ет­ся квад­ра­том.</p><ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">До­ка­жи­те, что рас­сто­я­ние между пря­мы­ми <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"B\">B</var> и <i>AM</i> равно длине пер­пен­ди­ку­ля­ра, опу­щен­но­го из цен­тра этого квад­ра­та на пря­мую <span data-inline-latex=\"A_1B\"></span>.</li><li data-list-marker=\"б)\">Най­ди­те это рас­сто­я­ние.</li></ol>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "criteria",
+              "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б)</td><td data-align=\"center\" data-valign=\"middle\">3</td></tr><tr><td data-align=\"left\">По­лу­чен обос­но­ван­ный ответ в пунк­те б)<p>ИЛИ</p><p>име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а), и при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки</p></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Име­ет­ся вер­ное до­ка­за­тель­ство утвер­жде­ния пунк­та а),<p>ИЛИ</p><p>при обос­но­ван­ном ре­ше­нии пунк­та б) по­лу­чен не­вер­ный ответ из-за ариф­ме­ти­че­ской ошиб­ки,</p><p>ИЛИ</p><p>обос­но­ван­но по­лу­чен вер­ный ответ в пунк­те б) с ис­поль­зо­ва­ни­ем утвер­жде­ния пунк­та а), при этом пункт а) не вы­пол­нен</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, при­ведённых выше</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">3</td></tr></tbody></table>",
+              "title": "Критерии проверки",
+              "asset_keys": [],
+              "section_id": "criteria:1",
+              "transformation_target_id": "section:criteria:1"
+            },
+            {
+              "key": "solution",
+              "html": "<ol data-layout=\"source-subparts\" type=\"a\"><li data-list-marker=\"а)\">Пусть дан­ное се­че­ние приз­мы  — квад­рат <span data-inline-latex=\"AA_1ML\"></span>. Тогда диа­го­на­ли пер­пен­ди­ку­ляр­ны: <span data-inline-latex=\"AM\\perp A_1L\"></span>, а по тео­ре­ме о трёх пер­пен­ди­ку­ля­рах <span data-inline-latex=\"AM\\perp BC\"></span>. Сле­до­ва­тель­но, <span data-inline-latex=\"AM\\perp A_1BC\"></span>. От­сю­да сле­ду­ет, что ис­ко­мым рас­сто­я­ни­ем между пря­мы­ми <span data-inline-latex=\"A_1B\"></span> и <var data-math-identifier=\"AM\">AM</var> яв­ля­ет­ся длина пер­пен­ди­ку­ля­ра <var data-math-identifier=\"OP\">OP</var>, опу­щен­но­го из точки <var data-math-identifier=\"O\">O</var> пе­ре­се­че­ния диа­го­на­лей квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> на пря­мую <span data-inline-latex=\"A_1B\"></span>, так как <span data-inline-latex=\"OP\\perp A_1B\"></span> и <span data-inline-latex=\"OP\\perp AM\"></span>.<section data-layout=\"media-row\" data-layout-align=\"flex-end\"><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"8a9c6676-fa04-4271-a557-ccf630c55a82\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/8a9c6676-fa04-4271-a557-ccf630c55a82\"/><p><nobr>Рис. 1</nobr></p></section><section data-layout=\"media-item\"><img alt=\"\" data-asset-id=\"49c3c8ca-95e7-4db4-80e3-981300897954\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/49c3c8ca-95e7-4db4-80e3-981300897954\"/><p><nobr>Рис. 2</nobr></p></section></section></li><li data-list-marker=\"б)\">Сто­ро­на квад­ра­та <span data-inline-latex=\"AA_1ML\"></span> равна вы­со­те тре­уголь­ни­ка <var data-math-identifier=\"ABC\">ABC</var>, то есть <span data-inline-latex=\"AL=\\sqrt{15}\"></span> , а его диа­го­наль <span data-inline-latex=\"A_1L=\\sqrt{30}\"></span> . В рав­но­бед­рен­ном тре­уголь­ни­ке <span data-inline-latex=\"A_1BC\"></span> ос­но­ва­ние <span data-inline-latex=\"BC=2\\sqrt{5}\"></span> , бо­ко­вая сто­ро­на <span data-inline-latex=\"A_1B=\\sqrt{35}.\"></span> От­сю­да, ис­поль­зуя по­до­бие тре­уголь­ни­ков <span data-inline-latex=\"A_1OP\"></span> и <span data-inline-latex=\"A_1BL\"></span>, найдём <center><p><span data-inline-latex=\"OP=\\frac{A_1O\\cdot LB}{A_1B}=\\frac{A_1L\\cdot BC}{4A_1B}=\\frac{\\sqrt{30}\\cdot 2\\sqrt{5}}{4\\cdot\\sqrt{35}}=\\frac{\\sqrt{30}}{2\\sqrt{7}}.\"></span></p></center></li></ol>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1",
+                "image_2"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

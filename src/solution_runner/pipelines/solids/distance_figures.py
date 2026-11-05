@@ -66,10 +66,10 @@ def _read(context):
     model = read_question(str(soup), source)
     for key, a in assets.items():
         allowed = (
-            {"image_1", "image_2"}
-            if model.mode == "pyramid_skew_midpoint"
-            else {"image_1", SOLUTION}
+            {slot for _, slot, _ in ROLES[model.mode]} if model.mode in MODES else set()
         )
+        if model.mode in spatial_distance_sources.GENERATED_MODES:
+            allowed.add(SOLUTION)
         if model.mode in MODES and (key not in allowed or owners[key] != "solution"):
             raise ContentPlanError(
                 "the proof-only spatial diagrams belong to the solution"
@@ -121,7 +121,16 @@ def selection(context):
             raise ContentPlanError("duplicate spatial figures have the same role")
         old = current[0] if current else None
         candidates = (
-            ([old["asset_id"]] if old and old["asset_id"] in FIGURES else [])
+            (
+                [old["asset_id"]]
+                if old
+                and (
+                    old["asset_id"] in FIGURES
+                    or m.mode in MODES
+                    and old["asset_id"] in MODE_SOURCES[m.mode]
+                )
+                else []
+            )
             + [a["asset_id"] for a in assets.values() if a["asset_id"] in FIGURES]
             + [base]
             + list(MODE_SOURCES[m.mode])

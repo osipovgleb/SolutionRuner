@@ -107,6 +107,10 @@ def scene_projection(m, meta):
 
 
 def render(m):
+    if m.mode != "box_altitude_comparison":
+        from . import spatial_metric_svg
+
+        return spatial_metric_svg.render(m)
     meta = template()
     root = ET.fromstring(source_bytes(meta["source"]))
     groups = [g for g in root.findall(_tag("g")) if list(g.iter(_tag("path")))]
