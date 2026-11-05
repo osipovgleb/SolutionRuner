@@ -183,6 +183,8 @@ def render(m, pictures):
         pyramid_vertical_cut_model,
         pyramid_vertical_cut_proof,
         reflected_section_proofs,
+        right_pyramid_cut_model,
+        right_pyramid_cut_proof,
         spatial_altitude_model,
         spatial_altitude_proofs,
         spatial_metric_model,
@@ -193,6 +195,8 @@ def render(m, pictures):
         spatial_section_proofs,
     )
 
+    if m.mode in right_pyramid_cut_model.MODES:
+        return right_pyramid_cut_proof.render(m, pictures)
     if m.mode in pyramid_vertical_cut_model.MODES:
         return pyramid_vertical_cut_proof.render(m, pictures)
     if m.mode in pyramid_perpendicular_section_model.MODES:

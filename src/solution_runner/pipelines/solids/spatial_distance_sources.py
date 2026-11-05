@@ -4,10 +4,13 @@ import json
 from dataclasses import replace
 from importlib.resources import files
 
+import sympy as sp
+
 DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-right-pyramid-edge-point-section": "right_triangle_pyramid_cut_area",
     "solid-square-pyramid-vertical-vertex-section": "square_vertical_vertex_area",
     "solid-square-pyramid-adjacent-midpoint-section": "square_adjacent_midpoint_area",
     "solid-triangle-pyramid-vertical-midsection": "triangle_vertical_section_area",
@@ -79,6 +82,9 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    "right_triangle_pyramid_cut_area": (
+        ("solution", "image_1", "a94b39f0-a763-427c-b5f5-48bfafb3d3d6"),
+    ),
     "square_vertical_vertex_area": (
         ("solution", "image_1", "29df316f-7cb6-4aa0-b1f8-f0e5cc489697"),
     ),
@@ -199,6 +205,14 @@ def compatible(model, source, role, slot):
         return False
     if entry.get("reusable") is False:
         return False
+    if (
+        "equal_lengths" in entry
+        and sp.simplify(
+            model.q[entry["equal_lengths"][0]] - model.q[entry["equal_lengths"][1]]
+        )
+        != 0
+    ):
+        return False
     if entry.get("top_foot") and not (0 < model.q["foot"] < 1):
         return False
     if "names_prefix" in entry and entry["names_prefix"] != list(
@@ -241,6 +255,14 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if model.mode == "right_triangle_pyramid_cut_area":
+        if model.names[0] == "A":
+            return (("solution", "image_1", "464b6896-fc0d-48f4-9559-37592ae5c2f1"),)
+        if model.names[1] == "F":
+            return (
+                ("solution", "image_1", "5a48ce74-492a-4a7e-b6cc-27f9cde8f02f"),
+                ("solution", "image_2", "fb9cfe5f-aff1-440f-90c3-fa43f0ff034a"),
+            )
     if (
         model.mode == "square_vertical_vertex_area"
         and model.symbols.get("method") == "coincident_feet"
