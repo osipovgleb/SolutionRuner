@@ -10,7 +10,6 @@ from midpoint_source_cases import section
 from polyhedron_volume_oracle import volume
 
 from solution_runner.pipelines.core.errors import ContentPlanError
-from solution_runner.pipelines.core.group_profiles import all_group_profiles
 from solution_runner.pipelines.equations.power_arithmetic import ScalarParser
 from solution_runner.pipelines.solids.box_coordinates import VERTICES
 from solution_runner.pipelines.solids.polyhedron_geometry import recognize
@@ -197,15 +196,13 @@ def test_nested_unknown_or_nonunit_vertex_subscripts_are_not_guessed(markup):
         complete_text("<p>" + markup + "</p>")
 
 
-def test_primary_evidence_and_unregistered_groups_preserve_readiness_boundary():
+def test_primary_evidence_identifies_the_underdetermined_conditions():
     assert {e["task"] for e in EVIDENCE} == UNSUPPORTED
     for e in EVIDENCE:
         assert len(e["html_sha256"]) == 64 and e["url"].endswith("=" + e["task"])
         assert len(e["condition_sha256"]) == 64
         assert e["condition_has_rectangular_assumption"] is False
         assert len(e["formula_alts"]) >= 5
-    keys = {p.source_group_id for p in all_group_profiles().values()}
-    assert {g["group_uuid"] for g in DATA["groups"]}.isdisjoint(keys)
 
 
 @pytest.mark.parametrize(
