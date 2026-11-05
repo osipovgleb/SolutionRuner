@@ -57,14 +57,18 @@ def _inside(box, p):
     return all(a <= v < b for a, b, v in zip(box.lower, box.upper, p))
 
 
-def _grid(additions, cutouts):
-    boxes = additions + cutouts
+def cell_axes(boxes):
     axes = tuple(
         tuple(sorted({b.lower[i] for b in boxes} | {b.upper[i] for b in boxes}))
         for i in range(3)
     )
     if sp.prod(len(axis) - 1 for axis in axes) > 4096:
         raise ContentPlanError("the orthogonal diagram exceeds the reviewed cell bound")
+    return axes
+
+
+def _grid(additions, cutouts):
+    axes = cell_axes(additions + cutouts)
     cells = set()
     for index in product(*(range(len(axis) - 1) for axis in axes)):
         p = tuple(axes[i][j] for i, j in enumerate(index))
@@ -146,3 +150,20 @@ class OrthogonalSolid:
                 ):
                     return True
         return False
+
+    def equivalent(self, other):
+        if not isinstance(other, OrthogonalSolid):
+            raise ContentPlanError("two complete orthogonal solids are required")
+        axes = cell_axes(
+            self.additions + self.cutouts + other.additions + other.cutouts
+        )
+        for index in product(*(range(len(axis) - 1) for axis in axes)):
+            p = tuple(axes[i][j] for i, j in enumerate(index))
+            occupied = tuple(
+                any(_inside(b, p) for b in body.additions)
+                and not any(_inside(b, p) for b in body.cutouts)
+                for body in (self, other)
+            )
+            if occupied[0] != occupied[1]:
+                return False
+        return True

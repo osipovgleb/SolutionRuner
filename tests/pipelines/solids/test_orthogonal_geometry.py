@@ -227,3 +227,12 @@ def test_three_surface_sum_in_parent_77157_requires_hidden_central_block_cancell
     upper, front, side = box((6, 2, 4)), box((6, 1, 2)), box((2, 2, 2))
     assert solid.surface == upper.surface + front.surface + side.surface
     assert solid.volume != upper.volume + front.volume + side.volume
+
+
+def test_equal_volume_does_not_prove_the_same_geometric_region():
+    whole = OrthogonalSolid((box((4, 3, 2)),))
+    split = OrthogonalSolid((box((1, 3, 2)), box((3, 3, 2), (1, 0, 0))))
+    other = OrthogonalSolid((box((4, 3, 2), (1, 0, 0)),))
+    assert whole.equivalent(split) and split.equivalent(whole)
+    assert whole.volume == other.volume and whole.surface == other.surface
+    assert not whole.equivalent(other)

@@ -8,6 +8,7 @@ from .cone_profiles import PROFILES as CONE_PROFILES
 from .cylinder_profiles import PROFILES as CYLINDER_PROFILES
 from .distance_profiles import PROFILES as DISTANCE_PROFILES
 from .line_angle_profiles import PROFILES as LINE_ANGLE_PROFILES
+from .orthogonal_profiles import PROFILES as ORTHOGONAL_PROFILES
 from .polyhedron_profiles import PROFILES as POLYHEDRON_PROFILES
 from .prism_profiles import PROFILES as PRISM_PROFILES
 from .pyramid_profiles import PROFILES as PYRAMID_PROFILES
@@ -113,3 +114,5 @@ PROFILES += PRISM_PROFILES
 PROFILES += PYRAMID_PROFILES
 
 PROFILES += COMBINED_PROFILES
+
+PROFILES += ORTHOGONAL_PROFILES
