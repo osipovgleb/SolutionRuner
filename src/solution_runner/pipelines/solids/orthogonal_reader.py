@@ -1,4 +1,4 @@
-"""Read complete numeric-diagram volume questions before constructing the solid."""
+"""Read complete numeric-diagram questions before constructing the solid."""
 
 import re
 
@@ -8,17 +8,20 @@ from .orthogonal_sources import DATA, source_bytes
 from .prism_input import text
 
 
-def read(html, source):
+def read(html, source, *, quantity="volume"):
+    if quantity not in {"volume", "surface"}:
+        raise ContentPlanError("an explicit reviewed solid quantity is required")
+    target = "объем" if quantity == "volume" else "площадь поверхности"
     raw = text(html, source)
     if (
         re.fullmatch(
-            r"Найдите объем многогранника, изображенного на рисунке \(все двугранные углы (?:многогранника )?прямые\)\.",
+            rf"Найдите {target} многогранника, изображенного на рисунке \(все двугранные углы (?:многогранника )?прямые\)\.",
             raw,
         )
         is None
     ):
         raise ContentPlanError(
-            "one complete reviewed orthogonal volume question is required"
+            "one complete reviewed orthogonal quantity question is required"
         )
     source_bytes(source)
     review = DATA["figures"][source]

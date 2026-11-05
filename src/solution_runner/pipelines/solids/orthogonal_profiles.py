@@ -1,6 +1,7 @@
 """Explicit bindings for reviewed orthogonal-polyhedron volume methods."""
 
 from ..core.profile_definitions import _profile
+from .orthogonal_surface_profiles import PROFILES as SURFACE_PROFILES
 
 PROFILES = tuple(
     _profile(
@@ -111,3 +112,6 @@ PROFILES = tuple(
         ),
     )
 )
+
+
+PROFILES += SURFACE_PROFILES

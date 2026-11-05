@@ -6,7 +6,7 @@ from ..core.errors import ContentPlanError
 from ..quadrilaterals.quantity_content import read_content
 from ..triangles.isosceles.planner import _section
 from .orthogonal_reader import read
-from .orthogonal_sources import RULES
+from .orthogonal_sources import DATA, RULES
 
 
 def selection(context, rule):
@@ -19,7 +19,9 @@ def selection(context, rule):
         raise ContentPlanError(
             "the numerical solid requires its original condition drawing"
         )
-    model, kind = read(condition["html"], images[0]["data-asset-id"])
+    model, kind = read(
+        condition["html"], images[0]["data-asset-id"], quantity=DATA["quantities"][rule]
+    )
     if RULES.get(rule) != kind:
         raise ContentPlanError(
             "the diagram differs from the parent's reviewed solid topology"
