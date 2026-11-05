@@ -17,7 +17,10 @@ def _inline(soup, tag, value):
     tag.replace_with(span)
 
 
-def text(html, source=None):
+def text(html, source=None, *, labels="ABCDEF"):
+    alphabet = re.escape(labels)
+    vertex = rf"[{alphabet}](?:_1)?"
+    label_pattern = rf"{vertex}(?:\s*,?\s*{vertex})*"
     if not isinstance(html, str):
         raise ContentPlanError("complete prism condition HTML is required")
     soup = BeautifulSoup(html, "html.parser")
@@ -53,8 +56,8 @@ def text(html, source=None):
             sub.replace_with("_1")
         label = tag.get_text().translate(LETTERS)
         if not (
-            re.fullmatch(r"[A-F_1]+", label)
-            or re.fullmatch(r"[A-F](?:_1)?(?:\s*,?\s*[A-F](?:_1)?)*", label)
+            re.fullmatch(rf"[{alphabet}_1]+", label)
+            or re.fullmatch(label_pattern, label)
         ):
             raise ContentPlanError("the prism vertex label needs review")
         _inline(soup, tag, label)
@@ -64,7 +67,7 @@ def text(html, source=None):
             tag.find(True)
             or set(tag.attrs) != {"data-math-identifier"}
             or tag["data-math-identifier"] != tag.get_text()
-            or not re.fullmatch("[A-F]+", label)
+            or not re.fullmatch(rf"[{alphabet}]+", label)
         ):
             raise ContentPlanError("the typed prism identifier changed")
         _inline(soup, tag, label)
@@ -78,10 +81,8 @@ def text(html, source=None):
             or sub.get_text() != "1"
             or not getattr(previous, "attrs", None)
             or set(previous.attrs) != {"data-inline-latex"}
-            or not re.fullmatch(
-                r"[A-F](?:_1)?(?:\s*,?\s*[A-F](?:_1)?)*", previous["data-inline-latex"]
-            )
-            or not previous["data-inline-latex"].endswith(tuple("ABCDEF"))
+            or not re.fullmatch(label_pattern, previous["data-inline-latex"])
+            or not previous["data-inline-latex"].endswith(tuple(labels))
         ):
             raise ContentPlanError(
                 "only a canonical adjacent vertex subscript one is supported"
@@ -89,7 +90,7 @@ def text(html, source=None):
         previous["data-inline-latex"] += "_1"
         sub.decompose()
     try:
-        raw = _text(str(soup), source, labels="ABCDEF").replace("ё", "е")
+        raw = _text(str(soup), source, labels=labels).replace("ё", "е")
     except AltitudeSolveError as exc:
         raise ContentPlanError(str(exc)) from exc
     raw = (
@@ -98,5 +99,5 @@ def text(html, source=None):
         .replace(r"\,", " ")
         .replace("_{1}", "_1")
     )
-    raw = re.sub(r"(?<=[A-F1])\s+(?=[A-F])", "", raw)
+    raw = re.sub(rf"(?<=[{alphabet}1])\s+(?=[{alphabet}])", "", raw)
     return re.sub(r"\s+([.,;:])", r"\1", raw).replace("пло-щадь", "площадь")

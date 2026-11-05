@@ -11,6 +11,7 @@ from .distance_sources import PARENTS as DISTANCES
 from .line_angle_sources import PARENTS as LINE_ANGLES
 from .polyhedron_sources import PARENTS as POLYHEDRA
 from .prism_sources import PARENTS as PRISMS
+from .pyramid_sources import PARENTS as PYRAMIDS
 from .sphere_sources import PARENTS as SPHERES
 from .vertex_angle_sources import PARENTS as VERTEX_ANGLES
 
@@ -74,6 +75,11 @@ HANDLERS = tuple(
             MIDPOINTS,
             "solution_runner.pipelines.solids.box_midpoint_parent:prepare",
             "solution_runner.pipelines.solids.box_midpoint_figures:diagram_specs",
+        ),
+        (
+            PYRAMIDS,
+            "solution_runner.pipelines.solids.pyramid_parent:prepare",
+            "solution_runner.pipelines.solids.pyramid_figures:diagram_specs",
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
         (SPHERES, "solution_runner.pipelines.solids.sphere_parent:prepare", None),
