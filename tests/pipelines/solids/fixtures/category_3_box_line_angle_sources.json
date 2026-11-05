@@ -1,0 +1,490 @@
+{
+  "catalog_snapshot_id": "41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+  "groups": [
+    {
+      "key": "318474",
+      "group_uuid": "5d238889-2697-4a55-8c31-700eef058a4e",
+      "rule": "solid-box-line-sine",
+      "sample_tasks": [
+        "318477",
+        "318479",
+        "318481"
+      ],
+      "size": 50
+    }
+  ],
+  "cases": [
+    {
+      "group": "318474",
+      "task": "318474",
+      "context": {
+        "problem_id": "87d95dd2-06aa-45cc-acf1-8d9925e6f237",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 9,
+          "items": [
+            {
+              "at": "2026-08-27T10:12:03.468137+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "assets"
+              },
+              "value": {
+                "alt": "",
+                "url": "/assets/0b5fae13-db30-4836-b432-228dddd1eb62",
+                "html": "<img alt=\"\" data-asset-id=\"0b5fae13-db30-4836-b432-228dddd1eb62\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0b5fae13-db30-4836-b432-228dddd1eb62\"/>",
+                "kind": "ordinary_image",
+                "asset_id": "0b5fae13-db30-4836-b432-228dddd1eb62",
+                "position": 0,
+                "asset_key": "image_1",
+                "parent_target_id": "section:solution:1"
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "asset:image_1"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=8\"></span>, <span data-inline-latex=\"AD=6\"></span>, <span data-inline-latex=\"AA_1=21\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p><img alt=\"\" data-asset-id=\"0b5fae13-db30-4836-b432-228dddd1eb62\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>От­рез­ки <var data-math-identifier=\"D\">D</var><var data-math-identifier=\"C\">C</var>  и <var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> лежат на па­рал­лель­ных пря­мых, по­это­му ис­ко­мый угол между пря­мы­ми <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> и  <var data-math-identifier=\"D\">D</var><var data-math-identifier=\"C\">C</var> равен углу между пря­мы­ми <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> и  <var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>.</p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> по­лу­ча­ем:</p><center><p><span data-inline-latex=\"A_1C_1=\\sqrt{(D_1C_1)^{2}+(A_1D_1)^{2}}=\\sqrt{64+36}=10\"></span>.</p></center><p>Тогда для угла <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> имеем:</p><center><p> <span data-inline-latex=\"\\sin A_1C_1D_1=\\frac{A_1D_1}{A_1C_1}=\\frac{6}{10}=0{,}6\"></span>. </p></center>",
+                "title": "Решение",
+                "asset_keys": [
+                  "image_1"
+                ]
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:solution:1"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_6"
+            },
+            {
+              "at": "2026-10-02T15:41:44.376248+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_7"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [
+            {
+              "alt": "",
+              "url": "/assets/0b5fae13-db30-4836-b432-228dddd1eb62",
+              "kind": "ordinary_image",
+              "asset_id": "0b5fae13-db30-4836-b432-228dddd1eb62",
+              "asset_key": "image_1",
+              "transformation_target_id": "asset:image_1"
+            }
+          ],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=8\"></span>, <span data-inline-latex=\"AD=6\"></span>, <span data-inline-latex=\"AA_1=21\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            },
+            {
+              "key": "solution",
+              "html": "<p><img alt=\"\" data-asset-id=\"0b5fae13-db30-4836-b432-228dddd1eb62\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0b5fae13-db30-4836-b432-228dddd1eb62\"/>От­рез­ки <var data-math-identifier=\"D\">D</var><var data-math-identifier=\"C\">C</var>  и <var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> лежат на па­рал­лель­ных пря­мых, по­это­му ис­ко­мый угол между пря­мы­ми <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> и  <var data-math-identifier=\"D\">D</var><var data-math-identifier=\"C\">C</var> равен углу между пря­мы­ми <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub> и  <var data-math-identifier=\"D\">D</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub>.</p><p>Из пря­мо­уголь­но­го тре­уголь­ни­ка <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> по­лу­ча­ем:</p><center><p><span data-inline-latex=\"A_1C_1=\\sqrt{(D_1C_1)^{2}+(A_1D_1)^{2}}=\\sqrt{64+36}=10\"></span>.</p></center><p>Тогда для угла <var data-math-identifier=\"A\">A</var><sub>1</sub><var data-math-identifier=\"C\">C</var><sub>1</sub><var data-math-identifier=\"D\">D</var><sub>1</sub> имеем:</p><center><p> <span data-inline-latex=\"\\sin A_1C_1D_1=\\frac{A_1D_1}{A_1C_1}=\\frac{6}{10}=0{,}6\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ],
+              "section_id": "solution:1",
+              "transformation_target_id": "section:solution:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "318474",
+      "task": "318477",
+      "context": {
+        "problem_id": "8922873f-1fd5-4e7a-9570-fc5d5b9251b1",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T20:09:47.149042+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=16\"></span>, <span data-inline-latex=\"AD=12\"></span>, <span data-inline-latex=\"AA_1=7\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T20:09:47.149042+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T20:09:47.149042+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T20:09:47.149042+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T20:09:47.149042+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T20:09:47.149042+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=16\"></span>, <span data-inline-latex=\"AD=12\"></span>, <span data-inline-latex=\"AA_1=7\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "318474",
+      "task": "318479",
+      "context": {
+        "problem_id": "75d75a01-76cf-4963-bd1e-2d4a30650397",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T20:09:46.970068+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=16\"></span>, <span data-inline-latex=\"AD=12\"></span>, <span data-inline-latex=\"AA_1=9\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T20:09:46.970068+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T20:09:46.970068+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T20:09:46.970068+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T20:09:46.970068+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T20:09:46.970068+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=16\"></span>, <span data-inline-latex=\"AD=12\"></span>, <span data-inline-latex=\"AA_1=9\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,6</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    },
+    {
+      "group": "318474",
+      "task": "318481",
+      "context": {
+        "problem_id": "65577093-6892-4d06-a8f0-b33ce8883b98",
+        "transformations": {
+          "schema_version": 3,
+          "revision": 7,
+          "items": [
+            {
+              "at": "2026-10-01T20:09:46.607278+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "value": {
+                "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=6\"></span>, <span data-inline-latex=\"AD=8\"></span>, <span data-inline-latex=\"AA_1=10\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+                "title": "Условие",
+                "asset_keys": []
+              },
+              "operation": "rewrite",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "at": "2026-10-01T20:09:46.607278+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_1"
+            },
+            {
+              "at": "2026-10-01T20:09:46.607278+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_2"
+            },
+            {
+              "at": "2026-10-01T20:09:46.607278+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_3"
+            },
+            {
+              "at": "2026-10-01T20:09:46.607278+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_4"
+            },
+            {
+              "at": "2026-10-01T20:09:46.607278+00:00",
+              "by": {
+                "type": "pipeline",
+                "stage": "deterministic_svg"
+              },
+              "operation": "remove",
+              "transformation_target_id": "asset:formula_5"
+            }
+          ]
+        },
+        "normalized_content": {
+          "assets": [],
+          "format": "teacherhelper-normalized",
+          "sections": [
+            {
+              "key": "condition",
+              "html": "<p>В пря­мо­уголь­ном па­рал­ле­ле­пи­пе­де <span data-inline-latex=\"ABCDA_1B_1C_1D_1\"></span> из­вест­ны длины рёбер <span data-inline-latex=\"AB=6\"></span>, <span data-inline-latex=\"AD=8\"></span>, <span data-inline-latex=\"AA_1=10\"></span>. Най­ди­те синус угла между пря­мы­ми <var data-math-identifier=\"CD\">CD</var> и <span data-inline-latex=\"A_1C_1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": [],
+              "section_id": "condition:1",
+              "transformation_target_id": "section:condition:1"
+            },
+            {
+              "key": "answer",
+              "html": "<p><span data-effect=\"spaced\">0,8</span></p>",
+              "title": "Ответ",
+              "asset_keys": [],
+              "section_id": "answer:1",
+              "transformation_target_id": "section:answer:1"
+            }
+          ],
+          "schema_version": 3,
+          "problem_reference_ids": {
+            "prototype_problem_id": null,
+            "group_parent_problem_id": null,
+            "adjacent_group_parent_problem_id": null
+          }
+        }
+      }
+    }
+  ]
+}

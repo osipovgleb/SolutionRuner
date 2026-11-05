@@ -4,6 +4,7 @@ from ..core.handlers import HandlerSpec
 from .box_sources import PARENTS as BOX
 from .cube_sources import PARENTS as CUBE
 from .distance_sources import PARENTS as DISTANCES
+from .line_angle_sources import PARENTS as LINE_ANGLES
 
 HANDLERS = tuple(
     HandlerSpec(
@@ -27,6 +28,11 @@ HANDLERS = tuple(
             CUBE,
             "solution_runner.pipelines.solids.cube_parent:prepare",
             "solution_runner.pipelines.solids.cube_figures:diagram_specs",
+        ),
+        (
+            LINE_ANGLES,
+            "solution_runner.pipelines.solids.line_angle_parent:prepare",
+            "solution_runner.pipelines.solids.line_angle_parent:diagram_specs",
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
         (

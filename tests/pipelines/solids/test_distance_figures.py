@@ -14,7 +14,7 @@ from midpoint_source_cases import replay, section
 
 from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.core.handler_registry import get_handler
-from solution_runner.pipelines.solids import distance_figures, distance_svg
+from solution_runner.pipelines.solids import box_svg, distance_figures, distance_svg
 from solution_runner.pipelines.solids.box_coordinates import VERTICES, axes, endpoints
 from solution_runner.pipelines.solids.box_distance_geometry import blue
 from solution_runner.pipelines.solids.distance_sources import SOURCES, source_bytes
@@ -164,9 +164,7 @@ def assert_svg(spec, model, task):
             assert not _intersects(p, q, box), (task, name)
     for label in meta["number_labels"]:
         node = next(e for e in root if e.get("id") == "length-" + str(label["axis"]))
-        assert node.text == distance_svg.number_text(
-            sp.sqrt(model.squares[label["axis"]])
-        )
+        assert node.text == box_svg.number_text(sp.sqrt(model.squares[label["axis"]]))
 
 
 @pytest.mark.parametrize("group", GROUPS)
@@ -238,4 +236,4 @@ def test_hidden_segments_agree_with_the_three_faces_at_the_back_corner(
     segment, expected
 ):
     a, b = endpoints(segment)
-    assert distance_svg.hidden(a, b, "D") is expected
+    assert box_svg.hidden(a, b, "D") is expected
