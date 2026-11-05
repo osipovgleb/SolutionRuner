@@ -22,6 +22,13 @@ def text(html, source=None):
         raise ContentPlanError("complete prism condition HTML is required")
     soup = BeautifulSoup(html, "html.parser")
     for tag in list(soup.find_all("i")):
+        if (
+            not tag.attrs
+            and len(tag.contents) == 1
+            and getattr(tag.contents[0], "name", None) == "sub"
+        ):
+            tag.unwrap()
+    for tag in list(soup.find_all("i")):
         if tag.attrs or any(
             t.name != "sub" or t.attrs or t.get_text() != "1" or t.find(True)
             for t in tag.find_all(True)
@@ -32,7 +39,10 @@ def text(html, source=None):
         for sub in tag.find_all("sub"):
             sub.replace_with("_1")
         label = tag.get_text().translate(LETTERS)
-        if not re.fullmatch(r"[A-F_1]+", label):
+        if not (
+            re.fullmatch(r"[A-F_1]+", label)
+            or re.fullmatch(r"[A-F](?:_1)?(?:\s*,?\s*[A-F](?:_1)?)*", label)
+        ):
             raise ContentPlanError("the prism vertex label needs review")
         _inline(soup, tag, label)
     for tag in list(soup.find_all("var")):
@@ -55,7 +65,10 @@ def text(html, source=None):
             or sub.get_text() != "1"
             or not getattr(previous, "attrs", None)
             or set(previous.attrs) != {"data-inline-latex"}
-            or not re.fullmatch("[A-F]+", previous["data-inline-latex"])
+            or not re.fullmatch(
+                r"[A-F](?:_1)?(?:\s*,?\s*[A-F](?:_1)?)*", previous["data-inline-latex"]
+            )
+            or not previous["data-inline-latex"].endswith(tuple("ABCDEF"))
         ):
             raise ContentPlanError(
                 "only a canonical adjacent vertex subscript one is supported"

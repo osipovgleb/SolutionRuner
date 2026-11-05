@@ -7,9 +7,10 @@ from ..quadrilaterals.parallelogram.midpoint_figures import _attach
 from ..quadrilaterals.quantity_content import read_content
 from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import condition_changes
-from . import prism_metric_figures
+from . import prism_metric_figures, prism_region_figures
 from .prism_metric_model import KINDS as METRIC_KINDS
 from .prism_model import read_question
+from .prism_region import KIND as REGION_KIND
 from .prism_sources import DEFAULTS, RULES, compatible
 
 
@@ -30,6 +31,9 @@ def selection(context, *, rule=None):
         raise ContentPlanError(
             "the complete prism question differs from its reviewed methods"
         )
+    if m.kind == REGION_KIND:
+        prism_region_figures.validate(m, assets, owners)
+        return m, condition, assets, owners
     if m.kind in METRIC_KINDS:
         prism_metric_figures.validate(m, assets, owners)
         return m, condition, assets, owners
@@ -42,6 +46,8 @@ def selection(context, *, rule=None):
 
 def prepare(context, generated, *, rule):
     m, condition, assets, owners = selection(context, rule=rule)
+    if m.kind == REGION_KIND:
+        return prism_region_figures.prepare(context, m, condition, assets, generated)
     if m.kind in METRIC_KINDS:
         return prism_metric_figures.prepare(
             context, m, condition, assets, owners, generated

@@ -223,5 +223,35 @@ PROFILES = tuple(
             41,
             "solid-prism-hexagonal-vertical-angle",
         ),
+        (
+            "245340",
+            "838b39ab-818c-45cb-86a1-f4dd9fd66336",
+            15,
+            "solid-prism-triangular-pyramid-volume",
+        ),
+        (
+            "245341",
+            "c4fe3264-7fea-468f-a682-63b35fb6cea7",
+            16,
+            "solid-prism-triangular-minus-pyramid",
+        ),
+        (
+            "245342",
+            "fdf3977a-e3ca-4e1e-b881-fca1c4353199",
+            17,
+            "solid-prism-triangular-minus-two-pyramids",
+        ),
+        (
+            "245343",
+            "824990f3-c47e-4c33-939c-2677e41e909c",
+            18,
+            "solid-prism-hexagonal-pyramid-volume",
+        ),
+        (
+            "245344",
+            "49e6afa8-6747-497a-bb3d-891610748df4",
+            19,
+            "solid-prism-hexagonal-vertex-volumes",
+        ),
     )
 )

@@ -196,9 +196,10 @@ def read(html, source=None):
     except UnsupportedCondition as exc:
         raise ContentPlanError(str(exc)) from exc
     from .prism_metric_reader import read as metric
+    from .prism_region_reader import read as region
 
     try:
-        m = metric(raw)
+        m = region(raw) or metric(raw)
         if m:
             return m
     except UnsupportedCondition as exc:
