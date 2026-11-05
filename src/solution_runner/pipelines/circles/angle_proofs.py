@@ -186,10 +186,41 @@ def _secants(m):
     )
 
 
+def _special(m):
+    if m.given[0] == 180:
+        return (
+            "<p>Диаметр делит окружность на две полуокружности. Вписанный угол опирается на одну из этих дуг:</p>"
+            + line(r"\varphi=180^{\circ}")
+            + "<p>Вписанный угол равен половине дуги, на которую опирается. Поэтому угол, опирающийся на диаметр, прямой:</p>"
+            + line(r"\alpha=\frac{\varphi}{2}")
+            + line(r"\alpha=\frac{180^{\circ}}{2}")
+            + line(r"\alpha=90^{\circ}")
+        )
+    common = (
+        "<p>Проведём радиусы к концам хорды BC. Треугольник BOC равносторонний, поскольку хорда равна радиусу:</p>"
+        + line("BO=OC=BC=R")
+        + line(r"\angle BOC=60^{\circ}")
+    )
+    if m.answer == 150:
+        return common + (
+            "<p>Тупой вписанный угол BAC дополняет половину меньшего центрального угла, опирающегося на ту же хорду, до 180°:</p>"
+            + line(r"\angle BAC=180^{\circ}-\frac{\angle BOC}{2}")
+            + line(r"\angle BAC=180^{\circ}-\frac{60^{\circ}}{2}")
+            + line(r"\angle BAC=180^{\circ}-30^{\circ}=150^{\circ}")
+        )
+    return common + (
+        "<p>Острый вписанный угол опирается на меньшую дугу BC и равен половине соответствующего центрального угла:</p>"
+        + line(r"\angle BAC=\frac{\angle BOC}{2}")
+        + line(r"\angle BAC=\frac{60^{\circ}}{2}")
+        + line(r"\angle BAC=30^{\circ}")
+    )
+
+
 def render(m, pictures):
     if m.mode in cyclic_angle_proofs.MODES:
         return cyclic_angle_proofs.render(m)
     method = {
+        "special_inscribed": _special,
         "central_difference": _central,
         "difference_equation": _difference,
         "fraction": _fraction,
@@ -198,7 +229,10 @@ def render(m, pictures):
         "diameters_inscribed": _diameters,
         "secants": _secants,
     }[m.mode]
-    result = solution_section("Решение", pictures.get("reference", "") + method(m))
+    result = solution_section(
+        "Решение",
+        pictures.get("reference", "") + pictures.get("detail", "") + method(m),
+    )
     if m.mode == "diameters_inscribed":
         result += solution_section("Приведем другое решение", _diameters_alternative(m))
     return result

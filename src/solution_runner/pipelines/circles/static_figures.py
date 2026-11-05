@@ -50,6 +50,8 @@ def prepare(context, generated, reader, sources, details, aliases):
         raise ContentPlanError(
             "compatible static circle pictures need no generated copies"
         )
+    if not sources[model.mode]:
+        return model, (), {}, ()
     current = assets.get("image_1", {})
     source = current.get("asset_id", sources[model.mode][0])
     changes = list(

@@ -21,6 +21,12 @@ PROFILES = tuple(
     )
     for key, identifier, index, rule in (
         (
+            "27859",
+            "646b29f5-38e8-43b9-84a7-061f0987d907",
+            3,
+            "circle-inscribed-special-chord",
+        ),
+        (
             "245385",
             "c5747482-24b1-45b1-afed-fe5c8e4a3c5e",
             1,

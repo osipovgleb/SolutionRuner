@@ -8,6 +8,7 @@ from ..quadrilaterals.parallelogram.midpoint_figures import _attach
 from ..quadrilaterals.quantity_content import read_content
 from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import _identity, condition_changes
+from . import special_angle_figures
 from .angle_model import read_question
 from .angle_svg import SOURCE, figure_svg
 from .quantity_sources import source_bytes
@@ -67,6 +68,8 @@ def selection(context):
     if images:
         images[0]["data-asset-key"] = "image_1"
     model = read_question(str(soup), images[0]["data-asset-id"] if images else None)
+    if model.mode == "special_inscribed":
+        return model, condition, special_angle_figures.selection(context), None
     legacy = assets.pop("image_2", None)
     if legacy is not None:
         if (
@@ -103,6 +106,8 @@ def diagram_specs(context):
 
 def prepare(context, generated):
     model, condition, current, drawing = selection(context)
+    if model.mode == "special_inscribed":
+        return special_angle_figures.prepare(context, generated)
     source = (
         current.get("asset_id", SOURCES[model.mode][0]) if drawing is None else SOURCE
     )

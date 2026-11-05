@@ -11,6 +11,11 @@ from .incircle_sources import PARENTS as INCIRCLE_PARENTS
 from .incircle_sources import SOURCES as INCIRCLE_SOURCES
 
 PARENTS = {
+    "circle-inscribed-special-chord": (
+        "aab6d4fd-29ab-4b85-9ce0-3bf072ab9106",
+        (("image_2", "2791f260-5ce1-4c3c-87b7-9bdc63ecbf10"),),
+        "ba96b5fe22f20d971239694e91095254ab9d39baee6f8abc2fa099ead55d0f5e",
+    ),
     "circle-central-angle-difference": (
         "515f640e-4cd6-40ee-94b4-d171ac58f6ad",
         (("image_1", "515f640e-4cd6-40ee-94b4-d171ac58f6ad"),),
@@ -139,6 +144,14 @@ PARENTS = {
 }
 
 SOURCES = {
+    "2791f260-5ce1-4c3c-87b7-9bdc63ecbf10": (
+        "2791f260-5ce1-4c3c-87b7-9bdc63ecbf10",
+        "a2be915328f5492b78e47e67719e80261dca1abdd23b04b0393f0db38a2a06f8",
+    ),
+    "aab6d4fd-29ab-4b85-9ce0-3bf072ab9106": (
+        "aab6d4fd-29ab-4b85-9ce0-3bf072ab9106",
+        "f6e9ff0e699966e7aeab1b8d38787a35fa84f330e2f7c303ae8934423b9188b4",
+    ),
     "1f80d796-67fd-4b3b-9edc-e038caf927ee": (
         "1f80d796-67fd-4b3b-9edc-e038caf927ee",
         "d7de5d0df467f351ddd562bee5dc6b24727db426f42f8ea40b783936f3be5e61",

@@ -12,6 +12,7 @@ from ..triangles.right.altitude_solver import AltitudeSolveError, _parse_positiv
 from . import cyclic_angle_model
 
 RULES = {
+    "circle-inscribed-special-chord": "special_inscribed",
     **cyclic_angle_model.RULES,
     "circle-central-angle-difference": "central_difference",
     "circle-inscribed-angle-difference": "difference_equation",
@@ -24,6 +25,14 @@ RULES = {
 END = r"\s*\.\s*Ответ дайте в градусах\s*\."
 DIAMETERS = r"(?:[ВB] окружности с центром O\s+(?:отрезки\s+)?AC\s+и\s+BD\s*[—–-]\s*диаметры|Отрезки AC\s+и\s+BD\s*[—–-]\s*диаметры окружности с центром O\s*)\s*\.\s*"
 PATTERNS = (
+    (
+        "special_inscribed",
+        r"Чему равен вписанный угол, опирающийся на диаметр окружности\?\s*Ответ дайте в градусах\s*\.",
+    ),
+    (
+        "special_inscribed",
+        r"Чему равен (?:тупой|острый) вписанный угол, опирающийся на хорду, равную радиусу окружности\?\s*Ответ дайте в градусах\s*\.",
+    ),
     *((mode, pattern + END) for mode, pattern in cyclic_angle_model.PATTERNS),
     (
         "central_difference",
@@ -81,6 +90,12 @@ class CircleAngle:
 
 
 def _model(mode, groups, text):
+    if mode == "special_inscribed":
+        diameter = "диаметр" in text
+        central = sp.Integer(180 if diameter else 60)
+        answer = 180 - central / 2 if "тупой" in text else central / 2
+        return CircleAngle(mode, (central,), answer)
+
     central = mode == "central_difference" or (
         mode == "difference_equation" and groups[-1] == "центральный"
     )
