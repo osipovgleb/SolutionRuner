@@ -4,6 +4,7 @@ from ..core.handlers import HandlerSpec
 from .box_midpoint_sources import PARENTS as MIDPOINTS
 from .box_section_sources import PARENTS as SECTIONS
 from .box_sources import PARENTS as BOX
+from .combined_sources import PARENTS as COMBINATIONS
 from .cone_sources import PARENTS as CONES
 from .cube_sources import PARENTS as CUBE
 from .cylinder_sources import PARENTS as CYLINDERS
@@ -80,6 +81,11 @@ HANDLERS = tuple(
             PYRAMIDS,
             "solution_runner.pipelines.solids.pyramid_parent:prepare",
             "solution_runner.pipelines.solids.pyramid_figures:diagram_specs",
+        ),
+        (
+            COMBINATIONS,
+            "solution_runner.pipelines.solids.combined_parent:prepare",
+            None,
         ),
         (BOX, "solution_runner.pipelines.solids.box_parent:prepare", None),
         (SPHERES, "solution_runner.pipelines.solids.sphere_parent:prepare", None),

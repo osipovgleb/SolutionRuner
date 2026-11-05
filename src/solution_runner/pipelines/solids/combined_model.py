@@ -65,7 +65,11 @@ def cube(kind, raw):
     else:
         a = x
     a = sp.simplify(a)
-    r = a * sp.sqrt(3) / 2 if kind == "cube_circumsphere_volume" else a / 2
+    r = (
+        a * sp.sqrt(3) / 2
+        if kind in {"cube_circumsphere_volume", "cube_in_sphere_volume"}
+        else a / 2
+    )
     answers = {
         "cube_insphere_radius": r,
         "cube_around_sphere_volume": a**3,

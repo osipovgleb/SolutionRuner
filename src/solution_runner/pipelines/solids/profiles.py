@@ -3,6 +3,7 @@
 from ..core.profile_definitions import _profile
 from .box_profiles import PROFILES as BOX_PROFILES
 from .box_section_profiles import PROFILES as SECTION_PROFILES
+from .combined_profiles import PROFILES as COMBINED_PROFILES
 from .cone_profiles import PROFILES as CONE_PROFILES
 from .cylinder_profiles import PROFILES as CYLINDER_PROFILES
 from .distance_profiles import PROFILES as DISTANCE_PROFILES
@@ -110,3 +111,5 @@ PROFILES += CONE_PROFILES
 PROFILES += PRISM_PROFILES
 
 PROFILES += PYRAMID_PROFILES
+
+PROFILES += COMBINED_PROFILES

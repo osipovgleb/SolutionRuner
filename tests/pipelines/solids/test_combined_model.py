@@ -1,43 +1,13 @@
 """Read every original combination source and reject ambiguous or impossible givens."""
 
-import json
 from copy import deepcopy
-from pathlib import Path
 
 import pytest
 import sympy as sp
-from bs4 import BeautifulSoup
-from sphere_formula_oracle import PiParser
+from combined_source_cases import CASES, DATA, expected, question
 
 from solution_runner.pipelines.core.errors import ContentPlanError
 from solution_runner.pipelines.solids.combined_reader import read
-
-DATA = json.loads(
-    (Path(__file__).parent / "fixtures/category_3_combined_sources.json").read_text()
-)
-CASES = DATA["cases"]
-
-
-def question(case):
-    n = case["context"]["normalized_content"]
-    html = next(s["html"] for s in n["sections"] if s["key"] == "condition")
-    soup = BeautifulSoup(html, "html.parser")
-    image = soup.find("img")
-    return html, image["data-asset-id"] if image else None
-
-
-def expected(case):
-    if "expected_answer" in case:
-        return PiParser(case["expected_answer"]).parse().value
-    sections = case["context"]["normalized_content"]["sections"]
-    html = next(s["html"] for s in sections if s["key"] == "answer")
-    soup = BeautifulSoup(html, "html.parser")
-    formula = soup.select_one("[data-inline-latex]")
-    return (
-        PiParser(formula["data-inline-latex"] if formula else soup.get_text(strip=True))
-        .parse()
-        .value
-    )
 
 
 @pytest.mark.parametrize("case", CASES, ids=lambda c: c["task"])
