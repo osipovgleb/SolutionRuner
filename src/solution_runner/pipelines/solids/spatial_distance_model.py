@@ -8,7 +8,12 @@ from bs4 import BeautifulSoup
 
 from ..core.errors import ContentPlanError
 from . import box_coordinates as c
-from . import spatial_metric_model, spatial_plane_model
+from . import (
+    prism_separation_model,
+    spatial_altitude_model,
+    spatial_metric_model,
+    spatial_plane_model,
+)
 from .box_distance_model import read_question as read_box
 from .measurements import positive
 from .prism_input import text
@@ -21,6 +26,8 @@ MODES = (
     }
     | spatial_metric_model.MODES
     | spatial_plane_model.MODES
+    | spatial_altitude_model.MODES
+    | prism_separation_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -81,11 +88,13 @@ def condition_text(html, source):
         for item in items:
             item.name, item.attrs = "p", {}
         listing.unwrap()
-    letters = str.maketrans({"М": "M", "Т": "T", "О": "O", "Н": "H", "Р": "P"})
+    letters = str.maketrans(
+        {"М": "M", "Т": "T", "О": "O", "Н": "H", "Р": "P", "К": "K"}
+    )
     for tag in soup.find_all("i"):
         if not tag.attrs and not tag.find(True):
             tag.string = tag.get_text().translate(letters)
-    return text(str(soup), source, labels="ABCDEFOSHNMTEPLQKα")
+    return text(str(soup), source, labels="ABCDEFOSHNMTEPLQKαγ")
 
 
 def _box(match):
@@ -165,4 +174,8 @@ def read_question(html, source=None):
     plane = spatial_plane_model.read(raw)
     if plane is not None:
         return plane
+    for reader in (spatial_altitude_model.read, prism_separation_model.read):
+        found = reader(raw)
+        if found is not None:
+            return found
     return read_box(html, source)

@@ -8,6 +8,16 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    "solid-rectangular-pyramid-altitude": (
+        "rectangular_pyramid_distance",
+        "rectangular_pyramid_angle",
+    ),
+    "solid-square-pyramid-midplane": "square_midplane_distance",
+    "solid-triangle-pyramid-face-distance": "triangle_face_distance",
+    "solid-prism-section-normal": (
+        "square_prism_section_distance",
+        "triangle_prism_section_distance",
+    ),
     "solid-prism-projection-height": "prism_projection_height",
     "solid-pyramid-skew-line-height": "pyramid_skew_height",
     "solid-hexagonal-prism-plane-distance": "hex_prism_distance",
@@ -47,6 +57,26 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    "rectangular_pyramid_distance": (
+        ("solution", "image_1", "38d4bcc9-4139-426b-aadd-a55612638acd"),
+    ),
+    "rectangular_pyramid_angle": (
+        ("solution", "image_1", "66526bdf-211e-4a30-8e65-3f13ce943532"),
+    ),
+    "square_midplane_distance": (
+        ("solution", "image_1", "7e5eabca-f3fc-4bfb-b6a3-a48775d6b33d"),
+    ),
+    "triangle_face_distance": (
+        ("solution", "image_1", "f8485d85-4f02-4a3b-b3b8-750be3b499ed"),
+    ),
+    "square_prism_section_distance": (
+        ("solution", "image_1", "ce166516-5e3d-42c1-be4e-0fc07104c4fd"),
+        ("solution", "image_2", "5fbbe405-465a-40ed-9a14-c4f65f363e67"),
+    ),
+    "triangle_prism_section_distance": (
+        ("solution", "image_1", "50282a94-50ed-43ef-978b-cf588e729eb8"),
+        ("solution", "image_2", "42646b8c-2500-46f0-ab75-7b21e691d63d"),
+    ),
     "prism_projection_height": (
         ("solution", "image_1", "998c63f7-b9eb-4cf0-9724-d5963101e87d"),
     ),
@@ -118,6 +148,13 @@ def compatible(model, source, role, slot):
 
 
 def reviewed_model(model, assets):
+    if model.mode in {
+        "square_prism_section_distance",
+        "triangle_prism_section_distance",
+    }:
+        source = assets["image_1"]["asset_id"] if "image_1" in assets else None
+        entry = DATA["figures"].get(source)
+        return replace(model, symbols=entry["symbols"] if entry else {})
     if model.mode != "ratio_plane_distance":
         return model
     source = assets["image_1"]["asset_id"] if "image_1" in assets else None
@@ -129,6 +166,11 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if (
+        model.mode == "triangle_prism_section_distance"
+        and model.symbols.get("section_layout") == "midpoints"
+    ):
+        return ROLES[model.mode][:1]
     if (
         model.mode == "ratio_plane_distance"
         and model.symbols.get("method") == "cross_section"

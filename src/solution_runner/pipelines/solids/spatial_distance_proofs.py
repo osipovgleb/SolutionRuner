@@ -171,12 +171,20 @@ def _box(m, pictures):
 
 def render(m, pictures):
     from . import (
+        prism_separation_model,
+        prism_separation_proofs,
+        spatial_altitude_model,
+        spatial_altitude_proofs,
         spatial_metric_model,
         spatial_metric_proofs,
         spatial_plane_model,
         spatial_plane_proofs,
     )
 
+    if m.mode in spatial_altitude_model.MODES:
+        return spatial_altitude_proofs.render(m, pictures)
+    if m.mode in prism_separation_model.MODES:
+        return prism_separation_proofs.render(m, pictures)
     if m.mode in spatial_plane_model.MODES:
         return spatial_plane_proofs.render(m, pictures)
 
