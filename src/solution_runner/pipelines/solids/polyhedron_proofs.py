@@ -222,9 +222,57 @@ def _note(m):
     )
 
 
-def render(m, picture, *, note=False):
+def _parent_relative(m, picture):
     body = (
-        _central(m, picture)
+        "<p>"
+        + picture
+        + "Выберем основание пирамиды в одной из граней параллелепипеда. "
+    )
+    body += _base_height(m)[0]
+    factor = sp.Rational(1, 2) if len(m.solid.base) == 3 else sp.S.One
+    body += (
+        "<p>Высота общая с параллелепипедом. Основание "
+        + (
+            "составляет половину соответствующей грани"
+            if factor == sp.Rational(1, 2)
+            else "совпадает с соответствующей гранью"
+        )
+        + ", поэтому:</p>"
+    )
+    body += line(PYRAMID + r"=\frac{1}{3}" + AREA + r"\cdot h")
+    body += line(
+        PYRAMID
+        + r"=\frac{1}{3}\cdot"
+        + value(factor)
+        + BOX
+        + "="
+        + value(m.solid.fraction)
+        + BOX
+    )
+    values = [given(m, s)[1] for s in ("AB", "AD", "AA_1")]
+    body += line(
+        PYRAMID
+        + "="
+        + value(m.solid.fraction)
+        + r"\cdot"
+        + r"\cdot".join(bracket(v) for v in values)
+    )
+    return body + line(
+        PYRAMID
+        + "="
+        + value(m.solid.fraction)
+        + r"\cdot"
+        + bracket(m.box_volume)
+        + "="
+        + value(m.answer)
+    )
+
+
+def render(m, picture, *, note=False, relative=False):
+    body = (
+        _parent_relative(m, picture)
+        if relative and m.given and m.solid.kind == "pyramid"
+        else _central(m, picture)
         if m.solid.kind == "central_tetrahedron"
         else _base_volume(m, picture)
         if m.given

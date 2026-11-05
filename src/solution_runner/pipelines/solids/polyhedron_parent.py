@@ -26,7 +26,12 @@ def prepare(
     return repair_quantity(
         context,
         m.answer,
-        polyhedron_proofs.render(m, picture, note=STYLES[content_rule_key]["note"]),
+        polyhedron_proofs.render(
+            m,
+            picture,
+            note=STYLES[content_rule_key]["note"],
+            relative=STYLES[content_rule_key].get("relative", False),
+        ),
         keys,
         changes,
     )

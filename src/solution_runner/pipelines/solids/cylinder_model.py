@@ -12,11 +12,30 @@ from .cylinder_input import text
 from .measurements import positive
 
 PI_END = r"(, деленную на\s+\\pi)?\s*\."
+VOLUME_UNIT = r"(см\^3|куб\.\s*см|литров|литра|литр|литрах|л)"
 PATTERNS = (
     (
         "displacement",
         "",
         r"В цилиндрический сосуд налили\s+(.+?)\s+см\^3 воды\.\s*Уровень воды при этом достигает высоты\s+(.+?)\s+см\.\s*В жидкость полностью погрузили деталь\.\s*При этом уровень жидкости в сосуде поднялся на\s+(.+?)\s+см\.\s*Чему равен объем детали\?\s*Ответ выразите в\s+см\^3\s*\.",
+    ),
+    (
+        "displacement",
+        "factor",
+        r"В цилиндрический сосуд налили\s+(.+?)\s+"
+        + VOLUME_UNIT
+        + r" воды\.\s*В воду полностью погрузили деталь\.\s*При этом уровень жидкости в сосуде увеличился в\s+(.+?)\s+раза?\.\s*Найдите объем детали\.\s*Ответ выразите в\s+"
+        + VOLUME_UNIT
+        + r"\s*\.",
+    ),
+    (
+        "displacement",
+        "factor",
+        r"В цилиндрический сосуд, в котором находится\s+(.+?)\s+"
+        + VOLUME_UNIT
+        + r" воды, опущена деталь\.\s*При этом уровень жидкости в сосуде поднялся в\s+(.+?)\s+раза?\.\s*Чему равен объем детали\?\s*Ответ выразите в\s+"
+        + VOLUME_UNIT
+        + r"\s*\.",
     ),
     (
         "transfer",
@@ -81,6 +100,17 @@ def _scale(raw, direction):
 
 
 def _solve(mode, kind, groups):
+    if mode == "displacement" and kind == "factor":
+        volume, first, raw_factor, last = groups
+        unit = "л" if first.startswith("л") else "см^3"
+        if unit != ("л" if last.startswith("л") else "см^3"):
+            raise ContentPlanError(
+                "the displaced volume must use the requested input unit"
+            )
+        v, factor = positive(volume), _scale(raw_factor, "больше")
+        return CylinderQuantity(
+            mode, (v, factor), sp.simplify(v * (factor - 1)), kind, unit=unit
+        )
     if mode == "displacement":
         v, h, delta = tuple(positive(s) for s in groups)
         return CylinderQuantity(

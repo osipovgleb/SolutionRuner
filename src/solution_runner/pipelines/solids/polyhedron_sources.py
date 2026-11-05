@@ -2,6 +2,8 @@
 
 from . import source_assets
 
+MEASUREMENTS = {}
+
 PARENTS = {
     "solid-polyhedron-central-tetrahedron": (
         "db2954d3-3f3c-483c-973b-700456fa212c",
@@ -184,3 +186,74 @@ def review_parent(rule, primary, html, assets):
     return source_assets.review_parent(
         rule, primary, html, assets, parents=PARENTS, sources=SOURCES
     )
+
+
+PARENTS.update(
+    {
+        "solid-polyhedron-corner-volume": (
+            "2cc6487d-8ac3-4a64-81ca-d7e364d1417a",
+            (("image_1", "2cc6487d-8ac3-4a64-81ca-d7e364d1417a"),),
+            "82f526358167ba517a24c50448c733ed65f936b0538be0fb85fd9b6d999214ce",
+        ),
+        "solid-polyhedron-rectangular-face-volume": (
+            "184f9e75-5413-48f8-be41-ad8601b19de5",
+            (("image_2", "f108f74f-d151-4fde-847d-2863baa6c38b"),),
+            "765acd845788d87c26254afbe611dcea1ee53f479054b714584576923093fdf8",
+        ),
+    }
+)
+STYLES.update(
+    {
+        "solid-polyhedron-corner-volume": {
+            "roles": (("solution", "solid", "b21b8664-9f31-4d8c-9a29-24cf9d53a88e"),),
+            "note": False,
+            "preferred_axis": 2,
+            "native_roles": True,
+            "relative": True,
+        },
+        "solid-polyhedron-rectangular-face-volume": {
+            "roles": (
+                ("condition", "frame", "184f9e75-5413-48f8-be41-ad8601b19de5"),
+                ("solution", "solid", "b21b8664-9f31-4d8c-9a29-24cf9d53a88e"),
+            ),
+            "note": False,
+            "preferred_axis": 0,
+            "native_roles": True,
+            "relative": True,
+        },
+    }
+)
+SOURCES.update(
+    {
+        "184f9e75-5413-48f8-be41-ad8601b19de5": (
+            "184f9e75-5413-48f8-be41-ad8601b19de5",
+            "9ba4f0b8d1cbcb7566b83d1cc4be573de4cc4a51ade9b5a6f0c15ef7907b2c09",
+        ),
+        "2cc6487d-8ac3-4a64-81ca-d7e364d1417a": (
+            "2cc6487d-8ac3-4a64-81ca-d7e364d1417a",
+            "aba90ba7e786884f38e534f2d171759e46aa91781a4bdc47e6e7b0643330ddd6",
+        ),
+        "4d317387-f998-4c38-abe9-a9697f176b0e": (
+            "fecdd5c1-4a21-4e24-9fd4-43e8df01eceb",
+            "fc74c5db434d9cd01324d526d50bb009a53b898429b04e95fd668f2ceaf32939",
+        ),
+        "f108f74f-d151-4fde-847d-2863baa6c38b": (
+            "f108f74f-d151-4fde-847d-2863baa6c38b",
+            "ac1809564c7172ba14347595c6b9bc023db662d5ee4adb80193c69abbd237874",
+        ),
+        "ee5a5f71-1c90-488d-9f72-b9eb1d37dfb1": (
+            "ee5a5f71-1c90-488d-9f72-b9eb1d37dfb1",
+            "eb7779cf939c68b45d3f67fd044e7eb4a7ddd8da949223ea507a8666d08c2ca0",
+        ),
+    }
+)
+SOLIDS.update(
+    {
+        "2cc6487d-8ac3-4a64-81ca-d7e364d1417a": ("A", "B", "C", "D_1"),
+        "ee5a5f71-1c90-488d-9f72-b9eb1d37dfb1": ("A", "B", "D", "A_1", "B_1", "D_1"),
+        "184f9e75-5413-48f8-be41-ad8601b19de5": None,
+        "f108f74f-d151-4fde-847d-2863baa6c38b": ("B", "C", "A_1", "B_1", "C_1"),
+        "4d317387-f998-4c38-abe9-a9697f176b0e": None,
+    }
+)
+MEASUREMENTS["ee5a5f71-1c90-488d-9f72-b9eb1d37dfb1"] = ("36", "64", "25")

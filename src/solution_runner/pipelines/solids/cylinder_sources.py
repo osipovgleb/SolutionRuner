@@ -137,3 +137,24 @@ def review_parent(rule, primary, html, assets):
     return source_assets.review_parent(
         rule, primary, html, assets, parents=PARENTS, sources=SOURCES
     )
+
+
+PARENTS["solid-cylinder-immersed-volume-factor"] = (
+    "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+    (),
+    "b64492af4d03c8374acd04d7986112575b7a100f39333a9c28ff8929f27c56ce",
+)
+RULES["solid-cylinder-immersed-volume-factor"] = "displacement"
+SOURCES.update(
+    {
+        "3231aec6-f38e-494c-9b35-5f16aa152529": (
+            "3231aec6-f38e-494c-9b35-5f16aa152529",
+            "a044657802c85882bf52c95cb4ad5a5cb6ca58faf9fa78f533922467913d1df9",
+        ),
+        "6a9b9977-189d-4517-beba-1c2a0a82e51c": (
+            "6a9b9977-189d-4517-beba-1c2a0a82e51c",
+            "be0e07b1a47108c0d2f09165e217199133ae2e32c957e9efe4f25a7231077e60",
+        ),
+    }
+)
+MODE_SOURCES["displacement"] += ("3231aec6-f38e-494c-9b35-5f16aa152529",)

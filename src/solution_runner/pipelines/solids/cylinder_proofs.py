@@ -8,6 +8,8 @@ from . import cylinder_cut_proofs
 
 
 def _displacement(m):
+    if m.kind == "factor":
+        return _factor_displacement(m)
     volume, height, delta = m.given
     ratio = sp.simplify(delta / height)
     return (
@@ -27,6 +29,24 @@ def _displacement(m):
         )
         + line(
             "V=" + bracket(ratio) + r"\cdot" + bracket(volume) + "=" + value(m.answer)
+        )
+    )
+
+
+def _factor_displacement(m):
+    volume, factor = m.given
+    change = sp.simplify(factor - 1)
+    return (
+        "<p>Объём детали равен объёму вытесненной ею воды. В цилиндрическом сосуде площадь сечения B постоянна, поэтому объём жидкости пропорционален её высоте:</p>"
+        + line("V_0=Bh_0")
+        + line("h_1=kh_0")
+        + line("V_1=Bh_1=kV_0")
+        + "<p>Вычтем исходный объём воды. Увеличение объёма обусловлено погружением детали:</p>"
+        + line("V=V_1-V_0=(k-1)V_0")
+        + line("k-1=" + value(factor) + "-1=" + value(change))
+        + line(r"V=\left(" + value(factor) + r"-1\right)\cdot" + bracket(volume))
+        + line(
+            "V=" + bracket(change) + r"\cdot" + bracket(volume) + "=" + value(m.answer)
         )
     )
 

@@ -51,3 +51,36 @@ PROFILES = tuple(
         ),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        uid,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="3",
+        theme_title="Прямоугольный параллелепипед",
+        theme_order_index=1,
+        snapshot_theme_id="44b3d94d-87c2-4c6b-891b-43ef7c133aed",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, uid, index, rule in (
+        (
+            "245336",
+            "ae29a111-60f3-453c-96c1-75533541eac1",
+            15,
+            "solid-polyhedron-corner-volume",
+        ),
+        (
+            "245337",
+            "2114bace-69e5-4171-a27e-5889dfa8a6b2",
+            16,
+            "solid-polyhedron-rectangular-face-volume",
+        ),
+    )
+)

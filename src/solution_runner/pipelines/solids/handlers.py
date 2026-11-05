@@ -64,6 +64,8 @@ HANDLERS = tuple(
                 "solid-polyhedron-pyramid-with-note": "solution_runner.pipelines.solids.polyhedron_figures:note_specs",
                 "solid-polyhedron-triangle-pyramid": "solution_runner.pipelines.solids.polyhedron_figures:triangle_specs",
                 "solid-polyhedron-face-pyramid": "solution_runner.pipelines.solids.polyhedron_figures:face_specs",
+                "solid-polyhedron-corner-volume": "solution_runner.pipelines.solids.polyhedron_figures:corner_specs",
+                "solid-polyhedron-rectangular-face-volume": "solution_runner.pipelines.solids.polyhedron_figures:face_volume_specs",
             },
         ),
         (

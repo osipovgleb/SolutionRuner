@@ -111,3 +111,30 @@ PROFILES = tuple(
         ),
     )
 )
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        uid,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="3",
+        theme_title="Цилиндр",
+        theme_order_index=8,
+        snapshot_theme_id="b82ece70-f9b4-47dd-9500-c546e10e8c35",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key=rule,
+        rewrite_existing_solution=True,
+    )
+    for key, uid, index, rule in (
+        (
+            "27091",
+            "0fb3b555-47bc-4da3-af33-aea62c7f65d2",
+            4,
+            "solid-cylinder-immersed-volume-factor",
+        ),
+    )
+)

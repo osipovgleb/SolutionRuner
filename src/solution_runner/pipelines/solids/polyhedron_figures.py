@@ -12,11 +12,18 @@ from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import _identity
 from .distance_figures import _condition_change
 from .polyhedron_model import read_question
-from .polyhedron_sources import SOLIDS, STYLES, source_bytes
+from .polyhedron_sources import MEASUREMENTS, SOLIDS, STYLES, source_bytes
 from .polyhedron_svg import figure_svg
 
 CONDITION = "box_polyhedron_condition"
 SOLUTION = "box_polyhedron_solution"
+
+
+def compatible(model, source, expected):
+    return SOLIDS[source] == expected and (
+        source not in MEASUREMENTS
+        or tuple(map(str, model.squares)) == MEASUREMENTS[source]
+    )
 
 
 def selection(context, *, rule):
@@ -49,7 +56,15 @@ def selection(context, *, rule):
         if owners[key] != expected and not legacy_solution:
             raise ContentPlanError("the polyhedron figure has an unreviewed owner")
     figures = []
-    for role, kind, base in STYLES[rule]["roles"]:
+    roles = STYLES[rule]["roles"]
+    if (
+        STYLES[rule].get("native_roles")
+        and images
+        and not any(role == "condition" for role, _, _ in roles)
+    ):
+        kind = "frame" if SOLIDS[source] is None else "solid"
+        roles = (("condition", kind, source),) + roles
+    for role, kind, base in roles:
         current = [a for k, a in assets.items() if owners[k] == role]
         if len(current) > 1:
             raise ContentPlanError("duplicate polyhedron figures have the same role")
@@ -61,7 +76,7 @@ def selection(context, *, rule):
             + [base]
             + list(SOLIDS)
         )
-        source = next((s for s in candidates if SOLIDS[s] == expected), None)
+        source = next((s for s in candidates if compatible(m, s, expected)), None)
         key = (
             ("image_1" if role == "condition" else "image_2")
             if source
@@ -69,6 +84,13 @@ def selection(context, *, rule):
             if role == "condition"
             else SOLUTION
         )
+        if (
+            STYLES[rule].get("native_roles")
+            and source
+            and old
+            and old["asset_id"] == source
+        ):
+            key = old["asset_key"]
         drawing = None if source else spec(key, figure_svg(m, base))
         figures.append((role, old, source or base, key, drawing))
     return m, condition, assets, owners, figures
@@ -83,6 +105,10 @@ prism_specs = partial(diagram_specs, rule="solid-polyhedron-half-box")
 note_specs = partial(diagram_specs, rule="solid-polyhedron-pyramid-with-note")
 triangle_specs = partial(diagram_specs, rule="solid-polyhedron-triangle-pyramid")
 face_specs = partial(diagram_specs, rule="solid-polyhedron-face-pyramid")
+corner_specs = partial(diagram_specs, rule="solid-polyhedron-corner-volume")
+face_volume_specs = partial(
+    diagram_specs, rule="solid-polyhedron-rectangular-face-volume"
+)
 
 
 def prepare(context, generated, *, rule):

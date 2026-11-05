@@ -10,6 +10,17 @@ from sphere_formula_oracle import PiParser
 
 def quantities(m):
     if m.mode == "displacement":
+        if m.kind == "factor":
+            v, k = m.given
+            return {
+                "V_0": v,
+                "V_1": v * k,
+                "V": v * (k - 1),
+                "k": k,
+                "h_0": sp.Integer(7),
+                "h_1": 7 * k,
+                "B": v / 7,
+            }
         v, h, delta = m.given
         base = v / h
         return {
@@ -77,6 +88,9 @@ def verify(result, m):
         for old, new in (
             ("Ch", r"C\cdot h"),
             ("Bh_0", r"B\cdot h_0"),
+            ("Bh_1", r"B\cdot h_1"),
+            ("kh_0", r"k\cdot h_0"),
+            ("kV_0", r"k\cdot V_0"),
             (r"B\Delta h", r"B\cdot \Delta h"),
             ("rh", r"r\cdot h"),
             ("dh", r"d\cdot h"),
