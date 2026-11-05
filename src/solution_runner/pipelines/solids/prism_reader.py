@@ -195,4 +195,12 @@ def read(html, source=None):
             return vertex_volume(match.groups()[:2], vertices(match[3]))
     except UnsupportedCondition as exc:
         raise ContentPlanError(str(exc)) from exc
+    from .prism_metric_reader import read as metric
+
+    try:
+        m = metric(raw)
+        if m:
+            return m
+    except UnsupportedCondition as exc:
+        raise ContentPlanError(str(exc)) from exc
     raise ContentPlanError("one complete reviewed prism question is required")

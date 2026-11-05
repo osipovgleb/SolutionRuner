@@ -79,7 +79,11 @@ HANDLERS = tuple(
         (SPHERES, "solution_runner.pipelines.solids.sphere_parent:prepare", None),
         (CYLINDERS, "solution_runner.pipelines.solids.cylinder_parent:prepare", None),
         (CONES, "solution_runner.pipelines.solids.cone_parent:prepare", None),
-        (PRISMS, "solution_runner.pipelines.solids.prism_parent:prepare", None),
+        (
+            PRISMS,
+            "solution_runner.pipelines.solids.prism_parent:prepare",
+            "solution_runner.pipelines.solids.prism_figures:diagram_specs",
+        ),
         (
             DISTANCES,
             "solution_runner.pipelines.solids.distance_parent:prepare",

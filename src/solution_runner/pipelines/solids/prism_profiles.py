@@ -163,5 +163,65 @@ PROFILES = tuple(
             44,
             "solid-prism-oblique-hexagonal-volume",
         ),
+        (
+            "245365",
+            "e2553bc1-2ab4-4682-8dc8-23e3d6c6c852",
+            23,
+            "solid-prism-hexagonal-base-distance",
+        ),
+        (
+            "245368",
+            "adc57998-12d1-4c68-94d1-19017d8d069d",
+            24,
+            "solid-prism-hexagonal-base-angle",
+        ),
+        (
+            "316553",
+            "7d5831b4-12a4-449b-a346-c35c098e1797",
+            25,
+            "solid-prism-hexagonal-line-angle",
+        ),
+        (
+            "316554",
+            "d4973432-67b4-4076-a2b8-d61afc54b769",
+            26,
+            "solid-prism-cube-face-diagonal-angle",
+        ),
+        (
+            "316558",
+            "2108b9cd-6722-4045-8001-e3b1970ded1a",
+            27,
+            "solid-prism-triangular-line-angle",
+        ),
+        (
+            "318475",
+            "7ad972cb-0245-445c-a11c-b0fe7b463afa",
+            28,
+            "solid-prism-square-space-diagonal-angle",
+        ),
+        (
+            "245364",
+            "1c9745b4-6bba-44fe-81f5-587b180f6d59",
+            38,
+            "solid-prism-hexagonal-short-diagonal-distance",
+        ),
+        (
+            "245366",
+            "6f5ca353-8f7a-4c60-8758-d2b9e3ac5b3c",
+            39,
+            "solid-prism-hexagonal-long-diagonal-distance",
+        ),
+        (
+            "245367",
+            "38a687b4-25d4-4eb8-b106-e5b1f49a871e",
+            40,
+            "solid-prism-hexagonal-tangent",
+        ),
+        (
+            "245369",
+            "1d48c25f-1f7b-4e12-b027-6ee4d3a629ee",
+            41,
+            "solid-prism-hexagonal-vertical-angle",
+        ),
     )
 )

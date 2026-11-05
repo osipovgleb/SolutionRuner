@@ -7,12 +7,16 @@ from ..quadrilaterals.parallelogram.midpoint_figures import _attach
 from ..quadrilaterals.quantity_content import read_content
 from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import condition_changes
+from . import prism_metric_figures
+from .prism_metric_model import KINDS as METRIC_KINDS
 from .prism_model import read_question
 from .prism_sources import DEFAULTS, RULES, compatible
 
 
-def selection(context, *, rule):
-    content, assets, owners = read_content(context, {"image_1", "image_2"})
+def selection(context, *, rule=None):
+    content, assets, owners = read_content(
+        context, {"image_1", "image_2", prism_metric_figures.KEY}
+    )
     condition = _section(content, "condition")
     if condition is None:
         raise ContentPlanError("one complete prism condition is required")
@@ -22,10 +26,13 @@ def selection(context, *, rule):
     m = read_question(
         condition["html"], images[0].get("data-asset-id") if images else None
     )
-    if m.kind not in RULES[rule]:
+    if rule is not None and m.kind not in RULES[rule]:
         raise ContentPlanError(
             "the complete prism question differs from its reviewed methods"
         )
+    if m.kind in METRIC_KINDS:
+        prism_metric_figures.validate(m, assets, owners)
+        return m, condition, assets, owners
     if set(assets) - set(DEFAULTS[m.kind]):
         raise ContentPlanError("the prism figure slot needs review")
     for key, a in assets.items():
@@ -34,9 +41,13 @@ def selection(context, *, rule):
 
 
 def prepare(context, generated, *, rule):
+    m, condition, assets, owners = selection(context, rule=rule)
+    if m.kind in METRIC_KINDS:
+        return prism_metric_figures.prepare(
+            context, m, condition, assets, owners, generated
+        )
     if generated:
         raise ContentPlanError("reviewed prism drawings need no generated copies")
-    m, condition, assets, owners = selection(context, rule=rule)
     changes = []
     pictures = {}
     keys = []
@@ -65,3 +76,11 @@ def prepare(context, generated, *, rule):
             pictures[key] = image
             keys.append(key)
     return m, tuple(changes), pictures, tuple(keys)
+
+
+def diagram_specs(context):
+    m, _condition, assets, owners = selection(context)
+    if m.kind not in METRIC_KINDS:
+        return ()
+    drawing = prism_metric_figures.choice(m, assets, owners)[1]
+    return (drawing,) if drawing else ()
