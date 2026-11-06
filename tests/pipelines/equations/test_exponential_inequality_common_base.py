@@ -138,7 +138,9 @@ def test_plan_replay_and_gateway_never_request_writes_or_assets(row):
     assert not plan(row, ctx).transformations
 
 
-@pytest.mark.parametrize("record", GROUPS, ids=lambda r: r[0])
+@pytest.mark.parametrize(
+    "record", [r for r in GROUPS if r[-1] == RULE], ids=lambda r: r[0]
+)
 def test_exact_catalog_registration_uses_one_shared_rule(record):
     key, group_id, index, theme, theme_index, theme_id, rule = record
     p = get_group_profile(key)

@@ -61,11 +61,16 @@ def monomial(node):
     if node.kind == "exponential":
         base, exponent = (c.value for c in node.children)
         return sp.Integer(1), (base, exponent)
-    if node.kind == "multiply":
+    if node.kind in ("multiply", "divide"):
         c, left = monomial(node.children[0])
         d, right = monomial(node.children[1])
         if (left is None) != (right is None):
-            return c * d, left or right
+            if node.kind == "multiply":
+                return c * d, left or right
+            if left is not None:
+                return c / d, left
+            base, exponent = right
+            return c / d, (base, -exponent)
     raise UnsupportedCondition(
         "each term must be one exponential with a rational coefficient"
     )
@@ -83,7 +88,7 @@ class Comparison:
     stage: object
 
 
-def compare(formula):
+def read_terms(formula):
     import re
 
     parts = re.split(r"(\\(?:geq?|leq?|gt|lt)(?![a-zA-Z])|<|>)", formula)
@@ -91,7 +96,13 @@ def compare(formula):
         raise UnsupportedCondition("one complete exponential inequality is required")
     readers = [ExponentialParser(text) for text in (parts[0], parts[2])]
     left, right = [reader.parse() for reader in readers]
-    if any(d.free_symbols for reader in readers for d in reader.denominators):
+    denominators = tuple(d for reader in readers for d in reader.denominators)
+    return left, right, denominators, OPERATORS[parts[1]]
+
+
+def compare(formula):
+    left, right, denominators, operator = read_terms(formula)
+    if any(d.free_symbols for d in denominators):
         raise UnsupportedCondition(
             "this exponent-comparison method needs polynomial exponents on the full real line"
         )
@@ -124,7 +135,6 @@ def compare(formula):
             raise UnsupportedCondition(
                 "the compared exponents must be at most quadratic"
             )
-    operator = OPERATORS[parts[1]]
     stage = analyze(
         sp.latex(exponents[0]) + RELATION[operator] + " " + sp.latex(exponents[1])
     )

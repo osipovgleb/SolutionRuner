@@ -128,18 +128,24 @@ def analyze(formula):
     )
 
 
-def set_latex(solution):
+def set_latex(solution, *, endpoint=None):
     if solution == sp.EmptySet:
         return r"\varnothing"
     if solution == sp.S.Reals:
         return r"\mathbb R"
     if isinstance(solution, sp.Union):
-        return r"\cup ".join(set_latex(part) for part in solution.args)
+        return r"\cup ".join(
+            set_latex(part, endpoint=endpoint) for part in solution.args
+        )
     if isinstance(solution, sp.FiniteSet):
-        return r"\{" + ";".join(map(sp.latex, solution)) + r"\}"
+        return r"\{" + ";".join(map(endpoint or sp.latex, solution)) + r"\}"
     if isinstance(solution, sp.Interval):
         left = "(" if solution.left_open else "["
         right = ")" if solution.right_open else "]"
+        if endpoint is not None:
+            return (
+                left + endpoint(solution.start) + ";" + endpoint(solution.end) + right
+            )
         start, end = (
             sp.factor_terms(value) if value.is_Rational is not True else value
             for value in (solution.start, solution.end)
