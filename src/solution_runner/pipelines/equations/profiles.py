@@ -4,6 +4,8 @@ from solution_runner.pipelines.core.profile_definitions import (
     _profile,
 )
 
+from .rational_inequality_figures import GROUPS as RATIONAL_INEQUALITY_GROUPS
+
 PROFILES = (
     _profile(
         "185",
@@ -4902,4 +4904,24 @@ PROFILES += (
         content_rule_key="exam-logarithmic-branches",
         rewrite_existing_solution=True,
     ),
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title=theme,
+        theme_order_index=theme_index,
+        snapshot_theme_id=theme_id,
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-rational-inequality-" + method.replace("_", "-"),
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index, theme, theme_index, theme_id, method in RATIONAL_INEQUALITY_GROUPS
 )
