@@ -1,0 +1,91 @@
+{
+  "parents": {
+    "mixed_substitution": [
+      "d46035f9a006192106362e5b6fe64006e07a1372dd436abcce68b8d4659b6ecf"
+    ]
+  },
+  "figures": {
+    "f2591c91-777b-4a47-991a-72a21f890d89": {
+      "variable": "x",
+      "operation": "union",
+      "rows": [
+        {
+          "points": [
+            "-3",
+            "0"
+          ],
+          "poles": [
+            "-3"
+          ],
+          "signs": [
+            1,
+            -1,
+            1
+          ],
+          "operator": "<="
+        },
+        {
+          "points": [
+            "-3"
+          ],
+          "poles": [
+            "-3"
+          ],
+          "signs": [
+            1,
+            -1
+          ],
+          "operator": ">="
+        }
+      ],
+      "domain": "Union(Interval.open(-oo, -3), Interval.open(-3, oo))",
+      "branches": [
+        "Interval.Lopen(-3, 0)",
+        "Interval.open(-oo, -3)"
+      ],
+      "sha256": "662b7d0db754a8d7d175db94c720b14bc6598f25e055db834af5e76c2361882f",
+      "shareable": true
+    },
+    "f7053496-7ee2-4823-aa83-f4b4f454178f": {
+      "variable": "x",
+      "operation": "union",
+      "rows": [
+        {
+          "points": [
+            "0",
+            "3"
+          ],
+          "poles": [
+            "3"
+          ],
+          "signs": [
+            1,
+            -1,
+            1
+          ],
+          "operator": "<="
+        },
+        {
+          "points": [
+            "3"
+          ],
+          "poles": [
+            "3"
+          ],
+          "signs": [
+            -1,
+            1
+          ],
+          "operator": ">="
+        }
+      ],
+      "domain": "Union(Interval.open(-oo, 3), Interval.open(3, oo))",
+      "branches": [
+        "Interval.Ropen(0, 3)",
+        "Interval.open(3, oo)"
+      ],
+      "sha256": "4c88c060f336463e9d4858f6604bae9ff8fac7b461ce507b8301ee71ce3084f7",
+      "shareable": true
+    }
+  }
+}

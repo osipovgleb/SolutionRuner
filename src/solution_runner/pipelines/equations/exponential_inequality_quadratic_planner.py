@@ -15,6 +15,10 @@ from .exponential_inequality_quadratic_proof import METHODS, render
 from .exponential_inequality_reduction_proof import RENDERS
 from .exponential_inequality_reductions import ANALYSES as REDUCTIONS
 from .inequality_plan import repair
+from .mixed_substitution_figures import SOURCES as MIXED_SOURCES
+from .mixed_substitution_figures import chart
+from .mixed_substitution_proof import model as mixed_model
+from .mixed_substitution_proof import render as mixed_render
 from .rational_inequality_figures import read_formula
 
 SOURCES = json.loads(
@@ -52,7 +56,9 @@ ANALYSES = {
     **REDUCTIONS,
     **dict.fromkeys(PREIMAGE_METHODS, quadratic_exponent),
     **FACTORIZATIONS,
+    "mixed_substitution": mixed_model,
 }
+SOURCES.update(MIXED_SOURCES["parents"])
 PROOFS = {**RENDERS, **PREIMAGE_RENDERS, **FACTORIZATION_PROOFS}
 
 
@@ -64,10 +70,21 @@ def build_context_repair_plan(context, *, parent_solution_html="", method):
             "the complete reviewed parent for this exponential method is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
-    if content.get("assets"):
+    if content.get("assets") and method != "mixed_substitution":
         raise UnsupportedCondition(
             "these reviewed exponential parents have no source diagrams"
         )
     a = ANALYSES[method](formula)
+    if method == "mixed_substitution":
+        image, keys, changes = chart(context, a)
+        return repair(
+            condition,
+            answer,
+            solution,
+            a.answer,
+            mixed_render(a, image),
+            keys=keys,
+            asset_changes=changes,
+        )
     html = render(a, method) if method in METHODS else PROOFS[method](a)
     return repair(condition, answer, solution, a.answer, html)

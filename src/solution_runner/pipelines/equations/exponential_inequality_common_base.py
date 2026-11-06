@@ -88,13 +88,13 @@ class Comparison:
     stage: object
 
 
-def read_terms(formula):
+def read_terms(formula, *, reader=ExponentialParser):
     import re
 
     parts = re.split(r"(\\(?:geq?|leq?|gt|lt)(?![a-zA-Z])|<|>)", formula)
     if len(parts) != 3 or parts[1] not in OPERATORS:
         raise UnsupportedCondition("one complete exponential inequality is required")
-    readers = [ExponentialParser(text) for text in (parts[0], parts[2])]
+    readers = [reader(text) for text in (parts[0], parts[2])]
     left, right = [reader.parse() for reader in readers]
     denominators = tuple(d for reader in readers for d in reader.denominators)
     return left, right, denominators, OPERATORS[parts[1]]

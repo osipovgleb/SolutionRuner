@@ -131,3 +131,15 @@ GROUPS += (
         "exam-exponential-inequality-grouped_quadratic",
     ),
 )
+
+GROUPS += (
+    (
+        "514027",
+        "9f6c1d46-0e95-494b-84dd-298bd3dd7eca",
+        12,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-mixed_substitution",
+    ),
+)

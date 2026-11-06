@@ -821,3 +821,14 @@ HANDLERS += tuple(
     )
     for method in ("linear_denominator", "grouped_quadratic")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-exponential-inequality-mixed_substitution",
+        "solution_runner.pipelines.equations.exponential_inequality_quadratic_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", "mixed_substitution"),),
+        requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.equations.mixed_substitution_figures:required_assets",
+    ),
+)
