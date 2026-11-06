@@ -94,6 +94,104 @@ def linear_denominator(formula):
     return FractionPower(formula, operator, left.value, a, d, lo, hi, level, stage)
 
 
+@dataclass(frozen=True)
+class CubeOverSquare:
+    formula: str
+    operator: str
+    original: sp.Expr
+    numerator: object
+    denominator: sp.Expr
+    denominator_scalar: sp.Expr
+    denominator_factor: sp.Expr
+    level: sp.Expr
+    zero: sp.Expr
+    pole: sp.Expr
+    stage: object
+
+    @property
+    def solution(self):
+        return self.stage.solution
+
+    @property
+    def answer(self):
+        return set_latex(self.solution)
+
+
+def cube_over_square(formula):
+    left, right, denominators, operator = read_terms(formula)
+    if left.kind != "divide" or right.value != 0:
+        raise UnsupportedCondition(
+            "one exponential fraction compared with zero is required"
+        )
+    numerator, denominator = left.children
+    d = denominator.value
+    p = polynomial(d)
+    if (
+        p.degree() != 2
+        or any(c.is_Rational is not True for c in p.all_coeffs())
+        or p.LC() <= 0
+        or sp.discriminant(p) != 0
+    ):
+        raise UnsupportedCondition(
+            "the source denominator must be a positive scalar times an affine square"
+        )
+    if any(
+        v.free_symbols and v != d and v.is_positive is not True for v in denominators
+    ):
+        raise UnsupportedCondition(
+            "every additional original denominator must be proved positive"
+        )
+    scalar, factors = sp.factor_list(d)
+    factor, multiplicity = factors[0]
+    if len(factors) != 1 or multiplicity != 2 or scalar <= 0:
+        raise UnsupportedCondition(
+            "one exact affine square must account for the whole denominator"
+        )
+    powers, constant = power_terms(terms(numerator))
+    a = analyze_sum(formula, operator, numerator.value, powers, constant, degree=3)
+    if a.multiply_degree != 0 or len(a.stage.zeros) != 1 or len(a.back) != 1:
+        raise UnsupportedCondition(
+            "the numerator must be a cubic with one positive substitution root"
+        )
+    root = a.stage.zeros[0]
+    leading = polynomial(a.stage.original).LC()
+    if leading <= 0 or sp.expand(a.stage.original - leading * (X - root) ** 3) != 0:
+        raise UnsupportedCondition(
+            "the exact positive scalar times a difference cube is required"
+        )
+    _, level, roots = a.back[0]
+    if (
+        level.is_Rational is not True
+        or len(roots) != 1
+        or roots[0].is_Rational is not True
+    ):
+        raise UnsupportedCondition(
+            "the triple zero must have an exact rational exponent preimage"
+        )
+    zero = roots[0]
+    pole = -p.nth(1) / (2 * p.nth(2))
+    if zero == pole:
+        raise UnsupportedCondition(
+            "the reviewed chart needs a distinct triple zero and double pole"
+        )
+    stage = analyze(
+        r"\frac{"
+        + sp.latex((a.exponent - level) ** 3)
+        + "}{"
+        + sp.latex(factor**2)
+        + "}"
+        + RELATION[operator]
+        + "0"
+    )
+    if stage.poles != (pole,) or stage.zeros != (zero,):
+        raise UnsupportedCondition(
+            "the original double pole and triple zero must stay distinct"
+        )
+    return CubeOverSquare(
+        formula, operator, left.value, a, d, scalar, factor, level, zero, pole, stage
+    )
+
+
 def factor_grid(coefficients):
     matches = []
     for base in coefficients:
@@ -186,4 +284,5 @@ def grouped_quadratic(formula):
 ANALYSES = {
     "linear_denominator": linear_denominator,
     "grouped_quadratic": grouped_quadratic,
+    "cube_over_square": cube_over_square,
 }

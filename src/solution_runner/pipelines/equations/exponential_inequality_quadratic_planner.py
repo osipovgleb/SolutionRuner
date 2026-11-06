@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 
 from ..probability.common import UnsupportedCondition
+from .exponential_inequality_cubic_figures import SOURCES as CUBIC_SOURCES
+from .exponential_inequality_cubic_figures import chart as cubic_chart
 from .exponential_inequality_factorization_proof import RENDERS as FACTORIZATION_PROOFS
 from .exponential_inequality_factorizations import ANALYSES as FACTORIZATIONS
 from .exponential_inequality_preimage_proof import METHODS as PREIMAGE_METHODS
@@ -59,10 +61,13 @@ ANALYSES = {
     "mixed_substitution": mixed_model,
 }
 SOURCES.update(MIXED_SOURCES["parents"])
+SOURCES.update(CUBIC_SOURCES["parents"])
 PROOFS = {**RENDERS, **PREIMAGE_RENDERS, **FACTORIZATION_PROOFS}
 
 
-def build_context_repair_plan(context, *, parent_solution_html="", method):
+def build_context_repair_plan(
+    context, *, parent_solution_html="", method, generated_solution_assets=()
+):
     if hashlib.sha256(parent_solution_html.encode()).hexdigest() not in SOURCES.get(
         method, ()
     ):
@@ -70,11 +75,25 @@ def build_context_repair_plan(context, *, parent_solution_html="", method):
             "the complete reviewed parent for this exponential method is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
-    if content.get("assets") and method != "mixed_substitution":
+    if content.get("assets") and method not in (
+        "mixed_substitution",
+        "cube_over_square",
+    ):
         raise UnsupportedCondition(
             "these reviewed exponential parents have no source diagrams"
         )
     a = ANALYSES[method](formula)
+    if method == "cube_over_square":
+        image, keys, changes = cubic_chart(context, a, generated_solution_assets)
+        return repair(
+            condition,
+            answer,
+            solution,
+            a.answer,
+            PROOFS[method](a, image),
+            keys=keys,
+            asset_changes=changes,
+        )
     if method == "mixed_substitution":
         image, keys, changes = chart(context, a)
         return repair(

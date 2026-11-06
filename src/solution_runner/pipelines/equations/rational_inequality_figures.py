@@ -53,8 +53,9 @@ def signature(a):
     }
 
 
-def reviewed_asset(asset):
-    entry = SOURCES["figures"].get(asset.get("asset_id"))
+def reviewed_asset(asset, *, figures=None):
+    figures = SOURCES["figures"] if figures is None else figures
+    entry = figures.get(asset.get("asset_id"))
     shared = (
         entry is not None
         and entry.get("shareable") is True

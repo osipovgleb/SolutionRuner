@@ -832,3 +832,18 @@ HANDLERS += (
         asset_selector="solution_runner.pipelines.equations.mixed_substitution_figures:required_assets",
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-exponential-inequality-cube_over_square",
+        "solution_runner.pipelines.equations.exponential_inequality_quadratic_planner:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        options=(("method", "cube_over_square"),),
+        requires_parent_condition_asset=False,
+        diagram_builder="solution_runner.pipelines.equations.exponential_inequality_cubic_figures:diagram_specs",
+        asset_selector="solution_runner.pipelines.equations.exponential_inequality_cubic_figures:required_assets",
+    ),
+)

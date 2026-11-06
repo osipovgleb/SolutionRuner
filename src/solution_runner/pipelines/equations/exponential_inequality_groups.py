@@ -143,3 +143,15 @@ GROUPS += (
         "exam-exponential-inequality-mixed_substitution",
     ),
 )
+
+GROUPS += (
+    (
+        "681213",
+        "d9896535-4470-45d6-872b-3c8b558b9723",
+        42,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-cube_over_square",
+    ),
+)

@@ -1,0 +1,620 @@
+[
+  {
+    "group": "681213",
+    "task": "681213",
+    "source_answer": "(-\\infty;-\\frac{1}{10})\\cup (-\\frac{1}{10};2] .",
+    "expected_answer": "(-\\infty;-\\frac{1}{10})\\cup (-\\frac{1}{10};2] .",
+    "context": {
+      "problem_id": "3bb46681-cb80-49c6-9272-c68fe5d6c22c",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:31:56.848463+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/552e37ac-9592-4ae8-ba54-c630ae486ed1",
+              "html": "<img alt=\"\" data-asset-id=\"552e37ac-9592-4ae8-ba54-c630ae486ed1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/552e37ac-9592-4ae8-ba54-c630ae486ed1\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "552e37ac-9592-4ae8-ba54-c630ae486ed1",
+              "position": 4,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x}-3\\cdot 9^{x+1}+3^{x+5}-729}{50x^{2}+10x+0{,}5}\\le 0\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-\\frac{1}{10})\\cup (-\\frac{1}{10};2]\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Вы­ра­же­ние в чис­ли­те­ле дроби пред­став­ля­ет собой куб раз­но­сти:</p><center><p> <span data-inline-latex=\"27^{x}-3\\cdot 9^{x+1}+3^{x+5}-729=3^{3x}-27\\cdot 3^{2x}+243\\cdot 3^{x}-729=(3^{x}-9)^{3}\"></span> ,</p></center><p>а вы­ра­же­ние в зна­ме­на­те­ле  — пол­ный квад­рат:</p><center><p> <span data-inline-latex=\"50x^{2}+10x+0{,}5=\\frac{1}{2}(100x^{2}+20x+1)=\\frac{1}{2}(10x+1)^{2}\"></span> .</p></center><p> Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов и ра­ци­о­на­ли­за­ции, для этого при­ме­ним тео­ре­му о зна­ках: при по­ло­жи­тель­ных <i>a</i> вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><p><img alt=\"\" data-asset-id=\"552e37ac-9592-4ae8-ba54-c630ae486ed1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><center><p><span> <span data-inline-latex=\"\\frac{(3^{x}-9)^{3}}{(10x+1)^{2}}\\le 0\\iff \\frac{(3^{x}-3^{2})^{3}}{(10x+1)^{2}}\\le 0\\iff \\frac{(x-2)^{3}}{(10x+1)^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\frac{1}{10}\\\\-\\frac{1}{10}\\lt x\\le 2\\end{aligned}\\right.\"></span> . </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T17:34:12.232511+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/552e37ac-9592-4ae8-ba54-c630ae486ed1",
+            "kind": "ordinary_image",
+            "asset_id": "552e37ac-9592-4ae8-ba54-c630ae486ed1",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x}-3\\cdot 9^{x+1}+3^{x+5}-729}{50x^{2}+10x+0{,}5}\\le 0\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-\\frac{1}{10})\\cup (-\\frac{1}{10};2]\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84765500\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна 27.05.2025. Разные города. Вариант 1 (Школково)</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Вы­ра­же­ние в чис­ли­те­ле дроби пред­став­ля­ет собой куб раз­но­сти:</p><center><p> <span data-inline-latex=\"27^{x}-3\\cdot 9^{x+1}+3^{x+5}-729=3^{3x}-27\\cdot 3^{2x}+243\\cdot 3^{x}-729=(3^{x}-9)^{3}\"></span> ,</p></center><p>а вы­ра­же­ние в зна­ме­на­те­ле  — пол­ный квад­рат:</p><center><p> <span data-inline-latex=\"50x^{2}+10x+0{,}5=\\frac{1}{2}(100x^{2}+20x+1)=\\frac{1}{2}(10x+1)^{2}\"></span> .</p></center><p> Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов и ра­ци­о­на­ли­за­ции, для этого при­ме­ним тео­ре­му о зна­ках: при по­ло­жи­тель­ных <i>a</i> вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><p><img alt=\"\" data-asset-id=\"552e37ac-9592-4ae8-ba54-c630ae486ed1\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/552e37ac-9592-4ae8-ba54-c630ae486ed1\"/></p><center><p><span> <span data-inline-latex=\"\\frac{(3^{x}-9)^{3}}{(10x+1)^{2}}\\le 0\\iff \\frac{(3^{x}-3^{2})^{3}}{(10x+1)^{2}}\\le 0\\iff \\frac{(x-2)^{3}}{(10x+1)^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\frac{1}{10}\\\\-\\frac{1}{10}\\lt x\\le 2\\end{aligned}\\right.\"></span> . </span></p></center>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "681213",
+    "task": "681215",
+    "source_answer": "[-1;-\\frac{1}{2})\\cup (-\\frac{1}{2};+\\infty) .",
+    "expected_answer": "[-1;-\\frac{1}{2})\\cup (-\\frac{1}{2};+\\infty) .",
+    "context": {
+      "problem_id": "3d952e34-8066-43de-9eb8-26561138ca1f",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:32:04.960986+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/0987f8b8-2128-40e8-b26b-8bff8d824029",
+              "html": "<img alt=\"\" data-asset-id=\"0987f8b8-2128-40e8-b26b-8bff8d824029\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0987f8b8-2128-40e8-b26b-8bff8d824029\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "0987f8b8-2128-40e8-b26b-8bff8d824029",
+              "position": 4,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x+1}-3\\cdot 9^{x+1}+3^{x+2}-1}{50x^{2}+50x+12{,}5}\\ge 0\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[-1;-\\frac{1}{2})\\cup (-\\frac{1}{2};+\\infty)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что вы­ра­же­ние в чис­ли­те­ле дроби пред­став­ля­ет собой куб раз­но­сти:</p><center><p><span data-inline-latex=\"27^{x+1}-3\\cdot 9^{x+1}+3^{x+2}-1=27\\cdot 3^{3x}-27\\cdot 3^{2x}+9\\cdot 3^{x}-1=(3^{x+1}-1)^{3}\"></span> ,</p></center><p> а вы­ра­же­ние в зна­ме­на­те­ле можно пред­ста­вить в виде пол­но­го квад­ра­та:</p><center><p><span data-inline-latex=\"50x^{2}+50x+12{,}5=12{,}5\\cdot (4x^{2}+4x+1)=12{,}5(2x+1)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i>  вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><p><img alt=\"\" data-asset-id=\"0987f8b8-2128-40e8-b26b-8bff8d824029\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><center><p><span> <span data-inline-latex=\"\\frac{(3^{x+1}-1)^{3}}{(2x+1)^{2}}\\ge 0\\iff \\frac{(3^{x+1}-3^{0})^{3}}{(2x+1)^{2}}\\ge 0\\iff \\frac{(x+1)^{3}}{(2x+1)^{2}}\\ge 0\\iff \\left[\\begin{aligned}-1\\le x\\lt -\\frac{1}{2}\\\\x\\gt -\\frac{1}{2}\\end{aligned}\\right.\"></span> . </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T17:34:12.358217+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/0987f8b8-2128-40e8-b26b-8bff8d824029",
+            "kind": "ordinary_image",
+            "asset_id": "0987f8b8-2128-40e8-b26b-8bff8d824029",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x+1}-3\\cdot 9^{x+1}+3^{x+2}-1}{50x^{2}+50x+12{,}5}\\ge 0\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[-1;-\\frac{1}{2})\\cup (-\\frac{1}{2};+\\infty)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84733585\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна 27.05.2025. Сибирь. Вариант Школково</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что вы­ра­же­ние в чис­ли­те­ле дроби пред­став­ля­ет собой куб раз­но­сти:</p><center><p><span data-inline-latex=\"27^{x+1}-3\\cdot 9^{x+1}+3^{x+2}-1=27\\cdot 3^{3x}-27\\cdot 3^{2x}+9\\cdot 3^{x}-1=(3^{x+1}-1)^{3}\"></span> ,</p></center><p> а вы­ра­же­ние в зна­ме­на­те­ле можно пред­ста­вить в виде пол­но­го квад­ра­та:</p><center><p><span data-inline-latex=\"50x^{2}+50x+12{,}5=12{,}5\\cdot (4x^{2}+4x+1)=12{,}5(2x+1)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i>  вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><p><img alt=\"\" data-asset-id=\"0987f8b8-2128-40e8-b26b-8bff8d824029\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0987f8b8-2128-40e8-b26b-8bff8d824029\"/></p><center><p><span> <span data-inline-latex=\"\\frac{(3^{x+1}-1)^{3}}{(2x+1)^{2}}\\ge 0\\iff \\frac{(3^{x+1}-3^{0})^{3}}{(2x+1)^{2}}\\ge 0\\iff \\frac{(x+1)^{3}}{(2x+1)^{2}}\\ge 0\\iff \\left[\\begin{aligned}-1\\le x\\lt -\\frac{1}{2}\\\\x\\gt -\\frac{1}{2}\\end{aligned}\\right.\"></span> . </span></p></center>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "681213",
+    "task": "681216",
+    "source_answer": "[1;\\frac{11}{10})\\cup (\\frac{11}{10};+\\infty) .",
+    "expected_answer": "[1;\\frac{11}{10})\\cup (\\frac{11}{10};+\\infty) .",
+    "context": {
+      "problem_id": "3d9be37f-1113-4ecf-8b35-d2b7677b11f8",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T05:29:57.485433+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x}-9^{x+1}+3^{x+3}-27}{50x^{2}-110x+60{,}5}\\ge 0\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T05:29:57.485433+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[1;\\frac{11}{10})\\cup (\\frac{11}{10};+\\infty)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T05:29:57.485433+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T05:29:57.485433+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x}-9^{x+1}+3^{x+3}-27}{50x^{2}-110x+60{,}5}\\ge 0\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[1;\\frac{11}{10})\\cup (\\frac{11}{10};+\\infty)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84765527\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 27.05.2025. Основная волна. Разные города, вариант 2</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "681213",
+    "task": "681303",
+    "source_answer": "(-\\infty;-0{,}7)\\cup (-0{,}7;0] .",
+    "expected_answer": "(-\\infty;-0{,}7)\\cup (-0{,}7;0] .",
+    "context": {
+      "problem_id": "93e98b04-a222-43cd-86e1-210f71ac305c",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T05:29:57.687204+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x+1}-9^{x+2}+3^{x+4}-27}{50x^{2}+70x+24{,}5}\\le 0\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T05:29:57.687204+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-0{,}7)\\cup (-0{,}7;0]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T05:29:57.687204+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T05:29:57.687204+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{27^{x+1}-9^{x+2}+3^{x+4}-27}{50x^{2}+70x+24{,}5}\\le 0\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-0{,}7)\\cup (-0{,}7;0]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84717826\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 27.05.2025. Основная волна. Разные города</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

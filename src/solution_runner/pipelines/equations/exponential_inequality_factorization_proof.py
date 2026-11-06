@@ -151,6 +151,48 @@ def rationalization_method(a):
     return html + line(r"x\in " + a.answer)
 
 
+def cube_over_square(a, image=""):
+    n = a.numerator
+    actual = power(n.base, n.exponent)
+    original_numerator = sum_terms(
+        (*((c, power(b, g)) for c, b, g in n.powers), (n.constant, ""))
+    )
+    leading = polynomial(n.stage.original).LC()
+    cube = expression((X - a.numerator.stage.zeros[0]) ** 3, actual)
+    denominator = sp.latex(a.denominator_factor**2)
+    html = line(a.formula) + domain(a.stage)
+    html += "<p>Выражение в числителе представляет собой куб разности с положительным числовым множителем. Приведём степени к одному основанию:</p>"
+    html += line(original_numerator + "=" + power_sum_text(n, actual))
+    html += line(
+        power_sum_text(n, actual)
+        + "="
+        + expression(leading * (X - n.stage.zeros[0]) ** 3, actual)
+    )
+    html += "<p>Знаменатель — положительный числовой множитель, умноженный на полный квадрат:</p>"
+    html += line(
+        sp.latex(a.denominator)
+        + "="
+        + sp.latex(
+            sp.Mul(a.denominator_scalar, a.denominator_factor**2, evaluate=False)
+        )
+    )
+    scalar = sp.cancel(leading / a.denominator_scalar)
+    html += "<p>После вынесения этих множителей из исходной дроби остаётся положительный коэффициент. Деление на него не меняет знак неравенства:</p>"
+    html += line(sp.latex(scalar) + ">0")
+    html += line(fraction(cube, denominator) + RELATION[a.operator] + "0")
+    html += line(sp.latex(n.stage.zeros[0]) + "=" + power(n.base, a.level))
+    html += monotonic(n.base)
+    html += "<p>Применим метод рационализации: разность степеней имеет тот же знак, что и разность показателей. Нечётный куб сохраняет этот знак. Знаменатель и его исключённую точку сохраняем:</p>"
+    html += line(a.stage.formula)
+    html += "<p>Применяем метод интервалов. Нуль числителя имеет кратность 3, поэтому знак при переходе через него меняется. Полюс знаменателя имеет кратность 2: знак не меняется, но сама точка исключена:</p>"
+    if a.stage.original != a.stage.expression:
+        html += normalized(a.stage)
+    html += line(interval_signs_text(a.stage))
+    html += image
+    html += "<p>Выбираем промежутки с нужным знаком. Исключённую точку знаменателя не включаем; допустимый нуль числителя включаем только при нестрогом неравенстве:</p>"
+    return html + line(r"x\in " + a.answer)
+
+
 def grouped_quadratic(a):
     return (
         line(a.formula)
@@ -164,4 +206,5 @@ def grouped_quadratic(a):
 RENDERS = {
     "linear_denominator": linear_denominator,
     "grouped_quadratic": grouped_quadratic,
+    "cube_over_square": cube_over_square,
 }

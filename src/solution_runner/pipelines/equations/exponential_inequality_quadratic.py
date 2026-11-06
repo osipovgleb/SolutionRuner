@@ -195,7 +195,7 @@ def normalize_powers(powers, constant, *, exponent_degree=1, preserve_shift=Fals
     return base, exponent, coefficients
 
 
-def analyze_sum(formula, operator, original, powers, constant):
+def analyze_sum(formula, operator, original, powers, constant, *, degree=2):
     base, exponent, coefficients = normalize_powers(powers, constant)
     return PositivePower(
         formula,
@@ -206,7 +206,7 @@ def analyze_sum(formula, operator, original, powers, constant):
         base,
         exponent,
         tuple(sorted(coefficients.items())),
-        *solve_positive(base, exponent, coefficients, operator),
+        *solve_positive(base, exponent, coefficients, operator, degree=degree),
     )
 
 
