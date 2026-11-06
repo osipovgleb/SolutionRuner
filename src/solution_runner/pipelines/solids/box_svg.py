@@ -50,7 +50,7 @@ def _numbers(root, squares, meta, vertices, boxes):
             root,
             _tag("text"),
             {
-                "id": "length-" + str(axis),
+                "id": "length-" + label.get("id", str(axis)),
                 "x": f"{tx + width / 2:.6f}",
                 "y": f"{ty + h:.6f}",
                 "font-family": "Times New Roman, serif",

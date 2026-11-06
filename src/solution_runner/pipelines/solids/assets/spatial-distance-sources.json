@@ -599,6 +599,50 @@
         ]
       ],
       "2fad61db050bc6aa2a62a03c301f71107e3a647bf0817a5052092c9ccb133d13"
+    ],
+    "solid-box-midpoint-line-projection-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "2db630ef-b2b5-4669-a9ac-3eae77d6b1a7"
+        ]
+      ],
+      "dbd94f67410955d7c8194393e082b5879e45ebdced28a7b6411f63f63022e722"
+    ],
+    "solid-triangle-pyramid-midpoint-projection-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "d675c1b8-41ab-4d64-b444-75ab05b87ec1"
+        ]
+      ],
+      "7b735191d264d030a161ded592009d39b516ed286af11525ac37b349d4b48708"
+    ],
+    "solid-triangle-prism-line-projection-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "8dac3233-9ae3-430c-831b-d3d74edc87eb"
+        ],
+        [
+          "image_2",
+          "9f5b6d3e-48ab-40a6-a853-da8f7033aaef"
+        ]
+      ],
+      "7c28ff4b23900a5a2cc8b1a2048a330e6f770a1d845e79a16704d0f0f01f355a"
+    ],
+    "solid-symmetric-tetrahedron-projection-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "c7e3fb7d-1da4-4bf1-b096-fd89329cc2c3"
+        ]
+      ],
+      "1606f61c27fc357746f4d0e30b9c34999e301c206a45570cf373f71a8bed2dee"
     ]
   },
   "figures": {
@@ -729,9 +773,17 @@
     "8a9c6676-fa04-4271-a557-ccf630c55a82": {
       "canonical": "8a9c6676-fa04-4271-a557-ccf630c55a82",
       "sha256": "4fb50a07933c3e1ba6dd6b49ba596d7aef0f22cd07fc56e4f0c54c2b616cb834",
-      "mode": "prism_square_skew",
       "slot": "image_1",
-      "names": []
+      "names": [],
+      "modes": [
+        "prism_square_skew",
+        "triangle_prism_line_projection_angle"
+      ],
+      "mode_claims": {
+        "triangle_prism_line_projection_angle": [
+          "square"
+        ]
+      }
     },
     "49c3c8ca-95e7-4db4-80e3-981300897954": {
       "canonical": "49c3c8ca-95e7-4db4-80e3-981300897954",
@@ -2030,6 +2082,122 @@
       "mode": "rectangular_pyramid_proved_altitude_angle",
       "slot": "image_2",
       "method": "median"
+    },
+    "2db630ef-b2b5-4669-a9ac-3eae77d6b1a7": {
+      "canonical": "2db630ef-b2b5-4669-a9ac-3eae77d6b1a7",
+      "sha256": "17714182db94704ff02c9f1b89790fa14a83be6759f1a0c9b8bff41f4fd96dc5",
+      "mode": "box_tetrahedron_line_projection_angle",
+      "slot": "image_1",
+      "names_prefix": [
+        "midpoint_side"
+      ],
+      "measurements": {
+        "a": "6",
+        "b": "6",
+        "height": "4"
+      }
+    },
+    "2ec2e407-a0db-417f-a69d-9c18bb3c894c": {
+      "canonical": "2ec2e407-a0db-417f-a69d-9c18bb3c894c",
+      "sha256": "f9a6e7bad03a3c3a1121877ce7951ca06985626edbd01e860fddded516235d49",
+      "mode": "box_tetrahedron_line_projection_angle",
+      "slot": "image_1",
+      "names_prefix": [
+        "midpoint_base"
+      ],
+      "measurements": {
+        "a": "4",
+        "b": "6",
+        "height": "4"
+      }
+    },
+    "a33028c1-e0d3-4251-a676-c9f76a5e8d31": {
+      "canonical": "a33028c1-e0d3-4251-a676-c9f76a5e8d31",
+      "sha256": "934663ecee323cdb2c8c90880481a8e8db47b745e9f75900ad53f39d1438fd16",
+      "mode": "box_tetrahedron_line_projection_angle",
+      "slot": "image_1",
+      "names_prefix": [
+        "midpoint_side"
+      ],
+      "measurements": {
+        "a": "6",
+        "b": "8",
+        "height": "3"
+      }
+    },
+    "94026362-3438-493a-aa10-821636d0787f": {
+      "canonical": "94026362-3438-493a-aa10-821636d0787f",
+      "sha256": "37e9bd54ea6d9ecd3a58813a3d834228cc7925659a833c1e78a1c439606dc4a0",
+      "mode": "box_tetrahedron_line_projection_angle",
+      "slot": "image_1",
+      "names_prefix": [
+        "midpoint_base"
+      ],
+      "measurements": {
+        "a": "10",
+        "b": "12",
+        "height": "13/2"
+      }
+    },
+    "d675c1b8-41ab-4d64-b444-75ab05b87ec1": {
+      "canonical": "d675c1b8-41ab-4d64-b444-75ab05b87ec1",
+      "sha256": "70c442d44f1062076f232d9210fe48fa4d5e7ec8a66fd98d1fc4559bce49cb0a",
+      "mode": "triangle_pyramid_midpoint_projection_angle",
+      "slot": "image_1"
+    },
+    "8dac3233-9ae3-430c-831b-d3d74edc87eb": {
+      "canonical": "8dac3233-9ae3-430c-831b-d3d74edc87eb",
+      "sha256": "03d3159961d57f906327f72411a528232559ba26be0c85706199c6a19f1f9ddf",
+      "mode": "triangle_prism_line_projection_angle",
+      "slot": "image_1",
+      "mode_claims": {
+        "triangle_prism_line_projection_angle": [
+          "perpendicular_planes"
+        ]
+      }
+    },
+    "9f5b6d3e-48ab-40a6-a853-da8f7033aaef": {
+      "canonical": "9f5b6d3e-48ab-40a6-a853-da8f7033aaef",
+      "sha256": "d81eb786f681d09c1a8795237893dd85f66e0da2605c802579121d625cff3c8d",
+      "mode": "triangle_prism_line_projection_angle",
+      "slot": "image_2"
+    },
+    "f3c2a42f-5ef0-4fe7-a941-b2613124be39": {
+      "canonical": "f3c2a42f-5ef0-4fe7-a941-b2613124be39",
+      "sha256": "f5b1da57924e13b175e4146d3a6fa8a1ed323c9b75364c958fc094191c7c8d29",
+      "mode": "triangle_prism_line_projection_angle",
+      "slot": "image_1"
+    },
+    "c7e3fb7d-1da4-4bf1-b096-fd89329cc2c3": {
+      "canonical": "c7e3fb7d-1da4-4bf1-b096-fd89329cc2c3",
+      "sha256": "c091e2572010b767fd2e21fe665f8d95c555a51bb535378f92ecfe187d816c42",
+      "mode": "symmetric_tetrahedron_line_plane_angle",
+      "slot": "image_1",
+      "interior": true,
+      "measurements": {
+        "u": "sqrt(17)",
+        "v": "sqrt(29)",
+        "w": "2*sqrt(5)"
+      }
+    },
+    "ecaddbc3-35b7-45ef-bf85-72041a64a307": {
+      "canonical": "ecaddbc3-35b7-45ef-bf85-72041a64a307",
+      "sha256": "b688884cac81887dc4220a845b46b630217e1a27a9d6793f93847d70e161bf89",
+      "mode": "symmetric_tetrahedron_line_plane_angle",
+      "slot": "image_1",
+      "interior": true,
+      "measurements": {
+        "u": "sqrt(13)",
+        "v": "sqrt(29)",
+        "w": "2*sqrt(5)"
+      }
+    },
+    "b86e89a7-5294-4ba2-8c9c-792773074ed8": {
+      "canonical": "b86e89a7-5294-4ba2-8c9c-792773074ed8",
+      "sha256": "28bb3148aad62b0a0e0038ebd3917a4b8f46959013275509e6986dde1bbfd91b",
+      "mode": "triangle_pyramid_parallel_rectangle_distance",
+      "slot": "image_1",
+      "interior": true
     }
   }
 }

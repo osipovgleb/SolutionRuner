@@ -2,6 +2,7 @@
 
 from ..core.profile_definitions import _profile
 from .line_projection_sources import GROUPS as LINE_PROJECTION_GROUPS
+from .midpoint_projection_sources import GROUPS as MIDPOINT_PROJECTION_GROUPS
 from .prism_cut_sources import GROUPS as PRISM_GROUPS
 from .projection_plane_sources import GROUPS
 
@@ -404,4 +405,5 @@ PROFILES = tuple(
     + PRISM_GROUPS
     + GROUPS
     + LINE_PROJECTION_GROUPS
+    + MIDPOINT_PROJECTION_GROUPS
 )

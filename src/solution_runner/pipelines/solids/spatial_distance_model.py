@@ -23,8 +23,10 @@ from . import (
     prism_pentagon_cut_model,
     prism_separation_model,
     prism_similarity_cut_model,
+    prism_triangle_projection_model,
     pyramid_face_angle_model,
     pyramid_midpoint_angle_model,
+    pyramid_midpoint_projection_model,
     pyramid_midsection_model,
     pyramid_perpendicular_section_model,
     pyramid_ratio_cut_model,
@@ -37,6 +39,7 @@ from . import (
     spatial_plane_model,
     spatial_section_model,
     tetra_cut_angle_model,
+    tetra_symmetry_projection_model,
 )
 from .box_distance_model import read_question as read_box
 from .measurements import positive
@@ -56,6 +59,7 @@ MODES = (
     | cube_plane_section_model.MODES
     | pyramid_midsection_model.MODES
     | pyramid_midpoint_angle_model.MODES
+    | pyramid_midpoint_projection_model.MODES
     | pyramid_perpendicular_section_model.MODES
     | pyramid_vertical_cut_model.MODES
     | right_pyramid_cut_model.MODES
@@ -72,10 +76,12 @@ MODES = (
     | prism_oblique_cut_model.MODES
     | prism_diagonal_cut_model.MODES
     | prism_similarity_cut_model.MODES
+    | prism_triangle_projection_model.MODES
     | prism_pentagon_cut_model.MODES
     | prism_half_volume_model.MODES
     | box_line_projection_model.MODES
     | pyramid_face_angle_model.MODES
+    | tetra_symmetry_projection_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -262,6 +268,7 @@ def read_question(html, source=None):
         cube_plane_section_model.read,
         pyramid_midsection_model.read,
         pyramid_midpoint_angle_model.read,
+        pyramid_midpoint_projection_model.read,
         pyramid_perpendicular_section_model.read,
         pyramid_vertical_cut_model.read,
         right_pyramid_cut_model.read,
@@ -278,10 +285,12 @@ def read_question(html, source=None):
         prism_oblique_cut_model.read,
         prism_diagonal_cut_model.read,
         prism_similarity_cut_model.read,
+        prism_triangle_projection_model.read,
         prism_pentagon_cut_model.read,
         prism_half_volume_model.read,
         box_line_projection_model.read,
         pyramid_face_angle_model.read,
+        tetra_symmetry_projection_model.read,
     ):
         found = reader(raw)
         if found is not None:

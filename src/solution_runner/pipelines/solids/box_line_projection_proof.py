@@ -110,8 +110,89 @@ def _diagonal(m):
     )
 
 
+def _midpoint_dimensions(m):
+    dimensions = []
+    for label, dimension in (("AB", "a"), ("AD", "b"), (r"AA_1", "height")):
+        decimal = m.symbols.get(dimension + "_decimal")
+        dimensions.append(
+            label + "=" + (decimal + "=" if decimal else "") + sp.latex(m.q[dimension])
+        )
+    return line(r",\qquad ".join(dimensions))
+
+
+def _exact_bracket(number):
+    return r"\left(" + sp.latex(number) + r"\right)"
+
+
+def _midpoint(m):
+    q = m.q
+    side = m.names[0] == "midpoint_side"
+    normal, projected, angle = (
+        ("BE", "BF", "EFB") if side else (r"A_1E", r"A_1F", r"EFA_1")
+    )
+    key, other = ("a", "b") if side else ("height", "a")
+    introduction = (
+        "<p>Плоскость ADD₁ параллельна грани BB₁C₁C. Поэтому найдём угол между EF и этой гранью. Так как E лежит на AB, её проекция — точка B. Проекция EF — прямая BF, а искомый угол — EFB.</p>"
+        if side
+        else "<p>Плоскость ABC параллельна верхнему основанию A₁B₁C₁D₁. Найдём угол между EF и этим основанием. Точка A₁ — проекция E, поэтому проекция EF — прямая A₁F. Искомый угол — EFA₁.</p>"
+    )
+    return (
+        introduction
+        + "<p>Противоположные рёбра прямоугольного параллелепипеда равны. Из данных условия:</p>"
+        + _midpoint_dimensions(m)
+        + "<p>Используем, что E и F — середины соответствующих рёбер:</p>"
+        + line(
+            normal
+            + r"=\frac{"
+            + ("AB" if side else r"AA_1")
+            + r"}{2}=\frac{"
+            + sp.latex(q[key])
+            + "}{2}="
+            + sp.latex(q["normal_leg"])
+        )
+        + line(
+            (r"B_1F=\frac{BC}{2}=" if side else r"D_1F=\frac{AB}{2}=")
+            + sp.latex(q[other] / 2)
+        )
+        + "<p>По теореме Пифагора в прямоугольном треугольнике:</p>"
+        + line(
+            projected
+            + (r"=\sqrt{BB_1^2+B_1F^2}" if side else r"=\sqrt{A_1D_1^2+D_1F^2}")
+        )
+        + line(
+            projected
+            + r"=\sqrt{"
+            + _exact_bracket(q["height"] if side else q["b"])
+            + "^2+"
+            + _exact_bracket(q[other] / 2)
+            + "^2}="
+            + sp.latex(q["projection"])
+        )
+        + "<p>Тангенс угла в полученном прямоугольном треугольнике:</p>"
+        + line(
+            r"\tan\angle "
+            + angle
+            + r"=\frac{"
+            + normal
+            + "}{"
+            + projected
+            + r"}=\frac{"
+            + _exact_bracket(q["normal_leg"])
+            + "}{"
+            + _exact_bracket(q["projection"])
+            + "}="
+            + sp.latex(q["tan"])
+        )
+    )
+
+
 def render(m, pictures):
     picture = pictures.get("image_1", pictures.get("box_distance_solution", ""))
     return parts(
-        picture + _claim(m), _face(m) if m.names[0] == "face" else _diagonal(m)
+        picture + _claim(m),
+        _midpoint(m)
+        if m.names[0].startswith("midpoint_")
+        else _face(m)
+        if m.names[0] == "face"
+        else _diagonal(m),
     )

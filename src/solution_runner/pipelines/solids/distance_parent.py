@@ -40,10 +40,22 @@ def prepare(
         model.mode == "rectangular_pyramid_angle"
         and model.symbols.get("scene_family") == "proved_vertex_projection"
     )
-    if degree_projection or model.mode in {
-        "box_skew_distance_normal_angle",
-        "rectangular_pyramid_proved_altitude_angle",
-    }:
+    if (
+        degree_projection
+        or model.mode
+        in {
+            "box_skew_distance_normal_angle",
+            "rectangular_pyramid_proved_altitude_angle",
+            "triangle_prism_line_projection_angle",
+            "triangle_pyramid_midpoint_projection_angle",
+            "symmetric_tetrahedron_line_plane_angle",
+        }
+        or (
+            model.mode == "box_tetrahedron_line_projection_angle"
+            and model.names[0].startswith("midpoint_")
+            and model.names[2] == "angle"
+        )
+    ):
         from .box_bisector_answer import plane_degrees
 
         return plane_degrees(

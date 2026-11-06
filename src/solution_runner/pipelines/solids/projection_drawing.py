@@ -15,7 +15,7 @@ from ..triangles.right.construction_svg import _tag
 from .box_svg import _letters, _numbers
 from .distance_sources import source_bytes
 
-TEMPLATE_SHA256 = "4781005520d162e368660a799492ede93fc779ffc429343ec6a6ddeefad3d426"
+TEMPLATE_SHA256 = "1c4980d3e372a655dcd7025adb3607919b9db2980020dcbc8ec559411ed35dfb"
 PROJECTIONS = (
     (1, 1),
     (1, 1.5),
@@ -49,12 +49,14 @@ def drawing(meta):
     root = ET.fromstring(source_bytes(meta["source"]))
     groups = [g for g in root.findall(_tag("g")) if list(g.iter(_tag("path")))]
     keep = set(meta["glyph_indices"].values())
-    if len(groups) != len(keep) + len(meta["number_labels"]):
+    if len(groups) != len(keep) + len(meta["number_labels"]) + len(
+        meta.get("discarded_groups", ())
+    ):
         raise ContentPlanError("the reviewed projection lettering changed")
     styles = tuple(
         _style(next(e for e in root.findall(_tag("line")) if e.get("stroke") == color))
         | {"stroke-dasharray": "none"}
-        for color in ("#0D0F0F", "#143B8F")
+        for color in (meta.get("black", "#0D0F0F"), "#143B8F")
     )
     for node in list(root):
         if (
@@ -67,14 +69,18 @@ def drawing(meta):
 
 def projector(points, meta, factors):
     old = meta["vertices"]
-    origin = old["A"]
-    basis = [
-        [
-            (old[n][j] - origin[j]) / float(sp.sympify(meta["dimensions"][i]))
-            for j in (0, 1)
+    origin = old[meta.get("origin", "A")]
+    basis = (
+        [list(vector) for vector in meta["basis"]]
+        if "basis" in meta
+        else [
+            [
+                (old[n][j] - origin[j]) / float(sp.sympify(meta["dimensions"][i]))
+                for j in (0, 1)
+            ]
+            for i, n in enumerate(("B", "D", meta["vertical"]))
         ]
-        for i, n in enumerate(("B", "D", meta["vertical"]))
-    ]
+    )
     basis[1] = [basis[1][i] * factors[i] for i in (0, 1)]
 
     def screen(point):

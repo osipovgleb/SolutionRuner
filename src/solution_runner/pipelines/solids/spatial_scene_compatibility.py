@@ -4,6 +4,13 @@ import sympy as sp
 
 
 def scene_matches(model, entry, slot):
+    claims_by_mode = entry.get("mode_claims")
+    if (
+        claims_by_mode
+        and model.mode in claims_by_mode
+        and model.symbols.get("claim") not in claims_by_mode[model.mode]
+    ):
+        return False
     if (
         model.symbols.get("scene_family")
         and entry.get("scene_family") != model.symbols["scene_family"]

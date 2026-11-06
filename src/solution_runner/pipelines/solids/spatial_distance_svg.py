@@ -107,6 +107,10 @@ def scene_projection(m, meta):
 
 
 def render(m):
+    if m.mode == "symmetric_tetrahedron_line_plane_angle":
+        from .tetra_symmetry_projection_svg import render as tetrahedron
+
+        return tetrahedron(m)
     if m.mode == "box_tetrahedron_line_projection_angle":
         from .box_line_projection_svg import render as box_projection
 

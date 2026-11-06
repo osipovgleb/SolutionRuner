@@ -149,15 +149,21 @@ def _hex(groups, all_edges):
     )
 
 
-def _ratio(groups, angle):
-    a, e, p, q = (positive(v) for v in groups[:4])
-    fraction = sp.simplify(p / (p + q))
+def parallel_cut_geometry(a, e, fraction):
     dims = regular("triangle", {"a": a, "e": e})
-    dims.update(p=p, q=q, fraction=fraction, AH=sp.sqrt(3) * a / 2)
+    dims.update(fraction=fraction, AH=sp.sqrt(3) * a / 2)
     dims["AR"] = sp.simplify(fraction * dims["AH"])
     dims["distance"] = sp.simplify(dims["AR"] * dims["H"] / e)
     dims["foot"] = sp.simplify(a * a / (2 * e * e))
     dims["small_foot"] = sp.simplify(fraction * dims["foot"])
+    return dims
+
+
+def _ratio(groups, angle):
+    a, e, p, q = (positive(v) for v in groups[:4])
+    fraction = sp.simplify(p / (p + q))
+    dims = parallel_cut_geometry(a, e, fraction)
+    dims.update(p=p, q=q)
     if angle:
         cosine = sp.simplify(abs((e * e - a * a / 2) / (e * dims["l"])))
         dims["cosine"] = cosine

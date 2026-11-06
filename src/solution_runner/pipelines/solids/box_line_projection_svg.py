@@ -60,6 +60,10 @@ def scene(m, meta):
 
 
 def render(m):
+    if m.names[0].startswith("midpoint_"):
+        from .box_midpoint_projection_svg import render as midpoint
+
+        return midpoint(m)
     meta = drawing.template("box_" + m.names[0])
     root, groups, styles = drawing.drawing(meta)
     black, blue = styles
