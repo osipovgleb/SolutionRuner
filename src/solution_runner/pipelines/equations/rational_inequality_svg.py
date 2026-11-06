@@ -304,7 +304,7 @@ def render_single(a, *, layout="single", variable="x"):
             point not in a.poles and a.sign_operator.endswith("="),
             label_y=(
                 y + 4
-                if variable != "x"
+                if (variable != "x" or layout == "polynomial_single")
                 and point.is_Rational is True
                 and not point.is_Integer
                 else 16.5

@@ -721,6 +721,10 @@ HANDLERS += tuple(
         ("opposite_fractions", "opposite_diagram_specs", "opposite_required_assets"),
         ("vieta_quadratic", "vieta_diagram_specs", None),
         ("cancelled_quadratic_sum", "diagram_specs", None),
+        ("quadratic_right", "quadratic_diagram_specs", "quadratic_required_assets"),
+        ("cubic_cancel", "cubic_diagram_specs", None),
+        ("quadratic_denominators", "denominators_diagram_specs", None),
+        ("square_zero", "square_zero_diagram_specs", None),
     )
 )
 

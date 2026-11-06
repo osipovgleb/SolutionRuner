@@ -227,6 +227,7 @@ def square_numerator(a):
 
 def prepare(a, method):
     from .rational_inequality_algebraic_methods import METHODS, presentation
+    from .rational_inequality_polynomial_methods import METHODS as POLYNOMIAL_METHODS
 
     a = presentation(a, method)
     operation = {
@@ -237,6 +238,7 @@ def prepare(a, method):
         "factor_cancelled": factor_cancelled,
         "square_numerator": square_numerator,
         **METHODS,
+        **POLYNOMIAL_METHODS,
     }.get(method)
     if operation is None:
         raise UnsupportedCondition("unknown reviewed rational inequality method")

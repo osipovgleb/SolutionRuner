@@ -68,7 +68,7 @@ def selection(context, a, *, required=False, variable="x"):
     double = required is True or required == "double"
     build = (
         (lambda model: render_single(model, layout=required, variable=variable))
-        if required in ("single", "radical_single", "vieta")
+        if required in ("single", "radical_single", "vieta", "polynomial_single")
         else lambda model: render(model, double=double)
     )
     assets = context["normalized_content"].get("assets", [])
@@ -89,6 +89,10 @@ def selection(context, a, *, required=False, variable="x"):
                     "a compatible chart needs no generated duplicate"
                 )
             return asset["asset_id"], None
+        if entry.get("reuse_only"):
+            raise UnsupportedCondition(
+                "this reviewed source layout supports exact reuse only"
+            )
         return None, (render(a, double=True) if double or entry["double"] else build(a))
     if required or generated:
         return None, build(a)
@@ -115,11 +119,11 @@ def factor_cancelled_diagram_specs(context):
     return (solution_diagrams.spec(KEY, svg),) if svg is not None else ()
 
 
-def opposite_required_assets(context):
+def compatible_required_assets(context, method):
     _, a = read(context)
-    a = presentation(a, "opposite_fractions")
-    prepare(a, "opposite_fractions")
-    source_id = SOURCES["parents"]["opposite_fractions"]["chart_asset_id"]
+    a = presentation(a, method)
+    prepare(a, method)
+    source_id = SOURCES["parents"][method]["chart_asset_id"]
     if any(
         asset.get("asset_id") == source_id
         for asset in context["normalized_content"].get("assets", [])
@@ -131,6 +135,41 @@ def opposite_required_assets(context):
             {"source_asset_id": source_id, "section_id": "solution:1", "alt_text": ALT},
         )
     return ()
+
+
+def opposite_required_assets(context):
+    return compatible_required_assets(context, "opposite_fractions")
+
+
+def quadratic_required_assets(context):
+    return compatible_required_assets(context, "quadratic_right")
+
+
+def polynomial_diagram_specs(context, method):
+    _, a = read(context)
+    prepare(a, method)
+    if method == "quadratic_right" and quadratic_required_assets(context):
+        return ()
+    _, svg = selection(
+        context, a, required=SOURCES["parents"][method]["required_chart"]
+    )
+    return (solution_diagrams.spec(KEY, svg),) if svg is not None else ()
+
+
+def quadratic_diagram_specs(context):
+    return polynomial_diagram_specs(context, "quadratic_right")
+
+
+def cubic_diagram_specs(context):
+    return polynomial_diagram_specs(context, "cubic_cancel")
+
+
+def denominators_diagram_specs(context):
+    return polynomial_diagram_specs(context, "quadratic_denominators")
+
+
+def square_zero_diagram_specs(context):
+    return polynomial_diagram_specs(context, "square_zero")
 
 
 def algebraic_diagram_specs(context, method):
@@ -285,5 +324,45 @@ GROUPS += (
         1,
         "9c619907-5d8d-437c-b7dd-004b50ba3536",
         "reciprocal_square",
+    ),
+)
+
+
+GROUPS += (
+    (
+        "508360",
+        "2bccdc8a-d0e2-4736-997b-25fa9799a37e",
+        11,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "quadratic_right",
+    ),
+    (
+        "508381",
+        "71b50371-55f1-4f79-be7a-8a47d7c4a57c",
+        15,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "cubic_cancel",
+    ),
+    (
+        "530674",
+        "91d252ef-491b-4f73-9bae-d5827ee50922",
+        33,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "quadratic_denominators",
+    ),
+    (
+        "621777",
+        "6ac87956-ad32-4901-b430-b2531ff6b8cc",
+        41,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "square_zero",
     ),
 )

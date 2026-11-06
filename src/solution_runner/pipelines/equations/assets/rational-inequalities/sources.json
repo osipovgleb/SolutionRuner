@@ -45,6 +45,23 @@
       "sha256": "d69c806736803677cc38f35964a9ffbcaf03f387fcdf50de33173de136a52ceb",
       "required_chart": "intersection",
       "chart_asset_id": "7a4a4fc4-c0eb-4cf7-8d71-b1d602630908"
+    },
+    "quadratic_right": {
+      "sha256": "8d6b9c2253a0ef49d88704a14dab44dd6eea89e408b3c3aa29ece9c59aeb256d",
+      "required_chart": "polynomial_single",
+      "chart_asset_id": "15f28735-0d45-436e-a0c0-4ea321a558cb"
+    },
+    "cubic_cancel": {
+      "sha256": "f66ff33b20bf759245e9141f8315b19c3eef81e18843400e845bfd665ae1fc64",
+      "required_chart": "polynomial_single"
+    },
+    "quadratic_denominators": {
+      "sha256": "4d2069ac82cf0c08928d4e922bdd76086fec30b64532d3ee72f1b06834333407",
+      "required_chart": false
+    },
+    "square_zero": {
+      "sha256": "25ce61122f8aa254ba3568a457094068c7f9aee148239a1a9969962ede063552",
+      "required_chart": false
     }
   },
   "figures": {
@@ -320,6 +337,149 @@
         }
       ],
       "shareable": true
+    },
+    "15f28735-0d45-436e-a0c0-4ea321a558cb": {
+      "sha256": "3585974c263780e516089c523ac55e6fef4486b2bff095562d85a6cd56db4ed1",
+      "points": [
+        "0",
+        "2",
+        "4"
+      ],
+      "poles": [
+        "4"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "double": false,
+      "shareable": true
+    },
+    "4a5f9d05-7ddb-4381-a67f-564984bb5caa": {
+      "sha256": "c7fd5ddc4d88c283d3539337e37e7f9101e0f0feb35accee7b9048969ab1a71b",
+      "points": [
+        "0",
+        "1",
+        "7"
+      ],
+      "poles": [
+        "7"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "double": false
+    },
+    "556b7305-ac10-4b72-9039-bff72ac78c23": {
+      "sha256": "139c0fda349f114433e5ed98f494acd6ded43d21a834d5123092ab757e5afb23",
+      "points": [
+        "-3",
+        "0",
+        "7/4"
+      ],
+      "poles": [
+        "0"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "double": false
+    },
+    "a236ca59-d1ea-4ff7-a935-795e8d9f126e": {
+      "sha256": "fe87e0459e70f0c80d17d5532734a9e551950c08b046e8c17cae487071e66d67",
+      "points": [
+        "-1/5",
+        "0",
+        "1"
+      ],
+      "poles": [
+        "0"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": ">=",
+      "double": false
+    },
+    "22d36e8c-d856-4409-b2bb-bd0af1e01318": {
+      "sha256": "1155943adbbf04e3f5ee7deddc05daed919ce956e0ea4f4323ba1f2d50e96fe4",
+      "points": [
+        "5",
+        "7",
+        "10"
+      ],
+      "poles": [
+        "5",
+        "7",
+        "10"
+      ],
+      "signs": [
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "double": false,
+      "reuse_only": true
+    },
+    "3cc80233-d9f3-4cea-98f8-7a65b42348c0": {
+      "sha256": "86d1f8364a4f37e982f7ce352ec4af3bbd3042eac01dc45cf813504b1a57aa0a",
+      "points": [
+        "-2",
+        "0",
+        "1",
+        "5"
+      ],
+      "poles": [
+        "5"
+      ],
+      "signs": [
+        -1,
+        1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "double": false,
+      "reuse_only": true
+    },
+    "b8b0f938-a92d-43f1-80c1-d331db7d97c8": {
+      "sha256": "299624ece0773d6d870f1f2f7b374e49e8c49a0a1902277f1acbe315d7cd56d0",
+      "points": [
+        "-8",
+        "-4",
+        "-2",
+        "0"
+      ],
+      "poles": [
+        "-4"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1,
+        1
+      ],
+      "operator": "<=",
+      "double": false,
+      "reuse_only": true
     }
   }
 }
