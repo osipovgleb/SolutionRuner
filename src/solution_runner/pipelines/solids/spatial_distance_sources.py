@@ -240,6 +240,15 @@ def compatible(model, source, role, slot):
         or slot not in slots(entry)
     ):
         return False
+    if model.mode == "ratio_plane_angle" and entry.get(
+        "condition_names", ["K", "M"]
+    ) != list(model.names or ("K", "M")):
+        return False
+    if (
+        "half_position" in entry
+        and sp.sign(model.q["fraction"] - sp.Rational(1, 2)) != entry["half_position"]
+    ):
+        return False
     if model.mode == "square_perpendicular_section_ratio":
         purpose = (
             "coordinate"
@@ -414,3 +423,13 @@ def allowed_keys(mode):
 def with_symbols(model, source):
     entry = DATA["figures"].get(source, {})
     return replace(model, symbols=model.symbols | entry.get("symbols", {}))
+
+
+def preferred_parent_sources(assets):
+    preferred = []
+    for asset in assets:
+        source = asset["source_asset_id"]
+        entry = DATA["figures"].get(source)
+        if entry is not None and entry.get("prefer_parent"):
+            preferred.append(source)
+    return tuple(preferred)

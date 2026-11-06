@@ -113,7 +113,7 @@ def _read(context):
     return model, condition, restored, assets, owners
 
 
-def selection(context):
+def selection(context, *, preferred_sources=()):
     m, condition, restored, assets, owners = _read(context)
     m = spatial_distance_sources.reviewed_model(m, assets) if m.mode in MODES else m
     figures = []
@@ -130,7 +130,8 @@ def selection(context):
             raise ContentPlanError("duplicate spatial figures have the same role")
         old = current[0] if current else None
         candidates = (
-            (
+            list(preferred_sources)
+            + (
                 [old["asset_id"]]
                 if old
                 and (
@@ -191,8 +192,10 @@ def _condition_change(condition, restored, image, current, key, identifier):
     return (change,)
 
 
-def prepare(context, generated):
-    m, condition, restored, assets, figures = selection(context)
+def prepare(context, generated, *, preferred_sources=()):
+    m, condition, restored, assets, figures = selection(
+        context, preferred_sources=preferred_sources
+    )
     expected = {f[3] for f in figures if f[4]}
     if (
         len(generated) != len(expected)

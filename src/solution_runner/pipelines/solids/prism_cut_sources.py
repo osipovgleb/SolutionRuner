@@ -3,6 +3,10 @@
 from dataclasses import replace
 
 RULES = {
+    "solid-box-skew-distance-normal-angle": "box_skew_distance_normal_angle",
+    "solid-square-prism-opposite-vertex-plane-angle": "square_prism_opposite_vertex_plane_angle",
+    "solid-triangle-pyramid-midpoint-plane-angle": "triangle_pyramid_midpoint_plane_angle",
+    "solid-triangle-pyramid-parallel-plane-angle": "ratio_plane_angle",
     "solid-cube-diagonal-parallel-section": (
         "cube_parallel_cut_angle",
         "cube_parallel_cut_volume",
@@ -29,6 +33,15 @@ RULES = {
     "solid-trapezoid-prism-midpoint-pentagon": "trapezoid_prism_pentagon_area",
 }
 ROLES = {
+    "box_skew_distance_normal_angle": (
+        ("solution", "image_1", "93e35ee9-ca20-4e82-816c-bc6b49ce6659"),
+    ),
+    "square_prism_opposite_vertex_plane_angle": (
+        ("solution", "image_1", "fe145daa-0fa5-4462-ab70-88798a3e82cf"),
+    ),
+    "triangle_pyramid_midpoint_plane_angle": (
+        ("solution", "image_1", "a0e1971d-b77d-444f-b29b-6e5321e231a3"),
+    ),
     "cube_parallel_cut_angle": (
         ("solution", "image_1", "b7a50712-2b30-4405-93c2-de2b4c2f59e4"),
     ),
@@ -93,6 +106,7 @@ ROLES = {
 def reviewed_model(model, assets):
     if model.mode in {
         "cube_parallel_cut_angle",
+        "square_prism_opposite_vertex_plane_angle",
         "triangle_prism_perpendicular_area",
         "triangle_prism_perpendicular_height",
         "box_opposite_section_area",
@@ -106,6 +120,17 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if model.mode == "square_prism_opposite_vertex_plane_angle":
+        main = (
+            "7f766a4c-c706-4f4a-a1b6-127427524c37"
+            if 2 * model.q["fraction"] > 1
+            else ROLES[model.mode][0][2]
+        )
+        return (("solution", "image_1", main),) + (
+            (("solution", "image_2", "314372f1-668b-4faf-9750-7617a89fe6b7"),)
+            if model.symbols.get("second_figure") == "yes"
+            else ()
+        )
     if model.mode == "cube_parallel_cut_angle":
         return ROLES[model.mode] + (
             (("solution", "image_2", "1c9e1967-a26c-4c1b-a650-c38c1b396b33"),)

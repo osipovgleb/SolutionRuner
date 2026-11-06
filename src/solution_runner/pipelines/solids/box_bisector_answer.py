@@ -1,4 +1,4 @@
-"""An edge ratio must state its starting vertex, independently of saved answers."""
+"""Exact spatial answers retain the ratio origin and explicit angle units."""
 
 from dataclasses import replace
 from html import escape
@@ -28,6 +28,14 @@ def transverse(context, model, html, keys, changes):
         + sp.latex(denominator)
         + r"\text{, считая от }B_1;\quad "
         + value(model.answer)
+    )
+    return _prepare(context, answer, html, keys, changes)
+
+
+def plane_degrees(context, model, html, keys, changes):
+    degrees = sp.simplify(model.answer * 180 / sp.pi)
+    answer = (
+        value(degrees) + r"^{\circ}" if degrees.is_Rational else value(model.answer)
     )
     return _prepare(context, answer, html, keys, changes)
 

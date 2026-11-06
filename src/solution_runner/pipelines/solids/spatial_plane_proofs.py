@@ -297,6 +297,10 @@ def ratio_distance(m, pictures):
 
 
 def ratio_angle(m, pictures):
+    if m.symbols.get("presentation") == "parallel_section":
+        from .pyramid_parallel_plane_proof import render
+
+        return render(m, pictures)
     q = m.q
     second = (
         "<p>Пусть H — середина BC. Медианы AH и SH треугольников ABC и SBC являются высотами, поэтому плоскость ASH перпендикулярна BC. Она перпендикулярна и плоскостям α и SBC. Их сечения этой плоскостью параллельны соответственно SA и SH. Значит, искомый меньший угол равен меньшему углу между SA и SH.</p>"

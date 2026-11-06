@@ -196,8 +196,22 @@ def read(raw):
         if match:
             return _hex(match.groups(), all_edges)
     canonical = raw.replace(r"\colon", ":").replace(r"\alpha", "α")
+    renamed = "На ребрах AB и SC отмечены точки L и N " in canonical
+    if renamed:
+        canonical = canonical.translate(str.maketrans({"L": "K", "N": "M"})).replace(
+            "соответственно так, что", "соответственно, причем"
+        )
     for suffix, angle in ((RATIO_DISTANCE, False), (RATIO_ANGLE, True)):
         match = re.fullmatch(RATIO_HEADER + suffix, canonical)
         if match:
-            return _ratio(match.groups(), angle)
+            result = _ratio(match.groups(), angle)
+            if renamed:
+                from dataclasses import replace
+
+                if not angle:
+                    raise ContentPlanError(
+                        "the renamed distance construction needs review"
+                    )
+                return replace(result, names=("L", "N"))
+            return result
     return None

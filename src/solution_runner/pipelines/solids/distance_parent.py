@@ -2,7 +2,7 @@
 
 from ..core.errors import ContentPlanError
 from ..quadrilaterals.quantity_repair import repair_quantity
-from . import distance_figures, distance_proofs
+from . import distance_figures, distance_proofs, spatial_distance_sources
 from .distance_answer_figures import repair_answer
 from .distance_sources import RULES, review_parent
 
@@ -23,7 +23,11 @@ def prepare(
         parent_solution_assets,
     )
     model, changes, picture, keys = distance_figures.prepare(
-        context, generated_solution_assets
+        context,
+        generated_solution_assets,
+        preferred_sources=spatial_distance_sources.preferred_parent_sources(
+            parent_solution_assets
+        ),
     )
     allowed = RULES[content_rule_key]
     allowed = (allowed,) if isinstance(allowed, str) else allowed
@@ -32,6 +36,10 @@ def prepare(
             "the complete spatial question differs from its parent method"
         )
     html = distance_proofs.render(model, picture)
+    if model.mode == "box_skew_distance_normal_angle":
+        from .box_bisector_answer import plane_degrees
+
+        return plane_degrees(context, model, html, keys, changes)
     if model.mode == "box_diagonal_bisector_ratio":
         from .box_bisector_answer import prepare as ratio_answer
 

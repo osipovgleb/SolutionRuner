@@ -13,6 +13,7 @@ from . import (
     box_transverse_cut_model,
     cube_parallel_cut_model,
     cube_plane_section_model,
+    midsection_plane_angle_model,
     prism_diagonal_cut_model,
     prism_midpoint_cut_model,
     prism_oblique_cut_model,
@@ -58,6 +59,7 @@ MODES = (
     | box_diagonal_cut_model.MODES
     | box_transverse_cut_model.MODES
     | cube_parallel_cut_model.MODES
+    | midsection_plane_angle_model.MODES
     | prism_oblique_cut_model.MODES
     | prism_diagonal_cut_model.MODES
     | prism_similarity_cut_model.MODES
@@ -254,6 +256,7 @@ def read_question(html, source=None):
         box_diagonal_cut_model.read,
         box_transverse_cut_model.read,
         cube_parallel_cut_model.read,
+        midsection_plane_angle_model.read,
         prism_oblique_cut_model.read,
         prism_diagonal_cut_model.read,
         prism_similarity_cut_model.read,
