@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 
 from ..probability.common import UnsupportedCondition
+from .exponential_inequality_factorization_proof import RENDERS as FACTORIZATION_PROOFS
+from .exponential_inequality_factorizations import ANALYSES as FACTORIZATIONS
 from .exponential_inequality_preimage_proof import METHODS as PREIMAGE_METHODS
 from .exponential_inequality_preimage_proof import RENDERS as PREIMAGE_RENDERS
 from .exponential_inequality_preimages import analyze as quadratic_exponent
@@ -33,6 +35,14 @@ SOURCES.update(
     json.loads(
         (
             Path(__file__).parent
+            / "assets/exponential-inequalities/factorized-signs.json"
+        ).read_text()
+    )
+)
+SOURCES.update(
+    json.loads(
+        (
+            Path(__file__).parent
             / "assets/exponential-inequalities/quadratic-exponents.json"
         ).read_text()
     )
@@ -41,8 +51,9 @@ ANALYSES = {
     **dict.fromkeys(METHODS, analyze_quadratic),
     **REDUCTIONS,
     **dict.fromkeys(PREIMAGE_METHODS, quadratic_exponent),
+    **FACTORIZATIONS,
 }
-PROOFS = {**RENDERS, **PREIMAGE_RENDERS}
+PROOFS = {**RENDERS, **PREIMAGE_RENDERS, **FACTORIZATION_PROOFS}
 
 
 def build_context_repair_plan(context, *, parent_solution_html="", method):

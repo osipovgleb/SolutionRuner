@@ -58,8 +58,7 @@ def normalized(a, *, already_factored=False):
     return html + line(relation)
 
 
-def interval_proof(a, image):
-    html = "<p>Применяем метод интервалов. Отмечаем нули числителя и все исключённые точки. Знак на каждом промежутке определяем подстановкой внутренней точки:</p>"
+def interval_signs_text(a):
     boundaries = (-sp.oo, *a.points, sp.oo)
     entries = []
     for lo, hi, sign in zip(boundaries, boundaries[1:], a.signs):
@@ -68,7 +67,12 @@ def interval_proof(a, image):
             + r":\ "
             + {1: "+", -1: "-", 0: "0"}[sign]
         )
-    html += line(r";\quad ".join(entries))
+    return r";\quad ".join(entries)
+
+
+def interval_proof(a, image):
+    html = "<p>Применяем метод интервалов. Отмечаем нули числителя и все исключённые точки. Знак на каждом промежутке определяем подстановкой внутренней точки:</p>"
+    html += line(interval_signs_text(a))
     html += image
     html += "<p>Выбираем промежутки с нужным знаком. При нестрогом неравенстве включаем допустимые нули числителя; точки, исключённые исходными знаменателями, не включаем.</p>"
     return html + line(r"x\in " + set_latex(a.solution))

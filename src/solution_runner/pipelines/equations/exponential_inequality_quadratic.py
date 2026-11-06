@@ -85,16 +85,10 @@ class PositivePower:
         return set_latex(self.solution, endpoint=self.endpoint)
 
 
-def read_power_sum(formula):
-    left, right, denominators, operator = read_terms(formula)
-    for d in denominators:
-        if d.free_symbols and d.is_positive is not True:
-            raise UnsupportedCondition(
-                "only proved-positive exponential denominators are supported"
-            )
+def power_terms(nodes):
     powers = []
     constant = sp.Integer(0)
-    for sign, node in terms(left) + terms(right, -1):
+    for sign, node in nodes:
         coefficient, power = monomial(node)
         if power is None:
             constant += sign * coefficient
@@ -102,7 +96,18 @@ def read_power_sum(formula):
             powers.append((sign * coefficient, *power))
     if not 1 <= len(powers) <= 6:
         raise UnsupportedCondition("one to six bounded exponential terms are required")
-    return operator, left.value - right.value, tuple(powers), constant
+    return tuple(powers), constant
+
+
+def read_power_sum(formula):
+    left, right, denominators, operator = read_terms(formula)
+    for d in denominators:
+        if d.free_symbols and d.is_positive is not True:
+            raise UnsupportedCondition(
+                "only proved-positive exponential denominators are supported"
+            )
+    powers, constant = power_terms(terms(left) + terms(right, -1))
+    return operator, left.value - right.value, powers, constant
 
 
 def power_stage(coefficients, operator, *, degree=2):
@@ -190,8 +195,7 @@ def normalize_powers(powers, constant, *, exponent_degree=1, preserve_shift=Fals
     return base, exponent, coefficients
 
 
-def analyze_quadratic(formula):
-    operator, original, powers, constant = read_power_sum(formula)
+def analyze_sum(formula, operator, original, powers, constant):
     base, exponent, coefficients = normalize_powers(powers, constant)
     return PositivePower(
         formula,
@@ -204,3 +208,7 @@ def analyze_quadratic(formula):
         tuple(sorted(coefficients.items())),
         *solve_positive(base, exponent, coefficients, operator),
     )
+
+
+def analyze_quadratic(formula):
+    return analyze_sum(formula, *read_power_sum(formula))

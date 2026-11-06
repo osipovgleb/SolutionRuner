@@ -110,3 +110,24 @@ GROUPS += (
         "exam-exponential-inequality-quadratic_branches",
     ),
 )
+
+GROUPS += (
+    (
+        "513348",
+        "085a101d-c7ba-4a29-ba83-6a40338b819d",
+        11,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-linear_denominator",
+    ),
+    (
+        "548802",
+        "dc071865-c38e-48ed-a133-d546a2ed1491",
+        24,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-grouped_quadratic",
+    ),
+)

@@ -809,3 +809,15 @@ HANDLERS += tuple(
     )
     for method in ("quadratic_range", "quadratic_branches")
 )
+
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-exponential-inequality-" + method,
+        "solution_runner.pipelines.equations.exponential_inequality_quadratic_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        requires_parent_condition_asset=False,
+    )
+    for method in ("linear_denominator", "grouped_quadratic")
+)
