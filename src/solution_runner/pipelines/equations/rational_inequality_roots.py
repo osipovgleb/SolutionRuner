@@ -29,6 +29,8 @@ def quadratic_roots(p):
         raise UnsupportedCondition("the algebraic factor must be linear or quadratic")
     a, b, c = p.all_coeffs()
     discriminant = sp.simplify(b * b - 4 * a * c)
+    if discriminant.has(sp.log):
+        discriminant = sp.expand_log(discriminant)
     sign = compare(discriminant, 0)
     if sign < 0:
         return []

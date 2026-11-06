@@ -89,3 +89,24 @@ GROUPS += (
         "exam-exponential-inequality-collected_power",
     ),
 )
+
+GROUPS += (
+    (
+        "508509",
+        "a76f5c6a-861d-48a5-832c-156229fdbc0e",
+        9,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-quadratic_range",
+    ),
+    (
+        "517740",
+        "dc10aa74-61ea-44d0-95bf-d677fc47a769",
+        15,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-quadratic_branches",
+    ),
+)

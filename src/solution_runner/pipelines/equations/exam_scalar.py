@@ -98,7 +98,7 @@ def enclose(value, bits=16):
             if lo <= 0 <= hi:
                 raise UnsupportedCondition("a scalar reciprocal crosses zero")
             return 1 / hi, 1 / lo
-        if value.exp == sp.Rational(1, 2):
+        if value.exp in (sp.Rational(1, 2), sp.Rational(-1, 2)):
             if lo < 0:
                 raise UnsupportedCondition(
                     "a real square root needs a nonnegative argument"
@@ -106,9 +106,17 @@ def enclose(value, bits=16):
             scale = 2**bits
             low = isqrt(lo.numerator * scale * scale // lo.denominator)
             high = isqrt(hi.numerator * scale * scale // hi.denominator)
-            return F(low, scale), F(high, scale) if F(high, scale) ** 2 == hi else F(
-                high + 1, scale
+            lower, upper = (
+                F(low, scale),
+                F(high, scale) if F(high, scale) ** 2 == hi else F(high + 1, scale),
             )
+            if value.exp < 0:
+                if lower <= 0:
+                    raise UnsupportedCondition(
+                        "a scalar reciprocal square root crosses zero"
+                    )
+                return 1 / upper, 1 / lower
+            return lower, upper
         if value.exp.is_Integer and 0 < value.exp <= 8:
             result = (F(1), F(1))
             for _ in range(int(value.exp)):

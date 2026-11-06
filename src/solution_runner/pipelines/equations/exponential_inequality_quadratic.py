@@ -105,16 +105,7 @@ def read_power_sum(formula):
     return operator, left.value - right.value, tuple(powers), constant
 
 
-def solve_positive(base, exponent, coefficients, operator, *, degree=2):
-    p = polynomial(exponent)
-    if (
-        base <= 1
-        or p.degree() != 1
-        or any(c.is_Rational is not True for c in p.all_coeffs())
-    ):
-        raise UnsupportedCondition(
-            "an increasing base and rational affine exponent are required"
-        )
+def power_stage(coefficients, operator, *, degree=2):
     if not coefficients or any(
         c.is_Rational is not True or max(abs(c.p), c.q) > 10**12
         for c in coefficients.values()
@@ -129,6 +120,20 @@ def solve_positive(base, exponent, coefficients, operator, *, degree=2):
             "the positive-power polynomial must have the reviewed degree"
         )
     stage = analyze(sp.latex(value) + RELATION[operator] + "0")
+    return multiply_degree, stage
+
+
+def solve_positive(base, exponent, coefficients, operator, *, degree=2):
+    p = polynomial(exponent)
+    if (
+        base <= 1
+        or p.degree() != 1
+        or any(c.is_Rational is not True for c in p.all_coeffs())
+    ):
+        raise UnsupportedCondition(
+            "an increasing base and rational affine exponent are required"
+        )
+    multiply_degree, stage = power_stage(coefficients, operator, degree=degree)
     positive = sp.Intersection(stage.solution, sp.Interval.open(0, sp.oo))
     _, back = back_substitute(base, exponent, stage.zeros)
     mapping = {t: branch[0] for t, _, branch in back}
@@ -149,22 +154,32 @@ def scaled(coefficient, base, offset):
     return result
 
 
-def analyze_quadratic(formula):
-    operator, original, powers, constant = read_power_sum(formula)
+def normalize_powers(powers, constant, *, exponent_degree=1, preserve_shift=False):
     base = common_base([b for _, b, _ in powers])
     reference = vector(base)
     effective = [sp.expand(weight(b, reference) * g) for _, b, g in powers]
-    if any(polynomial(g).degree() != 1 for g in effective):
+    polys = [polynomial(g) for g in effective]
+    if any(p.degree() != exponent_degree for p in polys):
         raise UnsupportedCondition(
-            "this inverse substitution requires affine exponents"
+            "the powers must have the reviewed polynomial exponent degree"
         )
-    slopes = [polynomial(g).nth(1) for g in effective]
-    slope = rational_gcd(slopes) * (-1 if all(v < 0 for v in slopes) else 1)
-    exponent = slope * X
+    reference = effective[0] - polys[0].nth(0)
+    ratios = [sp.cancel((g - p.nth(0)) / reference) for g, p in zip(effective, polys)]
+    if any(r.is_Rational is not True or r == 0 for r in ratios):
+        raise UnsupportedCondition(
+            "the nonconstant exponent parts must be rational multiples"
+        )
+    exponent = sp.expand(reference * rational_gcd(ratios))
+    orientation = -1 if all(p.LC() < 0 for p in polys) else 1
+    exponent = sp.expand(exponent * orientation * sp.sign(polynomial(exponent).LC()))
+    degrees = [sp.cancel((g - p.nth(0)) / exponent) for g, p in zip(effective, polys)]
+    if preserve_shift:
+        exponent += next(
+            (p.nth(0) for p, k in zip(polys, degrees) if k == 1), sp.Integer(0)
+        )
     coefficients = {0: constant}
-    for (coefficient, _, _), g in zip(powers, effective):
-        degree = sp.cancel(polynomial(g).nth(1) / slope)
-        offset = g.subs(X, 0)
+    for (coefficient, _, _), g, degree in zip(powers, effective, degrees):
+        offset = sp.expand(g - degree * exponent)
         coefficient = scaled(coefficient, base, offset)
         if degree.is_Integer is not True or abs(degree) > 4:
             raise UnsupportedCondition(
@@ -172,6 +187,12 @@ def analyze_quadratic(formula):
             )
         coefficients[int(degree)] = coefficients.get(int(degree), 0) + coefficient
     coefficients = {k: v for k, v in coefficients.items() if v != 0}
+    return base, exponent, coefficients
+
+
+def analyze_quadratic(formula):
+    operator, original, powers, constant = read_power_sum(formula)
+    base, exponent, coefficients = normalize_powers(powers, constant)
     return PositivePower(
         formula,
         operator,

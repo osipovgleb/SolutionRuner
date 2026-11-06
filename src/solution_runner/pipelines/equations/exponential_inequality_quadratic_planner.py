@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 
 from ..probability.common import UnsupportedCondition
+from .exponential_inequality_preimage_proof import METHODS as PREIMAGE_METHODS
+from .exponential_inequality_preimage_proof import RENDERS as PREIMAGE_RENDERS
+from .exponential_inequality_preimages import analyze as quadratic_exponent
 from .exponential_inequality_quadratic import analyze_quadratic
 from .exponential_inequality_quadratic_proof import METHODS, render
 from .exponential_inequality_reduction_proof import RENDERS
@@ -26,7 +29,20 @@ SOURCES.update(
         ).read_text()
     )
 )
-ANALYSES = {**dict.fromkeys(METHODS, analyze_quadratic), **REDUCTIONS}
+SOURCES.update(
+    json.loads(
+        (
+            Path(__file__).parent
+            / "assets/exponential-inequalities/quadratic-exponents.json"
+        ).read_text()
+    )
+)
+ANALYSES = {
+    **dict.fromkeys(METHODS, analyze_quadratic),
+    **REDUCTIONS,
+    **dict.fromkeys(PREIMAGE_METHODS, quadratic_exponent),
+}
+PROOFS = {**RENDERS, **PREIMAGE_RENDERS}
 
 
 def build_context_repair_plan(context, *, parent_solution_html="", method):
@@ -42,5 +58,5 @@ def build_context_repair_plan(context, *, parent_solution_html="", method):
             "these reviewed exponential parents have no source diagrams"
         )
     a = ANALYSES[method](formula)
-    html = render(a, method) if method in METHODS else RENDERS[method](a)
+    html = render(a, method) if method in METHODS else PROOFS[method](a)
     return repair(condition, answer, solution, a.answer, html)

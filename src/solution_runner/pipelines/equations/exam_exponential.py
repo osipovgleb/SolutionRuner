@@ -116,7 +116,7 @@ def build_context_repair_plan(context, *, parent_solution_html=""):
     return repair(parts, *render(a))
 
 
-def back_substitute(base, g, tr):
+def back_substitute(base, g, tr, *, quadratic_logs=False):
     from .exam_scalar import compare
 
     roots = []
@@ -129,8 +129,13 @@ def back_substitute(base, g, tr):
         if p.degree() == 1:
             branch = (sp.cancel(sp.expand_log(-p.nth(0) / p.nth(1))),)
             roots.extend(branch)
-        elif p.degree() == 2 and value.is_Rational:
-            branch = tuple(real_roots(p.as_expr(), X))
+        elif p.degree() == 2 and (value.is_Rational or quadratic_logs):
+            if quadratic_logs:
+                from .rational_inequality_roots import ordered, quadratic_roots
+
+                branch = ordered(quadratic_roots(p))
+            else:
+                branch = tuple(real_roots(p.as_expr(), X))
             roots.extend(branch)
         else:
             raise UnsupportedCondition(
