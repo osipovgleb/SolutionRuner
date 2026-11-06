@@ -728,6 +728,8 @@ HANDLERS += tuple(
         ("fraction_division", "fraction_division_diagram_specs", None),
         ("degree_division", "degree_division_diagram_specs", None),
         ("split_cancel", "split_cancel_diagram_specs", None),
+        ("quartic_cancel", "quartic_diagram_specs", None),
+        ("common_square", "square_diagram_specs", None),
     )
 )
 

@@ -74,6 +74,25 @@ def interval_proof(a, image):
     return html + line(r"x\in " + set_latex(a.solution))
 
 
+def factor_justification(a, method):
+    from .rational_inequality_factor_methods import (
+        positive_quadratics,
+        square_parameters,
+    )
+
+    if method == "common_square":
+        _, _, _, root = square_parameters(a)
+        html = "<p>Общий квадрат не сокращаем: он обращается в нуль в допустимой точке. При нестрогом неравенстве эту точку необходимо проверить и сохранить:</p>"
+        return html + line("x=" + latex(root))
+    if method != "quartic_cancel":
+        return ""
+    html = ""
+    for factor, completed in positive_quadratics(a):
+        html += "<p>Квадратный множитель положителен при всех действительных x, поэтому не создаёт нулей и не меняет знак произведения:</p>"
+        html += line(latex(factor) + "=" + latex(completed) + ">0")
+    return html
+
+
 def render(a, method, image=""):
     from .rational_inequality_algebraic_methods import presentation
     from .rational_inequality_algebraic_proof import vieta
@@ -96,6 +115,8 @@ def render(a, method, image=""):
     else:
         html += {
             "cancelled_fraction": "<p>Перенесём 1 в левую часть и вычтем её из последней дроби. Затем приведём две последние дроби к общему знаменателю и объединим с x:</p>",
+            "quartic_cancel": "<p>Разложим числитель и знаменатель первой дроби на множители. Перенесём правую часть в дробь с линейным знаменателем, сократим общий множитель первой дроби и объединим числители. Исходное исключение сохраняем:</p>",
+            "common_square": "<p>Разложим на множители и вынесем общий квадрат за скобку. Затем объединим выражения в скобках и применим метод интервалов:</p>",
             "fraction_division": "<p>На исходной области определения разложим общие множители, если они есть. Выделим целые части дробей делением многочленов; они сократятся. Оставшиеся дроби приведём к общему знаменателю, сохраняя исходные исключения:</p>",
             "degree_division": "<p>Делением многочленов выделим целую часть первой дроби и сократим её с многочленом справа. Объединим дроби с вложенными знаменателями, затем приведём оставшиеся дроби к общему знаменателю:</p>",
             "split_cancel": "<p>Перенесём все слагаемые влево. Если целые части дробей сокращаются, выделим их делением многочленов. В квадратной дроби выделим часть числителя, сокращающую встречную дробь, и оставшийся общий множитель. Исходные исключения сохраняем:</p>",
@@ -112,4 +133,4 @@ def render(a, method, image=""):
     html += "".join(line(step.text + RELATION[a.operator] + "0") for step in steps)
     if method != "opposite_fractions":
         html += normalized(a, already_factored=method == "factor_cancelled")
-    return html + interval_proof(a, image)
+    return html + factor_justification(a, method) + interval_proof(a, image)

@@ -10,11 +10,14 @@ from ..probability import solution_diagrams
 from ..probability.common import UnsupportedCondition
 from .rational_inequality import analyze
 from .rational_inequality_algebraic_methods import presentation
+from .rational_inequality_groups import GROUPS as CATALOG_GROUPS
+from .rational_inequality_hatched_svg import render as render_hatched
 from .rational_inequality_methods import prepare
 from .rational_inequality_svg import DIVISION_LAYOUTS, render, render_single
 
 DIRECTORY = Path(__file__).parent / "assets/rational-inequalities"
 SOURCES = json.loads((DIRECTORY / "sources.json").read_text())
+GROUPS = CATALOG_GROUPS
 KEY = "rational_sign_chart"
 ALT = "Метод интервалов и ограничения исходных знаменателей"
 
@@ -67,10 +70,20 @@ def reviewed_asset(asset):
 def selection(context, a, *, required=False, variable="x"):
     double = required is True or required == "double"
     build = (
-        (lambda model: render_single(model, layout=required, variable=variable))
-        if required
-        in ("single", "radical_single", "vieta", "polynomial_single", *DIVISION_LAYOUTS)
-        else lambda model: render(model, double=double)
+        render_hatched
+        if required == "hatched_square"
+        else (
+            (lambda model: render_single(model, layout=required, variable=variable))
+            if required
+            in (
+                "single",
+                "radical_single",
+                "vieta",
+                "polynomial_single",
+                *DIVISION_LAYOUTS,
+            )
+            else lambda model: render(model, double=double)
+        )
     )
     assets = context["normalized_content"].get("assets", [])
     originals = [asset for asset in assets if asset.get("asset_key") != KEY]
@@ -186,6 +199,14 @@ def split_cancel_diagram_specs(context):
     return polynomial_diagram_specs(context, "split_cancel")
 
 
+def quartic_diagram_specs(context):
+    return polynomial_diagram_specs(context, "quartic_cancel")
+
+
+def square_diagram_specs(context):
+    return polynomial_diagram_specs(context, "common_square")
+
+
 def algebraic_diagram_specs(context, method):
     _, a = read(context)
     a = presentation(a, method)
@@ -225,189 +246,3 @@ def image(context, a, generated, *, required=False, variable="x"):
         generated=generated,
     )
     return markup, (key,), changes
-
-
-GROUPS = (
-    (
-        "508440",
-        "0d1fc6df-0af1-476a-97dc-288e21a9c5cd",
-        1,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "sum_fractions",
-    ),
-    (
-        "508518",
-        "0cc30461-8d0e-45e1-81f0-bbaa38fa4237",
-        2,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "cancelled_fraction",
-    ),
-    (
-        "508524",
-        "161b9b2b-6043-487b-8c9e-ae6524a655f0",
-        3,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "direct_fraction",
-    ),
-    (
-        "511560",
-        "f4cce06a-c452-48b5-9aa6-ae6b57a3b13d",
-        4,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "long_division",
-    ),
-)
-
-
-GROUPS += (
-    (
-        "507491",
-        "5e392131-445d-43e1-a18b-c42676e39a52",
-        6,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "factor_cancelled",
-    ),
-    (
-        "508404",
-        "4a9fdb96-480b-4a83-b71a-5728bcd9c7bf",
-        10,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "square_numerator",
-    ),
-)
-
-
-GROUPS += (
-    (
-        "508299",
-        "3f76356c-3084-4994-9b96-1721998721ea",
-        7,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "opposite_fractions",
-    ),
-    (
-        "508442",
-        "f8930a4b-7e30-4d25-8104-a30db6e423a0",
-        19,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "vieta_quadratic",
-    ),
-    (
-        "556602",
-        "602b11f6-a087-48cb-a594-c915fa758e13",
-        38,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "cancelled_quadratic_sum",
-    ),
-)
-
-
-GROUPS += (
-    (
-        "508347",
-        "3b161a2b-39be-4d99-9779-585072bdc1b8",
-        8,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "affine_radical",
-    ),
-    (
-        "508397",
-        "57539fdb-a530-423e-9b2b-32118a9597e0",
-        9,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "reciprocal_square",
-    ),
-)
-
-
-GROUPS += (
-    (
-        "508360",
-        "2bccdc8a-d0e2-4736-997b-25fa9799a37e",
-        11,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "quadratic_right",
-    ),
-    (
-        "508381",
-        "71b50371-55f1-4f79-be7a-8a47d7c4a57c",
-        15,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "cubic_cancel",
-    ),
-    (
-        "530674",
-        "91d252ef-491b-4f73-9bae-d5827ee50922",
-        33,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "quadratic_denominators",
-    ),
-    (
-        "621777",
-        "6ac87956-ad32-4901-b430-b2531ff6b8cc",
-        41,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "square_zero",
-    ),
-)
-
-
-GROUPS += (
-    (
-        "508367",
-        "b9fed60a-0bd5-41da-87bf-089071f93193",
-        13,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "fraction_division",
-    ),
-    (
-        "508371",
-        "2e638354-d7b8-4d47-b32f-a1d20c7d2f88",
-        14,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "degree_division",
-    ),
-    (
-        "508530",
-        "4f2fd965-ffcf-43f7-808e-2beec706d5b3",
-        22,
-        "Рациональные неравенства",
-        1,
-        "9c619907-5d8d-437c-b7dd-004b50ba3536",
-        "split_cancel",
-    ),
-)

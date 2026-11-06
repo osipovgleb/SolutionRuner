@@ -74,6 +74,14 @@
     "split_cancel": {
       "sha256": "f1be885794f0ba045475158c154953848197e34470b48fd4e3863f2c0ff38dd2",
       "required_chart": "split_single"
+    },
+    "quartic_cancel": {
+      "sha256": "4466f8af2fcc7dfadf48a5fff67b48ed1b64bfa5e6de86005504cbd3a719cc2e",
+      "required_chart": false
+    },
+    "common_square": {
+      "sha256": "0412e26f6a65c2e9aea020105e2ee3fcf5e4736aa87e1164039dda76fec72f6e",
+      "required_chart": "hatched_square"
     }
   },
   "figures": {
@@ -619,6 +627,72 @@
         "3"
       ],
       "signs": [
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": ">=",
+      "double": false
+    },
+    "23d88ceb-befa-4299-8bd6-38ab838e93e4": {
+      "sha256": "2fcb0a74cf695c97a94d4baac93557216757aff70368a2cbdc305e0c8c41e88b",
+      "points": [
+        "4/3",
+        "3",
+        "5",
+        "6"
+      ],
+      "poles": [
+        "3",
+        "5"
+      ],
+      "signs": [
+        -1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": ">=",
+      "double": false
+    },
+    "456b06b6-9d82-4d40-b161-09135c3f7525": {
+      "sha256": "32c15b0f20d6ffea9fce0971e4af4a465a32c4621cd0d017e7afaf0b0a888b9d",
+      "points": [
+        "3/5",
+        "2",
+        "7",
+        "8"
+      ],
+      "poles": [
+        "2",
+        "7"
+      ],
+      "signs": [
+        -1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": ">=",
+      "double": false
+    },
+    "e4bf6032-b025-4e52-ad42-bae04fa9f153": {
+      "sha256": "df77906e652cba490632de4037846eea77577a59dff1d77b2c82c982ae637435",
+      "points": [
+        "2/5",
+        "3",
+        "8",
+        "9"
+      ],
+      "poles": [
+        "3",
+        "8"
+      ],
+      "signs": [
+        -1,
         -1,
         1,
         -1,
