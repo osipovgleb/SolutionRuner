@@ -10,6 +10,7 @@ from . import (
     prism_cut_sources,
     projection_plane_sources,
     skew_line_sources,
+    volume_section_sources,
 )
 from .spatial_scene_compatibility import scene_matches
 
@@ -17,6 +18,7 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    **volume_section_sources.RULES,
     **skew_line_sources.RULES,
     **midpoint_projection_sources.RULES,
     **line_projection_sources.RULES,
@@ -120,6 +122,7 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    **volume_section_sources.ROLES,
     **skew_line_sources.ROLES,
     **midpoint_projection_sources.ROLES,
     **line_projection_sources.ROLES,
@@ -318,6 +321,9 @@ def reviewed_model(model, assets, *, preferred_sources=()):
 
 
 def roles(model):
+    selected = volume_section_sources.roles(model)
+    if selected is not None:
+        return selected
     selected = skew_line_sources.roles(model)
     if selected is not None:
         return selected

@@ -20,6 +20,19 @@ def prepare(context, model, html, keys, changes):
     return _prepare(context, answer, html, keys, changes)
 
 
+def exact_scalar(context, model, html, keys, changes):
+    from .volume_section_format import value as exact_value
+
+    return _prepare(context, exact_value(model.answer), html, keys, changes)
+
+
+def volume_ratio(context, model, html, keys, changes):
+    numerator, denominator = model.answer.as_numer_denom()
+    return _prepare(
+        context, value(numerator) + ":" + value(denominator), html, keys, changes
+    )
+
+
 def transverse(context, model, html, keys, changes):
     numerator, denominator = model.q["ratio"].as_numer_denom()
     answer = (

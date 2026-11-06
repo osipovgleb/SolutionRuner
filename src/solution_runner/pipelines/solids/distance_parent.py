@@ -53,6 +53,7 @@ def prepare(
             "tetra_parallel_midpoint_diagonal_angle",
             "cube_midpoint_skew_angle",
         }
+        or (model.mode == "hexagonal_pyramid_skew_angle" and model.names[1] == "angle")
         or (
             model.mode == "box_tetrahedron_line_projection_angle"
             and model.names[0].startswith("midpoint_")
@@ -64,6 +65,10 @@ def prepare(
         return plane_degrees(
             context, model, html, keys, changes, radians=not degree_projection
         )
+    if model.mode == "tetra_midpoint_cut_volume_ratio":
+        from .box_bisector_answer import volume_ratio
+
+        return volume_ratio(context, model, html, keys, changes)
     if model.mode == "box_diagonal_bisector_ratio":
         from .box_bisector_answer import prepare as ratio_answer
 
@@ -72,6 +77,14 @@ def prepare(
         from .box_bisector_answer import transverse
 
         return transverse(context, model, html, keys, changes)
+    if model.mode in {
+        "hexagonal_pyramid_skew_angle",
+        "triangle_prism_midpoint_pentahedron_volume",
+        "perpendicular_equilateral_triangle_volume",
+    }:
+        from .box_bisector_answer import exact_scalar
+
+        return exact_scalar(context, model, html, keys, changes)
     return repair_answer(
         repair_quantity(context, model.answer, html, keys, changes),
         context,

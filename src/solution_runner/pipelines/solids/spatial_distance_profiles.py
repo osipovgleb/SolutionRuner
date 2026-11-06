@@ -6,6 +6,7 @@ from .midpoint_projection_sources import GROUPS as MIDPOINT_PROJECTION_GROUPS
 from .prism_cut_sources import GROUPS as PRISM_GROUPS
 from .projection_plane_sources import GROUPS
 from .skew_line_sources import GROUPS as SKEW_LINE_GROUPS
+from .volume_section_sources import GROUPS as VOLUME_SECTION_GROUPS
 
 PROFILES = tuple(
     _profile(
@@ -408,4 +409,5 @@ PROFILES = tuple(
     + LINE_PROJECTION_GROUPS
     + MIDPOINT_PROJECTION_GROUPS
     + SKEW_LINE_GROUPS
+    + VOLUME_SECTION_GROUPS
 )

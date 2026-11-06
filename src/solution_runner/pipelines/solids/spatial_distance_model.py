@@ -15,11 +15,14 @@ from . import (
     cube_midpoint_skew_model,
     cube_parallel_cut_model,
     cube_plane_section_model,
+    hexagonal_pyramid_skew_model,
     midsection_plane_angle_model,
+    perpendicular_triangle_volume_model,
     polyhedron_plane_angle_model,
     prism_diagonal_cut_model,
     prism_half_volume_model,
     prism_midpoint_cut_model,
+    prism_midpoint_volume_model,
     prism_oblique_cut_model,
     prism_pentagon_cut_model,
     prism_separation_model,
@@ -41,6 +44,7 @@ from . import (
     spatial_plane_model,
     spatial_section_model,
     tetra_cut_angle_model,
+    tetra_midpoint_cut_volume_model,
     tetra_symmetry_projection_model,
 )
 from .box_distance_model import read_question as read_box
@@ -86,6 +90,10 @@ MODES = (
     | box_line_projection_model.MODES
     | pyramid_face_angle_model.MODES
     | tetra_symmetry_projection_model.MODES
+    | hexagonal_pyramid_skew_model.MODES
+    | perpendicular_triangle_volume_model.MODES
+    | prism_midpoint_volume_model.MODES
+    | tetra_midpoint_cut_volume_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -259,6 +267,7 @@ def read_question(html, source=None):
                 regular_triangle_cut_model.read,
                 prism_midpoint_cut_model.read,
                 box_transverse_cut_model.read,
+                tetra_midpoint_cut_volume_model.read,
             ):
                 section = reader(raw)
                 if section is not None:
@@ -280,6 +289,10 @@ def read_question(html, source=None):
     if plane is not None:
         return plane
     for reader in (
+        hexagonal_pyramid_skew_model.read,
+        perpendicular_triangle_volume_model.read,
+        prism_midpoint_volume_model.read,
+        tetra_midpoint_cut_volume_model.read,
         spatial_altitude_model.read,
         prism_separation_model.read,
         spatial_section_model.read,

@@ -181,8 +181,11 @@ def _direct_proof(mode):
         cube_midpoint_skew_proof,
         cube_parallel_cut_proof,
         cube_projection_plane_proof,
+        hexagonal_pyramid_skew_proof,
+        perpendicular_triangle_volume_proof,
         prism_endpoint_angle_proof,
         prism_half_volume_proof,
+        prism_midpoint_volume_proof,
         prism_oblique_height_proof,
         prism_opposite_plane_angle_proof,
         prism_perpendicular_cut_proof,
@@ -200,11 +203,16 @@ def _direct_proof(mode):
         reflected_section_proofs,
         rhombus_prism_plane_proof,
         tetra_cut_angle_proof,
+        tetra_midpoint_cut_volume_proof,
         tetra_parallel_diagonal_proof,
         tetra_symmetry_projection_proof,
     )
 
     direct = {
+        "hexagonal_pyramid_skew_angle": hexagonal_pyramid_skew_proof,
+        "perpendicular_equilateral_triangle_volume": perpendicular_triangle_volume_proof,
+        "triangle_prism_midpoint_pentahedron_volume": prism_midpoint_volume_proof,
+        "tetra_midpoint_cut_volume_ratio": tetra_midpoint_cut_volume_proof,
         "triangle_prism_split_edge_projection_angle": prism_split_projection_proof,
         "cube_midpoint_skew_angle": cube_midpoint_skew_proof,
         "triangle_pyramid_midpoint_skew_cosine": pyramid_midpoint_skew_proof,
