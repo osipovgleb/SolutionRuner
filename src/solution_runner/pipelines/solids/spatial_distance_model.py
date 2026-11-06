@@ -12,9 +12,13 @@ from . import (
     box_diagonal_cut_model,
     box_line_projection_model,
     box_transverse_cut_model,
+    concentric_sphere_section_model,
     cube_midpoint_skew_model,
     cube_parallel_cut_model,
     cube_plane_section_model,
+    cylinder_axis_chord_model,
+    cylinder_rectangle_volume_model,
+    hex_pyramid_insphere_model,
     hexagonal_pyramid_skew_model,
     midsection_plane_angle_model,
     perpendicular_triangle_volume_model,
@@ -90,6 +94,10 @@ MODES = (
     | box_line_projection_model.MODES
     | pyramid_face_angle_model.MODES
     | tetra_symmetry_projection_model.MODES
+    | concentric_sphere_section_model.MODES
+    | cylinder_axis_chord_model.MODES
+    | cylinder_rectangle_volume_model.MODES
+    | hex_pyramid_insphere_model.MODES
     | hexagonal_pyramid_skew_model.MODES
     | perpendicular_triangle_volume_model.MODES
     | prism_midpoint_volume_model.MODES
@@ -289,6 +297,10 @@ def read_question(html, source=None):
     if plane is not None:
         return plane
     for reader in (
+        concentric_sphere_section_model.read,
+        cylinder_axis_chord_model.read,
+        cylinder_rectangle_volume_model.read,
+        hex_pyramid_insphere_model.read,
         hexagonal_pyramid_skew_model.read,
         perpendicular_triangle_volume_model.read,
         prism_midpoint_volume_model.read,

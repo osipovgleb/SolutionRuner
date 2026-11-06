@@ -151,11 +151,14 @@ def _read(context):
     return model, condition, restored, assets, owners
 
 
-def selection(context, *, preferred_sources=()):
+def selection(context, *, preferred_sources=(), parent_method_sources=()):
     m, condition, restored, assets, owners = _read(context)
     m = (
         spatial_distance_sources.reviewed_model(
-            m, assets, preferred_sources=preferred_sources
+            m,
+            assets,
+            preferred_sources=preferred_sources,
+            parent_method_sources=parent_method_sources,
         )
         if m.mode in MODES
         else m
@@ -249,9 +252,11 @@ def _condition_change(condition, restored, image, current, key, identifier):
     return (change,)
 
 
-def prepare(context, generated, *, preferred_sources=()):
+def prepare(context, generated, *, preferred_sources=(), parent_method_sources=()):
     m, condition, restored, assets, figures = selection(
-        context, preferred_sources=preferred_sources
+        context,
+        preferred_sources=preferred_sources,
+        parent_method_sources=parent_method_sources,
     )
     expected = {f[3] for f in figures if f[4]}
     if (

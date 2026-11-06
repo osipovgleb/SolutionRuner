@@ -9,6 +9,7 @@ from . import (
     midpoint_projection_sources,
     prism_cut_sources,
     projection_plane_sources,
+    round_solid_sources,
     skew_line_sources,
     volume_section_sources,
 )
@@ -18,6 +19,7 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    **round_solid_sources.RULES,
     **volume_section_sources.RULES,
     **skew_line_sources.RULES,
     **midpoint_projection_sources.RULES,
@@ -122,6 +124,7 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    **round_solid_sources.ROLES,
     **volume_section_sources.ROLES,
     **skew_line_sources.ROLES,
     **midpoint_projection_sources.ROLES,
@@ -265,7 +268,12 @@ def compatible(model, source, role, slot):
     return scene_matches(model, entry, slot)
 
 
-def reviewed_model(model, assets, *, preferred_sources=()):
+def reviewed_model(model, assets, *, preferred_sources=(), parent_method_sources=()):
+    reviewed = round_solid_sources.reviewed_model(
+        model, assets, parent_method_sources, DATA["figures"]
+    )
+    if reviewed is not None:
+        return reviewed
     reviewed = line_projection_sources.reviewed_model(model, assets, preferred_sources)
     if reviewed is not None:
         return reviewed
@@ -321,6 +329,9 @@ def reviewed_model(model, assets, *, preferred_sources=()):
 
 
 def roles(model):
+    selected = round_solid_sources.roles(model)
+    if selected is not None:
+        return selected
     selected = volume_section_sources.roles(model)
     if selected is not None:
         return selected

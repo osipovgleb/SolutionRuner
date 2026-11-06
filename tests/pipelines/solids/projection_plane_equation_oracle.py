@@ -55,7 +55,11 @@ def equal(a, b):
 
 
 class ScalarParser(TrigonometricParser):
-    implicit_prefixes = TrigonometricParser.implicit_prefixes + (r"\arccos", r"\arctan")
+    implicit_prefixes = TrigonometricParser.implicit_prefixes + (
+        r"\arccos",
+        r"\arctan",
+        r"\pi",
+    )
 
     def _nested(self, text):
         return ScalarParser(text).parse()

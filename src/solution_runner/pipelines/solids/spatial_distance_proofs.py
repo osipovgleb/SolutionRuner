@@ -178,9 +178,13 @@ def _direct_proof(mode):
         box_parallel_plane_proof,
         box_skew_plane_angle_proof,
         box_transverse_cut_proof,
+        concentric_sphere_section_proof,
         cube_midpoint_skew_proof,
         cube_parallel_cut_proof,
         cube_projection_plane_proof,
+        cylinder_axis_chord_proof,
+        cylinder_rectangle_volume_proof,
+        hex_pyramid_insphere_proof,
         hexagonal_pyramid_skew_proof,
         perpendicular_triangle_volume_proof,
         prism_endpoint_angle_proof,
@@ -209,6 +213,10 @@ def _direct_proof(mode):
     )
 
     direct = {
+        "concentric_sphere_parallel_section_area": concentric_sphere_section_proof,
+        "cylinder_axis_chord_geometry": cylinder_axis_chord_proof,
+        "cylinder_chord_rectangle_pyramid_volume": cylinder_rectangle_volume_proof,
+        "hexagonal_pyramid_insphere_area": hex_pyramid_insphere_proof,
         "hexagonal_pyramid_skew_angle": hexagonal_pyramid_skew_proof,
         "perpendicular_equilateral_triangle_volume": perpendicular_triangle_volume_proof,
         "triangle_prism_midpoint_pentahedron_volume": prism_midpoint_volume_proof,

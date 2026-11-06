@@ -25,6 +25,9 @@ def prepare(
     model, changes, picture, keys = distance_figures.prepare(
         context,
         generated_solution_assets,
+        parent_method_sources=tuple(
+            a["source_asset_id"] for a in parent_solution_assets
+        ),
         preferred_sources=spatial_distance_sources.preferred_parent_sources(
             parent_solution_assets
         ),
@@ -54,6 +57,7 @@ def prepare(
             "cube_midpoint_skew_angle",
         }
         or (model.mode == "hexagonal_pyramid_skew_angle" and model.names[1] == "angle")
+        or (model.mode == "cylinder_axis_chord_geometry" and model.names[0] == "angle")
         or (
             model.mode == "box_tetrahedron_line_projection_angle"
             and model.names[0].startswith("midpoint_")
@@ -81,6 +85,10 @@ def prepare(
         "hexagonal_pyramid_skew_angle",
         "triangle_prism_midpoint_pentahedron_volume",
         "perpendicular_equilateral_triangle_volume",
+        "concentric_sphere_parallel_section_area",
+        "cylinder_axis_chord_geometry",
+        "hexagonal_pyramid_insphere_area",
+        "cylinder_chord_rectangle_pyramid_volume",
     }:
         from .box_bisector_answer import exact_scalar
 
