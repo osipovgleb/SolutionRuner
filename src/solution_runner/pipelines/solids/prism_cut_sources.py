@@ -3,6 +3,16 @@
 from dataclasses import replace
 
 RULES = {
+    "solid-cube-diagonal-parallel-section": (
+        "cube_parallel_cut_angle",
+        "cube_parallel_cut_volume",
+    ),
+    "solid-box-transverse-plane-angle": (
+        "box_transverse_ratio_angle",
+        "box_transverse_incidence_angle",
+    ),
+    "solid-square-pyramid-midpoint-plane-angle": "square_pyramid_midpoint_plane_angle",
+    "solid-triangle-prism-endpoint-plane-angle": "triangle_prism_endpoint_plane_angle",
     "solid-triangle-prism-midpoint-section-height": "triangle_prism_oblique_height",
     "solid-triangle-prism-perpendicular-face-section": (
         "triangle_prism_perpendicular_area",
@@ -19,6 +29,24 @@ RULES = {
     "solid-trapezoid-prism-midpoint-pentagon": "trapezoid_prism_pentagon_area",
 }
 ROLES = {
+    "cube_parallel_cut_angle": (
+        ("solution", "image_1", "b7a50712-2b30-4405-93c2-de2b4c2f59e4"),
+    ),
+    "cube_parallel_cut_volume": (
+        ("solution", "image_1", "b7a50712-2b30-4405-93c2-de2b4c2f59e4"),
+    ),
+    "box_transverse_ratio_angle": (
+        ("solution", "image_1", "d4281c46-4280-436c-a9db-aa1279e885d3"),
+    ),
+    "box_transverse_incidence_angle": (
+        ("solution", "image_1", "1022766c-c965-4af6-8f96-c47be4bfecc4"),
+    ),
+    "square_pyramid_midpoint_plane_angle": (
+        ("solution", "image_1", "4e41059e-cd73-42b3-85c5-533e5e3e734c"),
+    ),
+    "triangle_prism_endpoint_plane_angle": (
+        ("solution", "image_1", "8e3e1d8b-c9bf-4c94-8bc3-30e4add21085"),
+    ),
     "triangle_prism_oblique_height": (
         ("solution", "image_1", "0b77ea55-724c-4e60-a300-968509cf9493"),
     ),
@@ -64,6 +92,7 @@ ROLES = {
 
 def reviewed_model(model, assets):
     if model.mode in {
+        "cube_parallel_cut_angle",
         "triangle_prism_perpendicular_area",
         "triangle_prism_perpendicular_height",
         "box_opposite_section_area",
@@ -77,6 +106,12 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    if model.mode == "cube_parallel_cut_angle":
+        return ROLES[model.mode] + (
+            (("solution", "image_2", "1c9e1967-a26c-4c1b-a650-c38c1b396b33"),)
+            if model.symbols.get("second_figure") == "yes"
+            else ()
+        )
     if model.mode in {
         "triangle_prism_perpendicular_area",
         "triangle_prism_perpendicular_height",

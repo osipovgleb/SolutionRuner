@@ -6,6 +6,7 @@ from html import escape
 import sympy as sp
 
 from ..probability.solution_diagrams import repair
+from ..quadrilaterals.parallelogram.rectangle_proofs import value
 from ..triangles.isosceles.planner import _section
 from ..triangles.right.basic_parent import _targeted
 from ..word_problems.common import rewrite
@@ -16,6 +17,22 @@ def prepare(context, model, html, keys, changes):
     answer = (
         sp.latex(numerator) + ":" + sp.latex(denominator) + r"\text{, считая от }A_1"
     )
+    return _prepare(context, answer, html, keys, changes)
+
+
+def transverse(context, model, html, keys, changes):
+    numerator, denominator = model.q["ratio"].as_numer_denom()
+    answer = (
+        sp.latex(numerator)
+        + ":"
+        + sp.latex(denominator)
+        + r"\text{, считая от }B_1;\quad "
+        + value(model.answer)
+    )
+    return _prepare(context, answer, html, keys, changes)
+
+
+def _prepare(context, answer, html, keys, changes):
     content = context["normalized_content"]
     current = _targeted(_section(content, "answer"))
     plan = repair(

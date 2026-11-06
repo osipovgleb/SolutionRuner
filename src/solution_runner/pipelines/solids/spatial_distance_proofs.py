@@ -169,34 +169,63 @@ def _box(m, pictures):
     return parts(proof, calculation)
 
 
-def render(m, pictures):
+def _direct_proof(mode):
     from . import (
         adjacent_midpoint_proof,
         box_bisector_cut_proof,
         box_opposite_cut_proof,
+        box_transverse_cut_proof,
+        cube_parallel_cut_proof,
+        prism_endpoint_angle_proof,
+        prism_oblique_height_proof,
+        prism_perpendicular_cut_proof,
+        pyramid_inverse_section_proof,
+        pyramid_midline_ratio_proof,
+        pyramid_midpoint_angle_proof,
+        reflected_section_proofs,
+    )
+
+    direct = {
+        "box_transverse_ratio_angle": box_transverse_cut_proof,
+        "box_transverse_incidence_angle": box_transverse_cut_proof,
+        "cube_parallel_cut_angle": cube_parallel_cut_proof,
+        "cube_parallel_cut_volume": cube_parallel_cut_proof,
+        "square_pyramid_midpoint_plane_angle": pyramid_midpoint_angle_proof,
+        "triangle_prism_endpoint_plane_angle": prism_endpoint_angle_proof,
+        "box_diagonal_bisector_ratio": box_bisector_cut_proof,
+        "box_opposite_section_area": box_opposite_cut_proof,
+        "triangle_prism_oblique_height": prism_oblique_height_proof,
+        "triangle_prism_perpendicular_area": prism_perpendicular_cut_proof,
+        "triangle_prism_perpendicular_height": prism_perpendicular_cut_proof,
+        "square_perpendicular_section_ratio": pyramid_inverse_section_proof,
+        "pyramid_midline_ratio": pyramid_midline_ratio_proof,
+        "square_adjacent_midpoint_area": adjacent_midpoint_proof,
+        "reflected_triangle_section_midline": reflected_section_proofs,
+        "reflected_square_section_midline": reflected_section_proofs,
+    }
+    return direct.get(mode)
+
+
+def render(m, pictures):
+    from . import (
         cube_plane_section_model,
         cube_plane_section_proofs,
         prism_diagonal_cut_model,
         prism_diagonal_cut_proof,
         prism_midpoint_cut_model,
         prism_midpoint_cut_proof,
-        prism_oblique_height_proof,
         prism_pentagon_cut_model,
         prism_pentagon_cut_proof,
-        prism_perpendicular_cut_proof,
         prism_separation_model,
         prism_separation_proofs,
         prism_similarity_cut_model,
         prism_similarity_cut_proof,
-        pyramid_inverse_section_proof,
-        pyramid_midline_ratio_proof,
         pyramid_midsection_model,
         pyramid_midsection_proofs,
         pyramid_perpendicular_section_model,
         pyramid_perpendicular_section_proof,
         pyramid_vertical_cut_model,
         pyramid_vertical_cut_proof,
-        reflected_section_proofs,
         regular_triangle_cut_model,
         regular_triangle_cut_proof,
         right_pyramid_cut_model,
@@ -211,20 +240,9 @@ def render(m, pictures):
         spatial_section_proofs,
     )
 
-    direct = {
-        "box_diagonal_bisector_ratio": box_bisector_cut_proof,
-        "box_opposite_section_area": box_opposite_cut_proof,
-        "triangle_prism_oblique_height": prism_oblique_height_proof,
-        "triangle_prism_perpendicular_area": prism_perpendicular_cut_proof,
-        "triangle_prism_perpendicular_height": prism_perpendicular_cut_proof,
-        "square_perpendicular_section_ratio": pyramid_inverse_section_proof,
-        "pyramid_midline_ratio": pyramid_midline_ratio_proof,
-        "square_adjacent_midpoint_area": adjacent_midpoint_proof,
-        "reflected_triangle_section_midline": reflected_section_proofs,
-        "reflected_square_section_midline": reflected_section_proofs,
-    }
-    if m.mode in direct:
-        return direct[m.mode].render(m, pictures)
+    proof = _direct_proof(m.mode)
+    if proof is not None:
+        return proof.render(m, pictures)
     for family, proof in (
         (prism_diagonal_cut_model, prism_diagonal_cut_proof),
         (prism_pentagon_cut_model, prism_pentagon_cut_proof),
@@ -232,28 +250,18 @@ def render(m, pictures):
         (prism_midpoint_cut_model, prism_midpoint_cut_proof),
         (regular_triangle_cut_model, regular_triangle_cut_proof),
         (right_pyramid_cut_model, right_pyramid_cut_proof),
+        (pyramid_vertical_cut_model, pyramid_vertical_cut_proof),
+        (pyramid_perpendicular_section_model, pyramid_perpendicular_section_proof),
+        (pyramid_midsection_model, pyramid_midsection_proofs),
+        (spatial_section_model, spatial_section_proofs),
+        (cube_plane_section_model, cube_plane_section_proofs),
+        (spatial_altitude_model, spatial_altitude_proofs),
+        (prism_separation_model, prism_separation_proofs),
+        (spatial_plane_model, spatial_plane_proofs),
+        (spatial_metric_model, spatial_metric_proofs),
     ):
         if m.mode in family.MODES:
             return proof.render(m, pictures)
-    if m.mode in pyramid_vertical_cut_model.MODES:
-        return pyramid_vertical_cut_proof.render(m, pictures)
-    if m.mode in pyramid_perpendicular_section_model.MODES:
-        return pyramid_perpendicular_section_proof.render(m, pictures)
-    if m.mode in pyramid_midsection_model.MODES:
-        return pyramid_midsection_proofs.render(m, pictures)
-    if m.mode in spatial_section_model.MODES:
-        return spatial_section_proofs.render(m, pictures)
-    if m.mode in cube_plane_section_model.MODES:
-        return cube_plane_section_proofs.render(m, pictures)
-    if m.mode in spatial_altitude_model.MODES:
-        return spatial_altitude_proofs.render(m, pictures)
-    if m.mode in prism_separation_model.MODES:
-        return prism_separation_proofs.render(m, pictures)
-    if m.mode in spatial_plane_model.MODES:
-        return spatial_plane_proofs.render(m, pictures)
-
-    if m.mode in spatial_metric_model.MODES:
-        return spatial_metric_proofs.render(m, pictures)
     return (
         _pyramid(m, pictures)
         if m.mode == "pyramid_skew_midpoint"

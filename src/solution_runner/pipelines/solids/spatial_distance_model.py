@@ -10,6 +10,8 @@ from ..core.errors import ContentPlanError
 from . import box_coordinates as c
 from . import (
     box_diagonal_cut_model,
+    box_transverse_cut_model,
+    cube_parallel_cut_model,
     cube_plane_section_model,
     prism_diagonal_cut_model,
     prism_midpoint_cut_model,
@@ -17,6 +19,7 @@ from . import (
     prism_pentagon_cut_model,
     prism_separation_model,
     prism_similarity_cut_model,
+    pyramid_midpoint_angle_model,
     pyramid_midsection_model,
     pyramid_perpendicular_section_model,
     pyramid_ratio_cut_model,
@@ -45,6 +48,7 @@ MODES = (
     | spatial_section_model.MODES
     | cube_plane_section_model.MODES
     | pyramid_midsection_model.MODES
+    | pyramid_midpoint_angle_model.MODES
     | pyramid_perpendicular_section_model.MODES
     | pyramid_vertical_cut_model.MODES
     | right_pyramid_cut_model.MODES
@@ -52,6 +56,8 @@ MODES = (
     | pyramid_ratio_cut_model.MODES
     | prism_midpoint_cut_model.MODES
     | box_diagonal_cut_model.MODES
+    | box_transverse_cut_model.MODES
+    | cube_parallel_cut_model.MODES
     | prism_oblique_cut_model.MODES
     | prism_diagonal_cut_model.MODES
     | prism_similarity_cut_model.MODES
@@ -211,6 +217,7 @@ def read_question(html, source=None):
                 pyramid_perpendicular_section_model.read,
                 regular_triangle_cut_model.read,
                 prism_midpoint_cut_model.read,
+                box_transverse_cut_model.read,
             ):
                 section = reader(raw)
                 if section is not None:
@@ -237,6 +244,7 @@ def read_question(html, source=None):
         spatial_section_model.read,
         cube_plane_section_model.read,
         pyramid_midsection_model.read,
+        pyramid_midpoint_angle_model.read,
         pyramid_perpendicular_section_model.read,
         pyramid_vertical_cut_model.read,
         right_pyramid_cut_model.read,
@@ -244,6 +252,8 @@ def read_question(html, source=None):
         pyramid_ratio_cut_model.read,
         prism_midpoint_cut_model.read,
         box_diagonal_cut_model.read,
+        box_transverse_cut_model.read,
+        cube_parallel_cut_model.read,
         prism_oblique_cut_model.read,
         prism_diagonal_cut_model.read,
         prism_similarity_cut_model.read,

@@ -13,6 +13,7 @@ MODES = {
     "triangle_prism_oblique_height",
     "triangle_prism_perpendicular_area",
     "triangle_prism_perpendicular_height",
+    "triangle_prism_endpoint_plane_angle",
 }
 MIDPOINT = (
     r"[ВB] правильной треугольной призме сторона AB основания равна (.+?), точка M [—–-] середина ребра CC_1\. "
@@ -32,6 +33,36 @@ REVERSE = (
     r"Через точки M и C_1 перпендикулярно грани ABB_1A_1 проведена плоскость α\. Докажите, что плоскость α делит ребро A_1B_1 пополам\. "
     r"Найдите высоту призмы, если площадь сечения призмы ABCA_1B_1C_1 плоскостью α равна (.+?)\."
 )
+ENDPOINT = (
+    r"Дана правильная треугольная призма ABCA_1B_1C_1, все ребра которой равны (.+?)\. "
+    r"Через точки A, C_1 и середину T ребра A_1B_1 проведена плоскость\. "
+    r"Докажите, что сечение призмы указанной плоскостью является прямоугольным треугольником\. "
+    r"Найдите угол между плоскостью сечения и плоскостью ABC\."
+)
+
+
+def section_dimensions(a, r):
+    return {
+        "a": a,
+        "r": r,
+        "top": 1 - r,
+        "AM": r * a,
+        "A1M": (1 - r) * a,
+        "A1K": a / 2,
+        "MK": a * sp.sqrt((1 - r) ** 2 + sp.Rational(1, 4)),
+        "KC1": a * sp.sqrt(3) / 2,
+        "area": a * a * sp.sqrt(3) / 4 * sp.sqrt((1 - r) ** 2 + sp.Rational(1, 4)),
+    }
+
+
+def _endpoint(raw):
+    a = positive(raw)
+    q = section_dimensions(a, sp.S.Zero)
+    q.update(height=a, A1T=q["A1K"], AT=q["MK"], TC1=q["KC1"], AC1=a * sp.sqrt(2))
+    q["tan"] = q["height"] / q["A1T"]
+    return model(
+        "triangle_prism_endpoint_plane_angle", (("a", a),), q, (), sp.atan(q["tan"])
+    )
 
 
 def _midpoint(groups):
@@ -77,17 +108,7 @@ def _normal(groups, reverse):
     return model(
         "triangle_prism_perpendicular_" + ("height" if reverse else "area"),
         given,
-        {
-            "a": a,
-            "r": r,
-            "top": 1 - r,
-            "AM": r * a,
-            "A1M": (1 - r) * a,
-            "A1K": a / 2,
-            "MK": a * sp.sqrt((1 - r) ** 2 + sp.Rational(1, 4)),
-            "KC1": a * sp.sqrt(3) / 2,
-            "area": area,
-        },
+        section_dimensions(a, r) | {"area": area},
         ("midpoint" if reverse else "vertex", first),
         a if reverse else area,
     )
@@ -95,6 +116,14 @@ def _normal(groups, reverse):
 
 def read(raw):
     raw = raw.replace(r"\alpha", "α")
+    endpoint = re.fullmatch(ENDPOINT, raw)
+    if endpoint:
+        try:
+            return _endpoint(endpoint[1])
+        except UnsupportedCondition as exc:
+            raise ContentPlanError(
+                "a complete positive prism edge is required"
+            ) from exc
     for pattern, kind in (
         (MIDPOINT, "midpoint"),
         (MIDPOINT_NAMED, "midpoint"),

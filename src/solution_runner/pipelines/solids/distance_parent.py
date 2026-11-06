@@ -36,6 +36,10 @@ def prepare(
         from .box_bisector_answer import prepare as ratio_answer
 
         return ratio_answer(context, model, html, keys, changes)
+    if model.mode == "box_transverse_ratio_angle":
+        from .box_bisector_answer import transverse
+
+        return transverse(context, model, html, keys, changes)
     return repair_answer(
         repair_quantity(context, model.answer, html, keys, changes),
         context,
