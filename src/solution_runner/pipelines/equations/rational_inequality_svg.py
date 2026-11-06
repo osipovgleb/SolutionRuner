@@ -11,6 +11,12 @@ from .rational_inequality_parser import X
 
 NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", NS)
+DIVISION_LAYOUTS = {
+    "division_single": (217.7959, 39.694),
+    "degree_single": (252.0512, 39.689),
+    "split_single": (206.6025, 50.3737),
+}
+
 TOP, BOTTOM = 27.4235, 65.3395
 LEFT, RIGHT = 0.5, 184.938
 
@@ -262,6 +268,18 @@ def single_canvas(width, height, layout, variable):
                 )
             elif item.tag.endswith("text"):
                 item.set("x", "205")
+    if layout in DIVISION_LAYOUTS:
+        delta = width - 215.3065
+        for item in root:
+            if item.tag.endswith("line"):
+                item.set("x2", str(207.8005 + delta))
+            elif item.tag.endswith("polygon"):
+                item.set(
+                    "points",
+                    f"{206.3005 + delta},18.904 {200.2945 + delta},14.404 {width},18.904 {200.2945 + delta},23.405",
+                )
+            elif item.tag.endswith("text"):
+                item.set("x", str(206 + delta))
     return root
 
 
@@ -272,6 +290,12 @@ def render_single(a, *, layout="single", variable="x"):
     height = {"vieta": 44.9037, "radical_single": 50.9612}.get(
         layout, 39.6595 if all(p.is_Integer is True for p in a.points) else 54.6595
     )
+    if layout in DIVISION_LAYOUTS:
+        width, base_height = DIVISION_LAYOUTS[layout]
+        height = max(
+            base_height,
+            54.6595 if any(p.is_Integer is not True for p in a.points) else base_height,
+        )
     y = 18.928
     root = single_canvas(width, height, layout, variable)
     positions = [
@@ -282,7 +306,10 @@ def render_single(a, *, layout="single", variable="x"):
         positions = [37.5135, 76.7436, 119.2145, 164.5463]
     if len(a.points) == 1:
         positions = [107.65]
-    for index, (left, right) in enumerate(pairwise([0, *positions, 206.3005])):
+    if layout in DIVISION_LAYOUTS:
+        positions = [x * width / 215.3065 for x in positions]
+    end = width - 9.006 if layout in DIVISION_LAYOUTS else 206.3005
+    for index, (left, right) in enumerate(pairwise([0, *positions, end])):
         node(
             root,
             "text",
@@ -304,7 +331,11 @@ def render_single(a, *, layout="single", variable="x"):
             point not in a.poles and a.sign_operator.endswith("="),
             label_y=(
                 y + 4
-                if (variable != "x" or layout == "polynomial_single")
+                if (
+                    variable != "x"
+                    or layout == "polynomial_single"
+                    or layout in DIVISION_LAYOUTS
+                )
                 and point.is_Rational is True
                 and not point.is_Integer
                 else 16.5

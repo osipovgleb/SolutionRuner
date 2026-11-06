@@ -11,7 +11,7 @@ from ..probability.common import UnsupportedCondition
 from .rational_inequality import analyze
 from .rational_inequality_algebraic_methods import presentation
 from .rational_inequality_methods import prepare
-from .rational_inequality_svg import render, render_single
+from .rational_inequality_svg import DIVISION_LAYOUTS, render, render_single
 
 DIRECTORY = Path(__file__).parent / "assets/rational-inequalities"
 SOURCES = json.loads((DIRECTORY / "sources.json").read_text())
@@ -68,7 +68,8 @@ def selection(context, a, *, required=False, variable="x"):
     double = required is True or required == "double"
     build = (
         (lambda model: render_single(model, layout=required, variable=variable))
-        if required in ("single", "radical_single", "vieta", "polynomial_single")
+        if required
+        in ("single", "radical_single", "vieta", "polynomial_single", *DIVISION_LAYOUTS)
         else lambda model: render(model, double=double)
     )
     assets = context["normalized_content"].get("assets", [])
@@ -147,6 +148,7 @@ def quadratic_required_assets(context):
 
 def polynomial_diagram_specs(context, method):
     _, a = read(context)
+    a = presentation(a, method)
     prepare(a, method)
     if method == "quadratic_right" and quadratic_required_assets(context):
         return ()
@@ -170,6 +172,18 @@ def denominators_diagram_specs(context):
 
 def square_zero_diagram_specs(context):
     return polynomial_diagram_specs(context, "square_zero")
+
+
+def fraction_division_diagram_specs(context):
+    return polynomial_diagram_specs(context, "fraction_division")
+
+
+def degree_division_diagram_specs(context):
+    return polynomial_diagram_specs(context, "degree_division")
+
+
+def split_cancel_diagram_specs(context):
+    return polynomial_diagram_specs(context, "split_cancel")
 
 
 def algebraic_diagram_specs(context, method):
@@ -364,5 +378,36 @@ GROUPS += (
         1,
         "9c619907-5d8d-437c-b7dd-004b50ba3536",
         "square_zero",
+    ),
+)
+
+
+GROUPS += (
+    (
+        "508367",
+        "b9fed60a-0bd5-41da-87bf-089071f93193",
+        13,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "fraction_division",
+    ),
+    (
+        "508371",
+        "2e638354-d7b8-4d47-b32f-a1d20c7d2f88",
+        14,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "degree_division",
+    ),
+    (
+        "508530",
+        "4f2fd965-ffcf-43f7-808e-2beec706d5b3",
+        22,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "split_cancel",
     ),
 )

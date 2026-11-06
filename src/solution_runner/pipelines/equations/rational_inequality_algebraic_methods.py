@@ -11,7 +11,7 @@ from .rational_inequality_parser import X, polynomial
 
 
 def presentation(a, method):
-    if method not in METHODS:
+    if method not in METHODS and method != "degree_division":
         return a
     if a.presentation_method:
         if a.presentation_method != method:
@@ -28,6 +28,24 @@ def presentation(a, method):
         return replace(
             a,
             expression=a.original,
+            sign_operator=a.operator,
+            signs=signs,
+            presentation_method=method,
+        )
+    if method == "degree_division":
+        numerator, denominator = sp.fraction(a.original)
+        content = sp.Abs(
+            polynomial(numerator).content() / polynomial(denominator).content()
+        )
+        expression = sp.cancel(a.original / content)
+        signs, solution = interval_signs(expression, a.points, a.operator, a.poles)
+        if solution != a.solution:
+            raise UnsupportedCondition(
+                "the source sign orientation must preserve the answer"
+            )
+        return replace(
+            a,
+            expression=expression,
             sign_operator=a.operator,
             signs=signs,
             presentation_method=method,

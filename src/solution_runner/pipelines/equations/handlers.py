@@ -725,6 +725,9 @@ HANDLERS += tuple(
         ("cubic_cancel", "cubic_diagram_specs", None),
         ("quadratic_denominators", "denominators_diagram_specs", None),
         ("square_zero", "square_zero_diagram_specs", None),
+        ("fraction_division", "fraction_division_diagram_specs", None),
+        ("degree_division", "degree_division_diagram_specs", None),
+        ("split_cancel", "split_cancel_diagram_specs", None),
     )
 )
 
