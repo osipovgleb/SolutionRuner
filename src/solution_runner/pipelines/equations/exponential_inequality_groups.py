@@ -59,3 +59,33 @@ GROUPS += (
         "exam-exponential-inequality-reciprocal_roots",
     ),
 )
+
+GROUPS += (
+    (
+        "508457",
+        "554e2a8c-4fd4-4a9f-b597-35f46dd600f4",
+        6,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-homogeneous",
+    ),
+    (
+        "508484",
+        "a9b9ec6a-446a-428e-a0f0-7cc0a96d9741",
+        7,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-grouped_product",
+    ),
+    (
+        "508491",
+        "056f9b23-5192-42e5-bc14-db75e301ed62",
+        8,
+        "Показательные неравенства",
+        2,
+        "b8b814dd-a0eb-448d-8bdd-7c714d79900d",
+        "exam-exponential-inequality-collected_power",
+    ),
+)

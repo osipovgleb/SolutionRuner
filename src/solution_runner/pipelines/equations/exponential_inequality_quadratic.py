@@ -1,4 +1,4 @@
-"""Reduce affine exponential sums to one quadratic on the positive half-line."""
+"""Reduce affine exponential sums to a polynomial on the positive half-line."""
 
 from dataclasses import dataclass
 from functools import reduce
@@ -59,7 +59,7 @@ def inverse(solution, mapping, increasing):
 
 
 @dataclass(frozen=True)
-class Quadratic:
+class PositivePower:
     formula: str
     operator: str
     original: object
@@ -73,16 +73,19 @@ class Quadratic:
     positive_solution: object
     back: tuple
     solution: object
+    divisor: tuple = ()
 
     def endpoint(self, value):
-        return labels(self, number_formatter=sp.latex).get(value, sp.latex(value))
+        return labels(self, number_formatter=sp.latex, preserve_offset=True).get(
+            value, sp.latex(value)
+        )
 
     @property
     def answer(self):
         return set_latex(self.solution, endpoint=self.endpoint)
 
 
-def analyze_quadratic(formula):
+def read_power_sum(formula):
     left, right, denominators, operator = read_terms(formula)
     for d in denominators:
         if d.free_symbols and d.is_positive is not True:
@@ -99,6 +102,55 @@ def analyze_quadratic(formula):
             powers.append((sign * coefficient, *power))
     if not 1 <= len(powers) <= 6:
         raise UnsupportedCondition("one to six bounded exponential terms are required")
+    return operator, left.value - right.value, tuple(powers), constant
+
+
+def solve_positive(base, exponent, coefficients, operator, *, degree=2):
+    p = polynomial(exponent)
+    if (
+        base <= 1
+        or p.degree() != 1
+        or any(c.is_Rational is not True for c in p.all_coeffs())
+    ):
+        raise UnsupportedCondition(
+            "an increasing base and rational affine exponent are required"
+        )
+    if not coefficients or any(
+        c.is_Rational is not True or max(abs(c.p), c.q) > 10**12
+        for c in coefficients.values()
+    ):
+        raise UnsupportedCondition("bounded rational power coefficients are required")
+    multiply_degree = max(0, -min(coefficients))
+    value = sp.expand(
+        sum(c * X ** (k + multiply_degree) for k, c in coefficients.items())
+    )
+    if multiply_degree > 2 or polynomial(value).degree() != degree:
+        raise UnsupportedCondition(
+            "the positive-power polynomial must have the reviewed degree"
+        )
+    stage = analyze(sp.latex(value) + RELATION[operator] + "0")
+    positive = sp.Intersection(stage.solution, sp.Interval.open(0, sp.oo))
+    _, back = back_substitute(base, exponent, stage.zeros)
+    mapping = {t: branch[0] for t, _, branch in back}
+    solution = inverse(positive, mapping, p.nth(1) > 0)
+    return multiply_degree, stage, positive, tuple(back), solution
+
+
+def scaled(coefficient, base, offset):
+    if abs(offset) > 40 or offset.q > 100:
+        raise UnsupportedCondition(
+            "the constant power offset exceeds exact arithmetic bounds"
+        )
+    result = coefficient * base**offset
+    if result.is_Rational is not True or max(abs(result.p), result.q) > 10**12:
+        raise UnsupportedCondition(
+            "the normalized power coefficient must be a bounded rational"
+        )
+    return result
+
+
+def analyze_quadratic(formula):
+    operator, original, powers, constant = read_power_sum(formula)
     base = common_base([b for _, b, _ in powers])
     reference = vector(base)
     effective = [sp.expand(weight(b, reference) * g) for _, b, g in powers]
@@ -113,47 +165,21 @@ def analyze_quadratic(formula):
     for (coefficient, _, _), g in zip(powers, effective):
         degree = sp.cancel(polynomial(g).nth(1) / slope)
         offset = g.subs(X, 0)
-        if abs(offset) > 40 or offset.q > 100:
-            raise UnsupportedCondition(
-                "the constant power offset exceeds exact arithmetic bounds"
-            )
-        scaled = coefficient * base**offset
-        if (
-            degree.is_Integer is not True
-            or abs(degree) > 4
-            or scaled.is_Rational is not True
-            or max(abs(scaled.p), scaled.q) > 10**12
-        ):
+        coefficient = scaled(coefficient, base, offset)
+        if degree.is_Integer is not True or abs(degree) > 4:
             raise UnsupportedCondition(
                 "the normalized powers need small integer degrees and rational coefficients"
             )
-        coefficients[int(degree)] = coefficients.get(int(degree), 0) + scaled
+        coefficients[int(degree)] = coefficients.get(int(degree), 0) + coefficient
     coefficients = {k: v for k, v in coefficients.items() if v != 0}
-    if not coefficients:
-        raise UnsupportedCondition("a nonzero quadratic expression is required")
-    multiply_degree = max(0, -min(coefficients))
-    p = sp.expand(sum(c * X ** (k + multiply_degree) for k, c in coefficients.items()))
-    if multiply_degree > 2 or polynomial(p).degree() != 2:
-        raise UnsupportedCondition(
-            "multiplication by a positive power must leave a quadratic"
-        )
-    stage = analyze(sp.latex(p) + RELATION[operator] + "0")
-    positive = sp.Intersection(stage.solution, sp.Interval.open(0, sp.oo))
-    _, back = back_substitute(base, exponent, stage.zeros)
-    mapping = {t: branch[0] for t, _, branch in back}
-    solution = inverse(positive, mapping, slope > 0)
-    return Quadratic(
+    return PositivePower(
         formula,
         operator,
-        left.value - right.value,
+        original,
         tuple(powers),
         constant,
         base,
         exponent,
         tuple(sorted(coefficients.items())),
-        multiply_degree,
-        stage,
-        positive,
-        tuple(back),
-        solution,
+        *solve_positive(base, exponent, coefficients, operator),
     )

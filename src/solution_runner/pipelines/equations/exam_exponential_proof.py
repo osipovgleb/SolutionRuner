@@ -17,7 +17,7 @@ def n(value):
     return number(value) if value.is_Rational else sp.latex(value)
 
 
-def labels(a, *, number_formatter=None):
+def labels(a, *, number_formatter=None, preserve_offset=False):
     fmt = number_formatter or n
     result = {}
     for t, _, branch in a.back:
@@ -25,8 +25,10 @@ def labels(a, *, number_formatter=None):
             if r.has(sp.log):
                 p = sp.Poly(a.exponent, X)
                 u, c = p.nth(1), p.nth(0)
-                arg = sp.simplify(t * a.base ** (-c))
+                arg = t if preserve_offset else sp.simplify(t * a.base ** (-c))
                 text = r"\log_{" + sp.latex(a.base) + "}(" + fmt(arg) + ")"
+                if preserve_offset and c != 0:
+                    text += ("-" if c > 0 else "+") + fmt(abs(c))
                 result[r] = text if u == 1 else r"\frac{" + text + "}{" + fmt(u) + "}"
             else:
                 result[r] = fmt(r)

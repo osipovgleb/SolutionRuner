@@ -1,4 +1,4 @@
-"""Prepare the reviewed positive-quadratic parent methods without source writes."""
+"""Prepare certified positive-power and factor proofs without source writes."""
 
 import hashlib
 import json
@@ -6,7 +6,9 @@ from pathlib import Path
 
 from ..probability.common import UnsupportedCondition
 from .exponential_inequality_quadratic import analyze_quadratic
-from .exponential_inequality_quadratic_proof import render
+from .exponential_inequality_quadratic_proof import METHODS, render
+from .exponential_inequality_reduction_proof import RENDERS
+from .exponential_inequality_reductions import ANALYSES as REDUCTIONS
 from .inequality_plan import repair
 from .rational_inequality_figures import read_formula
 
@@ -16,6 +18,15 @@ SOURCES = json.loads(
         / "assets/exponential-inequalities/positive-quadratics.json"
     ).read_text()
 )
+SOURCES.update(
+    json.loads(
+        (
+            Path(__file__).parent
+            / "assets/exponential-inequalities/factor-reductions.json"
+        ).read_text()
+    )
+)
+ANALYSES = {**dict.fromkeys(METHODS, analyze_quadratic), **REDUCTIONS}
 
 
 def build_context_repair_plan(context, *, parent_solution_html="", method):
@@ -23,12 +34,13 @@ def build_context_repair_plan(context, *, parent_solution_html="", method):
         method, ()
     ):
         raise UnsupportedCondition(
-            "the complete reviewed parent for this quadratic method is required"
+            "the complete reviewed parent for this exponential method is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
     if content.get("assets"):
         raise UnsupportedCondition(
-            "these reviewed quadratic parents have no source diagrams"
+            "these reviewed exponential parents have no source diagrams"
         )
-    a = analyze_quadratic(formula)
-    return repair(condition, answer, solution, a.answer, render(a, method))
+    a = ANALYSES[method](formula)
+    html = render(a, method) if method in METHODS else RENDERS[method](a)
+    return repair(condition, answer, solution, a.answer, html)

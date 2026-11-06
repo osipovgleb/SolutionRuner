@@ -19,7 +19,7 @@ METHODS = (
 
 
 def expression(value, name):
-    replacement = name if name in ("t", "y") else r"\left(" + name + r"\right)"
+    replacement = name if name in ("t", "y", "z") else r"\left(" + name + r"\right)"
     return sp.latex(value).replace("x", replacement)
 
 
