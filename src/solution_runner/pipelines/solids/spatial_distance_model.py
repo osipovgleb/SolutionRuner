@@ -12,6 +12,7 @@ from . import (
     box_diagonal_cut_model,
     box_line_projection_model,
     box_transverse_cut_model,
+    cube_midpoint_skew_model,
     cube_parallel_cut_model,
     cube_plane_section_model,
     midsection_plane_angle_model,
@@ -27,6 +28,7 @@ from . import (
     pyramid_face_angle_model,
     pyramid_midpoint_angle_model,
     pyramid_midpoint_projection_model,
+    pyramid_midpoint_skew_model,
     pyramid_midsection_model,
     pyramid_perpendicular_section_model,
     pyramid_ratio_cut_model,
@@ -69,6 +71,8 @@ MODES = (
     | box_diagonal_cut_model.MODES
     | box_transverse_cut_model.MODES
     | cube_parallel_cut_model.MODES
+    | cube_midpoint_skew_model.MODES
+    | pyramid_midpoint_skew_model.MODES
     | midsection_plane_angle_model.MODES
     | polyhedron_plane_angle_model.MODES
     | rhombus_prism_plane_model.MODES
@@ -152,6 +156,20 @@ def condition_text(html, source):
         if not tag.attrs and not tag.find(True):
             if tag.get_text().replace("\xad", "") == "равногранным":
                 tag.unwrap()
+                continue
+            sub = tag.next_sibling
+            if (
+                re.fullmatch(r"F\s*=\s*BB", tag.get_text())
+                and getattr(sub, "name", None) == "sub"
+                and not sub.attrs
+                and not sub.find(True)
+                and sub.get_text() == "1"
+            ):
+                first, last = (soup.new_tag("var") for _ in range(2))
+                for node, name in ((first, "F"), (last, "BB")):
+                    node["data-math-identifier"] = name
+                    node.string = name
+                tag.replace_with(first, " = ", last)
                 continue
             tag.string = tag.get_text().translate(letters)
             if tag.get_text() == "MKC,":
@@ -278,6 +296,8 @@ def read_question(html, source=None):
         box_diagonal_cut_model.read,
         box_transverse_cut_model.read,
         cube_parallel_cut_model.read,
+        cube_midpoint_skew_model.read,
+        pyramid_midpoint_skew_model.read,
         midsection_plane_angle_model.read,
         polyhedron_plane_angle_model.read,
         rhombus_prism_plane_model.read,

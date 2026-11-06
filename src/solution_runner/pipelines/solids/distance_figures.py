@@ -10,7 +10,12 @@ from ..triangles.isosceles.planner import _section
 from ..triangles.isosceles.side_altitude_figures import _identity
 from ..triangles.right.basic_parent import _targeted
 from ..word_problems.common import rewrite
-from . import distance_svg, spatial_distance_sources, spatial_distance_svg
+from . import (
+    distance_svg,
+    spatial_distance_sources,
+    spatial_distance_svg,
+    spatial_generated_slots,
+)
 from .box_condition_repairs import restore_html
 from .box_distance_geometry import blue
 from .distance_answer_figures import clean_context
@@ -48,10 +53,27 @@ def compatible(model, source, role, slot=None):
     ) and set(required) <= marked <= set(allowed)
 
 
+def _render(model, source, role, slot):
+    if model.mode not in MODES:
+        return distance_svg.figure_svg(model, source, role)
+    if model.mode in spatial_generated_slots.SLOTS:
+        return spatial_distance_svg.render(model, slot=slot)
+    return spatial_distance_svg.render(model)
+
+
 def _read(context):
     content, assets, owners = read_content(
         clean_context(context),
-        {"image_1", "image_2", "image_3", "image_4", CONDITION, SOLUTION},
+        {
+            "image_1",
+            "image_2",
+            "image_3",
+            "image_4",
+            CONDITION,
+            SOLUTION,
+            *spatial_generated_slots.PICTURES,
+        },
+        repeated_solution_keys={"image_2", spatial_generated_slots.KEYS["image_2"]},
     )
     condition = _section(content, "condition")
     if condition is None:
@@ -66,6 +88,18 @@ def _read(context):
         images[0]["data-asset-key"] = "image_1"
         images[0]["data-transformation-target-id"] = "asset:image_1"
     model = read_question(str(soup), source)
+    if model.mode != "triangle_prism_split_edge_projection_angle":
+        solution = _section(content, "solution")
+        references = [
+            i.get("data-asset-key")
+            for i in BeautifulSoup(
+                solution["html"] if solution else "", "html.parser"
+            ).find_all("img")
+        ]
+        if len(references) != len(set(references)):
+            raise ContentPlanError(
+                "repeated spatial illustrations need a reviewed parent method"
+            )
     for key, a in assets.items():
         allowed = (
             spatial_distance_sources.allowed_keys(model.mode)
@@ -73,7 +107,11 @@ def _read(context):
             else set()
         )
         if model.mode in spatial_distance_sources.GENERATED_MODES:
-            allowed.add(SOLUTION)
+            allowed.update(spatial_generated_slots.allowed(model.mode))
+        if key in spatial_generated_slots.PICTURES and key not in allowed:
+            raise ContentPlanError(
+                "the generated spatial diagram belongs to another proof slot"
+            )
         if key in {"image_3", "image_4"} and key not in allowed:
             ordinal = "third" if key == "image_3" else "fourth"
             raise ContentPlanError(
@@ -131,7 +169,12 @@ def selection(context, *, preferred_sources=()):
             if owners[k] == role and not (m.mode == "edge" and role == "solution")
         ]
         if m.mode in MODES:
-            current = [a for a in current if a["asset_key"] in {native_key, SOLUTION}]
+            current = [
+                a
+                for a in current
+                if a["asset_key"]
+                in spatial_generated_slots.asset_keys(m.mode, native_key)
+            ]
         if len(current) > 1:
             raise ContentPlanError("duplicate spatial figures have the same role")
         old = current[0] if current else None
@@ -154,15 +197,19 @@ def selection(context, *, preferred_sources=()):
         source = next(
             (s for s in candidates if compatible(m, s, role, native_key)), None
         )
-        key = native_key if source else CONDITION if role == "condition" else SOLUTION
+        key = (
+            native_key
+            if source
+            else CONDITION
+            if role == "condition"
+            else spatial_generated_slots.key(m.mode, native_key)
+        )
         drawing = (
             None
             if source
             else spec(
                 key,
-                spatial_distance_svg.render(m)
-                if m.mode in MODES
-                else distance_svg.figure_svg(m, base, role),
+                _render(m, base, role, native_key),
             )
         )
         figures.append((role, old, source or base, key, drawing))
@@ -235,7 +282,9 @@ def prepare(context, generated, *, preferred_sources=()):
                 _condition_change(condition, restored, image, old, key, identifier)
             )
         else:
-            pictures[key if m.mode in MODES else "solution"] = image
+            pictures[
+                spatial_generated_slots.picture(key) if m.mode in MODES else "solution"
+            ] = image
             keys.append(key)
     for key in set(assets) - desired:
         if not any(

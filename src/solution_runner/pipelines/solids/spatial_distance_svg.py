@@ -106,27 +106,29 @@ def scene_projection(m, meta):
     )
 
 
-def render(m):
-    if m.mode == "symmetric_tetrahedron_line_plane_angle":
-        from .tetra_symmetry_projection_svg import render as tetrahedron
-
-        return tetrahedron(m)
-    if m.mode == "box_tetrahedron_line_projection_angle":
-        from .box_line_projection_svg import render as box_projection
-
-        return box_projection(m)
-    if m.mode == "rectangular_pyramid_angle":
-        from .pyramid_vertex_projection_svg import render as pyramid_projection
-
-        return pyramid_projection(m)
+def render(m, *, slot=None):
     from . import (
+        box_line_projection_svg,
         box_parallel_plane_svg,
         prism_pentagon_cut_svg,
+        prism_split_svg,
+        pyramid_skew_triangle_svg,
+        pyramid_vertex_projection_svg,
         regular_triangle_cut_svg,
         spatial_plane_svg,
+        tetra_symmetry_projection_svg,
     )
 
+    slot_renderers = {
+        "triangle_prism_split_edge_projection_angle": prism_split_svg.render,
+        "triangle_pyramid_midpoint_skew_cosine": pyramid_skew_triangle_svg.render,
+    }
+    if m.mode in slot_renderers:
+        return slot_renderers[m.mode](m, slot)
     renderers = {
+        "symmetric_tetrahedron_line_plane_angle": tetra_symmetry_projection_svg.render,
+        "box_tetrahedron_line_projection_angle": box_line_projection_svg.render,
+        "rectangular_pyramid_angle": pyramid_vertex_projection_svg.render,
         "box_parallel_plane_angle": box_parallel_plane_svg.render,
         "trapezoid_prism_pentagon_area": prism_pentagon_cut_svg.render,
         "regular_triangle_general_cut_area": regular_triangle_cut_svg.render,

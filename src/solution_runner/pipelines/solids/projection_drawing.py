@@ -15,7 +15,7 @@ from ..triangles.right.construction_svg import _tag
 from .box_svg import _letters, _numbers
 from .distance_sources import source_bytes
 
-TEMPLATE_SHA256 = "1c4980d3e372a655dcd7025adb3607919b9db2980020dcbc8ec559411ed35dfb"
+TEMPLATE_SHA256 = "3f9a119829ce971f4410291b83aa5bc63288b534d9cae3c731c95b8547f28885"
 PROJECTIONS = (
     (1, 1),
     (1, 1.5),
@@ -53,15 +53,23 @@ def drawing(meta):
         meta.get("discarded_groups", ())
     ):
         raise ContentPlanError("the reviewed projection lettering changed")
-    styles = tuple(
-        _style(next(e for e in root.findall(_tag("line")) if e.get("stroke") == color))
-        | {"stroke-dasharray": "none"}
-        for color in (meta.get("black", "#0D0F0F"), "#143B8F")
+    styles = (
+        tuple(meta["styles"])
+        if "styles" in meta
+        else tuple(
+            _style(
+                next(e for e in root.findall(_tag("line")) if e.get("stroke") == color)
+            )
+            | {"stroke-dasharray": "none"}
+            for color in (meta.get("black", "#0D0F0F"), "#143B8F")
+        )
     )
     for node in list(root):
         if (
             node.tag in {_tag("line"), _tag("path"), _tag("polygon"), _tag("polyline")}
             or node in groups
+            or meta.get("remove_line_groups")
+            and list(node.iter(_tag("line")))
         ):
             root.remove(node)
     return root, groups, styles

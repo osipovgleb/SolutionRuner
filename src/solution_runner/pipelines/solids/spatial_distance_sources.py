@@ -9,6 +9,7 @@ from . import (
     midpoint_projection_sources,
     prism_cut_sources,
     projection_plane_sources,
+    skew_line_sources,
 )
 from .spatial_scene_compatibility import scene_matches
 
@@ -16,6 +17,7 @@ DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    **skew_line_sources.RULES,
     **midpoint_projection_sources.RULES,
     **line_projection_sources.RULES,
     **prism_cut_sources.RULES,
@@ -104,6 +106,8 @@ MODE_SOURCES = {
     for mode in ((allowed,) if isinstance(allowed, str) else allowed)
 }
 GENERATED_MODES = {
+    "triangle_prism_split_edge_projection_angle",
+    "triangle_pyramid_midpoint_skew_cosine",
     "symmetric_tetrahedron_line_plane_angle",
     "box_tetrahedron_line_projection_angle",
     "rectangular_pyramid_angle",
@@ -116,6 +120,7 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    **skew_line_sources.ROLES,
     **midpoint_projection_sources.ROLES,
     **line_projection_sources.ROLES,
     **prism_cut_sources.ROLES,
@@ -313,6 +318,9 @@ def reviewed_model(model, assets, *, preferred_sources=()):
 
 
 def roles(model):
+    selected = skew_line_sources.roles(model)
+    if selected is not None:
+        return selected
     selected = midpoint_projection_sources.roles(model)
     if selected is not None:
         return selected

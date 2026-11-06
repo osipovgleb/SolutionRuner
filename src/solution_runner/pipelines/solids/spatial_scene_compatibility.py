@@ -4,6 +4,10 @@ import sympy as sp
 
 
 def scene_matches(model, entry, slot):
+    if "foot_interval" in entry:
+        lower, upper = map(sp.sympify, entry["foot_interval"])
+        if not lower < model.q["foot"] < upper:
+            return False
     claims_by_mode = entry.get("mode_claims")
     if (
         claims_by_mode

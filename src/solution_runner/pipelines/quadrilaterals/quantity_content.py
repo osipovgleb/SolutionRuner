@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from ..core.errors import ContentPlanError
 
 
-def read_content(context, allowed_keys):
+def read_content(context, allowed_keys, *, repeated_solution_keys=()):
     content = context.get("normalized_content")
     if (
         not isinstance(content, dict)
@@ -45,6 +45,10 @@ def read_content(context, allowed_keys):
             if (
                 key not in by_key
                 or key in owners
+                and not (
+                    key in repeated_solution_keys
+                    and owners[key] == section.get("key") == "solution"
+                )
                 or section.get("key") not in {"condition", "solution"}
             ):
                 raise ContentPlanError("ambiguous quantity figure ownership")
@@ -57,7 +61,8 @@ def read_content(context, allowed_keys):
             ):
                 raise ContentPlanError("the quantity image differs from its metadata")
             owners[key] = section["key"]
-            keys.append(key)
+            if key not in keys:
+                keys.append(key)
         if section.get("asset_keys", []) != keys:
             raise ContentPlanError("quantity section keys differ from image references")
     if set(owners) != set(by_key):

@@ -49,6 +49,9 @@ def prepare(
             "triangle_prism_line_projection_angle",
             "triangle_pyramid_midpoint_projection_angle",
             "symmetric_tetrahedron_line_plane_angle",
+            "triangle_prism_split_edge_projection_angle",
+            "tetra_parallel_midpoint_diagonal_angle",
+            "cube_midpoint_skew_angle",
         }
         or (
             model.mode == "box_tetrahedron_line_projection_angle"

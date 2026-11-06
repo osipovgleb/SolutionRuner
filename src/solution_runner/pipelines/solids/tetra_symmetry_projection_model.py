@@ -14,6 +14,7 @@ from .spatial_plane_model import parallel_cut_geometry
 MODES = {
     "symmetric_tetrahedron_line_plane_angle",
     "triangle_pyramid_parallel_rectangle_distance",
+    "tetra_parallel_midpoint_diagonal_angle",
 }
 CLAIM = r"Докажите, что (?:ребро SA перпендикулярно ребру BC|прямая SA перпендикулярна прямой BC)\. Найдите угол между прямой SA и плоскостью SBC\."
 PARENT = (
@@ -30,6 +31,40 @@ RECTANGLE = (
     r"Докажите, что сечение пирамиды плоскостью \\omega является прямоугольником\. Найдите расстояние от точки S до плоскости \\omega, "
     r"если известно, что SC\s*=\s*(.+?), AC\s*=\s*(.+?)\."
 )
+DIAGONALS = (
+    r"[ВB] пирамиде DABC прямые, содержащие ребра (DC и AB|DA и BC), перпендикулярны\. "
+    r"Постройте сечение плоскостью, проходящей через точку E — середину ребра DB, и параллельно (DC и AB|DA и BC)\. "
+    r"Докажите, что получившееся сечение является прямоугольником\. "
+    r"Найдите угол между диагоналями этого прямоугольника, если (DC|DA)\s*=\s*(.+?), (AB|BC)\s*=\s*(.+?)\."
+)
+
+
+def _diagonals(groups):
+    claim, plane, first, raw_p, second, raw_q = groups
+    if claim != plane or claim != first + " и " + second:
+        raise ContentPlanError(
+            "the section must be parallel to the given perpendicular edges"
+        )
+    p, q = positive(raw_p), positive(raw_q)
+    diagonal = sp.sqrt(p * p + q * q) / 2
+    cosine = abs(p * p - q * q) / (p * p + q * q)
+    return model(
+        "tetra_parallel_midpoint_diagonal_angle",
+        (("p", p), ("q", q)),
+        {
+            "p": p,
+            "q": q,
+            "first": p / 2,
+            "second": q / 2,
+            "diagonal": diagonal,
+            "radius": diagonal / 2,
+            "cosine": cosine,
+            "sine": 2 * p * q / (p * p + q * q),
+            "half_tangent": min(p, q) / max(p, q),
+        },
+        (first, second),
+        sp.acos(cosine),
+    )
 
 
 def _symmetric(groups, variant):
@@ -91,10 +126,13 @@ def read(raw):
         (PARENT, "parent"),
         (VARIANT, "variant"),
         (RECTANGLE, "rectangle"),
+        (DIAGONALS, "diagonals"),
     ):
         match = re.fullmatch(pattern, raw)
         if match:
             try:
+                if kind == "diagonals":
+                    return _diagonals(match.groups())
                 return (
                     _rectangle(match.groups())
                     if kind == "rectangle"

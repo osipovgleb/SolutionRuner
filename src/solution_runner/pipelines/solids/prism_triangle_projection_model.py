@@ -11,7 +11,10 @@ from .measurements import positive
 from .pyramid_model import root
 from .spatial_metric_model import model
 
-MODES = {"triangle_prism_line_projection_angle"}
+MODES = {
+    "triangle_prism_line_projection_angle",
+    "triangle_prism_split_edge_projection_angle",
+}
 HEADER = r"Основанием прямой призмы ABCA_1B_1C_1 является "
 ISOSCELES = (
     HEADER
@@ -25,6 +28,60 @@ RIGHT = (
     r"Высота призмы равна (.+?)\. C_1H [−—–-] высота треугольника A_1B_1C_1\. "
     r"Докажите, что BH является проекцией прямой C_1B на плоскость ABB_1\. Найдите угол между прямой C_1B и плоскостью ABB_1\."
 )
+SPLIT_HEADER = r"[ВB] основании прямой треугольной призмы ABCA_1B_1C_1 лежит равнобедренный треугольник ABC с равными сторонами AB и BC\. "
+SPLIT_REQUEST = (
+    r"Докажите, что (прямая KM перпендикулярна прямой AC|KM\s*=\s*KB)\. "
+    r"Найдите угол между прямой KM и плоскостью ABB_1, если AB\s*=\s*(.+?), AC\s*=\s*(.+?) и AA_1\s*=\s*(.+?)\."
+)
+SPLIT_QUARTER = (
+    SPLIT_HEADER
+    + r"Точка K — середина ребра A_1B_1, а точка M делит ребро AC в отношении AM\s*:\s*MC\s*=\s*(.+?)\s*:\s*(.+?)\. "
+    + SPLIT_REQUEST
+)
+SPLIT_HALF = (
+    SPLIT_HEADER
+    + r"Точки K и M — середины ребер A_1B_1 и AC соответственно\. "
+    + SPLIT_REQUEST
+)
+
+
+def _split(groups, quarter):
+    fraction = sp.Rational(1, 2)
+    if quarter:
+        p, q = map(positive, groups[:2])
+        fraction = sp.simplify(p / (p + q))
+        groups = groups[2:]
+    claim, raw_a, raw_b, raw_h = groups
+    perpendicular = claim.startswith("прямая")
+    if perpendicular != quarter or quarter and fraction != sp.Rational(1, 4):
+        raise ContentPlanError(
+            "the midpoint and edge ratio do not imply the stated claim"
+        )
+    a, b, h = map(positive, (raw_a, raw_b, raw_h))
+    altitude = root(a * a - b * b / 4)
+    km = sp.sqrt(b * b * (fraction - sp.Rational(1, 4)) ** 2 + altitude**2 / 4 + h * h)
+    mh = fraction * b * altitude / a
+    return model(
+        "triangle_prism_split_edge_projection_angle",
+        (("a", a), ("b", b), ("height", h), ("fraction", fraction)),
+        {
+            "a": a,
+            "b": b,
+            "height": h,
+            "fraction": fraction,
+            "base_height": altitude,
+            "KM": km,
+            "MH": mh,
+            "sine": mh / km,
+            "CE": b * altitude / a,
+            "base_dot": a * a - b * b / 2,
+            "normal_norm": a,
+            "normal_dot": fraction * b * altitude,
+            "foot": b * b / (2 * a * a),
+        },
+        ("quarter" if quarter else "half",),
+        sp.asin(mh / km),
+    ), {"claim": "perpendicular" if quarter else "equal_lengths"}
 
 
 def _isosceles(groups):
@@ -77,7 +134,12 @@ def _right(groups):
 
 
 def read(raw):
-    for pattern, solve in ((ISOSCELES, _isosceles), (RIGHT, _right)):
+    for pattern, solve in (
+        (ISOSCELES, _isosceles),
+        (RIGHT, _right),
+        (SPLIT_QUARTER, lambda g: _split(g, True)),
+        (SPLIT_HALF, lambda g: _split(g, False)),
+    ):
         match = re.fullmatch(pattern, raw)
         if match:
             try:
