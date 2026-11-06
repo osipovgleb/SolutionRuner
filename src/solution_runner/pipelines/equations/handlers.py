@@ -847,3 +847,19 @@ HANDLERS += (
         asset_selector="solution_runner.pipelines.equations.exponential_inequality_cubic_figures:required_assets",
     ),
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-rational-exponential-substitution" + ("-chart" if chart else ""),
+        "solution_runner.pipelines.equations.rational_exponential_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("requires_chart", chart),),
+        requires_parent_condition_asset=False,
+        asset_selector=(
+            "solution_runner.pipelines.equations.rational_exponential_figures:required_assets"
+            if chart
+            else None
+        ),
+    )
+    for chart in (False, True)
+)
