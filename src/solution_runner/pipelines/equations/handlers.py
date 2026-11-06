@@ -758,3 +758,13 @@ HANDLERS += tuple(
         ("reciprocal_square", "reciprocal_diagram_specs", "reciprocal_required_assets"),
     )
 )
+
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-exponential-inequality-common-base",
+        "solution_runner.pipelines.equations.exponential_inequality_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)

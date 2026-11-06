@@ -4,6 +4,7 @@ from solution_runner.pipelines.core.profile_definitions import (
     _profile,
 )
 
+from .exponential_inequality_groups import GROUPS as EXPONENTIAL_INEQUALITY_GROUPS
 from .rational_inequality_figures import GROUPS as RATIONAL_INEQUALITY_GROUPS
 
 PROFILES = (
@@ -4920,8 +4921,14 @@ PROFILES += tuple(
         expected_vertices=None,
         strategy_key=None,
         workflow_kind="content_rule",
-        content_rule_key="exam-rational-inequality-" + method.replace("_", "-"),
+        content_rule_key=rule,
         rewrite_existing_solution=True,
     )
-    for key, group_id, index, theme, theme_index, theme_id, method in RATIONAL_INEQUALITY_GROUPS
+    for key, group_id, index, theme, theme_index, theme_id, rule in (
+        tuple(
+            (*row[:6], "exam-rational-inequality-" + row[6].replace("_", "-"))
+            for row in RATIONAL_INEQUALITY_GROUPS
+        )
+        + EXPONENTIAL_INEQUALITY_GROUPS
+    )
 )

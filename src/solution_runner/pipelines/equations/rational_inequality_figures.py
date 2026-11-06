@@ -22,7 +22,7 @@ KEY = "rational_sign_chart"
 ALT = "Метод интервалов и ограничения исходных знаменателей"
 
 
-def read(context):
+def read_formula(context):
     content, condition, answer, solution, text = solution_diagrams.read(context)
     spans = BeautifulSoup(condition["html"], "html.parser").find_all(
         "span", attrs={"data-inline-latex": True}
@@ -36,7 +36,12 @@ def read(context):
         raise UnsupportedCondition(
             "the entire rational inequality instruction must be recognized"
         )
-    return (content, condition, answer, solution), analyze(formula.removesuffix("."))
+    return (content, condition, answer, solution), formula.removesuffix(".")
+
+
+def read(context):
+    sections, formula = read_formula(context)
+    return sections, analyze(formula)
 
 
 def signature(a):

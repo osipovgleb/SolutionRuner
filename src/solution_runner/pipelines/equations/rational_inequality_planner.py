@@ -3,7 +3,7 @@
 import hashlib
 
 from ..probability.common import UnsupportedCondition
-from ..word_problems.common import RepairPlan, rewrite
+from .inequality_plan import repair
 from .rational_inequality import set_latex
 from .rational_inequality_algebraic_methods import presentation
 from .rational_inequality_figures import SOURCES, image, read
@@ -37,16 +37,12 @@ def build_context_repair_plan(
         )
         html = render(a, method, markup)
     answer = set_latex(a.solution)
-    answer_html = '<p><span data-inline-latex="' + answer + '"></span></p>'
-    changes = list(asset_changes)
-    if answer_section is None or answer_section.get("html") != answer_html:
-        changes.append(rewrite(answer_section, "answer", "Ответ", answer_html))
-    if (
-        solution is None
-        or solution.get("html") != html
-        or tuple(solution.get("asset_keys") or ()) != keys
-    ):
-        change = rewrite(solution, "solution", "Решение", html)
-        change["value"]["asset_keys"] = list(keys)
-        changes.append(change)
-    return RepairPlan(answer, condition["html"], html, tuple(changes))
+    return repair(
+        condition,
+        answer_section,
+        solution,
+        answer,
+        html,
+        keys=keys,
+        asset_changes=asset_changes,
+    )
