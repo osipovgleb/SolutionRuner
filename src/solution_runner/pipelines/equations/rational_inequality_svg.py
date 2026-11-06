@@ -6,6 +6,7 @@ from itertools import pairwise
 import sympy as sp
 
 from .rational_inequality import accepts
+from .rational_inequality_labels import label as algebraic_label
 from .rational_inequality_parser import X
 
 NS = "http://www.w3.org/2000/svg"
@@ -23,6 +24,9 @@ def node(parent, tag, **attrs):
 
 
 def label(root, point, x, y):
+    if point.is_Rational is not True:
+        algebraic_label(root, point, x, y)
+        return
     common = {
         "x": x,
         "text_anchor": "middle",
@@ -114,7 +118,7 @@ def render(a, *, double=False):
         raise ValueError(
             "the reviewed chart needs one to six boundaries and its domain row"
         )
-    height = 101 if any(point.q != 1 for point in a.points) else 86.2442
+    height = 101 if any(point.is_Integer is not True for point in a.points) else 86.2442
     if not double:
         height -= BOTTOM - TOP
     root = ET.Element(
@@ -209,11 +213,13 @@ def domain_row(root, a, positions):
         marker(root, point, x, BOTTOM, False)
 
 
-def render_single(a):
+def render_single(a, *, layout="single"):
     if not 1 <= len(a.points) <= 6:
         raise ValueError("the reviewed single chart needs one to six boundaries")
-    width = 215.3065
-    height = 39.6595 if all(p.q == 1 for p in a.points) else 54.6595
+    width = 214.2621 if layout == "vieta" else 215.3065
+    height = {"vieta": 44.9037, "radical_single": 50.9612}.get(
+        layout, 39.6595 if all(p.is_Integer is True for p in a.points) else 54.6595
+    )
     y = 18.928
     root = ET.Element(
         "{" + NS + "}svg",
@@ -251,6 +257,17 @@ def render_single(a):
         font_style="italic",
         font_size=14,
     ).text = "x"
+    if layout == "vieta":
+        for item in root:
+            if item.tag.endswith("line"):
+                item.set("x2", "206.7561")
+            elif item.tag.endswith("polygon"):
+                item.set(
+                    "points",
+                    "205.2561,18.904 199.2501,14.404 214.2621,18.904 199.2501,23.405",
+                )
+            elif item.tag.endswith("text"):
+                item.set("x", "205")
     positions = [
         37.5135 + i * (164.5463 - 37.5135) / max(1, len(a.points) - 1)
         for i in range(len(a.points))
@@ -279,6 +296,6 @@ def render_single(a):
             x,
             y,
             point not in a.poles and a.sign_operator.endswith("="),
-            label_y=16.5,
+            label_y=16.5 if point.is_Rational is True else y,
         )
     return ET.tostring(root, encoding="unicode")

@@ -23,6 +23,19 @@
     "square_numerator": {
       "sha256": "6688c7c6a4ac29ebfe4b282923c114e4ded8f1b4c725d19f3e301b904d98dc11",
       "required_chart": false
+    },
+    "opposite_fractions": {
+      "sha256": "9a2d798f8c317a4e9fada4de1ac9bf04bdcc12dfc5b1d33c8d6bec5a156faef5",
+      "required_chart": "radical_single",
+      "chart_asset_id": "daa29d14-6ca5-4127-addc-92c2aa30522f"
+    },
+    "vieta_quadratic": {
+      "sha256": "a8ab1e67cb01ff4bd6acf8ce69fa7a1a74e80448e06d6c9d538f27d07aaee72d",
+      "required_chart": "vieta"
+    },
+    "cancelled_quadratic_sum": {
+      "sha256": "a81a0feecd509166d626326fa2a999d8ad7f1ca97573f56444d7d325e0719eb9",
+      "required_chart": false
     }
   },
   "figures": {
@@ -152,6 +165,59 @@
       "signs": [
         -1,
         -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "double": false
+    },
+    "daa29d14-6ca5-4127-addc-92c2aa30522f": {
+      "sha256": "1a1554498f04c174b3aba102a7a2f992cb10cd0ce2125b04a91191c2835a4ef1",
+      "points": [
+        "1",
+        "3/2 - sqrt(5)/10",
+        "sqrt(5)/10 + 3/2",
+        "2"
+      ],
+      "poles": [
+        "1",
+        "2"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1,
+        -1
+      ],
+      "operator": "<=",
+      "double": false,
+      "shareable": true
+    },
+    "31cd19c0-23b1-495e-998f-0c69ec205312": {
+      "sha256": "09ed5499210c8e59b9f0e14948cbdc6eda6c7cbdab35c4d93ab6f09af0dd844b",
+      "points": [
+        "-2",
+        "sqrt(15)"
+      ],
+      "poles": [],
+      "signs": [
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "double": false
+    },
+    "c69d957d-1f34-47e5-ba96-a41fa3715545": {
+      "sha256": "4d7f052c8df98f665c4ec51bf5cba88453a658afbc625c948e951af96eca7578",
+      "points": [
+        "-1",
+        "sqrt(10)"
+      ],
+      "poles": [],
+      "signs": [
         1,
         -1,
         1

@@ -704,13 +704,22 @@ HANDLERS += tuple(
         requires_parent_condition_asset=False,
         diagram_builder="solution_runner.pipelines.equations.rational_inequality_figures:"
         + diagram,
+        asset_selector=(
+            "solution_runner.pipelines.equations.rational_inequality_figures:"
+            + selector
+            if selector
+            else None
+        ),
     )
-    for method, diagram in (
-        ("sum_fractions", "diagram_specs"),
-        ("cancelled_fraction", "cancelled_diagram_specs"),
-        ("direct_fraction", "diagram_specs"),
-        ("long_division", "diagram_specs"),
-        ("factor_cancelled", "factor_cancelled_diagram_specs"),
-        ("square_numerator", "diagram_specs"),
+    for method, diagram, selector in (
+        ("sum_fractions", "diagram_specs", None),
+        ("cancelled_fraction", "cancelled_diagram_specs", None),
+        ("direct_fraction", "diagram_specs", None),
+        ("long_division", "diagram_specs", None),
+        ("factor_cancelled", "factor_cancelled_diagram_specs", None),
+        ("square_numerator", "diagram_specs", None),
+        ("opposite_fractions", "opposite_diagram_specs", "opposite_required_assets"),
+        ("vieta_quadratic", "vieta_diagram_specs", None),
+        ("cancelled_quadratic_sum", "diagram_specs", None),
     )
 )

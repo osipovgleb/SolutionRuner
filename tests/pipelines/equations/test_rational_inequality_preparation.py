@@ -44,7 +44,10 @@ def parent(row):
 
 
 def plan(row, ctx):
+    from solution_runner.pipelines.core.content_runtime import _with_required_assets
+
     h = handler(row)
+    ctx = _with_required_assets(ctx, h.key)
     generated = tuple(
         {
             **spec,
@@ -75,7 +78,7 @@ def test_native_plans_answers_source_reuse_and_replay(row):
         for s in ctx["normalized_content"]["sections"]
         if s["key"] not in ("answer", "solution")
     ]
-    if row["task"] in {"511561", "507622", "511432"}:
+    if row["task"] in {"511561", "507622", "511432", "508399", "511506", "511533"}:
         assert len(handler(row).diagram_specs(ctx)) == 1
         assert any(
             t["transformation_target_id"] == "asset:" + KEY for t in p.transformations
@@ -284,3 +287,70 @@ def test_a_zero_coinciding_with_an_original_pole_remains_open_in_the_generated_c
     point = next(n for n in root.iter() if n.get("data-boundary") == "1")
     assert point.get("fill") == "#FFFFFF"
     assert answer_set(plan(row, ctx).answer) == answer_set(r"(-\infty;1)\cup(2;3]")
+
+
+def test_identical_missing_chart_uses_exact_parent_asset_without_mutating_or_uploading():
+    from solution_runner.pipelines.core.content_runtime import _prepared_record
+
+    row = next(r for r in SOURCES if r["task"] == "508401")
+    h = handler(row)
+    source_id = "daa29d14-6ca5-4127-addc-92c2aa30522f"
+    assert not h.diagram_specs(row["context"])
+    assert h.asset_requirements(row["context"]) == (
+        {
+            "source_asset_id": source_id,
+            "section_id": "solution:1",
+            "alt_text": "Метод интервалов и ограничения исходных знаменателей",
+        },
+    )
+    gateway = ReadOnlyGateway(row["context"])
+    record = _prepared_record(
+        gateway,
+        {"problem_id": row["context"]["problem_id"], "source_problem_id": row["task"]},
+        None,
+        h.key,
+        parent_solution_html=parent(row),
+    )
+    assert record["status"] == "prepared"
+    assert not record.get("generated_diagrams")
+    assert source_id in plan(row, row["context"]).solution_html
+    assert gateway.ctx == row["context"] and len(gateway.reads) == 1
+    assert "Дублирует" not in plan(row, row["context"]).solution_html
+
+
+@pytest.mark.parametrize(
+    "task,closed,signs,radicals",
+    [
+        ("508399", {"5/2 - sqrt(5)/10", "sqrt(5)/10 + 5/2"}, [-1, 1, -1, 1, -1], 2),
+        ("511506", {"1"}, [-1, 1, 1, -1], 0),
+        ("511533", {"sqrt(5)", "3"}, [1, -1, 1], 1),
+    ],
+)
+def test_algebraic_chart_order_radical_bars_and_double_zero_signs(
+    task, closed, signs, radicals
+):
+    row = next(r for r in SOURCES if r["task"] == task)
+    (spec,) = handler(row).diagram_specs(row["context"])
+    root = ET.fromstring(spec["svg_text"])
+    marks = [n for n in root.iter() if n.get("data-boundary")]
+    assert [n.get("data-boundary") for n in marks] == list(
+        map(str, read(row["context"])[1].points)
+    )
+    assert {
+        n.get("data-boundary") for n in marks if n.get("fill") == "#000000"
+    } == closed
+    assert [int(n.get("data-sign")) for n in root.iter() if n.get("data-sign")] == signs
+    paths = [n for n in root.iter() if n.get("data-radicand")]
+    assert len(paths) == radicals
+    assert all("H" in n.get("d") for n in paths)
+    assert not any("sqrt" in (n.text or "") for n in root.iter())
+    if task == "508399":
+        assert sum(n.text == "10" for n in root.iter()) == 2
+
+
+def test_vieta_keeps_sum_product_and_correctly_orders_roots():
+    row = next(r for r in SOURCES if r["task"] == "511533")
+    html = plan(row, row["context"]).solution_html
+    assert html.index("x_1+x_2=") < html.index("x_1x_2=") < html.index("x_1=")
+    assert r"x_1=\sqrt{5},\quad x_2=3" in html
+    assert "первого неравенства системы" not in html

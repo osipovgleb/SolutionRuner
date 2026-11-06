@@ -20,6 +20,10 @@ def domain(a):
 
 def normalized(a, *, already_factored=False):
     numerator, denominator = sp.fraction(a.expression)
+    if a.presentation_method == "cancelled_quadratic_sum":
+        from .rational_inequality_algebraic_methods import real_factor
+
+        numerator = real_factor(numerator, a.zeros)
     expression = fraction(sp.factor(numerator), sp.factor(denominator))
     relation = expression + RELATION[a.sign_operator] + "0"
     if a.holes:
@@ -71,11 +75,18 @@ def interval_proof(a, image):
 
 
 def render(a, method, image=""):
+    from .rational_inequality_algebraic_methods import presentation
+    from .rational_inequality_algebraic_proof import vieta
+
+    a = presentation(a, method)
+    if method == "vieta_quadratic":
+        return vieta(a, image)
     identities, steps = prepare(a, method)
     lead = {
         "long_division": "Имеем:",
         "factor_cancelled": "Перепишем неравенство в виде:",
         "square_numerator": "Преобразуем неравенство:",
+        "cancelled_quadratic_sum": "Преобразуем неравенство:",
     }.get(method, "Решим неравенство методом интервалов:")
     html = "<p>" + lead + "</p>" + line(a.formula) + domain(a)
     if identities:
@@ -88,7 +99,10 @@ def render(a, method, image=""):
             "sum_fractions": "<p>На области определения приведём дроби к общему знаменателю и раскроем скобки в числителе:</p>",
             "factor_cancelled": "<p>Разложим многочлены на множители, приведём дроби к общему знаменателю и вынесем общий множитель в числителе. Затем используем разность квадратов:</p>",
             "square_numerator": "<p>Перенесём правую часть влево и объединим выражения в одну дробь на исходной области определения:</p>",
+            "opposite_fractions": "<p>На исходной области определения приведём дроби и правую часть к общему знаменателю. Затем найдём корни числителя и разложим его на множители:</p>",
+            "cancelled_quadratic_sum": "<p>Заменим разность левой и правой частей противоположной и изменим знак неравенства. Объединим правую часть исходного неравенства в одну дробь, разложим многочлены на множители и сократим общий множитель, сохраняя исходные исключения:</p>",
         }.get(method, "")
     html += "".join(line(step.text + RELATION[a.operator] + "0") for step in steps)
-    html += normalized(a, already_factored=method == "factor_cancelled")
+    if method != "opposite_fractions":
+        html += normalized(a, already_factored=method == "factor_cancelled")
     return html + interval_proof(a, image)

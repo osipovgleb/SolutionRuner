@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from ..probability import solution_diagrams
 from ..probability.common import UnsupportedCondition
 from .rational_inequality import analyze
+from .rational_inequality_algebraic_methods import presentation
 from .rational_inequality_methods import prepare
 from .rational_inequality_svg import render, render_single
 
@@ -27,12 +28,12 @@ def read(context):
         raise UnsupportedCondition("one explicit inequality formula is required")
     formula = spans[0]["data-inline-latex"]
     if not re.fullmatch(
-        r"Решите неравенство:\s*" + re.escape(formula) + r"\s*\.?", text
+        r"Решите неравенство(?::\s*|\s+)" + re.escape(formula) + r"\s*\.?", text
     ):
         raise UnsupportedCondition(
             "the entire rational inequality instruction must be recognized"
         )
-    return (content, condition, answer, solution), analyze(formula)
+    return (content, condition, answer, solution), analyze(formula.removesuffix("."))
 
 
 def signature(a):
@@ -47,8 +48,8 @@ def signature(a):
 def selection(context, a, *, required=False):
     double = required is True or required == "double"
     build = (
-        render_single
-        if required == "single"
+        (lambda model: render_single(model, layout=required))
+        if required in ("single", "radical_single", "vieta")
         else lambda model: render(model, double=double)
     )
     assets = context["normalized_content"].get("assets", [])
@@ -61,11 +62,19 @@ def selection(context, a, *, required=False):
     if originals:
         asset = originals[0]
         entry = SOURCES["figures"].get(asset.get("asset_id"))
+        shared = (
+            entry is not None
+            and entry.get("shareable") is True
+            and asset.get("asset_key")
+            == "shared_" + asset["asset_id"].replace("-", "")[:16]
+        )
         if (
             entry is None
-            or asset.get("asset_key") != "image_1"
-            or asset.get("kind") != "ordinary_image"
-            or asset.get("url") != "/assets/" + asset["asset_id"]
+            or (asset.get("asset_key") != "image_1" and not shared)
+            or asset.get("kind", "ordinary_image" if shared else None)
+            != "ordinary_image"
+            or asset.get("url", "/assets/" + asset["asset_id"] if shared else None)
+            != "/assets/" + asset["asset_id"]
         ):
             raise UnsupportedCondition(
                 "the source chart identity is outside visual review"
@@ -100,6 +109,44 @@ def factor_cancelled_diagram_specs(context):
     prepare(a, "factor_cancelled")
     _, svg = selection(context, a, required="single")
     return (solution_diagrams.spec(KEY, svg),) if svg is not None else ()
+
+
+def opposite_required_assets(context):
+    _, a = read(context)
+    a = presentation(a, "opposite_fractions")
+    prepare(a, "opposite_fractions")
+    source_id = SOURCES["parents"]["opposite_fractions"]["chart_asset_id"]
+    if any(
+        asset.get("asset_id") == source_id
+        for asset in context["normalized_content"].get("assets", [])
+    ):
+        return ()
+    entry = SOURCES["figures"][source_id]
+    if all(entry[key] == value for key, value in signature(a).items()):
+        return (
+            {"source_asset_id": source_id, "section_id": "solution:1", "alt_text": ALT},
+        )
+    return ()
+
+
+def algebraic_diagram_specs(context, method):
+    _, a = read(context)
+    a = presentation(a, method)
+    prepare(a, method)
+    if method == "opposite_fractions" and opposite_required_assets(context):
+        return ()
+    _, svg = selection(
+        context, a, required=SOURCES["parents"][method]["required_chart"]
+    )
+    return (solution_diagrams.spec(KEY, svg),) if svg is not None else ()
+
+
+def opposite_diagram_specs(context):
+    return algebraic_diagram_specs(context, "opposite_fractions")
+
+
+def vieta_diagram_specs(context):
+    return algebraic_diagram_specs(context, "vieta_quadratic")
 
 
 def image(context, a, generated, *, required=False):
@@ -181,5 +228,36 @@ GROUPS += (
         1,
         "9c619907-5d8d-437c-b7dd-004b50ba3536",
         "square_numerator",
+    ),
+)
+
+
+GROUPS += (
+    (
+        "508299",
+        "3f76356c-3084-4994-9b96-1721998721ea",
+        7,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "opposite_fractions",
+    ),
+    (
+        "508442",
+        "f8930a4b-7e30-4d25-8104-a30db6e423a0",
+        19,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "vieta_quadratic",
+    ),
+    (
+        "556602",
+        "602b11f6-a087-48cb-a594-c915fa758e13",
+        38,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "cancelled_quadratic_sum",
     ),
 )

@@ -8,6 +8,8 @@ import sympy as sp
 
 from ..probability.common import UnsupportedCondition
 from .rational_inequality_parser import RationalParser, X, polynomial
+from .rational_inequality_roots import compare, ordered
+from .rational_inequality_roots import real_roots as roots
 
 OPERATORS = {
     r"\le": "<=",
@@ -37,18 +39,7 @@ class Analysis:
     points: tuple
     signs: tuple
     solution: object
-
-
-def roots(value):
-    p = polynomial(value)
-    if p.is_zero:
-        raise UnsupportedCondition("the original denominator is identically zero")
-    result = tuple(sorted(set(sp.real_roots(p))))
-    if any(r.is_Rational is not True for r in result):
-        raise UnsupportedCondition(
-            "this reviewed interval family needs rational boundaries"
-        )
-    return result
+    presentation_method: str = ""
 
 
 def normalize(expression, operator):
@@ -58,7 +49,7 @@ def normalize(expression, operator):
         return sp.Integer(0), operator
     _, p = p.primitive()
     _, q = q.primitive()
-    factor = sp.sign(p.LC()) * sp.sign(q.LC())
+    factor = compare(p.LC(), 0) * compare(q.LC(), 0)
     return (
         sp.cancel(p.as_expr() / q.as_expr() * factor),
         FLIPPED[operator] if factor < 0 else operator,
@@ -66,9 +57,7 @@ def normalize(expression, operator):
 
 
 def accepts(value, operator):
-    sign = sp.sign(value)
-    if sign not in (-1, 0, 1):
-        raise UnsupportedCondition("the interval sign must be exact")
+    sign = compare(value, 0)
     return {"<=": sign <= 0, ">=": sign >= 0, "<": sign < 0, ">": sign > 0}[operator]
 
 
@@ -86,14 +75,14 @@ def interval_signs(expression, points, operator, poles):
             else (left + right) / 2
         )
         value = expression.subs(X, sample)
-        signs.append(int(sp.sign(value)))
+        signs.append(compare(value, 0))
         if accepts(value, operator):
             intervals.append(sp.Interval.open(left, right))
     if operator.endswith("="):
         intervals.extend(
             sp.FiniteSet(point)
             for point in points
-            if point not in poles and expression.subs(X, point) == 0
+            if point not in poles and sp.simplify(expression.subs(X, point)) == 0
         )
     return tuple(signs), sp.Union(*intervals)
 
@@ -104,24 +93,24 @@ def analyze(formula):
         raise UnsupportedCondition("one complete rational inequality is required")
     readers = [RationalParser(text) for text in (parts[0], parts[2])]
     left, right = [reader.parse() for reader in readers]
-    poles = tuple(
-        sorted(
-            {
-                root
-                for reader in readers
-                for denominator in reader.denominators
-                for root in roots(sp.fraction(sp.cancel(denominator))[0])
-            }
-        )
+    poles = ordered(
+        {
+            root
+            for reader in readers
+            for denominator in reader.denominators
+            for root in roots(sp.fraction(sp.cancel(denominator))[0])
+        }
     )
     original = sp.cancel(left.value - right.value)
     operator = OPERATORS[parts[1]]
     expression, sign_operator = normalize(original, operator)
     numerator, denominator = sp.fraction(expression)
     zeros = roots(numerator) if numerator != 0 else ()
-    points = tuple(sorted(set(zeros) | set(poles)))
+    points = ordered(set(zeros) | set(poles))
     signs, solution = interval_signs(expression, points, sign_operator, poles)
-    holes = tuple(point for point in poles if denominator.subs(X, point) != 0)
+    holes = tuple(
+        point for point in poles if sp.simplify(denominator.subs(X, point)) != 0
+    )
     return Analysis(
         formula,
         left,
@@ -151,5 +140,9 @@ def set_latex(solution):
     if isinstance(solution, sp.Interval):
         left = "(" if solution.left_open else "["
         right = ")" if solution.right_open else "]"
-        return left + sp.latex(solution.start) + ";" + sp.latex(solution.end) + right
+        start, end = (
+            sp.factor_terms(value) if value.is_Rational is not True else value
+            for value in (solution.start, solution.end)
+        )
+        return left + sp.latex(start) + ";" + sp.latex(end) + right
     raise UnsupportedCondition("unsupported exact interval answer")

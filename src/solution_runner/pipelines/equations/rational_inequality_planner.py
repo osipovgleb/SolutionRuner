@@ -5,6 +5,7 @@ import hashlib
 from ..probability.common import UnsupportedCondition
 from ..word_problems.common import RepairPlan, rewrite
 from .rational_inequality import set_latex
+from .rational_inequality_algebraic_methods import presentation
 from .rational_inequality_figures import SOURCES, image, read
 from .rational_inequality_proof import render
 
@@ -19,6 +20,7 @@ def build_context_repair_plan(
     ):
         raise UnsupportedCondition("the complete reviewed parent solution is required")
     (_, condition, answer_section, solution), a = read(context)
+    a = presentation(a, method)
     markup, keys, asset_changes = image(
         context, a, generated_solution_assets, required=parent["required_chart"]
     )

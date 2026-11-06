@@ -15,9 +15,20 @@ def polynomial(value):
     if not value.is_polynomial(X) or value.free_symbols - {X}:
         raise UnsupportedCondition("a rational polynomial in x is required")
     result = sp.Poly(value, X)
-    if result.degree() > 8 or any(
-        c.is_Rational is not True or max(abs(c.p), c.q) > 10**12
-        for c in result.all_coeffs()
+    coefficients = result.all_coeffs()
+    if (
+        result.degree() > 8
+        or sp.count_ops(value) > 150
+        or len(value.atoms(sp.Pow)) > 20
+        or len({p.base for p in value.atoms(sp.Pow) if p.exp == sp.Rational(1, 2)}) > 2
+        or any(
+            sp.count_ops(c) > 40
+            or c.is_algebraic is not True
+            or c.is_real is not True
+            or any(max(abs(n.p), n.q) > 10**12 for n in c.atoms(sp.Rational))
+            or len(c.atoms(sp.Pow)) > 4
+            for c in coefficients
+        )
     ):
         raise UnsupportedCondition("the polynomial exceeds the reviewed exact bounds")
     return result
@@ -63,7 +74,7 @@ class RationalParser(LogarithmParser):
                     break
             else:
                 if self.text[self.index] not in "(x" and not self.text.startswith(
-                    r"\frac", self.index
+                    (r"\frac", r"\sqrt"), self.index
                 ):
                     break
                 operator = "*"
@@ -106,6 +117,14 @@ class RationalParser(LogarithmParser):
             a, self.index = balanced(self.text, self.index)
             b, self.index = balanced(self.text, self.index)
             return self._combine("divide", self._nested(a), self._nested(b))
+        if self.text.startswith(r"\sqrt", self.index):
+            self.index += 5
+            raw, self.index = balanced(self.text, self.index)
+            if not re.fullmatch(r"\d{1,7}", raw) or int(raw) > 10**6:
+                raise UnsupportedCondition(
+                    "a bounded constant integer square root is required"
+                )
+            return Node(sp.sqrt(int(raw)), r"\sqrt{" + raw + "}", "scalar")
         match = re.match(r"(?:0|[1-9]\d*)(?:\.\d+)?", self.text[self.index :])
         if match is None:
             raise UnsupportedCondition("unsupported rational expression operand")

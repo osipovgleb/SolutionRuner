@@ -56,7 +56,7 @@ def test_native_answer_and_independent_cas(row):
     formula = BeautifulSoup(condition["html"], "html.parser").find(
         "span", attrs={"data-inline-latex": True}
     )["data-inline-latex"]
-    a = analyze(formula)
+    a = analyze(formula.removesuffix("."))
     expected = answer_set(row["expected_answer"])
     relation = {"<=": sp.Le, ">=": sp.Ge, "<": sp.Lt, ">": sp.Gt}[a.operator]
     independent = sp.solve_univariate_inequality(
@@ -109,7 +109,6 @@ def test_cancellation_multiplicity_strictness_and_negative_normalization(
         r"x^x>0",
         r"\frac{1}{x-x}>0",
         r"\frac{x}{0}>0",
-        r"\frac{x}{x^2-2}>0",
         r"x=0",
         r"x>0\text{или}x<0",
         "__import__('os')>0",
@@ -145,11 +144,17 @@ METHODS = {
     "511560": "long_division",
     "507491": "factor_cancelled",
     "508404": "square_numerator",
+    "508299": "opposite_fractions",
+    "508442": "vieta_quadratic",
+    "556602": "cancelled_quadratic_sum",
 }
 
 
 @pytest.mark.parametrize("row", SOURCES, ids=lambda row: row["task"])
 def test_parent_method_every_printed_identity_and_reduced_inequality(row):
+    from solution_runner.pipelines.equations.rational_inequality_algebraic_methods import (
+        presentation,
+    )
     from solution_runner.pipelines.equations.rational_inequality_methods import prepare
     from solution_runner.pipelines.equations.rational_inequality_proof import render
 
@@ -161,8 +166,9 @@ def test_parent_method_every_printed_identity_and_reduced_inequality(row):
     formula = BeautifulSoup(condition["html"], "html.parser").find(
         "span", attrs={"data-inline-latex": True}
     )["data-inline-latex"]
-    a = analyze(formula)
+    a = analyze(formula.removesuffix("."))
     method = METHODS[row["group"]]
+    a = presentation(a, method)
     identities, steps = prepare(a, method)
     for text, expected_left, expected_right in identities:
         left, right = [RationalParser(part).parse().value for part in text.split("=")]
@@ -170,7 +176,7 @@ def test_parent_method_every_printed_identity_and_reduced_inequality(row):
     for step in steps:
         assert sp.cancel(RationalParser(step.text).parse().value - a.original) == 0
     html = render(a, method)
-    assert formula in [
+    assert formula.removesuffix(".") in [
         span["data-inline-latex"]
         for span in BeautifulSoup(html, "html.parser").find_all(
             "span", attrs={"data-inline-latex": True}
