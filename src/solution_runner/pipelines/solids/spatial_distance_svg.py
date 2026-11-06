@@ -107,18 +107,21 @@ def scene_projection(m, meta):
 
 
 def render(m):
-    if m.mode == "trapezoid_prism_pentagon_area":
-        from .prism_pentagon_cut_svg import render as pentagon
+    from . import (
+        box_parallel_plane_svg,
+        prism_pentagon_cut_svg,
+        regular_triangle_cut_svg,
+        spatial_plane_svg,
+    )
 
-        return pentagon(m)
-    if m.mode == "regular_triangle_general_cut_area":
-        from .regular_triangle_cut_svg import render as triangle_cut
-
-        return triangle_cut(m)
-    if m.mode == "ratio_plane_distance":
-        from .spatial_plane_svg import render as ratio
-
-        return ratio(m)
+    renderers = {
+        "box_parallel_plane_angle": box_parallel_plane_svg.render,
+        "trapezoid_prism_pentagon_area": prism_pentagon_cut_svg.render,
+        "regular_triangle_general_cut_area": regular_triangle_cut_svg.render,
+        "ratio_plane_distance": spatial_plane_svg.render,
+    }
+    if m.mode in renderers:
+        return renderers[m.mode](m)
     if m.mode != "box_altitude_comparison":
         from . import spatial_metric_svg
 

@@ -1,6 +1,7 @@
 """Category-fifteen bindings reuse the shared spatial-distance runtime."""
 
 from ..core.profile_definitions import _profile
+from .projection_plane_sources import GROUPS
 
 PROFILES = tuple(
     _profile(
@@ -434,4 +435,5 @@ PROFILES = tuple(
             "solid-triangle-pyramid-parallel-plane-angle",
         ),
     )
+    + GROUPS
 )

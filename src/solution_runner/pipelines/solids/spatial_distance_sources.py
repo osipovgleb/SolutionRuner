@@ -4,15 +4,15 @@ import json
 from dataclasses import replace
 from importlib.resources import files
 
-import sympy as sp
-
-from . import prism_cut_sources
+from . import prism_cut_sources, projection_plane_sources
+from .spatial_scene_compatibility import scene_matches
 
 DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
     **prism_cut_sources.RULES,
+    **projection_plane_sources.RULES,
     "solid-pyramid-midline-ratio": "pyramid_midline_ratio",
     "solid-square-pyramid-perpendicular-section-ratio": "square_perpendicular_section_ratio",
     "solid-triangle-prism-midpoint-section": (
@@ -97,6 +97,7 @@ MODE_SOURCES = {
     for mode in ((allowed,) if isinstance(allowed, str) else allowed)
 }
 GENERATED_MODES = {
+    "box_parallel_plane_angle",
     "trapezoid_prism_pentagon_area",
     "regular_triangle_general_cut_area",
     "box_altitude_comparison",
@@ -106,6 +107,7 @@ GENERATED_MODES = {
 
 ROLES = {
     **prism_cut_sources.ROLES,
+    **projection_plane_sources.ROLES,
     "pyramid_midline_ratio": (
         ("solution", "image_1", "cb43c350-1e5c-4ce3-b113-8cfb8cdcc85c"),
     ),
@@ -240,63 +242,14 @@ def compatible(model, source, role, slot):
         or slot not in slots(entry)
     ):
         return False
-    if model.mode == "ratio_plane_angle" and entry.get(
-        "condition_names", ["K", "M"]
-    ) != list(model.names or ("K", "M")):
-        return False
-    if (
-        "half_position" in entry
-        and sp.sign(model.q["fraction"] - sp.Rational(1, 2)) != entry["half_position"]
-    ):
-        return False
-    if model.mode == "square_perpendicular_section_ratio":
-        purpose = (
-            "coordinate"
-            if slot == model.symbols.get("coordinate_slot")
-            else "geometric"
-        )
-        if entry.get("purpose") != purpose:
-            return False
-    if model.mode in {
-        "ratio_plane_distance",
-        "square_vertical_vertex_area",
-        "trapezoid_prism_pentagon_area",
-    } and entry.get("method") != model.symbols.get("method"):
-        return False
-    if entry.get("requires_rhombus") and not model.q["rhombus"]:
-        return False
-    if entry.get("reusable") is False:
-        return False
-    if entry.get("before_S") and model.q["ratio"] <= 1:
-        return False
-    if (
-        "equal_lengths" in entry
-        and sp.simplify(
-            model.q[entry["equal_lengths"][0]] - model.q[entry["equal_lengths"][1]]
-        )
-        != 0
-    ):
-        return False
-    if entry.get("top_foot") and not (0 < model.q["foot"] < 1):
-        return False
-    if "names_prefix" in entry and entry["names_prefix"] != list(
-        model.names[: len(entry["names_prefix"])]
-    ):
-        return False
-    if "names" in entry and entry["names"] != list(model.names):
-        return False
-    if entry.get("interior") and not (0 < model.q["foot"] < 1):
-        return False
-    return "squares" not in entry or (
-        entry["squares"] == [str(v) for v in model.squares]
-        and entry["names"] == list(model.names)
-    )
+    return scene_matches(model, entry, slot)
 
 
 def reviewed_model(model, assets):
-    prism = prism_cut_sources.reviewed_model(model, assets)
-    if prism is not None:
-        return prism
+    for family in (projection_plane_sources, prism_cut_sources):
+        reviewed = family.reviewed_model(model, assets)
+        if reviewed is not None:
+            return reviewed
     if model.mode == "square_perpendicular_section_ratio":
         purposes = {
             key: DATA["figures"][asset["asset_id"]]["purpose"]
@@ -345,9 +298,10 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
-    prism = prism_cut_sources.roles(model)
-    if prism is not None:
-        return prism
+    for family in (projection_plane_sources, prism_cut_sources):
+        selected = family.roles(model)
+        if selected is not None:
+            return selected
     if (
         model.mode in {"triangle_prism_cut_area", "triangle_prism_cut_perimeter"}
         and model.names[0] == "prove"

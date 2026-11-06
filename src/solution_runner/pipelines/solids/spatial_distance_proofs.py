@@ -174,9 +174,11 @@ def _direct_proof(mode):
         adjacent_midpoint_proof,
         box_bisector_cut_proof,
         box_opposite_cut_proof,
+        box_parallel_plane_proof,
         box_skew_plane_angle_proof,
         box_transverse_cut_proof,
         cube_parallel_cut_proof,
+        cube_projection_plane_proof,
         prism_endpoint_angle_proof,
         prism_oblique_height_proof,
         prism_opposite_plane_angle_proof,
@@ -186,9 +188,15 @@ def _direct_proof(mode):
         pyramid_midpoint_angle_proof,
         pyramid_midpoint_plane_proof,
         reflected_section_proofs,
+        rhombus_prism_plane_proof,
+        tetra_cut_angle_proof,
     )
 
     direct = {
+        "tetra_equal_edge_cut_cosine": tetra_cut_angle_proof,
+        "cube_projection_plane_angle": cube_projection_plane_proof,
+        "box_parallel_plane_angle": box_parallel_plane_proof,
+        "rhombus_prism_section_angle": rhombus_prism_plane_proof,
         "box_skew_distance_normal_angle": box_skew_plane_angle_proof,
         "square_prism_opposite_vertex_plane_angle": prism_opposite_plane_angle_proof,
         "triangle_pyramid_midpoint_plane_angle": pyramid_midpoint_plane_proof,

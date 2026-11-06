@@ -64,3 +64,27 @@ def squared_length(segment, squares):
     if len(squares) != 3:
         raise ContentPlanError("three squared box dimensions are required")
     return sp.simplify(sum(squares[i] for i in axes(segment)))
+
+
+def points(lengths):
+    if len(lengths) != 3 or any(sp.sympify(v).is_positive is not True for v in lengths):
+        raise ContentPlanError("three positive box edge lengths are required")
+    metric = sp.diag(*lengths)
+    return {name: metric * sp.Matrix(v) for name, v in VERTICES.items()}
+
+
+def plane_normal(plane, vertices):
+    names = re.findall(VERTEX, plane)
+    if "".join(names) != plane or len(names) != 3 or len(set(names)) != 3:
+        raise ContentPlanError("three distinct canonical plane vertices are required")
+    a, b, c = (vertices[n] for n in names)
+    normal = (b - a).cross(c - a)
+    if normal.norm() == 0:
+        raise ContentPlanError("a nondegenerate plane is required")
+    return normal
+
+
+def plane_cosine(first, second, lengths):
+    vertices = points(lengths)
+    a, b = plane_normal(first, vertices), plane_normal(second, vertices)
+    return sp.simplify(abs(a.dot(b)) / (a.norm() * b.norm()))
