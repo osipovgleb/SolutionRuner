@@ -10,6 +10,7 @@ from .cube_sources import PARENTS as CUBE
 from .cylinder_sources import PARENTS as CYLINDERS
 from .distance_sources import PARENTS as DISTANCES
 from .line_angle_sources import PARENTS as LINE_ANGLES
+from .line_projection_sources import DIAGRAM_BUILDERS as PROJECTION_BUILDERS
 from .orthogonal_element_sources import PARENTS as ELEMENTS
 from .orthogonal_sources import PARENTS as ORTHOGONAL
 from .polyhedron_sources import PARENTS as POLYHEDRA
@@ -113,7 +114,13 @@ HANDLERS = tuple(
         (
             DISTANCES,
             "solution_runner.pipelines.solids.distance_parent:prepare",
-            "solution_runner.pipelines.solids.distance_figures:diagram_specs",
+            {
+                rule: PROJECTION_BUILDERS.get(
+                    rule,
+                    "solution_runner.pipelines.solids.distance_figures:diagram_specs",
+                )
+                for rule in DISTANCES
+            },
         ),
     )
     for rule in parents

@@ -559,6 +559,46 @@
         ]
       ],
       "699776e20adffc832a800ee8110bafa3db39f2291c76b91a3ad3c81d3ed3fa6b"
+    ],
+    "solid-triangle-prism-half-volume-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "32110163-bb47-4e23-a08c-cfbec84ed1ec"
+        ]
+      ],
+      "9b706d72f298133fbc552ed636050cdd406fbbc9ed30dacffbb75333d2f76a87"
+    ],
+    "solid-triangle-pyramid-face-cosine-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "f6e96c0f-fcfa-4458-9699-f4584ee24771"
+        ]
+      ],
+      "8ef2e1e2ad24288c394b8aba2443af5f7b5e35054c51ed50100f1c6e28b0e256"
+    ],
+    "solid-box-tetrahedron-line-projection-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "dbdc0dfd-d4ea-4e0f-81db-ccece56df857"
+        ]
+      ],
+      "6e660cff89117927ac202606f0a5179ad9dabba19fb0ef91b69833df70160aaa"
+    ],
+    "solid-rectangular-pyramid-proved-altitude-angle": [
+      null,
+      [
+        [
+          "image_1",
+          "95be579c-68a8-4ebd-83c3-c6eebd9eeffc"
+        ]
+      ],
+      "2fad61db050bc6aa2a62a03c301f71107e3a647bf0817a5052092c9ccb133d13"
     ]
   },
   "figures": {
@@ -1894,6 +1934,102 @@
       "sha256": "c8166d3d35d72fbddb2f532850e0be17cfb0fb9c4677a1198f28f4b1ef9568c8",
       "slot": "image_1",
       "mode": "rhombus_prism_section_angle"
+    },
+    "32110163-bb47-4e23-a08c-cfbec84ed1ec": {
+      "canonical": "32110163-bb47-4e23-a08c-cfbec84ed1ec",
+      "sha256": "48d7ce69d98060b01684ec239d93245f88ccd99638d57121d94d7db1ba778ad9",
+      "slot": "image_1",
+      "mode": "triangle_prism_half_volume_angle"
+    },
+    "68d7247d-26fb-496d-b508-9ec4738817eb": {
+      "canonical": "68d7247d-26fb-496d-b508-9ec4738817eb",
+      "sha256": "b8fa40ed9e872052ebbd2586b53bd1b059584b053b5277eae4f0a450ee20c682",
+      "mode": "triangle_prism_half_volume_angle",
+      "slot": "image_1"
+    },
+    "f6e96c0f-fcfa-4458-9699-f4584ee24771": {
+      "canonical": "f6e96c0f-fcfa-4458-9699-f4584ee24771",
+      "sha256": "edf50665b7b1858e530f077ffda41f395545eaf2271a220bd744cb53e0156c6b",
+      "slot": "image_1",
+      "top_foot": true,
+      "mode": "triangle_pyramid_face_cosine_angle"
+    },
+    "dbdc0dfd-d4ea-4e0f-81db-ccece56df857": {
+      "canonical": "dbdc0dfd-d4ea-4e0f-81db-ccece56df857",
+      "sha256": "ed327ecc0775a05f0b473e3c900942cec9b4a51da60f81b88498e49a5006532c",
+      "mode": "box_tetrahedron_line_projection_angle",
+      "slot": "image_1",
+      "names_prefix": [
+        "face"
+      ],
+      "measurements": {
+        "a": "6",
+        "b": "15",
+        "height": "8"
+      }
+    },
+    "8998638f-ee72-4ad1-b17f-d0f27d7a7bc0": {
+      "canonical": "8998638f-ee72-4ad1-b17f-d0f27d7a7bc0",
+      "sha256": "97aa17cd6755d2d941397656cb84dee1628de4c1d24897c0a3f4a7d0c47e1ff7",
+      "mode": "box_tetrahedron_line_projection_angle",
+      "slot": "image_1",
+      "names_prefix": [
+        "diagonal"
+      ],
+      "measurements": {
+        "a": "12",
+        "b": "12",
+        "height": "5"
+      }
+    },
+    "76e92fd6-65a2-4f16-922f-f4b3d11169c0": {
+      "canonical": "76e92fd6-65a2-4f16-922f-f4b3d11169c0",
+      "sha256": "4ca4e16ae61986a2dc0988f218f79e84cb1f1f8f8bf8555ff2c819b7da039476",
+      "mode": "box_tetrahedron_line_projection_angle",
+      "slot": "image_1",
+      "names_prefix": [
+        "diagonal"
+      ],
+      "measurements": {
+        "a": "4",
+        "b": "4",
+        "height": "3"
+      }
+    },
+    "95be579c-68a8-4ebd-83c3-c6eebd9eeffc": {
+      "canonical": "95be579c-68a8-4ebd-83c3-c6eebd9eeffc",
+      "sha256": "bda8bcc1b10370a384e3c15fceeabdf3a1487a73c42745d687821ebaa9fb2ed7",
+      "mode": "rectangular_pyramid_angle",
+      "slot": "image_1",
+      "measurements": {
+        "a": "4",
+        "b": "3",
+        "H": "sqrt(11)",
+        "SB": "3*sqrt(3)"
+      },
+      "scene_family": "proved_vertex_projection",
+      "prefer_parent": true
+    },
+    "7f8c10d5-2ffe-4a50-9256-8ca04937be66": {
+      "canonical": "7f8c10d5-2ffe-4a50-9256-8ca04937be66",
+      "sha256": "66c407a56d45014b097269ec8b54acb62ceac633f487c29c98779daadbef4ef1",
+      "mode": "rectangular_pyramid_proved_altitude_angle",
+      "slot": "image_1",
+      "method": "extended_side"
+    },
+    "61e739a4-ca4c-406e-9326-224e80d05752": {
+      "canonical": "61e739a4-ca4c-406e-9326-224e80d05752",
+      "sha256": "2e4661b2638f459cced9f4e95e4426934f65831e23d41bc973763755dffc2e48",
+      "mode": "rectangular_pyramid_proved_altitude_angle",
+      "slot": "image_1",
+      "method": "median"
+    },
+    "c87426df-06cb-4f81-b349-ceda60942944": {
+      "canonical": "c87426df-06cb-4f81-b349-ceda60942944",
+      "sha256": "411fc9958c813ad71a0f0c3bbffdfb997a8779eeca7dee26d823a71c14dc4497",
+      "mode": "rectangular_pyramid_proved_altitude_angle",
+      "slot": "image_2",
+      "method": "median"
     }
   }
 }

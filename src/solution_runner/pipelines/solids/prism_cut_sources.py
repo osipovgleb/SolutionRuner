@@ -177,3 +177,43 @@ def roles(model):
     if model.mode == "trapezoid_prism_pentagon_area" and model.names == ("G", "F"):
         return (("solution", "image_1", "8e8e20aa-04ee-4513-8a9c-4a84ca87ab46"),)
     return ROLES.get(model.mode)
+
+
+GROUPS = (
+    (
+        "485981",
+        "5e7f28b9-1e51-4d87-b86f-4e6d8f730a9b",
+        10,
+        "Угол между плоскостями",
+        6,
+        "d3f765c9-c466-41b2-b237-91d0bea9101b",
+        "solid-box-skew-distance-normal-angle",
+    ),
+    (
+        "500132",
+        "4381fb3b-2506-4d53-9aca-d08c525a742c",
+        14,
+        "Угол между плоскостями",
+        6,
+        "d3f765c9-c466-41b2-b237-91d0bea9101b",
+        "solid-square-prism-opposite-vertex-plane-angle",
+    ),
+    (
+        "563633",
+        "085ef289-0609-45bd-bf59-278da2a6d6eb",
+        28,
+        "Угол между плоскостями",
+        6,
+        "d3f765c9-c466-41b2-b237-91d0bea9101b",
+        "solid-triangle-pyramid-midpoint-plane-angle",
+    ),
+    (
+        "641933",
+        "56eb8709-0574-4e6d-86ff-fa70f75403ca",
+        35,
+        "Угол между плоскостями",
+        6,
+        "d3f765c9-c466-41b2-b237-91d0bea9101b",
+        "solid-triangle-pyramid-parallel-plane-angle",
+    ),
+)

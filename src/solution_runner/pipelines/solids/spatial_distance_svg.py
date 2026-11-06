@@ -107,6 +107,14 @@ def scene_projection(m, meta):
 
 
 def render(m):
+    if m.mode == "box_tetrahedron_line_projection_angle":
+        from .box_line_projection_svg import render as box_projection
+
+        return box_projection(m)
+    if m.mode == "rectangular_pyramid_angle":
+        from .pyramid_vertex_projection_svg import render as pyramid_projection
+
+        return pyramid_projection(m)
     from . import (
         box_parallel_plane_svg,
         prism_pentagon_cut_svg,

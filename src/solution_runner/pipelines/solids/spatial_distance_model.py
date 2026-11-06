@@ -10,17 +10,20 @@ from ..core.errors import ContentPlanError
 from . import box_coordinates as c
 from . import (
     box_diagonal_cut_model,
+    box_line_projection_model,
     box_transverse_cut_model,
     cube_parallel_cut_model,
     cube_plane_section_model,
     midsection_plane_angle_model,
     polyhedron_plane_angle_model,
     prism_diagonal_cut_model,
+    prism_half_volume_model,
     prism_midpoint_cut_model,
     prism_oblique_cut_model,
     prism_pentagon_cut_model,
     prism_separation_model,
     prism_similarity_cut_model,
+    pyramid_face_angle_model,
     pyramid_midpoint_angle_model,
     pyramid_midsection_model,
     pyramid_perpendicular_section_model,
@@ -70,6 +73,9 @@ MODES = (
     | prism_diagonal_cut_model.MODES
     | prism_similarity_cut_model.MODES
     | prism_pentagon_cut_model.MODES
+    | prism_half_volume_model.MODES
+    | box_line_projection_model.MODES
+    | pyramid_face_angle_model.MODES
 )
 SEG = c.SEGMENT
 VERTEX = c.VERTEX
@@ -138,6 +144,9 @@ def condition_text(html, source):
     )
     for tag in soup.find_all("i"):
         if not tag.attrs and not tag.find(True):
+            if tag.get_text().replace("\xad", "") == "равногранным":
+                tag.unwrap()
+                continue
             tag.string = tag.get_text().translate(letters)
             if tag.get_text() == "MKC,":
                 tag.string = "MKC"
@@ -270,6 +279,9 @@ def read_question(html, source=None):
         prism_diagonal_cut_model.read,
         prism_similarity_cut_model.read,
         prism_pentagon_cut_model.read,
+        prism_half_volume_model.read,
+        box_line_projection_model.read,
+        pyramid_face_angle_model.read,
     ):
         found = reader(raw)
         if found is not None:

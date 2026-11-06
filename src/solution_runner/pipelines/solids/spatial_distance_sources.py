@@ -4,13 +4,14 @@ import json
 from dataclasses import replace
 from importlib.resources import files
 
-from . import prism_cut_sources, projection_plane_sources
+from . import line_projection_sources, prism_cut_sources, projection_plane_sources
 from .spatial_scene_compatibility import scene_matches
 
 DATA = json.loads(
     files(__package__).joinpath("assets/spatial-distance-sources.json").read_text()
 )
 RULES = {
+    **line_projection_sources.RULES,
     **prism_cut_sources.RULES,
     **projection_plane_sources.RULES,
     "solid-pyramid-midline-ratio": "pyramid_midline_ratio",
@@ -97,6 +98,8 @@ MODE_SOURCES = {
     for mode in ((allowed,) if isinstance(allowed, str) else allowed)
 }
 GENERATED_MODES = {
+    "box_tetrahedron_line_projection_angle",
+    "rectangular_pyramid_angle",
     "box_parallel_plane_angle",
     "trapezoid_prism_pentagon_area",
     "regular_triangle_general_cut_area",
@@ -106,6 +109,7 @@ GENERATED_MODES = {
 }
 
 ROLES = {
+    **line_projection_sources.ROLES,
     **prism_cut_sources.ROLES,
     **projection_plane_sources.ROLES,
     "pyramid_midline_ratio": (
@@ -245,7 +249,10 @@ def compatible(model, source, role, slot):
     return scene_matches(model, entry, slot)
 
 
-def reviewed_model(model, assets):
+def reviewed_model(model, assets, *, preferred_sources=()):
+    reviewed = line_projection_sources.reviewed_model(model, assets, preferred_sources)
+    if reviewed is not None:
+        return reviewed
     for family in (projection_plane_sources, prism_cut_sources):
         reviewed = family.reviewed_model(model, assets)
         if reviewed is not None:
@@ -298,6 +305,9 @@ def reviewed_model(model, assets):
 
 
 def roles(model):
+    selected = line_projection_sources.roles(model)
+    if selected is not None:
+        return selected
     for family in (projection_plane_sources, prism_cut_sources):
         selected = family.roles(model)
         if selected is not None:

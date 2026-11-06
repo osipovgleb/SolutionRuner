@@ -36,10 +36,19 @@ def prepare(
             "the complete spatial question differs from its parent method"
         )
     html = distance_proofs.render(model, picture)
-    if model.mode == "box_skew_distance_normal_angle":
+    degree_projection = (
+        model.mode == "rectangular_pyramid_angle"
+        and model.symbols.get("scene_family") == "proved_vertex_projection"
+    )
+    if degree_projection or model.mode in {
+        "box_skew_distance_normal_angle",
+        "rectangular_pyramid_proved_altitude_angle",
+    }:
         from .box_bisector_answer import plane_degrees
 
-        return plane_degrees(context, model, html, keys, changes)
+        return plane_degrees(
+            context, model, html, keys, changes, radians=not degree_projection
+        )
     if model.mode == "box_diagonal_bisector_ratio":
         from .box_bisector_answer import prepare as ratio_answer
 

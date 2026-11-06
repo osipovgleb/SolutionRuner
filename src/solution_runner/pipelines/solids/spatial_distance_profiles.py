@@ -1,6 +1,8 @@
 """Category-fifteen bindings reuse the shared spatial-distance runtime."""
 
 from ..core.profile_definitions import _profile
+from .line_projection_sources import GROUPS as LINE_PROJECTION_GROUPS
+from .prism_cut_sources import GROUPS as PRISM_GROUPS
 from .projection_plane_sources import GROUPS
 
 PROFILES = tuple(
@@ -398,42 +400,8 @@ PROFILES = tuple(
             "d3f765c9-c466-41b2-b237-91d0bea9101b",
             "solid-triangle-prism-endpoint-plane-angle",
         ),
-        (
-            "485981",
-            "5e7f28b9-1e51-4d87-b86f-4e6d8f730a9b",
-            10,
-            "Угол между плоскостями",
-            6,
-            "d3f765c9-c466-41b2-b237-91d0bea9101b",
-            "solid-box-skew-distance-normal-angle",
-        ),
-        (
-            "500132",
-            "4381fb3b-2506-4d53-9aca-d08c525a742c",
-            14,
-            "Угол между плоскостями",
-            6,
-            "d3f765c9-c466-41b2-b237-91d0bea9101b",
-            "solid-square-prism-opposite-vertex-plane-angle",
-        ),
-        (
-            "563633",
-            "085ef289-0609-45bd-bf59-278da2a6d6eb",
-            28,
-            "Угол между плоскостями",
-            6,
-            "d3f765c9-c466-41b2-b237-91d0bea9101b",
-            "solid-triangle-pyramid-midpoint-plane-angle",
-        ),
-        (
-            "641933",
-            "56eb8709-0574-4e6d-86ff-fa70f75403ca",
-            35,
-            "Угол между плоскостями",
-            6,
-            "d3f765c9-c466-41b2-b237-91d0bea9101b",
-            "solid-triangle-pyramid-parallel-plane-angle",
-        ),
     )
+    + PRISM_GROUPS
     + GROUPS
+    + LINE_PROJECTION_GROUPS
 )

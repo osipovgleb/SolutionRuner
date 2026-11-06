@@ -12,13 +12,14 @@ from .spatial_metric_model import model
 MODES = {
     "rectangular_pyramid_distance",
     "rectangular_pyramid_angle",
+    "rectangular_pyramid_proved_altitude_angle",
     "square_midplane_distance",
     "triangle_face_distance",
 }
 RECTANGLE = (
     r"[ВB] основании четырехугольной пирамиды SABCD лежит прямоугольник ABCD со сторонами AB\s*=\s*(.+?) и BC\s*=\s*(.+?)\. "
     r"Длины боковых ребер пирамиды SA\s*=\s*(.+?),+ SB\s*=\s*(.+?),+ SD\s*=\s*(.+?)\. "
-    r"Докажите, что SA [—–-] высота пирамиды\. Найдите (расстояние от вершины A до плоскости SBC|угол между прямой SC и плоскостью ASB)\."
+    r"Докажите, что SA [—–-] высота пирамиды\. Найдите (расстояние от вершины A до плоскости SBC|угол между прямой SC и плоскостью ASB|угол между прямыми SC и BD)\."
 )
 MIDPLANE = (
     r"Дана правильная четырехугольная пирамида SABCD\.? Боковое ребро SA\s*=\s*(.+?), сторона основания равна (.+?)\. "
@@ -41,6 +42,8 @@ def _rectangle(groups):
         raise ContentPlanError(
             "the stated lateral edges do not prove SA is an altitude"
         )
+    if groups[5] == "угол между прямыми SC и BD":
+        return _rectangular_skew(a, b, h, sb, sd)
     angle = groups[5].startswith("угол")
     q = {
         "a": a,
@@ -58,6 +61,32 @@ def _rectangle(groups):
         q,
         (),
         answer,
+    )
+
+
+def _rectangular_skew(a, b, h, sb, sd):
+    diagonal = sp.sqrt(a * a + b * b)
+    lateral = sp.sqrt(h * h + a * a + b * b)
+    cosine = sp.simplify((b * b - a * a) / (diagonal * lateral))
+    return model(
+        "rectangular_pyramid_proved_altitude_angle",
+        tuple(zip(("a", "b", "H", "SB", "SD"), (a, b, h, sb, sd), strict=True)),
+        {
+            "a": a,
+            "b": b,
+            "H": h,
+            "SB": sb,
+            "SD": sd,
+            "AC": diagonal,
+            "SC": lateral,
+            "SE_squared": h * h + 4 * a * a,
+            "BK": sp.sqrt(a * a + h * h / 4),
+            "OB": diagonal / 2,
+            "OK": lateral / 2,
+            "cosine": cosine,
+        },
+        ("lines",),
+        sp.acos(abs(cosine)),
     )
 
 

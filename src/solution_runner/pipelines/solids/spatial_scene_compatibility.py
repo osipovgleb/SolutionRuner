@@ -4,6 +4,11 @@ import sympy as sp
 
 
 def scene_matches(model, entry, slot):
+    if (
+        model.symbols.get("scene_family")
+        and entry.get("scene_family") != model.symbols["scene_family"]
+    ):
+        return False
     if model.mode == "ratio_plane_angle" and entry.get(
         "condition_names", ["K", "M"]
     ) != list(model.names or ("K", "M")):
@@ -25,6 +30,7 @@ def scene_matches(model, entry, slot):
         "ratio_plane_distance",
         "square_vertical_vertex_area",
         "trapezoid_prism_pentagon_area",
+        "rectangular_pyramid_proved_altitude_angle",
     } and entry.get("method") != model.symbols.get("method"):
         return False
     if entry.get("requires_rhombus") and not model.q["rhombus"]:

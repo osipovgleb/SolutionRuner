@@ -32,10 +32,12 @@ def transverse(context, model, html, keys, changes):
     return _prepare(context, answer, html, keys, changes)
 
 
-def plane_degrees(context, model, html, keys, changes):
-    degrees = sp.simplify(model.answer * 180 / sp.pi)
+def plane_degrees(context, model, html, keys, changes, *, radians=True):
+    degrees = sp.simplify(model.answer * 180 / sp.pi) if radians else model.answer
     answer = (
-        value(degrees) + r"^{\circ}" if degrees.is_Rational else value(model.answer)
+        value(degrees) + r"^{\circ}"
+        if degrees.is_Rational
+        else value(model.answer if radians else sp.simplify(model.answer * sp.pi / 180))
     )
     return _prepare(context, answer, html, keys, changes)
 

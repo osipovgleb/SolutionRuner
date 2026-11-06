@@ -115,7 +115,13 @@ def _read(context):
 
 def selection(context, *, preferred_sources=()):
     m, condition, restored, assets, owners = _read(context)
-    m = spatial_distance_sources.reviewed_model(m, assets) if m.mode in MODES else m
+    m = (
+        spatial_distance_sources.reviewed_model(
+            m, assets, preferred_sources=preferred_sources
+        )
+        if m.mode in MODES
+        else m
+    )
     figures = []
     roles = spatial_distance_sources.roles(m) if m.mode in MODES else ROLES[m.mode]
     for role, native_key, base in roles:
@@ -163,8 +169,12 @@ def selection(context, *, preferred_sources=()):
     return m, condition, restored, assets, figures
 
 
-def diagram_specs(context):
-    return tuple(f[-1] for f in selection(context)[-1] if f[-1])
+def diagram_specs(context, *, preferred_sources=()):
+    return tuple(
+        f[-1]
+        for f in selection(context, preferred_sources=preferred_sources)[-1]
+        if f[-1]
+    )
 
 
 def _condition_change(condition, restored, image, current, key, identifier):

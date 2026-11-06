@@ -61,6 +61,9 @@ class ScalarParser(TrigonometricParser):
         return ScalarParser(text).parse()
 
     def _primary(self):
+        if self.text.startswith(r"\pi", self.index):
+            self.index += 3
+            return Node(sp.pi, r"\pi", "constant")
         for command, function in ((r"\arccos", sp.acos), (r"\arctan", sp.atan)):
             if self.text.startswith(command, self.index):
                 self.index += len(command)
