@@ -152,12 +152,87 @@ def long_division(a):
     return identities, [Step(latex(residual), residual)]
 
 
+def factor_cancelled(a):
+    values = divisions(a.left)
+    if a.right.value != 0 or len(values) != 2:
+        raise UnsupportedCondition(
+            "two fractions with a common numerator factor are required"
+        )
+    (first, affine), (second, denominator) = values
+    if [polynomial(v).degree() for v in (first, affine, second, denominator)] != [
+        2,
+        1,
+        1,
+        2,
+    ]:
+        raise UnsupportedCondition("quadratic and affine source factors are required")
+    other = sp.cancel(denominator / affine)
+    common = -second
+    if (
+        not other.is_polynomial(X)
+        or polynomial(other).degree() != 1
+        or sp.expand(first - common * other) != 0
+    ):
+        raise UnsupportedCondition(
+            "the two fractions must yield the reviewed difference of squares"
+        )
+    factored_first = sp.Mul(common, other, evaluate=False)
+    factored_denominator = sp.factor(denominator)
+    first_text = (
+        fraction(factored_first, affine) + "-" + fraction(common, factored_denominator)
+    )
+    expanded_text = (
+        r"\frac{"
+        + latex(sp.Mul(common, other**2, evaluate=False))
+        + "-("
+        + latex(common)
+        + ")}{"
+        + latex(factored_denominator)
+        + "}"
+    )
+    factored = sp.Mul(other**2 - 1, common, evaluate=False)
+    return [], [
+        Step(first_text, a.original),
+        Step(expanded_text, a.original),
+        Step(fraction(factored, factored_denominator), a.original),
+        Step(
+            fraction(sp.factor(sp.expand(factored)), factored_denominator), a.original
+        ),
+    ]
+
+
+def square_numerator(a):
+    values = divisions(a.left)
+    if len(values) != 1 or a.right.value.free_symbols:
+        raise UnsupportedCondition("one fraction and a scalar right side are required")
+    numerator, denominator = values[0]
+    if polynomial(numerator).degree() != 2 or polynomial(denominator).degree() != 1:
+        raise UnsupportedCondition(
+            "a quadratic-over-affine source fraction is required"
+        )
+    corrected = sp.expand(numerator - a.right.value * denominator)
+    p = polynomial(corrected)
+    if p.degree() != 2 or sp.discriminant(p) != 0:
+        raise UnsupportedCondition(
+            "subtracting the right side must leave a perfect square"
+        )
+    combined = sp.Add(
+        numerator, sp.Mul(-a.right.value, denominator, evaluate=False), evaluate=False
+    )
+    return [], [
+        Step(fraction(combined, denominator), a.original),
+        Step(fraction(corrected, denominator), a.original),
+    ]
+
+
 def prepare(a, method):
     operation = {
         "long_division": long_division,
         "sum_fractions": sum_fractions,
         "cancelled_fraction": cancelled_fraction,
         "direct_fraction": direct_fraction,
+        "factor_cancelled": factor_cancelled,
+        "square_numerator": square_numerator,
     }.get(method)
     if operation is None:
         raise UnsupportedCondition("unknown reviewed rational inequality method")

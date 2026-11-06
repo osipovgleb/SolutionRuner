@@ -18,7 +18,7 @@ def domain(a):
     )
 
 
-def normalized(a):
+def normalized(a, *, already_factored=False):
     numerator, denominator = sp.fraction(a.expression)
     expression = fraction(sp.factor(numerator), sp.factor(denominator))
     relation = expression + RELATION[a.sign_operator] + "0"
@@ -44,7 +44,11 @@ def normalized(a):
             + "; знак неравенства сохраняется:</p>"
         )
     else:
-        html = "<p>Разложим на множители и запишем равносильное неравенство:</p>"
+        html = (
+            ""
+            if already_factored
+            else "<p>Разложим на множители и запишем равносильное неравенство:</p>"
+        )
     if a.holes:
         html += "<p>Сокращение общего множителя сохраняет ограничения исходных знаменателей:</p>"
     return html + line(relation)
@@ -68,20 +72,23 @@ def interval_proof(a, image):
 
 def render(a, method, image=""):
     identities, steps = prepare(a, method)
-    lead = (
-        "Имеем:"
-        if method == "long_division"
-        else "Решим неравенство методом интервалов:"
-    )
+    lead = {
+        "long_division": "Имеем:",
+        "factor_cancelled": "Перепишем неравенство в виде:",
+        "square_numerator": "Преобразуем неравенство:",
+    }.get(method, "Решим неравенство методом интервалов:")
     html = "<p>" + lead + "</p>" + line(a.formula) + domain(a)
     if identities:
         html += "<p>Выделим целую часть каждой дроби делением многочленов:</p>"
         html += "".join(line(text) for text, _, _ in identities)
         html += "<p>Целые части в сумме совпадают с правой частью и сокращаются:</p>"
-    elif method == "cancelled_fraction":
-        html += "<p>Перенесём 1 в левую часть и вычтем её из последней дроби. Затем приведём две последние дроби к общему знаменателю и объединим с x:</p>"
-    elif method == "sum_fractions":
-        html += "<p>На области определения приведём дроби к общему знаменателю и раскроем скобки в числителе:</p>"
+    else:
+        html += {
+            "cancelled_fraction": "<p>Перенесём 1 в левую часть и вычтем её из последней дроби. Затем приведём две последние дроби к общему знаменателю и объединим с x:</p>",
+            "sum_fractions": "<p>На области определения приведём дроби к общему знаменателю и раскроем скобки в числителе:</p>",
+            "factor_cancelled": "<p>Разложим многочлены на множители, приведём дроби к общему знаменателю и вынесем общий множитель в числителе. Затем используем разность квадратов:</p>",
+            "square_numerator": "<p>Перенесём правую часть влево и объединим выражения в одну дробь на исходной области определения:</p>",
+        }.get(method, "")
     html += "".join(line(step.text + RELATION[a.operator] + "0") for step in steps)
-    html += normalized(a)
+    html += normalized(a, already_factored=method == "factor_cancelled")
     return html + interval_proof(a, image)

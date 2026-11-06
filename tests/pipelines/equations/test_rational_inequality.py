@@ -34,6 +34,9 @@ def answer_set(text):
     intervals = []
     for item in text.strip().removesuffix(".").split(r"\cup"):
         item = item.strip()
+        if item.startswith(r"\{") and item.endswith(r"\}"):
+            intervals.append(sp.FiniteSet(*map(endpoint, item[2:-2].split(";"))))
+            continue
         left, right = map(endpoint, item[1:-1].split(";"))
         intervals.append(
             sp.Interval(
@@ -140,6 +143,8 @@ METHODS = {
     "508518": "cancelled_fraction",
     "508524": "direct_fraction",
     "511560": "long_division",
+    "507491": "factor_cancelled",
+    "508404": "square_numerator",
 }
 
 
@@ -188,6 +193,56 @@ def test_parent_method_every_printed_identity_and_reduced_inequality(row):
     ],
 )
 def test_parent_method_does_not_silently_switch_to_generic_solver(formula, method):
+    from solution_runner.pipelines.equations.rational_inequality_methods import prepare
+
+    with pytest.raises(UnsupportedCondition):
+        prepare(analyze(formula), method)
+
+
+@pytest.mark.parametrize(
+    "formula,method,expected",
+    [
+        (
+            r"\frac{x^2-8x+15}{x-1}-\frac{x-5}{x^2-4x+3}\le0",
+            "factor_cancelled",
+            r"(-\infty;1)\cup [2;3)\cup [4;5]",
+        ),
+        (
+            r"\frac{x^2-3x+2}{x-1}-\frac{x-1}{x^2-3x+2}\le0",
+            "factor_cancelled",
+            r"(-\infty;1)\cup (2;3]",
+        ),
+        (
+            r"\frac{3x^2-6x+9}{2x-1}\le3",
+            "square_numerator",
+            r"(-\infty;\frac{1}{2})\cup\{2\}",
+        ),
+        (r"\frac{-x^2-2x-10}{x-3}\le2", "square_numerator", r"\{-2\}\cup(3;\infty)"),
+    ],
+)
+def test_method_expansion_respects_changed_factors_and_coincident_original_pole(
+    formula, method, expected
+):
+    from solution_runner.pipelines.equations.rational_inequality_methods import prepare
+
+    a = analyze(formula)
+    _, steps = prepare(a, method)
+    assert a.solution == answer_set(expected)
+    for step in steps:
+        assert sp.cancel(RationalParser(step.text).parse().value - a.original) == 0
+
+
+@pytest.mark.parametrize(
+    "formula,method",
+    [
+        (r"\frac{x^2-6x+9}{x-1}-\frac{x-4}{x^2-3x+2}\le0", "factor_cancelled"),
+        (r"\frac{x^2+1}{x-1}\le2", "square_numerator"),
+        (r"\frac{x^2+1}{x-1}\le x", "square_numerator"),
+    ],
+)
+def test_new_parent_algebra_rejects_an_unproved_common_factor_or_square(
+    formula, method
+):
     from solution_runner.pipelines.equations.rational_inequality_methods import prepare
 
     with pytest.raises(UnsupportedCondition):

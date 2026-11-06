@@ -78,7 +78,7 @@ def axis(root, y):
     ).text = "x"
 
 
-def marker(root, point, x, y, closed):
+def marker(root, point, x, y, closed, *, label_y=None):
     node(
         root,
         "circle",
@@ -90,7 +90,7 @@ def marker(root, point, x, y, closed):
         stroke="#000000",
         stroke_width=0.5,
     )
-    label(root, point, x, y)
+    label(root, point, x, y if label_y is None else label_y)
 
 
 def hatch(root, left, right, y, color, *, reverse=False):
@@ -207,3 +207,78 @@ def domain_row(root, a, positions):
             stroke_dasharray="2 2",
         )
         marker(root, point, x, BOTTOM, False)
+
+
+def render_single(a):
+    if not 1 <= len(a.points) <= 6:
+        raise ValueError("the reviewed single chart needs one to six boundaries")
+    width = 215.3065
+    height = 39.6595 if all(p.q == 1 for p in a.points) else 54.6595
+    y = 18.928
+    root = ET.Element(
+        "{" + NS + "}svg",
+        {
+            "width": str(width),
+            "height": str(height),
+            "viewBox": f"0 0 {width} {height}",
+        },
+    )
+    node(root, "title").text = "Метод интервалов с сохранением исключённых точек"
+    node(
+        root,
+        "line",
+        x1=0,
+        y1=y,
+        x2=207.8005,
+        y2=y,
+        fill="none",
+        stroke="#000000",
+        stroke_width=1.25,
+        stroke_linejoin="round",
+        stroke_miterlimit=8,
+    )
+    node(
+        root,
+        "polygon",
+        points="206.3005,18.904 200.2945,14.404 215.3065,18.904 200.2945,23.405",
+    )
+    node(
+        root,
+        "text",
+        x=206,
+        y=32.5,
+        font_family="Times New Roman,serif",
+        font_style="italic",
+        font_size=14,
+    ).text = "x"
+    positions = [
+        37.5135 + i * (164.5463 - 37.5135) / max(1, len(a.points) - 1)
+        for i in range(len(a.points))
+    ]
+    if len(a.points) == 4:
+        positions = [37.5135, 76.7436, 119.2145, 164.5463]
+    if len(a.points) == 1:
+        positions = [107.65]
+    for index, (left, right) in enumerate(pairwise([0, *positions, 206.3005])):
+        node(
+            root,
+            "text",
+            data_interval=index,
+            data_sign=a.signs[index],
+            x=(left + right) / 2,
+            y=10,
+            text_anchor="middle",
+            font_family="Times New Roman,serif",
+            font_size=16,
+            fill="#143B8F",
+        ).text = {-1: "−", 0: "0", 1: "+"}[a.signs[index]]
+    for point, x in zip(a.points, positions):
+        marker(
+            root,
+            point,
+            x,
+            y,
+            point not in a.poles and a.sign_operator.endswith("="),
+            label_y=16.5,
+        )
+    return ET.tostring(root, encoding="unicode")

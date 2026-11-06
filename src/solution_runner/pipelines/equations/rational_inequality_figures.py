@@ -10,7 +10,7 @@ from ..probability import solution_diagrams
 from ..probability.common import UnsupportedCondition
 from .rational_inequality import analyze
 from .rational_inequality_methods import prepare
-from .rational_inequality_svg import render
+from .rational_inequality_svg import render, render_single
 
 DIRECTORY = Path(__file__).parent / "assets/rational-inequalities"
 SOURCES = json.loads((DIRECTORY / "sources.json").read_text())
@@ -45,6 +45,12 @@ def signature(a):
 
 
 def selection(context, a, *, required=False):
+    double = required is True or required == "double"
+    build = (
+        render_single
+        if required == "single"
+        else lambda model: render(model, double=double)
+    )
     assets = context["normalized_content"].get("assets", [])
     originals = [asset for asset in assets if asset.get("asset_key") != KEY]
     generated = [asset for asset in assets if asset.get("asset_key") == KEY]
@@ -70,9 +76,9 @@ def selection(context, a, *, required=False):
                     "a compatible chart needs no generated duplicate"
                 )
             return asset["asset_id"], None
-        return None, render(a, double=required or entry["double"])
+        return None, (render(a, double=True) if double or entry["double"] else build(a))
     if required or generated:
-        return None, render(a, double=required)
+        return None, build(a)
     return None, None
 
 
@@ -86,6 +92,13 @@ def cancelled_diagram_specs(context):
     _, a = read(context)
     prepare(a, "cancelled_fraction")
     _, svg = selection(context, a, required=True)
+    return (solution_diagrams.spec(KEY, svg),) if svg is not None else ()
+
+
+def factor_cancelled_diagram_specs(context):
+    _, a = read(context)
+    prepare(a, "factor_cancelled")
+    _, svg = selection(context, a, required="single")
     return (solution_diagrams.spec(KEY, svg),) if svg is not None else ()
 
 
@@ -146,5 +159,27 @@ GROUPS = (
         1,
         "9c619907-5d8d-437c-b7dd-004b50ba3536",
         "long_division",
+    ),
+)
+
+
+GROUPS += (
+    (
+        "507491",
+        "5e392131-445d-43e1-a18b-c42676e39a52",
+        6,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "factor_cancelled",
+    ),
+    (
+        "508404",
+        "4a9fdb96-480b-4a83-b71a-5728bcd9c7bf",
+        10,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "square_numerator",
     ),
 )

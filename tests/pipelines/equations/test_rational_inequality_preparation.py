@@ -75,7 +75,7 @@ def test_native_plans_answers_source_reuse_and_replay(row):
         for s in ctx["normalized_content"]["sections"]
         if s["key"] not in ("answer", "solution")
     ]
-    if row["task"] == "511561":
+    if row["task"] in {"511561", "507622", "511432"}:
         assert len(handler(row).diagram_specs(ctx)) == 1
         assert any(
             t["transformation_target_id"] == "asset:" + KEY for t in p.transformations
@@ -248,3 +248,39 @@ def test_unsupported_source_freezes_without_transformations():
     )
     assert record["status"] == "blocked" and record["transformations"] == []
     assert not record.get("generated_diagrams")
+
+
+@pytest.mark.parametrize(
+    "task,points,closed,signs",
+    [
+        ("507622", ["0", "1", "2", "3"], {"0", "3"}, [-1, 1, -1, -1, 1]),
+        ("511432", ["-4", "-3", "-2", "-1"], {"-4", "-3"}, [-1, 1, -1, 1, 1]),
+    ],
+)
+def test_restored_single_charts_keep_source_geometry_and_do_not_flip_at_cancelled_holes(
+    task, points, closed, signs
+):
+    row = next(r for r in SOURCES if r["task"] == task)
+    root = ET.fromstring(handler(row).diagram_specs(row["context"])[0]["svg_text"])
+    markers = [node for node in root.iter() if node.get("data-boundary")]
+    assert root.get("width") == "215.3065"
+    assert root.get("height") == "39.6595"
+    assert [m.get("data-boundary") for m in markers] == points
+    assert {
+        m.get("data-boundary") for m in markers if m.get("fill") == "#000000"
+    } == closed
+    assert [int(n.get("data-sign")) for n in root.iter() if n.get("data-sign")] == signs
+    assert len({m.get("cy") for m in markers}) == 1
+    assert any(n.get("stroke-width") == "1.25" for n in root.iter())
+
+
+def test_a_zero_coinciding_with_an_original_pole_remains_open_in_the_generated_chart():
+    row = next(r for r in SOURCES if r["task"] == "507491")
+    ctx = deepcopy(row["context"])
+    soup = BeautifulSoup(section(ctx, "condition")["html"], "html.parser")
+    soup.span["data-inline-latex"] = r"\frac{x^2-3x+2}{x-1}-\frac{x-1}{x^2-3x+2}\le0"
+    section(ctx, "condition")["html"] = str(soup)
+    root = ET.fromstring(handler(row).diagram_specs(ctx)[0]["svg_text"])
+    point = next(n for n in root.iter() if n.get("data-boundary") == "1")
+    assert point.get("fill") == "#FFFFFF"
+    assert answer_set(plan(row, ctx).answer) == answer_set(r"(-\infty;1)\cup(2;3]")

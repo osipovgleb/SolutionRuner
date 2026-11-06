@@ -703,16 +703,14 @@ HANDLERS += tuple(
         options=(("method", method),),
         requires_parent_condition_asset=False,
         diagram_builder="solution_runner.pipelines.equations.rational_inequality_figures:"
-        + (
-            "cancelled_diagram_specs"
-            if method == "cancelled_fraction"
-            else "diagram_specs"
-        ),
+        + diagram,
     )
-    for method in (
-        "sum_fractions",
-        "cancelled_fraction",
-        "direct_fraction",
-        "long_division",
+    for method, diagram in (
+        ("sum_fractions", "diagram_specs"),
+        ("cancelled_fraction", "cancelled_diagram_specs"),
+        ("direct_fraction", "diagram_specs"),
+        ("long_division", "diagram_specs"),
+        ("factor_cancelled", "factor_cancelled_diagram_specs"),
+        ("square_numerator", "diagram_specs"),
     )
 )
