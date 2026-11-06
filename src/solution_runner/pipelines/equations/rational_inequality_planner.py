@@ -8,6 +8,10 @@ from .rational_inequality import set_latex
 from .rational_inequality_algebraic_methods import presentation
 from .rational_inequality_figures import SOURCES, image, read
 from .rational_inequality_proof import render
+from .rational_inequality_substitution_figures import chart
+from .rational_inequality_substitution_proof import render as render_substitution
+from .rational_inequality_substitutions import METHODS as SUBSTITUTIONS
+from .rational_inequality_substitutions import model
 
 
 def build_context_repair_plan(
@@ -20,11 +24,18 @@ def build_context_repair_plan(
     ):
         raise UnsupportedCondition("the complete reviewed parent solution is required")
     (_, condition, answer_section, solution), a = read(context)
-    a = presentation(a, method)
-    markup, keys, asset_changes = image(
-        context, a, generated_solution_assets, required=parent["required_chart"]
-    )
-    html = render(a, method, markup)
+    if method in SUBSTITUTIONS:
+        substitution = model(a, method)
+        markup, keys, asset_changes = chart(
+            context, substitution, generated_solution_assets
+        )
+        html = render_substitution(substitution, method, markup)
+    else:
+        a = presentation(a, method)
+        markup, keys, asset_changes = image(
+            context, a, generated_solution_assets, required=parent["required_chart"]
+        )
+        html = render(a, method, markup)
     answer = set_latex(a.solution)
     answer_html = '<p><span data-inline-latex="' + answer + '"></span></p>'
     changes = list(asset_changes)

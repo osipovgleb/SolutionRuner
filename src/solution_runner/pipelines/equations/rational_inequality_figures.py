@@ -45,10 +45,29 @@ def signature(a):
     }
 
 
-def selection(context, a, *, required=False):
+def reviewed_asset(asset):
+    entry = SOURCES["figures"].get(asset.get("asset_id"))
+    shared = (
+        entry is not None
+        and entry.get("shareable") is True
+        and asset.get("asset_key")
+        == "shared_" + asset["asset_id"].replace("-", "")[:16]
+    )
+    if (
+        entry is None
+        or (asset.get("asset_key") != "image_1" and not shared)
+        or asset.get("kind", "ordinary_image" if shared else None) != "ordinary_image"
+        or asset.get("url", "/assets/" + asset["asset_id"] if shared else None)
+        != "/assets/" + asset["asset_id"]
+    ):
+        raise UnsupportedCondition("the source chart identity is outside visual review")
+    return entry
+
+
+def selection(context, a, *, required=False, variable="x"):
     double = required is True or required == "double"
     build = (
-        (lambda model: render_single(model, layout=required))
+        (lambda model: render_single(model, layout=required, variable=variable))
         if required in ("single", "radical_single", "vieta")
         else lambda model: render(model, double=double)
     )
@@ -61,24 +80,9 @@ def selection(context, a, *, required=False):
         )
     if originals:
         asset = originals[0]
-        entry = SOURCES["figures"].get(asset.get("asset_id"))
-        shared = (
-            entry is not None
-            and entry.get("shareable") is True
-            and asset.get("asset_key")
-            == "shared_" + asset["asset_id"].replace("-", "")[:16]
-        )
-        if (
-            entry is None
-            or (asset.get("asset_key") != "image_1" and not shared)
-            or asset.get("kind", "ordinary_image" if shared else None)
-            != "ordinary_image"
-            or asset.get("url", "/assets/" + asset["asset_id"] if shared else None)
-            != "/assets/" + asset["asset_id"]
-        ):
-            raise UnsupportedCondition(
-                "the source chart identity is outside visual review"
-            )
+        entry = reviewed_asset(asset)
+        if entry.get("variable", "x") != variable:
+            raise UnsupportedCondition("the source chart must use the solved variable")
         if all(entry[key] == value for key, value in signature(a).items()):
             if generated:
                 raise UnsupportedCondition(
@@ -149,8 +153,8 @@ def vieta_diagram_specs(context):
     return algebraic_diagram_specs(context, "vieta_quadratic")
 
 
-def image(context, a, generated, *, required=False):
-    source_id, svg = selection(context, a, required=required)
+def image(context, a, generated, *, required=False, variable="x"):
+    source_id, svg = selection(context, a, required=required, variable=variable)
     if source_id is None and svg is None:
         if generated:
             raise UnsupportedCondition(
@@ -259,5 +263,27 @@ GROUPS += (
         1,
         "9c619907-5d8d-437c-b7dd-004b50ba3536",
         "cancelled_quadratic_sum",
+    ),
+)
+
+
+GROUPS += (
+    (
+        "508347",
+        "3b161a2b-39be-4d99-9779-585072bdc1b8",
+        8,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "affine_radical",
+    ),
+    (
+        "508397",
+        "57539fdb-a530-423e-9b2b-32118a9597e0",
+        9,
+        "Рациональные неравенства",
+        1,
+        "9c619907-5d8d-437c-b7dd-004b50ba3536",
+        "reciprocal_square",
     ),
 )

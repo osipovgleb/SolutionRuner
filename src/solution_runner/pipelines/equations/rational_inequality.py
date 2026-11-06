@@ -88,7 +88,7 @@ def interval_signs(expression, points, operator, poles):
 
 
 def analyze(formula):
-    parts = re.split(r"(\\(?:geq?|leq?|gt|lt)|<|>)", formula)
+    parts = re.split(r"(\\(?:geq?|leq?|gt|lt)(?![a-zA-Z])|<|>)", formula)
     if len(parts) != 3 or parts[1] not in OPERATORS:
         raise UnsupportedCondition("one complete rational inequality is required")
     readers = [RationalParser(text) for text in (parts[0], parts[2])]

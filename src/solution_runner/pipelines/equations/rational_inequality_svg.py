@@ -213,13 +213,7 @@ def domain_row(root, a, positions):
         marker(root, point, x, BOTTOM, False)
 
 
-def render_single(a, *, layout="single"):
-    if not 1 <= len(a.points) <= 6:
-        raise ValueError("the reviewed single chart needs one to six boundaries")
-    width = 214.2621 if layout == "vieta" else 215.3065
-    height = {"vieta": 44.9037, "radical_single": 50.9612}.get(
-        layout, 39.6595 if all(p.is_Integer is True for p in a.points) else 54.6595
-    )
+def single_canvas(width, height, layout, variable):
     y = 18.928
     root = ET.Element(
         "{" + NS + "}svg",
@@ -256,7 +250,7 @@ def render_single(a, *, layout="single"):
         font_family="Times New Roman,serif",
         font_style="italic",
         font_size=14,
-    ).text = "x"
+    ).text = variable
     if layout == "vieta":
         for item in root:
             if item.tag.endswith("line"):
@@ -268,6 +262,18 @@ def render_single(a, *, layout="single"):
                 )
             elif item.tag.endswith("text"):
                 item.set("x", "205")
+    return root
+
+
+def render_single(a, *, layout="single", variable="x"):
+    if not 1 <= len(a.points) <= 6:
+        raise ValueError("the reviewed single chart needs one to six boundaries")
+    width = 214.2621 if layout == "vieta" else 215.3065
+    height = {"vieta": 44.9037, "radical_single": 50.9612}.get(
+        layout, 39.6595 if all(p.is_Integer is True for p in a.points) else 54.6595
+    )
+    y = 18.928
+    root = single_canvas(width, height, layout, variable)
     positions = [
         37.5135 + i * (164.5463 - 37.5135) / max(1, len(a.points) - 1)
         for i in range(len(a.points))
@@ -296,6 +302,14 @@ def render_single(a, *, layout="single"):
             x,
             y,
             point not in a.poles and a.sign_operator.endswith("="),
-            label_y=16.5 if point.is_Rational is True else y,
+            label_y=(
+                y + 4
+                if variable != "x"
+                and point.is_Rational is True
+                and not point.is_Integer
+                else 16.5
+                if point.is_Rational is True
+                else y
+            ),
         )
     return ET.tostring(root, encoding="unicode")

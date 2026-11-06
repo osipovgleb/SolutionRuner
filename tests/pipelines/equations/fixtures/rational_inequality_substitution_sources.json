@@ -1,0 +1,1271 @@
+[
+  {
+    "group": "508347",
+    "task": "508347",
+    "expected_answer": "(\\sqrt{3};2\\sqrt{3}]\\cup (3\\sqrt{3};5\\sqrt{3}] .",
+    "context": {
+      "problem_id": "d3628993-440f-4a4a-8a15-d932d841d438",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 17,
+        "items": [
+          {
+            "at": "2026-08-27T10:16:59.342449+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/3c28bc07-a75e-444a-844a-a979c06f6a3f",
+              "html": "<img alt=\"\" data-asset-id=\"3c28bc07-a75e-444a-844a-a979c06f6a3f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3c28bc07-a75e-444a-844a-a979c06f6a3f\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "3c28bc07-a75e-444a-844a-a979c06f6a3f",
+              "position": 3,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(\\sqrt{3};2\\sqrt{3}]\\cup (3\\sqrt{3};5\\sqrt{3}]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Пусть <span data-inline-latex=\"z=x\\sqrt{3}\"></span> , по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\frac{6}{z-3}+\\frac{z-6}{z-9}\\ge 2\\Leftrightarrow\\frac{6(z-9)+(z-6)(z-3)-2(z-3)(z-9)}{(z-3)(z-9)}\\ge 0\\Leftrightarrow\\frac{z^2-21z+90}{(z-3)(z-9)}\\le 0\\Leftrightarrow\\frac{(z-6)(z-15)}{(z-3)(z-9)}\\le 0\\Leftrightarrow\\left[\\begin{aligned}3&amp;&lt;z\\le 6,\\\\9&amp;&lt;z\\le 15.\\end{aligned}\\right.\"></span></p><p></p></center><p><img alt=\"\" data-asset-id=\"3c28bc07-a75e-444a-844a-a979c06f6a3f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"\\sqrt{3}\\lt x\\le 2\\sqrt{3}\"></span>  или <span data-inline-latex=\"3\\sqrt{3}\\lt x\\le 5\\sqrt{3}\"></span> .</p><p><b>При­ве­дем за­ме­ча­ние Ан­дрея Ана­то­лье­ви­ча.</b></p><p>За­ме­тим, что пре­об­ра­зо­ва­ния будут проще при за­ме­не <span data-inline-latex=\"z=x\\sqrt{3}-6\"></span>, тогда по­лу­чим</p><center><p><span data-inline-latex=\"\\frac{6}{z+3}+\\frac{z}{z-3}\\ge 2\\Leftrightarrow\\frac{6(z-3)+z(z+3)-2(z^2-9)}{z^2-9}\\ge 0.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство: <span data-inline-latex=\"\\frac{6}{x\\sqrt{3}-3}+\\frac{x\\sqrt{3}-6}{x\\sqrt{3}-9}\\geq 2.\"></span></p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T16:30:38.153266+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/3c28bc07-a75e-444a-844a-a979c06f6a3f",
+            "kind": "ordinary_image",
+            "asset_id": "3c28bc07-a75e-444a-844a-a979c06f6a3f",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство: <span data-inline-latex=\"\\frac{6}{x\\sqrt{3}-3}+\\frac{x\\sqrt{3}-6}{x\\sqrt{3}-9}\\geq 2.\"></span></p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(\\sqrt{3};2\\sqrt{3}]\\cup (3\\sqrt{3};5\\sqrt{3}]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Пусть <span data-inline-latex=\"z=x\\sqrt{3}\"></span> , по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\frac{6}{z-3}+\\frac{z-6}{z-9}\\ge 2\\Leftrightarrow\\frac{6(z-9)+(z-6)(z-3)-2(z-3)(z-9)}{(z-3)(z-9)}\\ge 0\\Leftrightarrow\\frac{z^2-21z+90}{(z-3)(z-9)}\\le 0\\Leftrightarrow\\frac{(z-6)(z-15)}{(z-3)(z-9)}\\le 0\\Leftrightarrow\\left[\\begin{aligned}3&amp;&lt;z\\le 6,\\\\9&amp;&lt;z\\le 15.\\end{aligned}\\right.\"></span></p><p></p></center><p><img alt=\"\" data-asset-id=\"3c28bc07-a75e-444a-844a-a979c06f6a3f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3c28bc07-a75e-444a-844a-a979c06f6a3f\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"\\sqrt{3}\\lt x\\le 2\\sqrt{3}\"></span>  или <span data-inline-latex=\"3\\sqrt{3}\\lt x\\le 5\\sqrt{3}\"></span> .</p><p><b>При­ве­дем за­ме­ча­ние Ан­дрея Ана­то­лье­ви­ча.</b></p><p>За­ме­тим, что пре­об­ра­зо­ва­ния будут проще при за­ме­не <span data-inline-latex=\"z=x\\sqrt{3}-6\"></span>, тогда по­лу­чим</p><center><p><span data-inline-latex=\"\\frac{6}{z+3}+\\frac{z}{z-3}\\ge 2\\Leftrightarrow\\frac{6(z-3)+z(z+3)-2(z^2-9)}{z^2-9}\\ge 0.\"></span></p></center>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508347",
+    "task": "511512",
+    "expected_answer": "[-4\\sqrt{3};-3\\sqrt{3})\\cup (-2\\sqrt{3};-\\sqrt{3}] .",
+    "context": {
+      "problem_id": "18f762ee-c724-4c04-a020-9b87b350e411",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 13,
+        "items": [
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[-4\\sqrt{3};-3\\sqrt{3})\\cup (-2\\sqrt{3};-\\sqrt{3}]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Пусть <span data-inline-latex=\"z=x\\sqrt{3}\"></span> , по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\frac{6}{z+6}+\\frac{z+3}{z+9}\\ge 2\\Leftrightarrow\\frac{(z+12)(z+3)}{(z+9)(z+6)}\\le 0\\Leftrightarrow\\left[\\begin{aligned}-12&amp;\\le z&lt;-9,\\\\-6&amp;&lt;z\\le -3.\\end{aligned}\\right.\"></span></p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"-4\\sqrt{3}\\le x\\lt -3\\sqrt{3}\"></span>  или  <span data-inline-latex=\"-2\\sqrt{3}\\lt x\\le -\\sqrt{3}\"></span> .</p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T00:07:56.758303+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство: <span data-inline-latex=\"\\frac{6}{x\\sqrt{3}+6}+\\frac{x\\sqrt{3}+3}{x\\sqrt{3}+9}\\ge 2.\"></span></p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство: <span data-inline-latex=\"\\frac{6}{x\\sqrt{3}+6}+\\frac{x\\sqrt{3}+3}{x\\sqrt{3}+9}\\ge 2.\"></span></p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[-4\\sqrt{3};-3\\sqrt{3})\\cup (-2\\sqrt{3};-\\sqrt{3}]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Пусть <span data-inline-latex=\"z=x\\sqrt{3}\"></span> , по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\frac{6}{z+6}+\\frac{z+3}{z+9}\\ge 2\\Leftrightarrow\\frac{(z+12)(z+3)}{(z+9)(z+6)}\\le 0\\Leftrightarrow\\left[\\begin{aligned}-12&amp;\\le z&lt;-9,\\\\-6&amp;&lt;z\\le -3.\\end{aligned}\\right.\"></span></p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"-4\\sqrt{3}\\le x\\lt -3\\sqrt{3}\"></span>  или  <span data-inline-latex=\"-2\\sqrt{3}\\lt x\\le -\\sqrt{3}\"></span> .</p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508347",
+    "task": "511537",
+    "expected_answer": "(-\\infty;\\frac{1}{\\sqrt{5}}-2]\\cup (\\frac{2}{\\sqrt{5}}-2;\\frac{3}{\\sqrt{5}}-2)\\cup [\\frac{7}{2\\sqrt{5}}-2;+\\infty) .",
+    "context": {
+      "problem_id": "106ce2eb-f456-4359-b0fe-c5c4fdb0131d",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{3}{2-(x+2)\\sqrt{5}}+\\frac{(x+2)\\sqrt{5}-1}{(x+2)\\sqrt{5}-3}\\le 3\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;\\frac{1}{\\sqrt{5}}-2]\\cup (\\frac{2}{\\sqrt{5}}-2;\\frac{3}{\\sqrt{5}}-2)\\cup [\\frac{7}{2\\sqrt{5}}-2;+\\infty)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=(x+2)\\sqrt{5}\"></span> : </p><center><p><span> <span data-inline-latex=\"\\frac{3}{2-z}+\\frac{z-1}{z-3}\\le 3\\iff \\frac{(z-1)(z-2)-3(z-3)-3(z-2)(z-3)}{(z-2)(z-3)}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{2(z-1)(z-3{,}5)}{(z-2)(z-3)}\\ge 0\\iff \\left[\\begin{aligned}z\\le 1\\\\2\\lt z\\lt 3\\\\z\\ge 3{,}5\\end{aligned}\\right.\"></span> . </span></p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­чим:  <span data-inline-latex=\"x\\le \\frac{1}{\\sqrt{5}}-2\"></span>,  или  <span data-inline-latex=\"\\frac{2}{\\sqrt{5}}-2\\lt x\\lt \\frac{3}{\\sqrt{5}}-2\"></span>  или <span data-inline-latex=\"x\\ge \\frac{7}{2\\sqrt{5}}-2\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T00:07:32.972718+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{3}{2-(x+2)\\sqrt{5}}+\\frac{(x+2)\\sqrt{5}-1}{(x+2)\\sqrt{5}-3}\\le 3\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;\\frac{1}{\\sqrt{5}}-2]\\cup (\\frac{2}{\\sqrt{5}}-2;\\frac{3}{\\sqrt{5}}-2)\\cup [\\frac{7}{2\\sqrt{5}}-2;+\\infty)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=(x+2)\\sqrt{5}\"></span> : </p><center><p><span> <span data-inline-latex=\"\\frac{3}{2-z}+\\frac{z-1}{z-3}\\le 3\\iff \\frac{(z-1)(z-2)-3(z-3)-3(z-2)(z-3)}{(z-2)(z-3)}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{2(z-1)(z-3{,}5)}{(z-2)(z-3)}\\ge 0\\iff \\left[\\begin{aligned}z\\le 1\\\\2\\lt z\\lt 3\\\\z\\ge 3{,}5\\end{aligned}\\right.\"></span> . </span></p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­чим:  <span data-inline-latex=\"x\\le \\frac{1}{\\sqrt{5}}-2\"></span>,  или  <span data-inline-latex=\"\\frac{2}{\\sqrt{5}}-2\\lt x\\lt \\frac{3}{\\sqrt{5}}-2\"></span>  или <span data-inline-latex=\"x\\ge \\frac{7}{2\\sqrt{5}}-2\"></span>. </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508347",
+    "task": "508426",
+    "expected_answer": "(\\frac{2}{\\sqrt{5}};\\frac{4}{\\sqrt{5}}]\\cup (\\frac{6}{\\sqrt{5}};2\\sqrt{5}] .",
+    "context": {
+      "problem_id": "60189e1d-da45-484f-ad09-9935784b551c",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:16:51.665906+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/e216a514-0b66-4365-b944-6d3b4f72a02f",
+              "html": "<img alt=\"\" data-asset-id=\"e216a514-0b66-4365-b944-6d3b4f72a02f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e216a514-0b66-4365-b944-6d3b4f72a02f\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "e216a514-0b66-4365-b944-6d3b4f72a02f",
+              "position": 2,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{2}{0{,}5x\\sqrt{5}-1}+\\frac{0{,}5x\\sqrt{5}-2}{0{,}5x\\sqrt{5}-3}\\ge 2\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(\\frac{2}{\\sqrt{5}};\\frac{4}{\\sqrt{5}}]\\cup (\\frac{6}{\\sqrt{5}};2\\sqrt{5}]\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Пусть <span data-inline-latex=\"z=0{,}5x\\sqrt{5}\"></span> , по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\frac{2}{z-1}+\\frac{z-2}{z-3}\\ge 2\\iff \\frac{(z-2)(z-5)}{(z-1)(z-3)}\\le 0\\iff \\left[\\begin{aligned}1\\lt z\\le 2\\\\3\\lt z\\le 5\\end{aligned}\\right.\"></span> . </p></center><p><img alt=\"\" data-asset-id=\"e216a514-0b66-4365-b944-6d3b4f72a02f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"\\frac{2}{\\sqrt{5}}\\lt x\\le \\frac{4}{\\sqrt{5}}\"></span>  или  <span data-inline-latex=\"\\frac{6}{\\sqrt{5}}\\lt x\\le 2\\sqrt{5}\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T16:28:01.181787+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/e216a514-0b66-4365-b944-6d3b4f72a02f",
+            "kind": "ordinary_image",
+            "asset_id": "e216a514-0b66-4365-b944-6d3b4f72a02f",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{2}{0{,}5x\\sqrt{5}-1}+\\frac{0{,}5x\\sqrt{5}-2}{0{,}5x\\sqrt{5}-3}\\ge 2\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(\\frac{2}{\\sqrt{5}};\\frac{4}{\\sqrt{5}}]\\cup (\\frac{6}{\\sqrt{5}};2\\sqrt{5}]\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Пусть <span data-inline-latex=\"z=0{,}5x\\sqrt{5}\"></span> , по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\frac{2}{z-1}+\\frac{z-2}{z-3}\\ge 2\\iff \\frac{(z-2)(z-5)}{(z-1)(z-3)}\\le 0\\iff \\left[\\begin{aligned}1\\lt z\\le 2\\\\3\\lt z\\le 5\\end{aligned}\\right.\"></span> . </p></center><p><img alt=\"\" data-asset-id=\"e216a514-0b66-4365-b944-6d3b4f72a02f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e216a514-0b66-4365-b944-6d3b4f72a02f\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"\\frac{2}{\\sqrt{5}}\\lt x\\le \\frac{4}{\\sqrt{5}}\"></span>  или  <span data-inline-latex=\"\\frac{6}{\\sqrt{5}}\\lt x\\le 2\\sqrt{5}\"></span> . </p>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508397",
+    "task": "508397",
+    "expected_answer": "[\\frac{1}{5};\\frac{16}{5}]\\cup [\\frac{26}{5};\\frac{41}{5}] .",
+    "context": {
+      "problem_id": "ca0c829f-36ac-4138-9fcb-3b220f5316aa",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 15,
+        "items": [
+          {
+            "at": "2026-08-27T10:27:16.994195+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+              "html": "<img alt=\"\" data-asset-id=\"7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+              "position": 3,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"(\\frac{10}{5x-21}+\\frac{5x-21}{10})^{2}\\le \\frac{25}{4}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[\\frac{1}{5};\\frac{16}{5}]\\cup [\\frac{26}{5};\\frac{41}{5}]\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Сде­лав за­ме­ну <span data-inline-latex=\"t=\\frac{5x-21}{10}\"></span> ,  по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left(\\frac{1}{t}+t\\right)^2\\leq\\frac{25}{4}\\Leftrightarrow-\\frac{5}{2}\\leq\\frac{1}{t}+t\\leq\\frac{5}{2}\\Leftrightarrow-5\\leq\\frac{2t^2+2}{t}\\leq5\\Leftrightarrow\\begin{cases}\\frac{2t^2-5t+2}{t}\\leq0,\\\\\\frac{2t^2+5t+2}{t}\\geq0\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}t&amp;&lt;0,\\\\\\frac{1}{2}&amp;\\leq t\\leq2,\\end{aligned}\\right.\\\\\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2},\\\\t&amp;&gt;0\\end{aligned}\\right.\\end{cases}\\Leftrightarrow\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2},\\\\\\frac{1}{2}&amp;\\leq t\\leq2.\\end{aligned}\\right.\"></span></p><p></p></center><p><img alt=\"\" data-asset-id=\"7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left[\\begin{aligned}5&amp;\\le 5x-21\\le 20,\\\\-20&amp;\\le 5x-21\\le -5\\end{aligned}\\right.\\Leftrightarrow\\left[\\begin{aligned}\\frac{26}{5}&amp;\\le x\\le\\frac{41}{5},\\\\\\frac{1}{5}&amp;\\le x\\le\\frac{16}{5}.\n\\end{aligned}\\right.\"></span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T19:11:02.851358+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+            "kind": "ordinary_image",
+            "asset_id": "7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"(\\frac{10}{5x-21}+\\frac{5x-21}{10})^{2}\\le \\frac{25}{4}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[\\frac{1}{5};\\frac{16}{5}]\\cup [\\frac{26}{5};\\frac{41}{5}]\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Сде­лав за­ме­ну <span data-inline-latex=\"t=\\frac{5x-21}{10}\"></span> ,  по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left(\\frac{1}{t}+t\\right)^2\\leq\\frac{25}{4}\\Leftrightarrow-\\frac{5}{2}\\leq\\frac{1}{t}+t\\leq\\frac{5}{2}\\Leftrightarrow-5\\leq\\frac{2t^2+2}{t}\\leq5\\Leftrightarrow\\begin{cases}\\frac{2t^2-5t+2}{t}\\leq0,\\\\\\frac{2t^2+5t+2}{t}\\geq0\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}t&amp;&lt;0,\\\\\\frac{1}{2}&amp;\\leq t\\leq2,\\end{aligned}\\right.\\\\\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2},\\\\t&amp;&gt;0\\end{aligned}\\right.\\end{cases}\\Leftrightarrow\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2},\\\\\\frac{1}{2}&amp;\\leq t\\leq2.\\end{aligned}\\right.\"></span></p><p></p></center><p><img alt=\"\" data-asset-id=\"7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left[\\begin{aligned}5&amp;\\le 5x-21\\le 20,\\\\-20&amp;\\le 5x-21\\le -5\\end{aligned}\\right.\\Leftrightarrow\\left[\\begin{aligned}\\frac{26}{5}&amp;\\le x\\le\\frac{41}{5},\\\\\\frac{1}{5}&amp;\\le x\\le\\frac{16}{5}.\n\\end{aligned}\\right.\"></span></p></center>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508397",
+    "task": "511525",
+    "expected_answer": "[-7;-4]\\cup [-2;1] .",
+    "context": {
+      "problem_id": "ad71e71d-31b0-473d-b7d7-456813658eff",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 16,
+        "items": [
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"(\\frac{2}{x+3}+\\frac{x+3}{2})^{2}\\le \\frac{25}{4}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[-7;-4]\\cup [-2;1]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Пусть <span data-inline-latex=\"t=\\frac{x+3}{2}\"></span> ,  по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left(\\frac{1}{t}+t\\right)^2\\leq\\frac{25}{4}\\Leftrightarrow-\\frac{5}{2}\\leq\\frac{1}{t}+t\\leq\\frac{5}{2}\\Leftrightarrow-5\\leq\\frac{2t^2+2}{t}\\leq5\\Leftrightarrow\\begin{cases}\\frac{2t^2-5t+2}{t}\\leq0\\\\\\frac{2t^2+5t+2}{t}\\geq0\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}t&amp;&lt;0\\\\\\frac{1}{2}&amp;\\leq t\\leq2\\end{aligned}\\right.\\\\\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2}\\\\t&amp;&gt;0\\end{aligned}\\right.\\end{cases}\\Leftrightarrow\\frac{1}{2}\\leq|t|\\leq2\"></span></p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"-2\\le x\\le 1\"></span> или  <span data-inline-latex=\"-7\\le x\\le -4\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T12:26:00.095247+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"(\\frac{2}{x+3}+\\frac{x+3}{2})^{2}\\le \\frac{25}{4}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[-7;-4]\\cup [-2;1]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Пусть <span data-inline-latex=\"t=\\frac{x+3}{2}\"></span> ,  по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left(\\frac{1}{t}+t\\right)^2\\leq\\frac{25}{4}\\Leftrightarrow-\\frac{5}{2}\\leq\\frac{1}{t}+t\\leq\\frac{5}{2}\\Leftrightarrow-5\\leq\\frac{2t^2+2}{t}\\leq5\\Leftrightarrow\\begin{cases}\\frac{2t^2-5t+2}{t}\\leq0\\\\\\frac{2t^2+5t+2}{t}\\geq0\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}t&amp;&lt;0\\\\\\frac{1}{2}&amp;\\leq t\\leq2\\end{aligned}\\right.\\\\\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2}\\\\t&amp;&gt;0\\end{aligned}\\right.\\end{cases}\\Leftrightarrow\\frac{1}{2}\\leq|t|\\leq2\"></span></p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:  <span data-inline-latex=\"-2\\le x\\le 1\"></span> или  <span data-inline-latex=\"-7\\le x\\le -4\"></span>.</p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508397",
+    "task": "508427",
+    "expected_answer": "[0;3]\\cup [5;8] .",
+    "context": {
+      "problem_id": "a4422d25-0041-423d-bea4-36038a36f295",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 13,
+        "items": [
+          {
+            "at": "2026-08-27T10:26:11.318196+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+              "html": "<img alt=\"\" data-asset-id=\"7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+              "position": 3,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"(\\frac{2}{x-4}+\\frac{x-4}{2})^{2}\\le \\frac{25}{4}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[0;3]\\cup [5;8]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Пусть <span data-inline-latex=\"t=\\frac{x-4}{2}\"></span> ,  по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left(\\frac{1}{t}+t\\right)^2\\leq\\frac{25}{4}\\Leftrightarrow -\\frac{5}{2}\\leq\\frac{1}{t}+t\\leq\\frac{5}{2}\\Leftrightarrow -5\\leq\\frac{2t^2+2}{t}\\leq 5\\Leftrightarrow\\begin{cases}\\frac{2t^2-5t+2}{t}\\leq 0\\\\\\frac{2t^2+5t+2}{t}\\geq 0\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}t&amp;&lt;0,\\\\\\frac{1}{2}&amp;\\leq t\\leq 2,\\end{aligned}\\right.\\\\\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2},\\\\t&amp;&gt;0\\end{aligned}\\right.\\end{cases}\\Leftrightarrow\\frac{1}{2}\\leq |t|\\leq 2.\"></span></p></center><p><img alt=\"\" data-asset-id=\"7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем: <span data-inline-latex=\"0\\le x\\le 3\"></span> или <span data-inline-latex=\"5\\le x\\le 8\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T19:12:33.567929+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+            "kind": "ordinary_image",
+            "asset_id": "7a4a4fc4-c0eb-4cf7-8d71-b1d602630908",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"(\\frac{2}{x-4}+\\frac{x-4}{2})^{2}\\le \\frac{25}{4}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[0;3]\\cup [5;8]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Пусть <span data-inline-latex=\"t=\\frac{x-4}{2}\"></span> ,  по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left(\\frac{1}{t}+t\\right)^2\\leq\\frac{25}{4}\\Leftrightarrow -\\frac{5}{2}\\leq\\frac{1}{t}+t\\leq\\frac{5}{2}\\Leftrightarrow -5\\leq\\frac{2t^2+2}{t}\\leq 5\\Leftrightarrow\\begin{cases}\\frac{2t^2-5t+2}{t}\\leq 0\\\\\\frac{2t^2+5t+2}{t}\\geq 0\\end{cases}\\Leftrightarrow\\begin{cases}\\left[\\begin{aligned}t&amp;&lt;0,\\\\\\frac{1}{2}&amp;\\leq t\\leq 2,\\end{aligned}\\right.\\\\\\left[\\begin{aligned}-2&amp;\\leq t\\leq-\\frac{1}{2},\\\\t&amp;&gt;0\\end{aligned}\\right.\\end{cases}\\Leftrightarrow\\frac{1}{2}\\leq |t|\\leq 2.\"></span></p></center><p><img alt=\"\" data-asset-id=\"7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/7a4a4fc4-c0eb-4cf7-8d71-b1d602630908\"/></p><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем: <span data-inline-latex=\"0\\le x\\le 3\"></span> или <span data-inline-latex=\"5\\le x\\le 8\"></span>.</p>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

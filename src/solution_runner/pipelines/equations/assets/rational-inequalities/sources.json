@@ -36,6 +36,15 @@
     "cancelled_quadratic_sum": {
       "sha256": "a81a0feecd509166d626326fa2a999d8ad7f1ca97573f56444d7d325e0719eb9",
       "required_chart": false
+    },
+    "affine_radical": {
+      "sha256": "331456803852043e846f266e93d0772a183a0e8d84ece662ea079199b5007fc6",
+      "required_chart": "single"
+    },
+    "reciprocal_square": {
+      "sha256": "d69c806736803677cc38f35964a9ffbcaf03f387fcdf50de33173de136a52ceb",
+      "required_chart": "intersection",
+      "chart_asset_id": "7a4a4fc4-c0eb-4cf7-8d71-b1d602630908"
     }
   },
   "figures": {
@@ -224,6 +233,93 @@
       ],
       "operator": "<=",
       "double": false
+    },
+    "3c28bc07-a75e-444a-844a-a979c06f6a3f": {
+      "sha256": "96e0d59383cf8a15c5047d7831d087433ddc1582cfcb4ec55a8b7b799d3cae0a",
+      "points": [
+        "3",
+        "6",
+        "9",
+        "15"
+      ],
+      "poles": [
+        "3",
+        "9"
+      ],
+      "signs": [
+        1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "variable": "z",
+      "double": false
+    },
+    "e216a514-0b66-4365-b944-6d3b4f72a02f": {
+      "sha256": "49c527ddf3b50322902b4b2f1ba29ed42e120dda73c0553a2183eb576c9912e1",
+      "points": [
+        "1",
+        "2",
+        "3",
+        "5"
+      ],
+      "poles": [
+        "1",
+        "3"
+      ],
+      "signs": [
+        1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "variable": "z",
+      "double": false
+    },
+    "7a4a4fc4-c0eb-4cf7-8d71-b1d602630908": {
+      "sha256": "f624bb8629365c9e283a3ad151581181d890827d6fb31cfa8586c90a514f5f8f",
+      "variable": "t",
+      "rows": [
+        {
+          "points": [
+            "0",
+            "1/2",
+            "2"
+          ],
+          "poles": [
+            "0"
+          ],
+          "signs": [
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "operator": "<="
+        },
+        {
+          "points": [
+            "-2",
+            "-1/2",
+            "0"
+          ],
+          "poles": [
+            "0"
+          ],
+          "signs": [
+            -1,
+            1,
+            -1,
+            1
+          ],
+          "operator": ">="
+        }
+      ],
+      "shareable": true
     }
   }
 }
