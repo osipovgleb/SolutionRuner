@@ -132,7 +132,7 @@ def return_branch(a, values, variable):
     return html + line(alternatives("x", solution, a.endpoint))
 
 
-def render(a, variable, image=""):
+def render(a, variable, image="", *, algebra_builder=algebra):
     html = line(a.formula)
     if a.extra_poles:
         html += "<p>Сохраним исходные ограничения показателей:</p>"
@@ -160,7 +160,7 @@ def render(a, variable, image=""):
         + RELATION[a.operator]
         + display_side(a.stage.right, variable)
     )
-    html += algebra(a, variable) + image
+    html += algebra_builder(a, variable) + image
     if a.positive_solution != a.stage.solution:
         html += "<p>Учитываем положительность замены. Отрицательные значения и нуль не могут быть значениями показательной функции:</p>"
         html += line(alternatives(variable, a.positive_solution))

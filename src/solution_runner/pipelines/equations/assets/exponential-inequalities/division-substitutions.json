@@ -1,0 +1,222 @@
+{
+  "parents": {
+    "c65a595306ed8bda8e0ae97d079ec2765186ce1b2e40fcb0d89e13ea5f18d05f": {
+      "variable": "t",
+      "requires_chart": false,
+      "method": "affine_division"
+    },
+    "8ea1037b02a3d44d24fce50009b0c9be677402e694a5bd1449508a4ab8dcf48d": {
+      "variable": "t",
+      "requires_chart": true,
+      "method": "contained_cancellation"
+    },
+    "c1cb03c486728595dc70203d13f71385898d506d444a28b2c255263e97edc02a": {
+      "variable": "t",
+      "requires_chart": false,
+      "method": "cubic_division"
+    }
+  },
+  "figures": {
+    "8f36f991-9665-4b5a-b7e9-1f54bc254b2a": {
+      "points": [
+        "1",
+        "2",
+        "3",
+        "9"
+      ],
+      "poles": [
+        "3",
+        "9"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "variable": "t",
+      "positive_solution": "Union(Interval.Lopen(0, 1), Interval.Ropen(2, 3), Interval.open(3, 9))",
+      "holes": [
+        "3"
+      ],
+      "extra_poles": [],
+      "multiplicities": {
+        "zeros": {
+          "1": 1,
+          "2": 1
+        },
+        "poles": {
+          "3": 0,
+          "9": 1
+        }
+      },
+      "sha256": "cb1c27fc628249feba3fe203880b4ac156d77e5727f5d45fc453c9383c3727af",
+      "shareable": true,
+      "source_variable": "x",
+      "reuse_only": true,
+      "prepared_file": "rational-exponential-axis-t.svgz",
+      "prepared_sha256": "0ac4c9bc48a8a512deb55b694c934990fbd70fd6be7450ef1d2cf87c8c0dfe2b",
+      "structure_without_axis_sha256": "b13407f4c50e60ccb3146626acc13910d0e9d846943b16dbf6aea86eb5fcf1a0",
+      "axis_path_index": 15
+    },
+    "5a5fc2f7-7d71-48fa-9dd9-8375ec8768d3": {
+      "points": [
+        "1",
+        "6",
+        "10",
+        "11"
+      ],
+      "poles": [
+        "6",
+        "10"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "variable": "t",
+      "positive_solution": "Union(Interval.Lopen(0, 1), Interval.open(6, 10), Interval.Lopen(10, 11))",
+      "holes": [
+        "10"
+      ],
+      "extra_poles": [],
+      "multiplicities": {
+        "zeros": {
+          "1": 1,
+          "11": 1
+        },
+        "poles": {
+          "6": 1,
+          "10": 0
+        }
+      },
+      "sha256": "4c3664cad69348c47f2d99be5ba9fb5b1d1e91ef16ffc7e6dc7d33609f2a0eec",
+      "shareable": true,
+      "source_variable": "t",
+      "reuse_only": true
+    },
+    "b1bcfe30-4fcb-4851-89cd-9aa528a6660a": {
+      "points": [
+        "1/8 - sqrt(321)/8",
+        "1/2",
+        "2",
+        "1/8 + sqrt(321)/8",
+        "4"
+      ],
+      "poles": [
+        "1/2",
+        "2",
+        "4"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "variable": "t",
+      "positive_solution": "Union(Interval.open(1/2, 2), Interval.Ropen(1/8 + sqrt(321)/8, 4))",
+      "holes": [],
+      "extra_poles": [],
+      "multiplicities": {
+        "zeros": {
+          "1/8 - sqrt(321)/8": 1,
+          "1/8 + sqrt(321)/8": 1
+        },
+        "poles": {
+          "1/2": 1,
+          "2": 1,
+          "4": 1
+        }
+      },
+      "sha256": "b425fd038089a4e7aa9fd31a1ecb4c7cab5cc5170b67b07bd93a3eae7730c31d",
+      "shareable": true,
+      "source_variable": "t",
+      "reuse_only": true
+    },
+    "447dc4dd-c65c-450f-8b40-0b39d6d3a86c": {
+      "points": [
+        "3",
+        "5",
+        "9"
+      ],
+      "poles": [
+        "5",
+        "9"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "variable": "t",
+      "positive_solution": "Union(Interval.Lopen(0, 3), Interval.open(5, 9))",
+      "holes": [],
+      "extra_poles": [],
+      "multiplicities": {
+        "zeros": {
+          "3": 1
+        },
+        "poles": {
+          "5": 1,
+          "9": 1
+        }
+      },
+      "sha256": "d8c24f2d0f3db8585a67a99c4f3d23c8c546264e053b7494ddab70006fed8718",
+      "shareable": true,
+      "source_variable": "t",
+      "reuse_only": true
+    },
+    "d37c0381-9898-44ee-b438-07faf550605e": {
+      "points": [
+        "1",
+        "3",
+        "4",
+        "8"
+      ],
+      "poles": [
+        "3",
+        "4"
+      ],
+      "signs": [
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      "operator": "<=",
+      "variable": "t",
+      "positive_solution": "Union(Interval.Lopen(0, 1), Interval.open(3, 4), Interval.Lopen(4, 8))",
+      "holes": [
+        "4"
+      ],
+      "extra_poles": [],
+      "multiplicities": {
+        "zeros": {
+          "1": 1,
+          "8": 1
+        },
+        "poles": {
+          "3": 1,
+          "4": 0
+        }
+      },
+      "sha256": "278c079943031826954a908aabdfc596958e1427b243abeba2423d899a27e951",
+      "shareable": true,
+      "source_variable": "t",
+      "reuse_only": true
+    }
+  }
+}

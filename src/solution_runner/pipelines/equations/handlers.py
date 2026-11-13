@@ -863,3 +863,35 @@ HANDLERS += tuple(
     )
     for chart in (False, True)
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-rational-exponential-" + method,
+        "solution_runner.pipelines.equations.rational_exponential_planner:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        options=(
+            ("method", method),
+            ("requires_chart", method == "contained_cancellation"),
+        ),
+        requires_parent_condition_asset=False,
+        diagram_builder=(
+            "solution_runner.pipelines.equations.rational_exponential_division_figures:"
+            + builder
+            if builder
+            else None
+        ),
+        asset_selector=(
+            "solution_runner.pipelines.equations.rational_exponential_division_figures:required_assets"
+            if method == "contained_cancellation"
+            else None
+        ),
+    )
+    for method, builder in (
+        ("affine_division", None),
+        ("contained_cancellation", "contained_diagram_specs"),
+        ("cubic_division", "cubic_diagram_specs"),
+    )
+)

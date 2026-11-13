@@ -268,7 +268,11 @@ def single_canvas(width, height, layout, variable):
                 )
             elif item.tag.endswith("text"):
                 item.set("x", "205")
-    if layout in DIVISION_LAYOUTS or layout in ("hatched_square", "hatched_cube"):
+    if layout in DIVISION_LAYOUTS or layout in (
+        "hatched_square",
+        "hatched_cube",
+        "hatched_holes",
+    ):
         delta = width - 215.3065
         for item in root:
             if item.tag.endswith("line"):

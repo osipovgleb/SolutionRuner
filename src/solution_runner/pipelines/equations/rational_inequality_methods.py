@@ -121,8 +121,7 @@ def cancelled_fraction(a):
     ]
 
 
-def long_division(a):
-    values = divisions(a.left)
+def divide_affine_fractions(values):
     if len(values) != 2 or any(
         polynomial(n).degree() > 2 or polynomial(d).degree() != 1 for n, d in values
     ):
@@ -144,6 +143,11 @@ def long_division(a):
                 denominator * quotient + remainder,
             )
         )
+    return identities, quotients, remainders
+
+
+def long_division(a):
+    identities, quotients, remainders = divide_affine_fractions(divisions(a.left))
     if sp.expand(sum(quotients) - a.right.value) != 0:
         raise UnsupportedCondition(
             "the polynomial quotients must cancel the right side"

@@ -230,3 +230,33 @@ GROUPS += (
         "exam-rational-exponential-substitution",
     ),
 )
+
+GROUPS += (
+    (
+        "514448",
+        "5503f3a3-59b0-4dd0-8427-50b135ba8ca9",
+        13,
+        "Неравенства рациональные относительно показательной функции",
+        3,
+        "ff7ed10b-fcbb-4db1-907f-a3b17a270749",
+        "exam-rational-exponential-affine_division",
+    ),
+    (
+        "514618",
+        "c261df5e-efee-40b3-89de-5e971eeae0a7",
+        16,
+        "Неравенства рациональные относительно показательной функции",
+        3,
+        "ff7ed10b-fcbb-4db1-907f-a3b17a270749",
+        "exam-rational-exponential-contained_cancellation",
+    ),
+    (
+        "514625",
+        "1a8722d1-71e0-49a9-86bc-9d7f2d1e573e",
+        17,
+        "Неравенства рациональные относительно показательной функции",
+        3,
+        "ff7ed10b-fcbb-4db1-907f-a3b17a270749",
+        "exam-rational-exponential-cubic_division",
+    ),
+)
