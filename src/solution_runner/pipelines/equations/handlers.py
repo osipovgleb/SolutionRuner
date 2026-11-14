@@ -1318,3 +1318,12 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithm-monotonic-range",
+        "solution_runner.pipelines.equations.logarithm_monotonic_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)

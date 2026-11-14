@@ -5204,3 +5204,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "513429",
+        "bfa4238b-5ed4-4a14-a87e-a1826e1323d5",
+        12,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Логарифмы и показательные выражения",
+        theme_order_index=10,
+        snapshot_theme_id="d77d13af-fea6-4a1c-b7b5-310900de07e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithm-monotonic-range",
+        rewrite_existing_solution=True,
+    ),
+)

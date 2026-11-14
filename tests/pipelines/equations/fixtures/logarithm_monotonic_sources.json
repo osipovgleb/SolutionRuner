@@ -1,0 +1,684 @@
+[
+  {
+    "group": "513429",
+    "task": "513429",
+    "context": {
+      "problem_id": "087dff0f-9ae9-4524-9e1d-daaafc461c3e",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} 4\\ge \\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} (5-2^{x})\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[0;\\log_2 5)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что  <span data-inline-latex=\"\\frac{\\sqrt{2}+\\sqrt{13}}{5}\\gt 1\"></span>,  по­сколь­ку рав­но­силь­ны сле­ду­ю­щие не­ра­вен­ства:</p><center><p><span data-inline-latex=\"5-\\sqrt{2}\\lt \\sqrt{13}\\iff 27-10\\sqrt{2}\\lt 13\\iff 14\\lt 10\\sqrt{2}\\iff 49\\lt 50\"></span>.</p></center><p>С учётом этого имеем:</p><center><p> <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} 4\\ge \\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} (5-2^{x})\\iff 4\\ge 5-2^{x}\\gt 0\\iff \\begin{cases}2^{x}\\ge 1\\\\2^{x}\\lt 5\\end{cases}.\\quad \\iff \\begin{cases}x\\ge 0\\\\x\\lt \\log_2 5\\end{cases}\"></span> . </p><p></p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-01T22:56:16.730350+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} 4\\ge \\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} (5-2^{x})\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[0;\\log_2 5)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что  <span data-inline-latex=\"\\frac{\\sqrt{2}+\\sqrt{13}}{5}\\gt 1\"></span>,  по­сколь­ку рав­но­силь­ны сле­ду­ю­щие не­ра­вен­ства:</p><center><p><span data-inline-latex=\"5-\\sqrt{2}\\lt \\sqrt{13}\\iff 27-10\\sqrt{2}\\lt 13\\iff 14\\lt 10\\sqrt{2}\\iff 49\\lt 50\"></span>.</p></center><p>С учётом этого имеем:</p><center><p> <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} 4\\ge \\log_{(\\frac{\\sqrt{2}+\\sqrt{13}}{5})} (5-2^{x})\\iff 4\\ge 5-2^{x}\\gt 0\\iff \\begin{cases}2^{x}\\ge 1\\\\2^{x}\\lt 5\\end{cases}.\\quad \\iff \\begin{cases}x\\ge 0\\\\x\\lt \\log_2 5\\end{cases}\"></span> . </p><p></p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "513429",
+    "task": "513448",
+    "context": {
+      "problem_id": "0fd3dc2a-b5cd-4c96-b8da-bb335f2a98df",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[1;\\log_2 7)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что  <span data-inline-latex=\"\\frac{\\sqrt{3}+\\sqrt{19}}{6}\\gt 1\"></span>,  по­сколь­ку рав­но­силь­ны сле­ду­ю­щие не­ра­вен­ства</p><center><p><span data-inline-latex=\"6-\\sqrt{3}\\lt \\sqrt{19}\\iff 39-12\\sqrt{3}\\lt 19\\iff 20\\lt 12\\sqrt{3}\\iff 25\\lt 27\"></span>.</p></center><p>С учётом этого имеем</p><center><p> <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\\iff 5\\ge 7-2^{x}\\gt 0\\iff \\begin{cases}2^{x}\\ge 2\\\\2^{x}\\lt 7\\end{cases}.\\quad \\iff \\begin{cases}x\\ge 1\\\\x\\lt \\log_2 7\\end{cases}\"></span> . </p><p></p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-01T22:56:16.848453+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[1;\\log_2 7)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что  <span data-inline-latex=\"\\frac{\\sqrt{3}+\\sqrt{19}}{6}\\gt 1\"></span>,  по­сколь­ку рав­но­силь­ны сле­ду­ю­щие не­ра­вен­ства</p><center><p><span data-inline-latex=\"6-\\sqrt{3}\\lt \\sqrt{19}\\iff 39-12\\sqrt{3}\\lt 19\\iff 20\\lt 12\\sqrt{3}\\iff 25\\lt 27\"></span>.</p></center><p>С учётом этого имеем</p><center><p> <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\\iff 5\\ge 7-2^{x}\\gt 0\\iff \\begin{cases}2^{x}\\ge 2\\\\2^{x}\\lt 7\\end{cases}.\\quad \\iff \\begin{cases}x\\ge 1\\\\x\\lt \\log_2 7\\end{cases}\"></span> . </p><p></p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "513429",
+    "task": "513626",
+    "context": {
+      "problem_id": "921c3c02-9b9f-43a3-a184-1d50c6438ae2",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"(5x-13)\\cdot \\log_{(2x-5)} (x^{2}-6x+10)\\ge 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(\\frac{5}{2};\\frac{13}{5}]\\cup (3;+\\infty)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что <span data-inline-latex=\"x^{2}-6x+10=(x-3)^{2}+1\\ge 1\"></span>,  то есть ар­гу­мент ло­га­риф­ма не мень­ше 1 при любых зна­че­ни­ях <i>х</i>. Зна­чит, вы­ра­же­ние  <span data-inline-latex=\"\\log_{(2x-5)} (x^{2}-6x+10)\"></span>  по­ло­жи­тель­но при <i>x</i> &gt; 3, от­ри­ца­тель­но при  <span data-inline-latex=\"\\frac{5}{2}\\lt x\\lt 3\"></span> и не опре­де­ле­но при <span data-inline-latex=\"x\\le \\frac{5}{2}\"></span>  и <span data-inline-latex=\"x=3\"></span>.</p><p>При <span data-inline-latex=\"x\\gt 3\"></span> вы­ра­же­ние 5<i>x</i> − 13 по­ло­жи­тель­но, а при  <span data-inline-latex=\"\\frac{5}{2}\\lt x\\lt 3\"></span> ис­ход­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству <span data-inline-latex=\"5x-13\\le 0\"></span>, от­ку­да <span data-inline-latex=\"x\\le \\frac{13}{5}\"></span> .</p><p>Таким об­ра­зом, ре­ше­ние ис­ход­но­го не­ра­вен­ства:</p><center><p> <span data-inline-latex=\"\\frac{5}{2}\\lt x\\le \\frac{13}{5}\"></span>      или <span data-inline-latex=\"x\\gt 3\"></span>.</p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_11"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_12"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-01T22:56:17.739391+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"(5x-13)\\cdot \\log_{(2x-5)} (x^{2}-6x+10)\\ge 0\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(\\frac{5}{2};\\frac{13}{5}]\\cup (3;+\\infty)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=9852269\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 28.03.2016. Досрочная волна, вариант 2 (часть 2)</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=11613699\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 (С3) ЕГЭ 2016</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что <span data-inline-latex=\"x^{2}-6x+10=(x-3)^{2}+1\\ge 1\"></span>,  то есть ар­гу­мент ло­га­риф­ма не мень­ше 1 при любых зна­че­ни­ях <i>х</i>. Зна­чит, вы­ра­же­ние  <span data-inline-latex=\"\\log_{(2x-5)} (x^{2}-6x+10)\"></span>  по­ло­жи­тель­но при <i>x</i> &gt; 3, от­ри­ца­тель­но при  <span data-inline-latex=\"\\frac{5}{2}\\lt x\\lt 3\"></span> и не опре­де­ле­но при <span data-inline-latex=\"x\\le \\frac{5}{2}\"></span>  и <span data-inline-latex=\"x=3\"></span>.</p><p>При <span data-inline-latex=\"x\\gt 3\"></span> вы­ра­же­ние 5<i>x</i> − 13 по­ло­жи­тель­но, а при  <span data-inline-latex=\"\\frac{5}{2}\\lt x\\lt 3\"></span> ис­ход­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству <span data-inline-latex=\"5x-13\\le 0\"></span>, от­ку­да <span data-inline-latex=\"x\\le \\frac{13}{5}\"></span> .</p><p>Таким об­ра­зом, ре­ше­ние ис­ход­но­го не­ра­вен­ства:</p><center><p> <span data-inline-latex=\"\\frac{5}{2}\\lt x\\le \\frac{13}{5}\"></span>      или <span data-inline-latex=\"x\\gt 3\"></span>.</p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "513429",
+    "task": "514188",
+    "context": {
+      "problem_id": "90cf2292-f8fe-4034-b049-6902b2132914",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[1;\\log_2 7)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что  <span data-inline-latex=\"\\frac{\\sqrt{3}+\\sqrt{19}}{6}\\gt 1\"></span>,  по­сколь­ку рав­но­силь­ны сле­ду­ю­щие не­ра­вен­ства</p><center><p><span data-inline-latex=\"6-\\sqrt{3}\\lt \\sqrt{19}\\iff 39-12\\sqrt{3}\\lt 19\\iff 20\\lt 12\\sqrt{3}\\iff 25\\lt 27\"></span>.</p></center><p>С учётом этого имеем</p><center><p> <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\\iff 5\\ge 7-2^{x}\\gt 0\\iff \\begin{cases}2^{x}\\ge 2\\\\2^{x}\\lt 7\\end{cases}.\\quad \\iff \\begin{cases}x\\ge 1\\\\x\\lt \\log_2 7\\end{cases}\"></span> . </p><p></p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-01T22:56:17.641717+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[1;\\log_2 7)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=10628625\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 28.03.2016. Досрочная волна, вариант 3</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что  <span data-inline-latex=\"\\frac{\\sqrt{3}+\\sqrt{19}}{6}\\gt 1\"></span>,  по­сколь­ку рав­но­силь­ны сле­ду­ю­щие не­ра­вен­ства</p><center><p><span data-inline-latex=\"6-\\sqrt{3}\\lt \\sqrt{19}\\iff 39-12\\sqrt{3}\\lt 19\\iff 20\\lt 12\\sqrt{3}\\iff 25\\lt 27\"></span>.</p></center><p>С учётом этого имеем</p><center><p> <span data-inline-latex=\"\\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} 5\\ge \\log_{(\\frac{\\sqrt{3}+\\sqrt{19}}{6})} (7-2^{x})\\iff 5\\ge 7-2^{x}\\gt 0\\iff \\begin{cases}2^{x}\\ge 2\\\\2^{x}\\lt 7\\end{cases}.\\quad \\iff \\begin{cases}x\\ge 1\\\\x\\lt \\log_2 7\\end{cases}\"></span> . </p><p></p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]
