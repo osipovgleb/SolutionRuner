@@ -6,6 +6,7 @@ from pathlib import Path
 
 from ..probability.common import UnsupportedCondition
 from .inequality_plan import repair
+from .logarithm_product_cancellation_proof import render as cancellation_proof
 from .logarithm_product_inequality import analyze
 from .logarithm_product_inequality_proof import render
 from .logarithm_quadratic_inequality import analyze as quadratic
@@ -41,6 +42,15 @@ SUBSTITUTION_SOURCES = json.loads(
 PARENTS.update(
     dict.fromkeys(SUBSTITUTION_SOURCES["parent_sha256"], "quadratic_substitution")
 )
+CANCELLATION_SOURCES = json.loads(
+    (
+        Path(__file__).parent
+        / "assets/logarithmic-inequalities/product-cancellation.json"
+    ).read_text()
+)
+PARENTS.update(
+    dict.fromkeys(CANCELLATION_SOURCES["parent_sha256"], "product_cancellation")
+)
 
 
 def substitution_assets(content, condition):
@@ -72,11 +82,13 @@ def build_context_repair_plan(context, *, parent_solution_html="", method="produ
         return repair(
             condition, answer, solution, a.answer, quadratic_proof(a, method=method)
         )
-    if method == "product" and content.get("assets"):
+    if method in ("product", "product_cancellation") and content.get("assets"):
         raise UnsupportedCondition(
             "this reviewed logarithm product parent has no source figures"
         )
     a = analyze(formula, method=method)
+    if method == "product_cancellation":
+        return repair(condition, answer, solution, a.answer, cancellation_proof(a))
     if method == "quotient":
         image, keys, changes, scope = chart(context, a)
         return repair(

@@ -1,0 +1,598 @@
+[
+  {
+    "group": "561731",
+    "task": "561731",
+    "expected_answer": "(1;\\frac{7}{4}]\\cup [4;5) .",
+    "context": {
+      "problem_id": "ee8fc248-230c-496d-8907-2e75c3ba1eac",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_2 ((x-1)(10+3x-x^{2}))+\\log_2 \\frac{7-x}{10+3x-x^{2}}\\le -2+\\log_2 (9x)\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(1;\\frac{7}{4}]\\cup [4;5)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_2 ((x-1)(10+3x-x^{2}))+\\log_2 \\frac{7-x}{10+3x-x^{2}}\\le \\log_2 \\frac{9x}{4}\"></span> .  </p></center><p>Каж­дое ре­ше­ние не­ра­вен­ства яв­ля­ет­ся ре­ше­ни­ем си­сте­мы</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-1)(10+3x-x^{2})\\gt 0\\\\\\frac{7-x}{10+3x-x^{2}}\\gt 0\\\\x\\gt 0\\end{cases}\"></span> . </p></center><p>Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 1 &lt; <i>x</i> &lt;5. По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-1)(7-x)\\le \\frac{9x}{4}\\\\1\\lt x\\lt 5\\end{cases}\\iff \\begin{cases}(x-4)(4x-7)\\ge 0\\\\1\\lt x\\lt 5\\end{cases}.\\quad \\iff \\left[\\begin{aligned}1\\lt x\\le \\frac{7}{4}\\\\4\\le x\\lt 5\\end{aligned}\\right.\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T02:32:58.756256+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_2 ((x-1)(10+3x-x^{2}))+\\log_2 \\frac{7-x}{10+3x-x^{2}}\\le -2+\\log_2 (9x)\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(1;\\frac{7}{4}]\\cup [4;5)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_2 ((x-1)(10+3x-x^{2}))+\\log_2 \\frac{7-x}{10+3x-x^{2}}\\le \\log_2 \\frac{9x}{4}\"></span> .  </p></center><p>Каж­дое ре­ше­ние не­ра­вен­ства яв­ля­ет­ся ре­ше­ни­ем си­сте­мы</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-1)(10+3x-x^{2})\\gt 0\\\\\\frac{7-x}{10+3x-x^{2}}\\gt 0\\\\x\\gt 0\\end{cases}\"></span> . </p></center><p>Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 1 &lt; <i>x</i> &lt;5. По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-1)(7-x)\\le \\frac{9x}{4}\\\\1\\lt x\\lt 5\\end{cases}\\iff \\begin{cases}(x-4)(4x-7)\\ge 0\\\\1\\lt x\\lt 5\\end{cases}.\\quad \\iff \\left[\\begin{aligned}1\\lt x\\le \\frac{7}{4}\\\\4\\le x\\lt 5\\end{aligned}\\right.\"></span> . </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "561731",
+    "task": "561772",
+    "expected_answer": "(2;\\frac{18}{5}]\\cup [5;6) .",
+    "context": {
+      "problem_id": "c2dc6427-ba91-43a3-956e-d24ab2cfa655",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_5 ((x-2)(24+2x-x^{2}))+\\log_5 \\frac{9-x}{24+2x-x^{2}}\\le -1+\\log_5 (12x)\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(2;\\frac{18}{5}]\\cup [5;6)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_5 ((x-2)(24+2x-x^{2}))+\\log_5 \\frac{9-x}{24+2x-x^{2}}\\le \\log_5 \\frac{12x}{5}\"></span> .  </p></center><p>Каж­дое ре­ше­ние не­ра­вен­ства яв­ля­ет­ся ре­ше­ни­ем си­сте­мы</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(24+2x-x^{2})\\gt 0\\\\\\frac{9-x}{24+2x-x^{2}}\\gt 0\\\\x\\gt 0\\end{cases}\"></span> . </p></center><p>Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 2 &lt; <i>x</i> &lt; 6. По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(9-x)\\le \\frac{12x}{5}\\\\2\\lt x\\lt 6\\end{cases}\\iff \\begin{cases}(x-5)(5x-18)\\ge 0\\\\2\\lt x\\lt 6\\end{cases}.\\quad \\iff \\left[\\begin{aligned}2\\lt x\\le \\frac{18}{5}\\\\5\\le x\\lt 6\\end{aligned}\\right.\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T02:32:58.618995+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_5 ((x-2)(24+2x-x^{2}))+\\log_5 \\frac{9-x}{24+2x-x^{2}}\\le -1+\\log_5 (12x)\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(2;\\frac{18}{5}]\\cup [5;6)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_5 ((x-2)(24+2x-x^{2}))+\\log_5 \\frac{9-x}{24+2x-x^{2}}\\le \\log_5 \\frac{12x}{5}\"></span> .  </p></center><p>Каж­дое ре­ше­ние не­ра­вен­ства яв­ля­ет­ся ре­ше­ни­ем си­сте­мы</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(24+2x-x^{2})\\gt 0\\\\\\frac{9-x}{24+2x-x^{2}}\\gt 0\\\\x\\gt 0\\end{cases}\"></span> . </p></center><p>Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 2 &lt; <i>x</i> &lt; 6. По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(9-x)\\le \\frac{12x}{5}\\\\2\\lt x\\lt 6\\end{cases}\\iff \\begin{cases}(x-5)(5x-18)\\ge 0\\\\2\\lt x\\lt 6\\end{cases}.\\quad \\iff \\left[\\begin{aligned}2\\lt x\\le \\frac{18}{5}\\\\5\\le x\\lt 6\\end{aligned}\\right.\"></span> . </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "561731",
+    "task": "639952",
+    "expected_answer": "(3;4] .",
+    "context": {
+      "problem_id": "262f9743-62ea-4c53-8cdb-e8a2cb324429",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_4 ((x-3)(10+3x-x^{2}))+\\log_4 \\frac{7-x}{10+3x-x^{2}}\\le -1+\\log_4 (2x+4)\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(3;4]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_4 ((x-3)(10+3x-x^{2}))+\\log_4 \\frac{7-x}{10+3x-x^{2}}\\le \\log_4 \\frac{2x+4}{4}\"></span> .  </p></center><p>Об­ласть опре­де­ле­ния не­ра­вен­ства за­да­ет­ся си­сте­мой:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-3)(10+3x-x^{2})\\gt 0\\\\\\frac{7-x}{10+3x-x^{2}}\\gt 0\\\\x\\gt -2\\end{cases}\"></span> . </p></center><p> Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 3 &lt; <i>x</i> &lt; 5. </p><p>По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-3)(7-x)\\le \\frac{2x+4}{4}\\\\3\\lt x\\lt 5\\end{cases}\\iff \\begin{cases}(x-4)(2x-11)\\ge 0\\\\3\\lt x\\lt 5\\end{cases}.\\quad \\iff 3\\lt x\\le 4\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T02:30:41.914902+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_4 ((x-3)(10+3x-x^{2}))+\\log_4 \\frac{7-x}{10+3x-x^{2}}\\le -1+\\log_4 (2x+4)\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(3;4]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=52304614\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ по математике, Москва, 06.04.2023. Вариант 1</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=52099814\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2023</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_4 ((x-3)(10+3x-x^{2}))+\\log_4 \\frac{7-x}{10+3x-x^{2}}\\le \\log_4 \\frac{2x+4}{4}\"></span> .  </p></center><p>Об­ласть опре­де­ле­ния не­ра­вен­ства за­да­ет­ся си­сте­мой:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-3)(10+3x-x^{2})\\gt 0\\\\\\frac{7-x}{10+3x-x^{2}}\\gt 0\\\\x\\gt -2\\end{cases}\"></span> . </p></center><p> Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 3 &lt; <i>x</i> &lt; 5. </p><p>По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-3)(7-x)\\le \\frac{2x+4}{4}\\\\3\\lt x\\lt 5\\end{cases}\\iff \\begin{cases}(x-4)(2x-11)\\ge 0\\\\3\\lt x\\lt 5\\end{cases}.\\quad \\iff 3\\lt x\\le 4\"></span>. </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "561731",
+    "task": "640521",
+    "expected_answer": "(2;3] .",
+    "context": {
+      "problem_id": "eb07c37a-dab5-422b-9113-764d435f8490",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_2 ((x-2)(4+3x-x^{2}))+\\log_2 \\frac{6-x}{4+3x-x^{2}}\\le -1+\\log_2 (x+3)\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(2;3]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_2 ((x-2)(4+3x-x^{2}))+\\log_2 \\frac{6-x}{4+3x-x^{2}}\\le \\log_2 (\\frac{x+3}{2})\"></span> .  </p></center><p>Об­ласть опре­де­ле­ния не­ра­вен­ства за­да­ет­ся си­сте­мой:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(4+3x-x^{2})\\gt 0\\\\\\frac{6-x}{4+3x-x^{2}}\\gt 0\\\\x\\gt -3\\end{cases}\"></span> . </p></center><p> Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 2 &lt; <i>x</i> &lt; 4. </p><p>По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(6-x)\\le \\frac{x+3}{2}\\\\2\\lt x\\lt 4\\end{cases}\\iff \\begin{cases}(x-3)(2x-9)\\ge 0\\\\2\\lt x\\lt 4\\end{cases}.\\quad \\iff 2\\lt x\\le 3\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T02:32:58.712393+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_2 ((x-2)(4+3x-x^{2}))+\\log_2 \\frac{6-x}{4+3x-x^{2}}\\le -1+\\log_2 (x+3)\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(2;3]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=52678528\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ по математике, Москва, 06.04.2023. Вариант 2</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=52099814\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2023</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­пи­шем ис­ход­ное не­ра­вен­ство в виде:</p><center><p> <span data-inline-latex=\"\\log_2 ((x-2)(4+3x-x^{2}))+\\log_2 \\frac{6-x}{4+3x-x^{2}}\\le \\log_2 (\\frac{x+3}{2})\"></span> .  </p></center><p>Об­ласть опре­де­ле­ния не­ра­вен­ства за­да­ет­ся си­сте­мой:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(4+3x-x^{2})\\gt 0\\\\\\frac{6-x}{4+3x-x^{2}}\\gt 0\\\\x\\gt -3\\end{cases}\"></span> . </p></center><p> Ре­ше­ни­ем этой си­сте­мы яв­ля­ет­ся про­ме­жу­ток 2 &lt; <i>x</i> &lt; 4. </p><p>По­лу­ча­ем си­сте­му, рав­но­силь­ную ис­ход­но­му не­ра­вен­ству:</p><center><p> <span data-inline-latex=\"\\begin{cases}(x-2)(6-x)\\le \\frac{x+3}{2}\\\\2\\lt x\\lt 4\\end{cases}\\iff \\begin{cases}(x-3)(2x-9)\\ge 0\\\\2\\lt x\\lt 4\\end{cases}.\\quad \\iff 2\\lt x\\le 3\"></span>. </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

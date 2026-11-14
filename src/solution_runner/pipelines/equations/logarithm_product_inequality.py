@@ -30,6 +30,7 @@ class ProductComparison:
     full_stage: object = None
     argument_texts: tuple = ()
     argument_holes: tuple = ()
+    constant_offset: sp.Expr = sp.S.Zero
 
     @property
     def answer(self):
@@ -37,7 +38,7 @@ class ProductComparison:
 
 
 def read_input(formula, method):
-    if method not in ("product", "quotient"):
+    if method not in ("product", "quotient", "product_cancellation"):
         raise UnsupportedCondition("unknown logarithm comparison method")
     raw_arguments = []
 
@@ -51,7 +52,7 @@ def read_input(formula, method):
     atoms, expression = read_equation(
         parts[0] + "=" + parts[2],
         extended=True,
-        argument_reader=read_argument if method == "quotient" else None,
+        argument_reader=read_argument if method != "product" else None,
     )
     if len(atoms) != 3 or any(a.root or a.denominator for a in atoms):
         raise UnsupportedCondition(
@@ -67,15 +68,46 @@ def read_input(formula, method):
         raise UnsupportedCondition(
             "the three logarithms must have the same positive rational base different from one"
         )
-    if sp.expand(expression - atoms[0].symbol + atoms[1].symbol + atoms[2].symbol) != 0:
+    constant = sp.expand(
+        expression - atoms[0].symbol + atoms[1].symbol + atoms[2].symbol
+    )
+    if method == "product_cancellation":
+        constant = sp.expand(
+            expression - atoms[0].symbol - atoms[1].symbol + atoms[2].symbol
+        )
+        if constant.is_Integer is not True or abs(constant) > 4:
+            raise UnsupportedCondition(
+                "the product needs two positive logarithm terms and a bounded integer offset"
+            )
+    elif constant != 0:
         raise UnsupportedCondition(
             "one logarithm must be compared with the sum of two others"
         )
     arguments = tuple(a.argument for a in atoms)
-    return OPERATORS[parts[1]], base, arguments, tuple(raw_arguments)
+    return OPERATORS[parts[1]], base, arguments, tuple(raw_arguments), constant
 
 
-def transformed(arguments, base, operator, method):
+def transformed(arguments, base, operator, method, constant=sp.S.Zero):
+    if method == "product_cancellation":
+        A, B, C = arguments
+        n, d = sp.fraction(sp.cancel(B))
+        if (
+            polynomial(A).degree(),
+            polynomial(n).degree(),
+            polynomial(d).degree(),
+            polynomial(C).degree(),
+        ) != (3, 1, 2, 1):
+            raise UnsupportedCondition(
+                "the reviewed cancellation needs a cubic argument, linear numerator and common quadratic denominator"
+            )
+        product = sp.cancel(A * B)
+        if polynomial(product).degree() != 2:
+            raise UnsupportedCondition(
+                "the complete argument product must cancel to a quadratic"
+            )
+        return comparison(
+            (1 if base > 1 else -1) * (product - base ** (-constant) * C), operator
+        ), None
     if method == "product":
         if any(polynomial(value).degree() not in (1, 2) for value in arguments):
             raise UnsupportedCondition(
@@ -111,15 +143,17 @@ def transformed(arguments, base, operator, method):
 
 
 def analyze(formula, *, method="product"):
-    operator, base, arguments, raw_arguments = read_input(formula, method)
-    stage, full_stage = transformed(arguments, base, operator, method)
+    operator, base, arguments, raw_arguments, constant = read_input(formula, method)
+    stage, full_stage = transformed(arguments, base, operator, method, constant)
     domains = (
         tuple(original_orientation(rational(text + r"\gt 0")) for text in raw_arguments)
-        if method == "quotient"
+        if method != "product"
         else tuple(comparison(argument, ">") for argument in arguments)
     )
     domain = sp.Intersection(*(d.solution for d in domains))
-    if method == "product":
+    if method == "product_cancellation":
+        indices = (0, 1, 2)
+    elif method == "product":
         implied = (base < 1 and operator in ("<", "<=")) or (
             base > 1 and operator in (">", ">=")
         )
@@ -153,4 +187,5 @@ def analyze(formula, *, method="product"):
         full_stage,
         tuple(raw_arguments),
         holes,
+        constant,
     )
