@@ -257,3 +257,24 @@ GROUPS += (
         "exam-logarithm-inequality-variable-log-base-order",
     ),
 )
+
+GROUPS += (
+    (
+        "507258",
+        "752e9f17-32d3-4ebf-a023-bc8bbd674bbc",
+        0,
+        "Неравенства с логарифмами по переменному основанию, применение рационализации",
+        7,
+        "ff7e4f27-be00-4a6b-b95a-b5a0a9b2c03b",
+        "exam-logarithm-inequality-single-log-product",
+    ),
+    (
+        "508492",
+        "887dc0d2-0c4e-4356-b246-20976516da76",
+        5,
+        "Неравенства с логарифмами по переменному основанию, применение рационализации",
+        7,
+        "ff7e4f27-be00-4a6b-b95a-b5a0a9b2c03b",
+        "exam-logarithm-inequality-single-log-quotient",
+    ),
+)

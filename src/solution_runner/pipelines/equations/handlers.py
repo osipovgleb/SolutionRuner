@@ -1064,3 +1064,25 @@ HANDLERS += tuple(
     )
     for method in ("variable_log_product_cases", "variable_log_base_order")
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-logarithm-inequality-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.logarithm_single_proof:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        )
+        if method == "single_log_product"
+        else (("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        diagram_builder="solution_runner.pipelines.equations.logarithm_single_figures:diagram_specs"
+        if method == "single_log_product"
+        else None,
+        asset_selector="solution_runner.pipelines.equations.logarithm_single_figures:required_assets"
+        if method == "single_log_product"
+        else None,
+        requires_parent_condition_asset=False,
+    )
+    for method in ("single_log_product", "single_log_quotient")
+)
