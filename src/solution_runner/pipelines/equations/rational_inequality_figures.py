@@ -31,7 +31,7 @@ def read_formula(context):
         raise UnsupportedCondition("one explicit inequality formula is required")
     formula = spans[0]["data-inline-latex"]
     if not re.fullmatch(
-        r"Решите неравенство(?::\s*|\s+)" + re.escape(formula) + r"\s*\.?", text
+        r"Решите неравенств[оа](?::\s*|\s+)" + re.escape(formula) + r"\s*\.?", text
     ):
         raise UnsupportedCondition(
             "the entire rational inequality instruction must be recognized"

@@ -290,3 +290,15 @@ GROUPS += (
         "exam-logarithm-inequality-reciprocal-sum",
     ),
 )
+
+GROUPS += (
+    (
+        "514371",
+        "00921131-82f6-4dcc-97d5-c77c8515cd4b",
+        6,
+        "Логарифмические неравенства, разные задачи",
+        8,
+        "6ed5e9b0-e910-4607-99bf-9f9458ff710e",
+        "exam-logarithm-inequality-double-substitution",
+    ),
+)
