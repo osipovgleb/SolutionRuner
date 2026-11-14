@@ -17,7 +17,7 @@ class AbsolutePowerReader:
         self.values = values
         self.denominators = []
 
-    def power(self, index):
+    def base(self, index):
         start = index
         if self.text[index : index + 1] == "|":
             end = self.text.find("|", index + 1)
@@ -41,10 +41,17 @@ class AbsolutePowerReader:
                 )
             index += match.end()
             base = RationalParser(self.text[start:index], self.denominators).parse()
+        return base, index
+
+    def exponent(self, raw):
+        return AbsoluteParser(raw, self.denominators, values=self.values).parse()
+
+    def power(self, index):
+        base, index = self.base(index)
         if self.text[index : index + 2] != "^{":
             raise UnsupportedCondition("one whole explicitly braced power is required")
         raw, index = balanced(self.text, index + 1)
-        exponent = AbsoluteParser(raw, self.denominators, values=self.values).parse()
+        exponent = self.exponent(raw)
         return Node(
             sp.Dummy("power", positive=True), "", "exponential", (base, exponent)
         ), index

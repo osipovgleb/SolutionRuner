@@ -5186,3 +5186,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "519640",
+        "e3b42070-433b-4220-ae6f-d8db469f7867",
+        5,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Другие неравенства смешанного типа",
+        theme_order_index=14,
+        snapshot_theme_id="fa84ece5-aae6-49e3-8024-71ffe8310355",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-absolute-log-power-identity",
+        rewrite_existing_solution=True,
+    ),
+)
