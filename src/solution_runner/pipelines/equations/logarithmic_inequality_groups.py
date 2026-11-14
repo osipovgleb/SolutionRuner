@@ -23,3 +23,15 @@ GROUPS += (
         "exam-logarithm-inequality-quotient",
     ),
 )
+
+GROUPS += (
+    (
+        "508459",
+        "a120e75b-0d99-4af8-bf1d-5c36ce6cca3c",
+        2,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-quadratic",
+    ),
+)

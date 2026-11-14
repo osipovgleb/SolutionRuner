@@ -694,6 +694,13 @@ HANDLERS += (
 
 HANDLERS += (
     HandlerSpec(
+        "exam-logarithm-inequality-quadratic",
+        "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", "quadratic"),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "exam-logarithm-inequality-product",
         "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
         inputs=(("parent_solution_html", "parent_solution_html"),),
