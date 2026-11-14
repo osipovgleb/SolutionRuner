@@ -1355,3 +1355,13 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-single-logarithm-three-methods",
+        "solution_runner.pipelines.equations.single_log_three_methods_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        asset_selector="solution_runner.pipelines.equations.single_log_three_methods_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)

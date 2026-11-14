@@ -1,0 +1,46 @@
+{
+  "parents": [
+    "ad3e304f95cd6e8c4373ceb556cc710143fec8a727f508571415536e8d3c966b"
+  ],
+  "condition_transcriptions": {
+    "1b706db9aa948e110669bc82b7b05445f5d3b185246e30ec75e9c3a952b5bd43": {
+      "before_html": "<p>Ре­ши­те не­ра­вен­ство: <span data-inline-latex=\"\\log_x^{2} (x+1)^{2}\\le 1\"></span>.</p>",
+      "after_html": "<p>Ре­ши­те не­ра­вен­ство: <span data-inline-latex=\"\\log_{x^{2}} (x+1)^{2}\\le 1\"></span>.</p>",
+      "condition_sha256": "1b706db9aa948e110669bc82b7b05445f5d3b185246e30ec75e9c3a952b5bd43",
+      "source_problem_id": "508488",
+      "source_url": "https://math-ege.sdamgia.ru/problem?id=508488",
+      "source_svg_sha256": "53e5346a7c5bd864403d356f1fa8ccce8ed9140b5e2f482805a4b17cd0044db1",
+      "verified_date": "2026-11-14",
+      "source_evidence": "The exponent 2 is inside the lowered base glyph group; it is not a power of the logarithm."
+    }
+  },
+  "figures": {
+    "59f8b3f6-b30c-4579-ad87-acb3ca1ad5f0": {
+      "asset_key": "image_1",
+      "sha256": "75355639f3c13f28f4736d28fba9f2c4a33e69ace2d74963eaed937d56eea0af",
+      "revision": 1,
+      "role": "rationalized_product_before_original_domain",
+      "stage": {
+        "points": [
+          "4",
+          "5",
+          "7"
+        ],
+        "poles": [],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "closed": [
+        true,
+        true,
+        true
+      ],
+      "stage_solution": "Union(Interval(-oo, 4), Interval(5, 7))"
+    }
+  }
+}

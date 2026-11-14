@@ -5276,3 +5276,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "508488",
+        "321e40dd-671c-41e3-a75d-f9918770d3e2",
+        4,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Неравенства с логарифмами по переменному основанию, применение рационализации",
+        theme_order_index=7,
+        snapshot_theme_id="ff7e4f27-be00-4a6b-b95a-b5a0a9b2c03b",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-single-logarithm-three-methods",
+        rewrite_existing_solution=True,
+    ),
+)

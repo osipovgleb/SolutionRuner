@@ -29,6 +29,19 @@ class PolynomialLogCases:
         return set_latex(self.solution)
 
 
+def base_cases(B, Q, operator, base_domain, argument_domain, *, bound=0):
+    cases = []
+    for sign, op in ((-1, "<"), (1, ">")):
+        values = base_domain.intersect(comparison(B - 1, op).solution)
+        argument_operator = FLIPPED[operator] if sign == -1 else operator
+        stage = comparison(Q - B**bound, argument_operator)
+        allowed = stage.solution.intersect(argument_domain)
+        cases.append(
+            (sign, argument_operator, values, allowed, values.intersect(allowed))
+        )
+    return tuple(cases)
+
+
 def logarithm_cases(formula):
     atoms = Atoms()
     left, right, denominators, operator = read_terms(
@@ -58,17 +71,9 @@ def logarithm_cases(formula):
     )
     argument_domain = comparison(Q, ">").solution
     domain = base_domain.intersect(argument_domain)
-    cases = []
-    for sign, op in ((-1, "<"), (1, ">")):
-        values = base_domain.intersect(comparison(B - 1, op).solution)
-        argument_operator = FLIPPED[operator] if sign == -1 else operator
-        stage = comparison(Q - 1, argument_operator)
-        allowed = stage.solution.intersect(argument_domain)
-        cases.append(
-            (sign, argument_operator, values, allowed, values.intersect(allowed))
-        )
+    cases = base_cases(B, Q, operator, base_domain, argument_domain)
     return PolynomialLogCases(
-        B, Q, operator, domain, poles, tuple(cases), sp.Union(*(s[-1] for s in cases))
+        B, Q, operator, domain, poles, cases, sp.Union(*(s[-1] for s in cases))
     )
 
 
