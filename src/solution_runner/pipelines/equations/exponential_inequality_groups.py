@@ -284,3 +284,15 @@ GROUPS += (
         "exam-exponential-inequality-nested_reciprocal",
     ),
 )
+
+GROUPS += (
+    (
+        "681197",
+        "74e9bc0e-4e8d-4af1-819d-76bbdab5d67b",
+        56,
+        "Неравенства рациональные относительно показательной функции",
+        3,
+        "ff7ed10b-fcbb-4db1-907f-a3b17a270749",
+        "exam-exponential-inequality-squared_denominator",
+    ),
+)

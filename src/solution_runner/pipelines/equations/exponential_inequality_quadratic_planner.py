@@ -20,6 +20,10 @@ from .exponential_nested_reciprocal import analyze as nested_reciprocal
 from .exponential_nested_reciprocal_proof import render as nested_proof
 from .exponential_reciprocal_sum import analyze as reciprocal_sum
 from .exponential_reciprocal_sum import render as reciprocal_proof
+from .exponential_squared_denominator import analyze as squared_denominator
+from .exponential_squared_denominator_figures import SOURCES as SQUARED_SOURCES
+from .exponential_squared_denominator_figures import chart as squared_chart
+from .exponential_squared_denominator_proof import render as squared_proof
 from .inequality_plan import repair
 from .mixed_substitution_figures import SOURCES as MIXED_SOURCES
 from .mixed_substitution_figures import chart
@@ -65,6 +69,7 @@ ANALYSES = {
     "mixed_substitution": mixed_model,
     "symmetric_reciprocal": reciprocal_sum,
     "nested_reciprocal": nested_reciprocal,
+    "squared_denominator": squared_denominator,
 }
 SOURCES.update(
     json.loads(
@@ -84,13 +89,17 @@ SOURCES.update(
     )
 )
 SOURCES.update(CUBIC_SOURCES["parents"])
+SOURCES.update(SQUARED_SOURCES["parents"])
 PROOFS = {
     **RENDERS,
     **PREIMAGE_RENDERS,
     **FACTORIZATION_PROOFS,
     "symmetric_reciprocal": reciprocal_proof,
     "nested_reciprocal": nested_proof,
+    "squared_denominator": squared_proof,
+    "mixed_substitution": mixed_render,
 }
+REUSED_CHARTS = {"mixed_substitution": chart, "squared_denominator": squared_chart}
 
 
 def build_context_repair_plan(
@@ -106,6 +115,7 @@ def build_context_repair_plan(
     if content.get("assets") and method not in (
         "mixed_substitution",
         "cube_over_square",
+        "squared_denominator",
     ):
         raise UnsupportedCondition(
             "these reviewed exponential parents have no source diagrams"
@@ -122,14 +132,14 @@ def build_context_repair_plan(
             keys=keys,
             asset_changes=changes,
         )
-    if method == "mixed_substitution":
-        image, keys, changes = chart(context, a)
+    if method in REUSED_CHARTS:
+        image, keys, changes = REUSED_CHARTS[method](context, a)
         return repair(
             condition,
             answer,
             solution,
             a.answer,
-            mixed_render(a, image),
+            PROOFS[method](a, image),
             keys=keys,
             asset_changes=changes,
         )

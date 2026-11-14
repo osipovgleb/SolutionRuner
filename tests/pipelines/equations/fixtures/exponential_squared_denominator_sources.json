@@ -1,0 +1,850 @@
+[
+  {
+    "group": "681197",
+    "task": "681197",
+    "source_answer": "\\{-1\\}\\cup [1;\\sqrt{2})\\cup (\\sqrt{2};+\\infty) .",
+    "context": {
+      "problem_id": "32d1465a-e780-43fd-8b8d-c3da584b2c31",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:24:34.803462+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/3215f801-ac80-4594-9d64-e8a5424dfdf0",
+              "html": "<img alt=\"\" data-asset-id=\"3215f801-ac80-4594-9d64-e8a5424dfdf0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3215f801-ac80-4594-9d64-e8a5424dfdf0\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "3215f801-ac80-4594-9d64-e8a5424dfdf0",
+              "position": 4,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}+x^{2}-x-1}{4^{x^{2}}-8\\cdot 2^{x^{2}}+16}\\ge 0\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"\\{-1\\}\\cup [1;\\sqrt{2})\\cup (\\sqrt{2};+\\infty)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Раз­ло­жим на мно­жи­те­ли вы­ра­же­ние в чис­ли­те­ле:</p><center><p><span data-inline-latex=\"x^{3}+x^{2}-x-1=x^{2}(x+1)-(x+1)=(x+1)(x^{2}-1)=(x+1)^{2}(x-1)\"></span> ,</p></center><p>Вы­ра­же­ние в зна­ме­на­те­ле яв­ля­ет­ся пол­ным квад­ра­том:</p><center><p><span data-inline-latex=\"4^{x^{2}}-8\\cdot 2^{x^{2}}+16=(2^{x^{2}}-4)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i>  вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><center> <img alt=\"\" data-asset-id=\"3215f801-ac80-4594-9d64-e8a5424dfdf0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p><span> <span data-inline-latex=\"\\frac{(x+1)^{2}(x-1)}{(2^{x^{2}}-4)^{2}}\\ge 0\\iff \\frac{(x+1)^{2}(x-1)}{(2^{x^{2}}-2^{2})^{2}}\\ge 0\\iff \\frac{(x+1)^{2}(x-1)}{(x^{2}-2)^{2}}\\ge 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x+1)^{2}(x-1)}{(x-\\sqrt{2})^{2}(x+\\sqrt{2})^{2}}\\ge 0\\iff \\left[\\begin{aligned}x=-1\\\\1\\le x\\lt \\sqrt{2}\\\\x\\gt \\sqrt{2}\\end{aligned}\\right.\"></span> . </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T17:20:18.684399+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/3215f801-ac80-4594-9d64-e8a5424dfdf0",
+            "kind": "ordinary_image",
+            "asset_id": "3215f801-ac80-4594-9d64-e8a5424dfdf0",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}+x^{2}-x-1}{4^{x^{2}}-8\\cdot 2^{x^{2}}+16}\\ge 0\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"\\{-1\\}\\cup [1;\\sqrt{2})\\cup (\\sqrt{2};+\\infty)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84693277\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна 27.05.2025. Санкт-Петербург</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Раз­ло­жим на мно­жи­те­ли вы­ра­же­ние в чис­ли­те­ле:</p><center><p><span data-inline-latex=\"x^{3}+x^{2}-x-1=x^{2}(x+1)-(x+1)=(x+1)(x^{2}-1)=(x+1)^{2}(x-1)\"></span> ,</p></center><p>Вы­ра­же­ние в зна­ме­на­те­ле яв­ля­ет­ся пол­ным квад­ра­том:</p><center><p><span data-inline-latex=\"4^{x^{2}}-8\\cdot 2^{x^{2}}+16=(2^{x^{2}}-4)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i>  вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><center> <img alt=\"\" data-asset-id=\"3215f801-ac80-4594-9d64-e8a5424dfdf0\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/3215f801-ac80-4594-9d64-e8a5424dfdf0\"/><p><span> <span data-inline-latex=\"\\frac{(x+1)^{2}(x-1)}{(2^{x^{2}}-4)^{2}}\\ge 0\\iff \\frac{(x+1)^{2}(x-1)}{(2^{x^{2}}-2^{2})^{2}}\\ge 0\\iff \\frac{(x+1)^{2}(x-1)}{(x^{2}-2)^{2}}\\ge 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x+1)^{2}(x-1)}{(x-\\sqrt{2})^{2}(x+\\sqrt{2})^{2}}\\ge 0\\iff \\left[\\begin{aligned}x=-1\\\\1\\le x\\lt \\sqrt{2}\\\\x\\gt \\sqrt{2}\\end{aligned}\\right.\"></span> . </span></p></center>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "681197",
+    "task": "681246",
+    "source_answer": "(-\\infty;-\\sqrt{3})\\cup (-\\sqrt{3};-1]\\cup \\{1\\} .",
+    "context": {
+      "problem_id": "8b99cba0-c479-4384-9758-aaa3bc99dedd",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:25:22.648307+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/1c64e667-57e5-4cae-afea-4875977d15bc",
+              "html": "<img alt=\"\" data-asset-id=\"1c64e667-57e5-4cae-afea-4875977d15bc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1c64e667-57e5-4cae-afea-4875977d15bc\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "1c64e667-57e5-4cae-afea-4875977d15bc",
+              "position": 4,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}-x^{2}-x+1}{4^{x^{2}}-16\\cdot 2^{x^{2}}+64}\\le 0\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-\\sqrt{3})\\cup (-\\sqrt{3};-1]\\cup \\{1\\}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Раз­ло­жим на мно­жи­те­ли чис­ли­тель:</p><center><p><span data-inline-latex=\"x^{3}-x^{2}-x+1=x^{2}(x-1)-(x-1)=(x-1)(x^{2}-1)=(x-1)^{2}(x+1)\"></span> ,</p></center><p> Вы­ра­же­ние в зна­ме­на­те­ле можно пред­ста­вить в виде пол­но­го квад­ра­та:</p><center><p><span data-inline-latex=\"4^{x^{2}}-16\\cdot 2^{x^{2}}+64=(2^{x^{2}}-8)^{2}\"></span> .</p></center><p> Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов и ра­ци­о­на­ли­за­ции, для этого при­ме­ним тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i>  вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><center> <img alt=\"\" data-asset-id=\"1c64e667-57e5-4cae-afea-4875977d15bc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p><span> <span data-inline-latex=\"\\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-8)^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-2^{3})^{2}}\\ge 0\\le \\frac{(x-1)^{2}(x+1)}{(x^{2}-3)^{2}}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x-1)^{2}(x+1)}{(x-\\sqrt{3})^{2}(x+\\sqrt{3})^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\sqrt{3}\\\\-\\sqrt{3}\\lt x\\le -1\\\\x=1\\end{aligned}\\right.\"></span> . </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T17:20:21.266031+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/1c64e667-57e5-4cae-afea-4875977d15bc",
+            "kind": "ordinary_image",
+            "asset_id": "1c64e667-57e5-4cae-afea-4875977d15bc",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}-x^{2}-x+1}{4^{x^{2}}-16\\cdot 2^{x^{2}}+64}\\le 0\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-\\sqrt{3})\\cup (-\\sqrt{3};-1]\\cup \\{1\\}\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84733829\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна 27.05.2025. Центр. Вариант Школково</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Раз­ло­жим на мно­жи­те­ли чис­ли­тель:</p><center><p><span data-inline-latex=\"x^{3}-x^{2}-x+1=x^{2}(x-1)-(x-1)=(x-1)(x^{2}-1)=(x-1)^{2}(x+1)\"></span> ,</p></center><p> Вы­ра­же­ние в зна­ме­на­те­ле можно пред­ста­вить в виде пол­но­го квад­ра­та:</p><center><p><span data-inline-latex=\"4^{x^{2}}-16\\cdot 2^{x^{2}}+64=(2^{x^{2}}-8)^{2}\"></span> .</p></center><p> Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов и ра­ци­о­на­ли­за­ции, для этого при­ме­ним тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i>  вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><center> <img alt=\"\" data-asset-id=\"1c64e667-57e5-4cae-afea-4875977d15bc\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1c64e667-57e5-4cae-afea-4875977d15bc\"/><p><span> <span data-inline-latex=\"\\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-8)^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-2^{3})^{2}}\\ge 0\\le \\frac{(x-1)^{2}(x+1)}{(x^{2}-3)^{2}}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x-1)^{2}(x+1)}{(x-\\sqrt{3})^{2}(x+\\sqrt{3})^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\sqrt{3}\\\\-\\sqrt{3}\\lt x\\le -1\\\\x=1\\end{aligned}\\right.\"></span> . </span></p></center>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "681197",
+    "task": "681266",
+    "source_answer": "(-\\infty;-\\sqrt{2})\\cup (-\\sqrt{2};-1]\\cup \\{1\\} .",
+    "context": {
+      "problem_id": "d3c5a5b9-5083-4020-9e48-1d52c9ff6ecd",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:25:44.519054+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/b3d8f9af-5264-471b-95da-2599b39edebf",
+              "html": "<img alt=\"\" data-asset-id=\"b3d8f9af-5264-471b-95da-2599b39edebf\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b3d8f9af-5264-471b-95da-2599b39edebf\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "b3d8f9af-5264-471b-95da-2599b39edebf",
+              "position": 4,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}-x^{2}-x+1}{9^{x^{2}}-18\\cdot 3^{x^{2}}+81}\\le 0\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-\\sqrt{2})\\cup (-\\sqrt{2};-1]\\cup \\{1\\}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Раз­ло­жим на мно­жи­те­ли вы­ра­же­ние в чис­ли­те­ле:</p><center><p> <span data-inline-latex=\"x^{3}-x^{2}-x+1=x^{2}(x-1)-(x-1)=(x-1)(x^{2}-1)=(x-1)^{2}(x+1)\"></span> .</p></center><p> Вы­ра­же­ние в зна­ме­на­те­ле яв­ля­ет­ся пол­ным квад­ра­том:</p><center><p> <span data-inline-latex=\"9^{x^{2}}-9\\cdot 3^{x^{2}}+81=(3^{x^{2}}-9)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных <i>a</i> вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим: </p><center> <img alt=\"\" data-asset-id=\"b3d8f9af-5264-471b-95da-2599b39edebf\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p><span> <span data-inline-latex=\"\\frac{(x-1)^{2}(x+1)}{(3^{x^{2}}-9)^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(3^{x^{2}}-3^{2})^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{2(x^{2}-2)^{2}}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x-1)^{2}(x+1)}{(x-\\sqrt{2})^{2}(x+\\sqrt{2})^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\sqrt{2}\\\\-\\sqrt{2}\\lt x\\le -1\\\\x=1\\end{aligned}\\right.\"></span> . </span></p></center>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T17:20:22.660621+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/b3d8f9af-5264-471b-95da-2599b39edebf",
+            "kind": "ordinary_image",
+            "asset_id": "b3d8f9af-5264-471b-95da-2599b39edebf",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}-x^{2}-x+1}{9^{x^{2}}-18\\cdot 3^{x^{2}}+81}\\le 0\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-\\sqrt{2})\\cup (-\\sqrt{2};-1]\\cup \\{1\\}\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84701176\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна 27.05.2025. Санкт-Петербург</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Раз­ло­жим на мно­жи­те­ли вы­ра­же­ние в чис­ли­те­ле:</p><center><p> <span data-inline-latex=\"x^{3}-x^{2}-x+1=x^{2}(x-1)-(x-1)=(x-1)(x^{2}-1)=(x-1)^{2}(x+1)\"></span> .</p></center><p> Вы­ра­же­ние в зна­ме­на­те­ле яв­ля­ет­ся пол­ным квад­ра­том:</p><center><p> <span data-inline-latex=\"9^{x^{2}}-9\\cdot 3^{x^{2}}+81=(3^{x^{2}}-9)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных <i>a</i> вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим: </p><center> <img alt=\"\" data-asset-id=\"b3d8f9af-5264-471b-95da-2599b39edebf\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/b3d8f9af-5264-471b-95da-2599b39edebf\"/><p><span> <span data-inline-latex=\"\\frac{(x-1)^{2}(x+1)}{(3^{x^{2}}-9)^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(3^{x^{2}}-3^{2})^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{2(x^{2}-2)^{2}}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x-1)^{2}(x+1)}{(x-\\sqrt{2})^{2}(x+\\sqrt{2})^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\sqrt{2}\\\\-\\sqrt{2}\\lt x\\le -1\\\\x=1\\end{aligned}\\right.\"></span> . </span></p></center>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "681197",
+    "task": "681273",
+    "source_answer": "(-\\infty;-\\sqrt{3})\\cup (-\\sqrt{3};-1]\\cup \\{1\\} .",
+    "context": {
+      "problem_id": "df025b9b-fc26-4ade-99a6-f4ba3b94abef",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:25:44.845899+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/e3541f41-1ca3-405f-9693-56f281c7325d",
+              "html": "<img alt=\"\" data-asset-id=\"e3541f41-1ca3-405f-9693-56f281c7325d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e3541f41-1ca3-405f-9693-56f281c7325d\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "e3541f41-1ca3-405f-9693-56f281c7325d",
+              "position": 6,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}-x^{2}-x+1}{4^{x^{2}}-16\\cdot 2^{x^{2}}+64}\\le 0\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-\\sqrt{3})\\cup (-\\sqrt{3};-1]\\cup \\{1\\}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Раз­ло­жим на мно­жи­те­ли вы­ра­же­ние в чис­ли­те­ле:</p><center><p> <span data-inline-latex=\"x^{3}-x^{2}-x+1=x^{2}(x-1)-(x-1)=(x-1)(x^{2}-1)=(x-1)^{2}(x+1)\"></span> .</p></center><p> Вы­ра­же­ние в зна­ме­на­те­ле яв­ля­ет­ся пол­ным квад­ра­том:</p><center><p> <span data-inline-latex=\"4^{x^{2}}-8\\cdot 2^{x^{2}}+64=(2^{x^{2}}-8)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i> вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><center><p><span> <span data-inline-latex=\"\\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-4)^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-2^{3})^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(x^{2}-3)^{2}}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x-1)^{2}(x+1)}{(x-\\sqrt{3})^{2}(x+\\sqrt{3})^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\sqrt{3}\\\\-\\sqrt{3}\\lt x\\le -1\\\\x=1\\end{aligned}\\right.\"></span> . </span></p></center><p><img alt=\"\" data-asset-id=\"e3541f41-1ca3-405f-9693-56f281c7325d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T17:20:22.758121+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/e3541f41-1ca3-405f-9693-56f281c7325d",
+            "kind": "ordinary_image",
+            "asset_id": "e3541f41-1ca3-405f-9693-56f281c7325d",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{x^{3}-x^{2}-x+1}{4^{x^{2}}-16\\cdot 2^{x^{2}}+64}\\le 0\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-\\sqrt{3})\\cup (-\\sqrt{3};-1]\\cup \\{1\\}\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84701204\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна 27.05.2025. Санкт-Петербург</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=83520251\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2025</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Раз­ло­жим на мно­жи­те­ли вы­ра­же­ние в чис­ли­те­ле:</p><center><p> <span data-inline-latex=\"x^{3}-x^{2}-x+1=x^{2}(x-1)-(x-1)=(x-1)(x^{2}-1)=(x-1)^{2}(x+1)\"></span> .</p></center><p> Вы­ра­же­ние в зна­ме­на­те­ле яв­ля­ет­ся пол­ным квад­ра­том:</p><center><p> <span data-inline-latex=\"4^{x^{2}}-8\\cdot 2^{x^{2}}+64=(2^{x^{2}}-8)^{2}\"></span> .</p></center><p>Решим не­ра­вен­ство ме­то­дом ин­тер­ва­лов. Для этого ра­ци­о­на­ли­зи­ру­ем не­ра­вен­ство, при­ме­нив тео­ре­му о зна­ках: при по­ло­жи­тель­ных  <i>a</i> вы­ра­же­ния  <span data-inline-latex=\"(a^{b}-a^{c})\"></span>  и  <span data-inline-latex=\"(a-1)(b-c)\"></span>  имеют оди­на­ко­вые знаки. По­лу­чим:</p><center><p><span> <span data-inline-latex=\"\\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-4)^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(2^{x^{2}}-2^{3})^{2}}\\le 0\\iff \\frac{(x-1)^{2}(x+1)}{(x^{2}-3)^{2}}\\le 0\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\frac{(x-1)^{2}(x+1)}{(x-\\sqrt{3})^{2}(x+\\sqrt{3})^{2}}\\le 0\\iff \\left[\\begin{aligned}x\\lt -\\sqrt{3}\\\\-\\sqrt{3}\\lt x\\le -1\\\\x=1\\end{aligned}\\right.\"></span> . </span></p></center><p><img alt=\"\" data-asset-id=\"e3541f41-1ca3-405f-9693-56f281c7325d\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/e3541f41-1ca3-405f-9693-56f281c7325d\"/></p>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

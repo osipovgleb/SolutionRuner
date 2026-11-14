@@ -841,6 +841,17 @@ HANDLERS += (
 
 HANDLERS += (
     HandlerSpec(
+        "exam-exponential-inequality-squared_denominator",
+        "solution_runner.pipelines.equations.exponential_inequality_quadratic_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", "squared_denominator"),),
+        requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.equations.exponential_squared_denominator_figures:required_assets",
+    ),
+)
+
+HANDLERS += (
+    HandlerSpec(
         "exam-exponential-inequality-cube_over_square",
         "solution_runner.pipelines.equations.exponential_inequality_quadratic_planner:build_context_repair_plan",
         inputs=(
