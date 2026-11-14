@@ -71,3 +71,42 @@ GROUPS += (
         "exam-logarithm-inequality-nested",
     ),
 )
+
+GROUPS += (
+    (
+        "642733",
+        "52101c52-4da7-4fe0-a75f-971d6cdfbee1",
+        43,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-factor-base-square",
+    ),
+    (
+        "642420",
+        "fb5af756-42cd-48e9-9422-3d024c3b966d",
+        42,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-factor-three-methods",
+    ),
+    (
+        "484589",
+        "5246900a-8760-4f06-9ea6-b953eea8badd",
+        7,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-factor-sum",
+    ),
+    (
+        "484593",
+        "275fc9a6-3c00-4d04-ab1f-9e4d9eb04ea7",
+        8,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-factor-product",
+    ),
+)

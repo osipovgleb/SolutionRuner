@@ -1,0 +1,62 @@
+{
+  "parents": {
+    "f93d630f3ee152331fd16f305e643d303f6caeaa4d48fca522e541caff593c15": "factor_base_square",
+    "fd4b905794d4b87a85926c9265a27d48a20ad46f800c4c460ec1648c2a4320d0": "factor_sum",
+    "e73a27dffbb3858c3e964f746144f9df837173f6bfe8b294394c586aa52d495a": "factor_three_methods",
+    "b0037c8d1915391316e5c80c774838e15337cadb43aaa28210f4f04f7d680684": "factor_product"
+  },
+  "figures": {
+    "b6dc6d77-bf5c-49f8-a1ed-2dd238a5c906": {
+      "sha256": "b43cbb6fb58f7e76fb5b87e3f467f92271c11a4d328da5f4501677b7f46bc23c",
+      "shareable": true,
+      "stage": {
+        "points": [
+          "-2",
+          "0",
+          "6"
+        ],
+        "poles": [
+          "-2"
+        ],
+        "signs": [
+          1,
+          1,
+          -1,
+          1
+        ],
+        "operator": ">"
+      },
+      "domain": "Union(Interval.open(-oo, -2), Interval.open(2, oo))",
+      "intersection": "Union(Interval.open(-oo, -2), Interval.open(6, oo))"
+    },
+    "59d4ae20-342e-4f36-be5a-916cbc08dd25": {
+      "sha256": "510bc78d7f6c25d8b1a72cbc9fe56c24c5224cc687dd1511816b15dc72193ea8",
+      "shareable": true,
+      "stage": {
+        "points": [
+          "2 - sqrt(3)",
+          "sqrt(3) + 2"
+        ],
+        "poles": [],
+        "signs": [
+          1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "domain": "Union(Interval.open(-oo, -1), Interval.open(2, oo))",
+      "intersection": "Interval.Lopen(2, sqrt(3) + 2)"
+    }
+  },
+  "decorative_assets": {
+    "88cc43ec-bba0-4842-b479-c55a598eb26b": {
+      "sha256": "204282edb6d3d714635a2d497087716d831a2c00eb1078ef455e6e83637a2f48",
+      "asset_key": "image_1"
+    },
+    "bb2b8fbb-239c-4263-a62c-ad9027082a6b": {
+      "sha256": "e3f1e2a71bd39aa57a4fec0c4004d5207b8596f903717856d776fb0b091fd69c",
+      "asset_key": "image_2"
+    }
+  }
+}

@@ -6,6 +6,10 @@ from pathlib import Path
 
 from ..probability.common import UnsupportedCondition
 from .inequality_plan import repair
+from .logarithm_factor_figures import SOURCES as FACTOR_SOURCES
+from .logarithm_factor_figures import chart as factor_chart
+from .logarithm_factor_inequality import analyze as factor_comparison
+from .logarithm_factor_proof import render_product, render_sum
 from .logarithm_nested_inequality import analyze as nested
 from .logarithm_nested_inequality_proof import render as nested_proof
 from .logarithm_product_cancellation_proof import render as cancellation_proof
@@ -16,6 +20,10 @@ from .logarithm_quadratic_inequality_proof import render as quadratic_proof
 from .logarithm_quotient_inequality_figures import SOURCES as QUOTIENT_SOURCES
 from .logarithm_quotient_inequality_figures import chart
 from .logarithm_quotient_inequality_proof import render as quotient_proof
+from .logarithm_square_cancellation_proof import (
+    render_base_square,
+    render_three_methods,
+)
 from .rational_inequality_figures import read_formula, reviewed_asset
 
 SOURCES = json.loads(
@@ -59,6 +67,13 @@ NESTED_SOURCES = json.loads(
     ).read_text()
 )
 PARENTS.update(dict.fromkeys(NESTED_SOURCES["parent_sha256"], "nested"))
+PARENTS.update(FACTOR_SOURCES["parents"])
+FACTOR_RENDERS = {
+    "factor_sum": render_sum,
+    "factor_product": render_product,
+    "factor_base_square": render_base_square,
+    "factor_three_methods": render_three_methods,
+}
 
 
 def substitution_assets(content, condition):
@@ -79,6 +94,23 @@ def build_context_repair_plan(context, *, parent_solution_html="", method="produ
             "the complete reviewed logarithm product parent is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
+    if method in FACTOR_RENDERS:
+        a = factor_comparison(formula)
+        image, keys, changes = factor_chart(content, condition, a, method)
+        html = (
+            FACTOR_RENDERS[method](a, image)
+            if method == "factor_product"
+            else FACTOR_RENDERS[method](a)
+        )
+        return repair(
+            condition,
+            answer,
+            solution,
+            a.answer,
+            html,
+            keys=keys,
+            asset_changes=changes,
+        )
     if method == "nested":
         if content.get("assets"):
             raise UnsupportedCondition(

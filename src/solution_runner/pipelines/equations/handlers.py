@@ -692,6 +692,25 @@ HANDLERS += (
 )
 
 
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-logarithm-inequality-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.equations.logarithm_factor_figures:required_assets"
+        if method == "factor_product"
+        else None,
+    )
+    for method in (
+        "factor_sum",
+        "factor_product",
+        "factor_base_square",
+        "factor_three_methods",
+    )
+)
+
 HANDLERS += (
     HandlerSpec(
         "exam-logarithm-inequality-nested",

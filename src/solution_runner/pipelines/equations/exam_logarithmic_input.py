@@ -40,7 +40,9 @@ def operand(text, index):
     return match.group(), index + match.end()
 
 
-def logarithm(text, index, symbol, *, extended=False, argument_reader=None):
+def logarithm(
+    text, index, symbol, *, extended=False, argument_reader=None, argument_powers=False
+):
     index += 5
     if text[index : index + 1] == "{":
         raw, index = balanced(text, index)
@@ -76,6 +78,18 @@ def logarithm(text, index, symbol, *, extended=False, argument_reader=None):
         raw, index = balanced(text, index + 5)
     else:
         raw, index = operand(text, index)
+    if argument_powers and text[index : index + 1] == "^":
+        index += 1
+        if text[index : index + 1] == "{":
+            exponent, index = balanced(text, index)
+        else:
+            exponent, index = text[index : index + 1], index + 1
+        degree = ScalarParser(exponent).parse()
+        if degree.is_Integer is not True or not 1 <= degree <= 20:
+            raise UnsupportedCondition(
+                "one bounded positive argument power is required"
+            )
+        raw = "(" + raw + ")^{" + str(degree) + "}"
     argument = (
         argument_reader(raw)
         if argument_reader is not None
@@ -86,7 +100,14 @@ def logarithm(text, index, symbol, *, extended=False, argument_reader=None):
     return Atom(base, argument, root, symbol), power, index
 
 
-def read_equation(formula, *, extended=False, radicands=None, argument_reader=None):
+def read_equation(
+    formula,
+    *,
+    extended=False,
+    radicands=None,
+    argument_reader=None,
+    argument_powers=False,
+):
     text = clean(formula.removesuffix("."))
     if text.count("=") != 1 or any(c in text for c in "zwuv"):
         raise UnsupportedCondition("one complete logarithmic equation in x is required")
@@ -103,6 +124,7 @@ def read_equation(formula, *, extended=False, radicands=None, argument_reader=No
             SYMBOLS[len(atoms)],
             extended=extended,
             argument_reader=argument_reader,
+            argument_powers=argument_powers,
         )
         atoms.append(atom)
         text = (
