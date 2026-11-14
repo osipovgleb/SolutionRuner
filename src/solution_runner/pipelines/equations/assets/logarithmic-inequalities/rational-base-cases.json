@@ -1,0 +1,135 @@
+{
+  "parents": [
+    "c094865ab5eb2ae34fbd138f992befdb68d4676e9801756abfd9b861b6e64c63"
+  ],
+  "condition_transcriptions": {
+    "e9c1c10b5aed3c0c1c33b165c55d53a45997deb0e962ad8cf6418d85e3e81c9d": {
+      "before_html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(x^{2})} (\\frac{1}{x}+\\frac{2}{x}^{2})\\le 0\"></span>.</p>",
+      "after_html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(x^{2})} (\\frac{1}{x}+\\frac{2}{x^{2}})\\le 0\"></span>.</p>",
+      "condition_sha256": "e9c1c10b5aed3c0c1c33b165c55d53a45997deb0e962ad8cf6418d85e3e81c9d",
+      "source_problem_id": "508506",
+      "source_url": "https://math-ege.sdamgia.ru/problem?id=508506",
+      "source_svg_sha256": "e3cb4edcdf5be9c9dc4c47772be73b4f4e28c36389914676cbad655767da5fba",
+      "source_evidence": "The exponent 2 is beside denominator x below the fraction line.",
+      "verified_date": "2026-11-14"
+    },
+    "40dc86e3461a33fc0a96202eea69531440b464f5f22ac105b8d4d496c006640d": {
+      "before_html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(x^{2})} (\\frac{2}{x}+\\frac{3}{x}^{2})\\le 0\"></span>.</p>",
+      "after_html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(x^{2})} (\\frac{2}{x}+\\frac{3}{x^{2}})\\le 0\"></span>.</p>",
+      "condition_sha256": "40dc86e3461a33fc0a96202eea69531440b464f5f22ac105b8d4d496c006640d",
+      "source_problem_id": "511557",
+      "source_url": "https://math-ege.sdamgia.ru/problem?id=511557",
+      "source_svg_sha256": "dfa553d5c4b1c64d7c09c6f460e219680bf19ed3d0877bbe568dc193b35667c5",
+      "source_evidence": "The exponent 2 belongs to denominator x, not the complete fraction.",
+      "verified_date": "2026-11-14"
+    }
+  },
+  "figures": {
+    "afa36617-3046-4f1c-a7b3-4204e643cb66": {
+      "asset_key": "image_1",
+      "branch": 0,
+      "sha256": "73b0b006cce826719bad4ea23ee5bb70773855b46c73799d9fc72884abf379a4",
+      "revision": 1,
+      "role": "base_case_row_intersection",
+      "signature": {
+        "sign": 1,
+        "rows": [
+          {
+            "values": "Union(Interval.open(-oo, -sqrt(5)/2 - 1/2), Interval.open(-1/2 + sqrt(5)/2, oo))",
+            "points": [
+              "-sqrt(5)/2 - 1/2",
+              "-1/2 + sqrt(5)/2"
+            ],
+            "closed": [
+              false,
+              false
+            ],
+            "signs": [
+              1,
+              -1,
+              1
+            ],
+            "expression": "x**2 + x - 1",
+            "operator": ">"
+          },
+          {
+            "values": "Union(Interval.Ropen(1/3, 1), Interval.open(1, oo))",
+            "points": [
+              "1/3",
+              "1"
+            ],
+            "closed": [
+              true,
+              false
+            ],
+            "signs": null,
+            "expression": null,
+            "operator": null
+          }
+        ],
+        "intersection": "Union(Interval.open(1, oo), Interval.open(-1/2 + sqrt(5)/2, 1))"
+      }
+    },
+    "63cb8dfa-aa39-4e94-9c31-37d021b6e31a": {
+      "asset_key": "image_2",
+      "branch": 1,
+      "sha256": "a31fad763c5e5d7679b0c7a9c237bfda4334ab1df4eda5ac5037d8cb2a552880",
+      "revision": 1,
+      "role": "base_case_row_intersection",
+      "signature": {
+        "sign": -1,
+        "rows": [
+          {
+            "values": "Interval.open(-sqrt(5)/2 - 1/2, -1/2 + sqrt(5)/2)",
+            "points": [
+              "-sqrt(5)/2 - 1/2",
+              "-1/2 + sqrt(5)/2"
+            ],
+            "closed": [
+              false,
+              false
+            ],
+            "signs": [
+              1,
+              -1,
+              1
+            ],
+            "expression": "x**2 + x - 1",
+            "operator": "<"
+          },
+          {
+            "values": "Union(Interval.open(-oo, -1), Interval.open(0, oo))",
+            "points": [
+              "-1",
+              "0"
+            ],
+            "closed": [
+              false,
+              false
+            ],
+            "signs": [
+              1,
+              -1,
+              1
+            ],
+            "expression": "x**2 + x",
+            "operator": ">"
+          },
+          {
+            "values": "Interval(-oo, 1/3)",
+            "points": [
+              "1/3"
+            ],
+            "closed": [
+              true
+            ],
+            "signs": null,
+            "expression": null,
+            "operator": null
+          }
+        ],
+        "intersection": "Union(Interval.Lopen(0, 1/3), Interval.open(-sqrt(5)/2 - 1/2, -1))"
+      }
+    }
+  }
+}

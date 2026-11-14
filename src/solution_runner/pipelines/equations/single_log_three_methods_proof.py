@@ -18,7 +18,7 @@ from .rational_inequality_proof import RELATION
 from .single_log_three_methods_figures import SOURCES, canonical, chart
 
 
-def case_proof(a, *, above_first=True, heading=True):
+def case_proof(a, *, above_first=True, heading=True, before_case_images=()):
     base_domain = a.domains[0] - sp.FiniteSet(*a.poles)
     cases = base_cases(a.G, a.A, a.operator, base_domain, a.domains[1], bound=a.bound)
     html = (
@@ -27,10 +27,14 @@ def case_proof(a, *, above_first=True, heading=True):
         + "Рассмотрим два случая, сохраняя исходную область определения:</p>"
     )
     html += system(constraints(a))
+    if before_case_images and len(before_case_images) != len(cases):
+        raise UnsupportedCondition("each base case needs exactly one matching chart")
     solutions = []
     for index, (sign, operator, values, allowed, solution) in enumerate(
         reversed(cases) if above_first else cases, 1
     ):
+        if before_case_images:
+            html += before_case_images[index - 1]
         condition = sp.latex(a.G) + ">1" if sign == 1 else "0<" + sp.latex(a.G) + "<1"
         html += "<p>" + ("Первый" if index == 1 else "Второй") + " случай: "
         html += (

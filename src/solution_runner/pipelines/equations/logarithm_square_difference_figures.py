@@ -52,14 +52,24 @@ def required_assets(context):
     )
 
 
-def selection(context, a, index):
+def selection(
+    context,
+    a,
+    index,
+    *,
+    figures=None,
+    keys=KEYS,
+    compatible_fn=compatible,
+    renderer=render,
+):
+    figures = SOURCES["figures"] if figures is None else figures
     content, condition, *_ = read_formula(context)[0]
     if condition.get("asset_keys"):
         raise UnsupportedCondition("the reviewed figures belong only to the solution")
     originals = [
         asset
         for asset in content.get("assets", [])
-        if asset.get("asset_key") not in KEYS
+        if asset.get("asset_key") not in keys
     ]
     if len(originals) > 2 or len({asset.get("asset_id") for asset in originals}) != len(
         originals
@@ -70,7 +80,7 @@ def selection(context, a, index):
     matches = []
     for asset in originals:
         uid = asset.get("asset_id")
-        entry = SOURCES["figures"].get(uid)
+        entry = figures.get(uid)
         shared = (
             isinstance(uid, str)
             and asset.get("asset_key") == "shared_" + uid.replace("-", "")[:16]
@@ -88,7 +98,7 @@ def selection(context, a, index):
             raise UnsupportedCondition(
                 "the complete reviewed source figure identity is required"
             )
-        if not compatible(entry, a, entry["branch"]):
+        if not compatible_fn(entry, a, entry["branch"]):
             raise UnsupportedCondition(
                 "all displayed rows and the final intersection must match the source"
             )
@@ -96,7 +106,7 @@ def selection(context, a, index):
             matches.append(uid)
     if len(matches) > 1:
         raise UnsupportedCondition("a compatible chart needs no duplicate")
-    return (matches[0], None) if matches else (None, render(a, index))
+    return (matches[0], None) if matches else (None, renderer(a, index))
 
 
 def diagram_specs(context):
@@ -109,18 +119,18 @@ def diagram_specs(context):
     return tuple(specs)
 
 
-def charts(context, a, generated):
+def charts(context, a, generated, *, chart_keys=KEYS, selector=selection, alt=ALT):
     html = []
     keys = []
     changes = []
-    for index, key in enumerate(KEYS):
-        uid, svg = selection(context, a, index)
+    for index, key in enumerate(chart_keys):
+        uid, svg = selector(context, a, index)
         if uid is not None and any(v.get("asset_key") == key for v in generated):
             raise UnsupportedCondition("an exact source chart must not be duplicated")
         markup, asset_key, updates = solution_diagrams.image(
             context["normalized_content"],
             key,
-            ALT,
+            alt,
             source_id=uid,
             svg=svg,
             generated=generated,

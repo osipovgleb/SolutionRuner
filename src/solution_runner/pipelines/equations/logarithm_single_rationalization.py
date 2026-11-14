@@ -54,10 +54,14 @@ def analyze(formula):
         raise UnsupportedCondition(
             "complete affine or quadratic polynomial base and argument are required"
         )
+    return solve_parts(G, A, right.value, operator, denominators)
+
+
+def solve_parts(G, A, bound, operator, denominators):
     poles = excluded_points((*denominators, G - 1))
     domains = (comparison(G, ">").solution, comparison(A, ">").solution)
     domain = sp.Intersection(*domains) - sp.FiniteSet(*poles)
-    power = G**right.value
+    power = G**bound
     product = rational(sp.latex((G - 1) * (A - power)) + RELATION[operator] + "0")
     quotient = rational(
         r"\frac{"
@@ -76,7 +80,7 @@ def analyze(formula):
     return SingleLogRationalization(
         G,
         A,
-        right.value,
+        bound,
         operator,
         domains,
         poles,
