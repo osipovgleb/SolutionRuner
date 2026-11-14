@@ -4952,3 +4952,25 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Неравенства, содержащие радикалы",
+        theme_order_index=0,
+        snapshot_theme_id="70deb136-d138-41a5-a386-adad31cf126b",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-radical-inequality-" + method.replace("_", "-"),
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index, method in (
+        ("507582", "31f0909a-e0b7-48a9-ad15-e9579497fb62", 0, "squared_quotient"),
+        ("485951", "247cd949-d3db-4e5a-b106-278b47937f0a", 6, "root_factor"),
+    )
+)

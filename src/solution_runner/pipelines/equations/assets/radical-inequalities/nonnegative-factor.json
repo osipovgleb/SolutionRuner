@@ -1,0 +1,106 @@
+{
+  "parents": {
+    "2f84eaf1f7813ac4a85f7507471442455465eae50bb0567ee97a52f3ec484aff": "squared_quotient",
+    "cbb049e92e97e98c00699e3b48073ef40aca70424346aad4006d238a03a915da": "root_factor"
+  },
+  "figures": {
+    "45d2d373-83fa-49dc-a954-115dba252fec": {
+      "asset_key": "image_1",
+      "sha256": "7f4465e3b1ae0e388ada527809f804c2ef4d671750c0ff49d57386bf1be5f9bc",
+      "method": "squared_quotient",
+      "stage": {
+        "points": [
+          "0",
+          "1",
+          "3"
+        ],
+        "poles": [
+          "0"
+        ],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": ">="
+      },
+      "domain": "Interval(-oo, 5)",
+      "intersection": "Union({2}, Interval.Lopen(0, 1), Interval.Ropen(3, 4), Interval.Lopen(4, 5))"
+    },
+    "58a9aba2-ecac-4f55-a61c-4d765562558a": {
+      "asset_key": "image_1",
+      "sha256": "c32c977929924a302f4d52463e36695467e80ee0813d4824ca98acb526c60c74",
+      "method": "squared_quotient",
+      "stage": {
+        "points": [
+          "0",
+          "1",
+          "4"
+        ],
+        "poles": [
+          "0"
+        ],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": ">="
+      },
+      "domain": "Interval(-oo, 6)",
+      "intersection": "Union({3}, Interval.Lopen(0, 1), Interval.Ropen(4, 5), Interval.Lopen(5, 6))"
+    },
+    "87a18f54-bf62-4452-b902-1b2a48c260a2": {
+      "asset_key": "image_1",
+      "sha256": "7c745e47fd51d8a8f8599e6c953bcca8a66ccd6a1e1c2b9e24fe71f9ab0adbd5",
+      "method": "root_factor",
+      "stage": {
+        "points": [
+          "3",
+          "4",
+          "5"
+        ],
+        "poles": [
+          "3",
+          "4"
+        ],
+        "signs": [
+          1,
+          1,
+          -1,
+          1
+        ],
+        "operator": ">="
+      },
+      "domain": "Interval(0, 6)",
+      "intersection": "Union(Interval.Ropen(0, 3), Interval.open(3, 4), Interval(5, 6))"
+    },
+    "e1f5cea0-61fc-44d8-9da9-7caac83cfa53": {
+      "asset_key": "image_1",
+      "sha256": "df760d136085c27adb8ef58c46d942e5a1a1f0ca38b07494c173ed907b40cab6",
+      "method": "root_factor",
+      "stage": {
+        "points": [
+          "-6",
+          "-5",
+          "-4"
+        ],
+        "poles": [
+          "-5",
+          "-4"
+        ],
+        "signs": [
+          1,
+          -1,
+          1,
+          1
+        ],
+        "operator": ">="
+      },
+      "domain": "Interval(-7, 0)",
+      "intersection": "Union(Interval(-7, -6), Interval.open(-5, -4), Interval.Lopen(-4, 0))"
+    }
+  }
+}

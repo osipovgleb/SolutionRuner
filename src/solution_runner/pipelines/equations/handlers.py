@@ -1149,3 +1149,19 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-radical-inequality-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.radical_inequality_factor_proof:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        options=(("method", method),),
+        diagram_builder="solution_runner.pipelines.equations.radical_inequality_factor_figures:diagram_specs",
+        asset_selector="solution_runner.pipelines.equations.radical_inequality_factor_figures:required_assets",
+        requires_parent_condition_asset=False,
+    )
+    for method in ("squared_quotient", "root_factor")
+)

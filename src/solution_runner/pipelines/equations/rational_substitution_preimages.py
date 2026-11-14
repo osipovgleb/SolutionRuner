@@ -1,13 +1,13 @@
 """Exact rational inverse comparisons with the uncancelled source domain."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import sympy as sp
 
 from ..probability.common import UnsupportedCondition
-from .rational_inequality import analyze
+from .rational_inequality import analyze, interval_signs
 from .rational_inequality_algebraic_methods import original_orientation
-from .rational_inequality_parser import checked
+from .rational_inequality_parser import X, checked
 from .rational_inequality_proof import RELATION
 from .rational_inequality_roots import ordered, real_roots
 
@@ -23,12 +23,24 @@ def excluded_points(denominators):
     return ordered(points)
 
 
-def comparison(value, operator):
+def comparison(value, operator, *, denominators=()):
     value = sp.cancel(checked(value))
     if operator == "=":
         value = checked(value**2)
         operator = "<="
-    return original_orientation(analyze(sp.latex(value) + RELATION[operator] + "0"))
+    stage = original_orientation(analyze(sp.latex(value) + RELATION[operator] + "0"))
+    if not denominators:
+        return stage
+    poles = ordered(set(stage.poles) | set(excluded_points(denominators)))
+    points = ordered(set(stage.zeros) | set(poles))
+    signs, solution = interval_signs(
+        stage.expression, points, stage.sign_operator, poles
+    )
+    denominator = sp.fraction(sp.cancel(stage.expression))[1]
+    holes = tuple(p for p in poles if sp.simplify(denominator.subs(X, p)) != 0)
+    return replace(
+        stage, poles=poles, points=points, signs=signs, solution=solution, holes=holes
+    )
 
 
 @dataclass(frozen=True)

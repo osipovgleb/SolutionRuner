@@ -36,11 +36,14 @@ def required_assets(context):
     )
 
 
-def selection(context, a):
+def selection(context, a, *, key=KEY, figures=None, compatible_fn=None, renderer=None):
+    figures = SOURCES["figures"] if figures is None else figures
+    compatible_fn = compatible if compatible_fn is None else compatible_fn
+    renderer = render if renderer is None else renderer
     content, condition, *_ = read_formula(context)[0]
     if condition.get("asset_keys"):
         raise UnsupportedCondition("the reviewed chart belongs only to the solution")
-    originals = [v for v in content.get("assets", []) if v.get("asset_key") != KEY]
+    originals = [v for v in content.get("assets", []) if v.get("asset_key") != key]
     if len(originals) > 1:
         raise UnsupportedCondition(
             "only one reviewed source intersection chart is supported"
@@ -48,7 +51,7 @@ def selection(context, a):
     matches = []
     for asset in originals:
         uid = asset.get("asset_id")
-        entry = SOURCES["figures"].get(uid)
+        entry = figures.get(uid)
         shared = (
             isinstance(uid, str)
             and asset.get("asset_key") == "shared_" + uid.replace("-", "")[:16]
@@ -62,7 +65,7 @@ def selection(context, a):
             or asset.get("url", "/assets/" + uid if shared else None)
             != "/assets/" + uid
             or uid in condition["html"]
-            or not compatible(entry, a)
+            or not compatible_fn(entry, a)
         ):
             raise UnsupportedCondition(
                 "the complete reviewed chart identity and plotted mathematics must match"
@@ -70,7 +73,7 @@ def selection(context, a):
         matches.append(uid)
     if matches:
         return matches[0], None
-    return None, render(a)
+    return None, renderer(a)
 
 
 def diagram_specs(context):
@@ -79,14 +82,15 @@ def diagram_specs(context):
     return (solution_diagrams.spec(KEY, svg),) if svg is not None else ()
 
 
-def chart(context, a, generated):
-    uid, svg = selection(context, a)
-    if uid is not None and any(v.get("asset_key") == KEY for v in generated):
+def chart(context, a, generated, *, key=KEY, alt=ALT, selector=None):
+    selector = selection if selector is None else selector
+    uid, svg = selector(context, a)
+    if uid is not None and any(v.get("asset_key") == key for v in generated):
         raise UnsupportedCondition("an exact source chart must not be duplicated")
     html, key, changes = solution_diagrams.image(
         context["normalized_content"],
-        KEY,
-        ALT,
+        key,
+        alt,
         source_id=uid,
         svg=svg,
         generated=generated,
