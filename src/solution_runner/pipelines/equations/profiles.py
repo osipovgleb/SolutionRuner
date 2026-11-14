@@ -4994,3 +4994,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "507795",
+        "8d7f9c9a-300e-4cd0-842c-bd4cdf573acd",
+        0,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Показательные выражения и иррациональности",
+        theme_order_index=9,
+        snapshot_theme_id="3e483559-e0a8-4041-93a6-b45a9dd56746",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-exponential-radical-product",
+        rewrite_existing_solution=True,
+    ),
+)

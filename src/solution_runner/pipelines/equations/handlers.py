@@ -1202,3 +1202,17 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-exponential-radical-product",
+        "solution_runner.pipelines.equations.exponential_radical_product_proof:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        diagram_builder="solution_runner.pipelines.equations.exponential_radical_product_figures:diagram_specs",
+        asset_selector="solution_runner.pipelines.equations.exponential_radical_product_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)
