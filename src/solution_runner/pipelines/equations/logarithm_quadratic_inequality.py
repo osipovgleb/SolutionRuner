@@ -22,6 +22,7 @@ class QuadraticLogarithm:
     domain: object
     branches: tuple
     solution: object
+    reciprocal_base: bool = False
 
     @property
     def answer(self):
@@ -88,4 +89,5 @@ def analyze(formula):
         domain,
         parts,
         sp.Union(*(part.solution for part in parts)),
+        any(atom.base != base for atom in atoms),
     )

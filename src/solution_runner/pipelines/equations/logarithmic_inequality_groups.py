@@ -35,3 +35,15 @@ GROUPS += (
         "exam-logarithm-inequality-quadratic",
     ),
 )
+
+GROUPS += (
+    (
+        "509503",
+        "7d10951d-b71f-418e-8ae8-978644f9209c",
+        5,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-quadratic-substitution",
+    ),
+)
