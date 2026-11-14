@@ -4976,3 +4976,21 @@ PROFILES += tuple(
         ("507894", "b15c2ff9-0a2c-43f4-9462-10c2c47a0c43", 3, "difference"),
     )
 )
+
+PROFILES += (
+    _profile(
+        "508540",
+        "f40101b1-caa2-4be4-8ccb-8ba4bfe663bb",
+        1,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Показательные выражения и иррациональности",
+        theme_order_index=9,
+        snapshot_theme_id="3e483559-e0a8-4041-93a6-b45a9dd56746",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-exponential-radical-comparison",
+        rewrite_existing_solution=True,
+    ),
+)
