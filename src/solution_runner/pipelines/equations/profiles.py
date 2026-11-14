@@ -5070,3 +5070,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "507779",
+        "5f4aa271-8b58-4bb1-ad75-a6a1aa5d284c",
+        0,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Логарифмы и иррациональности",
+        theme_order_index=11,
+        snapshot_theme_id="984922a1-4e2e-4f11-9c0e-b1f2fda35988",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithm-radical-quotient",
+        rewrite_existing_solution=True,
+    ),
+)

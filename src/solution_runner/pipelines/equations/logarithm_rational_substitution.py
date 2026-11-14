@@ -157,24 +157,9 @@ def analyze(formula):
     return analyze_transformed(*read_input(formula))
 
 
-def analyze_transformed(base, terms, transformed):
-    stage = rational(transformed)
-    n, d = sp.fraction(stage.original)
-    if (
-        stage.original == 0
-        or max(polynomial(n).degree(), polynomial(d).degree()) > 2
-        or len(stage.poles) > 4
-    ):
-        raise UnsupportedCondition(
-            "a nonzero quadratic rational comparison with bounded exclusions is required"
-        )
-    endpoints = tuple((level, inverse(base, level)) for level in stage.points)
+def solution_images(base, solution):
     sources = []
-    for part in (
-        stage.solution.args
-        if isinstance(stage.solution, sp.Union)
-        else (stage.solution,)
-    ):
+    for part in solution.args if isinstance(solution, sp.Union) else (solution,):
         if part == sp.EmptySet:
             continue
         if isinstance(part, sp.FiniteSet):
@@ -202,6 +187,22 @@ def analyze_transformed(base, terms, transformed):
                 "the substitution needs exact intervals and isolated points"
             )
         images.append((part, image))
+    return images
+
+
+def analyze_transformed(base, terms, transformed):
+    stage = rational(transformed)
+    n, d = sp.fraction(stage.original)
+    if (
+        stage.original == 0
+        or max(polynomial(n).degree(), polynomial(d).degree()) > 2
+        or len(stage.poles) > 4
+    ):
+        raise UnsupportedCondition(
+            "a nonzero quadratic rational comparison with bounded exclusions is required"
+        )
+    endpoints = tuple((level, inverse(base, level)) for level in stage.points)
+    images = solution_images(base, stage.solution)
     domain = sp.Interval.open(0, sp.oo) - sp.FiniteSet(
         *(inverse(base, level) for level in stage.poles)
     )
