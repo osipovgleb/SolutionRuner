@@ -18,14 +18,18 @@ from .rational_inequality_proof import RELATION
 from .single_log_three_methods_figures import SOURCES, canonical, chart
 
 
-def case_proof(a):
+def case_proof(a, *, above_first=True, heading=True):
     base_domain = a.domains[0] - sp.FiniteSet(*a.poles)
     cases = base_cases(a.G, a.A, a.operator, base_domain, a.domains[1], bound=a.bound)
-    html = "<p>Первый способ. Рассмотрим два случая, сохраняя исходную область определения:</p>"
+    html = (
+        "<p>"
+        + ("Первый способ. " if heading else "")
+        + "Рассмотрим два случая, сохраняя исходную область определения:</p>"
+    )
     html += system(constraints(a))
     solutions = []
     for index, (sign, operator, values, allowed, solution) in enumerate(
-        reversed(cases), 1
+        reversed(cases) if above_first else cases, 1
     ):
         condition = sp.latex(a.G) + ">1" if sign == 1 else "0<" + sp.latex(a.G) + "<1"
         html += "<p>" + ("Первый" if index == 1 else "Второй") + " случай: "

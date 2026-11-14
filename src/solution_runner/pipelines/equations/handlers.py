@@ -1365,3 +1365,12 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithm-base-power-cancellation",
+        "solution_runner.pipelines.equations.logarithm_base_power_cancellation_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)
