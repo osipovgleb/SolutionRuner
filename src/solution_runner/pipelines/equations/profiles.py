@@ -5088,3 +5088,25 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Неравенства с модулем",
+        theme_order_index=13,
+        snapshot_theme_id="b48e5469-1b51-468f-b2fc-e350057f890d",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-absolute-inequality-" + method.replace("_", "-"),
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index, method in (
+        ("507667", "bf103279-f28c-4373-bf4e-f2e85c605b94", 0, "squared_quotient"),
+        ("508405", "883a3a0f-0152-4a25-be66-1400b81316fe", 2, "affine_substitution"),
+    )
+)
