@@ -1291,3 +1291,12 @@ HANDLERS += tuple(
     )
     for method in ("reciprocal", "signed_exponent")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-exponential-log-upper-bound",
+        "solution_runner.pipelines.equations.exponential_log_bound_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)

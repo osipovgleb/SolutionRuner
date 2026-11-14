@@ -1,0 +1,392 @@
+[
+  {
+    "group": "484588",
+    "task": "484588",
+    "context": {
+      "problem_id": "40cb9c64-cdf3-4c06-ab05-e21dfc43b3ba",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T02:37:30.333367+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"7^{-\\left|x-3\\right|}\\cdot \\log_2 (6x-x^{2}-7)\\ge 1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T02:37:30.333367+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>По­ка­жем, что наи­боль­шее зна­че­ние левой части не­ра­вен­ства равно 1. Дей­стви­тель­но, </p><center><p><span data-inline-latex=\"0\\lt 7^{-\\left|x-3\\right|}\\le 7^{0}=1\"></span>.</p></center><p>В силу тож­де­ства <span data-inline-latex=\"6x-x^{2}-7=-(x^{2}-6x+9)+2=2-(x-3)^{2}\"></span>  имеем:</p><center><p> <span data-inline-latex=\"\\log_{(2)} (6x-x^{2}-7)=\\log_{(2)} (2-(x-3)^{2})\\le \\log_{(2)} 2=1\"></span> .</p></center><p>По­сколь­ку левая часть не боль­ше 1, а пра­вая равна 1, не­ра­вен­ство вы­пол­не­но тогда и толь­ко тогда, когда оба мно­жи­те­ля равны 1, от­ку­да</p><center><p> <span data-inline-latex=\"\\begin{cases}\\log_2 (2-(x-3)^{2})=1\\\\7^{-\\left|x-3\\right|}=1\\end{cases}\\iff \\begin{cases}2-(x-3)^{2}=2\\\\\\left|x-3\\right|=0\\end{cases}\\iff x=3\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T02:37:30.333367+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T02:37:30.333367+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T02:37:30.333367+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T02:37:30.333367+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T02:37:30.333367+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"7^{-\\left|x-3\\right|}\\cdot \\log_2 (6x-x^{2}-7)\\ge 1\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p>3.</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>По­ка­жем, что наи­боль­шее зна­че­ние левой части не­ра­вен­ства равно 1. Дей­стви­тель­но, </p><center><p><span data-inline-latex=\"0\\lt 7^{-\\left|x-3\\right|}\\le 7^{0}=1\"></span>.</p></center><p>В силу тож­де­ства <span data-inline-latex=\"6x-x^{2}-7=-(x^{2}-6x+9)+2=2-(x-3)^{2}\"></span>  имеем:</p><center><p> <span data-inline-latex=\"\\log_{(2)} (6x-x^{2}-7)=\\log_{(2)} (2-(x-3)^{2})\\le \\log_{(2)} 2=1\"></span> .</p></center><p>По­сколь­ку левая часть не боль­ше 1, а пра­вая равна 1, не­ра­вен­ство вы­пол­не­но тогда и толь­ко тогда, когда оба мно­жи­те­ля равны 1, от­ку­да</p><center><p> <span data-inline-latex=\"\\begin{cases}\\log_2 (2-(x-3)^{2})=1\\\\7^{-\\left|x-3\\right|}=1\\end{cases}\\iff \\begin{cases}2-(x-3)^{2}=2\\\\\\left|x-3\\right|=0\\end{cases}\\iff x=3\"></span>. </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "484588",
+    "task": "507652",
+    "context": {
+      "problem_id": "2767c2f8-997c-4955-8244-a24d0eb22d08",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T02:36:49.435170+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"5^{-\\left|x-2\\right|}\\cdot \\log_2 (4x-x^{2}-2)\\ge 1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T02:36:49.435170+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>По­ка­жем, что наи­боль­шее зна­че­ние левой части не­ра­вен­ства равно 1. Дей­стви­тель­но, </p><center><p><span data-inline-latex=\"0\\lt 5^{-\\left|x-2\\right|}\\le 5^{0}=1\"></span>.</p></center><p>В силу тож­де­ства <span data-inline-latex=\"4x-x^{2}-2=2-(x-2)^{2}\"></span>  имеем:</p><center><p> <span data-inline-latex=\"\\log_{(2)} (4x-x^{2}-2)=\\log_{(2)} (2-(x-2)^{2})\\le \\log_{(2)} 2=1\"></span> .</p></center><p>По­сколь­ку левая часть не боль­ше 1, а пра­вая равна 1, не­ра­вен­ство вы­пол­не­но тогда и толь­ко тогда, когда оба мно­жи­те­ля равны 1, от­ку­да</p><center><p> <span data-inline-latex=\"\\begin{cases}\\log_2 (4x-x^{2}-2)=1\\\\5^{-\\left|x-2\\right|}=1\\end{cases}\\iff \\begin{cases}2-(x-2)^{2}=2\\\\\\left|x-2\\right|=0\\end{cases}\\iff x=2\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T02:36:49.435170+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T02:36:49.435170+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T02:36:49.435170+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T02:36:49.435170+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T02:36:49.435170+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"5^{-\\left|x-2\\right|}\\cdot \\log_2 (4x-x^{2}-2)\\ge 1\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p>2.</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>По­ка­жем, что наи­боль­шее зна­че­ние левой части не­ра­вен­ства равно 1. Дей­стви­тель­но, </p><center><p><span data-inline-latex=\"0\\lt 5^{-\\left|x-2\\right|}\\le 5^{0}=1\"></span>.</p></center><p>В силу тож­де­ства <span data-inline-latex=\"4x-x^{2}-2=2-(x-2)^{2}\"></span>  имеем:</p><center><p> <span data-inline-latex=\"\\log_{(2)} (4x-x^{2}-2)=\\log_{(2)} (2-(x-2)^{2})\\le \\log_{(2)} 2=1\"></span> .</p></center><p>По­сколь­ку левая часть не боль­ше 1, а пра­вая равна 1, не­ра­вен­ство вы­пол­не­но тогда и толь­ко тогда, когда оба мно­жи­те­ля равны 1, от­ку­да</p><center><p> <span data-inline-latex=\"\\begin{cases}\\log_2 (4x-x^{2}-2)=1\\\\5^{-\\left|x-2\\right|}=1\\end{cases}\\iff \\begin{cases}2-(x-2)^{2}=2\\\\\\left|x-2\\right|=0\\end{cases}\\iff x=2\"></span>. </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "484588",
+    "task": "511461",
+    "context": {
+      "problem_id": "8652c122-0673-403b-9c9b-084cd88f564d",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T02:38:14.773448+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"6^{-\\left|x-3\\right|}\\cdot \\log_3 (6x-x^{2}-6)\\ge 1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T02:38:14.773448+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>По­ка­жем, что наи­боль­шее зна­че­ние левой части не­ра­вен­ства равно 1. Дей­стви­тель­но, </p><center><p><span data-inline-latex=\"0\\lt 6^{-\\left|x-3\\right|}\\le 6^{0}=1\"></span>.</p></center><p>В силу тож­де­ства <span data-inline-latex=\"6x-x^{2}-6=3-(x-3)^{2}\"></span>  имеем:</p><center><p> <span data-inline-latex=\"\\log_{(3)} (6x-x^{2}-6)=\\log_{(3)} (3-(x-3)^{2})\\le \\log_{(3)} 3=1\"></span> .</p></center><p>По­сколь­ку левая часть не боль­ше 1, а пра­вая равна 1, не­ра­вен­ство вы­пол­не­но тогда и толь­ко тогда, когда оба мно­жи­те­ля равны 1, от­ку­да</p><center><p> <span data-inline-latex=\"\\begin{cases}\\log_3 (6x-x^{2}-6)=1\\\\6^{-\\left|x-3\\right|}=1\\end{cases}\\iff \\begin{cases}3-(x-3)^{2}=3\\\\\\left|x-3\\right|=0\\end{cases}\\iff x=3\"></span>. </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T02:38:14.773448+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T02:38:14.773448+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T02:38:14.773448+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T02:38:14.773448+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T02:38:14.773448+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"6^{-\\left|x-3\\right|}\\cdot \\log_3 (6x-x^{2}-6)\\ge 1\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p>3.</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>По­ка­жем, что наи­боль­шее зна­че­ние левой части не­ра­вен­ства равно 1. Дей­стви­тель­но, </p><center><p><span data-inline-latex=\"0\\lt 6^{-\\left|x-3\\right|}\\le 6^{0}=1\"></span>.</p></center><p>В силу тож­де­ства <span data-inline-latex=\"6x-x^{2}-6=3-(x-3)^{2}\"></span>  имеем:</p><center><p> <span data-inline-latex=\"\\log_{(3)} (6x-x^{2}-6)=\\log_{(3)} (3-(x-3)^{2})\\le \\log_{(3)} 3=1\"></span> .</p></center><p>По­сколь­ку левая часть не боль­ше 1, а пра­вая равна 1, не­ра­вен­ство вы­пол­не­но тогда и толь­ко тогда, когда оба мно­жи­те­ля равны 1, от­ку­да</p><center><p> <span data-inline-latex=\"\\begin{cases}\\log_3 (6x-x^{2}-6)=1\\\\6^{-\\left|x-3\\right|}=1\\end{cases}\\iff \\begin{cases}3-(x-3)^{2}=3\\\\\\left|x-3\\right|=0\\end{cases}\\iff x=3\"></span>. </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

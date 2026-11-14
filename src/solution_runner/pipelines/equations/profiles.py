@@ -5150,3 +5150,21 @@ PROFILES += tuple(
         ("560732", "4cd11b9b-2b5c-40e5-a27c-fe179ccafdd6", 16, "signed_exponent"),
     )
 )
+
+PROFILES += (
+    _profile(
+        "484588",
+        "ce1dcde5-8aa9-403c-97c1-6b9c3ced2676",
+        2,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Другие неравенства смешанного типа",
+        theme_order_index=14,
+        snapshot_theme_id="fa84ece5-aae6-49e3-8024-71ffe8310355",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-exponential-log-upper-bound",
+        rewrite_existing_solution=True,
+    ),
+)
