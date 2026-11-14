@@ -5,6 +5,7 @@ from fractions import Fraction as F
 from itertools import product
 
 import pytest
+from bs4 import BeautifulSoup
 from test_coordinate_source_samples import CASES, plan
 
 from solution_runner.pipelines.vectors.coordinate_diagrams import (
@@ -65,6 +66,22 @@ def test_undefined_or_nonstandard_angles_fail_closed(a, b):
 
 def _diagram_case():
     return next(c for c in CASES if c["task"] == "644820")
+
+
+@pytest.mark.parametrize("case", [c for c in CASES if c["group"] == "27664"], ids=lambda c: c["task"])
+def test_squared_length_names_the_requested_vector_and_finds_length_first(case):
+    result = plan(case, deepcopy(case["context"]))
+    change = next(t for t in result.transformations if t["transformation_target_id"].startswith("section:solution"))
+    soup = BeautifulSoup(change["value"]["html"], "html.parser")
+    formulas = [s["data-inline-latex"] for s in soup.select("[data-inline-latex]")]
+    expression = r"\overrightarrow{AB}" if case["task"] in {"27664", "654466"} else r"\vec{a}+\vec{b}"
+    norm = rf"\left|{expression}\right|"
+    length = next(i for i, f in enumerate(formulas) if f.startswith(norm + "="))
+    square = next(i for i, f in enumerate(formulas) if f.startswith(norm + "^2="))
+    assert length < square
+    assert formulas[square].endswith("=" + result.answer)
+    assert r"|\vec v|" not in str(formulas)
+    assert all("-(" not in f or "-(-" in f for f in formulas[:length])
 
 
 def test_missing_or_changed_downloaded_svg_cannot_be_used_for_a_plan():

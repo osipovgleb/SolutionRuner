@@ -80,6 +80,8 @@ def test_source_answer_matches_an_independent_plan(case):
     assert parse_rational(result.answer) == expected
     assert context == original
     permitted = ("section:solution", "section:answer")
+    if case["group"] == "27709":
+        permitted += ("asset:image_1",)
     if case["task"] in {"60955", "27727", "27728", "27729"}:
         permitted += ("asset:image_1", "section:condition")
     if case["task"] == "654463":
@@ -120,6 +122,13 @@ def test_prepared_vector_content_is_idempotent(case):
             asset.update(change["value"])
             if change["operation"] == "add":
                 context["normalized_content"]["assets"].append(asset)
+                parent = next(
+                    (s for s in sections if "section:" + s["section_id"] == asset.get("parent_target_id")),
+                    None,
+                )
+                if parent is not None:
+                    parent["asset_keys"].append(asset["asset_key"])
+                    parent["html"] = asset["html"] + parent["html"]
             continue
         section = next(
             (

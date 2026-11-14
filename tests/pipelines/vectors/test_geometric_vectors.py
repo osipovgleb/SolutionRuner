@@ -20,6 +20,26 @@ REPAIRS = json.loads(
 )
 
 
+def test_rectangle_difference_reuses_parent_asset_without_duplicating_it():
+    case = next(c for c in CASES if c["task"] == "60257")
+    context = deepcopy(case["context"])
+    result = plan(case, context)
+    assert result.answer == "13"
+    change, = [t for t in result.transformations if t["transformation_target_id"] == "asset:image_1"]
+    assert change["operation"] == "add"
+    asset = change["value"]
+    assert asset["asset_id"] == "83e55258-af58-415f-8b8b-0dd18e7c596c"
+    assert asset["parent_target_id"] == "section:condition:1"
+    content = context["normalized_content"]
+    content["assets"].append(asset)
+    condition = next(s for s in content["sections"] if s["key"] == "condition")
+    condition["asset_keys"] = ["image_1"]
+    condition["html"] = asset["html"] + condition["html"]
+    repeated = plan(case, context)
+    assert repeated.answer == "13"
+    assert not any(t["transformation_target_id"].startswith("asset:") for t in repeated.transformations)
+
+
 @pytest.mark.parametrize("item,expected", list(zip(REPAIRS, ("6", "14", "32", "29", "18"))))
 def test_group_27711_audited_diagram_repairs(item, expected):
     context = deepcopy(item)

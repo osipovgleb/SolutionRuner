@@ -56,8 +56,10 @@ including Codex App, instead of trying to acquire another writer with
 `thread/resume`. HTTP success is returned only after the owner accepts the new turn. Delivery
 errors are separate from agent failures, remain visible, and do not record an
 undelivered comment as sent. A created ID is saved before admitting the first turn, including when
-admission fails, and native errors are returned to the UI. Creation/name/start
-share one runtime connection. Completion notifications update the linked card.
+admission fails, and native errors are returned to the UI. Creation/name/queue share one runtime connection. Before the first turn starts,
+the dashboard releases its writer with `thread/unsubscribe` and opens the native
+`codex://threads/wake/<id>` entry point. Codex App owns the first turn too; the
+dashboard only reads its completion and never starts it in a private runtime.
 The host running the dashboard owns the task; local and remote hosts are never
 silently mixed. T3 Code has a separate sidebar index: its native-session import
 must point at the same host and Codex home; the transport does not replicate

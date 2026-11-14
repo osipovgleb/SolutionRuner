@@ -138,6 +138,8 @@ class FakeSharedClient:
 
     def request(self, method, params):
         self.calls.append((method, params))
+        if method == "thread/queue/add" and self.fail_turn:
+            raise RuntimeError("model unavailable")
         return {"thread": {"id": self.thread_id}} if method == "thread/start" else {}
 
     def start_turn(self, thread_id, prompt, model, effort):
@@ -186,21 +188,23 @@ def test_list_threads_includes_all_regular_sources_and_pages(monkeypatch, tmp_pa
     assert calls[1][1]["cursor"] == "page-2"
 
 
-def test_creation_uses_one_shared_client_and_persists_before_start(monkeypatch, tmp_path):
+def test_creation_releases_writer_before_desktop_starts_first_turn(monkeypatch, tmp_path):
     client = FakeSharedClient()
     monkeypatch.setattr("solution_runner.dashboard.codex_tasks.shared_client", lambda root: client)
-    completed = Event()
-    assert _create_thread(tmp_path, "123 · Группа\nЗадание", "chosen-model", "high",
-                          lambda *_: completed.set()) == "thread-new"
-    assert completed.wait(1)
-    assert [c[0] for c in client.calls] == ["thread/start", "thread/name/set", "turn/start", "wait"]
+    def wake(thread_id):
+        assert client.calls[-1] == ("thread/unsubscribe", {"threadId": thread_id})
+        client.calls.append(("desktop/wake", thread_id))
+    monkeypatch.setattr("solution_runner.dashboard.codex_tasks._wake_desktop_thread", wake)
+    assert _create_thread(tmp_path, "123 · Группа\nЗадание", "chosen-model", "high") == "thread-new"
+    assert [c[0] for c in client.calls] == ["thread/start", "thread/name/set", "thread/queue/add", "thread/unsubscribe", "desktop/wake"]
     assert client.calls[0][1]["approvalPolicy"] == "never"
     assert client.calls[0][1]["sandbox"] == "danger-full-access"
     assert client.calls[0][1]["config"]["mcp_servers.teacherhelper.default_tools_approval_mode"] == "approve"
     assert client.calls[0][1]["ephemeral"] is False
     assert client.calls[0][1]["model"] == "chosen-model"
     assert client.calls[1][1] == {"threadId": "thread-new", "name": "123 · Группа"}
-    assert client.calls[2] == ("turn/start", "thread-new", "123 · Группа\nЗадание", "chosen-model", "high")
+    assert client.calls[2][1]["input"] == [{"type": "text", "text": "123 · Группа\nЗадание"}]
+    assert client.calls[2][1]["clientUserMessageId"]
 
 
 def test_creation_without_id_never_starts_work(monkeypatch, tmp_path):
@@ -230,3 +234,45 @@ def test_send_message_attaches_local_images_to_native_turn(monkeypatch, tmp_path
     path = tmp_path / 'an image $(literal).png'
     _send_message(tmp_path, 'thread-1', 'look at this', (path,))
     assert calls == [('thread-1', 'look at this', (path,))]
+
+
+def test_desktop_wake_failure_retains_id_and_released_queued_first_turn(monkeypatch, tmp_path):
+    import pytest
+    from solution_runner.dashboard.codex_tasks import CodexTaskStartError
+    client = FakeSharedClient()
+    monkeypatch.setattr('solution_runner.dashboard.codex_tasks.shared_client', lambda _: client)
+    def fail(_):
+        raise RuntimeError('desktop unavailable')
+    monkeypatch.setattr('solution_runner.dashboard.codex_tasks._wake_desktop_thread', fail)
+    created = []
+    with pytest.raises(CodexTaskStartError, match='desktop unavailable') as failure:
+        _create_thread(tmp_path, 'First request', 'gpt-6.1-sol', 'medium', on_created=created.append)
+    assert failure.value.thread_id == 'thread-new'
+    assert created == ['thread-new']
+    assert [c[0] for c in client.calls] == ['thread/start', 'thread/name/set', 'thread/queue/add', 'thread/unsubscribe']
+
+
+def test_background_desktop_followup_is_queued_without_private_start_or_resume(monkeypatch, tmp_path):
+    from solution_runner.dashboard.codex_owner import OwnerUnavailable
+    client = FakeSharedClient()
+    monkeypatch.setattr('solution_runner.dashboard.codex_tasks.shared_client', lambda _: client)
+    def unavailable(*_):
+        raise OwnerUnavailable('no renderer owner')
+    monkeypatch.setattr('solution_runner.dashboard.codex_tasks.send_owner_turn', unavailable)
+    woke = []
+    monkeypatch.setattr('solution_runner.dashboard.codex_tasks._wake_desktop_thread', woke.append)
+    image = tmp_path / 'shot.png'
+    _send_message(tmp_path, 'thread-new', 'Followup', (image,))
+    assert [c[0] for c in client.calls] == ['thread/queue/add']
+    assert client.calls[0][1]['input'] == [{'type': 'text', 'text': 'Followup'}, {'type': 'localImage', 'path': str(image.resolve())}]
+    assert woke == ['thread-new']
+
+
+def test_desktop_completion_monitor_does_not_misclassify_live_rollout_as_interruption(monkeypatch):
+    from solution_runner.dashboard.codex_tasks import _watch_desktop_turn
+    states = iter(['interrupted', 'completed'])
+    client = type('Client', (), {'request': lambda self, method, params: {'thread': {'turns': [{'status': next(states)}]}}})()
+    monkeypatch.setattr('solution_runner.dashboard.codex_tasks.time.sleep', lambda _: None)
+    exits = []
+    _watch_desktop_turn(client, 'thread-new', lambda *args: exits.append(args))
+    assert exits == [('thread-new', 0)]

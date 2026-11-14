@@ -3,9 +3,13 @@
 from __future__ import annotations
 
 import os
+import subprocess
+import sys
+import time
 from pathlib import Path
 from threading import Event, Lock, Thread
 from typing import Any, Callable, Mapping
+from uuid import uuid4
 
 from .codex_transport import shared_client
 from .codex_owner import OwnerUnavailable, send_owner_turn
@@ -76,7 +80,7 @@ def _create_thread(
     on_exit: Callable[[str, int], None] | None = None,
     on_created: Callable[[str], None] | None = None,
 ) -> str:
-    """Create and start one durable task in the shared daemon through T3 transport."""
+    """Prepare a durable task, then let the desktop app own its very first turn."""
     client = shared_client(project_root)
     result = client.request("thread/start", {
         "cwd": str(project_root), "model": model,
@@ -92,14 +96,37 @@ def _create_thread(
     if not thread_id:
         raise RuntimeError("Codex did not create a task")
     try:
-        client.request("thread/name/set", {"threadId": thread_id, "name": prompt.splitlines()[0]})
-        if on_created:
-            on_created(thread_id)
-        turn_id = client.start_turn(thread_id, prompt, model, effort)
+        try:
+            client.request("thread/name/set", {"threadId": thread_id, "name": prompt.splitlines()[0]})
+            if on_created:
+                on_created(thread_id)
+            client.request("thread/queue/add", {
+                "threadId": thread_id,
+                "clientUserMessageId": str(uuid4()),
+                "input": [{"type": "text", "text": prompt}],
+            })
+        finally:
+            # Release even if queue admission fails; never leave a private writer
+            # attached to the empty task while the user retries in the app.
+            client.request("thread/unsubscribe", {"threadId": thread_id})
+        _wake_desktop_thread(thread_id)
     except RuntimeError as exc:
         raise CodexTaskStartError(thread_id, str(exc)) from exc
-    Thread(target=_watch_turn, args=(client, thread_id, turn_id, on_exit), daemon=True).start()
+    if on_exit:
+        Thread(target=_watch_desktop_turn, args=(client, thread_id, on_exit), daemon=True).start()
     return thread_id
+
+
+def _wake_desktop_thread(thread_id: str) -> None:
+    """Use the app's native queued-thread entry point; never run the turn here."""
+    uri = f"codex://threads/wake/{thread_id}"
+    command = ["open", "-g", uri] if sys.platform == "darwin" else ["xdg-open", uri]
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, timeout=20, check=False)
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise RuntimeError(f"Не удалось передать первый запуск Codex App: {exc}") from exc
+    if result.returncode:
+        raise RuntimeError(f"Не удалось открыть Codex App: {(result.stderr or result.stdout).strip()[-300:]}")
 
 
 class CodexTaskStartError(RuntimeError):
@@ -110,13 +137,24 @@ class CodexTaskStartError(RuntimeError):
         self.thread_id = thread_id
 
 
-def _watch_turn(client, thread_id, turn_id, on_exit):
-    try:
-        code = client.wait_turn(turn_id)
-    except RuntimeError:
-        code = 1
-    if on_exit:
-        on_exit(thread_id, code)
+def _watch_desktop_turn(client, thread_id, on_exit):
+    # Read-only polling survives releasing our subscription. A live rollout read
+    # through another client may temporarily look interrupted: do not treat that
+    # as an agent failure or reacquire its writer to inspect it.
+    deadline = time.monotonic() + 24 * 60 * 60
+    while time.monotonic() < deadline:
+        try:
+            result = client.request("thread/read", {"threadId": thread_id, "includeTurns": True})
+            turns = (result.get("thread") or {}).get("turns", [])
+            for turn in reversed(turns):
+                if turn.get("status") in {"completed", "failed"}:
+                    on_exit(thread_id, 0 if turn["status"] == "completed" else 1)
+                    return
+        except RuntimeError:
+            # Delivery/connection failure does not imply that the desktop agent
+            # failed. Its result is still reported by the agent in DashboardStore.
+            return
+        time.sleep(3)
 
 
 def _send_message(
@@ -127,11 +165,14 @@ def _send_message(
     try:
         send_owner_turn(thread_id, prompt, images)
     except OwnerUnavailable:
-        # A newly created task may still be owned by our shared daemon client.
-        # Do not resume it or steal ownership; turn/start succeeds only when loaded.
+        # A task waking in the desktop background may have no renderer IPC owner
+        # yet. Keep its next turn in the native queue instead of becoming a writer.
         inputs = [{"type": "text", "text": prompt}]
         inputs.extend({"type": "localImage", "path": str(path.resolve())} for path in images)
-        shared_client(project_root).request("turn/start", {"threadId": thread_id, "input": inputs})
+        shared_client(project_root).request("thread/queue/add", {
+            "threadId": thread_id, "clientUserMessageId": str(uuid4()), "input": inputs,
+        })
+        _wake_desktop_thread(thread_id)
 
 
 class _SerialMessageSender:
