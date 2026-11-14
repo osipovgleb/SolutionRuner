@@ -5115,7 +5115,7 @@ PROFILES += (
     _profile(
         "508433",
         "eff3a53f-6add-41f6-b7b1-dace94ea5794",
-        3,
+        6,
         catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
         category_key="16",
         theme_title="Неравенства с модулем",
@@ -5127,4 +5127,26 @@ PROFILES += (
         content_rule_key="exam-absolute-inequality-quadratic-comparison",
         rewrite_existing_solution=True,
     ),
+)
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Неравенства с модулем",
+        theme_order_index=13,
+        snapshot_theme_id="b48e5469-1b51-468f-b2fc-e350057f890d",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-absolute-power-" + method.replace("_", "-"),
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index, method in (
+        ("508567", "055a4d51-b68d-4264-8909-6549c5cf1794", 9, "reciprocal"),
+        ("560732", "4cd11b9b-2b5c-40e5-a27c-fe179ccafdd6", 16, "signed_exponent"),
+    )
 )

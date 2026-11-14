@@ -1280,3 +1280,14 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-absolute-power-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.absolute_power_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        requires_parent_condition_asset=False,
+    )
+    for method in ("reciprocal", "signed_exponent")
+)
