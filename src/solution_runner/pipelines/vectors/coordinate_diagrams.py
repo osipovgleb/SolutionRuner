@@ -117,8 +117,9 @@ def build_context_repair_plan(context, *, condition_asset_bytes=None):
             Fraction(y) - Fraction(x) for x, y in zip(start, end, strict=True)
         )
         symbol = rf"\overrightarrow{{{name}}}" if len(name) == 2 else rf"\vec{{{name}}}"
+        subtrahends = [f"({x})" if Fraction(x) < 0 else str(x) for x in start]
         html += line(
-            rf"{symbol}=({end[0]}-({start[0]});{end[1]}-({start[1]}))={_fmt(vectors[name])}"
+            rf"{symbol}=({end[0]}-{subtrahends[0]};{end[1]}-{subtrahends[1]})={_fmt(vectors[name])}"
         )
     mode, expression = _question(text, vectors)
     result, steps = (

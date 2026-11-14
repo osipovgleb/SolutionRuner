@@ -17,11 +17,13 @@ from solution_runner.pipelines.probability.common import (
 )
 
 from .metric_relations import _VALUE, measure
+from .planner import _asset_transformation
 
 _ASSETS = Path(__file__).with_name("assets")
 _EVIDENCE = json.loads((_ASSETS / "geometry_diagrams.json").read_text())
 _CONSTRUCTION = "bad4a4d9-58e9-4e17-8350-fe93b2d69d41"
 _ALT = "Треугольник ABC достроен до ромба ABDC"
+_RECTANGLE_DIFFERENCE_ASSET = "83e55258-af58-415f-8b8b-0dd18e7c596c"
 _RECTANGLE = re.compile(
     rf"Две стороны (?:изображенного на рисунке )?прямоугольника ABCD равны (?P<a>{_VALUE}) и (?P<b>{_VALUE})\. (?:(?:Диагонали пересекаются в точке O\.)\s*)?(?P<ask>Найдите .+)"
 )
@@ -219,6 +221,21 @@ def _quadrilateral(kind, a, b, mode, expression):
         if identity
         else ""
     )
+    if kind == "rectangle" and expression == "AB-AD":
+        html = (
+            "<p>Вычитание вектора заменим сложением с противоположным вектором, "
+            "а затем поменяем слагаемые местами:</p>"
+            + line(
+                r"\overrightarrow{AB}-\overrightarrow{AD}"
+                r"=\overrightarrow{AB}+\overrightarrow{DA}"
+                r"=\overrightarrow{DA}+\overrightarrow{AB}"
+                r"=\overrightarrow{DB}"
+            )
+            + "<p>По правилу треугольника, если конец первого вектора совпадает "
+            "с началом второго, их сумма соединяет начало первого с концом второго. "
+            "В записи DA + AB общая промежуточная буква A «схлопывается»: "
+            "остаётся DB.</p>"
+        )
     if kind == "rhombus" and target in {"AD", "CB", "AB"}:
         value = sp.sqrt(a * a + b * b) / 2
         html += "<p>Диагонали ромба перпендикулярны и делятся точкой пересечения пополам. Сторона — гипотенуза прямоугольного треугольника с катетами, равными половинам диагоналей:</p>"
@@ -322,6 +339,13 @@ def build_context_repair_plan(context):
         keys = ()
     else:
         value, html, keys = _triangle(content, kind, a, mode, expression)
+    asset_changes = ()
+    # This unnumbered ABCD diagram shows precisely the two vectors in AB-AD.
+    # Side lengths change between tasks; no values in the figure need changing.
+    if kind == "rectangle" and mode == "length" and expression == "AB-AD" and not condition.get("asset_keys"):
+        if any(a.get("asset_key") == "image_1" for a in content.get("assets", [])):
+            raise UnsupportedCondition("the shared rectangle image key is already in use")
+        asset_changes = (_asset_transformation(_RECTANGLE_DIFFERENCE_ASSET, "", replace=False),)
     return solution_diagrams.repair(
-        condition, answer, solution, _exact(value), html, keys
+        condition, answer, solution, _exact(value), html, keys, asset_changes
     )

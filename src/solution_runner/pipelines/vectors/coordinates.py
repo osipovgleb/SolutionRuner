@@ -297,15 +297,21 @@ def solve(vectors, mode, expression):
                 )
             else:
                 square = sum(x * x for x in computed)
-                html += "<p>Квадрат длины — сумма квадратов координат:</p>" + line(
-                    r"|\vec v|^2="
-                    + "+".join("(" + _fmt(x) + ")^2" for x in computed)
-                    + "="
-                    + _fmt(square)
+                norm = rf"\left|{expression}\right|"
+                squares = "+".join(
+                    ("(" + _fmt(x) + ")" if x < 0 else _fmt(x)) + "^2"
+                    for x in computed
                 )
+                root = rf"\sqrt{{{_fmt(square)}}}"
+                html += "<p>Длина вектора равна корню из суммы квадратов его координат:</p>"
+                html += line(norm + r"=\sqrt{x^2+y^2}")
+                html += line(norm + rf"=\sqrt{{{squares}}}=" + root)
                 value = square if mode == "square" else exact_root(square)
                 if mode == "length":
-                    html += line(rf"|\vec v|=\sqrt{{{_fmt(square)}}}={_fmt(value)}")
+                    html += line(norm + "=" + root + "=" + _fmt(value))
+                else:
+                    html += "<p>Следовательно, квадрат длины этого вектора равен:</p>"
+                    html += line(norm + rf"^2=\left({root}\right)^2={_fmt(square)}")
     return format_answer(value), html
 
 
