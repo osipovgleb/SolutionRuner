@@ -56,7 +56,19 @@ def handler():
 
 def plan(context, parent=PARENT):
     context = _with_required_assets(context, handler().key)
-    return handler().plan(PlanInput(context, parent_solution_html=parent))
+    generated = tuple(
+        {
+            **spec,
+            "source_asset_id": "preview-" + spec["sha256"][:16],
+            "url": "/assets/preview-" + spec["sha256"][:16],
+        }
+        for spec in handler().diagram_specs(context)
+    )
+    return handler().plan(
+        PlanInput(
+            context, parent_solution_html=parent, generated_solution_assets=generated
+        )
+    )
 
 
 @pytest.mark.parametrize("row", ROWS, ids=lambda r: r["task"])
@@ -108,18 +120,32 @@ def test_readonly_runtime_and_original_chart_reuse_are_idempotent(row):
     context = deepcopy(row["context"])
     original = deepcopy(context)
     p = plan(context)
-    assert context == original and not handler().diagram_specs(context)
-    asset = context["normalized_content"]["assets"][0]
-    assert p.solution_html.count("<img ") == 1 and asset["asset_id"] in p.solution_html
+    assert context == original and p.solution_html.count("<img ") == 1
     assert all(
-        not t["transformation_target_id"].startswith(("asset:", "section:condition"))
+        not t["transformation_target_id"].startswith("section:condition")
         for t in p.transformations
     )
-    entry = SOURCES["figures"][asset["asset_id"]]
-    assert all(
-        entry[k] == v
-        for k, v in row_signature(analyze(read_formula(context)[1])).items()
-    )
+    if row["task"] == "681304":
+        assert (
+            len(handler().diagram_specs(context)) == 1 and "preview-" in p.solution_html
+        )
+        assert any(
+            t["transformation_target_id"].startswith("asset:")
+            for t in p.transformations
+        )
+    else:
+        assert not handler().diagram_specs(context)
+        asset = context["normalized_content"]["assets"][0]
+        assert asset["asset_id"] in p.solution_html
+        assert all(
+            not t["transformation_target_id"].startswith("asset:")
+            for t in p.transformations
+        )
+        entry = SOURCES["figures"][asset["asset_id"]]
+        assert all(
+            entry[k] == v
+            for k, v in row_signature(analyze(read_formula(context)[1])).items()
+        )
     gateway = ReadOnlyGateway(context)
     result = _prepared_record(
         gateway,
@@ -155,7 +181,11 @@ def test_equal_charts_keep_the_actual_source_and_missing_asset_reuses_existing()
     assert not handler().diagram_specs(ctx)
 
 
-@pytest.mark.parametrize("row", ROWS, ids=lambda r: r["task"])
+@pytest.mark.parametrize(
+    "row",
+    [r for r in ROWS if r["context"]["normalized_content"]["assets"]],
+    ids=lambda r: r["task"],
+)
 def test_foreign_relabelled_and_duplicate_figures_fail_closed(row):
     for field, value in [
         ("asset_id", "unknown"),
@@ -228,3 +258,48 @@ def test_foreign_parent_and_source_answers_do_not_change_calculation():
         if section["key"] in ("answer", "solution"):
             section["html"] = "<p>wrong</p>"
     assert plan(ctx).answer == plan(ROWS[0]["context"]).answer
+
+
+def test_generated_fractional_chart_preserves_all_points_and_multiplicity_captions():
+    import xml.etree.ElementTree as ET
+
+    from solution_runner.pipelines.equations.exponential_squared_denominator_svg import (
+        render as svg,
+    )
+
+    row = next(r for r in ROWS if r["task"] == "681304")
+    a = analyze(read_formula(row["context"])[1])
+    root = ET.fromstring(svg(a.stage))
+    circles = [n for n in root.iter() if n.tag.endswith("circle")]
+    assert [n.get("data-boundary") for n in circles] == list(map(str, a.stage.points))
+    assert [n.get("fill") for n in circles] == [
+        "#FFFFFF",
+        "#000000",
+        "#000000",
+        "#FFFFFF",
+    ]
+    assert len([n for n in root.iter() if n.get("data-pole") is not None]) == 2
+    assert len([n for n in root.iter() if n.get("data-zero") is not None]) == 1
+    assert [
+        int(n.get("data-selected-interval"))
+        for n in root.iter()
+        if n.get("data-selected-interval") is not None
+    ] == [3, 4]
+    assert all(
+        float(n.get("y", "0")) < float(root.get("height"))
+        for n in root.iter()
+        if n.tag.endswith("text")
+    )
+
+
+def test_generated_chart_rejects_labels_that_exceed_source_column_width():
+    from solution_runner.pipelines.equations.exponential_squared_denominator_svg import (
+        render as svg,
+    )
+    from solution_runner.pipelines.equations.rational_inequality import (
+        analyze as rational,
+    )
+
+    a = rational(r"\frac{(x+10000)^2(x-1)}{(x^2-2)^2}\ge0")
+    with pytest.raises(UnsupportedCondition):
+        svg(a)

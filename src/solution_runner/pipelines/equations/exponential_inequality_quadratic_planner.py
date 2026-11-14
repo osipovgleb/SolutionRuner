@@ -99,7 +99,6 @@ PROOFS = {
     "squared_denominator": squared_proof,
     "mixed_substitution": mixed_render,
 }
-REUSED_CHARTS = {"mixed_substitution": chart, "squared_denominator": squared_chart}
 
 
 def build_context_repair_plan(
@@ -121,8 +120,9 @@ def build_context_repair_plan(
             "these reviewed exponential parents have no source diagrams"
         )
     a = ANALYSES[method](formula)
-    if method == "cube_over_square":
-        image, keys, changes = cubic_chart(context, a, generated_solution_assets)
+    if method in ("cube_over_square", "squared_denominator"):
+        selected_chart = cubic_chart if method == "cube_over_square" else squared_chart
+        image, keys, changes = selected_chart(context, a, generated_solution_assets)
         return repair(
             condition,
             answer,
@@ -132,8 +132,8 @@ def build_context_repair_plan(
             keys=keys,
             asset_changes=changes,
         )
-    if method in REUSED_CHARTS:
-        image, keys, changes = REUSED_CHARTS[method](context, a)
+    if method == "mixed_substitution":
+        image, keys, changes = chart(context, a)
         return repair(
             condition,
             answer,
