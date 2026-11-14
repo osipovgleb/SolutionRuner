@@ -215,3 +215,24 @@ GROUPS += (
         "exam-logarithm-inequality-variable-log-reciprocal",
     ),
 )
+
+GROUPS += (
+    (
+        "508510",
+        "392b6c69-bb68-4fc0-8ee3-d039370a889e",
+        7,
+        "Неравенства с логарифмами по переменному основанию",
+        6,
+        "31924b26-1eb2-4fa9-be31-0a36f5ee7e54",
+        "exam-logarithm-inequality-base-cancel-quotient",
+    ),
+    (
+        "508539",
+        "8d920e5a-cc1f-4075-8738-14c99d3e3f86",
+        10,
+        "Неравенства с логарифмами по переменному основанию",
+        6,
+        "31924b26-1eb2-4fa9-be31-0a36f5ee7e54",
+        "exam-logarithm-inequality-increasing-cubic-comparison",
+    ),
+)

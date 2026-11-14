@@ -1042,3 +1042,14 @@ HANDLERS += tuple(
     )
     for method in ("variable_log_product", "variable_log_reciprocal")
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-logarithm-inequality-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.logarithm_variable_comparison_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        requires_parent_condition_asset=False,
+    )
+    for method in ("base_cancel_quotient", "increasing_cubic_comparison")
+)
