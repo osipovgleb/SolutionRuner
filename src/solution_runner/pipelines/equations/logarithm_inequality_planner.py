@@ -12,6 +12,7 @@ from .logarithm_factor_inequality import analyze as factor_comparison
 from .logarithm_factor_proof import render_product, render_sum
 from .logarithm_nested_inequality import analyze as nested
 from .logarithm_nested_inequality_proof import render as nested_proof
+from .logarithm_power_quotient import analyze as power_quotient
 from .logarithm_product_cancellation_proof import render as cancellation_proof
 from .logarithm_product_inequality import analyze
 from .logarithm_product_inequality_proof import render
@@ -20,6 +21,9 @@ from .logarithm_quadratic_inequality_proof import render as quadratic_proof
 from .logarithm_quotient_inequality_figures import SOURCES as QUOTIENT_SOURCES
 from .logarithm_quotient_inequality_figures import chart
 from .logarithm_quotient_inequality_proof import render as quotient_proof
+from .logarithm_rational_comparison_figures import SOURCES as RATIONAL_SOURCES
+from .logarithm_rational_comparison_figures import chart as rational_chart
+from .logarithm_rational_comparison_proof import render as rational_proof
 from .logarithm_square_cancellation_proof import (
     render_base_square,
     render_three_methods,
@@ -68,6 +72,7 @@ NESTED_SOURCES = json.loads(
 )
 PARENTS.update(dict.fromkeys(NESTED_SOURCES["parent_sha256"], "nested"))
 PARENTS.update(FACTOR_SOURCES["parents"])
+PARENTS.update(RATIONAL_SOURCES["parents"])
 FACTOR_RENDERS = {
     "factor_sum": render_sum,
     "factor_product": render_product,
@@ -94,6 +99,22 @@ def build_context_repair_plan(context, *, parent_solution_html="", method="produ
             "the complete reviewed logarithm product parent is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
+    if method in ("quadratic_quotient", "power_quotient"):
+        a = (
+            power_quotient(formula)
+            if method == "power_quotient"
+            else analyze(formula, method="quotient")
+        )
+        image, keys, changes = rational_chart(context, a, method)
+        return repair(
+            condition,
+            answer,
+            solution,
+            a.answer,
+            rational_proof(a, image, method=method),
+            keys=keys,
+            asset_changes=changes,
+        )
     if method in FACTOR_RENDERS:
         a = factor_comparison(formula)
         image, keys, changes = factor_chart(content, condition, a, method)

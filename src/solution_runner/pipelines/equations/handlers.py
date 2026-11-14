@@ -980,3 +980,17 @@ HANDLERS += tuple(
         ("cubic_division", "cubic_diagram_specs"),
     )
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-logarithm-inequality-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.equations.logarithm_rational_comparison_figures:required_assets"
+        if method == "power_quotient"
+        else None,
+    )
+    for method in ("quadratic_quotient", "power_quotient")
+)

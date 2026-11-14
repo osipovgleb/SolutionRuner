@@ -110,3 +110,24 @@ GROUPS += (
         "exam-logarithm-inequality-factor-product",
     ),
 )
+
+GROUPS += (
+    (
+        "520804",
+        "ffdc4062-dc5b-4e4c-afa0-de4c0f2b82a2",
+        12,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-quadratic-quotient",
+    ),
+    (
+        "520908",
+        "33755a8c-4858-46c8-bc91-f56aaf5cffc4",
+        15,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-power-quotient",
+    ),
+)

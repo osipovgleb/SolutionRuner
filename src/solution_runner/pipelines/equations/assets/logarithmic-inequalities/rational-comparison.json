@@ -1,0 +1,161 @@
+{
+  "parents": {
+    "36d33d15d9a453458ce2680099a6a7dff7daf5b91df3cec8f6cdb985893c1573": "quadratic_quotient",
+    "38a8e4f86122ced60711e2509283560d42e1fd1117ff88ba575efa97027bb43f": "power_quotient"
+  },
+  "figures": {
+    "eb5d6489-75ba-4ee1-bb09-50ffc3d19862": {
+      "sha256": "b008f177d26a33a6bcd110366193813414871aa3aa1530060630dd5b475e513a",
+      "shareable": true,
+      "method": "quadratic_quotient",
+      "stage": {
+        "points": [
+          "-12",
+          "-5",
+          "0"
+        ],
+        "poles": [
+          "-5"
+        ],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "domain": "Union(Interval.open(-oo, -5), Interval.open(-35/8, oo))",
+      "intersection": "Union(Interval(-oo, -12), Interval.Lopen(-35/8, 0))",
+      "holes": []
+    },
+    "bdaadbcf-d284-46e1-8ee8-4ea0c4ec21a4": {
+      "sha256": "54a4f0da7827de1ec6b731945fc091008cf7ed29180aea4903510e6b81c86e33",
+      "shareable": true,
+      "method": "quadratic_quotient",
+      "stage": {
+        "points": [
+          "-25/3",
+          "-4",
+          "0"
+        ],
+        "poles": [
+          "-4"
+        ],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "domain": "Union(Interval.open(-oo, -4), Interval.open(-24/7, oo))",
+      "intersection": "Union(Interval(-oo, -25/3), Interval.Lopen(-24/7, 0))",
+      "holes": []
+    },
+    "5720e258-7516-4410-91b5-283a05257a67": {
+      "sha256": "7d9e4738997b9244cc7b2d4f680cb2ca759cfb04583453418b55c40f4867ce7d",
+      "shareable": true,
+      "method": "quadratic_quotient",
+      "stage": {
+        "points": [
+          "-16/3",
+          "-3",
+          "0"
+        ],
+        "poles": [
+          "-3"
+        ],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "domain": "Union(Interval.open(-oo, -3), Interval.open(-5/2, oo))",
+      "intersection": "Union(Interval(-oo, -16/3), Interval.Lopen(-5/2, 0))",
+      "holes": []
+    },
+    "7e6d09bf-6546-4a02-9b88-17ff062bc69c": {
+      "sha256": "36197c0647a9859737eedbf44b4494cc30f495173b7520d0047bd91d7e49269d",
+      "shareable": true,
+      "method": "power_quotient",
+      "stage": {
+        "points": [
+          "-sqrt(2)/2",
+          "1/5",
+          "sqrt(2)/2"
+        ],
+        "poles": [],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": ">="
+      },
+      "domain": "Interval.open(0, 1)",
+      "intersection": "Union(Interval.Lopen(0, 1/5), Interval.Ropen(sqrt(2)/2, 1))",
+      "holes": [
+        "0",
+        "1"
+      ]
+    },
+    "b1a36e30-f836-4fa1-82f2-0927a2353775": {
+      "sha256": "61ef47a320b07e0024c3ffc8028b953d6a2fb0c0aed223a7f4ba47697ed95b49",
+      "shareable": true,
+      "method": "power_quotient",
+      "stage": {
+        "points": [
+          "-sqrt(3)/3",
+          "1/5",
+          "sqrt(3)/3"
+        ],
+        "poles": [],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": ">="
+      },
+      "domain": "Interval.open(0, 3)",
+      "intersection": "Union(Interval.Lopen(0, 1/5), Interval.Ropen(sqrt(3)/3, 3))",
+      "holes": [
+        "0",
+        "3"
+      ]
+    },
+    "c50d7220-8ae1-4345-a0fe-eef8d41290f4": {
+      "sha256": "6818c20633da40fcababd901d9a9e30364e8215b5c0a8818471827c4fcd86d4b",
+      "shareable": true,
+      "method": "power_quotient",
+      "stage": {
+        "points": [
+          "-sqrt(3)/3",
+          "1/4",
+          "sqrt(3)/3"
+        ],
+        "poles": [],
+        "signs": [
+          -1,
+          1,
+          -1,
+          1
+        ],
+        "operator": ">="
+      },
+      "domain": "Interval.open(0, 1)",
+      "intersection": "Union(Interval.Lopen(0, 1/4), Interval.Ropen(sqrt(3)/3, 1))",
+      "holes": [
+        "0",
+        "1"
+      ]
+    }
+  }
+}

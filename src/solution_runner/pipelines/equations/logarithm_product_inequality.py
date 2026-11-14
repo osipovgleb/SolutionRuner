@@ -38,7 +38,7 @@ class ProductComparison:
 
 
 def read_input(formula, method):
-    if method not in ("product", "quotient", "product_cancellation"):
+    if method not in ("product", "quotient", "product_cancellation", "power_quotient"):
         raise UnsupportedCondition("unknown logarithm comparison method")
     raw_arguments = []
 
@@ -69,7 +69,10 @@ def read_input(formula, method):
             "the three logarithms must have the same positive rational base different from one"
         )
     constant = sp.expand(
-        expression - atoms[0].symbol + atoms[1].symbol + atoms[2].symbol
+        expression
+        - (2 if method == "power_quotient" else 1) * atoms[0].symbol
+        + atoms[1].symbol
+        + atoms[2].symbol
     )
     if method == "product_cancellation":
         constant = sp.expand(
@@ -114,9 +117,13 @@ def transformed(arguments, base, operator, method, constant=sp.S.Zero):
                 "the reviewed arguments must be affine or quadratic"
             )
     else:
-        if polynomial(arguments[1]).degree() != 1:
+        middle = polynomial(arguments[1])
+        if middle.degree() not in (1, 2) or (
+            middle.degree() == 2
+            and comparison(arguments[1], ">").solution != sp.S.Reals
+        ):
             raise UnsupportedCondition(
-                "the quotient method needs an affine positive middle argument"
+                "the quotient method needs an affine or everywhere positive quadratic middle argument"
             )
         for argument in arguments:
             n, d = sp.fraction(sp.cancel(argument))
