@@ -113,10 +113,12 @@ def branch_preparation(a):
     )
 
 
-def return_branch(a, b):
+def return_branch(a, b, *, variable="t"):
     actual = power(a.base, a.exponent)
     text = r",\quad ".join(
-        "t" + ("=" if c.operator == "=" else RELATION[c.operator]) + sp.latex(c.bound)
+        variable
+        + ("=" if c.operator == "=" else RELATION[c.operator])
+        + sp.latex(c.bound)
         for c in b.conditions
     )
     html = "<p>При " + inline(text) + " получим:</p>"

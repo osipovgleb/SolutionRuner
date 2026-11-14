@@ -260,3 +260,27 @@ GROUPS += (
         "exam-rational-exponential-cubic_division",
     ),
 )
+
+GROUPS += (
+    (
+        "508319",
+        "5a2ec32d-4e53-4063-b894-3ee78d64d5fe",
+        0,
+        "Неравенства рациональные относительно показательной функции",
+        3,
+        "ff7ed10b-fcbb-4db1-907f-a3b17a270749",
+        "exam-exponential-inequality-symmetric_reciprocal",
+    ),
+)
+
+GROUPS += (
+    (
+        "513100",
+        "2baf4ae2-bacf-47c9-9f29-f64ac4247c86",
+        9,
+        "Неравенства рациональные относительно показательной функции",
+        3,
+        "ff7ed10b-fcbb-4db1-907f-a3b17a270749",
+        "exam-exponential-inequality-nested_reciprocal",
+    ),
+)

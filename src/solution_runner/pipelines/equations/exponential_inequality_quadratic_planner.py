@@ -16,6 +16,10 @@ from .exponential_inequality_quadratic import analyze_quadratic
 from .exponential_inequality_quadratic_proof import METHODS, render
 from .exponential_inequality_reduction_proof import RENDERS
 from .exponential_inequality_reductions import ANALYSES as REDUCTIONS
+from .exponential_nested_reciprocal import analyze as nested_reciprocal
+from .exponential_nested_reciprocal_proof import render as nested_proof
+from .exponential_reciprocal_sum import analyze as reciprocal_sum
+from .exponential_reciprocal_sum import render as reciprocal_proof
 from .inequality_plan import repair
 from .mixed_substitution_figures import SOURCES as MIXED_SOURCES
 from .mixed_substitution_figures import chart
@@ -59,10 +63,34 @@ ANALYSES = {
     **dict.fromkeys(PREIMAGE_METHODS, quadratic_exponent),
     **FACTORIZATIONS,
     "mixed_substitution": mixed_model,
+    "symmetric_reciprocal": reciprocal_sum,
+    "nested_reciprocal": nested_reciprocal,
 }
+SOURCES.update(
+    json.loads(
+        (
+            Path(__file__).parent
+            / "assets/exponential-inequalities/reciprocal-sums.json"
+        ).read_text()
+    )
+)
 SOURCES.update(MIXED_SOURCES["parents"])
+SOURCES.update(
+    json.loads(
+        (
+            Path(__file__).parent
+            / "assets/exponential-inequalities/nested-reciprocal.json"
+        ).read_text()
+    )
+)
 SOURCES.update(CUBIC_SOURCES["parents"])
-PROOFS = {**RENDERS, **PREIMAGE_RENDERS, **FACTORIZATION_PROOFS}
+PROOFS = {
+    **RENDERS,
+    **PREIMAGE_RENDERS,
+    **FACTORIZATION_PROOFS,
+    "symmetric_reciprocal": reciprocal_proof,
+    "nested_reciprocal": nested_proof,
+}
 
 
 def build_context_repair_plan(

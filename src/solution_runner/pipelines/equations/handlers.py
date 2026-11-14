@@ -795,7 +795,13 @@ HANDLERS += tuple(
         options=(("method", method),),
         requires_parent_condition_asset=False,
     )
-    for method in ("homogeneous", "grouped_product", "collected_power")
+    for method in (
+        "homogeneous",
+        "grouped_product",
+        "collected_power",
+        "symmetric_reciprocal",
+        "nested_reciprocal",
+    )
 )
 
 

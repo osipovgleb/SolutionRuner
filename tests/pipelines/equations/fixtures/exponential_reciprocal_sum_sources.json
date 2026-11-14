@@ -1,0 +1,557 @@
+[
+  {
+    "group": "508319",
+    "task": "508319",
+    "source_answer": "\\{0\\} .",
+    "context": {
+      "problem_id": "85fe0eee-be01-4c20-984f-034773d6c15c",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 11,
+        "items": [
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"25^{x}+5^{x+1}+5^{1-x}+\\frac{1}{25^{x}}\\le 12\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"\\{0\\}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Пе­ре­пи­шем не­ра­вен­ство в виде <span data-inline-latex=\"\\left(25^x+\\frac{1}{25^x}\\right)+5\\left(5^x+\\frac{1}{5^x}\\right)\\leq 12\"></span> и по­ло­жим <span data-inline-latex=\"5^{x}+\\frac{1}{5^{x}}=t\"></span>.  </p><p>Тогда <span data-inline-latex=\"25^{x}+\\frac{1}{25^{x}}+2=t^{2}\"></span>  и, зна­чит, <span data-inline-latex=\"25^{x}+\\frac{1}{25^{x}}=t^{2}-2\"></span>. </p><p>Далее имеем: <span data-inline-latex=\"t^{2}+5t-14\\le 0\\iff -7\\le t\\le 2\"></span>, от­ку­да  <span data-inline-latex=\"-7\\le 5^{x}+\\frac{1}{5^{x}}\\le 2\\iff 5^{x}=1\\iff x=0\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T10:45:11.182562+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"25^{x}+5^{x+1}+5^{1-x}+\\frac{1}{25^{x}}\\le 12\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"\\{0\\}\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=6553091\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ по математике Санкт-Петербург 2015. Вариант 1</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Пе­ре­пи­шем не­ра­вен­ство в виде <span data-inline-latex=\"\\left(25^x+\\frac{1}{25^x}\\right)+5\\left(5^x+\\frac{1}{5^x}\\right)\\leq 12\"></span> и по­ло­жим <span data-inline-latex=\"5^{x}+\\frac{1}{5^{x}}=t\"></span>.  </p><p>Тогда <span data-inline-latex=\"25^{x}+\\frac{1}{25^{x}}+2=t^{2}\"></span>  и, зна­чит, <span data-inline-latex=\"25^{x}+\\frac{1}{25^{x}}=t^{2}-2\"></span>. </p><p>Далее имеем: <span data-inline-latex=\"t^{2}+5t-14\\le 0\\iff -7\\le t\\le 2\"></span>, от­ку­да  <span data-inline-latex=\"-7\\le 5^{x}+\\frac{1}{5^{x}}\\le 2\\iff 5^{x}=1\\iff x=0\"></span>. </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508319",
+    "task": "511507",
+    "source_answer": "\\{0\\} .",
+    "context": {
+      "problem_id": "9e1774ab-6c76-4413-8baa-49fa081d5faa",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 11,
+        "items": [
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"9^{x}+3^{x+1}+3^{1-x}+\\frac{1}{9^{x}}\\le 8\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"\\{0\\}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Пе­ре­пи­шем не­ра­вен­ство в виде <span data-inline-latex=\"\\left(9^x+\\frac{1}{9^x}\\right)+3\\left(3^x+\\frac{1}{3^x}\\right)\\le 8\"></span> и по­ло­жим <span data-inline-latex=\"3^{x}+\\frac{1}{3^{x}}=t\"></span>.  </p><p>Тогда <span data-inline-latex=\"9^{x}+\\frac{1}{9^{x}}+2=t^{2}\"></span>  и, зна­чит, <span data-inline-latex=\"9^{x}+\\frac{1}{9^{x}}=t^{2}-2\"></span>. </p><p>Далее имеем: <span data-inline-latex=\"t^{2}+3t-10\\le 0\\iff -5\\le t\\le 2\"></span>, от­ку­да  <span data-inline-latex=\"-5\\le 3^{x}+\\frac{1}{3^{x}}\\le 2\\iff 3^{x}=1\\iff x=0\"></span>. </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T10:45:51.159750+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"9^{x}+3^{x+1}+3^{1-x}+\\frac{1}{9^{x}}\\le 8\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"\\{0\\}\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Пе­ре­пи­шем не­ра­вен­ство в виде <span data-inline-latex=\"\\left(9^x+\\frac{1}{9^x}\\right)+3\\left(3^x+\\frac{1}{3^x}\\right)\\le 8\"></span> и по­ло­жим <span data-inline-latex=\"3^{x}+\\frac{1}{3^{x}}=t\"></span>.  </p><p>Тогда <span data-inline-latex=\"9^{x}+\\frac{1}{9^{x}}+2=t^{2}\"></span>  и, зна­чит, <span data-inline-latex=\"9^{x}+\\frac{1}{9^{x}}=t^{2}-2\"></span>. </p><p>Далее имеем: <span data-inline-latex=\"t^{2}+3t-10\\le 0\\iff -5\\le t\\le 2\"></span>, от­ку­да  <span data-inline-latex=\"-5\\le 3^{x}+\\frac{1}{3^{x}}\\le 2\\iff 3^{x}=1\\iff x=0\"></span>. </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508319",
+    "task": "517423",
+    "source_answer": "0.",
+    "context": {
+      "problem_id": "a5375051-a07d-4e25-ba91-dbe9d2cce084",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:<span data-inline-latex=\"9^{x}+3^{x+1}+3^{1-x}+\\frac{1}{9^{x}}\\le 8\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>По­ло­жив <span data-inline-latex=\"t=3^{x}\\gt 0\"></span>, по­лу­ча­ем не­ра­вен­ство <span data-inline-latex=\"t^{2}+3t+\\frac{3}{t}+\\frac{1}{t^{2}}\\le 8\"></span>  или  <span data-inline-latex=\"(t^{^{2}}+\\frac{1}{t^{2}})+3(t+\\frac{1}{t})\\le 8\"></span>.  Пусть те­перь <span data-inline-latex=\"y=t+\\frac{1}{t}\\gt 0\"></span>,  тогда <span data-inline-latex=\"t^{^{2}}+\\frac{1}{t^{2}}=(t+\\frac{1}{t})^{2}-2=y^{2}-2\"></span>  и дан­ное не­ра­вен­ство при­ни­ма­ет вид <span data-inline-latex=\"y^{2}+3y-10\\le 0\"></span>. Решая по­след­нее не­ра­вен­ство, на­хо­дим  <span data-inline-latex=\"-5\\le y\\le 2\"></span>. Учи­ты­вая усло­вие <span data-inline-latex=\"y\\gt 0\"></span>, по­лу­ча­ем <span data-inline-latex=\"0\\lt t+\\frac{1}{t}\\le 2\"></span>,  от­ку­да <span data-inline-latex=\"t=1\"></span>, <span data-inline-latex=\"3^{x}=1\"></span>, <span data-inline-latex=\"x=0\"></span>.</p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_11"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_12"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_13"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T10:45:51.236947+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:<span data-inline-latex=\"9^{x}+3^{x+1}+3^{1-x}+\\frac{1}{9^{x}}\\le 8\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p>0.</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>По­ло­жив <span data-inline-latex=\"t=3^{x}\\gt 0\"></span>, по­лу­ча­ем не­ра­вен­ство <span data-inline-latex=\"t^{2}+3t+\\frac{3}{t}+\\frac{1}{t^{2}}\\le 8\"></span>  или  <span data-inline-latex=\"(t^{^{2}}+\\frac{1}{t^{2}})+3(t+\\frac{1}{t})\\le 8\"></span>.  Пусть те­перь <span data-inline-latex=\"y=t+\\frac{1}{t}\\gt 0\"></span>,  тогда <span data-inline-latex=\"t^{^{2}}+\\frac{1}{t^{2}}=(t+\\frac{1}{t})^{2}-2=y^{2}-2\"></span>  и дан­ное не­ра­вен­ство при­ни­ма­ет вид <span data-inline-latex=\"y^{2}+3y-10\\le 0\"></span>. Решая по­след­нее не­ра­вен­ство, на­хо­дим  <span data-inline-latex=\"-5\\le y\\le 2\"></span>. Учи­ты­вая усло­вие <span data-inline-latex=\"y\\gt 0\"></span>, по­лу­ча­ем <span data-inline-latex=\"0\\lt t+\\frac{1}{t}\\le 2\"></span>,  от­ку­да <span data-inline-latex=\"t=1\"></span>, <span data-inline-latex=\"3^{x}=1\"></span>, <span data-inline-latex=\"x=0\"></span>.</p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]
