@@ -1266,3 +1266,17 @@ HANDLERS += tuple(
     )
     for method in ("squared_quotient", "affine_substitution")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-absolute-inequality-quadratic-comparison",
+        "solution_runner.pipelines.equations.absolute_quadratic_proof:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        diagram_builder="solution_runner.pipelines.equations.absolute_quadratic_figures:diagram_specs",
+        asset_selector="solution_runner.pipelines.equations.absolute_quadratic_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)

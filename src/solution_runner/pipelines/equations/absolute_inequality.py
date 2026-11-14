@@ -11,7 +11,7 @@ from .rational_inequality import set_latex
 from .rational_inequality_parser import X, polynomial
 from .rational_substitution_preimages import comparison, excluded_points
 
-METHODS = ("squared_quotient", "affine_substitution")
+METHODS = ("squared_quotient", "affine_substitution", "quadratic_comparison")
 
 
 def absolute_comparison(argument, operator, bound):
@@ -157,8 +157,48 @@ def analyze(formula, method):
             "a reviewed absolute-inequality parent method is required"
         )
     args = read(formula)
-    return (
-        squared_quotient(*args)
-        if method == "squared_quotient"
-        else affine_substitution(*args)
+    return {
+        "squared_quotient": squared_quotient,
+        "affine_substitution": affine_substitution,
+        "quadratic_comparison": quadratic_comparison,
+    }[method](*args)
+
+
+def quadratic_comparison(left, right, operator, symbol, argument, poles):
+    if (
+        operator != ">="
+        or left.kind != "absolute"
+        or left.value != symbol
+        or polynomial(argument).degree() != 2
+        or right.value.has(symbol)
+        or polynomial(right.value).degree() != 2
+        or poles
+    ):
+        raise UnsupportedCondition(
+            "the parent compares one whole quadratic modulus with a quadratic without source poles"
+        )
+    _, solution = absolute_comparison(argument, operator, right.value)
+    branches = []
+    for value in (right.value - argument, right.value + argument):
+        q = polynomial(value)
+        if q.degree() != 2 or q.LC() <= 0:
+            raise UnsupportedCondition(
+                "both parent branches must be upward quadratic comparisons"
+            )
+        stage = comparison(q.monic().as_expr(), "<=")
+        if not isinstance(stage.solution, sp.Interval) or len(stage.points) != 2:
+            raise UnsupportedCondition(
+                "the reviewed chart needs two distinct roots in each quadratic branch"
+            )
+        branches.append(stage)
+    return AbsoluteInequality(
+        "quadratic_comparison",
+        argument,
+        right.value,
+        sp.Integer(1),
+        (),
+        tuple(branches),
+        None,
+        poles,
+        solution,
     )

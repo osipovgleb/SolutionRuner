@@ -5110,3 +5110,21 @@ PROFILES += tuple(
         ("508405", "883a3a0f-0152-4a25-be66-1400b81316fe", 2, "affine_substitution"),
     )
 )
+
+PROFILES += (
+    _profile(
+        "508433",
+        "eff3a53f-6add-41f6-b7b1-dace94ea5794",
+        3,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Неравенства с модулем",
+        theme_order_index=13,
+        snapshot_theme_id="b48e5469-1b51-468f-b2fc-e350057f890d",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-absolute-inequality-quadratic-comparison",
+        rewrite_existing_solution=True,
+    ),
+)
