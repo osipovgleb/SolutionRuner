@@ -302,3 +302,24 @@ GROUPS += (
         "exam-logarithm-inequality-double-substitution",
     ),
 )
+
+GROUPS += (
+    (
+        "508452",
+        "f07b4bc1-5b75-4fd7-affd-118fb3344051",
+        0,
+        "Логарифмические неравенства, разные задачи",
+        8,
+        "6ed5e9b0-e910-4607-99bf-9f9458ff710e",
+        "exam-logarithm-inequality-polynomial-log-reduction",
+    ),
+    (
+        "548385",
+        "f0dc774d-ba3c-4103-96e5-86d27244b382",
+        12,
+        "Логарифмические неравенства, разные задачи",
+        8,
+        "6ed5e9b0-e910-4607-99bf-9f9458ff710e",
+        "exam-logarithm-inequality-polynomial-log-chart",
+    ),
+)

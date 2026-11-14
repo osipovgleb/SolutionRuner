@@ -1104,3 +1104,25 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-logarithm-inequality-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.logarithm_polynomial_product_proof:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        )
+        if method == "polynomial_log_chart"
+        else (("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        diagram_builder="solution_runner.pipelines.equations.logarithm_polynomial_product_figures:diagram_specs"
+        if method == "polynomial_log_chart"
+        else None,
+        asset_selector="solution_runner.pipelines.equations.logarithm_polynomial_product_figures:required_assets"
+        if method == "polynomial_log_chart"
+        else None,
+        requires_parent_condition_asset=False,
+    )
+    for method in ("polynomial_log_reduction", "polynomial_log_chart")
+)
