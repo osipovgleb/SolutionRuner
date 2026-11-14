@@ -51,6 +51,9 @@ class RationalParser(LogarithmParser):
     def _nested(self, text):
         return RationalParser(text, self.denominators, self.depth + 1).parse()
 
+    def _checked(self, value):
+        return checked(value)
+
     def _combine(self, kind, left, right):
         a, b = left.value, right.value
         if kind == "divide":
@@ -63,7 +66,7 @@ class RationalParser(LogarithmParser):
             "multiply": lambda: a * b,
             "divide": lambda: a / b,
         }[kind]()
-        return Node(checked(value), "", kind, (left, right))
+        return Node(self._checked(value), "", kind, (left, right))
 
     def _product(self):
         value = self._factor()
@@ -100,7 +103,10 @@ class RationalParser(LogarithmParser):
                     raise UnsupportedCondition("zero cannot have a nonpositive power")
                 self.denominators.append(value.value)
             value = Node(
-                checked(value.value**exponent.value), "", "power", (value, exponent)
+                self._checked(value.value**exponent.value),
+                "",
+                "power",
+                (value, exponent),
             )
         return value
 

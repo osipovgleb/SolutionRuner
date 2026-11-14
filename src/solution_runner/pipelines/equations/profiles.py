@@ -4934,3 +4934,21 @@ PROFILES += tuple(
         + LOGARITHMIC_INEQUALITY_GROUPS
     )
 )
+
+PROFILES += (
+    _profile(
+        "507612",
+        "85241762-9501-4cea-9e8e-86e159f08539",
+        1,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Неравенства, содержащие радикалы",
+        theme_order_index=0,
+        snapshot_theme_id="70deb136-d138-41a5-a386-adad31cf126b",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-radical-inequality-three-root",
+        rewrite_existing_solution=True,
+    ),
+)

@@ -1135,3 +1135,17 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-radical-inequality-three-root",
+        "solution_runner.pipelines.equations.radical_inequality_comparison_proof:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        diagram_builder="solution_runner.pipelines.equations.radical_inequality_figures:diagram_specs",
+        asset_selector="solution_runner.pipelines.equations.radical_inequality_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)
