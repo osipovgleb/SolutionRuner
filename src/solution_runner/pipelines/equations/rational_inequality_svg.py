@@ -287,7 +287,7 @@ def single_canvas(width, height, layout, variable):
     return root
 
 
-def render_single(a, *, layout="single", variable="x"):
+def render_single(a, *, layout="single", variable="x", fraction_label_offset=0):
     if not 1 <= len(a.points) <= 6:
         raise ValueError("the reviewed single chart needs one to six boundaries")
     width = 214.2621 if layout == "vieta" else 215.3065
@@ -300,6 +300,8 @@ def render_single(a, *, layout="single", variable="x"):
             base_height,
             54.6595 if any(p.is_Integer is not True for p in a.points) else base_height,
         )
+    if any(p.is_Rational is True and not p.is_Integer for p in a.points):
+        height += fraction_label_offset
     y = 18.928
     root = single_canvas(width, height, layout, variable)
     positions = [
@@ -345,6 +347,11 @@ def render_single(a, *, layout="single", variable="x"):
                 else 16.5
                 if point.is_Rational is True
                 else y
+            )
+            + (
+                fraction_label_offset
+                if point.is_Rational is True and not point.is_Integer
+                else 0
             ),
         )
     return ET.tostring(root, encoding="unicode")

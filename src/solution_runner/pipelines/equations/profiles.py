@@ -4972,5 +4972,6 @@ PROFILES += tuple(
     for key, group_id, index, method in (
         ("507582", "31f0909a-e0b7-48a9-ad15-e9579497fb62", 0, "squared_quotient"),
         ("485951", "247cd949-d3db-4e5a-b106-278b47937f0a", 6, "root_factor"),
+        ("507175", "c2eb68b3-2224-4ff5-b72d-95d82ab54619", 7, "even_power"),
     )
 )

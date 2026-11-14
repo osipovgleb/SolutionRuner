@@ -1165,3 +1165,17 @@ HANDLERS += tuple(
     )
     for method in ("squared_quotient", "root_factor")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-radical-inequality-even-power",
+        "solution_runner.pipelines.equations.radical_inequality_even_proof:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        diagram_builder="solution_runner.pipelines.equations.radical_inequality_even_figures:diagram_specs",
+        asset_selector="solution_runner.pipelines.equations.radical_inequality_even_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)
