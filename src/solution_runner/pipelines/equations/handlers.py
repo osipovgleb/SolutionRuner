@@ -1225,3 +1225,14 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-logarithmic-power-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.logarithmic_power_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        requires_parent_condition_asset=False,
+    )
+    for method in ("linear_reciprocity", "square_coordinate")
+)
