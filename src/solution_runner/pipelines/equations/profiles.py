@@ -5222,3 +5222,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "484579",
+        "b05b863d-377d-483e-95c2-8eedcce8a664",
+        0,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Логарифмы и показательные выражения",
+        theme_order_index=10,
+        snapshot_theme_id="d77d13af-fea6-4a1c-b7b5-310900de07e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithm-factored-power-domain",
+        rewrite_existing_solution=True,
+    ),
+)
