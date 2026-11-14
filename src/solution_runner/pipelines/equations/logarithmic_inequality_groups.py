@@ -278,3 +278,15 @@ GROUPS += (
         "exam-logarithm-inequality-single-log-quotient",
     ),
 )
+
+GROUPS += (
+    (
+        "508456",
+        "8e557439-ad81-4638-89d2-f1ef498ca6be",
+        2,
+        "Неравенства с логарифмами по переменному основанию, применение рационализации",
+        7,
+        "ff7e4f27-be00-4a6b-b95a-b5a0a9b2c03b",
+        "exam-logarithm-inequality-reciprocal-sum",
+    ),
+)

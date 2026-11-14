@@ -1086,3 +1086,12 @@ HANDLERS += tuple(
     )
     for method in ("single_log_product", "single_log_quotient")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithm-inequality-reciprocal-sum",
+        "solution_runner.pipelines.equations.logarithm_reciprocal_sum_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)
