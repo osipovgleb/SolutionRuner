@@ -1031,3 +1031,14 @@ HANDLERS += tuple(
     )
     for method in ("ratio_rationalization", "square_denominator")
 )
+
+HANDLERS += tuple(
+    HandlerSpec(
+        "exam-logarithm-inequality-" + method.replace("_", "-"),
+        "solution_runner.pipelines.equations.logarithm_variable_substitution_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", method),),
+        requires_parent_condition_asset=False,
+    )
+    for method in ("variable_log_product", "variable_log_reciprocal")
+)

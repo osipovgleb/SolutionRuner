@@ -154,7 +154,10 @@ class RationalLogSubstitution:
 
 
 def analyze(formula):
-    base, terms, transformed = read_input(formula)
+    return analyze_transformed(*read_input(formula))
+
+
+def analyze_transformed(base, terms, transformed):
     stage = rational(transformed)
     n, d = sp.fraction(stage.original)
     if (

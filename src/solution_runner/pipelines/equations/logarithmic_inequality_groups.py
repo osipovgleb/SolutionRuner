@@ -194,3 +194,24 @@ GROUPS += (
         "exam-logarithm-inequality-square-denominator",
     ),
 )
+
+GROUPS += (
+    (
+        "507635",
+        "4ac08ce5-3814-4cbc-b716-cfa0b13e8dc7",
+        1,
+        "Неравенства с логарифмами по переменному основанию",
+        6,
+        "31924b26-1eb2-4fa9-be31-0a36f5ee7e54",
+        "exam-logarithm-inequality-variable-log-product",
+    ),
+    (
+        "508502",
+        "8023c3e8-8275-4fbf-aa6e-81effc0febee",
+        6,
+        "Неравенства с логарифмами по переменному основанию",
+        6,
+        "31924b26-1eb2-4fa9-be31-0a36f5ee7e54",
+        "exam-logarithm-inequality-variable-log-reciprocal",
+    ),
+)

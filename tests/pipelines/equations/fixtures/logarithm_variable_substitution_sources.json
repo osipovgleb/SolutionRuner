@@ -1,0 +1,1085 @@
+[
+  {
+    "group": "507635",
+    "task": "507635",
+    "method": "variable_log_product",
+    "expected_answer": "(0;1]\\cup(2;8)\\cup(8;32]",
+    "context": {
+      "problem_id": "53e4f659-30c3-461b-ab2c-c59ccdebb34b",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 11,
+        "items": [
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{\\log_2 (2x)\\cdot \\log_{(0{,}5x)} 2}{\\log_{(0{,}125x)} 8}\\le 1\"></span>. </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(0;1]\\cup (2;8)\\cup (8;32]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Левая часть не­ра­вен­ства имеет смысл при <span data-inline-latex=\"x\\gt 0{,}0,\\quad 5x\\ne 1\"></span> и <span data-inline-latex=\"0{,}125x\\ne 1\"></span>, то есть  при <span data-inline-latex=\"x\\gt 0,\\quad x\\ne 2\"></span> и <span data-inline-latex=\"x\\ne 8\"></span>. При этих усло­ви­ях по­лу­ча­ем:</p><center><p><span><span data-inline-latex=\"\\frac{\\log_2(2x)\\cdot\\frac{1}{\\log_2(0{,}5x)}}{\\frac{3}{\\log_2(0{,}125x)}}\\leq 1\\Leftrightarrow\\frac{(\\log_2 2+\\log_2 x)(\\log_2 0{,}125+\\log_2 x)}{\\log_2 0{,}5+\\log_2 x}\\leq 3\\Leftrightarrow\\frac{(\\log_2 x+1)(\\log_2 x-3)}{\\log_2 x-1}\\leq 3.\"></span></span></p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"y=\\log_2 x\"></span>, тогда </p><center><p> <span data-inline-latex=\"\\frac{(y+1)(y-3)}{y-1}\\le 3\\iff \\frac{y(y-5)}{y-1}\\le 0\\iff \\left[\\begin{aligned}y\\le 0\\\\1\\lt y\\le 5\\end{aligned}\\right.\"></span> </p></center><p>От­ку­да <span data-inline-latex=\"0\\lt x\\le 1\"></span> или <span data-inline-latex=\"2\\lt x\\le 32\"></span>. Из по­лу­чен­но­го на­бо­ра нужно ещё ис­клю­чить <nobr>точку 8.</nobr> По­лу­ча­ем <nobr>ответ:  <span data-inline-latex=\"(0;1]\\cup (2;8)\\cup (8;32]\"></span> .</nobr></p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_11"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          },
+          {
+            "at": "2026-10-02T01:30:20.604268+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{\\log_2 (2x)\\cdot \\log_{(0{,}5x)} 2}{\\log_{(0{,}125x)} 8}\\le 1\"></span>. </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(0;1]\\cup (2;8)\\cup (8;32]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Левая часть не­ра­вен­ства имеет смысл при <span data-inline-latex=\"x\\gt 0{,}0,\\quad 5x\\ne 1\"></span> и <span data-inline-latex=\"0{,}125x\\ne 1\"></span>, то есть  при <span data-inline-latex=\"x\\gt 0,\\quad x\\ne 2\"></span> и <span data-inline-latex=\"x\\ne 8\"></span>. При этих усло­ви­ях по­лу­ча­ем:</p><center><p><span><span data-inline-latex=\"\\frac{\\log_2(2x)\\cdot\\frac{1}{\\log_2(0{,}5x)}}{\\frac{3}{\\log_2(0{,}125x)}}\\leq 1\\Leftrightarrow\\frac{(\\log_2 2+\\log_2 x)(\\log_2 0{,}125+\\log_2 x)}{\\log_2 0{,}5+\\log_2 x}\\leq 3\\Leftrightarrow\\frac{(\\log_2 x+1)(\\log_2 x-3)}{\\log_2 x-1}\\leq 3.\"></span></span></p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"y=\\log_2 x\"></span>, тогда </p><center><p> <span data-inline-latex=\"\\frac{(y+1)(y-3)}{y-1}\\le 3\\iff \\frac{y(y-5)}{y-1}\\le 0\\iff \\left[\\begin{aligned}y\\le 0\\\\1\\lt y\\le 5\\end{aligned}\\right.\"></span> </p></center><p>От­ку­да <span data-inline-latex=\"0\\lt x\\le 1\"></span> или <span data-inline-latex=\"2\\lt x\\le 32\"></span>. Из по­лу­чен­но­го на­бо­ра нужно ещё ис­клю­чить <nobr>точку 8.</nobr> По­лу­ча­ем <nobr>ответ:  <span data-inline-latex=\"(0;1]\\cup (2;8)\\cup (8;32]\"></span> .</nobr></p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "507635",
+    "task": "507646",
+    "method": "variable_log_product",
+    "expected_answer": "(0;\\frac{1}{2}]\\cup[1;2)\\cup(2;8)",
+    "context": {
+      "problem_id": "1cc5b4af-a214-4c8b-9cbc-db955dbe76e4",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 11,
+        "items": [
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{\\log_2 (8x)\\cdot \\log_{(0{,}125x)} 2}{\\log_{(0{,}5x)} 16}\\le \\frac{1}{4}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(0;0{,}5]\\cup [1;2)\\cup (2;8)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Левая часть не­ра­вен­ства имеет смысл при <span data-inline-latex=\"x\\gt 0{,}0,\\quad 5x\\ne 1\"></span> и <span data-inline-latex=\"0{,}125x\\ne 1\"></span>, то есть  при <span data-inline-latex=\"x\\gt 0,\\quad x\\ne 2\"></span> и <span data-inline-latex=\"x\\ne 8\"></span>. При этих усло­ви­ях по­лу­ча­ем:</p><center><p><span><span data-inline-latex=\"\\frac{\\log_2(8x)\\cdot\\frac{1}{\\log_2(0{,}125x)}}{\\frac{4}{\\log_2(0{,}5x)}}\\leq\\frac{1}{4}\\Leftrightarrow\\frac{(\\log_2 8+\\log_2 x)(\\log_2 0{,}5+\\log_2 x)}{\\log_2 0{,}125+\\log_2 x}\\leq1\\Leftrightarrow\\frac{(\\log_2 x+3)(\\log_2 x-1)}{\\log_2 x-3}\\leq1.\"></span></span></p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"t=\\log_2 x\"></span>, тогда </p><center><p> <span data-inline-latex=\"\\frac{(t+3)(t-1)}{t-3}\\le 1\\iff \\frac{t(t+1)}{t-3}\\le 0\\iff \\left[\\begin{aligned}t\\le -1\\\\0\\le t\\lt 3\\end{aligned}\\right.\"></span> </p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}0\\lt x\\le 0{,}5\\\\1\\le x\\lt 8\\end{aligned}\\right.\"></span> </p></center><p>Из по­лу­чен­но­го на­бо­ра нужно ещё ис­клю­чить точку 2. Таким об­ра­зом, мно­же­ство ре­ше­ний ис­ход­но­го не­ра­вен­ства:  <span data-inline-latex=\"(0;0{,}5]\\cup [1;2)\\cup (2;8)\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          },
+          {
+            "at": "2026-10-02T01:29:52.389327+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{\\log_2 (8x)\\cdot \\log_{(0{,}125x)} 2}{\\log_{(0{,}5x)} 16}\\le \\frac{1}{4}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(0;0{,}5]\\cup [1;2)\\cup (2;8)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Левая часть не­ра­вен­ства имеет смысл при <span data-inline-latex=\"x\\gt 0{,}0,\\quad 5x\\ne 1\"></span> и <span data-inline-latex=\"0{,}125x\\ne 1\"></span>, то есть  при <span data-inline-latex=\"x\\gt 0,\\quad x\\ne 2\"></span> и <span data-inline-latex=\"x\\ne 8\"></span>. При этих усло­ви­ях по­лу­ча­ем:</p><center><p><span><span data-inline-latex=\"\\frac{\\log_2(8x)\\cdot\\frac{1}{\\log_2(0{,}125x)}}{\\frac{4}{\\log_2(0{,}5x)}}\\leq\\frac{1}{4}\\Leftrightarrow\\frac{(\\log_2 8+\\log_2 x)(\\log_2 0{,}5+\\log_2 x)}{\\log_2 0{,}125+\\log_2 x}\\leq1\\Leftrightarrow\\frac{(\\log_2 x+3)(\\log_2 x-1)}{\\log_2 x-3}\\leq1.\"></span></span></p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"t=\\log_2 x\"></span>, тогда </p><center><p> <span data-inline-latex=\"\\frac{(t+3)(t-1)}{t-3}\\le 1\\iff \\frac{t(t+1)}{t-3}\\le 0\\iff \\left[\\begin{aligned}t\\le -1\\\\0\\le t\\lt 3\\end{aligned}\\right.\"></span> </p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}0\\lt x\\le 0{,}5\\\\1\\le x\\lt 8\\end{aligned}\\right.\"></span> </p></center><p>Из по­лу­чен­но­го на­бо­ра нужно ещё ис­клю­чить точку 2. Таким об­ра­зом, мно­же­ство ре­ше­ний ис­ход­но­го не­ра­вен­ства:  <span data-inline-latex=\"(0;0{,}5]\\cup [1;2)\\cup (2;8)\"></span> . </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "507635",
+    "task": "511459",
+    "method": "variable_log_product",
+    "expected_answer": "(0;2^{-\\sqrt{3}}]\\cup[2^{\\sqrt{3}};4)\\cup(4;8)",
+    "context": {
+      "problem_id": "5a3606a7-b753-4a5c-ad19-58c0879bf792",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 13,
+        "items": [
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{\\log_2 (8x)\\cdot \\log_{(0{,}125x)} 2}{\\log_{(0{,}25x)} 16}\\le \\frac{1}{4}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(0;\\frac{1}{2^{\\sqrt{3}}}]\\cup [2^{\\sqrt{3}};4)\\cup (4;8)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Левая часть не­ра­вен­ства имеет смысл при <span data-inline-latex=\"x\\gt 0{,}0,\\quad 25x\\ne 1\"></span> и <span data-inline-latex=\"0{,}125x\\ne 1\"></span>, то есть  при <span data-inline-latex=\"x\\gt 0,\\quad x\\ne 4\"></span> и <span data-inline-latex=\"x\\ne 8\"></span>. При этих усло­ви­ях по­лу­ча­ем:</p><center><p><span><span data-inline-latex=\"\\frac{\\log_2(8x)\\cdot\\dfrac{1}{\\log_2(0{,}125x)}}{\\dfrac{4}{\\log_2(0{,}25x)}}\\leq\\frac{1}{4}\\Leftrightarrow\\frac{(\\log_2 8+\\log_2 x)(\\log_2 0{,}25+\\log_2 x)}{\\log_2 0{,}125+\\log_2 x}\\leq1\\Leftrightarrow\\frac{(\\log_2 x+3)(\\log_2 x-2)}{\\log_2 x-3}\\leq1.\"></span></span></p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"t=\\log_2 x\"></span>, тогда </p><center><p> <span data-inline-latex=\"\\frac{(t+3)(t-2)}{t-3}\\le 1\\iff \\frac{t^{2}-3}{t-3}\\le 0\\iff \\left[\\begin{aligned}t\\le -\\sqrt{3}\\\\\\sqrt{3}\\le t\\lt 3\\end{aligned}\\right.\"></span> </p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left[\\begin{aligned}0&amp;&lt;x&lt;\\frac{1}{2\\sqrt{3}},\\\\2\\sqrt{3}&amp;\\le x&lt;8.\\end{aligned}\\right]\"></span></p></center><p>Ис­клю­чая из най­ден­ных ре­ше­ний число 4, ле­жа­щее вне об­ла­сти опре­де­ле­ния урав­не­ния, на­хо­дим мно­же­ство ре­ше­ний ис­ход­но­го не­ра­вен­ства:  <span data-inline-latex=\"(0;\\frac{1}{2^{\\sqrt{3}}}]\\cup [2^{\\sqrt{3}};4)\\cup (4;8)\"></span> .  </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T01:30:33.155402+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\frac{\\log_2 (8x)\\cdot \\log_{(0{,}125x)} 2}{\\log_{(0{,}25x)} 16}\\le \\frac{1}{4}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(0;\\frac{1}{2^{\\sqrt{3}}}]\\cup [2^{\\sqrt{3}};4)\\cup (4;8)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Левая часть не­ра­вен­ства имеет смысл при <span data-inline-latex=\"x\\gt 0{,}0,\\quad 25x\\ne 1\"></span> и <span data-inline-latex=\"0{,}125x\\ne 1\"></span>, то есть  при <span data-inline-latex=\"x\\gt 0,\\quad x\\ne 4\"></span> и <span data-inline-latex=\"x\\ne 8\"></span>. При этих усло­ви­ях по­лу­ча­ем:</p><center><p><span><span data-inline-latex=\"\\frac{\\log_2(8x)\\cdot\\dfrac{1}{\\log_2(0{,}125x)}}{\\dfrac{4}{\\log_2(0{,}25x)}}\\leq\\frac{1}{4}\\Leftrightarrow\\frac{(\\log_2 8+\\log_2 x)(\\log_2 0{,}25+\\log_2 x)}{\\log_2 0{,}125+\\log_2 x}\\leq1\\Leftrightarrow\\frac{(\\log_2 x+3)(\\log_2 x-2)}{\\log_2 x-3}\\leq1.\"></span></span></p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"t=\\log_2 x\"></span>, тогда </p><center><p> <span data-inline-latex=\"\\frac{(t+3)(t-2)}{t-3}\\le 1\\iff \\frac{t^{2}-3}{t-3}\\le 0\\iff \\left[\\begin{aligned}t\\le -\\sqrt{3}\\\\\\sqrt{3}\\le t\\lt 3\\end{aligned}\\right.\"></span> </p></center><p>Воз­вра­ща­ясь к ис­ход­ной пе­ре­мен­ной, по­лу­ча­ем:</p><center><p><span data-inline-latex=\"\\left[\\begin{aligned}0&amp;&lt;x&lt;\\frac{1}{2\\sqrt{3}},\\\\2\\sqrt{3}&amp;\\le x&lt;8.\\end{aligned}\\right]\"></span></p></center><p>Ис­клю­чая из най­ден­ных ре­ше­ний число 4, ле­жа­щее вне об­ла­сти опре­де­ле­ния урав­не­ния, на­хо­дим мно­же­ство ре­ше­ний ис­ход­но­го не­ра­вен­ства:  <span data-inline-latex=\"(0;\\frac{1}{2^{\\sqrt{3}}}]\\cup [2^{\\sqrt{3}};4)\\cup (4;8)\"></span> .  </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508502",
+    "task": "508502",
+    "method": "variable_log_reciprocal",
+    "expected_answer": "[\\frac{1}{8};\\frac{1}{4}]\\cup(\\frac{1}{2};\\infty)",
+    "context": {
+      "problem_id": "84de7c59-5ddb-48cf-900a-223d36948bb0",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(2x)} 0{,}25\\le \\log_2 32x-1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[\\frac{1}{8};\\frac{1}{4}]\\cup (\\frac{1}{2};+\\infty)\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что в ОДЗ дан­но­го не­ра­вен­ства вхо­дят все по­ло­жи­тель­ные числа за ис­клю­че­ни­ем  <span data-inline-latex=\"\\frac{1}{2}\"></span> .  Пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p> <span data-inline-latex=\"\\frac{1}{\\log_{(0{,}25)} 2x}\\le \\log_2 32x-1\\iff -\\frac{2}{\\log_2 x+1}\\le \\log_2 x+4\"></span>. </p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=\\log_2 x\"></span>.</p><center><p><span> <span data-inline-latex=\"-\\frac{2}{z+1}\\le z+4\\iff \\frac{z^{2}+5z+6}{z+1}\\ge 0\\iff \\frac{(z+2)(z+3)}{z+1}\\ge 0\\iff \\left[\\begin{aligned}-3\\le z\\le -2\\\\z\\gt -1\\end{aligned}\\right.\"></span> .</span></p></center><p>От­ку­да по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}-3\\le \\log_2 x\\le -2\\\\\\log_2 x\\gt -1\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}\\frac{1}{8}\\le x\\le \\frac{1}{4}\\\\x\\gt \\frac{1}{2}\\end{aligned}\\right.\"></span> . </p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T03:58:56.895339+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(2x)} 0{,}25\\le \\log_2 32x-1\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[\\frac{1}{8};\\frac{1}{4}]\\cup (\\frac{1}{2};+\\infty)\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что в ОДЗ дан­но­го не­ра­вен­ства вхо­дят все по­ло­жи­тель­ные числа за ис­клю­че­ни­ем  <span data-inline-latex=\"\\frac{1}{2}\"></span> .  Пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p> <span data-inline-latex=\"\\frac{1}{\\log_{(0{,}25)} 2x}\\le \\log_2 32x-1\\iff -\\frac{2}{\\log_2 x+1}\\le \\log_2 x+4\"></span>. </p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=\\log_2 x\"></span>.</p><center><p><span> <span data-inline-latex=\"-\\frac{2}{z+1}\\le z+4\\iff \\frac{z^{2}+5z+6}{z+1}\\ge 0\\iff \\frac{(z+2)(z+3)}{z+1}\\ge 0\\iff \\left[\\begin{aligned}-3\\le z\\le -2\\\\z\\gt -1\\end{aligned}\\right.\"></span> .</span></p></center><p>От­ку­да по­лу­ча­ем:</p><center><p> <span data-inline-latex=\"\\left[\\begin{aligned}-3\\le \\log_2 x\\le -2\\\\\\log_2 x\\gt -1\\end{aligned}\\right..\\quad \\iff \\left[\\begin{aligned}\\frac{1}{8}\\le x\\le \\frac{1}{4}\\\\x\\gt \\frac{1}{2}\\end{aligned}\\right.\"></span> . </p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508502",
+    "task": "508504",
+    "method": "variable_log_reciprocal",
+    "expected_answer": "(0;\\frac{1}{8}]\\cup[\\frac{1}{4};\\frac{1}{2})",
+    "context": {
+      "problem_id": "e718ea10-30ab-4cf7-ae83-5c2af98177f8",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(2x)} 0{,}25\\ge \\log_{(2)} 32x-1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(0;\\frac{1}{8}]\\cup [\\frac{1}{4};\\frac{1}{2})\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что в ОДЗ дан­но­го не­ра­вен­ства вхо­дят все по­ло­жи­тель­ные числа за ис­клю­че­ни­ем  <span data-inline-latex=\"\\frac{1}{2}\"></span> .  Пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p> <span data-inline-latex=\"\\frac{1}{\\log_{(0{,}25)} 2x}\\ge \\log_2 32x-1\\iff -\\frac{2}{\\log_2 x+1}\\ge \\log_2 x+4\"></span>. </p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=\\log_2 x\"></span>; имеем:</p><center><p><span> <span data-inline-latex=\"-\\frac{2}{z+1}\\ge z+4\\iff \\frac{z^{2}+5z+6}{z+1}\\le 0\\iff \\frac{(z+2)(z+3)}{z+1}\\le 0\\iff \\left[\\begin{aligned}z\\le -3\\\\-2\\le z\\lt -1\\end{aligned}\\right.\"></span> .</span></p></center><p>Тогда  <span data-inline-latex=\"\\log_2 x\\le -3\"></span> или  <span data-inline-latex=\"-2\\le \\log_2 x\\lt -1\"></span>, от­ку­да по­лу­ча­ем мно­же­ство ре­ше­ний не­ра­вен­ства:  <span data-inline-latex=\"(0;\\frac{1}{8}]\\cup [\\frac{1}{4};\\frac{1}{2})\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T03:59:16.796400+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(2x)} 0{,}25\\ge \\log_{(2)} 32x-1\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(0;\\frac{1}{8}]\\cup [\\frac{1}{4};\\frac{1}{2})\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что в ОДЗ дан­но­го не­ра­вен­ства вхо­дят все по­ло­жи­тель­ные числа за ис­клю­че­ни­ем  <span data-inline-latex=\"\\frac{1}{2}\"></span> .  Пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p> <span data-inline-latex=\"\\frac{1}{\\log_{(0{,}25)} 2x}\\ge \\log_2 32x-1\\iff -\\frac{2}{\\log_2 x+1}\\ge \\log_2 x+4\"></span>. </p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=\\log_2 x\"></span>; имеем:</p><center><p><span> <span data-inline-latex=\"-\\frac{2}{z+1}\\ge z+4\\iff \\frac{z^{2}+5z+6}{z+1}\\le 0\\iff \\frac{(z+2)(z+3)}{z+1}\\le 0\\iff \\left[\\begin{aligned}z\\le -3\\\\-2\\le z\\lt -1\\end{aligned}\\right.\"></span> .</span></p></center><p>Тогда  <span data-inline-latex=\"\\log_2 x\\le -3\"></span> или  <span data-inline-latex=\"-2\\le \\log_2 x\\lt -1\"></span>, от­ку­да по­лу­ча­ем мно­же­ство ре­ше­ний не­ра­вен­ства:  <span data-inline-latex=\"(0;\\frac{1}{8}]\\cup [\\frac{1}{4};\\frac{1}{2})\"></span> . </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "508502",
+    "task": "511556",
+    "method": "variable_log_reciprocal",
+    "expected_answer": "(0;\\frac{1}{2})",
+    "context": {
+      "problem_id": "34745a7a-7907-4983-ae98-85d07bed3834",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(2x)} 0{,}5\\ge \\log_{(2)} 16x-1\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(0;\\frac{1}{2})\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>За­ме­тим, что в ОДЗ дан­но­го не­ра­вен­ства вхо­дят все по­ло­жи­тель­ные числа за ис­клю­че­ни­ем  <span data-inline-latex=\"\\frac{1}{2}\"></span> .  Пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p> <span data-inline-latex=\"\\frac{1}{\\log_{(0{,}5)} 2x}\\ge \\log_2 16x-1\\iff -\\frac{1}{\\log_2 x+1}\\ge \\log_2 x+3\"></span>. </p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=\\log_2 x\"></span>, имеем:</p><center><p> <span data-inline-latex=\"-\\frac{1}{z+1}\\ge z+3\\iff \\frac{z^{2}+4z+4}{z+1}\\le 0\\iff \\frac{(z+2)^{2}}{z+1}\\le 0\\iff z\\lt -1\"></span>.  </p></center><p>Тогда  <span data-inline-latex=\"\\log_2 x\\lt -1\"></span>, от­ку­да по­лу­ча­ем мно­же­ство ре­ше­ний не­ра­вен­ства:  <span data-inline-latex=\"(0;\\frac{1}{2})\"></span> . </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T03:58:19.881570+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_{(2x)} 0{,}5\\ge \\log_{(2)} 16x-1\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(0;\\frac{1}{2})\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>За­ме­тим, что в ОДЗ дан­но­го не­ра­вен­ства вхо­дят все по­ло­жи­тель­ные числа за ис­клю­че­ни­ем  <span data-inline-latex=\"\\frac{1}{2}\"></span> .  Пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p> <span data-inline-latex=\"\\frac{1}{\\log_{(0{,}5)} 2x}\\ge \\log_2 16x-1\\iff -\\frac{1}{\\log_2 x+1}\\ge \\log_2 x+3\"></span>. </p></center><p>Сде­ла­ем за­ме­ну <span data-inline-latex=\"z=\\log_2 x\"></span>, имеем:</p><center><p> <span data-inline-latex=\"-\\frac{1}{z+1}\\ge z+3\\iff \\frac{z^{2}+4z+4}{z+1}\\le 0\\iff \\frac{(z+2)^{2}}{z+1}\\le 0\\iff z\\lt -1\"></span>.  </p></center><p>Тогда  <span data-inline-latex=\"\\log_2 x\\lt -1\"></span>, от­ку­да по­лу­ча­ем мно­же­ство ре­ше­ний не­ра­вен­ства:  <span data-inline-latex=\"(0;\\frac{1}{2})\"></span> . </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]
