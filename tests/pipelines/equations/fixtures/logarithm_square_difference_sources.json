@@ -1,0 +1,624 @@
+[
+  {
+    "group": "689017",
+    "task": "689017",
+    "expected_answer": "(-5;-\\frac{5}{2})\\cup(-\\frac{3}{2};0)",
+    "context": {
+      "problem_id": "73f379d3-e383-4d00-a23d-ee19a4683654",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 13,
+        "items": [
+          {
+            "at": "2026-08-27T10:35:14.154829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653",
+              "html": "<img alt=\"\" data-asset-id=\"0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653",
+              "position": 5,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-08-27T10:35:14.154829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5",
+              "html": "<img alt=\"\" data-asset-id=\"b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5",
+              "position": 8,
+              "asset_key": "image_2",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_2"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"\\lg^{2} \\frac{(x+2)^{2}(x+5)}{5}\\lt \\lg^{2} \\frac{x+5}{20}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-5;-2{,}5)\\cup (-1{,}5;0)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Дан­ное не­ра­вен­ство можно за­пи­сать в виде: </p><center><p><span data-inline-latex=\"\\lg^{2} \\frac{(x+2)^{2}(x+5)}{5}-\\lg^{2} \\frac{x+5}{20}\\lt 0\"></span>. </p></center><p>Вос­поль­зо­вав­шись фор­му­лой раз­но­сти квад­ра­тов и пре­об­ра­зуя вы­ра­же­ние  <span data-inline-latex=\"\\lg \\frac{(x+2)^{2}(x+5)}{5}\\pm \\lg \\frac{x+5}{20}\"></span>  по фор­му­лам суммы и раз­но­сти ло­га­риф­мов, по­лу­ча­ем</p><center><p> <span data-inline-latex=\"(\\lg \\frac{(x+2)^{2}(x+5)}{5}+\\lg \\frac{x+5}{20})(\\lg \\frac{(x+2)^{2}(x+5)}{5}-\\lg \\frac{x+5}{20})\\lt 0\"></span>, <br/> <span data-inline-latex=\"\\begin{cases}x+5\\gt 0\\\\\\lg \\frac{(x+2)^{2}(x+5)^{2}}{100}\\cdot \\lg (4(x+2)^{2})\\lt 0\\end{cases}\"></span> . </p><p></p></center><p>что рав­но­силь­но со­во­куп­но­сти двух си­стем:</p><center><p><span data-inline-latex=\"\\begin{cases}x+5&gt;0\\\\\\lg\\dfrac{(x+2)^2(x+5)^2}{100}&lt;0,\\quad (1)\\\\\\lg\\left(4(x+2)^2\\right)&gt;0.\\end{cases}\\qquad\\begin{cases}x+5&gt;0,\\\\\\lg\\dfrac{(x+2)^2(x+5)^2}{100}&gt;0,\\quad (2)\\\\\\lg\\left(4(x+2)^2\\right)&lt;0.\\end{cases}\"></span></p></center><p>Решим си­сте­му (1), про­из­ве­дя её рав­но­силь­ные пре­об­ра­зо­ва­ния:</p><p><img alt=\"\" data-asset-id=\"0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><center><p><span> <span data-inline-latex=\"\\begin{cases}x+5\\gt 0\\\\x\\ne -2\\\\(2(x+2))^{2}\\gt 1\\\\(\\frac{x^{2}+7x+10}{10})^{2}\\lt 1\\end{cases}\\iff \\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+4-1)(2x+4+1)\\gt 0\\\\(\\frac{x^{2}+7x+10}{10}-1)(\\frac{x^{2}+7x+10}{10}+1)\\lt 0\\end{cases}.\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+3)(2x+5)\\gt 0\\\\(x^{2}+7x)(x^{2}+7x+20)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+3)(2x+5)\\gt 0\\\\x(x+7)\\lt 0\\end{cases}.\\quad \\iff \\left[\\begin{aligned}-5\\lt x\\lt -2{,}5\\\\-1{,}5\\lt x\\lt 0\\end{aligned}\\right.\"></span> . </span></p><p><span></span></p></center><p>Из при­ведённых вы­кла­док легко усмот­реть, что пре­об­ра­зо­ван­ная ана­ло­гич­ным об­ра­зом си­сте­ма (2) рав­но­силь­на си­сте­ме<img alt=\"\" data-asset-id=\"b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\"/></p><center><p> <span data-inline-latex=\"\\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+3)(2x+5)\\lt 0\\\\(x+7)x\\gt 0\\end{cases}\"></span> .</p></center><p>ко­то­рая не имеет ре­ше­ний.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1",
+                "image_2"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          },
+          {
+            "at": "2026-10-02T18:44:19.933837+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653",
+            "kind": "ordinary_image",
+            "asset_id": "0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "alt": "",
+            "url": "/assets/b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5",
+            "kind": "ordinary_image",
+            "asset_id": "b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5",
+            "asset_key": "image_2",
+            "transformation_target_id": "asset:image_2"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"\\lg^{2} \\frac{(x+2)^{2}(x+5)}{5}\\lt \\lg^{2} \\frac{x+5}{20}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-5;-2{,}5)\\cup (-1{,}5;0)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Дан­ное не­ра­вен­ство можно за­пи­сать в виде: </p><center><p><span data-inline-latex=\"\\lg^{2} \\frac{(x+2)^{2}(x+5)}{5}-\\lg^{2} \\frac{x+5}{20}\\lt 0\"></span>. </p></center><p>Вос­поль­зо­вав­шись фор­му­лой раз­но­сти квад­ра­тов и пре­об­ра­зуя вы­ра­же­ние  <span data-inline-latex=\"\\lg \\frac{(x+2)^{2}(x+5)}{5}\\pm \\lg \\frac{x+5}{20}\"></span>  по фор­му­лам суммы и раз­но­сти ло­га­риф­мов, по­лу­ча­ем</p><center><p> <span data-inline-latex=\"(\\lg \\frac{(x+2)^{2}(x+5)}{5}+\\lg \\frac{x+5}{20})(\\lg \\frac{(x+2)^{2}(x+5)}{5}-\\lg \\frac{x+5}{20})\\lt 0\"></span>, <br/> <span data-inline-latex=\"\\begin{cases}x+5\\gt 0\\\\\\lg \\frac{(x+2)^{2}(x+5)^{2}}{100}\\cdot \\lg (4(x+2)^{2})\\lt 0\\end{cases}\"></span> . </p><p></p></center><p>что рав­но­силь­но со­во­куп­но­сти двух си­стем:</p><center><p><span data-inline-latex=\"\\begin{cases}x+5&gt;0\\\\\\lg\\dfrac{(x+2)^2(x+5)^2}{100}&lt;0,\\quad (1)\\\\\\lg\\left(4(x+2)^2\\right)&gt;0.\\end{cases}\\qquad\\begin{cases}x+5&gt;0,\\\\\\lg\\dfrac{(x+2)^2(x+5)^2}{100}&gt;0,\\quad (2)\\\\\\lg\\left(4(x+2)^2\\right)&lt;0.\\end{cases}\"></span></p></center><p>Решим си­сте­му (1), про­из­ве­дя её рав­но­силь­ные пре­об­ра­зо­ва­ния:</p><p><img alt=\"\" data-asset-id=\"0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653\"/></p><center><p><span> <span data-inline-latex=\"\\begin{cases}x+5\\gt 0\\\\x\\ne -2\\\\(2(x+2))^{2}\\gt 1\\\\(\\frac{x^{2}+7x+10}{10})^{2}\\lt 1\\end{cases}\\iff \\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+4-1)(2x+4+1)\\gt 0\\\\(\\frac{x^{2}+7x+10}{10}-1)(\\frac{x^{2}+7x+10}{10}+1)\\lt 0\\end{cases}.\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+3)(2x+5)\\gt 0\\\\(x^{2}+7x)(x^{2}+7x+20)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+3)(2x+5)\\gt 0\\\\x(x+7)\\lt 0\\end{cases}.\\quad \\iff \\left[\\begin{aligned}-5\\lt x\\lt -2{,}5\\\\-1{,}5\\lt x\\lt 0\\end{aligned}\\right.\"></span> . </span></p><p><span></span></p></center><p>Из при­ведённых вы­кла­док легко усмот­реть, что пре­об­ра­зо­ван­ная ана­ло­гич­ным об­ра­зом си­сте­ма (2) рав­но­силь­на си­сте­ме<img alt=\"\" data-asset-id=\"b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5\" data-asset-key=\"image_2\" data-transformation-target-id=\"asset:image_2\" src=\"/assets/b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5\"/></p><center><p> <span data-inline-latex=\"\\begin{cases}x\\gt -5\\\\x\\ne -2\\\\(2x+3)(2x+5)\\lt 0\\\\(x+7)x\\gt 0\\end{cases}\"></span> .</p></center><p>ко­то­рая не имеет ре­ше­ний.</p>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1",
+              "image_2"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "689017",
+    "task": "509424",
+    "expected_answer": "(3;4)\\cup(4;7)\\cup(8;+\\infty)",
+    "context": {
+      "problem_id": "ecb9b5ec-b7cd-4a3e-9b3c-35b108c7de00",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 11,
+        "items": [
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(5)}^{2} \\frac{(x-4)^{2}\\cdot (x-3)}{48}\\gt \\log_{(0{,}2)}^{2} \\frac{x-3}{3}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(3;4)\\cup (4;7)\\cup (8;+\\infty)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Так как  <span data-inline-latex=\"\\log_{(0{,}2)}^{2} \\frac{x-3}{3}=(-\\log_5 \\frac{x-3}{3})^{2}=\\log_{(5)}^{2} \\frac{x-3}{3}\"></span> ,  то дан­ное не­ра­вен­ство можно за­пи­сать в виде: </p><center><p> <span data-inline-latex=\"\\log_{(5)}^{2} \\frac{(x-4)^{2}\\cdot (x-3)}{48}-\\log_{(5)}^{2} \\frac{x-3}{3}\\gt 0\"></span>. </p></center><p>Вос­поль­зо­вав­шись фор­му­лой раз­но­сти квад­ра­тов и пре­об­ра­зуя вы­ра­же­ние <span data-inline-latex=\"\\log_5 \\frac{(x-4)^{2}\\cdot (x-3)}{48}\\pm \\log_5 \\frac{x-3}{3}\"></span> ,  по фор­му­лам суммы и раз­но­сти ло­га­риф­мов, по­лу­ча­ем, что дан­ное не­ра­вен­ство рав­но­силь­но со­во­куп­но­сти двух си­стем:</p><center><p><span data-inline-latex=\"(1)\\ \\begin{cases}x-3&gt;0,\\\\\\log_5\\frac{(x-4)^2}{16}&lt;0,\\\\\\log_5\\frac{(x-4)^2\\cdot(x-3)^2}{144}&lt;0\\end{cases}\\qquad (2)\\ \\begin{cases}x-3&gt;0,\\\\\\log_5\\frac{(x-4)^2}{16}&gt;0,\\\\\\log_5\\frac{(x-4)^2\\cdot(x-3)^2}{144}&gt;0.\\end{cases}\"></span></p></center><p>Решим си­сте­му (1), про­из­ве­дя её рав­но­силь­ные пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}x-3\\gt 0\\\\x\\ne 4\\\\(\\frac{x-4}{4})^{2}\\lt 1\\\\(\\frac{x^{2}-7x+12}{12})^{2}\\lt 1\\end{cases}\\iff \\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(\\frac{x-4}{4}-1)\\cdot (\\frac{x-4}{4}+1)\\lt 0\\\\(\\frac{x^{2}-7x+12}{12}-1)\\cdot (\\frac{x^{2}-7x+12}{12}+1)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(x-8)x\\lt 0\\\\(x^{2}-7x)(x^{2}-7x+24)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(x-8)x\\lt 0\\\\(x-7)x\\lt 0\\end{cases}\\iff \\begin{cases}3\\lt x\\lt 7\\\\x\\ne 4\\end{cases}\"></span> .</span></p><p></p></center><p>Из при­ведённых вы­кла­док легко усмот­реть, что пре­об­ра­зо­вы­вая ана­ло­гич­ным об­ра­зом си­сте­му (2), при­хо­дим к рав­но­силь­ной си­сте­ме:</p><center><p> <span data-inline-latex=\"\\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(x-8)x\\gt 0\\\\(x-7)x\\gt 0\\end{cases}.\\quad \\iff x\\gt 8\"></span>.</p></center><p>Объ­еди­няя мно­же­ства ре­ше­ний (1), (2), по­лу­ча­ем ре­ше­ние ис­ход­но­го не­ра­вен­ства:  <span data-inline-latex=\"(3;4)\\cup (4;7)\\cup (8;+\\infty)\"></span> </p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          },
+          {
+            "at": "2026-10-02T09:35:13.979428+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_{(5)}^{2} \\frac{(x-4)^{2}\\cdot (x-3)}{48}\\gt \\log_{(0{,}2)}^{2} \\frac{x-3}{3}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(3;4)\\cup (4;7)\\cup (8;+\\infty)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Так как  <span data-inline-latex=\"\\log_{(0{,}2)}^{2} \\frac{x-3}{3}=(-\\log_5 \\frac{x-3}{3})^{2}=\\log_{(5)}^{2} \\frac{x-3}{3}\"></span> ,  то дан­ное не­ра­вен­ство можно за­пи­сать в виде: </p><center><p> <span data-inline-latex=\"\\log_{(5)}^{2} \\frac{(x-4)^{2}\\cdot (x-3)}{48}-\\log_{(5)}^{2} \\frac{x-3}{3}\\gt 0\"></span>. </p></center><p>Вос­поль­зо­вав­шись фор­му­лой раз­но­сти квад­ра­тов и пре­об­ра­зуя вы­ра­же­ние <span data-inline-latex=\"\\log_5 \\frac{(x-4)^{2}\\cdot (x-3)}{48}\\pm \\log_5 \\frac{x-3}{3}\"></span> ,  по фор­му­лам суммы и раз­но­сти ло­га­риф­мов, по­лу­ча­ем, что дан­ное не­ра­вен­ство рав­но­силь­но со­во­куп­но­сти двух си­стем:</p><center><p><span data-inline-latex=\"(1)\\ \\begin{cases}x-3&gt;0,\\\\\\log_5\\frac{(x-4)^2}{16}&lt;0,\\\\\\log_5\\frac{(x-4)^2\\cdot(x-3)^2}{144}&lt;0\\end{cases}\\qquad (2)\\ \\begin{cases}x-3&gt;0,\\\\\\log_5\\frac{(x-4)^2}{16}&gt;0,\\\\\\log_5\\frac{(x-4)^2\\cdot(x-3)^2}{144}&gt;0.\\end{cases}\"></span></p></center><p>Решим си­сте­му (1), про­из­ве­дя её рав­но­силь­ные пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}x-3\\gt 0\\\\x\\ne 4\\\\(\\frac{x-4}{4})^{2}\\lt 1\\\\(\\frac{x^{2}-7x+12}{12})^{2}\\lt 1\\end{cases}\\iff \\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(\\frac{x-4}{4}-1)\\cdot (\\frac{x-4}{4}+1)\\lt 0\\\\(\\frac{x^{2}-7x+12}{12}-1)\\cdot (\\frac{x^{2}-7x+12}{12}+1)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(x-8)x\\lt 0\\\\(x^{2}-7x)(x^{2}-7x+24)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(x-8)x\\lt 0\\\\(x-7)x\\lt 0\\end{cases}\\iff \\begin{cases}3\\lt x\\lt 7\\\\x\\ne 4\\end{cases}\"></span> .</span></p><p></p></center><p>Из при­ведённых вы­кла­док легко усмот­реть, что пре­об­ра­зо­вы­вая ана­ло­гич­ным об­ра­зом си­сте­му (2), при­хо­дим к рав­но­силь­ной си­сте­ме:</p><center><p> <span data-inline-latex=\"\\begin{cases}x\\gt 3\\\\x\\ne 4\\\\(x-8)x\\gt 0\\\\(x-7)x\\gt 0\\end{cases}.\\quad \\iff x\\gt 8\"></span>.</p></center><p>Объ­еди­няя мно­же­ства ре­ше­ний (1), (2), по­лу­ча­ем ре­ше­ние ис­ход­но­го не­ра­вен­ства:  <span data-inline-latex=\"(3;4)\\cup (4;7)\\cup (8;+\\infty)\"></span> </p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "689017",
+    "task": "511591",
+    "expected_answer": "(-4;-\\frac{4}{3})\\cup(-\\frac{2}{3};\\frac{-5+3\\sqrt{5}}{2})",
+    "context": {
+      "problem_id": "ad09c430-800d-44e9-ab0c-09c4c8fd972f",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 15,
+        "items": [
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"\\lg^{2} \\frac{(x+1)^{2}(x+4)}{3}\\lt \\lg^{2} \\frac{x+4}{27}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Дан­ное не­ра­вен­ство можно за­пи­сать в виде: </p><center><p> <span data-inline-latex=\"\\lg_{^{2}} \\frac{(x+1)^{2}(x+4)}{3}-\\lg_{^{2}} \\frac{x+4}{27}\\lt 0\"></span>. </p></center><p>Вос­поль­зо­вав­шись фор­му­лой раз­но­сти квад­ра­тов и пре­об­ра­зуя вы­ра­же­ние <span data-inline-latex=\"\\lg\\frac{(x+1)^2\\cdot(x+4)}{3}\\pm\\lg\\frac{x+4}{27}\"></span> по фор­му­лам суммы и раз­но­сти ло­га­риф­мов, по­лу­ча­ем, что дан­ное не­ра­вен­ство рав­но­силь­но со­во­куп­но­сти двух си­стем:</p><center><p><span data-inline-latex=\"\\left[\\begin{aligned}\\begin{cases}x+4&amp;&gt;0\\\\\\lg\\dfrac{(x+1)^2(x+4)^2}{81}&amp;&lt;0,\\quad (1)\\\\\\lg\\left(9(x+1)^2\\right)&amp;&gt;0.\\end{cases}&amp;\\qquad\\begin{cases}x+4&amp;&gt;0,\\\\\\lg\\dfrac{(x+1)^2(x+4)^2}{81}&amp;&gt;0,\\quad (2)\\\\\\lg\\left(9(x+1)^2\\right)&amp;&lt;0.\\end{cases}\\end{aligned}\\right.\"></span></p></center><p>Решим си­сте­му (1), про­из­ве­дя её рав­но­силь­ные пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}x+4\\gt 0\\\\x\\ne -1\\\\(3(x+1))^{2}\\gt 1\\\\(\\frac{x^{2}+5x+4}{9})^{2}\\lt 1\\end{cases}\\iff \\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+3-1)\\cdot (3x+3+1)\\gt 0\\\\(\\frac{x^{2}+5x+4}{9}-1)\\cdot (\\frac{x^{2}+5x+4}{9}+1)\\lt 0\\end{cases}.\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+2)(3x+4)\\gt 0\\\\(x^{2}+5x-5)(x^{2}+5x+13)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+2)(3x+4)\\gt 0\\\\x^{2}+5x-5\\lt 0\\end{cases}.\\quad \\iff \\left[\\begin{aligned}-4\\lt x\\lt -\\frac{4}{3}\\\\-\\frac{2}{3}\\lt x\\lt \\frac{-5+\\sqrt{45}}{2}\\end{aligned}\\right.\"></span> . </span></p><p><span></span></p></center><p>Из при­ведённых вы­кла­док легко усмот­реть, что, пре­об­ра­зо­вы­вая ана­ло­гич­ным об­ра­зом си­сте­ма (2), рав­но­силь­на си­сте­ме</p><center><p> <span data-inline-latex=\"\\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+2)(3x+4)\\lt 0\\\\x^{2}+5x-5\\gt 0\\end{cases}\"></span> .</p></center><p>ко­то­рая не имеет ре­ше­ний. Таким об­ра­зом, ответ: <span data-inline-latex=\"\\left(-4; -\\frac{4}{3}\\right)\\cup\\left(-\\frac{2}{3}; \\frac{-5+\\sqrt{45}}{2}\\right)\\cdot\"></span></p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T09:34:38.941608+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p><span data-inline-latex=\"\\left(-4; -\\frac{4}{3}\\right)\\cup\\left(-\\frac{2}{3}; \\frac{-5+\\sqrt{45}}{2}\\right)\\cdot\"></span></p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство <span data-inline-latex=\"\\lg^{2} \\frac{(x+1)^{2}(x+4)}{3}\\lt \\lg^{2} \\frac{x+4}{27}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p><span data-inline-latex=\"\\left(-4; -\\frac{4}{3}\\right)\\cup\\left(-\\frac{2}{3}; \\frac{-5+\\sqrt{45}}{2}\\right)\\cdot\"></span></p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Дан­ное не­ра­вен­ство можно за­пи­сать в виде: </p><center><p> <span data-inline-latex=\"\\lg_{^{2}} \\frac{(x+1)^{2}(x+4)}{3}-\\lg_{^{2}} \\frac{x+4}{27}\\lt 0\"></span>. </p></center><p>Вос­поль­зо­вав­шись фор­му­лой раз­но­сти квад­ра­тов и пре­об­ра­зуя вы­ра­же­ние <span data-inline-latex=\"\\lg\\frac{(x+1)^2\\cdot(x+4)}{3}\\pm\\lg\\frac{x+4}{27}\"></span> по фор­му­лам суммы и раз­но­сти ло­га­риф­мов, по­лу­ча­ем, что дан­ное не­ра­вен­ство рав­но­силь­но со­во­куп­но­сти двух си­стем:</p><center><p><span data-inline-latex=\"\\left[\\begin{aligned}\\begin{cases}x+4&amp;&gt;0\\\\\\lg\\dfrac{(x+1)^2(x+4)^2}{81}&amp;&lt;0,\\quad (1)\\\\\\lg\\left(9(x+1)^2\\right)&amp;&gt;0.\\end{cases}&amp;\\qquad\\begin{cases}x+4&amp;&gt;0,\\\\\\lg\\dfrac{(x+1)^2(x+4)^2}{81}&amp;&gt;0,\\quad (2)\\\\\\lg\\left(9(x+1)^2\\right)&amp;&lt;0.\\end{cases}\\end{aligned}\\right.\"></span></p></center><p>Решим си­сте­му (1), про­из­ве­дя её рав­но­силь­ные пре­об­ра­зо­ва­ния:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}x+4\\gt 0\\\\x\\ne -1\\\\(3(x+1))^{2}\\gt 1\\\\(\\frac{x^{2}+5x+4}{9})^{2}\\lt 1\\end{cases}\\iff \\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+3-1)\\cdot (3x+3+1)\\gt 0\\\\(\\frac{x^{2}+5x+4}{9}-1)\\cdot (\\frac{x^{2}+5x+4}{9}+1)\\lt 0\\end{cases}.\\quad \\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+2)(3x+4)\\gt 0\\\\(x^{2}+5x-5)(x^{2}+5x+13)\\lt 0\\end{cases}\\iff \\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+2)(3x+4)\\gt 0\\\\x^{2}+5x-5\\lt 0\\end{cases}.\\quad \\iff \\left[\\begin{aligned}-4\\lt x\\lt -\\frac{4}{3}\\\\-\\frac{2}{3}\\lt x\\lt \\frac{-5+\\sqrt{45}}{2}\\end{aligned}\\right.\"></span> . </span></p><p><span></span></p></center><p>Из при­ведённых вы­кла­док легко усмот­реть, что, пре­об­ра­зо­вы­вая ана­ло­гич­ным об­ра­зом си­сте­ма (2), рав­но­силь­на си­сте­ме</p><center><p> <span data-inline-latex=\"\\begin{cases}x\\gt -4\\\\x\\ne -1\\\\(3x+2)(3x+4)\\lt 0\\\\x^{2}+5x-5\\gt 0\\end{cases}\"></span> .</p></center><p>ко­то­рая не имеет ре­ше­ний. Таким об­ра­зом, ответ: <span data-inline-latex=\"\\left(-4; -\\frac{4}{3}\\right)\\cup\\left(-\\frac{2}{3}; \\frac{-5+\\sqrt{45}}{2}\\right)\\cdot\"></span></p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

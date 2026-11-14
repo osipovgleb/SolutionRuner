@@ -28,6 +28,10 @@ from .logarithm_square_cancellation_proof import (
     render_base_square,
     render_three_methods,
 )
+from .logarithm_square_difference import analyze as square_difference
+from .logarithm_square_difference_figures import SOURCES as SQUARE_SOURCES
+from .logarithm_square_difference_figures import charts as square_charts
+from .logarithm_square_difference_proof import render as square_proof
 from .rational_inequality_figures import read_formula, reviewed_asset
 
 SOURCES = json.loads(
@@ -73,6 +77,7 @@ NESTED_SOURCES = json.loads(
 PARENTS.update(dict.fromkeys(NESTED_SOURCES["parent_sha256"], "nested"))
 PARENTS.update(FACTOR_SOURCES["parents"])
 PARENTS.update(RATIONAL_SOURCES["parents"])
+PARENTS[SQUARE_SOURCES["parent_sha256"]] = "square_difference"
 FACTOR_RENDERS = {
     "factor_sum": render_sum,
     "factor_product": render_product,
@@ -93,12 +98,26 @@ def substitution_assets(content, condition):
             )
 
 
-def build_context_repair_plan(context, *, parent_solution_html="", method="product"):
+def build_context_repair_plan(
+    context, *, parent_solution_html="", method="product", generated_solution_assets=()
+):
     if PARENTS.get(hashlib.sha256(parent_solution_html.encode()).hexdigest()) != method:
         raise UnsupportedCondition(
             "the complete reviewed logarithm product parent is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
+    if method == "square_difference":
+        a = square_difference(formula)
+        images, keys, changes = square_charts(context, a, generated_solution_assets)
+        return repair(
+            condition,
+            answer,
+            solution,
+            a.answer,
+            square_proof(a, images),
+            keys=keys,
+            asset_changes=changes,
+        )
     if method in ("quadratic_quotient", "power_quotient"):
         a = (
             power_quotient(formula)

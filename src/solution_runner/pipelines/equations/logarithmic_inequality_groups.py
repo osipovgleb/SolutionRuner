@@ -131,3 +131,15 @@ GROUPS += (
         "exam-logarithm-inequality-power-quotient",
     ),
 )
+
+GROUPS += (
+    (
+        "689017",
+        "7a781d67-ad58-423f-9d45-e177e5e607bf",
+        6,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-square-difference",
+    ),
+)

@@ -994,3 +994,18 @@ HANDLERS += tuple(
     )
     for method in ("quadratic_quotient", "power_quotient")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithm-inequality-square-difference",
+        "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
+        inputs=(
+            ("parent_solution_html", "parent_solution_html"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        options=(("method", "square_difference"),),
+        diagram_builder="solution_runner.pipelines.equations.logarithm_square_difference_figures:diagram_specs",
+        asset_selector="solution_runner.pipelines.equations.logarithm_square_difference_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)

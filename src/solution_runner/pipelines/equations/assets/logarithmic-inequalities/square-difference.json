@@ -1,0 +1,77 @@
+{
+  "parent_sha256": "07ba04743be70ed541b147c95dec09d160a052f7bc533c0e408518851f862ce2",
+  "figures": {
+    "0c1c1d58-2e51-4b3b-bd6e-4ddac9b40653": {
+      "sha256": "cca5f20cbf4ae91a755ac9f8bc853dad05e7ce2e7b63b8a974b079fd90c56d97",
+      "asset_key": "image_1",
+      "shareable": true,
+      "branch": 0,
+      "domain": "Union(Interval.open(-5, -2), Interval.open(-2, oo))",
+      "omit_domain_hole": false,
+      "hole": "-2",
+      "difference": {
+        "points": [
+          "-5/2",
+          "-3/2"
+        ],
+        "poles": [],
+        "signs": [
+          1,
+          -1,
+          1
+        ],
+        "operator": ">"
+      },
+      "sum": {
+        "points": [
+          "-7",
+          "0"
+        ],
+        "poles": [],
+        "signs": [
+          1,
+          -1,
+          1
+        ],
+        "operator": "<"
+      },
+      "intersection": "Union(Interval.open(-5, -5/2), Interval.open(-3/2, 0))"
+    },
+    "b1c8b69d-fdeb-4d4c-949a-5baef4a4dde5": {
+      "sha256": "292c6c5239eb803346d88ce0f561eaef81363f4508397c17e66473cae295d484",
+      "asset_key": "image_2",
+      "shareable": true,
+      "branch": 1,
+      "domain": "Interval.open(-5, oo)",
+      "omit_domain_hole": true,
+      "hole": "-2",
+      "difference": {
+        "points": [
+          "-5/2",
+          "-3/2"
+        ],
+        "poles": [],
+        "signs": [
+          1,
+          -1,
+          1
+        ],
+        "operator": "<"
+      },
+      "sum": {
+        "points": [
+          "-7",
+          "0"
+        ],
+        "poles": [],
+        "signs": [
+          1,
+          -1,
+          1
+        ],
+        "operator": ">"
+      },
+      "intersection": "EmptySet"
+    }
+  }
+}
