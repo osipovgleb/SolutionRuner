@@ -6,6 +6,8 @@ from pathlib import Path
 
 from ..probability.common import UnsupportedCondition
 from .inequality_plan import repair
+from .logarithm_nested_inequality import analyze as nested
+from .logarithm_nested_inequality_proof import render as nested_proof
 from .logarithm_product_cancellation_proof import render as cancellation_proof
 from .logarithm_product_inequality import analyze
 from .logarithm_product_inequality_proof import render
@@ -51,6 +53,12 @@ CANCELLATION_SOURCES = json.loads(
 PARENTS.update(
     dict.fromkeys(CANCELLATION_SOURCES["parent_sha256"], "product_cancellation")
 )
+NESTED_SOURCES = json.loads(
+    (
+        Path(__file__).parent / "assets/logarithmic-inequalities/nested-comparison.json"
+    ).read_text()
+)
+PARENTS.update(dict.fromkeys(NESTED_SOURCES["parent_sha256"], "nested"))
 
 
 def substitution_assets(content, condition):
@@ -71,6 +79,13 @@ def build_context_repair_plan(context, *, parent_solution_html="", method="produ
             "the complete reviewed logarithm product parent is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
+    if method == "nested":
+        if content.get("assets"):
+            raise UnsupportedCondition(
+                "this nested logarithm parent has no source figures"
+            )
+        a = nested(formula)
+        return repair(condition, answer, solution, a.answer, nested_proof(a))
     if method in ("quadratic", "quadratic_substitution"):
         if method == "quadratic_substitution":
             substitution_assets(content, condition)

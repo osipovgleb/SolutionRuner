@@ -694,6 +694,13 @@ HANDLERS += (
 
 HANDLERS += (
     HandlerSpec(
+        "exam-logarithm-inequality-nested",
+        "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", "nested"),),
+        requires_parent_condition_asset=False,
+    ),
+    HandlerSpec(
         "exam-logarithm-inequality-product-cancellation",
         "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
         inputs=(("parent_solution_html", "parent_solution_html"),),

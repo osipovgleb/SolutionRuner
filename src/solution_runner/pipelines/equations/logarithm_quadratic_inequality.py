@@ -67,11 +67,20 @@ def analyze(formula):
             )
         substitutions[atom.symbol] = X if atom.base == base else -X
     value = sp.expand(value.subs(substitutions, simultaneous=True))
+    return solve_quadratic(
+        base,
+        argument,
+        value,
+        OPERATORS[parts[1]],
+        reciprocal_base=any(atom.base != base for atom in atoms),
+    )
+
+
+def solve_quadratic(base, argument, value, operator, *, reciprocal_base=False):
     if polynomial(value).degree() != 2:
         raise UnsupportedCondition(
             "the outer expression must be a quadratic of the logarithm"
         )
-    operator = OPERATORS[parts[1]]
     stage = comparison(value, operator)
     if len(stage.zeros) != 2 or any(
         r.is_Integer is not True or abs(r) > 8 for r in stage.zeros
@@ -89,5 +98,5 @@ def analyze(formula):
         domain,
         parts,
         sp.Union(*(part.solution for part in parts)),
-        any(atom.base != base for atom in atoms),
+        reciprocal_base,
     )

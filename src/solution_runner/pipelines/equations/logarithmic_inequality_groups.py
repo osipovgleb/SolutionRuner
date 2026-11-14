@@ -59,3 +59,15 @@ GROUPS += (
         "exam-logarithm-inequality-product-cancellation",
     ),
 )
+
+GROUPS += (
+    (
+        "508469",
+        "898abe68-9d4f-43c5-821f-fe579369c9fc",
+        3,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-nested",
+    ),
+)
