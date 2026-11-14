@@ -692,6 +692,15 @@ HANDLERS += (
 )
 
 
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithm-inequality-product",
+        "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)
+
 HANDLERS += tuple(
     HandlerSpec(
         "exam-rational-inequality-" + method.replace("_", "-"),

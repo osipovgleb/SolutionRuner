@@ -5,6 +5,7 @@ from solution_runner.pipelines.core.profile_definitions import (
 )
 
 from .exponential_inequality_groups import GROUPS as EXPONENTIAL_INEQUALITY_GROUPS
+from .logarithmic_inequality_groups import GROUPS as LOGARITHMIC_INEQUALITY_GROUPS
 from .rational_inequality_figures import GROUPS as RATIONAL_INEQUALITY_GROUPS
 
 PROFILES = (
@@ -4930,5 +4931,6 @@ PROFILES += tuple(
             for row in RATIONAL_INEQUALITY_GROUPS
         )
         + EXPONENTIAL_INEQUALITY_GROUPS
+        + LOGARITHMIC_INEQUALITY_GROUPS
     )
 )
