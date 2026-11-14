@@ -143,3 +143,33 @@ GROUPS += (
         "exam-logarithm-inequality-square-difference",
     ),
 )
+
+GROUPS += (
+    (
+        "517447",
+        "93ccb3dc-7be0-4ac5-bf47-a57714e3a7c8",
+        6,
+        "Неравенства рациональные относительно логарифмической функции",
+        5,
+        "4442ca97-fc99-4f0c-9d4b-e9896c02367c",
+        "exam-logarithm-inequality-rational-log-sum",
+    ),
+    (
+        "517547",
+        "ca702e93-f48b-4f81-a682-96e860758274",
+        8,
+        "Неравенства рациональные относительно логарифмической функции",
+        5,
+        "4442ca97-fc99-4f0c-9d4b-e9896c02367c",
+        "exam-logarithm-inequality-rational-log-square",
+    ),
+    (
+        "517816",
+        "6e16c66d-932b-4c0d-a3df-33fd8eb0e57b",
+        9,
+        "Неравенства рациональные относительно логарифмической функции",
+        5,
+        "4442ca97-fc99-4f0c-9d4b-e9896c02367c",
+        "exam-logarithm-inequality-rational-log-general",
+    ),
+)
