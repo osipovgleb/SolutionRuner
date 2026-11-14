@@ -236,3 +236,24 @@ GROUPS += (
         "exam-logarithm-inequality-increasing-cubic-comparison",
     ),
 )
+
+GROUPS += (
+    (
+        "508547",
+        "81e80101-2189-43d6-b1a6-af0d4006fb1d",
+        12,
+        "Неравенства с логарифмами по переменному основанию",
+        6,
+        "31924b26-1eb2-4fa9-be31-0a36f5ee7e54",
+        "exam-logarithm-inequality-variable-log-product-cases",
+    ),
+    (
+        "509587",
+        "f7c6c9fd-da97-4826-8c8e-7f08ce84228d",
+        18,
+        "Неравенства с логарифмами по переменному основанию",
+        6,
+        "31924b26-1eb2-4fa9-be31-0a36f5ee7e54",
+        "exam-logarithm-inequality-variable-log-base-order",
+    ),
+)
