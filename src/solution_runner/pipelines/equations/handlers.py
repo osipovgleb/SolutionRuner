@@ -1336,3 +1336,13 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-polynomial-logarithm-base-cases",
+        "solution_runner.pipelines.equations.polynomial_base_mixed_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        asset_selector="solution_runner.pipelines.equations.polynomial_base_mixed_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)
