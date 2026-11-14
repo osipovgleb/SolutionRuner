@@ -1236,3 +1236,13 @@ HANDLERS += tuple(
     )
     for method in ("linear_reciprocity", "square_coordinate")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-exponential-log-product",
+        "solution_runner.pipelines.equations.exponential_log_product_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        asset_selector="solution_runner.pipelines.equations.exponential_log_product_figures:required_assets",
+        requires_parent_condition_asset=False,
+    ),
+)

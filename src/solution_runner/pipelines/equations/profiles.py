@@ -5052,3 +5052,21 @@ PROFILES += tuple(
         ("508471", "baf09951-bac8-4ea6-b32c-917789cef0d9", 7, "square_coordinate"),
     )
 )
+
+PROFILES += (
+    _profile(
+        "562040",
+        "ab71fa47-c7ae-4ba1-beae-89bd35cc3519",
+        28,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Логарифмы и показательные выражения",
+        theme_order_index=10,
+        snapshot_theme_id="d77d13af-fea6-4a1c-b7b5-310900de07e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-exponential-log-product",
+        rewrite_existing_solution=True,
+    ),
+)
