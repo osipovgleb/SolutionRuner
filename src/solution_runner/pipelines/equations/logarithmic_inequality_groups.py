@@ -173,3 +173,24 @@ GROUPS += (
         "exam-logarithm-inequality-rational-log-general",
     ),
 )
+
+GROUPS += (
+    (
+        "507764",
+        "4c32a2c7-ad3c-4430-95f0-4957da4de426",
+        1,
+        "Неравенства рациональные относительно логарифмической функции",
+        5,
+        "4442ca97-fc99-4f0c-9d4b-e9896c02367c",
+        "exam-logarithm-inequality-ratio-rationalization",
+    ),
+    (
+        "642732",
+        "665aadcd-5c98-4393-8e91-8ed4a64f32f1",
+        29,
+        "Неравенства рациональные относительно логарифмической функции",
+        5,
+        "4442ca97-fc99-4f0c-9d4b-e9896c02367c",
+        "exam-logarithm-inequality-square-denominator",
+    ),
+)
