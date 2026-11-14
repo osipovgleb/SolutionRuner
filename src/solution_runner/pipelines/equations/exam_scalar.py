@@ -159,6 +159,8 @@ def compare(a, b):
         if a.is_positive is not True or b.is_positive is not True:
             raise UnsupportedCondition("logarithmic comparison needs positive scalars")
         scalar = sp.expand_log(sp.log(a) - sp.log(b), force=False)
+    elif not scalar.has(sp.log):
+        scalar = sp.radsimp(difference)
     for bits in (16, 32, 64):
         lo, hi = enclose(scalar, bits)
         if hi < 0:

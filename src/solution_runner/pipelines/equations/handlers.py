@@ -699,6 +699,14 @@ HANDLERS += (
         inputs=(("parent_solution_html", "parent_solution_html"),),
         requires_parent_condition_asset=False,
     ),
+    HandlerSpec(
+        "exam-logarithm-inequality-quotient",
+        "solution_runner.pipelines.equations.logarithm_inequality_planner:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        options=(("method", "quotient"),),
+        requires_parent_condition_asset=False,
+        asset_selector="solution_runner.pipelines.equations.logarithm_quotient_inequality_figures:required_assets",
+    ),
 )
 
 HANDLERS += tuple(

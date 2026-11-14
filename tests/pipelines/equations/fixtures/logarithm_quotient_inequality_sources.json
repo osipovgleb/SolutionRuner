@@ -1,0 +1,506 @@
+[
+  {
+    "group": "521006",
+    "task": "521006",
+    "source_answer": "x\\in [-2;-1)\\cup (0;9] .",
+    "expected_answer": "[-2;-1)\\cup (0;9] .",
+    "context": {
+      "problem_id": "6a5013d9-fe7e-4c57-8cb6-22ff3eaa2f79",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 13,
+        "items": [
+          {
+            "at": "2026-08-27T10:16:39.649233+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/2f357aa0-d2fe-4704-b65d-601a05d1bbd2",
+              "html": "<img alt=\"\" data-asset-id=\"2f357aa0-d2fe-4704-b65d-601a05d1bbd2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2f357aa0-d2fe-4704-b65d-601a05d1bbd2\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "2f357aa0-d2fe-4704-b65d-601a05d1bbd2",
+              "position": 1,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:58:37.965997+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_7 (2+\\frac{2}{x})-\\log_7 (x+3)\\le \\log_7 \\frac{6+x}{x^{2}}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:58:37.965997+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"x\\in [-2;-1)\\cup (0;9]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:58:37.965997+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Решим не­ра­вен­ство, пе­рей­дя к рав­но­силь­ной си­сте­ме:</p><center><p><span><span data-inline-latex=\"\\begin{cases}2+\\frac{2}{x}&gt;0,\\\\x+3&gt;0,\\\\\\frac{2x+2}{x(x+3)}\\leq\\frac{6+x}{x^2}\\end{cases}\\Leftrightarrow\\begin{cases}\\frac{2x+2}{x}&gt;0,\\\\x&gt;-3,\\\\\\frac{x^2-7x-18}{x^2(x+3)}\\leq0\\end{cases}\\Leftrightarrow\\begin{cases}\\frac{2(x+1)}{x}&gt;0,\\\\x&gt;-3,\\\\\\frac{x^2-7x-18}{x^2}\\leq0\\end{cases}\\Leftrightarrow\\left[\\begin{aligned}-2&amp;\\leq x&lt;-1,\\\\0&amp;&lt;x\\leq9\\end{aligned}\\right.\"></span></span></p></center><img alt=\"\" data-asset-id=\"2f357aa0-d2fe-4704-b65d-601a05d1bbd2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/><p>Усло­вий су­ще­ство­ва­ния ло­га­риф­мов в левой части не­ра­вен­ства до­ста­точ­но для со­блю­де­ния ОДЗ ввиду знака не­ра­вен­ства.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:58:37.965997+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:58:37.965997+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:58:37.965997+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/2f357aa0-d2fe-4704-b65d-601a05d1bbd2",
+            "kind": "ordinary_image",
+            "asset_id": "2f357aa0-d2fe-4704-b65d-601a05d1bbd2",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\log_7 (2+\\frac{2}{x})-\\log_7 (x+3)\\le \\log_7 \\frac{6+x}{x^{2}}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"x\\in [-2;-1)\\cup (0;9]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=19725299\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ — 2018. Основная волна 25.06.2018. Вариант 557 (часть 2)</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=20176955\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 (С3) ЕГЭ 2018</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Решим не­ра­вен­ство, пе­рей­дя к рав­но­силь­ной си­сте­ме:</p><center><p><span><span data-inline-latex=\"\\begin{cases}2+\\frac{2}{x}&gt;0,\\\\x+3&gt;0,\\\\\\frac{2x+2}{x(x+3)}\\leq\\frac{6+x}{x^2}\\end{cases}\\Leftrightarrow\\begin{cases}\\frac{2x+2}{x}&gt;0,\\\\x&gt;-3,\\\\\\frac{x^2-7x-18}{x^2(x+3)}\\leq0\\end{cases}\\Leftrightarrow\\begin{cases}\\frac{2(x+1)}{x}&gt;0,\\\\x&gt;-3,\\\\\\frac{x^2-7x-18}{x^2}\\leq0\\end{cases}\\Leftrightarrow\\left[\\begin{aligned}-2&amp;\\leq x&lt;-1,\\\\0&amp;&lt;x\\leq9\\end{aligned}\\right.\"></span></span></p></center><img alt=\"\" data-asset-id=\"2f357aa0-d2fe-4704-b65d-601a05d1bbd2\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/2f357aa0-d2fe-4704-b65d-601a05d1bbd2\"/><p>Усло­вий су­ще­ство­ва­ния ло­га­риф­мов в левой части не­ра­вен­ства до­ста­точ­но для со­блю­де­ния ОДЗ ввиду знака не­ра­вен­ства.</p>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "521006",
+    "task": "681152",
+    "source_answer": "(0;\\sqrt{2}] .",
+    "expected_answer": "(0;\\sqrt{2}] .",
+    "context": {
+      "problem_id": "5bde41bd-0c4a-4611-a51d-f9b866fd53b4",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:16:39.407627+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/4967e3a4-d640-43ce-8b8d-7d91117fbf7f",
+              "html": "<img alt=\"\" data-asset-id=\"4967e3a4-d640-43ce-8b8d-7d91117fbf7f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4967e3a4-d640-43ce-8b8d-7d91117fbf7f\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "4967e3a4-d640-43ce-8b8d-7d91117fbf7f",
+              "position": 1,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:53:04.243195+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_5 (\\frac{3}{x}+2)-\\log_5 (x+2)\\le \\log_5 (\\frac{x+1}{x^{2}})\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:53:04.243195+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(0;\\sqrt{2}]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:53:04.243195+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Решим не­ра­вен­ство, пе­рей­дя к рав­но­силь­ной си­сте­ме:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{3}{x}+2\\gt 0\\\\x+2\\gt 0\\\\\\frac{2x+3}{x(x+2)}\\le \\frac{x+1}{x^{2}}\\end{cases}\\iff \\begin{cases}\\frac{2x+3}{x}\\gt 0\\\\x\\gt -2\\\\\\frac{x^{2}-2}{x^{2}(x+2)}\\le 0\\end{cases}\\iff \\begin{cases}\\frac{x+\\frac{3}{2}}{x}\\gt 0\\\\x\\gt -2\\\\\\frac{(x-\\sqrt{2})(x+\\sqrt{2})}{x^{2}(x+2)}\\le 0\\end{cases}.\\quad \\iff 0\\lt x\\le \\sqrt{2}\"></span> . </span></p></center><p><img alt=\"\" data-asset-id=\"4967e3a4-d640-43ce-8b8d-7d91117fbf7f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Усло­вий су­ще­ство­ва­ния ло­га­риф­мов в левой части не­ра­вен­ства до­ста­точ­но для со­блю­де­ния ОДЗ, ввиду знака не­ра­вен­ства.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:53:04.243195+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:53:04.243195+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:53:04.243195+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/4967e3a4-d640-43ce-8b8d-7d91117fbf7f",
+            "kind": "ordinary_image",
+            "asset_id": "4967e3a4-d640-43ce-8b8d-7d91117fbf7f",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_5 (\\frac{3}{x}+2)-\\log_5 (x+2)\\le \\log_5 (\\frac{x+1}{x^{2}})\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(0;\\sqrt{2}]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=84657737\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ−2025. Основная волна 26.05.2025</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Решим не­ра­вен­ство, пе­рей­дя к рав­но­силь­ной си­сте­ме:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{3}{x}+2\\gt 0\\\\x+2\\gt 0\\\\\\frac{2x+3}{x(x+2)}\\le \\frac{x+1}{x^{2}}\\end{cases}\\iff \\begin{cases}\\frac{2x+3}{x}\\gt 0\\\\x\\gt -2\\\\\\frac{x^{2}-2}{x^{2}(x+2)}\\le 0\\end{cases}\\iff \\begin{cases}\\frac{x+\\frac{3}{2}}{x}\\gt 0\\\\x\\gt -2\\\\\\frac{(x-\\sqrt{2})(x+\\sqrt{2})}{x^{2}(x+2)}\\le 0\\end{cases}.\\quad \\iff 0\\lt x\\le \\sqrt{2}\"></span> . </span></p></center><p><img alt=\"\" data-asset-id=\"4967e3a4-d640-43ce-8b8d-7d91117fbf7f\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/4967e3a4-d640-43ce-8b8d-7d91117fbf7f\"/></p><p>Усло­вий су­ще­ство­ва­ния ло­га­риф­мов в левой части не­ра­вен­ства до­ста­точ­но для со­блю­де­ния ОДЗ, ввиду знака не­ра­вен­ства.</p>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "521006",
+    "task": "701915",
+    "source_answer": "[-2;-\\frac{3}{2})\\cup (0;6] .",
+    "expected_answer": "[-2;-\\frac{3}{2})\\cup (0;6] .",
+    "context": {
+      "problem_id": "4cf1c75b-851f-4d70-900f-e88724b873f3",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-08-27T10:16:45.061148+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "assets"
+            },
+            "value": {
+              "alt": "",
+              "url": "/assets/dc5fb692-0142-4a1e-8e70-c948c5de06f7",
+              "html": "<img alt=\"\" data-asset-id=\"dc5fb692-0142-4a1e-8e70-c948c5de06f7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dc5fb692-0142-4a1e-8e70-c948c5de06f7\"/>",
+              "kind": "ordinary_image",
+              "asset_id": "dc5fb692-0142-4a1e-8e70-c948c5de06f7",
+              "position": 1,
+              "asset_key": "image_1",
+              "parent_target_id": "section:solution:1"
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "asset:image_1"
+          },
+          {
+            "at": "2026-10-02T17:53:03.693371+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_2 (\\frac{3}{x}+2)-\\log_2 (x+3)\\le \\log_2 (\\frac{x+4}{x^{2}})\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T17:53:03.693371+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"[-2;-\\frac{3}{2})\\cup (0;6]\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T17:53:03.693371+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Решим не­ра­вен­ство, пе­рей­дя к рав­но­силь­ной си­сте­ме:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{3}{x}+2\\gt 0\\\\x+3\\gt 0\\\\\\frac{2x+3}{x(x+3)}\\le \\frac{x+4}{x^{2}}\\end{cases}\\iff \\begin{cases}\\frac{2x+3}{x}\\gt 0\\\\x\\gt -3\\\\\\frac{x^{2}-4x-12}{x^{2}(x+3)}\\le 0\\end{cases}\\iff \\begin{cases}\\frac{x+\\frac{3}{2}}{x}\\gt 0\\\\x\\gt -3\\\\\\frac{(x-6)(x+2)}{x^{2}(x+3)}\\le 0\\end{cases}.\\quad \\iff \\left[\\begin{aligned}-2\\le x\\lt -\\frac{3}{2}\\\\0\\lt x\\le 6\\end{aligned}\\right.\"></span> . </span></p></center><p><img alt=\"\" data-asset-id=\"dc5fb692-0142-4a1e-8e70-c948c5de06f7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/></p><p>Усло­вий су­ще­ство­ва­ния ло­га­риф­мов в левой части не­ра­вен­ства до­ста­точ­но для со­блю­де­ния ОДЗ, ввиду знака не­ра­вен­ства.</p>",
+              "title": "Решение",
+              "asset_keys": [
+                "image_1"
+              ]
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T17:53:03.693371+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T17:53:03.693371+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T17:53:03.693371+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [
+          {
+            "alt": "",
+            "url": "/assets/dc5fb692-0142-4a1e-8e70-c948c5de06f7",
+            "kind": "ordinary_image",
+            "asset_id": "dc5fb692-0142-4a1e-8e70-c948c5de06f7",
+            "asset_key": "image_1",
+            "transformation_target_id": "asset:image_1"
+          }
+        ],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство  <span data-inline-latex=\"\\log_2 (\\frac{3}{x}+2)-\\log_2 (x+3)\\le \\log_2 (\\frac{x+4}{x^{2}})\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"[-2;-\\frac{3}{2})\\cup (0;6]\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=91805083\" rel=\"noreferrer noopener\" target=\"_blank\">ЕГЭ по математике 23.06.2026. Основная волна, резервный день. Санкт-Петербург. Вариант 512</a></p><p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=89894905\" rel=\"noreferrer noopener\" target=\"_blank\">Задания 15 ЕГЭ–2026</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Решим не­ра­вен­ство, пе­рей­дя к рав­но­силь­ной си­сте­ме:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{3}{x}+2\\gt 0\\\\x+3\\gt 0\\\\\\frac{2x+3}{x(x+3)}\\le \\frac{x+4}{x^{2}}\\end{cases}\\iff \\begin{cases}\\frac{2x+3}{x}\\gt 0\\\\x\\gt -3\\\\\\frac{x^{2}-4x-12}{x^{2}(x+3)}\\le 0\\end{cases}\\iff \\begin{cases}\\frac{x+\\frac{3}{2}}{x}\\gt 0\\\\x\\gt -3\\\\\\frac{(x-6)(x+2)}{x^{2}(x+3)}\\le 0\\end{cases}.\\quad \\iff \\left[\\begin{aligned}-2\\le x\\lt -\\frac{3}{2}\\\\0\\lt x\\le 6\\end{aligned}\\right.\"></span> . </span></p></center><p><img alt=\"\" data-asset-id=\"dc5fb692-0142-4a1e-8e70-c948c5de06f7\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/dc5fb692-0142-4a1e-8e70-c948c5de06f7\"/></p><p>Усло­вий су­ще­ство­ва­ния ло­га­риф­мов в левой части не­ра­вен­ства до­ста­точ­но для со­блю­де­ния ОДЗ, ввиду знака не­ра­вен­ства.</p>",
+            "title": "Решение",
+            "asset_keys": [
+              "image_1"
+            ],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

@@ -11,3 +11,15 @@ GROUPS = (
         "exam-logarithm-inequality-product",
     ),
 )
+
+GROUPS += (
+    (
+        "521006",
+        "626c10df-efa3-48f5-81f4-f69914a8fee8",
+        18,
+        "Логарифмические неравенства первой и второй степени",
+        4,
+        "93d98863-d97a-4954-aa41-f802988f9444",
+        "exam-logarithm-inequality-quotient",
+    ),
+)

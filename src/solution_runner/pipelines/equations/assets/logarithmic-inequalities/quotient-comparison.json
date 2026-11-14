@@ -1,0 +1,123 @@
+{
+  "parent_sha256": [
+    "328320481d3ae9cbe005674021f1c2ae00fc291f0eb998d0299dc458b288d7c9"
+  ],
+  "figures": {
+    "2f357aa0-d2fe-4704-b65d-601a05d1bbd2": {
+      "row1_domain": "Union(Interval.open(-oo, -1), Interval.open(0, oo))",
+      "row2_domain": "Interval.open(-3, oo)",
+      "bottom_scope": "positive_factor_removed",
+      "bottom_signature": {
+        "points": [
+          "-2",
+          "0",
+          "9"
+        ],
+        "poles": [
+          "0"
+        ],
+        "signs": [
+          1,
+          -1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "bottom_solution": "Union(Interval.Ropen(-2, 0), Interval.Lopen(0, 9))",
+      "multiplicities": {
+        "zeros": {
+          "-2": 1,
+          "9": 1
+        },
+        "poles": {
+          "0": 2
+        }
+      },
+      "intersection": "Union(Interval.Ropen(-2, -1), Interval.Lopen(0, 9))",
+      "argument_holes": [],
+      "sha256": "aafcdaf80d5665612b78bdd775a43c8aa75359739991fabe2b9569a2d2e1eebc",
+      "shareable": true
+    },
+    "4967e3a4-d640-43ce-8b8d-7d91117fbf7f": {
+      "row1_domain": "Union(Interval.open(-oo, -3/2), Interval.open(0, oo))",
+      "row2_domain": "Interval.open(-2, oo)",
+      "bottom_scope": "full_denominator",
+      "bottom_signature": {
+        "points": [
+          "-2",
+          "-sqrt(2)",
+          "0",
+          "sqrt(2)"
+        ],
+        "poles": [
+          "-2",
+          "0"
+        ],
+        "signs": [
+          -1,
+          1,
+          -1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "bottom_solution": "Union(Interval.open(-oo, -2), Interval.Lopen(0, sqrt(2)), Interval.Ropen(-sqrt(2), 0))",
+      "multiplicities": {
+        "zeros": {
+          "-sqrt(2)": 1,
+          "sqrt(2)": 1
+        },
+        "poles": {
+          "-2": 1,
+          "0": 2
+        }
+      },
+      "intersection": "Interval.Lopen(0, sqrt(2))",
+      "argument_holes": [],
+      "sha256": "b6997424a72e1cfcf8fa33d410ee50a2b302e9ad30f097816ae24a539a372f57",
+      "shareable": true
+    },
+    "dc5fb692-0142-4a1e-8e70-c948c5de06f7": {
+      "row1_domain": "Union(Interval.open(-oo, -3/2), Interval.open(0, oo))",
+      "row2_domain": "Interval.open(-3, oo)",
+      "bottom_scope": "full_denominator",
+      "bottom_signature": {
+        "points": [
+          "-3",
+          "-2",
+          "0",
+          "6"
+        ],
+        "poles": [
+          "-3",
+          "0"
+        ],
+        "signs": [
+          -1,
+          1,
+          -1,
+          -1,
+          1
+        ],
+        "operator": "<="
+      },
+      "bottom_solution": "Union(Interval.open(-oo, -3), Interval.Ropen(-2, 0), Interval.Lopen(0, 6))",
+      "multiplicities": {
+        "zeros": {
+          "-2": 1,
+          "6": 1
+        },
+        "poles": {
+          "-3": 1,
+          "0": 2
+        }
+      },
+      "intersection": "Union(Interval.Ropen(-2, -3/2), Interval.Lopen(0, 6))",
+      "argument_holes": [],
+      "sha256": "dc54c589735f680310f89d6890f2ba03be6c7c59da9f9690c059595b2d38c5e8",
+      "shareable": true
+    }
+  }
+}

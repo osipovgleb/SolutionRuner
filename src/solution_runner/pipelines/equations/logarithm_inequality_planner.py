@@ -8,6 +8,9 @@ from ..probability.common import UnsupportedCondition
 from .inequality_plan import repair
 from .logarithm_product_inequality import analyze
 from .logarithm_product_inequality_proof import render
+from .logarithm_quotient_inequality_figures import SOURCES as QUOTIENT_SOURCES
+from .logarithm_quotient_inequality_figures import chart
+from .logarithm_quotient_inequality_proof import render as quotient_proof
 from .rational_inequality_figures import read_formula
 
 SOURCES = json.loads(
@@ -16,20 +19,32 @@ SOURCES = json.loads(
         / "assets/logarithmic-inequalities/product-comparison.json"
     ).read_text()
 )
+PARENTS = {
+    **dict.fromkeys(SOURCES["parent_sha256"], "product"),
+    **dict.fromkeys(QUOTIENT_SOURCES["parent_sha256"], "quotient"),
+}
 
 
-def build_context_repair_plan(context, *, parent_solution_html=""):
-    if (
-        hashlib.sha256(parent_solution_html.encode()).hexdigest()
-        not in SOURCES["parent_sha256"]
-    ):
+def build_context_repair_plan(context, *, parent_solution_html="", method="product"):
+    if PARENTS.get(hashlib.sha256(parent_solution_html.encode()).hexdigest()) != method:
         raise UnsupportedCondition(
             "the complete reviewed logarithm product parent is required"
         )
     (content, condition, answer, solution), formula = read_formula(context)
-    if content.get("assets"):
+    if method == "product" and content.get("assets"):
         raise UnsupportedCondition(
             "this reviewed logarithm product parent has no source figures"
         )
-    a = analyze(formula)
+    a = analyze(formula, method=method)
+    if method == "quotient":
+        image, keys, changes, scope = chart(context, a)
+        return repair(
+            condition,
+            answer,
+            solution,
+            a.answer,
+            quotient_proof(a, image, scope),
+            keys=keys,
+            asset_changes=changes,
+        )
     return repair(condition, answer, solution, a.answer, render(a))

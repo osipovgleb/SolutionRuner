@@ -40,7 +40,7 @@ def operand(text, index):
     return match.group(), index + match.end()
 
 
-def logarithm(text, index, symbol, *, extended=False):
+def logarithm(text, index, symbol, *, extended=False, argument_reader=None):
     index += 5
     if text[index : index + 1] == "{":
         raw, index = balanced(text, index)
@@ -76,11 +76,17 @@ def logarithm(text, index, symbol, *, extended=False):
         raw, index = balanced(text, index + 5)
     else:
         raw, index = operand(text, index)
-    argument = algebraic_polynomial(raw) if extended else polynomial(raw, X)
+    argument = (
+        argument_reader(raw)
+        if argument_reader is not None
+        else algebraic_polynomial(raw)
+        if extended
+        else polynomial(raw, X)
+    )
     return Atom(base, argument, root, symbol), power, index
 
 
-def read_equation(formula, *, extended=False, radicands=None):
+def read_equation(formula, *, extended=False, radicands=None, argument_reader=None):
     text = clean(formula.removesuffix("."))
     if text.count("=") != 1 or any(c in text for c in "zwuv"):
         raise UnsupportedCondition("one complete logarithmic equation in x is required")
@@ -92,7 +98,11 @@ def read_equation(formula, *, extended=False, radicands=None):
             )
         start = text.index(r"\log_")
         atom, power, end = logarithm(
-            text, start, SYMBOLS[len(atoms)], extended=extended
+            text,
+            start,
+            SYMBOLS[len(atoms)],
+            extended=extended,
+            argument_reader=argument_reader,
         )
         atoms.append(atom)
         text = (
