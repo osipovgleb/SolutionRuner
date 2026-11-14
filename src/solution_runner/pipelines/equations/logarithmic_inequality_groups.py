@@ -323,3 +323,15 @@ GROUPS += (
         "exam-logarithm-inequality-polynomial-log-chart",
     ),
 )
+
+GROUPS += (
+    (
+        "642335",
+        "cdf5aa66-055f-4914-8e4d-27545c696821",
+        21,
+        "Логарифмические неравенства, разные задачи",
+        8,
+        "6ed5e9b0-e910-4607-99bf-9f9458ff710e",
+        "exam-logarithm-inequality-square-factor",
+    ),
+)

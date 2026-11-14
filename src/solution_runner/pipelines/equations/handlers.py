@@ -1126,3 +1126,12 @@ HANDLERS += tuple(
     )
     for method in ("polynomial_log_reduction", "polynomial_log_chart")
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithm-inequality-square-factor",
+        "solution_runner.pipelines.equations.logarithm_square_factor_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)
