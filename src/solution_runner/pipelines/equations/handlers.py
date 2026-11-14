@@ -1216,3 +1216,12 @@ HANDLERS += (
         requires_parent_condition_asset=False,
     ),
 )
+
+HANDLERS += (
+    HandlerSpec(
+        "exam-logarithm-exponential-quadratic",
+        "solution_runner.pipelines.equations.logarithm_exponential_proof:build_context_repair_plan",
+        inputs=(("parent_solution_html", "parent_solution_html"),),
+        requires_parent_condition_asset=False,
+    ),
+)
