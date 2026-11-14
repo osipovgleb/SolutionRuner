@@ -1,0 +1,569 @@
+[
+  {
+    "group": "507691",
+    "task": "507691",
+    "context": {
+      "problem_id": "7e961fe4-9286-4b56-bb6d-241156e4d77e",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{(x^{2}+x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{\\lg (-x^{2}-2x+2)^{2}}{x-1}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ис­поль­зуя свой­ства ло­га­риф­мов, пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p><span> <span data-inline-latex=\"\\frac{(x^{2}+x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{\\lg (-x^{2}-2x+2)^{2}}{x-1}\\iff \\frac{(x^{2}+x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{2\\lg (x^{2}+2x-2)}{x-1}\"></span> . </span></p></center><p>При <nobr><span data-inline-latex=\"x\\gt 1\"></span>:</nobr></p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x-2)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\frac{(x-1)(x+2)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\gt 1\\end{cases}\\iff x\\gt 1\"></span>.</span></p><p></p></center><p>При <nobr><span data-inline-latex=\"x\\lt 1\"></span>:</nobr></p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x+2)\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\frac{\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-3\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\lt 1\\end{cases}\\iff x\\le -3\"></span>.</span></p><p><span></span></p></center><p>Таким об­ра­зом, по­лу­ча­ем, что ре­ше­ние не­ра­вен­ства  — мно­же­ство  <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-01T23:42:22.917213+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{(x^{2}+x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{\\lg (-x^{2}-2x+2)^{2}}{x-1}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Ис­поль­зуя свой­ства ло­га­риф­мов, пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p><span> <span data-inline-latex=\"\\frac{(x^{2}+x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{\\lg (-x^{2}-2x+2)^{2}}{x-1}\\iff \\frac{(x^{2}+x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{2\\lg (x^{2}+2x-2)}{x-1}\"></span> . </span></p></center><p>При <nobr><span data-inline-latex=\"x\\gt 1\"></span>:</nobr></p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x-2)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\frac{(x-1)(x+2)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\gt 1\\end{cases}\\iff x\\gt 1\"></span>.</span></p><p></p></center><p>При <nobr><span data-inline-latex=\"x\\lt 1\"></span>:</nobr></p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x+2)\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\frac{\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-3\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\lt 1\\end{cases}\\iff x\\le -3\"></span>.</span></p><p><span></span></p></center><p>Таким об­ра­зом, по­лу­ча­ем, что ре­ше­ние не­ра­вен­ства  — мно­же­ство  <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "507691",
+    "task": "507693",
+    "context": {
+      "problem_id": "a6244623-0471-43e7-b0ef-f07a527f4f4a",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{(x^{2}+x)\\log_8 (x^{2}+4x-4)}{\\left|x-2\\right|}\\ge \\frac{\\log_8 (-x^{2}-4x+4)^{6}}{x-2}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-5]\\cup [1;2)\\cup (2;+\\infty)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ис­поль­зуя свой­ства ло­га­риф­мов, пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p><span> <span data-inline-latex=\"\\frac{(x^{2}+x)\\log_8 (x^{2}+4x-4)}{\\left|x-2\\right|}\\ge \\frac{\\log_8 (-x^{2}-4x+4)^{6}}{x-2}\\iff \\frac{(x^{2}+x)\\log_8 (x^{2}+4x-4)}{\\left|x-2\\right|}\\ge \\frac{6\\log_8 (x^{2}+4x-4)}{x-2}\"></span> . </span></p></center><p>При <span data-inline-latex=\"x\\gt 2\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x-6)\\log_8 (x^{2}+4x-4)}{x-2}\\ge 0\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}\\frac{(x-2)(x+3)\\log_8 (x^{2}+4x-4)}{x-2}\\ge 0\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}\\log_8 (x^{2}+4x-4)\\ge 0\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}x^{2}+4x-4\\ge 1\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}(x-1)(x+5)\\ge 0\\\\x\\gt 2\\end{cases}\\iff x\\gt 2\"></span>.</span></p><p></p></center><p>При <span data-inline-latex=\"x\\lt 2\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x+6)\\log_8 (x^{2}+4x-4)}{2-x}\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}\\frac{\\log_8 (x^{2}+4x-4)}{2-x}\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}\\log_8 (x^{2}+4x-4)\\ge 0\\\\x\\lt 2\\end{cases}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}x^{2}+4x-4\\ge 1\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}x^{2}+4x-5\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}(x-1)(x+5)\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\left[\\begin{aligned}x\\le -5\\\\1\\le x\\lt 2\\end{aligned}\\right.\"></span> .</span></p><p><span></span></p></center><p>Таким об­ра­зом, по­лу­ча­ем, что ре­ше­ние не­ра­вен­ства  — мно­же­ство  <span data-inline-latex=\"(-\\infty;-5]\\cup [1;2)\\cup (2;+\\infty)\"></span> .</p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-01T23:42:23.322937+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{(x^{2}+x)\\log_8 (x^{2}+4x-4)}{\\left|x-2\\right|}\\ge \\frac{\\log_8 (-x^{2}-4x+4)^{6}}{x-2}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-5]\\cup [1;2)\\cup (2;+\\infty)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Ис­поль­зуя свой­ства ло­га­риф­мов, пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p><span> <span data-inline-latex=\"\\frac{(x^{2}+x)\\log_8 (x^{2}+4x-4)}{\\left|x-2\\right|}\\ge \\frac{\\log_8 (-x^{2}-4x+4)^{6}}{x-2}\\iff \\frac{(x^{2}+x)\\log_8 (x^{2}+4x-4)}{\\left|x-2\\right|}\\ge \\frac{6\\log_8 (x^{2}+4x-4)}{x-2}\"></span> . </span></p></center><p>При <span data-inline-latex=\"x\\gt 2\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x-6)\\log_8 (x^{2}+4x-4)}{x-2}\\ge 0\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}\\frac{(x-2)(x+3)\\log_8 (x^{2}+4x-4)}{x-2}\\ge 0\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}\\log_8 (x^{2}+4x-4)\\ge 0\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}x^{2}+4x-4\\ge 1\\\\x\\gt 2\\end{cases}\\iff \\begin{cases}(x-1)(x+5)\\ge 0\\\\x\\gt 2\\end{cases}\\iff x\\gt 2\"></span>.</span></p><p></p></center><p>При <span data-inline-latex=\"x\\lt 2\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+x+6)\\log_8 (x^{2}+4x-4)}{2-x}\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}\\frac{\\log_8 (x^{2}+4x-4)}{2-x}\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}\\log_8 (x^{2}+4x-4)\\ge 0\\\\x\\lt 2\\end{cases}\\iff\"></span> <br/> <span data-inline-latex=\"\\iff \\begin{cases}x^{2}+4x-4\\ge 1\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}x^{2}+4x-5\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\begin{cases}(x-1)(x+5)\\ge 0\\\\x\\lt 2\\end{cases}\\iff \\left[\\begin{aligned}x\\le -5\\\\1\\le x\\lt 2\\end{aligned}\\right.\"></span> .</span></p><p><span></span></p></center><p>Таким об­ра­зом, по­лу­ча­ем, что ре­ше­ние не­ра­вен­ства  — мно­же­ство  <span data-inline-latex=\"(-\\infty;-5]\\cup [1;2)\\cup (2;+\\infty)\"></span> .</p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  },
+  {
+    "group": "507691",
+    "task": "511474",
+    "context": {
+      "problem_id": "0ca13b88-c6c8-4771-af32-29c9f86e7333",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{(x^{2}+3x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{2\\lg (-x^{2}-2x+2)^{2}}{x-1}\"></span> . </p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ис­поль­зуя свой­ства ло­га­риф­мов, пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p><span> <span data-inline-latex=\"\\frac{(x^{2}+3x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{2\\lg (-x^{2}-2x+2)^{2}}{x-1}\\iff \\frac{(x^{2}+3x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{4\\lg (x^{2}+2x-2)}{x-1}\"></span> . </span></p></center><p>При <span data-inline-latex=\"x\\gt 1\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+3x-4)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\frac{(x-1)(x+4)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\gt 1\\end{cases}\\iff x\\gt 1\"></span>.</span></p><p></p></center><p>При <span data-inline-latex=\"x\\lt 1\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+3x+4)\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\frac{\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-3\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\lt 1\\end{cases}\\iff x\\le -3\"></span>.</span></p><p><span></span></p></center><p>Таким об­ра­зом, по­лу­ча­ем, что ре­ше­ние не­ра­вен­ства  — мно­же­ство  <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-01T23:42:22.178760+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство:  <span data-inline-latex=\"\\frac{(x^{2}+3x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{2\\lg (-x^{2}-2x+2)^{2}}{x-1}\"></span> . </p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Ис­поль­зуя свой­ства ло­га­риф­мов, пре­об­ра­зу­ем не­ра­вен­ство:</p><center><p><span> <span data-inline-latex=\"\\frac{(x^{2}+3x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{2\\lg (-x^{2}-2x+2)^{2}}{x-1}\\iff \\frac{(x^{2}+3x)\\lg (x^{2}+2x-2)}{\\left|x-1\\right|}\\ge \\frac{4\\lg (x^{2}+2x-2)}{x-1}\"></span> . </span></p></center><p>При <span data-inline-latex=\"x\\gt 1\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+3x-4)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\frac{(x-1)(x+4)\\lg (x^{2}+2x-2)}{x-1}\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\gt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\gt 1\\end{cases}\\iff x\\gt 1\"></span>.</span></p><p></p></center><p>При <span data-inline-latex=\"x\\lt 1\"></span>:</p><center><p><span> <span data-inline-latex=\"\\begin{cases}\\frac{(x^{2}+3x+4)\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\frac{\\lg (x^{2}+2x-2)}{1-x}\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}\\lg (x^{2}+2x-2)\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-2\\ge 1\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}x^{2}+2x-3\\ge 0\\\\x\\lt 1\\end{cases}\\iff \\begin{cases}(x-1)(x+3)\\ge 0\\\\x\\lt 1\\end{cases}\\iff x\\le -3\"></span>.</span></p><p><span></span></p></center><p>Таким об­ра­зом, по­лу­ча­ем, что ре­ше­ние не­ра­вен­ства  — мно­же­ство  <span data-inline-latex=\"(-\\infty;-3]\\cup (1;+\\infty)\"></span> .</p>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    }
+  }
+]

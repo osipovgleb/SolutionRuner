@@ -5168,3 +5168,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "507691",
+        "855be483-863e-41b5-ba28-5fa2f60f174f",
+        0,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Другие неравенства смешанного типа",
+        theme_order_index=14,
+        snapshot_theme_id="fa84ece5-aae6-49e3-8024-71ffe8310355",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithm-absolute-fraction",
+        rewrite_existing_solution=True,
+    ),
+)
