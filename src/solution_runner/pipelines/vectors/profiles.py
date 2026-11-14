@@ -417,3 +417,21 @@ PROFILES += tuple(
         ),
     )
 )
+
+PROFILES += (
+    _profile(
+        "27712",
+        "3d8ea970-719d-404b-9459-952d812ebf2a",
+        7,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="2",
+        theme_title="Векторы и операции с ними",
+        theme_order_index=0,
+        snapshot_theme_id="64fdf550-dcad-489a-aea5-0682edf81d76",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="vector-geometric-operations",
+        rewrite_existing_solution=True,
+    ),
+)
