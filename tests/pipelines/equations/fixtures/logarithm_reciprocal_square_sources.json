@@ -1,0 +1,533 @@
+[
+  {
+    "group": "508392",
+    "task": "508392",
+    "context": {
+      "problem_id": "6a641692-1d9e-4699-a9e4-ebe3c884ba20",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_{(3x-1)} 4+2\\le 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"\\{1\\}\"></span> .</p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Дан­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству</p><center><p><span> <span data-inline-latex=\"(\\log_2^{2} (3x-1)+\\frac{1}{\\log_2^{2} (3x-1)})-2(\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)})+2\\le 0\"></span>. </span></p></center><p>Пусть  <span data-inline-latex=\"\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}=t\"></span>,  тогда  <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\frac{1}{\\log_2^{2} (3x-1)}+2=t^{2}\"></span>  и, сле­до­ва­тель­но, </p><center><p> <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\frac{1}{\\log_2^{2} (3x-1)}=t^{2}-2\"></span>. </p></center><p>Тогда ис­ход­ное не­ра­вен­ство рав­но­силь­но: <span data-inline-latex=\"t^{2}-2t\\le 0\\iff 0\\le t\\le 2\"></span>, от­ку­да </p><center><p><span><span data-inline-latex=\"0\\le \\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}\\le 2\\iff \\log_2 (3x-1)=1\\iff 3x-1=2\\iff x=1\"></span>. </span></p></center><p><b>За­ме­ча­ние.</b></p><p>Не­труд­но за­ме­тить, что по­лу­чен­ный ко­рень удо­вле­тво­ря­ет ОДЗ.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение:\"><p>Пре­об­ра­зу­ем левую часть не­ра­вен­ства, вы­де­лив пол­ные квад­ра­ты:</p><center><p><span> <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_{(3x-1)} 4+2=\\log_2^{2} (3x-1)-2\\log_2 (3x-1)+1+\\log_{(3x-1)}^{2} 2-2\\log_{(3x-1)} 2+1=(\\log_2 (3x-1)-1)^{2}+(\\log_{(3x-1)} 2-1)^{2}\"></span> .</span></p></center><p>Тогда</p><center><p><span> <span data-inline-latex=\"(\\log_2 (3x-1)-1)^{2}+(\\log_{(3x-1)} 2-1)^{2}\\le 0\\iff \\begin{cases}\\log_2 (3x-1)-1=0\\\\\\log_{(3x-1)} 2-1=0\\end{cases}.\\quad \\iff 3x-1=2\\iff x=1\"></span>.</span></p></center></section>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_10"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_11"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          },
+          {
+            "at": "2026-10-02T08:50:27.958828+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_9"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_{(3x-1)} 4+2\\le 0\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"\\{1\\}\"></span> .</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "source",
+            "html": "<p>Источник: <a href=\"https://math-ege.sdamgia.ru/test?id=6553617\" rel=\"noreferrer noopener\" target=\"_blank\">Пробный ЕГЭ по математике Санкт-Петербург 2015. Вариант 2</a></p>",
+            "title": "Источник",
+            "asset_keys": [],
+            "section_id": "source:1",
+            "transformation_target_id": "section:source:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<section data-content-kind=\"solution\" data-solution-title=\"Решение\"><p>Дан­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству</p><center><p><span> <span data-inline-latex=\"(\\log_2^{2} (3x-1)+\\frac{1}{\\log_2^{2} (3x-1)})-2(\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)})+2\\le 0\"></span>. </span></p></center><p>Пусть  <span data-inline-latex=\"\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}=t\"></span>,  тогда  <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\frac{1}{\\log_2^{2} (3x-1)}+2=t^{2}\"></span>  и, сле­до­ва­тель­но, </p><center><p> <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\frac{1}{\\log_2^{2} (3x-1)}=t^{2}-2\"></span>. </p></center><p>Тогда ис­ход­ное не­ра­вен­ство рав­но­силь­но: <span data-inline-latex=\"t^{2}-2t\\le 0\\iff 0\\le t\\le 2\"></span>, от­ку­да </p><center><p><span><span data-inline-latex=\"0\\le \\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}\\le 2\\iff \\log_2 (3x-1)=1\\iff 3x-1=2\\iff x=1\"></span>. </span></p></center><p><b>За­ме­ча­ние.</b></p><p>Не­труд­но за­ме­тить, что по­лу­чен­ный ко­рень удо­вле­тво­ря­ет ОДЗ.</p></section><section data-content-kind=\"solution\" data-solution-title=\"Приведём другое решение:\"><p>Пре­об­ра­зу­ем левую часть не­ра­вен­ства, вы­де­лив пол­ные квад­ра­ты:</p><center><p><span> <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_{(3x-1)} 4+2=\\log_2^{2} (3x-1)-2\\log_2 (3x-1)+1+\\log_{(3x-1)}^{2} 2-2\\log_{(3x-1)} 2+1=(\\log_2 (3x-1)-1)^{2}+(\\log_{(3x-1)} 2-1)^{2}\"></span> .</span></p></center><p>Тогда</p><center><p><span> <span data-inline-latex=\"(\\log_2 (3x-1)-1)^{2}+(\\log_{(3x-1)} 2-1)^{2}\\le 0\\iff \\begin{cases}\\log_2 (3x-1)-1=0\\\\\\log_{(3x-1)} 2-1=0\\end{cases}.\\quad \\iff 3x-1=2\\iff x=1\"></span>.</span></p></center></section>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    },
+    "expected_condition_html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_2^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_{(3x-1)} 4+2\\le 0\"></span>.</p>",
+    "expected_answer": "\\{1\\}"
+  },
+  {
+    "group": "508392",
+    "task": "509403",
+    "context": {
+      "problem_id": "7012b71d-d9c5-4908-994a-8e23311de357",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 7,
+        "items": [
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_{(2)}^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_3 x-14+2\\le 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Дан­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству</p><center><p><span> <span data-inline-latex=\"(\\log_{(2)}^{2} (3x-1)+\\frac{1}{\\log_{(2)}^{2} (3x-1)})-2(\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)})+2\\le 0\"></span>. </span></p></center><p>Пусть <span data-inline-latex=\"\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}=t\"></span>,  тогда  <span data-inline-latex=\"\\log_{(2)}^{2} (3x-1)+\\frac{1}{\\log_{(2)}^{2} (3x-1)}+2=t^{2}\"></span>  и, сле­до­ва­тель­но, </p><center><p> <span data-inline-latex=\"\\log_{(2)}^{2} (3x-1)+\\frac{1}{\\log_{(2)}^{2} (3x-1)}=t^{2}-2\"></span>. </p></center><p>Далее имеем: <span data-inline-latex=\"t^{2}-2t\\le 0\\iff 0\\le t\\le 2\"></span>, от­ку­да </p><center><p><span data-inline-latex=\"0\\le \\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}\\le 2\\iff \\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}=2\\iff \\log_2 (3x-1)=1\\iff 3x-1=2\\iff x=1\"></span>.  </p><p><span></span></p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          },
+          {
+            "at": "2026-10-02T08:56:30.578872+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_8"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_{(2)}^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_3 x-14+2\\le 0\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p>{1}.</p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Дан­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству</p><center><p><span> <span data-inline-latex=\"(\\log_{(2)}^{2} (3x-1)+\\frac{1}{\\log_{(2)}^{2} (3x-1)})-2(\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)})+2\\le 0\"></span>. </span></p></center><p>Пусть <span data-inline-latex=\"\\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}=t\"></span>,  тогда  <span data-inline-latex=\"\\log_{(2)}^{2} (3x-1)+\\frac{1}{\\log_{(2)}^{2} (3x-1)}+2=t^{2}\"></span>  и, сле­до­ва­тель­но, </p><center><p> <span data-inline-latex=\"\\log_{(2)}^{2} (3x-1)+\\frac{1}{\\log_{(2)}^{2} (3x-1)}=t^{2}-2\"></span>. </p></center><p>Далее имеем: <span data-inline-latex=\"t^{2}-2t\\le 0\\iff 0\\le t\\le 2\"></span>, от­ку­да </p><center><p><span data-inline-latex=\"0\\le \\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}\\le 2\\iff \\log_2 (3x-1)+\\frac{1}{\\log_2 (3x-1)}=2\\iff \\log_2 (3x-1)=1\\iff 3x-1=2\\iff x=1\"></span>.  </p><p><span></span></p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    },
+    "expected_condition_html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_{(2)}^{2} (3x-1)+\\log_{(3x-1)}^{2} 2-\\log_2 (3x-1)^{2}-\\log_{(3x-1)} 4+2\\le 0\"></span>.</p>",
+    "expected_answer": "\\{1\\}"
+  },
+  {
+    "group": "508392",
+    "task": "511586",
+    "context": {
+      "problem_id": "9f078518-832f-4e4a-8d30-135fb42b8045",
+      "transformations": {
+        "schema_version": 3,
+        "revision": 9,
+        "items": [
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_{(2)}^{2} (3x+1)+\\log_{(3x+1)}^{2} 2-2\\log_2 (3x+1)^{2}-2\\log_3 x+14+6\\le 0\"></span>.</p>",
+              "title": "Условие",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p> <span data-inline-latex=\"\\frac{1}{3}\"></span> . </p>",
+              "title": "Ответ",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "value": {
+              "html": "<p>Дан­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству</p><center><p><span> <span data-inline-latex=\"(\\log_{(2)}^{2} (3x+1)+\\frac{1}{\\log_{(2)}^{2} (3x+1)})-4(\\log_2 (3x+1)+\\frac{1}{\\log_2 (3x+1)})+6\\le 0\"></span>. </span></p></center><p>Пусть <span data-inline-latex=\"\\log_2 (3x+1)+\\frac{1}{\\log_2 (3x+1)}=t\"></span>,  тогда  <span data-inline-latex=\"\\log_{(2)}^{2} (3x+1)+\\frac{1}{\\log_{(2)}^{2} (3x+1)}=t^{2}-2\"></span>. </p><p>Далее имеем: <span data-inline-latex=\"t^{2}-4t+4\\le 0\\iff t=2\"></span>, от­ку­да</p><center><p><span><span data-inline-latex=\"\\log_2 (3x+1)+\\frac{1}{\\log_2 (3x+1)}=2\\iff \\log_2 (3x+1)=1\\iff 3x+1=2\\iff x=\\frac{1}{3}\"></span> . </span></p></center>",
+              "title": "Решение",
+              "asset_keys": []
+            },
+            "operation": "rewrite",
+            "transformation_target_id": "section:solution:1"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_1"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_2"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_3"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_4"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_5"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_6"
+          },
+          {
+            "at": "2026-10-02T08:56:30.868829+00:00",
+            "by": {
+              "type": "pipeline",
+              "stage": "deterministic_svg"
+            },
+            "operation": "remove",
+            "transformation_target_id": "asset:formula_7"
+          }
+        ]
+      },
+      "normalized_content": {
+        "assets": [],
+        "format": "teacherhelper-normalized",
+        "sections": [
+          {
+            "key": "condition",
+            "html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_{(2)}^{2} (3x+1)+\\log_{(3x+1)}^{2} 2-2\\log_2 (3x+1)^{2}-2\\log_3 x+14+6\\le 0\"></span>.</p>",
+            "title": "Условие",
+            "asset_keys": [],
+            "section_id": "condition:1",
+            "transformation_target_id": "section:condition:1"
+          },
+          {
+            "key": "answer",
+            "html": "<p> <span data-inline-latex=\"\\frac{1}{3}\"></span> . </p>",
+            "title": "Ответ",
+            "asset_keys": [],
+            "section_id": "answer:1",
+            "transformation_target_id": "section:answer:1"
+          },
+          {
+            "key": "criteria",
+            "html": "<table width=\"72%\"><tbody><tr><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Кри­те­рии оце­ни­ва­ния вы­пол­не­ния за­да­ния</th><th data-align=\"center\" data-cell-tone=\"source-header\" data-valign=\"middle\">Баллы</th></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен вер­ный ответ</td><td data-align=\"center\" data-valign=\"middle\">2</td></tr><tr><td data-align=\"left\">Обос­но­ван­но по­лу­чен ответ, от­ли­ча­ю­щий­ся от вер­но­го ис­клю­че­ни­ем точек,<p>ИЛИ</p><p>по­лу­чен не­вер­ный ответ из-за вы­чис­ли­тель­ной ошиб­ки, но при этом име­ет­ся вер­ная по­сле­до­ва­тель­ность всех шагов ре­ше­ния</p></td><td data-align=\"center\" data-valign=\"middle\">1</td></tr><tr><td data-align=\"left\">Ре­ше­ние не со­от­вет­ству­ет ни од­но­му из кри­те­ри­ев, пе­ре­чис­лен­ных выше.</td><td data-align=\"center\" data-valign=\"middle\">0</td></tr><tr><td data-align=\"left\"><i>Мак­си­маль­ный балл</i></td><td data-align=\"center\" data-valign=\"middle\">2</td></tr></tbody></table>",
+            "title": "Критерии проверки",
+            "asset_keys": [],
+            "section_id": "criteria:1",
+            "transformation_target_id": "section:criteria:1"
+          },
+          {
+            "key": "solution",
+            "html": "<p>Дан­ное не­ра­вен­ство рав­но­силь­но не­ра­вен­ству</p><center><p><span> <span data-inline-latex=\"(\\log_{(2)}^{2} (3x+1)+\\frac{1}{\\log_{(2)}^{2} (3x+1)})-4(\\log_2 (3x+1)+\\frac{1}{\\log_2 (3x+1)})+6\\le 0\"></span>. </span></p></center><p>Пусть <span data-inline-latex=\"\\log_2 (3x+1)+\\frac{1}{\\log_2 (3x+1)}=t\"></span>,  тогда  <span data-inline-latex=\"\\log_{(2)}^{2} (3x+1)+\\frac{1}{\\log_{(2)}^{2} (3x+1)}=t^{2}-2\"></span>. </p><p>Далее имеем: <span data-inline-latex=\"t^{2}-4t+4\\le 0\\iff t=2\"></span>, от­ку­да</p><center><p><span><span data-inline-latex=\"\\log_2 (3x+1)+\\frac{1}{\\log_2 (3x+1)}=2\\iff \\log_2 (3x+1)=1\\iff 3x+1=2\\iff x=\\frac{1}{3}\"></span> . </span></p></center>",
+            "title": "Решение",
+            "asset_keys": [],
+            "section_id": "solution:1",
+            "transformation_target_id": "section:solution:1"
+          }
+        ],
+        "schema_version": 3,
+        "problem_reference_ids": {
+          "prototype_problem_id": null,
+          "group_parent_problem_id": null,
+          "adjacent_group_parent_problem_id": null
+        }
+      }
+    },
+    "expected_condition_html": "<p>Ре­ши­те не­ра­вен­ство   <span data-inline-latex=\"\\log_{(2)}^{2} (3x+1)+\\log_{(3x+1)}^{2} 2-2\\log_2 (3x+1)^{2}-2\\log_{(3x+1)} 4+6\\le 0\"></span>.</p>",
+    "expected_answer": "\\{\\frac{1}{3}\\}"
+  }
+]

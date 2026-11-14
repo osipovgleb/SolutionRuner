@@ -5258,3 +5258,21 @@ PROFILES += (
         rewrite_existing_solution=True,
     ),
 )
+
+PROFILES += (
+    _profile(
+        "508392",
+        "6b13aa63-8619-4392-b9fb-6cc5d4a48068",
+        4,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="16",
+        theme_title="Неравенства с логарифмами по переменному основанию",
+        theme_order_index=6,
+        snapshot_theme_id="31924b26-1eb2-4fa9-be31-0a36f5ee7e54",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-logarithm-reciprocal-square-methods",
+        rewrite_existing_solution=True,
+    ),
+)
