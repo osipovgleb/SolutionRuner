@@ -48,6 +48,7 @@ class HandlerSpec:
     presentation_only: bool = False
     verify_content_readback: bool = False
     diagram_builder: str | None = None
+    diagram_builder_uses_condition_bytes: bool = False
 
     def __post_init__(self):
         if not self.key or ':' not in self.target:
@@ -75,7 +76,11 @@ class HandlerSpec:
         signature(self.resolve()).bind({}, **self.arguments(PlanInput({})))
         if self.diagram_builder:
             module, name = self.diagram_builder.split(":", 1)
-            signature(getattr(import_module(module), name)).bind({})
+            kwargs = (
+                {"condition_asset_bytes": None}
+                if self.diagram_builder_uses_condition_bytes else {}
+            )
+            signature(getattr(import_module(module), name)).bind({}, **kwargs)
         if self.manifest_validator:
             module, name = self.manifest_validator.split(":", 1)
             signature(getattr(import_module(module), name)).bind(None, {})
@@ -106,12 +111,18 @@ class HandlerSpec:
             module, name = self.manifest_validator.split(":", 1)
             getattr(import_module(module), name)(gateway, manifest)
 
-    def diagram_specs(self, context: dict[str, Any]) -> tuple[dict[str, str], ...]:
+    def diagram_specs(
+        self, context: dict[str, Any], *, condition_asset_bytes: bytes | None = None
+    ) -> tuple[dict[str, str], ...]:
         """Build deterministic diagrams without transport or persistent side effects."""
         if not self.diagram_builder:
             return ()
         module, name = self.diagram_builder.split(':', 1)
-        specs = tuple(getattr(import_module(module), name)(context))
+        kwargs = (
+            {"condition_asset_bytes": condition_asset_bytes}
+            if self.diagram_builder_uses_condition_bytes else {}
+        )
+        specs = tuple(getattr(import_module(module), name)(context, **kwargs))
         if any(set(spec) != {"asset_key", "svg_text", "sha256"} or
                not all(isinstance(value, str) and value for value in spec.values()) for spec in specs):
             raise ValueError("invalid deterministic diagram specification")

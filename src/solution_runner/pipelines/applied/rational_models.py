@@ -51,7 +51,7 @@ def check_denominators(q):
 def analyze(q):
     check_denominators(q)
     numerator, denominator = sp.fraction(sp.cancel(q.expression - q.target))
-    degree = 2 if q.kind in ["resonance", "rocket"] else 1
+    degree = 2 if q.kind in ["resonance", "rocket", "rocket_equal"] else 1
     if any(sp.Poly(p, X).degree() > degree for p in [numerator, denominator]):
         raise UnsupportedCondition(
             "the rational constraint exceeds its reviewed degree"
@@ -99,18 +99,16 @@ def calculate(context):
 
 
 def required_assets(context):
-    q = parse(horizon_assets.read(context)[3])
-    return horizon_assets.required_asset() if q.kind == "root_rise" else ()
+    parse(horizon_assets.read(context)[3])
+    return ()
 
 
 def build_context_repair_plan(context):
     data, a = calculate(context)
     condition, ans, solution, _ = data
     if a.question.kind == "root_rise":
-        image, key, changes = horizon_assets.image(context)
-        html = fraction_proof.proof(a) + image
         return diagrams.repair(
-            condition, ans, solution, answer(a.result), html, (key,), changes
+            condition, ans, solution, answer(a.result), fraction_proof.proof(a), ()
         )
     result = finish(condition, ans, solution, answer(a.result), fraction_proof.proof(a))
     if a.repair_lens_wording:

@@ -34,10 +34,18 @@ def solution(result):
 
 
 @pytest.mark.parametrize("group", DATA["groups"], ids=lambda g: g["key"])
-def test_all_integral_groups_share_one_rule(group):
+def test_integral_groups_select_their_explicit_rule(group):
     profile = get_group_profile(group["key"])
     assert profile.source_group_id == group["uuid"]
-    assert profile.content_rule_key == group["rule"]
+    assert profile.content_rule_key == (
+        "calculus-raster-parabola-area"
+        if group["key"] in ("323079", "323080")
+        else (
+            "calculus-raster-trapezoid-rays"
+            if group["key"] == "323078"
+            else group["rule"]
+        )
+    )
     assert profile.snapshot_theme_id == group["theme_uuid"]
     assert profile.group_order_index == group["order"]
 
@@ -111,18 +119,18 @@ def test_piecewise_primitive_is_continuous_and_has_the_correct_one_sided_derivat
 
 
 @pytest.mark.parametrize("task", ["323079", "323283", "323373", "323375"])
-def test_all_four_parent_methods_and_the_symmetry_note_are_preserved(task):
+def test_bowl_area_has_only_the_endpoint_method(task):
     case = sample(task)
     html = solution(plan(case, case["context"]))
+    assert "разности значений" in html
     for text in [
-        "разности значений",
         "полный куб",
         "формулы сокращённого умножения",
-        "Перенесём начало отсчёта",
+        "Перенесём",
         "Примечание.",
         "чётная",
     ]:
-        assert text in html
+        assert text not in html
     _, _, m = graph.calculate(case["context"])
     assert sp.integrate(m.function, (X, m.lower, m.upper)) == m.result
     assert m.vertex_height > 0 and m.curvature > 0
@@ -146,14 +154,15 @@ def test_free_constant_does_not_change_area_or_graph_compatibility():
 
 
 @pytest.mark.parametrize("task", ["323080", "323383", "323475", "323477"])
-def test_cap_area_uses_the_shift_and_exact_rational_limits(task):
+def test_cap_area_uses_endpoint_values_and_exact_rational_limits(task):
     case = sample(task)
     _, _, m = graph.calculate(case["context"])
     assert m.function.subs(X, m.lower) == m.function.subs(X, m.upper) == 0
     assert m.curvature < 0 and m.function.subs(X, m.center) > 0
     assert sp.integrate(m.function, (X, m.lower, m.upper)) == m.result
     html = solution(plan(case, case["context"]))
-    assert "Полученная функция чётная" in html
+    assert "Полученная функция чётная" not in html
+    assert "разности значений" in html
     assert "полный куб" not in html
 
 
@@ -208,3 +217,56 @@ def test_explicit_integral_preserves_triangle_then_rectangle_method():
     assert html.index("S_{\\mathrm{тр}}") < html.index("S_{\\mathrm{пр}}")
     assert "Аналитическое решение" not in html
     assert "4+8=12" in html
+
+
+def test_last_fraction_stays_separate_until_it_cancels():
+    case = sample("323079")
+    html = solution(plan(case, case["context"]))
+    assert r"=-1017-\frac{15}{8}" in html
+    assert r"=-1023-\frac{15}{8}" in html
+    assert (
+        r"S=F(-9)-F(-11)=\left(-1017-\frac{15}{8}\right)-\left(-1023-\frac{15}{8}\right)"
+        in html
+    )
+    assert "=-1017+1023=6" in html
+    assert r"\frac{8151}{8}" not in html
+    assert r"\frac{8199}{8}" not in html
+
+
+@pytest.mark.parametrize(
+    "constant", [sp.Rational(15, 8), -sp.Rational(15, 8), sp.Integer(0), sp.Integer(-8)]
+)
+def test_one_endpoint_method_for_both_groups_with_any_constant_sign(constant):
+    from solution_runner.pipelines.calculus import parabola_proof
+
+    for task in ["323079", "323080"]:
+        _, _, model = graph.calculate(sample(task)["context"])
+        primitive = model.primitive - model.primitive.subs(X, 0) + constant
+        changed = replace(model, primitive=primitive)
+        html = parabola_proof.endpoint_values(changed)
+        assert html.count("<p>Площадь выделенной фигуры") == 1
+        assert "Перенесём" not in html and "Приведём" not in html
+        assert (
+            primitive.subs(X, model.upper) - primitive.subs(X, model.lower)
+            == model.result
+        )
+        final = BeautifulSoup(html, "html.parser").select("[data-inline-latex]")[-1][
+            "data-inline-latex"
+        ]
+        assert final.endswith("=" + sp.latex(model.result))
+        if constant.q > 1:
+            assert r"\frac{15}{8}" not in final.split("=")[-2]
+
+
+@pytest.mark.parametrize("task", ["323079", "323080"])
+def test_each_endpoint_and_area_use_a_single_continuous_equality_chain(task):
+    html = solution(plan(sample(task), sample(task)["context"]))
+    formulas = [
+        s["data-inline-latex"]
+        for s in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
+    ]
+    assert len(formulas) == 3
+    assert formulas[0].startswith("F(") and formulas[1].startswith("F(")
+    assert formulas[2].startswith("S=F(")
+    assert all(not formula.startswith("=") for formula in formulas)
+    assert all(formula.count("=") >= 3 for formula in formulas)

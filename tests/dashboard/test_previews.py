@@ -246,3 +246,33 @@ def test_preview_materializes_attached_assets_and_keeps_referenced_section_asset
 
     assert 'src="https://lessons-helper.ru/assets/new"' in after["condition_html"]
     assert 'src="https://lessons-helper.ru/assets/old"' in after["solution_html"]
+
+
+@pytest.mark.parametrize('section', ['condition', 'solution'])
+def test_generated_svg_is_visible_before_upload_and_matches_frozen_bytes(section):
+    import base64
+    import hashlib
+    from bs4 import BeautifulSoup
+
+    svg = '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 10Q5 0 10 10"/></svg>'
+    digest = hashlib.sha256(svg.encode()).hexdigest()
+    asset_id = 'preview-' + digest[:16]
+    record = {
+        'problem_id': 'child', 'source_problem_id': '101',
+        'generated_diagrams': [{'asset_key': 'image_1', 'svg_text': svg, 'sha256': digest}],
+        'transformations': [
+            {'transformation_target_id': 'asset:image_1', 'operation': 'rewrite',
+             'value': {'asset_key': 'image_1', 'asset_id': asset_id, 'url': '/assets/' + asset_id}},
+            {'transformation_target_id': 'section:' + section + ':1', 'operation': 'rewrite',
+             'value': {'html': '<p><img data-asset-key="image_1"></p>', 'asset_keys': ['image_1']}},
+        ],
+    }
+    sample = fetch_preview(FakeGateway(), SimpleNamespace(group_key='7'), {'records': [record]})['samples'][0]
+    after = BeautifulSoup(sample['after'][section + '_html'], 'html.parser').find('img')['src']
+    assert after.startswith('data:image/svg+xml;base64,')
+    assert base64.b64decode(after.split(',', 1)[1]) == svg.encode()
+    assert 'https://lessons-helper.ru/assets/picture' in sample['before']['condition_html']
+    assert record['transformations'][0]['value']['url'] == '/assets/' + asset_id
+    record['generated_diagrams'][0]['svg_text'] += 'changed'
+    with pytest.raises(ValueError, match='checksum'):
+        fetch_preview(FakeGateway(), SimpleNamespace(group_key='7'), {'records': [record]})

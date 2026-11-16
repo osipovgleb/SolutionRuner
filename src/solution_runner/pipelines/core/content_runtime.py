@@ -594,7 +594,12 @@ def _prepared_record(
         condition_asset_bytes = _condition_asset_bytes(
             gateway, problem_id, source_problem_id, content_rule_key
         )
-        diagram_specs = _registered_handler(content_rule_key).diagram_specs(context)
+        handler = _registered_handler(content_rule_key)
+        diagram_specs = (
+            handler.diagram_specs(context, condition_asset_bytes=condition_asset_bytes)
+            if handler.diagram_builder_uses_condition_bytes
+            else handler.diagram_specs(context)
+        )
         generated_assets = _generated_diagram_assets(
             gateway, context, diagram_specs, source_problem_id
         )
@@ -755,7 +760,12 @@ def _apply_record(
         condition_asset_bytes = _condition_asset_bytes(
             gateway, problem_id, source_problem_id, content_rule_key
         )
-        diagram_specs = _registered_handler(content_rule_key).diagram_specs(context)
+        handler = _registered_handler(content_rule_key)
+        diagram_specs = (
+            handler.diagram_specs(context, condition_asset_bytes=condition_asset_bytes)
+            if handler.diagram_builder_uses_condition_bytes
+            else handler.diagram_specs(context)
+        )
         if list(diagram_specs) != record.get("generated_diagrams", []):
             raise RightTrianglePlanError("generated diagram drifted after prepare")
         generated_assets = _generated_diagram_assets(
@@ -846,8 +856,16 @@ def _apply_record(
             or _registered_handler(content_rule_key).verify_content_readback
         ):
             refreshed = gateway.get_problem_context(problem_id)
-            refreshed_specs = _registered_handler(content_rule_key).diagram_specs(
-                refreshed
+            handler = _registered_handler(content_rule_key)
+            refreshed_bytes = (
+                _condition_asset_bytes(gateway, problem_id, source_problem_id, content_rule_key)
+                if handler.diagram_builder_uses_condition_bytes
+                else None
+            )
+            refreshed_specs = (
+                handler.diagram_specs(refreshed, condition_asset_bytes=refreshed_bytes)
+                if handler.diagram_builder_uses_condition_bytes
+                else handler.diagram_specs(refreshed)
             )
             refreshed_assets = _generated_diagram_assets(
                 gateway, refreshed, refreshed_specs, source_problem_id
@@ -859,6 +877,11 @@ def _apply_record(
                 parent_solution_assets=parent_solution_assets,
                 parent_solution_html=parent_solution_html,
                 generated_solution_assets=refreshed_assets,
+                **(
+                    {"condition_asset_bytes": refreshed_bytes}
+                    if handler.diagram_builder_uses_condition_bytes
+                    else {}
+                ),
             )
             verified_transformations = verified.transformations
             if record.get("preserve_existing_solution") is True:

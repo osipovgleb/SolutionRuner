@@ -4,7 +4,7 @@ import re
 
 import sympy as sp
 
-from ..probability.common import UnsupportedCondition
+from ..probability.common import COUNT, UnsupportedCondition, count
 from .fraction_questions import A, B, Question, X
 from .physical_questions import scalar
 from .rational_formula import SquareRootFormulaParser, canonical_formula
@@ -22,6 +22,11 @@ _LAWS = {
         {"l_0": "a", "v": "x", "c": "b"},
         1 - X**2 / B**2,
     ),
+    "rocket_equal": (
+        A * sp.sqrt(1 - X**2 / B**2),
+        {"l_0": "a", "v": "x", "c": "b"},
+        1 - X**2 / B**2,
+    ),
 }
 _TEXT_FIELDS = {
     "formula",
@@ -35,8 +40,10 @@ _TEXT_FIELDS = {
 
 
 def normalize(text):
+    text = text.replace(r"\nu", "v")
     for unit in ["км", "ч", "с", "м"]:
         text = text.replace(r"\mathrm{" + unit + "}", unit)
+    text = text.replace("с=", "c=")
     text = text.replace(r"\,", "").replace("·", r"\cdot")
     text = re.sub(r"l\s*_(?:\{0\}|0)", "l_0", text)
     text = text.replace("Расстояние(в км)от", "Расстояние(в км) от")
@@ -59,7 +66,7 @@ def make_question(kind, match):
             "the complete square-root formula must match its physical law"
         )
     values = {
-        k: scalar("1" if v == "один" else v.replace(" ", ""))
+        k: (sp.Integer(count(v)) if k == "target" and kind == "root_horizon_km" and re.fullmatch(COUNT, v) else scalar("1" if v == "один" else v.replace(" ", "")))
         for k, v in match.groupdict().items()
         if k not in _TEXT_FIELDS and v is not None
     }
@@ -108,6 +115,7 @@ def question(
 
 
 def motion(v, radicand, denominators, formula):
+    v.setdefault("answer_unit", v["acceleration_unit"])
     if v["speed_unit"] != v["acceleration_unit"]:
         raise UnsupportedCondition("speed and acceleration units must be consistent")
     native = "км" if v["speed_unit"] == "км/ч" else "м"
@@ -144,7 +152,9 @@ def motion(v, radicand, denominators, formula):
         raise UnsupportedCondition(
             "the acceleration answer and declared path units must agree"
         )
-    given_unit = "м" if v["path_unit"] == "метров" else "км"
+    if v.get("declared_speed_unit") not in [None, v["speed_unit"]]:
+        raise UnsupportedCondition("the declared speed units must agree")
+    given_unit = "м" if v["path_unit"] in {"метров", "м"} else "км"
     v["native_path"] = v["path"] * (
         1000
         if given_unit == "км" and native == "м"
@@ -203,7 +213,7 @@ def rocket(v, radicand, denominators, formula):
         ("v", "км/с"),
         (denominators, formula),
         {B: v["light"]},
-        "le",
+        "eq" if v["kind"] == "rocket_equal" else "le",
         sp.Interval.Ropen(0, v["light"]),
     )
 
@@ -217,4 +227,5 @@ _BUILDERS = {
     "root_steps": horizon,
     "root_rise": horizon,
     "rocket": rocket,
+    "rocket_equal": rocket,
 }

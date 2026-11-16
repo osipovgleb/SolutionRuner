@@ -81,6 +81,17 @@ def test_acceleration_equation_threshold_and_metres_remain_distinct():
         changed("510982", "менее 100", "менее 0")
 
 
+def test_acceleration_wording_with_given_speed_and_distance():
+    text = (r"Автомобиль разгоняется на прямолинейном участке шоссе с постоянным ускорением a км/ч^{2}. "
+            r"Скорость v(в км/ч)вычисляется по формуле v=\sqrt{2la}, где l — пройденный автомобилем путь(в км). "
+            r"Найдите, с каким постоянным ускорением двигался автомобиль, если он достиг скорости 80 км/ч, проехав 0,2 км.")
+    a = model.analyze(fraction_questions.parse(text))
+    assert a.result == 16000
+    html = root_proof.motion(a)
+    assert html.index(r"\sqrt{2\cdot") < html.index("=80^2")
+    assert "Подставим" not in html
+
+
 def test_distance_uses_native_acceleration_units_before_answer_conversion():
     _, metres = model.calculate(sample("523372")["context"])
     _, kilometres = model.calculate(sample("523397")["context"])
@@ -101,15 +112,46 @@ def test_distance_uses_native_acceleration_units_before_answer_conversion():
         )
 
 
+def test_distance_substitution_and_result_share_one_line():
+    _, a = model.calculate(sample("27987")["context"])
+    html = root_proof.motion(a)
+    assert r"l=\frac{v^2}{2a}=\frac{" in html
+    assert html.count('data-inline-latex="l=') == 1
+
+
+def test_distance_condition_with_no_final_punctuation():
+    text = (r"Автомобиль разгоняется на прямолинейном участке шоссе с постоянным ускорением a=32000 км/ч^{2}. "
+            r"Скорость вычисляется по формуле v=\sqrt{2la}, где l — пройденный автомобилем путь. "
+            r"Найдите, сколько километров проедет автомобиль к моменту, когда он разгонится до скорости 160 км/ч")
+    assert model.analyze(fraction_questions.parse(text)).result == sp.Rational(2, 5)
+
+
 def test_horizon_metres_and_kilometres_differ_by_exactly_one_thousand():
     _, metres = model.calculate(sample("27984")["context"])
     _, kilometres = model.calculate(sample("263802")["context"])
     assert metres.result == 1000 * kilometres.result == sp.Rational(5, 4)
+    assert r"h=\frac{4\cdot4}{12800}" in root_proof.horizon(kilometres)
     assert changed("27984", "R=6400", "R=8000").result == 1
-    for task in ["27984", "263802"]:
-        assert "Примечание" in solution(plan(sample(task), sample(task)["context"]))
+    html = solution(plan(sample("27984"), sample("27984")["context"]))
+    assert "Примечание" not in html and "Дальность и высота неотрицательны" not in html
+    assert r"l=\sqrt{2Rh}" not in html
+    assert "Примечание" in solution(plan(sample("263802"), sample("263802")["context"]))
     with pytest.raises(ValueError, match="physical law"):
         changed("27984", r"\frac{Rh}{500}", r"\frac{Rh}{1000}")
+
+
+def test_horizon_accepts_two_kilometre_word_form():
+    a = changed("27984", "4 километров", "72 километра")
+    assert a.result == 405
+
+
+def test_horizon_km_accepts_word_numbers_and_radius_units_without_parentheses():
+    text = common.read(sample("263802")["context"])[3]
+    assert "(км)" in text
+    word_text = text.replace("(км)", " км").replace("4 километра", "восемь километров")
+    assert word_text != text
+    q = fraction_questions.parse(word_text)
+    assert model.analyze(q).result == sp.Rational(1, 200)
 
 
 def test_steps_use_the_least_whole_number_including_exact_and_zero_cases():
@@ -120,6 +162,11 @@ def test_steps_use_the_least_whole_number_including_exact_and_zero_cases():
     assert changed("27986", "высоту 20 см", "высоту 14 см").result == 10
     assert changed("27986", "менее 6,4", "менее 4,8").result == 0
     assert changed("27986", "менее 6,4", "менее 3,2").result == 0
+    html = root_proof.steps(a)
+    assert r"h_1=\frac{500" in html and r"h_2=\frac{500" in html
+    assert r"\Delta h=h_2-h_1=" in html and "Примечание" not in html
+    assert r"h_{\text{ступеньки}}" in html and r"\approx 4{,}667" in html
+    assert r"n_{\min}=5" in html
 
 
 def test_rocket_uses_a_strict_subluminal_domain_and_refuses_zero_length():
@@ -131,6 +178,18 @@ def test_rocket_uses_a_strict_subluminal_domain_and_refuses_zero_length():
         changed("27983", "более 4 м", "более 0 м")
     with pytest.raises(ValueError, match="rational"):
         changed("27983", "более 4 м", "более 1 м")
+
+
+@pytest.mark.parametrize("length,target,expected,comma", [(95, 57, 240000, ","), (50, 14, 288000, "")])
+def test_rocket_exact_length_with_source_notation(length, target, expected, comma):
+    text = (r"При движении ракеты ее видимая для неподвижного наблюдателя длина, измеряемая в метрах, вычисляется по закону l=l_0\sqrt{1-\frac{v^2}{c^2}}"
+            + comma + " где l_0=" + str(length) + r" м — длина покоящейся ракеты, с=3\cdot 10^{5} км/с — скорость света, а \nu — скорость ракеты(в км/с). Какова должна быть скорость ракеты, чтобы ее наблюдаемая длина стала равна "
+            + str(target) + " м? Ответ выразите в км/с.")
+    a = model.analyze(fraction_questions.parse(text))
+    assert a.question.relation == "eq" and a.result == expected
+    html = root_proof.rocket(a)
+    assert html.count(r"\iff") == 6
+    assert r"\left(\frac{" in html
 
 
 @pytest.mark.parametrize(
@@ -162,7 +221,7 @@ def test_root_grammar_keeps_original_denominators_and_rejects_extra_radicals():
         SquareRootFormulaParser(r"\sqrt{x", "x").parse()
 
 
-def test_horizon_ascent_keeps_the_independent_conductor_example_for_every_child():
+def test_horizon_ascent_removes_the_independent_conductor_example():
     for task, expected in [
         ("27985", sp.Rational(7, 5)),
         ("28365", 6),
@@ -173,14 +232,16 @@ def test_horizon_ascent_keeps_the_independent_conductor_example_for_every_child(
         result = plan(case, case["context"])
         assert sp.Rational(result.answer.replace(",", ".")) == expected
         html = solution(result)
-        assert horizon_assets.ASSET_ID in html and "Примечание Дмитрия Гущина" in html
-        assert "не относятся к задаче о горизонте" in html
+        assert r"h_1=\frac{500" in html and r"h_2=\frac{500" in html
+        assert r"\Delta h=h_2-h_1=" in html
+        assert horizon_assets.ASSET_ID not in html and "Примечание Дмитрия Гущина" not in html
+        assert "сопротивление проводника" not in html
         changes = [
             t
             for t in result.transformations
             if t["transformation_target_id"].startswith("section:solution")
         ]
-        assert len(changes[0]["value"]["asset_keys"]) == 1
+        assert changes[0]["value"]["asset_keys"] == []
         assert not any(
             t["transformation_target_id"].startswith("asset:")
             for t in result.transformations

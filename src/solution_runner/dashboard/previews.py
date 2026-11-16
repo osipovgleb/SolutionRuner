@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import hashlib
 from copy import deepcopy
 import json
 import os
@@ -71,7 +73,9 @@ def _safe_html(html: str, assets: Mapping[str, str]) -> str:
     return "".join(str(node) for node in (body.contents if body else soup.contents))
 
 
-def _card(item: Mapping[str, Any], content: Any) -> dict[str, Any]:
+def _card(
+    item: Mapping[str, Any], content: Any, *, generated_urls: Mapping[str, str] | None = None
+) -> dict[str, Any]:
     if not isinstance(content, dict):
         raise ValueError("problem content is missing")
     assets = {}
@@ -84,6 +88,9 @@ def _card(item: Mapping[str, Any], content: Any) -> dict[str, Any]:
             assets[key] = ASSET_BASE_URL + url
         elif key and url.startswith(("https://", "http://")):
             assets[key] = url
+    # Only checksum-verified diagrams from the frozen plan may supply data URLs.
+    # Normalized source HTML still goes through the normal URL restrictions.
+    assets.update(generated_urls or {})
     sections = {}
     for section in content.get("sections") or []:
         if not isinstance(section, dict):
@@ -223,6 +230,21 @@ def _apply_locally(content: Mapping[str, Any], transformations: list[dict[str, A
     return result
 
 
+def _generated_preview_urls(record: Mapping[str, Any], content: Mapping[str, Any]) -> dict[str, str]:
+    """Display the exact SVG planned for upload without uploading during dry-run."""
+    assets = {asset.get("asset_key"): asset for asset in content.get("assets", [])}
+    urls = {}
+    for spec in record.get("generated_diagrams", []):
+        data = spec["svg_text"].encode()
+        digest = hashlib.sha256(data).hexdigest()
+        if digest != spec["sha256"]:
+            raise ValueError("generated preview diagram checksum changed")
+        asset = assets.get(spec["asset_key"], {})
+        if asset.get("asset_id") == "preview-" + digest[:16]:
+            urls[spec["asset_key"]] = "data:image/svg+xml;base64," + base64.b64encode(data).decode("ascii")
+    return urls
+
+
 def _sample(gateway: Any, record: Mapping[str, Any]) -> dict[str, Any]:
     item = {
         "problem_id": record.get("problem_id"),
@@ -236,7 +258,8 @@ def _sample(gateway: Any, record: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(transformations, list):
         raise ValueError("dry-run record has no transformations")
     before = _card(item, before_content)
-    after = _card(item, _apply_locally(before_content, transformations))
+    after_content = _apply_locally(before_content, transformations)
+    after = _card(item, after_content, generated_urls=_generated_preview_urls(record, after_content))
     return {
         "problem_id": _problem_id(item),
         "source_problem_id": _source_problem_id(item),
