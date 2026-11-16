@@ -1,0 +1,111 @@
+{
+  "problem_id": "8a9574e2-e239-4b8c-83dc-4af157792f89",
+  "transformations": {
+    "schema_version": 3,
+    "revision": 9,
+    "items": [
+      {
+        "at": "2026-08-27T10:11:24.632333+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "assets"
+        },
+        "value": {
+          "alt": "",
+          "url": "/assets/55935a2f-53bb-4381-b4d9-ecbd75f5c63b",
+          "html": "<img alt=\"\" data-asset-id=\"55935a2f-53bb-4381-b4d9-ecbd75f5c63b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/55935a2f-53bb-4381-b4d9-ecbd75f5c63b\"/>",
+          "kind": "ordinary_image",
+          "asset_id": "55935a2f-53bb-4381-b4d9-ecbd75f5c63b",
+          "position": 3,
+          "asset_key": "image_1",
+          "parent_target_id": "section:condition:1"
+        },
+        "operation": "rewrite",
+        "transformation_target_id": "asset:image_1"
+      },
+      {
+        "at": "2026-10-02T05:18:26.511387+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "deterministic_svg"
+        },
+        "value": {
+          "html": "<p>На ри­сун­ке изоб­ра­жен гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span> , опре­де­лен­ной на ин­тер­ва­ле  <span data-inline-latex=\"(-2,12)\"></span> . Най­ди­те ко­ли­че­ство точек, в ко­то­рых ка­са­тель­ная к гра­фи­ку функ­ции па­рал­лель­на пря­мой <span data-inline-latex=\"y=7\"></span>.</p><img alt=\"\" data-asset-id=\"55935a2f-53bb-4381-b4d9-ecbd75f5c63b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+          "title": "Условие",
+          "asset_keys": [
+            "image_1"
+          ]
+        },
+        "operation": "rewrite",
+        "transformation_target_id": "section:condition:1"
+      },
+      {
+        "at": "2026-10-02T05:18:26.511387+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "deterministic_svg"
+        },
+        "operation": "remove",
+        "transformation_target_id": "asset:formula_1"
+      },
+      {
+        "at": "2026-10-02T05:18:26.511387+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "deterministic_svg"
+        },
+        "operation": "remove",
+        "transformation_target_id": "asset:formula_2"
+      },
+      {
+        "at": "2026-10-02T05:18:26.511387+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "deterministic_svg"
+        },
+        "operation": "remove",
+        "transformation_target_id": "asset:formula_3"
+      }
+    ]
+  },
+  "normalized_content": {
+    "assets": [
+      {
+        "alt": "",
+        "url": "/assets/55935a2f-53bb-4381-b4d9-ecbd75f5c63b",
+        "kind": "ordinary_image",
+        "asset_id": "55935a2f-53bb-4381-b4d9-ecbd75f5c63b",
+        "asset_key": "image_1",
+        "transformation_target_id": "asset:image_1"
+      }
+    ],
+    "format": "teacherhelper-normalized",
+    "sections": [
+      {
+        "key": "condition",
+        "html": "<p>На ри­сун­ке изоб­ра­жен гра­фик функ­ции <span data-inline-latex=\"y=f(x)\"></span> , опре­де­лен­ной на ин­тер­ва­ле  <span data-inline-latex=\"(-2,12)\"></span> . Най­ди­те ко­ли­че­ство точек, в ко­то­рых ка­са­тель­ная к гра­фи­ку функ­ции па­рал­лель­на пря­мой <span data-inline-latex=\"y=7\"></span>.</p><img alt=\"\" data-asset-id=\"55935a2f-53bb-4381-b4d9-ecbd75f5c63b\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/55935a2f-53bb-4381-b4d9-ecbd75f5c63b\"/>",
+        "title": "Условие",
+        "asset_keys": [
+          "image_1"
+        ],
+        "section_id": "condition:1",
+        "transformation_target_id": "section:condition:1"
+      },
+      {
+        "key": "answer",
+        "html": "<p><span data-effect=\"spaced\">7</span></p>",
+        "title": "Ответ",
+        "asset_keys": [],
+        "section_id": "answer:1",
+        "transformation_target_id": "section:answer:1"
+      }
+    ],
+    "schema_version": 3,
+    "problem_reference_ids": {
+      "prototype_problem_id": null,
+      "group_parent_problem_id": null,
+      "adjacent_group_parent_problem_id": null
+    }
+  },
+  "source_problem_id": "7099"
+}

@@ -334,3 +334,26 @@ def test_boiler_rejects_cooling_and_changes_to_the_water_or_wood_subscript():
     condition["html"] = condition["html"].replace("<sub>д</sub>", "<sub>в</sub>")
     with pytest.raises(ValueError, match="recognized"):
         model.calculate(context)
+
+
+def test_thermal_500894_accepts_inline_units_and_hyphens_and_substitutes_new_length():
+    context = json.loads(
+        (Path(__file__).parent / "fixtures/thermal_500894.json").read_text()
+    )
+    _, a = model.calculate(context)
+    assert a.question.values["length"] == 12
+    assert a.question.target == sp.Rational(36, 10000)
+    assert a.result == 25
+    from solution_runner.pipelines.applied.formula_proof import thermal
+
+    html = thermal(a)
+    formulas = [
+        n["data-inline-latex"]
+        for n in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
+    ]
+    assert formulas[1] == r"l_0+\Delta l=l_0(1+\alpha t)"
+    assert formulas[2] == r"12+0{,}0036=12(1+1{,}2\cdot10^{-5}\cdot t)"
+    assert formulas[3] == r"12+0{,}0036=12+0{,}000144t"
+    assert formulas[4] == r"0{,}000144t=0{,}0036"
+    assert r"t=\frac{0{,}0036}{0{,}000144}=25" in formulas[5]
+    assert "l(t)-l_0" not in html

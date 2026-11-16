@@ -28,6 +28,8 @@ def test_groups_share_one_stationary_point_rule(group):
     assert profile.content_rule_key == (
         "calculus-raster-primitive-zeros"
         if group["key"] == "323077"
+        else "calculus-raster-horizontal-tangents"
+        if group["key"] == "27489"
         else "calculus-graph-stationary-points"
     )
     assert profile.snapshot_theme_id == group["theme_uuid"]
@@ -48,11 +50,11 @@ def test_source_values_assets_and_idempotence_do_not_use_stored_answers(case):
         BeautifulSoup(expected, "html.parser").get_text(strip=True)
     )
     assert context == original
+    allowed = ("section:answer", "section:solution", "asset:")
+    if case["group"] == "27489":
+        allowed += ("section:condition",)
     assert all(
-        t["transformation_target_id"].startswith(
-            ("section:answer", "section:solution", "asset:")
-        )
-        for t in first.transformations
+        t["transformation_target_id"].startswith(allowed) for t in first.transformations
     )
     next(s for s in context["normalized_content"]["sections"] if s["key"] == "answer")[
         "html"

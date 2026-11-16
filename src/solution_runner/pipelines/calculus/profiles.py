@@ -4,6 +4,13 @@ from ..core.profile_definitions import _profile
 
 _GROUPS = (
     (
+        "Геометрический смысл производной, касательная",
+        1,
+        "49fc1ee5-40ac-411d-a969-567d582b1177",
+        "calculus-raster-horizontal-tangents",
+        (("27489", "c1b8ec6b-6af1-43ac-91f5-617fcf558d8e", 0),),
+    ),
+    (
         "Физический смысл производной",
         0,
         "757985b8-f7d3-4760-af79-21474ed3b83e",
@@ -79,10 +86,7 @@ _GROUPS = (
         1,
         "49fc1ee5-40ac-411d-a969-567d582b1177",
         "calculus-graph-stationary-points",
-        (
-            ("27489", "c1b8ec6b-6af1-43ac-91f5-617fcf558d8e", 0),
-            ("562751", "56e0fc4b-4cd4-444c-9cac-5142edcf2822", 24),
-        ),
+        (("562751", "56e0fc4b-4cd4-444c-9cac-5142edcf2822", 24),),
     ),
     (
         "Применение производной к исследованию функций",

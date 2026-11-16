@@ -33,36 +33,37 @@ def final(a, maximum=False, minimum=False):
 
 def thermal(a):
     q = a.question
-    html = "<p>Удлинение равно разности новой и исходной длины. Переведём миллиметры в метры:</p>"
-    html += line(
-        r"\Delta l="
-        + given(q, "increase")
-        + r"\cdot10^{-3}="
-        + latex(q, q.target)
-        + r"\ \text{м}"
+    length = given(q, "length")
+    source_increase = given(q, "increase").replace("{,}", ",").replace(",", "{,}")
+    increase = answer(q.target).replace(",", "{,}")
+    coefficient = answer(q.values["length"] * q.values["alpha"]).replace(",", "{,}")
+    html = line(
+        r"\Delta l=" + source_increase + r"\cdot10^{-3}=" + increase + r"\ \text{м}"
     )
-    html += "<p>Подставим закон теплового расширения и выразим температуру:</p>"
-    html += line(r"l(t)-l_0=\Delta l")
-    html += line(r"l_0(1+\alpha t)-l_0=\Delta l")
-    html += line(r"l_0\alpha t=\Delta l")
+    html += line(r"l_0+\Delta l=l_0(1+\alpha t)")
     html += line(
-        given(q, "length")
-        + r"\cdot("
+        length
+        + "+"
+        + increase
+        + "="
+        + length
+        + r"(1+"
         + given(q, "alpha")
-        + r")\cdot t="
-        + latex(q, q.target)
+        + r"\cdot t)"
     )
+    html += line(length + "+" + increase + "=" + length + "+" + coefficient + "t")
+    html += line(coefficient + "t=" + increase)
     html += line(
-        "t="
-        + r"\frac{"
-        + latex(q, q.target)
+        r"t=\frac{"
+        + increase
         + "}{"
-        + given(q, "length")
-        + r"\cdot("
-        + given(q, "alpha")
-        + ")}"
+        + coefficient
+        + "}="
+        + answer(a.result).replace(",", "{,}")
+        + r"\ "
+        + q.unit
     )
-    return html + final(a)
+    return html
 
 
 def profit(a):

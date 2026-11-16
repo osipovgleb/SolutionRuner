@@ -193,7 +193,7 @@ function TaskInventory({ inventory, onExpandPreview, onAddTaskComment, canCommen
         {expanded && <tr class="inventory-preview-row"><td colSpan="9">
           {previewLoading && <div class="preview-state">Загружаю карточки…</div>}
           {!previewLoading && sample && <div class="inline-comparison">
-            <div class="comparison-head"><div><span>Исходная карточка</span><small>Normalized-контент</small></div><div><span>Подготовленная карточка</span><small>Результат последнего dry-run</small></div></div>
+            <div class="comparison-head"><div><span>Исходная карточка</span><small>Normalized-контент</small></div><div><span>{sample.review_only ? "Рисунок для сверки" : "Подготовленная карточка"}</span><small>{sample.review_only ? "Применение заблокировано" : "Результат последнего dry-run"}</small></div></div>
             <div class="comparison-grid"><ProblemPreview card={sample.before} />{sample.after ? <ProblemPreview card={sample.after} /> : <div class="preview-state">Для этой задачи нет подготовленной карточки в последнем dry-run.</div>}</div>
           </div>}
           {!previewLoading && !sample && <div class="preview-state">Карточка недоступна.</div>}
@@ -765,7 +765,7 @@ function DetailPanel({ group, onClose, onGroupUpdate, onRemove }) {
               {sampleError && <div class="sample-error">{sampleError}</div>}
               <div class="comparison-head">
                 <div><span>Normalized до прогона</span></div>
-                <div><span>Локальный результат dry-run</span></div>
+                <div><span>{selectedSample.review_only ? "Рисунок для сверки — применение заблокировано" : "Локальный результат dry-run"}</span></div>
               </div>
               <div class="comparison-grid">
                 <ProblemPreview card={selectedSample.before} />

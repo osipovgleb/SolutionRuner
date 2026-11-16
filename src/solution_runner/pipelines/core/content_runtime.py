@@ -595,7 +595,11 @@ def _prepared_record(
     """Freeze one group's current plan without changing source content."""
 
     problem_id, source_problem_id = _problem_identity(child)
+    context = None
+    condition_asset_bytes = None
+    handler = None
     try:
+        handler = _registered_handler(content_rule_key)
         context = gateway.get_problem_context(problem_id)
         context = _with_required_assets(context, content_rule_key)
         current_asset_content_type = _current_condition_asset_content_type(
@@ -604,7 +608,6 @@ def _prepared_record(
         condition_asset_bytes = _condition_asset_bytes(
             gateway, problem_id, source_problem_id, content_rule_key
         )
-        handler = _registered_handler(content_rule_key)
         diagram_specs = (
             handler.diagram_specs(context, condition_asset_bytes=condition_asset_bytes)
             if handler.diagram_builder_uses_condition_bytes
@@ -652,12 +655,21 @@ def _prepared_record(
             ),
         }
     except Exception as exc:  # noqa: BLE001 - freeze one explicit blocker per task.
+        review = None
+        if handler is not None and context is not None and handler.review_builder:
+            try:
+                review = handler.review_preview(
+                    context, condition_asset_bytes=condition_asset_bytes, error=str(exc)
+                )
+            except Exception:  # noqa: BLE001 - diagnostics must never change the blocked status.
+                review = None
         return {
             "problem_id": problem_id,
             "source_problem_id": source_problem_id,
             "status": "blocked",
             "message": " ".join(str(exc).split())[:500],
             "transformations": [],
+            **({"review_preview": review} if review is not None else {}),
         }
 
 

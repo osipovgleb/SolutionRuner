@@ -49,6 +49,7 @@ class HandlerSpec:
     verify_content_readback: bool = False
     diagram_builder: str | None = None
     diagram_builder_uses_condition_bytes: bool = False
+    review_builder: str | None = None
 
     def __post_init__(self):
         if not self.key or ':' not in self.target:
@@ -87,6 +88,20 @@ class HandlerSpec:
         if self.asset_selector:
             module, name = self.asset_selector.split(":", 1)
             signature(getattr(import_module(module), name)).bind({})
+        if self.review_builder:
+            module, name = self.review_builder.split(":", 1)
+            signature(getattr(import_module(module), name)).bind(
+                {}, condition_asset_bytes=None, error=""
+            )
+
+    def review_preview(self, context, *, condition_asset_bytes, error):
+        """Return display-only diagnostics; never a writable repair plan."""
+        if not self.review_builder:
+            return None
+        module, name = self.review_builder.split(":", 1)
+        return getattr(import_module(module), name)(
+            context, condition_asset_bytes=condition_asset_bytes, error=error
+        )
 
     def asset_requirements(self, context: dict[str, Any]) -> tuple[dict[str, str], ...]:
         """Return the exact reusable assets this rule needs for one problem.

@@ -258,6 +258,22 @@ def _sample(gateway: Any, record: Mapping[str, Any]) -> dict[str, Any]:
     if not isinstance(transformations, list):
         raise ValueError("dry-run record has no transformations")
     before = _card(item, before_content)
+    review = record.get("review_preview") if record.get("status") == "blocked" else None
+    if isinstance(review, dict) and isinstance(review.get("content"), dict):
+        review_content = review["content"]
+        after = _card(item, review_content, generated_urls=_generated_preview_urls(review, review_content))
+        for card in (before, after):
+            soup = BeautifulSoup(card["condition_html"], "html.parser")
+            for img in soup.find_all("img"):
+                img["width"] = "480"
+            card["condition_html"] = str(soup)
+        return {
+            "problem_id": _problem_id(item),
+            "source_problem_id": _source_problem_id(item),
+            "before": before, "after": after, "review_only": True,
+            "review_message": str(review.get("message") or record.get("message") or ""),
+            "fetched_at": _now(),
+        }
     after_content = _apply_locally(before_content, transformations)
     after = _card(item, after_content, generated_urls=_generated_preview_urls(record, after_content))
     return {
@@ -278,7 +294,7 @@ def _preview_records(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
         record
         for record in payload.get("records", [])
         if isinstance(record, dict)
-        and record.get("status") != "blocked"
+        and (record.get("status") != "blocked" or isinstance(record.get("review_preview"), dict))
         and record.get("problem_id")
         and isinstance(record.get("transformations"), list)
     ]
