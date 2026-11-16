@@ -100,7 +100,7 @@ _GROUPS = (
         "Первообразная",
         3,
         "a2076abf-0969-4c2b-9c0d-46f856e654f3",
-        "calculus-graph-stationary-points",
+        "calculus-raster-primitive-zeros",
         (("323077", "794a98ba-0ced-4c5d-9074-6e05ba387e57", 0),),
     ),
     (
@@ -174,15 +174,6 @@ _GROUPS = (
         "Первообразная",
         3,
         "a2076abf-0969-4c2b-9c0d-46f856e654f3",
-        "calculus-graph-integral",
-        (
-            ("500890", "4c4210ce-70ec-4e89-b152-b1e0150ccdf3", 4),
-        ),
-    ),
-    (
-        "Первообразная",
-        3,
-        "a2076abf-0969-4c2b-9c0d-46f856e654f3",
         "calculus-raster-parabola-area",
         (
             ("323079", "a84c904c-c3e5-4387-aa60-af4f67f4219e", 2),
@@ -194,7 +185,10 @@ _GROUPS = (
         3,
         "a2076abf-0969-4c2b-9c0d-46f856e654f3",
         "calculus-raster-trapezoid-rays",
-        (("323078", "6af53ddb-80fd-498d-8b76-b59c9efa7789", 1),),
+        (
+            ("323078", "6af53ddb-80fd-498d-8b76-b59c9efa7789", 1),
+            ("500890", "4c4210ce-70ec-4e89-b152-b1e0150ccdf3", 4),
+        ),
     ),
 )
 

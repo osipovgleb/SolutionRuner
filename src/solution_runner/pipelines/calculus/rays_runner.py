@@ -3,11 +3,12 @@
 import hashlib
 from copy import deepcopy
 from dataclasses import dataclass, replace
+from html import escape
 
 import sympy as sp
 from bs4 import BeautifulSoup
 
-from ..probability import solution_diagrams
+from ..probability import condition_diagram, solution_diagrams
 from ..probability.common import UnsupportedCondition, line, rewrite
 from ..triangles.right.basic_parent import _targeted
 from . import graph_input, graph_integrals, raster_rays
@@ -40,6 +41,14 @@ def _read(context):
     clean = deepcopy(context)
     image_soup = BeautifulSoup(condition["html"], "html.parser")
     image_soup.find("img").decompose()
+    for node in image_soup.find_all("var"):
+        if (
+            set(node.attrs) != {"data-math-identifier"}
+            or len(node.get_text()) != 1
+            or node["data-math-identifier"] != node.get_text()
+        ):
+            raise UnsupportedCondition("unsupported mathematical identifier markup")
+        node.unwrap()
     cond = next(
         s for s in clean["normalized_content"]["sections"] if s["key"] == "condition"
     )
@@ -47,7 +56,7 @@ def _read(context):
     cond["asset_keys"] = []
     clean["normalized_content"]["assets"] = []
     q = graph_integrals.parse(graph_input._read_text(clean)[4])
-    if q.operation != "difference":
+    if q.operation not in {"difference", "integral"}:
         raise UnsupportedCondition(
             "the raster rays need the complete primitive difference question"
         )
@@ -85,7 +94,7 @@ def _model(context, data):
 def diagram_specs(context, *, condition_asset_bytes=None):
     if not isinstance(condition_asset_bytes, bytes):
         return ()
-    q, condition, asset, model = _model(context, condition_asset_bytes)
+    _q, _condition, asset, model = _model(context, condition_asset_bytes)
     if model is None:
         return ()
     condition_specs = (
@@ -132,36 +141,37 @@ def calculate(question, model):
     return Area(a, b, h, c, z, rising, sp.simplify(integral))
 
 
-def proof(m):
+def proof(m, operation="difference"):
     small = m.upper - m.join if m.rising else m.join - m.lower
     small_expression = (
         number(m.upper) + "-" + number(m.join)
         if m.rising
         else number(m.join) + "-" + number(m.lower)
     )
-    html = "<p>Разность значений первообразной равна площади выделенной на рисунке трапеции:</p>"
-    html += line(
-        difference_name(m)
-        + r"=\int_{"
-        + number(m.lower)
-        + "}^{"
-        + number(m.upper)
-        + r"}f(x)\,dx=S"
+
+    def inline(formula):
+        return '<span data-inline-latex="' + escape(formula, quote=True) + '"></span>'
+
+    subject = (
+        "Разность " + inline(difference_name(m))
+        if operation == "difference"
+        else "Искомый определённый интеграл"
     )
-    html += "<p>Длины параллельных оснований и высота трапеции:</p>"
-    html += line("B_1=" + small_expression + "=" + number(small))
-    html += line(
-        "B_2="
-        + number(m.upper)
-        + "-"
-        + number(m.lower)
-        + "="
-        + number(m.upper - m.lower)
+    html = (
+        "<p>"
+        + subject
+        + " равна площади под графиком на заданном отрезке. Это трапеция с основаниями "
     )
-    html += line("h=" + number(m.height))
+    html += inline("a=" + small_expression + "=" + number(small))
+    html += " и " + inline(
+        "b=" + number(m.upper) + "-" + number(m.lower) + "=" + number(m.upper - m.lower)
+    )
+    html += " и высотой " + inline("h=" + number(m.height)) + ".</p>"
+    if operation == "integral":
+        html = html.replace("интеграл равна", "интеграл равен")
     html += line(
-        difference_name(m)
-        + r"=\frac{"
+        "S="
+        + r"\frac{"
         + number(small)
         + "+"
         + number(m.upper - m.lower)
@@ -173,6 +183,41 @@ def proof(m):
     return html
 
 
+def _native_plan(context, data):
+    parsed, question, native = graph_integrals.calculate(context)
+    content, condition, ans, solution, _, entry, source = parsed
+    condition_diagram.verify_download(source, data)
+    obsolete = set(entry.get("bibliography_assets", []))
+    removed = tuple(
+        {"transformation_target_id": "asset:" + a["asset_key"], "operation": "remove"}
+        for a in content["assets"]
+        if a["asset_id"] in obsolete
+    )
+    filtered = {
+        **content,
+        "assets": [a for a in content["assets"] if a["asset_id"] not in obsolete],
+    }
+    figure, key, changes = graph_input.figure(filtered, entry)
+    model = Area(
+        native.lower,
+        native.upper,
+        native.height,
+        native.join,
+        native.zero,
+        False,
+        native.result,
+    )
+    return solution_diagrams.repair(
+        condition,
+        ans,
+        solution,
+        answer(model.result),
+        figure + proof(model, question.operation),
+        (key,) if key else (),
+        removed + tuple(changes),
+    )
+
+
 def build_context_repair_plan(
     context, *, condition_asset_bytes=None, generated_solution_assets=()
 ):
@@ -181,9 +226,7 @@ def build_context_repair_plan(
         raise UnsupportedCondition("the current ray diagram bytes are required")
     q, condition, asset, model = _model(context, data)
     if model is None:
-        return graph_integrals.build_context_repair_plan(
-            context, condition_asset_bytes=data
-        )
+        return _native_plan(context, data)
     m = calculate(q, model)
     content = context["normalized_content"]
     shade = raster_rays.render(model, shaded=True)
@@ -197,7 +240,7 @@ def build_context_repair_plan(
             next((s for s in content["sections"] if s["key"] == "solution"), None)
         ),
         answer(m.result),
-        figure + proof(m),
+        figure + proof(m, q.operation),
         (key,),
         changes,
     )

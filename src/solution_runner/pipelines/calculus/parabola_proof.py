@@ -4,13 +4,47 @@ import sympy as sp
 
 from ..probability.common import line
 from .common import X
-from .graph_integral_proof import difference_name, number, substitution
+from .graph_integral_proof import difference_name, number
 
 
 def _signed(value):
     if value == 0:
         return ""
     return ("+" if value > 0 else "-") + number(abs(value))
+
+
+def _substitution(primitive, value, *, powers=True):
+    """Keep term signs outside magnitudes and bracket negative arguments."""
+    polynomial = sp.Poly(primitive, X)
+    terms = []
+    for degree in range(polynomial.degree(), -1, -1):
+        coefficient = polynomial.nth(degree)
+        if coefficient == 0:
+            continue
+        if degree and powers:
+            argument = number(value)
+            if value < 0 or value.q != 1:
+                argument = "(" + argument + ")"
+            power = argument + ("^{" + str(degree) + "}" if degree > 1 else "")
+            magnitude = (
+                power
+                if abs(coefficient) == 1
+                else number(abs(coefficient)) + r"\cdot" + power
+            )
+            negative = coefficient < 0
+        else:
+            evaluated = coefficient * value**degree
+            if evaluated == 0:
+                continue
+            magnitude = number(abs(evaluated))
+            negative = evaluated < 0
+        terms.append(("-" if negative else "+", magnitude))
+    if not terms:
+        return "0"
+    return "".join(
+        (sign if index or sign == "-" else "") + magnitude
+        for index, (sign, magnitude) in enumerate(terms)
+    )
 
 
 def endpoint_values(model):
@@ -29,9 +63,9 @@ def endpoint_values(model):
             "F("
             + number(value)
             + ")="
-            + substitution(model.primitive, value)
+            + _substitution(model.primitive, value)
             + "="
-            + substitution(model.primitive, value, False)
+            + _substitution(model.primitive, value, powers=False)
             + "="
             + separate
         )

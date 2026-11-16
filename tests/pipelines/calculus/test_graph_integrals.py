@@ -42,7 +42,7 @@ def test_integral_groups_select_their_explicit_rule(group):
         if group["key"] in ("323079", "323080")
         else (
             "calculus-raster-trapezoid-rays"
-            if group["key"] == "323078"
+            if group["key"] in {"323078", "500890"}
             else group["rule"]
         )
     )
@@ -114,8 +114,12 @@ def test_piecewise_primitive_is_continuous_and_has_the_correct_one_sided_derivat
         m.right, (X, m.join, m.upper)
     )
     html = solution(plan(sample(task), sample(task)["context"]))
-    assert "Аналитическое решение" in html and "Односторонние производные" in html
-    assert "Непрерывности недостаточно" in html and "общую касательную" in html
+    assert (
+        "Аналитическое решение" not in html and "Односторонние производные" not in html
+    )
+    assert "Непрерывности недостаточно" not in html
+    assert "Это трапеция с основаниями" in html
+    assert r"\int" not in html
 
 
 @pytest.mark.parametrize("task", ["323079", "323283", "323373", "323375"])
@@ -203,7 +207,7 @@ def test_bibliographic_scans_are_removed_only_from_the_local_plan():
     ]
     assert removed == ["asset:image_3", "asset:image_4", "asset:image_5"]
     assert case["context"] == original
-    assert "непрерывность" in solution(result).lower()
+    assert "площади под графиком" in solution(result).lower()
     assert "Контрольная работа" not in solution(result)
     context = deepcopy(original)
     context["normalized_content"]["assets"][-1]["asset_id"] = "unrelated"
@@ -211,12 +215,13 @@ def test_bibliographic_scans_are_removed_only_from_the_local_plan():
         plan(case, context)
 
 
-def test_explicit_integral_preserves_triangle_then_rectangle_method():
+def test_explicit_integral_uses_the_single_trapezoid_area_method():
     case = sample("500890")
     html = solution(plan(case, case["context"]))
-    assert html.index("S_{\\mathrm{тр}}") < html.index("S_{\\mathrm{пр}}")
+    assert "Это трапеция с основаниями" in html
+    assert "S_{\\mathrm{тр}}" not in html and "S_{\\mathrm{пр}}" not in html
     assert "Аналитическое решение" not in html
-    assert "4+8=12" in html
+    assert r"S=\frac{2+4}{2}\cdot4=12" in html
 
 
 def test_last_fraction_stays_separate_until_it_cancels():
@@ -270,3 +275,47 @@ def test_each_endpoint_and_area_use_a_single_continuous_equality_chain(task):
     assert formulas[2].startswith("S=F(")
     assert all(not formula.startswith("=") for formula in formulas)
     assert all(formula.count("=") >= 3 for formula in formulas)
+
+
+def test_fractional_negative_coefficients_have_explicit_signs_in_substitution():
+    from solution_runner.pipelines.calculus import parabola_proof
+
+    primitive = -(X**3) / 4 - 21 * X**2 / 4 - 135 * X / 4 - sp.Rational(13, 2)
+    assert parabola_proof._substitution(primitive, sp.Integer(-5)) == (
+        r"-\frac{1}{4}\cdot(-5)^{3}-\frac{21}{4}\cdot(-5)^{2}-\frac{135}{4}\cdot(-5)-\frac{13}{2}"
+    )
+    assert parabola_proof._substitution(primitive, sp.Integer(-5), powers=False) == (
+        r"\frac{125}{4}-\frac{525}{4}+\frac{675}{4}-\frac{13}{2}"
+    )
+    assert parabola_proof._substitution(primitive, sp.Integer(-9), powers=False) == (
+        r"\frac{729}{4}-\frac{1701}{4}+\frac{1215}{4}-\frac{13}{2}"
+    )
+
+
+@pytest.mark.parametrize(
+    "value", [sp.Integer(-5), sp.Integer(0), sp.Integer(5), sp.Rational(-1, 2)]
+)
+def test_substitution_has_no_adjacent_signs_for_either_coefficient_sign(value):
+    from solution_runner.pipelines.calculus import parabola_proof
+
+    for primitive in [
+        X**3 + 3 * X**2 + 2 * X + sp.Rational(1, 4),
+        -(X**3) / 4 - 21 * X**2 / 4 - 135 * X / 4 - sp.Rational(13, 2),
+    ]:
+        for powers in [True, False]:
+            formula = parabola_proof._substitution(primitive, value, powers=powers)
+            assert "--" not in formula and "+-" not in formula and "- -" not in formula
+
+
+@pytest.mark.parametrize("task", ["323078", "323183", "323185", "323275", "500890"])
+def test_trapezoid_solution_has_only_bases_height_and_one_area_calculation(task):
+    html = solution(plan(sample(task), sample(task)["context"]))
+    soup = BeautifulSoup(html, "html.parser")
+    formulas = [n["data-inline-latex"] for n in soup.select("[data-inline-latex]")]
+    assert sum(f.startswith("S=") for f in formulas) == 1
+    assert sum(f.startswith("a=") for f in formulas) == 1
+    assert sum(f.startswith("b=") for f in formulas) == 1
+    assert sum(f.startswith("h=") for f in formulas) == 1
+    assert all(r"\int" not in f and "B_1" not in f and "B_2" not in f for f in formulas)
+    assert "Аналитическое" not in html and "Приведём" not in html
+    assert len(soup.find_all("img")) == 1

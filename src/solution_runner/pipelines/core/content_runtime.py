@@ -531,7 +531,7 @@ def _ensure_required_assets(
 
 
 def _generated_diagram_assets(
-    gateway, context, specs, source_problem_id, *, apply=False
+    gateway, context, specs, source_problem_id, *, apply=False, condition_asset_bytes=None
 ):
     """Reuse checksum-verified solution assets or prepare preview/upload identities."""
     result = []
@@ -550,9 +550,19 @@ def _generated_diagram_assets(
         )
         asset = None
         if existing:
-            metadata = (
-                gateway.get_source_asset(existing["asset_id"]).get("source_asset") or {}
+            condition_keys = next(
+                (section.get("asset_keys", [])
+                 for section in (context.get("normalized_content") or {}).get("sections", [])
+                 if section.get("key") == "condition"),
+                [],
             )
+            if isinstance(condition_asset_bytes, bytes) and existing.get("asset_key") in condition_keys:
+                # The opt-in builder already downloaded this exact condition image.
+                metadata = {"sha256": hashlib.sha256(condition_asset_bytes).hexdigest()}
+            else:
+                metadata = (
+                    gateway.get_source_asset(existing["asset_id"]).get("source_asset") or {}
+                )
             if metadata.get("sha256") == digest:
                 asset = {
                     "source_asset_id": existing["asset_id"],
@@ -601,7 +611,11 @@ def _prepared_record(
             else handler.diagram_specs(context)
         )
         generated_assets = _generated_diagram_assets(
-            gateway, context, diagram_specs, source_problem_id
+            gateway, context, diagram_specs, source_problem_id,
+            **(
+                {"condition_asset_bytes": condition_asset_bytes}
+                if handler.diagram_builder_uses_condition_bytes else {}
+            ),
         )
         plan = _build_content_plan(
             context,
@@ -769,7 +783,11 @@ def _apply_record(
         if list(diagram_specs) != record.get("generated_diagrams", []):
             raise RightTrianglePlanError("generated diagram drifted after prepare")
         generated_assets = _generated_diagram_assets(
-            gateway, context, diagram_specs, source_problem_id
+            gateway, context, diagram_specs, source_problem_id,
+            **(
+                {"condition_asset_bytes": condition_asset_bytes}
+                if handler.diagram_builder_uses_condition_bytes else {}
+            ),
         )
         current_plan = _build_content_plan(
             context,
@@ -834,7 +852,11 @@ def _apply_record(
                 gateway.get_problem_asset_target_context(problem_id, "asset:image_1")
             if diagram_specs:
                 uploaded_assets = _generated_diagram_assets(
-                    gateway, context, diagram_specs, source_problem_id, apply=True
+                    gateway, context, diagram_specs, source_problem_id, apply=True,
+                    **(
+                        {"condition_asset_bytes": condition_asset_bytes}
+                        if handler.diagram_builder_uses_condition_bytes else {}
+                    ),
                 )
                 encoded = json.dumps(frozen, ensure_ascii=False)
                 for preview, uploaded in zip(generated_assets, uploaded_assets):
@@ -868,7 +890,11 @@ def _apply_record(
                 else handler.diagram_specs(refreshed)
             )
             refreshed_assets = _generated_diagram_assets(
-                gateway, refreshed, refreshed_specs, source_problem_id
+                gateway, refreshed, refreshed_specs, source_problem_id,
+                **(
+                    {"condition_asset_bytes": refreshed_bytes}
+                    if handler.diagram_builder_uses_condition_bytes else {}
+                ),
             )
             verified = _build_content_plan(
                 refreshed,

@@ -3,6 +3,7 @@
 import hashlib
 import io
 import json
+from itertools import pairwise
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -59,7 +60,7 @@ def recover(data, lower, upper):
         # Monochrome originals use the bottom/left unit-grid lines as axes.
         # In the coloured/grey-grid original, contrast independently marks axes.
         samples = [
-            darkness[int(round(y)), max(0, int(x) - 2) : int(x) + 3].max()
+            darkness[round(y), max(0, int(x) - 2) : int(x) + 3].max()
             for x in vx
             for y in ((hy[0] + hy[1]) / 2, (hy[-1] + hy[-2]) / 2)
         ]
@@ -234,21 +235,21 @@ def render(model, *, shaded=False):
     vertical.set("x2", str(ox))
     vertical.set("y1", str(height))
     root.extend((horizontal, vertical))
-    # Clip at the diagram boundary, leaving the diagonal as a genuine ray.
-    end_x = z + (ymin * (c - z) / h)
-    start_x = xmin if not model["rising"] else min(c, end_x)
-    end_x = max(c, end_x) if not model["rising"] else xmax
+    # Like the native SVG, let the diagonal continue just beyond its zero.
+    # This avoids running the graph through numerical axis labels below it.
+    tail_y = -0.15
+    tail_x = z + tail_y * (c - z) / h
     coords = (
-        [point(xmin, h), point(c, h), point(end_x, ymin)]
+        [point(xmin, h), point(c, h), point(tail_x, tail_y)]
         if not model["rising"]
-        else [point(start_x, ymin), point(c, h), point(xmax, h)]
+        else [point(tail_x, tail_y), point(c, h), point(xmax, h)]
     )
     curve_attrs = {
         k: v
         for k, v in template[40].attrib.items()
         if k not in ("x1", "x2", "y1", "y2")
     }
-    for first, last in zip(coords, coords[1:]):
+    for first, last in pairwise(coords):
         ET.SubElement(
             root,
             "line",

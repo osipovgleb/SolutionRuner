@@ -25,7 +25,11 @@ CASES = DATA["cases"]
 def test_groups_share_one_stationary_point_rule(group):
     profile = get_group_profile(group["key"])
     assert profile.source_group_id == group["uuid"]
-    assert profile.content_rule_key == "calculus-graph-stationary-points"
+    assert profile.content_rule_key == (
+        "calculus-raster-primitive-zeros"
+        if group["key"] == "323077"
+        else "calculus-graph-stationary-points"
+    )
     assert profile.snapshot_theme_id == group["theme_uuid"]
     assert profile.group_order_index == group["order"]
 
