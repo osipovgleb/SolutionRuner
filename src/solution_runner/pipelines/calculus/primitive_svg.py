@@ -152,14 +152,33 @@ def read(data, question):
                 if before > 0 and after < 0
                 else "stationary"
             )
+            # A horizontal handle on only one side of an SVG join is not a
+            # stationary point of the drawn function. Illustrator paths can
+            # contain such joins just beside the actual extremum.
+            if kind == "stationary":
+                if t < 1e-7 and index and abs(dy(segments[index - 1], 1)) > unit * 1e-6:
+                    continue
+                if (
+                    t > 1 - 1e-7
+                    and index + 1 < len(segments)
+                    and abs(dy(segments[index + 1], 0)) > unit * 1e-6
+                ):
+                    continue
             candidates.append(
                 {"x": str((p[0] - origin) / unit), "kind": kind, "svg": p.tolist()}
             )
     candidates.sort(key=lambda p: float(p["x"]))
     points = []
     for p in candidates:
-        if not points or abs(float(p["x"]) - float(points[-1]["x"])) > 0.002:
-            points.append(p)
+        if points and np.linalg.norm(np.array(p["svg"]) - points[-1]["svg"]) <= min(
+            1.0, unit * 0.05
+        ):
+            # Rounded control points can add a microscopic turn at a join.
+            # Keep the actual extremum rather than count its handle twice.
+            if points[-1]["kind"] == "stationary" and p["kind"] != "stationary":
+                points[-1] = p
+            continue
+        points.append(p)
     selected = graph_stationary.select(points, question.interval)
     return {
         "svg_origin": [origin, 0],

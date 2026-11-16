@@ -1,5 +1,6 @@
 """Native and raster primitives must preserve their stationary points and intervals."""
 
+import itertools
 import json
 from copy import deepcopy
 from pathlib import Path
@@ -92,11 +93,27 @@ def test_raster_prepare_highlight_upload_readback_and_no_duplicates(task, expect
 
 
 @pytest.mark.parametrize("task", ["323147", "323155"])
-def test_uncertain_extremum_at_interval_boundary_is_not_silently_counted(task):
+def test_reviewed_boundary_counts_are_accepted_but_unreviewed_ones_are_blocked(task):
+    from solution_runner.pipelines.calculus import primitive_curves
+    from solution_runner.pipelines.probability.common import UnsupportedCondition
+
     gateway = Gateway(CASES[task])
     record = _prepared_record(gateway, CASES[task], None, RULE)
-    assert record["status"] != "prepared"
-    assert "boundary" in record["message"]
+    assert record["status"] == "prepared", record
+    q, _, _ = primitive_runner._read(CASES[task])
+    model = raster_primitive.recover((ROOT / (task + ".png")).read_bytes(), q)
+    assert primitive_curves.reviewed(model)
+    model = deepcopy(model)
+    model["source_sha256"] = "unreviewed"
+    model["extrema"][0]["x_uncertainty"] = 0.05
+    boundary = str(model["extrema"][0]["x"])
+    q = SimpleNamespace(
+        interval=graph_stationary.interval(
+            "[" + boundary + ";" + str(float(model["domain"][1]) - 0.1) + "]"
+        )
+    )
+    with pytest.raises(UnsupportedCondition, match="boundary"):
+        raster_primitive.select(model, q)
     assert gateway.uploads == gateway.writes == 0
 
 
@@ -135,30 +152,33 @@ def test_stationary_inflection_is_not_incorrectly_called_an_extremum():
     assert "Их количество — 1" in html
 
 
-def test_smoothing_changes_only_vertex_neighborhoods_and_preserves_graph_ends():
+def test_g2_smoothing_keeps_fixed_extrema_and_prevents_extra_turns():
     import numpy as np
 
+    from solution_runner.pipelines.calculus import primitive_bezier, primitive_curves
+
     q, _, _ = primitive_runner._read(CASES["323117"])
-    data = (ROOT / "323117.png").read_bytes()
-    before = raster_primitive.recover(data, q, smooth_vertices=False)
-    after = raster_primitive.recover(data, q)
-    assert before["extrema"] == after["extrema"]
-    assert after["diagnostics"]["vertex_smoothing"]["removed_knots"] > 0
-    assert before["knots"][:2] == after["knots"][:2]
-    assert before["knots"][-2:] == after["knots"][-2:]
-    assert before["slopes"][:2] == after["slopes"][:2]
-    assert before["slopes"][-2:] == after["slopes"][-2:]
-    regions = after["diagnostics"]["vertex_smoothing"]["regions"]
-    retained = {p[0]: (p, slope) for p, slope in zip(after["knots"], after["slopes"])}
-    for point, slope in zip(before["knots"], before["slopes"]):
-        if not any(lo < point[0] < hi for lo, hi in regions):
-            assert retained[point[0]] == (point, slope)
-    knots = np.array(after["knots"])
-    slopes = np.array(after["slopes"])
-    hard = tuple(
-        i for i, p in enumerate(knots) if any(p[0] == e["x"] for e in after["extrema"])
+    model = raster_primitive.recover((ROOT / "323117.png").read_bytes(), q)
+    assert primitive_curves.reviewed(model)
+    segments = np.array(model["bezier_segments"])
+    primitive_bezier.verify(segments)
+    for point in model["extrema"]:
+        xy = [point["x"], point["y"]]
+        i = next(i for i, s in enumerate(segments) if np.array_equal(s[-1], xy))
+        assert segments[i, 2, 1] == point["y"] == segments[i + 1, 1, 1]
+
+    def curvature(s, end):
+        d = 3 * ((s[3] - s[2]) if end else (s[1] - s[0]))
+        dd = 6 * ((s[3] - 2 * s[2] + s[1]) if end else (s[2] - 2 * s[1] + s[0]))
+        return (d[0] * dd[1] - d[1] * dd[0]) / np.linalg.norm(d) ** 3
+
+    for a, b in itertools.pairwise(segments):
+        assert abs(curvature(a, True) - curvature(b, False)) < 1e-5
+    assert len(raster_primitive.select(model, q)) == 7
+    assert (
+        "Правило: Если производная равна 0 то это экстремум(лок. min/лок. max)"
+        in primitive_runner.proof(q, raster_primitive.select(model, q))
     )
-    raster_primitive._verify_fit(knots, slopes, hard)
 
 
 def test_already_downloaded_png_needs_no_extra_source_asset_metadata_permission():
@@ -208,3 +228,53 @@ def test_source_apex_next_to_grid_line_does_not_follow_grid_intersection():
         )
         == 7
     )
+
+
+def test_server_html_materialization_does_not_trigger_repeated_solution_rewrites():
+    class MaterializingGateway(Gateway):
+        def apply_problem_transformations(self, problem_id, transformations):
+            super().apply_problem_transformations(problem_id, transformations)
+            content = self.context["normalized_content"]
+            for section in content["sections"]:
+                soup = BeautifulSoup(section["html"], "html.parser")
+                for image in soup.find_all("img"):
+                    key = image.get("data-asset-key")
+                    asset = next(a for a in content["assets"] if a["asset_key"] == key)
+                    image["data-transformation-target-id"] = "asset:" + key
+                    image["alt"] = asset.get("alt", "")
+                section["html"] = str(soup)
+
+    gateway = MaterializingGateway(CASES["323117"])
+    record = _prepared_record(gateway, gateway.context, None, RULE)
+    result = _apply_record(gateway, record, None, RULE)
+    assert result["status"] == "applied", result
+    next_record = _prepared_record(gateway, gateway.context, None, RULE)
+    assert next_record["status"] == "prepared" and next_record["transformations"] == []
+    assert (
+        _apply_record(gateway, next_record, None, RULE)["status"] == "already_complete"
+    )
+    assert gateway.writes == 1 and gateway.uploads == 2
+
+
+def test_native_svg_one_sided_horizontal_join_does_not_add_a_third_root():
+    # Task 523988: the bottom is inside the first cubic, just before a
+    # one-sided horizontal handle at the join. That join is not another root.
+    svg = b"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 200">
+    <path stroke="#143B8F" d="M20.307 20.2
+    L100.067 100.364 C114.501 169.869 131.428 182.081 137.866 181.327
+    C144.631 181.327 153.376 151.869 160.244 100.327
+    C169.125 44.119 173.229 31.503 180.208 31.369
+    C186.973 31.369 192.563 69.681 200.007 80.405
+    L239.875 180.229"/></svg>"""
+    q = SimpleNamespace(
+        kind="count",
+        domain=graph_stationary.interval("(-1;10)"),
+        interval=graph_stationary.interval("[4;8]"),
+    )
+    _, points = primitive_svg.read(svg, q)
+    assert [p["kind"] for p in points] == ["min", "max"]
+    html = primitive_runner.proof(q, points)
+    assert "Их количество — 2" in html
+    assert "Правило:" in html
+    assert "первообразной" not in html
+    assert "N_" not in html and "k=0" not in html

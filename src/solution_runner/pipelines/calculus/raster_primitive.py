@@ -120,6 +120,16 @@ def _detect(logical, smooth, prominence):
 
 
 def select(model, question):
+    from . import primitive_curves
+
+    if primitive_curves.reviewed(model):
+        return graph_stationary.select(
+            [
+                {"kind": p["kind"], "x": str(p["x"]), "svg": [p["x"], p["y"]]}
+                for p in model["extrema"]
+            ],
+            question.interval,
+        )
     points = []
     for index, point in enumerate(model["extrema"]):
         x = point["x"]
@@ -224,7 +234,7 @@ def _smooth_vertices(knots, slopes, hard_indices, width=0.5):
     )
 
 
-def recover(data, question, *, smooth_vertices=True):
+def _recover_legacy(data, question, *, smooth_vertices=True):
     image = Image.open(io.BytesIO(data)).convert("RGBA")
     if min(image.size) < 35 or max(image.size) > 5000:
         raise UnsupportedCondition("unsupported primitive raster dimensions")
@@ -305,6 +315,12 @@ def recover(data, question, *, smooth_vertices=True):
     }
 
 
+def recover(data, question, *, smooth_vertices=True):
+    from . import primitive_curves
+
+    return primitive_curves.recover(data, question)
+
+
 def render(model, *, selected_points=None):
     """Keep the parent SVG's style; highlight the same curve only in solutions."""
     import math
@@ -380,14 +396,24 @@ def render(model, *, selected_points=None):
     vertical.set("x2", str(ox))
     vertical.set("y1", str(height))
     root.extend((horizontal, vertical))
-    path = ""
-    for i in range(len(knots) - 1):
-        x0, y0 = point(*knots[i])
-        x3, y3 = point(*knots[i + 1])
-        dx = knots[i + 1, 0] - knots[i, 0]
-        if i == 0:
-            path = f"M{x0:.6f},{y0:.6f}"
-        path += f"C{x0 + dx * cell / 3:.6f},{y0 - slopes[i] * dx * cell / 3:.6f} {x3 - dx * cell / 3:.6f},{y3 + slopes[i + 1] * dx * cell / 3:.6f} {x3:.6f},{y3:.6f}"
+    if "bezier_segments" in model:
+        segments = np.asarray(model["bezier_segments"])
+        coords = segments * np.array([cell, -cell]) + np.array([ox, oy])
+        fmt = lambda p: f"{p[0]:.9f},{p[1]:.9f}"
+        path = (
+            "M"
+            + fmt(coords[0, 0])
+            + "".join("C" + " ".join(fmt(p) for p in segment[1:]) for segment in coords)
+        )
+    else:
+        path = ""
+        for i in range(len(knots) - 1):
+            x0, y0 = point(*knots[i])
+            x3, y3 = point(*knots[i + 1])
+            dx = knots[i + 1, 0] - knots[i, 0]
+            if i == 0:
+                path = f"M{x0:.6f},{y0:.6f}"
+            path += f"C{x0 + dx * cell / 3:.6f},{y0 - slopes[i] * dx * cell / 3:.6f} {x3 - dx * cell / 3:.6f},{y3 + slopes[i + 1] * dx * cell / 3:.6f} {x3:.6f},{y3:.6f}"
     curve = template[28]
     curve.set("d", path)
     color = "#143B8F" if selected_points is None else "#000000"

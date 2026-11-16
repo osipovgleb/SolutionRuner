@@ -139,14 +139,23 @@ def proof(question, points):
     def inline(formula):
         return '<span data-inline-latex="' + escape(formula, quote=True) + '"></span>'
 
-    html = "<p>Нас просят найти количество решений уравнения " + inline("f(x)=0")
-    html += ". По определению первообразной, " + inline("f(x)=F'(x)") + ", поэтому:</p>"
-    html += line("f(x)=0" + r"\quad\Rightarrow\quad F'(x)=0")
+    if question.kind == "count":
+        html = (
+            "<p>Нас просят найти количество решений уравнения "
+            + inline("f'(x)=0")
+            + ".</p>"
+        )
+    else:
+        html = "<p>Нас просят найти количество решений уравнения " + inline("f(x)=0")
+        html += (
+            ". По определению первообразной, " + inline("f(x)=F'(x)") + ", поэтому:</p>"
+        )
+        html += line("f(x)=0" + r"\quad\Rightarrow\quad F'(x)=0")
     if any(p["kind"] not in ("max", "min") for p in points):
         html += "<p>Производная равна нулю в точках с горизонтальной касательной. На данном графике учитываем экстремумы и стационарные точки без экстремума. "
         html += "Посчитаем такие точки на заданном промежутке "
     else:
-        html += "<p>На данном графике производная равна нулю в точках экстремума — локальных минимумах и локальных максимумах. "
+        html += "<p>Правило: Если производная равна 0 то это экстремум(лок. min/лок. max)</p><p>"
         html += "Посчитаем экстремумы на заданном промежутке "
     html += (
         inline(interval_latex(question.interval))
@@ -170,7 +179,7 @@ def _native_plan(context, data, generated):
         )
         html = (
             proof(question, points)
-            if question.kind == "primitive"
+            if question.kind in ("primitive", "count")
             else graph_stationary.proof(question, points)[1]
         )
         solution = next(
@@ -200,7 +209,7 @@ def _native_plan(context, data, generated):
             (key,),
             removed + tuple(changes),
         )
-    if question.kind != "primitive":
+    if question.kind not in ("primitive", "count"):
         return graph_stationary.build_context_repair_plan(
             context, condition_asset_bytes=data, generated_solution_assets=generated
         )
@@ -225,7 +234,7 @@ def _native_plan(context, data, generated):
     )
 
 
-def build_context_repair_plan(
+def _build_context_repair_plan(
     context, *, condition_asset_bytes=None, generated_solution_assets=()
 ):
     data = condition_asset_bytes
@@ -295,3 +304,46 @@ def build_context_repair_plan(
         result,
         transformations=(asset_change, condition_change, *result.transformations),
     )
+
+
+def build_context_repair_plan(
+    context, *, condition_asset_bytes=None, generated_solution_assets=()
+):
+    """Compare the exact DOM content after server materialization, not escaping."""
+    plan = _build_context_repair_plan(
+        context,
+        condition_asset_bytes=condition_asset_bytes,
+        generated_solution_assets=generated_solution_assets,
+    )
+    content = context["normalized_content"]
+    current = next((s for s in content["sections"] if s["key"] == "solution"), None)
+
+    def canonical(raw, *, reused_alts=False):
+        soup = BeautifulSoup(raw or "", "html.parser")
+        for tag in soup.find_all(True):
+            tag.attrs.pop("data-transformation-target-id", None)
+            if reused_alts and tag.name == "img":
+                asset = next(
+                    (
+                        a
+                        for a in content.get("assets", [])
+                        if a.get("asset_id") == tag.get("data-asset-id")
+                        and a.get("asset_key") == tag.get("data-asset-key")
+                    ),
+                    None,
+                )
+                if asset is not None:
+                    tag["alt"] = asset.get("alt", "")
+        return str(soup)
+
+    expected = canonical(plan.solution_html, reused_alts=True)
+    matches = current is not None and canonical(current.get("html", "")) == expected
+    changes = []
+    for original in plan.transformations:
+        change = deepcopy(original)
+        if change["transformation_target_id"].startswith("section:solution"):
+            if matches:
+                continue
+            change["value"]["html"] = expected
+        changes.append(change)
+    return replace(plan, solution_html=expected, transformations=tuple(changes))
