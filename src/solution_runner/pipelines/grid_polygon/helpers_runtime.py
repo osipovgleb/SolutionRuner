@@ -119,8 +119,8 @@ def _desired_branches(profile: GroupProfile) -> dict[str, dict[str, Any]]:
         {
             branch: {
                 "status": "not_required",
-                "revision": 1,
-                "attempted_revision": 1,
+                "revision": 2,
+                "attempted_revision": 2,
             }
             for branch in profile.helpers_not_required_branches
         }

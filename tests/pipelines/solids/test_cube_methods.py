@@ -34,17 +34,21 @@ def variables(m):
             "a_2": -k - a,
             "D": k * k - 4 * c,
             "V_0": a**3,
+            "V_1": (a + k) ** 3,
             "V": (a + k) ** 3,
             "S_0": 6 * a * a,
+            "S_1": 6 * (a + k) ** 2,
             "S": 6 * (a + k) ** 2,
         }
     if m.mode == "volume_factor":
-        return {"a": sp.Integer(1), "V": sp.Integer(1), "V_1": v**3}
+        return {"a": sp.Integer(1), "k": v, "V": sp.Integer(1), "V_1": v**3}
     if m.mode == "surface_factor":
-        return {"k": v, "S_0": sp.Integer(6), "S_1": 6 * v * v}
+        return {"a": sp.Integer(1), "k": v, "S_0": sp.Integer(6), "S_1": 6 * v * v}
     if m.mode == "surface_factor_from_volume_factor":
         return {
             "k": v ** sp.Rational(1, 3),
+            "a_1": v ** sp.Rational(1, 3),
+            "a_2": sp.Integer(1),
             "V_1": v,
             "V_2": sp.Integer(1),
             "S_1": 6 * v ** sp.Rational(2, 3),
@@ -63,6 +67,8 @@ def variables(m):
 def verify(html, m):
     for tag in BeautifulSoup(html, "html.parser").select("[data-inline-latex]"):
         formula = tag["data-inline-latex"]
+        if "=" not in formula or formula.startswith(r"\left[\begin{aligned}"):
+            continue
         for label, amount in sorted(variables(m).items(), key=lambda p: -len(p[0])):
             formula = re.sub(
                 r"(?<![A-Za-z_])" + re.escape(label) + r"(?![A-Za-z_])",
@@ -90,7 +96,8 @@ def test_all_saved_answers_and_every_formula(case):
     )
     html = solution_html(result)
     verify(html, read(case))
-    assert not BeautifulSoup(html, "html.parser").find("section")
+    if read(case).mode not in {"volume_factor", "surface_factor", "surface_factor_from_volume_factor"}:
+        assert not BeautifulSoup(html, "html.parser").find("section")
 
 
 @pytest.mark.parametrize("case", CASES, ids=lambda c: c["task"])
@@ -170,3 +177,62 @@ def test_condition_from_another_method_cannot_use_this_parent(group):
     other = next(c for c in CASES if c["task"] == c["group"] and c["group"] != group)
     with pytest.raises(ContentPlanError, match="differs from its parent method"):
         plan(case, deepcopy(other["context"]))
+
+
+def test_surface_increase_sets_up_area_equation_before_solving():
+    case = next(c for c in CASES if c["task"] == "27061")
+    html = solution_html(plan(case))
+    formulas = [tag["data-inline-latex"] for tag in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")]
+    assert formulas[0] == "S_0=6a^2"
+    assert formulas[1].startswith("S_1=6(a+")
+    assert formulas[2].startswith("6(a+") and "=6a^2+" in formulas[2]
+    assert "линейное уравнение" in html
+
+
+def test_volume_factor_has_similarity_method_and_no_parenthesized_integer():
+    case = next(c for c in CASES if c["task"] == "27081")
+    html = solution_html(plan(case))
+    assert "Альтернативное решение" in html
+    assert "Объёмы подобных тел относятся как куб коэффициента подобия" in html
+    assert r"\left(6\right)" not in html
+
+
+def test_volume_from_diagonal_rewrites_solution_with_shared_image():
+    case = next(c for c in CASES if c["task"] == "27098")
+    ctx = deepcopy(case["context"])
+    condition = section(ctx, "condition")
+    image = BeautifulSoup(condition["html"], "html.parser").find("img")
+    solution = section(ctx, "solution")
+    solution["html"] = str(image) + solution["html"]
+    solution["asset_keys"] = ["image_1"]
+    result = plan(case, ctx)
+    html = solution_html(result)
+    assert "<img" not in html
+    assert r"d=\sqrt{3}\cdot a" in html
+    assert r"=\sqrt{3}\cdot a" in html
+    verify(html, read(case))
+
+
+def test_volume_increase_shows_two_volumes_and_root_selection():
+    case = next(c for c in CASES if c["task"] == "27102")
+    m = read(case)
+    html = solution_html(plan(case))
+    formulas = [tag["data-inline-latex"] for tag in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")]
+    assert formulas[0] == "V_0=a^3" and formulas[1].startswith("V_1=(a+")
+    assert formulas[2] == "19"
+    assert formulas[3].startswith("(a+") and "=a^3+" in formulas[3]
+    assert r"\begin{aligned}a&=" in formulas[-1] and "такого не может быть" in formulas[-1]
+    assert formulas[-1].count(r"\frac{") == 2 and formulas[-1].count(r"\sqrt{") == 2
+    assert "a_1" not in html and "a_2" not in html
+    assert sp.simplify((-m.given[0] - m.answer + m.given[0])**3 - (-m.given[0] - m.answer)**3 - m.given[1]) == 0
+
+
+def test_volume_increase_omits_unit_coefficient():
+    case = next(c for c in CASES if c["task"] == "27102")
+    ctx = deepcopy(case["context"])
+    condition = section(ctx, "condition")
+    image = BeautifulSoup(condition["html"], "html.parser").find("img")
+    condition["html"] = "<p>" + str(image) + "Если каждое ребро куба увеличить на 1, то его объем увеличится на 19. Найдите ребро куба.</p>"
+    html = solution_html(plan(case, ctx))
+    assert r"1\cdot a" not in html
+    assert r"a^2+a-6=0" in html

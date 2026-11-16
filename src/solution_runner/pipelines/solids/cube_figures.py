@@ -1,6 +1,7 @@
 """Validate full cube image roles and reuse every compatible source identity."""
 
 from bs4 import BeautifulSoup
+from copy import deepcopy
 
 from ..core.errors import ContentPlanError
 from ..probability.solution_diagrams import spec
@@ -14,7 +15,25 @@ from .cube_sources import MODE_SOURCES, source_bytes
 
 
 def selection(context):
-    content, assets, owners = read_content(context, {"image_1", cube_section_svg.KEY})
+    inspected = deepcopy(context)
+    raw = inspected.get("normalized_content", {})
+    condition_section = _section(raw, "condition")
+    if condition_section:
+        images = BeautifulSoup(condition_section["html"], "html.parser").find_all("img")
+        source = images[0].get("data-asset-id") if len(images) == 1 else None
+        mode = read_question(condition_section["html"], source).mode
+        if mode in {"volume_from_diagonal", "surface_from_diagonal"} and source:
+            for section in raw.get("sections", []):
+                if section.get("key") != "solution":
+                    continue
+                soup = BeautifulSoup(section["html"], "html.parser")
+                for image in soup.find_all("img", attrs={"data-asset-key": "image_1", "data-asset-id": source}):
+                    if image.get("src") != "/assets/" + source or image.get("data-transformation-target-id", "asset:image_1") != "asset:image_1":
+                        raise ContentPlanError("the quantity image differs from its metadata")
+                    image.decompose()
+                section["html"] = str(soup)
+                section["asset_keys"] = [key for key in section.get("asset_keys", []) if key != "image_1"]
+    content, assets, owners = read_content(inspected, {"image_1", cube_section_svg.KEY})
     condition = _section(content, "condition")
     if condition is None:
         raise ContentPlanError("one complete cube condition is required")

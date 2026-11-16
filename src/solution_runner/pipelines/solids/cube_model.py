@@ -16,7 +16,7 @@ PATTERNS = {
     "surface_from_volume": r"Объем куба равен\s+(.+?)\s*\.\s*Найдите площадь его поверхности\s*\.",
     "edge_from_surface_increase": r"Если каждое ребро куба увеличить на\s+(.+?)\s*,\s*то его площадь поверхности увеличится на\s+(.+?)\s*\.\s*Найдите ребро куба\s*\.",
     "volume_factor": r"Во сколько раз увеличится объем куба, если (?:все )?его ребра увеличить в\s+(.+?)\s+раза?\s*\?",
-    "volume_from_diagonal": r"Диагональ куба равна\s+(.+?)\s*\.\s*Найдите его объем\s*\.",
+    "volume_from_diagonal": r"Диагональ куба равна\s+(.+?)\s*\.\s*Найдите (?:его объем|объем куба)\s*\.",
     "diagonal_from_volume": r"Объем куба равен\s+(.+?)\s*\.\s*Найдите его диагональ\s*\.",
     "edge_from_volume_increase": r"Если каждое ребро куба увеличить на\s+(.+?)\s*,\s*то его объем увеличится на\s+(.+?)\s*\.\s*Найдите ребро куба\s*\.",
     "surface_factor": r"Во сколько раз увеличится площадь поверхности куба, если его ребро увеличить в\s+(.+?)\s+раза?\s*\?",
@@ -46,6 +46,7 @@ class CubeQuantity:
     mode: str
     given: tuple[sp.Expr, ...]
     answer: sp.Expr
+    given_text: tuple[str, ...] = ()
 
 
 def _positive(raw, *, words=False):
@@ -105,7 +106,7 @@ def read_question(html, source=None):
                 or answer.is_positive is not True
             ):
                 raise ContentPlanError("the cube quantity is not positive and finite")
-            return CubeQuantity(mode, given, answer)
+            return CubeQuantity(mode, given, answer, tuple(match.groups()))
     except (UnsupportedCondition, AltitudeSolveError) as exc:
         raise ContentPlanError(str(exc)) from exc
     raise ContentPlanError("one complete reviewed cube question is required")
