@@ -134,45 +134,7 @@ def _build_context_repair_plan(
     )
 
 
-def build_context_repair_plan(
-    context, *, condition_asset_bytes=None, generated_solution_assets=()
-):
-    """Compare materialized DOMs so a second run does not rewrite identical work."""
-    plan = _build_context_repair_plan(
-        context,
-        condition_asset_bytes=condition_asset_bytes,
-        generated_solution_assets=generated_solution_assets,
-    )
-    content = context["normalized_content"]
-
-    def canonical(html):
-        soup = BeautifulSoup(html or "", "html.parser")
-        for tag in soup.find_all(True):
-            tag.attrs.pop("data-transformation-target-id", None)
-            if tag.name == "img":
-                asset = next(
-                    (
-                        a
-                        for a in content.get("assets", [])
-                        if a["asset_key"] == tag.get("data-asset-key")
-                        and a["asset_id"] == tag.get("data-asset-id")
-                    ),
-                    None,
-                )
-                if asset is not None:
-                    tag["alt"] = asset.get("alt", "")
-        return str(soup)
-
-    current = next((s for s in content["sections"] if s["key"] == "solution"), None)
-    expected = canonical(plan.solution_html)
-    changes = []
-    for original in plan.transformations:
-        change = deepcopy(original)
-        if change["transformation_target_id"].startswith("section:solution"):
-            if current is not None and canonical(current["html"]) == expected:
-                continue
-            change["value"]["html"] = expected
-        changes.append(change)
+def _rewrite_condition(context, changes, canonical):
     q, condition, _asset = derivative_abscissa_input.read(context)
     previous = next(
         (
@@ -236,4 +198,47 @@ def build_context_repair_plan(
         )
         change["value"]["asset_keys"] = list(condition["asset_keys"])
         changes.append(change)
+    return changes
+
+
+def build_context_repair_plan(
+    context, *, condition_asset_bytes=None, generated_solution_assets=()
+):
+    """Compare materialized DOMs so a second run does not rewrite identical work."""
+    plan = _build_context_repair_plan(
+        context,
+        condition_asset_bytes=condition_asset_bytes,
+        generated_solution_assets=generated_solution_assets,
+    )
+    content = context["normalized_content"]
+
+    def canonical(html):
+        soup = BeautifulSoup(html or "", "html.parser")
+        for tag in soup.find_all(True):
+            tag.attrs.pop("data-transformation-target-id", None)
+            if tag.name == "img":
+                asset = next(
+                    (
+                        a
+                        for a in content.get("assets", [])
+                        if a["asset_key"] == tag.get("data-asset-key")
+                        and a["asset_id"] == tag.get("data-asset-id")
+                    ),
+                    None,
+                )
+                if asset is not None:
+                    tag["alt"] = asset.get("alt", "")
+        return str(soup)
+
+    current = next((s for s in content["sections"] if s["key"] == "solution"), None)
+    expected = canonical(plan.solution_html)
+    changes = []
+    for original in plan.transformations:
+        change = deepcopy(original)
+        if change["transformation_target_id"].startswith("section:solution"):
+            if current is not None and canonical(current["html"]) == expected:
+                continue
+            change["value"]["html"] = expected
+        changes.append(change)
+    changes = _rewrite_condition(context, changes, canonical)
     return replace(plan, solution_html=expected, transformations=tuple(changes))

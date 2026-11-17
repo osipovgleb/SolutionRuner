@@ -22,6 +22,7 @@ from solution_runner.pipelines.grid_polygon.mcp_runtime import (
     JsonRpcMcpGateway,
 )
 
+from .errors import InvalidPayloadType
 from .preview_content import _apply_locally, _safe_html
 
 ASSET_BASE_URL = "https://lessons-helper.ru"
@@ -57,7 +58,7 @@ def _card(
     generated_urls: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     if not isinstance(content, dict):
-        raise ValueError("problem content is missing")
+        raise InvalidPayloadType("problem content is missing")
     assets = {}
     for asset in content.get("assets") or []:
         if not isinstance(asset, dict):
@@ -164,10 +165,10 @@ def _sample(gateway: Any, record: Mapping[str, Any]) -> dict[str, Any]:
     context = gateway.get_problem_context(_problem_id(item))
     before_content = context.get("normalized_content")
     if not isinstance(before_content, dict):
-        raise ValueError("normalized content is missing")
+        raise InvalidPayloadType("normalized content is missing")
     transformations = record.get("transformations")
     if not isinstance(transformations, list):
-        raise ValueError("dry-run record has no transformations")
+        raise InvalidPayloadType("dry-run record has no transformations")
     before = _card(item, before_content)
     review = record.get("review_preview") if record.get("status") == "blocked" else None
     if isinstance(review, dict) and isinstance(review.get("content"), dict):

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from scripts.check_aislop_clean import (
@@ -84,6 +85,14 @@ def test_validate_report_rejects_skipped_engine() -> None:
     assert validate_report(report) == ["AISlop engine was skipped: architecture"]
 
 
+def test_validate_report_rejects_unknown_engine_status() -> None:
+    report = healthy_report()
+    engines = report["engines"]
+    assert isinstance(engines, dict)
+    engines["security"] = {"issues": 0}
+    assert validate_report(report) == ["AISlop engine status is unknown: security"]
+
+
 def test_validate_report_rejects_engine_issue_count() -> None:
     """Reject inconsistent reports that hide engine issues from diagnostics."""
 
@@ -93,6 +102,14 @@ def test_validate_report_rejects_engine_issue_count() -> None:
     engines["lint"] = {"issues": 2, "skipped": False}
 
     assert validate_report(report) == ["AISlop engine lint reports 2 issues"]
+
+
+def test_validate_report_rejects_boolean_issue_count() -> None:
+    report = healthy_report()
+    engines = report["engines"]
+    assert isinstance(engines, dict)
+    engines["lint"] = {"issues": False, "skipped": False}
+    assert validate_report(report) == ["AISlop engine lint reports False issues"]
 
 
 def test_suppression_errors_reports_only_active_source(tmp_path: Path) -> None:
@@ -108,6 +125,18 @@ def test_suppression_errors_reports_only_active_source(tmp_path: Path) -> None:
 
     assert suppression_errors(tmp_path) == [
         "src/example.py:1: AISlop suppression directives are forbidden",
+    ]
+
+
+def test_suppression_errors_checks_jsx_and_css(tmp_path: Path) -> None:
+    directive = "aislop" + "-ignore lint"
+    for filename in ("panel.jsx", "styles.css"):
+        path = tmp_path / "dashboard" / "src" / filename
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"/* {directive} */\n", encoding="utf-8")
+    assert suppression_errors(tmp_path) == [
+        "dashboard/src/panel.jsx:1: AISlop suppression directives are forbidden",
+        "dashboard/src/styles.css:1: AISlop suppression directives are forbidden",
     ]
 
 
@@ -137,9 +166,18 @@ def test_parse_scan_output_rejects_malformed_json() -> None:
     assert errors == ["AISlop scan did not return valid JSON"]
 
 
-
-def test_parse_scan_output_accepts_report_with_nonzero_exit() -> None:
-    """A scan with findings still returns a report for validation."""
+def test_parse_scan_output_keeps_report_but_rejects_nonzero_exit() -> None:
+    """A failed scan must not pass even when its JSON can be parsed."""
     report, errors = parse_scan_output(returncode=1, stdout='{"score": 83}', stderr="")
     assert report == {"score": 83}
-    assert errors == []
+    assert errors == [
+        "AISlop scan failed with exit code 1: scanner returned a failure status"
+    ]
+
+
+def test_failed_scan_cannot_pass_with_clean_report() -> None:
+    report, errors = parse_scan_output(
+        returncode=2, stdout=json.dumps(healthy_report()), stderr="engine crashed"
+    )
+    assert validate_report(report) == []
+    assert errors == ["AISlop scan failed with exit code 2: engine crashed"]

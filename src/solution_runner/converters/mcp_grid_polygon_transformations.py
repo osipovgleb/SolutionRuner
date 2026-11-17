@@ -147,13 +147,11 @@ def prepare_candidate(
     return mcp_polygon_operations.prepare_candidate(
         client=client,
         candidate=candidate,
-        preparation=mcp_polygon_operations.CandidatePreparation(
-            converter=converter,
-            converter_fingerprint=converter_fingerprint,
-            template_path=template_path,
-            run_dir=run_dir,
-            transfer_timeout_seconds=transfer_timeout_seconds,
-        ),
+        converter=converter,
+        converter_fingerprint=converter_fingerprint,
+        template_path=template_path,
+        run_dir=run_dir,
+        transfer_timeout_seconds=transfer_timeout_seconds,
         logger=logger,
         services=SimpleNamespace(
             refresh_candidate=refresh_candidate,
@@ -333,14 +331,12 @@ def run_pipeline(args: argparse.Namespace) -> int:
         if rollback:
             return mcp_polygon_rollback.finish_rollback_run(
                 client,
-                mcp_polygon_rollback.RollbackRun(
-                    args=args,
-                    run_dir=run_dir,
-                    logger=logger,
-                    user_id=user_id,
-                    source_site_id=source_site_id,
-                    scope=scope,
-                ),
+                args=args,
+                run_dir=run_dir,
+                logger=logger,
+                user_id=user_id,
+                source_site_id=source_site_id,
+                scope=scope,
             )
 
         return _process_discovered_run(

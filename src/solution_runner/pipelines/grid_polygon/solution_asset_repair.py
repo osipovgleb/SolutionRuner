@@ -14,6 +14,7 @@ from functools import partial
 from pathlib import Path
 from typing import Any, Protocol
 
+from ..core.errors import InvalidInputType
 from ..core.group_profiles import get_group_profile
 from ..core.models import (
     GroupProfile,
@@ -163,7 +164,7 @@ def _manifest_records(path: Path, profile: GroupProfile) -> tuple[PreparedFigure
     payload = json.loads(path.read_text(encoding="utf-8"))
     raw_scope = payload.get("scope") if isinstance(payload, dict) else None
     if not isinstance(raw_scope, dict):
-        raise ValueError(f"manifest scope is missing: {path}")
+        raise InvalidInputType(f"manifest scope is missing: {path}")
     scope = FrozenRunScope(
         catalog_snapshot_id=str(raw_scope.get("catalog_snapshot_id") or ""),
         snapshot_theme_id=str(raw_scope.get("snapshot_theme_id") or ""),
@@ -200,7 +201,7 @@ def _discover_group_records(
     for manifest in manifests:
         for record in _manifest_records(manifest, profile):
             if not isinstance(record, PreparedGridPolygon):
-                raise ValueError("rectangle repair requires polygon records")
+                raise InvalidInputType("rectangle repair requires polygon records")
             previous = records.get(record.problem_id)
             if (
                 previous is not None

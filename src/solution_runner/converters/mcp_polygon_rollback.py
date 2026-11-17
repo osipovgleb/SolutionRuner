@@ -301,20 +301,17 @@ def _execute_rollback(
     return global_tasks_seen, batches_seen, stop_requested
 
 
-@dataclass(frozen=True)
-class RollbackRun:
-    args: argparse.Namespace
-    run_dir: Path
-    logger: EventLogger
-    user_id: str
-    source_site_id: str
-    scope: Sequence[tuple[ThemeScope, list[GroupScope]]]
-
-
-def finish_rollback_run(client: McpClient, run: RollbackRun) -> int:
+def finish_rollback_run(
+    client: McpClient,
+    *,
+    args: argparse.Namespace,
+    run_dir: Path,
+    logger: EventLogger,
+    user_id: str,
+    source_site_id: str,
+    scope: Sequence[tuple[ThemeScope, list[GroupScope]]],
+) -> int:
     """Execute rollback and persist its final summary."""
-    args, run_dir, logger = run.args, run.run_dir, run.logger
-    user_id, source_site_id, scope = run.user_id, run.source_site_id, run.scope
     rollback_by_group, totals = _rollback_inventory_from_run(
         source_run_dir=args.resume_from_run,
         run_dir=run_dir,

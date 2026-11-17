@@ -17,7 +17,18 @@ REQUIRED_ENGINES = {
     "architecture",
 }
 SOURCE_ROOTS = ("src", "tests", "scripts", "dashboard", "codex-runtime", "experiments")
-SOURCE_SUFFIXES = {".js", ".mjs", ".py", ".sh", ".sql", ".ts", ".tsx"}
+SOURCE_SUFFIXES = {
+    ".css",
+    ".html",
+    ".js",
+    ".jsx",
+    ".mjs",
+    ".py",
+    ".sh",
+    ".sql",
+    ".ts",
+    ".tsx",
+}
 IGNORED_PARTS = {
     ".git",
     ".next",
@@ -66,8 +77,10 @@ def validate_report(report: object) -> list[str]:
             continue
         if engine.get("skipped") is True:
             errors.append(f"AISlop engine was skipped: {engine_name}")
+        elif engine.get("skipped") is not False:
+            errors.append(f"AISlop engine status is unknown: {engine_name}")
         issue_count = engine.get("issues")
-        if issue_count != 0:
+        if type(issue_count) is not int or issue_count != 0:
             errors.append(f"AISlop engine {engine_name} reports {issue_count} issues")
     return errors
 
@@ -114,11 +127,14 @@ def parse_scan_output(
             detail = stderr.strip() or stdout.strip() or "no diagnostic output"
             return None, [f"AISlop scan failed with exit code {returncode}: {detail}"]
         return None, ["AISlop scan did not return valid JSON"]
+    if returncode != 0:
+        detail = stderr.strip() or "scanner returned a failure status"
+        return report, [f"AISlop scan failed with exit code {returncode}: {detail}"]
     return report, []
 
 
 def main() -> int:
-    """Run the pinned scanner against the current checkout."""
+    """Run the installed scanner against the current checkout."""
 
     completed = subprocess.run(
         ("npx", "--no-install", "aislop", "scan", "--json", str(ROOT)),

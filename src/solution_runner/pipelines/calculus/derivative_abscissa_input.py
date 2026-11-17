@@ -45,8 +45,8 @@ def read(context):
     text = normalize(graph_input._read_text(clean)[4])
     text = text.replace("график функции y=f'(x)—", "график y=f'(x)—")
     smallest = "Найдите наименьшую абсциссу" in text
-    if not text.split(". ",1)[-1].startswith("Найдите количество"):
-        text=text.replace("к графику функции f(x)","к графику функции y=f(x)")
+    if not text.split(". ", 1)[-1].startswith("Найдите количество"):
+        text = text.replace("к графику функции f(x)", "к графику функции y=f(x)")
     q = graph_derivative_levels.parse(
         text.replace("Найдите наименьшую абсциссу", "Найдите абсциссу")
     )

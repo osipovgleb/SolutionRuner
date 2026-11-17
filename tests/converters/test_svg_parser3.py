@@ -36,3 +36,27 @@ def test_transform_removes_both_copies_of_duplicate_watermark(tmp_path: Path):
     assert result.find("g", id="faint-watermark") is None
     assert result.find("g", id="drawing") is not None
     assert len(result.find_all("g")) == 1
+
+
+def test_svg_parser_falls_back_when_xml_parser_fails(monkeypatch):
+    original = svg_parser3.BeautifulSoup
+
+    def parse(source, parser):
+        if parser == "xml":
+            raise RuntimeError("XML backend failed")
+        return original(source, parser)
+
+    monkeypatch.setattr(svg_parser3, "BeautifulSoup", parse)
+    soup, error = svg_parser3._parse_svg_soup("<svg><path d='M0 0'/></svg>")
+    assert error is None
+    assert svg_parser3.is_svg(soup)
+
+
+def test_svg_parser_preserves_original_error_if_fallback_also_fails(monkeypatch):
+    def parse(source, parser):
+        raise RuntimeError(f"{parser} backend failed")
+
+    monkeypatch.setattr(svg_parser3, "BeautifulSoup", parse)
+    soup, error = svg_parser3._parse_svg_soup("<svg/>")
+    assert soup is None
+    assert error == "Не получилось разобрать SVG: xml backend failed"

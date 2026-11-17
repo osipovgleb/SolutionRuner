@@ -102,6 +102,50 @@ def _curve(dark, grid, tangent, guide):
     return raw, ls + rs
 
 
+def _position_curve_label(root, grid, smooth, tangent, origin):
+    label = next(n for n in root.iter() if n.text == "y = f(x)")
+    width, height = map(float, (root.get("width"), root.get("height")))
+    mapped = np.column_stack(
+        [
+            origin[0] + (smooth[:, 0] - grid.vertical_axis_x) / grid.vertical.step * 20,
+            origin[1]
+            + (smooth[:, 1] - grid.horizontal_axis_y) / grid.horizontal.step * 20,
+        ]
+    )
+    candidates = [(float(label.get("x")), float(label.get("y")))]
+    candidates += [
+        (x, y)
+        for y in np.arange(16, height - 5, 20)
+        for x in np.arange(5, width - 58, 20)
+    ]
+
+    def collisions(p):
+        x, y = p
+        inside = lambda points: (
+            (points[:, 0] >= x - 3)
+            & (points[:, 0] <= x + 58)
+            & (points[:, 1] >= y - 16)
+            & (points[:, 1] <= y + 3)
+        ).sum()
+        tx = np.linspace(x - 3, x + 58, 60)
+        ty = (
+            origin[1]
+            - (
+                tangent.logical_slope * (tx - origin[0]) / 20
+                + tangent.logical_intercept
+            )
+            * 20
+        )
+        score = int(inside(mapped)) + int(inside(np.column_stack([tx, ty])))
+        score += 100 * int(x - 3 <= origin[0] <= x + 58)
+        score += 100 * int(y - 16 <= origin[1] <= y + 3)
+        return score
+
+    x, y = min(candidates, key=collisions)
+    label.set("x", str(x))
+    label.set("y", str(y))
+
+
 def extract(data):
     rgba = np.asarray(Image.open(io.BytesIO(data)).convert("RGBA"))
     dark = base.effective_darkness(rgba)
@@ -172,46 +216,6 @@ def extract(data):
         * 20,
     ]
     root = ET.fromstring(svg)
-    label = next(n for n in root.iter() if n.text == "y = f(x)")
-    width, height = map(float, (root.get("width"), root.get("height")))
-    mapped = np.column_stack(
-        [
-            origin[0] + (smooth[:, 0] - grid.vertical_axis_x) / grid.vertical.step * 20,
-            origin[1]
-            + (smooth[:, 1] - grid.horizontal_axis_y) / grid.horizontal.step * 20,
-        ]
-    )
-    candidates = [(float(label.get("x")), float(label.get("y")))]
-    candidates += [
-        (x, y)
-        for y in np.arange(16, height - 5, 20)
-        for x in np.arange(5, width - 58, 20)
-    ]
-
-    def collisions(p):
-        x, y = p
-        inside = lambda points: (
-            (points[:, 0] >= x - 3)
-            & (points[:, 0] <= x + 58)
-            & (points[:, 1] >= y - 16)
-            & (points[:, 1] <= y + 3)
-        ).sum()
-        tx = np.linspace(x - 3, x + 58, 60)
-        ty = (
-            origin[1]
-            - (
-                tangent.logical_slope * (tx - origin[0]) / 20
-                + tangent.logical_intercept
-            )
-            * 20
-        )
-        score = int(inside(mapped)) + int(inside(np.column_stack([tx, ty])))
-        score += 100 * int(x - 3 <= origin[0] <= x + 58)
-        score += 100 * int(y - 16 <= origin[1] <= y + 3)
-        return score
-
-    x, y = min(candidates, key=collisions)
-    label.set("x", str(x))
-    label.set("y", str(y))
+    _position_curve_label(root, grid, smooth, tangent, origin)
     svg = ET.tostring(root, encoding="unicode")
     return svg, grid, tangent, markers, origin

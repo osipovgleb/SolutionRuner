@@ -5,6 +5,8 @@ import binascii
 from pathlib import Path
 from uuid import uuid4
 
+from .errors import InvalidPayloadType
+
 MAX_IMAGE_BYTES = 5 * 1024 * 1024
 MAX_IMAGES = 4
 
@@ -15,7 +17,7 @@ def save_images(root: Path, images: object) -> list[dict[str, str]]:
     prepared = []
     for item in images:
         if not isinstance(item, dict):
-            raise ValueError("Некорректное изображение.")
+            raise InvalidPayloadType("Некорректное изображение.")
         encoded = item.get("data", "")
         if not isinstance(encoded, str) or len(encoded) > (
             MAX_IMAGE_BYTES * 4 // 3 + 8

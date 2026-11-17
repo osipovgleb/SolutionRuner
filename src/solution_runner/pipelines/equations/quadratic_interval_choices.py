@@ -15,6 +15,7 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
+from ..core.errors import InvalidInputType
 from ..triangles.isosceles.planner import (
     _normalized_content,
     _section,
@@ -87,7 +88,7 @@ def _polynomial(raw: str) -> tuple[Fraction, Fraction, Fraction]:
                     raise ValueError("only squares are supported")
                 right = left
             elif not isinstance(node.op, ast.Mult):
-                raise ValueError("unsupported polynomial operator")
+                raise InvalidInputType("unsupported polynomial operator")
             product = [
                 sum(
                     left[i] * right[j]
