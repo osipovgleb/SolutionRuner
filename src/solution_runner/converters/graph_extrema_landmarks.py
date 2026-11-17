@@ -122,15 +122,15 @@ def detect_landmarks(
 
     def append_candidate(
         kinds: tuple[str, ...],
-        raw_x: float,
-        raw_y: float,
-        logical_x: float,
-        logical_y: float,
+        raw_point: tuple[float, float],
+        logical_point: tuple[float, float],
         *,
         snapped_x: bool,
         snapped_y: bool,
     ) -> None:
         """Append one normalized landmark candidate inside the open x-domain."""
+        raw_x, raw_y = raw_point
+        logical_x, logical_y = logical_point
         if logical_x <= x_values[0] + 1e-7 or logical_x >= x_values[-1] - 1e-7:
             return
         candidates.append(
@@ -151,10 +151,8 @@ def detect_landmarks(
         snapped_y = abs(raw_y - nearest_y) <= grid_node_tolerance_cells
         append_candidate(
             ("y_axis",),
-            0.0,
-            raw_y,
-            0.0,
-            nearest_y if snapped_y else raw_y,
+            (0.0, raw_y),
+            (0.0, nearest_y if snapped_y else raw_y),
             snapped_x=True,
             snapped_y=snapped_y,
         )
@@ -164,10 +162,8 @@ def detect_landmarks(
         snapped_x = abs(raw_x - nearest_x) <= axis_snap_tolerance_cells
         append_candidate(
             ("x_axis",),
-            raw_x,
-            0.0,
-            nearest_x if snapped_x else raw_x,
-            0.0,
+            (raw_x, 0.0),
+            (nearest_x if snapped_x else raw_x, 0.0),
             snapped_x=snapped_x,
             snapped_y=True,
         )
@@ -176,7 +172,11 @@ def detect_landmarks(
         x_values, y_values, grid_node_tolerance_cells
     ):
         append_candidate(
-            kinds, raw_x, raw_y, logical_x, logical_y, snapped_x=True, snapped_y=True
+            kinds,
+            (raw_x, raw_y),
+            (logical_x, logical_y),
+            snapped_x=True,
+            snapped_y=True,
         )
 
     return _merge_landmarks(

@@ -2,7 +2,6 @@
 import sys
 from pathlib import Path
 from typing import TextIO
-from urllib.parse import urlparse
 
 import cv2
 import numpy as np
@@ -11,9 +10,11 @@ if __package__:
     from . import (
         polygon_cli,
         polygon_contours,
+        polygon_diagnostics,
         polygon_grid_axis,
         polygon_grid_geometry,
         polygon_grid_lattice,
+        polygon_image_description,
         polygon_image_io,
         polygon_image_masks,
         polygon_svg_render,
@@ -22,9 +23,11 @@ if __package__:
 else:
     import polygon_cli
     import polygon_contours
+    import polygon_diagnostics
     import polygon_grid_axis
     import polygon_grid_geometry
     import polygon_grid_lattice
+    import polygon_image_description
     import polygon_image_io
     import polygon_image_masks
     import polygon_svg_render
@@ -170,44 +173,9 @@ def svg_for_mask(
     )
 
 
-def run(
-    src: str,
-    out_dir: Path,
-    pad_cells: int,
-    quantile: float,
-    min_area: int,
-    close_px: int,
-    simplify: float,
-    keep_template_grid: bool,
-    cell_size: float | None,
-    template_svg: Path | None,
-    auto_grid: bool,
-    expected_vertices: int | None = None,
-    output_stream: TextIO | None = None,
-) -> Path:
-    rgba, source_info = load_image(src)
+def _detect_shape_and_grid(rgba, dimensions, expected_vertices):
+    w, h = dimensions
     alpha = rgba[:, :, 3]
-    gray = cv2.cvtColor(rgba[:, :, :3], cv2.COLOR_RGB2GRAY)
-
-    source_info_text = str(source_info)
-    if source_info_text.lower().startswith("image/"):
-        raw_format = source_info_text.split("/", 1)[1].split(";", 1)[0]
-    else:
-        raw_format = Path(source_info_text).suffix.lstrip(".")
-        if not raw_format:
-            raw_format = Path(urlparse(src).path).suffix.lstrip(".")
-    raw_format_lower = raw_format.lower()
-    if "bmp" in raw_format_lower:
-        image_format = "BMP"
-    elif raw_format_lower in {"jpg", "jpeg", "pjpeg"}:
-        image_format = "JPEG"
-    elif raw_format_lower:
-        image_format = raw_format_lower.upper()
-    else:
-        image_format = "UNKNOWN"
-
-    h, w = gray.shape
-    dilation_results: dict[int, list[tuple[int, int]]] | None = None
     grayscale_source = is_grayscale_source(rgba)
     if grayscale_source:
         base_mask, alpha_info = grayscale_shape_mask(rgba)
@@ -247,6 +215,39 @@ def run(
             alpha_grid["coordinate_anchor"] = "canvas"
             alpha_grid["source_height"] = h
 
+    return base_mask, alpha_info, alpha_grid, grayscale_source
+
+
+_source_format = polygon_image_description._source_format
+_visual_type = polygon_image_description._visual_type
+
+
+def run(
+    src: str,
+    out_dir: Path,
+    pad_cells: int,
+    quantile: float,
+    min_area: int,
+    close_px: int,
+    simplify: float,
+    keep_template_grid: bool,
+    cell_size: float | None,
+    template_svg: Path | None,
+    auto_grid: bool,
+    expected_vertices: int | None = None,
+    output_stream: TextIO | None = None,
+) -> Path:
+    rgba, source_info = load_image(src)
+    gray = cv2.cvtColor(rgba[:, :, :3], cv2.COLOR_RGB2GRAY)
+
+    image_format = _source_format(src, source_info)
+
+    h, w = gray.shape
+    dilation_results: dict[int, list[tuple[int, int]]] | None = None
+    base_mask, alpha_info, alpha_grid, grayscale_source = _detect_shape_and_grid(
+        rgba, (w, h), expected_vertices
+    )
+
     if grayscale_source or expected_vertices == 3:
         dilation_results = _require_stable_grayscale_dilation_coordinates(
             base_mask,
@@ -256,17 +257,7 @@ def run(
             expected_vertices,
         )
 
-    shape_pixels = rgba[:, :, :3][base_mask > 0].astype(np.float32)
-    if shape_pixels.size == 0:
-        visual_type = "unknown"
-    else:
-        median_r, median_g, median_b = np.median(shape_pixels, axis=0)
-        if max(median_r, median_g, median_b) - min(median_r, median_g, median_b) <= 12:
-            visual_type = "grayscale"
-        elif median_b >= median_r + 20 and median_b >= median_g + 10:
-            visual_type = "blue"
-        else:
-            visual_type = "color"
+    visual_type = _visual_type(rgba, base_mask)
 
     resolved_cell_size = 1.0 if cell_size is None else float(round(cell_size))
     if template_svg is not None and cell_size is None:
@@ -312,41 +303,25 @@ def run(
     print(f"grid_step_y={_fmt_num(detected_y_step)}", file=stream)
     print(f"grid_step_shared={_fmt_num(float(alpha_grid['cell']))}", file=stream)
 
-    with open(out.with_suffix(".txt"), "w", encoding="utf-8") as f:
-        f.write(f"source={src}\n")
-        if dilation_results is not None:
-            f.write(f"dilation_coordinates={dilation_results}\n")
-        if grayscale_source and dilation_results is not None:
-            f.write(f"grayscale_dilation_coordinates={dilation_results}\n")
-        f.write(f"size={w}x{h}\n")
-        f.write(f"mask_pixels={int(base_mask.sum() // 255)}\n")
-        f.write(f"grid_source={alpha_grid['source']}\n")
-        f.write(f"grid_correction={alpha_grid.get('correction', 'none')}\n")
-        f.write(f"alpha_shape_threshold={alpha_info['alpha_shape_threshold']}\n")
-        f.write(f"alpha_shape_bbox={alpha_info['alpha_shape_bbox']}\n")
-        f.write(f"alpha_grid_x_observed={alpha_grid['x']['observed']}\n")
-        f.write(f"alpha_grid_y_observed={alpha_grid['y']['observed']}\n")
-        f.write(f"alpha_grid_x_origin={alpha_grid['x']['origin']}\n")
-        f.write(f"alpha_grid_y_origin={alpha_grid['y']['origin']}\n")
-        f.write(f"alpha_grid_x_step={alpha_grid['x']['step']}\n")
-        f.write(f"alpha_grid_y_step={alpha_grid['y']['step']}\n")
-        f.write(f"alpha_grid_x_max_residual={alpha_grid['x']['max_residual']}\n")
-        f.write(f"alpha_grid_y_max_residual={alpha_grid['y']['max_residual']}\n")
-        f.write(f"alpha_grid_x_coverage={alpha_grid['x']['coverage']}\n")
-        f.write(f"alpha_grid_y_coverage={alpha_grid['y']['coverage']}\n")
-        f.write(f"pad_cells={pad_cells}\n")
-        f.write(f"cell_size={resolved_cell_size}\n")
-        f.write(f"template_svg={template_svg}\n")
-        f.write(f"prototype_quad={integer_quad}\n")
-        f.write(f"prototype_bbox={proto_info['bbox']}\n")
-        f.write(f"source_quad_before_snap={proto_info['source_quad_before_snap']}\n")
-        f.write(
-            f"source_quad_on_alpha_grid={proto_info['source_quad_on_alpha_grid']}\n"
+    polygon_diagnostics.write_polygon_diagnostics(
+        polygon_diagnostics.PolygonDiagnostics(
+            out=out,
+            src=src,
+            dilation_results=dilation_results,
+            grayscale_source=grayscale_source,
+            w=w,
+            h=h,
+            base_mask=base_mask,
+            alpha_grid=alpha_grid,
+            alpha_info=alpha_info,
+            pad_cells=pad_cells,
+            resolved_cell_size=resolved_cell_size,
+            template_svg=template_svg,
+            integer_quad=integer_quad,
+            proto_info=proto_info,
+            source_polygon_points=source_polygon_points,
         )
-        f.write(f"grid_indices={proto_info['grid_indices']}\n")
-        f.write(f"source_polygon_points={source_polygon_points}\n")
-        f.write(f"grid_bounds={proto_info['grid_bounds']}\n")
-        f.write(f"svg_size={proto_info['svg_size']}\n")
+    )
 
     return out
 

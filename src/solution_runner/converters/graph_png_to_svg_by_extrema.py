@@ -37,6 +37,57 @@ diagnostics_payload = _part5.diagnostics_payload
 save_debug_overlay = _part5.save_debug_overlay
 
 
+def _report_result(paths, trace, fit):
+    svg_path, json_path, overlay_path = paths
+    print(f"svg={svg_path}")
+    print(f"diagnostics={json_path}")
+    if overlay_path is not None:
+        print(f"debug_overlay={overlay_path}")
+    print("algorithm=extrema_first_v2")
+    print(f"extrema_count={len(fit.extrema)}")
+    print(f"landmark_count={len(fit.landmarks)}")
+    print(
+        "endpoints="
+        f"[({base._fmt(trace.start.logical_x, 4)}, "
+        f"{base._fmt(trace.start.logical_y, 4)}), "
+        f"({base._fmt(trace.end.logical_x, 4)}, "
+        f"{base._fmt(trace.end.logical_y, 4)})]"
+    )
+    for index, extremum in enumerate(fit.extrema, start=1):
+        print(
+            f"extremum_{index}={extremum.kind}"
+            f"({base._fmt(extremum.x, 4)}, {base._fmt(extremum.y, 4)})"
+            f", confidence={base._fmt(extremum.confidence, 3)}"
+        )
+    print(f"segments={fit.segment_count}")
+    print(f"maximum_fit_residual_cells={base._fmt(fit.maximum_fit_residual, 5)}")
+
+
+def _write_result(paths, source, svg, image_analysis, foreground_threshold):
+    svg_path, json_path, overlay_path = paths
+    rgba, grid, trace, fit = image_analysis
+    svg_path.write_text(svg, encoding="utf-8")
+    json_path.write_text(
+        json.dumps(
+            diagnostics_payload(
+                source,
+                rgba,
+                grid,
+                trace,
+                fit,
+                foreground_threshold=foreground_threshold,
+            ),
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    if overlay_path is not None:
+        save_debug_overlay(rgba, grid, trace, fit, overlay_path)
+
+
 def run(
     source: str,
     out_dir: Path,
@@ -142,49 +193,14 @@ def run(
     svg_path = out_dir / f"{asset_id}.svg"
     json_path = out_dir / f"{asset_id}.json"
     overlay_path = out_dir / f"{asset_id}.debug.png" if debug_overlay else None
-    svg_path.write_text(svg, encoding="utf-8")
-    json_path.write_text(
-        json.dumps(
-            diagnostics_payload(
-                source,
-                rgba,
-                grid,
-                trace,
-                fit,
-                foreground_threshold=foreground_threshold,
-            ),
-            ensure_ascii=False,
-            indent=2,
-            sort_keys=True,
-        )
-        + "\n",
-        encoding="utf-8",
+    _write_result(
+        (svg_path, json_path, overlay_path),
+        source,
+        svg,
+        (rgba, grid, trace, fit),
+        foreground_threshold,
     )
-    if overlay_path is not None:
-        save_debug_overlay(rgba, grid, trace, fit, overlay_path)
-
-    print(f"svg={svg_path}")
-    print(f"diagnostics={json_path}")
-    if overlay_path is not None:
-        print(f"debug_overlay={overlay_path}")
-    print("algorithm=extrema_first_v2")
-    print(f"extrema_count={len(fit.extrema)}")
-    print(f"landmark_count={len(fit.landmarks)}")
-    print(
-        "endpoints="
-        f"[({base._fmt(trace.start.logical_x, 4)}, "
-        f"{base._fmt(trace.start.logical_y, 4)}), "
-        f"({base._fmt(trace.end.logical_x, 4)}, "
-        f"{base._fmt(trace.end.logical_y, 4)})]"
-    )
-    for index, extremum in enumerate(fit.extrema, start=1):
-        print(
-            f"extremum_{index}={extremum.kind}"
-            f"({base._fmt(extremum.x, 4)}, {base._fmt(extremum.y, 4)})"
-            f", confidence={base._fmt(extremum.confidence, 3)}"
-        )
-    print(f"segments={fit.segment_count}")
-    print(f"maximum_fit_residual_cells={base._fmt(fit.maximum_fit_residual, 5)}")
+    _report_result((svg_path, json_path, overlay_path), trace, fit)
     return svg_path, json_path, overlay_path
 
 

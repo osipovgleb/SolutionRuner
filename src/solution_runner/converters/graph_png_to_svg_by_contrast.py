@@ -224,8 +224,61 @@ save_debug_overlay = graph_contrast_diagnostics.save_debug_overlay
 run = graph_contrast_run.run
 
 
-def main() -> None:
-    """Parse CLI options and run the deterministic graph vectorizer."""
+def _add_render_options(parser):
+    parser.add_argument(
+        "--path-mode",
+        choices=("bezier", "cubic", "polyline"),
+        default="bezier",
+        help="Render adaptive Bezier fitting, shape-preserving cubic knots, or a polyline",
+    )
+    parser.add_argument(
+        "--bezier-error-cells",
+        type=float,
+        default=0.030,
+        help="Maximum adaptive Bezier fitting error measured in grid cells",
+    )
+    parser.add_argument(
+        "--endpoint-style",
+        choices=("auto", "open", "closed", "none"),
+        default="auto",
+        help="Endpoint rendering; auto draws circles only when ring overhang is detected",
+    )
+    parser.add_argument(
+        "--no-labels", action="store_true", help="Omit coordinate labels and ticks"
+    )
+    parser.add_argument(
+        "--curve-color", default="#143b8f", help="SVG curve stroke color"
+    )
+    parser.add_argument(
+        "--condition-text",
+        default=None,
+        help="Condition text used to infer y=f(x), y=f′(x), y=f″(x), or y=F(x)",
+    )
+    parser.add_argument(
+        "--graph-label",
+        default=None,
+        help="Explicit SVG graph label; overrides --condition-text inference",
+    )
+    parser.add_argument(
+        "--diagram-kind",
+        choices=("auto", "single_curve", "function_with_tangent"),
+        default="auto",
+        help="Extractor selection; auto routes from the condition text",
+    )
+    parser.add_argument(
+        "--x-min", type=float, default=None, help="Explicit logical left x bound"
+    )
+    parser.add_argument(
+        "--x-max", type=float, default=None, help="Explicit logical right x bound"
+    )
+    parser.add_argument(
+        "--debug-overlay",
+        action="store_true",
+        help="Also save a raster overlay of detected grid, axes, trace, and endpoints",
+    )
+
+
+def _create_parser():
     parser = argparse.ArgumentParser(
         description=(
             "Deterministically detect a Cartesian grid, suppress it, trace the dominant "
@@ -296,57 +349,13 @@ def main() -> None:
         default=0.035,
         help="Curve-knot simplification tolerance measured in cells",
     )
-    parser.add_argument(
-        "--path-mode",
-        choices=("bezier", "cubic", "polyline"),
-        default="bezier",
-        help="Render adaptive Bezier fitting, shape-preserving cubic knots, or a polyline",
-    )
-    parser.add_argument(
-        "--bezier-error-cells",
-        type=float,
-        default=0.030,
-        help="Maximum adaptive Bezier fitting error measured in grid cells",
-    )
-    parser.add_argument(
-        "--endpoint-style",
-        choices=("auto", "open", "closed", "none"),
-        default="auto",
-        help="Endpoint rendering; auto draws circles only when ring overhang is detected",
-    )
-    parser.add_argument(
-        "--no-labels", action="store_true", help="Omit coordinate labels and ticks"
-    )
-    parser.add_argument(
-        "--curve-color", default="#143b8f", help="SVG curve stroke color"
-    )
-    parser.add_argument(
-        "--condition-text",
-        default=None,
-        help="Condition text used to infer y=f(x), y=f′(x), y=f″(x), or y=F(x)",
-    )
-    parser.add_argument(
-        "--graph-label",
-        default=None,
-        help="Explicit SVG graph label; overrides --condition-text inference",
-    )
-    parser.add_argument(
-        "--diagram-kind",
-        choices=("auto", "single_curve", "function_with_tangent"),
-        default="auto",
-        help="Extractor selection; auto routes from the condition text",
-    )
-    parser.add_argument(
-        "--x-min", type=float, default=None, help="Explicit logical left x bound"
-    )
-    parser.add_argument(
-        "--x-max", type=float, default=None, help="Explicit logical right x bound"
-    )
-    parser.add_argument(
-        "--debug-overlay",
-        action="store_true",
-        help="Also save a raster overlay of detected grid, axes, trace, and endpoints",
-    )
+    _add_render_options(parser)
+    return parser
+
+
+def main() -> None:
+    """Parse CLI options and run the deterministic graph vectorizer."""
+    parser = _create_parser()
     args = parser.parse_args()
 
     run(

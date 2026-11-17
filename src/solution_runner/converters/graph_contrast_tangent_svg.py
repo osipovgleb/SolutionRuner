@@ -113,46 +113,9 @@ def _tangent_lattice_markers(
     return np.empty((0, 2), dtype=np.float64)
 
 
-def render_graph_with_tangent_svg(
-    grid: GridModel,
-    trace: TraceResult,
-    *,
-    cell_size: float,
-    pad_cells: int,
-    path_mode: str,
-    bezier_error_cells: float,
-    endpoint_style: str,
-    include_labels: bool,
-    curve_color: str,
-    graph_label: str,
-) -> str:
-    """Render a function curve, a separately fitted tangent, and its ``x_0`` guide."""
-    if trace.tangent is None or trace.vertical_guide is None:
-        raise ValueError("tangent_renderer_requires_tangent_and_vertical_guide")
-    tangent = trace.tangent
+def _curve_path_for_tangent(grid, trace, path_mode, cell_size, pad_cells):
     guide = trace.vertical_guide
-    pad_cells = max(0, int(pad_cells))
-    vertical_count = len(grid.vertical_lines())
-    horizontal_count = len(grid.horizontal_lines())
-    columns = (vertical_count - 1) + 2 * pad_cells
-    rows = (horizontal_count - 1) + 2 * pad_cells
-    width = columns * cell_size
-    height = rows * cell_size
-    vertical_grid_x = [index * cell_size for index in range(columns + 1)]
-    horizontal_grid_y = [index * cell_size for index in range(rows + 1)]
-    grid_path = " ".join(
-        [f"M{_fmt(x)} 0V{_fmt(height)}" for x in vertical_grid_x]
-        + [f"M0 {_fmt(y)}H{_fmt(width)}" for y in horizontal_grid_y]
-    )
-
-    first_x = grid.vertical_lines()[0]
-    first_y = grid.horizontal_lines()[0]
-    axis_x = (
-        (grid.vertical_axis_x - first_x) / grid.vertical.step + pad_cells
-    ) * cell_size
-    axis_y = (
-        (grid.horizontal_axis_y - first_y) / grid.horizontal.step + pad_cells
-    ) * cell_size
+    tangent = trace.tangent
     mapped_trace = _map_points_to_svg(
         trace.points if path_mode == "bezier" else trace.simplified_points,
         grid,
@@ -183,41 +146,12 @@ def render_graph_with_tangent_svg(
     else:
         curve_path = _polyline_path(mapped_trace)
 
-    logical_bounds = _logical_canvas_bounds(grid, pad_cells)
-    tangent_logical = _clip_tangent_to_logical_canvas(tangent, logical_bounds)
-    tangent_svg = _logical_points_to_svg(tangent_logical, logical_bounds, cell_size)
-    logical_x_0 = (guide.pixel_x - grid.vertical_axis_x) / grid.vertical.step
-    logical_y_0 = tangent.logical_slope * logical_x_0 + tangent.logical_intercept
-    guide_logical = np.asarray(
-        [[logical_x_0, 0.0], [logical_x_0, logical_y_0]],
-        dtype=np.float64,
-    )
-    guide_svg = _logical_points_to_svg(guide_logical, logical_bounds, cell_size)
-    lattice_logical = (
-        trace.tangent_markers
-        if trace.tangent_markers is not None
-        else _tangent_lattice_markers(tangent, grid, guide, logical_bounds)
-    )
-    lattice_svg = (
-        _logical_points_to_svg(
-            lattice_logical,
-            logical_bounds,
-            cell_size,
-        )
-        if len(lattice_logical)
-        else np.empty((0, 2), dtype=np.float64)
-    )
-    tangency_svg = guide_svg[1]
-    x_axis_guide_svg = guide_svg[0]
-    end_svg = _map_points_to_svg(
-        np.asarray([[trace.end.pixel_x, trace.end.pixel_y]], dtype=np.float32),
-        grid,
-        cell_size=cell_size,
-        pad_cells=pad_cells,
-    )[0]
+    return curve_path
 
-    escaped_graph_label = html.escape(graph_label)
-    escaped_guide_label = html.escape(guide.label)
+
+def _tangent_labels(geometry, end_svg, x_axis_guide_svg, names, include_labels):
+    axis_x, axis_y, width, height, cell_size = geometry
+    escaped_graph_label, escaped_guide_label, curve_color = names
     labels = ""
     ticks = ""
     if include_labels:
@@ -249,6 +183,101 @@ def render_graph_with_tangent_svg(
             f'font-style="italic">{escaped_graph_label}</text>'
             "</g>"
         )
+
+    return labels, ticks
+
+
+def _tangent_geometry(grid, trace, cell_size, pad_cells):
+    tangent, guide = trace.tangent, trace.vertical_guide
+    logical_bounds = _logical_canvas_bounds(grid, pad_cells)
+    tangent_logical = _clip_tangent_to_logical_canvas(tangent, logical_bounds)
+    tangent_svg = _logical_points_to_svg(tangent_logical, logical_bounds, cell_size)
+    logical_x_0 = (guide.pixel_x - grid.vertical_axis_x) / grid.vertical.step
+    logical_y_0 = tangent.logical_slope * logical_x_0 + tangent.logical_intercept
+    guide_logical = np.asarray(
+        [[logical_x_0, 0.0], [logical_x_0, logical_y_0]],
+        dtype=np.float64,
+    )
+    guide_svg = _logical_points_to_svg(guide_logical, logical_bounds, cell_size)
+    lattice_logical = (
+        trace.tangent_markers
+        if trace.tangent_markers is not None
+        else _tangent_lattice_markers(tangent, grid, guide, logical_bounds)
+    )
+    lattice_svg = (
+        _logical_points_to_svg(
+            lattice_logical,
+            logical_bounds,
+            cell_size,
+        )
+        if len(lattice_logical)
+        else np.empty((0, 2), dtype=np.float64)
+    )
+    tangency_svg = guide_svg[1]
+    x_axis_guide_svg = guide_svg[0]
+    return tangent_svg, guide_svg, lattice_svg, tangency_svg, x_axis_guide_svg
+
+
+def render_graph_with_tangent_svg(
+    grid: GridModel,
+    trace: TraceResult,
+    *,
+    cell_size: float,
+    pad_cells: int,
+    path_mode: str,
+    bezier_error_cells: float,
+    endpoint_style: str,
+    include_labels: bool,
+    curve_color: str,
+    graph_label: str,
+) -> str:
+    """Render a function curve, a separately fitted tangent, and its ``x_0`` guide."""
+    if trace.tangent is None or trace.vertical_guide is None:
+        raise ValueError("tangent_renderer_requires_tangent_and_vertical_guide")
+    guide = trace.vertical_guide
+    pad_cells = max(0, int(pad_cells))
+    vertical_count = len(grid.vertical_lines())
+    horizontal_count = len(grid.horizontal_lines())
+    columns = (vertical_count - 1) + 2 * pad_cells
+    rows = (horizontal_count - 1) + 2 * pad_cells
+    width = columns * cell_size
+    height = rows * cell_size
+    vertical_grid_x = [index * cell_size for index in range(columns + 1)]
+    horizontal_grid_y = [index * cell_size for index in range(rows + 1)]
+    grid_path = " ".join(
+        [f"M{_fmt(x)} 0V{_fmt(height)}" for x in vertical_grid_x]
+        + [f"M0 {_fmt(y)}H{_fmt(width)}" for y in horizontal_grid_y]
+    )
+
+    first_x = grid.vertical_lines()[0]
+    first_y = grid.horizontal_lines()[0]
+    axis_x = (
+        (grid.vertical_axis_x - first_x) / grid.vertical.step + pad_cells
+    ) * cell_size
+    axis_y = (
+        (grid.horizontal_axis_y - first_y) / grid.horizontal.step + pad_cells
+    ) * cell_size
+    curve_path = _curve_path_for_tangent(grid, trace, path_mode, cell_size, pad_cells)
+
+    tangent_svg, guide_svg, lattice_svg, tangency_svg, x_axis_guide_svg = (
+        _tangent_geometry(grid, trace, cell_size, pad_cells)
+    )
+    end_svg = _map_points_to_svg(
+        np.asarray([[trace.end.pixel_x, trace.end.pixel_y]], dtype=np.float32),
+        grid,
+        cell_size=cell_size,
+        pad_cells=pad_cells,
+    )[0]
+
+    escaped_graph_label = html.escape(graph_label)
+    escaped_guide_label = html.escape(guide.label)
+    labels, ticks = _tangent_labels(
+        (axis_x, axis_y, width, height, cell_size),
+        end_svg,
+        x_axis_guide_svg,
+        (escaped_graph_label, escaped_guide_label, curve_color),
+        include_labels,
+    )
 
     tangent_marker_nodes = "".join(
         f'<circle cx="{_fmt(point[0])}" cy="{_fmt(point[1])}" r="2.35" fill="#0a990a"/>'

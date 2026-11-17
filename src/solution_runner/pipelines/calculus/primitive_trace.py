@@ -8,6 +8,8 @@ from scipy.interpolate import PchipInterpolator
 
 from solution_runner.converters import graph_png_to_svg_by_contrast as base
 
+from .primitive_endpoints import locate_endpoints
+
 
 def _grid_suppression(dark, grid):
     """Remove full measured grid/axis strokes, including anti-aliased edges."""
@@ -78,6 +80,22 @@ def _full_path(dark, grid, lo, hi, endpoint_y=None):
     return np.column_stack((np.arange(left, right + 1), ys))
 
 
+def _sample_curve(mask, rough, grid):
+    samples = []
+    for px, reference in rough:
+        px = int(px)
+        ys = np.flatnonzero(mask[:, px])
+        if not len(ys):
+            continue
+        groups = np.split(ys, np.flatnonzero(np.diff(ys) > 3) + 1)
+        center = min(
+            (float(np.median(g)) for g in groups), key=lambda y: abs(y - reference)
+        )
+        if abs(center - reference) < grid.horizontal.step * 0.25:
+            samples.append([px, center])
+    return np.array(samples)
+
+
 def trace_source(rgba, question):
     dark = base.effective_darkness(rgba)
     grid = base.detect_grid(
@@ -97,45 +115,19 @@ def trace_source(rgba, question):
     # Recover the median ink around the full-span guide, then interpolate grid gaps.
     ink = dark > 0.35
     mask = ink & ~_grid_suppression(dark, grid)
-    samples = []
-    for px, reference in rough:
-        px = int(px)
-        ys = np.flatnonzero(mask[:, px])
-        if not len(ys):
-            continue
-        groups = np.split(ys, np.flatnonzero(np.diff(ys) > 3) + 1)
-        center = min(
-            (float(np.median(g)) for g in groups), key=lambda y: abs(y - reference)
-        )
-        if abs(center - reference) < grid.horizontal.step * 0.25:
-            samples.append([px, center])
+    samples = _sample_curve(mask, rough, grid)
     if len(samples) < 30:
         raise ValueError("недостаточно различимого штриха кривой")
-    samples = np.array(samples)
     if max(np.diff(samples[:, 0])) > grid.vertical.step * 0.65:
         raise ValueError("слишком большой разрыв в исходном штрихе")
     # Match the open-circle pattern at the exact domain boundary. Unlike
     # contour/Hough candidates, this does not mistake a nearby coordinate digit
     # for the marker simply because that digit has a partial round contour.
-    marker_dark = base.effective_darkness(clean)
+    ends, markers = locate_endpoints(clean, grid, rough, (lo, hi))
     step = min(grid.vertical.step, grid.horizontal.step)
-    response = np.full(marker_dark.shape, -1.0, dtype=np.float32)
-    radius_map = np.zeros(marker_dark.shape, dtype=np.float32)
-    for radius in np.linspace(step * 0.035, step * 0.07, 8):
-        half = int(np.ceil(radius + 3))
-        yy, xx = np.mgrid[-half : half + 1, -half : half + 1]
-        rr = np.sqrt(xx * xx + yy * yy)
-        ring = np.exp(-0.5 * ((rr - radius) / max(1.0, step * 0.009)) ** 2)
-        ring /= ring.sum()
-        center = np.exp(-0.5 * (rr / max(1.0, radius * 0.3)) ** 2)
-        center /= center.sum()
-        value = cv2.filter2D(marker_dark, -1, ring - 1.15 * center)
-        take = value > response
-        response[take] = value[take]
-        radius_map[take] = radius
     diagnostics = {
         "header_mask": [0, 0, right, bottom],
-        "markers": [],
+        "markers": markers,
         "grid": {
             "x0": grid.vertical_axis_x,
             "y0": grid.horizontal_axis_y,
@@ -143,68 +135,6 @@ def trace_source(rgba, question):
             "sy": grid.horizontal.step,
         },
     }
-    ends = []
-    for side, bound in enumerate((lo, hi)):
-        expected = grid.vertical_axis_x + bound * grid.vertical.step
-        center_x = min(grid.vertical.observed, key=lambda x: abs(x - expected))
-        xlo = max(0, round(center_x - step * 0.015))
-        xhi = min(response.shape[1], round(center_x + step * 0.015) + 1)
-        band = response[:, xlo:xhi].copy()
-        # Penalize circles that belong to text instead of the graph. The
-        # full-span trace is used only as a weak tie breaker, never as an anchor.
-        dist = rough[:, 0] - expected if side == 0 else expected - rough[:, 0]
-        points = rough[(dist > step * 0.3) & (dist < step * 0.6)]
-        forecast = float(
-            np.polyval(np.polyfit(points[:, 0] - expected, points[:, 1], 1), 0)
-        )
-        band -= 0.15 * np.abs(np.arange(response.shape[0])[:, None] - forecast) / step
-        best = None
-        best_score = -1e12
-        for flat in np.argsort(band.ravel())[-240:][::-1]:
-            iy, ix = np.unravel_index(flat, band.shape)
-            x = int(xlo + ix)
-            radius = float(radius_map[iy, x])
-            ang = np.linspace(0, 2 * np.pi, 48, endpoint=False)
-            rings = []
-            for rr in (radius - 1, radius, radius + 1):
-                ax = (
-                    np.rint(x + rr * np.cos(ang))
-                    .astype(int)
-                    .clip(0, marker_dark.shape[1] - 1)
-                )
-                ay = (
-                    np.rint(iy + rr * np.sin(ang))
-                    .astype(int)
-                    .clip(0, marker_dark.shape[0] - 1)
-                )
-                rings.append(marker_dark[ay, ax])
-            coverage = float(np.mean(np.max(rings, axis=0) > 0.2))
-            if coverage < 0.82:
-                continue
-            candidate = (x, float(iy), radius, float(response[iy, x]), coverage)
-            if coverage >= 0.94:
-                best = candidate
-                break
-            score = float(band[iy, ix]) + 0.15 * coverage
-            if score > best_score:
-                best = candidate
-                best_score = score
-        if best is None:
-            raise ValueError("не удалось уверенно распознать кружок на конце графика")
-        x, y, radius, quality, coverage = best
-        if quality < 0.045:
-            raise ValueError("не удалось уверенно распознать кружок на конце графика")
-        ends.append([expected, y])
-        diagnostics["markers"].append(
-            {
-                "x": x,
-                "y": y,
-                "radius": radius,
-                "quality": quality,
-                "ring_coverage": coverage,
-                "forecast_y": forecast,
-            }
-        )
     # Coordinate labels occupy the opposite side of the axis to the endpoint.
     # Clear their source-specific margin boxes before tracing, leaving the
     # endpoint marker and the curve side intact.
@@ -225,19 +155,7 @@ def trace_source(rgba, question):
     dark = base.effective_darkness(clean)
     mask = (dark > 0.35) & ~_grid_suppression(dark, grid)
     rough = _full_path(dark, grid, lo, hi, [p[1] for p in ends])
-    samples = []
-    for px, reference in rough:
-        px = int(px)
-        ys = np.flatnonzero(mask[:, px])
-        if not len(ys):
-            continue
-        groups = np.split(ys, np.flatnonzero(np.diff(ys) > 3) + 1)
-        center = min(
-            (float(np.median(g)) for g in groups), key=lambda y: abs(y - reference)
-        )
-        if abs(center - reference) < grid.horizontal.step * 0.25:
-            samples.append([px, center])
-    samples = np.array(samples)
+    samples = _sample_curve(mask, rough, grid)
     interior = samples[
         (samples[:, 0] > ends[0][0] + grid.vertical.step * 0.11)
         & (samples[:, 0] < ends[1][0] - grid.vertical.step * 0.11)

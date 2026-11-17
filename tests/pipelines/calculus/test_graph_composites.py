@@ -26,7 +26,11 @@ CASES = DATA["cases"]
 def test_source_groups_share_the_appropriate_family(group):
     profile = get_group_profile(group["key"])
     assert profile.source_group_id == group["uuid"]
-    assert profile.content_rule_key == group["rule"]
+    assert profile.content_rule_key == (
+        "calculus-graph-constructed-tangent"
+        if group["key"] in ("40129", "541372")
+        else group["rule"]
+    )
     assert profile.snapshot_theme_id == group["theme_uuid"]
     assert profile.group_order_index == group["order"]
 
@@ -180,13 +184,37 @@ def test_new_origin_tangent_preserves_all_source_elements_and_passes_through_con
     before, after = ET.fromstring(source), ET.fromstring(spec["svg_text"])
     assert before.attrib == after.attrib
     assert [ET.tostring(n) for n in before] == [
-        ET.tostring(n) for n in list(after)[:-1]
+        ET.tostring(n) for n in list(after)[:-2]
     ]
-    line = list(after)[-1][0]
+    line = list(after)[-2][0]
     ox, oy = entry["svg_origin"]
     ux, uy = entry["svg_unit"]
     for suffix in ["1", "2"]:
         x = (float(line.attrib["x" + suffix]) - ox) / ux
         y = (oy - float(line.attrib["y" + suffix])) / uy
         assert y == pytest.approx(-0.6 * x)
-    assert list(after)[-1][-1].text == "y = kx"
+    assert list(after)[-2][-1].text == "y = kx"
+
+
+@pytest.mark.parametrize(
+    "task,expected", [("40129", "1,25"), ("54801", "-0,6"), ("541372", "1,4")]
+)
+def test_constructed_tangents_use_triangles_only_in_solution(task, expected):
+    case = next(c for c in CASES if c["task"] == task)
+    result = plan(case, deepcopy(case["context"]))
+    assert result.answer == expected
+    assert "AB" in result.solution_html and "BC" in result.solution_html
+    assert "-\\left|" not in result.solution_html
+    assert "-(0)" not in result.solution_html
+    assert not any(
+        t["transformation_target_id"].startswith("section:condition")
+        for t in result.transformations
+    )
+    key = next(
+        s
+        for s in case["context"]["normalized_content"]["sections"]
+        if s["key"] == "condition"
+    )["asset_keys"][0]
+    assert not any(
+        t["transformation_target_id"] == "asset:" + key for t in result.transformations
+    )

@@ -26,6 +26,7 @@ if __package__:
         mcp_polygon_processing,
         mcp_polygon_resume,
         mcp_polygon_rollback,
+        mcp_polygon_run_state,
         mcp_polygon_transfer,
         mcp_polygon_util,
         mcp_polygon_validation,
@@ -46,6 +47,7 @@ else:
     import mcp_polygon_processing
     import mcp_polygon_resume
     import mcp_polygon_rollback
+    import mcp_polygon_run_state
     import mcp_polygon_transfer
     import mcp_polygon_util
     import mcp_polygon_validation
@@ -145,11 +147,13 @@ def prepare_candidate(
     return mcp_polygon_operations.prepare_candidate(
         client=client,
         candidate=candidate,
-        converter=converter,
-        converter_fingerprint=converter_fingerprint,
-        template_path=template_path,
-        run_dir=run_dir,
-        transfer_timeout_seconds=transfer_timeout_seconds,
+        preparation=mcp_polygon_operations.CandidatePreparation(
+            converter=converter,
+            converter_fingerprint=converter_fingerprint,
+            template_path=template_path,
+            run_dir=run_dir,
+            transfer_timeout_seconds=transfer_timeout_seconds,
+        ),
         logger=logger,
         services=SimpleNamespace(
             refresh_candidate=refresh_candidate,
@@ -207,6 +211,85 @@ _execute_rollback = mcp_polygon_rollback._execute_rollback
 _validate_write_batch_policy = mcp_polygon_processing._validate_write_batch_policy
 
 
+def _process_discovered_run(run):
+    args = run.args
+    client = run.client
+    logger = run.logger
+    run_dir = run.run_dir
+    source_site_id = run.source_site_id
+    scope = run.scope
+    converter_path = run.converter_path
+    converter_fingerprint = run.converter_fingerprint
+    template_path = run.template_path
+    template_fingerprint = run.template_fingerprint
+    converter = run.converter
+    user_id = run.user_id
+    apply = run.apply
+    inventory_by_group, totals = mcp_polygon_run_state.prepare_inventory(
+        args,
+        client,
+        mcp_polygon_run_state.InventoryContext(
+            run_dir,
+            source_site_id,
+            scope,
+            converter_fingerprint,
+            template_fingerprint,
+            logger,
+        ),
+        (_resume_inventory_from_run, build_run_worklist),
+    )
+    determinism_gate = _DeterminismGate(
+        converter=converter,
+        template_path=template_path,
+        run_dir=run_dir,
+    )
+
+    processing_scope = [] if args.mode == "inventory" else scope
+    group_context = SimpleNamespace(
+        logger=logger,
+        converter_path=converter_path,
+        converter_fingerprint=converter_fingerprint,
+        template_path=template_path,
+        template_fingerprint=template_fingerprint,
+        inventory_by_group=inventory_by_group,
+        args=args,
+        client=client,
+        source_site_id=source_site_id,
+        converter=converter,
+        run_dir=run_dir,
+        apply=apply,
+        determinism_gate=determinism_gate,
+        prepare_candidate=prepare_candidate,
+        apply_prepared_asset=apply_prepared_asset,
+        verify_first_deterministic_render=verify_first_deterministic_render,
+        processing_context_type=_ProcessingContext,
+        totals=totals,
+    )
+    global_tasks_seen, batches_seen, determinism_verified, stop_requested = (
+        mcp_polygon_groups.process_groups(group_context, processing_scope)
+    )
+
+    return mcp_polygon_run_state.finish_run(
+        args,
+        logger,
+        (
+            run_dir,
+            user_id,
+            source_site_id,
+            converter_fingerprint,
+            template_fingerprint,
+        ),
+        (
+            global_tasks_seen,
+            batches_seen,
+            determinism_verified,
+            stop_requested,
+            totals,
+        ),
+        _atomic_write_json,
+    )
+
+
 def run_pipeline(args: argparse.Namespace) -> int:
     """Run discovery, deterministic conversion, optional upload, and readback."""
 
@@ -228,21 +311,8 @@ def run_pipeline(args: argparse.Namespace) -> int:
             converter,
         ) = mcp_polygon_converter.prepare_run_inputs(args, writes=writes)
 
-        logger.emit(
-            "run_start",
-            status=args.mode,
-            run_dir=str(run_dir),
-            catalog_snapshot_id=args.catalog_snapshot_id,
-            category_key=args.category_key,
-            theme_titles=list(args.theme_titles),
-            batch_size=args.batch_size,
-            batch_pause_seconds=args.batch_pause_seconds,
-            max_workers=args.max_workers,
-            converter_sha256=converter_fingerprint,
-            template_sha256=template_fingerprint,
-            resume_from_run=(
-                str(args.resume_from_run.resolve()) if args.resume_from_run else None
-            ),
+        mcp_polygon_run_state.emit_start(
+            args, logger, run_dir, (converter_fingerprint, template_fingerprint)
         )
         client = McpClient(
             url=args.mcp_url,
@@ -263,99 +333,33 @@ def run_pipeline(args: argparse.Namespace) -> int:
         if rollback:
             return mcp_polygon_rollback.finish_rollback_run(
                 client,
+                mcp_polygon_rollback.RollbackRun(
+                    args=args,
+                    run_dir=run_dir,
+                    logger=logger,
+                    user_id=user_id,
+                    source_site_id=source_site_id,
+                    scope=scope,
+                ),
+            )
+
+        return _process_discovered_run(
+            SimpleNamespace(
                 args=args,
-                run_dir=run_dir,
+                client=client,
                 logger=logger,
+                run_dir=run_dir,
+                source_site_id=source_site_id,
+                scope=scope,
+                converter_path=converter_path,
+                converter_fingerprint=converter_fingerprint,
+                template_path=template_path,
+                template_fingerprint=template_fingerprint,
+                converter=converter,
                 user_id=user_id,
-                source_site_id=source_site_id,
-                scope=scope,
+                apply=apply,
             )
-
-        if args.resume_from_run is not None:
-            inventory_by_group, totals = _resume_inventory_from_run(
-                source_run_dir=args.resume_from_run,
-                run_dir=run_dir,
-                catalog_snapshot_id=args.catalog_snapshot_id,
-                source_site_id=source_site_id,
-                category_key=args.category_key,
-                theme_titles=args.theme_titles,
-                scope=scope,
-                converter_fingerprint=converter_fingerprint,
-                template_fingerprint=template_fingerprint,
-                preserve_applied=args.resume_preserve_applied,
-                logger=logger,
-            )
-        else:
-            inventory_by_group, totals = build_run_worklist(
-                client,
-                catalog_snapshot_id=args.catalog_snapshot_id,
-                source_site_id=source_site_id,
-                category_key=args.category_key,
-                category_title=args.category_title,
-                theme_titles=args.theme_titles,
-                mode=args.mode,
-                converter_fingerprint=converter_fingerprint,
-                template_fingerprint=template_fingerprint,
-                scope=scope,
-                run_dir=run_dir,
-                logger=logger,
-            )
-        determinism_gate = _DeterminismGate(
-            converter=converter,
-            template_path=template_path,
-            run_dir=run_dir,
         )
-
-        processing_scope = [] if args.mode == "inventory" else scope
-        group_context = SimpleNamespace(
-            logger=logger,
-            converter_path=converter_path,
-            converter_fingerprint=converter_fingerprint,
-            template_path=template_path,
-            template_fingerprint=template_fingerprint,
-            inventory_by_group=inventory_by_group,
-            args=args,
-            client=client,
-            source_site_id=source_site_id,
-            converter=converter,
-            run_dir=run_dir,
-            apply=apply,
-            determinism_gate=determinism_gate,
-            prepare_candidate=prepare_candidate,
-            apply_prepared_asset=apply_prepared_asset,
-            verify_first_deterministic_render=verify_first_deterministic_render,
-            processing_context_type=_ProcessingContext,
-            totals=totals,
-        )
-        global_tasks_seen, batches_seen, determinism_verified, stop_requested = (
-            mcp_polygon_groups.process_groups(group_context, processing_scope)
-        )
-
-        status = "completed"
-        if stop_requested:
-            status = "limited_complete"
-        if totals.get("assets_rejected") or totals.get("assets_stale"):
-            status += "_with_skips"
-        if totals.get("asset_errors"):
-            status += "_with_errors"
-        summary = {
-            "at": datetime.now(UTC).isoformat(),
-            "status": status,
-            "mode": args.mode,
-            "run_dir": str(run_dir),
-            "user_id": user_id,
-            "catalog_snapshot_id": args.catalog_snapshot_id,
-            "source_site_id": source_site_id,
-            "converter_sha256": converter_fingerprint,
-            "template_sha256": template_fingerprint,
-            "determinism_verified": determinism_verified,
-            "batches_seen": batches_seen,
-            "tasks_seen": global_tasks_seen,
-            "totals": dict(sorted(totals.items())),
-        }
-        _atomic_write_json(run_dir / "summary.json", summary)
-        logger.emit("run_complete", status=status, **summary["totals"])
-        return 0 if not totals.get("asset_errors") else 2
     except BaseException as exc:
         summary = {
             "at": datetime.now(UTC).isoformat(),

@@ -215,56 +215,8 @@ def _infer_grid_from_gray(
     return _dedup(xs), _dedup(ys)
 
 
-def _extract_template_layers(template_svg: Path | None):
-    if template_svg is None or not template_svg.exists():
-        return None
-    try:
-        text = template_svg.read_text(encoding="utf-8")
-    except (OSError, UnicodeError):
-        return None
-
-    vb_w = None
-    vb_h = None
-    vb = re.search(r"viewBox\s*=\s*['\"]([^'\"]+)['\"]", text, flags=re.IGNORECASE)
-    if vb:
-        vals = re.findall(r"[-+]?\d+(?:\.\d+)?", vb.group(1))
-        if len(vals) >= 4:
-            vb_w = float(vals[2])
-            vb_h = float(vals[3])
-    if vb_w is None or vb_h is None or vb_w <= 0 or vb_h <= 0:
-        w = re.search(r'width\s*=\s*["\']([0-9.\-]+)', text, flags=re.IGNORECASE)
-        h = re.search(r'height\s*=\s*["\']([0-9.\-]+)', text, flags=re.IGNORECASE)
-        if w and h:
-            try:
-                vb_w = float(w.group(1))
-                vb_h = float(h.group(1))
-            except ValueError:
-                vb_w = vb_h = None
-
-    line_nodes = re.findall(r"<line\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL)
-    polygon_nodes = re.findall(
-        r"<polygon\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL
-    )
-    grid_x, grid_y = _collect_grid_from_lines(line_nodes)
-
-    vertical_grid_line = None
-    horizontal_grid_line = None
-    for node in line_nodes:
-        x1 = _parse_attr_float(node, "x1")
-        x2 = _parse_attr_float(node, "x2")
-        y1 = _parse_attr_float(node, "y1")
-        y2 = _parse_attr_float(node, "y2")
-        if x1 is None or x2 is None or y1 is None or y2 is None:
-            continue
-        if vertical_grid_line is None and abs(x2 - x1) <= 1.0 and abs(y2 - y1) > 1.0:
-            x = (x1 + x2) / 2.0
-            if vb_w is None or 0.0 <= x <= vb_w:
-                vertical_grid_line = node
-        if horizontal_grid_line is None and abs(y2 - y1) <= 1.0 and abs(x2 - x1) > 1.0:
-            y = (y1 + y2) / 2.0
-            if vb_h is None or 0.0 <= y <= vb_h:
-                horizontal_grid_line = node
-
+def _select_template_polygons(polygon_nodes, dimensions):
+    vb_w, vb_h = dimensions
     fill_polygons = []
     for node in polygon_nodes:
         fill = re.search(r'fill\s*=\s*["\']([^"\']+)["\']', node, flags=re.IGNORECASE)
@@ -320,6 +272,69 @@ def _extract_template_layers(template_svg: Path | None):
         outline_candidates.append((area, node))
     if outline_candidates:
         outline_polygon = max(outline_candidates, key=lambda x: x[0])[1]
+
+    return fill_polygon, outline_polygon
+
+
+def _template_dimensions(text):
+    vb_w = None
+    vb_h = None
+    vb = re.search(r"viewBox\s*=\s*['\"]([^'\"]+)['\"]", text, flags=re.IGNORECASE)
+    if vb:
+        vals = re.findall(r"[-+]?\d+(?:\.\d+)?", vb.group(1))
+        if len(vals) >= 4:
+            vb_w = float(vals[2])
+            vb_h = float(vals[3])
+    if vb_w is None or vb_h is None or vb_w <= 0 or vb_h <= 0:
+        w = re.search(r'width\s*=\s*["\']([0-9.\-]+)', text, flags=re.IGNORECASE)
+        h = re.search(r'height\s*=\s*["\']([0-9.\-]+)', text, flags=re.IGNORECASE)
+        if w and h:
+            try:
+                vb_w = float(w.group(1))
+                vb_h = float(h.group(1))
+            except ValueError:
+                vb_w = vb_h = None
+
+    return vb_w, vb_h
+
+
+def _extract_template_layers(template_svg: Path | None):
+    if template_svg is None or not template_svg.exists():
+        return None
+    try:
+        text = template_svg.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+
+    vb_w, vb_h = _template_dimensions(text)
+
+    line_nodes = re.findall(r"<line\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL)
+    polygon_nodes = re.findall(
+        r"<polygon\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL
+    )
+    grid_x, grid_y = _collect_grid_from_lines(line_nodes)
+
+    vertical_grid_line = None
+    horizontal_grid_line = None
+    for node in line_nodes:
+        x1 = _parse_attr_float(node, "x1")
+        x2 = _parse_attr_float(node, "x2")
+        y1 = _parse_attr_float(node, "y1")
+        y2 = _parse_attr_float(node, "y2")
+        if x1 is None or x2 is None or y1 is None or y2 is None:
+            continue
+        if vertical_grid_line is None and abs(x2 - x1) <= 1.0 and abs(y2 - y1) > 1.0:
+            x = (x1 + x2) / 2.0
+            if vb_w is None or 0.0 <= x <= vb_w:
+                vertical_grid_line = node
+        if horizontal_grid_line is None and abs(y2 - y1) <= 1.0 and abs(x2 - x1) > 1.0:
+            y = (y1 + y2) / 2.0
+            if vb_h is None or 0.0 <= y <= vb_h:
+                horizontal_grid_line = node
+
+    fill_polygon, outline_polygon = _select_template_polygons(
+        polygon_nodes, (vb_w, vb_h)
+    )
 
     return {
         "lines": line_nodes,

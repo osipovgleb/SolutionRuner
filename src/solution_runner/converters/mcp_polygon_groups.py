@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import time
-from types import SimpleNamespace
 
 if __package__:
     from . import (
@@ -25,25 +24,194 @@ else:
     )
 
 
+def _process_batch(context, theme, group, batch_candidates, state):
+    determinism_verified, consecutive_asset_errors = state
+    totals = context.totals
+    prepared_assets, determinism_verified, consecutive_asset_errors = (
+        mcp_polygon_batch.prepare_batch(
+            context,
+            theme,
+            group,
+            batch_candidates,
+            totals,
+            (determinism_verified, consecutive_asset_errors),
+        )
+    )
+
+    replaced_in_batch, consecutive_asset_errors = mcp_polygon_batch.apply_batch(
+        context,
+        theme,
+        group,
+        prepared_assets,
+        totals,
+        consecutive_asset_errors,
+    )
+
+    return (
+        prepared_assets,
+        replaced_in_batch,
+        determinism_verified,
+        consecutive_asset_errors,
+    )
+
+
+def _limit_batch(candidates, max_tasks, global_tasks_seen):
+    problem_order = list(dict.fromkeys(c.problem_id for c in candidates))
+    if max_tasks is None:
+        return candidates, problem_order
+    remaining = max_tasks - global_tasks_seen
+    if remaining <= 0:
+        return candidates, None
+    allowed = set(problem_order[:remaining])
+    return [
+        candidate for candidate in candidates if candidate.problem_id in allowed
+    ], problem_order[:remaining]
+
+
+def _pause_after_batch(context, theme, group, batch):
+    apply = context.apply
+    logger = context.logger
+    args = context.args
+    batches_seen, batch_candidates = batch
+    if apply and batch_candidates:
+        logger.emit(
+            "batch_pause",
+            theme=theme.title,
+            group_key=group.group_key,
+            batch=batches_seen,
+            seconds=args.batch_pause_seconds,
+        )
+        time.sleep(args.batch_pause_seconds)
+
+
+def _process_serial_group(context, theme, group, inventory, state):
+    (
+        global_tasks_seen,
+        batches_seen,
+        consecutive_asset_errors,
+        determinism_verified,
+        stop_requested,
+    ) = state
+    args = context.args
+    logger = context.logger
+    run_dir = context.run_dir
+    totals = context.totals
+    batches = list(_problem_batches(inventory.candidates, args.batch_size))
+    for local_batch_index, batch_candidates in enumerate(batches, start=1):
+        if stop_requested:
+            break
+        batch_candidates, problem_order = _limit_batch(
+            batch_candidates, args.max_tasks, global_tasks_seen
+        )
+        if problem_order is None:
+            stop_requested = True
+            break
+        global_tasks_seen += len(problem_order)
+        batches_seen += 1
+        logger.emit(
+            "batch_start",
+            theme=theme.title,
+            group_key=group.group_key,
+            batch=batches_seen,
+            group_batch=local_batch_index,
+            tasks=len(problem_order),
+            assets=len(batch_candidates),
+            source_problem_ids=list(
+                dict.fromkeys(c.source_problem_id for c in batch_candidates)
+            ),
+        )
+
+        (
+            prepared_assets,
+            replaced_in_batch,
+            determinism_verified,
+            consecutive_asset_errors,
+        ) = _process_batch(
+            context,
+            theme,
+            group,
+            batch_candidates,
+            (determinism_verified, consecutive_asset_errors),
+        )
+
+        logger.emit(
+            "batch_complete",
+            theme=theme.title,
+            group_key=group.group_key,
+            batch=batches_seen,
+            tasks=len(problem_order),
+            assets=len(batch_candidates),
+            prepared=len(prepared_assets),
+            replaced=replaced_in_batch,
+        )
+        mcp_polygon_reporting.write_progress(
+            run_dir,
+            args,
+            theme,
+            group,
+            (batches_seen, global_tasks_seen),
+            totals,
+        )
+        _pause_after_batch(context, theme, group, (batches_seen, batch_candidates))
+        if (
+            args.stop_after_batches is not None
+            and batches_seen >= args.stop_after_batches
+        ):
+            stop_requested = True
+        if args.max_tasks is not None and global_tasks_seen >= args.max_tasks:
+            stop_requested = True
+
+    return (
+        global_tasks_seen,
+        batches_seen,
+        consecutive_asset_errors,
+        determinism_verified,
+        stop_requested,
+    )
+
+
+def _open_group(context, theme, group):
+    logger = context.logger
+    logger.emit(
+        "group_transition",
+        theme=theme.title,
+        group_key=group.group_key,
+        source_group_id=group.source_group_id,
+    )
+    _assert_locked_inputs(
+        converter_path=context.converter_path,
+        converter_fingerprint=context.converter_fingerprint,
+        template_path=context.template_path,
+        template_fingerprint=context.template_fingerprint,
+    )
+    inventory = context.inventory_by_group[group.source_group_id]
+    logger.emit(
+        "group_opened",
+        theme=theme.title,
+        group_key=group.group_key,
+        source_group_id=group.source_group_id,
+        tasks=inventory.counts.get("png_tasks", 0),
+        assets=inventory.counts.get("png_assets", 0),
+    )
+    logger.emit(
+        "group_inventory",
+        theme=theme.title,
+        group_key=group.group_key,
+        source_group_id=group.source_group_id,
+        tasks=inventory.counts.get("png_tasks", 0),
+        assets=inventory.counts.get("png_assets", 0),
+        counts=inventory.counts,
+        non_svg_content_types=inventory.non_svg_content_types,
+        source_problem_ids=inventory.png_source_problem_ids,
+    )
+
+    return inventory
+
+
 def process_groups(context, processing_scope):
     """Process selected groups while preserving checkpoint and task ordering."""
     logger = context.logger
-    converter_path = context.converter_path
-    converter_fingerprint = context.converter_fingerprint
-    template_path = context.template_path
-    template_fingerprint = context.template_fingerprint
-    inventory_by_group = context.inventory_by_group
     args = context.args
-    client = context.client
-    source_site_id = context.source_site_id
-    converter = context.converter
-    run_dir = context.run_dir
-    apply = context.apply
-    prepare_candidate = context.prepare_candidate
-    apply_prepared_asset = context.apply_prepared_asset
-    verify_first_deterministic_render = context.verify_first_deterministic_render
-    _ProcessingContext = context.processing_context_type
-    totals = context.totals
     stop_requested = False
     global_tasks_seen = 0
     batches_seen = 0
@@ -61,38 +229,7 @@ def process_groups(context, processing_scope):
         for group in groups:
             if stop_requested:
                 break
-            logger.emit(
-                "group_transition",
-                theme=theme.title,
-                group_key=group.group_key,
-                source_group_id=group.source_group_id,
-            )
-            _assert_locked_inputs(
-                converter_path=converter_path,
-                converter_fingerprint=converter_fingerprint,
-                template_path=template_path,
-                template_fingerprint=template_fingerprint,
-            )
-            inventory = inventory_by_group[group.source_group_id]
-            logger.emit(
-                "group_opened",
-                theme=theme.title,
-                group_key=group.group_key,
-                source_group_id=group.source_group_id,
-                tasks=inventory.counts.get("png_tasks", 0),
-                assets=inventory.counts.get("png_assets", 0),
-            )
-            logger.emit(
-                "group_inventory",
-                theme=theme.title,
-                group_key=group.group_key,
-                source_group_id=group.source_group_id,
-                tasks=inventory.counts.get("png_tasks", 0),
-                assets=inventory.counts.get("png_assets", 0),
-                counts=inventory.counts,
-                non_svg_content_types=inventory.non_svg_content_types,
-                source_problem_ids=inventory.png_source_problem_ids,
-            )
+            inventory = _open_group(context, theme, group)
             if not inventory.candidates:
                 continue
 
@@ -120,110 +257,25 @@ def process_groups(context, processing_scope):
                     break
                 continue
 
-            batches = list(_problem_batches(inventory.candidates, args.batch_size))
-            for local_batch_index, batch_candidates in enumerate(batches, start=1):
-                if stop_requested:
-                    break
-                problem_order = list(
-                    dict.fromkeys(c.problem_id for c in batch_candidates)
-                )
-                if args.max_tasks is not None:
-                    remaining = args.max_tasks - global_tasks_seen
-                    if remaining <= 0:
-                        stop_requested = True
-                        break
-                    allowed_problem_ids = set(problem_order[:remaining])
-                    batch_candidates = [
-                        candidate
-                        for candidate in batch_candidates
-                        if candidate.problem_id in allowed_problem_ids
-                    ]
-                    problem_order = problem_order[:remaining]
-                global_tasks_seen += len(problem_order)
-                batches_seen += 1
-                logger.emit(
-                    "batch_start",
-                    theme=theme.title,
-                    group_key=group.group_key,
-                    batch=batches_seen,
-                    group_batch=local_batch_index,
-                    tasks=len(problem_order),
-                    assets=len(batch_candidates),
-                    source_problem_ids=list(
-                        dict.fromkeys(c.source_problem_id for c in batch_candidates)
-                    ),
-                )
-
-                batch_context = SimpleNamespace(
-                    client=client,
-                    converter=converter,
-                    converter_fingerprint=converter_fingerprint,
-                    template_path=template_path,
-                    run_dir=run_dir,
-                    args=args,
-                    logger=logger,
-                    prepare_candidate=prepare_candidate,
-                    verify_first_deterministic_render=verify_first_deterministic_render,
-                    apply=apply,
-                    source_site_id=source_site_id,
-                    apply_prepared_asset=apply_prepared_asset,
-                )
-                prepared_assets, determinism_verified, consecutive_asset_errors = (
-                    mcp_polygon_batch.prepare_batch(
-                        batch_context,
-                        theme,
-                        group,
-                        batch_candidates,
-                        totals,
-                        (determinism_verified, consecutive_asset_errors),
-                    )
-                )
-
-                replaced_in_batch, consecutive_asset_errors = (
-                    mcp_polygon_batch.apply_batch(
-                        batch_context,
-                        theme,
-                        group,
-                        prepared_assets,
-                        totals,
-                        consecutive_asset_errors,
-                    )
-                )
-
-                logger.emit(
-                    "batch_complete",
-                    theme=theme.title,
-                    group_key=group.group_key,
-                    batch=batches_seen,
-                    tasks=len(problem_order),
-                    assets=len(batch_candidates),
-                    prepared=len(prepared_assets),
-                    replaced=replaced_in_batch,
-                )
-                mcp_polygon_reporting.write_progress(
-                    run_dir,
-                    args,
-                    theme,
-                    group,
-                    (batches_seen, global_tasks_seen),
-                    totals,
-                )
-                if apply and batch_candidates:
-                    logger.emit(
-                        "batch_pause",
-                        theme=theme.title,
-                        group_key=group.group_key,
-                        batch=batches_seen,
-                        seconds=args.batch_pause_seconds,
-                    )
-                    time.sleep(args.batch_pause_seconds)
-                if (
-                    args.stop_after_batches is not None
-                    and batches_seen >= args.stop_after_batches
-                ):
-                    stop_requested = True
-                if args.max_tasks is not None and global_tasks_seen >= args.max_tasks:
-                    stop_requested = True
+            (
+                global_tasks_seen,
+                batches_seen,
+                consecutive_asset_errors,
+                determinism_verified,
+                stop_requested,
+            ) = _process_serial_group(
+                context,
+                theme,
+                group,
+                inventory,
+                (
+                    global_tasks_seen,
+                    batches_seen,
+                    consecutive_asset_errors,
+                    determinism_verified,
+                    stop_requested,
+                ),
+            )
 
         logger.emit("theme_complete", theme=theme.title)
     return global_tasks_seen, batches_seen, determinism_verified, stop_requested

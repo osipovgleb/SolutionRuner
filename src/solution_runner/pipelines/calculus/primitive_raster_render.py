@@ -67,7 +67,7 @@ def _curve_path(model, knots, slopes, point, origin, cell):
     return path
 
 
-def _labels(root, point, domain, origin, width):
+def _labels(root, point, domain, origin, width, *, show_domain=True):
     lo, hi = domain
     ox, oy = origin
     labels = ET.SubElement(
@@ -99,8 +99,9 @@ def _labels(root, point, domain, origin, width):
             labels, "text", {"x": str(x), "y": str(y), "text-anchor": anchor}
         ).text = text
 
-    label(point(lo, 0)[0] - 2, oy + 14, f"{lo:g}", "end")
-    label(point(hi, 0)[0] + 2, oy + 14, f"{hi:g}", "start")
+    if show_domain:
+        label(point(lo, 0)[0] - 2, oy + 14, f"{lo:g}", "end")
+        label(point(hi, 0)[0] + 2, oy + 14, f"{hi:g}", "start")
     if 1.0 not in (lo, hi):
         label(point(1, 0)[0], oy + 14, "1")
     label(ox + 5, point(0, 1)[1] + 5, "1", "start")
@@ -148,6 +149,31 @@ def _selection(root, model, selected_points, point, height):
             )
 
 
+def _load_template():
+    template = ET.parse(
+        Path(__file__).with_name("assets") / "primitive-extrema-template.svg"
+    ).getroot()
+    for element in template.iter():
+        element.tag = element.tag.rsplit("}", 1)[-1]
+        href = element.attrib.pop("{http://www.w3.org/1999/xlink}href", None)
+        if href is not None:
+            element.set("xlink:href", href)
+    return template
+
+
+def _add_axes(root, template, origin, size):
+    ox, oy = origin
+    width, height = size
+    horizontal, vertical = template[24], template[25]
+    horizontal.set("y1", str(oy))
+    horizontal.set("y2", str(oy))
+    horizontal.set("x2", str(width - 7.5))
+    vertical.set("x1", str(ox))
+    vertical.set("x2", str(ox))
+    vertical.set("y1", str(height))
+    root.extend((horizontal, vertical))
+
+
 def render(model, *, selected_points=None):
     """Keep the parent SVG's style; highlight the same curve only in solutions."""
     import math
@@ -157,7 +183,7 @@ def render(model, *, selected_points=None):
     lo, hi = map(float, model["domain"])
     cell = 20.0
     xmin = math.floor(min(lo - 1, -2))
-    xmax = math.ceil(max(hi + 3, 2))
+    xmax = math.ceil(max(hi + 3, 5 if model.get("continuous_plot") else 2))
     ymin = math.floor(min(knots[:, 1].min() - 1, -2))
     ymax = math.ceil(max(knots[:, 1].max() + 1, 2))
     width = (xmax - xmin) * cell
@@ -165,14 +191,7 @@ def render(model, *, selected_points=None):
     ox = -xmin * cell
     oy = ymax * cell
     point = lambda x, y: (ox + x * cell, oy - y * cell)
-    template = ET.parse(
-        Path(__file__).with_name("assets") / "primitive-extrema-template.svg"
-    ).getroot()
-    for element in template.iter():
-        element.tag = element.tag.rsplit("}", 1)[-1]
-        href = element.attrib.pop("{http://www.w3.org/1999/xlink}href", None)
-        if href is not None:
-            element.set("xlink:href", href)
+    template = _load_template()
     root = ET.Element(
         "svg",
         {
@@ -188,14 +207,7 @@ def render(model, *, selected_points=None):
         {"model": model, "highlighted": selected_points is not None}, sort_keys=True
     )
     _grid(root, point, (xmin, xmax, ymin, ymax), (width, height))
-    horizontal, vertical = template[24], template[25]
-    horizontal.set("y1", str(oy))
-    horizontal.set("y2", str(oy))
-    horizontal.set("x2", str(width - 7.5))
-    vertical.set("x1", str(ox))
-    vertical.set("x2", str(ox))
-    vertical.set("y1", str(height))
-    root.extend((horizontal, vertical))
+    _add_axes(root, template, (ox, oy), (width, height))
     path = _curve_path(model, knots, slopes, point, (ox, oy), cell)
     curve = template[28]
     curve.set("d", path)
@@ -204,7 +216,7 @@ def render(model, *, selected_points=None):
     curve.set("data-primitive-curve", "true")
     root.append(curve)
     endpoint_markers = []
-    for xy in (knots[0], knots[-1]):
+    for xy in () if model.get("continuous_plot") else (knots[0], knots[-1]):
         x, y = point(*xy)
         endpoint_markers.append(
             ET.SubElement(
@@ -230,7 +242,14 @@ def render(model, *, selected_points=None):
         node = template[index]
         node.set("transform", f"translate({dx} {dy})")
         root.append(node)
-    _labels(root, point, (lo, hi), (ox, oy), width)
+    _labels(
+        root,
+        point,
+        (lo, hi),
+        (ox, oy),
+        width,
+        show_domain=not model.get("continuous_plot"),
+    )
     # Axis-label masks may erase grid lines, but must never cut the curve.
     root.remove(curve)
     root.append(curve)

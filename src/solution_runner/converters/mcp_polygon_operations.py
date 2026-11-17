@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import io
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 from urllib.parse import urljoin
@@ -126,19 +127,28 @@ def _write_raster_artifact(run_dir, candidate, content_type, input_sha256, data)
     return artifact_dir, input_path
 
 
+@dataclass(frozen=True)
+class CandidatePreparation:
+    converter: Any
+    converter_fingerprint: str
+    template_path: Path
+    run_dir: Path
+    transfer_timeout_seconds: float
+
+
 def prepare_candidate(
     client: McpClient,
-    *,
     candidate: AssetCandidate,
-    converter: Any,
-    converter_fingerprint: str,
-    template_path: Path,
-    run_dir: Path,
-    transfer_timeout_seconds: float,
+    preparation: CandidatePreparation,
     logger: EventLogger,
     services: Any,
 ) -> PreparedAsset:
     """Download, convert, and validate one current raster without MCP writes."""
+    converter = preparation.converter
+    converter_fingerprint = preparation.converter_fingerprint
+    template_path = preparation.template_path
+    run_dir = preparation.run_dir
+    transfer_timeout_seconds = preparation.transfer_timeout_seconds
 
     refreshed, data, input_sha256, dimensions, content_type = _download_current(
         client, candidate, transfer_timeout_seconds, services

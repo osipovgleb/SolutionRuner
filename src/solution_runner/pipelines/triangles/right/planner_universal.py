@@ -31,41 +31,7 @@ from .planner_universal_render import (
 )
 
 
-def build_universal_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_asset_id: str,
-    parent_solution_html: str | None = None,
-) -> RepairPlan:
-    """Return a role-normalized repair for any supported right triangle."""
-
-    if parent_solution_html is not None:
-        return _parent_triangle_plan(
-            context,
-            parent_asset_id,
-            parent_solution_html,
-        )
-    content = context.get("normalized_content")
-    if (
-        not isinstance(content, dict)
-        or content.get("format") != "teacherhelper-normalized"
-        or content.get("schema_version") != 3
-    ):
-        raise RightTrianglePlanError("schema-v3 Normalized content is required")
-    condition = _section(content, "condition")
-    answer_section = _section(content, "answer")
-    if condition is None:
-        raise RightTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
-    trig_request = _universal_trig_request_values(condition_html)
-    if trig_request is not None:
-        return _build_universal_trig_request_plan(
-            content,
-            answer_section=answer_section,
-            values=trig_request,
-            parent_asset_id=parent_asset_id,
-        )
-    values = _universal_values(condition_html)
+def _calculate_universal_sides(values):
     trig_squared = _trig_square(values.trig_latex)
     if values.trig_name in {"sin", "cos"}:
         if not 0 < trig_squared < 1:
@@ -101,6 +67,45 @@ def build_universal_repair_plan(
         for side, square in side_squares.items()
     }
     answer = _answer_text(math.sqrt(float(side_squares[values.requested_side])))
+    return third_side, side_latex, answer
+
+
+def build_universal_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_asset_id: str,
+    parent_solution_html: str | None = None,
+) -> RepairPlan:
+    """Return a role-normalized repair for any supported right triangle."""
+
+    if parent_solution_html is not None:
+        return _parent_triangle_plan(
+            context,
+            parent_asset_id,
+            parent_solution_html,
+        )
+    content = context.get("normalized_content")
+    if (
+        not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+    ):
+        raise RightTrianglePlanError("schema-v3 Normalized content is required")
+    condition = _section(content, "condition")
+    answer_section = _section(content, "answer")
+    if condition is None:
+        raise RightTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    trig_request = _universal_trig_request_values(condition_html)
+    if trig_request is not None:
+        return _build_universal_trig_request_plan(
+            content,
+            answer_section=answer_section,
+            values=trig_request,
+            parent_asset_id=parent_asset_id,
+        )
+    values = _universal_values(condition_html)
+    third_side, side_latex, answer = _calculate_universal_sides(values)
     transformations: list[dict[str, Any]] = []
     current_asset = next(
         (

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import re
+from dataclasses import dataclass
 from fractions import Fraction
 from html import unescape
 from typing import Any
@@ -70,6 +71,78 @@ def _is_pipeline_unsimplified_root_solution(value: str) -> bool:
     return False
 
 
+def _validate_triangle_condition(condition, required_trig_name, required_requested):
+    trig_name, trig_latex, _known_side, known, requested = _latex_values(
+        str(condition.get("html") or "")
+    )
+    if required_trig_name is not None and trig_name != required_trig_name:
+        raise RightTrianglePlanError(f"condition must use {required_trig_name} A")
+    if required_requested is not None and requested != required_requested:
+        raise RightTrianglePlanError(f"condition must request {required_requested}")
+    if (_known_side, requested) not in {
+        ("AC", "AB"),
+        ("AB", "AC"),
+        ("AC", "BC"),
+    }:
+        raise RightTrianglePlanError("condition is outside the supported side rules")
+    if requested == "BC" and trig_name != "sin":
+        raise RightTrianglePlanError("AC-to-BC rule requires sin A")
+    trig_squared = _trig_square(trig_latex)
+    if trig_name == "tg" and trig_squared <= 0:
+        raise RightTrianglePlanError("tg A must be positive")
+    if trig_name != "tg" and not 0 < trig_squared < 1:
+        raise RightTrianglePlanError("sin A or cos A must be between zero and one")
+    return trig_name, trig_latex, known, requested, trig_squared
+
+
+@dataclass(frozen=True)
+class _TriangleCalculation:
+    known_squared: Fraction
+    cosine_latex: str
+    hypotenuse_latex: str | None
+    bc_squared: Fraction
+    hypotenuse_squared: Fraction
+    bc_latex: str
+    answer: str
+
+
+def _calculate_triangle(trig_name, trig_squared, known, requested):
+    known_value = _numeric_latex(known)
+    known_squared = _numeric_square_latex(known)
+    cosine_latex = ""
+    hypotenuse_latex = None
+    bc_squared = Fraction(0)
+    hypotenuse_squared = Fraction(0)
+    bc_latex = ""
+    if trig_name == "tg":
+        bc_squared = known_squared * trig_squared
+        hypotenuse_squared = known_squared + bc_squared
+        bc_latex = _positive_root_number_latex(bc_squared)
+        answer_value = math.sqrt(float(hypotenuse_squared))
+    else:
+        cosine_squared = 1 - trig_squared if trig_name == "sin" else trig_squared
+        cosine_latex = _positive_root_latex(cosine_squared)
+        cosine = math.sqrt(float(cosine_squared))
+    if trig_name != "tg" and requested == "AB":
+        answer_value = known_value / cosine
+    elif trig_name != "tg" and requested == "AC":
+        answer_value = known_value * cosine
+    elif trig_name != "tg":
+        hypotenuse_squared = known_squared / cosine_squared
+        hypotenuse_latex = _positive_root_latex(hypotenuse_squared)
+        answer_value = math.sqrt(float(hypotenuse_squared - known_squared))
+    answer = _answer_text(answer_value)
+    return _TriangleCalculation(
+        known_squared,
+        cosine_latex,
+        hypotenuse_latex,
+        bc_squared,
+        hypotenuse_squared,
+        bc_latex,
+        answer,
+    )
+
+
 def build_repair_plan(
     context: dict[str, Any],
     *,
@@ -99,51 +172,11 @@ def build_repair_plan(
     answer_section = _section(content, "answer")
     if condition is None:
         raise RightTrianglePlanError("condition section is required")
-    trig_name, trig_latex, _known_side, known, requested = _latex_values(
-        str(condition.get("html") or "")
+    trig_name, trig_latex, known, requested, trig_squared = (
+        _validate_triangle_condition(condition, required_trig_name, required_requested)
     )
-    if required_trig_name is not None and trig_name != required_trig_name:
-        raise RightTrianglePlanError(f"condition must use {required_trig_name} A")
-    if required_requested is not None and requested != required_requested:
-        raise RightTrianglePlanError(f"condition must request {required_requested}")
-    if (_known_side, requested) not in {
-        ("AC", "AB"),
-        ("AB", "AC"),
-        ("AC", "BC"),
-    }:
-        raise RightTrianglePlanError("condition is outside the supported side rules")
-    if requested == "BC" and trig_name != "sin":
-        raise RightTrianglePlanError("AC-to-BC rule requires sin A")
-    trig_squared = _trig_square(trig_latex)
-    if trig_name == "tg" and trig_squared <= 0:
-        raise RightTrianglePlanError("tg A must be positive")
-    if trig_name != "tg" and not 0 < trig_squared < 1:
-        raise RightTrianglePlanError("sin A or cos A must be between zero and one")
-    known_value = _numeric_latex(known)
-    known_squared = _numeric_square_latex(known)
-    cosine_latex = ""
-    hypotenuse_latex = None
-    bc_squared = Fraction(0)
-    hypotenuse_squared = Fraction(0)
-    bc_latex = ""
-    if trig_name == "tg":
-        bc_squared = known_squared * trig_squared
-        hypotenuse_squared = known_squared + bc_squared
-        bc_latex = _positive_root_number_latex(bc_squared)
-        answer_value = math.sqrt(float(hypotenuse_squared))
-    else:
-        cosine_squared = 1 - trig_squared if trig_name == "sin" else trig_squared
-        cosine_latex = _positive_root_latex(cosine_squared)
-        cosine = math.sqrt(float(cosine_squared))
-    if trig_name != "tg" and requested == "AB":
-        answer_value = known_value / cosine
-    elif trig_name != "tg" and requested == "AC":
-        answer_value = known_value * cosine
-    elif trig_name != "tg":
-        hypotenuse_squared = known_squared / cosine_squared
-        hypotenuse_latex = _positive_root_latex(hypotenuse_squared)
-        answer_value = math.sqrt(float(hypotenuse_squared - known_squared))
-    answer = _answer_text(answer_value)
+    calculation = _calculate_triangle(trig_name, trig_squared, known, requested)
+    answer = calculation.answer
     transformations: list[dict[str, Any]] = []
     current_asset = next(
         (
@@ -177,10 +210,10 @@ def build_repair_plan(
                 _tangent_solution_transformation(
                     trig_latex,
                     known,
-                    known_squared,
-                    bc_latex,
-                    bc_squared,
-                    hypotenuse_squared,
+                    calculation.known_squared,
+                    calculation.bc_latex,
+                    calculation.bc_squared,
+                    calculation.hypotenuse_squared,
                     answer,
                 )
             )
@@ -190,11 +223,11 @@ def build_repair_plan(
                     trig_name,
                     trig_latex,
                     trig_squared,
-                    cosine_latex,
+                    calculation.cosine_latex,
                     known,
                     requested,
                     answer,
-                    hypotenuse_latex,
+                    calculation.hypotenuse_latex,
                 )
             )
     if (

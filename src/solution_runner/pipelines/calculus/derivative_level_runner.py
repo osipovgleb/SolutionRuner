@@ -127,73 +127,40 @@ def diagram_specs(context, *, condition_asset_bytes=None):
     return tuple(specs)
 
 
-def _build_context_repair_plan(
-    context, *, condition_asset_bytes=None, generated_solution_assets=()
+def _reviewed_horizontal_plan(
+    context, condition_asset_bytes, generated_solution_assets
 ):
-    if _horizontal(context):
-        from . import stationary_raster_runner
+    from . import stationary_raster_runner
 
-        try:
-            return stationary_raster_runner.build_context_repair_plan(
-                context,
-                condition_asset_bytes=condition_asset_bytes,
-                generated_solution_assets=generated_solution_assets,
-            )
-        except UnsupportedCondition:
-            q, condition, _, entry, points = _reviewed_horizontal(
-                context, condition_asset_bytes
-            )
-            content = context["normalized_content"]
-            svg = graph_stationary.render_svg(
-                entry, condition_asset_bytes, q.interval, points
-            )
-            figure, key, changes = solution_diagrams.image(
-                content,
-                KEY,
-                "Точки с горизонтальной касательной",
-                svg=svg,
-                generated=generated_solution_assets,
-            )
-            return solution_diagrams.repair(
-                condition,
-                _targeted(
-                    next((s for s in content["sections"] if s["key"] == "answer"), None)
-                ),
-                _targeted(
-                    next(
-                        (s for s in content["sections"] if s["key"] == "solution"), None
-                    )
-                ),
-                str(len(points)),
-                figure + stationary_raster_runner.proof(q, points),
-                (key,),
-                changes,
-            )
-    data = condition_asset_bytes
-    if not isinstance(data, bytes):
-        raise UnsupportedCondition("current derivative graph bytes are required")
-    q, condition, asset, entry, points, model, result = _input(context, data)
+    q, condition, _, entry, points = _reviewed_horizontal(
+        context, condition_asset_bytes
+    )
     content = context["normalized_content"]
-    svg = _solution_svg(data, q, entry, points, model)
+    svg = graph_stationary.render_svg(entry, condition_asset_bytes, q.interval, points)
     figure, key, changes = solution_diagrams.image(
-        content, KEY, ALT, svg=svg, generated=generated_solution_assets
+        content,
+        KEY,
+        "Точки с горизонтальной касательной",
+        svg=svg,
+        generated=generated_solution_assets,
     )
-    solution = next((s for s in content["sections"] if s["key"] == "solution"), None)
-    removed = tuple(
-        {"transformation_target_id": "asset:" + a["asset_key"], "operation": "remove"}
-        for a in content["assets"]
-        if a["asset_key"] in (solution or {}).get("asset_keys", [])
-        and a["asset_key"] not in (key, asset["asset_key"])
-    )
-    plan = solution_diagrams.repair(
+    return solution_diagrams.repair(
         condition,
         _targeted(next((s for s in content["sections"] if s["key"] == "answer"), None)),
-        _targeted(solution),
-        result,
-        figure + proof(q, result),
+        _targeted(
+            next((s for s in content["sections"] if s["key"] == "solution"), None)
+        ),
+        str(len(points)),
+        figure + stationary_raster_runner.proof(q, points),
         (key,),
-        removed + tuple(changes),
+        changes,
     )
+
+
+def _replace_condition_raster(
+    plan, condition, asset, source, generated_solution_assets
+):
+    data, model = source
     if model is None or _render(model).encode() == data:
         return plan
     digest = hashlib.sha256(_render(model).encode()).hexdigest()
@@ -232,6 +199,98 @@ def _build_context_repair_plan(
     return replace(
         plan, transformations=(asset_change, condition_change, *plan.transformations)
     )
+
+
+def _build_context_repair_plan(
+    context, *, condition_asset_bytes=None, generated_solution_assets=()
+):
+    if _horizontal(context):
+        from . import stationary_raster_runner
+
+        try:
+            return stationary_raster_runner.build_context_repair_plan(
+                context,
+                condition_asset_bytes=condition_asset_bytes,
+                generated_solution_assets=generated_solution_assets,
+            )
+        except UnsupportedCondition:
+            return _reviewed_horizontal_plan(
+                context, condition_asset_bytes, generated_solution_assets
+            )
+    data = condition_asset_bytes
+    if not isinstance(data, bytes):
+        raise UnsupportedCondition("current derivative graph bytes are required")
+    q, condition, asset, entry, points, model, result = _input(context, data)
+    content = context["normalized_content"]
+    svg = _solution_svg(data, q, entry, points, model)
+    figure, key, changes = solution_diagrams.image(
+        content, KEY, ALT, svg=svg, generated=generated_solution_assets
+    )
+    solution = next((s for s in content["sections"] if s["key"] == "solution"), None)
+    removed = tuple(
+        {"transformation_target_id": "asset:" + a["asset_key"], "operation": "remove"}
+        for a in content["assets"]
+        if a["asset_key"] in (solution or {}).get("asset_keys", [])
+        and a["asset_key"] not in (key, asset["asset_key"])
+    )
+    plan = solution_diagrams.repair(
+        condition,
+        _targeted(next((s for s in content["sections"] if s["key"] == "answer"), None)),
+        _targeted(solution),
+        result,
+        figure + proof(q, result),
+        (key,),
+        removed + tuple(changes),
+    )
+    return _replace_condition_raster(
+        plan, condition, asset, (data, model), generated_solution_assets
+    )
+
+
+def _rewrite_derivative_condition(context, changes, canonical):
+    q, tq, condition, _asset = _read(context)
+    previous = next(
+        (
+            t["value"]["html"]
+            for t in reversed(changes)
+            if t["transformation_target_id"].startswith("section:condition")
+        ),
+        condition["html"],
+    )
+    image = BeautifulSoup(previous, "html.parser").find("img")
+
+    def inline(formula):
+        return '<span data-inline-latex="' + escape(formula, quote=True) + '"></span>'
+
+    condition_html = canonical(
+        "<p>На рисунке изображён график производной функции "
+        + inline("f(x)")
+        + ", определённой на интервале "
+        + inline(interval_latex(tq.domain))
+        + ".</p>"
+        + "<p>Найдите количество точек, в которых касательная к графику функции "
+        + inline("f(x)")
+        + " параллельна прямой "
+        + inline("y=" + sp.latex(q.comparison))
+        + " или совпадает с ней.</p><center>"
+        + str(image)
+        + "</center>"
+    )
+    changes = [
+        t
+        for t in changes
+        if not t["transformation_target_id"].startswith("section:condition")
+    ]
+    if canonical(condition["html"]) != condition_html:
+        change = rewrite(
+            _targeted(condition),
+            "condition",
+            condition.get("title", "Условие"),
+            condition_html,
+        )
+        change["value"]["asset_keys"] = list(condition["asset_keys"])
+        changes.append(change)
+    return changes
 
 
 def build_context_repair_plan(
@@ -274,50 +333,7 @@ def build_context_repair_plan(
             change["value"]["html"] = expected
         changes.append(change)
     if not _horizontal(context):
-        q, tq, condition, _asset = _read(context)
-        previous = next(
-            (
-                t["value"]["html"]
-                for t in reversed(changes)
-                if t["transformation_target_id"].startswith("section:condition")
-            ),
-            condition["html"],
-        )
-        image = BeautifulSoup(previous, "html.parser").find("img")
-
-        def inline(formula):
-            return (
-                '<span data-inline-latex="' + escape(formula, quote=True) + '"></span>'
-            )
-
-        condition_html = canonical(
-            "<p>На рисунке изображён график производной функции "
-            + inline("f(x)")
-            + ", определённой на интервале "
-            + inline(interval_latex(tq.domain))
-            + ".</p>"
-            + "<p>Найдите количество точек, в которых касательная к графику функции "
-            + inline("f(x)")
-            + " параллельна прямой "
-            + inline("y=" + sp.latex(q.comparison))
-            + " или совпадает с ней.</p><center>"
-            + str(image)
-            + "</center>"
-        )
-        changes = [
-            t
-            for t in changes
-            if not t["transformation_target_id"].startswith("section:condition")
-        ]
-        if canonical(condition["html"]) != condition_html:
-            change = rewrite(
-                _targeted(condition),
-                "condition",
-                condition.get("title", "Условие"),
-                condition_html,
-            )
-            change["value"]["asset_keys"] = list(condition["asset_keys"])
-            changes.append(change)
+        changes = _rewrite_derivative_condition(context, changes, canonical)
     if _horizontal(context):
         from . import stationary_raster_runner
 

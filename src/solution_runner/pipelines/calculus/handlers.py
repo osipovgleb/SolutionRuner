@@ -4,6 +4,21 @@ from ..core.handlers import HandlerSpec
 
 HANDLERS = (
     HandlerSpec(
+        "calculus-graph-constructed-tangent",
+        "solution_runner.pipelines.calculus.constructed_tangent:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        asset_selector="solution_runner.pipelines.calculus.constructed_tangent:required_assets",
+        diagram_builder="solution_runner.pipelines.calculus.constructed_tangent:diagram_specs",
+        diagram_builder_uses_condition_bytes=True,
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+        verify_content_readback=True,
+        strict_frozen_input=True,
+    ),
+    HandlerSpec(
         "calculus-raster-tangent-slope",
         "solution_runner.pipelines.calculus.tangent_slope_runner:build_context_repair_plan",
         inputs=(
@@ -28,6 +43,22 @@ HANDLERS = (
         ),
         asset_selector="solution_runner.pipelines.calculus.derivative_level_runner:required_assets",
         diagram_builder="solution_runner.pipelines.calculus.derivative_level_runner:diagram_specs",
+        diagram_builder_uses_condition_bytes=True,
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+        allow_non_svg_condition_asset=True,
+        verify_content_readback=True,
+        strict_frozen_input=True,
+    ),
+    HandlerSpec(
+        "calculus-raster-derivative-abscissa",
+        "solution_runner.pipelines.calculus.derivative_abscissa_runner:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        asset_selector="solution_runner.pipelines.calculus.derivative_abscissa_runner:required_assets",
+        diagram_builder="solution_runner.pipelines.calculus.derivative_abscissa_runner:diagram_specs",
         diagram_builder_uses_condition_bytes=True,
         requires_parent_condition_asset=False,
         requires_condition_asset_download=True,

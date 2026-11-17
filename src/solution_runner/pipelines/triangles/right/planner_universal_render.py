@@ -19,6 +19,61 @@ from .planner_universal_parse import (
 )
 
 
+def _solution_from_third_side(values, side_latex, third_side):
+    function = rf"\{values.trig_name} {values.trig_angle}"
+    numerator, denominator = values.numerator_side, values.denominator_side
+    known, requested, trig = values.known_side, values.requested_side, values.trig_latex
+    definition = rf"{function}=\frac{{{numerator}}}{{{denominator}}}"
+    rows: list[str] = []
+    if known != third_side:
+        raise RightTrianglePlanError("known side is outside normalized triangle roles")
+    if values.trig_name in {"sin", "cos"}:
+        complement_name = "cos" if values.trig_name == "sin" else "sin"
+        complement = rf"\{complement_name} {values.trig_angle}"
+        complement_latex = _positive_root_latex(Fraction(1) - _trig_square(trig))
+        rows.extend(
+            [
+                (
+                    rf"{complement}=\sqrt{{1-{function}^2}}="
+                    rf"\sqrt{{1-({trig})^2}}={complement_latex}"
+                ),
+                (
+                    rf"{complement}=\frac{{{known}}}{{{denominator}}}"
+                    rf"\iff {denominator}=\frac{{{known}}}{{{complement}}}="
+                    rf"\frac{{{values.known_latex}}}{{{complement_latex}}}="
+                    rf"{side_latex[denominator]}"
+                ),
+            ]
+        )
+        if requested == numerator:
+            rows.append(
+                definition + rf"\iff {numerator}={denominator}\cdot{function}="
+                rf"{side_latex[denominator]}\cdot {trig}={side_latex[numerator]}"
+            )
+        elif requested != denominator:
+            raise RightTrianglePlanError(
+                "requested side is outside normalized triangle roles"
+            )
+        return _universal_solution_rows_transformation(rows)
+    rows.append(definition)
+    sign = "-" if denominator == values.hypotenuse else "+"
+    rows.append(
+        rf"{denominator}=\frac{{{known}}}{{\sqrt{{1{sign}({function})^2}}}}="
+        rf"\frac{{{values.known_latex}}}{{\sqrt{{1{sign}({trig})^2}}}}="
+        rf"{side_latex[denominator]}"
+    )
+    if requested == numerator:
+        rows.append(
+            rf"{numerator}={denominator}\cdot{function}="
+            rf"{side_latex[denominator]}\cdot {trig}={side_latex[numerator]}"
+        )
+    elif requested != denominator:
+        raise RightTrianglePlanError(
+            "requested side is outside normalized triangle roles"
+        )
+    return _universal_solution_rows_transformation(rows)
+
+
 def _universal_solution_transformation(
     values: UniversalRightTriangleValues,
     *,
@@ -78,54 +133,7 @@ def _universal_solution_transformation(
                 "universal solution selected a redundant third row"
             )
     else:
-        if known != third_side:
-            raise RightTrianglePlanError(
-                "known side is outside normalized triangle roles"
-            )
-        if values.trig_name in {"sin", "cos"}:
-            complement_name = "cos" if values.trig_name == "sin" else "sin"
-            complement = rf"\{complement_name} {values.trig_angle}"
-            complement_latex = _positive_root_latex(Fraction(1) - _trig_square(trig))
-            rows.extend(
-                [
-                    (
-                        rf"{complement}=\sqrt{{1-{function}^2}}="
-                        rf"\sqrt{{1-({trig})^2}}={complement_latex}"
-                    ),
-                    (
-                        rf"{complement}=\frac{{{known}}}{{{denominator}}}"
-                        rf"\iff {denominator}=\frac{{{known}}}{{{complement}}}="
-                        rf"\frac{{{values.known_latex}}}{{{complement_latex}}}="
-                        rf"{side_latex[denominator]}"
-                    ),
-                ]
-            )
-            if requested == numerator:
-                rows.append(
-                    definition + rf"\iff {numerator}={denominator}\cdot{function}="
-                    rf"{side_latex[denominator]}\cdot {trig}={side_latex[numerator]}"
-                )
-            elif requested != denominator:
-                raise RightTrianglePlanError(
-                    "requested side is outside normalized triangle roles"
-                )
-            return _universal_solution_rows_transformation(rows)
-        rows.append(definition)
-        sign = "-" if denominator == values.hypotenuse else "+"
-        rows.append(
-            rf"{denominator}=\frac{{{known}}}{{\sqrt{{1{sign}({function})^2}}}}="
-            rf"\frac{{{values.known_latex}}}{{\sqrt{{1{sign}({trig})^2}}}}="
-            rf"{side_latex[denominator]}"
-        )
-        if requested == numerator:
-            rows.append(
-                rf"{numerator}={denominator}\cdot{function}="
-                rf"{side_latex[denominator]}\cdot {trig}={side_latex[numerator]}"
-            )
-        elif requested != denominator:
-            raise RightTrianglePlanError(
-                "requested side is outside normalized triangle roles"
-            )
+        return _solution_from_third_side(values, side_latex, third_side)
     return _universal_solution_rows_transformation(rows)
 
 

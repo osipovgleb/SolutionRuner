@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import argparse
 import json
 import logging
 import os
@@ -28,6 +27,7 @@ from . import server_tasks as _server_tasks
 from .applies import ApplyManager
 from .auth import DashboardAuth
 from .backfill import backfill_local_runs
+from .cli import parse_dashboard_args
 from .codex_tasks import CodexTaskService
 from .dry_runs import DryRunManager
 from .initialization import GroupInitializer
@@ -266,31 +266,78 @@ def make_server(
     return server
 
 
+def _serve_dashboard(server, project_root):
+    runner_executor = server.job_queue
+    runner_executor.start()
+    Thread(
+        target=_resume_automatic_groups,
+        args=(server.store, server.inventory_store, server.codex_tasks),
+        daemon=True,
+    ).start()
+    profile_watch_stop = Event()
+    Thread(
+        target=_watch_profile_sources,
+        args=(server, project_root, profile_watch_stop),
+        daemon=True,
+    ).start()
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        return 0
+    finally:
+        profile_watch_stop.set()
+        server.server_close()
+        runner_executor.shutdown(cancel_futures=True)
+    return 0
+
+
+def _create_initializer(profiles, inventory_store, gateway_factory, store, codex_tasks):
+    return GroupInitializer(
+        profiles=profiles,
+        inventory_store=inventory_store,
+        gateway_factory=gateway_factory,
+        group_source_lookup=store.get_group,
+        on_resolved=lambda group_key, navigation: store.update_group(
+            group_key, {"teacherhelper": navigation}
+        ),
+        on_complete=lambda group_key, state: _finish_initialization(
+            store, inventory_store, codex_tasks, group_key, state
+        ),
+    )
+
+
+def _create_run_managers(args, profiles, stores, gateway_factory, runner_executor):
+    store, inventory_store = stores
+    dry_runs = (
+        DryRunManager(
+            var_dir=args.var,
+            profiles=profiles,
+            gateway_factory=gateway_factory,
+            store=store,
+            inventory_store=inventory_store,
+            on_complete=None,
+            background_executor=runner_executor,
+        )
+        if gateway_factory is not None
+        else None
+    )
+    applies = (
+        ApplyManager(
+            var_dir=args.var,
+            profiles=profiles,
+            inventory_store=inventory_store,
+            store=store,
+            background_executor=runner_executor,
+        )
+        if gateway_factory is not None
+        else None
+    )
+    return dry_runs, applies
+
+
 def main(argv: list[str] | None = None) -> int:
     project_root = Path(__file__).resolve().parents[3]
-    parser = argparse.ArgumentParser(
-        description="Serve the local SolutionRunner group dashboard"
-    )
-    parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument(
-        "--db", type=Path, default=project_root / "var/dashboard/dashboard.sqlite3"
-    )
-    parser.add_argument("--var", type=Path, default=project_root / "var")
-    parser.add_argument("--static", type=Path, default=project_root / "dashboard/dist")
-    parser.add_argument(
-        "--previews", type=Path, default=project_root / "var/dashboard/previews"
-    )
-    args = parser.parse_args(argv)
-    auth = DashboardAuth(
-        password=os.environ.get("SOLUTION_RUNNER_DASHBOARD_PASSWORD", ""),
-        token=os.environ.get("SOLUTION_RUNNER_DASHBOARD_TOKEN", ""),
-        username=os.environ.get("SOLUTION_RUNNER_DASHBOARD_USER", "owner"),
-    )
-    if args.host not in {"127.0.0.1", "localhost", "::1"} and not auth.enabled:
-        parser.error(
-            "non-loopback dashboard requires SOLUTION_RUNNER_DASHBOARD_PASSWORD or SOLUTION_RUNNER_DASHBOARD_TOKEN"
-        )
+    args, auth = parse_dashboard_args(argv, project_root)
 
     store = DashboardStore(args.db)
     profiles = all_group_profiles()
@@ -313,29 +360,12 @@ def main(argv: list[str] | None = None) -> int:
         timeout_seconds=45,
     )
     runner_executor = DurableJobQueue(args.db, args.var / "dashboard/logs")
-    dry_runs = (
-        DryRunManager(
-            var_dir=args.var,
-            profiles=profiles,
-            gateway_factory=gateway_factory,
-            store=store,
-            inventory_store=inventory_store,
-            on_complete=None,
-            background_executor=runner_executor,
-        )
-        if api_key
-        else None
-    )
-    applies = (
-        ApplyManager(
-            var_dir=args.var,
-            profiles=profiles,
-            inventory_store=inventory_store,
-            store=store,
-            background_executor=runner_executor,
-        )
-        if api_key
-        else None
+    dry_runs, applies = _create_run_managers(
+        args,
+        profiles,
+        (store, inventory_store),
+        gateway_factory if api_key else None,
+        runner_executor,
     )
     server: DashboardServer | None = None
 
@@ -366,17 +396,8 @@ def main(argv: list[str] | None = None) -> int:
     codex_tasks = CodexTaskService(project_root=project_root, on_exit=on_codex_exit)
 
     initializer = (
-        GroupInitializer(
-            profiles=profiles,
-            inventory_store=inventory_store,
-            gateway_factory=gateway_factory,
-            group_source_lookup=store.get_group,
-            on_resolved=lambda group_key, navigation: store.update_group(
-                group_key, {"teacherhelper": navigation}
-            ),
-            on_complete=lambda group_key, state: _finish_initialization(
-                store, inventory_store, codex_tasks, group_key, state
-            ),
+        _create_initializer(
+            profiles, inventory_store, gateway_factory, store, codex_tasks
         )
         if api_key
         else None
@@ -400,27 +421,7 @@ def main(argv: list[str] | None = None) -> int:
         auth=auth,
         job_queue=runner_executor,
     )
-    runner_executor.start()
-    Thread(
-        target=_resume_automatic_groups,
-        args=(store, inventory_store, codex_tasks),
-        daemon=True,
-    ).start()
-    profile_watch_stop = Event()
-    Thread(
-        target=_watch_profile_sources,
-        args=(server, project_root, profile_watch_stop),
-        daemon=True,
-    ).start()
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        return 0
-    finally:
-        profile_watch_stop.set()
-        server.server_close()
-        runner_executor.shutdown(cancel_futures=True)
-    return 0
+    return _serve_dashboard(server, project_root)
 
 
 if __name__ == "__main__":

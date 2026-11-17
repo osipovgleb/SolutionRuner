@@ -109,7 +109,40 @@ def save_clean_path(out_dir: Path, url: str, idx: int) -> Path:
     return out_dir / f"{idx:04d}_{fid}_clean_inpaint_v5.png"
 
 
-def main():
+def _add_batch_options(parser):
+    parser.add_argument("--max-output", type=int, default=0)
+    parser.add_argument("--no-skip-errors", action="store_true")
+    parser.add_argument(
+        "--strict-alpha",
+        action="store_true",
+        help="inpaint only pixels from original alpha mask (no growth, no dilation, no color expansion)",
+    )
+    parser.add_argument(
+        "--use-anchor",
+        action="store_true",
+        help="reuse previous frame bbox as ROI anchor",
+    )
+    parser.add_argument(
+        "--anchor-margin-x", type=int, default=24, help="anchor ROI extend in x"
+    )
+    parser.add_argument(
+        "--anchor-margin-y", type=int, default=12, help="anchor ROI extend in y"
+    )
+    parser.add_argument(
+        "--anchor-min-ratio",
+        type=float,
+        default=0.20,
+        help="save anchor when selected_ratio >= this",
+    )
+    parser.add_argument(
+        "--strict-capture-ratio",
+        type=float,
+        default=0.85,
+        help="minimal strict capture ratio before ROI relaxation",
+    )
+
+
+def _create_parser():
     parser = argparse.ArgumentParser(
         description="Batch clean via transparency-only v5 flow."
     )
@@ -155,38 +188,34 @@ def main():
         choices=["telea", "ns", "telea_ns", "ns_telea", "telea_only"],
         help="inpaint algorithm",
     )
-    parser.add_argument("--max-output", type=int, default=0)
-    parser.add_argument("--no-skip-errors", action="store_true")
-    parser.add_argument(
-        "--strict-alpha",
-        action="store_true",
-        help="inpaint only pixels from original alpha mask (no growth, no dilation, no color expansion)",
-    )
-    parser.add_argument(
-        "--use-anchor",
-        action="store_true",
-        help="reuse previous frame bbox as ROI anchor",
-    )
-    parser.add_argument(
-        "--anchor-margin-x", type=int, default=24, help="anchor ROI extend in x"
-    )
-    parser.add_argument(
-        "--anchor-margin-y", type=int, default=12, help="anchor ROI extend in y"
-    )
-    parser.add_argument(
-        "--anchor-min-ratio",
-        type=float,
-        default=0.20,
-        help="save anchor when selected_ratio >= this",
-    )
-    parser.add_argument(
-        "--strict-capture-ratio",
-        type=float,
-        default=0.85,
-        help="minimal strict capture ratio before ROI relaxation",
-    )
+    _add_batch_options(parser)
+    return parser
 
-    args = parser.parse_args()
+
+def _update_anchor(args, info, anchor_bbox_norm, anchor_miss):
+    selected_ratio = info.get("selected_ratio", 0.0) or 0.0
+    if args.use_anchor and info.get("bbox") and selected_ratio >= args.anchor_min_ratio:
+        w, h = info.get("size", (0, 0))
+        if w > 0 and h > 0:
+            x0, y0, x1, y1 = info["bbox"]
+            anchor_bbox_norm = (
+                x0 / float(w),
+                y0 / float(h),
+                x1 / float(w),
+                y1 / float(h),
+            )
+            anchor_miss = 0
+    elif args.use_anchor:
+        anchor_miss += 1
+        if anchor_miss >= 4:
+            anchor_bbox_norm = None
+            anchor_miss = 0
+
+    return anchor_bbox_norm, anchor_miss
+
+
+def main():
+    args = _create_parser().parse_args()
 
     if args.strict_alpha:
         args.color_expand_tolerance = 0.0
@@ -243,15 +272,9 @@ def main():
             )
             mask_pixels = int(mask.sum() / 255)
             out_path = save_clean_path(args.out_dir, url, idx)
-            if mask_pixels > 0:
-                from PIL import Image
+            from PIL import Image
 
-                Image.fromarray(out_arr, "RGBA").save(out_path)
-            else:
-                # no visible watermark by alpha; keep copy if needed
-                from PIL import Image
-
-                Image.fromarray(out_arr, "RGBA").save(out_path)
+            Image.fromarray(out_arr, "RGBA").save(out_path)
 
             ok += 1
             print(
@@ -265,27 +288,9 @@ def main():
                 f"-> {out_path.name}"
             )
 
-            selected_ratio = info.get("selected_ratio", 0.0) or 0.0
-            if (
-                args.use_anchor
-                and info.get("bbox")
-                and selected_ratio >= args.anchor_min_ratio
-            ):
-                w, h = info.get("size", (0, 0))
-                if w > 0 and h > 0:
-                    x0, y0, x1, y1 = info["bbox"]
-                    anchor_bbox_norm = (
-                        x0 / float(w),
-                        y0 / float(h),
-                        x1 / float(w),
-                        y1 / float(h),
-                    )
-                    anchor_miss = 0
-            elif args.use_anchor:
-                anchor_miss += 1
-                if anchor_miss >= 4:
-                    anchor_bbox_norm = None
-                    anchor_miss = 0
+            anchor_bbox_norm, anchor_miss = _update_anchor(
+                args, info, anchor_bbox_norm, anchor_miss
+            )
         except Exception as e:
             skipped += 1
             if args.no_skip_errors:

@@ -119,7 +119,6 @@ def _fit_curve(logical, analysis, anchors, original_anchors, points):
 
 
 def _recover_new(data, question):
-    from . import raster_primitive
 
     image = Image.open(io.BytesIO(data)).convert("RGBA")
     if min(image.size) < 35 or max(image.size) > 5000:
@@ -134,6 +133,13 @@ def _recover_new(data, question):
     logical, grid, _, cleanup = primitive_trace.trace_source(
         np.asarray(background), question
     )
+    return fit_logical(data, question, logical, grid, cleanup)
+
+
+def fit_logical(data, question, logical, grid, cleanup):
+    """Apply the same constrained fitter to a verified clean source trace."""
+    from . import raster_primitive
+
     analysis, points = detect(logical, 0.025)
     for smoothing in (0.02, 0.03):
         _, check = detect(logical, smoothing)

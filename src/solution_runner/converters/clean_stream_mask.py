@@ -25,6 +25,85 @@ else:
     )
 
 
+def _refine_mask(keep, pixel_data, growth, dilation, fallback):
+    rgba, raw_mask, roi_mask = pixel_data
+    grow_missing_px, color_expand_tolerance, color_expand_iters, color_expand_margin = (
+        growth
+    )
+    mask_dilate_iters, mask_dilate_x, mask_dilate_y = dilation
+    if keep.sum() > 0 and grow_missing_px > 0:
+        # подхватить мелкие потерянные пиксели рядом с выбранной маской (обычно единичные точки)
+        dist = cv2.distanceTransform((keep == 0).astype(np.uint8), cv2.DIST_L2, 3)
+        bridge = ((dist <= grow_missing_px).astype(np.uint8) * 255) & raw_mask
+        keep = cv2.bitwise_or(keep, cv2.bitwise_and(bridge, roi_mask))
+
+    if (
+        keep.sum() > 0
+        and color_expand_tolerance > 0
+        and color_expand_iters > 0
+        and fallback != "global"
+    ):
+        keep = _expand_color(
+            keep,
+            rgba,
+            roi_mask,
+            color_expand_tolerance,
+            color_expand_iters,
+            color_expand_margin,
+        )
+
+    if mask_dilate_iters > 0:
+        sx = max(1, int(mask_dilate_x))
+        sy = max(1, int(mask_dilate_y))
+        dilate_kernel = np.ones((sy, sx), np.uint8)
+        keep = cv2.dilate(keep, dilate_kernel, iterations=int(mask_dilate_iters))
+
+    return keep
+
+
+def _mask_report(keep, selected, region, details):
+    x0, y0, y0_init, w, h, roi_source, anchor_bbox_norm = region
+    (
+        fallback,
+        total_non_opaque,
+        strict_alpha,
+        strict_capture_ratio,
+        strict_tail_added,
+        strict_tail_gap,
+        strict_tail_bbox,
+    ) = details
+    ys, xs = np.where(keep > 0)
+    bbox = (
+        (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max()))
+        if len(xs)
+        else None
+    )
+
+    return keep, {
+        "selected": selected,
+        "selected_mask_pixels": int(keep.sum() // 255),
+        "fallback": fallback,
+        "bbox": bbox,
+        "selected_count": len(selected),
+        "roi_bbox": (x0, y0, w - 1, h - 1),
+        "x0": x0,
+        "y0": y0,
+        "y0_init": y0_init,
+        "selected_ratio": int(keep.sum() // 255) / float(max(1, total_non_opaque)),
+        "total_non_opaque": total_non_opaque,
+        "size": (w, h),
+        "strict_alpha": strict_alpha,
+        "strict_capture_ratio": strict_capture_ratio,
+        "strict_tail_added": strict_tail_added,
+        "strict_tail_gap": strict_tail_gap,
+        "strict_tail_bbox": strict_tail_bbox,
+        "roi_source": roi_source,
+        "anchor_bbox_norm": tuple(anchor_bbox_norm)
+        if anchor_bbox_norm is not None
+        else None,
+    }
+
+
 def alpha_mask_from_right_bottom(
     rgba: np.ndarray,
     right_ratio: float = 0.82,
@@ -125,63 +204,33 @@ def alpha_mask_from_right_bottom(
         keep, raw_mask, total_non_opaque, strict_alpha, fallback
     )
 
-    if keep.sum() > 0 and grow_missing_px > 0:
-        # подхватить мелкие потерянные пиксели рядом с выбранной маской (обычно единичные точки)
-        dist = cv2.distanceTransform((keep == 0).astype(np.uint8), cv2.DIST_L2, 3)
-        bridge = ((dist <= grow_missing_px).astype(np.uint8) * 255) & raw_mask
-        keep = cv2.bitwise_or(keep, cv2.bitwise_and(bridge, roi_mask))
-
-    if (
-        keep.sum() > 0
-        and color_expand_tolerance > 0
-        and color_expand_iters > 0
-        and fallback != "global"
-    ):
-        keep = _expand_color(
-            keep,
-            rgba,
-            roi_mask,
+    keep = _refine_mask(
+        keep,
+        (rgba, raw_mask, roi_mask),
+        (
+            grow_missing_px,
             color_expand_tolerance,
             color_expand_iters,
             color_expand_margin,
-        )
-
-    if mask_dilate_iters > 0:
-        sx = max(1, int(mask_dilate_x))
-        sy = max(1, int(mask_dilate_y))
-        dilate_kernel = np.ones((sy, sx), np.uint8)
-        keep = cv2.dilate(keep, dilate_kernel, iterations=int(mask_dilate_iters))
-
-    ys, xs = np.where(keep > 0)
-    bbox = (
-        (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max()))
-        if len(xs)
-        else None
+        ),
+        (mask_dilate_iters, mask_dilate_x, mask_dilate_y),
+        fallback,
     )
 
-    return keep, {
-        "selected": selected,
-        "selected_mask_pixels": int(keep.sum() // 255),
-        "fallback": fallback,
-        "bbox": bbox,
-        "selected_count": len(selected),
-        "roi_bbox": (x0, y0, w - 1, h - 1),
-        "x0": x0,
-        "y0": y0,
-        "y0_init": y0_init,
-        "selected_ratio": int(keep.sum() // 255) / float(max(1, total_non_opaque)),
-        "total_non_opaque": total_non_opaque,
-        "size": (w, h),
-        "strict_alpha": strict_alpha,
-        "strict_capture_ratio": strict_capture_ratio,
-        "strict_tail_added": strict_tail_added,
-        "strict_tail_gap": strict_tail_gap,
-        "strict_tail_bbox": strict_tail_bbox,
-        "roi_source": roi_source,
-        "anchor_bbox_norm": tuple(anchor_bbox_norm)
-        if anchor_bbox_norm is not None
-        else None,
-    }
+    return _mask_report(
+        keep,
+        selected,
+        (x0, y0, y0_init, w, h, roi_source, anchor_bbox_norm),
+        (
+            fallback,
+            total_non_opaque,
+            strict_alpha,
+            strict_capture_ratio,
+            strict_tail_added,
+            strict_tail_gap,
+            strict_tail_bbox,
+        ),
+    )
 
 
 def apply_inpaint_alpha(

@@ -71,35 +71,8 @@ def _at(segment, t):
     )
 
 
-def read(data, question):
-    if question.kind not in ("primitive", "count"):
-        raise UnsupportedCondition(
-            "this native SVG question is not a zero-count problem"
-        )
-    root = ET.fromstring(data)
-    if any(n.get("transform") for n in root.iter()):
-        raise UnsupportedCondition(
-            "transformed native graph paths need separate review"
-        )
-    segments = []
-    for node in root.iter():
-        if node.tag.endswith("path") and node.get("stroke", "").lower() == "#143b8f":
-            segments.extend(_segments(node.get("d", "")))
-    segments = [
-        s if s[-1, 0] > s[0, 0] else s[::-1]
-        for s in segments
-        if abs(s[-1, 0] - s[0, 0]) > 1e-6
-    ]
-    segments.sort(key=lambda s: s[0, 0])
-    if not segments:
-        raise UnsupportedCondition("one native cubic graph is required")
-    if any(np.linalg.norm(a[-1] - b[0]) > 1.5 for a, b in pairwise(segments)):
-        raise UnsupportedCondition("the native graph has disconnected branches")
-    start, end = segments[0][0, 0], segments[-1][-1, 0]
-    unit = (end - start) / float(question.domain.upper - question.domain.lower)
-    origin = start - float(question.domain.lower) * unit
-    if unit <= 0:
-        raise UnsupportedCondition("invalid native graph coordinate frame")
+def _stationary_candidates(segments, frame):
+    start, end, origin, unit = frame
     candidates = []
     for index, segment in enumerate(segments):
         p0, p1, p2, p3 = segment
@@ -167,6 +140,39 @@ def read(data, question):
             candidates.append(
                 {"x": str((p[0] - origin) / unit), "kind": kind, "svg": p.tolist()}
             )
+    return candidates
+
+
+def read(data, question):
+    if question.kind not in ("primitive", "count"):
+        raise UnsupportedCondition(
+            "this native SVG question is not a zero-count problem"
+        )
+    root = ET.fromstring(data)
+    if any(n.get("transform") for n in root.iter()):
+        raise UnsupportedCondition(
+            "transformed native graph paths need separate review"
+        )
+    segments = []
+    for node in root.iter():
+        if node.tag.endswith("path") and node.get("stroke", "").lower() == "#143b8f":
+            segments.extend(_segments(node.get("d", "")))
+    segments = [
+        s if s[-1, 0] > s[0, 0] else s[::-1]
+        for s in segments
+        if abs(s[-1, 0] - s[0, 0]) > 1e-6
+    ]
+    segments.sort(key=lambda s: s[0, 0])
+    if not segments:
+        raise UnsupportedCondition("one native cubic graph is required")
+    if any(np.linalg.norm(a[-1] - b[0]) > 1.5 for a, b in pairwise(segments)):
+        raise UnsupportedCondition("the native graph has disconnected branches")
+    start, end = segments[0][0, 0], segments[-1][-1, 0]
+    unit = (end - start) / float(question.domain.upper - question.domain.lower)
+    origin = start - float(question.domain.lower) * unit
+    if unit <= 0:
+        raise UnsupportedCondition("invalid native graph coordinate frame")
+    candidates = _stationary_candidates(segments, (start, end, origin, unit))
     candidates.sort(key=lambda p: float(p["x"]))
     points = []
     for p in candidates:

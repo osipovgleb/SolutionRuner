@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
 from functools import partial
 from typing import Any
 
@@ -323,34 +324,40 @@ def _failed_result(
     )
 
 
+@dataclass(frozen=True)
+class _HelpersContext:
+    gateway: McpGateway
+    profile: GroupProfile
+    reporter: ProgressReporter
+    apply: bool
+    desired_values: dict[str, Any]
+    total: int
+
+
 def _run_isolated_target(
-    gateway: McpGateway,
-    profile: GroupProfile,
-    reporter: ProgressReporter,
-    apply: bool,
-    desired_values: dict[str, Any],
-    total: int,
-    indexed_upstream: tuple[int, ProblemStageResult],
+    context: _HelpersContext, indexed_upstream: tuple[int, ProblemStageResult]
 ) -> ProblemStageResult:
     """Run one Helpers target while preserving its frozen progress index."""
 
     index, upstream = indexed_upstream
-    progress = TargetProgress(index=index, total=total)
-    if not _eligible(upstream, apply=apply):
-        return _skipped_result(upstream, profile, reporter, progress)
-    if not apply:
-        return _planned_result(upstream, profile, reporter, progress)
+    progress = TargetProgress(index=index, total=context.total)
+    if not _eligible(upstream, apply=context.apply):
+        return _skipped_result(upstream, context.profile, context.reporter, progress)
+    if not context.apply:
+        return _planned_result(upstream, context.profile, context.reporter, progress)
     try:
         return _apply_target(
-            gateway,
+            context.gateway,
             upstream,
-            profile,
-            reporter,
+            context.profile,
+            context.reporter,
             progress,
-            desired_values,
+            context.desired_values,
         )
     except Exception as exc:  # noqa: BLE001 - exact target isolation is required.
-        return _failed_result(upstream, profile, reporter, progress, exc)
+        return _failed_result(
+            upstream, context.profile, context.reporter, progress, exc
+        )
 
 
 def run_helpers_stage(
@@ -370,15 +377,10 @@ def run_helpers_stage(
         return ()
     desired_values = _desired_values(profile)
     indexed_results = tuple(enumerate(solution_results, start=1))
-    run_target = partial(
-        _run_isolated_target,
-        gateway,
-        profile,
-        reporter,
-        apply,
-        desired_values,
-        len(solution_results),
+    context = _HelpersContext(
+        gateway, profile, reporter, apply, desired_values, len(solution_results)
     )
+    run_target = partial(_run_isolated_target, context)
     if max_workers == 1:
         return tuple(map(run_target, indexed_results))
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
