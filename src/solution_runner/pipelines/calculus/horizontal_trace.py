@@ -1,6 +1,7 @@
 """Scoped horizontal-tangent trace with the larger endpoint rings of this family."""
 
 import math
+from itertools import pairwise
 
 import cv2
 import numpy as np
@@ -78,6 +79,38 @@ def _full_path(dark, grid, lo, hi, endpoint_y=None):
     return np.column_stack((np.arange(left, right + 1), ys))
 
 
+def _bridge_grid_caps(samples, grid):
+    """Recover one rounded cap hidden under a measured horizontal grid stroke."""
+    result = [samples[0]]
+    for i, (a, b) in enumerate(pairwise(samples)):
+        gap = b[0] - a[0]
+        if grid.vertical.step * 0.65 < gap <= grid.vertical.step * 1.3:
+            line_y = min(
+                grid.horizontal_lines(), key=lambda y: abs(y - (a[1] + b[1]) / 2)
+            )
+            left = a[1] - line_y
+            right = b[1] - line_y
+            if (
+                left * right > 0
+                and max(abs(left), abs(right)) <= grid.horizontal.step * 0.22
+            ):
+                prior = samples[max(0, i - 3)]
+                following = samples[min(len(samples) - 1, i + 4)]
+                side = np.sign(left)
+                if (a[1] - prior[1]) * side <= 0 and (following[1] - b[1]) * side >= 0:
+                    center = (a[0] + b[0]) / 2
+                    for x in np.linspace(a[0], b[0], max(5, int(gap / 2)))[1:-1]:
+                        end = a if x <= center else b
+                        y = (
+                            line_y
+                            + (end[1] - line_y)
+                            * ((x - center) / (end[0] - center)) ** 2
+                        )
+                        result.append([x, y])
+        result.append(b)
+    return np.array(result)
+
+
 def trace_source(rgba, question):
     dark = base.effective_darkness(rgba)
     grid = base.detect_grid(
@@ -88,8 +121,13 @@ def trace_source(rgba, question):
         horizontal_axis_y=None,
     )
     clean = rgba.copy()
-    bottom = round(min(grid.vertical.step, grid.horizontal.step) * 0.64)
-    right = round(grid.vertical_axis_x + grid.vertical.step * 0.15)
+    # These source rasters place y=f(x) above the top grid line. Mask that
+    # entire header, including glyph descenders; a fixed strip left half of f.
+    bottom = max(
+        round(min(grid.vertical.step, grid.horizontal.step) * 0.64),
+        round(min(grid.horizontal.observed)),
+    )
+    right = clean.shape[1]
     clean[:bottom, :right] = 255
     dark = base.effective_darkness(clean)
     lo, hi = float(question.domain.lower), float(question.domain.upper)
@@ -112,8 +150,18 @@ def trace_source(rgba, question):
     if len(samples) < 30:
         raise ValueError("недостаточно различимого штриха кривой")
     samples = np.array(samples)
-    if max(np.diff(samples[:, 0])) > grid.vertical.step * 0.65:
-        raise ValueError("слишком большой разрыв в исходном штрихе")
+    for a, b in pairwise(samples):
+        if b[0] - a[0] <= grid.vertical.step * 0.65:
+            continue
+        # A shallow cap may overlap a horizontal grid stroke for nearly a
+        # whole cell. Bridge only such measured grid occlusions, not arbitrary
+        # missing branches. The later shape/turn/deviation checks still apply.
+        line_y = min(grid.horizontal_lines(), key=lambda y: abs(y - (a[1] + b[1]) / 2))
+        if (
+            b[0] - a[0] > grid.vertical.step * 1.3
+            or max(abs(a[1] - line_y), abs(b[1] - line_y)) > grid.horizontal.step * 0.22
+        ):
+            raise ValueError("слишком большой разрыв в исходном штрихе")
     # Match the open-circle pattern at the exact domain boundary. Unlike
     # contour/Hough candidates, this does not mistake a nearby coordinate digit
     # for the marker simply because that digit has a partial round contour.
@@ -237,7 +285,7 @@ def trace_source(rgba, question):
         )
         if abs(center - reference) < grid.horizontal.step * 0.25:
             samples.append([px, center])
-    samples = np.array(samples)
+    samples = _bridge_grid_caps(np.array(samples), grid)
     interior = samples[
         (samples[:, 0] > ends[0][0] + grid.vertical.step * 0.11)
         & (samples[:, 0] < ends[1][0] - grid.vertical.step * 0.11)

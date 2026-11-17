@@ -5,7 +5,12 @@ from __future__ import annotations
 from dataclasses import replace
 
 from ..geometry.quadrilateral import analyze_parallel_bases_trapezoid, convex_hull
-from ..models import GeometryAnalysis, GroupProfile, PreparedGridPolygon, SolutionDiagramSpec
+from ..models import (
+    GeometryAnalysis,
+    GroupProfile,
+    PreparedGridPolygon,
+    SolutionDiagramSpec,
+)
 from .bounding_rectangle_trapezoid import (
     BoundingRectangleTrapezoidStrategy,
     TrapezoidPickStrategy,
@@ -128,7 +133,10 @@ class ParallelBasesTrapezoidThreeMethodsStrategy(TrapezoidPickStrategy):
             prepared,
             replace(profile, strategy_key="trapezoid-pick"),
         )
-        if base.area != visual.area or base.area_by_coordinates != visual.area_by_coordinates:
+        if (
+            base.area != visual.area
+            or base.area_by_coordinates != visual.area_by_coordinates
+        ):
             raise ValueError("trapezoid area calculations disagree")
         return GeometryAnalysis(
             area=visual.area,

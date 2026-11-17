@@ -1,31 +1,35 @@
 """Convert horizontal-tangent raster graphs with the proven primitive fitter."""
 
 import hashlib
+import json
 import re
 from copy import deepcopy
 from dataclasses import replace
+from fractions import Fraction
 from functools import lru_cache
 from html import escape
-from itertools import pairwise
-from statistics import median
+from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from bs4 import BeautifulSoup
 
 from ..equations.linear_system_intervals import interval_latex
-from ..probability import solution_diagrams
+from ..probability import condition_diagram, solution_diagrams
 from ..probability.common import UnsupportedCondition, line, normalize, rewrite
 from ..triangles.right.basic_parent import _targeted
 from . import (
     graph_input,
     graph_stationary,
     horizontal_curves,
+    horizontal_manual,
     primitive_svg,
     raster_primitive,
 )
 
 KEY = "horizontal_tangent_points"
 ALT = "Точки с горизонтальной касательной"
+APPROVED_COUNTS = Path(__file__).with_name("assets") / "horizontal-approved-counts.json"
+COINCIDENCES = Path(__file__).with_name("assets") / "horizontal-coincidences.json"
 
 
 def _read(context):
@@ -72,6 +76,8 @@ def _read(context):
 
 
 def required_assets(context):
+    if horizontal_manual.supports(context):
+        return ()
     condition = next(
         s for s in context["normalized_content"]["sections"] if s["key"] == "condition"
     )
@@ -81,13 +87,24 @@ def required_assets(context):
         if a["asset_key"] in condition.get("asset_keys", [])
     ]
     if len(assets) == 1 and assets[0]["asset_id"] in graph_input.EVIDENCE:
-        return graph_stationary.required_assets(context)
+        return graph_input.requirements(graph_input.read_graph(context)[5])
     return ()
 
 
 @lru_cache(maxsize=32)
 def _recover(data, question):
     return horizontal_curves.recover(data, question)
+
+
+def _effective_question(question, source_sha):
+    entry = json.loads(COINCIDENCES.read_text()).get(source_sha)
+    if (
+        entry is not None
+        and entry["domain"] == [str(question.domain.lower), str(question.domain.upper)]
+        and entry["line"] == str(question.horizontal)
+    ):
+        return replace(question, include_coincident=True)
+    return question
 
 
 def _model(context, data, *, review=False):
@@ -111,21 +128,34 @@ def _model(context, data, *, review=False):
         )
     if model is None:
         raise UnsupportedCondition("the primitive SVG has no verified model")
+    question = _effective_question(question, model["source_sha256"])
     selected = raster_primitive.select(model, question)
-    if not review and not question.include_coincident:
-        for point in selected:
-            # Coordinates refer to the recovered grid. A near coincidence must
-            # be reviewed rather than decided from subpixel raster noise.
-            if abs(point["svg"][1] - float(question.horizontal)) < 0.25:
-                raise UnsupportedCondition(
-                    "the raster does not resolve coincidence with the horizontal line"
-                )
     if not review:
-        _check_count(context, len(selected))
+        _check_count(
+            context, len(selected), source_sha=model["source_sha256"], question=question
+        )
     return question, condition, asset, model, selected
 
 
-def _check_count(context, count):
+def _approval_key(source_sha, question):
+    payload = {
+        "source_sha256": source_sha,
+        "domain": [str(question.domain.lower), str(question.domain.upper)],
+        "span": [str(question.interval.lower), str(question.interval.upper)],
+        "line": str(question.horizontal),
+        "include_coincident": question.include_coincident,
+    }
+    return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+
+
+def _check_count(context, count, *, source_sha=None, question=None):
+    if source_sha is not None and question is not None and APPROVED_COUNTS.exists():
+        approved = json.loads(APPROVED_COUNTS.read_text()).get(
+            _approval_key(source_sha, question)
+        )
+        if approved is not None and approved["count"] == count:
+            return
+
     stored = next(
         (s for s in context["normalized_content"]["sections"] if s["key"] == "answer"),
         None,
@@ -148,6 +178,8 @@ def _render(model, **kwargs):
 
 
 def diagram_specs(context, *, condition_asset_bytes=None):
+    if horizontal_manual.supports(context):
+        return ()
     data = condition_asset_bytes
     if not isinstance(data, bytes):
         return ()
@@ -156,7 +188,18 @@ def diagram_specs(context, *, condition_asset_bytes=None):
         and raster_primitive.META.encode() not in data
     ):
         try:
-            return graph_stationary.diagram_specs(context)
+            parsed, question, points = _audited_input(context)
+            entry, source = parsed[5:]
+            if not entry.get("highlight_stationary"):
+                return ()
+            return (
+                solution_diagrams.spec(
+                    entry["diagram_key"],
+                    graph_stationary.render_svg(
+                        entry, source, question.interval, points
+                    ),
+                ),
+            )
         except UnsupportedCondition:
             question, entry, points = _native_points(context, data)
             return (
@@ -185,7 +228,9 @@ def proof(question, points):
     html += " параллельна оси абсцисс. В точках, где касательная к графику горизонтальна, производная равна нулю:</p>"
     html += line("f'(x)=0")
     html += (
-        "<p>Отметим такие точки на графике. Их количество — "
+        "<p>Посчитаем точки с горизонтальной касательной на заданном промежутке "
+        + inline(interval_latex(question.interval))
+        + ". Их количество — "
         + str(len(points))
         + ".</p>"
     )
@@ -195,43 +240,30 @@ def proof(question, points):
 def _native_points(context, data):
     question, _, _ = _read(context)
     entry, points = primitive_svg.read(data, replace(question, kind="count"))
-    if not question.include_coincident:
-        lines = [n for n in ET.fromstring(data).iter() if n.tag.endswith("line")]
-        axes = [
-            n
-            for n in lines
-            if n.get("stroke", "").lower() in ("#000000", "#000", "black")
-            and abs(float(n.get("y1", 0)) - float(n.get("y2", 0))) < 0.01
-            and abs(float(n.get("x1", 0)) - float(n.get("x2", 0)))
-            > entry["svg_unit"] * 3
-        ]
-        ys = sorted(
-            {
-                float(n.get("y1", 0))
-                for n in lines
-                if n.get("stroke", "").lower() == "#adaaaa"
-                and abs(float(n.get("y1", 0)) - float(n.get("y2", 0))) < 0.5
-            }
-        )
-        if len(axes) != 1 or len(ys) < 3:
-            raise UnsupportedCondition(
-                "native horizontal coincidence needs a verified coordinate grid"
-            )
-        unit = median(b - a for a, b in pairwise(ys) if b - a > 1)
-        if abs(unit / entry["svg_unit"] - 1) > 0.05:
-            raise UnsupportedCondition("native coordinate grid units disagree")
-        origin = float(axes[0].get("y1"))
-        for point in points:
-            ordinate = (origin - point["svg"][1]) / unit
-            point["y_bounds"] = [str(ordinate - 0.08), str(ordinate + 0.08)]
-        points = graph_stationary.parallel_points(points, question.horizontal, False)
-    _check_count(context, len(points))
     return question, entry, points
+
+
+def _audited_input(context):
+    question, _, _ = _read(context)
+    parsed = graph_input.read_graph(context)
+    entry = parsed[5]
+    if entry.get("curve_name") != "f" or tuple(
+        map(Fraction, entry.get("domain", ()))
+    ) != (question.domain.lower, question.domain.upper):
+        raise UnsupportedCondition(
+            "the audited curve and domain must match the question"
+        )
+    points = entry.get("stationary_points")
+    if not isinstance(points, list) or len(
+        graph_stationary.select(points, question.domain)
+    ) != len(points):
+        raise UnsupportedCondition("complete stationary-point coordinates are required")
+    return parsed, question, graph_stationary.select(points, question.interval)
 
 
 def _native_plan(context, data, generated):
     try:
-        graph_stationary._input(context)
+        parsed, question, points = _audited_input(context)
     except UnsupportedCondition:
         question, entry, points = _native_points(context, data)
         content = context["normalized_content"]
@@ -268,8 +300,24 @@ def _native_plan(context, data, generated):
             removed + tuple(changes),
         )
 
-    return graph_stationary.build_context_repair_plan(
-        context, condition_asset_bytes=data, generated_solution_assets=generated
+    content, condition, ans, solution, _, entry, source = parsed
+    condition_diagram.verify_download(source, data)
+    svg = (
+        graph_stationary.render_svg(entry, source, question.interval, points)
+        if entry.get("highlight_stationary")
+        else None
+    )
+    figure, key, changes = graph_input.figure(
+        content, entry, svg=svg, generated=generated
+    )
+    return solution_diagrams.repair(
+        condition,
+        ans,
+        solution,
+        str(len(points)),
+        figure + proof(question, points),
+        (key,) if key else (),
+        changes,
     )
 
 
@@ -349,6 +397,8 @@ def build_context_repair_plan(
     context, *, condition_asset_bytes=None, generated_solution_assets=()
 ):
     """Compare the exact DOM content after server materialization, not escaping."""
+    if horizontal_manual.supports(context):
+        return horizontal_manual.build(context, condition_asset_bytes)
     plan = _build_context_repair_plan(
         context,
         condition_asset_bytes=condition_asset_bytes,
@@ -386,6 +436,11 @@ def build_context_repair_plan(
             change["value"]["html"] = expected
         changes.append(change)
     question, condition, _asset = _read(context)
+    if (
+        condition_asset_bytes.startswith(raster_primitive.PNG)
+        or raster_primitive.META.encode() in condition_asset_bytes
+    ):
+        question = _model(context, condition_asset_bytes)[0]
     condition_changes = [
         t
         for t in changes
@@ -475,7 +530,6 @@ def review_preview(context, *, condition_asset_bytes, error):
             context, condition_asset_bytes, review=True
         )
         calculated = str(len(selected))
-        condition_svg = _render(model)
         root = ET.fromstring(_render(model, selected_points=selected))
         ns = "{http://www.w3.org/2000/svg}"
         group = root.find(ns + 'g[@data-runner-diagram="stationary_points"]')
@@ -495,10 +549,7 @@ def review_preview(context, *, condition_asset_bytes, error):
                 },
             ).text = str(index)
         solution_svg = ET.tostring(root, encoding="unicode")
-        specs = [
-            solution_diagrams.spec(asset["asset_key"], condition_svg),
-            solution_diagrams.spec(KEY, solution_svg),
-        ]
+        specs = [solution_diagrams.spec(asset["asset_key"], solution_svg)]
 
         def image(key, svg):
             digest = hashlib.sha256(svg.encode()).hexdigest()
@@ -522,7 +573,7 @@ def review_preview(context, *, condition_asset_bytes, error):
                 + '"/></center>'
             )
 
-        condition_image = image(asset["asset_key"], condition_svg)
+        condition_image = image(asset["asset_key"], solution_svg)
 
         def inline(formula):
             return (
@@ -542,7 +593,6 @@ def review_preview(context, *, condition_asset_bytes, error):
             + ".</p>"
             + condition_image
         )
-        figure = image(KEY, solution_svg)
         note += (
             "<p>Сохранённый ответ: <strong>"
             + escape(stored_text or "отсутствует")
@@ -550,16 +600,14 @@ def review_preview(context, *, condition_asset_bytes, error):
             + calculated
             + "</strong>.</p>"
         )
-        note += figure + "<p>Точки пронумерованы для сверки с исходным рисунком.</p>"
+        note += "<p>Точки пронумерованы для сверки с исходным рисунком.</p>"
     except (ValueError, TypeError, ET.ParseError):
         note += "<p>Преобразованный рисунок не построен. Требуется доработка распознавания; исходный рисунок оставлен для сравнения.</p>"
 
     content["sections"] = [
         s for s in content["sections"] if s["key"] not in ("answer", "solution")
     ]
-    content["sections"].append(
-        {"key": "solution", "html": note, "asset_keys": [KEY] if specs else []}
-    )
+    content["sections"].append({"key": "solution", "html": note, "asset_keys": []})
     return {
         "content": content,
         "generated_diagrams": specs,

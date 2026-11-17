@@ -1,6 +1,7 @@
-import re
 import colorsys
+import re
 from pathlib import Path
+
 from bs4 import BeautifulSoup, Comment
 
 
@@ -87,9 +88,7 @@ def _is_target_group_attrs(g_tag):
         return False
 
 
-_PATH_TOKEN_RE = re.compile(
-    r"[A-Za-z]|[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?"
-)
+_PATH_TOKEN_RE = re.compile(r"[A-Za-z]|[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
 
 
 def _path_anchor_signature(path_data):
@@ -131,21 +130,14 @@ def _is_faint_duplicate_group(g_tag, target_signatures):
     signature = _group_path_signature(g_tag)
     return signature is not None and signature in target_signatures
 
+
 def is_orange(red, green, blue):
 
-    hue, saturation, value = colorsys.rgb_to_hsv(
-        red / 255,
-        green / 255,
-        blue / 255
-    )
+    hue, saturation, value = colorsys.rgb_to_hsv(red / 255, green / 255, blue / 255)
 
     hue = hue * 360
 
-    return (
-        10 <= hue <= 50
-        and saturation >= 0.35
-        and value >= 0.35
-    )
+    return 10 <= hue <= 50 and saturation >= 0.35 and value >= 0.35
 
 
 def replace_hex_color(match, new_color):
@@ -181,26 +173,24 @@ def replace_orange_colors(text, new_color):
         return text
 
     text = re.sub(
-        r"\b(darkorange|orange|orangered)\b",
-        new_color,
-        text,
-        flags=re.IGNORECASE
+        r"\b(darkorange|orange|orangered)\b", new_color, text, flags=re.IGNORECASE
     )
 
     text = re.sub(
         r"#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b",
         lambda match: replace_hex_color(match, new_color),
-        text
+        text,
     )
 
     text = re.sub(
         r"rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)",
         lambda match: replace_rgb_color(match, new_color),
         text,
-        flags=re.IGNORECASE
+        flags=re.IGNORECASE,
     )
 
     return text
+
 
 def restyle(soup, new_color):
     for tag in soup.find_all():
@@ -211,9 +201,7 @@ def restyle(soup, new_color):
                 tag[attribute_name] = new_value
 
         if tag.name == "style" and tag.string:
-            tag.string.replace_with(
-                replace_orange_colors(str(tag.string), new_color)
-            )
+            tag.string.replace_with(replace_orange_colors(str(tag.string), new_color))
     return soup
 
 
@@ -251,7 +239,7 @@ def transform_svg_to_path(svg_source, out_file, new_color="#143B8F", file_id=Non
     comments = soup.find_all(string=lambda text: isinstance(text, Comment))
     removed_comments = len(comments)
     for comment in comments:
-       comment.extract()
+        comment.extract()
 
     soup = restyle(soup, new_color)
 

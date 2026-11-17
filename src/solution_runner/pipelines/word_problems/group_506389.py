@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
-from .common import UnsupportedCondition, decimal_latex, finalize, mixed_latex, require_content
-
+from .common import (
+    UnsupportedCondition,
+    decimal_latex,
+    finalize,
+    mixed_latex,
+    require_content,
+)
 
 RULE = "word-problem-506389-whole-item-purchase"
 _CONDITION = re.compile(

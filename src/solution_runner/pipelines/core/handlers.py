@@ -1,4 +1,5 @@
 """Domain-neutral input and explicit adapters for existing pure planners."""
+
 from dataclasses import dataclass, fields
 from importlib import import_module
 from inspect import signature
@@ -52,7 +53,7 @@ class HandlerSpec:
     review_builder: str | None = None
 
     def __post_init__(self):
-        if not self.key or ':' not in self.target:
+        if not self.key or ":" not in self.target:
             raise ValueError("handler needs an explicit key and module:function")
         allowed = {f.name for f in fields(PlanInput)} - {"context"}
         if any(source not in allowed for _, source in self.inputs):
@@ -62,15 +63,17 @@ class HandlerSpec:
             raise ValueError(f"duplicate planner argument for {self.key}")
 
     def resolve(self):
-        module, name = self.target.split(':', 1)
+        module, name = self.target.split(":", 1)
         planner = getattr(import_module(module), name)
         if not callable(planner):
             raise TypeError(f"planner is not callable: {self.target}")
         return planner
 
     def arguments(self, value: PlanInput) -> dict[str, Any]:
-        return {**{name: getattr(value, source) for name, source in self.inputs},
-                **dict(self.options)}
+        return {
+            **{name: getattr(value, source) for name, source in self.inputs},
+            **dict(self.options),
+        }
 
     def validate(self) -> None:
         """Check declaration wiring without reading a problem or invoking math."""
@@ -79,7 +82,8 @@ class HandlerSpec:
             module, name = self.diagram_builder.split(":", 1)
             kwargs = (
                 {"condition_asset_bytes": None}
-                if self.diagram_builder_uses_condition_bytes else {}
+                if self.diagram_builder_uses_condition_bytes
+                else {}
             )
             signature(getattr(import_module(module), name)).bind({}, **kwargs)
         if self.manifest_validator:
@@ -113,12 +117,21 @@ class HandlerSpec:
             return ()
         module, name = self.asset_selector.split(":", 1)
         raw = getattr(import_module(module), name)(context)
-        if not isinstance(raw, (list, tuple)) or not all(isinstance(item, dict) for item in raw):
-            raise TypeError(f"asset selector returned an invalid requirement list: {self.key}")
+        if not isinstance(raw, (list, tuple)) or not all(
+            isinstance(item, dict) for item in raw
+        ):
+            raise TypeError(
+                f"asset selector returned an invalid requirement list: {self.key}"
+            )
         required = {"source_asset_id", "section_id", "alt_text"}
-        if any(set(item) != required or not all(isinstance(item[key], str) and item[key] for key in required)
-               for item in raw):
-            raise ValueError(f"asset selector returned an invalid requirement: {self.key}")
+        if any(
+            set(item) != required
+            or not all(isinstance(item[key], str) and item[key] for key in required)
+            for item in raw
+        ):
+            raise ValueError(
+                f"asset selector returned an invalid requirement: {self.key}"
+            )
         return tuple({key: str(item[key]) for key in required} for item in raw)
 
     def validate_manifest(self, gateway, manifest) -> None:
@@ -132,14 +145,18 @@ class HandlerSpec:
         """Build deterministic diagrams without transport or persistent side effects."""
         if not self.diagram_builder:
             return ()
-        module, name = self.diagram_builder.split(':', 1)
+        module, name = self.diagram_builder.split(":", 1)
         kwargs = (
             {"condition_asset_bytes": condition_asset_bytes}
-            if self.diagram_builder_uses_condition_bytes else {}
+            if self.diagram_builder_uses_condition_bytes
+            else {}
         )
         specs = tuple(getattr(import_module(module), name)(context, **kwargs))
-        if any(set(spec) != {"asset_key", "svg_text", "sha256"} or
-               not all(isinstance(value, str) and value for value in spec.values()) for spec in specs):
+        if any(
+            set(spec) != {"asset_key", "svg_text", "sha256"}
+            or not all(isinstance(value, str) and value for value in spec.values())
+            for spec in specs
+        ):
             raise ValueError("invalid deterministic diagram specification")
         if len({spec["asset_key"] for spec in specs}) != len(specs):
             raise ValueError("duplicate generated diagram asset key")

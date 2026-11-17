@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
-from fractions import Fraction
 import hashlib
 import json
+from dataclasses import asdict, dataclass
+from fractions import Fraction
 from pathlib import Path
 
 from ..core.models import PreparedFigure, PreparedGridPolygon, PreparedGridRing
@@ -34,7 +34,9 @@ def _record_payload(record: PreparedFigure, *, run_dir: Path) -> dict[str, objec
     try:
         relative = resolved.relative_to(run_dir.resolve())
     except ValueError as exc:
-        raise ManifestDriftError("prepared artifact is outside manifest run directory") from exc
+        raise ManifestDriftError(
+            "prepared artifact is outside manifest run directory"
+        ) from exc
     payload: dict[str, object] = {
         "problem_id": record.problem_id,
         "source_problem_id": record.source_problem_id,
@@ -133,7 +135,9 @@ def read_prepared_manifest(
         positions = {
             problem_id: index for index, problem_id in enumerate(expected_target_ids)
         }
-        actual_positions = [positions.get(problem_id, -1) for problem_id in actual_target_ids]
+        actual_positions = [
+            positions.get(problem_id, -1) for problem_id in actual_target_ids
+        ]
         if (
             len(positions) != len(expected_target_ids)
             or len(set(actual_target_ids)) != len(actual_target_ids)
@@ -157,7 +161,9 @@ def read_prepared_manifest(
         try:
             artifact.relative_to(path.parent.resolve())
         except ValueError as exc:
-            raise ManifestDriftError("prepared manifest artifact escapes run directory") from exc
+            raise ManifestDriftError(
+                "prepared manifest artifact escapes run directory"
+            ) from exc
         if not artifact.is_file():
             raise ManifestDriftError("prepared manifest artifact is missing")
         digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
@@ -174,15 +180,23 @@ def read_prepared_manifest(
                 inner_point = tuple(int(value) for value in raw["inner_point"])
                 outer_squared = int(raw["outer_radius_squared"])
                 inner_squared = int(raw["inner_radius_squared"])
-                inner_center = tuple(int(value) for value in raw.get("inner_center", center))
+                inner_center = tuple(
+                    int(value) for value in raw.get("inner_center", center)
+                )
                 alignment = str(raw.get("ring_alignment") or "concentric")
                 known_circle_area = raw.get("known_circle_area")
                 raw_given_area = raw.get("given_circle_area")
                 given_circle_area = (
-                    Fraction(str(raw_given_area)) if raw_given_area is not None else None
+                    Fraction(str(raw_given_area))
+                    if raw_given_area is not None
+                    else None
                 )
                 if not (
-                    len(center) == len(inner_center) == len(outer_point) == len(inner_point) == 2
+                    len(center)
+                    == len(inner_center)
+                    == len(outer_point)
+                    == len(inner_point)
+                    == 2
                     and 0 < inner_squared < outer_squared
                     and alignment in {"concentric", "offset"}
                     and known_circle_area in {None, "inner", "outer"}
@@ -208,7 +222,9 @@ def read_prepared_manifest(
                     given_circle_area=given_circle_area,
                 )
             except (KeyError, TypeError, ValueError, IndexError) as exc:
-                raise ManifestDriftError("prepared manifest ring geometry is invalid") from exc
+                raise ManifestDriftError(
+                    "prepared manifest ring geometry is invalid"
+                ) from exc
         elif geometry_kind == "polygon":
             try:
                 coordinates = tuple(
@@ -216,20 +232,34 @@ def read_prepared_manifest(
                 )
                 vertex_count = int(raw["vertex_count"])
             except (KeyError, TypeError, ValueError, IndexError) as exc:
-                raise ManifestDriftError("prepared manifest coordinates are invalid") from exc
-            if len(coordinates) != vertex_count or len(set(coordinates)) != vertex_count:
+                raise ManifestDriftError(
+                    "prepared manifest coordinates are invalid"
+                ) from exc
+            if (
+                len(coordinates) != vertex_count
+                or len(set(coordinates)) != vertex_count
+            ):
                 raise ManifestDriftError("prepared manifest coordinates drifted")
             try:
                 raw_ordered = raw.get("ordered_coordinates")
                 ordered_coordinates = (
                     tuple((int(point[0]), int(point[1])) for point in raw_ordered)
                     if raw_ordered is not None
-                    else ordered_coordinates_from_svg(artifact.read_bytes(), coordinates)
+                    else ordered_coordinates_from_svg(
+                        artifact.read_bytes(), coordinates
+                    )
                 )
             except (TypeError, ValueError, IndexError, GridPolygonError) as exc:
-                raise ManifestDriftError("prepared manifest ordered coordinates are invalid") from exc
-            if len(ordered_coordinates) != vertex_count or len(set(ordered_coordinates)) != vertex_count:
-                raise ManifestDriftError("prepared manifest ordered coordinates drifted")
+                raise ManifestDriftError(
+                    "prepared manifest ordered coordinates are invalid"
+                ) from exc
+            if (
+                len(ordered_coordinates) != vertex_count
+                or len(set(ordered_coordinates)) != vertex_count
+            ):
+                raise ManifestDriftError(
+                    "prepared manifest ordered coordinates drifted"
+                )
             try:
                 record = PreparedGridPolygon(
                     problem_id=str(raw["problem_id"]),
@@ -244,7 +274,9 @@ def read_prepared_manifest(
                     ordered_coordinates=ordered_coordinates,
                 )
             except KeyError as exc:
-                raise ManifestDriftError("prepared manifest identity is incomplete") from exc
+                raise ManifestDriftError(
+                    "prepared manifest identity is incomplete"
+                ) from exc
         else:
             raise ManifestDriftError("prepared manifest geometry kind is unsupported")
         records.append(record)

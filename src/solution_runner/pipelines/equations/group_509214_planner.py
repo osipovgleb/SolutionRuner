@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
 from bs4 import BeautifulSoup
@@ -15,7 +15,6 @@ from solution_runner.pipelines.core.numbers import (
     terminating_decimal_places,
 )
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
-
 
 RULE = "elementary-equations-509214-linear-equation"
 
@@ -126,8 +125,14 @@ def _expand_side(side: str) -> tuple[int, int, str]:
         parenthesized = _PARENTHESIZED_TERM.match(side, position)
         if parenthesized is not None:
             inner_terms = _simple_terms(parenthesized.group("inner"))
-            if len(inner_terms) != 2 or not any(term[0] for term in inner_terms) or not any(term[1] for term in inner_terms):
-                raise UnsupportedCondition("parentheses must contain one integer and one x-term")
+            if (
+                len(inner_terms) != 2
+                or not any(term[0] for term in inner_terms)
+                or not any(term[1] for term in inner_terms)
+            ):
+                raise UnsupportedCondition(
+                    "parentheses must contain one integer and one x-term"
+                )
             multiplier = int(parenthesized.group("multiplier"))
             for inner_constant, inner_coefficient in inner_terms:
                 expanded_constant = multiplier * inner_constant
@@ -263,12 +268,11 @@ def _build_plan(formula: str) -> RepairPlan:
     solution = (
         f"<p>{_SOLUTION_INTRO}</p>"
         f'<center><p><span data-inline-latex="{formula}'
-        f'{f"\\iff {expanded}" if expanded is not None else ""}\\iff {moved}\\iff '
+        f"{f'\\iff {expanded}' if expanded is not None else ''}\\iff {moved}\\iff "
         f'{collected}\\iff {terminal_steps}"></span>.</p></center>'
     )
     condition = (
-        f'<p>{_CONDITION_INTRO} '
-        f'<span data-inline-latex="{formula}"></span>.</p>'
+        f'<p>{_CONDITION_INTRO} <span data-inline-latex="{formula}"></span>.</p>'
     )
     return RepairPlan(
         answer=answer,

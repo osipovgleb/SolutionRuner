@@ -1,0 +1,6 @@
+rules:
+  - name: pipelines-must-not-import-dashboard
+    type: forbid_import_from_path
+    from: "src/solution_runner/pipelines/**"
+    forbid: "solution_runner.dashboard**"
+    severity: error

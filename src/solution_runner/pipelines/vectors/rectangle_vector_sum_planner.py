@@ -16,7 +16,6 @@ from ..triangles.isosceles.planner import (
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
 from .planner import _asset_transformation, _condition_asset_state
 
-
 RULE = "vector-27708-rectangle-vector-sum-length"
 PARENT_PROBLEM_ID = "a5911e86-63f8-4612-93d9-8751707fe3aa"
 CONDITION_ASSET_ID = "83e55258-af58-415f-8b8b-0dd18e7c596c"
@@ -59,8 +58,7 @@ def _condition_text(
             or image.get("data-asset-key") != "image_1"
             or image.get("data-asset-id") != expected_current_asset_id
             or image.get("src") != f"/assets/{expected_current_asset_id}"
-            or image.get("data-transformation-target-id")
-            not in (None, "asset:image_1")
+            or image.get("data-transformation-target-id") not in (None, "asset:image_1")
             or set(image.attrs)
             - {
                 "alt",
@@ -97,7 +95,9 @@ def _condition_text(
     if tuple(tag.get("data-inline-latex") for tag in formulas) != expected:
         raise RightTrianglePlanError("condition vector expressions are unsupported")
     if any(tag.get_text("", strip=True) for tag in formulas):
-        raise RightTrianglePlanError("condition vector formula has conflicting fallback")
+        raise RightTrianglePlanError(
+            "condition vector formula has conflicting fallback"
+        )
     for tag, formula in zip(formulas, expected, strict=True):
         tag.replace_with(formula)
     text = soup.get_text(" ", strip=True).replace("\u00ad", "").replace("\u202f", " ")
@@ -117,14 +117,14 @@ def _solution_html(a: int, b: int, answer: int) -> str:
     square_sum = a * a + b * b
     formula = rf"AC=\sqrt{{{a}^{{2}}+{b}^{{2}}}}=\sqrt{{{square_sum}}}={answer}"
     return (
-        '<p>Сумма век­то­ров  '
+        "<p>Сумма век­то­ров  "
         '<span data-inline-latex="\\overrightarrow{AB}"></span> и  '
         '<span data-inline-latex="\\overrightarrow{AD}"></span> равна век­то­ру  '
         '<span data-inline-latex="\\overrightarrow{AC}"></span>. Век­тор  '
         '<span data-inline-latex="\\overrightarrow{AC}"></span> делит '
-        'пря­мо­уголь­ник на два пря­мо­уголь­ных тре­уголь­ни­ка. '
-        'Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p>'
-        '<center><p> '
+        "пря­мо­уголь­ник на два пря­мо­уголь­ных тре­уголь­ни­ка. "
+        "Сле­до­ва­тель­но, по тео­ре­ме Пи­фа­го­ра по­лу­ча­ем:</p>"
+        "<center><p> "
         f'<span data-inline-latex="{formula}"></span>.</p></center>'
     )
 
@@ -170,7 +170,9 @@ def build_repair_plan(
     square_sum = a * a + b * b
     answer = math.isqrt(square_sum)
     if answer * answer != square_sum:
-        raise RightTrianglePlanError("side lengths do not produce a supported exact answer")
+        raise RightTrianglePlanError(
+            "side lengths do not produce a supported exact answer"
+        )
     expected_solution = _solution_html(a, b, answer)
 
     changes: list[dict[str, Any]] = []
@@ -184,9 +186,7 @@ def build_repair_plan(
         )
     if solution is None or str(solution.get("html") or "") != expected_solution:
         changes.append(
-            _section_transformation(
-                solution, "solution", "Решение", expected_solution
-            )
+            _section_transformation(solution, "solution", "Решение", expected_solution)
         )
     if not _answer_matches(answer_section, answer):
         changes.append(

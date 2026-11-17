@@ -23,7 +23,11 @@ CASES = DATA["cases"]
 def test_live_registration_reuses_one_derivative_graph_family(group):
     profile = get_group_profile(group["key"])
     assert profile.source_group_id == group["uuid"]
-    assert profile.content_rule_key == "calculus-graph-derivative-level"
+    assert profile.content_rule_key == (
+        "calculus-raster-derivative-level"
+        if group["key"] == "27501"
+        else "calculus-graph-derivative-level"
+    )
     assert profile.snapshot_theme_id == group["theme_uuid"]
     assert profile.group_order_index == group["order"]
 
@@ -45,6 +49,10 @@ def test_source_answers_assets_and_idempotence_are_independent(case):
     assert all(
         t["transformation_target_id"].startswith(
             ("section:answer", "section:solution", "asset:")
+        )
+        or (
+            case["group"] == "27501"
+            and t["transformation_target_id"].startswith("section:condition")
         )
         for t in first.transformations
     )

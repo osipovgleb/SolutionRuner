@@ -5,12 +5,17 @@ from __future__ import annotations
 from dataclasses import replace
 
 from ..geometry.quadrilateral import convex_hull
-from ..models import GeometryAnalysis, GroupProfile, PreparedGridPolygon, SolutionDiagramSpec
+from ..models import (
+    GeometryAnalysis,
+    GroupProfile,
+    PreparedGridPolygon,
+    SolutionDiagramSpec,
+)
+from .bounding_rectangle_quadrilateral import BoundingRectangleQuadrilateralStrategy
 from .bounding_rectangle_triangle import (
     BoundingRectangleTriangleStrategy,
     _analyze_complement,
 )
-from .bounding_rectangle_quadrilateral import BoundingRectangleQuadrilateralStrategy
 from .protocol import centered_formula_html, format_number
 
 
@@ -37,8 +42,7 @@ class BoundingRectangleTrapezoidStrategy(BoundingRectangleTriangleStrategy):
             for index in range(4)
         ]
         parallel_pairs = sum(
-            edges[first][0] * edges[second][1]
-            == edges[first][1] * edges[second][0]
+            edges[first][0] * edges[second][1] == edges[first][1] * edges[second][0]
             for first, second in ((0, 2), (1, 3))
         )
         if parallel_pairs != 1:

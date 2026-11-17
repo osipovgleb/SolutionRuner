@@ -7,15 +7,18 @@ plain ``<p>`` markup pass the template gate.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from fractions import Fraction
-import re
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from solution_runner.pipelines.core.numbers import NumberFormatError, format_answer, parse_rational
-
+from solution_runner.pipelines.core.numbers import (
+    NumberFormatError,
+    format_answer,
+    parse_rational,
+)
 
 RULE = "word-problem-77334-currency-purchase-rounding"
 
@@ -46,7 +49,8 @@ class RepairPlan:
 
 def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
     matches = [
-        section for section in content.get("sections", [])
+        section
+        for section in content.get("sections", [])
         if isinstance(section, dict) and section.get("key") == key
     ]
     if len(matches) > 1:
@@ -54,7 +58,9 @@ def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
     return matches[0] if matches else None
 
 
-def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) -> dict[str, Any]:
+def _rewrite(
+    section: dict[str, Any] | None, key: str, title: str, html: str
+) -> dict[str, Any]:
     target = str((section or {}).get("transformation_target_id") or "")
     if not target:
         target = f"section:{key}"
@@ -85,7 +91,9 @@ def _parse_condition(condition_html: str) -> tuple[int, int, int, int]:
         raise UnsupportedCondition("condition does not match group 77334 template")
     weights = _WEIGHT.findall(match.group("purchase"))
     if len(weights) != 1:
-        raise UnsupportedCondition("purchase must contain exactly one mass in kilograms")
+        raise UnsupportedCondition(
+            "purchase must contain exactly one mass in kilograms"
+        )
     return (
         int(match.group("rubles")),
         int(match.group("kopecks")),
@@ -108,7 +116,9 @@ def _latex_number(value: Fraction) -> str:
 def _answer_matches(section: dict[str, Any] | None, expected: str) -> bool:
     if section is None:
         return False
-    visible = BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text("", strip=True)
+    visible = BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text(
+        "", strip=True
+    )
     try:
         return parse_rational(visible) == parse_rational(expected)
     except (NumberFormatError, ValueError):
@@ -119,16 +129,24 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     """Build the minimal answer/solution repair after strict template validation."""
 
     content = context.get("normalized_content")
-    if not isinstance(content, dict) or content.get("format") != "teacherhelper-normalized" or content.get("schema_version") != 3:
+    if (
+        not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+    ):
         raise UnsupportedCondition("schema-v3 normalized content is required")
     if content.get("assets") not in (None, []):
         raise UnsupportedCondition("group 77334 does not allow condition assets")
 
-    condition, answer, solution = (_section(content, key) for key in ("condition", "answer", "solution"))
+    condition, answer, solution = (
+        _section(content, key) for key in ("condition", "answer", "solution")
+    )
     if condition is None or tuple(condition.get("asset_keys") or ()):
         raise UnsupportedCondition("canonical condition without assets is required")
 
-    rubles, kopecks, kilograms, price = _parse_condition(str(condition.get("html") or ""))
+    rubles, kopecks, kilograms, price = _parse_condition(
+        str(condition.get("html") or "")
+    )
     rate = Fraction(rubles * 100 + kopecks, 100)
     hryvnias = kilograms * price
     amount = hryvnias * rate
@@ -146,7 +164,9 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     if solution is None or str(solution.get("html") or "") != solution_html:
         transformations.append(_rewrite(solution, "solution", "Решение", solution_html))
     if not _answer_matches(answer, rendered_answer):
-        transformations.append(_rewrite(answer, "answer", "Ответ", f"<p>{rendered_answer}</p>"))
+        transformations.append(
+            _rewrite(answer, "answer", "Ответ", f"<p>{rendered_answer}</p>")
+        )
     return RepairPlan(
         answer=rendered_answer,
         condition_html=str(condition.get("html") or ""),

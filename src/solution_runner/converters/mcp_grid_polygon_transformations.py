@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import ast
-from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import importlib.util
 import io
@@ -16,17 +15,18 @@ import threading
 import time
 import xml.etree.ElementTree as ET
 from collections import Counter
+from collections.abc import Callable, Iterator, Sequence
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime
 from functools import partial
 from pathlib import Path
-from typing import Any, Callable, Iterable, Iterator, Sequence, TypeVar
+from typing import Any, TypeVar
 from urllib.parse import urljoin
 from uuid import UUID
 
 import httpx
 from PIL import Image
-
 
 DEFAULT_MCP_URL = "https://lessons-helper.ru/mcp"
 DEFAULT_CATALOG_SNAPSHOT_ID = "4073fc7b-2056-4697-b18b-38741c94d0f4"
@@ -91,9 +91,7 @@ FIXED_SOURCE_GROUPS = {
         ("3e818284-d58c-43a6-b7b4-c21a48e5a425", "27549"),
         ("a3e9590e-400a-4e2e-9fcc-a4ddc94e53ab", "244982"),
     ),
-    "Ромб": (
-        ("c7fb645b-bb12-48f9-86c9-de6bd980389e", "244983"),
-    ),
+    "Ромб": (("c7fb645b-bb12-48f9-86c9-de6bd980389e", "244983"),),
     "Произвольный четырехугольник": (
         ("0efa9c9d-8b0a-4eda-8f91-3bab53034f85", "27553"),
         ("8692d319-27c2-4e8b-994a-6efa20a7adac", "27554"),
@@ -499,13 +497,17 @@ class EventLogger:
             batch = int(fields.get("batch") or 0)
             tasks = int(fields.get("tasks") or 0)
             message = f"ПАКЕТ {batch}  ЗАДАЧ {tasks}"
-            print(f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_BLUE)}", flush=True)
+            print(
+                f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_BLUE)}", flush=True
+            )
             return
         if event == "worker_pool_start":
             tasks = int(fields.get("tasks") or 0)
             workers = int(fields.get("max_workers") or 0)
             message = f"ОКНО ЗАПУЩЕНО  ЗАДАЧ {tasks}  ПАРАЛЛЕЛЬНО {workers}"
-            print(f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_BLUE)}", flush=True)
+            print(
+                f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_BLUE)}", flush=True
+            )
             return
         if event == "batch_complete":
             batch = int(fields.get("batch") or 0)
@@ -519,12 +521,16 @@ class EventLogger:
                     f"ПАКЕТ {batch} ЗАВЕРШЁН  "
                     f"ПЕРЕФОРМАТИРОВАНО {prepared}  ПРИМЕНЕНО {replaced}"
                 )
-            print(f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_GREEN)}", flush=True)
+            print(
+                f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_GREEN)}", flush=True
+            )
             return
         if event == "batch_pause":
             seconds = fields.get("seconds") or 0
             message = f"ПАУЗА {seconds} СЕК."
-            print(f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_YELLOW)}", flush=True)
+            print(
+                f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_YELLOW)}", flush=True
+            )
             return
         if event == "run_complete":
             status = str(fields.get("status") or "completed")
@@ -532,8 +538,7 @@ class EventLogger:
                 rolled_back = int(fields.get("assets_rolled_back") or 0)
                 errors = int(fields.get("asset_errors") or 0)
                 message = (
-                    f"ROLLBACK ГОТОВ  {status}  ОТКАЧЕНО {rolled_back}  "
-                    f"ОШИБОК {errors}"
+                    f"ROLLBACK ГОТОВ  {status}  ОТКАЧЕНО {rolled_back}  ОШИБОК {errors}"
                 )
                 print(
                     f"{prefix}  {self._paint(message, ANSI_BOLD + ANSI_BRIGHT_GREEN)}",
@@ -757,7 +762,9 @@ def _validate_startup(client: McpClient, *, mode: str, logger: EventLogger) -> s
 
     writes = mode in {"apply", "rollback"}
     info = client.call("mcp_server_info", attempts=3)
-    scopes = {str(scope) for scope in info.get("effective_scopes", info.get("scopes", []))}
+    scopes = {
+        str(scope) for scope in info.get("effective_scopes", info.get("scopes", []))
+    }
     required_scopes = {"source_content:read", "source_groups:read"}
     if writes:
         required_scopes.add("source_content:write")
@@ -818,7 +825,9 @@ def discover_catalog_scope(
     for requested_title in theme_titles:
         config = FIXED_THEME_CONFIG.get(requested_title)
         if config is None:
-            raise PipelineError(f"no fixed UUID configuration for theme {requested_title!r}")
+            raise PipelineError(
+                f"no fixed UUID configuration for theme {requested_title!r}"
+            )
         theme = ThemeScope(
             title=requested_title,
             snapshot_theme_id=str(config["snapshot_theme_id"]),
@@ -839,9 +848,13 @@ def discover_catalog_scope(
         seen_group_keys: set[str] = set()
         for order_index, (group_id, group_key) in enumerate(configured_groups):
             if not group_id or group_id in all_group_ids:
-                raise PipelineError(f"theme {theme.title!r} has a missing/duplicate group id")
+                raise PipelineError(
+                    f"theme {theme.title!r} has a missing/duplicate group id"
+                )
             if not group_key or group_key in seen_group_keys:
-                raise PipelineError(f"theme {theme.title!r} has a missing/duplicate group key")
+                raise PipelineError(
+                    f"theme {theme.title!r} has a missing/duplicate group key"
+                )
             all_group_ids.add(group_id)
             seen_group_keys.add(group_key)
             groups.append(
@@ -852,7 +865,8 @@ def discover_catalog_scope(
                 )
             )
         selected_groups = [
-            group for group in groups
+            group
+            for group in groups
             if not requested_group_keys or group.group_key in requested_group_keys
         ]
         if not selected_groups:
@@ -886,7 +900,9 @@ def _load_group_targets(
 
     del catalog_snapshot_id
     ordered_source_problem_ids = list(
-        dict.fromkeys(str(value).strip() for value in source_problem_ids if str(value).strip())
+        dict.fromkeys(
+            str(value).strip() for value in source_problem_ids if str(value).strip()
+        )
     )
     targets_by_source_problem_id: dict[str, dict[str, Any]] = {}
     children = client.call(
@@ -904,7 +920,9 @@ def _load_group_targets(
             raise PipelineError("group child has no canonical problem UUID/source id")
         source_problem_id = name[len(prefix) :].strip()
         if not source_problem_id or source_problem_id in children_by_source_problem_id:
-            raise PipelineError("group children contain a missing/duplicate source problem id")
+            raise PipelineError(
+                "group children contain a missing/duplicate source problem id"
+            )
         children_by_source_problem_id[source_problem_id] = (order_index, problem_id)
 
     for source_problem_id in ordered_source_problem_ids:
@@ -915,9 +933,7 @@ def _load_group_targets(
         state = client.call("get_problem_pipeline_state", {"problem_id": problem_id})
         statuses = state.get("statuses")
         normalized_status = (
-            str(statuses.get("normalized") or "")
-            if isinstance(statuses, dict)
-            else ""
+            str(statuses.get("normalized") or "") if isinstance(statuses, dict) else ""
         )
         targets_by_source_problem_id[source_problem_id] = {
             "source_group_id": group.source_group_id,
@@ -957,7 +973,9 @@ def build_group_inventory(
     try:
         concrete_problem_count = int(images_payload["concrete_problem_count"])
     except (KeyError, TypeError, ValueError) as exc:
-        raise PipelineError("section-image response has no concrete problem count") from exc
+        raise PipelineError(
+            "section-image response has no concrete problem count"
+        ) from exc
     if concrete_problem_count < 0:
         raise PipelineError("section-image response has a negative problem count")
 
@@ -974,7 +992,9 @@ def build_group_inventory(
                 continue
             source_problem_id = str(problem.get("source_problem_id") or "")
             if not source_problem_id:
-                raise PipelineError("section-image response contains an empty source problem id")
+                raise PipelineError(
+                    "section-image response contains an empty source problem id"
+                )
             bucket = images_by_source_problem.setdefault(source_problem_id, {})
             for image in problem.get("images", []):
                 if not isinstance(image, dict):
@@ -1142,9 +1162,16 @@ def refresh_candidate(client: McpClient, candidate: AssetCandidate) -> Refreshed
         raise CandidateStale("replacement context has no current_asset")
     if str(current_asset.get("asset_key") or "") != candidate.asset_key:
         raise CandidateStale("replacement context resolved another asset_key")
-    replacement_content_type = _normalized_content_type(current_asset.get("content_type"))
-    if replacement_content_type and replacement_content_type not in RASTER_CONTENT_TYPES:
-        raise CandidateStale("replacement context no longer points to a supported raster")
+    replacement_content_type = _normalized_content_type(
+        current_asset.get("content_type")
+    )
+    if (
+        replacement_content_type
+        and replacement_content_type not in RASTER_CONTENT_TYPES
+    ):
+        raise CandidateStale(
+            "replacement context no longer points to a supported raster"
+        )
     if str(replacement_context.get("transformation_target_id") or "") != target_id:
         raise CandidateStale("replacement target changed during re-read")
     return RefreshedAsset(
@@ -1163,7 +1190,9 @@ def _transfer_get(contract: dict[str, Any], *, timeout_seconds: float) -> bytes:
     headers = contract.get("headers")
     if not url or not isinstance(headers, dict):
         raise PipelineError("download contract is incomplete")
-    with httpx.Client(timeout=httpx.Timeout(timeout_seconds), follow_redirects=False) as client:
+    with httpx.Client(
+        timeout=httpx.Timeout(timeout_seconds), follow_redirects=False
+    ) as client:
         response = client.get(url, headers={str(k): str(v) for k, v in headers.items()})
         response.raise_for_status()
         return response.content
@@ -1180,7 +1209,9 @@ def _transfer_put(
     headers = contract.get("headers")
     if not url or not isinstance(headers, dict) or not headers:
         raise PipelineError("upload contract is incomplete")
-    with httpx.Client(timeout=httpx.Timeout(timeout_seconds), follow_redirects=False) as client:
+    with httpx.Client(
+        timeout=httpx.Timeout(timeout_seconds), follow_redirects=False
+    ) as client:
         response = client.put(
             url,
             headers={str(k): str(v) for k, v in headers.items()},
@@ -1203,7 +1234,9 @@ def _validate_png(data: bytes, contract: dict[str, Any]) -> tuple[str, tuple[int
     elif data.startswith(b"BM"):
         expected_format = "BMP"
     else:
-        raise CandidateRejected("downloaded bytes are not a supported PNG/JPEG/BMP raster")
+        raise CandidateRejected(
+            "downloaded bytes are not a supported PNG/JPEG/BMP raster"
+        )
     digest = _sha256_bytes(data)
     expected_digest = str(contract.get("sha256") or "").lower()
     if expected_digest and digest != expected_digest:
@@ -1232,7 +1265,9 @@ def _validate_png(data: bytes, contract: dict[str, Any]) -> tuple[str, tuple[int
 def _load_converter(converter_path: Path) -> Any:
     """Load the exact converter file selected for this process."""
 
-    spec = importlib.util.spec_from_file_location("grid_png_converter_locked", converter_path)
+    spec = importlib.util.spec_from_file_location(
+        "grid_png_converter_locked", converter_path
+    )
     if spec is None or spec.loader is None:
         raise PipelineError(f"cannot import converter: {converter_path}")
     module = importlib.util.module_from_spec(spec)
@@ -1267,12 +1302,15 @@ def _parse_diagnostics(path: Path) -> dict[str, Any]:
 def _polygon_area(points: Sequence[tuple[float, float]]) -> float:
     """Return the absolute shoelace area of one simple polygon."""
 
-    return abs(
-        sum(
-            x1 * y2 - x2 * y1
-            for (x1, y1), (x2, y2) in zip(points, (*points[1:], points[0]))
+    return (
+        abs(
+            sum(
+                x1 * y2 - x2 * y1
+                for (x1, y1), (x2, y2) in zip(points, (*points[1:], points[0]))
+            )
         )
-    ) / 2.0
+        / 2.0
+    )
 
 
 def _validate_diagnostics(
@@ -1309,7 +1347,9 @@ def _validate_diagnostics(
         raise CandidateRejected("detected grid step is not positive")
     step_ratio = max(x_step, y_step) / min(x_step, y_step)
     if step_ratio > 1.18:
-        raise CandidateRejected(f"square-grid step ratio is too large: {step_ratio:.4f}")
+        raise CandidateRejected(
+            f"square-grid step ratio is too large: {step_ratio:.4f}"
+        )
 
     before = diagnostics["source_quad_before_snap"]
     snapped = diagnostics["source_quad_on_alpha_grid"]
@@ -1328,7 +1368,9 @@ def _validate_diagnostics(
     if not isinstance(grid_indices_raw, (list, tuple)):
         raise CandidateRejected("grid_indices is not a list")
     grid_indices = [tuple(map(int, point)) for point in grid_indices_raw]
-    if len(grid_indices) != expected_vertices or len(set(grid_indices)) != len(grid_indices):
+    if len(grid_indices) != expected_vertices or len(set(grid_indices)) != len(
+        grid_indices
+    ):
         raise CandidateRejected("ordered grid polygon has invalid vertices")
     area = _polygon_area(grid_indices)
     if area <= 0:
@@ -1411,9 +1453,7 @@ def _validate_svg(data: bytes, *, expected_vertices: int) -> None:
 def _canonical_asset_key(output_sha256: str, converter_fingerprint: str) -> str:
     """Return a deterministic reusable source-asset key for exact SVG bytes."""
 
-    return (
-        f"{CONVERTER_PROFILE}-{converter_fingerprint[:12]}-{output_sha256[:48]}"
-    )
+    return f"{CONVERTER_PROFILE}-{converter_fingerprint[:12]}-{output_sha256[:48]}"
 
 
 def _polygon_alt_text(validation: dict[str, Any]) -> str:
@@ -1587,7 +1627,10 @@ def verify_first_deterministic_render(
     )
     if check_svg.read_bytes() != prepared.svg_path.read_bytes():
         raise PipelineError("converter produced different SVG bytes for the same PNG")
-    if check_svg.with_suffix(".txt").read_bytes() != prepared.diagnostic_path.read_bytes():
+    if (
+        check_svg.with_suffix(".txt").read_bytes()
+        != prepared.diagnostic_path.read_bytes()
+    ):
         raise PipelineError("converter produced different diagnostics for the same PNG")
 
 
@@ -1699,7 +1742,10 @@ def apply_prepared_asset(
     if readback_asset_id != source_asset_id:
         raise PipelineError("replacement readback points to another asset_id")
     readback_metadata = client.call("get_asset", {"asset_id": readback_asset_id})
-    if _normalized_content_type(readback_metadata.get("content_type")) != SVG_CONTENT_TYPE:
+    if (
+        _normalized_content_type(readback_metadata.get("content_type"))
+        != SVG_CONTENT_TYPE
+    ):
         raise PipelineError("replacement readback is not SVG")
     if str(readback_metadata.get("sha256") or "").lower() != prepared.output_sha256:
         raise PipelineError("replacement readback sha256 differs from uploaded SVG")
@@ -1897,7 +1943,11 @@ def _problem_batches(
             by_problem[candidate.problem_id] = []
         by_problem[candidate.problem_id].append(candidate)
     for problem_chunk in _chunks(order, batch_size):
-        yield [candidate for problem_id in problem_chunk for candidate in by_problem[problem_id]]
+        yield [
+            candidate
+            for problem_id in problem_chunk
+            for candidate in by_problem[problem_id]
+        ]
 
 
 def _assert_locked_inputs(
@@ -2025,7 +2075,9 @@ def build_run_worklist(
         "converter_sha256": converter_fingerprint,
         "template_sha256": template_fingerprint,
         "group_count": len(inventory_by_group),
-        "problem_count": len({candidate.problem_id for candidate in ordered_candidates}),
+        "problem_count": len(
+            {candidate.problem_id for candidate in ordered_candidates}
+        ),
         "target_count": len(ordered_candidates),
         "worklist_sha256": _sha256_bytes(worklist_basis),
         "targets": target_payloads,
@@ -2161,7 +2213,9 @@ def _load_validated_worklist(
             or not str(raw_target[field_name]).strip()
             for field_name in string_fields
         ):
-            raise PipelineError(f"source worklist target {position} has invalid strings")
+            raise PipelineError(
+                f"source worklist target {position} has invalid strings"
+            )
         for field_name in (
             "theme_order_index",
             "group_order_index",
@@ -2180,7 +2234,9 @@ def _load_validated_worklist(
             or not sections
             or any(section not in {"condition", "solution"} for section in sections)
         ):
-            raise PipelineError(f"source worklist target {position} has invalid sections")
+            raise PipelineError(
+                f"source worklist target {position} has invalid sections"
+            )
         candidate_payload = dict(raw_target)
         candidate_payload["sections"] = tuple(sections)
         candidate = AssetCandidate(**candidate_payload)
@@ -2230,7 +2286,9 @@ def _load_validated_worklist(
     inventory_by_group: dict[str, GroupInventory] = {}
     for source_group_id, (theme, group) in expected_groups.items():
         candidates = candidates_by_group[source_group_id]
-        problem_ids = list(dict.fromkeys(candidate.problem_id for candidate in candidates))
+        problem_ids = list(
+            dict.fromkeys(candidate.problem_id for candidate in candidates)
+        )
         source_problem_ids = list(
             dict.fromkeys(candidate.source_problem_id for candidate in candidates)
         )
@@ -2272,7 +2330,9 @@ def _event_candidate_key(
     event_group_key = str(event.get("group_key") or "")
     event_theme = str(event.get("theme") or "")
     if event_group_key:
-        matches = [candidate for candidate in matches if candidate.group_key == event_group_key]
+        matches = [
+            candidate for candidate in matches if candidate.group_key == event_group_key
+        ]
     if event_theme:
         matches = [
             candidate for candidate in matches if candidate.theme_title == event_theme
@@ -2328,7 +2388,9 @@ def _resume_inventory_from_run(
         for inventory in inventory_by_group.values()
         for candidate in inventory.candidates
     ]
-    candidates_by_key = {candidate.stable_key: candidate for candidate in all_candidates}
+    candidates_by_key = {
+        candidate.stable_key: candidate for candidate in all_candidates
+    }
     candidates_by_source_key: dict[tuple[str, str], list[AssetCandidate]] = {}
     for candidate in all_candidates:
         candidates_by_source_key.setdefault(
@@ -2387,7 +2449,9 @@ def _resume_inventory_from_run(
             dict.fromkeys(candidate.problem_id for candidate in inventory.candidates)
         )
         inventory.png_source_problem_ids = list(
-            dict.fromkeys(candidate.source_problem_id for candidate in inventory.candidates)
+            dict.fromkeys(
+                candidate.source_problem_id for candidate in inventory.candidates
+            )
         )
         inventory.counts["png_tasks"] = len(inventory.png_problem_ids)
         inventory.counts["png_assets"] = len(inventory.candidates)
@@ -2468,7 +2532,9 @@ def _rollback_inventory_from_run(
         for inventory in inventory_by_group.values()
         for candidate in inventory.candidates
     ]
-    candidates_by_key = {candidate.stable_key: candidate for candidate in all_candidates}
+    candidates_by_key = {
+        candidate.stable_key: candidate for candidate in all_candidates
+    }
     candidates_by_source_key: dict[tuple[str, str], list[AssetCandidate]] = {}
     for candidate in all_candidates:
         candidates_by_source_key.setdefault(
@@ -2489,19 +2555,22 @@ def _rollback_inventory_from_run(
         if (
             str(event.get("theme") or "") != candidate.theme_title
             or str(event.get("group_key") or "") != candidate.group_key
-            or str(event.get("source_problem_id") or "")
-            != candidate.source_problem_id
+            or str(event.get("source_problem_id") or "") != candidate.source_problem_id
         ):
             raise PipelineError("asset_replaced event escaped its worklist metadata")
         transformation_target_id = str(event.get("transformation_target_id") or "")
         source_asset_id = str(event.get("source_asset_id") or "")
         output_sha256 = str(event.get("output_sha256") or "").lower()
         if not transformation_target_id.startswith("asset:"):
-            raise PipelineError("asset_replaced event has invalid transformation target")
+            raise PipelineError(
+                "asset_replaced event has invalid transformation target"
+            )
         try:
             UUID(source_asset_id)
         except ValueError as exc:
-            raise PipelineError("asset_replaced event has invalid source_asset_id") from exc
+            raise PipelineError(
+                "asset_replaced event has invalid source_asset_id"
+            ) from exc
         if len(output_sha256) != 64 or any(
             character not in "0123456789abcdef" for character in output_sha256
         ):
@@ -2610,9 +2679,7 @@ def _execute_rollback(
             candidates = rollback_by_group[group.source_group_id]
             if not candidates:
                 continue
-            group_task_count = len(
-                {item.candidate.problem_id for item in candidates}
-            )
+            group_task_count = len({item.candidate.problem_id for item in candidates})
             logger.emit(
                 "group_transition",
                 theme=theme.title,
@@ -2678,12 +2745,8 @@ def _execute_rollback(
                             attempts=1,
                         )
                         if (
-                            str(result.get("problem_id") or "")
-                            != candidate.problem_id
-                            or str(
-                                result.get("deleted_transformation_target_id")
-                                or ""
-                            )
+                            str(result.get("problem_id") or "") != candidate.problem_id
+                            or str(result.get("deleted_transformation_target_id") or "")
                             != item.transformation_target_id
                         ):
                             raise PipelineError(
@@ -2704,7 +2767,12 @@ def _execute_rollback(
                             output_sha256=item.output_sha256,
                             reopened_stages=result.get("reopened_stages", []),
                         )
-                    except (McpCallError, httpx.HTTPError, OSError, PipelineError) as exc:
+                    except (
+                        McpCallError,
+                        httpx.HTTPError,
+                        OSError,
+                        PipelineError,
+                    ) as exc:
                         if _rollback_error_is_stale(exc):
                             totals["rollback_stale"] += 1
                             consecutive_asset_errors = 0
@@ -3116,7 +3184,9 @@ def run_pipeline(args: argparse.Namespace) -> int:
                 for local_batch_index, batch_candidates in enumerate(batches, start=1):
                     if stop_requested:
                         break
-                    problem_order = list(dict.fromkeys(c.problem_id for c in batch_candidates))
+                    problem_order = list(
+                        dict.fromkeys(c.problem_id for c in batch_candidates)
+                    )
                     if args.max_tasks is not None:
                         remaining = args.max_tasks - global_tasks_seen
                         if remaining <= 0:
@@ -3278,7 +3348,12 @@ def run_pipeline(args: argparse.Namespace) -> int:
                                     stage="apply",
                                     reason=_safe_exception(exc),
                                 )
-                            except (McpCallError, httpx.HTTPError, OSError, PipelineError) as exc:
+                            except (
+                                McpCallError,
+                                httpx.HTTPError,
+                                OSError,
+                                PipelineError,
+                            ) as exc:
                                 totals["asset_errors"] += 1
                                 consecutive_asset_errors += 1
                                 logger.emit(
@@ -3340,7 +3415,10 @@ def run_pipeline(args: argparse.Namespace) -> int:
                         and batches_seen >= args.stop_after_batches
                     ):
                         stop_requested = True
-                    if args.max_tasks is not None and global_tasks_seen >= args.max_tasks:
+                    if (
+                        args.max_tasks is not None
+                        and global_tasks_seen >= args.max_tasks
+                    ):
                         stop_requested = True
 
             logger.emit("theme_complete", theme=theme.title)
@@ -3489,14 +3567,20 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _validate_cli_args(args: argparse.Namespace, parser: argparse.ArgumentParser) -> None:
+def _validate_cli_args(
+    args: argparse.Namespace, parser: argparse.ArgumentParser
+) -> None:
     """Reject ambiguous or unsafe local CLI combinations."""
 
     if args.theme_titles is None:
         args.theme_titles = list(DEFAULT_THEME_TITLES)
     if any(theme not in EXPECTED_VERTICES_BY_THEME for theme in args.theme_titles):
-        parser.error(f"themes must be selected from {sorted(EXPECTED_VERTICES_BY_THEME)}")
-    if args.group_keys is not None and len(set(args.group_keys)) != len(args.group_keys):
+        parser.error(
+            f"themes must be selected from {sorted(EXPECTED_VERTICES_BY_THEME)}"
+        )
+    if args.group_keys is not None and len(set(args.group_keys)) != len(
+        args.group_keys
+    ):
         parser.error("--group-key values must be unique")
     if args.batch_size <= 0:
         parser.error("--batch-size must be positive")

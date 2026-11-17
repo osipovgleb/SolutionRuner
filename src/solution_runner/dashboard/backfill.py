@@ -5,8 +5,9 @@ from __future__ import annotations
 import argparse
 import json
 import os
+from collections.abc import Callable, Mapping
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any
 
 from solution_runner.group_inventory_store import (
     GroupInventoryItem,
@@ -15,7 +16,10 @@ from solution_runner.group_inventory_store import (
     GroupItemStageResult,
 )
 from solution_runner.pipelines.core.group_profiles import all_group_profiles
-from solution_runner.pipelines.grid_polygon.mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
+from solution_runner.pipelines.grid_polygon.mcp_runtime import (
+    DEFAULT_MCP_URL,
+    JsonRpcMcpGateway,
+)
 
 from .initialization import GroupInitializer
 
@@ -56,15 +60,20 @@ def _replay_stage_results(
         manifest = _json(run_dir / "prepared-manifest.json")
         if isinstance(manifest, dict):
             for record in manifest.get("records", []):
-                if not isinstance(record, dict) or str(record.get("problem_id")) not in problem_ids:
+                if (
+                    not isinstance(record, dict)
+                    or str(record.get("problem_id")) not in problem_ids
+                ):
                     continue
                 message = record.get("message") or record.get("error")
-                store.update_item_stage(GroupItemStageResult(
-                    group_key=group_key,
-                    problem_id=str(record["problem_id"]),
-                    dry_run_status=_dry_status(record.get("status")),
-                    error=" ".join(str(message).split())[:500] if message else None,
-                ))
+                store.update_item_stage(
+                    GroupItemStageResult(
+                        group_key=group_key,
+                        problem_id=str(record["problem_id"]),
+                        dry_run_status=_dry_status(record.get("status")),
+                        error=" ".join(str(message).split())[:500] if message else None,
+                    )
+                )
         if not is_apply:
             continue
         solution_file = (
@@ -81,12 +90,14 @@ def _replay_stage_results(
                 if problem_id not in problem_ids:
                     continue
                 message = result.get("message") or result.get("error")
-                store.update_item_stage(GroupItemStageResult(
-                    group_key=group_key,
-                    problem_id=problem_id,
-                    **{field: str(result.get("status") or "unknown")},
-                    error=" ".join(str(message).split())[:500] if message else None,
-                ))
+                store.update_item_stage(
+                    GroupItemStageResult(
+                        group_key=group_key,
+                        problem_id=problem_id,
+                        **{field: str(result.get("status") or "unknown")},
+                        error=" ".join(str(message).split())[:500] if message else None,
+                    )
+                )
 
 
 def backfill_local_runs(
@@ -99,7 +110,9 @@ def backfill_local_runs(
     runs_by_group: dict[str, list[Path]] = {}
     for summary_path in var_dir.glob("**/runs/*/summary.json"):
         summary = _json(summary_path)
-        group_key = str(summary.get("group_key") or "") if isinstance(summary, dict) else ""
+        group_key = (
+            str(summary.get("group_key") or "") if isinstance(summary, dict) else ""
+        )
         if group_key in profiles:
             runs_by_group.setdefault(group_key, []).append(summary_path.parent)
 
@@ -121,7 +134,9 @@ def backfill_local_runs(
             if not isinstance(manifest, dict):
                 continue
             source_group_id = str(manifest.get("source_group_id") or source_group_id)
-            catalog_snapshot_id = str(manifest.get("catalog_snapshot_id") or catalog_snapshot_id)
+            catalog_snapshot_id = str(
+                manifest.get("catalog_snapshot_id") or catalog_snapshot_id
+            )
             for record in manifest.get("records", []):
                 if not isinstance(record, dict):
                     continue
@@ -144,15 +159,21 @@ def backfill_local_runs(
             )
             for position, (problem_id, record) in enumerate(records_by_problem.items())
         )
-        store.replace(GroupInventorySnapshot(
-            group_key=group_key,
-            catalog_snapshot_id=catalog_snapshot_id,
-            source_group_id=source_group_id,
-            parent_problem_id=items[0].problem_id,
-            parent_source_problem_id=items[0].source_problem_id,
-            items=items,
-        ))
-        store.set_status(group_key, "partial", "Recovered from local runs; MCP inventory is incomplete")
+        store.replace(
+            GroupInventorySnapshot(
+                group_key=group_key,
+                catalog_snapshot_id=catalog_snapshot_id,
+                source_group_id=source_group_id,
+                parent_problem_id=items[0].problem_id,
+                parent_source_problem_id=items[0].source_problem_id,
+                items=items,
+            )
+        )
+        store.set_status(
+            group_key,
+            "partial",
+            "Recovered from local runs; MCP inventory is incomplete",
+        )
 
         _replay_stage_results(store, group_key, run_dirs, set(records_by_problem))
         groups += 1
@@ -185,16 +206,24 @@ def backfill_mcp_inventory(
             failed += 1
         if progress:
             progress(index, len(pending), group_key, state)
-    return {"ready": ready, "failed": failed, "tasks": tasks, "skipped_ready": skipped_ready}
+    return {
+        "ready": ready,
+        "failed": failed,
+        "tasks": tasks,
+        "skipped_ready": skipped_ready,
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
     root = Path(__file__).resolve().parents[3]
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--db", type=Path, default=root / "var/dashboard/dashboard.sqlite3")
+    parser.add_argument(
+        "--db", type=Path, default=root / "var/dashboard/dashboard.sqlite3"
+    )
     parser.add_argument("--var", type=Path, default=root / "var")
     parser.add_argument(
-        "--mcp", action="store_true",
+        "--mcp",
+        action="store_true",
         help="complete incomplete inventories using read-only TeacherHelper MCP calls",
     )
     args = parser.parse_args(argv)

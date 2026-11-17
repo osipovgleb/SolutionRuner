@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from html import unescape
 import re
+from html import unescape
 from typing import Any
 
 from ..right.planner import RepairPlan, RightTrianglePlanError
@@ -12,14 +12,22 @@ RULE = "general-triangle-681454-bisector-angle"
 
 
 def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
-    found = [s for s in content.get("sections", []) if isinstance(s, dict) and s.get("key") == key]
+    found = [
+        s
+        for s in content.get("sections", [])
+        if isinstance(s, dict) and s.get("key") == key
+    ]
     if len(found) > 1:
         raise RightTrianglePlanError(f"multiple {key} sections")
     return found[0] if found else None
 
 
 def _visible(html: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", unescape(html))).replace("\u00ad", "").strip()
+    return (
+        re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", unescape(html)))
+        .replace("\u00ad", "")
+        .strip()
+    )
 
 
 def _values(html: str) -> tuple[str, int, int, int]:
@@ -52,18 +60,44 @@ def _values(html: str) -> tuple[str, int, int, int]:
 
 
 def _asset(content: dict[str, Any], parent_asset_id: str) -> dict[str, Any] | None:
-    images = [a for a in content.get("assets", []) if isinstance(a, dict) and a.get("kind") == "ordinary_image"]
+    images = [
+        a
+        for a in content.get("assets", [])
+        if isinstance(a, dict) and a.get("kind") == "ordinary_image"
+    ]
     target = [a for a in images if a.get("asset_key") == "image_1"]
     if not target:
-        return {"transformation_target_id": "asset:image_1", "operation": "add", "value": {"parent_target_id": "section:condition:1", "position": 0, "asset_key": "image_1", "asset_id": parent_asset_id, "url": f"/assets/{parent_asset_id}", "kind": "ordinary_image", "alt": ""}}
-    if len(images) != 1 or len(target) != 1 or target[0].get("asset_id") != parent_asset_id:
+        return {
+            "transformation_target_id": "asset:image_1",
+            "operation": "add",
+            "value": {
+                "parent_target_id": "section:condition:1",
+                "position": 0,
+                "asset_key": "image_1",
+                "asset_id": parent_asset_id,
+                "url": f"/assets/{parent_asset_id}",
+                "kind": "ordinary_image",
+                "alt": "",
+            },
+        }
+    if (
+        len(images) != 1
+        or len(target) != 1
+        or target[0].get("asset_id") != parent_asset_id
+    ):
         raise RightTrianglePlanError("foreign or ambiguous condition image")
     return None
 
 
-def build_repair_plan(context: dict[str, Any], *, parent_condition_asset_id: str) -> RepairPlan:
+def build_repair_plan(
+    context: dict[str, Any], *, parent_condition_asset_id: str
+) -> RepairPlan:
     content = context.get("normalized_content")
-    if not isinstance(content, dict) or content.get("format") != "teacherhelper-normalized" or content.get("schema_version") != 3:
+    if (
+        not isinstance(content, dict)
+        or content.get("format") != "teacherhelper-normalized"
+        or content.get("schema_version") != 3
+    ):
         raise RightTrianglePlanError("schema-v3 Normalized content is required")
     condition = _section(content, "condition")
     if condition is None:
@@ -75,11 +109,11 @@ def build_repair_plan(context: dict[str, Any], *, parent_condition_asset_id: str
             f'<section data-content-kind="solution" data-content-rule="{RULE}" data-solution-title="Решение">'
             '<p>Луч <span data-inline-latex="AD"></span> — биссектриса, поэтому он делит угол <span data-inline-latex="CAB"></span> пополам:</p>'
             f'<center><p><span data-inline-latex="\\angle CAB=2\\cdot\\angle BAD=2\\cdot {bad}^{{\\circ}}={cab}^{{\\circ}}"></span>.</p></center>'
-            '<p>По теореме о сумме углов треугольника выразим искомый угол:</p>'
+            "<p>По теореме о сумме углов треугольника выразим искомый угол:</p>"
             '<center><p><span data-inline-latex="\\angle ABD=180^{\\circ}-\\angle CAB-\\angle ACB"></span>.</p></center>'
-            '<p>Подставим найденный и данный углы:</p>'
+            "<p>Подставим найденный и данный углы:</p>"
             f'<center><p><span data-inline-latex="\\angle ABD=180^{{\\circ}}-{cab}^{{\\circ}}-{known}^{{\\circ}}={result}^{{\\circ}}"></span>.</p></center>'
-            '</section>'
+            "</section>"
         )
     else:
         html = (
@@ -88,9 +122,9 @@ def build_repair_plan(context: dict[str, Any], *, parent_condition_asset_id: str
             f'<center><p><span data-inline-latex="\\angle CAD=\\angle BAD={bad}^{{\\circ}}"></span>.</p></center>'
             '<p>Угол <span data-inline-latex="ADB"></span> — внешний угол треугольника <span data-inline-latex="ADC"></span>, поэтому:</p>'
             '<center><p><span data-inline-latex="\\angle ADB=\\angle CAD+\\angle ACD"></span>.</p></center>'
-            '<p>Подставим известные углы:</p>'
+            "<p>Подставим известные углы:</p>"
             f'<center><p><span data-inline-latex="\\angle ADB={bad}^{{\\circ}}+{known}^{{\\circ}}={result}^{{\\circ}}"></span>.</p></center>'
-            '</section>'
+            "</section>"
         )
     transforms: list[dict[str, Any]] = []
     asset = _asset(content, parent_condition_asset_id)
@@ -98,9 +132,21 @@ def build_repair_plan(context: dict[str, Any], *, parent_condition_asset_id: str
         transforms.append(asset)
     solution = _section(content, "solution")
     if solution is None or str(solution.get("html") or "") != html:
-        transforms.append({"transformation_target_id": "section:solution", "operation": "rewrite" if solution else "add", "value": {"title": "Решение", "html": html, "asset_keys": []}})
+        transforms.append(
+            {
+                "transformation_target_id": "section:solution",
+                "operation": "rewrite" if solution else "add",
+                "value": {"title": "Решение", "html": html, "asset_keys": []},
+            }
+        )
     answer_html = f'<p><span data-effect="spaced">{result}</span></p>'
     answer = _section(content, "answer")
     if answer is None or str(answer.get("html") or "") != answer_html:
-        transforms.append({"transformation_target_id": "section:answer:1", "operation": "rewrite", "value": {"title": "Ответ", "html": answer_html, "asset_keys": []}})
+        transforms.append(
+            {
+                "transformation_target_id": "section:answer:1",
+                "operation": "rewrite",
+                "value": {"title": "Ответ", "html": answer_html, "asset_keys": []},
+            }
+        )
     return RepairPlan(answer=str(result), transformations=tuple(transforms))

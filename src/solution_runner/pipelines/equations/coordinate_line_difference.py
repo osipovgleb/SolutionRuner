@@ -2,20 +2,30 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from itertools import permutations
-import re
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import (
+    _normalized_content,
+    _section,
+    _section_transformation,
+)
 from ..triangles.right.planner import RightTrianglePlanError
 
-
-_POINT = re.compile(r'<path\b(?=[^>]*\bfill=["\']#143B8F["\'])(?=[^>]*\bd=["\']M([-\d.]+),([-\d.]+))[^>]*>', re.I)
-_UNCOLORED_POINT = re.compile(r'<path\b[^>]*\bd=["\']M([-\d.]+),([-\d.]+)c-1\.17[^>]*>', re.I)
-_CIRCLE = re.compile(r'<circle\b(?=[^>]*\bfill=["\']#143B8F["\'])[^>]*\bcx=["\']([-\d.]+)["\']', re.I)
+_POINT = re.compile(
+    r'<path\b(?=[^>]*\bfill=["\']#143B8F["\'])(?=[^>]*\bd=["\']M([-\d.]+),([-\d.]+))[^>]*>',
+    re.IGNORECASE,
+)
+_UNCOLORED_POINT = re.compile(
+    r'<path\b[^>]*\bd=["\']M([-\d.]+),([-\d.]+)c-1\.17[^>]*>', re.IGNORECASE
+)
+_CIRCLE = re.compile(
+    r'<circle\b(?=[^>]*\bfill=["\']#143B8F["\'])[^>]*\bcx=["\']([-\d.]+)["\']', re.IGNORECASE
+)
 _LETTER_MAP = str.maketrans({"а": "a", "с": "c", "х": "x", "у": "y", "р": "p"})
 
 
@@ -30,7 +40,13 @@ def _plain(value: str) -> str:
 
 
 def _letters(item: Any) -> list[str]:
-    return [letter for tag in item.find_all("i") for letter in re.findall(r"[abcxyzpqr]", tag.get_text("", strip=True).translate(_LETTER_MAP))]
+    return [
+        letter
+        for tag in item.find_all("i")
+        for letter in re.findall(
+            r"[abcxyzpqr]", tag.get_text("", strip=True).translate(_LETTER_MAP)
+        )
+    ]
 
 
 def _names(condition: dict[str, Any]) -> list[str]:
@@ -67,7 +83,9 @@ def _points(svg: bytes) -> list[float]:
         if len(points) != 3:
             points = sorted({float(value) for value in _CIRCLE.findall(text)})
         if len(points) != 3:
-            points = sorted({float(value[0]) for value in _UNCOLORED_POINT.findall(text)})
+            points = sorted(
+                {float(value[0]) for value in _UNCOLORED_POINT.findall(text)}
+            )
     except UnicodeDecodeError as exc:
         raise RightTrianglePlanError("condition SVG is not UTF-8") from exc
     if len(points) != 3:
@@ -75,12 +93,24 @@ def _points(svg: bytes) -> list[float]:
     return points
 
 
-def _selected(options: list[tuple[str, str] | None], positions: dict[str, float], positive: bool) -> list[int]:
-    matches = [index for index, pair in enumerate(options[:3], 1) if pair and ((positions[pair[0]] > positions[pair[1]]) == positive)]
+def _selected(
+    options: list[tuple[str, str] | None], positions: dict[str, float], positive: bool
+) -> list[int]:
+    matches = [
+        index
+        for index, pair in enumerate(options[:3], 1)
+        if pair and ((positions[pair[0]] > positions[pair[1]]) == positive)
+    ]
     return matches or ([4] if options[3] is None else [])
 
 
-def _positions(names: list[str], points: list[float], options: list[tuple[str, str] | None], positive: bool, source_answer: str) -> dict[str, float]:
+def _positions(
+    names: list[str],
+    points: list[float],
+    options: list[tuple[str, str] | None],
+    positive: bool,
+    source_answer: str,
+) -> dict[str, float]:
     if source_answer not in {"1", "2", "3", "4"}:
         raise RightTrianglePlanError("source answer is not a reviewed option")
     candidates = []
@@ -94,7 +124,9 @@ def _positions(names: list[str], points: list[float], options: list[tuple[str, s
 
 
 def build_context_repair_plan(
-    context: dict[str, Any], *, condition_asset_bytes: bytes | None,
+    context: dict[str, Any],
+    *,
+    condition_asset_bytes: bytes | None,
 ) -> RepairPlan:
     content = _normalized_content(context)
     condition = _section(content, "condition")
@@ -104,13 +136,21 @@ def build_context_repair_plan(
         raise RightTrianglePlanError("condition SVG is required")
     names = _names(condition)
     options = _options(condition)
-    prompt = _plain(BeautifulSoup(str(condition.get("html") or ""), "html.parser").get_text(" ", strip=True)).lower()
+    prompt = _plain(
+        BeautifulSoup(str(condition.get("html") or ""), "html.parser").get_text(
+            " ", strip=True
+        )
+    ).lower()
     positive = "положительна" in prompt or "положительно" in prompt
     negative = "отрицательна" in prompt or "отрицательно" in prompt
     if positive == negative:
         raise RightTrianglePlanError("question must request one sign")
-    current_answer = BeautifulSoup(str(answer_section.get("html") or "") if answer_section else "", "html.parser").get_text("", strip=True)
-    positions = _positions(names, _points(condition_asset_bytes), options, positive, current_answer)
+    current_answer = BeautifulSoup(
+        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
+    ).get_text("", strip=True)
+    positions = _positions(
+        names, _points(condition_asset_bytes), options, positive, current_answer
+    )
     matches = _selected(options, positions, positive)
     if len(matches) != 1:
         raise RightTrianglePlanError("coordinate line does not select one option")
@@ -120,14 +160,23 @@ def build_context_repair_plan(
     for index, pair in enumerate(options[:3], 1):
         assert pair is not None
         sign = ">" if positions[pair[0]] > positions[pair[1]] else "<"
-        rows.append(f'<li><span data-inline-latex="{pair[0]}-{pair[1]}{sign}0"></span>.</li>')
+        rows.append(
+            f'<li><span data-inline-latex="{pair[0]}-{pair[1]}{sign}0"></span>.</li>'
+        )
     requested = "положительна" if positive else "отрицательна"
     html = (
         f'<p>По рисунку: <span data-inline-latex="{ordered}"></span>. Проверим разности.</p>'
         f'<ol data-layout="source-options">{"".join(rows)}</ol>'
-        f'<p>Значит, разность {answer} {requested}.</p>'
+        f"<p>Значит, разность {answer} {requested}.</p>"
     )
     changes = [_section_transformation(solution, "solution", "Решение", html)]
     if current_answer != answer:
-        changes.append(_section_transformation(answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer, tuple(changes))

@@ -5,13 +5,14 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
-from copy import deepcopy
 import json
 import os
+from collections.abc import Mapping
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from copy import deepcopy
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 from bs4 import BeautifulSoup
 
@@ -21,13 +22,9 @@ from solution_runner.pipelines.grid_polygon.mcp_runtime import (
     JsonRpcMcpGateway,
 )
 
+from .preview_content import _apply_locally, _safe_html
+
 ASSET_BASE_URL = "https://lessons-helper.ru"
-ALLOWED_ATTRIBUTES = {
-    "alt", "class", "colspan", "data-align", "data-asset-id", "data-asset-key",
-    "data-cell-tone", "data-formula-render-mode", "data-inline-latex",
-    "data-solution-title", "data-valign", "height", "href", "rowspan", "src",
-    "title", "width",
-}
 
 
 class ProblemPreviewUnavailable(ValueError):
@@ -53,28 +50,11 @@ def _source_problem_id(item: Mapping[str, Any]) -> str:
     return name.removeprefix("Задача ").strip() or _problem_id(item)
 
 
-def _safe_html(html: str, assets: Mapping[str, str]) -> str:
-    soup = BeautifulSoup(html, "lxml")
-    for tag in soup.find_all(("script", "style", "iframe", "object", "embed")):
-        tag.decompose()
-    for tag in soup.find_all(True):
-        for attribute in list(tag.attrs):
-            if attribute.lower().startswith("on") or attribute not in ALLOWED_ATTRIBUTES:
-                del tag.attrs[attribute]
-        if tag.has_attr("src"):
-            source = str(tag.get("src") or "")
-            if not source.startswith(("https://", "http://", "/")):
-                del tag.attrs["src"]
-        if tag.name == "img":
-            key = str(tag.get("data-asset-key") or "")
-            if key in assets:
-                tag["src"] = assets[key]
-    body = soup.body
-    return "".join(str(node) for node in (body.contents if body else soup.contents))
-
-
 def _card(
-    item: Mapping[str, Any], content: Any, *, generated_urls: Mapping[str, str] | None = None
+    item: Mapping[str, Any],
+    content: Any,
+    *,
+    generated_urls: Mapping[str, str] | None = None,
 ) -> dict[str, Any]:
     if not isinstance(content, dict):
         raise ValueError("problem content is missing")
@@ -95,7 +75,9 @@ def _card(
     for section in content.get("sections") or []:
         if not isinstance(section, dict):
             continue
-        key = str(section.get("key") or section.get("section_id") or "").split(":", 1)[0]
+        key = str(section.get("key") or section.get("section_id") or "").split(":", 1)[
+            0
+        ]
         if key in {"condition", "solution", "answer"} and key not in sections:
             sections[key] = _safe_html(str(section.get("html") or ""), assets)
     return {
@@ -120,117 +102,44 @@ def fetch_problem_preview(
     if cached:
         sample = next(
             (
-                item for item in cached.get("samples", [])
+                item
+                for item in cached.get("samples", [])
                 if isinstance(item, dict) and str(item.get("problem_id")) == problem_id
             ),
             None,
         )
         if sample:
-            return {"group_key": group_key, "fetched_at": cached.get("fetched_at"), "samples": [sample]}
+            return {
+                "group_key": group_key,
+                "fetched_at": cached.get("fetched_at"),
+                "samples": [sample],
+            }
 
     context = gateway.get_problem_context(problem_id)
-    normalized = context.get("normalized_content") if isinstance(context, dict) else None
+    normalized = (
+        context.get("normalized_content") if isinstance(context, dict) else None
+    )
     if not isinstance(normalized, dict):
         raise ProblemPreviewUnavailable("normalized content is unavailable")
     item = {"problem_id": problem_id, "source_problem_id": source_problem_id}
     return {
         "group_key": group_key,
         "fetched_at": _now(),
-        "samples": [{
-            "problem_id": problem_id,
-            "source_problem_id": source_problem_id,
-            "before": _card(item, normalized),
-            "after": None,
-            "fetched_at": _now(),
-        }],
+        "samples": [
+            {
+                "problem_id": problem_id,
+                "source_problem_id": source_problem_id,
+                "before": _card(item, normalized),
+                "after": None,
+                "fetched_at": _now(),
+            }
+        ],
     }
 
 
-def _asset_keys_in_html(html: str) -> set[str]:
-    return {
-        str(tag.get("data-asset-key"))
-        for tag in BeautifulSoup(html, "lxml").find_all(attrs={"data-asset-key": True})
-    }
-
-
-def _asset_fragment(html: str, asset_key: str) -> str:
-    tag = BeautifulSoup(html, "lxml").find(attrs={"data-asset-key": asset_key})
-    if tag is None:
-        return ""
-    parent = tag.parent
-    if parent is not None and parent.name in {"p", "center"} and not parent.get_text(strip=True):
-        return str(parent)
-    return str(tag)
-
-
-def _apply_locally(content: Mapping[str, Any], transformations: list[dict[str, Any]]) -> dict[str, Any]:
-    """Materialize a dry-run plan in memory without an MCP write."""
-
-    result = deepcopy(dict(content))
-    sections = result.setdefault("sections", [])
-    assets = result.setdefault("assets", [])
-    for transformation in transformations:
-        target_id = str(transformation.get("transformation_target_id") or "")
-        operation = transformation.get("operation")
-        value = transformation.get("value")
-        if target_id.startswith("section:"):
-            match = next((section for section in sections if section.get("transformation_target_id") == target_id), None)
-            if operation == "remove":
-                sections[:] = [section for section in sections if section is not match]
-            elif operation in {"add", "rewrite"} and isinstance(value, dict):
-                previous_html = str((match or {}).get("html") or "")
-                updates = {
-                    key: deepcopy(item)
-                    for key, item in value.items()
-                    if key in {"html", "title", "asset_keys"}
-                }
-                if "html" in updates and "asset_keys" in updates:
-                    present = _asset_keys_in_html(str(updates["html"]))
-                    retained = "".join(
-                        _asset_fragment(previous_html, str(key))
-                        for key in updates["asset_keys"]
-                        if str(key) not in present
-                    )
-                    updates["html"] = retained + str(updates["html"])
-                if match is None and operation == "add":
-                    sections.append({
-                        "key": target_id.split(":", 2)[1],
-                        "transformation_target_id": target_id,
-                        **updates,
-                    })
-                elif match is not None:
-                    match.update(updates)
-        elif target_id.startswith("asset:"):
-            key = target_id.split(":", 1)[1]
-            if operation == "remove":
-                assets[:] = [asset for asset in assets if asset.get("asset_key") != key]
-            elif operation in {"add", "rewrite"} and isinstance(value, dict):
-                match = next((asset for asset in assets if asset.get("asset_key") == key), None)
-                if match is None:
-                    assets.append(deepcopy(value))
-                else:
-                    match.update(deepcopy(value))
-                parent_id = str(value.get("parent_target_id") or "")
-                parent = next(
-                    (section for section in sections if section.get("transformation_target_id") == parent_id),
-                    None,
-                )
-                fragment = str(value.get("html") or "")
-                if parent is not None and fragment:
-                    parent_html = str(parent.get("html") or "")
-                    if key not in _asset_keys_in_html(parent_html):
-                        parent["html"] = (
-                            fragment + parent_html
-                            if int(value.get("position") or 0) == 0
-                            else parent_html + fragment
-                        )
-                    parent_keys = parent.setdefault("asset_keys", [])
-                    if key not in parent_keys:
-                        parent_keys.append(key)
-    return result
-
-
-def _generated_preview_urls(record: Mapping[str, Any], content: Mapping[str, Any]) -> dict[str, str]:
+def _generated_preview_urls(
+    record: Mapping[str, Any], content: Mapping[str, Any]
+) -> dict[str, str]:
     """Display the exact SVG planned for upload without uploading during dry-run."""
     assets = {asset.get("asset_key"): asset for asset in content.get("assets", [])}
     urls = {}
@@ -241,7 +150,9 @@ def _generated_preview_urls(record: Mapping[str, Any], content: Mapping[str, Any
             raise ValueError("generated preview diagram checksum changed")
         asset = assets.get(spec["asset_key"], {})
         if asset.get("asset_id") == "preview-" + digest[:16]:
-            urls[spec["asset_key"]] = "data:image/svg+xml;base64," + base64.b64encode(data).decode("ascii")
+            urls[spec["asset_key"]] = "data:image/svg+xml;base64," + base64.b64encode(
+                data
+            ).decode("ascii")
     return urls
 
 
@@ -261,7 +172,11 @@ def _sample(gateway: Any, record: Mapping[str, Any]) -> dict[str, Any]:
     review = record.get("review_preview") if record.get("status") == "blocked" else None
     if isinstance(review, dict) and isinstance(review.get("content"), dict):
         review_content = review["content"]
-        after = _card(item, review_content, generated_urls=_generated_preview_urls(review, review_content))
+        after = _card(
+            item,
+            review_content,
+            generated_urls=_generated_preview_urls(review, review_content),
+        )
         for card in (before, after):
             soup = BeautifulSoup(card["condition_html"], "html.parser")
             for img in soup.find_all("img"):
@@ -270,12 +185,18 @@ def _sample(gateway: Any, record: Mapping[str, Any]) -> dict[str, Any]:
         return {
             "problem_id": _problem_id(item),
             "source_problem_id": _source_problem_id(item),
-            "before": before, "after": after, "review_only": True,
+            "before": before,
+            "after": after,
+            "review_only": True,
             "review_message": str(review.get("message") or record.get("message") or ""),
             "fetched_at": _now(),
         }
     after_content = _apply_locally(before_content, transformations)
-    after = _card(item, after_content, generated_urls=_generated_preview_urls(record, after_content))
+    after = _card(
+        item,
+        after_content,
+        generated_urls=_generated_preview_urls(record, after_content),
+    )
     return {
         "problem_id": _problem_id(item),
         "source_problem_id": _source_problem_id(item),
@@ -286,7 +207,9 @@ def _sample(gateway: Any, record: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _manifest_group(payload: Mapping[str, Any]) -> str:
-    return str(payload.get("group_key") or (payload.get("scope") or {}).get("group_key") or "")
+    return str(
+        payload.get("group_key") or (payload.get("scope") or {}).get("group_key") or ""
+    )
 
 
 def _preview_records(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
@@ -294,13 +217,18 @@ def _preview_records(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
         record
         for record in payload.get("records", [])
         if isinstance(record, dict)
-        and (record.get("status") != "blocked" or isinstance(record.get("review_preview"), dict))
+        and (
+            record.get("status") != "blocked"
+            or isinstance(record.get("review_preview"), dict)
+        )
         and record.get("problem_id")
         and isinstance(record.get("transformations"), list)
     ]
 
 
-def _with_solution_plans(manifest_path: Path, payload: dict[str, Any]) -> dict[str, Any]:
+def _with_solution_plans(
+    manifest_path: Path, payload: dict[str, Any]
+) -> dict[str, Any]:
     """Attach geometry plans persisted by the solution stage to prepared records."""
 
     results_path = manifest_path.parent / "solution-results.json"
@@ -337,8 +265,12 @@ def latest_dry_run_manifest(var_dir: Path, group_key: str) -> dict[str, Any] | N
     make the before/after comparison disappear from the dashboard.
     """
 
-    manifests = list(var_dir.glob(f"**/runs/*-group-{group_key}/prepared-manifest.json"))
-    for manifest in sorted(manifests, key=lambda path: path.stat().st_mtime, reverse=True):
+    manifests = list(
+        var_dir.glob(f"**/runs/*-group-{group_key}/prepared-manifest.json")
+    )
+    for manifest in sorted(
+        manifests, key=lambda path: path.stat().st_mtime, reverse=True
+    ):
         try:
             payload = json.loads(manifest.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
@@ -349,7 +281,9 @@ def latest_dry_run_manifest(var_dir: Path, group_key: str) -> dict[str, Any] | N
     return None
 
 
-def fetch_preview(gateway: Any, profile: Any, manifest: Mapping[str, Any]) -> dict[str, Any]:
+def fetch_preview(
+    gateway: Any, profile: Any, manifest: Mapping[str, Any]
+) -> dict[str, Any]:
     """Freeze one normalized-input/local-output pair from a current dry-run."""
 
     records = _preview_records(manifest)
@@ -375,13 +309,16 @@ def append_preview_sample(
     manifest = latest_dry_run_manifest(var_dir, profile.group_key)
     if manifest is None:
         raise ValueError("no current dry-run found")
-    payload = load_preview(preview_dir, profile.group_key) or fetch_preview(gateway, profile, manifest)
+    payload = load_preview(preview_dir, profile.group_key) or fetch_preview(
+        gateway, profile, manifest
+    )
     items = _preview_records(manifest)
     existing = {str(item.get("problem_id")) for item in payload.get("samples", [])}
     candidates = [item for item in items if _problem_id(item) not in existing]
     if source_problem_id:
         candidates = [
-            item for item in candidates
+            item
+            for item in candidates
             if source_problem_id in {_problem_id(item), _source_problem_id(item)}
         ]
     if not candidates:
@@ -407,13 +344,17 @@ def save_preview(preview_dir: Path, payload: Mapping[str, Any]) -> Path:
 
 def load_preview(preview_dir: Path, group_key: str) -> dict[str, Any] | None:
     try:
-        payload = json.loads(preview_path(preview_dir, group_key).read_text(encoding="utf-8"))
+        payload = json.loads(
+            preview_path(preview_dir, group_key).read_text(encoding="utf-8")
+        )
     except (OSError, json.JSONDecodeError):
         return None
     return payload if isinstance(payload, dict) else None
 
 
-def _fetch_one(group_key: str, profile: Any, preview_dir: Path, var_dir: Path) -> tuple[str, str]:
+def _fetch_one(
+    group_key: str, profile: Any, preview_dir: Path, var_dir: Path
+) -> tuple[str, str]:
     manifest = latest_dry_run_manifest(var_dir, group_key)
     if manifest is None:
         preview_path(preview_dir, group_key).unlink(missing_ok=True)
@@ -432,7 +373,9 @@ def _fetch_one(group_key: str, profile: Any, preview_dir: Path, var_dir: Path) -
         gateway.close()
 
 
-def backfill_previews(preview_dir: Path, var_dir: Path, profiles: Mapping[str, Any], *, workers: int = 4) -> dict[str, Any]:
+def backfill_previews(
+    preview_dir: Path, var_dir: Path, profiles: Mapping[str, Any], *, workers: int = 4
+) -> dict[str, Any]:
     results: dict[str, str] = {}
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 6))) as executor:
         futures = {
@@ -446,21 +389,31 @@ def backfill_previews(preview_dir: Path, var_dir: Path, profiles: Mapping[str, A
     return {
         "total": len(results),
         "ready": sum(value == "ok" for value in results.values()),
-        "without_dry_run": sum(value == "no_current_dry_run" for value in results.values()),
-        "errors": {key: value for key, value in results.items() if value not in {"ok", "no_current_dry_run"}},
+        "without_dry_run": sum(
+            value == "no_current_dry_run" for value in results.values()
+        ),
+        "errors": {
+            key: value
+            for key, value in results.items()
+            if value not in {"ok", "no_current_dry_run"}
+        },
     }
 
 
 def main(argv: list[str] | None = None) -> int:
     root = Path(__file__).resolve().parents[3]
-    parser = argparse.ArgumentParser(description="Backfill one real preview per registered group")
+    parser = argparse.ArgumentParser(
+        description="Backfill one real preview per registered group"
+    )
     parser.add_argument("--dir", type=Path, default=root / "var/dashboard/previews")
     parser.add_argument("--var", type=Path, default=root / "var")
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args(argv)
     if not os.environ.get("TEACHERHELPER_MCP_API_KEY"):
         parser.error("TEACHERHELPER_MCP_API_KEY is required")
-    report = backfill_previews(args.dir, args.var, all_group_profiles(), workers=args.workers)
+    report = backfill_previews(
+        args.dir, args.var, all_group_profiles(), workers=args.workers
+    )
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0 if not report["errors"] else 1
 

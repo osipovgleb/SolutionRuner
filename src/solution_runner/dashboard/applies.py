@@ -2,82 +2,29 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping
 from concurrent.futures import Executor, ThreadPoolExecutor
-from datetime import UTC, datetime
-import json
 from pathlib import Path
 from threading import Lock
-import sys
-from typing import Any, Callable, Mapping
+from typing import Any
 
-from solution_runner.group_inventory_store import GroupInventoryStore, GroupItemStageResult
+from solution_runner.group_inventory_store import (
+    GroupInventoryStore,
+    GroupItemStageResult,
+)
 
-from .process_logs import run_logged
-
-
-SUCCESS = {"applied", "already_complete"}
-
-
-def _now() -> str:
-    return datetime.now(UTC).isoformat(timespec="seconds")
-
-
-def _execute(argv: list[str]) -> int:
-    return run_logged([sys.executable, "-m", "solution_runner.launcher", *argv])
-
-
-def _read_results(path: Path) -> list[dict[str, Any]]:
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return []
-    if isinstance(payload, dict):
-        payload = payload.get("results", [])
-    return [item for item in payload if isinstance(item, dict)] if isinstance(payload, list) else []
-
-
-def _latest_run(var_dir: Path, group_key: str) -> Path | None:
-    matches: list[Path] = []
-    for summary_path in var_dir.glob("**/runs/*/summary.json"):
-        try:
-            summary = json.loads(summary_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
-        if isinstance(summary, dict) and str(summary.get("group_key")) == group_key:
-            matches.append(summary_path.parent)
-    return max(matches, key=lambda path: path.stat().st_mtime_ns) if matches else None
-
-
-def _result_for(rows: list[dict[str, Any]], problem_id: str) -> dict[str, Any] | None:
-    return next((row for row in rows if str(row.get("problem_id")) == problem_id), None)
-
-
-def _label_dashboard_run(run_dir: Path, *, action: str, scope: str) -> None:
-    summary_path = run_dir / "summary.json"
-    try:
-        summary = json.loads(summary_path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return
-    if not isinstance(summary, dict):
-        return
-    summary.update(dashboard_action=action, dashboard_scope=scope)
-    summary_path.write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-
-
-def _stage_error(
-    solution: Mapping[str, Any] | None,
-    helper: Mapping[str, Any] | None,
-    solution_status: str,
-    helpers_status: str,
-) -> str | None:
-    if solution_status not in SUCCESS:
-        return str((solution or {}).get("error") or (solution or {}).get("message") or "MCP не записал решение")
-    if helpers_status not in SUCCESS:
-        return str((helper or {}).get("error") or (helper or {}).get("message") or "MCP не записал Helpers")
-    return None
+from .apply_results import (
+    SUCCESS,
+    _label_dashboard_run,
+    _latest_run,
+    _read_results,
+    _result_for,
+    _stage_error,
+)
+from .apply_state import read_apply_state, write_apply_state
+from .apply_validation import helper_targets, verified_group, verified_row
+from .process_logs import run_solution_launcher as _execute
+from .store_common import _now
 
 
 class ApplyManager:
@@ -99,7 +46,9 @@ class ApplyManager:
         self.store = store
         self.executor_fn = executor
         self.state_dir = var_dir / "dashboard/applies"
-        self.executor = background_executor or ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-apply")
+        self.executor = background_executor or ThreadPoolExecutor(
+            max_workers=1, thread_name_prefix="dashboard-apply"
+        )
         self.lock = Lock()
 
     def _path(self, group_key: str) -> Path:
@@ -109,65 +58,44 @@ class ApplyManager:
         get_group = getattr(self.store, "get_group", None)
         group = get_group(str(profile.group_key)) if callable(get_group) else None
         policy = group.get("existing_solution_policy") if group else None
-        return str(policy) if policy in {"preserve", "rewrite"} else str(
-            getattr(profile, "existing_solution_policy", "preserve")
+        return (
+            str(policy)
+            if policy in {"preserve", "rewrite"}
+            else str(getattr(profile, "existing_solution_policy", "preserve"))
         )
 
     def _write(self, state: Mapping[str, Any]) -> dict[str, Any]:
-        payload = dict(state)
-        self.state_dir.mkdir(parents=True, exist_ok=True)
-        target = self._path(str(payload["group_key"]))
-        temporary = target.with_suffix(".json.tmp")
-        temporary.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
-        temporary.replace(target)
-        return payload
+        return write_apply_state(self.state_dir, state)
 
     def get(self, group_key: str) -> dict[str, Any] | None:
-        try:
-            payload = json.loads(self._path(group_key).read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            return None
-        return payload if isinstance(payload, dict) else None
+        return read_apply_state(self._path(group_key))
 
     def _verified_row(self, group_key: str, problem_id: str) -> dict[str, object]:
-        if group_key not in self.profiles:
-            raise KeyError(group_key)
-        row = next(
-            (item for item in self.inventory_store.list_items(group_key)
-             if str(item["problem_id"]) == problem_id),
-            None,
-        )
-        if row is None:
-            raise ValueError("problem does not belong to the initialized group")
-        if row.get("dry_run_status") != "ready" and not row.get("error"):
-            raise ValueError("problem requires a successful dry-run before apply")
-        return row
+        return verified_row(self.profiles, self.inventory_store, group_key, problem_id)
 
     def _verified_group(self, group_key: str) -> list[dict[str, object]]:
-        if group_key not in self.profiles:
-            raise KeyError(group_key)
-        rows = self.inventory_store.list_items(group_key)
-        if not rows:
-            raise ValueError("initialized group has no tasks")
-        group = self.store.get_group(group_key) if self.store is not None else None
-        if not group or group.get("full_dry_run_status") != "ready":
-            raise ValueError("group requires a successful full-group dry-run before apply")
-        return rows
+        return verified_group(
+            self.profiles, self.inventory_store, self.store, group_key
+        )
 
-    def start(self, group_key: str, problem_id: str, *, force: bool = False) -> dict[str, Any]:
+    def start(
+        self, group_key: str, problem_id: str, *, force: bool = False
+    ) -> dict[str, Any]:
         self._verified_row(group_key, problem_id)
         with self.lock:
             current = self.get(group_key)
             if current and current.get("status") in {"queued", "running", "retry_wait"}:
                 raise RuntimeError("apply already active")
-            state = self._write({
-                "group_key": group_key,
-                "problem_id": problem_id,
-                "scope": "problem",
-                "force": force,
-                "status": "queued",
-                "queued_at": _now(),
-            })
+            state = self._write(
+                {
+                    "group_key": group_key,
+                    "problem_id": problem_id,
+                    "scope": "problem",
+                    "force": force,
+                    "status": "queued",
+                    "queued_at": _now(),
+                }
+            )
             if force:
                 self.executor.submit(self.run_now, group_key, problem_id, force=True)
             else:
@@ -180,42 +108,38 @@ class ApplyManager:
             current = self.get(group_key)
             if current and current.get("status") in {"queued", "running", "retry_wait"}:
                 raise RuntimeError("apply already active")
-            state = self._write({
-                "group_key": group_key,
-                "scope": "group",
-                "status": "queued",
-                "queued_at": _now(),
-            })
+            state = self._write(
+                {
+                    "group_key": group_key,
+                    "scope": "group",
+                    "status": "queued",
+                    "queued_at": _now(),
+                }
+            )
             self.executor.submit(self.run_group_now, group_key)
             return state
 
-    def start_helpers(self, group_key: str, problem_id: str | None = None) -> dict[str, Any]:
-        rows = self.inventory_store.list_items(group_key)
-        if problem_id:
-            rows = [row for row in rows if str(row["problem_id"]) == problem_id]
-            if not rows:
-                raise ValueError("problem does not belong to the initialized group")
-        rows = [
-            row for row in rows
-            if row.get("helpers_status") not in SUCCESS
-            and (row.get("has_solution") or row.get("apply_status") in SUCCESS)
-        ]
-        if not rows:
-            raise ValueError("no tasks require Helpers")
-        problem_ids = tuple(str(row["problem_id"]) for row in rows)
+    def start_helpers(
+        self, group_key: str, problem_id: str | None = None
+    ) -> dict[str, Any]:
+        problem_ids = helper_targets(self.inventory_store, group_key, problem_id)
         with self.lock:
             current = self.get(group_key)
             if current and current.get("status") in {"queued", "running", "retry_wait"}:
                 raise RuntimeError("apply already active")
-            state = self._write({
-                "group_key": group_key,
-                "problem_id": problem_id,
-                "scope": "problem" if problem_id else "group",
-                "stage": "helpers",
-                "status": "queued",
-                "queued_at": _now(),
-            })
-            self.executor.submit(self.run_helpers_now, group_key, problem_ids, state["scope"])
+            state = self._write(
+                {
+                    "group_key": group_key,
+                    "problem_id": problem_id,
+                    "scope": "problem" if problem_id else "group",
+                    "stage": "helpers",
+                    "status": "queued",
+                    "queued_at": _now(),
+                }
+            )
+            self.executor.submit(
+                self.run_helpers_now, group_key, problem_ids, state["scope"]
+            )
             return state
 
     def run_helpers_now(
@@ -238,10 +162,14 @@ class ApplyManager:
         }
         self._write(state)
         argv = [
-            "--group", group_key,
-            "--confirm-catalog", str(snapshot.catalog_snapshot_id),
-            "--inventory-db", str(self.inventory_store.path),
-            "--max-workers", "1" if len(problem_ids) == 1 else "5",
+            "--group",
+            group_key,
+            "--confirm-catalog",
+            str(snapshot.catalog_snapshot_id),
+            "--inventory-db",
+            str(self.inventory_store.path),
+            "--max-workers",
+            "1" if len(problem_ids) == 1 else "5",
             "--apply",
             "--helpers-from-existing-solution",
         ]
@@ -264,26 +192,37 @@ class ApplyManager:
             last_error = "Helpers не выполнены"
             for problem_id in problem_ids:
                 helper = helpers.get(problem_id)
-                helpers_status = str(helper.get("status") or "failed") if helper else "failed"
-                error = None if helpers_status in SUCCESS else str(
-                    (helper or {}).get("error") or (helper or {}).get("message") or "MCP не записал Helpers"
+                helpers_status = (
+                    str(helper.get("status") or "failed") if helper else "failed"
+                )
+                error = (
+                    None
+                    if helpers_status in SUCCESS
+                    else str(
+                        (helper or {}).get("error")
+                        or (helper or {}).get("message")
+                        or "MCP не записал Helpers"
+                    )
                 )
                 completed = completed and error is None
                 if error:
                     last_error = " ".join(error.split())[:300]
-                self.inventory_store.update_item_stage(GroupItemStageResult(
-                    group_key=group_key,
-                    problem_id=problem_id,
-                    helpers_status=helpers_status,
-                    error=" ".join(error.split())[:500] if error else None,
-                ))
+                self.inventory_store.update_item_stage(
+                    GroupItemStageResult(
+                        group_key=group_key,
+                        problem_id=problem_id,
+                        helpers_status=helpers_status,
+                        error=" ".join(error.split())[:500] if error else None,
+                    )
+                )
             items = self.inventory_store.list_items(group_key)
             if self.store is not None:
                 self.store.reconcile_problem_counts(group_key, items)
             if completed:
                 state.update(status="completed", completed_at=_now())
                 if self.store is not None and all(
-                    item.get("apply_status") in SUCCESS and item.get("helpers_status") in SUCCESS
+                    item.get("apply_status") in SUCCESS
+                    and item.get("helpers_status") in SUCCESS
                     for item in items
                 ):
                     self.store.update_group(group_key, {"column": "done"})
@@ -293,12 +232,18 @@ class ApplyManager:
                     self.store.update_group(group_key, {"column": "issues"})
             return self._write(state)
         except Exception as exc:  # noqa: BLE001 - persist an isolated dashboard operation.
-            state.update(status="failed", completed_at=_now(), error=" ".join(str(exc).split())[:300])
+            state.update(
+                status="failed",
+                completed_at=_now(),
+                error=" ".join(str(exc).split())[:300],
+            )
             if self.store is not None:
                 self.store.update_group(group_key, {"column": "issues"})
             return self._write(state)
 
-    def run_now(self, group_key: str, problem_id: str, *, force: bool = False) -> dict[str, Any]:
+    def run_now(
+        self, group_key: str, problem_id: str, *, force: bool = False
+    ) -> dict[str, Any]:
         self._verified_row(group_key, problem_id)
         profile = self.profiles[group_key]
         state: dict[str, Any] = {
@@ -311,13 +256,19 @@ class ApplyManager:
         }
         self._write(state)
         argv = [
-            "--group", str(profile.group_key),
-            "--confirm-catalog", str(profile.catalog_snapshot_id),
-            "--inventory-db", str(self.inventory_store.path),
-            "--max-workers", "1",
+            "--group",
+            str(profile.group_key),
+            "--confirm-catalog",
+            str(profile.catalog_snapshot_id),
+            "--inventory-db",
+            str(self.inventory_store.path),
+            "--max-workers",
+            "1",
             "--apply",
-            "--existing-solution-policy", "rewrite" if force else self._existing_solution_policy(profile),
-            "--only-problem-id", problem_id,
+            "--existing-solution-policy",
+            "rewrite" if force else self._existing_solution_policy(profile),
+            "--only-problem-id",
+            problem_id,
         ]
         if force:
             argv.append("--force-apply")
@@ -328,20 +279,30 @@ class ApplyManager:
             run_dir = _latest_run(self.var_dir, group_key)
             if run_dir is None:
                 raise RuntimeError("launcher produced no run report")
-            solution = _result_for(_read_results(run_dir / "solution-results.json"), problem_id)
-            helpers = _result_for(_read_results(run_dir / "helpers-results.json"), problem_id)
+            solution = _result_for(
+                _read_results(run_dir / "solution-results.json"), problem_id
+            )
+            helpers = _result_for(
+                _read_results(run_dir / "helpers-results.json"), problem_id
+            )
             if solution is None:
-                raise RuntimeError("launcher produced no result for the selected problem")
+                raise RuntimeError(
+                    "launcher produced no result for the selected problem"
+                )
             solution_status = str(solution.get("status") or "failed")
-            helpers_status = str(helpers.get("status") or "failed") if helpers else "failed"
+            helpers_status = (
+                str(helpers.get("status") or "failed") if helpers else "failed"
+            )
             error = _stage_error(solution, helpers, solution_status, helpers_status)
-            self.inventory_store.update_item_stage(GroupItemStageResult(
-                group_key=group_key,
-                problem_id=problem_id,
-                apply_status=solution_status,
-                helpers_status=helpers_status,
-                error=" ".join(str(error).split())[:500] if error else None,
-            ))
+            self.inventory_store.update_item_stage(
+                GroupItemStageResult(
+                    group_key=group_key,
+                    problem_id=problem_id,
+                    apply_status=solution_status,
+                    helpers_status=helpers_status,
+                    error=" ".join(str(error).split())[:500] if error else None,
+                )
+            )
             items = self.inventory_store.list_items(group_key)
             if self.store is not None:
                 self.store.reconcile_problem_counts(group_key, items)
@@ -354,11 +315,19 @@ class ApplyManager:
                 ):
                     self.store.update_group(group_key, {"column": "done"})
             elif "failed" in {solution_status, helpers_status}:
-                state.update(status="failed", completed_at=_now(), error=str(error or "MCP write or readback failed"))
+                state.update(
+                    status="failed",
+                    completed_at=_now(),
+                    error=str(error or "MCP write or readback failed"),
+                )
                 if self.store is not None:
                     self.store.update_group(group_key, {"column": "issues"})
             else:
-                state.update(status="skipped", completed_at=_now(), message=str(error or "Задача пропущена."))
+                state.update(
+                    status="skipped",
+                    completed_at=_now(),
+                    message=str(error or "Задача пропущена."),
+                )
             return self._write(state)
         except Exception as exc:  # noqa: BLE001 - persist an isolated dashboard operation.
             state.update(
@@ -381,14 +350,21 @@ class ApplyManager:
         }
         self._write(state)
         if self.store is not None:
-            self.store.update_group(group_key, {"agent_status": None, "agent_summary": None})
+            self.store.update_group(
+                group_key, {"agent_status": None, "agent_summary": None}
+            )
         argv = [
-            "--group", str(profile.group_key),
-            "--confirm-catalog", str(profile.catalog_snapshot_id),
-            "--inventory-db", str(self.inventory_store.path),
-            "--max-workers", "5",
+            "--group",
+            str(profile.group_key),
+            "--confirm-catalog",
+            str(profile.catalog_snapshot_id),
+            "--inventory-db",
+            str(self.inventory_store.path),
+            "--max-workers",
+            "5",
             "--apply",
-            "--existing-solution-policy", self._existing_solution_policy(profile),
+            "--existing-solution-policy",
+            self._existing_solution_policy(profile),
         ]
         last_error = "Не все задачи удалось записать и проверить."
         try:
@@ -414,18 +390,24 @@ class ApplyManager:
                 problem_id = str(row["problem_id"])
                 solution = solutions.get(problem_id)
                 helper = helpers.get(problem_id)
-                solution_status = str(solution.get("status") or "failed") if solution else "failed"
-                helpers_status = str(helper.get("status") or "failed") if helper else "failed"
+                solution_status = (
+                    str(solution.get("status") or "failed") if solution else "failed"
+                )
+                helpers_status = (
+                    str(helper.get("status") or "failed") if helper else "failed"
+                )
                 error = _stage_error(solution, helper, solution_status, helpers_status)
                 if error:
                     last_error = " ".join(error.split())[:300]
-                self.inventory_store.update_item_stage(GroupItemStageResult(
-                    group_key=group_key,
-                    problem_id=problem_id,
-                    apply_status=solution_status,
-                    helpers_status=helpers_status,
-                    error=" ".join(error.split())[:500] if error else None,
-                ))
+                self.inventory_store.update_item_stage(
+                    GroupItemStageResult(
+                        group_key=group_key,
+                        problem_id=problem_id,
+                        apply_status=solution_status,
+                        helpers_status=helpers_status,
+                        error=" ".join(error.split())[:500] if error else None,
+                    )
+                )
                 terminal_statuses.extend((solution_status, helpers_status))
             completed = all(status in SUCCESS for status in terminal_statuses)
         except Exception as exc:  # noqa: BLE001 - persist the result of this single explicit run.
@@ -439,11 +421,14 @@ class ApplyManager:
             state.pop("retry_in_seconds", None)
             state.pop("error", None)
             if self.store is not None:
-                self.store.update_group(group_key, {
-                    "column": "done",
-                    "agent_status": None,
-                    "agent_summary": None,
-                })
+                self.store.update_group(
+                    group_key,
+                    {
+                        "column": "done",
+                        "agent_status": None,
+                        "agent_summary": None,
+                    },
+                )
             return self._write(state)
         if self.store is not None:
             self.store.update_group(group_key, {"column": "issues"})

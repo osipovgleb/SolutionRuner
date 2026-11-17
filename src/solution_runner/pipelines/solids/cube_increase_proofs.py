@@ -3,7 +3,7 @@
 import sympy as sp
 
 from ..probability.common import line
-from ..quadrilaterals.parallelogram.rectangle_proofs import bracket, value
+from ..quadrilaterals.parallelogram.rectangle_proofs import value
 
 
 def _surface(m):
@@ -17,8 +17,25 @@ def _surface(m):
         + "<p>По условию новая площадь больше исходной на заданную величину. Составим уравнение:</p>"
         + line("6(a+" + k_text + ")^2=6a^2+" + value(delta))
         + "<p>Раскроем скобки и сократим квадратные члены. Получим линейное уравнение:</p>"
-        + line("6(a^2+2" + r"\cdot " + k_text + r"\cdot a+" + k_text + r"\cdot " + k_text + ")=6a^2+" + value(delta))
-        + line("6a^2+" + value(12 * k) + r"\cdot a+" + value(6 * k**2) + "=6a^2+" + value(delta))
+        + line(
+            "6(a^2+2"
+            + r"\cdot "
+            + k_text
+            + r"\cdot a+"
+            + k_text
+            + r"\cdot "
+            + k_text
+            + ")=6a^2+"
+            + value(delta)
+        )
+        + line(
+            "6a^2+"
+            + value(12 * k)
+            + r"\cdot a+"
+            + value(6 * k**2)
+            + "=6a^2+"
+            + value(delta)
+        )
         + line(value(12 * k) + r"\cdot a+" + value(6 * k**2) + "=" + value(delta))
         + line(value(12 * k) + r"\cdot a=" + value(delta) + "-" + value(6 * k**2))
         + line(value(12 * k) + r"\cdot a=" + value(delta - 6 * k**2))
@@ -38,8 +55,11 @@ def _volume(m):
     c = sp.simplify((k * k - delta / k) / 3)
     d = sp.simplify(k * k - 4 * c)
     negative = sp.simplify(-k - m.answer)
+
     def term(coefficient, variable):
-        return variable if coefficient == 1 else value(coefficient) + r"\cdot " + variable
+        return (
+            variable if coefficient == 1 else value(coefficient) + r"\cdot " + variable
+        )
 
     quadratic = term(3 * k, "a^2") + "+" + term(3 * k**2, "a")
     normalized = "a^2+" + term(k, "a") + "-" + value(-c)
@@ -47,7 +67,9 @@ def _volume(m):
         "<p>Объёмы исходного куба и куба с увеличенным ребром равны:</p>"
         + line("V_0=a^3")
         + line("V_1=(a+" + value(k) + ")^3")
-        + '<p>По условию новый объём больше исходного на <span data-inline-latex="' + value(delta) + '"></span>. Составим уравнение:</p>'
+        + '<p>По условию новый объём больше исходного на <span data-inline-latex="'
+        + value(delta)
+        + '"></span>. Составим уравнение:</p>'
         + line("(a+" + value(k) + ")^3=a^3+" + value(delta))
         + line("a^3+" + quadratic + "+" + value(k**3) + "=a^3+" + value(delta))
         + line("a^3+" + quadratic + "+" + value(k**3) + "-a^3-" + value(delta) + "=0")

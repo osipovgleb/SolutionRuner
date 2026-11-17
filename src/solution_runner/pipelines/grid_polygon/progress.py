@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime
 import json
 import threading
-from typing import Callable, Literal, Mapping, TextIO
-
+from collections.abc import Callable, Mapping
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Literal, TextIO
 
 Severity = Literal["info", "success", "warning", "error"]
 _COLORS: dict[Severity, str] = {

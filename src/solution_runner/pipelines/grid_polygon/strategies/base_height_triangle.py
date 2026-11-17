@@ -30,7 +30,9 @@ class BaseHeightTriangleStrategy:
         if profile.strategy_key != self.key or prepared.vertex_count != 3:
             raise ValueError("base-height strategy/profile mismatch")
         result = analyze_axis_aligned_triangle(prepared.coordinates)
-        orientation = "horizontal" if result.base_start[1] == result.base_end[1] else "vertical"
+        orientation = (
+            "horizontal" if result.base_start[1] == result.base_end[1] else "vertical"
+        )
         return GeometryAnalysis(
             area=result.area,
             area_by_coordinates=result.area_by_coordinates,
@@ -65,12 +67,16 @@ class BaseHeightTriangleStrategy:
         apex = mapper(logical_apex)
         foot = mapper(logical_foot)
         lines = [
-            f'  <line data-kind="base" x1="{svg_number(base_start[0])}" '
-            f'y1="{svg_number(base_start[1])}" x2="{svg_number(base_end[0])}" '
-            f'y2="{svg_number(base_end[1])}" />',
-            f'  <line data-kind="height" x1="{svg_number(apex[0])}" '
-            f'y1="{svg_number(apex[1])}" x2="{svg_number(foot[0])}" '
-            f'y2="{svg_number(foot[1])}" />',
+            (
+                f'  <line data-kind="base" x1="{svg_number(base_start[0])}" '
+                f'y1="{svg_number(base_start[1])}" x2="{svg_number(base_end[0])}" '
+                f'y2="{svg_number(base_end[1])}" />'
+            ),
+            (
+                f'  <line data-kind="height" x1="{svg_number(apex[0])}" '
+                f'y1="{svg_number(apex[1])}" x2="{svg_number(foot[0])}" '
+                f'y2="{svg_number(foot[1])}" />'
+            ),
         ]
         horizontal = analysis.details["orientation"] == "horizontal"
         if horizontal:
@@ -89,7 +95,12 @@ class BaseHeightTriangleStrategy:
         marker = cell_size * 0.28
         if horizontal:
             apex_direction = -1 if apex[1] < foot[1] else 1
-            base_direction = 1 if logical_base_end[0] - logical_foot[0] >= logical_foot[0] - logical_base_start[0] else -1
+            base_direction = (
+                1
+                if logical_base_end[0] - logical_foot[0]
+                >= logical_foot[0] - logical_base_start[0]
+                else -1
+            )
             marker_x = foot[0] + base_direction * marker
             marker_y = foot[1] + apex_direction * marker
             marker_path = (
@@ -99,7 +110,9 @@ class BaseHeightTriangleStrategy:
             )
         else:
             apex_direction = -1 if apex[0] < foot[0] else 1
-            farther = max((base_start, base_end), key=lambda point: abs(point[1] - foot[1]))
+            farther = max(
+                (base_start, base_end), key=lambda point: abs(point[1] - foot[1])
+            )
             base_direction = -1 if farther[1] < foot[1] else 1
             marker_x = foot[0] + apex_direction * marker
             marker_y = foot[1] + base_direction * marker
@@ -139,4 +152,3 @@ class BaseHeightTriangleStrategy:
         """Return the exact numeric answer."""
 
         return build_answer_html(analysis)
-

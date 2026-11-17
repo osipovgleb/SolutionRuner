@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import itertools
 import json
 import math
 import re
@@ -39,14 +40,18 @@ class GridAxisModel:
         if (lower_bound is None) != (upper_bound is None):
             raise ValueError("grid_line_bounds_must_be_provided_together")
         if lower_bound is None or upper_bound is None:
-            indices = [int(round((value - self.origin) / self.step)) for value in self.observed]
+            indices = [
+                round((value - self.origin) / self.step) for value in self.observed
+            ]
             first = min(indices)
             last = max(indices)
         else:
             tolerance = max(1.0, self.max_residual + 0.25)
-            first = int(math.ceil((lower_bound - tolerance - self.origin) / self.step))
-            last = int(math.floor((upper_bound + tolerance - self.origin) / self.step))
-        return tuple(self.origin + index * self.step for index in range(first, last + 1))
+            first = math.ceil((lower_bound - tolerance - self.origin) / self.step)
+            last = math.floor((upper_bound + tolerance - self.origin) / self.step)
+        return tuple(
+            self.origin + index * self.step for index in range(first, last + 1)
+        )
 
 
 @dataclass(frozen=True)
@@ -221,7 +226,9 @@ def projection_line_centers(
         weights = strength[group]
         if float(weights.sum()) <= 0.0:
             continue
-        centers.append(float(np.average(np.asarray(group, dtype=np.float64), weights=weights)))
+        centers.append(
+            float(np.average(np.asarray(group, dtype=np.float64), weights=weights))
+        )
     return centers
 
 
@@ -230,21 +237,20 @@ def _step_candidates(values: np.ndarray, axis_size: int) -> list[float]:
     min_step = max(4.0, float(axis_size) * 0.012)
     max_step = max(min_step, float(axis_size) * 0.35)
     candidates: list[float] = []
-    for left_index in range(len(values)):
-        for right_index in range(left_index + 1, len(values)):
-            distance = float(values[right_index] - values[left_index])
-            if distance < min_step:
-                continue
-            max_divisor = min(16, max(1, int(math.floor(distance / min_step))))
-            for divisor in range(1, max_divisor + 1):
-                candidate = distance / divisor
-                if min_step <= candidate <= max_step:
-                    candidates.append(candidate)
+    for left, right in itertools.combinations(values, 2):
+        distance = float(right - left)
+        if distance < min_step:
+            continue
+        max_divisor = min(16, max(1, math.floor(distance / min_step)))
+        for divisor in range(1, max_divisor + 1):
+            candidate = distance / divisor
+            if min_step <= candidate <= max_step:
+                candidates.append(candidate)
     if not candidates:
         return []
 
     bin_width = max(0.25, float(axis_size) * 0.001)
-    bins = Counter(int(round(candidate / bin_width)) for candidate in candidates)
+    bins = Counter(round(candidate / bin_width) for candidate in candidates)
     return [key * bin_width for key, _ in bins.most_common(80)]
 
 
@@ -255,7 +261,9 @@ def fit_grid_axis(
 ) -> GridAxisModel:
     """Fit a regular one-dimensional lattice while rejecting missing-line subharmonics."""
     if len(centers) < 4:
-        raise ValueError(f"not_enough_grid_lines: found {len(centers)}, need at least 4")
+        raise ValueError(
+            f"not_enough_grid_lines: found {len(centers)}, need at least 4"
+        )
 
     values = np.asarray(sorted(centers), dtype=np.float64)
     candidates = _step_candidates(values, axis_size)
@@ -300,13 +308,15 @@ def fit_grid_axis(
 
     _, _, matched = best
     lattice = np.asarray(sorted(matched), dtype=np.float64)
-    matched_values = np.asarray([matched[int(index)][0] for index in lattice], dtype=np.float64)
+    matched_values = np.asarray(
+        [matched[int(index)][0] for index in lattice], dtype=np.float64
+    )
     design = np.column_stack([np.ones_like(lattice), lattice])
     origin, step = np.linalg.lstsq(design, matched_values, rcond=None)[0]
     if step <= 0.0:
         raise ValueError("invalid_grid_step")
 
-    first_index = int(round((float(values.min()) - origin) / step))
+    first_index = round((float(values.min()) - origin) / step)
     origin += first_index * step
     normalized_indices = np.rint((matched_values - origin) / step).astype(int)
     residuals = np.abs(matched_values - (origin + normalized_indices * step))
@@ -327,18 +337,22 @@ def _line_strength(
     plot_max: float,
 ) -> float:
     """Score a fitted line, giving extra weight to axis extensions outside the grid."""
-    index = int(round(coordinate))
+    index = round(coordinate)
     if vertical:
         if not 0 <= index < darkness.shape[1]:
             return -math.inf
-        profile = darkness[:, max(0, index - 1) : min(darkness.shape[1], index + 2)].max(axis=1)
+        profile = darkness[
+            :, max(0, index - 1) : min(darkness.shape[1], index + 2)
+        ].max(axis=1)
     else:
         if not 0 <= index < darkness.shape[0]:
             return -math.inf
-        profile = darkness[max(0, index - 1) : min(darkness.shape[0], index + 2), :].max(axis=0)
+        profile = darkness[
+            max(0, index - 1) : min(darkness.shape[0], index + 2), :
+        ].max(axis=0)
 
-    lower = max(0, int(math.floor(plot_min)))
-    upper = min(len(profile), int(math.ceil(plot_max)) + 1)
+    lower = max(0, math.floor(plot_min))
+    upper = min(len(profile), math.ceil(plot_max) + 1)
     inside = float(profile[lower:upper].sum())
     outside = float(profile[:lower].sum() + profile[upper:].sum())
     return inside + 2.5 * outside
@@ -411,7 +425,7 @@ def detect_grid(
         smaller = min(candidate_vertical.step, candidate_horizontal.step)
         larger = max(candidate_vertical.step, candidate_horizontal.step)
         ratio = larger / smaller
-        multiple = int(round(ratio))
+        multiple = round(ratio)
         if multiple in {2, 3, 4} and abs(ratio - multiple) <= 0.22:
             if candidate_vertical.step < candidate_horizontal.step:
                 candidate_vertical = fit_grid_axis(
@@ -431,7 +445,9 @@ def detect_grid(
             candidate_horizontal.step,
         )
         if final_ratio > 1.35:
-            last_error = ValueError(f"grid_step_ratio_not_square_enough: {final_ratio:.3f}")
+            last_error = ValueError(
+                f"grid_step_ratio_not_square_enough: {final_ratio:.3f}"
+            )
             continue
         vertical = candidate_vertical
         horizontal = candidate_horizontal
@@ -459,7 +475,7 @@ def detect_grid(
     )
 
     radius = (
-        max(0, int(round(min(vertical.step, horizontal.step) * 0.025)))
+        max(0, round(min(vertical.step, horizontal.step) * 0.025))
         if grid_mask_radius is None
         else max(0, int(grid_mask_radius))
     )
@@ -470,7 +486,9 @@ def detect_grid(
             detected_vertical_axis_x if vertical_axis_x is None else vertical_axis_x
         ),
         horizontal_axis_y=float(
-            detected_horizontal_axis_y if horizontal_axis_y is None else horizontal_axis_y
+            detected_horizontal_axis_y
+            if horizontal_axis_y is None
+            else horizontal_axis_y
         ),
         grid_mask_radius=radius,
         detection_threshold=float(detection_threshold),
@@ -516,15 +534,15 @@ def dominant_curve_path(
     """Trace the strongest smooth left-to-right path after suppressing the fitted grid."""
     vertical_lines = grid.vertical_lines()
     horizontal_lines = grid.horizontal_lines()
-    left = max(0, int(math.floor(vertical_lines[0])))
-    right = min(darkness.shape[1] - 1, int(math.ceil(vertical_lines[-1])))
-    top = max(0, int(math.floor(horizontal_lines[0])))
-    bottom = min(darkness.shape[0] - 1, int(math.ceil(horizontal_lines[-1])))
+    left = max(0, math.floor(vertical_lines[0]))
+    right = min(darkness.shape[1] - 1, math.ceil(vertical_lines[-1]))
+    top = max(0, math.floor(horizontal_lines[0]))
+    bottom = min(darkness.shape[0] - 1, math.ceil(horizontal_lines[-1]))
     if x_interval is not None:
         interval_left = grid.vertical_axis_x + x_interval.left * grid.vertical.step
         interval_right = grid.vertical_axis_x + x_interval.right * grid.vertical.step
-        left = max(left, int(math.floor(min(interval_left, interval_right))))
-        right = min(right, int(math.ceil(max(interval_left, interval_right))))
+        left = max(left, math.floor(min(interval_left, interval_right)))
+        right = min(right, math.ceil(max(interval_left, interval_right)))
         if right <= left:
             raise ValueError("condition_x_interval_does_not_overlap_detected_grid")
 
@@ -543,7 +561,7 @@ def dominant_curve_path(
     evidence[crop_suppression] = -0.30
     height, width = evidence.shape
 
-    max_delta = min(32, max(5, int(math.ceil(step * 0.70))))
+    max_delta = min(32, max(5, math.ceil(step * 0.70)))
     scale = 14.0 / max(4.0, step)
     previous = np.zeros(height, dtype=np.float32)
     back = np.full((width, height), 32767, dtype=np.int16)
@@ -603,9 +621,9 @@ def detect_tangent_line(darkness: np.ndarray, grid: GridModel) -> TangentLine:
         binary,
         rho=1.0,
         theta=np.pi / 720.0,
-        threshold=max(12, int(round(step * 1.25))),
-        minLineLength=max(18, int(round(step * 2.8))),
-        maxLineGap=max(3, int(round(step * 0.45))),
+        threshold=max(12, round(step * 1.25)),
+        minLineLength=max(18, round(step * 2.8)),
+        maxLineGap=max(3, round(step * 0.45)),
     )
     if detected is None:
         raise ValueError("tangent_line_not_found")
@@ -640,11 +658,13 @@ def detect_tangent_line(darkness: np.ndarray, grid: GridModel) -> TangentLine:
             + intercept
         ) / math.sqrt(slope * slope + 1.0)
         selected = distance <= fitting_band
-        if int(selected.sum()) < max(20, int(round(step * 2.0))):
+        if int(selected.sum()) < max(20, round(step * 2.0)):
             break
         x_values = foreground_x[selected].astype(np.float64)
         y_values = foreground_y[selected].astype(np.float64)
-        weights = darkness[foreground_y[selected], foreground_x[selected]].astype(np.float64)
+        weights = darkness[foreground_y[selected], foreground_x[selected]].astype(
+            np.float64
+        )
         design = np.column_stack([x_values, np.ones(len(x_values), dtype=np.float64)])
         weighted_design = design * np.sqrt(weights)[:, None]
         weighted_y = y_values * np.sqrt(weights)
@@ -714,9 +734,9 @@ def detect_vertical_tangency_guide(
         binary,
         rho=1.0,
         theta=np.pi / 720.0,
-        threshold=max(10, int(round(step * 0.90))),
-        minLineLength=max(10, int(round(step * 1.25))),
-        maxLineGap=max(3, int(round(step * 0.45))),
+        threshold=max(10, round(step * 0.90)),
+        minLineLength=max(10, round(step * 1.25)),
+        maxLineGap=max(3, round(step * 0.45)),
     )
     if detected is None:
         raise ValueError("tangency_vertical_guide_not_found")
@@ -759,7 +779,9 @@ def detect_vertical_tangency_guide(
         selected_y <= guide_bottom + step * 0.20
     )
     if int(near_seed.sum()) >= 8:
-        weights = darkness[selected_y[near_seed], selected_x[near_seed]].astype(np.float64)
+        weights = darkness[selected_y[near_seed], selected_x[near_seed]].astype(
+            np.float64
+        )
         pixel_x = float(np.average(selected_x[near_seed], weights=weights))
     else:
         pixel_x = float(seed_x)
@@ -784,12 +806,12 @@ def detect_marked_tangent_grid_points(
     logical_x_min = (0.0 - grid.vertical_axis_x) / grid.vertical.step
     logical_x_max = (float(width - 1) - grid.vertical_axis_x) / grid.vertical.step
     yy, xx = np.indices(darkness.shape, dtype=np.float64)
-    tangent_distance = np.abs(
-        tangent.slope * xx - yy + tangent.intercept
-    ) / math.sqrt(tangent.slope * tangent.slope + 1.0)
+    tangent_distance = np.abs(tangent.slope * xx - yy + tangent.intercept) / math.sqrt(
+        tangent.slope * tangent.slope + 1.0
+    )
     radius = max(3.0, step * 0.34)
     dark_threshold = max(0.50, grid.detection_threshold * 2.25)
-    minimum_dark_pixels = max(5, int(round(step * 0.35)))
+    minimum_dark_pixels = max(5, round(step * 0.35))
     scored: list[tuple[float, float, float]] = []
 
     for integer_x in range(math.ceil(logical_x_min), math.floor(logical_x_max) + 1):
@@ -803,7 +825,9 @@ def detect_marked_tangent_grid_points(
             continue
         pixel_x = grid.vertical_axis_x + integer_x * grid.vertical.step
         pixel_y = grid.horizontal_axis_y - integer_y * grid.horizontal.step
-        if not (radius <= pixel_x < width - radius and radius <= pixel_y < height - radius):
+        if not (
+            radius <= pixel_x < width - radius and radius <= pixel_y < height - radius
+        ):
             continue
         disk = np.square(xx - pixel_x) + np.square(yy - pixel_y) <= radius * radius
         dark = disk & (darkness >= dark_threshold)
@@ -836,7 +860,7 @@ def _anchored_curve_direction(
     height, width = evidence.shape
     x_values = list(range(anchor_x, width if direction > 0 else -1, direction))
     step = min(grid.vertical.step, grid.horizontal.step)
-    max_delta = min(32, max(5, int(math.ceil(step * 0.70))))
+    max_delta = min(32, max(5, math.ceil(step * 0.70)))
     scale = 14.0 / max(4.0, step)
     previous = np.full(height, -1e9, dtype=np.float32)
     previous[int(np.clip(anchor_y, 0, height - 1))] = 0.0
@@ -845,7 +869,7 @@ def _anchored_curve_direction(
     last_supported_y = int(np.clip(anchor_y, 0, height - 1))
     last_supported_score = 0.0
     unsupported_columns = 0
-    maximum_gap = max(7, int(round(step * 0.70)))
+    maximum_gap = max(7, round(step * 0.70))
 
     for path_index, pixel_x in enumerate(x_values[1:], start=1):
         best_previous = np.full(height, -1e9, dtype=np.float32)
@@ -862,7 +886,9 @@ def _anchored_curve_direction(
         back_steps.append(best_delta)
         local_start = max(0, pixel_y - 2)
         local_end = min(height, pixel_y + 3)
-        local_evidence = float(evidence[local_start:local_end, pixel_x].max(initial=-1.0))
+        local_evidence = float(
+            evidence[local_start:local_end, pixel_x].max(initial=-1.0)
+        )
         if local_evidence > 0.02:
             last_supported_index = path_index
             last_supported_y = pixel_y
@@ -871,7 +897,7 @@ def _anchored_curve_direction(
         else:
             unsupported_columns += 1
         previous = current
-        if unsupported_columns >= maximum_gap and path_index >= int(round(step)):
+        if unsupported_columns >= maximum_gap and path_index >= round(step):
             break
 
     pixel_y = last_supported_y
@@ -901,9 +927,8 @@ def trace_curve_around_tangent(
         tangent.slope * tangent.slope + 1.0
     )
     contact_window = step * 0.65
-    tangent_mask = (
-        (tangent_distance <= max(2.5, step * 0.23))
-        & (np.abs(xx - guide.pixel_x) > contact_window)
+    tangent_mask = (tangent_distance <= max(2.5, step * 0.23)) & (
+        np.abs(xx - guide.pixel_x) > contact_window
     )
     guide_top = min(guide.start_y, guide.end_y)
     guide_bottom = max(guide.start_y, guide.end_y)
@@ -921,8 +946,8 @@ def trace_curve_around_tangent(
     evidence = 4.5 * blurred - 0.22
     evidence[suppression] = -0.30
 
-    anchor_x = int(round(guide.pixel_x))
-    anchor_y = int(round(guide.end_y))
+    anchor_x = round(guide.pixel_x)
+    anchor_y = round(guide.end_y)
     left_points, left_score = _anchored_curve_direction(
         evidence,
         grid,
@@ -947,10 +972,14 @@ def trace_curve_around_tangent(
 
 def _nearest(value: float, candidates: tuple[float, ...]) -> float:
     """Return the nearest value with deterministic tie-breaking."""
-    return float(min(candidates, key=lambda candidate: (abs(candidate - value), candidate)))
+    return float(
+        min(candidates, key=lambda candidate: (abs(candidate - value), candidate))
+    )
 
 
-def _logical_point(pixel_x: float, pixel_y: float, grid: GridModel) -> tuple[float, float]:
+def _logical_point(
+    pixel_x: float, pixel_y: float, grid: GridModel
+) -> tuple[float, float]:
     """Convert source pixels to logical Cartesian coordinates."""
     return (
         (pixel_x - grid.vertical_axis_x) / grid.vertical.step,
@@ -986,7 +1015,7 @@ def trim_text_bridge_tails(
 
     jumps = np.abs(np.diff(points[:, 1]))
     jump_threshold = max(4.0, grid.horizontal.step * 0.52)
-    window = min(len(jumps), max(8, int(round(grid.vertical.step * 1.5))))
+    window = min(len(jumps), max(8, round(grid.vertical.step * 1.5)))
     flat_tolerance = max(2.0, grid.horizontal.step * 0.22)
     start_cut = 0
     end_cut = len(points)
@@ -996,7 +1025,11 @@ def trim_text_bridge_tails(
     for run_start, run_end in _large_jump_runs(jumps[:window], jump_threshold):
         run_length = run_end - run_start + 1
         prefix = points[: run_start + 1, 1]
-        if run_length >= 2 and len(prefix) >= 3 and float(np.ptp(prefix)) <= flat_tolerance:
+        if (
+            run_length >= 2
+            and len(prefix) >= 3
+            and float(np.ptp(prefix)) <= flat_tolerance
+        ):
             start_cut = run_end + 1
             start_trimmed = True
 
@@ -1006,7 +1039,11 @@ def trim_text_bridge_tails(
         run_end = offset + local_end
         run_length = run_end - run_start + 1
         suffix = points[run_end + 1 :, 1]
-        if run_length >= 2 and len(suffix) >= 3 and float(np.ptp(suffix)) <= flat_tolerance:
+        if (
+            run_length >= 2
+            and len(suffix) >= 3
+            and float(np.ptp(suffix)) <= flat_tolerance
+        ):
             end_cut = run_start + 1
             end_trimmed = True
             break
@@ -1055,11 +1092,13 @@ def snap_curve_endpoints(
     x_tolerance = max(1.0, snap_tolerance_cells * grid.vertical.step)
     y_tolerance = max(1.0, snap_tolerance_cells * grid.horizontal.step)
 
-    raw_start_x, raw_start_y = map(float, points[0])
-    raw_end_x, raw_end_y = map(float, points[-1])
+    raw_start_x, _raw_start_y = map(float, points[0])
+    raw_end_x, _raw_end_y = map(float, points[-1])
     start_x_line = _nearest(raw_start_x, vertical_lines)
     end_x_line = _nearest(raw_end_x, vertical_lines)
-    start_x = start_x_line if abs(start_x_line - raw_start_x) <= x_tolerance else raw_start_x
+    start_x = (
+        start_x_line if abs(start_x_line - raw_start_x) <= x_tolerance else raw_start_x
+    )
     end_x = end_x_line if abs(end_x_line - raw_end_x) <= x_tolerance else raw_end_x
 
     start_y = _interpolate_or_extrapolate_y(points, start_x)
@@ -1107,7 +1146,9 @@ def smooth_and_simplify_curve(
         smoothed[-1] = points[-1]
 
     epsilon = max(0.05, simplify_cells * min(grid.vertical.step, grid.horizontal.step))
-    simplified = cv2.approxPolyDP(smoothed.reshape(-1, 1, 2), epsilon, False).reshape(-1, 2)
+    simplified = cv2.approxPolyDP(smoothed.reshape(-1, 1, 2), epsilon, False).reshape(
+        -1, 2
+    )
     simplified[0] = smoothed[0]
     simplified[-1] = smoothed[-1]
     return smoothed, simplified
@@ -1205,7 +1246,8 @@ def extract_graph(
         curve_points,
         grid,
         snap_tolerance_cells=snap_tolerance_cells,
-        force_start_open=start_tail_trimmed or bool(x_interval and x_interval.left_open),
+        force_start_open=start_tail_trimmed
+        or bool(x_interval and x_interval.left_open),
         force_end_open=end_tail_trimmed or bool(x_interval and x_interval.right_open),
     )
     smoothed, simplified = smooth_and_simplify_curve(
@@ -1214,7 +1256,11 @@ def extract_graph(
         smoothing_cells=smoothing_cells,
         simplify_cells=simplify_cells,
     )
-    return darkness, grid, TraceResult(raw_points, smoothed, simplified, score, start, end)
+    return (
+        darkness,
+        grid,
+        TraceResult(raw_points, smoothed, simplified, score, start, end),
+    )
 
 
 def extract_graph_with_tangent(
@@ -1270,16 +1316,20 @@ def extract_graph_with_tangent(
         vertical_guide,
         simplify_cells=simplify_cells,
     )
-    return darkness, grid, TraceResult(
-        raw_points,
-        smoothed,
-        simplified,
-        score,
-        start,
-        end,
-        tangent=tangent,
-        vertical_guide=vertical_guide,
-        tangent_markers=tangent_markers,
+    return (
+        darkness,
+        grid,
+        TraceResult(
+            raw_points,
+            smoothed,
+            simplified,
+            score,
+            start,
+            end,
+            tangent=tangent,
+            vertical_guide=vertical_guide,
+            tangent_markers=tangent_markers,
+        ),
     )
 
 
@@ -1287,7 +1337,7 @@ def _fmt(value: float, digits: int = 2) -> str:
     """Format a stable compact SVG number."""
     rounded = round(float(value), digits)
     if abs(rounded - round(rounded)) < 10 ** (-digits):
-        return str(int(round(rounded)))
+        return str(round(rounded))
     return f"{rounded:.{digits}f}".rstrip("0").rstrip(".")
 
 
@@ -1301,7 +1351,9 @@ def _coordinate_label(value: float) -> str:
     return text.replace("-", "−")
 
 
-def infer_graph_kind(condition_text: str | None, explicit_kind: str | None = None) -> str:
+def infer_graph_kind(
+    condition_text: str | None, explicit_kind: str | None = None
+) -> str:
     """Choose the isolated extractor whose visual objects match the condition."""
     if explicit_kind and explicit_kind != "auto":
         return explicit_kind
@@ -1370,8 +1422,12 @@ def _map_points_to_svg(
     first_x = grid.vertical_lines()[0]
     first_y = grid.horizontal_lines()[0]
     mapped = np.empty_like(points, dtype=np.float64)
-    mapped[:, 0] = ((points[:, 0] - first_x) / grid.vertical.step + pad_cells) * cell_size
-    mapped[:, 1] = ((points[:, 1] - first_y) / grid.horizontal.step + pad_cells) * cell_size
+    mapped[:, 0] = (
+        (points[:, 0] - first_x) / grid.vertical.step + pad_cells
+    ) * cell_size
+    mapped[:, 1] = (
+        (points[:, 1] - first_y) / grid.horizontal.step + pad_cells
+    ) * cell_size
     return mapped
 
 
@@ -1407,7 +1463,9 @@ def _pchip_slopes(points: np.ndarray) -> np.ndarray:
             left_weight / left + right_weight / right
         )
 
-    def endpoint_slope(here: float, neighbor: float, first: float, second: float) -> float:
+    def endpoint_slope(
+        here: float, neighbor: float, first: float, second: float
+    ) -> float:
         """Return a one-sided PCHIP slope clipped to the adjacent secants."""
         value = ((2.0 * here + neighbor) * first - here * second) / (here + neighbor)
         if value * first <= 0.0:
@@ -1518,9 +1576,7 @@ def _generate_bezier_segment(
         basis_3 = float(parameter) ** 3
         tangent_0 = left_tangent * basis_1
         tangent_1 = right_tangent * basis_2
-        residual = point - (
-            first * (basis_0 + basis_1) + last * (basis_2 + basis_3)
-        )
+        residual = point - (first * (basis_0 + basis_1) + last * (basis_2 + basis_3))
         c00 += float(np.dot(tangent_0, tangent_0))
         c01 += float(np.dot(tangent_0, tangent_1))
         c11 += float(np.dot(tangent_1, tangent_1))
@@ -1673,7 +1729,9 @@ def _bezier_path(points: np.ndarray, maximum_error: float) -> tuple[str, int]:
     """Fit and serialize an adaptive sequence of smooth cubic Bezier segments."""
     if len(points) < 3:
         return _polyline_path(points), max(1, len(points) - 1)
-    keep = np.concatenate([[True], np.linalg.norm(np.diff(points, axis=0), axis=1) > 1e-9])
+    keep = np.concatenate(
+        [[True], np.linalg.norm(np.diff(points, axis=0), axis=1) > 1e-9]
+    )
     fitting_points = points[keep].astype(np.float64)
     left_tangent = _unit_vector(fitting_points[1] - fitting_points[0])
     right_tangent = _unit_vector(fitting_points[-2] - fitting_points[-1])
@@ -1794,7 +1852,7 @@ def _smooth_function_spline_path(
     # cubic per grid cell.  Shorter uniform segments preserve raster stair-step
     # changes so faithfully that the result reads as a rounded polyline.
     interval = max(8.0, cell_size)
-    interval_count = max(2, int(math.ceil((x_values[-1] - x_values[0]) / interval)))
+    interval_count = max(2, math.ceil((x_values[-1] - x_values[0]) / interval))
     node_x = np.linspace(x_values[0], x_values[-1], interval_count + 1)
     node_x = np.unique(np.concatenate([node_x, np.asarray([anchor_x])]))
     node_y, node_slope = corrected_values(node_x)
@@ -1887,8 +1945,12 @@ def render_svg(
 
     first_x = grid.vertical_lines()[0]
     first_y = grid.horizontal_lines()[0]
-    axis_x = ((grid.vertical_axis_x - first_x) / grid.vertical.step + pad_cells) * cell_size
-    axis_y = ((grid.horizontal_axis_y - first_y) / grid.horizontal.step + pad_cells) * cell_size
+    axis_x = (
+        (grid.vertical_axis_x - first_x) / grid.vertical.step + pad_cells
+    ) * cell_size
+    axis_y = (
+        (grid.horizontal_axis_y - first_y) / grid.horizontal.step + pad_cells
+    ) * cell_size
     mapped_points = _map_points_to_svg(
         trace.simplified_points,
         grid,
@@ -1929,15 +1991,15 @@ def render_svg(
         tick_half = max(2.5, cell_size * 0.15)
         ticks = (
             f'<path d="M{_fmt(start_svg[0])} {_fmt(axis_y - tick_half)}V{_fmt(axis_y + tick_half)} '
-            f'M{_fmt(end_svg[0])} {_fmt(axis_y - tick_half)}V{_fmt(axis_y + tick_half)} '
+            f"M{_fmt(end_svg[0])} {_fmt(axis_y - tick_half)}V{_fmt(axis_y + tick_half)} "
             f'M{_fmt(axis_x - tick_half)} {_fmt(unit_y)}H{_fmt(axis_x + tick_half)}"/>'
         )
         labels = (
             '<g fill="#111" font-family="Times New Roman, Times, serif" font-size="12.5">'
             f'<text x="{_fmt(start_svg[0] - 7)}" y="{_fmt(axis_y + 16)}">'
-            f'{_coordinate_label(trace.start.logical_x)}</text>'
+            f"{_coordinate_label(trace.start.logical_x)}</text>"
             f'<text x="{_fmt(end_svg[0] - 4)}" y="{_fmt(axis_y + 16)}">'
-            f'{_coordinate_label(trace.end.logical_x)}</text>'
+            f"{_coordinate_label(trace.end.logical_x)}</text>"
             f'<text x="{_fmt(axis_x + 5)}" y="{_fmt(unit_y + 4)}">1</text>'
             f'<text x="{_fmt(axis_x + 5)}" y="{_fmt(axis_y + 16)}">0</text>'
             f'<text x="{_fmt(width - 11)}" y="{_fmt(axis_y + 17)}" font-size="15" '
@@ -1945,7 +2007,7 @@ def render_svg(
             f'<text x="{_fmt(axis_x - 13)}" y="15" font-size="15" font-style="italic">y</text>'
             f'<text x="{_fmt(max(4, width - 88))}" y="15" font-size="13" '
             f'font-style="italic">{escaped_graph_label}</text>'
-            '</g>'
+            "</g>"
         )
 
     endpoint_nodes = "".join(
@@ -1997,14 +2059,12 @@ def _logical_canvas_bounds(
     columns = (vertical_count - 1) + 2 * pad_cells
     rows = (horizontal_count - 1) + 2 * pad_cells
     x_min = (
-        (grid.vertical_lines()[0] - grid.vertical_axis_x) / grid.vertical.step
-        - pad_cells
-    )
+        grid.vertical_lines()[0] - grid.vertical_axis_x
+    ) / grid.vertical.step - pad_cells
     x_max = x_min + columns
     y_max = (
-        (grid.horizontal_axis_y - grid.horizontal_lines()[0]) / grid.horizontal.step
-        + pad_cells
-    )
+        grid.horizontal_axis_y - grid.horizontal_lines()[0]
+    ) / grid.horizontal.step + pad_cells
     y_min = y_max - rows
     return float(x_min), float(x_max), float(y_min), float(y_max)
 
@@ -2074,7 +2134,9 @@ def _tangent_lattice_markers(
             candidates.append((float(integer_x), float(integer_y)))
     minimum_distance = 1.15
     left = [point for point in candidates if point[0] <= logical_x_0 - minimum_distance]
-    right = [point for point in candidates if point[0] >= logical_x_0 + minimum_distance]
+    right = [
+        point for point in candidates if point[0] >= logical_x_0 + minimum_distance
+    ]
     if left and right:
         return np.asarray(
             [
@@ -2122,8 +2184,12 @@ def render_graph_with_tangent_svg(
 
     first_x = grid.vertical_lines()[0]
     first_y = grid.horizontal_lines()[0]
-    axis_x = ((grid.vertical_axis_x - first_x) / grid.vertical.step + pad_cells) * cell_size
-    axis_y = ((grid.horizontal_axis_y - first_y) / grid.horizontal.step + pad_cells) * cell_size
+    axis_x = (
+        (grid.vertical_axis_x - first_x) / grid.vertical.step + pad_cells
+    ) * cell_size
+    axis_y = (
+        (grid.horizontal_axis_y - first_y) / grid.horizontal.step + pad_cells
+    ) * cell_size
     mapped_trace = _map_points_to_svg(
         trace.points if path_mode == "bezier" else trace.simplified_points,
         grid,
@@ -2169,11 +2235,15 @@ def render_graph_with_tangent_svg(
         if trace.tangent_markers is not None
         else _tangent_lattice_markers(tangent, grid, guide, logical_bounds)
     )
-    lattice_svg = _logical_points_to_svg(
-        lattice_logical,
-        logical_bounds,
-        cell_size,
-    ) if len(lattice_logical) else np.empty((0, 2), dtype=np.float64)
+    lattice_svg = (
+        _logical_points_to_svg(
+            lattice_logical,
+            logical_bounds,
+            cell_size,
+        )
+        if len(lattice_logical)
+        else np.empty((0, 2), dtype=np.float64)
+    )
     tangency_svg = guide_svg[1]
     x_axis_guide_svg = guide_svg[0]
     end_svg = _map_points_to_svg(
@@ -2214,7 +2284,7 @@ def render_graph_with_tangent_svg(
             f'font-style="italic">{escaped_guide_label}</text>'
             f'<text x="{_fmt(curve_label_x)}" y="{_fmt(curve_label_y)}" fill="{curve_color}" '
             f'font-style="italic">{escaped_graph_label}</text>'
-            '</g>'
+            "</g>"
         )
 
     tangent_marker_nodes = "".join(
@@ -2290,19 +2360,27 @@ def diagnostics_payload(
         },
         "curve": {
             "trace_score": round(trace.score, 6),
-            "raw_span_pixels": round(float(trace.raw_points[-1, 0] - trace.raw_points[0, 0]), 6),
-            "raw_point_count": int(len(trace.raw_points)),
-            "simplified_point_count": int(len(trace.simplified_points)),
+            "raw_span_pixels": round(
+                float(trace.raw_points[-1, 0] - trace.raw_points[0, 0]), 6
+            ),
+            "raw_point_count": len(trace.raw_points),
+            "simplified_point_count": len(trace.simplified_points),
             "pixel_knots": _rounded_points(trace.simplified_points),
             "logical_knots": _rounded_points(logical_knots),
             "start": {
                 "pixel": [round(trace.start.pixel_x, 4), round(trace.start.pixel_y, 4)],
-                "logical": [round(trace.start.logical_x, 4), round(trace.start.logical_y, 4)],
+                "logical": [
+                    round(trace.start.logical_x, 4),
+                    round(trace.start.logical_y, 4),
+                ],
                 "looks_open": bool(trace.start.looks_open),
             },
             "end": {
                 "pixel": [round(trace.end.pixel_x, 4), round(trace.end.pixel_y, 4)],
-                "logical": [round(trace.end.logical_x, 4), round(trace.end.logical_y, 4)],
+                "logical": [
+                    round(trace.end.logical_x, 4),
+                    round(trace.end.logical_y, 4),
+                ],
                 "looks_open": bool(trace.end.looks_open),
             },
         },
@@ -2381,7 +2459,11 @@ def save_debug_overlay(
             fill=(150, 40, 180, 255),
             width=2,
         )
-    draw.line([tuple(map(float, point)) for point in trace.points], fill=(20, 80, 220, 255), width=2)
+    draw.line(
+        [tuple(map(float, point)) for point in trace.points],
+        fill=(20, 80, 220, 255),
+        width=2,
+    )
     radius = 3
     for endpoint in (trace.start, trace.end):
         draw.ellipse(
@@ -2468,7 +2550,9 @@ def run(
         if resolved_diagram_kind == "function_with_tangent"
         else render_svg
     )
-    render_pad_cells = 0 if resolved_diagram_kind == "function_with_tangent" else pad_cells
+    render_pad_cells = (
+        0 if resolved_diagram_kind == "function_with_tangent" else pad_cells
+    )
     svg = renderer(
         grid,
         trace,
@@ -2549,8 +2633,15 @@ def main() -> None:
         default=Path("graph_svg_from_contrast"),
         help="Output directory for SVG, JSON, and optional debug overlay",
     )
-    parser.add_argument("--cell-size", type=float, default=20.0, help="SVG grid cell size")
-    parser.add_argument("--pad-cells", type=int, default=1, help="Extra grid cells around the source grid")
+    parser.add_argument(
+        "--cell-size", type=float, default=20.0, help="SVG grid cell size"
+    )
+    parser.add_argument(
+        "--pad-cells",
+        type=int,
+        default=1,
+        help="Extra grid cells around the source grid",
+    )
     parser.add_argument(
         "--foreground-threshold",
         type=float,
@@ -2617,8 +2708,12 @@ def main() -> None:
         default="auto",
         help="Endpoint rendering; auto draws circles only when ring overhang is detected",
     )
-    parser.add_argument("--no-labels", action="store_true", help="Omit coordinate labels and ticks")
-    parser.add_argument("--curve-color", default="#143b8f", help="SVG curve stroke color")
+    parser.add_argument(
+        "--no-labels", action="store_true", help="Omit coordinate labels and ticks"
+    )
+    parser.add_argument(
+        "--curve-color", default="#143b8f", help="SVG curve stroke color"
+    )
     parser.add_argument(
         "--condition-text",
         default=None,
@@ -2635,8 +2730,12 @@ def main() -> None:
         default="auto",
         help="Extractor selection; auto routes from the condition text",
     )
-    parser.add_argument("--x-min", type=float, default=None, help="Explicit logical left x bound")
-    parser.add_argument("--x-max", type=float, default=None, help="Explicit logical right x bound")
+    parser.add_argument(
+        "--x-min", type=float, default=None, help="Explicit logical left x bound"
+    )
+    parser.add_argument(
+        "--x-max", type=float, default=None, help="Explicit logical right x bound"
+    )
     parser.add_argument(
         "--debug-overlay",
         action="store_true",

@@ -6,7 +6,7 @@ from typing import Any
 
 from solution_runner.group_inventory_store import GroupInventoryStore
 
-from ..grid_polygon.inventory import GroupInventory, RASTER_CONTENT_TYPES
+from ..grid_polygon.inventory import RASTER_CONTENT_TYPES, GroupInventory
 from .models import ProblemTarget
 
 
@@ -21,11 +21,12 @@ def load_group_inventory(
     snapshot = store.get(str(profile.group_key))
     if snapshot is None or snapshot.status != "ready":
         raise ValueError(f"group {profile.group_key} has no ready local inventory")
-    if (
-        snapshot.catalog_snapshot_id != str(profile.catalog_snapshot_id)
-        or snapshot.source_group_id != str(profile.source_group_id)
-    ):
-        raise ValueError(f"group {profile.group_key} local inventory does not match its profile")
+    if snapshot.catalog_snapshot_id != str(
+        profile.catalog_snapshot_id
+    ) or snapshot.source_group_id != str(profile.source_group_id):
+        raise ValueError(
+            f"group {profile.group_key} local inventory does not match its profile"
+        )
 
     assets_by_problem: dict[str, list[Any]] = {}
     for asset in snapshot.assets:
@@ -46,7 +47,12 @@ def load_group_inventory(
         scope = getattr(profile, "solution_scope", "all")
         if apply_solution_scope and scope == "missing_only" and item.has_solution:
             continue
-        if apply_solution_scope and scope == "missing_or_pipeline_generated" and item.has_solution and not generated_solution:
+        if (
+            apply_solution_scope
+            and scope == "missing_or_pipeline_generated"
+            and item.has_solution
+            and not generated_solution
+        ):
             continue
 
         condition_asset = next(
@@ -57,9 +63,14 @@ def load_group_inventory(
             ),
             None,
         )
-        if apply_solution_scope and profile.workflow_kind != "content_rule" and (
-            condition_asset is None
-            or condition_asset.content_type not in RASTER_CONTENT_TYPES | {"image/svg+xml"}
+        if (
+            apply_solution_scope
+            and profile.workflow_kind != "content_rule"
+            and (
+                condition_asset is None
+                or condition_asset.content_type
+                not in RASTER_CONTENT_TYPES | {"image/svg+xml"}
+            )
         ):
             continue
         target = ProblemTarget(

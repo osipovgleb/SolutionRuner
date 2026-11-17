@@ -2,19 +2,24 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from fractions import Fraction
-import re
 from typing import Any
 
 from bs4 import BeautifulSoup
 
-from ..triangles.isosceles.planner import _normalized_content, _section, _section_transformation
+from ..triangles.isosceles.planner import (
+    _normalized_content,
+    _section,
+    _section_transformation,
+)
 from ..triangles.right.planner import RightTrianglePlanError
 
-
 _FORMULA = re.compile(r"^(?:(a)|(-?\d+))([+-])(?:(a)|(-?\d+))([<>])0$")
-_POINT = re.compile(r'<path\b(?=[^>]*\bfill=["\']#143B8F["\'])(?=[^>]*\bd=["\']M([-\d.]+),([-\d.]+))[^>]*>')
+_POINT = re.compile(
+    r'<path\b(?=[^>]*\bfill=["\']#143B8F["\'])(?=[^>]*\bd=["\']M([-\d.]+),([-\d.]+))[^>]*>'
+)
 _TICK = re.compile(r'<line\b[^>]*\bx1=["\']([-\d.]+)["\'][^>]*\bx2=["\']\1["\'][^>]*>')
 
 
@@ -27,9 +32,18 @@ class RepairPlan:
 def _formula(item: Any) -> str:
     soup = BeautifulSoup(str(item), "html.parser")
     latex = soup.find("span", attrs={"data-inline-latex": True})
-    raw = str(latex.get("data-inline-latex") if latex else soup.get_text("", strip=True))
-    normalized = (raw.replace("−", "-").replace("–", "-").replace(r"\gt", ">")
-        .replace(r"\lt", "<").replace("{", "").replace("}", "").replace(" ", ""))
+    raw = str(
+        latex.get("data-inline-latex") if latex else soup.get_text("", strip=True)
+    )
+    normalized = (
+        raw.replace("−", "-")
+        .replace("–", "-")
+        .replace(r"\gt", ">")
+        .replace(r"\lt", "<")
+        .replace("{", "")
+        .replace("}", "")
+        .replace(" ", "")
+    )
     if not _FORMULA.fullmatch(normalized):
         raise RightTrianglePlanError("option is not a reviewed linear inequality")
     return normalized
@@ -76,15 +90,24 @@ def _representative(svg: bytes) -> tuple[int, int, Fraction]:
     if len(ticks) < 3:
         raise RightTrianglePlanError("coordinate line has too few ticks")
     spacing = ticks[1] - ticks[0]
-    if spacing <= 0 or any(abs(ticks[index + 1] - value - spacing) > 1.2 for index, value in enumerate(ticks[:-1])):
+    if spacing <= 0 or any(
+        abs(ticks[index + 1] - value - spacing) > 1.2
+        for index, value in enumerate(ticks[:-1])
+    ):
         raise RightTrianglePlanError("coordinate line ticks are not uniform")
     points = [(float(x), float(y)) for x, y in _POINT.findall(text)]
     if not points:
         raise RightTrianglePlanError("coordinate line marker is unavailable")
     point, _ = min(points, key=lambda value: abs(value[1] - 22))
     left = int((point - ticks[0]) // spacing)
-    if not 0 <= left < len(ticks) - 1 or abs(point - ticks[left]) < spacing * .1 or abs(point - ticks[left + 1]) < spacing * .1:
-        raise RightTrianglePlanError("coordinate line marker must lie strictly between ticks")
+    if (
+        not 0 <= left < len(ticks) - 1
+        or abs(point - ticks[left]) < spacing * 0.1
+        or abs(point - ticks[left + 1]) < spacing * 0.1
+    ):
+        raise RightTrianglePlanError(
+            "coordinate line marker must lie strictly between ticks"
+        )
     return left, left + 1, Fraction(2 * left + 1, 2)
 
 
@@ -103,7 +126,11 @@ def _result(formula: str, value: Fraction) -> tuple[Fraction, str]:
 
 
 def _latex(value: Fraction) -> str:
-    return str(value.numerator) if value.denominator == 1 else f"{value.numerator // value.denominator}{{,}}5"
+    return (
+        str(value.numerator)
+        if value.denominator == 1
+        else f"{value.numerator // value.denominator}{{,}}5"
+    )
 
 
 def _solution(options: tuple[str, ...], lower: int, upper: int, value: Fraction) -> str:
@@ -113,7 +140,7 @@ def _solution(options: tuple[str, ...], lower: int, upper: int, value: Fraction)
         result, comparison = _result(formula, value)
         rows.append(
             f'<li><span data-inline-latex="{substituted}={_latex(result)}{comparison}0"></span> — '
-            f'{"верно" if _is_true(formula, value) else "неверно"}.</li>'
+            f"{'верно' if _is_true(formula, value) else 'неверно'}.</li>"
         )
     return (
         f'<p>Из рисунка видно, что <span data-inline-latex="{lower}\\lt a\\lt {upper}"></span>. '
@@ -123,7 +150,9 @@ def _solution(options: tuple[str, ...], lower: int, upper: int, value: Fraction)
 
 
 def build_context_repair_plan(
-    context: dict[str, Any], *, condition_asset_bytes: bytes | None,
+    context: dict[str, Any],
+    *,
+    condition_asset_bytes: bytes | None,
 ) -> RepairPlan:
     content = _normalized_content(context)
     condition = _section(content, "condition")
@@ -132,31 +161,46 @@ def build_context_repair_plan(
     if condition is None:
         raise RightTrianglePlanError("condition is required")
     vertical = _vertical_options(condition)
-    current_answer = BeautifulSoup(str(answer_section.get("html") or "") if answer_section else "", "html.parser").get_text("", strip=True)
+    current_answer = BeautifulSoup(
+        str(answer_section.get("html") or "") if answer_section else "", "html.parser"
+    ).get_text("", strip=True)
     if solution_section is not None and current_answer in {"1", "2", "3", "4"}:
-        changes = (() if vertical is None else (_section_transformation(
-            condition, "condition", "Условие", vertical
-        ),))
+        changes = (
+            ()
+            if vertical is None
+            else (_section_transformation(condition, "condition", "Условие", vertical),)
+        )
         return RepairPlan(answer=current_answer, transformations=changes)
     if condition_asset_bytes is None:
         raise RightTrianglePlanError("condition and its SVG are required")
     options = _options(condition)
     lower, upper, value = _representative(condition_asset_bytes)
-    true_options = [index for index, formula in enumerate(options, start=1) if _is_true(formula, value)]
+    true_options = [
+        index
+        for index, formula in enumerate(options, start=1)
+        if _is_true(formula, value)
+    ]
     if len(true_options) != 1:
         raise RightTrianglePlanError("coordinate line does not select one true option")
     answer = str(true_options[0])
     changes: list[dict[str, Any]] = []
     if vertical is not None:
-        changes.append(_section_transformation(
-            condition, "condition", "Условие", vertical
-        ))
+        changes.append(
+            _section_transformation(condition, "condition", "Условие", vertical)
+        )
     if solution_section is None:
-        changes.append(_section_transformation(
-            None, "solution", "Решение", _solution(options, lower, upper, value)
-        ))
+        changes.append(
+            _section_transformation(
+                None, "solution", "Решение", _solution(options, lower, upper, value)
+            )
+        )
     if current_answer != answer:
-        changes.append(_section_transformation(
-            answer_section, "answer", "Ответ", f'<p><span data-effect="spaced">{answer}</span></p>'
-        ))
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
     return RepairPlan(answer=answer, transformations=tuple(changes))

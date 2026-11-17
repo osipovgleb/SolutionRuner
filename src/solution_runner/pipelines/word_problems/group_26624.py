@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
+from fractions import Fraction
 from typing import Any
 
-from solution_runner.pipelines.core.numbers import format_answer, parse_rational, terminating_decimal_places
+from solution_runner.pipelines.core.numbers import (
+    format_answer,
+    parse_rational,
+    terminating_decimal_places,
+)
 
 from .common import UnsupportedCondition, decimal_latex, finalize, require_content
-
 
 RULE = "word-problem-26624-medicine-course-ceiling"
 _NUMBER = r"(?:0|[1-9]\d*)(?:[,.]\d+)?"
@@ -64,7 +67,10 @@ def _division_latex(required: Fraction, capacity: Fraction) -> str:
     if terminating_decimal_places(quotient) is None:
         return rf"\frac{{{decimal_latex(required)}}}{{{decimal_latex(capacity)}}}={_repeating_decimal_latex(quotient)}"
 
-    places = max(terminating_decimal_places(required) or 0, terminating_decimal_places(capacity) or 0)
+    places = max(
+        terminating_decimal_places(required) or 0,
+        terminating_decimal_places(capacity) or 0,
+    )
     numerator, _ = _scaled_fraction_latex(required, 10**places)
     denominator, _ = _scaled_fraction_latex(capacity, 10**places)
     prefix = rf"\frac{{{decimal_latex(required)}}}{{{decimal_latex(capacity)}}}="
@@ -72,10 +78,17 @@ def _division_latex(required: Fraction, capacity: Fraction) -> str:
         prefix += rf"\frac{{{numerator}}}{{{denominator}}}="
     raw_places = terminating_decimal_places(Fraction(1, denominator))
     reduced = Fraction(numerator, denominator)
-    if raw_places is None and (reduced.numerator, reduced.denominator) != (numerator, denominator):
+    if raw_places is None and (reduced.numerator, reduced.denominator) != (
+        numerator,
+        denominator,
+    ):
         prefix += rf"\frac{{{reduced.numerator}}}{{{reduced.denominator}}}="
     if raw_places is not None:
-        chosen_numerator, chosen_denominator, decimal_places = numerator, denominator, raw_places
+        chosen_numerator, chosen_denominator, decimal_places = (
+            numerator,
+            denominator,
+            raw_places,
+        )
     else:
         chosen_numerator, chosen_denominator = reduced.numerator, reduced.denominator
         decimal_places = terminating_decimal_places(reduced) or 0
@@ -95,7 +108,10 @@ def _legacy_division_latex(required: Fraction, capacity: Fraction) -> str:
     remainder = quotient - whole
     if remainder == 0 or terminating_decimal_places(quotient) is None:
         return _division_latex(required, capacity)
-    places = max(terminating_decimal_places(required) or 0, terminating_decimal_places(capacity) or 0)
+    places = max(
+        terminating_decimal_places(required) or 0,
+        terminating_decimal_places(capacity) or 0,
+    )
     numerator, _ = _scaled_fraction_latex(required, 10**places)
     denominator, _ = _scaled_fraction_latex(capacity, 10**places)
     whole_part = whole * denominator

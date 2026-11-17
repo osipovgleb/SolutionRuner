@@ -71,8 +71,17 @@ def _analyze_ordered_complement(
         for point, height in ((start, first_height), (end, second_height)):
             if xmin < point[0] < xmax and height:
                 projections.add((point, (point[0], boundary_y)))
-    terms.sort(key=lambda term: (0 if term[0] == "rectangle" else 1, -term[3], -term[1], -term[2]))
-    area = rectangle_width * rectangle_height - sum((term[3] for term in terms), Fraction())
+    terms.sort(
+        key=lambda term: (
+            0 if term[0] == "rectangle" else 1,
+            -term[3],
+            -term[1],
+            -term[2],
+        )
+    )
+    area = rectangle_width * rectangle_height - sum(
+        (term[3] for term in terms), Fraction()
+    )
     if area != coordinate_area:
         raise ValueError("complement and coordinate area calculations disagree")
     return GeometryAnalysis(
@@ -123,8 +132,13 @@ class BoundingRectangleTriangleStrategy:
             ("bounding-side", start, corners[(index + 1) % 4])
             for index, start in enumerate(corners)
         ]
-        specs.extend(("projection", start, end) for start, end in analysis.details["projections"])
-        specs.extend(("decomposition", start, end) for start, end in analysis.details["decomposition_lines"])
+        specs.extend(
+            ("projection", start, end) for start, end in analysis.details["projections"]
+        )
+        specs.extend(
+            ("decomposition", start, end)
+            for start, end in analysis.details["decomposition_lines"]
+        )
         lines = []
         for kind, start, end in specs:
             x1, y1 = mapper(start)
@@ -139,12 +153,16 @@ class BoundingRectangleTriangleStrategy:
         """Return the deterministic rectangle-minus-pieces formula."""
 
         parts = [
-            rf"S={format_number(analysis.details['rectangle_width'], latex=True)}\cdot "
-            rf"{format_number(analysis.details['rectangle_height'], latex=True)}"
+            (
+                rf"S={format_number(analysis.details['rectangle_width'], latex=True)}\cdot "
+                rf"{format_number(analysis.details['rectangle_height'], latex=True)}"
+            )
         ]
         for kind, width, height, _ in analysis.details["exterior_terms"]:
             if kind == "rectangle":
-                parts.append(rf"-{format_number(width, latex=True)}\cdot {format_number(height, latex=True)}")
+                parts.append(
+                    rf"-{format_number(width, latex=True)}\cdot {format_number(height, latex=True)}"
+                )
             else:
                 parts.append(
                     rf"-\frac{{1}}{{2}}\cdot {format_number(width, latex=True)}\cdot "
@@ -166,7 +184,9 @@ class BoundingRectangleTriangleStrategy:
         if profile.solution_text_profile == "triangle-three-exterior":
             count = {1: "одного", 2: "двух", 3: "трех"}.get(triangles)
             if rectangles or count is None:
-                raise ValueError("triangle-three-exterior profile has incompatible pieces")
+                raise ValueError(
+                    "triangle-three-exterior profile has incompatible pieces"
+                )
             prose = (
                 "Площадь треугольника равна разности площади прямоугольника и "
                 f"площадей {count} прямоугольных треугольников, гипотенузы которых "

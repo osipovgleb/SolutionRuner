@@ -6,14 +6,18 @@ from fractions import Fraction
 from html import escape
 from math import hypot
 
-from ..models import GeometryAnalysis, GroupProfile, PreparedGridRing, SolutionDiagramSpec
+from ..models import (
+    GeometryAnalysis,
+    GroupProfile,
+    PreparedGridRing,
+    SolutionDiagramSpec,
+)
 from .protocol import (
     StrategyError,
     append_solution_construction,
     build_answer_html,
     svg_number,
 )
-
 
 SOLUTION_ASSET_KEY = "generated_solution_diagram"
 
@@ -52,10 +56,7 @@ def _radius_explanation_html(
 
     horizontal, vertical = legs
     if horizontal and vertical:
-        prose = (
-            "По теореме Пифагора квадрат радиуса "
-            f"{circle_name} круга равен"
-        )
+        prose = f"По теореме Пифагора квадрат радиуса {circle_name} круга равен"
         formula = (
             rf"R_{radius_index}^2={horizontal}^2+{vertical}^2="
             f"{radius_squared}"
@@ -80,9 +81,12 @@ class AnnulusAreaStrategy:
     ) -> GeometryAnalysis:
         """Verify both squared radii from their independent lattice points."""
 
-        if not isinstance(prepared, PreparedGridRing) or profile.geometry_kind != "ring":
+        if (
+            not isinstance(prepared, PreparedGridRing)
+            or profile.geometry_kind != "ring"
+        ):
             raise StrategyError("annulus strategy requires a prepared grid ring")
-        cx, cy = prepared.center
+        _cx, _cy = prepared.center
         outer_legs = _radius_legs(
             prepared.center,
             prepared.outer_point,
@@ -129,9 +133,15 @@ class AnnulusAreaStrategy:
             inner_radius = float(prepared.converter_diagnostics["svg_inner_radius"])
             cell_size = float(prepared.converter_diagnostics["grid_cell_size"])
         except (KeyError, TypeError, ValueError) as exc:
-            raise StrategyError("prepared ring has no SVG-space radius evidence") from exc
-        outer_legs = tuple(int(value) for value in analysis.details["outer_radius_legs"])
-        inner_legs = tuple(int(value) for value in analysis.details["inner_radius_legs"])
+            raise StrategyError(
+                "prepared ring has no SVG-space radius evidence"
+            ) from exc
+        outer_legs = tuple(
+            int(value) for value in analysis.details["outer_radius_legs"]
+        )
+        inner_legs = tuple(
+            int(value) for value in analysis.details["inner_radius_legs"]
+        )
         for name, legs, svg_radius in (
             ("outer", outer_legs, outer_radius),
             ("inner", inner_legs, inner_radius),
@@ -157,14 +167,18 @@ class AnnulusAreaStrategy:
                 projection_y = center_y
                 lines.extend(
                     (
-                        f'  <line data-kind="pythagorean-leg" data-radius="{name}" '
-                        f'x1="{svg_number(center_x)}" y1="{svg_number(center_y)}" '
-                        f'x2="{svg_number(projection_x)}" y2="{svg_number(projection_y)}" '
-                        'stroke-dasharray="5 4" />',
-                        f'  <line data-kind="pythagorean-leg" data-radius="{name}" '
-                        f'x1="{svg_number(projection_x)}" y1="{svg_number(projection_y)}" '
-                        f'x2="{svg_number(endpoint_x)}" y2="{svg_number(endpoint_y)}" '
-                        'stroke-dasharray="5 4" />',
+                        (
+                            f'  <line data-kind="pythagorean-leg" data-radius="{name}" '
+                            f'x1="{svg_number(center_x)}" y1="{svg_number(center_y)}" '
+                            f'x2="{svg_number(projection_x)}" y2="{svg_number(projection_y)}" '
+                            'stroke-dasharray="5 4" />'
+                        ),
+                        (
+                            f'  <line data-kind="pythagorean-leg" data-radius="{name}" '
+                            f'x1="{svg_number(projection_x)}" y1="{svg_number(projection_y)}" '
+                            f'x2="{svg_number(endpoint_x)}" y2="{svg_number(endpoint_y)}" '
+                            'stroke-dasharray="5 4" />'
+                        ),
                     )
                 )
         return append_solution_construction(source, lines)
@@ -211,13 +225,17 @@ class AnnulusAreaStrategy:
             _radius_explanation_html(
                 radius_index=1,
                 circle_name="большого",
-                legs=tuple(int(value) for value in analysis.details["outer_radius_legs"]),
+                legs=tuple(
+                    int(value) for value in analysis.details["outer_radius_legs"]
+                ),
                 radius_squared=int(analysis.details["outer_radius_squared"]),
             )
             + _radius_explanation_html(
                 radius_index=2,
                 circle_name="малого",
-                legs=tuple(int(value) for value in analysis.details["inner_radius_legs"]),
+                legs=tuple(
+                    int(value) for value in analysis.details["inner_radius_legs"]
+                ),
                 radius_squared=int(analysis.details["inner_radius_squared"]),
             )
             + "<p>Площадь кольца равна разности площадей большого и малого кругов, откуда</p>"

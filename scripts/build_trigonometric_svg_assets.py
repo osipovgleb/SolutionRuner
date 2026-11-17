@@ -6,6 +6,7 @@ The source layout/palette comes from the downloaded reference SVG documented in
 ``docs/trigonometric-equations-runner.md``.  The script intentionally drops its
 obsolete blue semicircle, old outlined text paths, duplicate points and clips.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -13,7 +14,10 @@ from math import sqrt
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-OUT = Path(__file__).parents[1] / "src/solution_runner/pipelines/equations/assets/trigonometry"
+OUT = (
+    Path(__file__).parents[1]
+    / "src/solution_runner/pipelines/equations/assets/trigonometry"
+)
 
 # Coordinates/palette retained from the inspected source SVG.
 CX, CY, R = 76.0, 109.5, 56.0
@@ -103,7 +107,13 @@ def angle_text(
     if negative:
         numerator = numerator[1:]
     width = max(10, len(numerator) * 5.5)
-    left = x + 5 if negative and anchor == "start" else x if anchor == "start" else x - width
+    left = (
+        x + 5
+        if negative and anchor == "start"
+        else x
+        if anchor == "start"
+        else x - width
+    )
     center = left + width / 2
     minus = (
         f'<text x="{f(left - 4)}" y="{f(y + 3)}" text-anchor="middle">−</text>'
@@ -113,7 +123,7 @@ def angle_text(
     return (
         f'<g data-angle="{escape(content)}" fill="{BLUE}" '
         'font-family="Liberation Sans, DejaVu Sans, sans-serif" font-size="10">'
-        f'{minus}'
+        f"{minus}"
         f'<text x="{f(center)}" y="{f(y - 4)}" text-anchor="middle">{escape(numerator)}</text>'
         f'<line x1="{f(left)}" y1="{f(y - 1)}" x2="{f(left + width)}" y2="{f(y - 1)}" stroke="{BLUE}" stroke-width="0.7"/>'
         f'<text x="{f(center)}" y="{f(y + 8)}" text-anchor="middle">{escape(denominator)}</text></g>'
@@ -122,11 +132,25 @@ def angle_text(
 
 def bounded_angle_text(x: float, y: float, content: str, *, side: str) -> str:
     """Place an angle label near a point without clipping a stacked fraction."""
-    width = max(14, len(content.split("/", 1)[0]) * 5.5) if "/" in content else len(content) * 5.6
+    width = (
+        max(14, len(content.split("/", 1)[0]) * 5.5)
+        if "/" in content
+        else len(content) * 5.6
+    )
     if side == "start":
-        return angle_text(x if x + width <= 150 else 150, y, content, anchor="start" if x + width <= 150 else "end")
+        return angle_text(
+            x if x + width <= 150 else 150,
+            y,
+            content,
+            anchor="start" if x + width <= 150 else "end",
+        )
     if side == "end":
-        return angle_text(x if x - width >= 3 else 3, y, content, anchor="end" if x - width >= 3 else "start")
+        return angle_text(
+            x if x - width >= 3 else 3,
+            y,
+            content,
+            anchor="end" if x - width >= 3 else "start",
+        )
     raise ValueError(f"unsupported angle-label side: {side}")
 
 
@@ -169,7 +193,9 @@ def cos_svg(asset: Asset) -> str:
     # same point as the circle intersection; at zero it is the centre.
     axis_point = "" if asset.value in {-1, 1} else point(x, CY)
     if len(asset.angles) == 1:
-        angle_labels = bounded_angle_text(angle_x, top - 12, asset.angles[0], side=angle_side)
+        angle_labels = bounded_angle_text(
+            angle_x, top - 12, asset.angles[0], side=angle_side
+        )
         points = point(x, top)
     else:
         top_angle, bottom_angle = asset.angles
@@ -192,7 +218,11 @@ def cos_svg(asset: Asset) -> str:
         else "start"
     )
     value_x = x + 8 if value_side == "start" else x - 8
-    revision_marker = "  <!-- reviewed label placement -->\n" if asset.slug == "minus-sqrt2-over-2" else ""
+    revision_marker = (
+        "  <!-- reviewed label placement -->\n"
+        if asset.slug == "minus-sqrt2-over-2"
+        else ""
+    )
     body = f'''{revision_marker}  <!-- full dashed coordinate line shows the cosine value beyond the circle -->
   <line x1="{f(x)}" y1="8" x2="{f(x)}" y2="211" fill="none" {BLUE_STROKE} />
   {points}
@@ -221,11 +251,15 @@ def sin_svg(asset: Asset) -> str:
         "minus-sqrt3-over-2",
     }
     value_below_line = asset.slug in {"sqrt2-over-2", "sqrt3-over-2"}
-    value_y = y + 18 if value_below_line else y - 9 if y <= CY or value_above_line else y + 18
+    value_y = (
+        y + 18 if value_below_line else y - 9 if y <= CY or value_above_line else y + 18
+    )
     value_side = "end" if asset.slug == "one" else "start"
     value_x = CX - 8 if value_side == "end" else CX + 8
     if len(asset.angles) == 1:
-        angle_labels = bounded_angle_text(CX + 6, angle_y, asset.angles[0], side="start")
+        angle_labels = bounded_angle_text(
+            CX + 6, angle_y, asset.angles[0], side="start"
+        )
     else:
         angle_labels = "\n  ".join(
             (

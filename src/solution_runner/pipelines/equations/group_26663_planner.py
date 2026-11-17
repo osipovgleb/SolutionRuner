@@ -4,9 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from .group_26662_planner import build_repair_plan as _build_repair_plan
 from ..triangles.right.planner import RepairPlan
-
+from .group_26662_planner import build_repair_plan as _build_repair_plan
 
 RULE = "elementary-equations-26663-negative-fractional-linear-equation"
 PARENT_PROBLEM_ID = "063581d9-05ab-46e9-bf59-0c7a29a1bf3b"

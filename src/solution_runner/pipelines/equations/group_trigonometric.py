@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
 from fractions import Fraction
 from pathlib import Path
 from typing import Any
@@ -14,6 +13,9 @@ from bs4 import BeautifulSoup
 from solution_runner.pipelines.core.numbers import format_answer, format_latex_fraction
 from solution_runner.pipelines.equations.group_26650 import _parse_linear
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
+
+from .trigonometric_table_render import _ceil, _pi_fraction, _table_number, _union
+from .trigonometric_table_values import _VALUES, _Value
 
 RULE = "trigonometric-table-value-affine-argument"
 _ASSETS = json.loads(
@@ -25,103 +27,9 @@ class UnsupportedCondition(ValueError):
     """Raised before mutation for a form that has not been reviewed."""
 
 
-@dataclass(frozen=True)
-class _Value:
-    angles: tuple[Fraction, ...]  # coefficients of pi
-    period: int
-    asset: str
-
-
-_VALUES: dict[str, dict[str, _Value]] = {
-    "cos": {
-        "1": _Value((Fraction(0),), 2, "cos-one.svg"),
-        "-1": _Value((Fraction(1),), 2, "cos-minus-one.svg"),
-        "0": _Value((Fraction(1, 2),), 2, "cos-zero.svg"),
-        r"\frac{1}{2}": _Value((Fraction(1, 3), Fraction(-1, 3)), 2, "cos-half.svg"),
-        r"-\frac{1}{2}": _Value(
-            (Fraction(2, 3), Fraction(-2, 3)), 2, "cos-minus-half.svg"
-        ),
-        r"\frac{\sqrt{2}}{2}": _Value(
-            (Fraction(1, 4), Fraction(-1, 4)), 2, "cos-sqrt2-over-2.svg"
-        ),
-        r"-\frac{\sqrt{2}}{2}": _Value(
-            (Fraction(3, 4), Fraction(-3, 4)), 2, "cos-minus-sqrt2-over-2.svg"
-        ),
-        r"\frac{\sqrt{3}}{2}": _Value(
-            (Fraction(1, 6), Fraction(-1, 6)), 2, "cos-sqrt3-over-2.svg"
-        ),
-        r"-\frac{\sqrt{3}}{2}": _Value(
-            (Fraction(5, 6), Fraction(-5, 6)), 2, "cos-minus-sqrt3-over-2.svg"
-        ),
-    },
-    "sin": {
-        "0": _Value((Fraction(0),), 2, "sin-zero.svg"),
-        "1": _Value((Fraction(1, 2),), 2, "sin-one.svg"),
-        "-1": _Value((Fraction(-1, 2),), 2, "sin-minus-one.svg"),
-        r"\frac{1}{2}": _Value((Fraction(1, 6), Fraction(5, 6)), 2, "sin-half.svg"),
-        r"-\frac{1}{2}": _Value(
-            (Fraction(-1, 6), Fraction(7, 6)), 2, "sin-minus-half.svg"
-        ),
-        r"\frac{\sqrt{2}}{2}": _Value(
-            (Fraction(1, 4), Fraction(3, 4)), 2, "sin-sqrt2-over-2.svg"
-        ),
-        r"-\frac{\sqrt{2}}{2}": _Value(
-            (Fraction(-1, 4), Fraction(5, 4)), 2, "sin-minus-sqrt2-over-2.svg"
-        ),
-        r"\frac{\sqrt{3}}{2}": _Value(
-            (Fraction(1, 3), Fraction(2, 3)), 2, "sin-sqrt3-over-2.svg"
-        ),
-        r"-\frac{\sqrt{3}}{2}": _Value(
-            (Fraction(-1, 3), Fraction(4, 3)), 2, "sin-minus-sqrt3-over-2.svg"
-        ),
-    },
-    "tg": {
-        "0": _Value((Fraction(0),), 1, "tg-zero.svg"),
-        "1": _Value((Fraction(1, 4),), 1, "tg-one.svg"),
-        "-1": _Value((Fraction(-1, 4),), 1, "tg-minus-one.svg"),
-        r"\sqrt{3}": _Value((Fraction(1, 3),), 1, "tg-sqrt3.svg"),
-        r"-\sqrt{3}": _Value((Fraction(-1, 3),), 1, "tg-minus-sqrt3.svg"),
-        r"\frac{1}{\sqrt{3}}": _Value((Fraction(1, 6),), 1, "tg-one-over-sqrt3.svg"),
-        r"-\frac{1}{\sqrt{3}}": _Value(
-            (Fraction(-1, 6),), 1, "tg-minus-one-over-sqrt3.svg"
-        ),
-    },
-}
 _FORMULA = re.compile(
     r"\\(?P<function>sin|cos|tg)\\frac\{(?P<pi_coefficient>[1-9]\d*)?\\pi(?P<argument>\([^{}]+\)|[^{}]+)\}\{(?P<denominator>[1-9]\d*)\}=(?P<value>.+)"
 )
-
-
-def _table_number(value: Fraction) -> str:
-    """Prefer the decimal-comma form in substitutions and the selected root."""
-    return format_answer(value, allow_latex_fraction=True).replace(",", "{,}")
-
-
-def _pi_fraction(value: Fraction) -> str:
-    """Render a multiple of π with π inside the numerator."""
-    if value == 0:
-        return "0"
-    sign = "-" if value < 0 else ""
-    numerator = abs(value.numerator)
-    if value.denominator == 1:
-        return f"{sign}{'' if numerator == 1 else numerator}\\pi"
-    top = r"\pi" if numerator == 1 else rf"{numerator}\pi"
-    return rf"{sign}\frac{{{top}}}{{{value.denominator}}}"
-
-
-def _union(lines: list[str]) -> str:
-    """Render one equation or a visible совокупность with one parameter k."""
-    if len(lines) == 1:
-        return lines[0] + r",\quad k\in\mathbb Z"
-    return (
-        r"\left[\begin{aligned}"
-        + r"\\".join(lines)
-        + r"\end{aligned}\right.,\quad k\in\mathbb Z"
-    )
-
-
-def _ceil(value: Fraction) -> int:
-    return -((-value.numerator) // value.denominator)
 
 
 def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:

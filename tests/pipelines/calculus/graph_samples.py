@@ -27,7 +27,7 @@ def plan(case, context, *, downloaded=None, generated=None):
                 "source_asset_id": "local-prepared-triangle",
                 "url": "/assets/local-prepared-triangle",
             }
-            for spec in handler.diagram_specs(context)
+            for spec in handler.diagram_specs(context, condition_asset_bytes=source)
         )
     return handler.plan(
         PlanInput(

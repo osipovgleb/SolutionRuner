@@ -7,7 +7,6 @@ from typing import Any
 
 from .common import UnsupportedCondition, finalize, require_content
 
-
 RULE = "word-problem-26623-monthly-travel-pass-savings"
 _CONDITION = re.compile(
     r"Аня купила проездной билет на месяц и сделала за месяц (?P<trips>[1-9]\d*) поезд(?:ку|ки|ок)\. "

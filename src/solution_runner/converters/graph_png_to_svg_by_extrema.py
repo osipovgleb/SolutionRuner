@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import itertools
 import json
 import math
 from dataclasses import dataclass
@@ -107,9 +108,9 @@ def snap_open_endpoint_centers(
         """Return half-grid y candidates supported by local Hough circles."""
         if darkness is None:
             return {}
-        search_radius = max(6, int(round(grid.horizontal.step * 0.80)))
-        center_x = int(round(endpoint.pixel_x))
-        center_y = int(round(endpoint.pixel_y))
+        search_radius = max(6, round(grid.horizontal.step * 0.80))
+        center_x = round(endpoint.pixel_x)
+        center_y = round(endpoint.pixel_y)
         x_min = max(0, center_x - search_radius)
         x_max = min(darkness.shape[1], center_x + search_radius + 1)
         y_min = max(0, center_y - search_radius)
@@ -121,7 +122,7 @@ def snap_open_endpoint_centers(
             return {}
         patch = cv2.GaussianBlur(patch, (3, 3), 0.60)
         strengths: dict[float, int] = {}
-        maximum_radius = max(3, int(math.ceil(grid.horizontal.step * 0.32)))
+        maximum_radius = max(3, math.ceil(grid.horizontal.step * 0.32))
         x_tolerance = max(3.0, grid.vertical.step * 0.29)
         quantum = max(1e-6, float(coordinate_quantum))
         lattice_tolerance = min(quantum * 0.46, 0.23)
@@ -282,14 +283,18 @@ def _refine_extremum(
         weights = np.exp(-0.5 * np.square(offsets / max(1e-6, window_cells * 0.58)))
         coefficients = np.polyfit(sample[:, 0], sample[:, 1], 2, w=weights)
         quadratic, linear, constant = (float(value) for value in coefficients)
-        expected_curvature = quadratic < -1e-5 if kind == "maximum" else quadratic > 1e-5
+        expected_curvature = (
+            quadratic < -1e-5 if kind == "maximum" else quadratic > 1e-5
+        )
         if expected_curvature:
             vertex_x = -linear / (2.0 * quadratic)
             lower = max(float(sample[0, 0]), raw_x - window_cells * 0.80)
             upper = min(float(sample[-1, 0]), raw_x + window_cells * 0.80)
             if lower <= vertex_x <= upper:
                 refined_x = float(vertex_x)
-                refined_y = float(quadratic * vertex_x**2 + linear * vertex_x + constant)
+                refined_y = float(
+                    quadratic * vertex_x**2 + linear * vertex_x + constant
+                )
                 curvature = float(2.0 * quadratic)
                 fitted = np.polyval(coefficients, sample[:, 0])
                 fit_rmse = float(np.sqrt(np.mean(np.square(fitted - sample[:, 1]))))
@@ -318,8 +323,7 @@ def _refine_extremum(
     snapped_y_from_grid_evidence = False
     if grid_evidence_trace is not None and snapped_x:
         evidence_mask = (
-            np.abs(grid_evidence_trace[:, 0] - nearest_x)
-            <= grid_evidence_window_cells
+            np.abs(grid_evidence_trace[:, 0] - nearest_x) <= grid_evidence_window_cells
         )
         evidence_sample = grid_evidence_trace[evidence_mask]
         if len(evidence_sample):
@@ -432,7 +436,7 @@ def detect_extrema(
     analysis[0] = logical_trace[0]
     analysis[-1] = logical_trace[-1]
     sample_spacing = float(np.median(np.diff(analysis[:, 0])))
-    minimum_distance = max(1, int(round(minimum_separation_cells / sample_spacing)))
+    minimum_distance = max(1, round(minimum_separation_cells / sample_spacing))
     candidates: list[Extremum] = []
     for values, kind in ((analysis[:, 1], "maximum"), (-analysis[:, 1], "minimum")):
         indices, properties = find_peaks(
@@ -468,7 +472,10 @@ def detect_extrema(
     candidates.sort(key=lambda extremum: extremum.x)
     filtered: list[Extremum] = []
     for candidate in candidates:
-        if not filtered or candidate.x - filtered[-1].x >= minimum_separation_cells * 0.55:
+        if (
+            not filtered
+            or candidate.x - filtered[-1].x >= minimum_separation_cells * 0.55
+        ):
             filtered.append(candidate)
             continue
         if candidate.confidence > filtered[-1].confidence:
@@ -556,8 +563,8 @@ def detect_landmarks(
             snapped_y=True,
         )
 
-    first_integer_x = int(math.ceil(float(x_values[0]) - 1e-9))
-    last_integer_x = int(math.floor(float(x_values[-1]) + 1e-9))
+    first_integer_x = math.ceil(float(x_values[0]) - 1e-9)
+    last_integer_x = math.floor(float(x_values[-1]) + 1e-9)
     for integer_x in range(first_integer_x, last_integer_x + 1):
         raw_y = float(np.interp(float(integer_x), x_values, y_values))
         integer_y = float(round(raw_y))
@@ -613,12 +620,10 @@ def detect_landmarks(
         if not any(
             (
                 abs(landmark.x - extremum.x) <= merge_tolerance_cells
-                and abs(landmark.y - extremum.y)
-                <= grid_node_tolerance_cells * 1.6
+                and abs(landmark.y - extremum.y) <= grid_node_tolerance_cells * 1.6
             )
             or (
-                abs(landmark.x - extremum.x)
-                <= extremum_level_exclusion_cells
+                abs(landmark.x - extremum.x) <= extremum_level_exclusion_cells
                 and abs(landmark.y - extremum.y) <= level_tolerance
             )
             for extremum in extrema
@@ -642,10 +647,7 @@ def _pchip_slopes_with_extrema(
             points[:, 1],
             bc_type="natural",
         )(points[:, 0], 1)
-        slopes[1:-1] = (
-            (1.0 - amount) * slopes[1:-1]
-            + amount * natural_slopes[1:-1]
-        )
+        slopes[1:-1] = (1.0 - amount) * slopes[1:-1] + amount * natural_slopes[1:-1]
 
     extrema_set = set(extrema_indices)
     rounding = float(np.clip(extremum_rounding, 0.0, 1.0))
@@ -666,23 +668,16 @@ def _pchip_slopes_with_extrema(
                     continue
                 left_index = min(extremum_index, neighbor_index)
                 right_index = max(extremum_index, neighbor_index)
-                width = float(
-                    points[right_index, 0] - points[left_index, 0]
-                )
+                width = float(points[right_index, 0] - points[left_index, 0])
                 if width <= 1e-12:
                     continue
-                secant = float(
-                    (points[right_index, 1] - points[left_index, 1]) / width
-                )
-                neighbor_targets.setdefault(neighbor_index, []).append(
-                    2.0 * secant
-                )
+                secant = float((points[right_index, 1] - points[left_index, 1]) / width)
+                neighbor_targets.setdefault(neighbor_index, []).append(2.0 * secant)
         for neighbor_index, targets in neighbor_targets.items():
             target = float(np.mean(targets))
-            slopes[neighbor_index] = (
-                (1.0 - rounding) * slopes[neighbor_index]
-                + rounding * target
-            )
+            slopes[neighbor_index] = (1.0 - rounding) * slopes[
+                neighbor_index
+            ] + rounding * target
 
     if len(points) >= 3:
         # Neither global smoothing nor the small extremum bias may create a new
@@ -760,7 +755,7 @@ def _project_between_extrema(
 ) -> np.ndarray:
     """Remove raster-scale reversals while preserving each monotone extremum branch."""
     projected = analysis_trace.astype(np.float64).copy()
-    for left, right in zip(hard_points[:-1], hard_points[1:]):
+    for left, right in itertools.pairwise(hard_points):
         mask = (projected[:, 0] > left[0]) & (projected[:, 0] < right[0])
         if not np.any(mask):
             continue
@@ -806,7 +801,8 @@ def fit_logical_curve(
     interior_extrema = tuple(
         extremum
         for extremum in extrema
-        if start[0] + minimum_support_spacing_cells < extremum.x
+        if start[0] + minimum_support_spacing_cells
+        < extremum.x
         < end[0] - minimum_support_spacing_cells
     )
     hard_points = np.asarray(
@@ -869,14 +865,12 @@ def fit_logical_curve(
         )
         for boundary_neighbor in boundary_supports:
             if any(
-                abs(float(boundary_neighbor[0]) - extremum.x)
-                < extremum_shoulder_cells
+                abs(float(boundary_neighbor[0]) - extremum.x) < extremum_shoulder_cells
                 for extremum in interior_extrema
             ):
                 continue
             if any(
-                abs(float(boundary_neighbor[0]) - row[0]) <= 1e-7
-                for row in knot_rows
+                abs(float(boundary_neighbor[0]) - row[0]) <= 1e-7 for row in knot_rows
             ):
                 continue
             knot_rows.append(
@@ -931,11 +925,12 @@ def fit_logical_curve(
         residual = np.abs(fitted_y - target_trace[:, 1])
         eligible = ~blocked
         for knot_x in knots[:, 0]:
-            eligible &= np.abs(target_trace[:, 0] - knot_x) >= minimum_support_spacing_cells
+            eligible &= (
+                np.abs(target_trace[:, 0] - knot_x) >= minimum_support_spacing_cells
+            )
         for extremum in interior_extrema:
             eligible &= (
-                np.abs(target_trace[:, 0] - extremum.x)
-                >= extremum_shoulder_cells
+                np.abs(target_trace[:, 0] - extremum.x) >= extremum_shoulder_cells
             )
         if not np.any(eligible) or len(knots) >= maximum_knots:
             break
@@ -971,21 +966,15 @@ def fit_logical_curve(
     original_fit = _evaluate_hermite(knots, slopes, analysis_trace[:, 0])
     target_residual = np.abs(target_fit - target_trace[:, 1])
     constrained_mask = np.ones(len(target_trace), dtype=bool)
-    constrained_mask &= (
-        target_trace[:, 0] - start[0] >= extremum_shoulder_cells
-    )
-    constrained_mask &= (
-        end[0] - target_trace[:, 0] >= extremum_shoulder_cells
-    )
+    constrained_mask &= target_trace[:, 0] - start[0] >= extremum_shoulder_cells
+    constrained_mask &= end[0] - target_trace[:, 0] >= extremum_shoulder_cells
     for extremum in interior_extrema:
         constrained_mask &= (
-            np.abs(target_trace[:, 0] - extremum.x)
-            >= extremum_shoulder_cells
+            np.abs(target_trace[:, 0] - extremum.x) >= extremum_shoulder_cells
         )
     for landmark in used_landmarks:
         constrained_mask &= (
-            np.abs(target_trace[:, 0] - landmark.x)
-            >= minimum_support_spacing_cells
+            np.abs(target_trace[:, 0] - landmark.x) >= minimum_support_spacing_cells
         )
     maximum_fit_residual = (
         float(np.max(target_residual[constrained_mask]))
@@ -1030,10 +1019,7 @@ def build_extrema_fit(
     """Detect extrema from one extracted trace and construct its v2 curve fit."""
     logical = _logical_trace(trace, grid)
     grid_evidence = np.asarray(
-        [
-            base._logical_point(float(x), float(y), grid)
-            for x, y in trace.raw_points
-        ],
+        [base._logical_point(float(x), float(y), grid) for x, y in trace.raw_points],
         dtype=np.float64,
     )
     analysis, extrema = detect_extrema(
@@ -1205,9 +1191,7 @@ def diagnostics_payload(
     payload["algorithm"] = "extrema_first_v2"
     payload["curve"]["extrema"] = [_extremum_payload(item) for item in fit.extrema]
     payload["curve"]["extrema_count"] = len(fit.extrema)
-    payload["curve"]["landmarks"] = [
-        _landmark_payload(item) for item in fit.landmarks
-    ]
+    payload["curve"]["landmarks"] = [_landmark_payload(item) for item in fit.landmarks]
     payload["curve"]["landmark_count"] = len(fit.landmarks)
     payload["curve"]["v2_segment_count"] = fit.segment_count
     payload["curve"]["v2_slope_smoothing"] = round(fit.slope_smoothing, 6)
@@ -1243,7 +1227,9 @@ def save_debug_overlay(
         pixel_x = grid.vertical_axis_x + point[0] * grid.vertical.step
         pixel_y = grid.horizontal_axis_y - point[1] * grid.horizontal.step
         radius = 2 if index not in fit.extremum_knot_indices else 5
-        color = (238, 155, 0) if index not in fit.extremum_knot_indices else (210, 30, 150)
+        color = (
+            (238, 155, 0) if index not in fit.extremum_knot_indices else (210, 30, 150)
+        )
         draw.ellipse(
             (pixel_x - radius, pixel_y - radius, pixel_x + radius, pixel_y + radius),
             outline=color,
@@ -1401,7 +1387,7 @@ def run(
     print(f"diagnostics={json_path}")
     if overlay_path is not None:
         print(f"debug_overlay={overlay_path}")
-    print(f"algorithm=extrema_first_v2")
+    print("algorithm=extrema_first_v2")
     print(f"extrema_count={len(fit.extrema)}")
     print(f"landmark_count={len(fit.landmarks)}")
     print(

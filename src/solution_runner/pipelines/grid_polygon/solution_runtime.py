@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
+import hashlib
+import re
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from functools import partial
-import hashlib
-import re
 from typing import Any, Protocol
 
-from .mcp_runtime import McpGateway
 from ..core.models import (
     GeometryAnalysis,
     GroupProfile,
@@ -17,10 +16,11 @@ from ..core.models import (
     ProblemStageResult,
     SolutionDiagramSpec,
 )
+from .mcp_runtime import McpGateway
 from .progress import ProgressReporter, TargetProgress
 from .solution_plan import (
-    AnswerVerificationError,
     SOLUTION_ASSET_KEY,
+    AnswerVerificationError,
     SolutionPlan,
     SolutionRuntimeError,
     build_solution_plan,
@@ -99,7 +99,7 @@ def _diagram_uploads(
     if (
         context.profile.existing_solution_policy == "preserve"
         and existing.strip()
-        and not re.search(r'<section\b[^>]*\bdata-content-kind\s*=', existing, re.I)
+        and not re.search(r"<section\b[^>]*\bdata-content-kind\s*=", existing, re.IGNORECASE)
     ):
         return ()
 
@@ -149,8 +149,7 @@ def _existing_solution_asset(
     matches = [
         asset
         for asset in content.get("assets", [])
-        if isinstance(asset, dict)
-        and asset.get("asset_key") == asset_key
+        if isinstance(asset, dict) and asset.get("asset_key") == asset_key
     ]
     if len(matches) != 1:
         return None
@@ -166,7 +165,9 @@ def _existing_solution_asset(
         return None
     return {
         "source_asset_id": asset_id,
-        "url": str(metadata.get("url") or matches[0].get("url") or f"/assets/{asset_id}"),
+        "url": str(
+            metadata.get("url") or matches[0].get("url") or f"/assets/{asset_id}"
+        ),
         "sha256": expected_sha256,
     }
 
@@ -321,9 +322,7 @@ def _run_target(
     analysis = context.strategy.analyze(target, context.profile)
     if analysis.area != analysis.area_by_coordinates:
         raise SolutionRuntimeError("strategy and coordinate areas disagree")
-    content = normalized_content(
-        context.gateway.get_problem_context(target.problem_id)
-    )
+    content = normalized_content(context.gateway.get_problem_context(target.problem_id))
     uploaded = _diagram_uploads(context, target, analysis, content)
     plan = build_solution_plan(
         content,
@@ -333,7 +332,11 @@ def _run_target(
         context.strategy,
         uploaded,
     )
-    if context.apply and not context.force_apply and content_matches_plan(content, plan):
+    if (
+        context.apply
+        and not context.force_apply
+        and content_matches_plan(content, plan)
+    ):
         return _already_complete_result(context, target, progress, plan)
     if not context.apply:
         return _planned_result(context, target, progress, plan)
@@ -371,7 +374,7 @@ def _failed_result(
 
 def _run_isolated_target(
     context: _SolutionContext,
-    indexed_target: tuple[int, PreparedGridPolygon],
+    indexed_target: tuple[int, PreparedFigure],
 ) -> ProblemStageResult:
     """Run one frozen target and convert every failure into a stage result."""
 

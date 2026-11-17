@@ -29,7 +29,8 @@ def review_parent(rule, primary, html, assets, *, parents, sources):
     if (
         primary != expected
         or not isinstance(html, str)
-        or hashlib.sha256(html.encode()).hexdigest() not in ((digest,) if isinstance(digest, str) else digest)
+        or hashlib.sha256(html.encode()).hexdigest()
+        not in ((digest,) if isinstance(digest, str) else digest)
     ):
         raise ContentPlanError("the complete reviewed solid parent changed")
     if not isinstance(assets, (tuple, list)) or any(

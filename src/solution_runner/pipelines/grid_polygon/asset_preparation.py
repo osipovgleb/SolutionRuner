@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import hashlib
 import json
-from pathlib import Path
 import sys
-from typing import Callable, Protocol
+from collections.abc import Callable
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Protocol
 
+from ..core.models import GroupProfile, PreparedGridPolygon, ProblemTarget
 from .geometry.grid_polygon import (
     ordered_coordinates_from_svg,
     parse_coordinate_alt,
@@ -16,8 +18,6 @@ from .geometry.grid_polygon import (
     polygon_sha256,
     serialize_coordinate_alt,
 )
-from ..core.models import GroupProfile, PreparedGridPolygon, ProblemTarget
-
 
 DEFAULT_IMAGE_RUNNER = (
     Path(__file__).resolve().parents[2]
@@ -121,7 +121,9 @@ def _load_events(path: Path) -> list[dict[str, object]]:
     try:
         lines = path.read_text(encoding="utf-8").splitlines()
     except OSError as exc:
-        raise PreparedAssetError(f"preparation event log is unavailable: {path}") from exc
+        raise PreparedAssetError(
+            f"preparation event log is unavailable: {path}"
+        ) from exc
     for line_number, line in enumerate(lines, start=1):
         if not line.strip():
             continue
@@ -288,15 +290,27 @@ def load_prepared_grid_polygons(
         ),
         None,
     )
-    if transition is None or transition.get("source_group_id") != profile.source_group_id:
+    if (
+        transition is None
+        or transition.get("source_group_id") != profile.source_group_id
+    ):
         raise PreparedAssetError("preparation source group identity drifted")
 
     prepared_by_key, replaced_by_key = _indexed_asset_events(events, profile)
 
-    expected_keys = {(target.problem_id, target.source_problem_id) for target in expected_targets}
-    if not set(prepared_by_key) <= expected_keys or not set(replaced_by_key) <= expected_keys:
-        raise PreparedAssetError("prepared/replaced event target set escaped expected scope")
-    completed_keys = set(prepared_by_key) & set(replaced_by_key) if applied else set(prepared_by_key)
+    expected_keys = {
+        (target.problem_id, target.source_problem_id) for target in expected_targets
+    }
+    if (
+        not set(prepared_by_key) <= expected_keys
+        or not set(replaced_by_key) <= expected_keys
+    ):
+        raise PreparedAssetError(
+            "prepared/replaced event target set escaped expected scope"
+        )
+    completed_keys = (
+        set(prepared_by_key) & set(replaced_by_key) if applied else set(prepared_by_key)
+    )
     if not allow_partial and completed_keys != expected_keys:
         raise PreparedAssetError("prepared/replaced event target set drifted")
     context = _PreparationContext(
@@ -382,7 +396,9 @@ def prepare_existing_svg(
             raise PreparedAssetError("existing SVG alt readback drifted")
         replaced = True
     artifact_dir.mkdir(parents=True, exist_ok=True)
-    artifact_path = (artifact_dir / f"{target.source_problem_id}-condition.svg").resolve()
+    artifact_path = (
+        artifact_dir / f"{target.source_problem_id}-condition.svg"
+    ).resolve()
     artifact_path.write_bytes(asset.svg_bytes)
     digest = polygon_sha256(asset.svg_bytes)
     return PreparedGridPolygon(

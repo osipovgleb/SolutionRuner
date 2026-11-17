@@ -133,11 +133,15 @@ class AnnulusFromKnownAreaStrategy:
         if known_side == "inner":
             derived = _format_area(analysis.details["outer_circle_area"], latex=True)
             derived_prose = "Поэтому площадь внешнего круга равна"
-            derived_formula = rf"S_{{\text{{внеш.}}}}={given}\cdot {_format_ratio(ratio)}={derived}"
+            derived_formula = (
+                rf"S_{{\text{{внеш.}}}}={given}\cdot {_format_ratio(ratio)}={derived}"
+            )
         else:
             derived = _format_area(analysis.details["inner_circle_area"], latex=True)
             derived_prose = "Поэтому площадь внутреннего круга равна"
-            derived_formula = rf"S_{{\text{{внутр.}}}}={given}:{_format_ratio(ratio)}={derived}"
+            derived_formula = (
+                rf"S_{{\text{{внутр.}}}}={given}:{_format_ratio(ratio)}={derived}"
+            )
         return (
             centered_formula_html(
                 "Площади кругов относятся как квадраты их радиусов.",

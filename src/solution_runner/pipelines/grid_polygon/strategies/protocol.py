@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
+import re
+from collections.abc import Callable
 from fractions import Fraction
 from html import escape
 from itertools import permutations
-from typing import Callable, Protocol
-import re
+from typing import Protocol
 from xml.etree import ElementTree
 
-from ..models import GeometryAnalysis, GroupProfile, PreparedFigure, StrategyKey
 from ..geometry.grid_polygon import GridPolygonError, raw_outline_points_from_svg
-
+from ..models import GeometryAnalysis, GroupProfile, PreparedFigure, StrategyKey
 
 RED_STROKE = "#e22"
 LEGACY_GRID_RENDER_TOLERANCE = 0.12
@@ -132,7 +132,8 @@ def _candidate_polygons(
             and max(
                 abs(deduped[0][0] - deduped[-1][0]),
                 abs(deduped[0][1] - deduped[-1][1]),
-            ) <= 1.0
+            )
+            <= 1.0
         )
         if local_name == "polyline" and not is_closed:
             continue
@@ -195,10 +196,15 @@ def svg_coordinate_mapper(
         svg_ymax = max(point[1] for point in candidate)
         scale_x = (svg_xmax - svg_xmin) / (logical_xmax - logical_xmin)
         scale_y = (svg_ymax - svg_ymin) / (logical_ymax - logical_ymin)
-        if scale_x <= 0 or scale_y <= 0 or max(scale_x, scale_y) / min(scale_x, scale_y) > 1.08:
+        if (
+            scale_x <= 0
+            or scale_y <= 0
+            or max(scale_x, scale_y) / min(scale_x, scale_y) > 1.08
+        ):
             continue
         tolerance = max(scale_x, scale_y) * LEGACY_GRID_RENDER_TOLERANCE
         for invert_y in (False, True):
+
             def mapper(
                 point: tuple[int, int],
                 *,

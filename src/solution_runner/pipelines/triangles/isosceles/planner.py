@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from html import escape, unescape
 import math
 import re
+from dataclasses import dataclass
+from html import escape, unescape
 from typing import Any
 
 import sympy as sp
@@ -174,7 +174,9 @@ def _asset_transformation(parent_condition_asset_id: str) -> dict[str, Any]:
     }
 
 
-def _without_asset_markup(section: dict[str, Any], asset_key: str) -> tuple[str, tuple[str, ...]]:
+def _without_asset_markup(
+    section: dict[str, Any], asset_key: str
+) -> tuple[str, tuple[str, ...]]:
     """Remove one misplaced image while preserving all substantive section content."""
 
     soup = BeautifulSoup(str(section.get("html") or ""), "html.parser")
@@ -279,7 +281,9 @@ def _condition_image_repairs(
     """Place the prototype diagram in condition and remove its solution occurrence."""
 
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     solution_has_image = solution is not None and (
         "image_1" in tuple(str(value) for value in solution.get("asset_keys", []))
         or BeautifulSoup(str(solution.get("html") or ""), "html.parser").find(
@@ -317,9 +321,16 @@ def _condition_image_repairs(
 def _parse_base_from_sine(condition_html: str) -> tuple[sp.Expr, str, sp.Expr, str]:
     """Return equal side, base angle, sine value, and its source LaTeX."""
 
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     requested = formula.split("Найд", 1)[-1] if "Найд" in formula else ""
-    if not re.search(r"\bAB\b", requested) or re.search(r"\b(?:AC|BC|AH|BH|CH)\b", requested):
+    if not re.search(r"\bAB\b", requested) or re.search(
+        r"\b(?:AC|BC|AH|BH|CH)\b", requested
+    ):
         raise IsoscelesTrianglePlanError("condition must request AB")
     side_match = re.search(r"(?:AC\s*=\s*BC|BC\s*=\s*AC)\s*=\s*([^,;.]+)", formula)
     sine_match = re.search(r"\\sin\s*([AB])\s*=\s*([^,;.]+)", formula)
@@ -484,7 +495,9 @@ def _build_missing_solution_plan(
 
     transformations: list[dict[str, Any]] = []
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     solution_needs_write = solution_missing or (
         refresh_solution
         and solution is not None
@@ -509,15 +522,14 @@ def _build_missing_solution_plan(
         is not None
     )
     condition_keys = tuple(str(value) for value in condition.get("asset_keys", []))
-    condition_has_image = (
-        "image_1" in condition_keys
-        and bool(
-            BeautifulSoup(str(condition.get("html") or ""), "html.parser").find(
-                "img", attrs={"data-asset-key": "image_1"}
-            )
+    condition_has_image = "image_1" in condition_keys and bool(
+        BeautifulSoup(str(condition.get("html") or ""), "html.parser").find(
+            "img", attrs={"data-asset-key": "image_1"}
         )
     )
-    condition_asset_repair = (ensure_condition_asset or solution_missing or solution_has_image) and (
+    condition_asset_repair = (
+        ensure_condition_asset or solution_missing or solution_has_image
+    ) and (
         not condition_has_image
         or not isinstance(current_asset, dict)
         or current_asset.get("asset_id") != parent_condition_asset_id
@@ -609,7 +621,10 @@ def build_repair_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_condition_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_condition_asset_id
+    ):
         transformations.append(_asset_transformation(parent_condition_asset_id))
     solution = _section(content, "solution")
     if solution is None or not _plain_html(str(solution.get("html") or "")):
@@ -664,7 +679,10 @@ def build_group_27285_repair_plan(
         ),
         None,
     )
-    if not isinstance(current_asset, dict) or current_asset.get("asset_id") != parent_condition_asset_id:
+    if (
+        not isinstance(current_asset, dict)
+        or current_asset.get("asset_id") != parent_condition_asset_id
+    ):
         transformations.append(_asset_transformation(parent_condition_asset_id))
     solution = _section(content, "solution")
     if solution is None or not _plain_html(str(solution.get("html") or "")):
@@ -706,7 +724,12 @@ def build_group_27286_repair_plan(
         r"\b(?:AC|BC|AH|BH|CH)\b", requested
     ):
         raise IsoscelesTrianglePlanError("condition must request AB")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     side_match = re.search(
         r"(?:AC\s*=\s*BC|BC\s*=\s*AC)\s*=\s*"
         r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|"
@@ -757,7 +780,12 @@ def build_group_27287_repair_plan(
         r"\b(?:AB|BC|AH|BH|CH)\b", requested
     ):
         raise IsoscelesTrianglePlanError("condition must request AC")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if re.search(r"(?:AC\s*=\s*BC|BC\s*=\s*AC)", formula) is None:
         raise IsoscelesTrianglePlanError("condition must state AC=BC")
     inline_base = [
@@ -773,7 +801,9 @@ def build_group_27287_repair_plan(
     base_latex = (
         inline_base[0]
         if len(inline_base) == 1
-        else base_match.group(1) if not inline_base and base_match is not None else ""
+        else base_match.group(1)
+        if not inline_base and base_match is not None
+        else ""
     )
     if not base_latex:
         raise IsoscelesTrianglePlanError("condition must give AB")
@@ -818,7 +848,12 @@ def build_group_27288_repair_plan(
         r"\b(?:AC|BC|AH|BH|CH)\b", requested
     ):
         raise IsoscelesTrianglePlanError("condition must request AB")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     side_match = re.search(
         r"(?:AC\s*=\s*BC|BC\s*=\s*AC)\s*=\s*"
         r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|"
@@ -890,7 +925,9 @@ def build_group_27289_repair_plan(
     base_latex = (
         inline_base[0]
         if len(inline_base) == 1
-        else base_match.group(1) if not inline_base and base_match is not None else ""
+        else base_match.group(1)
+        if not inline_base and base_match is not None
+        else ""
     )
     if not base_latex:
         raise IsoscelesTrianglePlanError("condition must give AB")
@@ -900,7 +937,9 @@ def build_group_27289_repair_plan(
     cosine = sp.sqrt(sp.simplify(1 / (1 + tangent**2)))
     answer = _answer_text(base / (2 * cosine))
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations: list[dict[str, Any]] = []
     if solution_missing:
         if len(parent_solution_assets) != 1:
@@ -927,8 +966,7 @@ def build_group_27289_repair_plan(
         )
         image_html = str(solution_asset_transformation["value"]["html"])
         solution_html = (
-            image_html
-            + '<p>Треугольник <span data-inline-latex="ABC"></span> — '
+            image_html + '<p>Треугольник <span data-inline-latex="ABC"></span> — '
             'равнобедренный, поэтому высота <span data-inline-latex="CH"></span> '
             'делит основание <span data-inline-latex="AB"></span> пополам. '
             'Тогда</p><center><p><span data-inline-latex="'
@@ -1036,7 +1074,9 @@ def build_group_27320_repair_plan(
         raise IsoscelesTrianglePlanError("base-angle sine must be less than one")
     answer = _answer_text(base * sine)
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations = list(
         _condition_image_repairs(content, parent_solution_assets, group_key="27320")
     )
@@ -1044,7 +1084,7 @@ def build_group_27320_repair_plan(
         other_base_vertex = next(iter(base_vertices - {angle_vertex}))
         solution_html = (
             '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-            'равнобедренный, поэтому углы при его основании равны. Тогда</p>'
+            "равнобедренный, поэтому углы при его основании равны. Тогда</p>"
             '<center><p><span data-inline-latex="'
             + f"{angle_vertex}H={base_name}\\sin \\angle "
             + f"{angle_vertex}{other_base_vertex}H={base_name}\\sin \\angle {angle_name}="
@@ -1138,9 +1178,9 @@ def build_group_27321_repair_plan(
     if angle_vertex not in base_vertices:
         raise IsoscelesTrianglePlanError("given angle must be a base angle")
     other_base_vertex = next(iter(base_vertices - {angle_vertex}))
-    if not re.search(rf"\b{angle_vertex}H\b[^.]*высот", formula, re.IGNORECASE) and not re.search(
-        rf"высот[^.]*\b{angle_vertex}H\b", formula, re.IGNORECASE
-    ):
+    if not re.search(
+        rf"\b{angle_vertex}H\b[^.]*высот", formula, re.IGNORECASE
+    ) and not re.search(rf"высот[^.]*\b{angle_vertex}H\b", formula, re.IGNORECASE):
         raise IsoscelesTrianglePlanError(
             "condition must declare the altitude from the given base-angle vertex"
         )
@@ -1157,14 +1197,16 @@ def build_group_27321_repair_plan(
     cosine = sp.sqrt(cosine_squared)
     answer = _answer_text(base * cosine)
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations = list(
         _condition_image_repairs(content, parent_solution_assets, group_key="27321")
     )
     if solution_missing:
         solution_html = (
             '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-            'равнобедренный, поэтому углы при его основании равны. Следовательно,</p>'
+            "равнобедренный, поэтому углы при его основании равны. Следовательно,</p>"
             '<center><p><span data-inline-latex="'
             + f"{other_base_vertex}H={base_name}\\cos \\angle "
             + f"{angle_vertex}{other_base_vertex}H={base_name}\\cos \\angle {angle_name}="
@@ -1274,7 +1316,9 @@ def build_group_27322_repair_plan(
     sine = sp.sqrt(sine_squared)
     answer = _answer_text(base * sine)
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations = list(
         _condition_image_repairs(content, parent_solution_assets, group_key="27322")
     )
@@ -1282,7 +1326,7 @@ def build_group_27322_repair_plan(
         other_base_vertex = next(iter(base_vertices - {angle_vertex}))
         solution_html = (
             '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-            'равнобедренный, поэтому углы при его основании равны. Тогда</p>'
+            "равнобедренный, поэтому углы при его основании равны. Тогда</p>"
             '<center><p><span data-inline-latex="'
             + f"{angle_vertex}H={base_name}\\sin \\angle "
             + f"{angle_vertex}{other_base_vertex}H={base_name}\\sin \\angle {angle_name}="
@@ -1371,7 +1415,7 @@ def build_group_27323_repair_plan(
     answer = _answer_text(base * cosine)
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-        'равнобедренный, поэтому углы при его основании равны. Тогда</p>'
+        "равнобедренный, поэтому углы при его основании равны. Тогда</p>"
         '<center><p><span data-inline-latex="'
         r"BH=AB\cos \angle ABH=AB\cos \angle BAC="
         + rf"{_latex_number(base)}\cdot {cosine_latex}="
@@ -1440,7 +1484,7 @@ def build_group_27324_repair_plan(
     answer = _answer_text(base * tangent / sp.sqrt(1 + tangent**2))
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-        'равнобедренный, поэтому углы при его основании равны. Последовательно получаем:</p>'
+        "равнобедренный, поэтому углы при его основании равны. Последовательно получаем:</p>"
         '<center><p><span data-inline-latex="'
         r"AH=AB\sin \angle ABH=AB\sin \angle ABC="
         r"AB\sqrt{\frac{1}{1+\ctg^{2} \angle ABC}}="
@@ -1570,9 +1614,7 @@ def build_group_27326_repair_plan(
         if len(standalone_values) == 1:
             side_latex = standalone_values[0]
     if not side_latex:
-        raise IsoscelesTrianglePlanError(
-            "condition must give the equal side AC=BC"
-        )
+        raise IsoscelesTrianglePlanError("condition must give the equal side AC=BC")
     sine_assignments = [
         item
         for item in _inline_formulas(condition_html)
@@ -1590,7 +1632,7 @@ def build_group_27326_repair_plan(
     answer = _answer_text(2 * side * sine * cosine)
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-        'равнобедренный, поэтому углы при его основании равны, а высота из '
+        "равнобедренный, поэтому углы при его основании равны, а высота из "
         '<span data-inline-latex="C"></span> делит основание пополам. Тогда</p>'
         '<center><p><span data-inline-latex="'
         r"AH=AB\sin \angle ABH=AB\sin \angle BAC="
@@ -1654,14 +1696,16 @@ def build_group_27327_repair_plan(
         raise IsoscelesTrianglePlanError("base-angle sine must be less than one")
     answer = _answer_text(2 * side * cosine_squared)
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations = list(
         _condition_image_repairs(content, parent_solution_assets, group_key="27327")
     )
     if solution_missing:
         solution_html = (
             '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-            'равнобедренный, поэтому углы при его основании равны, а высота из '
+            "равнобедренный, поэтому углы при его основании равны, а высота из "
             '<span data-inline-latex="C"></span> делит основание пополам. Имеем:</p>'
             '<center><p><span data-inline-latex="'
             r"BH=AB\cos \angle ABH=AB\cos \angle BAC="
@@ -1735,7 +1779,7 @@ def build_group_27328_repair_plan(
     answer = _answer_text(2 * side * cosine * sp.sqrt(sine_squared))
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-        'равнобедренный, поэтому углы при его основании равны, а высота из '
+        "равнобедренный, поэтому углы при его основании равны, а высота из "
         '<span data-inline-latex="C"></span> делит основание пополам. Тогда</p>'
         '<center><p><span data-inline-latex="'
         r"AH=AB\sin \angle ABH=AB\sin \angle BAC="
@@ -1799,7 +1843,7 @@ def build_group_27329_repair_plan(
     answer = _answer_text(2 * side * cosine**2)
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-        'равнобедренный, поэтому углы при его основании равны, а высота из '
+        "равнобедренный, поэтому углы при его основании равны, а высота из "
         '<span data-inline-latex="C"></span> делит основание пополам. Тогда</p>'
         '<center><p><span data-inline-latex="'
         r"BH=AB\cos \angle ABH=AB\cos \angle BAC="
@@ -1838,9 +1882,7 @@ def build_group_27330_repair_plan(
     first_orientation = re.search(r"\bAC\s*=\s*BC\b", formula) is not None
     second_orientation = re.search(r"\bAB\s*=\s*BC\b", formula) is not None
     if first_orientation == second_orientation:
-        raise IsoscelesTrianglePlanError(
-            "condition must give exactly AC=BC or AB=BC"
-        )
+        raise IsoscelesTrianglePlanError("condition must give exactly AC=BC or AB=BC")
     base_name = "AB" if first_orientation else "AC"
     altitude_name = "AH" if first_orientation else "CH"
     requested_angle = "A" if first_orientation else "C"
@@ -1861,7 +1903,9 @@ def build_group_27330_repair_plan(
         request,
         re.IGNORECASE,
     ):
-        raise IsoscelesTrianglePlanError(f"condition must request sin {requested_angle}")
+        raise IsoscelesTrianglePlanError(
+            f"condition must request sin {requested_angle}"
+        )
     base_latex = base_match.group(1)
     altitude_latex = altitude_match.group(1)
     base = _parse_positive_value(base_latex)
@@ -1873,7 +1917,9 @@ def build_group_27330_repair_plan(
         )
     answer = _answer_text(sine)
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations = list(
         _condition_image_repairs(content, parent_solution_assets, group_key="27330")
         if first_orientation
@@ -1887,7 +1933,7 @@ def build_group_27330_repair_plan(
         )
         solution_html = (
             '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-            'равнобедренный, поэтому углы при его основании равны. Тогда</p>'
+            "равнобедренный, поэтому углы при его основании равны. Тогда</p>"
             '<center><p><span data-inline-latex="'
             + relation
             + rf"\frac{{{_latex_number(altitude)}}}{{{_latex_number(base)}}}="
@@ -1974,7 +2020,9 @@ def build_group_27331_repair_plan(
         answer_value = sp.simplify(altitude / base)
     answer = _answer_text(answer_value)
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations = list(
         _condition_image_repairs(content, parent_solution_assets, group_key="27331")
     )
@@ -1995,16 +2043,14 @@ def build_group_27331_repair_plan(
         )
         solution_html = (
             '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-            'равнобедренный, поэтому углы при его основании равны. Тогда</p>'
+            "равнобедренный, поэтому углы при его основании равны. Тогда</p>"
             '<center><p><span data-inline-latex="'
             + relation
             + answer.replace(",", "{,}")
             + '"></span>.</p></center>'
         )
         transformations.append(
-            _section_transformation(
-                solution, "solution", "Решение", solution_html
-            )
+            _section_transformation(solution, "solution", "Решение", solution_html)
         )
     answer_section = _section(content, "answer")
     if not _answer_matches(answer_section, answer):
@@ -2059,7 +2105,7 @@ def build_group_27345_repair_plan(
         raise IsoscelesTrianglePlanError("AH must be less than AC")
     answer = _answer_text(sp.simplify(altitude / side))
     solution_html = (
-        '<p>Синусы смежных углов равны, поэтому</p>'
+        "<p>Синусы смежных углов равны, поэтому</p>"
         '<center><p><span data-inline-latex="'
         r"\sin \angle ACB=\sin \angle ACH=\frac{AH}{AC}="
         + rf"\frac{{{_latex_number(altitude)}}}{{{_latex_number(side)}}}="
@@ -2099,22 +2145,30 @@ def build_group_27346_repair_plan(
     second_equal = re.search(r"\bAB\s*=\s*BC\b", formula)
     second_side = re.search(rf"\bAB\s*=\s*{number}", formula)
     first_orientation = first_side is not None and second_equal is None
-    second_orientation = first_side is None and second_equal is not None and second_side is not None
+    second_orientation = (
+        first_side is None and second_equal is not None and second_side is not None
+    )
     if first_orientation == second_orientation:
-        raise IsoscelesTrianglePlanError("condition has an unsupported equal-side orientation")
+        raise IsoscelesTrianglePlanError(
+            "condition has an unsupported equal-side orientation"
+        )
     altitude_name = "AH" if first_orientation else "CH"
     requested_angle = "ACB" if first_orientation else "ABC"
     altitude_match = re.search(
         rf"\b{altitude_name}\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE
     )
     if altitude_match is None:
-        raise IsoscelesTrianglePlanError(f"condition must give altitude {altitude_name}")
+        raise IsoscelesTrianglePlanError(
+            f"condition must give altitude {altitude_name}"
+        )
     if not re.search(
         rf"(?:косинус(?:\s+угла)?|\\cos)\s*(?:\\angle\s*)?{requested_angle}\b",
         _request_text(condition_html),
         re.IGNORECASE,
     ):
-        raise IsoscelesTrianglePlanError(f"condition must request cos {requested_angle}")
+        raise IsoscelesTrianglePlanError(
+            f"condition must request cos {requested_angle}"
+        )
     side = _parse_positive_value(
         first_side.group(1) if first_orientation else second_side.group(1)
     )
@@ -2134,7 +2188,7 @@ def build_group_27346_repair_plan(
     side_latex = _latex_number(side)
     altitude_latex = _latex_number(altitude)
     solution_html = (
-        '<p>Косинусы смежных углов противоположны, поэтому</p>'
+        "<p>Косинусы смежных углов противоположны, поэтому</p>"
         '<center><p><span data-inline-latex="'
         + relation
         + rf"-\frac{{\sqrt{{({side_latex})^{{2}}-({altitude_latex})^{{2}}}}}}{{{side_latex}}}="
@@ -2193,8 +2247,8 @@ def build_group_27347_repair_plan(
     side_latex = _latex_number(side)
     altitude_latex = _latex_number(altitude)
     solution_html = (
-        '<p>Используем свойство смежных углов, формулу приведения, '
-        'определение тангенса и теорему Пифагора:</p>'
+        "<p>Используем свойство смежных углов, формулу приведения, "
+        "определение тангенса и теорему Пифагора:</p>"
         '<center><p><span data-inline-latex="'
         r"\tg \angle ACB=\tg (\pi-\angle ACH)=-\tg \angle ACH="
         r"-\frac{AH}{HC}=-\frac{AH}{\sqrt{AC^{2}-AH^{2}}}="
@@ -2249,7 +2303,7 @@ def build_group_27349_repair_plan(
         raise IsoscelesTrianglePlanError("CH must be less than AC")
     answer = _answer_text(-sp.simplify(projection / side))
     solution_html = (
-        '<p>Косинусы смежных углов противоположны, поэтому</p>'
+        "<p>Косинусы смежных углов противоположны, поэтому</p>"
         '<center><p><span data-inline-latex="'
         r"\cos \angle ACB=\cos (\pi-\angle ACH)=-\cos \angle ACH="
         r"-\frac{HC}{AC}="
@@ -2306,8 +2360,8 @@ def build_group_27350_repair_plan(
     altitude = sp.sqrt(altitude_squared)
     answer = _answer_text(-sp.simplify(altitude / projection))
     solution_html = (
-        '<p>Используем свойство смежных углов, формулу приведения, '
-        'определение тангенса и теорему Пифагора:</p>'
+        "<p>Используем свойство смежных углов, формулу приведения, "
+        "определение тангенса и теорему Пифагора:</p>"
         '<center><p><span data-inline-latex="'
         r"\tg \angle ACB=\tg (180^{\circ}-\angle ACH)=-\tg \angle ACH="
         r"-\frac{AH}{CH}=-\frac{\sqrt{AC^{2}-CH^{2}}}{CH}="
@@ -2346,10 +2400,14 @@ def build_group_27351_repair_plan(
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
-    altitude_match = re.search(rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE)
+    altitude_match = re.search(
+        rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE
+    )
     projection_match = re.search(rf"\bCH\s*=\s*{number}", formula)
     if altitude_match is None or projection_match is None:
-        raise IsoscelesTrianglePlanError("condition must give altitude AH and projection CH")
+        raise IsoscelesTrianglePlanError(
+            "condition must give altitude AH and projection CH"
+        )
     if not re.search(r"\bAH\b[^.]*высот|высот[^.]*\bAH\b", formula, re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must declare AH as altitude")
     if not re.search(
@@ -2368,7 +2426,7 @@ def build_group_27351_repair_plan(
         r"AC=\sqrt{AH^{2}+CH^{2}}="
         + rf"\sqrt{{({_latex_number(altitude)})^{{2}}+({_latex_number(projection)})^{{2}}}}={_latex_number(side)}"
         + '"></span>.</p></center>'
-        '<p>Синусы смежных углов равны, поэтому</p>'
+        "<p>Синусы смежных углов равны, поэтому</p>"
         '<center><p><span data-inline-latex="'
         r"\sin \angle ACB=\sin (180^{\circ}-\angle ACH)=\sin \angle ACH="
         r"\frac{AH}{AC}="
@@ -2407,10 +2465,14 @@ def build_group_27352_repair_plan(
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
-    altitude_match = re.search(rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE)
+    altitude_match = re.search(
+        rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE
+    )
     projection_match = re.search(rf"\bCH\s*=\s*{number}", formula)
     if altitude_match is None or projection_match is None:
-        raise IsoscelesTrianglePlanError("condition must give altitude AH and projection CH")
+        raise IsoscelesTrianglePlanError(
+            "condition must give altitude AH and projection CH"
+        )
     if not re.search(r"\bAH\b[^.]*высот|высот[^.]*\bAH\b", formula, re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must declare AH as altitude")
     if not re.search(
@@ -2429,7 +2491,7 @@ def build_group_27352_repair_plan(
         r"AC=\sqrt{AH^{2}+CH^{2}}="
         + rf"\sqrt{{({_latex_number(altitude)})^{{2}}+({_latex_number(projection)})^{{2}}}}={_latex_number(side)}"
         + '"></span>.</p></center>'
-        '<p>Косинусы смежных углов противоположны, поэтому</p>'
+        "<p>Косинусы смежных углов противоположны, поэтому</p>"
         '<center><p><span data-inline-latex="'
         r"\cos \angle ACB=\cos (180^{\circ}-\angle ACH)=-\cos \angle ACH="
         r"-\frac{CH}{AC}="
@@ -2468,10 +2530,14 @@ def build_group_27353_repair_plan(
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
-    altitude_match = re.search(rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE)
+    altitude_match = re.search(
+        rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE
+    )
     projection_match = re.search(rf"\bCH\s*=\s*{number}", formula)
     if altitude_match is None or projection_match is None:
-        raise IsoscelesTrianglePlanError("condition must give altitude AH and projection CH")
+        raise IsoscelesTrianglePlanError(
+            "condition must give altitude AH and projection CH"
+        )
     if not re.search(r"\bAH\b[^.]*высот|высот[^.]*\bAH\b", formula, re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must declare AH as altitude")
     if not re.search(
@@ -2484,7 +2550,7 @@ def build_group_27353_repair_plan(
     projection = _parse_positive_value(projection_match.group(1))
     answer = _answer_text(-sp.simplify(altitude / projection))
     solution_html = (
-        '<p>Тангенсы смежных углов противоположны, поэтому</p>'
+        "<p>Тангенсы смежных углов противоположны, поэтому</p>"
         '<center><p><span data-inline-latex="'
         r"\tg \angle ACB=\tg (180^{\circ}-\angle ACH)=-\tg \angle ACH="
         r"-\frac{AH}{CH}="
@@ -2523,7 +2589,9 @@ def build_group_27589_repair_plan(
     request = _request_text(condition_html)
     if not re.search(r"площад", request, re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must request the triangle area")
-    if not re.search(r"(?:30\s*(?:\^\{?\\circ\}?|°)|угол\s+C\s+равен\s+30)", formula, re.IGNORECASE):
+    if not re.search(
+        r"(?:30\s*(?:\^\{?\\circ\}?|°)|угол\s+C\s+равен\s+30)", formula, re.IGNORECASE
+    ):
         raise IsoscelesTrianglePlanError("condition must give a 30-degree vertex angle")
     number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
     named_side = re.search(rf"\bAC\s*=\s*BC\s*=\s*{number}", formula)
@@ -2544,8 +2612,8 @@ def build_group_27589_repair_plan(
     side = _parse_positive_value(side_latex)
     answer = _answer_text(sp.simplify(side**2 / 4))
     solution_html = (
-        '<p>Площадь треугольника равна половине произведения двух сторон '
-        'на синус угла между ними. Поэтому</p>'
+        "<p>Площадь треугольника равна половине произведения двух сторон "
+        "на синус угла между ними. Поэтому</p>"
         '<center><p><span data-inline-latex="'
         r"S=\frac{1}{2}a^{2}\sin 30^{\circ}="
         + rf"\frac{{1}}{{2}}\cdot ({_latex_number(side)})^{{2}}\cdot \frac{{1}}{{2}}="
@@ -2578,7 +2646,9 @@ def build_group_27590_repair_plan(
     if not re.search(r"площад", _request_text(condition_html), re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must request the triangle area")
     if not re.search(r"150\s*(?:\^\{?\\circ\}?|°)", formula):
-        raise IsoscelesTrianglePlanError("condition must give a 150-degree vertex angle")
+        raise IsoscelesTrianglePlanError(
+            "condition must give a 150-degree vertex angle"
+        )
     number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
     side_match = re.search(
         rf"боков[^.]*сторон[^.]*равна\s*{number}",
@@ -2590,8 +2660,8 @@ def build_group_27590_repair_plan(
     side = _parse_positive_value(side_match.group(1))
     answer = _answer_text(sp.simplify(side**2 / 4))
     solution_html = (
-        '<p>Площадь треугольника равна половине произведения двух сторон '
-        'на синус угла между ними. Поэтому</p>'
+        "<p>Площадь треугольника равна половине произведения двух сторон "
+        "на синус угла между ними. Поэтому</p>"
         '<center><p><span data-inline-latex="'
         r"S=\frac{1}{2}a^{2}\sin 150^{\circ}="
         r"\frac{1}{2}a^{2}\sin 30^{\circ}="
@@ -2636,27 +2706,31 @@ def build_group_27619_repair_plan(
         re.IGNORECASE,
     )
     if side_match is None or base_match is None:
-        raise IsoscelesTrianglePlanError("condition must give the equal side and base lengths")
+        raise IsoscelesTrianglePlanError(
+            "condition must give the equal side and base lengths"
+        )
     side = _parse_positive_value(side_match.group(1))
     base = _parse_positive_value(base_match.group(1))
     half_base = sp.simplify(base / 2)
     radicand = sp.simplify(side**2 - half_base**2)
     if radicand <= 0:
-        raise IsoscelesTrianglePlanError("side and base do not form a nondegenerate triangle")
+        raise IsoscelesTrianglePlanError(
+            "side and base do not form a nondegenerate triangle"
+        )
     altitude = sp.sqrt(radicand)
     area = sp.simplify(base * altitude / 2)
     answer = _answer_text(area)
     solution_html = (
-        '<p>Высота равнобедренного треугольника, проведённая к основанию, '
-        'делит основание пополам. По теореме Пифагора найдём высоту:</p>'
+        "<p>Высота равнобедренного треугольника, проведённая к основанию, "
+        "делит основание пополам. По теореме Пифагора найдём высоту:</p>"
         '<center><p><span data-inline-latex="'
         r"h=\sqrt{a^{2}-\left(\frac{b}{2}\right)^{2}}="
         + rf"\sqrt{{({_latex_number(side)})^{{2}}-({_latex_number(half_base)})^{{2}}}}={_latex_number(altitude)}"
         + '"></span>.</p></center>'
-        '<p>Тогда площадь треугольника равна</p>'
+        "<p>Тогда площадь треугольника равна</p>"
         '<center><p><span data-inline-latex="'
         r"S=\frac{1}{2}bh="
-        + rf"\frac{{1}}{{2}}\cdot {_latex_number(base)}\cdot {_latex_number(altitude)}={answer.replace(',', '{,}') }"
+        + rf"\frac{{1}}{{2}}\cdot {_latex_number(base)}\cdot {_latex_number(altitude)}={answer.replace(',', '{,}')}"
         + '"></span>.</p></center>'
     )
     return _build_missing_solution_plan(
@@ -2695,14 +2769,13 @@ def build_group_27620_repair_plan(
     side = sp.simplify(2 * sp.sqrt(area))
     answer = _answer_text(side)
     solution_html = (
-        '<p>Площадь треугольника равна половине произведения двух сторон '
-        'на синус угла между ними:</p>'
+        "<p>Площадь треугольника равна половине произведения двух сторон "
+        "на синус угла между ними:</p>"
         '<center><p><span data-inline-latex="'
-        r"S=\frac{1}{2}a^{2}\sin 30^{\circ}=\frac{a^{2}}{4}"
-        + '"></span>.</p></center>'
-        '<p>Следовательно,</p>'
+        r"S=\frac{1}{2}a^{2}\sin 30^{\circ}=\frac{a^{2}}{4}" + '"></span>.</p></center>'
+        "<p>Следовательно,</p>"
         '<center><p><span data-inline-latex="'
-        + rf"a=2\sqrt{{S}}=2\sqrt{{{_latex_number(area)}}}={answer.replace(',', '{,}') }"
+        + rf"a=2\sqrt{{S}}=2\sqrt{{{_latex_number(area)}}}={answer.replace(',', '{,}')}"
         + '"></span>.</p></center>'
     )
     return _build_missing_solution_plan(
@@ -2729,7 +2802,9 @@ def build_group_27621_repair_plan(
     if not re.search(r"равно.*бедрен", formula, re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must declare an isosceles triangle")
     if not re.search(r"150\s*(?:\^\{?\\circ\}?|°)", formula):
-        raise IsoscelesTrianglePlanError("condition must give a 150-degree vertex angle")
+        raise IsoscelesTrianglePlanError(
+            "condition must give a 150-degree vertex angle"
+        )
     if not re.search(r"боков", _request_text(condition_html), re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must request the equal side")
     number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
@@ -2740,15 +2815,14 @@ def build_group_27621_repair_plan(
     side = sp.simplify(2 * sp.sqrt(area))
     answer = _answer_text(side)
     solution_html = (
-        '<p>Площадь треугольника равна половине произведения двух сторон '
-        'на синус угла между ними:</p>'
+        "<p>Площадь треугольника равна половине произведения двух сторон "
+        "на синус угла между ними:</p>"
         '<center><p><span data-inline-latex="'
         r"S=\frac{1}{2}a^{2}\sin 150^{\circ}="
-        r"\frac{1}{2}a^{2}\sin 30^{\circ}=\frac{a^{2}}{4}"
-        + '"></span>.</p></center>'
-        '<p>Следовательно,</p>'
+        r"\frac{1}{2}a^{2}\sin 30^{\circ}=\frac{a^{2}}{4}" + '"></span>.</p></center>'
+        "<p>Следовательно,</p>"
         '<center><p><span data-inline-latex="'
-        + rf"a=2\sqrt{{S}}=2\sqrt{{{_latex_number(area)}}}={answer.replace(',', '{,}') }"
+        + rf"a=2\sqrt{{S}}=2\sqrt{{{_latex_number(area)}}}={answer.replace(',', '{,}')}"
         + '"></span>.</p></center>'
     )
     return _build_missing_solution_plan(
@@ -2771,13 +2845,20 @@ def build_group_27744_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not (
         re.search(r"\bAC\s*=\s*BC\b", formula)
         or re.search(r"сторон[^.]*\bAC\b[^.]*\bBC\b[^.]*равны", formula, re.IGNORECASE)
     ):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
-    angle_match = re.search(r"угол\s+A\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)", formula, re.IGNORECASE)
+    angle_match = re.search(
+        r"угол\s+A\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)", formula, re.IGNORECASE
+    )
     if angle_match is None:
         raise IsoscelesTrianglePlanError("condition must give angle A in degrees")
     if not re.search(r"угол\s+C\b", _request_text(condition_html), re.IGNORECASE):
@@ -2789,11 +2870,11 @@ def build_group_27744_repair_plan(
     answer = str(angle_c)
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> равнобедренный, '
-        'поэтому углы при основании равны:</p>'
+        "поэтому углы при основании равны:</p>"
         '<center><p><span data-inline-latex="'
         + rf"\angle A=\angle B={angle_a}^{{\circ}}"
         + '"></span>.</p></center>'
-        '<p>По сумме углов треугольника</p>'
+        "<p>По сумме углов треугольника</p>"
         '<center><p><span data-inline-latex="'
         + rf"\angle C=180^{{\circ}}-\angle A-\angle B=180^{{\circ}}-2\cdot {angle_a}^{{\circ}}={angle_c}^{{\circ}}"
         + '"></span>.</p></center>'
@@ -2819,13 +2900,20 @@ def build_group_27745_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not (
         re.search(r"\bAC\s*=\s*BC\b", formula)
         or re.search(r"сторон[^.]*\bAC\b[^.]*\bBC\b[^.]*равны", formula, re.IGNORECASE)
     ):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
-    angle_match = re.search(r"угол\s+C\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)", formula, re.IGNORECASE)
+    angle_match = re.search(
+        r"угол\s+C\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)", formula, re.IGNORECASE
+    )
     if angle_match is None:
         raise IsoscelesTrianglePlanError("condition must give angle C in degrees")
     if not re.search(r"угол\s+A\b", _request_text(condition_html), re.IGNORECASE):
@@ -2837,9 +2925,9 @@ def build_group_27745_repair_plan(
     answer = _answer_text(angle_a)
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> равнобедренный, '
-        'поэтому углы при основании равны. По сумме углов треугольника</p>'
+        "поэтому углы при основании равны. По сумме углов треугольника</p>"
         '<center><p><span data-inline-latex="'
-        + rf"\angle A=\angle B=\frac{{180^{{\circ}}-\angle C}}{{2}}="
+        + r"\angle A=\angle B=\frac{180^{\circ}-\angle C}{2}="
         + rf"\frac{{180^{{\circ}}-{angle_c}^{{\circ}}}}{{2}}={_latex_number(angle_a)}^{{\circ}}"
         + '"></span>.</p></center>'
     )
@@ -2864,13 +2952,20 @@ def build_group_27746_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not (
         re.search(r"\bAC\s*=\s*BC\b", formula)
         or re.search(r"сторон[^.]*\bAC\b[^.]*\bBC\b[^.]*равны", formula, re.IGNORECASE)
     ):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
-    angle_match = re.search(r"угол\s+C\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)", formula, re.IGNORECASE)
+    angle_match = re.search(
+        r"угол\s+C\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)", formula, re.IGNORECASE
+    )
     if angle_match is None:
         raise IsoscelesTrianglePlanError("condition must give angle C in degrees")
     request = _request_text(condition_html)
@@ -2884,9 +2979,9 @@ def build_group_27746_repair_plan(
     answer = _answer_text(exterior)
     solution_html = (
         '<p>Треугольник <span data-inline-latex="ABC"></span> равнобедренный, '
-        'поэтому углы при основании равны:</p>'
+        "поэтому углы при основании равны:</p>"
         '<center><p><span data-inline-latex="'
-        + rf"\angle B=\frac{{180^{{\circ}}-\angle C}}{{2}}="
+        + r"\angle B=\frac{180^{\circ}-\angle C}{2}="
         + rf"\frac{{180^{{\circ}}-{angle_c}^{{\circ}}}}{{2}}={_latex_number(angle_b)}^{{\circ}}"
         + '"></span>.</p></center>'
         '<p>Внешний угол <span data-inline-latex="CBD"></span> смежный с углом '
@@ -2916,7 +3011,12 @@ def build_group_27747_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     exterior_match = re.search(
@@ -2932,7 +3032,9 @@ def build_group_27747_repair_plan(
     angle_b = 180 - exterior
     angle_c = 180 - 2 * angle_b
     if angle_b <= 0 or angle_c <= 0:
-        raise IsoscelesTrianglePlanError("given exterior angle does not form a triangle")
+        raise IsoscelesTrianglePlanError(
+            "given exterior angle does not form a triangle"
+        )
     answer = str(angle_c)
     solution_html = (
         '<p>Внутренний угол <span data-inline-latex="B"></span> смежный с данным внешним углом, поэтому</p>'
@@ -2966,7 +3068,12 @@ def build_group_27748_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"\bAB\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AB=BC")
     exterior_match = re.search(
@@ -2982,7 +3089,9 @@ def build_group_27748_repair_plan(
     angle_b = 180 - exterior
     angle_c = sp.Rational(exterior, 2)
     if angle_b <= 0:
-        raise IsoscelesTrianglePlanError("given exterior angle does not form a triangle")
+        raise IsoscelesTrianglePlanError(
+            "given exterior angle does not form a triangle"
+        )
     answer = _answer_text(angle_c)
     solution_html = (
         '<p>Внутренний угол <span data-inline-latex="B"></span> смежный с данным внешним углом:</p>'
@@ -2990,9 +3099,9 @@ def build_group_27748_repair_plan(
         + rf"\angle B=180^{{\circ}}-{exterior}^{{\circ}}={angle_b}^{{\circ}}"
         + '"></span>.</p></center>'
         '<p>Треугольник <span data-inline-latex="ABC"></span> равнобедренный, '
-        'поэтому углы при основании равны:</p>'
+        "поэтому углы при основании равны:</p>"
         '<center><p><span data-inline-latex="'
-        + rf"\angle C=\frac{{180^{{\circ}}-\angle B}}{{2}}="
+        + r"\angle C=\frac{180^{\circ}-\angle B}{2}="
         + rf"\frac{{180^{{\circ}}-{angle_b}^{{\circ}}}}{{2}}={_latex_number(angle_c)}^{{\circ}}"
         + '"></span>.</p></center>'
     )
@@ -3035,8 +3144,8 @@ def build_group_27750_repair_plan(
         raise IsoscelesTrianglePlanError("given angle is not the unique larger angle")
     answer = _answer_text(smaller)
     solution_html = (
-        '<p>Данный больший угол является углом при вершине. Два угла при основании '
-        'равнобедренного треугольника равны, поэтому меньший угол равен</p>'
+        "<p>Данный больший угол является углом при вершине. Два угла при основании "
+        "равнобедренного треугольника равны, поэтому меньший угол равен</p>"
         '<center><p><span data-inline-latex="'
         + rf"\frac{{180^{{\circ}}-{larger}^{{\circ}}}}{{2}}={_latex_number(smaller)}^{{\circ}}"
         + '"></span>.</p></center>'
@@ -3081,10 +3190,10 @@ def build_group_27754_repair_plan(
     answer = _answer_text(smaller)
     solution_html = (
         '<p>Пусть меньший угол равен <span data-inline-latex="x^{\\circ}"></span>. '
-        'Два меньших угла при основании равны, а больший угол равен '
+        "Два меньших угла при основании равны, а больший угол равен "
         f'<span data-inline-latex="(x+{difference})^{{\\circ}}"></span>. По сумме углов треугольника</p>'
         '<center><p><span data-inline-latex="'
-        + rf"2x+(x+{difference})=180\iff 3x={180-difference}\iff x={_latex_number(smaller)}"
+        + rf"2x+(x+{difference})=180\iff 3x={180 - difference}\iff x={_latex_number(smaller)}"
         + '"></span>.</p></center>'
     )
     return _build_missing_solution_plan(
@@ -3108,7 +3217,12 @@ def build_group_27760_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     if not re.search(r"\bAD\b[^.]*высот|высот[^.]*\bAD\b", formula, re.IGNORECASE):
@@ -3126,7 +3240,9 @@ def build_group_27760_repair_plan(
     angle_b = 90 - angle_bad
     angle_c = 2 * angle_bad
     if angle_bad <= 0 or angle_b <= 0:
-        raise IsoscelesTrianglePlanError("given altitude angle does not form a triangle")
+        raise IsoscelesTrianglePlanError(
+            "given altitude angle does not form a triangle"
+        )
     answer = str(angle_c)
     solution_html = (
         '<p>Так как <span data-inline-latex="AD"></span> — высота, '
@@ -3161,11 +3277,22 @@ def build_group_27792_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     side_match = re.search(r"\bAB\s*=\s*BC\s*=\s*AC\s*=\s*([^,;.]+)", formula)
     if side_match is None:
-        raise IsoscelesTrianglePlanError("condition must declare AB=BC=AC and give the side")
-    if not re.search(r"(?:высот[^.]*\bCH\b|\bCH\b[^.]*высот)", _request_text(condition_html), re.IGNORECASE):
+        raise IsoscelesTrianglePlanError(
+            "condition must declare AB=BC=AC and give the side"
+        )
+    if not re.search(
+        r"(?:высот[^.]*\bCH\b|\bCH\b[^.]*высот)",
+        _request_text(condition_html),
+        re.IGNORECASE,
+    ):
         raise IsoscelesTrianglePlanError("condition must request height CH")
     side_latex = side_match.group(1).strip()
     side = _parse_positive_value(side_latex)
@@ -3199,9 +3326,16 @@ def build_group_27793_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"равно.*сторон", formula, re.IGNORECASE):
-        raise IsoscelesTrianglePlanError("condition must declare an equilateral triangle")
+        raise IsoscelesTrianglePlanError(
+            "condition must declare an equilateral triangle"
+        )
     if not re.search(r"высот[^.]*\bCH\b|\bCH\b[^.]*высот", formula, re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must give height CH")
     request = _request_text(condition_html)
@@ -3242,7 +3376,12 @@ def build_group_27794_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     base_match = re.search(r"\bAB\s*=\s*(.+?)(?=\s+Найд|[,;.]|$)", formula)
@@ -3252,9 +3391,13 @@ def build_group_27794_repair_plan(
         raise IsoscelesTrianglePlanError("condition must give altitude CH")
     if not re.search(r"угол\s+C\b", _request_text(condition_html), re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must request angle C")
-    height_values = tuple(value.strip() for value in _inline_formulas(condition_html) if "=" not in value)
+    height_values = tuple(
+        value.strip() for value in _inline_formulas(condition_html) if "=" not in value
+    )
     if len(height_values) != 1:
-        raise IsoscelesTrianglePlanError("condition must give exactly one altitude value")
+        raise IsoscelesTrianglePlanError(
+            "condition must give exactly one altitude value"
+        )
     base_latex = base_match.group(1).strip()
     height_latex = height_values[0]
     base = _parse_positive_value(base_latex)
@@ -3262,10 +3405,12 @@ def build_group_27794_repair_plan(
     half_base = sp.simplify(base / 2)
     side = sp.simplify(sp.sqrt(half_base**2 + height**2))
     if sp.simplify(side - base) != 0:
-        raise IsoscelesTrianglePlanError("base and altitude do not produce an equilateral triangle")
+        raise IsoscelesTrianglePlanError(
+            "base and altitude do not produce an equilateral triangle"
+        )
     answer = "60"
     solution_html = (
-        '<p>Высота равнобедренного треугольника является медианой, поэтому</p>'
+        "<p>Высота равнобедренного треугольника является медианой, поэтому</p>"
         '<center><p><span data-inline-latex="'
         + rf"AH=\frac{{AB}}{{2}}={_latex_number(half_base)}"
         + '"></span>.</p></center>'
@@ -3298,7 +3443,12 @@ def build_group_27795_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     side_match = re.search(r"\bAC\s*=\s*BC\s*=\s*([^,;.]+)", formula)
     angle_match = re.search(
         r"угол\s+C\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)",
@@ -3307,7 +3457,11 @@ def build_group_27795_repair_plan(
     )
     if side_match is None or angle_match is None:
         raise IsoscelesTrianglePlanError("condition must give AC=BC and angle C")
-    if not re.search(r"высот[^.]*\bAH\b|\bAH\b[^.]*высот", _request_text(condition_html), re.IGNORECASE):
+    if not re.search(
+        r"высот[^.]*\bAH\b|\bAH\b[^.]*высот",
+        _request_text(condition_html),
+        re.IGNORECASE,
+    ):
         raise IsoscelesTrianglePlanError("condition must request altitude AH")
     side_latex = side_match.group(1).strip()
     side = _parse_positive_value(side_latex)
@@ -3347,14 +3501,25 @@ def build_group_27796_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"остро.*уголь", formula, re.IGNORECASE):
         raise IsoscelesTrianglePlanError("condition must declare an acute triangle")
     side_match = re.search(r"\bAC\s*=\s*BC\s*=\s*([^,;.]+)", formula)
-    height_match = re.search(r"высот[^.]*\bAH\b\s+равна\s*([^,;.]+)", formula, re.IGNORECASE)
+    height_match = re.search(
+        r"высот[^.]*\bAH\b\s+равна\s*([^,;.]+)", formula, re.IGNORECASE
+    )
     if side_match is None or height_match is None:
         raise IsoscelesTrianglePlanError("condition must give AC=BC and altitude AH")
-    if not re.search(r"угол\s+C\b|градус[^.]*угла\s+C\b", _request_text(condition_html), re.IGNORECASE):
+    if not re.search(
+        r"угол\s+C\b|градус[^.]*угла\s+C\b",
+        _request_text(condition_html),
+        re.IGNORECASE,
+    ):
         raise IsoscelesTrianglePlanError("condition must request angle C")
     side_latex = side_match.group(1).strip()
     height_latex = height_match.group(1).strip()
@@ -3365,7 +3530,9 @@ def build_group_27796_repair_plan(
         raise IsoscelesTrianglePlanError("altitude must be shorter than the equal side")
     angle = sp.simplify(180 * sp.asin(ratio) / sp.pi)
     if angle.has(sp.asin) or angle.is_rational is not True:
-        raise IsoscelesTrianglePlanError("altitude ratio has no supported exact acute angle")
+        raise IsoscelesTrianglePlanError(
+            "altitude ratio has no supported exact acute angle"
+        )
     answer = _answer_text(angle)
     solution_html = (
         '<p>В прямоугольном <span data-inline-latex="\\triangle AHC"></span> '
@@ -3398,10 +3565,17 @@ def build_group_27797_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
-    height_match = re.search(r"высот[^.]*\bAH\b\s+равна\s*([^,;.]+)", formula, re.IGNORECASE)
+    height_match = re.search(
+        r"высот[^.]*\bAH\b\s+равна\s*([^,;.]+)", formula, re.IGNORECASE
+    )
     angle_match = re.search(
         r"угол\s+C\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)",
         formula,
@@ -3410,7 +3584,9 @@ def build_group_27797_repair_plan(
     if height_match is None or angle_match is None:
         raise IsoscelesTrianglePlanError("condition must give altitude AH and angle C")
     request = _request_text(condition_html)
-    if not re.search(r"\bAC\b", request) or re.search(r"\b(?:AB|BC|AH|BH|CH)\b", request):
+    if not re.search(r"\bAC\b", request) or re.search(
+        r"\b(?:AB|BC|AH|BH|CH)\b", request
+    ):
         raise IsoscelesTrianglePlanError("condition must request AC")
     height_latex = height_match.group(1).strip()
     height = _parse_positive_value(height_latex)
@@ -3451,7 +3627,12 @@ def build_group_27798_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     side_match = re.search(r"\bAC\s*=\s*BC\s*=\s*([^,;.]+)", formula)
     angle_match = re.search(
         r"угол\s+C\s+равен\s*(\d+)\s*(?:\^\{?\\circ\}?|°)",
@@ -3460,7 +3641,11 @@ def build_group_27798_repair_plan(
     )
     if side_match is None or angle_match is None:
         raise IsoscelesTrianglePlanError("condition must give AC=BC and angle C")
-    if not re.search(r"высот[^.]*\bAH\b|\bAH\b[^.]*высот", _request_text(condition_html), re.IGNORECASE):
+    if not re.search(
+        r"высот[^.]*\bAH\b|\bAH\b[^.]*высот",
+        _request_text(condition_html),
+        re.IGNORECASE,
+    ):
         raise IsoscelesTrianglePlanError("condition must request altitude AH")
     side_latex = side_match.group(1).strip()
     side = _parse_positive_value(side_latex)
@@ -3470,11 +3655,13 @@ def build_group_27798_repair_plan(
     supplement = 180 - angle
     sine = sp.simplify(sp.sin(sp.pi * supplement / 180))
     if sine.has(sp.sin):
-        raise IsoscelesTrianglePlanError("supplementary angle has no supported exact sine")
+        raise IsoscelesTrianglePlanError(
+            "supplementary angle has no supported exact sine"
+        )
     height = sp.simplify(side * sine)
     answer = _answer_text(height)
     solution_html = (
-        '<p>Так как основание высоты лежит на продолжении стороны '
+        "<p>Так как основание высоты лежит на продолжении стороны "
         '<span data-inline-latex="BC"></span>,</p><center><p><span data-inline-latex="'
         + rf"\angle ACH=180^{{\circ}}-\angle C={supplement}^{{\circ}}"
         + '"></span>.</p></center><p>В прямоугольном '
@@ -3504,7 +3691,12 @@ def build_group_27799_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     angle_match = re.search(
@@ -3516,7 +3708,9 @@ def build_group_27799_repair_plan(
     if angle_match is None or base_match is None:
         raise IsoscelesTrianglePlanError("condition must give angle C and base AB")
     request = _request_text(condition_html)
-    if not re.search(r"\bAC\b", request) or re.search(r"\b(?:AB|BC|AH|BH|CH)\b", request):
+    if not re.search(r"\bAC\b", request) or re.search(
+        r"\b(?:AB|BC|AH|BH|CH)\b", request
+    ):
         raise IsoscelesTrianglePlanError("condition must request AC")
     angle = int(angle_match.group(1))
     if angle <= 0 or angle >= 180:
@@ -3530,7 +3724,7 @@ def build_group_27799_repair_plan(
     side = sp.simplify(base / sp.sqrt(denominator))
     answer = _answer_text(side)
     solution_html = (
-        '<p>По теореме косинусов и с учётом '
+        "<p>По теореме косинусов и с учётом "
         '<span data-inline-latex="AC=BC"></span>:</p><center><p><span data-inline-latex="'
         + r"AB^{2}=AC^{2}+BC^{2}-2AC\cdot BC\cos \angle C=2AC^{2}\left(1-\cos \angle C\right)"
         + '"></span>.</p></center><p>Следовательно,</p><center><p><span data-inline-latex="'
@@ -3559,7 +3753,12 @@ def build_group_27800_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     if not re.search(r"\bAC\s*=\s*BC\b", formula):
         raise IsoscelesTrianglePlanError("condition must declare AC=BC")
     angle_match = re.search(
@@ -3574,7 +3773,9 @@ def build_group_27800_repair_plan(
     if angle_match is None or side_match is None:
         raise IsoscelesTrianglePlanError("condition must give angle C and side AC")
     request = _request_text(condition_html)
-    if not re.search(r"\bAB\b", request) or re.search(r"\b(?:AC|BC|AH|BH|CH)\b", request):
+    if not re.search(r"\bAB\b", request) or re.search(
+        r"\b(?:AC|BC|AH|BH|CH)\b", request
+    ):
         raise IsoscelesTrianglePlanError("condition must request AB")
     angle = int(angle_match.group(1))
     if angle <= 0 or angle >= 180:
@@ -3593,15 +3794,16 @@ def build_group_27800_repair_plan(
     cross_term_latex = _latex_number(abs(cross_term))
     answer = _answer_text(base)
     solution_html = (
-        '<p>Найдём косинус данного угла:</p>'
+        "<p>Найдём косинус данного угла:</p>"
         '<center><p><span data-inline-latex="'
         + rf"\cos \angle C=\cos {angle}^{{\circ}}={_latex_number(cosine)}"
         + '"></span>.</p></center>'
-        '<p>По теореме косинусов:</p>'
+        "<p>По теореме косинусов:</p>"
         '<center><p><span data-inline-latex="'
         + r"AB^{2}=AC^{2}+BC^{2}-2AC\cdot BC\cos \angle C"
         + '"></span>.</p></center>'
-        '<p>Так как <span data-inline-latex="AC=BC=' + side_latex
+        '<p>Так как <span data-inline-latex="AC=BC='
+        + side_latex
         + '"></span>, подставим известные значения и последовательно выполним вычисления:</p>'
         '<center><p><span data-inline-latex="'
         + rf"AB^{{2}}=({side_latex})^{{2}}+({side_latex})^{{2}}"
@@ -3612,7 +3814,7 @@ def build_group_27800_repair_plan(
         + rf"{cross_operator}{cross_term_latex}"
         + rf"\iff AB^{{2}}={_latex_number(base_squared)}"
         + '"></span>.</p></center>'
-        '<p>Длина стороны положительна, поэтому</p>'
+        "<p>Длина стороны положительна, поэтому</p>"
         '<center><p><span data-inline-latex="'
         + rf"AB=\sqrt{{{_latex_number(base_squared)}}}={_latex_number(base)}"
         + '"></span>.</p></center>'
@@ -3640,7 +3842,12 @@ def build_group_628232_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = _formula_text(condition_html).replace("А", "A").replace("В", "B").replace("С", "C")
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
     side_match = re.search(
         r"(?:AC\s*=\s*BC|BC\s*=\s*AC)\s*=\s*"
         r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|"
@@ -3651,7 +3858,9 @@ def build_group_628232_repair_plan(
         raise IsoscelesTrianglePlanError("condition must give AC=BC and their length")
     tangent_latex = _inline_assignment(condition_html, r"\\tg\s*\\angle\s*A\s*=")
     request = _request_text(condition_html)
-    if not re.search(r"\bAB\b", request) or re.search(r"\b(?:AC|BC|AH|BH|CH)\b", request):
+    if not re.search(r"\bAB\b", request) or re.search(
+        r"\b(?:AC|BC|AH|BH|CH)\b", request
+    ):
         raise IsoscelesTrianglePlanError("condition must request AB")
     side_latex = side_match.group(1)
     side = _parse_positive_value(side_latex)
@@ -3660,11 +3869,15 @@ def build_group_628232_repair_plan(
     base = sp.simplify(2 * half_base)
     answer = _answer_text(base)
     solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(str(solution.get("html") or ""))
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
     transformations: list[dict[str, Any]] = []
     if solution_missing:
         solution_images = [
-            item for item in parent_solution_assets if item.get("asset_key") == "image_2"
+            item
+            for item in parent_solution_assets
+            if item.get("asset_key") == "image_2"
         ]
         if len(solution_images) != 1:
             raise IsoscelesTrianglePlanError(
@@ -3676,8 +3889,7 @@ def build_group_628232_repair_plan(
         )
         image_html = str(solution_asset["value"]["html"])
         solution_html = (
-            image_html
-            + '<p>Проведём высоту <span data-inline-latex="CH"></span>. '
+            image_html + '<p>Проведём высоту <span data-inline-latex="CH"></span>. '
             'Так как треугольник <span data-inline-latex="ABC"></span> '
             'равнобедренный, <span data-inline-latex="AH=HB"></span>. Пусть '
             '<span data-inline-latex="AH=x"></span>. По определению тангенса</p>'
@@ -3687,7 +3899,7 @@ def build_group_628232_repair_plan(
             + '"></span>.</p></center>'
             '<p>По теореме Пифагора для <span data-inline-latex="\\triangle ACH"></span>:</p>'
             '<center><p><span data-inline-latex="'
-            + rf"AC^{{2}}=AH^{{2}}+CH^{{2}}"
+            + r"AC^{2}=AH^{2}+CH^{2}"
             + rf"\iff ({side_latex})^{{2}}=x^{{2}}+({tangent_latex}x)^{{2}}"
             + rf"\iff x={_latex_number(half_base)}"
             + '"></span>.</p></center>'
@@ -3735,11 +3947,14 @@ def build_group_676342_repair_plan(
         raise IsoscelesTrianglePlanError("condition must state an isosceles triangle")
     if re.search(r"основа\S*\s+[AА][BВ]\b", formula, re.IGNORECASE) is None:
         raise IsoscelesTrianglePlanError("condition must state base AB")
-    if re.search(
-        r"(?:вершин\S*\s+[BВ]\b|угол\s+[CС][BВ]D\b)",
-        formula,
-        re.IGNORECASE,
-    ) is None:
+    if (
+        re.search(
+            r"(?:вершин\S*\s+[BВ]\b|угол\s+[CС][BВ]D\b)",
+            formula,
+            re.IGNORECASE,
+        )
+        is None
+    ):
         raise IsoscelesTrianglePlanError("external angle must be at vertex B")
     angle_match = re.search(
         r"внешн\S*\s+угол.*?равен\s*([0-9]+)\s*°",
@@ -3753,7 +3968,9 @@ def build_group_676342_repair_plan(
         raise IsoscelesTrianglePlanError("condition must request angle A")
     external_angle = int(angle_match.group(1))
     if external_angle <= 90 or external_angle >= 180:
-        raise IsoscelesTrianglePlanError("external base angle must be between 90 and 180")
+        raise IsoscelesTrianglePlanError(
+            "external base angle must be between 90 and 180"
+        )
     base_angle = 180 - external_angle
     answer = str(base_angle)
     solution_html = (
@@ -3805,15 +4022,17 @@ def build_group_701874_repair_plan(
         raise IsoscelesTrianglePlanError("condition must request angle ABC")
     external_angle = int(angle_match.group(1))
     if external_angle <= 0 or external_angle >= 180:
-        raise IsoscelesTrianglePlanError("external apex angle must be between 0 and 180")
+        raise IsoscelesTrianglePlanError(
+            "external apex angle must be between 0 and 180"
+        )
     base_angle = sp.Rational(external_angle, 2)
     answer = _answer_text(base_angle)
     solution_html = (
-        '<p>Внешний угол равен сумме двух несмежных с ним углов:</p>'
+        "<p>Внешний угол равен сумме двух несмежных с ним углов:</p>"
         '<center><p><span data-inline-latex="'
         + rf"\angle ABC+\angle CAB={external_angle}^{{\circ}}"
         + '"></span>.</p></center>'
-        '<p>Углы при основании равнобедренного треугольника равны, поэтому</p>'
+        "<p>Углы при основании равнобедренного треугольника равны, поэтому</p>"
         '<center><p><span data-inline-latex="'
         + rf"\angle ABC=\angle CAB\iff 2\angle ABC={external_angle}^{{\circ}}"
         + rf"\iff \angle ABC={_latex_number(base_angle)}^{{\circ}}"

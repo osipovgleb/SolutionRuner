@@ -1,0 +1,101 @@
+{
+  "problem_id": "5beab9d3-04cd-4bf7-9ec1-30588bade531",
+  "transformations": {
+    "schema_version": 3,
+    "revision": 9,
+    "items": [
+      {
+        "at": "2026-08-27T10:11:25.976118+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "assets"
+        },
+        "value": {
+          "alt": "",
+          "url": "/assets/1a343798-f4b1-483f-a87c-eb59c0750839",
+          "html": "<img alt=\"\" data-asset-id=\"1a343798-f4b1-483f-a87c-eb59c0750839\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1a343798-f4b1-483f-a87c-eb59c0750839\"/>",
+          "kind": "ordinary_image",
+          "asset_id": "1a343798-f4b1-483f-a87c-eb59c0750839",
+          "position": 1,
+          "asset_key": "image_1",
+          "parent_target_id": "section:condition:1"
+        },
+        "operation": "rewrite",
+        "transformation_target_id": "asset:image_1"
+      },
+      {
+        "at": "2026-10-02T15:44:09.144213+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "deterministic_svg"
+        },
+        "value": {
+          "html": "<p>На ри­сун­ке изоб­ражён гра­фик <span data-inline-latex=\"y=f'(x)\"></span>   — про­из­вод­ной функ­ции <i>f</i>(<i>x</i>). На оси абс­цисс от­ме­че­ны шесть точек: <i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>, <i>x</i><sub>3</sub>, ..., <i>x</i><sub>6</sub>. Сколь­ко из этих точек лежит на про­ме­жут­ках убы­ва­ния функ­ции <i>f</i>(<i>x</i>)?</p><img alt=\"\" data-asset-id=\"1a343798-f4b1-483f-a87c-eb59c0750839\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\"/>",
+          "title": "Условие",
+          "asset_keys": [
+            "image_1"
+          ]
+        },
+        "operation": "rewrite",
+        "transformation_target_id": "section:condition:1"
+      },
+      {
+        "at": "2026-10-02T15:44:09.144213+00:00",
+        "by": {
+          "type": "pipeline",
+          "stage": "deterministic_svg"
+        },
+        "operation": "remove",
+        "transformation_target_id": "asset:formula_1"
+      }
+    ]
+  },
+  "normalized_content": {
+    "assets": [
+      {
+        "alt": "",
+        "url": "/assets/1a343798-f4b1-483f-a87c-eb59c0750839",
+        "kind": "ordinary_image",
+        "asset_id": "1a343798-f4b1-483f-a87c-eb59c0750839",
+        "asset_key": "image_1",
+        "transformation_target_id": "asset:image_1"
+      }
+    ],
+    "format": "teacherhelper-normalized",
+    "sections": [
+      {
+        "key": "condition",
+        "html": "<p>На ри­сун­ке изоб­ражён гра­фик <span data-inline-latex=\"y=f'(x)\"></span>   — про­из­вод­ной функ­ции <i>f</i>(<i>x</i>). На оси абс­цисс от­ме­че­ны шесть точек: <i>x</i><sub>1</sub>, <i>x</i><sub>2</sub>, <i>x</i><sub>3</sub>, ..., <i>x</i><sub>6</sub>. Сколь­ко из этих точек лежит на про­ме­жут­ках убы­ва­ния функ­ции <i>f</i>(<i>x</i>)?</p><img alt=\"\" data-asset-id=\"1a343798-f4b1-483f-a87c-eb59c0750839\" data-asset-key=\"image_1\" data-transformation-target-id=\"asset:image_1\" src=\"/assets/1a343798-f4b1-483f-a87c-eb59c0750839\"/>",
+        "title": "Условие",
+        "asset_keys": [
+          "image_1"
+        ],
+        "section_id": "condition:1",
+        "transformation_target_id": "section:condition:1"
+      },
+      {
+        "key": "answer",
+        "html": "<p><span data-effect=\"spaced\">4</span></p>",
+        "title": "Ответ",
+        "asset_keys": [],
+        "section_id": "answer:1",
+        "transformation_target_id": "section:answer:1"
+      },
+      {
+        "key": "solution",
+        "html": "<p>Убы­ва­нию диф­фе­рен­ци­ру­е­мой функ­ции <i>f</i>(<i>x</i>) со­от­вет­ству­ют от­ри­ца­тель­ные зна­че­ния её про­из­вод­ной. Про­из­вод­ная от­ри­ца­тель­на в точ­ках <i>x</i><sub>3</sub>, <i>x</i><sub>4</sub>, <i>x</i><sub>5</sub>, <i>x</i><sub>6</sub>. Таких точек 4.</p>",
+        "title": "Решение",
+        "asset_keys": [],
+        "section_id": "solution:1",
+        "transformation_target_id": "section:solution:1"
+      }
+    ],
+    "schema_version": 3,
+    "problem_reference_ids": {
+      "prototype_problem_id": null,
+      "group_parent_problem_id": null,
+      "adjacent_group_parent_problem_id": null
+    }
+  },
+  "source_problem_id": "560773"
+}

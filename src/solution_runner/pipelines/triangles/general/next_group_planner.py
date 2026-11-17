@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import re
-from typing import Any, Callable
+from collections.abc import Callable
+from fractions import Fraction
+from typing import Any
 
 from bs4 import BeautifulSoup
 
@@ -16,7 +17,6 @@ from ..isosceles.planner import (
     _solution_asset_transformation,
 )
 from ..right.planner import RepairPlan, RightTrianglePlanError
-
 
 RULES = frozenset(
     {
@@ -52,7 +52,7 @@ def _degree_assignment(text: str, name: str) -> int:
     match = re.search(
         rf"угол\s+{re.escape(name)}\s+равен\s*(\d+)\s*(?:\^\{{\\circ\}}|°)",
         text,
-        re.I,
+        re.IGNORECASE,
     )
     if match is None:
         raise RightTrianglePlanError(f"condition must give angle {name}")
@@ -142,9 +142,10 @@ def _without_image(parent_html: str, asset_key: str) -> str:
         wrapper = image.parent
         image.decompose()
         if wrapper is not None and wrapper.name in {"p", "center", "figure"}:
-            if not wrapper.get_text(strip=True) and wrapper.find(
-                ("img", "audio", "video")
-            ) is None:
+            if (
+                not wrapper.get_text(strip=True)
+                and wrapper.find(("img", "audio", "video")) is None
+            ):
                 wrapper.decompose()
     return str(soup)
 
@@ -159,8 +160,13 @@ def _build_27768(text: str, parent_html: str) -> tuple[Fraction, str]:
 
 
 def _build_27769(text: str, parent_html: str) -> tuple[Fraction, str]:
-    if not all(token in text for token in ("BD", "BC", "BCD")) or "продолжении" not in text:
-        raise RightTrianglePlanError("condition must state the BD=BC extension construction")
+    if (
+        not all(token in text for token in ("BD", "BC", "BCD"))
+        or "продолжении" not in text
+    ):
+        raise RightTrianglePlanError(
+            "condition must state the BD=BC extension construction"
+        )
     angle_a = _degree_assignment(text, "A")
     angle_c = _degree_assignment(text, "C")
     angle_b = 180 - angle_a - angle_c
@@ -191,7 +197,9 @@ def _build_27769(text: str, parent_html: str) -> tuple[Fraction, str]:
 
 def _build_27776(text: str, parent_html: str) -> tuple[Fraction, str]:
     if not all(token in text for token in ("AD", "AE", "AC", "BDE", "биссектриса")):
-        raise RightTrianglePlanError("condition must state the AD and AE=AC construction")
+        raise RightTrianglePlanError(
+            "condition must state the AD and AE=AC construction"
+        )
     angle_b = _degree_assignment(text, "B")
     angle_c = _degree_assignment(text, "C")
     answer = Fraction(angle_c - angle_b)
@@ -222,7 +230,9 @@ def _build_27776(text: str, parent_html: str) -> tuple[Fraction, str]:
 def _build_27777(text: str, parent_html: str) -> tuple[Fraction, str]:
     required = ("CD", "внешнего угла", "CE", "CB", "BDE", "биссектриса")
     if not all(token in text for token in required):
-        raise RightTrianglePlanError("condition must state the exterior-bisector construction")
+        raise RightTrianglePlanError(
+            "condition must state the exterior-bisector construction"
+        )
     angle_a = _degree_assignment(text, "A")
     angle_b = _degree_assignment(text, "B")
     half_sum = Fraction(angle_a + angle_b, 2)
@@ -251,7 +261,9 @@ def _build_27777(text: str, parent_html: str) -> tuple[Fraction, str]:
 
 
 def _build_27778(text: str, parent_html: str) -> tuple[Fraction, str]:
-    if not all(token in text for token in ("AD", "BE", "CF", "O", "AOF", "биссектрисы")):
+    if not all(
+        token in text for token in ("AD", "BE", "CF", "O", "AOF", "биссектрисы")
+    ):
         raise RightTrianglePlanError("condition must state three concurrent bisectors")
     angle_a = _degree_assignment(text, "A")
     angle_b = _degree_assignment(text, "B")
@@ -261,7 +273,9 @@ def _build_27778(text: str, parent_html: str) -> tuple[Fraction, str]:
     parent = BeautifulSoup(parent_html, "html.parser")
     sections = parent.find_all("section", attrs={"data-content-kind": "solution"})
     if len(sections) != 2:
-        raise RightTrianglePlanError("group 27778 parent must contain two solution methods")
+        raise RightTrianglePlanError(
+            "group 27778 parent must contain two solution methods"
+        )
     direct = sections[1]
     label = direct.find("b")
     if label is not None and label.find_parent("p") is not None:
@@ -291,10 +305,16 @@ def _build_27779(text: str, parent_html: str) -> tuple[Fraction, str]:
 
 def _build_317337(text: str, parent_html: str) -> tuple[Fraction, str]:
     if "DE" not in text or "средняя линия" not in text or "ABC" not in text:
-        raise RightTrianglePlanError("condition must give a triangle area cut by midline DE")
-    match = re.search(r"Площадь треугольника\s+(ADE|BDE|CDE)\s+равна\s*(\d+)", text, re.I)
+        raise RightTrianglePlanError(
+            "condition must give a triangle area cut by midline DE"
+        )
+    match = re.search(
+        r"Площадь треугольника\s+(ADE|BDE|CDE)\s+равна\s*(\d+)", text, re.IGNORECASE
+    )
     if match is None:
-        raise RightTrianglePlanError("condition must give exactly one ADE, BDE, or CDE area")
+        raise RightTrianglePlanError(
+            "condition must give exactly one ADE, BDE, or CDE area"
+        )
     triangle = match.group(1).upper()
     small_area = int(match.group(2))
     answer = Fraction(4 * small_area)
@@ -311,7 +331,9 @@ def _build_317337(text: str, parent_html: str) -> tuple[Fraction, str]:
     soup = BeautifulSoup(relabeled, "html.parser")
     formulas = list(soup.find_all(attrs={"data-inline-latex": True}))
     if len(formulas) != 2:
-        raise RightTrianglePlanError("group 317337 parent solution formula count drifted")
+        raise RightTrianglePlanError(
+            "group 317337 parent solution formula count drifted"
+        )
     first = str(formulas[0].get("data-inline-latex") or "")
     first = re.sub(
         r"2\^\{2\}\\cdot\s*\d+\s*=\s*\d+",
@@ -330,9 +352,16 @@ def _build_317337(text: str, parent_html: str) -> tuple[Fraction, str]:
 
 
 def _build_319058(text: str, parent_html: str) -> tuple[Fraction, str]:
-    if not all(token in text for token in ("ABC", "DE", "AB", "средняя линия", "параллельная", "трапеции")):
-        raise RightTrianglePlanError("condition must request the midline trapezoid area")
-    match = re.search(r"Площадь треугольника\s+ABC\s+равна\s*(\d+)", text, re.I)
+    if not all(
+        token in text
+        for token in ("ABC", "DE", "AB", "средняя линия", "параллельная", "трапеции")
+    ):
+        raise RightTrianglePlanError(
+            "condition must request the midline trapezoid area"
+        )
+    match = re.search(
+        r"Площадь треугольника\s+ABC\s+равна\s*(\d+)", text, re.IGNORECASE
+    )
     if match is None:
         raise RightTrianglePlanError("condition must give area ABC")
     total = int(match.group(1))
@@ -350,7 +379,10 @@ def _build_319058(text: str, parent_html: str) -> tuple[Fraction, str]:
         wrapper = image.parent
         image.decompose()
         if wrapper is not None and wrapper.name in {"p", "center", "figure"}:
-            if not wrapper.get_text(strip=True) and wrapper.find(("img", "audio", "video")) is None:
+            if (
+                not wrapper.get_text(strip=True)
+                and wrapper.find(("img", "audio", "video")) is None
+            ):
                 wrapper.decompose()
     return answer, str(soup)
 
@@ -363,7 +395,7 @@ def _build_500142(text: str, parent_html: str) -> tuple[Fraction, str]:
         r"угол\s+[AА]\s+равен\s*(\d+)\s*"
         r"(?:\^\{\\circ\}|°|градус(?:ам|а|ов)?)",
         text,
-        re.I,
+        re.IGNORECASE,
     )
     if match is None:
         raise RightTrianglePlanError("condition must give angle A")
@@ -374,17 +406,24 @@ def _build_500142(text: str, parent_html: str) -> tuple[Fraction, str]:
     return answer, _replace_latex(
         parent_html,
         (
-            rf"\angle DOE=360^{{\circ}}-\angle ADO-\angle OEA-\angle A="
-            rf"360^{{\circ}}-90^{{\circ}}-90^{{\circ}}-{angle_a}^{{\circ}}="
-            rf"{_latex_number(answer)}^{{\circ}}",
+            (
+                rf"\angle DOE=360^{{\circ}}-\angle ADO-\angle OEA-\angle A="
+                rf"360^{{\circ}}-90^{{\circ}}-90^{{\circ}}-{angle_a}^{{\circ}}="
+                rf"{_latex_number(answer)}^{{\circ}}"
+            ),
         ),
     )
 
 
 def _build_510796(text: str, parent_html: str) -> tuple[Fraction, str]:
     required = ("BD", "CE", "DOE")
-    if not all(token in text for token in required) or "продолжения высот" not in text.lower():
-        raise RightTrianglePlanError("condition must state the extended BD and CE altitudes")
+    if (
+        not all(token in text for token in required)
+        or "продолжения высот" not in text.lower()
+    ):
+        raise RightTrianglePlanError(
+            "condition must state the extended BD and CE altitudes"
+        )
     angle_a = _degree_assignment(text, "A")
     answer = Fraction(180 - angle_a)
     if answer <= 0:
@@ -392,8 +431,10 @@ def _build_510796(text: str, parent_html: str) -> tuple[Fraction, str]:
     return answer, _replace_latex(
         parent_html,
         (
-            rf"\angle DOE=\angle CAE=180^{{\circ}}-\angle CAB="
-            rf"180^{{\circ}}-{angle_a}^{{\circ}}={_latex_number(answer)}^{{\circ}}",
+            (
+                rf"\angle DOE=\angle CAE=180^{{\circ}}-\angle CAB="
+                rf"180^{{\circ}}-{angle_a}^{{\circ}}={_latex_number(answer)}^{{\circ}}"
+            ),
         ),
     )
 
@@ -451,15 +492,21 @@ def build_repair_plan(
         solution_assets = ()
     elif rule == "general-triangle-317337-midline-small-area-to-total":
         solution_assets = tuple(
-            item for item in parent_solution_assets if item.get("asset_key") == "image_2"
+            item
+            for item in parent_solution_assets
+            if item.get("asset_key") == "image_2"
         )
     else:
         solution_assets = parent_solution_assets
-    solution_asset_keys = tuple(str(item.get("asset_key") or "") for item in solution_assets)
+    solution_asset_keys = tuple(
+        str(item.get("asset_key") or "") for item in solution_assets
+    )
 
     if rule == "general-triangle-317337-midline-small-area-to-total":
         condition_images = [
-            item for item in parent_solution_assets if item.get("asset_key") == "image_1"
+            item
+            for item in parent_solution_assets
+            if item.get("asset_key") == "image_1"
         ]
         if len(condition_images) != 1:
             raise RightTrianglePlanError("group 317337 parent must provide image_1")
@@ -487,7 +534,9 @@ def build_repair_plan(
             else tuple(f"image_{index}" for index in range(1, len(solution_assets) + 1))
         )
         if solution_asset_keys != expected:
-            raise RightTrianglePlanError("parent solution assets are not consecutive image keys")
+            raise RightTrianglePlanError(
+                "parent solution assets are not consecutive image keys"
+            )
         current_assets = {
             str(item.get("asset_key") or ""): str(item.get("asset_id") or "")
             for item in content.get("assets", [])
@@ -503,8 +552,12 @@ def build_repair_plan(
         condition_asset_id = parent_condition_asset_id
         if rule == "general-triangle-319058-midline-trapezoid-area":
             if len(parent_solution_assets) != 1:
-                raise RightTrianglePlanError("group 319058 parent must provide one image")
-            condition_asset_id = str(parent_solution_assets[0].get("source_asset_id") or "")
+                raise RightTrianglePlanError(
+                    "group 319058 parent must provide one image"
+                )
+            condition_asset_id = str(
+                parent_solution_assets[0].get("source_asset_id") or ""
+            )
         if not _has_condition_asset(condition, condition_asset_id):
             changes.append(_asset_transformation(condition_asset_id))
 
@@ -512,40 +565,70 @@ def build_repair_plan(
 
 
 def build_group_27769_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-27769-extension-isosceles-angle", **kwargs)
+    return build_repair_plan(
+        context, rule="general-triangle-27769-extension-isosceles-angle", **kwargs
+    )
 
 
 def build_group_27768_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-27768-bisector-equal-segments-angle", **kwargs)
+    return build_repair_plan(
+        context, rule="general-triangle-27768-bisector-equal-segments-angle", **kwargs
+    )
 
 
 def build_group_27776_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-27776-bisector-congruent-angle", **kwargs)
+    return build_repair_plan(
+        context, rule="general-triangle-27776-bisector-congruent-angle", **kwargs
+    )
 
 
 def build_group_27777_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-27777-exterior-bisector-isosceles-angle", **kwargs)
+    return build_repair_plan(
+        context,
+        rule="general-triangle-27777-exterior-bisector-isosceles-angle",
+        **kwargs,
+    )
 
 
 def build_group_27778_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-27778-incenter-bisectors-angle", **kwargs)
+    return build_repair_plan(
+        context, rule="general-triangle-27778-incenter-bisectors-angle", **kwargs
+    )
 
 
 def build_group_27779_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-27779-orthocenter-altitudes-angle", **kwargs)
+    return build_repair_plan(
+        context, rule="general-triangle-27779-orthocenter-altitudes-angle", **kwargs
+    )
 
 
-def build_group_317337_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-317337-midline-small-area-to-total", **kwargs)
+def build_group_317337_repair_plan(
+    context: dict[str, Any], **kwargs: Any
+) -> RepairPlan:
+    return build_repair_plan(
+        context, rule="general-triangle-317337-midline-small-area-to-total", **kwargs
+    )
 
 
-def build_group_319058_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-319058-midline-trapezoid-area", **kwargs)
+def build_group_319058_repair_plan(
+    context: dict[str, Any], **kwargs: Any
+) -> RepairPlan:
+    return build_repair_plan(
+        context, rule="general-triangle-319058-midline-trapezoid-area", **kwargs
+    )
 
 
-def build_group_500142_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-500142-altitudes-obtuse-angle", **kwargs)
+def build_group_500142_repair_plan(
+    context: dict[str, Any], **kwargs: Any
+) -> RepairPlan:
+    return build_repair_plan(
+        context, rule="general-triangle-500142-altitudes-obtuse-angle", **kwargs
+    )
 
 
-def build_group_510796_repair_plan(context: dict[str, Any], **kwargs: Any) -> RepairPlan:
-    return build_repair_plan(context, rule="general-triangle-510796-extended-altitudes-angle", **kwargs)
+def build_group_510796_repair_plan(
+    context: dict[str, Any], **kwargs: Any
+) -> RepairPlan:
+    return build_repair_plan(
+        context, rule="general-triangle-510796-extended-altitudes-angle", **kwargs
+    )

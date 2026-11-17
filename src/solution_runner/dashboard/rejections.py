@@ -22,7 +22,9 @@ def reject_indexed_problem(
     snapshot = inventory.get(group_key)
     if snapshot is None:
         raise KeyError(group_key)
-    item = next((item for item in snapshot.items if item.problem_id == problem_id), None)
+    item = next(
+        (item for item in snapshot.items if item.problem_id == problem_id), None
+    )
     if item is None:
         raise KeyError(problem_id)
     if problem_id == snapshot.parent_problem_id:
@@ -36,14 +38,18 @@ def reject_indexed_problem(
     state = gateway.get_problem_pipeline_state(problem_id)
     statuses = state.get("statuses") if isinstance(state, dict) else None
     if not isinstance(statuses, dict) or statuses.get("normalized") != "rejected":
-        raise RuntimeError("reject write was not confirmed by readback") from write_error
+        raise RuntimeError(
+            "reject write was not confirmed by readback"
+        ) from write_error
 
     inventory.remove_item(group_key, problem_id)
     preview = load_preview(preview_dir, group_key)
     if preview:
         preview["samples"] = [
-            sample for sample in preview.get("samples", [])
-            if not isinstance(sample, dict) or str(sample.get("problem_id")) != problem_id
+            sample
+            for sample in preview.get("samples", [])
+            if not isinstance(sample, dict)
+            or str(sample.get("problem_id")) != problem_id
         ]
         if preview["samples"]:
             save_preview(preview_dir, preview)

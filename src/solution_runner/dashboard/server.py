@@ -3,23 +3,37 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import json
 import mimetypes
 import os
+from collections.abc import Mapping
+from datetime import UTC, datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Event, Thread
-from typing import Any, Mapping
+from typing import Any
 from urllib.parse import parse_qs, unquote, urlparse
 
-from solution_runner.pipelines.core.group_profiles import all_group_profiles, reload_group_profiles
-from solution_runner.pipelines.grid_polygon.mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 from solution_runner.group_inventory_store import GroupInventoryStore
+from solution_runner.pipelines.core.group_profiles import (
+    all_group_profiles,
+    reload_group_profiles,
+)
+from solution_runner.pipelines.grid_polygon.mcp_runtime import (
+    DEFAULT_MCP_URL,
+    JsonRpcMcpGateway,
+)
 
-from .initialization import GroupInitializer
+from .activity import load_group_activity
+from .applies import ApplyManager
+from .attachments import save_images
+from .auth import DashboardAuth
+from .backfill import backfill_local_runs
 from .catalogs import load_catalogs
-from .store import normalize_group_key
+from .codex_tasks import CodexTaskService, CodexTaskStartError
+from .dry_runs import DryRunManager
+from .initialization import GroupInitializer
+from .job_queue import DurableJobQueue
 from .previews import (
     ProblemPreviewUnavailable,
     append_preview_sample,
@@ -30,16 +44,8 @@ from .previews import (
     save_preview,
 )
 from .rejections import reject_indexed_problem
-from .dry_runs import DryRunManager
-from .applies import ApplyManager
-from .activity import load_group_activity
-from .backfill import backfill_local_runs
-from .store import DashboardStore, sync_groups
+from .store import DashboardStore, normalize_group_key, sync_groups
 from .teacherhelper import teacherhelper_navigation
-from .codex_tasks import CodexTaskService, CodexTaskStartError
-from .auth import DashboardAuth
-from .attachments import save_images
-from .job_queue import DurableJobQueue
 
 
 class DashboardServer(ThreadingHTTPServer):
@@ -66,12 +72,10 @@ def _profile_source_state(project_root: Path) -> dict[Path, int]:
     """Return the profile declarations which require a fresh server process."""
 
     source_root = project_root / "src/solution_runner/pipelines"
-    sources = set(source_root.rglob("profiles.py")) | set(source_root.rglob("handlers.py"))
-    return {
-        path: path.stat().st_mtime_ns
-        for path in sources
-        if path.is_file()
-    }
+    sources = set(source_root.rglob("profiles.py")) | set(
+        source_root.rglob("handlers.py")
+    )
+    return {path: path.stat().st_mtime_ns for path in sources if path.is_file()}
 
 
 def _refresh_server_profiles(server: DashboardServer) -> None:
@@ -113,7 +117,7 @@ def _job_timestamp(state: Mapping[str, Any]) -> datetime | None:
         value = datetime.fromisoformat(str(raw))
     except ValueError:
         return None
-    return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
+    return value if value.tzinfo else value.replace(tzinfo=UTC)
 
 
 def _register_group_task(
@@ -134,39 +138,62 @@ def _register_group_task(
         "task_count": len(inventory_store.list_items(group_key)),
     }
     thread_id = thread_id or group.get("codex_thread_id")
+
     def bind_created_task(created_id: str) -> None:
         # Bind before the first turn can finish, so lifecycle callbacks find the card.
-        store.update_group(group_key, {
-            "codex_thread_id": created_id,
-            "task_title": f"{group_key} · {group['title']}",
-            "task_url": f"codex://threads/{created_id}",
-            "agent_status": "working", "column": "work",
-            "full_dry_run_status": None,
-        })
+        store.update_group(
+            group_key,
+            {
+                "codex_thread_id": created_id,
+                "task_title": f"{group_key} · {group['title']}",
+                "task_url": f"codex://threads/{created_id}",
+                "agent_status": "working",
+                "column": "work",
+                "full_dry_run_status": None,
+            },
+        )
+
     try:
-        task = codex_tasks.register_group(group, inventory, thread_id, comment, on_created=bind_created_task)
+        task = codex_tasks.register_group(
+            group, inventory, thread_id, comment, on_created=bind_created_task
+        )
     except CodexTaskStartError as exc:
-        store.update_group(group_key, {
-            "codex_thread_id": exc.thread_id,
-            "task_title": f"{group_key} · {group['title']}",
-            "task_url": f"codex://threads/{exc.thread_id}",
-            "agent_status": "blocked", "agent_summary": str(exc)[:200],
-        })
+        store.update_group(
+            group_key,
+            {
+                "codex_thread_id": exc.thread_id,
+                "task_title": f"{group_key} · {group['title']}",
+                "task_url": f"codex://threads/{exc.thread_id}",
+                "agent_status": "blocked",
+                "agent_summary": str(exc)[:200],
+            },
+        )
         raise
     # Preserve a terminal state if a fast first turn already completed.
     current = store.get_group(group_key) or {}
-    completed_early = current.get("codex_thread_id") == task["id"] and current.get("agent_status") in {"updated", "no_changes", "blocked", "needs_input", "verifying"}
-    updated = store.update_group(group_key, {
-        "codex_thread_id": task["id"],
-        "codex_archived": 0,
-        "task_title": task["title"],
-        "task_url": f"codex://threads/{task['id']}",
-        "column": current.get("column", "work") if completed_early else "work",
-        "revision_requested": 0,
-        "full_dry_run_status": current.get("full_dry_run_status") if completed_early else None,
-        "agent_status": current.get("agent_status") if completed_early else "working",
-        "agent_summary": current.get("agent_summary") if completed_early else "Агент исследует группу и готовит полный dry-run.",
-    })
+    completed_early = current.get("codex_thread_id") == task["id"] and current.get(
+        "agent_status"
+    ) in {"updated", "no_changes", "blocked", "needs_input", "verifying"}
+    updated = store.update_group(
+        group_key,
+        {
+            "codex_thread_id": task["id"],
+            "codex_archived": 0,
+            "task_title": task["title"],
+            "task_url": f"codex://threads/{task['id']}",
+            "column": current.get("column", "work") if completed_early else "work",
+            "revision_requested": 0,
+            "full_dry_run_status": current.get("full_dry_run_status")
+            if completed_early
+            else None,
+            "agent_status": current.get("agent_status")
+            if completed_early
+            else "working",
+            "agent_summary": current.get("agent_summary")
+            if completed_early
+            else "Агент исследует группу и готовит полный dry-run.",
+        },
+    )
     assert updated is not None
     return task, updated
 
@@ -177,42 +204,63 @@ def _handle_codex_exit(
     return_code: int,
     dry_runs: Any | None = None,
 ) -> bool:
-    group = next((item for item in store.list_groups() if item.get("codex_thread_id") == thread_id), None)
+    group = next(
+        (
+            item
+            for item in store.list_groups()
+            if item.get("codex_thread_id") == thread_id
+        ),
+        None,
+    )
     if not group:
         return False
     if group.get("agent_status") in {"updated", "no_changes"}:
         if group.get("full_dry_run_status") == "ready":
             return group.get("agent_status") == "updated"
         if dry_runs is None:
-            store.update_group(str(group["id"]), {
-                "agent_status": "blocked",
-                "agent_summary": "Результат агента не подтверждён полным dry-run.",
-            })
+            store.update_group(
+                str(group["id"]),
+                {
+                    "agent_status": "blocked",
+                    "agent_summary": "Результат агента не подтверждён полным dry-run.",
+                },
+            )
             return False
-        store.update_group(str(group["id"]), {
-            "agent_status": "verifying",
-            "full_dry_run_status": "running",
-            "agent_summary": "Сервер проверяет результат полным dry-run.",
-        })
+        store.update_group(
+            str(group["id"]),
+            {
+                "agent_status": "verifying",
+                "full_dry_run_status": "running",
+                "agent_summary": "Сервер проверяет результат полным dry-run.",
+            },
+        )
         try:
             dry_runs.start(str(group["id"]), "all")
         except (KeyError, ValueError, RuntimeError) as exc:
-            store.update_group(str(group["id"]), {
-                "agent_status": "blocked",
-                "full_dry_run_status": "failed",
-                "agent_summary": f"Полный dry-run не запущен: {' '.join(str(exc).split())}"[:200],
-            })
+            store.update_group(
+                str(group["id"]),
+                {
+                    "agent_status": "blocked",
+                    "full_dry_run_status": "failed",
+                    "agent_summary": f"Полный dry-run не запущен: {' '.join(str(exc).split())}"[
+                        :200
+                    ],
+                },
+            )
         return False
     if group.get("agent_status") != "working":
         return False
-    store.update_group(str(group["id"]), {
-        "agent_status": "blocked" if return_code else "needs_input",
-        "agent_summary": (
-            f"Codex завершился с кодом {return_code}; открой задачу и повтори запуск."
-            if return_code else
-            "Codex остановился без итогового статуса; открой задачу — возможно, нужен ответ."
-        ),
-    })
+    store.update_group(
+        str(group["id"]),
+        {
+            "agent_status": "blocked" if return_code else "needs_input",
+            "agent_summary": (
+                f"Codex завершился с кодом {return_code}; открой задачу и повтори запуск."
+                if return_code
+                else "Codex остановился без итогового статуса; открой задачу — возможно, нужен ответ."
+            ),
+        },
+    )
     return False
 
 
@@ -224,16 +272,24 @@ def _finish_initialization(
     state: Mapping[str, Any],
 ) -> None:
     if state.get("status") != "ready":
-        store.update_group(group_key, {
-            "agent_status": "blocked",
-            "agent_summary": f"Инициализация не завершена: {state.get('error') or 'неизвестная ошибка'}"[:200],
-        })
+        store.update_group(
+            group_key,
+            {
+                "agent_status": "blocked",
+                "agent_summary": f"Инициализация не завершена: {state.get('error') or 'неизвестная ошибка'}"[
+                    :200
+                ],
+            },
+        )
         return
-    store.update_group(group_key, {
-        "column": "queue",
-        "agent_status": None,
-        "agent_summary": "Инициализация завершена. Группа готова к ручной регистрации из проекта.",
-    })
+    store.update_group(
+        group_key,
+        {
+            "column": "queue",
+            "agent_status": None,
+            "agent_summary": "Инициализация завершена. Группа готова к ручной регистрации из проекта.",
+        },
+    )
 
 
 def _finish_automatic_dry_run(
@@ -242,17 +298,24 @@ def _finish_automatic_dry_run(
     state: Mapping[str, Any],
 ) -> None:
     group = store.get_group(group_key)
-    if not group or group.get("agent_status") != "verifying" or state.get("mode") != "all":
+    if (
+        not group
+        or group.get("agent_status") != "verifying"
+        or state.get("mode") != "all"
+    ):
         return
     completed = state.get("status") == "completed"
-    store.update_group(group_key, {
-        "agent_status": "updated" if completed else "blocked",
-        "agent_summary": (
-            "Полный dry-run завершён успешно."
-            if completed else
-            f"Полный dry-run не прошёл: {state.get('error') or state.get('status')}"
-        )[:200],
-    })
+    store.update_group(
+        group_key,
+        {
+            "agent_status": "updated" if completed else "blocked",
+            "agent_summary": (
+                "Полный dry-run завершён успешно."
+                if completed
+                else f"Полный dry-run не прошёл: {state.get('error') or state.get('status')}"
+            )[:200],
+        },
+    )
 
 
 def _resume_automatic_groups(
@@ -285,7 +348,9 @@ class Handler(BaseHTTPRequestHandler):
         auth = self.server.auth
         if auth.enabled and not auth.authorized(self.headers.get("Authorization", "")):
             self.send_response(401)
-            self.send_header("WWW-Authenticate", 'Basic realm="SolutionRunner", charset="UTF-8"')
+            self.send_header(
+                "WWW-Authenticate", 'Basic realm="SolutionRunner", charset="UTF-8"'
+            )
             self.send_header("Content-Length", "0")
             self.send_header("Cache-Control", "no-store")
             self.end_headers()
@@ -312,7 +377,9 @@ class Handler(BaseHTTPRequestHandler):
         if not self.server.auth.enabled:
             self.send_header("Access-Control-Allow-Origin", "http://127.0.0.1:5173")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
+        self.send_header(
+            "Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS"
+        )
         self.end_headers()
         self.wfile.write(body)
 
@@ -331,7 +398,9 @@ class Handler(BaseHTTPRequestHandler):
         if group is None:
             return None
         profile = self.server.profiles.get(str(group["id"]))
-        navigation = teacherhelper_navigation(profile) if profile else group.get("teacherhelper")
+        navigation = (
+            teacherhelper_navigation(profile) if profile else group.get("teacherhelper")
+        )
         if navigation:
             group["teacherhelper"] = navigation
         candidates: list[dict[str, Any]] = []
@@ -343,23 +412,32 @@ class Handler(BaseHTTPRequestHandler):
             if not state or state.get("status") not in ACTIVE_JOB_STATUSES:
                 continue
             timestamp = _job_timestamp(state)
-            if self.server.job_queue is None and timestamp and timestamp < self.server.jobs_started_at:
+            if (
+                self.server.job_queue is None
+                and timestamp
+                and timestamp < self.server.jobs_started_at
+            ):
                 continue
-            candidates.append({
-                "kind": "helpers" if state.get("stage") == "helpers" else default_kind,
-                "status": state["status"],
-                "scope": state.get("scope") or ("problem" if state.get("mode") == "problem" else "group"),
-            })
+            candidates.append(
+                {
+                    "kind": "helpers"
+                    if state.get("stage") == "helpers"
+                    else default_kind,
+                    "status": state["status"],
+                    "scope": state.get("scope")
+                    or ("problem" if state.get("mode") == "problem" else "group"),
+                }
+            )
         if candidates:
             priority = {"running": 2, "retry_wait": 1, "queued": 0}
             group["job"] = max(candidates, key=lambda item: priority[item["status"]])
             group["column"] = "jobs"
         return group
 
-    def do_OPTIONS(self) -> None:  # noqa: N802
+    def do_OPTIONS(self) -> None:
         self._json(204, {})
 
-    def do_DELETE(self) -> None:  # noqa: N802
+    def do_DELETE(self) -> None:
         segments = self._segments()
         if len(segments) != 3 or segments[:2] != ["api", "groups"]:
             self._json(404, {"error": "not_found"})
@@ -369,15 +447,20 @@ class Handler(BaseHTTPRequestHandler):
         if group is None:
             self._json(404, {"error": "group_not_found"})
             return
-        initialization = self.server.initializer.get(group_key) if self.server.initializer else {}
-        if (group.get("job") or group.get("agent_status") in {"working", "verifying"}
-                or initialization.get("status") in {"pending", "running"}):
+        initialization = (
+            self.server.initializer.get(group_key) if self.server.initializer else {}
+        )
+        if (
+            group.get("job")
+            or group.get("agent_status") in {"working", "verifying"}
+            or initialization.get("status") in {"pending", "running"}
+        ):
             self._json(409, {"error": "group_is_running"})
             return
         self.server.store.remove_group(group_key)
         self._json(200, {"removed": True})
 
-    def do_GET(self) -> None:  # noqa: N802
+    def do_GET(self) -> None:
         segments = self._segments()
         if len(segments) == 3 and segments[:2] == ["api", "comment-images"]:
             root = (self.server.var_dir / "dashboard/comment-images").resolve()
@@ -387,7 +470,10 @@ class Handler(BaseHTTPRequestHandler):
                 return
             data = path.read_bytes()
             self.send_response(200)
-            self.send_header("Content-Type", mimetypes.guess_type(path.name)[0] or "application/octet-stream")
+            self.send_header(
+                "Content-Type",
+                mimetypes.guess_type(path.name)[0] or "application/octet-stream",
+            )
             self.send_header("Content-Length", str(len(data)))
             self.send_header("X-Content-Type-Options", "nosniff")
             self.end_headers()
@@ -395,9 +481,15 @@ class Handler(BaseHTTPRequestHandler):
             return
         if segments == ["api", "jobs"] and self.server.job_queue is not None:
             group_key = parse_qs(urlparse(self.path).query).get("group", [None])[0]
-            self._json(200, {"jobs": self.server.job_queue.list_jobs(group_key=group_key)})
+            self._json(
+                200, {"jobs": self.server.job_queue.list_jobs(group_key=group_key)}
+            )
             return
-        if len(segments) == 4 and segments[:2] == ["api", "jobs"] and segments[3] == "log":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "jobs"]
+            and segments[3] == "log"
+        ):
             try:
                 if self.server.job_queue is None:
                     raise KeyError(segments[2])
@@ -414,7 +506,9 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 tasks = self.server.codex_tasks.list_tasks()
             except RuntimeError as exc:
-                self._json(502, {"error": "codex_tasks_unavailable", "message": str(exc)})
+                self._json(
+                    502, {"error": "codex_tasks_unavailable", "message": str(exc)}
+                )
             else:
                 self._json(200, {"tasks": tasks})
             return
@@ -422,18 +516,37 @@ class Handler(BaseHTTPRequestHandler):
             groups = self.server.store.list_groups()
             for group in groups:
                 self._group_payload(group)
-            self._json(200, {
-                "groups": groups, "summary": _summary(groups),
-                "catalogs": [{"id": key, "name": name} for key, name in load_catalogs().items()],
-            })
+            self._json(
+                200,
+                {
+                    "groups": groups,
+                    "summary": _summary(groups),
+                    "catalogs": [
+                        {"id": key, "name": name}
+                        for key, name in load_catalogs().items()
+                    ],
+                },
+            )
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "comments":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "comments"
+        ):
             self._json(200, {"comments": self.server.store.list_comments(segments[2])})
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "preview":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "preview"
+        ):
             preview = load_preview(self.server.preview_dir, segments[2])
             profile = self.server.profiles.get(segments[2])
-            if preview is None and profile is not None and self.server.preview_gateway_factory is not None:
+            if (
+                preview is None
+                and profile is not None
+                and self.server.preview_gateway_factory is not None
+            ):
                 gateway = self.server.preview_gateway_factory()
                 try:
                     manifest = latest_dry_run_manifest(self.server.var_dir, segments[2])
@@ -444,21 +557,53 @@ class Handler(BaseHTTPRequestHandler):
                     close = getattr(gateway, "close", None)
                     if callable(close):
                         close()
-            self._json(200, preview) if preview else self._json(404, {"error": "preview_not_found"})
+            self._json(200, preview) if preview else self._json(
+                404, {"error": "preview_not_found"}
+            )
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "dry-run":
-            state = self.server.dry_runs.get(segments[2]) if self.server.dry_runs else None
-            self._json(200, state) if state else self._json(404, {"error": "dry_run_not_found"})
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "dry-run"
+        ):
+            state = (
+                self.server.dry_runs.get(segments[2]) if self.server.dry_runs else None
+            )
+            self._json(200, state) if state else self._json(
+                404, {"error": "dry_run_not_found"}
+            )
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "apply":
-            state = self.server.applies.get(segments[2]) if self.server.applies else None
-            self._json(200, state) if state else self._json(404, {"error": "apply_not_found"})
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "apply"
+        ):
+            state = (
+                self.server.applies.get(segments[2]) if self.server.applies else None
+            )
+            self._json(200, state) if state else self._json(
+                404, {"error": "apply_not_found"}
+            )
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "initialization":
-            state = self.server.initializer.get(segments[2]) if self.server.initializer else None
-            self._json(200, state) if state else self._json(503, {"error": "initializer_unavailable"})
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "initialization"
+        ):
+            state = (
+                self.server.initializer.get(segments[2])
+                if self.server.initializer
+                else None
+            )
+            self._json(200, state) if state else self._json(
+                503, {"error": "initializer_unavailable"}
+            )
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "tasks":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "tasks"
+        ):
             inventory = self.server.inventory_store
             snapshot = inventory.get(segments[2]) if inventory else None
             if snapshot is None:
@@ -466,28 +611,42 @@ class Handler(BaseHTTPRequestHandler):
                 return
             assets_by_problem: dict[str, list[dict[str, str]]] = {}
             for asset in snapshot.assets:
-                assets_by_problem.setdefault(asset.problem_id, []).append({
-                    "asset_id": asset.asset_id,
-                    "asset_key": asset.asset_key,
-                    "section": asset.section_key,
-                    "content_type": asset.content_type,
-                })
+                assets_by_problem.setdefault(asset.problem_id, []).append(
+                    {
+                        "asset_id": asset.asset_id,
+                        "asset_key": asset.asset_key,
+                        "section": asset.section_key,
+                        "content_type": asset.content_type,
+                    }
+                )
             tasks = inventory.list_items(segments[2])
             for task in tasks:
                 task["assets"] = assets_by_problem.get(str(task["problem_id"]), [])
-            self._json(200, {
-                "status": snapshot.status,
-                "error": snapshot.error,
-                "parent_problem_id": snapshot.parent_problem_id,
-                "tasks": tasks,
-            })
+            self._json(
+                200,
+                {
+                    "status": snapshot.status,
+                    "error": snapshot.error,
+                    "parent_problem_id": snapshot.parent_problem_id,
+                    "tasks": tasks,
+                },
+            )
             return
-        if len(segments) == 6 and segments[:2] == ["api", "groups"] and segments[3] == "tasks" and segments[5] == "preview":
+        if (
+            len(segments) == 6
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "tasks"
+            and segments[5] == "preview"
+        ):
             inventory = self.server.inventory_store
-            task = next((
-                item for item in (inventory.list_items(segments[2]) if inventory else [])
-                if str(item.get("problem_id")) == segments[4]
-            ), None)
+            task = next(
+                (
+                    item
+                    for item in (inventory.list_items(segments[2]) if inventory else [])
+                    if str(item.get("problem_id")) == segments[4]
+                ),
+                None,
+            )
             if task is None:
                 self._json(404, {"error": "problem_not_found"})
                 return
@@ -510,7 +669,8 @@ class Handler(BaseHTTPRequestHandler):
                         preview = {
                             **cached,
                             "samples": [
-                                sample for sample in cached.get("samples", [])
+                                sample
+                                for sample in cached.get("samples", [])
                                 if str(sample.get("problem_id")) == segments[4]
                             ],
                         }
@@ -533,44 +693,77 @@ class Handler(BaseHTTPRequestHandler):
             if preview is not None:
                 self._json(200, preview)
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "activity":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "activity"
+        ):
             if self.server.store.get_group(segments[2]) is None:
                 self._json(404, {"error": "group_not_found"})
                 return
-            self._json(200, load_group_activity(
-                self.server.var_dir, segments[2], self.server.inventory_store
-            ))
+            self._json(
+                200,
+                load_group_activity(
+                    self.server.var_dir, segments[2], self.server.inventory_store
+                ),
+            )
             return
         if len(segments) == 3 and segments[:2] == ["api", "groups"]:
             group = self._group_payload(self.server.store.get_group(segments[2]))
-            self._json(200, group) if group else self._json(404, {"error": "group_not_found"})
+            self._json(200, group) if group else self._json(
+                404, {"error": "group_not_found"}
+            )
             return
         self._static()
 
-    def do_PATCH(self) -> None:  # noqa: N802
+    def do_PATCH(self) -> None:
         segments = self._segments()
         if len(segments) != 3 or segments[:2] != ["api", "groups"]:
             self._json(404, {"error": "not_found"})
             return
         body = self._body()
-        if body.get("column") not in {None, "initialization", "queue", "work", "review", "issues", "done"}:
+        if body.get("column") not in {
+            None,
+            "initialization",
+            "queue",
+            "work",
+            "review",
+            "issues",
+            "done",
+        }:
             self._json(400, {"error": "invalid_column"})
             return
         editable = {
-            "column", "title", "task_title", "task_url", "revision_requested",
-            "existing_solution_policy", "condition_image_policy", "solution_image_policy",
-            "verify_answers", "verify_helpers", "agent_sample_size",
+            "column",
+            "title",
+            "task_title",
+            "task_url",
+            "revision_requested",
+            "existing_solution_policy",
+            "condition_image_policy",
+            "solution_image_policy",
+            "verify_answers",
+            "verify_helpers",
+            "agent_sample_size",
         }
         changes = {key: value for key, value in body.items() if key in editable}
-        group = self._group_payload(self.server.store.update_group(segments[2], changes))
-        self._json(200, group) if group else self._json(404, {"error": "group_not_found"})
+        group = self._group_payload(
+            self.server.store.update_group(segments[2], changes)
+        )
+        self._json(200, group) if group else self._json(
+            404, {"error": "group_not_found"}
+        )
 
-    def do_POST(self) -> None:  # noqa: N802
+    def do_POST(self) -> None:
         if int(self.headers.get("Content-Length", "0")) > 29 * 1024 * 1024:
             self._json(413, {"message": "Вложения превышают допустимый размер."})
             return
         segments = self._segments()
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "archive-codex":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "archive-codex"
+        ):
             group = self.server.store.get_group(segments[2])
             if group is None:
                 self._json(404, {"error": "group_not_found"})
@@ -593,7 +786,11 @@ class Handler(BaseHTTPRequestHandler):
             updated = self.server.store.update_group(segments[2], {"codex_archived": 1})
             self._json(200, {"group": self._group_payload(updated)})
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "register":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "register"
+        ):
             if self.server.codex_tasks is None or self.server.inventory_store is None:
                 self._json(503, {"error": "codex_registration_unavailable"})
                 return
@@ -616,12 +813,22 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(409, {"error": "invalid_codex_task", "message": str(exc)})
                 return
             except RuntimeError as exc:
-                self._json(502, {"error": "codex_registration_failed", "message": str(exc)})
+                self._json(
+                    502, {"error": "codex_registration_failed", "message": str(exc)}
+                )
                 return
             self._json(202, {"task": task, "group": self._group_payload(updated)})
             return
-        if len(segments) == 6 and segments[:2] == ["api", "groups"] and segments[3] == "tasks" and segments[5] == "reject":
-            if self.server.preview_gateway_factory is None or self.server.inventory_store is None:
+        if (
+            len(segments) == 6
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "tasks"
+            and segments[5] == "reject"
+        ):
+            if (
+                self.server.preview_gateway_factory is None
+                or self.server.inventory_store is None
+            ):
                 self._json(503, {"error": "rejection_unavailable"})
                 return
             reason = str(self._body().get("reason") or "").strip()
@@ -642,7 +849,9 @@ class Handler(BaseHTTPRequestHandler):
                 self._json(404, {"error": "problem_not_found"})
                 return
             except ValueError as exc:
-                self._json(409, {"error": "problem_not_rejectable", "message": str(exc)})
+                self._json(
+                    409, {"error": "problem_not_rejectable", "message": str(exc)}
+                )
                 return
             except RuntimeError:
                 self._json(502, {"error": "rejection_not_confirmed"})
@@ -653,12 +862,21 @@ class Handler(BaseHTTPRequestHandler):
                     close()
             items = self.server.inventory_store.list_items(segments[2])
             self.server.store.reconcile_problem_counts(segments[2], items)
-            self._json(200, {
-                "rejection": rejection,
-                "group": self._group_payload(self.server.store.get_group(segments[2])),
-            })
+            self._json(
+                200,
+                {
+                    "rejection": rejection,
+                    "group": self._group_payload(
+                        self.server.store.get_group(segments[2])
+                    ),
+                },
+            )
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "initialization":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "initialization"
+        ):
             if self.server.initializer is None:
                 self._json(503, {"error": "initializer_unavailable"})
                 return
@@ -667,11 +885,17 @@ class Handler(BaseHTTPRequestHandler):
             except (KeyError, ValueError):
                 self._json(404, {"error": "group_not_found"})
             except RuntimeError as exc:
-                self._json(409, {"error": "initialization_not_started", "message": str(exc)})
+                self._json(
+                    409, {"error": "initialization_not_started", "message": str(exc)}
+                )
             else:
                 self._json(202, state)
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "dry-run":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "dry-run"
+        ):
             if self.server.dry_runs is None:
                 self._json(503, {"error": "dry_runs_unavailable"})
                 return
@@ -695,7 +919,11 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self._json(202, state)
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "apply":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "apply"
+        ):
             if self.server.applies is None:
                 self._json(503, {"error": "applies_unavailable"})
                 return
@@ -704,13 +932,16 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 if body.get("stage") == "helpers":
                     state = self.server.applies.start_helpers(
-                        segments[2], None if body.get("scope") == "group" else problem_id
+                        segments[2],
+                        None if body.get("scope") == "group" else problem_id,
                     )
                 else:
                     if body.get("scope") == "group":
                         state = self.server.applies.start_group(segments[2])
                     elif body.get("force"):
-                        state = self.server.applies.start(segments[2], problem_id, force=True)
+                        state = self.server.applies.start(
+                            segments[2], problem_id, force=True
+                        )
                     else:
                         state = self.server.applies.start(segments[2], problem_id)
             except KeyError:
@@ -722,7 +953,11 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self._json(202, state)
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "preview":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "preview"
+        ):
             if self.server.dry_runs is None:
                 self._json(503, {"error": "dry_runs_unavailable"})
                 return
@@ -753,10 +988,13 @@ class Handler(BaseHTTPRequestHandler):
             if self.server.initializer is not None:
                 self.server.initializer.start(group_key)
             else:
-                group = self.server.store.update_group(group_key, {
-                    "agent_status": "blocked",
-                    "agent_summary": "Инициализация недоступна: dashboard запущен без TeacherHelper API key.",
-                })
+                group = self.server.store.update_group(
+                    group_key,
+                    {
+                        "agent_status": "blocked",
+                        "agent_summary": "Инициализация недоступна: dashboard запущен без TeacherHelper API key.",
+                    },
+                )
             self._json(201, self._group_payload(group))
             return
         if segments == ["api", "sync"]:
@@ -768,7 +1006,11 @@ class Handler(BaseHTTPRequestHandler):
             )
             self._json(200, result)
             return
-        if len(segments) == 4 and segments[:2] == ["api", "groups"] and segments[3] == "comments":
+        if (
+            len(segments) == 4
+            and segments[:2] == ["api", "groups"]
+            and segments[3] == "comments"
+        ):
             group = self.server.store.get_group(segments[2])
             if group is None:
                 self._json(404, {"error": "group_not_found"})
@@ -781,10 +1023,18 @@ class Handler(BaseHTTPRequestHandler):
             problem_id = str(payload.get("problem_id") or "").strip() or None
             source_problem_id = None
             if problem_id:
-                item = next((
-                    item for item in (self.server.inventory_store.list_items(segments[2]) if self.server.inventory_store else [])
-                    if str(item.get("problem_id")) == problem_id
-                ), None)
+                item = next(
+                    (
+                        item
+                        for item in (
+                            self.server.inventory_store.list_items(segments[2])
+                            if self.server.inventory_store
+                            else []
+                        )
+                        if str(item.get("problem_id")) == problem_id
+                    ),
+                    None,
+                )
                 if item is None:
                     self._json(404, {"error": "problem_not_found"})
                     return
@@ -792,7 +1042,13 @@ class Handler(BaseHTTPRequestHandler):
             thread_id = group.get("codex_thread_id")
             image_root = self.server.var_dir / "dashboard/comment-images"
             if payload.get("images") and not thread_id:
-                self._json(409, {"error": "codex_task_not_linked", "message": "Сначала свяжите группу с Codex."})
+                self._json(
+                    409,
+                    {
+                        "error": "codex_task_not_linked",
+                        "message": "Сначала свяжите группу с Codex.",
+                    },
+                )
                 return
             if thread_id and self.server.codex_tasks is None:
                 self._json(503, {"error": "codex_tasks_unavailable"})
@@ -802,10 +1058,13 @@ class Handler(BaseHTTPRequestHandler):
             except ValueError as exc:
                 self._json(400, {"error": "invalid_images", "message": str(exc)})
                 return
-            image_paths = tuple(image_root / item["url"].rsplit("/", 1)[-1] for item in attachments)
+            image_paths = tuple(
+                image_root / item["url"].rsplit("/", 1)[-1] for item in attachments
+            )
             must_send = (
                 group["column"] in {"issues", "review"}
-                or group.get("agent_status") in {"blocked", "needs_input", "delivery_failed"}
+                or group.get("agent_status")
+                in {"blocked", "needs_input", "delivery_failed"}
                 or problem_id
             )
             sent_to_codex = False
@@ -815,34 +1074,59 @@ class Handler(BaseHTTPRequestHandler):
                     return
                 try:
                     if image_paths:
-                        self.server.codex_tasks.send_comment(str(thread_id), group, body, source_problem_id, images=image_paths)
+                        self.server.codex_tasks.send_comment(
+                            str(thread_id),
+                            group,
+                            body,
+                            source_problem_id,
+                            images=image_paths,
+                        )
                     elif source_problem_id:
-                        self.server.codex_tasks.send_comment(str(thread_id), group, body, source_problem_id)
+                        self.server.codex_tasks.send_comment(
+                            str(thread_id), group, body, source_problem_id
+                        )
                     else:
-                        self.server.codex_tasks.send_comment(str(thread_id), group, body)
+                        self.server.codex_tasks.send_comment(
+                            str(thread_id), group, body
+                        )
                 except RuntimeError as exc:
                     # A timeout may follow queue acceptance; retain local files
                     # so the native owner can still read admitted attachments.
-                    self.server.store.update_group(segments[2], {
-                        "agent_status": "delivery_failed",
-                        "agent_summary": str(exc)[:200],
-                    })
-                    self._json(502, {"error": "codex_comment_failed", "message": str(exc)})
+                    self.server.store.update_group(
+                        segments[2],
+                        {
+                            "agent_status": "delivery_failed",
+                            "agent_summary": str(exc)[:200],
+                        },
+                    )
+                    self._json(
+                        502, {"error": "codex_comment_failed", "message": str(exc)}
+                    )
                     return
                 sent_to_codex = True
             elif must_send:
-                    self._json(409, {"error": "codex_task_not_linked"})
-                    return
-            comment = self.server.store.add_comment(segments[2], body, problem_id, attachments=attachments)
+                self._json(409, {"error": "codex_task_not_linked"})
+                return
+            comment = self.server.store.add_comment(
+                segments[2], body, problem_id, attachments=attachments
+            )
             if sent_to_codex:
-                self.server.store.update_group(segments[2], {
-                    "agent_status": "working",
-                    "agent_summary": None,
-                })
-            self._json(201, {
-                "comment": comment,
-                "group": self._group_payload(self.server.store.get_group(segments[2])),
-            })
+                self.server.store.update_group(
+                    segments[2],
+                    {
+                        "agent_status": "working",
+                        "agent_summary": None,
+                    },
+                )
+            self._json(
+                201,
+                {
+                    "comment": comment,
+                    "group": self._group_payload(
+                        self.server.store.get_group(segments[2])
+                    ),
+                },
+            )
             return
         self._json(404, {"error": "not_found"})
 
@@ -860,7 +1144,10 @@ class Handler(BaseHTTPRequestHandler):
             return
         body = candidate.read_bytes()
         self.send_response(200)
-        self.send_header("Content-Type", mimetypes.guess_type(candidate.name)[0] or "application/octet-stream")
+        self.send_header(
+            "Content-Type",
+            mimetypes.guess_type(candidate.name)[0] or "application/octet-stream",
+        )
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -875,7 +1162,24 @@ def _summary(groups: list[dict[str, Any]]) -> dict[str, int]:
     }
 
 
-def make_server(*, store: DashboardStore, var_dir: Path, profiles: Mapping[str, Any], static_dir: Path, preview_dir: Path | None = None, dry_runs: Any | None = None, applies: Any | None = None, initializer: Any | None = None, inventory_store: GroupInventoryStore | None = None, preview_gateway_factory: Any | None = None, codex_tasks: Any | None = None, host: str = "127.0.0.1", port: int = 8765, auth: DashboardAuth | None = None, job_queue: DurableJobQueue | None = None) -> DashboardServer:
+def make_server(
+    *,
+    store: DashboardStore,
+    var_dir: Path,
+    profiles: Mapping[str, Any],
+    static_dir: Path,
+    preview_dir: Path | None = None,
+    dry_runs: Any | None = None,
+    applies: Any | None = None,
+    initializer: Any | None = None,
+    inventory_store: GroupInventoryStore | None = None,
+    preview_gateway_factory: Any | None = None,
+    codex_tasks: Any | None = None,
+    host: str = "127.0.0.1",
+    port: int = 8765,
+    auth: DashboardAuth | None = None,
+    job_queue: DurableJobQueue | None = None,
+) -> DashboardServer:
     auth = auth or DashboardAuth()
     if host not in {"127.0.0.1", "localhost", "::1"} and not auth.enabled:
         raise ValueError("non-loopback dashboard requires a password or API token")
@@ -893,19 +1197,25 @@ def make_server(*, store: DashboardStore, var_dir: Path, profiles: Mapping[str, 
     server.inventory_store = inventory_store
     server.preview_gateway_factory = preview_gateway_factory
     server.codex_tasks = codex_tasks
-    server.jobs_started_at = datetime.now(timezone.utc)
+    server.jobs_started_at = datetime.now(UTC)
     return server
 
 
 def main(argv: list[str] | None = None) -> int:
     project_root = Path(__file__).resolve().parents[3]
-    parser = argparse.ArgumentParser(description="Serve the local SolutionRunner group dashboard")
+    parser = argparse.ArgumentParser(
+        description="Serve the local SolutionRunner group dashboard"
+    )
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
-    parser.add_argument("--db", type=Path, default=project_root / "var/dashboard/dashboard.sqlite3")
+    parser.add_argument(
+        "--db", type=Path, default=project_root / "var/dashboard/dashboard.sqlite3"
+    )
     parser.add_argument("--var", type=Path, default=project_root / "var")
     parser.add_argument("--static", type=Path, default=project_root / "dashboard/dist")
-    parser.add_argument("--previews", type=Path, default=project_root / "var/dashboard/previews")
+    parser.add_argument(
+        "--previews", type=Path, default=project_root / "var/dashboard/previews"
+    )
     args = parser.parse_args(argv)
     auth = DashboardAuth(
         password=os.environ.get("SOLUTION_RUNNER_DASHBOARD_PASSWORD", ""),
@@ -913,7 +1223,9 @@ def main(argv: list[str] | None = None) -> int:
         username=os.environ.get("SOLUTION_RUNNER_DASHBOARD_USER", "owner"),
     )
     if args.host not in {"127.0.0.1", "localhost", "::1"} and not auth.enabled:
-        parser.error("non-loopback dashboard requires SOLUTION_RUNNER_DASHBOARD_PASSWORD or SOLUTION_RUNNER_DASHBOARD_TOKEN")
+        parser.error(
+            "non-loopback dashboard requires SOLUTION_RUNNER_DASHBOARD_PASSWORD or SOLUTION_RUNNER_DASHBOARD_TOKEN"
+        )
 
     store = DashboardStore(args.db)
     profiles = all_group_profiles()
@@ -925,7 +1237,9 @@ def main(argv: list[str] | None = None) -> int:
         args.var,
         inventory_store=inventory_store,
     )
-    print(f"Dashboard: {result['groups']} groups, {result['runs']} with runs, {result['warnings']} warnings")
+    print(
+        f"Dashboard: {result['groups']} groups, {result['runs']} with runs, {result['warnings']} warnings"
+    )
     print(f"Open on http://{args.host}:{args.port}")
     api_key = os.environ.get("TEACHERHELPER_MCP_API_KEY", "").strip()
     gateway_factory = lambda: JsonRpcMcpGateway(
@@ -934,22 +1248,30 @@ def main(argv: list[str] | None = None) -> int:
         timeout_seconds=45,
     )
     runner_executor = DurableJobQueue(args.db, args.var / "dashboard/logs")
-    dry_runs = DryRunManager(
-        var_dir=args.var,
-        profiles=profiles,
-        gateway_factory=gateway_factory,
-        store=store,
-        inventory_store=inventory_store,
-        on_complete=None,
-        background_executor=runner_executor,
-    ) if api_key else None
-    applies = ApplyManager(
-        var_dir=args.var,
-        profiles=profiles,
-        inventory_store=inventory_store,
-        store=store,
-        background_executor=runner_executor,
-    ) if api_key else None
+    dry_runs = (
+        DryRunManager(
+            var_dir=args.var,
+            profiles=profiles,
+            gateway_factory=gateway_factory,
+            store=store,
+            inventory_store=inventory_store,
+            on_complete=None,
+            background_executor=runner_executor,
+        )
+        if api_key
+        else None
+    )
+    applies = (
+        ApplyManager(
+            var_dir=args.var,
+            profiles=profiles,
+            inventory_store=inventory_store,
+            store=store,
+            background_executor=runner_executor,
+        )
+        if api_key
+        else None
+    )
     server: DashboardServer | None = None
 
     def on_dry_run_complete(group_key: str, state: Mapping[str, Any]) -> None:
@@ -978,21 +1300,41 @@ def main(argv: list[str] | None = None) -> int:
 
     codex_tasks = CodexTaskService(project_root=project_root, on_exit=on_codex_exit)
 
-    initializer = GroupInitializer(
-        profiles=profiles,
-        inventory_store=inventory_store,
-        gateway_factory=gateway_factory,
-        group_source_lookup=store.get_group,
-        on_resolved=lambda group_key, navigation: store.update_group(
-            group_key, {"teacherhelper": navigation}
-        ),
-        on_complete=lambda group_key, state: _finish_initialization(
-            store, inventory_store, codex_tasks, group_key, state
-        ),
-    ) if api_key else None
+    initializer = (
+        GroupInitializer(
+            profiles=profiles,
+            inventory_store=inventory_store,
+            gateway_factory=gateway_factory,
+            group_source_lookup=store.get_group,
+            on_resolved=lambda group_key, navigation: store.update_group(
+                group_key, {"teacherhelper": navigation}
+            ),
+            on_complete=lambda group_key, state: _finish_initialization(
+                store, inventory_store, codex_tasks, group_key, state
+            ),
+        )
+        if api_key
+        else None
+    )
     if dry_runs is not None:
         dry_runs.initializer = initializer
-    server = make_server(store=store, var_dir=args.var, profiles=profiles, static_dir=args.static, preview_dir=args.previews, dry_runs=dry_runs, applies=applies, initializer=initializer, inventory_store=inventory_store, preview_gateway_factory=gateway_factory if api_key else None, codex_tasks=codex_tasks, host=args.host, port=args.port, auth=auth, job_queue=runner_executor)
+    server = make_server(
+        store=store,
+        var_dir=args.var,
+        profiles=profiles,
+        static_dir=args.static,
+        preview_dir=args.previews,
+        dry_runs=dry_runs,
+        applies=applies,
+        initializer=initializer,
+        inventory_store=inventory_store,
+        preview_gateway_factory=gateway_factory if api_key else None,
+        codex_tasks=codex_tasks,
+        host=args.host,
+        port=args.port,
+        auth=auth,
+        job_queue=runner_executor,
+    )
     runner_executor.start()
     Thread(
         target=_resume_automatic_groups,

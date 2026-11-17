@@ -15,6 +15,13 @@ from typing import Any, Protocol
 
 from bs4 import BeautifulSoup
 
+from solution_runner.pipelines.core.content_context import (
+    _condition_asset_id,
+    _context_fingerprint,
+    _resolved_group,
+    _solution_assets,
+    _solution_html,
+)
 from solution_runner.pipelines.core.errors import (
     ContentPlanError as RightTrianglePlanError,
 )
@@ -146,42 +153,6 @@ def _helpers_update(gateway: RightTriangleGateway, problem_id: str) -> None:
         raise RightTrianglePlanError("Helpers readback is not ready")
 
 
-def _resolved_group(payload: dict[str, Any]) -> str:
-    """Extract one stable source-group UUID from a path-resolution response."""
-
-    matches = payload.get("matches")
-    group_id = ""
-    if isinstance(matches, list) and len(matches) == 1:
-        match = matches[0]
-        group = match.get("group") if isinstance(match, dict) else None
-        group_id = str(group.get("uuid") or "") if isinstance(group, dict) else ""
-    if not group_id:
-        raise RightTrianglePlanError(
-            "source group path resolution must return one group UUID"
-        )
-    return group_id
-
-
-def _condition_asset_id(context: dict[str, Any]) -> str:
-    """Return the first group task's unique ordinary image_1 asset identity."""
-
-    content = context.get("normalized_content")
-    assets = content.get("assets") if isinstance(content, dict) else None
-    matches = [
-        item
-        for item in (assets if isinstance(assets, list) else [])
-        if isinstance(item, dict)
-        and item.get("asset_key") == "image_1"
-        and item.get("kind") == "ordinary_image"
-        and item.get("asset_id")
-    ]
-    if len(matches) != 1:
-        raise RightTrianglePlanError(
-            "first group problem must have one ordinary image_1 asset"
-        )
-    return str(matches[0]["asset_id"])
-
-
 def _pinned_condition_asset_id(
     gateway: RightTriangleGateway, profile: GroupProfile
 ) -> str | None:
@@ -237,64 +208,6 @@ def _current_condition_asset_content_type(
     if not content_type:
         raise RightTrianglePlanError("condition asset metadata omitted content type")
     return content_type
-
-
-def _solution_assets(context: dict[str, Any]) -> tuple[dict[str, str], ...]:
-    """Return parent assets explicitly referenced by its solution section."""
-
-    content = context.get("normalized_content")
-    sections = content.get("sections") if isinstance(content, dict) else None
-    solution_matches = [
-        item
-        for item in (sections if isinstance(sections, list) else [])
-        if isinstance(item, dict) and item.get("key") == "solution"
-    ]
-    if len(solution_matches) > 1:
-        raise RightTrianglePlanError("first group problem has multiple solutions")
-    if not solution_matches:
-        return ()
-    keys = tuple(
-        str(value) for value in solution_matches[0].get("asset_keys", []) if str(value)
-    )
-    assets = content.get("assets") if isinstance(content, dict) else None
-    by_key = {
-        str(item.get("asset_key")): item
-        for item in (assets if isinstance(assets, list) else [])
-        if isinstance(item, dict) and item.get("asset_key") and item.get("asset_id")
-    }
-    if any(key not in by_key for key in keys):
-        raise RightTrianglePlanError("first group solution asset is unresolved")
-    return tuple(
-        {
-            "asset_key": key,
-            "source_asset_id": str(by_key[key]["asset_id"]),
-            "url": str(by_key[key].get("url") or f"/assets/{by_key[key]['asset_id']}"),
-            "alt": str(by_key[key].get("alt") or ""),
-        }
-        for key in keys
-    )
-
-
-def _solution_html(context: dict[str, Any]) -> str:
-    content = context.get("normalized_content")
-    sections = content.get("sections") if isinstance(content, dict) else None
-    for item in sections if isinstance(sections, list) else []:
-        if isinstance(item, dict) and item.get("key") == "solution":
-            return str(item.get("html") or "")
-    return ""
-
-
-def _context_fingerprint(context: dict[str, Any]) -> str:
-    """Fingerprint the materialized inputs used to freeze one repair record."""
-
-    content = context.get("normalized_content")
-    encoded = json.dumps(
-        content,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def _planner_constraints(content_rule_key: str | None) -> dict[str, str]:
@@ -531,7 +444,13 @@ def _ensure_required_assets(
 
 
 def _generated_diagram_assets(
-    gateway, context, specs, source_problem_id, *, apply=False, condition_asset_bytes=None
+    gateway,
+    context,
+    specs,
+    source_problem_id,
+    *,
+    apply=False,
+    condition_asset_bytes=None,
 ):
     """Reuse checksum-verified solution assets or prepare preview/upload identities."""
     result = []
@@ -551,17 +470,25 @@ def _generated_diagram_assets(
         asset = None
         if existing:
             condition_keys = next(
-                (section.get("asset_keys", [])
-                 for section in (context.get("normalized_content") or {}).get("sections", [])
-                 if section.get("key") == "condition"),
+                (
+                    section.get("asset_keys", [])
+                    for section in (context.get("normalized_content") or {}).get(
+                        "sections", []
+                    )
+                    if section.get("key") == "condition"
+                ),
                 [],
             )
-            if isinstance(condition_asset_bytes, bytes) and existing.get("asset_key") in condition_keys:
+            if (
+                isinstance(condition_asset_bytes, bytes)
+                and existing.get("asset_key") in condition_keys
+            ):
                 # The opt-in builder already downloaded this exact condition image.
                 metadata = {"sha256": hashlib.sha256(condition_asset_bytes).hexdigest()}
             else:
                 metadata = (
-                    gateway.get_source_asset(existing["asset_id"]).get("source_asset") or {}
+                    gateway.get_source_asset(existing["asset_id"]).get("source_asset")
+                    or {}
                 )
             if metadata.get("sha256") == digest:
                 asset = {
@@ -614,10 +541,14 @@ def _prepared_record(
             else handler.diagram_specs(context)
         )
         generated_assets = _generated_diagram_assets(
-            gateway, context, diagram_specs, source_problem_id,
+            gateway,
+            context,
+            diagram_specs,
+            source_problem_id,
             **(
                 {"condition_asset_bytes": condition_asset_bytes}
-                if handler.diagram_builder_uses_condition_bytes else {}
+                if handler.diagram_builder_uses_condition_bytes
+                else {}
             ),
         )
         plan = _build_content_plan(
@@ -795,10 +726,14 @@ def _apply_record(
         if list(diagram_specs) != record.get("generated_diagrams", []):
             raise RightTrianglePlanError("generated diagram drifted after prepare")
         generated_assets = _generated_diagram_assets(
-            gateway, context, diagram_specs, source_problem_id,
+            gateway,
+            context,
+            diagram_specs,
+            source_problem_id,
             **(
                 {"condition_asset_bytes": condition_asset_bytes}
-                if handler.diagram_builder_uses_condition_bytes else {}
+                if handler.diagram_builder_uses_condition_bytes
+                else {}
             ),
         )
         current_plan = _build_content_plan(
@@ -864,10 +799,15 @@ def _apply_record(
                 gateway.get_problem_asset_target_context(problem_id, "asset:image_1")
             if diagram_specs:
                 uploaded_assets = _generated_diagram_assets(
-                    gateway, context, diagram_specs, source_problem_id, apply=True,
+                    gateway,
+                    context,
+                    diagram_specs,
+                    source_problem_id,
+                    apply=True,
                     **(
                         {"condition_asset_bytes": condition_asset_bytes}
-                        if handler.diagram_builder_uses_condition_bytes else {}
+                        if handler.diagram_builder_uses_condition_bytes
+                        else {}
                     ),
                 )
                 encoded = json.dumps(frozen, ensure_ascii=False)
@@ -892,7 +832,9 @@ def _apply_record(
             refreshed = gateway.get_problem_context(problem_id)
             handler = _registered_handler(content_rule_key)
             refreshed_bytes = (
-                _condition_asset_bytes(gateway, problem_id, source_problem_id, content_rule_key)
+                _condition_asset_bytes(
+                    gateway, problem_id, source_problem_id, content_rule_key
+                )
                 if handler.diagram_builder_uses_condition_bytes
                 else None
             )
@@ -902,10 +844,14 @@ def _apply_record(
                 else handler.diagram_specs(refreshed)
             )
             refreshed_assets = _generated_diagram_assets(
-                gateway, refreshed, refreshed_specs, source_problem_id,
+                gateway,
+                refreshed,
+                refreshed_specs,
+                source_problem_id,
                 **(
                     {"condition_asset_bytes": refreshed_bytes}
-                    if handler.diagram_builder_uses_condition_bytes else {}
+                    if handler.diagram_builder_uses_condition_bytes
+                    else {}
                 ),
             )
             verified = _build_content_plan(

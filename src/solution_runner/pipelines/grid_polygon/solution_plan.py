@@ -2,17 +2,17 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from html import escape
 import re
-from typing import Any, Sequence
+from collections.abc import Sequence
+from dataclasses import dataclass
+from typing import Any
 
 from bs4 import BeautifulSoup
 
-from .mcp_runtime import McpGateway
 from ..core.models import GeometryAnalysis, GroupProfile, PreparedFigure
+from .mcp_runtime import McpGateway
+from .solution_html import _centered_asset_html, _references_asset_key
 from .strategies.protocol import SolutionStrategy
-
 
 SOLUTION_ASSET_KEY = "generated_solution_diagram"
 SOLUTION_ASSET_TARGET = f"asset:{SOLUTION_ASSET_KEY}"
@@ -112,36 +112,19 @@ def _section_transformation(
     }
 
 
-def _centered_asset_html(
-    *,
-    asset_key: str,
-    source_asset_id: str,
-    asset_url: str,
-    alt_text: str,
-) -> str:
-    """Build one centered solution image placed before explanation prose."""
-
-    target = f"asset:{asset_key}"
-    return (
-        f'<center><img src="{escape(asset_url, quote=True)}" '
-        f'alt="{escape(alt_text, quote=True)}" '
-        f'data-asset-id="{escape(source_asset_id, quote=True)}" '
-        f'data-asset-key="{escape(asset_key, quote=True)}" '
-        f'data-transformation-target-id="{escape(target, quote=True)}"></center>'
-    )
-
-
 def _place_solution_diagrams(
     solution_html: str,
     diagrams: Sequence[tuple[int, str]],
 ) -> str:
     """Place each generated diagram inside its explicit solution variant."""
 
-    variants = list(re.finditer(
-        r'<section\b(?=[^>]*\bdata-content-kind\s*=\s*["\']solution["\'])[^>]*>',
-        solution_html,
-        flags=re.IGNORECASE,
-    ))
+    variants = list(
+        re.finditer(
+            r'<section\b(?=[^>]*\bdata-content-kind\s*=\s*["\']solution["\'])[^>]*>',
+            solution_html,
+            flags=re.IGNORECASE,
+        )
+    )
     if not diagrams:
         return solution_html
     if not variants:
@@ -155,20 +138,6 @@ def _place_solution_diagrams(
         insertion = variants[variant_index].end()
         result = result[:insertion] + centered + result[insertion:]
     return result
-
-
-def _references_asset_key(solution_html: str, asset_key: str) -> bool:
-    """Return whether final solution HTML still references one prior asset key."""
-
-    return bool(
-        re.search(
-            r'\bdata-asset-key\s*=\s*["\']'
-            + re.escape(asset_key)
-            + r'["\']',
-            solution_html,
-            flags=re.IGNORECASE,
-        )
-    )
 
 
 def _solution_transformations(
@@ -221,7 +190,12 @@ def _solution_transformations(
             variant_index = int(item.get("solution_variant_index") or 0)
         except (TypeError, ValueError) as exc:
             raise SolutionRuntimeError("solution diagram variant is invalid") from exc
-        if not asset_key or asset_key in seen_keys or not source_asset_id or not asset_url:
+        if (
+            not asset_key
+            or asset_key in seen_keys
+            or not source_asset_id
+            or not asset_url
+        ):
             raise SolutionRuntimeError("uploaded solution asset identity is incomplete")
         seen_keys.add(asset_key)
         asset_key_order.append(asset_key)
@@ -232,7 +206,9 @@ def _solution_transformations(
             alt_text=alt_text,
         )
         centered_diagrams.append((variant_index, centered))
-        diagram_items.append({**item, "html": centered, "asset_position": len(diagram_items)})
+        diagram_items.append(
+            {**item, "html": centered, "asset_position": len(diagram_items)}
+        )
         asset_target_ids.append((f"asset:{asset_key}", source_asset_id))
     solution_html = _place_solution_diagrams(solution_text, centered_diagrams)
     asset_keys = (*asset_key_order, *existing_keys)
@@ -259,7 +235,9 @@ def _solution_transformations(
         if asset_key not in seen_keys
     )
     transformations = [*removals, section_transformation]
-    transformations.extend(_asset_transformation(content, item) for item in diagram_items)
+    transformations.extend(
+        _asset_transformation(content, item) for item in diagram_items
+    )
     return transformations, solution_html, tuple(asset_target_ids)
 
 

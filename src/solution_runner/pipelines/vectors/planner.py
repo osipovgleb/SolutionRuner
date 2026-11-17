@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
-from html import escape
 import math
 import re
+from fractions import Fraction
+from html import escape
 from typing import Any
 
 from bs4 import BeautifulSoup, Tag
@@ -16,7 +16,6 @@ from ..triangles.isosceles.planner import (
     _section_transformation,
 )
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
-
 
 RULE = "vector-27718-rhombus-diagonal-difference"
 PARENT_PROBLEM_ID = "26128435-2125-4369-87db-a9e21e89520e"
@@ -102,8 +101,7 @@ def _condition_text(
             or image.get("data-asset-key") != "image_1"
             or image.get("data-asset-id") != expected_current_asset_id
             or image.get("src") != f"/assets/{expected_current_asset_id}"
-            or image.get("data-transformation-target-id")
-            not in (None, "asset:image_1")
+            or image.get("data-transformation-target-id") not in (None, "asset:image_1")
             or set(image.attrs)
             - {
                 "alt",
@@ -133,7 +131,9 @@ def _condition_text(
             raise RightTrianglePlanError("condition contains unsupported markup")
     variables = soup.find_all("var")
     if [tag.get("data-math-identifier") for tag in variables] != ["ABCD", "O"]:
-        raise RightTrianglePlanError("condition variables do not match the registered form")
+        raise RightTrianglePlanError(
+            "condition variables do not match the registered form"
+        )
     for tag, expected in zip(variables, ("ABCD", "O"), strict=True):
         if tag.get_text("", strip=True) != expected:
             raise RightTrianglePlanError("condition variable fallback is inconsistent")
@@ -143,7 +143,9 @@ def _condition_text(
     if len(formulas) != 1 or formulas[0].get("data-inline-latex") != expected_formula:
         raise RightTrianglePlanError("condition vector expression is unsupported")
     if formulas[0].get_text("", strip=True):
-        raise RightTrianglePlanError("condition vector formula has conflicting fallback")
+        raise RightTrianglePlanError(
+            "condition vector formula has conflicting fallback"
+        )
     formulas[0].replace_with(expected_formula)
     text = soup.get_text(" ", strip=True).replace("\u00ad", "").replace("\u202f", " ")
     return re.sub(r"\s+([.])", r"\1", " ".join(text.split()))
@@ -165,7 +167,9 @@ def _condition_asset_state(
         raise RightTrianglePlanError("condition contains duplicate or foreign assets")
     for section in content.get("sections", []):
         if section is not condition and tuple(section.get("asset_keys") or ()):
-            raise RightTrianglePlanError("condition image is referenced by another section")
+            raise RightTrianglePlanError(
+                "condition image is referenced by another section"
+            )
     if not ordinary:
         if tuple(condition.get("asset_keys") or ()):
             raise RightTrianglePlanError("condition has an unresolved asset reference")
@@ -190,7 +194,9 @@ def _condition_asset_state(
             raise RightTrianglePlanError("registered condition SVG metadata drifted")
         return asset_id, True
     if content_type not in _RASTER_CONTENT_TYPES:
-        raise RightTrianglePlanError("foreign condition asset is not an approved raster")
+        raise RightTrianglePlanError(
+            "foreign condition asset is not an approved raster"
+        )
     if str(asset.get("alt") or ""):
         raise RightTrianglePlanError("raster condition asset has unexpected alt text")
     return asset_id, False
@@ -217,9 +223,10 @@ def _answer_matches(section: dict[str, Any] | None, expected: Fraction) -> bool:
         " ", strip=True
     )
     try:
-        return bool(re.fullmatch(r"\d+(?:[,.]\d+)?", text)) and Fraction(
-            text.replace(",", ".")
-        ) == expected
+        return (
+            bool(re.fullmatch(r"\d+(?:[,.]\d+)?", text))
+            and Fraction(text.replace(",", ".")) == expected
+        )
     except (ValueError, ZeroDivisionError):
         return False
 
@@ -227,20 +234,19 @@ def _answer_matches(section: dict[str, Any] | None, expected: Fraction) -> bool:
 def _solution_html(first: int, second: int, answer: str) -> str:
     first_half = _half_latex(first)
     second_half = _half_latex(second)
-    formula = (
-        rf"AB=\sqrt{{{second_half}^2+{first_half}^2}}="
-        + answer.replace(",", "{,}")
+    formula = rf"AB=\sqrt{{{second_half}^2+{first_half}^2}}=" + answer.replace(
+        ",", "{,}"
     )
     return (
-        '<p>Раз­ность век­то­ров '
+        "<p>Раз­ность век­то­ров "
         '<span data-inline-latex="\\overrightarrow{AO}"></span> и '
         '<span data-inline-latex="\\overrightarrow{BO}"></span> равна век­то­ру '
         '<span data-inline-latex="\\overrightarrow{AB}"></span>. Диа­го­на­ли '
-        'ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния '
-        'де­лят­ся по­по­лам. Тогда век­тор '
+        "ромба пе­ре­се­ка­ют­ся под пря­мым углом и точ­кой пе­ре­се­че­ния "
+        "де­лят­ся по­по­лам. Тогда век­тор "
         '<span data-inline-latex="\\overrightarrow{AB}"></span> яв­ля­ет­ся '
-        'ги­по­те­ну­зой в пря­мо­уголь­ном тре­уголь­ни­ке. По тео­ре­ме '
-        'Пи­фа­го­ра по­лу­ча­ем, что '
+        "ги­по­те­ну­зой в пря­мо­уголь­ном тре­уголь­ни­ке. По тео­ре­ме "
+        "Пи­фа­го­ра по­лу­ча­ем, что "
         f'<span data-inline-latex="{formula}"></span></p>'
     )
 
@@ -286,7 +292,9 @@ def build_repair_plan(
     diagonal_square_sum = first * first + second * second
     diagonal_hypotenuse = math.isqrt(diagonal_square_sum)
     if diagonal_hypotenuse * diagonal_hypotenuse != diagonal_square_sum:
-        raise RightTrianglePlanError("diagonal values do not produce a supported exact answer")
+        raise RightTrianglePlanError(
+            "diagonal values do not produce a supported exact answer"
+        )
     exact_answer = Fraction(diagonal_hypotenuse, 2)
     answer = _answer_text(exact_answer)
     expected_solution = _solution_html(first, second, answer)
@@ -302,9 +310,7 @@ def build_repair_plan(
         )
     if solution is None or str(solution.get("html") or "") != expected_solution:
         changes.append(
-            _section_transformation(
-                solution, "solution", "Решение", expected_solution
-            )
+            _section_transformation(solution, "solution", "Решение", expected_solution)
         )
     if not _answer_matches(answer_section, exact_answer):
         changes.append(

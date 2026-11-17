@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
-import sqlite3
 
 
 @dataclass(frozen=True)
@@ -108,7 +108,8 @@ class GroupInventoryStore:
         with self.connect() as connection:
             connection.executescript(SCHEMA)
             columns = {
-                row["name"] for row in connection.execute(
+                row["name"]
+                for row in connection.execute(
                     "PRAGMA table_info(group_inventory_items)"
                 ).fetchall()
             }
@@ -122,7 +123,8 @@ class GroupInventoryStore:
                     "ALTER TABLE group_inventory_items ADD COLUMN inventory_error TEXT"
                 )
             stage_columns = {
-                row["name"] for row in connection.execute(
+                row["name"]
+                for row in connection.execute(
                     "PRAGMA table_info(group_item_stage_results)"
                 ).fetchall()
             }
@@ -336,13 +338,14 @@ class GroupInventoryStore:
                     result.helpers_status,
                     result.error,
                     result.error if result.dry_run_status is not None else None,
-                    result.error if result.apply_status is not None or result.helpers_status is not None else None,
-                    result.error is None and result.helpers_status in {
-                        "applied", "already_complete"
-                    },
-                    result.error is None and result.helpers_status in {
-                        "applied", "already_complete"
-                    },
+                    result.error
+                    if result.apply_status is not None
+                    or result.helpers_status is not None
+                    else None,
+                    result.error is None
+                    and result.helpers_status in {"applied", "already_complete"},
+                    result.error is None
+                    and result.helpers_status in {"applied", "already_complete"},
                 ),
             )
 

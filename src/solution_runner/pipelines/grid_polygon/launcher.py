@@ -3,40 +3,53 @@
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import asdict, dataclass, replace
-from datetime import UTC, datetime
 import getpass
 import json
 import os
-from pathlib import Path
 import subprocess
 import sys
-from typing import Any, Callable
+from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
 
 from solution_runner.group_inventory_store import GroupInventoryStore
 
+from ..core.local_inventory import load_group_inventory
+from ..core.models import (
+    GroupProfile,
+    PreparedFigure,
+    PreparedGridPolygon,
+    ProblemStageResult,
+)
 from .asset_preparation import execute_image_preparation, prepare_existing_svg
-from ..core.group_profiles import get_group_profile
-from .helpers_runtime import run_helpers_stage, verify_existing_solutions
+from .helpers_runtime import run_helpers_stage
 from .inventory import (
     GroupInventory,
     discover_group_inventory,
     discover_targeted_inventory,
 )
+from .launcher_args import _parser as _argument_parser
+from .launcher_args import _validated_args
+from .launcher_records import (
+    _ordered_prepared,
+    _scope,
+    _selected_inventory,
+)
+from .launcher_stages import _run_content_rule_stages, _run_stages, _StageContext
 from .manifest import FrozenRunScope, read_prepared_manifest, write_prepared_manifest
 from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
-from ..core.models import GroupProfile, PreparedFigure, PreparedGridPolygon, ProblemStageResult
-from ..core.local_inventory import load_group_inventory
 from .progress import ProgressReporter
 from .ring_asset_preparation import prepare_ring_assets
 from .solution_runtime import run_solution_stage
-from .strategies import get_solution_strategy
 
+_parser = _argument_parser
 
-DEFAULT_OUTPUT_ROOT = Path(
-    os.environ.get("SOLUTION_RUNNER_VAR_DIR", "var")
-) / "grid-polygon" / "runs"
+DEFAULT_OUTPUT_ROOT = (
+    Path(os.environ.get("SOLUTION_RUNNER_VAR_DIR", "var")) / "grid-polygon" / "runs"
+)
 
 
 @dataclass(frozen=True)
@@ -57,27 +70,15 @@ class LauncherDependencies:
     targeted_inventory: Callable[..., GroupInventory] | None = None
 
 
-@dataclass(frozen=True)
-class _StageContext:
-    """Carry shared dependencies for solution and Helpers orchestration."""
-
-    active: LauncherDependencies
-    gateway: Any
-    profile: GroupProfile
-    run_dir: Path
-    apply: bool
-    targeted: bool
-    reporter: ProgressReporter
-    max_workers: int
-
-
 def _execute(command: tuple[str, ...]) -> int:
     """Run one external converter command without shell interpolation."""
 
     return subprocess.run(command, check=False).returncode
 
 
-def _run_content_rule_stage(*args: Any, **kwargs: Any) -> tuple[ProblemStageResult, ...]:
+def _run_content_rule_stage(
+    *args: Any, **kwargs: Any
+) -> tuple[ProblemStageResult, ...]:
     """Load the content-rule runtime only for explicitly configured groups."""
 
     from ..core.content_runtime import run_content_rule_stage
@@ -107,51 +108,6 @@ def _default_dependencies() -> LauncherDependencies:
     )
 
 
-def _parser() -> argparse.ArgumentParser:
-    """Build the explicit-group command-line contract."""
-
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--group", required=True)
-    parser.add_argument("--confirm-catalog", required=True)
-    parser.add_argument("--apply", action="store_true")
-    parser.add_argument(
-        "--force-apply",
-        action="store_true",
-        help="write one selected task even when its prepared content already matches",
-    )
-    parser.add_argument(
-        "--existing-solution-policy",
-        choices=("preserve", "rewrite"),
-        help="override the registered profile's handling of an existing solution",
-    )
-    parser.add_argument(
-        "--inventory-db",
-        type=Path,
-        help="use the initialized local group index instead of repeating MCP discovery",
-    )
-    parser.add_argument("--resume-images", type=Path)
-    parser.add_argument("--resume-solutions", type=Path)
-    parser.add_argument(
-        "--helpers-from-existing-solution",
-        action="store_true",
-        help=(
-            "do not inspect conditions or rewrite content; set Helpers ready only "
-            "where stored solution and answer sections are non-empty"
-        ),
-    )
-    parser.add_argument("--only-source-problem-id", action="append")
-    parser.add_argument("--only-problem-id", action="append", help="select by internal problem UUID")
-    parser.add_argument(
-        "--exclude-parent-problem",
-        action="store_true",
-        help="run every content-rule task except the first canonical parent",
-    )
-    parser.add_argument("--batch-size", type=int, default=10)
-    parser.add_argument("--batch-pause-seconds", type=float, default=0.0)
-    parser.add_argument("--max-workers", type=int, default=10)
-    return parser
-
-
 def _api_key() -> str:
     """Return the terminal-local MCP key without logging it."""
 
@@ -159,145 +115,6 @@ def _api_key() -> str:
     if value:
         return value
     return getpass.getpass("TEACHERHELPER_MCP_API_KEY: ").strip()
-
-
-def _scope(profile: Any, prepared: tuple[PreparedFigure, ...]) -> FrozenRunScope:
-    """Build the exact prepared-record scope stored for resume."""
-
-    return FrozenRunScope(
-        catalog_snapshot_id=profile.catalog_snapshot_id,
-        snapshot_theme_id=profile.snapshot_theme_id,
-        source_group_id=profile.source_group_id,
-        group_key=profile.group_key,
-        target_problem_ids=tuple(record.problem_id for record in prepared),
-    )
-
-
-def _ordered_prepared(
-    inventory: GroupInventory,
-    records: tuple[PreparedFigure, ...],
-) -> tuple[PreparedFigure, ...]:
-    """Return successful prepared records in frozen group order."""
-
-    by_problem_id = {record.problem_id: record for record in records}
-    return tuple(
-        by_problem_id[target.problem_id]
-        for target in inventory.targets
-        if target.problem_id in by_problem_id
-    )
-
-
-def _write_results(path: Path, results: tuple[ProblemStageResult, ...]) -> None:
-    """Persist content-free terminal stage results."""
-
-    path.write_text(
-        json.dumps(
-            [asdict(result) for result in results],
-            ensure_ascii=False,
-            indent=2,
-            sort_keys=True,
-            default=str,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-
-
-def _validated_args(
-    argv: list[str] | None,
-) -> tuple[argparse.ArgumentParser, argparse.Namespace, GroupProfile]:
-    """Parse arguments and reject unsafe scope or batching combinations."""
-
-    parser = _parser()
-    args = parser.parse_args(argv)
-    try:
-        profile = get_group_profile(args.group)
-    except KeyError:
-        if not (args.helpers_from_existing_solution and args.inventory_db):
-            raise
-        snapshot = GroupInventoryStore(args.inventory_db).get(args.group)
-        if snapshot is None or snapshot.status != "ready":
-            parser.error("manual Helpers requires a ready local inventory")
-        profile = GroupProfile(
-            catalog_snapshot_id=snapshot.catalog_snapshot_id,
-            snapshot_theme_id="manual",
-            source_group_id=snapshot.source_group_id,
-            group_key=args.group,
-            group_order_index=0,
-            theme_title=f"Группа {args.group}",
-            theme_order_index=0,
-            expected_vertices=None,
-            strategy_key=None,
-        )
-    if args.confirm_catalog != profile.catalog_snapshot_id:
-        parser.error("--confirm-catalog does not match the selected group profile")
-    if args.force_apply and not args.apply:
-        parser.error("--force-apply requires --apply")
-    if args.existing_solution_policy:
-        profile = replace(profile, existing_solution_policy=args.existing_solution_policy)
-    if args.force_apply:
-        profile = replace(profile, existing_solution_policy="rewrite")
-    if args.resume_images and args.resume_solutions:
-        parser.error("choose only one resume mode")
-    if args.only_source_problem_id and args.only_problem_id:
-        parser.error("choose only one problem selector")
-    if args.exclude_parent_problem and (
-        args.only_source_problem_id or args.only_problem_id
-    ):
-        parser.error("--exclude-parent-problem cannot be combined with problem selectors")
-    if args.exclude_parent_problem and profile.workflow_kind != "content_rule":
-        parser.error("--exclude-parent-problem requires a content-rule group")
-    if args.helpers_from_existing_solution and (args.resume_images or args.resume_solutions):
-        parser.error("--helpers-from-existing-solution cannot be combined with resume modes")
-    selected_ids = args.only_problem_id or args.only_source_problem_id or []
-    if len(selected_ids) != len(set(selected_ids)):
-        parser.error("problem selectors must be unique")
-    if profile.workflow_kind == "content_rule" and args.resume_images:
-        parser.error("content-rule groups resume with --resume-solutions")
-    if args.batch_size <= 0 or args.batch_pause_seconds < 0:
-        parser.error("batch size must be positive and pause cannot be negative")
-    if not 1 <= args.max_workers <= 10:
-        parser.error("--max-workers must be between 1 and 10")
-    return parser, args, profile
-
-
-def _selected_inventory(
-    parser: argparse.ArgumentParser,
-    args: argparse.Namespace,
-    inventory: GroupInventory,
-) -> GroupInventory:
-    """Narrow the frozen inventory to optional exact source problems."""
-
-    if args.only_source_problem_id and args.only_problem_id:
-        parser.error("choose only one problem selector")
-    if not args.only_source_problem_id and not args.only_problem_id:
-        return inventory
-    field = "problem_id" if args.only_problem_id else "source_problem_id"
-    requested_ids = set(args.only_problem_id or args.only_source_problem_id)
-    matches = tuple(
-        target
-        for target in inventory.targets
-        if getattr(target, field) in requested_ids
-    )
-    if (
-        len(matches) != len(requested_ids)
-        or {getattr(target, field) for target in matches} != requested_ids
-    ):
-        parser.error(f"--only-{field.replace('_', '-')} is outside the frozen group scope")
-    selected_ids = {target.problem_id for target in matches}
-    return GroupInventory(
-        targets=matches,
-        png_targets=tuple(
-            target
-            for target in inventory.png_targets
-            if target.problem_id in selected_ids
-        ),
-        svg_targets=tuple(
-            target
-            for target in inventory.svg_targets
-            if target.problem_id in selected_ids
-        ),
-    )
 
 
 def _prepared_records(
@@ -362,9 +179,7 @@ def _prepared_records(
                 batch_pause_seconds=args.batch_pause_seconds,
             )
         )
-    existing_targets = (
-        () if profile.geometry_kind == "ring" else inventory.svg_targets
-    )
+    existing_targets = () if profile.geometry_kind == "ring" else inventory.svg_targets
 
     def prepare_target(
         target: Any,
@@ -391,6 +206,7 @@ def _prepared_records(
                     "error": " ".join(str(exc).split())[:2000],
                 },
             )
+
     if args.max_workers == 1:
         existing_results = tuple(map(prepare_target, existing_targets))
     else:
@@ -408,134 +224,6 @@ def _prepared_records(
         encoding="utf-8",
     )
     return prepared
-
-
-def _run_stages(
-    context: _StageContext,
-    inventory: GroupInventory,
-    prepared: tuple[PreparedFigure, ...],
-    *,
-    helpers_from_existing_solution: bool = False,
-    force_apply: bool = False,
-) -> None:
-    """Run solution and Helpers stages and persist their terminal summary."""
-
-    if helpers_from_existing_solution:
-        solution_results = verify_existing_solutions(
-            context.gateway,
-            inventory.targets,
-            context.profile,
-            context.reporter,
-        )
-    else:
-        if context.profile.strategy_key is None:
-            raise ValueError("geometry workflow requires strategy_key")
-        strategy = get_solution_strategy(context.profile.strategy_key)
-        solution_kwargs = {
-            "apply": context.apply,
-            "max_workers": context.max_workers,
-        }
-        if force_apply:
-            solution_kwargs["force_apply"] = True
-        solution_results = context.active.solution_stage(
-            context.gateway,
-            prepared,
-            context.profile,
-            strategy,
-            context.reporter,
-            **solution_kwargs,
-        )
-    helpers_results = context.active.helpers_stage(
-        context.gateway,
-        solution_results,
-        context.profile,
-        context.reporter,
-        apply=context.apply,
-        max_workers=context.max_workers,
-    )
-    _write_results(context.run_dir / "solution-results.json", solution_results)
-    _write_results(context.run_dir / "helpers-results.json", helpers_results)
-    failed = sum(
-        result.status == "failed" for result in (*solution_results, *helpers_results)
-    )
-    summary = {
-        "schema_version": 1,
-        "status": "completed_with_errors" if failed else "completed",
-        "group_key": context.profile.group_key,
-        "strategy_key": context.profile.strategy_key,
-        "targets": len(inventory.targets),
-        "prepared": sum(result.status != "skipped" for result in solution_results),
-        "failed_stage_results": failed,
-        "apply": context.apply,
-        "targeted": context.targeted,
-    }
-    (context.run_dir / "summary.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-
-
-def _run_content_rule_stages(
-    context: _StageContext,
-    args: argparse.Namespace,
-    full_inventory: GroupInventory,
-    inventory: GroupInventory,
-) -> None:
-    """Run one non-geometric content rule through shared reporting and Helpers."""
-
-    if not full_inventory.targets:
-        raise ValueError("content-rule group has no asset source target")
-    if context.active.content_rule_stage is None:
-        raise ValueError("content-rule runtime is unavailable")
-    if args.helpers_from_existing_solution:
-        solution_results = verify_existing_solutions(
-            context.gateway,
-            inventory.targets,
-            context.profile,
-            context.reporter,
-        )
-    else:
-        solution_results = context.active.content_rule_stage(
-            context.gateway,
-            inventory.targets,
-            full_inventory.targets[0],
-            context.profile,
-            context.reporter,
-            run_dir=context.run_dir,
-            resume=bool(args.resume_solutions),
-            apply=context.apply,
-            batch_size=args.batch_size,
-            batch_pause_seconds=args.batch_pause_seconds,
-            max_workers=context.max_workers,
-        )
-    helpers_results = context.active.helpers_stage(
-        context.gateway,
-        solution_results,
-        context.profile,
-        context.reporter,
-        apply=context.apply,
-        max_workers=context.max_workers,
-    )
-    _write_results(context.run_dir / "solution-results.json", solution_results)
-    _write_results(context.run_dir / "helpers-results.json", helpers_results)
-    failed = sum(
-        result.status == "failed" for result in (*solution_results, *helpers_results)
-    )
-    summary = {
-        "schema_version": 1,
-        "status": "completed_with_errors" if failed else "completed",
-        "group_key": context.profile.group_key,
-        "content_rule_key": context.profile.content_rule_key,
-        "targets": len(inventory.targets),
-        "prepared": sum(result.status != "failed" for result in solution_results),
-        "failed_stage_results": failed,
-        "apply": context.apply,
-        "targeted": context.targeted,
-    }
-    (context.run_dir / "summary.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
 
 
 def main(
@@ -557,7 +245,9 @@ def main(
         run_dir = (
             resume_dir.resolve()
             if resume_dir
-            else (active.output_root / f"{timestamp}-group-{profile.group_key}").resolve()
+            else (
+                active.output_root / f"{timestamp}-group-{profile.group_key}"
+            ).resolve()
         )
         run_dir.mkdir(parents=True, exist_ok=True)
         internal_path = run_dir / "internal.jsonl"
@@ -568,8 +258,10 @@ def main(
                 color=True,
             )
             targeted = bool(args.only_source_problem_id or args.only_problem_id)
-            discovery_label = "TARGET SELECTION" if targeted else (
-                "LOCAL INVENTORY" if args.inventory_db else "INVENTORY"
+            discovery_label = (
+                "TARGET SELECTION"
+                if targeted
+                else ("LOCAL INVENTORY" if args.inventory_db else "INVENTORY")
             )
             reporter.group(
                 profile.theme_title,
@@ -581,7 +273,8 @@ def main(
                 full_inventory = load_group_inventory(
                     GroupInventoryStore(args.inventory_db),
                     profile,
-                    apply_solution_scope=not targeted and not args.helpers_from_existing_solution,
+                    apply_solution_scope=not targeted
+                    and not args.helpers_from_existing_solution,
                 )
             elif targeted:
                 if active.targeted_inventory is None:
@@ -644,8 +337,12 @@ def main(
                     inventory,
                 )
             else:
-                prepared = () if args.helpers_from_existing_solution else _prepared_records(
-                    active, args, gateway, profile, inventory, run_dir, reporter
+                prepared = (
+                    ()
+                    if args.helpers_from_existing_solution
+                    else _prepared_records(
+                        active, args, gateway, profile, inventory, run_dir, reporter
+                    )
                 )
                 _run_stages(
                     stage_context,

@@ -2,19 +2,16 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 import re
+from dataclasses import dataclass
 from typing import Any
 
 from bs4 import BeautifulSoup
 
 from solution_runner.pipelines.core.numbers import parse_rational
 
-
 RULE = "irrational-511751-reciprocal-square-root"
-_FORMULA = re.compile(
-    r"\\frac\{1\}\{\\sqrt\{x\}\}=\\frac\{1\}\{(?P<root>[1-9]\d*)\}"
-)
+_FORMULA = re.compile(r"\\frac\{1\}\{\\sqrt\{x\}\}=\\frac\{1\}\{(?P<root>[1-9]\d*)\}")
 
 
 class UnsupportedCondition(ValueError):
@@ -30,7 +27,8 @@ class RepairPlan:
 
 def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
     sections = [
-        section for section in content.get("sections", [])
+        section
+        for section in content.get("sections", [])
         if isinstance(section, dict) and section.get("key") == key
     ]
     if len(sections) > 1:
@@ -40,11 +38,16 @@ def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
 
 def _target(section: dict[str, Any] | None, key: str) -> str:
     if section is not None:
-        return str(section.get("transformation_target_id") or f"section:{section.get('section_id')}")
+        return str(
+            section.get("transformation_target_id")
+            or f"section:{section.get('section_id')}"
+        )
     return f"section:{key}"
 
 
-def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) -> dict[str, Any]:
+def _rewrite(
+    section: dict[str, Any] | None, key: str, title: str, html: str
+) -> dict[str, Any]:
     return {
         "transformation_target_id": _target(section, key),
         "operation": "rewrite" if section is not None else "add",
@@ -55,7 +58,9 @@ def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) ->
 def _answer_matches(section: dict[str, Any] | None, answer: str) -> bool:
     if section is None:
         return False
-    current = BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text("", strip=True)
+    current = BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text(
+        "", strip=True
+    )
     try:
         return parse_rational(current) == parse_rational(answer)
     except ValueError:
@@ -86,7 +91,9 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     formula = str(spans[0].get("data-inline-latex") or "")
     match = _FORMULA.fullmatch(formula)
     if match is None:
-        raise UnsupportedCondition("condition does not match reciprocal square-root grammar")
+        raise UnsupportedCondition(
+            "condition does not match reciprocal square-root grammar"
+        )
 
     root = int(match.group("root"))
     answer_text = str(root * root)
@@ -100,6 +107,11 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
         transformations.append(_rewrite(solution, "solution", "Решение", solution_html))
     if not _answer_matches(answer, answer_text):
         transformations.append(
-            _rewrite(answer, "answer", "Ответ", f'<p><span data-effect="spaced">{answer_text}</span></p>')
+            _rewrite(
+                answer,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer_text}</span></p>',
+            )
         )
     return RepairPlan(answer_text, solution_html, tuple(transformations))

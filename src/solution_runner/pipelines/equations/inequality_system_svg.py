@@ -1,18 +1,21 @@
 """Adapt the reviewed source number-line SVG to exact inequality intersections."""
+
 from __future__ import annotations
 
+import xml.etree.ElementTree as ET
 from copy import deepcopy
 from fractions import Fraction
 from pathlib import Path
-import xml.etree.ElementTree as ET
 
 from .linear_system_intervals import Inequality, Interval, number, solve
 
-ASSET_KEY = 'generated_inequality_intersection'
-NS = 'http://www.w3.org/2000/svg'
-ET.register_namespace('', NS)
-ET.register_namespace('xlink', 'http://www.w3.org/1999/xlink')
-_TEMPLATE = ET.fromstring(Path(__file__).with_name('inequality_number_line_template.svg').read_bytes())
+ASSET_KEY = "generated_inequality_intersection"
+NS = "http://www.w3.org/2000/svg"
+ET.register_namespace("", NS)
+ET.register_namespace("xlink", "http://www.w3.org/1999/xlink")
+_TEMPLATE = ET.fromstring(
+    Path(__file__).with_name("inequality_number_line_template.svg").read_bytes()
+)
 AXIS_Y = 48.581
 LEFT = 9.873
 RIGHT = 169.496
@@ -20,14 +23,29 @@ RIGHT = 169.496
 
 def _source_canvas(title: str) -> ET.Element:
     """Copy the reviewed axis, arrow and x glyph for both inequality renderers."""
-    root = ET.Element(f'{{{NS}}}svg', {'width':'174.612', 'height':'52', 'viewBox':'6.311 25 174.612 52',
-                                     'data-template-source-asset-id':'d2730267-5298-40ad-b8aa-870fad5f6f7e'})
-    ET.SubElement(root, f'{{{NS}}}title').text = title
-    ET.SubElement(root, f'{{{NS}}}rect', {'x':'6.311', 'y':'25', 'width':'174.612', 'height':'52', 'fill':'white'})
+    root = ET.Element(
+        f"{{{NS}}}svg",
+        {
+            "width": "174.612",
+            "height": "52",
+            "viewBox": "6.311 25 174.612 52",
+            "data-template-source-asset-id": "d2730267-5298-40ad-b8aa-870fad5f6f7e",
+        },
+    )
+    ET.SubElement(root, f"{{{NS}}}title").text = title
+    ET.SubElement(
+        root,
+        f"{{{NS}}}rect",
+        {"x": "6.311", "y": "25", "width": "174.612", "height": "52", "fill": "white"},
+    )
     for child in _TEMPLATE:
-        if (child.tag == f'{{{NS}}}line' and child.get('y1') == str(AXIS_Y)
-                or child.tag == f'{{{NS}}}polygon'
-                or child.tag == f'{{{NS}}}g' and child.find(f'.//{{{NS}}}clipPath') is not None):
+        if (
+            child.tag == f"{{{NS}}}line"
+            and child.get("y1") == str(AXIS_Y)
+            or child.tag == f"{{{NS}}}polygon"
+            or child.tag == f"{{{NS}}}g"
+            and child.find(f".//{{{NS}}}clipPath") is not None
+        ):
             root.append(deepcopy(child))
     return root
 
@@ -35,127 +53,283 @@ def _source_canvas(title: str) -> ET.Element:
 def render_intersection_svg(rows: tuple[Inequality, ...]) -> bytes:
     """Reuse source axis, arrow and x glyph; adapt boundaries, arcs and hatching."""
     if len(rows) != 2:
-        raise ValueError('two solved inequalities are required')
+        raise ValueError("two solved inequalities are required")
     bounds = sorted({row.bound for row in rows})
+
     def coordinate(value: Fraction) -> float:
         """Place ordered boundaries at the source's two reviewed marker positions."""
-        return 93.006 if len(bounds) == 1 else (66.955 if value == bounds[0] else 119.057)
+        return (
+            93.006 if len(bounds) == 1 else (66.955 if value == bounds[0] else 119.057)
+        )
+
     def node(tag: str, **attrs: object) -> ET.Element:
         """Append an editable primitive in the source SVG namespace."""
-        return ET.SubElement(root, f'{{{NS}}}{tag}', {key.replace('_', '-'):str(value) for key,value in attrs.items()})
-    root = _source_canvas('Пересечение решений двух неравенств')
+        return ET.SubElement(
+            root,
+            f"{{{NS}}}{tag}",
+            {key.replace("_", "-"): str(value) for key, value in attrs.items()},
+        )
+
+    root = _source_canvas("Пересечение решений двух неравенств")
     result = solve(rows)
     if not result.empty:
         left = coordinate(result.lower) if result.lower is not None else LEFT
         right = coordinate(result.upper) if result.upper is not None else RIGHT - 5
         # Preserve the reference asset's hatch slope, spacing and blue stroke.
-        x = left + .5
+        x = left + 0.5
         while x + 4.256 <= right:
-            node('line', x1=f'{x+4.256:.3f}', y1='43.658', x2=f'{x:.3f}', y2='48.219',
-                 fill='none', stroke='#143B8F', stroke_width='.75', stroke_miterlimit='10')
+            node(
+                "line",
+                x1=f"{x + 4.256:.3f}",
+                y1="43.658",
+                x2=f"{x:.3f}",
+                y2="48.219",
+                fill="none",
+                stroke="#143B8F",
+                stroke_width=".75",
+                stroke_miterlimit="10",
+            )
             x += 3.34
-    for index,row in enumerate(rows):
+    for index, row in enumerate(rows):
         start = coordinate(row.bound)
-        end = RIGHT if row.bound_relation.startswith('>') else LEFT
+        end = RIGHT if row.bound_relation.startswith(">") else LEFT
         height = 16.372 if index == 0 else 9.445
-        top = AXIS_Y-height
+        top = AXIS_Y - height
         direction = 1 if end > start else -1
-        shoulder = start + direction * min(25.187, abs(end-start)*.45)
-        node('path', data_half_line=index+1,
-             d=f'M{start:.3f} {AXIS_Y} C{start:.3f} {top:.3f} {shoulder:.3f} {top:.3f} {shoulder:.3f} {top:.3f} H{end}',
-             fill='none', stroke='#000000', stroke_width='.75')
-        node('path', data_half_line_arrow=index+1,
-             d=f'M{end-direction*1.889:.3f} {top-.944:.3f} L{end} {top:.3f} L{end-direction*1.889:.3f} {top+.944:.3f}',
-             fill='none', stroke='#000000', stroke_width='.75')
-    for index,row in enumerate(rows):
-        node('circle', data_inequality=index+1, cx=f'{coordinate(row.bound):.3f}', cy=AXIS_Y,
-             r='2.688', fill='#000000' if row.bound_relation.endswith('=') else 'white',
-             stroke='#000000', stroke_width='.75')
+        shoulder = start + direction * min(25.187, abs(end - start) * 0.45)
+        node(
+            "path",
+            data_half_line=index + 1,
+            d=f"M{start:.3f} {AXIS_Y} C{start:.3f} {top:.3f} {shoulder:.3f} {top:.3f} {shoulder:.3f} {top:.3f} H{end}",
+            fill="none",
+            stroke="#000000",
+            stroke_width=".75",
+        )
+        node(
+            "path",
+            data_half_line_arrow=index + 1,
+            d=f"M{end - direction * 1.889:.3f} {top - 0.944:.3f} L{end} {top:.3f} L{end - direction * 1.889:.3f} {top + 0.944:.3f}",
+            fill="none",
+            stroke="#000000",
+            stroke_width=".75",
+        )
+    for index, row in enumerate(rows):
+        node(
+            "circle",
+            data_inequality=index + 1,
+            cx=f"{coordinate(row.bound):.3f}",
+            cy=AXIS_Y,
+            r="2.688",
+            fill="#000000" if row.bound_relation.endswith("=") else "white",
+            stroke="#000000",
+            stroke_width=".75",
+        )
     # A shared boundary represents the intersection's strictness on the axis.
     if len(bounds) == 1:
-        closed = not result.empty and ((result.lower == bounds[0] and result.lower_closed)
-                                       or (result.upper == bounds[0] and result.upper_closed))
-        node('circle', cx=f'{coordinate(bounds[0]):.3f}', cy=AXIS_Y, r='2.688',
-             fill='#000000' if closed else 'white', stroke='#000000', stroke_width='.75')
+        closed = not result.empty and (
+            (result.lower == bounds[0] and result.lower_closed)
+            or (result.upper == bounds[0] and result.upper_closed)
+        )
+        node(
+            "circle",
+            cx=f"{coordinate(bounds[0]):.3f}",
+            cy=AXIS_Y,
+            r="2.688",
+            fill="#000000" if closed else "white",
+            stroke="#000000",
+            stroke_width=".75",
+        )
     for bound in bounds:
-        label = number(bound).replace('{,}', ',')
-        if r'\frac' in label:
+        label = number(bound).replace("{,}", ",")
+        if r"\frac" in label:
             label = str(bound)
-        node('text', x=f'{coordinate(bound):.3f}', y='67.5', text_anchor='middle',
-             font_family='Times New Roman,serif', font_size='12', fill='#000000').text=label
-    return ET.tostring(root, encoding='utf-8')
+        node(
+            "text",
+            x=f"{coordinate(bound):.3f}",
+            y="67.5",
+            text_anchor="middle",
+            font_family="Times New Roman,serif",
+            font_size="12",
+            fill="#000000",
+        ).text = label
+    return ET.tostring(root, encoding="utf-8")
 
 
-
-def render_quadratic_sign_chart_svg(roots: tuple[Fraction, ...], intervals: tuple[Interval, ...]) -> bytes:
+def render_quadratic_sign_chart_svg(
+    roots: tuple[Fraction, ...], intervals: tuple[Interval, ...]
+) -> bytes:
     """Show every sign region of a monic quadratic, shading only its solution."""
     if len(roots) not in (0, 2) or tuple(sorted(roots)) != roots:
-        raise ValueError('zero or two ordered roots including multiplicity are required')
+        raise ValueError(
+            "zero or two ordered roots including multiplicity are required"
+        )
     bounds = sorted(set(roots))
-    if any(b not in bounds for interval in intervals for b in (interval.lower, interval.upper) if b is not None):
-        raise ValueError('solution boundaries must be roots of the quadratic')
-    root = _source_canvas('Метод интервалов: знаки квадратного трёхчлена и множество решений')
-    root.set('height', '64')
-    root.set('viewBox', '6.311 13 174.612 64')
-    background = root.find(f'{{{NS}}}rect')
+    if any(
+        b not in bounds
+        for interval in intervals
+        for b in (interval.lower, interval.upper)
+        if b is not None
+    ):
+        raise ValueError("solution boundaries must be roots of the quadratic")
+    root = _source_canvas(
+        "Метод интервалов: знаки квадратного трёхчлена и множество решений"
+    )
+    root.set("height", "64")
+    root.set("viewBox", "6.311 13 174.612 64")
+    background = root.find(f"{{{NS}}}rect")
     root.remove(background)
+
     def node(tag: str, **attrs: object) -> ET.Element:
-        return ET.SubElement(root, f'{{{NS}}}{tag}', {k.replace('_', '-'):str(v) for k,v in attrs.items()})
+        return ET.SubElement(
+            root,
+            f"{{{NS}}}{tag}",
+            {k.replace("_", "-"): str(v) for k, v in attrs.items()},
+        )
+
     def coordinate(value: Fraction) -> float:
-        return 93.006 if len(bounds) == 1 else (66.955 if value == bounds[0] else 119.057)
+        return (
+            93.006 if len(bounds) == 1 else (66.955 if value == bounds[0] else 119.057)
+        )
+
     for interval in intervals:
         if interval.empty:
             continue
         left = coordinate(interval.lower) if interval.lower is not None else LEFT
         right = coordinate(interval.upper) if interval.upper is not None else RIGHT - 5
-        x = left + .5
+        x = left + 0.5
         while x + 4.256 <= right:
-            node('line', x1=f'{x+4.256:.3f}', y1='48.943', x2=f'{x:.3f}', y2='53.504',
-                 fill='none', stroke='#143B8F', stroke_width='.75', stroke_miterlimit='10')
+            node(
+                "line",
+                x1=f"{x + 4.256:.3f}",
+                y1="48.943",
+                x2=f"{x:.3f}",
+                y2="53.504",
+                fill="none",
+                stroke="#143B8F",
+                stroke_width=".75",
+                stroke_miterlimit="10",
+            )
             x += 3.34
     # Even a rejected region retains its arc and polynomial sign.
     positions = [LEFT] + [coordinate(bound) for bound in bounds] + [RIGHT]
     top = AXIS_Y - 12
-    signs = ['+', '−', '+'] if len(bounds) == 2 else ['+'] * (len(bounds) + 1)
+    signs = ["+", "−", "+"] if len(bounds) == 2 else ["+"] * (len(bounds) + 1)
     for index, (left, right, sign) in enumerate(zip(positions, positions[1:], signs)):
         left_infinite = index == 0
         right_infinite = index == len(positions) - 2
         if left_infinite and right_infinite:
-            curve = f'M{left} {top} H{right}'
+            curve = f"M{left} {top} H{right}"
         elif left_infinite:
-            shoulder = right - min(25.187, (right-left)*.45)
-            curve = f'M{left} {top} H{shoulder:.3f} C{shoulder:.3f} {top} {right:.3f} {top} {right:.3f} {AXIS_Y}'
+            shoulder = right - min(25.187, (right - left) * 0.45)
+            curve = f"M{left} {top} H{shoulder:.3f} C{shoulder:.3f} {top} {right:.3f} {top} {right:.3f} {AXIS_Y}"
         elif right_infinite:
-            shoulder = left + min(25.187, (right-left)*.45)
-            curve = f'M{left:.3f} {AXIS_Y} C{left:.3f} {top} {shoulder:.3f} {top} {shoulder:.3f} {top} H{right}'
+            shoulder = left + min(25.187, (right - left) * 0.45)
+            curve = f"M{left:.3f} {AXIS_Y} C{left:.3f} {top} {shoulder:.3f} {top} {shoulder:.3f} {top} H{right}"
         else:
-            curve = f'M{left:.3f} {AXIS_Y} C{left:.3f} {top} {right:.3f} {top} {right:.3f} {AXIS_Y}'
-        node('path', data_sign_interval=index, d=curve, fill='none', stroke='#000000', stroke_width='.75')
-        node('text', data_polynomial_sign=sign, x=f'{(left+right)/2:.3f}', y='46.5', text_anchor='middle',
-             font_family='Times New Roman,serif', font_size='11', fill='#000000').text = sign
-        for infinite, end, direction in ((left_infinite, LEFT, -1), (right_infinite, RIGHT, 1)):
+            curve = f"M{left:.3f} {AXIS_Y} C{left:.3f} {top} {right:.3f} {top} {right:.3f} {AXIS_Y}"
+        node(
+            "path",
+            data_sign_interval=index,
+            d=curve,
+            fill="none",
+            stroke="#000000",
+            stroke_width=".75",
+        )
+        node(
+            "text",
+            data_polynomial_sign=sign,
+            x=f"{(left + right) / 2:.3f}",
+            y="46.5",
+            text_anchor="middle",
+            font_family="Times New Roman,serif",
+            font_size="11",
+            fill="#000000",
+        ).text = sign
+        for infinite, end, direction in (
+            (left_infinite, LEFT, -1),
+            (right_infinite, RIGHT, 1),
+        ):
             if infinite:
-                node('path', d=f'M{end-direction*1.889:.3f} {top-.944:.3f} L{end} {top:.3f} L{end-direction*1.889:.3f} {top+.944:.3f}',
-                     fill='none', stroke='#000000', stroke_width='.75')
+                node(
+                    "path",
+                    d=f"M{end - direction * 1.889:.3f} {top - 0.944:.3f} L{end} {top:.3f} L{end - direction * 1.889:.3f} {top + 0.944:.3f}",
+                    fill="none",
+                    stroke="#000000",
+                    stroke_width=".75",
+                )
     for bound in bounds:
-        closed = any(not i.empty
-                     and (i.lower is None or bound > i.lower or bound == i.lower and i.lower_closed)
-                     and (i.upper is None or bound < i.upper or bound == i.upper and i.upper_closed)
-                     for i in intervals)
-        node('circle', cx=f'{coordinate(bound):.3f}', cy=AXIS_Y, r='2.688',
-             fill='#000000' if closed else 'white', stroke='#000000', stroke_width='.75')
-        label = number(bound).replace('{,}', ',')
-        if r'\frac' in label:
+        closed = any(
+            not i.empty
+            and (
+                i.lower is None
+                or bound > i.lower
+                or bound == i.lower
+                and i.lower_closed
+            )
+            and (
+                i.upper is None
+                or bound < i.upper
+                or bound == i.upper
+                and i.upper_closed
+            )
+            for i in intervals
+        )
+        node(
+            "circle",
+            cx=f"{coordinate(bound):.3f}",
+            cy=AXIS_Y,
+            r="2.688",
+            fill="#000000" if closed else "white",
+            stroke="#000000",
+            stroke_width=".75",
+        )
+        label = number(bound).replace("{,}", ",")
+        if r"\frac" in label:
             x = coordinate(bound)
-            width = max(len(str(abs(bound.numerator))), len(str(bound.denominator))) * 6 + 2
-            for value, baseline in ((str(abs(bound.numerator)), '63'), (str(bound.denominator), '76')):
-                node('text', data_root_fraction=str(bound), x=f'{x:.3f}', y=baseline, text_anchor='middle',
-                     font_family='Times New Roman,serif', font_size='11', fill='#000000').text = value
-            node('line', x1=f'{x-width/2:.3f}', x2=f'{x+width/2:.3f}', y1='66', y2='66', stroke='#000000', stroke_width='.6')
+            width = (
+                max(len(str(abs(bound.numerator))), len(str(bound.denominator))) * 6 + 2
+            )
+            for value, baseline in (
+                (str(abs(bound.numerator)), "63"),
+                (str(bound.denominator), "76"),
+            ):
+                node(
+                    "text",
+                    data_root_fraction=str(bound),
+                    x=f"{x:.3f}",
+                    y=baseline,
+                    text_anchor="middle",
+                    font_family="Times New Roman,serif",
+                    font_size="11",
+                    fill="#000000",
+                ).text = value
+            node(
+                "line",
+                x1=f"{x - width / 2:.3f}",
+                x2=f"{x + width / 2:.3f}",
+                y1="66",
+                y2="66",
+                stroke="#000000",
+                stroke_width=".6",
+            )
             if bound < 0:
-                node('text', x=f'{x-width/2-5:.3f}', y='69', text_anchor='middle',
-                     font_family='Times New Roman,serif', font_size='12', fill='#000000').text = '−'
+                node(
+                    "text",
+                    x=f"{x - width / 2 - 5:.3f}",
+                    y="69",
+                    text_anchor="middle",
+                    font_family="Times New Roman,serif",
+                    font_size="12",
+                    fill="#000000",
+                ).text = "−"
         else:
-            node('text', x=f'{coordinate(bound):.3f}', y='67.5', text_anchor='middle',
-                 font_family='Times New Roman,serif', font_size='12', fill='#000000').text = label
-    return ET.tostring(root, encoding='utf-8')
+            node(
+                "text",
+                x=f"{coordinate(bound):.3f}",
+                y="67.5",
+                text_anchor="middle",
+                font_family="Times New Roman,serif",
+                font_size="12",
+                fill="#000000",
+            ).text = label
+    return ET.tostring(root, encoding="utf-8")

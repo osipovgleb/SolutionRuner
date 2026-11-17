@@ -1,10 +1,11 @@
-""" Python implementation of
-    Algorithm for Automatically Fitting Digitized Curves
-    by Philip J. Schneider
-    "Graphics Gems", Academic Press, 1990
+"""Python implementation of
+Algorithm for Automatically Fitting Digitized Curves
+by Philip J. Schneider
+"Graphics Gems", Academic Press, 1990
 """
-from __future__ import print_function
+
 from numpy import *
+
 from . import bezier
 
 
@@ -18,9 +19,14 @@ def fitCurve(points, maxError):
 def fitCubic(points, leftTangent, rightTangent, error, generator=None):
     generate = generator or generateBezier
     # Use heuristic if region only has two points in it
-    if (len(points) == 2):
+    if len(points) == 2:
         dist = linalg.norm(points[0] - points[1]) / 3.0
-        bezCurve = [points[0], points[0] + leftTangent * dist, points[1] + rightTangent * dist, points[1]]
+        bezCurve = [
+            points[0],
+            points[0] + leftTangent * dist,
+            points[1] + rightTangent * dist,
+            points[1],
+        ]
         return [bezCurve]
 
     # Parameterize points, and attempt to fit curve
@@ -43,9 +49,13 @@ def fitCubic(points, leftTangent, rightTangent, error, generator=None):
 
     # Fitting failed -- split at max error point and fit recursively
     beziers = []
-    centerTangent = normalize(points[splitPoint-1] - points[splitPoint+1])
-    beziers += fitCubic(points[:splitPoint+1], leftTangent, centerTangent, error, generator)
-    beziers += fitCubic(points[splitPoint:], -centerTangent, rightTangent, error, generator)
+    centerTangent = normalize(points[splitPoint - 1] - points[splitPoint + 1])
+    beziers += fitCubic(
+        points[: splitPoint + 1], leftTangent, centerTangent, error, generator
+    )
+    beziers += fitCubic(
+        points[splitPoint:], -centerTangent, rightTangent, error, generator
+    )
 
     return beziers
 
@@ -56,8 +66,8 @@ def generateBezier(points, parameters, leftTangent, rightTangent):
     # compute the A's
     A = zeros((len(parameters), 2, 2))
     for i, u in enumerate(parameters):
-        A[i][0] = leftTangent  * 3*(1-u)**2 * u
-        A[i][1] = rightTangent * 3*(1-u)    * u**2
+        A[i][0] = leftTangent * 3 * (1 - u) ** 2 * u
+        A[i][1] = rightTangent * 3 * (1 - u) * u**2
 
     # Create the C and X matrices
     C = zeros((2, 2))
@@ -76,8 +86,8 @@ def generateBezier(points, parameters, leftTangent, rightTangent):
 
     # Compute the determinants of C and X
     det_C0_C1 = C[0][0] * C[1][1] - C[1][0] * C[0][1]
-    det_C0_X  = C[0][0] * X[1] - C[1][0] * X[0]
-    det_X_C1  = X[0] * C[1][1] - X[1] * C[0][1]
+    det_C0_X = C[0][0] * X[1] - C[1][0] * X[0]
+    det_X_C1 = X[0] * C[1][1] - X[1] * C[0][1]
 
     # Finally, derive alpha values
     alpha_l = 0.0 if det_C0_C1 == 0 else det_X_C1 / det_C0_C1
@@ -105,39 +115,41 @@ def generateBezier(points, parameters, leftTangent, rightTangent):
 
 
 def reparameterize(bezier, points, parameters):
-    return [newtonRaphsonRootFind(bezier, point, u) for point, u in zip(points, parameters)]
+    return [
+        newtonRaphsonRootFind(bezier, point, u) for point, u in zip(points, parameters)
+    ]
 
 
 def newtonRaphsonRootFind(bez, point, u):
     """
-       Newton's root finding algorithm calculates f(x)=0 by reiterating
-       x_n+1 = x_n - f(x_n)/f'(x_n)
+    Newton's root finding algorithm calculates f(x)=0 by reiterating
+    x_n+1 = x_n - f(x_n)/f'(x_n)
 
-       We are trying to find curve parameter u for some point p that minimizes
-       the distance from that point to the curve. Distance point to curve is d=q(u)-p.
-       At minimum distance the point is perpendicular to the curve.
-       We are solving
-       f = q(u)-p * q'(u) = 0
-       with
-       f' = q'(u) * q'(u) + q(u)-p * q''(u)
+    We are trying to find curve parameter u for some point p that minimizes
+    the distance from that point to the curve. Distance point to curve is d=q(u)-p.
+    At minimum distance the point is perpendicular to the curve.
+    We are solving
+    f = q(u)-p * q'(u) = 0
+    with
+    f' = q'(u) * q'(u) + q(u)-p * q''(u)
 
-       gives
-       u_n+1 = u_n - |q(u_n)-p * q'(u_n)| / |q'(u_n)**2 + q(u_n)-p * q''(u_n)|
+    gives
+    u_n+1 = u_n - |q(u_n)-p * q'(u_n)| / |q'(u_n)**2 + q(u_n)-p * q''(u_n)|
     """
-    d = bezier.q(bez, u)-point
+    d = bezier.q(bez, u) - point
     numerator = (d * bezier.qprime(bez, u)).sum()
-    denominator = (bezier.qprime(bez, u)**2 + d * bezier.qprimeprime(bez, u)).sum()
+    denominator = (bezier.qprime(bez, u) ** 2 + d * bezier.qprimeprime(bez, u)).sum()
 
     if denominator == 0.0:
         return u
     else:
-        return u - numerator/denominator
+        return u - numerator / denominator
 
 
 def chordLengthParameterize(points):
     u = [0.0]
     for i in range(1, len(points)):
-        u.append(u[i-1] + linalg.norm(points[i] - points[i-1]))
+        u.append(u[i - 1] + linalg.norm(points[i] - points[i - 1]))
 
     for i, _ in enumerate(u):
         u[i] = u[i] / u[-1]
@@ -147,9 +159,9 @@ def chordLengthParameterize(points):
 
 def computeMaxError(points, bez, parameters):
     maxDist = 0.0
-    splitPoint = len(points)/2
+    splitPoint = len(points) / 2
     for i, (point, u) in enumerate(zip(points, parameters)):
-        dist = linalg.norm(bezier.q(bez, u)-point)**2
+        dist = linalg.norm(bezier.q(bez, u) - point) ** 2
         if dist > maxDist:
             maxDist = dist
             splitPoint = i
@@ -159,4 +171,3 @@ def computeMaxError(points, bez, parameters):
 
 def normalize(v):
     return v / linalg.norm(v)
-

@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 from fractions import Fraction
 from pathlib import Path
-from typing import Literal, Mapping, TypeAlias
-
+from typing import Literal, TypeAlias
 
 StrategyKey: TypeAlias = Literal[
     "right-triangle",

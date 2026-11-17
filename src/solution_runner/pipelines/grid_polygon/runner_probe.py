@@ -3,20 +3,21 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import asdict, dataclass
-from decimal import Decimal, InvalidOperation
 import getpass
-from html import unescape
 import json
 import os
 import re
-from typing import Any, Callable, Iterable, Mapping, Protocol
+from collections.abc import Callable, Iterable, Mapping
+from dataclasses import asdict, dataclass
+from decimal import Decimal, InvalidOperation
+from html import unescape
+from typing import Any, Protocol
 
 from bs4 import BeautifulSoup
 
 from ..core.group_profiles import all_group_profiles
-from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 from ..core.models import GroupProfile
+from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 
 
 class RunnerProbeError(RuntimeError):
@@ -225,7 +226,7 @@ def probe_context(
     """Run one answered task through every unique registered content rule."""
 
     expected = stored_answer(context)
-    selected_profiles = tuple((profiles or all_group_profiles().values()))
+    selected_profiles = tuple(profiles or all_group_profiles().values())
     rules, content_profiles, geometry_profiles = _rule_groups(selected_profiles)
     parent_asset_id = _probe_parent_asset_id(context)
     parent_solution_assets = _probe_solution_assets(context)
@@ -246,7 +247,9 @@ def probe_context(
             computed = str(plan.answer)
         except Exception as exc:  # noqa: BLE001 - every strict parser is isolated.
             rejections.append(
-                RunnerRejection(rule, " ".join(str(exc).split())[:300] or type(exc).__name__)
+                RunnerRejection(
+                    rule, " ".join(str(exc).split())[:300] or type(exc).__name__
+                )
             )
             continue
         if answers_match(expected, computed):
@@ -272,7 +275,9 @@ def _resolved_problem_id(payload: Mapping[str, Any], source_problem_id: str) -> 
         problem_id = str(target.get("id") or target.get("uuid") or "").strip()
         resolved_source = str(target.get("source_id") or "").strip()
         if not problem_id:
-            raise RunnerProbeError("source problem lookup omitted the internal problem id")
+            raise RunnerProbeError(
+                "source problem lookup omitted the internal problem id"
+            )
         if resolved_source and resolved_source != source_problem_id:
             raise RunnerProbeError("source problem lookup returned a different task")
         return problem_id
@@ -301,7 +306,9 @@ def _parser() -> argparse.ArgumentParser:
         "--confirm-catalog",
         help="required with --source-problem-id to make lookup scope explicit",
     )
-    parser.add_argument("--json", action="store_true", help="emit the complete JSON report")
+    parser.add_argument(
+        "--json", action="store_true", help="emit the complete JSON report"
+    )
     parser.add_argument(
         "--show-rejections",
         action="store_true",
@@ -337,7 +344,9 @@ def _print_report(report: ProbeReport, *, show_rejections: bool) -> None:
     if show_rejections:
         for rejection in report.rejections:
             print(f"REJECTED {rejection.content_rule_key}  {rejection.reason}")
-    print("RESULT IS HEURISTIC: verify condition grammar, method, assets, and solution style.")
+    print(
+        "RESULT IS HEURISTIC: verify condition grammar, method, assets, and solution style."
+    )
 
 
 def main(argv: list[str] | None = None) -> int:

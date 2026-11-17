@@ -5,18 +5,23 @@ from __future__ import annotations
 from types import MappingProxyType
 
 from ..models import StrategyKey
-from .base_height_triangle import BaseHeightTriangleStrategy
 from .annulus_area import AnnulusAreaStrategy
 from .annulus_from_known_area import AnnulusFromKnownAreaStrategy
+from .base_height_triangle import BaseHeightTriangleStrategy
 from .bounding_rectangle_quadrilateral import BoundingRectangleQuadrilateralStrategy
+from .bounding_rectangle_trapezoid import (
+    BoundingRectangleTrapezoidStrategy,
+    TrapezoidPickStrategy,
+)
 from .bounding_rectangle_triangle import BoundingRectangleTriangleStrategy
-from .bounding_rectangle_trapezoid import BoundingRectangleTrapezoidStrategy, TrapezoidPickStrategy
 from .grid_cell_count import GridCellCountStrategy
-from .parallel_bases_trapezoid import ParallelBasesTrapezoidStrategy, ParallelBasesTrapezoidThreeMethodsStrategy
+from .parallel_bases_trapezoid import (
+    ParallelBasesTrapezoidStrategy,
+    ParallelBasesTrapezoidThreeMethodsStrategy,
+)
 from .parallelogram_three_methods import ParallelogramThreeMethodsStrategy
 from .protocol import SolutionStrategy
 from .right_triangle import RightTriangleStrategy
-
 
 _STRATEGIES = MappingProxyType(
     {

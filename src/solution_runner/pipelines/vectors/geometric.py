@@ -342,10 +342,19 @@ def build_context_repair_plan(context):
     asset_changes = ()
     # This unnumbered ABCD diagram shows precisely the two vectors in AB-AD.
     # Side lengths change between tasks; no values in the figure need changing.
-    if kind == "rectangle" and mode == "length" and expression == "AB-AD" and not condition.get("asset_keys"):
+    if (
+        kind == "rectangle"
+        and mode == "length"
+        and expression == "AB-AD"
+        and not condition.get("asset_keys")
+    ):
         if any(a.get("asset_key") == "image_1" for a in content.get("assets", [])):
-            raise UnsupportedCondition("the shared rectangle image key is already in use")
-        asset_changes = (_asset_transformation(_RECTANGLE_DIFFERENCE_ASSET, "", replace=False),)
+            raise UnsupportedCondition(
+                "the shared rectangle image key is already in use"
+            )
+        asset_changes = (
+            _asset_transformation(_RECTANGLE_DIFFERENCE_ASSET, "", replace=False),
+        )
     return solution_diagrams.repair(
         condition, answer, solution, _exact(value), html, keys, asset_changes
     )

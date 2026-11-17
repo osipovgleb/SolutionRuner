@@ -3,5 +3,11 @@
   "private": true,
   "dependencies": {
     "tesseract.js": "7.0.0"
+  },
+  "scripts": {
+    "quality:aislop": "python3 scripts/check_aislop_clean.py"
+  },
+  "devDependencies": {
+    "aislop": "latest"
   }
 }

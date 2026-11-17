@@ -25,16 +25,20 @@ def _daily_maximum(
 ) -> int:
     """Recalculate the requested daily maximum from one candidate trace."""
 
-    day_left = analysis.plot_left + analysis.requested_day_index * 4 * analysis.x_grid_step
+    day_left = (
+        analysis.plot_left + analysis.requested_day_index * 4 * analysis.x_grid_step
+    )
     day_right = day_left + 4 * analysis.x_grid_step
     day_curve = points[(points[:, 0] >= day_left) & (points[:, 0] <= day_right)]
     if len(day_curve) < 20:
         raise ValueError("smoothed requested day has insufficient curve evidence")
     peak_y = float(np.percentile(day_curve[:, 1], 1.0))
     maximum = analysis.degrees_per_pixel * peak_y + analysis.temperature_intercept
-    rounded = int(round(maximum))
+    rounded = round(maximum)
     if abs(maximum - rounded) > 0.30:
-        raise ValueError(f"smoothed daily maximum is off the integer scale: {maximum:.3f}")
+        raise ValueError(
+            f"smoothed daily maximum is off the integer scale: {maximum:.3f}"
+        )
     return rounded
 
 
@@ -49,7 +53,9 @@ def smooth_temperature_curve(
     if points.ndim != 2 or points.shape[1] != 2 or len(points) < 20:
         raise ValueError("temperature trace has insufficient smoothing evidence")
     if np.any(np.diff(points[:, 0]) <= 0):
-        raise ValueError("temperature trace x-coordinates must be unique and increasing")
+        raise ValueError(
+            "temperature trace x-coordinates must be unique and increasing"
+        )
     if analysis.y_grid_step <= 0:
         raise ValueError("temperature y-grid step must be positive")
 

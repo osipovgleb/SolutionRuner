@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from math import ceil, hypot
-import re
 from statistics import median
 from xml.etree import ElementTree
-
 
 _NUMBER = r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?"
 
@@ -61,7 +60,11 @@ def _line_grid(root: ElementTree.Element) -> tuple[float, float, float]:
 
     def spacing(values: list[float]) -> float | None:
         ordered = sorted({round(value, 3) for value in values})
-        diffs = [right - left for left, right in zip(ordered, ordered[1:]) if right - left > 2.0]
+        diffs = [
+            right - left
+            for left, right in zip(ordered, ordered[1:])
+            if right - left > 2.0
+        ]
         return median(diffs) if diffs else None
 
     x_step = spacing(vertical)
@@ -134,9 +137,8 @@ def _circle_like_paths(root: ElementTree.Element) -> list[tuple[float, float, fl
         style = str(element.get("style") or "").replace(" ", "").lower()
         fill = str(element.get("fill") or "").strip().lower()
         stroke = str(element.get("stroke") or "").strip().lower()
-        is_outline = (
-            (fill == "none" or "fill:none" in style)
-            and (stroke not in {"", "none"} or "stroke:" in style)
+        is_outline = (fill == "none" or "fill:none" in style) and (
+            stroke not in {"", "none"} or "stroke:" in style
         )
         if is_outline:
             outlines.extend(recovered)
@@ -179,7 +181,7 @@ def _nearest_lattice_radius_squared(radius_cells: float) -> int:
     """Return the closest non-zero sum of two integer squares."""
 
     target = radius_cells * radius_cells
-    limit = max(2, int(ceil(radius_cells)) + 2)
+    limit = max(2, ceil(radius_cells) + 2)
     representable = {
         dx * dx + dy * dy
         for dx in range(-limit, limit + 1)
@@ -195,7 +197,7 @@ def _point_on_lattice_circle(
 ) -> tuple[int, int]:
     """Return one deterministic lattice point at the requested squared radius."""
 
-    limit = int(ceil(radius_squared**0.5))
+    limit = ceil(radius_squared**0.5)
     offsets = sorted(
         (dx, dy)
         for dx in range(-limit, limit + 1)
@@ -248,12 +250,12 @@ def parse_ring_svg(svg_bytes: bytes) -> RingSvgGeometry:
     if inner_squared >= outer_squared:
         raise RingGeometryError("ring SVG radii are invalid")
     center = (
-        int(round((outer[0] - min_grid_x) / cell)),
-        int(round((outer[1] - min_grid_y) / cell)),
+        round((outer[0] - min_grid_x) / cell),
+        round((outer[1] - min_grid_y) / cell),
     )
     inner_center = (
-        int(round((inner[0] - min_grid_x) / cell)),
-        int(round((inner[1] - min_grid_y) / cell)),
+        round((inner[0] - min_grid_x) / cell),
+        round((inner[1] - min_grid_y) / cell),
     )
     return RingSvgGeometry(
         center=center,

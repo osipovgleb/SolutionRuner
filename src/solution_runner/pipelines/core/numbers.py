@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+import re
 from fractions import Fraction
 from math import isqrt
-import re
 
 
 class NumberFormatError(ValueError):

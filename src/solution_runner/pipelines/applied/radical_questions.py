@@ -66,7 +66,11 @@ def make_question(kind, match):
             "the complete square-root formula must match its physical law"
         )
     values = {
-        k: (sp.Integer(count(v)) if k == "target" and kind == "root_horizon_km" and re.fullmatch(COUNT, v) else scalar("1" if v == "один" else v.replace(" ", "")))
+        k: (
+            sp.Integer(count(v))
+            if k == "target" and kind == "root_horizon_km" and re.fullmatch(COUNT, v)
+            else scalar("1" if v == "один" else v.replace(" ", ""))
+        )
         for k, v in match.groupdict().items()
         if k not in _TEXT_FIELDS and v is not None
     }

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from .models import GroupProfile
 
-
 CATALOG_SNAPSHOT_ID = "4073fc7b-2056-4697-b18b-38741c94d0f4"
 TRAPEZOID_THEME_ID = "26af5056-7c19-4148-85a2-ce95069d8760"
 TRIANGLE_THEME_ID = "3913765c-3750-456e-aaff-2fc050bc8821"

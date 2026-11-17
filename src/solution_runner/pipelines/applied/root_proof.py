@@ -35,7 +35,11 @@ def motion(a):
         html += line(r"v^2=2la")
         native = v["speed"] ** 2 / (2 * v["acceleration"])
         try:
-            native_decimal = answer(native).replace(",", "{,}") if native.is_Integer is not True else ""
+            native_decimal = (
+                answer(native).replace(",", "{,}")
+                if native.is_Integer is not True
+                else ""
+            )
         except ValueError:
             native_decimal = ""
         html += line(
@@ -46,7 +50,9 @@ def motion(a):
             + "}="
             + sp.latex(native)
             + ("=" + native_decimal if native_decimal else "")
-            + r"\ \text{" + v["native_unit"] + "}"
+            + r"\ \text{"
+            + v["native_unit"]
+            + "}"
         )
         if v["native_unit"] != q.unit:
             html += "<p>По единицам скорости и ускорения путь получен в исходных единицах. Переведём его в единицы ответа:</p>"
@@ -69,22 +75,35 @@ def motion(a):
     else:
         if v["path"] != v["native_path"]:
             html += line(
-            "l="
-            + (
-                sp.latex(v["path"])
-                + r"\cdot"
-                + sp.latex(v["native_path"] / v["path"])
-                + "="
-                if v["path"] != v["native_path"]
-                else ""
+                "l="
+                + (
+                    sp.latex(v["path"])
+                    + r"\cdot"
+                    + sp.latex(v["native_path"] / v["path"])
+                    + "="
+                    if v["path"] != v["native_path"]
+                    else ""
+                )
+                + sp.latex(v["native_path"])
+                + r"\ \text{"
+                + v["native_unit"]
+                + "}"
             )
+        html += line(
+            r"\sqrt{2\cdot"
             + sp.latex(v["native_path"])
-            + r"\ \text{"
-            + v["native_unit"]
-            + "}"
+            + r"\cdot a}"
+            + relation
+            + sp.latex(v["speed"])
         )
-        html += line(r"\sqrt{2\cdot" + sp.latex(v["native_path"]) + r"\cdot a}" + relation + sp.latex(v["speed"]))
-        html += line("2\\cdot" + sp.latex(v["native_path"]) + r"\cdot a" + relation + sp.latex(v["speed"]) + "^2")
+        html += line(
+            "2\\cdot"
+            + sp.latex(v["native_path"])
+            + r"\cdot a"
+            + relation
+            + sp.latex(v["speed"])
+            + "^2"
+        )
         html += line(
             "2\\cdot"
             + sp.latex(v["native_path"])
@@ -116,7 +135,16 @@ def horizon(a):
     html += line(r"l=\sqrt{2Rh}" if km else r"l=\sqrt{\frac{Rh}{500}}")
     html += line("l^2=" + ("2Rh" if km else r"\frac{Rh}{500}"))
     html += line(sp.latex(v["target"]) + "^2=" + sp.latex(coefficient) + "h")
-    h_line = (r"h=\frac{" + sp.latex(v["target"]) + r"\cdot" + sp.latex(v["target"]) + "}{" + sp.latex(coefficient) + "}=" + sp.latex(a.result))
+    h_line = (
+        r"h=\frac{"
+        + sp.latex(v["target"])
+        + r"\cdot"
+        + sp.latex(v["target"])
+        + "}{"
+        + sp.latex(coefficient)
+        + "}="
+        + sp.latex(a.result)
+    )
     if a.result.is_Integer is not True:
         h_line += "=" + answer(a.result).replace(",", "{,}")
     html += line(h_line + r"\ \text{" + q.unit + "}")
@@ -139,8 +167,21 @@ def steps(a):
     rise = max(needed - initial, 0)
     html = _heights(v)
     if needed <= initial:
-        return html + "<p>Требуемая дальность уже достигнута, подниматься не нужно.</p>" + final(a, True)
-    html += line(r"\Delta h=h_2-h_1=" + sp.latex(needed) + "-" + sp.latex(initial) + "=" + sp.latex(rise) + r"\ \text{м}")
+        return (
+            html
+            + "<p>Требуемая дальность уже достигнута, подниматься не нужно.</p>"
+            + final(a, True)
+        )
+    html += line(
+        r"\Delta h=h_2-h_1="
+        + sp.latex(needed)
+        + "-"
+        + sp.latex(initial)
+        + "="
+        + sp.latex(rise)
+        + r"\ \text{м}"
+    )
+
     def exact_text(number):
         try:
             return answer(number).replace(",", "{,}")
@@ -154,8 +195,21 @@ def steps(a):
     if not quotient.is_Integer:
         decimal = f"{float(quotient):.3f}".rstrip("0").rstrip(".").replace(".", "{,}")
         quotient_text += r"\approx " + decimal
-    html += line(r"h_{\text{ступеньки}}=" + sp.latex(v["step"]) + r"\ \text{см}=" + step + r"\ \text{м}")
-    html += line(r"\frac{\Delta h}{h_{\text{ступеньки}}}=\frac{" + rise_text + "}{" + step + "}=" + quotient_text)
+    html += line(
+        r"h_{\text{ступеньки}}="
+        + sp.latex(v["step"])
+        + r"\ \text{см}="
+        + step
+        + r"\ \text{м}"
+    )
+    html += line(
+        r"\frac{\Delta h}{h_{\text{ступеньки}}}=\frac{"
+        + rise_text
+        + "}{"
+        + step
+        + "}="
+        + quotient_text
+    )
     html += "<p>Количество ступенек должно быть целым, поэтому берём ближайшее целое не меньше полученного числа.</p>"
     html += final(a, True)
     return html
@@ -178,18 +232,30 @@ def rocket(a):
         + sp.latex(v["target"])
         + r"\iff \sqrt{1-\frac{v^2}{"
         + sp.latex(v["light"] ** 2)
-        + r"}}=\frac{" + sp.latex(v["target"]) + "}{" + sp.latex(v["length"]) + "}"
+        + r"}}=\frac{"
+        + sp.latex(v["target"])
+        + "}{"
+        + sp.latex(v["length"])
+        + "}"
         + r"\iff 1-\frac{v^2}{"
         + sp.latex(v["light"] ** 2)
-        + r"}=\left(\frac{" + sp.latex(v["target"]) + "}{" + sp.latex(v["length"]) + r"}\right)^2"
+        + r"}=\left(\frac{"
+        + sp.latex(v["target"])
+        + "}{"
+        + sp.latex(v["length"])
+        + r"}\right)^2"
         + r"\iff 1-\frac{v^2}{"
         + sp.latex(v["light"] ** 2)
         + "}="
         + sp.latex((v["target"] / v["length"]) ** 2)
-        + r"\iff \frac{v^2}{" + sp.latex(v["light"] ** 2) + "}="
+        + r"\iff \frac{v^2}{"
+        + sp.latex(v["light"] ** 2)
+        + "}="
         + sp.latex(1 - (v["target"] / v["length"]) ** 2)
-        + r"\iff v^2=" + sp.latex(ratio)
-        + r"\iff v=" + sp.latex(a.result)
+        + r"\iff v^2="
+        + sp.latex(ratio)
+        + r"\iff v="
+        + sp.latex(a.result)
     )
     return html
 
@@ -220,9 +286,19 @@ def rise(a):
     v = a.question.values
     initial = v["initial_height"]
     needed = 500 * v["target"] ** 2 / v["radius"]
-    return (_heights(v)
+    return (
+        _heights(v)
         + "<p>Чтобы видеть горизонт дальше, нужно подняться на разность найденных высот:</p>"
-        + line(r"\Delta h=h_2-h_1=" + sp.latex(needed) + "-" + sp.latex(initial) + "=" + sp.latex(a.result) + r"\ \text{м}"))
+        + line(
+            r"\Delta h=h_2-h_1="
+            + sp.latex(needed)
+            + "-"
+            + sp.latex(initial)
+            + "="
+            + sp.latex(a.result)
+            + r"\ \text{м}"
+        )
+    )
 
 
 PROOFS = {

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import io
+import itertools
 import re
 from collections import Counter
 from pathlib import Path
@@ -10,7 +11,6 @@ import cv2
 import numpy as np
 import requests
 from PIL import Image
-
 
 GRAYSCALE_FILL_RGBA = np.asarray([153, 153, 153, 255], dtype=np.uint8)
 EMBEDDED_GRID_RGBA = np.asarray([112, 112, 112, 255], dtype=np.uint8)
@@ -43,7 +43,7 @@ def load_image(src: str) -> tuple[np.ndarray, str]:
 def extract_id(src: str) -> str:
     try:
         q = parse_qs(urlparse(src).query)
-        if "id" in q and q["id"]:
+        if q.get("id"):
             return q["id"][0]
     except Exception:
         pass
@@ -68,7 +68,7 @@ def contrast_mask(
     edges = cv2.Canny(gray, lo, hi)
 
     th = float(np.quantile(smooth, quantile))
-    mask = ((smooth > th).astype(np.uint8) * 255)
+    mask = (smooth > th).astype(np.uint8) * 255
     mask = cv2.bitwise_or(mask, edges)
 
     if alpha is not None:
@@ -76,7 +76,9 @@ def contrast_mask(
         mask = cv2.bitwise_and(mask, alpha_mask)
 
     if close_px > 0:
-        k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (close_px * 2 + 1, close_px * 2 + 1))
+        k = cv2.getStructuringElement(
+            cv2.MORPH_ELLIPSE, (close_px * 2 + 1, close_px * 2 + 1)
+        )
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, k)
 
     num, labels, stats, _ = cv2.connectedComponentsWithStats(mask, connectivity=8)
@@ -98,7 +100,9 @@ def contrast_mask(
     return filtered, info
 
 
-def infer_cell_size_from_svg(template_svg: Path | None = None, decimals: int = 3) -> float:
+def infer_cell_size_from_svg(
+    template_svg: Path | None = None, decimals: int = 3
+) -> float:
     if template_svg is None or not template_svg.exists():
         return 1.0
 
@@ -120,7 +124,9 @@ def infer_cell_size_from_svg(template_svg: Path | None = None, decimals: int = 3
         except Exception:
             return None
 
-    view_box = re.search(r'viewBox\s*=\s*["\']([^"\']+)["\']', text, flags=re.IGNORECASE)
+    view_box = re.search(
+        r'viewBox\s*=\s*["\']([^"\']+)["\']', text, flags=re.IGNORECASE
+    )
     vb_w = vb_h = None
     if view_box:
         values = re.findall(r"[-+]?\d+(?:\.\d+)?", view_box.group(1))
@@ -156,7 +162,7 @@ def infer_cell_size_from_svg(template_svg: Path | None = None, decimals: int = 3
         vals = sorted({round(v, decimals) for v in values})
         if len(vals) < 2:
             return 1.0
-        diffs = [b - a for a, b in zip(vals[:-1], vals[1:]) if b > a and b - a > 1.0]
+        diffs = [b - a for a, b in itertools.pairwise(vals) if b > a and b - a > 1.0]
         if not diffs:
             return 1.0
         return float(np.median(diffs))
@@ -203,7 +209,7 @@ def quad_from_mask(
 
     if expected_vertices not in {None, 3, 4}:
         raise ValueError("unsupported_polygon_vertex_count")
-    ys, xs = np.where(mask > 0)
+    _ys, xs = np.where(mask > 0)
     if len(xs) == 0:
         return []
 
@@ -251,7 +257,7 @@ def quad_from_mask(
 
     center = pts.mean(axis=0)
     vectors = pts - center
-    d = np.sqrt((vectors[:, 0] ** 2 + vectors[:, 1] ** 2))
+    d = np.sqrt(vectors[:, 0] ** 2 + vectors[:, 1] ** 2)
     d[d == 0] = 1.0
 
     pad = max(0.0, float(pad_cells) * float(cell_size))
@@ -296,8 +302,13 @@ def alpha_shape_mask(rgba: np.ndarray) -> tuple[np.ndarray, dict]:
     ys, xs = np.where(component > 0)
     return component, {
         "alpha_shape_threshold": threshold,
-        "alpha_shape_pixels": int(len(xs)),
-        "alpha_shape_bbox": (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())),
+        "alpha_shape_pixels": len(xs),
+        "alpha_shape_bbox": (
+            int(xs.min()),
+            int(ys.min()),
+            int(xs.max()),
+            int(ys.max()),
+        ),
     }
 
 
@@ -366,8 +377,6 @@ def grayscale_shape_mask(rgba: np.ndarray) -> tuple[np.ndarray, dict]:
         band = cv2.morphologyEx(band, cv2.MORPH_CLOSE, kernel)
         count, labels, stats, _ = cv2.connectedComponentsWithStats(band, connectivity=8)
         for label in range(1, count):
-            x = int(stats[label, cv2.CC_STAT_LEFT])
-            y = int(stats[label, cv2.CC_STAT_TOP])
             width = int(stats[label, cv2.CC_STAT_WIDTH])
             height = int(stats[label, cv2.CC_STAT_HEIGHT])
             area = int(stats[label, cv2.CC_STAT_AREA])
@@ -387,8 +396,13 @@ def grayscale_shape_mask(rgba: np.ndarray) -> tuple[np.ndarray, dict]:
     ys, xs = np.where(component > 0)
     return component, {
         "alpha_shape_threshold": f"gray_mode:{selected_center}+/-{tolerance}",
-        "alpha_shape_pixels": int(len(xs)),
-        "alpha_shape_bbox": (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())),
+        "alpha_shape_pixels": len(xs),
+        "alpha_shape_bbox": (
+            int(xs.min()),
+            int(ys.min()),
+            int(xs.max()),
+            int(ys.max()),
+        ),
     }
 
 
@@ -412,8 +426,13 @@ def opaque_color_shape_mask(rgba: np.ndarray) -> tuple[np.ndarray, dict]:
     ys, xs = np.where(component > 0)
     return component, {
         "alpha_shape_threshold": f"saturation>{saturation_threshold}",
-        "alpha_shape_pixels": int(len(xs)),
-        "alpha_shape_bbox": (int(xs.min()), int(ys.min()), int(xs.max()), int(ys.max())),
+        "alpha_shape_pixels": len(xs),
+        "alpha_shape_bbox": (
+            int(xs.min()),
+            int(ys.min()),
+            int(xs.max()),
+            int(ys.max()),
+        ),
     }
 
 
@@ -443,7 +462,9 @@ def _projection_bands(signal: np.ndarray, vertical: bool) -> list[float]:
         weights = scores[group]
         if float(weights.sum()) <= 0:
             continue
-        centers.append(float(np.average(np.asarray(group, dtype=np.float64), weights=weights)))
+        centers.append(
+            float(np.average(np.asarray(group, dtype=np.float64), weights=weights))
+        )
     return centers
 
 
@@ -457,7 +478,11 @@ def _fit_grid_axis(
 
     values = np.asarray(sorted(centers), dtype=np.float64)
     pairwise = np.asarray(
-        [values[j] - values[i] for i in range(len(values)) for j in range(i + 1, len(values))],
+        [
+            values[j] - values[i]
+            for i in range(len(values))
+            for j in range(i + 1, len(values))
+        ],
         dtype=np.float64,
     )
     min_step = max(12.0, float(axis_size) * 0.04)
@@ -494,7 +519,7 @@ def _fit_grid_axis(
                     matched[index] = (float(value), float(residual))
             if len(matched) < 4:
                 continue
-            expected = max(1, int(round(float(axis_size) / candidate)) + 1)
+            expected = max(1, round(float(axis_size) / candidate) + 1)
             coverage = min(1.0, len(matched) / expected)
             score = (len(matched), coverage, -sum(item[1] for item in matched.values()))
             if best is None or score > best[0]:
@@ -503,9 +528,11 @@ def _fit_grid_axis(
     if best is None:
         raise ValueError("alpha_grid_phase_not_found")
 
-    _, step_seed, matched = best
+    _, _step_seed, matched = best
     lattice = np.asarray(sorted(matched), dtype=np.float64)
-    matched_values = np.asarray([matched[int(index)][0] for index in lattice], dtype=np.float64)
+    matched_values = np.asarray(
+        [matched[int(index)][0] for index in lattice], dtype=np.float64
+    )
     design = np.column_stack([np.ones_like(lattice), lattice])
     origin, step = np.linalg.lstsq(design, matched_values, rcond=None)[0]
     residuals = np.abs(matched_values - (origin + lattice * step))
@@ -518,7 +545,7 @@ def _fit_grid_axis(
         "step": float(step),
         "max_residual": float(residuals.max()) if residuals.size else 0.0,
         "mean_residual": float(residuals.mean()) if residuals.size else 0.0,
-        "matched_count": int(len(matched)),
+        "matched_count": len(matched),
         "expected_count": int(max(1, round(float(axis_size) / float(step)) + 1)),
         "coverage": float(
             min(1.0, len(matched) / max(1, round(float(axis_size) / float(step)) + 1))
@@ -547,19 +574,20 @@ def _square_step_candidates(
         for distance in np.diff(values):
             distance = float(distance)
             if min_step <= distance <= max_step:
-                votes[int(round(distance / quantum))] += 2.0
+                votes[round(distance / quantum)] += 2.0
 
-        for i in range(len(values)):
-            for j in range(i + 1, len(values)):
-                distance = float(values[j] - values[i])
-                max_divisor = min(12, int(distance // min_step))
-                for divisor in range(1, max_divisor + 1):
-                    step = distance / float(divisor)
-                    if min_step <= step <= max_step:
-                        votes[int(round(step / quantum))] += 1.0 / np.sqrt(divisor)
+        for left, right in itertools.combinations(values, 2):
+            distance = float(right - left)
+            max_divisor = min(12, int(distance // min_step))
+            for divisor in range(1, max_divisor + 1):
+                step = distance / float(divisor)
+                if min_step <= step <= max_step:
+                    votes[round(step / quantum)] += 1.0 / np.sqrt(divisor)
 
         try:
-            raw_axis = _fit_grid_axis(list(values), int(width if centers is x_centers else height))
+            raw_axis = _fit_grid_axis(
+                list(values), int(width if centers is x_centers else height)
+            )
         except ValueError:
             raw_axis = None
         if raw_axis is not None:
@@ -567,7 +595,7 @@ def _square_step_candidates(
             for multiplier, weight in ((0.5, 2.0), (1.0, 6.0), (2.0, 3.0), (3.0, 1.5)):
                 step = raw_step * multiplier
                 if min_step <= step <= max_step:
-                    votes[int(round(step / quantum))] += weight
+                    votes[round(step / quantum)] += weight
 
     ranked = sorted(votes.items(), key=lambda item: (-item[1], item[0]))[:120]
     return [(float(index) * quantum, float(weight)) for index, weight in ranked]
@@ -757,7 +785,9 @@ def _fit_square_lattice(
         raise ValueError("square_grid_lattice_not_found")
 
     ranked_fits.sort(key=lambda item: item[:5], reverse=True)
-    score, balanced_coverage, matched_total, neg_residual, step, x_axis, y_axis = ranked_fits[0]
+    score, balanced_coverage, matched_total, neg_residual, step, x_axis, y_axis = (
+        ranked_fits[0]
+    )
     normalized_residual = -float(neg_residual)
     average_coverage = (float(x_axis["coverage"]) + float(y_axis["coverage"])) / 2.0
     average_full_coverage = (
@@ -856,9 +886,7 @@ def infer_grid_from_grayscale(rgba: np.ndarray) -> dict:
     gray = cv2.cvtColor(rgba[:, :, :3], cv2.COLOR_RGB2GRAY).astype(np.int16)
     vertical_response = np.zeros_like(gray)
     horizontal_response = np.zeros_like(gray)
-    vertical_response[:, 1:-1] = np.abs(
-        2 * gray[:, 1:-1] - gray[:, :-2] - gray[:, 2:]
-    )
+    vertical_response[:, 1:-1] = np.abs(2 * gray[:, 1:-1] - gray[:, :-2] - gray[:, 2:])
     horizontal_response[1:-1, :] = np.abs(
         2 * gray[1:-1, :] - gray[:-2, :] - gray[2:, :]
     )
@@ -916,8 +944,8 @@ def _snap_quad_to_alpha_grid(
     y_step = float(grid["y"]["step"])
 
     for x, y in quad:
-        ix = int(round((x - x_origin) / x_step))
-        iy = int(round((y - y_origin) / y_step))
+        ix = round((x - x_origin) / x_step)
+        iy = round((y - y_origin) / y_step)
         indices.append((ix, iy))
         snapped.append((x_origin + ix * x_step, y_origin + iy * y_step))
 
@@ -978,7 +1006,7 @@ def _measure_axis_step(axis: dict) -> float:
     closest_by_index: dict[int, tuple[float, float]] = {}
 
     for value in observed:
-        index = int(round((value - origin) / reference_step))
+        index = round((value - origin) / reference_step)
         predicted = origin + index * reference_step
         residual = abs(value - predicted)
         previous = closest_by_index.get(index)
@@ -998,8 +1026,7 @@ def _measure_axis_step(axis: dict) -> float:
 
     if len(selected) < 2:
         selected = sorted(
-            (index, value)
-            for index, (_, value) in closest_by_index.items()
+            (index, value) for index, (_, value) in closest_by_index.items()
         )
 
     slopes = [
@@ -1027,22 +1054,19 @@ def _source_grid_coordinates(
     x_axis = grid["x"]
     y_axis = grid["y"]
     if grid.get("coordinate_anchor") == "canvas":
-        x_zero = int(round(-float(x_axis["origin"]) / float(x_axis["step"])))
+        x_zero = round(-float(x_axis["origin"]) / float(x_axis["step"]))
         source_height = float(grid["source_height"])
-        y_zero = int(
-            round(
-                (source_height - float(y_axis["origin"]))
-                / float(y_axis["step"])
-            )
+        y_zero = round(
+            (source_height - float(y_axis["origin"])) / float(y_axis["step"])
         )
         return [(int(ix - x_zero), int(y_zero - iy)) for ix, iy in grid_indices]
 
     x_observed_indices = [
-        int(round((float(value) - float(x_axis["origin"])) / float(x_axis["step"])))
+        round((float(value) - float(x_axis["origin"])) / float(x_axis["step"]))
         for value in x_axis["observed"]
     ]
     y_observed_indices = [
-        int(round((float(value) - float(y_axis["origin"])) / float(y_axis["step"])))
+        round((float(value) - float(y_axis["origin"])) / float(y_axis["step"]))
         for value in y_axis["observed"]
     ]
     x_zero = min(x_observed_indices)
@@ -1052,7 +1076,7 @@ def _source_grid_coordinates(
 
 def _fmt_num(v: float) -> str:
     if abs(v - round(v)) < 1e-6:
-        return str(int(round(v)))
+        return str(round(v))
     return f"{v:.3f}".rstrip("0").rstrip(".")
 
 
@@ -1142,7 +1166,7 @@ def _collect_grid_from_lines(line_nodes: list[str]) -> tuple[list[float], list[f
     def _dedup(vals: list[float], eps: float = 0.75) -> list[float]:
         if not vals:
             return []
-        vals = sorted(set(round(v, 4) for v in vals))
+        vals = sorted({round(v, 4) for v in vals})
         out = [vals[0]]
         for v in vals[1:]:
             if abs(v - out[-1]) >= eps:
@@ -1167,7 +1191,7 @@ def _snap_to_grid_points_by_side(
     if grid_x:
         left_x = min(grid_x, key=lambda x: abs(x - min(xs)))
         right_x = min(grid_x, key=lambda x: abs(x - max(xs)))
-        sx = sorted(set(round(x, 4) for x in grid_x))
+        sx = sorted({round(x, 4) for x in grid_x})
         # force pair for symmetry in rare cases
         if abs(left_x - right_x) < 1e-6 and len(sx) >= 2:
             right_x = sx[1] if sx[0] == left_x else sx[0]
@@ -1175,17 +1199,15 @@ def _snap_to_grid_points_by_side(
     if grid_y:
         top_y = min(grid_y, key=lambda y: abs(y - min(ys)))
         bot_y = min(grid_y, key=lambda y: abs(y - max(ys)))
-        sy = sorted(set(round(y, 4) for y in grid_y))
+        sy = sorted({round(y, 4) for y in grid_y})
         if abs(top_y - bot_y) < 1e-6 and len(sy) >= 2:
             bot_y = sy[1] if sy[0] == top_y else sy[0]
 
     idx_by_y = sorted(range(4), key=lambda i: ys[i])
     top_set = set(idx_by_y[:2])
-    bot_set = set(idx_by_y[2:])
 
     idx_by_x = sorted(range(4), key=lambda i: xs[i])
     left_set = set(idx_by_x[:2])
-    right_set = set(idx_by_x[2:])
 
     out = []
     for i, (x, y) in enumerate(quad):
@@ -1200,7 +1222,9 @@ def _snap_to_grid_points_by_side(
     return out
 
 
-def _infer_grid_from_gray(gray: np.ndarray, comp_bbox: tuple[float, float, float, float] | None = None) -> tuple[list[float], list[float]]:
+def _infer_grid_from_gray(
+    gray: np.ndarray, comp_bbox: tuple[float, float, float, float] | None = None
+) -> tuple[list[float], list[float]]:
     h, w = gray.shape
     if h < 20 or w < 20:
         return [], []
@@ -1248,7 +1272,7 @@ def _infer_grid_from_gray(gray: np.ndarray, comp_bbox: tuple[float, float, float
     def _dedup(vals: list[float], eps: float = 3.0) -> list[float]:
         if not vals:
             return []
-        vals = sorted(set(round(v, 3) for v in vals))
+        vals = sorted({round(v, 3) for v in vals})
         out = [vals[0]]
         for v in vals[1:]:
             if abs(v - out[-1]) >= eps:
@@ -1285,7 +1309,9 @@ def _extract_template_layers(template_svg: Path | None):
                 vb_w = vb_h = None
 
     line_nodes = re.findall(r"<line\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL)
-    polygon_nodes = re.findall(r"<polygon\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL)
+    polygon_nodes = re.findall(
+        r"<polygon\b[^>]*>", text, flags=re.IGNORECASE | re.DOTALL
+    )
     grid_x, grid_y = _collect_grid_from_lines(line_nodes)
 
     vertical_grid_line = None
@@ -1324,7 +1350,12 @@ def _extract_template_layers(template_svg: Path | None):
         maxy = max(p[1] for p in points)
         in_box = False
         if vb_w and vb_h:
-            in_box = (minx >= -1e-6 and maxx <= vb_w + 1e-6 and miny >= -1e-6 and maxy <= vb_h + 1e-6)
+            in_box = (
+                minx >= -1e-6
+                and maxx <= vb_w + 1e-6
+                and miny >= -1e-6
+                and maxy <= vb_h + 1e-6
+            )
         fill_polygons.append((area, in_box, node))
 
     fill_polygon = None
@@ -1338,7 +1369,9 @@ def _extract_template_layers(template_svg: Path | None):
     outline_candidates = []
     for node in polygon_nodes:
         fill = re.search(r'fill\s*=\s*["\']([^"\']+)["\']', node, flags=re.IGNORECASE)
-        stroke = re.search(r'stroke\s*=\s*["\']([^"\']+)["\']', node, flags=re.IGNORECASE)
+        stroke = re.search(
+            r'stroke\s*=\s*["\']([^"\']+)["\']', node, flags=re.IGNORECASE
+        )
         if not stroke:
             continue
         fill_is_none = fill and fill.group(1).strip().lower() == "none"
@@ -1382,9 +1415,7 @@ def edge_segments_from_quad(poly: list[tuple[float, float]]) -> list[str]:
     if len(poly) < 3:
         return []
     out = []
-    for i in range(len(poly)):
-        x1, y1 = poly[i]
-        x2, y2 = poly[(i + 1) % len(poly)]
+    for (x1, y1), (x2, y2) in zip(poly, poly[1:] + poly[:1]):
         out.append(f"M{_fmt_num(x1)},{_fmt_num(y1)} L{_fmt_num(x2)},{_fmt_num(y2)}")
     return out
 
@@ -1409,7 +1440,6 @@ def svg_for_mask(
         raise ValueError("no_contours")
 
     ys, xs = np.where(comp > 0)
-    comp_bbox = (float(xs.min()), float(ys.min()), float(xs.max()), float(ys.max()))
 
     source_quad = quad_from_mask(
         comp,
@@ -1424,7 +1454,9 @@ def svg_for_mask(
 
     if alpha_grid is None:
         raise ValueError("alpha_grid_required")
-    snapped_source_quad, grid_indices = _snap_quad_to_alpha_grid(source_quad, alpha_grid)
+    snapped_source_quad, grid_indices = _snap_quad_to_alpha_grid(
+        source_quad, alpha_grid
+    )
     source_grid_points = _source_grid_coordinates(grid_indices, alpha_grid)
 
     template = _extract_template_layers(template_svg)
@@ -1482,16 +1514,18 @@ def svg_for_mask(
         svg += (
             f'<g id="prototype-fill" fill="{fill}" stroke="none">\n'
             f'  <path d="{poly_path}"/>\n'
-            '</g>\n'
+            "</g>\n"
         )
 
     if template and template.get("outline_polygon"):
         svg += f"  {_replace_points(template['outline_polygon'], points_attr)}\n"
     else:
-        svg += '<g id="prototype-sections" fill="none" stroke="#000" stroke-width="1">\n'
+        svg += (
+            '<g id="prototype-sections" fill="none" stroke="#000" stroke-width="1">\n'
+        )
         for i, p in enumerate(edge_paths):
             svg += f'  <path id="edge-{i}" d="{p}"/>\n'
-        svg += '  </g>\n'
+        svg += "  </g>\n"
 
     scale_x1 = float(padding) * float(cell_size)
     scale_x2 = scale_x1 + float(cell_size)
@@ -1509,11 +1543,11 @@ def svg_for_mask(
         f'  <text x="{_fmt_num((scale_x1 + scale_x2) / 2.0)}" '
         f'y="{_fmt_num(scale_text_y)}" text-anchor="middle" '
         f'font-family="sans-serif" font-size="{_fmt_num(scale_font_size)}">'
-        '1 &#1089;&#1084;</text>\n'
+        "1 &#1089;&#1084;</text>\n"
     )
-    svg += '</g>\n'
+    svg += "</g>\n"
 
-    svg += '</svg>\n'
+    svg += "</svg>\n"
     out_path.write_text(svg, encoding="utf-8")
 
     xs = [p[0] for p in quad]
@@ -1642,7 +1676,7 @@ def run(
         expected_vertices=expected_vertices,
     )
 
-    integer_quad = [(int(round(x)), int(round(y))) for x, y in quad]
+    integer_quad = [(round(x), round(y)) for x, y in quad]
     source_polygon_points = sorted(
         proto_info["source_grid_points"],
         key=lambda point: (point[1], point[0]),
@@ -1657,19 +1691,18 @@ def run(
     print(f"grid_step_y={_fmt_num(detected_y_step)}")
     print(f"grid_step_shared={_fmt_num(float(alpha_grid['cell']))}")
 
-    with open(out.with_suffix('.txt'), 'w', encoding='utf-8') as f:
+    with open(out.with_suffix(".txt"), "w", encoding="utf-8") as f:
         f.write(f"source={src}\n")
         if preprocessing_info is not None:
             f.write(
-                "fill_pixels_replaced="
-                f"{preprocessing_info['fill_pixels_replaced']}\n"
+                f"fill_pixels_replaced={preprocessing_info['fill_pixels_replaced']}\n"
             )
             f.write(
                 "embedded_grid_pixels_replaced="
                 f"{preprocessing_info['embedded_grid_pixels_replaced']}\n"
             )
         f.write(f"size={w}x{h}\n")
-        f.write(f"mask_pixels={int(base_mask.sum()//255)}\n")
+        f.write(f"mask_pixels={int(base_mask.sum() // 255)}\n")
         f.write(f"grid_source={alpha_grid['source']}\n")
         f.write(f"grid_correction={alpha_grid.get('correction', 'none')}\n")
         f.write(f"alpha_shape_threshold={alpha_info['alpha_shape_threshold']}\n")
@@ -1690,7 +1723,9 @@ def run(
         f.write(f"prototype_quad={integer_quad}\n")
         f.write(f"prototype_bbox={proto_info['bbox']}\n")
         f.write(f"source_quad_before_snap={proto_info['source_quad_before_snap']}\n")
-        f.write(f"source_quad_on_alpha_grid={proto_info['source_quad_on_alpha_grid']}\n")
+        f.write(
+            f"source_quad_on_alpha_grid={proto_info['source_quad_on_alpha_grid']}\n"
+        )
         f.write(f"grid_indices={proto_info['grid_indices']}\n")
         f.write(f"source_polygon_points={source_polygon_points}\n")
         f.write(f"grid_bounds={proto_info['grid_bounds']}\n")
@@ -1700,10 +1735,14 @@ def run(
 
 
 def main():
-    p = argparse.ArgumentParser(description="Deterministic PNG -> SVG from an alpha-channel grid")
+    p = argparse.ArgumentParser(
+        description="Deterministic PNG -> SVG from an alpha-channel grid"
+    )
     p.add_argument("source", help="Path or URL to a raster image")
     p.add_argument("--out-dir", type=Path, default=Path("svg_from_contrast"))
-    p.add_argument("--pad-cells", type=int, default=2, help="Pad in cell units (2 by default)")
+    p.add_argument(
+        "--pad-cells", type=int, default=2, help="Pad in cell units (2 by default)"
+    )
     p.add_argument(
         "--cell-size",
         type=float,
@@ -1726,7 +1765,9 @@ def main():
         action="store_true",
         help="Do not copy <line> grid from template into result.",
     )
-    p.add_argument("--quantile", type=float, default=0.97, help="Contrast quantile from 0.0 to 1.0")
+    p.add_argument(
+        "--quantile", type=float, default=0.97, help="Contrast quantile from 0.0 to 1.0"
+    )
     p.add_argument("--min-area", type=int, default=20, help="Minimum component area")
     p.add_argument("--close", type=int, default=1, help="Morphological close radius")
     p.add_argument(

@@ -113,7 +113,9 @@ def analyze_right_triangle(
         raise ValueError("triangle must contain three distinct points")
     candidates: list[tuple[tuple[int, int], int, int]] = []
     for index, vertex in enumerate(points):
-        others = [point for other_index, point in enumerate(points) if other_index != index]
+        others = [
+            point for other_index, point in enumerate(points) if other_index != index
+        ]
         horizontal = next(
             (abs(point[0] - vertex[0]) for point in others if point[1] == vertex[1]),
             None,

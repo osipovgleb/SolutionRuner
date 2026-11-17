@@ -1,9 +1,11 @@
-from pathlib import Path
-import requests
-from urllib.parse import parse_qs, urlparse
 import argparse
 import logging
 import re
+from pathlib import Path
+from urllib.parse import parse_qs, urlparse
+
+import requests
+
 from . import svg_parser3
 
 
@@ -24,11 +26,7 @@ def safe_output_name(url, index=None):
 
 def get_image(url):
     try:
-        response = requests.get(
-            url,
-            headers={"User-Agent": "Mozilla/5.0"},
-            timeout=30
-        )
+        response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
     except Exception as exc:
         return [False, f"Не получилось получить файл: {exc}"]
 
@@ -109,10 +107,7 @@ def process_links_file(links_path, output_dir, new_color, logger):
 
             try:
                 status, message = svg_parser3.transform_svg_to_path(
-                    payload.content,
-                    out_file,
-                    new_color,
-                    file_id=base_name
+                    payload.content, out_file, new_color, file_id=base_name
                 )
             except Exception as exc:
                 status = False
@@ -160,10 +155,10 @@ def parse_args():
     )
     parser.add_argument("links_txt", help="Файл со ссылками (по одной на строку)")
     parser.add_argument(
-            "--out-dir",
-            default="./out",
-            help="Дирректория для сохранения (По умолчанию ./out)",
-        )
+        "--out-dir",
+        default="./out",
+        help="Дирректория для сохранения (По умолчанию ./out)",
+    )
     parser.add_argument(
         "--new-color",
         default="#143B8F",

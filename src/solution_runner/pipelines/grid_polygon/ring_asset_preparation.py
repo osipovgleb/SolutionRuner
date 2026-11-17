@@ -2,22 +2,22 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from fractions import Fraction
 import hashlib
-from html import unescape
 import json
-from pathlib import Path
+import re
 import subprocess
 import sys
 import time
-import re
-from typing import Any, Callable, Literal, Protocol
+from collections.abc import Callable
+from dataclasses import dataclass
+from fractions import Fraction
+from html import unescape
+from pathlib import Path
+from typing import Any, Literal, Protocol
 
-from .geometry.ring import RingSvgGeometry, parse_ring_svg
 from ..core.models import GroupProfile, KnownCircleArea, PreparedGridRing, ProblemTarget
+from .geometry.ring import RingSvgGeometry, parse_ring_svg
 from .progress import ProgressReporter, TargetProgress
-
 
 DEFAULT_RING_CONVERTER = (
     Path(__file__).resolve().parents[2]
@@ -43,7 +43,9 @@ class ConditionAsset:
 class RingAssetGateway(Protocol):
     """Expose exact asset operations used by annulus preparation."""
 
-    def download_original_condition_asset(self, target: ProblemTarget) -> ConditionAsset:
+    def download_original_condition_asset(
+        self, target: ProblemTarget
+    ) -> ConditionAsset:
         """Download the original condition asset behind any prior replacement."""
 
     def get_problem_context(self, problem_id: str) -> dict[str, Any]:
@@ -108,14 +110,16 @@ def _condition_html(context: dict[str, Any]) -> str:
     return matches[0]
 
 
-def sniff_asset_kind(data: bytes, declared_content_type: str) -> Literal["svg", "raster"]:
+def sniff_asset_kind(
+    data: bytes, declared_content_type: str
+) -> Literal["svg", "raster"]:
     """Return the actual supported image kind from bytes, not stale metadata."""
 
     prefix = data.lstrip()[:256].lower()
-    if prefix.startswith(b"<?xml") or prefix.startswith(b"<svg"):
+    if prefix.startswith((b"<?xml", b"<svg")):
         if b"<svg" in prefix or b"<svg" in data[:2048].lower():
             return "svg"
-    if data.startswith(b"\x89PNG\r\n\x1a\n") or data.startswith(b"BM"):
+    if data.startswith((b"\x89PNG\r\n\x1a\n", b"BM")):
         return "raster"
     if data.startswith(b"\xff\xd8\xff"):
         return "raster"
@@ -286,7 +290,8 @@ def prepare_ring_assets(
                 condition_asset_id = asset.asset_id
             else:
                 source_path = inputs_dir / (
-                    target.source_problem_id + _raster_suffix(asset.data, asset.content_type)
+                    target.source_problem_id
+                    + _raster_suffix(asset.data, asset.content_type)
                 )
                 source_path.write_bytes(asset.data)
                 target_output_dir = artifacts_dir / target.source_problem_id
@@ -294,7 +299,9 @@ def prepare_ring_assets(
                     source_path,
                     target_output_dir,
                 )
-                _report(reporter, profile, target, progress, "CONVERTED", severity="info")
+                _report(
+                    reporter, profile, target, progress, "CONVERTED", severity="info"
+                )
                 condition_asset_id = f"preview-{target.problem_id}"
                 replaced = True
             svg_bytes = svg_path.read_bytes()
@@ -315,7 +322,9 @@ def prepare_ring_assets(
                 )
                 replacement_asset_id = str(uploaded.get("source_asset_id") or "")
                 if not replacement_asset_id:
-                    raise RingAssetPreparationError("condition upload has no asset identity")
+                    raise RingAssetPreparationError(
+                        "condition upload has no asset identity"
+                    )
                 _report(reporter, profile, target, progress, "SVG UPLOADED")
                 readback = gateway.replace_condition_asset(
                     target,
@@ -323,7 +332,9 @@ def prepare_ring_assets(
                     alt_text=_alt_text(geometry),
                 )
                 if str(readback.get("asset_id") or "") != replacement_asset_id:
-                    raise RingAssetPreparationError("condition replacement readback drifted")
+                    raise RingAssetPreparationError(
+                        "condition replacement readback drifted"
+                    )
                 condition_asset_id = replacement_asset_id
                 _report(reporter, profile, target, progress, "TRANSFORMATION APPLIED")
             digest = hashlib.sha256(svg_bytes).hexdigest()
@@ -365,12 +376,7 @@ def prepare_ring_assets(
                 severity="error",
                 details={"exception_type": type(exc).__name__, "exception": message},
             )
-        if (
-            apply
-            and batch_pause_seconds
-            and index < total
-            and index % batch_size == 0
-        ):
+        if apply and batch_pause_seconds and index < total and index % batch_size == 0:
             time.sleep(batch_pause_seconds)
     (run_dir / "image-errors.json").write_text(
         json.dumps(errors, ensure_ascii=False, indent=2, sort_keys=True) + "\n",

@@ -148,7 +148,11 @@ def line(formula: str) -> str:
 
 
 def probability(
-    favorable: int, total: int, places: int | None = None, *, symbol: str = "P",
+    favorable: int,
+    total: int,
+    places: int | None = None,
+    *,
+    symbol: str = "P",
     combine_steps: bool = False,
 ) -> tuple[str, str]:
     if total <= 0 or not 0 <= favorable <= total:
@@ -172,7 +176,9 @@ def probability(
         if index == 0 or step != steps[index - 1]
     ]
     if combine_steps:
-        calculation = unique[1] + "".join(step.removeprefix(symbol) for step in unique[2:])
+        calculation = unique[1] + "".join(
+            step.removeprefix(symbol) for step in unique[2:]
+        )
         return answer, line(calculation)
     return answer, "".join(line(step) for step in unique)
 

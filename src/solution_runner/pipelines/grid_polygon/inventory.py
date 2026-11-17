@@ -7,13 +7,14 @@ from dataclasses import dataclass
 from typing import Any, Protocol
 
 from ..core.models import GroupProfile, ProblemTarget
-
+from .inventory_audit import (
+    InventoryError,
+    _condition_assets,
+    _pipeline_generated_solution_ids,
+    _source_problem_ids,
+)
 
 RASTER_CONTENT_TYPES = frozenset({"image/png", "image/bmp", "image/x-ms-bmp"})
-
-
-class InventoryError(RuntimeError):
-    """Report source scope or normalized-content inventory drift."""
 
 
 class InventoryGateway(Protocol):
@@ -85,9 +86,7 @@ def _classify_target(
     state = gateway.get_problem_pipeline_state(identity.problem_id)
     statuses = state.get("statuses")
     normalized = (
-        str(statuses.get("normalized") or "")
-        if isinstance(statuses, dict)
-        else ""
+        str(statuses.get("normalized") or "") if isinstance(statuses, dict) else ""
     )
     if normalized not in {"ready", "rejected"}:
         return None
@@ -132,9 +131,7 @@ def _content_rule_target(
     state = gateway.get_problem_pipeline_state(identity.problem_id)
     statuses = state.get("statuses")
     normalized = (
-        str(statuses.get("normalized") or "")
-        if isinstance(statuses, dict)
-        else ""
+        str(statuses.get("normalized") or "") if isinstance(statuses, dict) else ""
     )
     if normalized != "ready":
         return None
@@ -145,68 +142,6 @@ def _content_rule_target(
         group_key=profile.group_key,
         problem_order_index=identity.order_index,
     )
-
-
-def _source_problem_ids(payload: dict[str, Any]) -> set[str]:
-    """Return one validated compact audit source-identity set."""
-
-    values = payload.get("source_problem_ids")
-    if not isinstance(values, list) or any(not str(value).strip() for value in values):
-        raise InventoryError("missing-solution audit has invalid source_problem_ids")
-    return {str(value).strip() for value in values}
-
-
-def _section_problem_rows(
-    payload: dict[str, Any],
-    section_key: str,
-) -> list[dict[str, Any]]:
-    """Return validated problem rows for one compact section-image bucket."""
-
-    section = payload.get(section_key)
-    rows = section.get("problems") if isinstance(section, dict) else None
-    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
-        raise InventoryError(f"section-image audit has invalid {section_key} problems")
-    return rows
-
-
-def _condition_assets(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """Index the unique ordinary image_1 rendered in each current condition."""
-
-    result: dict[str, dict[str, Any]] = {}
-    for row in _section_problem_rows(payload, "condition"):
-        source_problem_id = str(row.get("source_problem_id") or "").strip()
-        images = row.get("images")
-        matches = [
-            image
-            for image in images if isinstance(image, dict)
-            and image.get("asset_key") == "image_1"
-            and image.get("kind") == "ordinary_image"
-        ] if isinstance(images, list) else []
-        if not source_problem_id:
-            raise InventoryError("condition-image audit has no source problem identity")
-        if not matches:
-            continue
-        if len(matches) != 1 or source_problem_id in result:
-            raise InventoryError("condition-image audit has ambiguous ordinary image_1")
-        result[source_problem_id] = matches[0]
-    return result
-
-
-def _pipeline_generated_solution_ids(payload: dict[str, Any]) -> set[str]:
-    """Return tasks whose current solution renders the pipeline diagram asset."""
-
-    result: set[str] = set()
-    for row in _section_problem_rows(payload, "solution"):
-        images = row.get("images")
-        if isinstance(images, list) and any(
-            isinstance(image, dict)
-            and image.get("asset_key") == "generated_solution_diagram"
-            for image in images
-        ):
-            source_problem_id = str(row.get("source_problem_id") or "").strip()
-            if source_problem_id:
-                result.add(source_problem_id)
-    return result
 
 
 def _audit_scope(
@@ -328,7 +263,9 @@ def discover_targeted_inventory(
         if max_workers == 1:
             classified = tuple(map(classify_content, candidates))
         else:
-            with ThreadPoolExecutor(max_workers=min(max_workers, len(candidates))) as executor:
+            with ThreadPoolExecutor(
+                max_workers=min(max_workers, len(candidates))
+            ) as executor:
                 classified = tuple(executor.map(classify_content, candidates))
         targets = tuple(target for target in classified if target is not None)
         if not targets or targets[0].problem_id != identities[0].problem_id:
@@ -357,7 +294,9 @@ def discover_targeted_inventory(
     if profile.solution_scope == "all":
         eligible_source_problem_ids = set(assets_by_source_problem_id)
     elif profile.solution_scope == "missing_only":
-        eligible_source_problem_ids = set(assets_by_source_problem_id) & missing_source_problem_ids
+        eligible_source_problem_ids = (
+            set(assets_by_source_problem_id) & missing_source_problem_ids
+        )
     else:
         eligible_source_problem_ids = set(assets_by_source_problem_id) & (
             missing_source_problem_ids | generated_source_problem_ids
@@ -376,7 +315,9 @@ def discover_targeted_inventory(
     if max_workers == 1:
         classified = tuple(map(classify, eligible))
     else:
-        with ThreadPoolExecutor(max_workers=min(max_workers, len(eligible) or 1)) as executor:
+        with ThreadPoolExecutor(
+            max_workers=min(max_workers, len(eligible) or 1)
+        ) as executor:
             classified = tuple(executor.map(classify, eligible))
     present = tuple(item for item in classified if item is not None)
     targets = tuple(target for target, _ in present)

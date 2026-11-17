@@ -3,19 +3,17 @@
 from __future__ import annotations
 
 import argparse
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import asdict
-from datetime import UTC, datetime
 import getpass
 import hashlib
 import json
 import os
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import asdict
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Protocol
 
 from ..core.group_profiles import get_group_profile
-from .manifest import FrozenRunScope, read_prepared_manifest
-from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 from ..core.models import (
     GroupProfile,
     PreparedFigure,
@@ -23,9 +21,10 @@ from ..core.models import (
     ProblemStageResult,
     SolutionDiagramSpec,
 )
+from .manifest import FrozenRunScope, read_prepared_manifest
+from .mcp_runtime import DEFAULT_MCP_URL, JsonRpcMcpGateway
 from .strategies import get_solution_strategy
 from .strategies.protocol import SolutionStrategy
-
 
 _VAR_ROOT = Path(os.environ.get("SOLUTION_RUNNER_VAR_DIR", "var"))
 DEFAULT_RUN_ROOT = _VAR_ROOT / "grid-polygon" / "runs"
@@ -86,9 +85,13 @@ def _rectangle_diagram(
                 alt_text=str(list(prepared.coordinates)),
             ),
         )
-    matches = [diagram for diagram in diagrams if diagram.asset_key in RECTANGLE_ASSET_KEYS]
+    matches = [
+        diagram for diagram in diagrams if diagram.asset_key in RECTANGLE_ASSET_KEYS
+    ]
     preferred = [
-        diagram for diagram in matches if diagram.asset_key == "generated_rectangle_diagram"
+        diagram
+        for diagram in matches
+        if diagram.asset_key == "generated_rectangle_diagram"
     ]
     selected = preferred or matches
     if len(selected) != 1:
@@ -165,7 +168,9 @@ def _manifest_records(path: Path, profile: GroupProfile) -> tuple[PreparedFigure
         snapshot_theme_id=str(raw_scope.get("snapshot_theme_id") or ""),
         source_group_id=str(raw_scope.get("source_group_id") or ""),
         group_key=str(raw_scope.get("group_key") or ""),
-        target_problem_ids=tuple(str(value) for value in raw_scope.get("target_problem_ids", [])),
+        target_problem_ids=tuple(
+            str(value) for value in raw_scope.get("target_problem_ids", [])
+        ),
     )
     if (
         scope.catalog_snapshot_id != profile.catalog_snapshot_id
@@ -173,7 +178,9 @@ def _manifest_records(path: Path, profile: GroupProfile) -> tuple[PreparedFigure
         or scope.source_group_id != profile.source_group_id
         or scope.group_key != profile.group_key
     ):
-        raise ValueError(f"manifest does not belong to group {profile.group_key}: {path}")
+        raise ValueError(
+            f"manifest does not belong to group {profile.group_key}: {path}"
+        )
     return read_prepared_manifest(path, expected_scope=scope)
 
 
@@ -183,7 +190,9 @@ def _discover_group_records(
 ) -> tuple[PreparedGridPolygon, ...]:
     """Merge every saved successful record for one group with latest-run precedence."""
 
-    manifests = sorted(run_root.glob(f"*-group-{profile.group_key}/prepared-manifest.json"))
+    manifests = sorted(
+        run_root.glob(f"*-group-{profile.group_key}/prepared-manifest.json")
+    )
     if not manifests:
         raise ValueError(f"no prepared manifests found for group {profile.group_key}")
     records: dict[str, PreparedGridPolygon] = {}
@@ -192,18 +201,23 @@ def _discover_group_records(
             if not isinstance(record, PreparedGridPolygon):
                 raise ValueError("rectangle repair requires polygon records")
             previous = records.get(record.problem_id)
-            if previous is not None and previous.source_problem_id != record.source_problem_id:
+            if (
+                previous is not None
+                and previous.source_problem_id != record.source_problem_id
+            ):
                 raise ValueError("prepared record identity drifted between runs")
             records[record.problem_id] = record
     return tuple(
         sorted(
             records.values(),
             key=lambda record: (
-                0,
-                int(record.source_problem_id),
-            )
-            if record.source_problem_id.isdigit()
-            else (1, record.source_problem_id),
+                (
+                    0,
+                    int(record.source_problem_id),
+                )
+                if record.source_problem_id.isdigit()
+                else (1, record.source_problem_id)
+            ),
         )
     )
 
@@ -239,7 +253,10 @@ def main(argv: list[str] | None = None) -> int:
     profiles = tuple(get_group_profile(group) for group in groups)
     if any(profile.catalog_snapshot_id != args.confirm_catalog for profile in profiles):
         parser.error("--confirm-catalog does not match every selected group")
-    if any(profile.strategy_key != "bounding-rectangle-quadrilateral" for profile in profiles):
+    if any(
+        profile.strategy_key != "bounding-rectangle-quadrilateral"
+        for profile in profiles
+    ):
         parser.error("every selected group must use bounding-rectangle-quadrilateral")
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     output_dir = (

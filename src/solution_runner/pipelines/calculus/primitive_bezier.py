@@ -23,9 +23,6 @@ def bounded_generate(points, parameters, left, right):
     return curve
 
 
-
-
-
 def verify(segments):
     for s in segments:
         if not np.all(np.diff(s[:, 0]) >= -1e-8):
@@ -55,7 +52,11 @@ def fit(trace, anchors, tolerance=0.14):
             if i < len(anchors) - 2
             else fitCurves.normalize(points[max(0, len(points) - 4)] - b)
         )
-        segments = np.array(fitCurves.fitCubic(points, left, right, tolerance**2, generator=bounded_generate))
+        segments = np.array(
+            fitCurves.fitCubic(
+                points, left, right, tolerance**2, generator=bounded_generate
+            )
+        )
         verify(segments)
         if not np.array_equal(segments[0, 0], a) or not np.array_equal(
             segments[-1, -1], b

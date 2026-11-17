@@ -15,7 +15,6 @@ from ..triangles.isosceles.planner import (
 )
 from ..triangles.right.planner import RepairPlan, RightTrianglePlanError
 
-
 RULE = "vector-27663-coordinate-length"
 PARENT_PROBLEM_ID = "55451a3e-8a4a-4c1d-bfd9-106ecf986590"
 
@@ -96,12 +95,12 @@ def _solution_html(x: int, y: int, answer: int) -> str:
         rf"\sqrt{{{square_sum}}}={answer}"
     )
     return (
-        '<p>Длина век­то­ра с ко­ор­ди­на­та­ми '
+        "<p>Длина век­то­ра с ко­ор­ди­на­та­ми "
         '<span data-inline-latex="(x;y)"></span> вы­чис­ля­ет­ся по фор­му­ле '
         '<span data-inline-latex="\\left|\\vec{a}\\right|='
         '\\sqrt{x^{2}+y^{2}}"></span>.</p>'
-        '<p>Под­ста­вим ко­ор­ди­на­ты дан­но­го век­то­ра:</p>'
-        '<center><p> '
+        "<p>Под­ста­вим ко­ор­ди­на­ты дан­но­го век­то­ра:</p>"
+        "<center><p> "
         f'<span data-inline-latex="{substitution}"></span>.</p></center>'
     )
 
@@ -135,7 +134,9 @@ def build_repair_plan(
     square_sum = x * x + y * y
     answer = math.isqrt(square_sum)
     if answer * answer != square_sum:
-        raise RightTrianglePlanError("coordinates do not produce a supported exact answer")
+        raise RightTrianglePlanError(
+            "coordinates do not produce a supported exact answer"
+        )
     expected_solution = _solution_html(x, y, answer)
 
     changes: list[dict[str, Any]] = []

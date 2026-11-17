@@ -4,6 +4,9 @@ import sympy as sp
 
 from ..word_problems.common import UnsupportedCondition
 from .exam_trigonometric_compile import compile_equation
+from .exam_trigonometric_models import analysis_fields as _analysis_fields
+
+analysis_fields = _analysis_fields
 
 
 def method_equation(
@@ -121,56 +124,6 @@ def method_equation(
             preserve_products=preserve_products,
         ), None
     return Equation(raw, identities, sp.S.One), None
-
-
-def analysis_fields(equation):
-    return {
-        "scale": equation.scale,
-        "poles": equation.poles,
-        "reciprocal": equation.reciprocal,
-        "doubled": equation.doubled,
-        "rewritten": equation.rewritten,
-        "strict_domain": equation.strict_domain,
-        "fraction": equation.fraction,
-        "absolute": equation.absolute,
-        "absolute_affine": equation.absolute_affine,
-        "absolute_square": equation.absolute_square,
-        "absolute_fraction": equation.absolute_fraction,
-        "radical_ratio": equation.radical_ratio,
-        "strict_quotient": equation.strict_quotient,
-        "original_quotient": equation.original_quotient,
-        "radical_product": equation.radical_product,
-        "radical_equation": equation.radical_equation,
-        "bounded_log": equation.bounded_log,
-        "log_product": equation.log_product,
-        "log_polynomial": equation.log_polynomial,
-        "global_radical": equation.global_radical,
-        "square_radicals": equation.square_radicals,
-        "exponential_absolute": equation.exponential_absolute,
-        "power_equality": equation.power_equality,
-        "power_polynomial": equation.power_polynomial,
-        "sum_squares": equation.sum_squares,
-        "argument_pair": equation.argument_pair,
-        "extremum": equation.extremum,
-        "sine_pair": equation.sine_pair,
-        "cosine_equality": equation.cosine_equality,
-        "sine_double": equation.sine_double,
-        "positive_factorization": equation.positive_factorization,
-        "homogeneous": equation.homogeneous,
-        "power_angle": equation.power_angle,
-        "factored_source": equation.factored_source,
-        "affine": equation.affine,
-        "angle_product": equation.angle_product,
-        "cleared_denominator": equation.cleared_denominator,
-        "ratio_division": equation.ratio_division,
-        "square_difference": equation.square_difference,
-        "symmetric": equation.symmetric,
-        "square_product": equation.square_product,
-        "unit_factors": equation.unit_factors,
-        "sum_product": equation.sum_product,
-        "triple_angle": equation.triple_angle,
-        "ratio_product": equation.ratio_product,
-    }
 
 
 def compile_parent(formula, preferred, preferred_scale, translation, parent_html):

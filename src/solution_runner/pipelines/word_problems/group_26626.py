@@ -7,7 +7,6 @@ from typing import Any
 
 from .common import UnsupportedCondition, finalize, require_content
 
-
 RULE = "word-problem-26626-bundle-promotion"
 _NUMBER_WORDS = {"две": 2, "три": 3, "четыре": 4, "пять": 5}
 _CONDITION = re.compile(
@@ -25,7 +24,9 @@ def build_context_repair_plan(context: dict[str, Any]):
         raise UnsupportedCondition("condition does not match group 26626 template")
     paid, received = _NUMBER_WORDS[match["paid"]], _NUMBER_WORDS[match["received"]]
     if received != paid + 1:
-        raise UnsupportedCondition("promotion must give exactly one chocolate as a gift")
+        raise UnsupportedCondition(
+            "promotion must give exactly one chocolate as a gift"
+        )
     price, budget = int(match["price"]), int(match["budget"])
     bought = budget // price
     gifts = (bought // paid) * (received - paid)

@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from concurrent.futures import Executor, ThreadPoolExecutor
-from datetime import UTC, datetime
 import json
-from pathlib import Path
 import secrets
 import sys
+from collections.abc import Callable, Mapping, Sequence
+from concurrent.futures import Executor, ThreadPoolExecutor
+from datetime import UTC, datetime
+from pathlib import Path
 from threading import Lock
-from typing import Any, Callable, Mapping, Sequence
+from typing import Any
 
 from solution_runner.group_inventory_store import (
     GroupInventoryStore,
@@ -17,15 +18,20 @@ from solution_runner.group_inventory_store import (
 )
 from solution_runner.pipelines.core.local_inventory import load_group_inventory
 
+from .dry_run_targets import NoDryRunTarget as _exported_NoDryRunTarget
+from .dry_run_targets import (
+    _child_rows,
+    _problem_id,
+    _select_problem,
+    _source_problem_id,
+)
 from .previews import fetch_preview, latest_dry_run_manifest, load_preview, save_preview
 from .process_logs import run_logged
 
+NoDryRunTarget = _exported_NoDryRunTarget
+
 
 MODES = {"parent", "random", "all", "problem"}
-
-
-class NoDryRunTarget(ValueError):
-    """The requested sample has no task eligible for this registered runner."""
 
 
 def _store_dry_run_results(
@@ -47,16 +53,20 @@ def _store_dry_run_results(
             else "failed"
         )
         message = record.get("message") or record.get("error")
-        store.update_item_stage(GroupItemStageResult(
-            group_key=group_key,
-            problem_id=str(record["problem_id"]),
-            dry_run_status=status,
-            error=" ".join(str(message).split())[:500] if message else None,
-        ))
+        store.update_item_stage(
+            GroupItemStageResult(
+                group_key=group_key,
+                problem_id=str(record["problem_id"]),
+                dry_run_status=status,
+                error=" ".join(str(message).split())[:500] if message else None,
+            )
+        )
 
 
 def _full_dry_run_ready(manifest: Mapping[str, Any]) -> bool:
-    records = [item for item in manifest.get("records", []) if isinstance(item, Mapping)]
+    records = [
+        item for item in manifest.get("records", []) if isinstance(item, Mapping)
+    ]
     return bool(records) and all(
         str(item.get("status") or "") in {"prepared", "planned", "already_complete"}
         for item in records
@@ -65,65 +75,6 @@ def _full_dry_run_ready(manifest: Mapping[str, Any]) -> bool:
 
 def _now() -> str:
     return datetime.now(UTC).isoformat(timespec="seconds")
-
-
-def _source_problem_id(item: Mapping[str, Any]) -> str:
-    value = item.get("source_problem_id")
-    if value:
-        return str(value)
-    return str(item.get("name") or "").removeprefix("Задача ").strip()
-
-
-def _problem_id(item: Mapping[str, Any]) -> str:
-    return str(item.get("uuid") or item.get("problem_id") or item.get("id") or "")
-
-
-def _child_rows(
-    children: Mapping[str, Any] | Sequence[Mapping[str, Any]],
-) -> list[Mapping[str, Any]]:
-    if isinstance(children, Mapping):
-        rows = children.get("children")
-        if not isinstance(rows, list):
-            rows = children.get("items")
-    else:
-        rows = children
-    return [item for item in rows or [] if isinstance(item, Mapping)]
-
-
-def _select_problem(
-    children: Mapping[str, Any] | Sequence[Mapping[str, Any]],
-    mode: str,
-    *,
-    choose: Callable[[Sequence[Mapping[str, Any]]], Mapping[str, Any]] = secrets.choice,
-    excluded_problem_ids: set[str] | frozenset[str] = frozenset(),
-    requested_problem_id: str | None = None,
-) -> Mapping[str, Any] | None:
-    if mode == "all":
-        return None
-    problems = [
-        item
-        for item in _child_rows(children)
-        if _problem_id(item)
-        and _source_problem_id(item)
-        and _problem_id(item) not in excluded_problem_ids
-    ]
-    if not problems:
-        raise NoDryRunTarget("group has no source problems")
-    if mode == "parent":
-        return problems[0]
-    if mode == "problem":
-        selected = next(
-            (item for item in problems if _problem_id(item) == requested_problem_id),
-            None,
-        )
-        if selected is None:
-            raise NoDryRunTarget("requested problem is not eligible in this group")
-        return selected
-    if mode == "random":
-        if len(problems) < 2:
-            raise NoDryRunTarget("group has no eligible child problem")
-        return choose(problems[1:])
-    raise ValueError("unknown dry-run mode")
 
 
 def _launcher_command(
@@ -172,7 +123,9 @@ class DryRunManager:
         inventory_store: GroupInventoryStore | None = None,
         initializer: Any | None = None,
         launcher: Callable[[list[str]], int] = _run_launcher,
-        choose: Callable[[Sequence[Mapping[str, Any]]], Mapping[str, Any]] = secrets.choice,
+        choose: Callable[
+            [Sequence[Mapping[str, Any]]], Mapping[str, Any]
+        ] = secrets.choice,
         on_complete: Callable[[str, Mapping[str, Any]], None] | None = None,
         background_executor: Executor | None = None,
     ) -> None:
@@ -187,7 +140,9 @@ class DryRunManager:
         self.on_complete = on_complete
         self.state_dir = var_dir / "dashboard/dry-runs"
         self.preview_dir = var_dir / "dashboard/previews"
-        self.executor = background_executor or ThreadPoolExecutor(max_workers=1, thread_name_prefix="dashboard-dry-run")
+        self.executor = background_executor or ThreadPoolExecutor(
+            max_workers=1, thread_name_prefix="dashboard-dry-run"
+        )
         self.lock = Lock()
 
     def _path(self, group_key: str) -> Path:
@@ -197,8 +152,10 @@ class DryRunManager:
         get_group = getattr(self.store, "get_group", None)
         group = get_group(str(profile.group_key)) if callable(get_group) else None
         policy = group.get("existing_solution_policy") if group else None
-        return str(policy) if policy in {"preserve", "rewrite"} else str(
-            getattr(profile, "existing_solution_policy", "preserve")
+        return (
+            str(policy)
+            if policy in {"preserve", "rewrite"}
+            else str(getattr(profile, "existing_solution_policy", "preserve"))
         )
 
     def _write(self, state: Mapping[str, Any]) -> dict[str, Any]:
@@ -218,7 +175,9 @@ class DryRunManager:
         return payload if isinstance(payload, dict) else None
 
     def start(self, group_key: str, mode: str) -> dict[str, Any]:
-        return self._start(group_key, mode, append=False, excluded_problem_ids=frozenset())
+        return self._start(
+            group_key, mode, append=False, excluded_problem_ids=frozenset()
+        )
 
     def start_problem(self, group_key: str, problem_id: str) -> dict[str, Any]:
         if not problem_id:
@@ -264,15 +223,17 @@ class DryRunManager:
             current = self.get(group_key)
             if current and current.get("status") in {"queued", "running"}:
                 raise RuntimeError("dry-run already active")
-            state = self._write({
-                "group_key": group_key,
-                "mode": mode,
-                "status": "queued",
-                "selected_problem_id": None,
-                "selected_source_problem_id": None,
-                "append": append,
-                "queued_at": _now(),
-            })
+            state = self._write(
+                {
+                    "group_key": group_key,
+                    "mode": mode,
+                    "status": "queued",
+                    "selected_problem_id": None,
+                    "selected_source_problem_id": None,
+                    "append": append,
+                    "queued_at": _now(),
+                }
+            )
             future = self.executor.submit(
                 self.run_now,
                 group_key,
@@ -334,18 +295,24 @@ class DryRunManager:
                 )
             else:
                 gateway = self.gateway_factory()
-                children = gateway.get_source_catalog_children(profile.source_group_id, "group")
-                if mode == "random" and getattr(profile, "solution_scope", "all") == "missing_only":
+                children = gateway.get_source_catalog_children(
+                    profile.source_group_id, "group"
+                )
+                if (
+                    mode == "random"
+                    and getattr(profile, "solution_scope", "all") == "missing_only"
+                ):
                     missing = gateway.get_source_catalog_missing_solution_summary(
                         profile.source_group_id, "group"
                     )
                     eligible = {
-                        str(value)
-                        for value in missing.get("source_problem_ids", [])
+                        str(value) for value in missing.get("source_problem_ids", [])
                     }
                     rows = _child_rows(children)
                     children = rows[:1] + [
-                        item for item in rows[1:] if _source_problem_id(item) in eligible
+                        item
+                        for item in rows[1:]
+                        if _source_problem_id(item) in eligible
                     ]
                 selected = _select_problem(
                     children,
@@ -373,13 +340,15 @@ class DryRunManager:
                 close()
 
         try:
-            return_code = self.launcher(_launcher_command(
-                profile,
-                mode,
-                state["selected_problem_id"],
-                self.inventory_store.path if self.inventory_store else None,
-                self._existing_solution_policy(profile),
-            ))
+            return_code = self.launcher(
+                _launcher_command(
+                    profile,
+                    mode,
+                    state["selected_problem_id"],
+                    self.inventory_store.path if self.inventory_store else None,
+                    self._existing_solution_policy(profile),
+                )
+            )
             if return_code:
                 raise RuntimeError(f"launcher exited with status {return_code}")
             gateway = self.gateway_factory()
@@ -419,10 +388,13 @@ class DryRunManager:
                 completed_at=_now(),
             )
             if self.store is not None and mode == "all":
-                self.store.update_group(group_key, {
-                    "column": "review" if full_ready else "issues",
-                    "full_dry_run_status": "ready" if full_ready else "failed",
-                })
+                self.store.update_group(
+                    group_key,
+                    {
+                        "column": "review" if full_ready else "issues",
+                        "full_dry_run_status": "ready" if full_ready else "failed",
+                    },
+                )
             return self._write(state)
         except Exception as exc:  # noqa: BLE001 - persist isolated terminal failure.
             return self._fail(state, exc)
@@ -435,8 +407,11 @@ class DryRunManager:
             error=" ".join(str(exc).split())[:300],
         )
         if self.store is not None and state.get("mode") == "all":
-            self.store.update_group(str(state["group_key"]), {
-                "column": "issues",
-                "full_dry_run_status": "failed",
-            })
+            self.store.update_group(
+                str(state["group_key"]),
+                {
+                    "column": "issues",
+                    "full_dry_run_status": "failed",
+                },
+            )
         return self._write(failed)

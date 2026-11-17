@@ -2,7 +2,6 @@
 
 from solution_runner.pipelines.core.handlers import HandlerSpec
 
-
 HANDLERS = (
     HandlerSpec(
         "informatics-pass-expiry-bytes",

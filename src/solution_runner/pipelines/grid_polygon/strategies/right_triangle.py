@@ -69,4 +69,3 @@ class RightTriangleStrategy:
         """Return the exact numeric answer."""
 
         return build_answer_html(analysis)
-

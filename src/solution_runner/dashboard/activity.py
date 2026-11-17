@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime
 import json
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -54,14 +54,21 @@ def load_group_activity(
         if summary is None or str(summary.get("group_key")) != group_key:
             continue
         run_name = summary_path.parent.name
-        is_apply = bool(summary.get("apply")) or (summary_path.parent / "apply-results.json").is_file()
+        is_apply = (
+            bool(summary.get("apply"))
+            or (summary_path.parent / "apply-results.json").is_file()
+        )
         started_at = _started_at(run_name)
         current_helpers_run = (
             apply_state.get("stage") == "helpers"
             and apply_state.get("started_at") == started_at
         )
-        kind = summary.get("dashboard_action") or ("helpers" if current_helpers_run else "apply" if is_apply else "dry-run")
-        scope = summary.get("dashboard_scope") or (apply_state.get("scope") if current_helpers_run else None)
+        kind = summary.get("dashboard_action") or (
+            "helpers" if current_helpers_run else "apply" if is_apply else "dry-run"
+        )
+        scope = summary.get("dashboard_scope") or (
+            apply_state.get("scope") if current_helpers_run else None
+        )
         stage_files = [("solution", "solution-results.json")]
         if is_apply:
             stage_files.append(("apply", "apply-results.json"))
@@ -71,17 +78,21 @@ def load_group_activity(
             for name, filename in stage_files
             if (counts := _stage_errors(summary_path.parent / filename)) is not None
         }
-        runs.append({
-            "run_name": run_name,
-            "started_at": started_at,
-            "kind": str(kind),
-            "scope": str(scope or ("problem" if summary.get("targeted") else "group")),
-            "status": str(summary.get("status") or "unknown"),
-            "targets": int(summary.get("targets") or 0),
-            "prepared": int(summary.get("prepared") or 0),
-            "failed": int(summary.get("failed_stage_results") or 0),
-            "stages": stages,
-        })
+        runs.append(
+            {
+                "run_name": run_name,
+                "started_at": started_at,
+                "kind": str(kind),
+                "scope": str(
+                    scope or ("problem" if summary.get("targeted") else "group")
+                ),
+                "status": str(summary.get("status") or "unknown"),
+                "targets": int(summary.get("targets") or 0),
+                "prepared": int(summary.get("prepared") or 0),
+                "failed": int(summary.get("failed_stage_results") or 0),
+                "stages": stages,
+            }
+        )
     runs.sort(key=lambda run: run["run_name"], reverse=True)
 
     problems = []
@@ -92,11 +103,13 @@ def load_group_activity(
                 for field in ("apply_status", "helpers_status")
             ):
                 continue
-            problems.append({
-                "problem_id": row["problem_id"],
-                "source_problem_id": row["source_problem_id"],
-                "apply_status": row.get("apply_status"),
-                "helpers_status": row.get("helpers_status"),
-                "error": row.get("error"),
-            })
+            problems.append(
+                {
+                    "problem_id": row["problem_id"],
+                    "source_problem_id": row["source_problem_id"],
+                    "apply_status": row.get("apply_status"),
+                    "helpers_status": row.get("helpers_status"),
+                    "error": row.get("error"),
+                }
+            )
     return {"latest": runs[0] if runs else None, "runs": runs, "problems": problems}

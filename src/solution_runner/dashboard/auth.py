@@ -7,7 +7,9 @@ from urllib.parse import urlparse
 
 
 class DashboardAuth:
-    def __init__(self, password: str = "", token: str = "", username: str = "owner") -> None:
+    def __init__(
+        self, password: str = "", token: str = "", username: str = "owner"
+    ) -> None:
         self.password = password
         self.token = token
         self.username = username
@@ -25,7 +27,9 @@ class DashboardAuth:
                 credentials = base64.b64decode(value, validate=True).decode("utf-8")
             except (ValueError, binascii.Error, UnicodeDecodeError):
                 return False
-            return compare_digest(credentials.encode(), f"{self.username}:{self.password}".encode())
+            return compare_digest(
+                credentials.encode(), f"{self.username}:{self.password}".encode()
+            )
         return False
 
     def origin_allowed(self, origin: str | None, host: str) -> bool:

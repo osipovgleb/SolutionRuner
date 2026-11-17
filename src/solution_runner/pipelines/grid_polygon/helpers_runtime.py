@@ -8,8 +8,8 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from .mcp_runtime import McpGateway
 from ..core.models import GroupProfile, ProblemStageResult
+from .mcp_runtime import McpGateway
 from .progress import ProgressReporter, TargetProgress
 
 
@@ -61,7 +61,8 @@ def verify_existing_solutions(
         try:
             context = gateway.get_problem_context(target.problem_id)
             reason = (
-                None if _has_section_content(context, "solution")
+                None
+                if _has_section_content(context, "solution")
                 else "solution is empty"
             )
             if reason is None and not _has_section_content(context, "answer"):

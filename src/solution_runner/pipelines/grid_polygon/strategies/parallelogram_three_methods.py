@@ -41,19 +41,14 @@ def _base_height_details(
 
     if len(points) != 4 or len(set(points)) != 4:
         raise ValueError("parallelogram must contain four distinct vertices")
-    edges = tuple(
-        _edge(points[index], points[(index + 1) % 4])
-        for index in range(4)
-    )
+    edges = tuple(_edge(points[index], points[(index + 1) % 4]) for index in range(4))
     if edges[0] != (-edges[2][0], -edges[2][1]) or edges[1] != (
         -edges[3][0],
         -edges[3][1],
     ):
         raise ValueError("parallelogram opposite edges do not match")
     candidates = [
-        index
-        for index in (0, 1)
-        if (edges[index][0] == 0) != (edges[index][1] == 0)
+        index for index in (0, 1) if (edges[index][0] == 0) != (edges[index][1] == 0)
     ]
     if not candidates:
         raise ValueError("parallelogram requires a horizontal or vertical base")
@@ -65,16 +60,10 @@ def _base_height_details(
     base_end = points[(base_index + 1) % 4]
     apex = points[(base_index + 2) % 4]
     horizontal = edges[base_index][1] == 0
-    altitude_foot = (
-        (apex[0], base_start[1])
-        if horizontal
-        else (base_start[0], apex[1])
-    )
+    altitude_foot = (apex[0], base_start[1]) if horizontal else (base_start[0], apex[1])
     base_length = Fraction(abs(edges[base_index][0] or edges[base_index][1]))
     height = Fraction(
-        abs(apex[1] - base_start[1])
-        if horizontal
-        else abs(apex[0] - base_start[0])
+        abs(apex[1] - base_start[1]) if horizontal else abs(apex[0] - base_start[0])
     )
     return {
         "base_start": base_start,
@@ -151,18 +140,26 @@ class ParallelogramThreeMethodsStrategy(BoundingRectangleQuadrilateralStrategy):
         start, end = mapper(logical_start), mapper(logical_end)
         apex, foot = mapper(logical_apex), mapper(logical_foot)
         lines = [
-            f'  <line data-kind="base" x1="{svg_number(start[0])}" '
-            f'y1="{svg_number(start[1])}" x2="{svg_number(end[0])}" '
-            f'y2="{svg_number(end[1])}" />',
-            f'  <line data-kind="height" x1="{svg_number(apex[0])}" '
-            f'y1="{svg_number(apex[1])}" x2="{svg_number(foot[0])}" '
-            f'y2="{svg_number(foot[1])}" />',
+            (
+                f'  <line data-kind="base" x1="{svg_number(start[0])}" '
+                f'y1="{svg_number(start[1])}" x2="{svg_number(end[0])}" '
+                f'y2="{svg_number(end[1])}" />'
+            ),
+            (
+                f'  <line data-kind="height" x1="{svg_number(apex[0])}" '
+                f'y1="{svg_number(apex[1])}" x2="{svg_number(foot[0])}" '
+                f'y2="{svg_number(foot[1])}" />'
+            ),
         ]
         horizontal = analysis.details["orientation"] == "horizontal"
         if horizontal:
-            minimum, maximum, foot_value = sorted((logical_start[0], logical_end[0])) + [logical_foot[0]]
+            minimum, maximum, foot_value = sorted(
+                (logical_start[0], logical_end[0])
+            ) + [logical_foot[0]]
         else:
-            minimum, maximum, foot_value = sorted((logical_start[1], logical_end[1])) + [logical_foot[1]]
+            minimum, maximum, foot_value = sorted(
+                (logical_start[1], logical_end[1])
+            ) + [logical_foot[1]]
         if foot_value < minimum or foot_value > maximum:
             endpoint = start if foot_value < minimum else end
             lines.append(

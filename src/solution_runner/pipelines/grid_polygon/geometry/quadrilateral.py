@@ -51,10 +51,14 @@ def convex_hull(points: tuple[tuple[int, int], ...]) -> tuple[tuple[int, int], .
 
         half: list[tuple[int, int]] = []
         for point in values:
-            while len(half) >= 2 and _cross(
-                _subtract(half[-1], half[-2]),
-                _subtract(point, half[-1]),
-            ) <= 0:
+            while (
+                len(half) >= 2
+                and _cross(
+                    _subtract(half[-1], half[-2]),
+                    _subtract(point, half[-1]),
+                )
+                <= 0
+            ):
                 half.pop()
             half.append(point)
         return half
@@ -78,10 +82,7 @@ def quadrilateral_coordinate_area(points: tuple[tuple[int, int], ...]) -> Fracti
             points[(second + 1) % 4],
         ):
             raise ValueError("quadrilateral edges self-intersect")
-    doubled = sum(
-        _cross(points[index], points[(index + 1) % 4])
-        for index in range(4)
-    )
+    doubled = sum(_cross(points[index], points[(index + 1) % 4]) for index in range(4))
     if doubled == 0:
         raise ValueError("quadrilateral has zero area")
     return Fraction(abs(doubled), 2)
@@ -111,18 +112,17 @@ def _segments_intersect(
     ) -> bool:
         """Return whether a collinear point lies on one closed segment."""
 
-        return (
-            min(start[0], end[0]) <= point[0] <= max(start[0], end[0])
-            and min(start[1], end[1]) <= point[1] <= max(start[1], end[1])
-        )
+        return min(start[0], end[0]) <= point[0] <= max(start[0], end[0]) and min(
+            start[1], end[1]
+        ) <= point[1] <= max(start[1], end[1])
 
     first_second = orientation(first_start, first_end, second_start)
     first_end_second = orientation(first_start, first_end, second_end)
     second_first = orientation(second_start, second_end, first_start)
     second_end_first = orientation(second_start, second_end, first_end)
-    if (first_second > 0) != (first_end_second > 0) and (
-        second_first > 0
-    ) != (second_end_first > 0):
+    if (first_second > 0) != (first_end_second > 0) and (second_first > 0) != (
+        second_end_first > 0
+    ):
         return True
     return (
         (first_second == 0 and contains(first_start, first_end, second_start))
@@ -214,14 +214,9 @@ def analyze_parallel_bases_trapezoid(
     hull = convex_hull(points)
     if len(hull) != 4:
         raise ValueError("trapezoid must contain four hull vertices")
-    edges = [
-        _subtract(hull[(index + 1) % 4], hull[index])
-        for index in range(4)
-    ]
+    edges = [_subtract(hull[(index + 1) % 4], hull[index]) for index in range(4)]
     pairs = [
-        pair
-        for pair in ((0, 2), (1, 3))
-        if _cross(edges[pair[0]], edges[pair[1]]) == 0
+        pair for pair in ((0, 2), (1, 3)) if _cross(edges[pair[0]], edges[pair[1]]) == 0
     ]
     if len(pairs) != 1:
         raise ValueError("trapezoid must contain exactly one parallel opposite pair")

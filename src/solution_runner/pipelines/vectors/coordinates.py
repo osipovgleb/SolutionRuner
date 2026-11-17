@@ -299,11 +299,12 @@ def solve(vectors, mode, expression):
                 square = sum(x * x for x in computed)
                 norm = rf"\left|{expression}\right|"
                 squares = "+".join(
-                    ("(" + _fmt(x) + ")" if x < 0 else _fmt(x)) + "^2"
-                    for x in computed
+                    ("(" + _fmt(x) + ")" if x < 0 else _fmt(x)) + "^2" for x in computed
                 )
                 root = rf"\sqrt{{{_fmt(square)}}}"
-                html += "<p>Длина вектора равна корню из суммы квадратов его координат:</p>"
+                html += (
+                    "<p>Длина вектора равна корню из суммы квадратов его координат:</p>"
+                )
                 html += line(norm + r"=\sqrt{x^2+y^2}")
                 html += line(norm + rf"=\sqrt{{{squares}}}=" + root)
                 value = square if mode == "square" else exact_root(square)

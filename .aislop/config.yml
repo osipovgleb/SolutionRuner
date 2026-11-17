@@ -1,0 +1,21 @@
+version: 1
+
+engines:
+  format: true
+  lint: true
+  code-quality: true
+  ai-slop: true
+  architecture: true
+  security: true
+
+ci:
+  failBelow: 100
+  format: json
+
+telemetry:
+  enabled: false
+
+# colorsys is provided by the Python standard library; AISlop omits it from its list.
+imports:
+  provided:
+    - colorsys

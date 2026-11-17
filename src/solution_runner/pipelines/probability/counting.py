@@ -43,7 +43,9 @@ _CHANNEL_COUNTS = {
     "сорока пяти": 45,
     "сорока восьми": 48,
 }
-_CHANNEL_COUNT = r"(?:\d+|" + "|".join(sorted(_CHANNEL_COUNTS, key=len, reverse=True)) + r")"
+_CHANNEL_COUNT = (
+    r"(?:\d+|" + "|".join(sorted(_CHANNEL_COUNTS, key=len, reverse=True)) + r")"
+)
 _TELEVISION = re.compile(
     rf"(?P<name>[А-Я][а-я]+) включает телевизор\. Телевизор включается на случайном канале\. "
     rf"В это время по (?P<m>{_CHANNEL_COUNT}) каналам из (?P<n>{_CHANNEL_COUNT}) показывают "
@@ -64,7 +66,9 @@ def _television(text):
         "рекламу": "реклама не идет",
     }
     if match["event"] != events[match["program"]]:
-        raise UnsupportedCondition("the television question is not the audited complement")
+        raise UnsupportedCondition(
+            "the television question is not the audited complement"
+        )
     n, included = (
         int(match[key]) if match[key].isdigit() else _CHANNEL_COUNTS[match[key]]
         for key in ("n", "m")
@@ -145,8 +149,13 @@ def solve(text):
         result = parser(text)
         if result is not None:
             n, m, html, symbol = result
-            answer, calculation = probability(m, n, places, symbol=symbol, combine_steps=True)
-            for old, new in ((r"\mathrm{благ}", r"\mathrm{подх}"), (r"\mathrm{общ}", r"\mathrm{всех}")):
+            answer, calculation = probability(
+                m, n, places, symbol=symbol, combine_steps=True
+            )
+            for old, new in (
+                (r"\mathrm{благ}", r"\mathrm{подх}"),
+                (r"\mathrm{общ}", r"\mathrm{всех}"),
+            ):
                 html = html.replace(old, new)
                 calculation = calculation.replace(old, new)
             return (

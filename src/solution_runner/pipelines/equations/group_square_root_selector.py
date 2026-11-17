@@ -2,20 +2,17 @@
 
 from __future__ import annotations
 
-from math import isqrt
 import re
+from math import isqrt
 from typing import Any
 
 from bs4 import BeautifulSoup
 
 from solution_runner.pipelines.equations.group_26656 import RepairPlan
 
-
 RULE = "elementary-equations-square-root-selector"
 
-_FORMULA = re.compile(
-    r"x\^\{2\}(?:-(?P<shift>[1-9]\d*))?=(?P<right>0|[1-9]\d*)"
-)
+_FORMULA = re.compile(r"x\^\{2\}(?:-(?P<shift>[1-9]\d*))?=(?P<right>0|[1-9]\d*)")
 _CONDITION = re.compile(
     r"Решите уравнение (?P<formula>.+)\. "
     r"Если уравнение имеет более одного корня, в ответе укажите "
@@ -41,11 +38,17 @@ def _section(content: dict[str, Any], key: str) -> dict[str, Any] | None:
 
 def _target(section: dict[str, Any] | None, key: str) -> str:
     if section is not None:
-        return str(section.get("transformation_target_id") or section.get("section_id") or f"section:{key}")
+        return str(
+            section.get("transformation_target_id")
+            or section.get("section_id")
+            or f"section:{key}"
+        )
     return f"section:{key}"
 
 
-def _rewrite(section: dict[str, Any] | None, key: str, title: str, html: str) -> dict[str, Any]:
+def _rewrite(
+    section: dict[str, Any] | None, key: str, title: str, html: str
+) -> dict[str, Any]:
     return {
         "transformation_target_id": _target(section, key),
         "operation": "rewrite" if section is not None else "add",
@@ -60,10 +63,16 @@ def _condition_formula(condition: dict[str, Any]) -> tuple[str, str]:
         raise UnsupportedCondition("condition equation markup is ambiguous")
     formula = re.sub(r"\s+", "", str(spans[0].get("data-inline-latex") or ""))
     spans[0].replace_with(formula)
-    text = re.sub(r"\s+([.])", r"\1", " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split()))
+    text = re.sub(
+        r"\s+([.])",
+        r"\1",
+        " ".join(soup.get_text(" ", strip=True).replace("\u00ad", "").split()),
+    )
     match = _CONDITION.fullmatch(text)
     if match is None or match.group("formula") != formula:
-        raise UnsupportedCondition("condition wording does not match square-root selector")
+        raise UnsupportedCondition(
+            "condition wording does not match square-root selector"
+        )
     return formula, match.group("choice")
 
 
@@ -89,12 +98,14 @@ def _build_plan(formula: str, choice: str) -> RepairPlan:
     if root * root != squared_value:
         raise UnsupportedCondition("right side is not a positive perfect square")
     answer = str(-root if choice == "меньший" else root)
-    equation_steps = formula if standard_formula == formula else f"{formula}\\iff {standard_formula}"
+    equation_steps = (
+        formula if standard_formula == formula else f"{formula}\\iff {standard_formula}"
+    )
     solution = (
         f"<p>{_SOLUTION_INTRO}</p>"
         f'<center><p><span data-inline-latex="{equation_steps}\\iff '
         f'\\left[\\begin{{aligned}}x=-{root}\\\\x={root}\\end{{aligned}}\\right."></span> .</p></center>'
-        f'<p>Таким об­ра­зом, {"мень­ший" if choice == "меньший" else "наи­боль­ший"} ко­рень '
+        f"<p>Таким об­ра­зом, {'мень­ший' if choice == 'меньший' else 'наи­боль­ший'} ко­рень "
         f'<span data-inline-latex="x={answer}"></span>.</p>'
     )
     return RepairPlan(answer=answer, condition_html="", solution_html=solution)
@@ -103,7 +114,12 @@ def _build_plan(formula: str, choice: str) -> RepairPlan:
 def _answer_matches(section: dict[str, Any] | None, expected: str) -> bool:
     if section is None:
         return False
-    return BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text("", strip=True) == expected
+    return (
+        BeautifulSoup(str(section.get("html") or ""), "html.parser").get_text(
+            "", strip=True
+        )
+        == expected
+    )
 
 
 def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
@@ -127,10 +143,17 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     planned = _build_plan(formula, choice)
     transformations: list[dict[str, Any]] = []
     if solution is None or str(solution.get("html") or "") != planned.solution_html:
-        transformations.append(_rewrite(solution, "solution", "Решение", planned.solution_html))
+        transformations.append(
+            _rewrite(solution, "solution", "Решение", planned.solution_html)
+        )
     if not _answer_matches(answer, planned.answer):
         transformations.append(
-            _rewrite(answer, "answer", "Ответ", f'<p><span data-effect="spaced">{planned.answer}</span></p>')
+            _rewrite(
+                answer,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{planned.answer}</span></p>',
+            )
         )
     return RepairPlan(
         answer=planned.answer,

@@ -7,7 +7,6 @@ from typing import Any
 
 from .common import UnsupportedCondition, finalize, require_content
 
-
 RULE = "word-problem-26637-odd-bouquet"
 _CONDITION = re.compile(
     r"На день рождения полагается дарить букет из неч[её]тного числа цветов\. "
@@ -27,7 +26,11 @@ def build_context_repair_plan(context: dict[str, Any]):
     answer = purchasable if purchasable % 2 else purchasable - 1
     if answer <= 0:
         raise UnsupportedCondition("budget cannot buy a positive odd bouquet")
-    adjustment = "уже нечётное" if answer == purchasable else "чётное, поэтому возьмём на один цветок меньше"
+    adjustment = (
+        "уже нечётное"
+        if answer == purchasable
+        else "чётное, поэтому возьмём на один цветок меньше"
+    )
     solution_html = (
         f"<p>Разделим {budget} на {price}: получаем {purchasable}.</p>"
         f"<p>Это число {adjustment}. Следовательно, Ваня может купить букет из {answer} цветов.</p>"
