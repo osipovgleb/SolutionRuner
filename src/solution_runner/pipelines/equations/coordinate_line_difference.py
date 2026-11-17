@@ -24,7 +24,8 @@ _UNCOLORED_POINT = re.compile(
     r'<path\b[^>]*\bd=["\']M([-\d.]+),([-\d.]+)c-1\.17[^>]*>', re.IGNORECASE
 )
 _CIRCLE = re.compile(
-    r'<circle\b(?=[^>]*\bfill=["\']#143B8F["\'])[^>]*\bcx=["\']([-\d.]+)["\']', re.IGNORECASE
+    r'<circle\b(?=[^>]*\bfill=["\']#143B8F["\'])[^>]*\bcx=["\']([-\d.]+)["\']',
+    re.IGNORECASE,
 )
 _LETTER_MAP = str.maketrans({"а": "a", "с": "c", "х": "x", "у": "y", "р": "p"})
 

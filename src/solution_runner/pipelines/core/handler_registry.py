@@ -1,6 +1,5 @@
 """One lookup table for content rules from all mathematical domains."""
 
-from importlib import import_module, reload
 from types import MappingProxyType
 
 from solution_runner.pipelines.applied.handlers import HANDLERS as APPLIED
@@ -32,6 +31,7 @@ from solution_runner.pipelines.triangles.right.handlers import (
 from solution_runner.pipelines.vectors.handlers import HANDLERS as VECTORS
 from solution_runner.pipelines.word_problems.handlers import HANDLERS as WORD_PROBLEMS
 
+from .declaration_reload import reload_declarations
 from .handlers import HandlerSpec
 
 
@@ -97,8 +97,8 @@ def reload_handler_registry():
     HANDLERS = build_registry(
         spec
         for domain in modules
-        for spec in reload(
-            import_module(f"solution_runner.pipelines.{domain}.handlers")
+        for spec in reload_declarations(
+            f"solution_runner.pipelines.{domain}.handlers"
         ).HANDLERS
     )
     return HANDLERS

@@ -119,6 +119,15 @@ def test_profile_source_state_detects_a_new_profile_declaration(tmp_path):
     assert _profile_source_state(tmp_path) == {profile: profile.stat().st_mtime_ns}
 
 
+def test_profile_source_state_watches_split_profile_and_handler_modules(tmp_path):
+    root = tmp_path / "src/solution_runner/pipelines/equations"
+    root.mkdir(parents=True)
+    files = [root / "numeric_expression_profiles.py", root / "exam_equation_handlers.py"]
+    for path in files:
+        path.write_text("# registration module\n", encoding="utf-8")
+    assert set(_profile_source_state(tmp_path)) == set(files)
+
+
 def test_refresh_server_profiles_updates_each_live_manager(monkeypatch, tmp_path):
     profiles = {"new": object()}
     captured = {}

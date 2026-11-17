@@ -5,25 +5,24 @@ import json
 import re
 from copy import deepcopy
 from dataclasses import replace
-from fractions import Fraction
 from functools import lru_cache
 from html import escape
 from pathlib import Path
-from xml.etree import ElementTree as ET
 
 from bs4 import BeautifulSoup
 
 from ..equations.linear_system_intervals import interval_latex
-from ..probability import condition_diagram, solution_diagrams
-from ..probability.common import UnsupportedCondition, line, normalize, rewrite
+from ..probability import solution_diagrams
+from ..probability.common import UnsupportedCondition, normalize, rewrite
 from ..triangles.right.basic_parent import _targeted
 from . import (
     graph_input,
     graph_stationary,
     horizontal_curves,
     horizontal_manual,
-    primitive_svg,
     raster_primitive,
+    stationary_raster_native,
+    stationary_raster_review,
 )
 
 KEY = "horizontal_tangent_points"
@@ -220,105 +219,12 @@ def diagram_specs(context, *, condition_asset_bytes=None):
     )
 
 
-def proof(question, points):
-    def inline(formula):
-        return '<span data-inline-latex="' + escape(formula, quote=True) + '"></span>'
-
-    html = "<p>Прямая " + inline("y=" + str(question.horizontal))
-    html += " параллельна оси абсцисс. В точках, где касательная к графику горизонтальна, производная равна нулю:</p>"
-    html += line("f'(x)=0")
-    html += (
-        "<p>Посчитаем точки с горизонтальной касательной на заданном промежутке "
-        + inline(interval_latex(question.interval))
-        + ". Их количество — "
-        + str(len(points))
-        + ".</p>"
-    )
-    return html
+proof = stationary_raster_native.proof
 
 
-def _native_points(context, data):
-    question, _, _ = _read(context)
-    entry, points = primitive_svg.read(data, replace(question, kind="count"))
-    return question, entry, points
-
-
-def _audited_input(context):
-    question, _, _ = _read(context)
-    parsed = graph_input.read_graph(context)
-    entry = parsed[5]
-    if entry.get("curve_name") != "f" or tuple(
-        map(Fraction, entry.get("domain", ()))
-    ) != (question.domain.lower, question.domain.upper):
-        raise UnsupportedCondition(
-            "the audited curve and domain must match the question"
-        )
-    points = entry.get("stationary_points")
-    if not isinstance(points, list) or len(
-        graph_stationary.select(points, question.domain)
-    ) != len(points):
-        raise UnsupportedCondition("complete stationary-point coordinates are required")
-    return parsed, question, graph_stationary.select(points, question.interval)
-
-
-def _native_plan(context, data, generated):
-    try:
-        parsed, question, points = _audited_input(context)
-    except UnsupportedCondition:
-        question, entry, points = _native_points(context, data)
-        content = context["normalized_content"]
-        condition = next(s for s in content["sections"] if s["key"] == "condition")
-        solution = next(
-            (s for s in content["sections"] if s["key"] == "solution"), None
-        )
-        svg = graph_stationary.render_svg(entry, data, question.interval, points)
-        figure, key, changes = solution_diagrams.image(
-            content, KEY, ALT, svg=svg, generated=generated
-        )
-        obsolete = [
-            a
-            for a in content["assets"]
-            if a["asset_key"] in (solution or {}).get("asset_keys", [])
-            and a["asset_key"] != key
-        ]
-        removed = tuple(
-            {
-                "transformation_target_id": "asset:" + a["asset_key"],
-                "operation": "remove",
-            }
-            for a in obsolete
-        )
-        return solution_diagrams.repair(
-            condition,
-            _targeted(
-                next((s for s in content["sections"] if s["key"] == "answer"), None)
-            ),
-            _targeted(solution),
-            str(len(points)),
-            figure + proof(question, points),
-            (key,),
-            removed + tuple(changes),
-        )
-
-    content, condition, ans, solution, _, entry, source = parsed
-    condition_diagram.verify_download(source, data)
-    svg = (
-        graph_stationary.render_svg(entry, source, question.interval, points)
-        if entry.get("highlight_stationary")
-        else None
-    )
-    figure, key, changes = graph_input.figure(
-        content, entry, svg=svg, generated=generated
-    )
-    return solution_diagrams.repair(
-        condition,
-        ans,
-        solution,
-        str(len(points)),
-        figure + proof(question, points),
-        (key,) if key else (),
-        changes,
-    )
+_native_points = stationary_raster_native._native_points
+_audited_input = stationary_raster_native._audited_input
+_native_plan = stationary_raster_native._native_plan
 
 
 def _build_context_repair_plan(
@@ -488,130 +394,4 @@ def build_context_repair_plan(
     return replace(plan, solution_html=expected, transformations=tuple(changes))
 
 
-def review_preview(context, *, condition_asset_bytes, error):
-    """Show an uncertain candidate without exposing any apply transformations."""
-    content = deepcopy(context["normalized_content"])
-    stored = next((s for s in content["sections"] if s["key"] == "answer"), {})
-    stored_text = (
-        BeautifulSoup(stored.get("html", ""), "html.parser").get_text().strip()
-    )
-    reason = error
-    if "stored answer" in error:
-        reason = "Подсчёт по рисунку не совпадает с сохранённым ответом."
-    elif "coincidence" in error:
-        reason = "Нужно проверить, совпадает ли касательная с заданной прямой."
-    elif "unsupported complete" in error:
-        reason = "В этой карточке условие другого типа; этот обработчик его не решает."
-    note = (
-        "<p><strong>Только для сверки. Применение заблокировано.</strong></p><p>"
-        + escape(reason)
-        + "</p>"
-    )
-    if "разрыв" in error:
-        reason = "Не удалось надёжно отделить кривую от координатной сетки."
-        note = (
-            "<p><strong>Только для сверки. Применение заблокировано.</strong></p><p>"
-            + reason
-            + "</p>"
-        )
-    elif "curvature optimization" in error:
-        reason = "Не удалось согласовать гладкость кривой без изменения её изгибов."
-        note = (
-            "<p><strong>Только для сверки. Применение заблокировано.</strong></p><p>"
-            + reason
-            + "</p>"
-        )
-    specs = []
-    calculated = None
-    try:
-        if not isinstance(condition_asset_bytes, bytes):
-            raise UnsupportedCondition("the current graph bytes are unavailable")
-        question, _condition, asset, model, selected = _model(
-            context, condition_asset_bytes, review=True
-        )
-        calculated = str(len(selected))
-        root = ET.fromstring(_render(model, selected_points=selected))
-        ns = "{http://www.w3.org/2000/svg}"
-        group = root.find(ns + 'g[@data-runner-diagram="stationary_points"]')
-        # The whole open domain is being counted; circles already show its ends.
-        for polyline in list(group.findall(ns + "polyline")):
-            group.remove(polyline)
-        for index, circle in enumerate(group.findall(ns + "circle"), 1):
-            ET.SubElement(
-                group,
-                ns + "text",
-                {
-                    "x": str(float(circle.get("cx")) + 4),
-                    "y": str(float(circle.get("cy")) - 5),
-                    "fill": "#007EA5",
-                    "font-size": "11",
-                    "font-family": "Arial",
-                },
-            ).text = str(index)
-        solution_svg = ET.tostring(root, encoding="unicode")
-        specs = [solution_diagrams.spec(asset["asset_key"], solution_svg)]
-
-        def image(key, svg):
-            digest = hashlib.sha256(svg.encode()).hexdigest()
-            aid = "preview-" + digest[:16]
-            content["assets"] = [a for a in content["assets"] if a["asset_key"] != key]
-            content["assets"].append(
-                {
-                    "asset_key": key,
-                    "asset_id": aid,
-                    "kind": "ordinary_image",
-                    "url": "/assets/" + aid,
-                }
-            )
-            return (
-                '<center><img width="480" data-asset-key="'
-                + key
-                + '" data-asset-id="'
-                + aid
-                + '" src="/assets/'
-                + aid
-                + '"/></center>'
-            )
-
-        condition_image = image(asset["asset_key"], solution_svg)
-
-        def inline(formula):
-            return (
-                '<span data-inline-latex="' + escape(formula, quote=True) + '"></span>'
-            )
-
-        target = next(s for s in content["sections"] if s["key"] == "condition")
-        target["html"] = (
-            "<p>На рисунке изображён график функции "
-            + inline("y=f(x)")
-            + ", определённой на интервале "
-            + inline(interval_latex(question.domain))
-            + ".</p>"
-            + "<p>Найдите количество точек, в которых касательная к графику функции параллельна прямой "
-            + inline("y=" + str(question.horizontal))
-            + (" или совпадает с ней" if question.include_coincident else "")
-            + ".</p>"
-            + condition_image
-        )
-        note += (
-            "<p>Сохранённый ответ: <strong>"
-            + escape(stored_text or "отсутствует")
-            + "</strong>. Отмечено на графике: <strong>"
-            + calculated
-            + "</strong>.</p>"
-        )
-        note += "<p>Точки пронумерованы для сверки с исходным рисунком.</p>"
-    except (ValueError, TypeError, ET.ParseError):
-        note += "<p>Преобразованный рисунок не построен. Требуется доработка распознавания; исходный рисунок оставлен для сравнения.</p>"
-
-    content["sections"] = [
-        s for s in content["sections"] if s["key"] not in ("answer", "solution")
-    ]
-    content["sections"].append({"key": "solution", "html": note, "asset_keys": []})
-    return {
-        "content": content,
-        "generated_diagrams": specs,
-        "message": reason,
-        "calculated_answer": calculated,
-        "stored_answer": stored_text,
-    }
+review_preview = stationary_raster_review.review_preview

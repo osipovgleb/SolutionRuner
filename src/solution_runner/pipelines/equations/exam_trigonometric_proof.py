@@ -6,6 +6,7 @@ import sympy as sp
 
 from ..probability.common import line
 from ..word_problems.water_season_proof import inline
+from . import exam_trigonometric_notation
 from .exam_exponential_proof import n
 from .exam_trigonometric import C, S, T, U, periodic, table
 from .exam_trigonometric_inverse import level_series
@@ -17,6 +18,8 @@ from .exam_trigonometric_variants import (
     root_notation,
     selection_notes,
 )
+
+K = exam_trigonometric_notation.K
 
 
 def families(a):

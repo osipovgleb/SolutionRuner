@@ -27,7 +27,7 @@ def safe_output_name(url, index=None):
 def get_image(url):
     try:
         response = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=30)
-    except Exception as exc:
+    except requests.RequestException as exc:
         return [False, f"Не получилось получить файл: {exc}"]
 
     if response.status_code != 200:

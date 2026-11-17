@@ -108,6 +108,7 @@ class SharedCodexClient:
         try:
             for line in self.process.stdout:
                 message = json.loads(line)
+                notification = message.get("notification", {})
                 if message.get("ready"):
                     self._ready.put(message)
                 elif message.get("fatal"):
@@ -117,8 +118,8 @@ class SharedCodexClient:
                         pending = self._pending.get(message["id"])
                     if pending is not None:
                         pending.put(message)
-                elif message.get("notification", {}).get("method") == "turn/completed":
-                    params = message["notification"]["params"]
+                elif notification.get("method") == "turn/completed":
+                    params = notification["params"]
                     turn = params["turn"]
                     with self._condition:
                         self._completed[turn["id"]] = turn

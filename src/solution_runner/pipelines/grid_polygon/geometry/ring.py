@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import itertools
 import re
 from dataclasses import dataclass
 from math import ceil, hypot
@@ -62,7 +63,7 @@ def _line_grid(root: ElementTree.Element) -> tuple[float, float, float]:
         ordered = sorted({round(value, 3) for value in values})
         diffs = [
             right - left
-            for left, right in zip(ordered, ordered[1:])
+            for left, right in itertools.pairwise(ordered)
             if right - left > 2.0
         ]
         return median(diffs) if diffs else None

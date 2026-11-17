@@ -124,7 +124,7 @@ def _canonical_answer(value: object) -> tuple[str, object]:
         try:
             return "number", Decimal(compact).normalize()
         except InvalidOperation:
-            pass
+            return "text", compact.casefold()
     fraction_match = re.fullmatch(
         r"\\frac\{([+-]?\d+)\}\{([+-]?\d+)\}|([+-]?\d+)\/([+-]?\d+)",
         compact,

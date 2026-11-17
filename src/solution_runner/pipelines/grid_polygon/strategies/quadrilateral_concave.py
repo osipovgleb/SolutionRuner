@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import itertools
 from fractions import Fraction
 
 from ..models import GeometryAnalysis
@@ -32,7 +33,7 @@ def _is_x_monotone(points: tuple[tuple[int, int], ...]) -> bool:
     """Return whether every open vertical slice meets one connected interval."""
 
     xs = sorted({point[0] for point in points})
-    for left, right in zip(xs, xs[1:]):
+    for left, right in itertools.pairwise(xs):
         probe = Fraction(left + right, 2)
         intersections = 0
         for start, end in zip(points, points[1:] + points[:1], strict=True):

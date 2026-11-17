@@ -21,6 +21,7 @@ import numpy as np
 from PIL import Image
 
 from solution_runner.converters import mcp_grid_polygon_transformations as runner
+from solution_runner.converters import mcp_polygon_batch
 
 from solution_runner.converters.mcp_grid_polygon_transformations import (
     AssetCandidate,
@@ -60,6 +61,172 @@ from solution_runner.converters.png_to_svg_by_contrast import (
     quad_from_mask,
     run as run_contrast_converter,
 )
+
+
+def test_loads_packaged_converter_by_path() -> None:
+    """The locked converter can import its sibling modules when loaded by path."""
+    converter_path = Path(runner.__file__).with_name("png_to_svg_by_contrast.py")
+    converter = runner._load_converter(converter_path)
+    assert callable(converter.run)
+
+
+
+def test_asset_worker_uses_injected_operations_in_order() -> None:
+    """A dry-run worker prepares and verifies an asset without applying it."""
+    calls = []
+    candidate = SimpleNamespace(
+        theme_title="Triangle", group_key="1", source_problem_id="2",
+        problem_id="3", asset_key="diagram",
+    )
+    prepared = SimpleNamespace(
+        input_sha256="input", output_sha256="output", alt_text="diagram",
+        validation={}, svg_path=Path("result.svg"),
+    )
+    logger = SimpleNamespace(emit=lambda event, **kwargs: calls.append(event))
+    context = SimpleNamespace(
+        client=object(), converter=object(), converter_fingerprint="fingerprint",
+        template_path=Path("template.svg"), run_dir=Path("run"),
+        transfer_timeout_seconds=1, logger=logger, apply=False,
+        determinism_gate=SimpleNamespace(verify=lambda *args: calls.append("verified")),
+        prepare_candidate=lambda *args, **kwargs: calls.append("prepared") or prepared,
+        apply_prepared_asset=lambda *args, **kwargs: calls.append("applied"),
+    )
+    outcome = runner._process_candidate(context, candidate)
+    assert outcome.status == "dry_run"
+    assert outcome.prepared is prepared
+    assert calls == ["prepared", "verified", "asset_prepared"]
+
+
+
+def test_parallel_checkpoint_accounts_for_ordered_outcomes() -> None:
+    """A successful result resets the consecutive error count before a later failure."""
+    totals = Counter()
+    outcomes = [
+        SimpleNamespace(status="error", prepared=None),
+        SimpleNamespace(status="replaced", prepared=object()),
+        SimpleNamespace(status="error", prepared=None),
+    ]
+    result = runner.mcp_polygon_processing.account_outcomes(totals, outcomes, 2)
+    assert result == (1, 1, 1)
+    assert totals == Counter(assets_attempted=3, assets_prepared=1, assets_replaced=1, asset_errors=2)
+
+
+
+def test_sequential_batch_verifies_first_success_once() -> None:
+    """Sequential batches verify one successful conversion before accounting for both."""
+    calls = []
+    candidate = SimpleNamespace(source_problem_id="2", problem_id="3", asset_key="diagram")
+    prepared = SimpleNamespace(input_sha256="input", output_sha256="output", alt_text="diagram", validation={}, svg_path=Path("result.svg"))
+    logger = SimpleNamespace(emit=lambda event, **kwargs: calls.append(event))
+    context = SimpleNamespace(client=object(), converter=object(), converter_fingerprint="hash", template_path=Path("template.svg"), run_dir=Path("run"), args=SimpleNamespace(transfer_timeout_seconds=1, max_asset_errors=0), logger=logger, prepare_candidate=lambda *args, **kwargs: prepared, verify_first_deterministic_render=lambda *args, **kwargs: calls.append("verified"))
+    totals = Counter()
+    result, verified, errors = mcp_polygon_batch.prepare_batch(context, SimpleNamespace(title="T"), SimpleNamespace(group_key="G"), [candidate, candidate], totals, (False, 3))
+    assert result == [prepared, prepared]
+    assert verified and errors == 0
+    assert totals == Counter(assets_attempted=2, assets_prepared=2)
+    assert calls.count("verified") == 1
+
+
+
+def test_sequential_batch_dry_run_never_applies_assets() -> None:
+    """Dry-run accounting records prepared assets without making writes."""
+    calls = []
+    context = SimpleNamespace(apply=False, client=object(), source_site_id="site", args=SimpleNamespace(transfer_timeout_seconds=1, max_asset_errors=1), logger=SimpleNamespace(emit=lambda *args, **kwargs: None), apply_prepared_asset=lambda *args, **kwargs: calls.append("write"))
+    totals = Counter()
+    replaced, errors = mcp_polygon_batch.apply_batch(context, SimpleNamespace(title="T"), SimpleNamespace(group_key="G"), [object(), object()], totals, 0)
+    assert (replaced, errors) == (0, 0)
+    assert totals == Counter(assets_dry_run=2)
+    assert calls == []
+
+
+
+def test_sequential_batch_records_stale_and_enforces_error_limit() -> None:
+    """Stale assets are skipped while repeated transport failures stop the run."""
+    events = []
+    context = SimpleNamespace(args=SimpleNamespace(max_asset_errors=2), logger=SimpleNamespace(emit=lambda event, **kwargs: events.append(event)))
+    scope = (SimpleNamespace(title="T"), SimpleNamespace(group_key="G"), SimpleNamespace(source_problem_id="2", problem_id="3", asset_key="diagram"))
+    totals = Counter()
+    record = mcp_polygon_batch._record_prepare_failure
+    assert record(CandidateStale("changed"), context, scope, totals, 1) == 0
+    assert record(OSError("offline"), context, scope, totals, 0) == 1
+    with unittest.TestCase().assertRaises(PipelineError):
+        record(OSError("offline"), context, scope, totals, 1)
+    assert events == ["asset_stale", "asset_error", "asset_error"]
+    assert totals == Counter(assets_stale=1, asset_errors=2)
+
+
+
+def test_group_processing_runs_serial_checkpoint() -> None:
+    """A selected problem is prepared, accounted for, and checkpointed once."""
+    from solution_runner.converters import mcp_polygon_groups
+
+    with tempfile.TemporaryDirectory() as temporary:
+        root = Path(temporary)
+        candidate = SimpleNamespace(problem_id="problem", source_problem_id="source")
+        group = SimpleNamespace(group_key="g", source_group_id="group")
+        theme = SimpleNamespace(title="triangle", snapshot_theme_id="theme")
+        inventory = SimpleNamespace(candidates=[candidate], counts={"png_tasks": 1, "png_assets": 1}, non_svg_content_types={}, png_source_problem_ids=["source"])
+        args = SimpleNamespace(mode="dry-run", max_workers=1, max_tasks=None, stop_after_batches=None, batch_size=10, transfer_timeout_seconds=1, max_asset_errors=0, batch_pause_seconds=0)
+        context = SimpleNamespace(logger=SimpleNamespace(emit=lambda *args, **kwargs: None), converter_path=root / "converter", converter_fingerprint="hash", template_path=root / "template", template_fingerprint="hash", inventory_by_group={"group": inventory}, args=args, client=object(), source_site_id="site", converter=object(), run_dir=root, apply=False, determinism_gate=object(), prepare_candidate=lambda *args, **kwargs: None, apply_prepared_asset=lambda *args, **kwargs: None, verify_first_deterministic_render=lambda *args, **kwargs: None, processing_context_type=object, totals=Counter())
+        with (
+            patch.object(mcp_polygon_groups, "_assert_locked_inputs"),
+            patch.object(mcp_polygon_batch, "prepare_batch", return_value=([], True, 0)),
+            patch.object(mcp_polygon_batch, "apply_batch", return_value=(0, 0)),
+        ):
+            result = mcp_polygon_groups.process_groups(context, [(theme, [group])])
+        assert result == (1, 1, True, False)
+        progress = json.loads((root / "progress.json").read_text())
+        assert progress["tasks_seen"] == 1 and progress["batches_seen"] == 1
+
+
+
+def test_parallel_worker_reports_applied_asset() -> None:
+    """A successful application records the returned source asset and cleanup."""
+    candidate = SimpleNamespace(theme_title="T", group_key="G", source_problem_id="2", problem_id="3", asset_key="image")
+    prepared = SimpleNamespace(transformation_target_id="asset:image_1", output_sha256="hash", alt_text="diagram")
+    events = []
+    context = SimpleNamespace(client=object(), source_site_id="site", transfer_timeout_seconds=1, logger=SimpleNamespace(emit=lambda event, **kwargs: events.append(event)), apply_prepared_asset=lambda *args, **kwargs: ("source-asset", {"cleanup": "old"}))
+    outcome = runner.mcp_polygon_processing._apply_candidate(context, candidate, prepared)
+    assert (outcome.status, outcome.source_asset_id, outcome.cleanup) == ("replaced", "source-asset", {"cleanup": "old"})
+    assert events == ["asset_replaced"]
+
+
+
+def test_parallel_group_checkpoints_ordered_worker_results() -> None:
+    """The first verified candidate precedes the worker pool and all outcomes are counted."""
+    from solution_runner.converters import mcp_polygon_parallel
+
+    with tempfile.TemporaryDirectory() as temporary:
+        root = Path(temporary)
+        gate = SimpleNamespace(verified=False)
+        candidate = SimpleNamespace(problem_id="problem")
+        group = SimpleNamespace(group_key="g", source_group_id="group")
+        theme = SimpleNamespace(title="triangle")
+        args = SimpleNamespace(max_tasks=None, stop_after_batches=None, batch_size=10, max_workers=2, mode="dry-run", transfer_timeout_seconds=1)
+        context = SimpleNamespace(args=args, logger=SimpleNamespace(emit=lambda *args, **kwargs: None), client=object(), source_site_id="site", converter=object(), converter_fingerprint="hash", template_path=root / "template", run_dir=root, apply=False, determinism_gate=gate, prepare_candidate=lambda *args, **kwargs: None, apply_prepared_asset=lambda *args, **kwargs: None, totals=Counter(), processing_context_type=lambda **kwargs: SimpleNamespace(**kwargs))
+        def process(_context, candidates):
+            gate.verified = True
+            return tuple(SimpleNamespace(status="dry_run", prepared=object()) for _ in candidates)
+        with patch.object(mcp_polygon_parallel, "_process_problem_unit", process):
+            result = mcp_polygon_parallel.process_parallel_group(context, theme, group, SimpleNamespace(candidates=[candidate]), (0, 0, 0, False, False))
+        assert result == (1, 1, 0, True, False)
+        assert context.totals == Counter(assets_attempted=1, assets_prepared=1, assets_dry_run=1)
+        assert json.loads((root / "progress.json").read_text())["tasks_seen"] == 1
+
+
+
+def test_parallel_group_stops_before_processing_when_task_limit_reached() -> None:
+    """An exhausted task limit cannot schedule or mutate any candidate."""
+    from solution_runner.converters import mcp_polygon_parallel
+
+    args = SimpleNamespace(max_tasks=1, stop_after_batches=None, batch_size=10, max_workers=2)
+    calls = []
+    context = SimpleNamespace(args=args, logger=SimpleNamespace(emit=lambda *args, **kwargs: calls.append("event")), client=object(), source_site_id="site", converter=object(), converter_fingerprint="hash", template_path=Path("template"), run_dir=Path("run"), apply=False, determinism_gate=SimpleNamespace(verified=False), prepare_candidate=lambda *args, **kwargs: calls.append("prepare"), apply_prepared_asset=lambda *args, **kwargs: calls.append("apply"), totals=Counter(), processing_context_type=object)
+    inventory = SimpleNamespace(candidates=[SimpleNamespace(problem_id="problem")])
+    result = mcp_polygon_parallel.process_parallel_group(context, object(), object(), inventory, (1, 0, 0, False, False))
+    assert result == (1, 0, 0, False, True)
+    assert calls == []
+
 
 
 class FakeMcpClient:

@@ -46,7 +46,7 @@ context = gateway.get_problem_context(target.problem_id)
 parsed = gateway._call(
     "get_problem_parsed_content", {"problem_id": target.problem_id}, read_only=True
 )
-print("PARSED KEYS", list(parsed))
+sys.stdout.write(f"PARSED KEYS {list(parsed)}\n")
 strategy = get_solution_strategy(profile.strategy_key)
 analysis = strategy.analyze(target, profile)
 runtime = _SolutionContext(
@@ -68,7 +68,7 @@ for item in plan.transformations:
     )
 base = build_problem_normalization_working_document(parsed["parsed_content"])
 output = materialize_problem_transformations(base, current)
-print(
+sys.stdout.write(
     json.dumps(
         {
             "plan": plan.transformations,
@@ -81,5 +81,6 @@ print(
         ensure_ascii=False,
         indent=2,
     )
+    + "\n"
 )
 gateway.close()

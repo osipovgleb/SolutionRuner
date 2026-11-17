@@ -1,0 +1,16 @@
+{
+  "workspaces": {
+    ".": {
+      "entry": ["src/solution_runner/converters/temperature_graph_ocr.js"],
+      "project": ["src/solution_runner/converters/**/*.js"]
+    },
+    "dashboard": {
+      "entry": ["src/main.jsx", "src/*.test.js", "vite.config.js"],
+      "project": ["src/**/*.{js,jsx}", "vite.config.js"]
+    },
+    "codex-runtime": {
+      "entry": ["bridge.mjs", "*.test.mjs"],
+      "project": ["*.mjs", "vendor/**/*.ts"]
+    }
+  }
+}

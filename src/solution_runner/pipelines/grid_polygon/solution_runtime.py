@@ -99,7 +99,9 @@ def _diagram_uploads(
     if (
         context.profile.existing_solution_policy == "preserve"
         and existing.strip()
-        and not re.search(r"<section\b[^>]*\bdata-content-kind\s*=", existing, re.IGNORECASE)
+        and not re.search(
+            r"<section\b[^>]*\bdata-content-kind\s*=", existing, re.IGNORECASE
+        )
     ):
         return ()
 

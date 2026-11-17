@@ -51,8 +51,7 @@ class RationalParser(LogarithmParser):
     def _nested(self, text):
         return RationalParser(text, self.denominators, self.depth + 1).parse()
 
-    def _checked(self, value):
-        return checked(value)
+    _checked = staticmethod(checked)
 
     def _combine(self, kind, left, right):
         a, b = left.value, right.value

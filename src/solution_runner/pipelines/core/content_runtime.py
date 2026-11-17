@@ -2,26 +2,27 @@
 
 from __future__ import annotations
 
-import hashlib
-import json
-import re
-import time
 from collections.abc import Callable
-from concurrent.futures import ThreadPoolExecutor
-from copy import deepcopy
-from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Protocol
+from types import SimpleNamespace
+from typing import Any
 
-from bs4 import BeautifulSoup
-
-from solution_runner.pipelines.core.content_context import (
-    _condition_asset_id,
-    _context_fingerprint,
-    _resolved_group,
-    _solution_assets,
-    _solution_html,
+from solution_runner.pipelines.core import (
+    content_apply_batch,
+    content_apply_prepare,
+    content_apply_record,
+    content_assets,
+    content_context,
+    content_diagrams,
+    content_legacy_run,
+    content_manifest,
+    content_prepare_record,
+    content_services,
+    content_stage,
+    content_verify,
+    content_write,
 )
+from solution_runner.pipelines.core.content_gateway import RightTriangleGateway
 from solution_runner.pipelines.core.errors import (
     ContentPlanError as RightTrianglePlanError,
 )
@@ -32,149 +33,18 @@ from solution_runner.pipelines.core.models import (
 )
 from solution_runner.pipelines.grid_polygon.progress import (
     ProgressReporter,
-    TargetProgress,
 )
 
-
-class RightTriangleGateway(Protocol):
-    """Expose only the MCP operations used by this deterministic runner."""
-
-    def get_source_catalog_children(
-        self, parent_id: str, parent_type: str
-    ) -> dict[str, Any]:
-        """Return the ordered children of one explicit source group."""
-
-    def find_source_catalog_path(
-        self, catalog_snapshot_id: str, source_id: str, target_type: str
-    ) -> dict[str, Any]:
-        """Resolve one visible source id within an explicit catalog."""
-
-    def get_problem_context(self, problem_id: str) -> dict[str, Any]:
-        """Return one current schema-v3 transformation context."""
-
-    def get_source_asset(self, source_asset_id: str) -> dict[str, Any]:
-        """Return authoritative metadata for one pinned shared asset."""
-
-    def get_asset_metadata(self, asset_id: str) -> dict[str, Any]:
-        """Return authoritative metadata for one current condition asset."""
-
-    def download_condition_asset(self, target: ProblemTarget) -> Any:
-        """Download one current condition image for a declared content rule."""
-
-    def get_problem_asset_target_context(
-        self, problem_id: str, transformation_target_id: str
-    ) -> dict[str, Any]:
-        """Read the current image target before an explicit image repair."""
-
-    def apply_problem_transformations(
-        self, problem_id: str, transformations: list[dict[str, Any]]
-    ) -> dict[str, Any]:
-        """Apply one atomic problem transformation batch."""
-
-    def attach_source_asset_to_problems(
-        self,
-        *,
-        source_asset_id: str,
-        section_id: str,
-        alt_text: str,
-        problem_ids: list[str],
-    ) -> dict[str, Any]:
-        """Attach one shared library asset to explicit problem solution sections."""
-
-    def get_problem_pipeline_state(self, problem_id: str) -> dict[str, Any]:
-        """Return the current Helpers values and concurrency token."""
-
-    def set_problem_pipeline_stage_state_batch(
-        self, stage: str, updates: list[dict[str, Any]], reason: str
-    ) -> dict[str, Any]:
-        """Persist an exact token-bound pipeline stage override."""
-
-
-def _children(payload: dict[str, Any]) -> list[dict[str, Any]]:
-    """Extract the current group problem rows from either MCP list envelope."""
-
-    candidates = payload.get("children")
-    if not isinstance(candidates, list):
-        candidates = payload.get("items")
-    if not isinstance(candidates, list):
-        raise RightTrianglePlanError("source group omitted children")
-    return [item for item in candidates if isinstance(item, dict)]
-
-
-def _problem_identity(item: dict[str, Any]) -> tuple[str, str]:
-    """Return canonical and source ids for one source-group child row."""
-
-    problem_id = str(item.get("problem_id") or item.get("id") or item.get("uuid") or "")
-    source_problem_id = str(item.get("source_problem_id") or "")
-    if not source_problem_id:
-        match = re.fullmatch(r"\s*Задача\s+(.+?)\s*", str(item.get("name") or ""))
-        source_problem_id = match.group(1) if match is not None else ""
-    if not problem_id or not source_problem_id:
-        raise RightTrianglePlanError("source group child omitted problem identity")
-    return problem_id, source_problem_id
-
-
-def _helpers_update(gateway: RightTriangleGateway, problem_id: str) -> None:
-    """Set the verified P2–P5/P6 terminal branches and validate setter readback."""
-
-    state = gateway.get_problem_pipeline_state(problem_id)
-    current_helpers = (state.get("stage_details") or {}).get("helpers")
-    if (
-        isinstance(current_helpers, dict)
-        and current_helpers.get("helpers_status") == "ready"
-    ):
-        return
-    token = (state.get("stage_state_tokens") or {}).get("helpers")
-    if not isinstance(token, str) or not token:
-        raise RightTrianglePlanError("Helpers token is unavailable")
-    branches = {
-        **{
-            branch: {"status": "ready", "revision": 2, "attempted_revision": 2}
-            for branch in ("p2", "p3", "p4", "p5")
-        },
-        "p6": {"status": "not_required", "revision": 1, "attempted_revision": 1},
-    }
-    response = gateway.set_problem_pipeline_stage_state_batch(
-        "helpers",
-        [
-            {
-                "problem_id": problem_id,
-                "expected_stage_state_token": token,
-                "values": {"operation": "set_branches", "branches": branches},
-            }
-        ],
-        "Verified right-triangle condition asset, solution, and answer",
-    )
-    results = response.get("results")
-    if not isinstance(results, list) or len(results) != 1:
-        raise RightTrianglePlanError("Helpers setter omitted single-target readback")
-    values = results[0].get("values") if isinstance(results[0], dict) else None
-    if not isinstance(values, dict) or values.get("helpers_status") != "ready":
-        raise RightTrianglePlanError("Helpers readback is not ready")
-
-
-def _pinned_condition_asset_id(
-    gateway: RightTriangleGateway, profile: GroupProfile
-) -> str | None:
-    """Verify and return a profile-owned shared condition asset when configured."""
-
-    asset_id = profile.condition_asset_id
-    if asset_id is None:
-        return None
-    expected_sha256 = profile.condition_asset_sha256
-    if not expected_sha256:
-        raise RightTrianglePlanError("pinned condition asset digest is missing")
-    payload = gateway.get_source_asset(asset_id)
-    source_asset = payload.get("source_asset") if isinstance(payload, dict) else None
-    if (
-        not isinstance(source_asset, dict)
-        or source_asset.get("source_asset_id") != asset_id
-        or str(source_asset.get("sha256") or "").lower() != expected_sha256
-        or str(source_asset.get("content_type") or "").split(";", 1)[0].lower()
-        != "image/svg+xml"
-    ):
-        raise RightTrianglePlanError("pinned condition asset readback drifted")
-    return asset_id
+_pinned_condition_asset_id = content_services._pinned_condition_asset_id
+_children = content_context._children
+_problem_identity = content_context._problem_identity
+_condition_asset_id = content_context._condition_asset_id
+_context_fingerprint = content_context._context_fingerprint
+_solution_assets = content_context._solution_assets
+_generated_diagram_assets = content_diagrams._generated_diagram_assets
+_preserving_solution_transformations = (
+    content_context._preserving_solution_transformations
+)
 
 
 def _current_condition_asset_content_type(
@@ -182,32 +52,12 @@ def _current_condition_asset_content_type(
     context: dict[str, Any],
     content_rule_key: str | None,
 ) -> str | None:
-    """Read the current image MIME only for rules that replace raster assets."""
-
-    if not _registered_handler(content_rule_key).inspect_current_asset_type:
-        return None
-    content = context.get("normalized_content")
-    assets = content.get("assets") if isinstance(content, dict) else None
-    if not isinstance(assets, list):
-        return None
-    matches = [
-        asset
-        for asset in assets
-        if isinstance(asset, dict) and asset.get("asset_key") == "image_1"
-    ]
-    if len(matches) != 1:
-        return None
-    asset = matches[0]
-    asset_id = str(asset.get("asset_id") or "")
-    if not asset_id:
-        return None
-    metadata = gateway.get_asset_metadata(asset_id)
-    if str(metadata.get("asset_id") or "") != asset_id:
-        raise RightTrianglePlanError("condition asset metadata identity drifted")
-    content_type = str(metadata.get("content_type") or "").split(";", 1)[0].lower()
-    if not content_type:
-        raise RightTrianglePlanError("condition asset metadata omitted content type")
-    return content_type
+    return content_assets._current_condition_asset_content_type(
+        gateway=gateway,
+        context=context,
+        content_rule_key=content_rule_key,
+        registered_handler=_registered_handler,
+    )
 
 
 def _planner_constraints(content_rule_key: str | None) -> dict[str, str]:
@@ -259,130 +109,23 @@ def _condition_asset_bytes(
     source_problem_id: str,
     content_rule_key: str | None,
 ) -> bytes | None:
-    """Download a current condition image only for an explicitly declared rule."""
-
-    if not _registered_handler(content_rule_key).requires_condition_asset_download:
-        return None
-    asset = gateway.download_condition_asset(
-        ProblemTarget(
-            problem_id,
-            source_problem_id,
-            "",
-            "",
-            0,
-        )
+    return content_assets._condition_asset_bytes(
+        gateway=gateway,
+        problem_id=problem_id,
+        source_problem_id=source_problem_id,
+        content_rule_key=content_rule_key,
+        registered_handler=_registered_handler,
     )
-    if (
-        str(asset.content_type).split(";", 1)[0].lower() != "image/svg+xml"
-        and not _registered_handler(content_rule_key).allow_non_svg_condition_asset
-    ):
-        raise RightTrianglePlanError("condition asset must be SVG")
-    return bytes(asset.data)
-
-
-def _asset_key(source_asset_id: str) -> str:
-    """Mirror TeacherHelper's stable key for a shared SourceAsset attachment."""
-    return "shared_" + source_asset_id.replace("-", "")[:16]
-
-
-def _has_solution_section(context: dict[str, Any]) -> bool:
-    """Return whether the target can accept a solution-scoped shared asset."""
-    content = context.get("normalized_content")
-    sections = content.get("sections") if isinstance(content, dict) else None
-    return any(
-        isinstance(section, dict) and section.get("key") == "solution"
-        for section in sections or []
-    )
-
-
-def _with_solution_placeholder(context: dict[str, Any]) -> dict[str, Any]:
-    """Provide the deterministic section shape used before attaching an SVG."""
-    if _has_solution_section(context):
-        return context
-    planned = deepcopy(context)
-    content = planned.get("normalized_content")
-    if not isinstance(content, dict):
-        raise RightTrianglePlanError(
-            "normalized content is required for solution setup"
-        )
-    sections = content.setdefault("sections", [])
-    if not isinstance(sections, list):
-        raise RightTrianglePlanError("normalized content sections are invalid")
-    sections.append(
-        {
-            "key": "solution",
-            "title": "Решение",
-            "html": "<p></p>",
-            "asset_keys": [],
-            "transformation_target_id": "section:solution:1",
-        }
-    )
-    return planned
 
 
 def _with_required_assets(
     context: dict[str, Any], content_rule_key: str | None
 ) -> dict[str, Any]:
-    """Materialize missing assets locally so a safe preview can plan exactly."""
-    requirements = _registered_handler(content_rule_key).asset_requirements(context)
-    if not requirements:
-        return context
-    planned = deepcopy(_with_solution_placeholder(context))
-    content = planned.get("normalized_content")
-    if not isinstance(content, dict):
-        raise RightTrianglePlanError(
-            "normalized content is required for asset selection"
-        )
-    assets = content.setdefault("assets", [])
-    if not isinstance(assets, list):
-        raise RightTrianglePlanError("normalized content assets are invalid")
-    attached_ids = {
-        str(item.get("asset_id")) for item in assets if isinstance(item, dict)
-    }
-    for requirement in requirements:
-        source_asset_id = requirement["source_asset_id"]
-        if source_asset_id not in attached_ids:
-            assets.append(
-                {"asset_key": _asset_key(source_asset_id), "asset_id": source_asset_id}
-            )
-    return planned
-
-
-def _preserving_solution_transformations(
-    context: dict[str, Any],
-    transformations: tuple[dict[str, Any], ...],
-) -> tuple[dict[str, Any], ...]:
-    """Keep an editorial solution and only retain condition/answer repairs."""
-
-    content = context.get("normalized_content")
-    sections = content.get("sections") if isinstance(content, dict) else None
-    solution = next(
-        (
-            item
-            for item in sections or []
-            if isinstance(item, dict) and item.get("key") == "solution"
-        ),
-        None,
+    return content_assets._with_required_assets(
+        context=context,
+        content_rule_key=content_rule_key,
+        registered_handler=_registered_handler,
     )
-    if not solution or not str(solution.get("html") or "").strip():
-        return transformations
-    solution_asset_keys = {str(key) for key in solution.get("asset_keys") or []}
-    kept: list[dict[str, Any]] = []
-    for transformation in transformations:
-        target = str(transformation.get("transformation_target_id") or "")
-        value = transformation.get("value")
-        parent_target = (
-            str(value.get("parent_target_id") or "") if isinstance(value, dict) else ""
-        )
-        asset_key = target.removeprefix("asset:")
-        if target.startswith("section:solution") or parent_target.startswith(
-            "section:solution"
-        ):
-            continue
-        if target.startswith("asset:") and asset_key in solution_asset_keys:
-            continue
-        kept.append(transformation)
-    return tuple(kept)
 
 
 def _ensure_required_assets(
@@ -391,123 +134,13 @@ def _ensure_required_assets(
     context: dict[str, Any],
     content_rule_key: str | None,
 ) -> dict[str, Any]:
-    """Attach the rule-selected assets once, then return authoritative readback."""
-    requirements = _registered_handler(content_rule_key).asset_requirements(context)
-    if not requirements:
-        return context
-    if not _has_solution_section(context):
-        gateway.apply_problem_transformations(
-            problem_id,
-            [
-                {
-                    "transformation_target_id": "section:solution:1",
-                    "operation": "add",
-                    "value": {"title": "Решение", "html": "<p></p>", "asset_keys": []},
-                }
-            ],
-        )
-        context = gateway.get_problem_context(problem_id)
-        if not _has_solution_section(context):
-            raise RightTrianglePlanError("solution section was not visible after setup")
-    content = context.get("normalized_content")
-    assets = content.get("assets") if isinstance(content, dict) else None
-    attached_ids = {
-        str(item.get("asset_id")) for item in assets or [] if isinstance(item, dict)
-    }
-    missing = [
-        item for item in requirements if item["source_asset_id"] not in attached_ids
-    ]
-    for requirement in missing:
-        gateway.attach_source_asset_to_problems(
-            source_asset_id=requirement["source_asset_id"],
-            section_id=requirement["section_id"],
-            alt_text=requirement["alt_text"],
-            problem_ids=[problem_id],
-        )
-    if not missing:
-        return context
-    refreshed = gateway.get_problem_context(problem_id)
-    refreshed_assets = (refreshed.get("normalized_content") or {}).get("assets") or []
-    refreshed_ids = {
-        str(item.get("asset_id")) for item in refreshed_assets if isinstance(item, dict)
-    }
-    absent = [
-        item["source_asset_id"]
-        for item in requirements
-        if item["source_asset_id"] not in refreshed_ids
-    ]
-    if absent:
-        raise RightTrianglePlanError(
-            "shared asset attachment was not visible after readback"
-        )
-    return refreshed
-
-
-def _generated_diagram_assets(
-    gateway,
-    context,
-    specs,
-    source_problem_id,
-    *,
-    apply=False,
-    condition_asset_bytes=None,
-):
-    """Reuse checksum-verified solution assets or prepare preview/upload identities."""
-    result = []
-    for spec in specs:
-        svg_bytes = spec["svg_text"].encode()
-        digest = hashlib.sha256(svg_bytes).hexdigest()
-        if digest != spec["sha256"]:
-            raise RightTrianglePlanError("generated diagram checksum changed")
-        existing = next(
-            (
-                a
-                for a in (context.get("normalized_content") or {}).get("assets", [])
-                if a.get("asset_key") == spec["asset_key"]
-            ),
-            None,
-        )
-        asset = None
-        if existing:
-            condition_keys = next(
-                (
-                    section.get("asset_keys", [])
-                    for section in (context.get("normalized_content") or {}).get(
-                        "sections", []
-                    )
-                    if section.get("key") == "condition"
-                ),
-                [],
-            )
-            if (
-                isinstance(condition_asset_bytes, bytes)
-                and existing.get("asset_key") in condition_keys
-            ):
-                # The opt-in builder already downloaded this exact condition image.
-                metadata = {"sha256": hashlib.sha256(condition_asset_bytes).hexdigest()}
-            else:
-                metadata = (
-                    gateway.get_source_asset(existing["asset_id"]).get("source_asset")
-                    or {}
-                )
-            if metadata.get("sha256") == digest:
-                asset = {
-                    "source_asset_id": existing["asset_id"],
-                    "url": existing["url"],
-                    "sha256": digest,
-                }
-        if asset is None and apply:
-            asset = gateway.upload_solution_asset(
-                source_problem_id=source_problem_id, svg_bytes=svg_bytes, sha256=digest
-            )
-        if asset is None:
-            asset = {
-                "source_asset_id": "preview-" + digest[:16],
-                "url": "/assets/preview-" + digest[:16],
-                "sha256": digest,
-            }
-        result.append({**asset, "asset_key": spec["asset_key"]})
-    return tuple(result)
+    return content_assets._ensure_required_assets(
+        gateway=gateway,
+        problem_id=problem_id,
+        context=context,
+        content_rule_key=content_rule_key,
+        registered_handler=_registered_handler,
+    )
 
 
 def _prepared_record(
@@ -519,89 +152,22 @@ def _prepared_record(
     parent_solution_html: str = "",
     preserve_existing_solution: bool = False,
 ) -> dict[str, Any]:
-    """Freeze one group's current plan without changing source content."""
-
-    problem_id, source_problem_id = _problem_identity(child)
-    context = None
-    condition_asset_bytes = None
-    handler = None
-    try:
-        handler = _registered_handler(content_rule_key)
-        context = gateway.get_problem_context(problem_id)
-        context = _with_required_assets(context, content_rule_key)
-        current_asset_content_type = _current_condition_asset_content_type(
-            gateway, context, content_rule_key
-        )
-        condition_asset_bytes = _condition_asset_bytes(
-            gateway, problem_id, source_problem_id, content_rule_key
-        )
-        diagram_specs = (
-            handler.diagram_specs(context, condition_asset_bytes=condition_asset_bytes)
-            if handler.diagram_builder_uses_condition_bytes
-            else handler.diagram_specs(context)
-        )
-        generated_assets = _generated_diagram_assets(
-            gateway,
-            context,
-            diagram_specs,
-            source_problem_id,
-            **(
-                {"condition_asset_bytes": condition_asset_bytes}
-                if handler.diagram_builder_uses_condition_bytes
-                else {}
-            ),
-        )
-        plan = _build_content_plan(
-            context,
-            parent_asset_id=parent_asset_id,
-            content_rule_key=content_rule_key,
-            parent_solution_assets=parent_solution_assets,
-            parent_solution_html=parent_solution_html,
-            current_asset_content_type=current_asset_content_type,
-            condition_asset_bytes=condition_asset_bytes,
-            generated_solution_assets=generated_assets,
-        )
-        transformations = tuple(plan.transformations)
-        if preserve_existing_solution:
-            transformations = _preserving_solution_transformations(
-                context, transformations
-            )
-        return {
-            "problem_id": problem_id,
-            "source_problem_id": source_problem_id,
-            "status": "prepared",
-            "input_fingerprint": _context_fingerprint(context),
-            "expected_answer": plan.answer,
-            "generated_diagrams": list(diagram_specs),
-            "transformations": [deepcopy(item) for item in transformations],
-            **(
-                {"preserve_existing_solution": True}
-                if preserve_existing_solution
-                else {}
-            ),
-            **(
-                {"message": "; ".join(plan.warnings)}
-                if getattr(plan, "warnings", ())
-                else {}
-            ),
-        }
-    except Exception as exc:  # noqa: BLE001 - freeze one explicit blocker per task.
-        review = None
-        if handler is not None and context is not None and handler.review_builder:
-            try:
-                review = handler.review_preview(
-                    context, condition_asset_bytes=condition_asset_bytes, error=str(exc)
-                )
-            except Exception:  # noqa: BLE001 - diagnostics must never change the blocked status.
-                review = None
-        return {
-            "problem_id": problem_id,
-            "source_problem_id": source_problem_id,
-            "status": "blocked",
-            "message": " ".join(str(exc).split())[:500],
-            "transformations": [],
-            **({"review_preview": review} if review is not None else {}),
-        }
+    return content_prepare_record._prepared_record(
+        gateway=gateway,
+        child=child,
+        parent_asset_id=parent_asset_id,
+        content_rule_key=content_rule_key,
+        parent_solution_assets=parent_solution_assets,
+        parent_solution_html=parent_solution_html,
+        preserve_existing_solution=preserve_existing_solution,
+        services=SimpleNamespace(
+            _registered_handler=_registered_handler,
+            _with_required_assets=_with_required_assets,
+            _current_condition_asset_content_type=_current_condition_asset_content_type,
+            _condition_asset_bytes=_condition_asset_bytes,
+            _build_content_plan=_build_content_plan,
+        ),
+    )
 
 
 def prepare_manifest(
@@ -611,75 +177,71 @@ def prepare_manifest(
     source_group_number: str,
     max_workers: int,
 ) -> dict[str, Any]:
-    """Discover one group and freeze every current deterministic repair."""
-
-    if not 1 <= max_workers <= 10:
-        raise RightTrianglePlanError("max_workers must be between 1 and 10")
-    source_group_id = _resolved_group(
-        gateway.find_source_catalog_path(
-            catalog_snapshot_id,
-            source_group_number,
-            "group",
-        )
-    )
-    children = _children(gateway.get_source_catalog_children(source_group_id, "group"))
-    identities = [_problem_identity(child) for child in children]
-    if not identities:
-        raise RightTrianglePlanError("selected source group has no problems")
-    asset_source_problem_id, asset_source_source_problem_id = identities[0]
-    asset_source_context = gateway.get_problem_context(asset_source_problem_id)
-    parent_asset_id = _condition_asset_id(asset_source_context)
-    parent_solution_assets = _solution_assets(asset_source_context)
-    parent_solution_html = _solution_html(asset_source_context)
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        records = list(
-            executor.map(
-                lambda child: _prepared_record(
-                    gateway,
-                    child,
-                    parent_asset_id,
-                    parent_solution_assets=parent_solution_assets,
-                    parent_solution_html=parent_solution_html,
-                ),
-                children,
-            )
-        )
-    return {
-        "schema_version": 1,
-        "kind": "right_triangle_sine_solution_repair",
-        "prepared_at": datetime.now(UTC).isoformat(),
-        "catalog_snapshot_id": catalog_snapshot_id,
-        "source_group_id": source_group_id,
-        "group_key": source_group_number,
-        "source_group_number": source_group_number,
-        "condition_asset": {
-            "source_asset_id": parent_asset_id,
-            "source_problem_id": asset_source_source_problem_id,
-            "transformation_target_id": "asset:image_1",
-        },
-        "solution_assets": list(parent_solution_assets),
-        "parent_solution_html": parent_solution_html,
-        "records": records,
-    }
-
-
-def _has_current_image(context: dict[str, Any]) -> bool:
-    """Return whether image_1 currently exists and therefore needs target readback."""
-
-    content = context.get("normalized_content")
-    assets = content.get("assets") if isinstance(content, dict) else None
-    return any(
-        isinstance(item, dict) and item.get("asset_key") == "image_1"
-        for item in (assets if isinstance(assets, list) else [])
+    return content_manifest.prepare_manifest(
+        gateway=gateway,
+        catalog_snapshot_id=catalog_snapshot_id,
+        source_group_number=source_group_number,
+        max_workers=max_workers,
+        record_factory=_prepared_record,
     )
 
 
-def _presentation_html(raw: str) -> str:
-    """Compare authoritative condition HTML without transient target annotations."""
-    soup = BeautifulSoup(raw, "html.parser")
-    for tag in soup.find_all(True):
-        tag.attrs.pop("data-transformation-target-id", None)
-    return str(soup)
+_has_current_image = content_write._has_current_image
+
+
+_ParentContent = content_apply_record._ParentContent
+
+
+def _verify_content_readback(
+    gateway: RightTriangleGateway,
+    record: dict[str, Any],
+    context: dict[str, Any],
+    frozen: list[dict[str, Any]],
+    parent: _ParentContent,
+) -> None:
+    return content_verify._verify_content_readback(
+        gateway,
+        record,
+        context,
+        frozen,
+        parent,
+        services=SimpleNamespace(
+            registered_handler=_registered_handler,
+            condition_asset_bytes=_condition_asset_bytes,
+            build_content_plan=_build_content_plan,
+        ),
+    )
+
+
+_PreparedApply = content_apply_prepare._PreparedApply
+
+
+def _prepare_frozen_apply(
+    gateway: RightTriangleGateway, record: dict[str, Any], parent: _ParentContent
+) -> _PreparedApply:
+    return content_apply_prepare._prepare_frozen_apply(
+        gateway,
+        record,
+        parent,
+        services=SimpleNamespace(
+            _ensure_required_assets=_ensure_required_assets,
+            _registered_handler=_registered_handler,
+            _current_condition_asset_content_type=_current_condition_asset_content_type,
+            _condition_asset_bytes=_condition_asset_bytes,
+            _build_content_plan=_build_content_plan,
+        ),
+    )
+
+
+def _write_frozen_apply(
+    gateway: RightTriangleGateway,
+    record: dict[str, Any],
+    parent: _ParentContent,
+    prepared: _PreparedApply,
+) -> tuple[bool, list[dict[str, Any]]]:
+    return content_write._write_frozen_apply(
+        gateway, record, parent, prepared, registered_handler=_registered_handler
+    )
 
 
 def _apply_record(
@@ -690,264 +252,20 @@ def _apply_record(
     parent_solution_assets: tuple[dict[str, str], ...] = (),
     parent_solution_html: str = "",
 ) -> dict[str, Any]:
-    """Converge one frozen record through content and Helpers readback."""
-
-    problem_id = str(record.get("problem_id") or "")
-    source_problem_id = str(record.get("source_problem_id") or "")
-    if record.get("status") != "prepared":
-        return {
-            "problem_id": problem_id,
-            "source_problem_id": source_problem_id,
-            "status": "blocked",
-            "message": str(record.get("message") or "manifest record is blocked"),
-        }
-    try:
-        context = gateway.get_problem_context(problem_id)
-        context = _ensure_required_assets(
-            gateway, problem_id, context, content_rule_key
-        )
-        if (
-            _registered_handler(content_rule_key).strict_frozen_input
-            and context.get("problem_id") != problem_id
-        ):
-            raise RightTrianglePlanError("current problem identity drifted")
-        current_asset_content_type = _current_condition_asset_content_type(
-            gateway, context, content_rule_key
-        )
-        condition_asset_bytes = _condition_asset_bytes(
-            gateway, problem_id, source_problem_id, content_rule_key
-        )
-        handler = _registered_handler(content_rule_key)
-        diagram_specs = (
-            handler.diagram_specs(context, condition_asset_bytes=condition_asset_bytes)
-            if handler.diagram_builder_uses_condition_bytes
-            else handler.diagram_specs(context)
-        )
-        if list(diagram_specs) != record.get("generated_diagrams", []):
-            raise RightTrianglePlanError("generated diagram drifted after prepare")
-        generated_assets = _generated_diagram_assets(
-            gateway,
-            context,
-            diagram_specs,
-            source_problem_id,
-            **(
-                {"condition_asset_bytes": condition_asset_bytes}
-                if handler.diagram_builder_uses_condition_bytes
-                else {}
-            ),
-        )
-        current_plan = _build_content_plan(
-            context,
-            parent_asset_id=parent_asset_id,
-            content_rule_key=content_rule_key,
-            parent_solution_assets=parent_solution_assets,
-            parent_solution_html=parent_solution_html,
-            current_asset_content_type=current_asset_content_type,
-            condition_asset_bytes=condition_asset_bytes,
-            generated_solution_assets=generated_assets,
-        )
-        expected_answer = str(record.get("expected_answer") or "")
-        frozen = record.get("transformations")
-        if not isinstance(frozen, list) or (
-            not expected_answer
-            and not _registered_handler(content_rule_key).presentation_only
-        ):
-            raise RightTrianglePlanError("prepared record is incomplete")
-        if current_plan.answer != expected_answer:
-            raise RightTrianglePlanError(
-                "condition or computed answer drifted after prepare"
-            )
-        current_transformations = list(current_plan.transformations)
-        if record.get("preserve_existing_solution") is True:
-            current_transformations = list(
-                _preserving_solution_transformations(
-                    context, tuple(current_transformations)
-                )
-            )
-        if _registered_handler(content_rule_key).presentation_only:
-            for item in frozen:
-                target = str(item.get("transformation_target_id") or "")
-                if not (
-                    (
-                        target.startswith("section:condition:")
-                        and item.get("operation") == "rewrite"
-                    )
-                    or (
-                        target.startswith("asset:")
-                        and item.get("operation") == "remove"
-                    )
-                ):
-                    raise RightTrianglePlanError(
-                        "presentation rule may only rewrite the condition"
-                    )
-        changed = False
-        if current_transformations:
-            if _registered_handler(
-                content_rule_key
-            ).strict_frozen_input and _context_fingerprint(context) != record.get(
-                "input_fingerprint"
-            ):
-                raise RightTrianglePlanError("frozen input drifted; prepare again")
-            if current_transformations != frozen:
-                raise RightTrianglePlanError(
-                    "current repair differs from frozen manifest"
-                )
-            if any(
-                item.get("transformation_target_id") == "asset:image_1"
-                for item in frozen
-            ) and _has_current_image(context):
-                gateway.get_problem_asset_target_context(problem_id, "asset:image_1")
-            if diagram_specs:
-                uploaded_assets = _generated_diagram_assets(
-                    gateway,
-                    context,
-                    diagram_specs,
-                    source_problem_id,
-                    apply=True,
-                    **(
-                        {"condition_asset_bytes": condition_asset_bytes}
-                        if handler.diagram_builder_uses_condition_bytes
-                        else {}
-                    ),
-                )
-                encoded = json.dumps(frozen, ensure_ascii=False)
-                for preview, uploaded in zip(generated_assets, uploaded_assets):
-                    encoded = encoded.replace(
-                        preview["source_asset_id"], uploaded["source_asset_id"]
-                    )
-                frozen = json.loads(encoded)
-            gateway.apply_problem_transformations(problem_id, deepcopy(frozen))
-            changed = True
-        if diagram_specs:
-            encoded = json.dumps(frozen, ensure_ascii=False)
-            for spec, asset in zip(diagram_specs, generated_assets):
-                encoded = encoded.replace(
-                    "preview-" + spec["sha256"][:16], asset["source_asset_id"]
-                )
-            frozen = json.loads(encoded)
-        if (
-            _registered_handler(content_rule_key).presentation_only
-            or _registered_handler(content_rule_key).verify_content_readback
-        ):
-            refreshed = gateway.get_problem_context(problem_id)
-            handler = _registered_handler(content_rule_key)
-            refreshed_bytes = (
-                _condition_asset_bytes(
-                    gateway, problem_id, source_problem_id, content_rule_key
-                )
-                if handler.diagram_builder_uses_condition_bytes
-                else None
-            )
-            refreshed_specs = (
-                handler.diagram_specs(refreshed, condition_asset_bytes=refreshed_bytes)
-                if handler.diagram_builder_uses_condition_bytes
-                else handler.diagram_specs(refreshed)
-            )
-            refreshed_assets = _generated_diagram_assets(
-                gateway,
-                refreshed,
-                refreshed_specs,
-                source_problem_id,
-                **(
-                    {"condition_asset_bytes": refreshed_bytes}
-                    if handler.diagram_builder_uses_condition_bytes
-                    else {}
-                ),
-            )
-            verified = _build_content_plan(
-                refreshed,
-                parent_asset_id=parent_asset_id,
-                content_rule_key=content_rule_key,
-                parent_solution_assets=parent_solution_assets,
-                parent_solution_html=parent_solution_html,
-                generated_solution_assets=refreshed_assets,
-                **(
-                    {"condition_asset_bytes": refreshed_bytes}
-                    if handler.diagram_builder_uses_condition_bytes
-                    else {}
-                ),
-            )
-            verified_transformations = verified.transformations
-            if record.get("preserve_existing_solution") is True:
-                verified_transformations = _preserving_solution_transformations(
-                    refreshed, tuple(verified_transformations)
-                )
-            if verified_transformations or verified.answer != expected_answer:
-                raise RightTrianglePlanError("content failed authoritative readback")
-            before_sections = (context.get("normalized_content") or {}).get(
-                "sections", []
-            )
-            after_sections = (refreshed.get("normalized_content") or {}).get(
-                "sections", []
-            )
-            touched = set()
-            for item in frozen:
-                if str(item.get("transformation_target_id", "")).startswith("section:"):
-                    key = item["transformation_target_id"].split(":")[1]
-                    touched.add(key)
-                    actual = next(
-                        (
-                            section.get("html", "")
-                            for section in after_sections
-                            if section.get("key") == key
-                        ),
-                        "",
-                    )
-                    if _presentation_html(actual) != _presentation_html(
-                        item["value"]["html"]
-                    ):
-                        raise RightTrianglePlanError(
-                            "section readback differs from frozen content"
-                        )
-            if [item for item in before_sections if item.get("key") not in touched] != [
-                item for item in after_sections if item.get("key") not in touched
-            ]:
-                raise RightTrianglePlanError(
-                    "unrelated sections changed during content repair"
-                )
-        return {
-            "problem_id": problem_id,
-            "source_problem_id": source_problem_id,
-            "status": "applied" if changed else "already_complete",
-            **(
-                {"message": "; ".join(current_plan.warnings)}
-                if getattr(current_plan, "warnings", ())
-                else {}
-            ),
-        }
-    except Exception as exc:  # noqa: BLE001 - preserve one target-local failure.
-        return {
-            "problem_id": problem_id,
-            "source_problem_id": source_problem_id,
-            "status": "failed",
-            "message": " ".join(str(exc).split())[:500],
-        }
-
-
-def _summary(results: list[dict[str, Any]]) -> dict[str, Any]:
-    """Build one content-free application summary from frozen-order results."""
-
-    return {
-        "applied_count": sum(item["status"] == "applied" for item in results),
-        "already_complete_count": sum(
-            item["status"] == "already_complete" for item in results
+    return content_apply_record._apply_record(
+        gateway=gateway,
+        record=record,
+        parent_asset_id=parent_asset_id,
+        content_rule_key=content_rule_key,
+        parent_solution_assets=parent_solution_assets,
+        parent_solution_html=parent_solution_html,
+        services=SimpleNamespace(
+            _prepare_frozen_apply=_prepare_frozen_apply,
+            _write_frozen_apply=_write_frozen_apply,
+            _registered_handler=_registered_handler,
+            _verify_content_readback=_verify_content_readback,
         ),
-        "blocked_count": sum(item["status"] == "blocked" for item in results),
-        "failed_count": sum(item["status"] == "failed" for item in results),
-        "results": results,
-    }
-
-
-def _write_checkpoint(path: Path, summary: dict[str, Any]) -> None:
-    """Atomically replace one local apply checkpoint after a completed batch."""
-
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
     )
-    temporary.replace(path)
 
 
 def apply_frozen_manifest(
@@ -960,60 +278,21 @@ def apply_frozen_manifest(
     batch_pause_seconds: float = 0.0,
     on_batch_complete: Callable[[list[dict[str, Any]], int], None] | None = None,
 ) -> dict[str, Any]:
-    """Apply frozen records in bounded batches with restartable readback."""
-
-    if batch_size <= 0:
-        raise RightTrianglePlanError("batch_size must be positive")
-    if batch_pause_seconds < 0:
-        raise RightTrianglePlanError("batch_pause_seconds cannot be negative")
-    if not 1 <= max_workers <= 10:
-        raise RightTrianglePlanError("max_workers must be between 1 and 10")
-    records = manifest.get("records")
-    content_rule_key = manifest.get("content_rule_key")
-    if content_rule_key is not None and not isinstance(content_rule_key, str):
-        raise RightTrianglePlanError("prepared manifest content rule is invalid")
-    _planner_constraints(content_rule_key)
-    raw_solution_assets = manifest.get("solution_assets", [])
-    if not isinstance(raw_solution_assets, list) or not all(
-        isinstance(item, dict) for item in raw_solution_assets
-    ):
-        raise RightTrianglePlanError("manifest solution assets are invalid")
-    parent_solution_assets = tuple(deepcopy(item) for item in raw_solution_assets)
-    parent_solution_html = str(manifest.get("parent_solution_html") or "")
-    parent_asset_id = str(
-        (manifest.get("condition_asset") or {}).get("source_asset_id") or ""
+    return content_apply_batch.apply_frozen_manifest(
+        gateway=gateway,
+        manifest=manifest,
+        batch_size=batch_size,
+        max_workers=max_workers,
+        checkpoint_path=checkpoint_path,
+        batch_pause_seconds=batch_pause_seconds,
+        on_batch_complete=on_batch_complete,
+        services=SimpleNamespace(
+            _planner_constraints=_planner_constraints,
+            _requires_parent_condition_asset=_requires_parent_condition_asset,
+            _registered_handler=_registered_handler,
+            _apply_record=_apply_record,
+        ),
     )
-    if not isinstance(records, list) or (
-        not parent_asset_id and _requires_parent_condition_asset(content_rule_key)
-    ):
-        raise RightTrianglePlanError("prepared manifest is incomplete")
-    _registered_handler(content_rule_key).validate_manifest(gateway, manifest)
-    results: list[dict[str, Any]] = []
-    for offset in range(0, len(records), batch_size):
-        batch = records[offset : offset + batch_size]
-        with ThreadPoolExecutor(
-            max_workers=min(max_workers, len(batch) or 1)
-        ) as executor:
-            batch_results = list(
-                executor.map(
-                    lambda record: _apply_record(
-                        gateway,
-                        record,
-                        parent_asset_id,
-                        content_rule_key,
-                        parent_solution_assets,
-                        parent_solution_html,
-                    ),
-                    batch,
-                )
-            )
-        results.extend(batch_results)
-        _write_checkpoint(checkpoint_path, _summary(results))
-        if on_batch_complete:
-            on_batch_complete(batch_results, len(results))
-        if offset + batch_size < len(records) and batch_pause_seconds:
-            time.sleep(batch_pause_seconds)
-    return _summary(results)
 
 
 def _content_rule_manifest(
@@ -1027,52 +306,17 @@ def _content_rule_manifest(
     max_workers: int,
     on_record_prepared: Callable[[dict[str, Any], int], None] | None = None,
 ) -> dict[str, Any]:
-    """Freeze exact per-task repairs for one already inventoried source group."""
-
-    children = tuple(
-        {
-            "problem_id": target.problem_id,
-            "source_problem_id": target.source_problem_id,
-        }
-        for target in targets
+    return content_manifest._content_rule_manifest(
+        gateway=gateway,
+        targets=targets,
+        profile=profile,
+        parent_asset_id=parent_asset_id,
+        parent_solution_assets=parent_solution_assets,
+        parent_solution_html=parent_solution_html,
+        max_workers=max_workers,
+        on_record_prepared=on_record_prepared,
+        record_factory=_prepared_record,
     )
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        records: list[dict[str, Any]] = []
-        for index, record in enumerate(
-            executor.map(
-                lambda child: _prepared_record(
-                    gateway,
-                    child,
-                    parent_asset_id,
-                    profile.content_rule_key,
-                    parent_solution_assets,
-                    parent_solution_html,
-                    profile.existing_solution_policy == "preserve",
-                ),
-                children,
-            ),
-            start=1,
-        ):
-            records.append(record)
-            if on_record_prepared:
-                on_record_prepared(record, index)
-    return {
-        "schema_version": 1,
-        "kind": "right_triangle_sine_solution_repair",
-        "prepared_at": datetime.now(UTC).isoformat(),
-        "catalog_snapshot_id": profile.catalog_snapshot_id,
-        "source_group_id": profile.source_group_id,
-        "group_key": profile.group_key,
-        "source_group_number": profile.group_key,
-        "content_rule_key": profile.content_rule_key,
-        "condition_asset": {
-            "source_asset_id": parent_asset_id,
-            "transformation_target_id": "asset:image_1",
-        },
-        "solution_assets": list(parent_solution_assets),
-        "parent_solution_html": parent_solution_html,
-        "records": records,
-    }
 
 
 def _read_content_rule_manifest(
@@ -1080,106 +324,11 @@ def _read_content_rule_manifest(
     targets: tuple[ProblemTarget, ...],
     profile: GroupProfile,
 ) -> dict[str, Any]:
-    """Read and validate one frozen content-rule scope before resume."""
-
-    try:
-        manifest = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise RightTrianglePlanError(
-            "prepared content-rule manifest is unreadable"
-        ) from exc
-    records = manifest.get("records") if isinstance(manifest, dict) else None
-    if (
-        not isinstance(records, list)
-        or manifest.get("schema_version") != 1
-        or manifest.get("catalog_snapshot_id") != profile.catalog_snapshot_id
-        or manifest.get("source_group_id") != profile.source_group_id
-        or manifest.get("group_key") != profile.group_key
-        or manifest.get("content_rule_key") != profile.content_rule_key
-        or (
-            not _requires_parent_condition_asset(profile.content_rule_key)
-            and (manifest.get("condition_asset") or {}).get("source_asset_id")
-            not in (None, "")
-        )
-        or (
-            profile.condition_asset_id is not None
-            and (manifest.get("condition_asset") or {}).get("source_asset_id")
-            != profile.condition_asset_id
-        )
-        or [record.get("problem_id") for record in records]
-        != [target.problem_id for target in targets]
-    ):
-        raise RightTrianglePlanError("prepared content-rule manifest scope drifted")
-    return manifest
-
-
-def _report_content_result(
-    reporter: ProgressReporter,
-    profile: GroupProfile,
-    result: dict[str, Any],
-    progress: TargetProgress,
-) -> ProblemStageResult:
-    """Emit old-pipeline milestones and project one content result."""
-
-    status = str(result.get("status") or "failed")
-    source_problem_id = str(result.get("source_problem_id") or "")
-    problem_id = str(result.get("problem_id") or "")
-    message = str(result.get("message") or "") or None
-    if status == "applied":
-        solution_action, answer_action, severity = (
-            "SOLUTION WRITTEN",
-            "ANSWER VERIFIED",
-            "success",
-        )
-        stage_status = "applied"
-    elif status == "already_complete":
-        solution_action, answer_action, severity = (
-            "SOLUTION ALREADY COMPLETE",
-            "ANSWER VERIFIED",
-            "success",
-        )
-        stage_status = "already_complete"
-    elif status == "planned":
-        solution_action, answer_action, severity = (
-            "SOLUTION PLANNED",
-            "ANSWER PLANNED",
-            "info",
-        )
-        stage_status = "planned"
-    else:
-        solution_action, answer_action, severity = (
-            "SOLUTION FAILED",
-            "ANSWER SKIPPED",
-            "error",
-        )
-        stage_status = "failed"
-    details = {"message": message} if message else None
-    reporter.task(
-        profile.theme_title,
-        profile.group_key,
-        source_problem_id,
-        progress,
-        solution_action,
-        severity=severity,
-        stage="solution",
-        details=details,
-    )
-    reporter.task(
-        profile.theme_title,
-        profile.group_key,
-        source_problem_id,
-        progress,
-        answer_action,
-        severity=severity,
-        stage="answer",
-        details=details,
-    )
-    return ProblemStageResult(
-        problem_id=problem_id,
-        source_problem_id=source_problem_id,
-        stage="solution_answer",
-        status=stage_status,
-        message=message,
+    return content_manifest._read_content_rule_manifest(
+        path=path,
+        targets=targets,
+        profile=profile,
+        requires_parent=_requires_parent_condition_asset,
     )
 
 
@@ -1197,120 +346,25 @@ def run_content_rule_stage(
     batch_pause_seconds: float,
     max_workers: int,
 ) -> tuple[ProblemStageResult, ...]:
-    """Run the registered content rule through the shared frozen workflow."""
-
-    if not profile.content_rule_key:
-        raise RightTrianglePlanError("content-rule profile requires a rule key")
-    if not targets:
-        return ()
-    handler = _registered_handler(profile.content_rule_key)
-    if (
-        handler.expected_parent_id
-        and asset_source_target.problem_id != handler.expected_parent_id
-    ):
-        raise RightTrianglePlanError("registered handler requires its audited parent")
-    manifest_path = run_dir / "prepared-manifest.json"
-    pinned_asset_id = _pinned_condition_asset_id(gateway, profile)
-    if resume:
-        manifest = _read_content_rule_manifest(manifest_path, targets, profile)
-    else:
-        parent_target = asset_source_target
-        if handler.parent_from_group_listing:
-            children = _children(
-                gateway.get_source_catalog_children(profile.source_group_id, "group")
-            )
-            if children:
-                parent_target = ProblemTarget(
-                    problem_id=_problem_identity(children[0])[0],
-                    source_problem_id=_problem_identity(children[0])[1],
-                    source_group_id=profile.source_group_id,
-                    group_key=profile.group_key,
-                    problem_order_index=0,
-                )
-        source_context = gateway.get_problem_context(parent_target.problem_id)
-        parent_asset_id = pinned_asset_id
-        if parent_asset_id is None and _requires_parent_condition_asset(
-            profile.content_rule_key
-        ):
-            parent_asset_id = _condition_asset_id(source_context)
-        parent_solution_assets = _solution_assets(source_context)
-        parent_solution_html = _solution_html(source_context)
-
-        def report_preparation(record: dict[str, Any], index: int) -> None:
-            prepared = record.get("status") == "prepared"
-            reporter.task(
-                profile.theme_title,
-                profile.group_key,
-                str(record.get("source_problem_id") or ""),
-                TargetProgress(index=index, total=len(targets)),
-                "SOLUTION PREPARED" if prepared else "SOLUTION BLOCKED",
-                severity="info" if prepared else "error",
-                stage="solution_prepare",
-                details={"message": str(record.get("message") or "")}
-                if not prepared
-                else None,
-            )
-
-        manifest = _content_rule_manifest(
-            gateway,
-            targets,
-            profile=profile,
-            parent_asset_id=parent_asset_id,
-            parent_solution_assets=parent_solution_assets,
-            parent_solution_html=parent_solution_html,
-            max_workers=max_workers,
-            on_record_prepared=report_preparation,
-        )
-        _write_checkpoint(manifest_path, manifest)
-    records = manifest["records"]
-    if apply:
-        reported_results: list[ProblemStageResult] = []
-
-        def report_batch(batch: list[dict[str, Any]], completed: int) -> None:
-            start = completed - len(batch) + 1
-            total = len(records)
-            for index, result in enumerate(batch, start=start):
-                reported_results.append(
-                    _report_content_result(
-                        reporter,
-                        profile,
-                        result,
-                        TargetProgress(index=index, total=total),
-                    )
-                )
-
-        summary = apply_frozen_manifest(
-            gateway,
-            manifest,
-            batch_size=batch_size,
-            max_workers=max_workers,
-            checkpoint_path=run_dir / "apply-results.json",
-            batch_pause_seconds=batch_pause_seconds,
-            on_batch_complete=report_batch,
-        )
-        del summary
-        return tuple(reported_results)
-    else:
-        raw_results = [
-            {
-                "problem_id": record.get("problem_id"),
-                "source_problem_id": record.get("source_problem_id"),
-                "status": (
-                    "planned" if record.get("status") == "prepared" else "failed"
-                ),
-                "message": record.get("message"),
-            }
-            for record in records
-        ]
-    total = len(raw_results)
-    return tuple(
-        _report_content_result(
-            reporter,
-            profile,
-            result,
-            TargetProgress(index=index, total=total),
-        )
-        for index, result in enumerate(raw_results, start=1)
+    return content_stage.run_content_rule_stage(
+        gateway=gateway,
+        targets=targets,
+        asset_source_target=asset_source_target,
+        profile=profile,
+        reporter=reporter,
+        run_dir=run_dir,
+        resume=resume,
+        apply=apply,
+        batch_size=batch_size,
+        batch_pause_seconds=batch_pause_seconds,
+        max_workers=max_workers,
+        services=SimpleNamespace(
+            _registered_handler=_registered_handler,
+            _read_content_rule_manifest=_read_content_rule_manifest,
+            _requires_parent_condition_asset=_requires_parent_condition_asset,
+            _content_rule_manifest=_content_rule_manifest,
+            apply_frozen_manifest=apply_frozen_manifest,
+        ),
     )
 
 
@@ -1320,116 +374,14 @@ def run_manifest(
     *,
     apply: bool,
 ) -> dict[str, Any]:
-    """Discover, repair, verify, and optionally mark ready one manifest group."""
-
-    if _registered_handler(manifest.get("content_rule_key")).requires_frozen_manifest:
-        raise RightTrianglePlanError(
-            "registered handler requires the shared frozen-manifest launcher"
-        )
-
-    source_group_id = str(manifest.get("source_group_id") or "")
-    parent_asset_id = str(
-        (manifest.get("condition_asset") or {}).get("source_asset_id") or ""
-    )
-    content_rule_key = manifest.get("content_rule_key")
-    if content_rule_key is not None and not isinstance(content_rule_key, str):
-        raise RightTrianglePlanError("manifest content rule is invalid")
-    _planner_constraints(content_rule_key)
-    raw_solution_assets = manifest.get("solution_assets", [])
-    if not isinstance(raw_solution_assets, list) or not all(
-        isinstance(item, dict) for item in raw_solution_assets
-    ):
-        raise RightTrianglePlanError("manifest solution assets are invalid")
-    parent_solution_assets = tuple(deepcopy(item) for item in raw_solution_assets)
-    selection = manifest.get("selection") or {}
-    skipped = {str(value) for value in selection.get("skip_source_problem_ids", [])}
-    if not source_group_id or (
-        not parent_asset_id and _requires_parent_condition_asset(content_rule_key)
-    ):
-        raise RightTrianglePlanError(
-            "manifest requires source_group_id and parent asset"
-        )
-    results: list[dict[str, Any]] = []
-    verified_ids: list[str] = []
-    for child in _children(
-        gateway.get_source_catalog_children(source_group_id, "group")
-    ):
-        problem_id, source_problem_id = _problem_identity(child)
-        if source_problem_id in skipped:
-            results.append(
-                {
-                    "source_problem_id": source_problem_id,
-                    "problem_id": problem_id,
-                    "status": "skipped",
-                    "transformations": [],
-                }
-            )
-            continue
-        try:
-            context = gateway.get_problem_context(problem_id)
-            plan = _build_content_plan(
-                context,
-                parent_asset_id=parent_asset_id,
-                content_rule_key=content_rule_key,
-                parent_solution_assets=parent_solution_assets,
-                parent_solution_html=str(manifest.get("parent_solution_html") or ""),
-            )
-            targets = [
-                item["transformation_target_id"] for item in plan.transformations
-            ]
-            if not apply:
-                results.append(
-                    {
-                        "source_problem_id": source_problem_id,
-                        "problem_id": problem_id,
-                        "status": "planned",
-                        "transformations": targets,
-                    }
-                )
-                continue
-            if plan.transformations:
-                if "asset:image_1" in targets:
-                    gateway.get_problem_asset_target_context(
-                        problem_id, "asset:image_1"
-                    )
-                gateway.apply_problem_transformations(
-                    problem_id, list(plan.transformations)
-                )
-            verified_ids.append(problem_id)
-            results.append(
-                {
-                    "source_problem_id": source_problem_id,
-                    "problem_id": problem_id,
-                    "status": "applied" if plan.transformations else "already_complete",
-                    "transformations": targets,
-                }
-            )
-        except Exception as exc:  # noqa: BLE001 - retain one failure per task.
-            results.append(
-                {
-                    "source_problem_id": source_problem_id,
-                    "problem_id": problem_id,
-                    "status": "failed",
-                    "transformations": [],
-                    "message": " ".join(str(exc).split())[:500],
-                }
-            )
-    if apply:
-        for result in results:
-            if result["problem_id"] not in verified_ids:
-                continue
-            try:
-                _helpers_update(gateway, result["problem_id"])
-                result["helpers"] = "ready"
-            except Exception as exc:  # noqa: BLE001 - content remains verified if state fails.
-                result["helpers"] = "failed"
-                result["helpers_message"] = " ".join(str(exc).split())[:500]
-    return {
-        "planned_count": sum(item["status"] == "planned" for item in results),
-        "applied_count": sum(item["status"] == "applied" for item in results),
-        "already_complete_count": sum(
-            item["status"] == "already_complete" for item in results
+    return content_legacy_run.run_manifest(
+        gateway,
+        manifest,
+        apply=apply,
+        services=SimpleNamespace(
+            _registered_handler=_registered_handler,
+            _planner_constraints=_planner_constraints,
+            _requires_parent_condition_asset=_requires_parent_condition_asset,
+            _build_content_plan=_build_content_plan,
         ),
-        "failed_count": sum(item["status"] == "failed" for item in results),
-        "results": results,
-    }
+    )

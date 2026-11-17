@@ -1,9 +1,10 @@
 """Validated aggregate of domain-owned group declarations."""
 
 from collections.abc import Mapping
-from importlib import import_module, invalidate_caches, reload
+from importlib import import_module, invalidate_caches
 from types import MappingProxyType
 
+from .declaration_reload import reload_declarations
 from .handler_registry import get_handler, reload_handler_registry
 from .models import GroupProfile
 from .profile_definitions import (
@@ -86,7 +87,7 @@ def reload_group_profiles() -> Mapping[str, GroupProfile]:
     invalidate_caches()
     reload_handler_registry()
     for module_name in _PROFILE_MODULES:
-        reload(import_module(module_name))
+        reload_declarations(module_name)
     _PROFILES = _build_profiles()
     return _PROFILES
 

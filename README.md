@@ -132,11 +132,13 @@ domain/profiles.py → content_rule_key → core/handler_registry.py
 
 ## Проверка AISlop
 
-Установите Node.js 22 или новее и зависимости командой `npm install`, затем
+Установите Node.js 24.10 или новее и зависимости командами `npm ci`,
+`npm ci --prefix dashboard` и `npm ci --prefix codex-runtime --ignore-scripts`, затем
 запустите `npm run quality:aislop`. Как и в TeacherHelper, проверка требует
 100/100, отсутствие замечаний, работу всех шести движков и отсутствие
 директив подавления в исходном коде. Для подробностей запустите
-`npx --no-install aislop scan`. Автоматические исправления не применяются.
+`npm run quality:scan`. Knip также проверяет точки входа и исходники панели,
+транспорта Codex и OCR-скрипта. Автоматические исправления не применяются.
 
 В `package.json` указана версия `latest`; `package-lock.json` фиксирует
 версию для воспроизводимого `npm ci`. Обновить её можно командой

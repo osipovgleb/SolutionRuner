@@ -120,7 +120,7 @@ class AssetOperations:
             response = httpx.get(urljoin(self._url, relative_url), timeout=60.0)
             response.raise_for_status()
             data = response.content
-        except Exception as exc:  # noqa: BLE001 - file transport varies.
+        except Exception as exc:  # file transport varies.
             raise McpCallError("existing SVG download failed") from exc
         return ConditionAsset(
             asset_id=asset_id,
@@ -204,7 +204,7 @@ class AssetOperations:
             )
             response.raise_for_status()
             upload = response.json()
-        except Exception as exc:  # noqa: BLE001 - signed upload transport varies.
+        except Exception as exc:  # signed upload transport varies.
             raise McpCallError(
                 "solution upload returned an ambiguous response; reconcile by digest"
             ) from exc
@@ -265,7 +265,7 @@ class AssetOperations:
             )
             response.raise_for_status()
             upload = response.json()
-        except Exception as exc:  # noqa: BLE001 - signed upload transport varies.
+        except Exception as exc:  # signed upload transport varies.
             raise McpCallError(
                 "condition upload returned an ambiguous response; reconcile by digest"
             ) from exc

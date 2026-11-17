@@ -1,0 +1,215 @@
+"""Exam equation group bindings for the corresponding topic."""
+
+from solution_runner.pipelines.core.profile_definitions import _profile
+
+PROFILES = tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, исследование ОДЗ",
+        theme_order_index=7,
+        snapshot_theme_id="7a3eb443-be07-4933-96c3-2b90566979f4",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("507644", "e83c70f1-f11f-41fc-b5a7-77fb243231ed", 0),
+        ("509820", "27986c13-ecdf-4655-bdcb-9f4d37670d7e", 1),
+        ("504240", "33464c57-0659-419c-8a0a-e715a79120d2", 2),
+        ("525023", "6354f6ca-d3c2-4e8d-b600-cfc6d32c35ad", 3),
+        ("505498", "20877ea1-87b4-4d17-bd84-f0781a96f3d1", 4),
+        ("501395", "14957e8e-7976-488e-9f80-6a68062f556c", 5),
+        ("514241", "a68f7976-9bed-4ad4-a63c-e55191ae6277", 6),
+        ("507985", "c84edb01-ddff-4a72-acd9-db78d8c623a1", 7),
+        ("519632", "238b31ec-eaaa-4af3-8bfb-0736180dbccb", 8),
+        ("500637", "9715b766-6a8e-418d-90a1-72ffabdf572c", 9),
+        ("523375", "fa29a44f-fbe9-4975-9b87-ed8e0e192559", 10),
+        ("507694", "6a57f155-d98a-4085-a37e-2b93d4591abb", 11),
+        ("525407", "f53b6d5a-5c7d-49ea-83c1-870062b945d5", 12),
+        ("501215", "0949fe60-db03-4545-bc27-1131c924d129", 13),
+        ("689084", "672e2760-c292-4671-8b66-7bc735ea8bdb", 14),
+        ("505152", "d866bf56-98be-467e-925b-c1f19aa8c44b", 15),
+        ("484547", "dca86076-f42a-4414-8b3c-59a19040e6b0", 16),
+        ("530063", "98e3c9a6-833c-4bb5-befa-dce7ede7c90f", 18),
+        ("630661", "3eedada2-9e7c-4610-b53e-264b7193a96e", 31),
+        ("642003", "26cee32e-deae-4242-814c-5cb1491cf984", 38),
+        ("653512", "56008fa6-740d-4d21-a69a-21678479c523", 42),
+        ("701089", "0b8c7f04-c03e-4f66-874e-7e22bff31678", 52),
+        ("648771", "89f5c4f8-7eb8-4d0c-82fe-1029c63ed3b5", 41),
+        ("655320", "a497d5bd-c722-4628-8e2c-05e02d50a2b2", 43),
+        ("622096", "109129ee-dba1-4173-b90c-89f5fb57bfc6", 24),
+        ("622377", "40190098-5658-4576-8a5c-23c438af7f5c", 25),
+        ("622981", "d00d4319-02a0-45b1-a67a-c29930da86e1", 26),
+        ("623657", "d9830718-41a9-4964-940e-88309e16d43b", 27),
+        ("624294", "317df68c-e21c-4a03-9d0d-f7e9da69392c", 28),
+        ("628749", "e9e05930-3a9d-4088-b144-0fe41060dc31", 29),
+        ("530699", "0525ce5d-d123-4d8f-b406-8e7a24bce4e9", 19),
+        ("535423", "116d430f-3e0c-4929-9021-c9705353ae70", 20),
+        ("547543", "7e7d499a-ec51-4788-aa32-4403921b333d", 21),
+        ("556614", "46c3b6b5-e20e-4e36-a85d-8764e0bb9397", 22),
+        ("562491", "8fd4b7f7-e946-4084-990b-f7b6bdebbc48", 23),
+        ("633751", "58165732-af78-4224-9db3-05e049e8f68e", 33),
+        ("637084", "e8036921-0dd1-42cc-b187-5e6e304d1589", 37),
+        ("646081", "b479a30c-d827-472b-973a-444c98ff8109", 40),
+        ("668795", "f343ff32-5364-4533-82a1-7bcbcec4db0a", 44),
+        ("677685", "6e651545-fde2-434a-908d-11c95cb2fa6d", 46),
+        ("695735", "e05d8aa2-4bc5-477b-bf10-32311e6695d2", 48),
+        ("700451", "0a8dc430-f29d-4382-9580-1767d832c94e", 51),
+        ("673034", "d04d6214-2966-4128-b465-402a8c17f5a3", 45),
+        ("695392", "306b681d-78e5-44d5-8dbc-562799ad6059", 47),
+        ("699433", "1f0e3246-a29d-426c-ba95-fff1499a3da2", 49),
+        ("699852", "5759ce2d-4ee8-49c5-819b-58c5e75d21f0", 50),
+        ("629862", "1241b852-bc1b-4b60-b1c6-31f4564673e6", 30),
+        ("635306", "f4240445-afec-4866-a554-546e3f09b706", 36),
+        ("645888", "0506b9da-0732-44c2-bd6d-6c5df99f48a2", 39),
+    )
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, разные задачи",
+        theme_order_index=8,
+        snapshot_theme_id="81adff3f-4a92-408f-abf4-4881018613e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("484545", "4126f8f0-31db-4d90-a49a-627e72d2114d", 4),
+        ("485991", "5c8c36bf-81da-4ce9-8e42-2ccfe348b5fe", 3),
+        ("527633", "df03255b-2b79-4c26-ba98-c726ee919d65", 10),
+        ("553829", "70ee8072-020b-4d3d-9c30-df1b843bcb5d", 16),
+        ("548032", "ad5a2503-b1af-49cb-8f97-9ebf2430d97f", 14),
+        ("559902", "ded15ef6-60e7-4916-8b71-da81cdfea2e0", 18),
+        ("562175", "aeb019aa-2b58-43f6-8a7e-dd99febd89d2", 21),
+        ("620775", "04f0acff-c911-4028-b11f-fbfaab579c38", 25),
+        ("633390", "7e1ac067-fc5c-4a7e-a30e-4dda3caea143", 33),
+        ("696038", "f5538494-d3c1-4f99-aa61-8604090328b3", 60),
+    )
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, разные задачи",
+        theme_order_index=8,
+        snapshot_theme_id="81adff3f-4a92-408f-abf4-4881018613e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("634242", "a1e8ddc7-0833-4448-b0fd-38a5a112ea6d", 34),
+        ("634873", "70f49852-d577-4289-92c7-f90bd9edb812", 35),
+        ("635747", "6f621df8-0e85-4b4a-acd0-53da28663733", 36),
+        ("636742", "d90c1162-44e1-48be-8116-21da3647612e", 37),
+        ("639768", "625e3144-7567-4e2a-9d7f-84a093400fcf", 40),
+        ("645371", "9b349024-712b-4354-8a3e-739b9f6397b8", 48),
+        ("658806", "9ac503a3-7d6c-44b8-bdd3-7aa7e584706a", 53),
+    )
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, исследование ОДЗ",
+        theme_order_index=7,
+        snapshot_theme_id="7a3eb443-be07-4933-96c3-2b90566979f4",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("635141", "2c6a620e-8c67-47b8-9317-e81b16f262fb", 36),
+    )
+)
+
+
+PROFILES += tuple(
+    _profile(
+        key,
+        group_id,
+        index,
+        catalog_snapshot_id="41bc4d03-40cd-4407-8dea-df76e3f47ea8",
+        category_key="14",
+        theme_title="Тригонометрические уравнения, разные задачи",
+        theme_order_index=8,
+        snapshot_theme_id="81adff3f-4a92-408f-abf4-4881018613e5",
+        expected_vertices=None,
+        strategy_key=None,
+        workflow_kind="content_rule",
+        content_rule_key="exam-trigonometric-polynomial-circle",
+        rewrite_existing_solution=True,
+    )
+    for key, group_id, index in (
+        ("692248", "f00826d6-890e-46e0-94cd-2385469b5c4b", 58),
+        ("521994", "91a06746-6aee-4a86-8d1c-3ca8ae2a11f4", 5),
+        ("560429", "00ceadcf-875f-421a-8385-14cde0d0d993", 19),
+        ("627924", "f8d6fa49-426f-45ed-afcb-2108d514c4b4", 29),
+        ("519635", "d2e05060-872d-4b72-9493-d57983e1742c", 2),
+        ("556585", "a68cfe98-f1b9-49d7-9f81-20da8c4b0182", 17),
+        ("522094", "490a7cc8-d878-43fc-abb6-cf9ebe52b176", 7),
+        ("652135", "8c77d544-0f3a-4dd3-b8cd-8de14d66dc75", 50),
+        ("507886", "408fc61e-8bac-4ab0-a6ea-6ab3e9af1ef9", 0),
+        ("500346", "7253c051-feb4-40d3-83cc-7c16e6c94e0f", 1),
+        ("522122", "0e893b0d-51e0-40f6-8412-eda5389d681b", 6),
+        ("527386", "5475fb0a-8cd9-4a35-a062-997491c27fbc", 9),
+        ("529730", "9f216ad4-7319-4c2c-b168-8f08fce0e4b5", 11),
+        ("530455", "e43ac3dd-ce07-4285-af99-9d867d0f3016", 12),
+        ("551499", "499b3801-cbbc-44cb-96d5-9cbdface70dd", 15),
+        ("563715", "50804d3d-7084-4d81-9462-a58ee5a6bea9", 22),
+        ("563720", "fe1a6777-0b57-4ae0-9fc6-eb66f0e08b5f", 23),
+        ("620215", "5e7e8182-0799-4b98-9f8b-9c0132dd12f7", 24),
+        ("625312", "7114cbad-ef9b-4a1b-af93-89d76c1ad25e", 26),
+        ("627043", "70e30e2e-38b2-4906-bb06-36611029c04d", 27),
+        ("627637", "0c82a86e-94c1-46c9-acfc-e9191908f21d", 28),
+        ("630194", "745d96d0-7b08-462c-add2-e5f3a1526720", 31),
+        ("630216", "1bac2330-af53-4cc4-a4b2-b7d070a35592", 32),
+        ("638901", "8f875f49-77ab-456a-a292-1c056c507f9b", 38),
+        ("639002", "bf9fb781-edee-4cde-8de3-42aa19ef01f1", 39),
+        ("640279", "9c5af056-6aa2-42f8-807d-aa86bea33f60", 41),
+        ("642157", "ceafeea0-ed31-4d9c-96cb-e217b71e585f", 42),
+        ("642332", "f2cb7744-0fad-4733-9b45-1689da197eba", 43),
+        ("642725", "e1e7bf2b-1836-44a1-908f-db39b541284d", 44),
+        ("642726", "476c6f2c-fb5c-471b-aa76-3186e24ff11e", 45),
+        ("642778", "8c646396-73d1-4b40-a82f-1dd2fc0d97bb", 46),
+        ("643155", "e523840b-7065-49d0-9aaa-23410926a365", 47),
+        ("655784", "917bdba4-fddf-4177-a4fd-0f60e2bd6721", 51),
+        ("681089", "b9c5bea1-26ab-4a39-90ed-6f032c4b7a75", 56),
+        ("701645", "d2a935de-2b8f-420d-a6e4-86f270d6da6a", 61),
+        ("704184", "e3582de4-8441-4f9b-8023-cd526f39c150", 62),
+        ("647805", "142049c2-02a2-43c1-9e5e-5f8aa2674060", 50),
+        ("672849", "e99c0ec3-1875-4e79-aeef-7f4f261edb66", 55),
+        ("680457", "ba5dd589-3429-4efa-9131-2b83a15be5f9", 56),
+        ("681577", "fcc95aae-c91c-41e4-8ddb-e266ce12cd97", 58),
+        ("694272", "e67b9de9-2e64-4058-92b1-d95b5a9a0cd3", 60),
+    )
+)

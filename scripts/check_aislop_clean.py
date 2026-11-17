@@ -3,11 +3,10 @@
 
 from __future__ import annotations
 
-from collections.abc import Mapping
 import json
-from pathlib import Path
 import subprocess
-
+from collections.abc import Mapping
+from pathlib import Path
 
 REQUIRED_ENGINES = {
     "format",

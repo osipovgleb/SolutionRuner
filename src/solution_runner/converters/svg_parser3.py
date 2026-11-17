@@ -248,7 +248,7 @@ def transform_svg_to_path(svg_source, out_file, new_color="#143B8F", file_id=Non
     out_svg = out_file.with_suffix(".svg")
     try:
         out_svg.write_text(soup.prettify(), encoding="utf-8")
-    except Exception as exc:
+    except (OSError, UnicodeError) as exc:
         return [False, f"Не получилось записать результат: {exc}"]
 
     display_id = file_id or out_file.stem

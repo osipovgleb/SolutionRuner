@@ -73,6 +73,77 @@ def _asset_fragment(html: str, asset_key: str) -> str:
     return str(tag)
 
 
+def _apply_section(sections, target_id, operation, value):
+    match = next(
+        (
+            section
+            for section in sections
+            if section.get("transformation_target_id") == target_id
+        ),
+        None,
+    )
+    if operation == "remove":
+        sections[:] = [section for section in sections if section is not match]
+    elif operation in {"add", "rewrite"} and isinstance(value, dict):
+        previous_html = str((match or {}).get("html") or "")
+        updates = {
+            key: deepcopy(item)
+            for key, item in value.items()
+            if key in {"html", "title", "asset_keys"}
+        }
+        if "html" in updates and "asset_keys" in updates:
+            present = _asset_keys_in_html(str(updates["html"]))
+            retained = "".join(
+                _asset_fragment(previous_html, str(key))
+                for key in updates["asset_keys"]
+                if str(key) not in present
+            )
+            updates["html"] = retained + str(updates["html"])
+        if match is None and operation == "add":
+            sections.append(
+                {
+                    "key": target_id.split(":", 2)[1],
+                    "transformation_target_id": target_id,
+                    **updates,
+                }
+            )
+        elif match is not None:
+            match.update(updates)
+
+
+def _apply_asset(sections, assets, target_id, operation, value):
+    key = target_id.split(":", 1)[1]
+    if operation == "remove":
+        assets[:] = [asset for asset in assets if asset.get("asset_key") != key]
+    elif operation in {"add", "rewrite"} and isinstance(value, dict):
+        match = next((asset for asset in assets if asset.get("asset_key") == key), None)
+        if match is None:
+            assets.append(deepcopy(value))
+        else:
+            match.update(deepcopy(value))
+        parent_id = str(value.get("parent_target_id") or "")
+        parent = next(
+            (
+                section
+                for section in sections
+                if section.get("transformation_target_id") == parent_id
+            ),
+            None,
+        )
+        fragment = str(value.get("html") or "")
+        if parent is not None and fragment:
+            parent_html = str(parent.get("html") or "")
+            if key not in _asset_keys_in_html(parent_html):
+                parent["html"] = (
+                    fragment + parent_html
+                    if int(value.get("position") or 0) == 0
+                    else parent_html + fragment
+                )
+            parent_keys = parent.setdefault("asset_keys", [])
+            if key not in parent_keys:
+                parent_keys.append(key)
+
+
 def _apply_locally(
     content: Mapping[str, Any], transformations: list[dict[str, Any]]
 ) -> dict[str, Any]:
@@ -86,72 +157,7 @@ def _apply_locally(
         operation = transformation.get("operation")
         value = transformation.get("value")
         if target_id.startswith("section:"):
-            match = next(
-                (
-                    section
-                    for section in sections
-                    if section.get("transformation_target_id") == target_id
-                ),
-                None,
-            )
-            if operation == "remove":
-                sections[:] = [section for section in sections if section is not match]
-            elif operation in {"add", "rewrite"} and isinstance(value, dict):
-                previous_html = str((match or {}).get("html") or "")
-                updates = {
-                    key: deepcopy(item)
-                    for key, item in value.items()
-                    if key in {"html", "title", "asset_keys"}
-                }
-                if "html" in updates and "asset_keys" in updates:
-                    present = _asset_keys_in_html(str(updates["html"]))
-                    retained = "".join(
-                        _asset_fragment(previous_html, str(key))
-                        for key in updates["asset_keys"]
-                        if str(key) not in present
-                    )
-                    updates["html"] = retained + str(updates["html"])
-                if match is None and operation == "add":
-                    sections.append(
-                        {
-                            "key": target_id.split(":", 2)[1],
-                            "transformation_target_id": target_id,
-                            **updates,
-                        }
-                    )
-                elif match is not None:
-                    match.update(updates)
+            _apply_section(sections, target_id, operation, value)
         elif target_id.startswith("asset:"):
-            key = target_id.split(":", 1)[1]
-            if operation == "remove":
-                assets[:] = [asset for asset in assets if asset.get("asset_key") != key]
-            elif operation in {"add", "rewrite"} and isinstance(value, dict):
-                match = next(
-                    (asset for asset in assets if asset.get("asset_key") == key), None
-                )
-                if match is None:
-                    assets.append(deepcopy(value))
-                else:
-                    match.update(deepcopy(value))
-                parent_id = str(value.get("parent_target_id") or "")
-                parent = next(
-                    (
-                        section
-                        for section in sections
-                        if section.get("transformation_target_id") == parent_id
-                    ),
-                    None,
-                )
-                fragment = str(value.get("html") or "")
-                if parent is not None and fragment:
-                    parent_html = str(parent.get("html") or "")
-                    if key not in _asset_keys_in_html(parent_html):
-                        parent["html"] = (
-                            fragment + parent_html
-                            if int(value.get("position") or 0) == 0
-                            else parent_html + fragment
-                        )
-                    parent_keys = parent.setdefault("asset_keys", [])
-                    if key not in parent_keys:
-                        parent_keys.append(key)
+            _apply_asset(sections, assets, target_id, operation, value)
     return result

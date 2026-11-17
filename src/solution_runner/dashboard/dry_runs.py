@@ -26,7 +26,7 @@ from .dry_run_targets import (
     _source_problem_id,
 )
 from .previews import fetch_preview, latest_dry_run_manifest, load_preview, save_preview
-from .process_logs import run_logged
+from .process_logs import run_logged as _run_launcher
 
 NoDryRunTarget = _exported_NoDryRunTarget
 
@@ -104,10 +104,6 @@ def _launcher_command(
             raise ValueError("selected problem is required")
         command.extend(("--only-problem-id", problem_id))
     return command
-
-
-def _run_launcher(command: list[str]) -> int:
-    return run_logged(command)
 
 
 class DryRunManager:

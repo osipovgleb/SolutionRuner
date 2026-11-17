@@ -1,7 +1,7 @@
 async function request(fetcher, url, options = {}) {
   const response = await fetcher(url, {
     ...options,
-    headers: { "Content-Type": "application/json", ...(options.headers || {}) },
+    headers: { "Content-Type": "application/json", ...options.headers },
   });
   if (!response.ok) {
     const payload = await response.json().catch(() => ({}));

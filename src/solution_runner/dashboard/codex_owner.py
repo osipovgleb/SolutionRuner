@@ -91,7 +91,8 @@ def send_owner_turn(
                 raise RuntimeError(
                     f"Не удалось найти владельца чата: {owner.get('error')}"
                 )
-            if not owner.get("result", {}).get("supportsUntrustedAppInput"):
+            owner_details = owner.get("result", {})
+            if not owner_details.get("supportsUntrustedAppInput"):
                 raise RuntimeError(
                     "Владелец чата использует несовместимую версию Codex App."
                 )

@@ -116,9 +116,10 @@ def sniff_asset_kind(
     """Return the actual supported image kind from bytes, not stale metadata."""
 
     prefix = data.lstrip()[:256].lower()
-    if prefix.startswith((b"<?xml", b"<svg")):
-        if b"<svg" in prefix or b"<svg" in data[:2048].lower():
-            return "svg"
+    if prefix.startswith((b"<?xml", b"<svg")) and (
+        b"<svg" in prefix or b"<svg" in data[:2048].lower()
+    ):
+        return "svg"
     if data.startswith((b"\x89PNG\r\n\x1a\n", b"BM")):
         return "raster"
     if data.startswith(b"\xff\xd8\xff"):

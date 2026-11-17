@@ -173,57 +173,58 @@ def _ratio_rows(solved, known):
     return rows
 
 
-def _rows(kind, solved):
-    raw = {k: tex for k, _, tex in solved.givens}
-    value = _display(solved)
-    if kind == "ratio":
-        return _ratio_rows(solved, set(raw))
-    if kind == "abc_cos":
-        return [
-            r"AB^2=AC^2+BC^2",
-            rf"AB=\sqrt{{({value['AC']})^2+({value['BC']})^2}}={value['AB']}",
-            r"\cos B="
-            + fraction("BC", "AB")
-            + "="
-            + fraction(value["BC"], value["AB"]),
+def _abc_cos_rows(value):
+    return [
+        r"AB^2=AC^2+BC^2",
+        rf"AB=\sqrt{{({value['AC']})^2+({value['BC']})^2}}={value['AB']}",
+        r"\cos B=" + fraction("BC", "AB") + "=" + fraction(value["BC"], value["AB"]),
+    ]
+
+
+def _projection_rows(solved, raw, value):
+    target = solved.requested
+    function = "cosA" if target == "CH" else "sinA"
+    rows = [rf"{target}=BC\{function[:-1]}\angle HCB=BC\{function[:-1]} A"]
+    if function not in raw:
+        given = "sinA" if function == "cosA" else "cosA"
+        rows += [
+            rf"\{function[:-1]} A=\sqrt{{1-\{given[:-1]}^2 A}}=\sqrt{{1-({value[given]})^2}}={value[function]}"
         ]
-    if kind == "projection":
-        target = solved.requested
-        function = "cosA" if target == "CH" else "sinA"
-        rows = [rf"{target}=BC\{function[:-1]}\angle HCB=BC\{function[:-1]} A"]
-        if function not in raw:
-            given = "sinA" if function == "cosA" else "cosA"
-            rows += [
-                rf"\{function[:-1]} A=\sqrt{{1-\{given[:-1]}^2 A}}=\sqrt{{1-({value[given]})^2}}={value[function]}"
-            ]
-        return rows + [rf"{target}=({value['BC']})\cdot({value[function]})"]
-    if kind == "ac_cos":
-        top = rf"({value['AC']})(1-({value['cosA']})^2)"
-        return [
-            r"BH=BC\sin\angle HCB=BC\sin A",
-            r"BC=AC\tg A,\quad\tg A=" + fraction(r"\sin A", r"\cos A"),
-            "BH="
-            + fraction(r"AC\sin^2 A", r"\cos A")
-            + "="
-            + fraction(r"AC(1-\cos^2 A)", r"\cos A"),
-            "BH=" + fraction(top, value["cosA"]),
-        ]
-    if kind == "metric":
-        return [
-            r"\cos A="
-            + fraction("AH", "AC")
-            + r"\Longrightarrow AC="
-            + fraction("AH", r"\cos A")
-            + "="
-            + fraction(value["AH"], value["cosA"])
-            + "="
-            + value["AC"],
-            r"AC^2=AB\cdot AH",
-            "AB="
-            + fraction("AC^2", "AH")
-            + "="
-            + fraction("(" + value["AC"] + ")^2", value["AH"]),
-        ]
+    return rows + [rf"{target}=({value['BC']})\cdot({value[function]})"]
+
+
+def _ac_cos_rows(value):
+    top = rf"({value['AC']})(1-({value['cosA']})^2)"
+    return [
+        r"BH=BC\sin\angle HCB=BC\sin A",
+        r"BC=AC\tg A,\quad\tg A=" + fraction(r"\sin A", r"\cos A"),
+        "BH="
+        + fraction(r"AC\sin^2 A", r"\cos A")
+        + "="
+        + fraction(r"AC(1-\cos^2 A)", r"\cos A"),
+        "BH=" + fraction(top, value["cosA"]),
+    ]
+
+
+def _metric_rows(value):
+    return [
+        r"\cos A="
+        + fraction("AH", "AC")
+        + r"\Longrightarrow AC="
+        + fraction("AH", r"\cos A")
+        + "="
+        + fraction(value["AH"], value["cosA"])
+        + "="
+        + value["AC"],
+        r"AC^2=AB\cdot AH",
+        "AB="
+        + fraction("AC^2", "AH")
+        + "="
+        + fraction("(" + value["AC"] + ")^2", value["AH"]),
+    ]
+
+
+def _double_rows(kind, value):
     function = "sin" if kind == "double_sin" else "tg"
     middle, first, requested = (
         ("BC", "BH", "AB") if kind == "double_sin" else ("CH", "BH", "AH")
@@ -251,6 +252,21 @@ def _rows(kind, solved):
         + "="
         + fraction(value[middle], value[function + "A"]),
     ]
+
+
+def _rows(kind, solved):
+    raw = {k: tex for k, _, tex in solved.givens}
+    value = _display(solved)
+    if kind == "ratio":
+        return _ratio_rows(solved, set(raw))
+    if kind == "projection":
+        return _projection_rows(solved, raw, value)
+    render = {
+        "abc_cos": _abc_cos_rows,
+        "ac_cos": _ac_cos_rows,
+        "metric": _metric_rows,
+    }.get(kind)
+    return render(value) if render is not None else _double_rows(kind, value)
 
 
 def _figures(content, parent_asset_id, illustrated):

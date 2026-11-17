@@ -2,15 +2,14 @@
 
 from datetime import UTC, datetime
 
-from .catalogs import catalog_label
+from .catalogs import catalog_label as _catalog_label
 
 
 def _now() -> str:
     return datetime.now(UTC).isoformat(timespec="seconds")
 
 
-def _source_label(source_id: str) -> str:
-    return catalog_label(source_id)
+_source_label = _catalog_label
 
 
 def _system_column(
