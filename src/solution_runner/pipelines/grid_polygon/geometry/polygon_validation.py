@@ -38,6 +38,67 @@ def _remove_intermediate_collinear_points(
     return simplified, discarded
 
 
+def _validate_triangle(points, geometry_profile):
+    if geometry_profile == "right-triangle":
+        right_angles = 0
+        for index, vertex in enumerate(points):
+            others = [
+                point
+                for other_index, point in enumerate(points)
+                if other_index != index
+            ]
+            first = (others[0][0] - vertex[0], others[0][1] - vertex[1])
+            second = (others[1][0] - vertex[0], others[1][1] - vertex[1])
+            right_angles += first[0] * second[0] + first[1] * second[1] == 0
+        if right_angles != 1:
+            raise GridPolygonError("snapped SVG triangle has no unique right angle")
+    elif geometry_profile == "base-height-triangle":
+        axis_aligned = sum(
+            first[0] == second[0] or first[1] == second[1]
+            for index, first in enumerate(points)
+            for second in points[index + 1 :]
+        )
+        if axis_aligned != 1:
+            raise GridPolygonError(
+                "snapped SVG triangle must have one axis-aligned base"
+            )
+    elif geometry_profile != "bounding-rectangle-triangle":
+        raise GridPolygonError(
+            f"unsupported triangle geometry profile: {geometry_profile}"
+        )
+
+
+def _validate_quadrilateral(points, geometry_profile):
+    if geometry_profile in {
+        "parallel-bases-trapezoid",
+        "parallel-bases-trapezoid-three-methods",
+        "trapezoid-pick",
+    }:
+        edges = [
+            (
+                points[(index + 1) % 4][0] - points[index][0],
+                points[(index + 1) % 4][1] - points[index][1],
+            )
+            for index in range(4)
+        ]
+        parallel = sum(
+            edges[first][0] * edges[second][1] == edges[first][1] * edges[second][0]
+            for first, second in ((0, 2), (1, 3))
+        )
+        if parallel != 1:
+            raise GridPolygonError(
+                "snapped SVG quadrilateral has no unique parallel pair"
+            )
+    elif geometry_profile not in {
+        "bounding-rectangle-quadrilateral",
+        "bounding-rectangle-trapezoid",
+        "parallelogram-three-methods",
+    }:
+        raise GridPolygonError(
+            f"unsupported quadrilateral geometry profile: {geometry_profile}"
+        )
+
+
 def _validate_geometry(
     points: tuple[tuple[int, int], ...],
     *,
@@ -75,62 +136,9 @@ def _validate_geometry(
     if expected_vertices is None:
         return
     if expected_vertices == 3:
-        if geometry_profile == "right-triangle":
-            right_angles = 0
-            for index, vertex in enumerate(points):
-                others = [
-                    point
-                    for other_index, point in enumerate(points)
-                    if other_index != index
-                ]
-                first = (others[0][0] - vertex[0], others[0][1] - vertex[1])
-                second = (others[1][0] - vertex[0], others[1][1] - vertex[1])
-                right_angles += first[0] * second[0] + first[1] * second[1] == 0
-            if right_angles != 1:
-                raise GridPolygonError("snapped SVG triangle has no unique right angle")
-        elif geometry_profile == "base-height-triangle":
-            axis_aligned = sum(
-                first[0] == second[0] or first[1] == second[1]
-                for index, first in enumerate(points)
-                for second in points[index + 1 :]
-            )
-            if axis_aligned != 1:
-                raise GridPolygonError(
-                    "snapped SVG triangle must have one axis-aligned base"
-                )
-        elif geometry_profile != "bounding-rectangle-triangle":
-            raise GridPolygonError(
-                f"unsupported triangle geometry profile: {geometry_profile}"
-            )
+        _validate_triangle(points, geometry_profile)
     elif expected_vertices == 4:
-        if geometry_profile in {
-            "parallel-bases-trapezoid",
-            "parallel-bases-trapezoid-three-methods",
-            "trapezoid-pick",
-        }:
-            edges = [
-                (
-                    points[(index + 1) % 4][0] - points[index][0],
-                    points[(index + 1) % 4][1] - points[index][1],
-                )
-                for index in range(4)
-            ]
-            parallel = sum(
-                edges[first][0] * edges[second][1] == edges[first][1] * edges[second][0]
-                for first, second in ((0, 2), (1, 3))
-            )
-            if parallel != 1:
-                raise GridPolygonError(
-                    "snapped SVG quadrilateral has no unique parallel pair"
-                )
-        elif geometry_profile not in {
-            "bounding-rectangle-quadrilateral",
-            "bounding-rectangle-trapezoid",
-            "parallelogram-three-methods",
-        }:
-            raise GridPolygonError(
-                f"unsupported quadrilateral geometry profile: {geometry_profile}"
-            )
+        _validate_quadrilateral(points, geometry_profile)
     else:
         raise GridPolygonError(
             f"unsupported expected vertex count: {expected_vertices}"

@@ -6,6 +6,7 @@ import argparse
 import time
 from collections import Counter
 from collections.abc import Iterator, Sequence
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -64,6 +65,141 @@ def _rollback_error_is_stale(exc: BaseException) -> bool:
     )
 
 
+@dataclass(frozen=True)
+class _RollbackContext:
+    client: McpClient
+    totals: Counter[str]
+    args: argparse.Namespace
+    logger: EventLogger
+
+
+def _rollback_asset(context, theme, group, item, consecutive_asset_errors):
+    client, totals, args, logger = (
+        context.client,
+        context.totals,
+        context.args,
+        context.logger,
+    )
+    candidate = item.candidate
+    totals["rollback_attempted"] += 1
+    succeeded = False
+    try:
+        result = client.call(
+            "delete_problem_transformation",
+            {
+                "problem_id": candidate.problem_id,
+                "transformation_target_id": (item.transformation_target_id),
+                "expected_source_asset_id": item.source_asset_id,
+            },
+            attempts=1,
+        )
+        if (
+            str(result.get("problem_id") or "") != candidate.problem_id
+            or str(result.get("deleted_transformation_target_id") or "")
+            != item.transformation_target_id
+        ):
+            raise PipelineError("rollback response does not match requested target")
+        succeeded = True
+        totals["assets_rolled_back"] += 1
+        consecutive_asset_errors = 0
+        logger.emit(
+            "asset_rolled_back",
+            theme=theme.title,
+            group_key=group.group_key,
+            source_problem_id=candidate.source_problem_id,
+            problem_id=candidate.problem_id,
+            asset_key=candidate.asset_key,
+            transformation_target_id=item.transformation_target_id,
+            source_asset_id=item.source_asset_id,
+            output_sha256=item.output_sha256,
+            reopened_stages=result.get("reopened_stages", []),
+        )
+    except (
+        McpCallError,
+        httpx.HTTPError,
+        OSError,
+        PipelineError,
+    ) as exc:
+        if _rollback_error_is_stale(exc):
+            totals["rollback_stale"] += 1
+            consecutive_asset_errors = 0
+            logger.emit(
+                "rollback_stale",
+                level="warning",
+                theme=theme.title,
+                group_key=group.group_key,
+                source_problem_id=candidate.source_problem_id,
+                problem_id=candidate.problem_id,
+                asset_key=candidate.asset_key,
+                reason=_safe_exception(exc),
+            )
+            return 0, consecutive_asset_errors
+        totals["asset_errors"] += 1
+        consecutive_asset_errors += 1
+        logger.emit(
+            "asset_error",
+            level="error",
+            theme=theme.title,
+            group_key=group.group_key,
+            source_problem_id=candidate.source_problem_id,
+            problem_id=candidate.problem_id,
+            asset_key=candidate.asset_key,
+            stage="rollback",
+            reason=_safe_exception(exc),
+        )
+        if args.max_asset_errors and consecutive_asset_errors >= args.max_asset_errors:
+            raise PipelineError(
+                "maximum consecutive asset error count reached"
+            ) from exc
+    return int(succeeded), consecutive_asset_errors
+
+
+def _record_rollback_batch(context, run_dir, theme, group, counts, batch):
+    logger, totals = context.logger, context.totals
+    batches_seen, global_tasks_seen = counts
+    problem_order, batch_candidates, rolled_back_in_batch = batch
+    logger.emit(
+        "batch_complete",
+        theme=theme.title,
+        group_key=group.group_key,
+        batch=batches_seen,
+        tasks=len(problem_order),
+        assets=len(batch_candidates),
+        rolled_back=rolled_back_in_batch,
+    )
+    _atomic_write_json(
+        run_dir / "progress.json",
+        {
+            "at": datetime.now(UTC).isoformat(),
+            "mode": "rollback",
+            "last_theme": theme.title,
+            "last_source_group_id": group.source_group_id,
+            "last_group_key": group.group_key,
+            "batches_seen": batches_seen,
+            "tasks_seen": global_tasks_seen,
+            "totals": dict(sorted(totals.items())),
+        },
+    )
+
+
+def _open_rollback_group(logger, theme, group, candidates):
+    group_task_count = len({item.candidate.problem_id for item in candidates})
+    logger.emit(
+        "group_transition",
+        theme=theme.title,
+        group_key=group.group_key,
+        source_group_id=group.source_group_id,
+    )
+    logger.emit(
+        "group_opened",
+        theme=theme.title,
+        group_key=group.group_key,
+        source_group_id=group.source_group_id,
+        tasks=group_task_count,
+        assets=len(candidates),
+    )
+
+
 def _execute_rollback(
     client: McpClient,
     *,
@@ -95,21 +231,7 @@ def _execute_rollback(
             candidates = rollback_by_group[group.source_group_id]
             if not candidates:
                 continue
-            group_task_count = len({item.candidate.problem_id for item in candidates})
-            logger.emit(
-                "group_transition",
-                theme=theme.title,
-                group_key=group.group_key,
-                source_group_id=group.source_group_id,
-            )
-            logger.emit(
-                "group_opened",
-                theme=theme.title,
-                group_key=group.group_key,
-                source_group_id=group.source_group_id,
-                tasks=group_task_count,
-                assets=len(candidates),
-            )
+            _open_rollback_group(logger, theme, group, candidates)
             for local_batch_index, batch_candidates in enumerate(
                 _rollback_batches(candidates, args.batch_size), start=1
             ):
@@ -145,105 +267,19 @@ def _execute_rollback(
                     ],
                 )
                 rolled_back_in_batch = 0
+                rollback_context = _RollbackContext(client, totals, args, logger)
                 for item in batch_candidates:
-                    candidate = item.candidate
-                    totals["rollback_attempted"] += 1
-                    try:
-                        result = client.call(
-                            "delete_problem_transformation",
-                            {
-                                "problem_id": candidate.problem_id,
-                                "transformation_target_id": (
-                                    item.transformation_target_id
-                                ),
-                                "expected_source_asset_id": item.source_asset_id,
-                            },
-                            attempts=1,
-                        )
-                        if (
-                            str(result.get("problem_id") or "") != candidate.problem_id
-                            or str(result.get("deleted_transformation_target_id") or "")
-                            != item.transformation_target_id
-                        ):
-                            raise PipelineError(
-                                "rollback response does not match requested target"
-                            )
-                        rolled_back_in_batch += 1
-                        totals["assets_rolled_back"] += 1
-                        consecutive_asset_errors = 0
-                        logger.emit(
-                            "asset_rolled_back",
-                            theme=theme.title,
-                            group_key=group.group_key,
-                            source_problem_id=candidate.source_problem_id,
-                            problem_id=candidate.problem_id,
-                            asset_key=candidate.asset_key,
-                            transformation_target_id=item.transformation_target_id,
-                            source_asset_id=item.source_asset_id,
-                            output_sha256=item.output_sha256,
-                            reopened_stages=result.get("reopened_stages", []),
-                        )
-                    except (
-                        McpCallError,
-                        httpx.HTTPError,
-                        OSError,
-                        PipelineError,
-                    ) as exc:
-                        if _rollback_error_is_stale(exc):
-                            totals["rollback_stale"] += 1
-                            consecutive_asset_errors = 0
-                            logger.emit(
-                                "rollback_stale",
-                                level="warning",
-                                theme=theme.title,
-                                group_key=group.group_key,
-                                source_problem_id=candidate.source_problem_id,
-                                problem_id=candidate.problem_id,
-                                asset_key=candidate.asset_key,
-                                reason=_safe_exception(exc),
-                            )
-                            continue
-                        totals["asset_errors"] += 1
-                        consecutive_asset_errors += 1
-                        logger.emit(
-                            "asset_error",
-                            level="error",
-                            theme=theme.title,
-                            group_key=group.group_key,
-                            source_problem_id=candidate.source_problem_id,
-                            problem_id=candidate.problem_id,
-                            asset_key=candidate.asset_key,
-                            stage="rollback",
-                            reason=_safe_exception(exc),
-                        )
-                        if (
-                            args.max_asset_errors
-                            and consecutive_asset_errors >= args.max_asset_errors
-                        ):
-                            raise PipelineError(
-                                "maximum consecutive asset error count reached"
-                            ) from exc
-                logger.emit(
-                    "batch_complete",
-                    theme=theme.title,
-                    group_key=group.group_key,
-                    batch=batches_seen,
-                    tasks=len(problem_order),
-                    assets=len(batch_candidates),
-                    rolled_back=rolled_back_in_batch,
-                )
-                _atomic_write_json(
-                    run_dir / "progress.json",
-                    {
-                        "at": datetime.now(UTC).isoformat(),
-                        "mode": "rollback",
-                        "last_theme": theme.title,
-                        "last_source_group_id": group.source_group_id,
-                        "last_group_key": group.group_key,
-                        "batches_seen": batches_seen,
-                        "tasks_seen": global_tasks_seen,
-                        "totals": dict(sorted(totals.items())),
-                    },
+                    rolled_back, consecutive_asset_errors = _rollback_asset(
+                        rollback_context, theme, group, item, consecutive_asset_errors
+                    )
+                    rolled_back_in_batch += rolled_back
+                _record_rollback_batch(
+                    rollback_context,
+                    run_dir,
+                    theme,
+                    group,
+                    (batches_seen, global_tasks_seen),
+                    (problem_order, batch_candidates, rolled_back_in_batch),
                 )
                 if batch_candidates:
                     logger.emit(

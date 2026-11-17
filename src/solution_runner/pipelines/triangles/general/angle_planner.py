@@ -87,12 +87,7 @@ def _replace_latex(parent_html: str, formulas: tuple[str, ...]) -> str:
     return rendered
 
 
-def _parent_solution(
-    parent_html: str, rule: str, values: tuple[int, ...], value: Fraction | int
-) -> str:
-    """Keep the parent's prose/markup and change only its value-bearing formula."""
-    if not parent_html.strip():
-        return ""
+def _area_parent_solution(parent_html, rule, values, value):
     if rule == "general-triangle-27592-midline-area":
         child_area = values[0] if values else None
         # The parent template ends with \cdot <area>=<answer>; preserve every other token.
@@ -124,6 +119,18 @@ def _parent_solution(
             rendered,
             count=1,
         )
+    return None
+
+
+def _parent_solution(
+    parent_html: str, rule: str, values: tuple[int, ...], value: Fraction | int
+) -> str:
+    """Keep the parent's prose/markup and change only its value-bearing formula."""
+    if not parent_html.strip():
+        return ""
+    area_solution = _area_parent_solution(parent_html, rule, values, value)
+    if area_solution is not None:
+        return area_solution
     if rule == "general-triangle-27743-exterior-angle" and len(values) >= 2:
         return _replace_latex(
             parent_html,
@@ -190,27 +197,7 @@ def _parent_solution(
     )
 
 
-def build_repair_plan(
-    context: dict[str, Any],
-    *,
-    rule: str,
-    parent_solution_html: str = "",
-    parent_condition_asset_id: str = "",
-) -> RepairPlan:
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise RightTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
-    soup = BeautifulSoup(condition_html, "html.parser")
-    # Put LaTeX attributes back into the visible stream at their exact position.
-    for formula in soup.find_all(attrs={"data-inline-latex": True}):
-        formula.replace_with(str(formula.get("data-inline-latex") or ""))
-    text = " ".join(soup.get_text().replace("\u00ad", "").replace("\\", "").split())
-    condition_values = tuple(int(x) for x in re.findall(r"\d+", text))
-    spec = RULES.get(rule)
-    if spec is None:
-        raise RightTrianglePlanError("unsupported general-triangle rule")
+def _condition_value(text, rule, spec):
     match = re.search(spec[0], text, re.IGNORECASE)
     if match is None:
         nums = [int(x) for x in re.findall(r"\d+", text)]
@@ -236,6 +223,31 @@ def build_repair_plan(
             raise RightTrianglePlanError("condition does not match registered rule")
     else:
         value = spec[1](match)
+    return value
+
+
+def build_repair_plan(
+    context: dict[str, Any],
+    *,
+    rule: str,
+    parent_solution_html: str = "",
+    parent_condition_asset_id: str = "",
+) -> RepairPlan:
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise RightTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    soup = BeautifulSoup(condition_html, "html.parser")
+    # Put LaTeX attributes back into the visible stream at their exact position.
+    for formula in soup.find_all(attrs={"data-inline-latex": True}):
+        formula.replace_with(str(formula.get("data-inline-latex") or ""))
+    text = " ".join(soup.get_text().replace("\u00ad", "").replace("\\", "").split())
+    condition_values = tuple(int(x) for x in re.findall(r"\d+", text))
+    spec = RULES.get(rule)
+    if spec is None:
+        raise RightTrianglePlanError("unsupported general-triangle rule")
+    value = _condition_value(text, rule, spec)
     if isinstance(value, Fraction) and value.denominator == 1:
         answer = str(value.numerator)
     elif isinstance(value, Fraction):

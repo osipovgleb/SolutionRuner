@@ -18,7 +18,8 @@ from .fractional_hyperbola_geometry import ASSET_DIR as _ASSET_DIR
 from .fractional_hyperbola_geometry import NS as _NS
 from .fractional_hyperbola_geometry import annotate as _annotate
 from .fractional_hyperbola_geometry import graph_evidence, registry
-from .hyperbola import RepairPlan, answer_text, formula, latex, row
+from .fractional_hyperbola_proof import alternative_proof, first_proof
+from .hyperbola import RepairPlan, answer_text
 
 annotate = _annotate
 ASSET_DIR = _ASSET_DIR
@@ -61,26 +62,8 @@ def required_assets(context):
     )
 
 
-def build_context_repair_plan(
-    context, *, condition_asset_bytes, current_asset_content_type
-):
-    c = _normalized_content(context)
-    condition = _section(c, "condition")
-    solution = _section(c, "solution")
-    answer = _section(c, "answer")
-    if not condition or condition_asset_bytes is None:
-        raise ContentPlanError("condition and graph required")
-    if str(current_asset_content_type).split(";")[0].lower() != "image/svg+xml":
-        raise ContentPlanError("fractional hyperbola graph must be SVG")
-    e = entry(context)
-    if hashlib.sha256(condition_asset_bytes).hexdigest() != e["sha256"]:
-        raise ContentPlanError("source SVG differs from audited registration")
-    facts = graph_evidence(condition_asset_bytes)
-    k, a, b, c0 = (facts[key] for key in ("k", "a", "b", "c"))
-    x, y = facts["point"]
-    x2, y2 = facts["second"]
-    x3, y3 = facts["third"]
-    ux, uy = facts["offset"]
+def _verify_points(facts, coefficients):
+    k, a, b = coefficients
     # Solve the three-point linear system independently of the asymptotes.
     matrix = [
         [px, Fraction(1), -py, px * py]
@@ -99,264 +82,10 @@ def build_context_repair_plan(
                 matrix[i] = [v - factor * w for v, w in zip(matrix[i], matrix[col])]
     if tuple(r[-1] for r in matrix) != (k, a, b):
         raise ContentPlanError("three-point system disagrees with graph")
-    from .hyperbola_questions import fractional
 
-    abc_model, sought, whole = fractional(context)
-    if whole and any(v.denominator != 1 for v in (k, a, b)):
-        raise ContentPlanError("declared integer coefficients disagree with the graph")
-    result = {"k": k, "a": a, "b": b}[sought]
-    images = []
-    keys = []
-    for req in required_assets(context):
-        asset = next(
-            (
-                a
-                for a in _normalized_content(context)["assets"]
-                if a.get("asset_id") == req["source_asset_id"]
-            ),
-            None,
-        )
-        if asset is None:
-            raise ContentPlanError("required graph annotation is not attached")
-        key = asset["asset_key"]
-        aid = asset["asset_id"]
-        keys.append(key)
-        images.append(
-            f'<center><img alt="{req["alt_text"]}" data-asset-id="{aid}" data-asset-key="{key}" src="/assets/{aid}"/></center>'
-        )
 
-    def signed(v):
-        return ("+" if v >= 0 else "-") + latex(abs(v))
-
-    def coefficient(v, name):
-        if not name:
-            return latex(v)
-        return (
-            name if v == 1 else "-" + name if v == -1 else latex(v) + name if v else ""
-        )
-
-    def expression(terms):
-        out = ""
-        for v, name in terms:
-            if not v:
-                continue
-            text = coefficient(v, name)
-            out += ("+" if out and v > 0 else "") + text
-        return out or "0"
-
-    def subtract_number(v):
-        return "-" + (latex(v) if v >= 0 else "(" + latex(v) + ")")
-
-    def system(*eq):
-        return r"\begin{cases}" + r"\\".join(eq) + r"\end{cases}"
-
-    pts = (facts["point"], facts["second"], facts["third"])
-    reduced = []
-    linear = [expression(((px, "k"), (Fraction(1), "a"), (-py, "b"))) for px, py in pts]
-    from math import gcd
-
-    elimination = ""
-    for index, (px, py) in enumerate(pts[1:], 2):
-        ck, cb, rhs = x - px, py - y, x * y - px * py
-        divisor = gcd(gcd(abs(ck.numerator), abs(cb.numerator)), abs(rhs.numerator))
-        if ck < 0:
-            divisor = -divisor
-        reduced.append((ck / divisor, cb / divisor, rhs / divisor))
-        elimination += (
-            f"<p>Вычтем {'второе' if index == 2 else 'третье'} уравнение из первого: "
-            f"{formula('a')} сократится.</p>"
-            + row(
-                rf"({linear[0]})-({linear[index - 1]})={latex(x * y)}"
-                + subtract_number(px * py)
-            )
-            + row(
-                expression(((ck, "k"), (cb, "b")))
-                + "="
-                + latex(rhs)
-                + r"\iff "
-                + expression(((ck / divisor, "k"), (cb / divisor, "b")))
-                + "="
-                + latex(rhs / divisor)
-            )
-        )
-    u1, v1, t1 = reduced[0]
-    u2, v2, t2 = reduced[1]
-    equations = [
-        expression(((u, "k"), (v, "b"))) + "=" + latex(t) for u, v, t in reduced
-    ]
-    db, rb = v1 * u2 - v2 * u1, t1 * u2 - t2 * u1
-
-    def product(v, w):
-        return latex(v) + r"\cdot " + (latex(w) if w >= 0 else "(" + latex(w) + ")")
-
-    if u1 == u2:
-        db, rb = v1 - v2, t1 - t2
-        cancel = (
-            "<p>Вычтем второе из полученных уравнений: "
-            + formula("k")
-            + " сократится.</p>"
-        )
-        cancel_row = (
-            rf"({expression(((u1, 'k'), (v1, 'b')))})-({expression(((u2, 'k'), (v2, 'b')))})={latex(t1)}"
-            + subtract_number(t2)
-        )
-    else:
-        cancel = (
-            f"<p>Чтобы исключить {formula('k')}, умножим первое уравнение на {formula(latex(u2))}, "
-            f"второе — на {formula(latex(u1))} и вычтем второе из первого.</p>"
-        )
-        cancel_row = rf"{latex(u2)}({expression(((u1, 'k'), (v1, 'b')))})-({latex(u1)})({expression(((u2, 'k'), (v2, 'b')))})={product(u2, t1)}-({product(u1, t2)})"
-    k_sub = expression(((u2, "k"), (v2 * b, ""))) + "=" + latex(t2)
-    a_sub = (
-        expression(((x * k, ""), (Fraction(1), "a"), (-y * b, ""))) + "=" + latex(x * y)
-    )
-    first = (
-        images[0] + f"<p>Подставим три точки {formula(rf'A({latex(x)};{latex(y)})')}, "
-        f"{formula(rf'B({latex(x2)};{latex(y2)})')} и {formula(rf'C({latex(x3)};{latex(y3)})')} "
-        "в формулу функции.</p>"
-        + row(
-            system(
-                *(
-                    latex(py)
-                    + rf"=\frac{{{expression(((px, 'k'), (Fraction(1), 'a')))}}}{{{latex(px)}+b}}"
-                    for px, py in pts
-                )
-            )
-        )
-        + "<p>Убираем знаменатели:</p>"
-        + row(
-            r"\iff "
-            + system(
-                *(
-                    rf"{latex(py)}({latex(px)}+b)={expression(((px, 'k'), (Fraction(1), 'a')))}"
-                    for px, py in pts
-                )
-            )
-        )
-        + "<p>Раскрываем скобки:</p>"
-        + row(
-            r"\iff "
-            + system(
-                *(
-                    expression(((px * py, ""), (py, "b")))
-                    + "="
-                    + expression(((px, "k"), (Fraction(1), "a")))
-                    for px, py in pts
-                )
-            )
-        )
-        + "<p>Переносим слагаемые с неизвестными влево, числа — вправо:</p>"
-        + row(
-            r"\iff "
-            + system(
-                *(lhs + "=" + latex(px * py) for lhs, (px, py) in zip(linear, pts))
-            )
-        )
-        + elimination
-        + "<p>Получили систему с двумя неизвестными:</p>"
-        + row(system(*equations))
-        + cancel
-        + row(cancel_row)
-        + row(coefficient(db, "b") + "=" + latex(rb) + r"\iff b=" + latex(b))
-        + f"<p>Подставим {formula('b=' + latex(b))} во второе уравнение:</p>"
-        + row(
-            k_sub
-            + r"\iff "
-            + coefficient(u2, "k")
-            + "="
-            + latex(t2 - v2 * b)
-            + (r"\iff k=" + latex(k) if u2 != 1 else "")
-        )
-        + f"<p>Подставим {formula('k=' + latex(k))} и {formula('b=' + latex(b))} в первое уравнение исходной системы:</p>"
-        + row(
-            a_sub
-            + r"\iff a="
-            + expression(((x * y, ""), (-x * k, ""), (y * b, "")))
-            + "="
-            + latex(a)
-        )
-        + row(r"\Rightarrow " + sought + "=" + latex(result))
-    )
-    alternative = (
-        images[1]
-        + f"<p>Выделим целую часть, чтобы формула была канонической для гиперболы. "
-        f"Для этого прибавим и вычтем {formula('kb')}.</p>"
-        + row(r"f(x)=\frac{kx+a}{x+b}=\frac{kx+kb+a-kb}{x+b}=\frac{k(x+b)+(a-kb)}{x+b}")
-        + "<p>Разделим сумму на знаменатель и сократим первую дробь:</p>"
-        + row(r"f(x)=\frac{k(x+b)}{x+b}+\frac{a-kb}{x+b}=k+\frac{a-kb}{x+b}")
-        + "<p><br/></p>"
-        + "<p>Каноническое уравнение гиперболы — "
-        + formula(r"f(x)=\frac{A}{x+B}+C")
-        + ". А значит, в нашем случае:</p>"
-        + f"<p>{formula('B=b')} — сдвиг по горизонтали. "
-        + (
-            f"Асимптота {formula('x=' + latex(-b))}: на {formula(latex(abs(b)))} "
-            + ("влево" if b > 0 else "вправо")
-            if b
-            else f"Асимптота {formula('x=0')}: сдвига нет"
-        )
-        + f" {formula(r'\Rightarrow B=' + latex(b))}.</p>"
-        + f"<p>{formula('C=k')} — сдвиг по вертикали. "
-        + (
-            f"Асимптота {formula('y=' + latex(k))}: на {formula(latex(abs(k)))} "
-            + ("вверх" if k > 0 else "вниз")
-            if k
-            else f"Асимптота {formula('y=0')}: сдвига нет"
-        )
-        + f" {formula(r'\Rightarrow C=' + latex(k))}.</p>"
-        + f"<p>{formula('A=a-kb')} — масштаб и знак ветвей. "
-        f"Ветви в {'I и III' if c0 > 0 else 'II и IV'} четвертях относительно асимптот, поэтому {formula('A>0' if c0 > 0 else 'A<0')}.</p>"
-        + f"<p>На {formula(latex(abs(uy - k)))} "
-        + ("выше" if uy - k > 0 else "ниже")
-        + " горизонтальной асимптоты отступ от вертикальной асимптоты равен "
-        + formula(latex(abs(ux + b)))
-        + " "
-        + ("вправо" if ux + b > 0 else "влево")
-        + " (красный отрезок) "
-        + formula(r"\Rightarrow A=" + latex(c0))
-        + ".</p>"
-        + row(rf"f(x)=\frac{{{latex(c0)}}}{{x{signed(b)}}}" + signed(k))
-        + (
-            "<p><br/></p>"
-            + row(r"A=a-kb\Rightarrow a=A+kb")
-            + row("k=C=" + latex(k) + r",\qquad b=B=" + latex(b))
-            + row(
-                "a="
-                + latex(c0)
-                + "+"
-                + (latex(k) if k >= 0 else "(" + latex(k) + ")")
-                + r"\cdot "
-                + (latex(b) if b >= 0 else "(" + latex(b) + ")")
-                + "="
-                + latex(c0)
-                + signed(k * b)
-                + "="
-                + latex(a)
-            )
-            if sought == "a"
-            else row(
-                sought + "=" + ("C" if sought == "k" else "B") + "=" + latex(result)
-            )
-        )
-    )
-    html = f'<section data-content-kind="solution" data-solution-title="Решение">{first}</section><section data-content-kind="solution" data-solution-title="Альтернативное решение">{alternative}</section>'
-    if abc_model:
-        # Consume row breaks before commands so \\k is a row break plus variable.
-        # Rename only LaTeX variables; commands such as \frac and \begin stay intact.
-        symbols = {"k": "a", "a": "b", "b": "c"}
-
-        def renamed_formula(match):
-            return (
-                'data-inline-latex="'
-                + re.sub(
-                    r"\\\\|\\(?:begin|end)\{[^}]+\}|\\[A-Za-z]+|[A-Za-z]",
-                    lambda token: symbols.get(token[0], token[0]),
-                    match[1],
-                )
-                + '"'
-            )
-
-        html = re.sub(r'data-inline-latex="([^"]*)"', renamed_formula, html)
+def _prepare_changes(context, sections, html, keys, result):
+    condition, solution, answer = sections
     old_html = str(solution.get("html") or "") if solution else ""
     retired = set(registry().get("retired_asset_ids", []))
     retired_keys = tuple(
@@ -423,3 +152,69 @@ def build_context_repair_plan(
             )
         )
     return RepairPlan(value, tuple(changes))
+
+
+def build_context_repair_plan(
+    context, *, condition_asset_bytes, current_asset_content_type
+):
+    c = _normalized_content(context)
+    condition = _section(c, "condition")
+    solution = _section(c, "solution")
+    answer = _section(c, "answer")
+    if not condition or condition_asset_bytes is None:
+        raise ContentPlanError("condition and graph required")
+    if str(current_asset_content_type).split(";")[0].lower() != "image/svg+xml":
+        raise ContentPlanError("fractional hyperbola graph must be SVG")
+    e = entry(context)
+    if hashlib.sha256(condition_asset_bytes).hexdigest() != e["sha256"]:
+        raise ContentPlanError("source SVG differs from audited registration")
+    facts = graph_evidence(condition_asset_bytes)
+    k, a, b = (facts[key] for key in ("k", "a", "b"))
+    _verify_points(facts, (k, a, b))
+    from .hyperbola_questions import fractional
+
+    abc_model, sought, whole = fractional(context)
+    if whole and any(v.denominator != 1 for v in (k, a, b)):
+        raise ContentPlanError("declared integer coefficients disagree with the graph")
+    result = {"k": k, "a": a, "b": b}[sought]
+    images = []
+    keys = []
+    for req in required_assets(context):
+        asset = next(
+            (
+                a
+                for a in _normalized_content(context)["assets"]
+                if a.get("asset_id") == req["source_asset_id"]
+            ),
+            None,
+        )
+        if asset is None:
+            raise ContentPlanError("required graph annotation is not attached")
+        key = asset["asset_key"]
+        aid = asset["asset_id"]
+        keys.append(key)
+        images.append(
+            f'<center><img alt="{req["alt_text"]}" data-asset-id="{aid}" data-asset-key="{key}" src="/assets/{aid}"/></center>'
+        )
+
+    first = first_proof(facts, sought, result, images[0])
+    alternative = alternative_proof(facts, sought, result, images[1])
+    html = f'<section data-content-kind="solution" data-solution-title="Решение">{first}</section><section data-content-kind="solution" data-solution-title="Альтернативное решение">{alternative}</section>'
+    if abc_model:
+        # Consume row breaks before commands so \\k is a row break plus variable.
+        # Rename only LaTeX variables; commands such as \frac and \begin stay intact.
+        symbols = {"k": "a", "a": "b", "b": "c"}
+
+        def renamed_formula(match):
+            return (
+                'data-inline-latex="'
+                + re.sub(
+                    r"\\\\|\\(?:begin|end)\{[^}]+\}|\\[A-Za-z]+|[A-Za-z]",
+                    lambda token: symbols.get(token[0], token[0]),
+                    match[1],
+                )
+                + '"'
+            )
+
+        html = re.sub(r'data-inline-latex="([^"]*)"', renamed_formula, html)
+    return _prepare_changes(context, (condition, solution, answer), html, keys, result)

@@ -72,6 +72,34 @@ def _substitution_values(
     return 1, 1
 
 
+def _repair(content, answer, html):
+    answer_section = _section(content, "answer")
+    solution_section = _section(content, "solution")
+    changes: list[dict[str, Any]] = []
+    if solution_section is None or str(solution_section.get("html") or "") != html:
+        changes.append(
+            _section_transformation(solution_section, "solution", "Решение", html)
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
+    if current_answer != answer:
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
+    return RepairPlan(answer=answer, transformations=tuple(changes))
+
+
 def _square_first_plan(context: dict[str, Any], match: re.Match[str]) -> RepairPlan:
     """Plan the inverse order: a binomial square minus its square terms."""
 
@@ -114,31 +142,7 @@ def _square_first_plan(context: dict[str, Any], match: re.Match[str]) -> RepairP
         f'<center><p><span data-inline-latex="{alternative}"></span>.</p></center>'
     )
     content = _normalized_content(context)
-    answer_section = _section(content, "answer")
-    solution_section = _section(content, "solution")
-    changes: list[dict[str, Any]] = []
-    if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(
-            _section_transformation(solution_section, "solution", "Решение", html)
-        )
-    current_answer = (
-        BeautifulSoup(
-            str(answer_section.get("html") or "") if answer_section else "",
-            "html.parser",
-        )
-        .get_text("", strip=True)
-        .replace(" ", "")
-    )
-    if current_answer != answer:
-        changes.append(
-            _section_transformation(
-                answer_section,
-                "answer",
-                "Ответ",
-                f'<p><span data-effect="spaced">{answer}</span></p>',
-            )
-        )
-    return RepairPlan(answer=answer, transformations=tuple(changes))
+    return _repair(content, answer, html)
 
 
 def _conjugate_squares_plan(
@@ -221,60 +225,10 @@ def _conjugate_squares_plan(
         f'<center><p><span data-inline-latex="{alternative}"></span>.</p></center>'
     )
     content = _normalized_content(context)
-    answer_section = _section(content, "answer")
-    solution_section = _section(content, "solution")
-    changes: list[dict[str, Any]] = []
-    if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(
-            _section_transformation(solution_section, "solution", "Решение", html)
-        )
-    current_answer = (
-        BeautifulSoup(
-            str(answer_section.get("html") or "") if answer_section else "",
-            "html.parser",
-        )
-        .get_text("", strip=True)
-        .replace(" ", "")
-    )
-    if current_answer != answer:
-        changes.append(
-            _section_transformation(
-                answer_section,
-                "answer",
-                "Ответ",
-                f'<p><span data-effect="spaced">{answer}</span></p>',
-            )
-        )
-    return RepairPlan(answer=answer, transformations=tuple(changes))
+    return _repair(content, answer, html)
 
 
-def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
-    """Expand the binomial square and cancel the common xy factor."""
-
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if (
-        condition is None
-        or content.get("assets")
-        or tuple(condition.get("asset_keys") or ())
-    ):
-        raise RightTrianglePlanError("square expansion condition must be text-only")
-    expression = _formula(condition)
-    if conjugate_match := (
-        _CONJUGATE_SQUARES_FRACTION.fullmatch(expression)
-        or _CONJUGATE_SQUARES_COLON.fullmatch(expression)
-    ):
-        return _conjugate_squares_plan(context, conjugate_match)
-    if square_first_match := (
-        _SQUARE_FIRST_FRACTION.fullmatch(expression)
-        or _SQUARE_FIRST_COLON.fullmatch(expression)
-    ):
-        return _square_first_plan(context, square_first_match)
-    match = _FORMULA.fullmatch(expression)
-    if match is None:
-        raise RightTrianglePlanError(
-            "condition does not match the registered square-expansion form"
-        )
+def _normal_expansion(match):
     x_coefficient = _number(match["x_coefficient"])
     y_coefficient = _number(match["y_coefficient"])
     x_square = _number(match["x_square"])
@@ -343,28 +297,35 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
         f'<p>Подставим <span data-inline-latex="x={x_value},\\;y={y_value}"></span>:</p>'
         f'<center><p><span data-inline-latex="{alternative}"></span>.</p></center>'
     )
-    answer_section = _section(content, "answer")
-    solution_section = _section(content, "solution")
-    changes: list[dict[str, Any]] = []
-    if solution_section is None or str(solution_section.get("html") or "") != html:
-        changes.append(
-            _section_transformation(solution_section, "solution", "Решение", html)
+    return answer, html
+
+
+def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
+    """Expand the binomial square and cancel the common xy factor."""
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
+        raise RightTrianglePlanError("square expansion condition must be text-only")
+    expression = _formula(condition)
+    if conjugate_match := (
+        _CONJUGATE_SQUARES_FRACTION.fullmatch(expression)
+        or _CONJUGATE_SQUARES_COLON.fullmatch(expression)
+    ):
+        return _conjugate_squares_plan(context, conjugate_match)
+    if square_first_match := (
+        _SQUARE_FIRST_FRACTION.fullmatch(expression)
+        or _SQUARE_FIRST_COLON.fullmatch(expression)
+    ):
+        return _square_first_plan(context, square_first_match)
+    match = _FORMULA.fullmatch(expression)
+    if match is None:
+        raise RightTrianglePlanError(
+            "condition does not match the registered square-expansion form"
         )
-    current_answer = (
-        BeautifulSoup(
-            str(answer_section.get("html") or "") if answer_section else "",
-            "html.parser",
-        )
-        .get_text("", strip=True)
-        .replace(" ", "")
-    )
-    if current_answer != answer:
-        changes.append(
-            _section_transformation(
-                answer_section,
-                "answer",
-                "Ответ",
-                f'<p><span data-effect="spaced">{answer}</span></p>',
-            )
-        )
-    return RepairPlan(answer=answer, transformations=tuple(changes))
+    answer, html = _normal_expansion(match)
+    return _repair(content, answer, html)

@@ -30,7 +30,7 @@ def test_source_registration_reuses_one_family(group):
     assert profile.group_order_index == group["order"]
     assert profile.content_rule_key == (
         "calculus-raster-tangent-slope"
-        if group["key"] == "27503"
+        if group["key"] in ("27503", "27504", "27505", "27506")
         else "calculus-graph-tangent-slope"
     )
 
@@ -48,7 +48,7 @@ def test_source_answer_proof_and_assets_are_independent_and_idempotent(case):
     result = plan(case, context)
     assert parse_rational(result.answer) == parse_rational(expected)
     assert original == context
-    assert case["group"] == "27503" or not any(
+    assert case["group"] in ("27503", "27504", "27505", "27506") or not any(
         t["transformation_target_id"].startswith("section:condition")
         for t in result.transformations
     )
@@ -147,7 +147,7 @@ def test_degenerate_triangle_or_incompatible_tangent_is_refused(vertices, points
 
 def test_source_assets_are_exact_reused_bytes_and_generated_triangle_keeps_source():
     for case in CASES:
-        if case["group"] == "27503":
+        if case["group"] in ("27503", "27504", "27505", "27506"):
             continue  # The scoped raster adapter is covered by test_tangent_slope_rasters.
         handler = get_handler(get_group_profile(case["group"]).content_rule_key)
         *_, entry, source = graph._input(case["context"])

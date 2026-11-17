@@ -102,33 +102,14 @@ def build_group_27326_repair_plan(
     )
 
 
-def build_group_27327_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_solution_assets: tuple[dict[str, str], ...],
-) -> RepairPlan:
-    """Build only the equal-side-and-sine to external projection repair for 27327."""
-
+def _parse_27327(condition_html):
     from .planner import (
-        _answer_matches,
-        _answer_text,
-        _condition_image_repairs,
         _formula_text,
         _inline_formulas,
-        _latex_number,
-        _normalized_content,
         _parse_positive_value,
-        _plain_html,
         _request_text,
-        _section,
-        _section_transformation,
     )
 
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise IsoscelesTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
     formula = (
         _formula_text(condition_html)
         .replace("А", "A")
@@ -160,6 +141,33 @@ def build_group_27327_repair_plan(
     cosine_squared = sp.simplify(1 - sine**2)
     if cosine_squared.is_positive is not True:
         raise IsoscelesTrianglePlanError("base-angle sine must be less than one")
+    return side, cosine_squared, sine_latex
+
+
+def build_group_27327_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_solution_assets: tuple[dict[str, str], ...],
+) -> RepairPlan:
+    """Build only the equal-side-and-sine to external projection repair for 27327."""
+
+    from .planner import (
+        _answer_matches,
+        _answer_text,
+        _condition_image_repairs,
+        _latex_number,
+        _normalized_content,
+        _plain_html,
+        _section,
+        _section_transformation,
+    )
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise IsoscelesTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    side, cosine_squared, sine_latex = _parse_27327(condition_html)
     answer = _answer_text(2 * side * cosine_squared)
     solution = _section(content, "solution")
     solution_missing = solution is None or not _plain_html(

@@ -6,7 +6,7 @@ import sympy as sp
 
 from ..probability.common import line
 from ..word_problems.water_season_proof import inline
-from . import exam_trigonometric_notation
+from . import exam_trigonometric_notation, exam_trigonometric_variants
 from .exam_exponential_proof import n
 from .exam_trigonometric import C, S, T, U, periodic, table
 from .exam_trigonometric_inverse import level_series
@@ -16,10 +16,10 @@ from .exam_trigonometric_variants import (
     all_root_answer,
     method_notes,
     root_notation,
-    selection_notes,
 )
 
 K = exam_trigonometric_notation.K
+selection_notes = exam_trigonometric_variants.selection_notes
 
 
 def families(a):
@@ -343,49 +343,9 @@ def render(a, image):
         and a.log_product.selection_image_position == "after-steps"
     ):
         first_html += selection_image
-    from .exam_trigonometric_affine_proof import selection as number_line_selection
-    from .exam_trigonometric_neighbors import proof as neighbor_selection
-    from .exam_trigonometric_selection import progressions
+    from .exam_trigonometric_proof_selection import select_proof
 
-    selectors = {
-        "neighbors": neighbor_selection,
-        "number_line": number_line_selection,
-        "inequalities": inequality_selection,
-        "progressions": progressions,
-    }
-    from .exam_trigonometric_finite_log import data_of
-
-    if data_of(a) is not None:
-        from .exam_trigonometric_bounded_log_proof import selection
-
-        second = selection(a)
-    elif a.global_radical is not None:
-        from .exam_trigonometric_global_radical_proof import selection
-
-        second = selection(a)
-    elif a.log_polynomial is not None and a.log_polynomial.alternative_selection:
-        from .exam_trigonometric_log_selection import selection
-
-        second = selection(a, image)
-    elif a.bounded_log is not None:
-        from .exam_trigonometric_bounded_log_proof import selection
-
-        second = selection(a)
-    elif (
-        a.radical_equation is not None
-        and a.radical_equation.kind == "half_tangent"
-        and any(b.is_Rational is not True for b in a.bounds[:2])
-    ):
-        from .exam_trigonometric_radical_proof import numeric_selection
-
-        second = numeric_selection(a)
-    elif a.selection_method in selectors:
-        second = selectors[a.selection_method](a)
-    else:
-        from .exam_trigonometric_circle import selection_proof
-
-        second = selection_proof(a, selection_image, paired=selection_image != image)
-    second += selection_notes(a, system_image)
+    second = select_proof(a, image, selection_image, system_image)
     html = (
         (image if a.image_position == "outside" else "")
         + '<ol data-layout="source-subparts" type="a"><li data-list-marker="а)">'

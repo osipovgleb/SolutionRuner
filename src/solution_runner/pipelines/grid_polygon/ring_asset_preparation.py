@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 import subprocess
@@ -16,8 +15,9 @@ from pathlib import Path
 from typing import Any, Literal, Protocol
 
 from ..core.models import GroupProfile, KnownCircleArea, PreparedGridRing, ProblemTarget
-from .geometry.ring import RingSvgGeometry, parse_ring_svg
+from .geometry.ring import RingSvgGeometry
 from .progress import ProgressReporter, TargetProgress
+from .ring_asset_target import RingPreparationContext, prepare_ring_target
 
 DEFAULT_RING_CONVERTER = (
     Path(__file__).resolve().parents[2]
@@ -276,89 +276,14 @@ def prepare_ring_assets(
     artifacts_dir.mkdir(exist_ok=True)
     prepared: list[PreparedGridRing] = []
     errors: list[dict[str, str]] = []
+    context = RingPreparationContext(
+        gateway, profile, inputs_dir, artifacts_dir, converter, apply, reporter
+    )
     total = len(expected_targets)
     for index, target in enumerate(expected_targets, start=1):
         progress = TargetProgress(index=index, total=total)
         try:
-            asset = gateway.download_original_condition_asset(target)
-            _report(reporter, profile, target, progress, "DOWNLOADED", severity="info")
-            kind = sniff_asset_kind(asset.data, asset.content_type)
-            converter_diagnostics: dict[str, str] = {}
-            replaced = False
-            if kind == "svg":
-                svg_path = artifacts_dir / f"{target.source_problem_id}.svg"
-                svg_path.write_bytes(asset.data)
-                condition_asset_id = asset.asset_id
-            else:
-                source_path = inputs_dir / (
-                    target.source_problem_id
-                    + _raster_suffix(asset.data, asset.content_type)
-                )
-                source_path.write_bytes(asset.data)
-                target_output_dir = artifacts_dir / target.source_problem_id
-                svg_path, converter_diagnostics = converter(
-                    source_path,
-                    target_output_dir,
-                )
-                _report(
-                    reporter, profile, target, progress, "CONVERTED", severity="info"
-                )
-                condition_asset_id = f"preview-{target.problem_id}"
-                replaced = True
-            svg_bytes = svg_path.read_bytes()
-            geometry = parse_ring_svg(svg_bytes)
-            diagnostics = _diagnostics(geometry, converter_diagnostics)
-            known_circle_area: KnownCircleArea | None = None
-            given_circle_area: Fraction | None = None
-            if profile.strategy_key == "annulus-from-known-area":
-                known_circle_area, given_circle_area = detect_known_circle_area(
-                    _condition_html(gateway.get_problem_context(target.problem_id))
-                )
-            if apply and replaced:
-                digest = hashlib.sha256(svg_bytes).hexdigest()
-                uploaded = gateway.upload_condition_svg(
-                    source_problem_id=target.source_problem_id,
-                    svg_bytes=svg_bytes,
-                    sha256=digest,
-                )
-                replacement_asset_id = str(uploaded.get("source_asset_id") or "")
-                if not replacement_asset_id:
-                    raise RingAssetPreparationError(
-                        "condition upload has no asset identity"
-                    )
-                _report(reporter, profile, target, progress, "SVG UPLOADED")
-                readback = gateway.replace_condition_asset(
-                    target,
-                    replacement_asset_id=replacement_asset_id,
-                    alt_text=_alt_text(geometry),
-                )
-                if str(readback.get("asset_id") or "") != replacement_asset_id:
-                    raise RingAssetPreparationError(
-                        "condition replacement readback drifted"
-                    )
-                condition_asset_id = replacement_asset_id
-                _report(reporter, profile, target, progress, "TRANSFORMATION APPLIED")
-            digest = hashlib.sha256(svg_bytes).hexdigest()
-            prepared.append(
-                PreparedGridRing(
-                    problem_id=target.problem_id,
-                    source_problem_id=target.source_problem_id,
-                    condition_asset_id=condition_asset_id,
-                    condition_svg_path=svg_path,
-                    condition_svg_sha256=digest,
-                    center=geometry.center,
-                    outer_point=geometry.outer_point,
-                    inner_point=geometry.inner_point,
-                    outer_radius_squared=geometry.outer_radius_squared,
-                    inner_radius_squared=geometry.inner_radius_squared,
-                    condition_was_replaced=replaced,
-                    converter_diagnostics=diagnostics,
-                    inner_center=geometry.inner_center,
-                    ring_alignment=geometry.alignment,
-                    known_circle_area=known_circle_area,
-                    given_circle_area=given_circle_area,
-                )
-            )
+            prepared.append(prepare_ring_target(context, target, progress))
         except Exception as exc:  # noqa: BLE001 - isolate one source problem.
             message = " ".join(str(exc).split())[:2000]
             errors.append(

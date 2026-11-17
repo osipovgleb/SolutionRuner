@@ -85,53 +85,7 @@ def _validated_source_run_dir(source_run_dir: Path, run_dir: Path) -> Path:
     return source
 
 
-def _load_validated_worklist(
-    *,
-    source_run_dir: Path,
-    run_dir: Path,
-    catalog_snapshot_id: str,
-    source_site_id: str,
-    category_key: str,
-    theme_titles: Sequence[str],
-    scope: Sequence[tuple[ThemeScope, list[GroupScope]]],
-) -> tuple[dict[str, GroupInventory], dict[str, Any]]:
-    """Load and fail-closed validate one fixed-scope immutable worklist."""
-
-    source = _validated_source_run_dir(source_run_dir, run_dir)
-    payload = _read_json_object(source / "worklist.json", label="source worklist")
-    if payload.get("schema_version") != 1:
-        raise PipelineError("source worklist schema_version must be 1")
-    expected_header = {
-        "catalog_snapshot_id": catalog_snapshot_id,
-        "source_site_id": source_site_id,
-        "category_key": category_key,
-        "theme_titles": list(theme_titles),
-    }
-    for field_name, expected_value in expected_header.items():
-        if payload.get(field_name) != expected_value:
-            raise PipelineError(
-                f"source worklist {field_name} does not match the requested scope"
-            )
-    raw_targets = payload.get("targets")
-    if not isinstance(raw_targets, list):
-        raise PipelineError("source worklist targets must be a list")
-    worklist_basis = json.dumps(
-        raw_targets,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    worklist_sha256 = _sha256_bytes(worklist_basis)
-    if payload.get("worklist_sha256") != worklist_sha256:
-        raise PipelineError("source worklist SHA-256 does not match its targets")
-
-    expected_groups = {
-        group.source_group_id: (theme, group)
-        for theme, groups in scope
-        for group in groups
-    }
-    if int(payload.get("group_count") or -1) != len(expected_groups):
-        raise PipelineError("source worklist group_count does not match fixed scope")
+def _validate_targets(raw_targets, expected_groups):
     candidate_fields = set(AssetCandidate.__dataclass_fields__)
     candidates_by_group: dict[str, list[AssetCandidate]] = {
         group_id: [] for group_id in expected_groups
@@ -209,6 +163,58 @@ def _load_validated_worklist(
             )
         seen_keys.add(candidate.stable_key)
         candidates_by_group[candidate.source_group_id].append(candidate)
+
+    return candidates_by_group, seen_keys
+
+
+def _load_validated_worklist(
+    *,
+    source_run_dir: Path,
+    run_dir: Path,
+    catalog_snapshot_id: str,
+    source_site_id: str,
+    category_key: str,
+    theme_titles: Sequence[str],
+    scope: Sequence[tuple[ThemeScope, list[GroupScope]]],
+) -> tuple[dict[str, GroupInventory], dict[str, Any]]:
+    """Load and fail-closed validate one fixed-scope immutable worklist."""
+
+    source = _validated_source_run_dir(source_run_dir, run_dir)
+    payload = _read_json_object(source / "worklist.json", label="source worklist")
+    if payload.get("schema_version") != 1:
+        raise PipelineError("source worklist schema_version must be 1")
+    expected_header = {
+        "catalog_snapshot_id": catalog_snapshot_id,
+        "source_site_id": source_site_id,
+        "category_key": category_key,
+        "theme_titles": list(theme_titles),
+    }
+    for field_name, expected_value in expected_header.items():
+        if payload.get(field_name) != expected_value:
+            raise PipelineError(
+                f"source worklist {field_name} does not match the requested scope"
+            )
+    raw_targets = payload.get("targets")
+    if not isinstance(raw_targets, list):
+        raise PipelineError("source worklist targets must be a list")
+    worklist_basis = json.dumps(
+        raw_targets,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    worklist_sha256 = _sha256_bytes(worklist_basis)
+    if payload.get("worklist_sha256") != worklist_sha256:
+        raise PipelineError("source worklist SHA-256 does not match its targets")
+
+    expected_groups = {
+        group.source_group_id: (theme, group)
+        for theme, groups in scope
+        for group in groups
+    }
+    if int(payload.get("group_count") or -1) != len(expected_groups):
+        raise PipelineError("source worklist group_count does not match fixed scope")
+    candidates_by_group, seen_keys = _validate_targets(raw_targets, expected_groups)
 
     if int(payload.get("target_count") or -1) != len(seen_keys):
         raise PipelineError("source worklist target_count does not match targets")

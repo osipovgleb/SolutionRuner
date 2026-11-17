@@ -17,8 +17,7 @@ else:
     from mcp_polygon_util import _bounded_map_ordered
 
 
-def process_parallel_group(context, theme, group, inventory, state):
-    """Process and checkpoint one group's parallel candidate window."""
+def _process_window(context, problem_units):
     args = context.args
     logger = context.logger
     client = context.client
@@ -31,55 +30,7 @@ def process_parallel_group(context, theme, group, inventory, state):
     determinism_gate = context.determinism_gate
     prepare_candidate = context.prepare_candidate
     apply_prepared_asset = context.apply_prepared_asset
-    totals = context.totals
     _ProcessingContext = context.processing_context_type
-    (
-        global_tasks_seen,
-        batches_seen,
-        consecutive_asset_errors,
-        determinism_verified,
-        stop_requested,
-    ) = state
-    problem_units = _problem_units(inventory.candidates)
-    if args.max_tasks is not None:
-        remaining_tasks = args.max_tasks - global_tasks_seen
-        if remaining_tasks <= 0:
-            stop_requested = True
-            return (
-                global_tasks_seen,
-                batches_seen,
-                consecutive_asset_errors,
-                determinism_verified,
-                stop_requested,
-            )
-        problem_units = problem_units[:remaining_tasks]
-    if args.stop_after_batches is not None:
-        remaining_checkpoints = args.stop_after_batches - batches_seen
-        if remaining_checkpoints <= 0:
-            stop_requested = True
-            return (
-                global_tasks_seen,
-                batches_seen,
-                consecutive_asset_errors,
-                determinism_verified,
-                stop_requested,
-            )
-        problem_units = problem_units[: remaining_checkpoints * args.batch_size]
-    if not problem_units:
-        return (
-            global_tasks_seen,
-            batches_seen,
-            consecutive_asset_errors,
-            determinism_verified,
-            stop_requested,
-        )
-    logger.emit(
-        "worker_pool_start",
-        theme=theme.title,
-        group_key=group.group_key,
-        tasks=len(problem_units),
-        max_workers=args.max_workers,
-    )
     processing_context = _ProcessingContext(
         client=client,
         source_site_id=source_site_id,
@@ -111,6 +62,59 @@ def process_parallel_group(context, theme, group, inventory, state):
             max_workers=args.max_workers,
         ),
     )
+    return problem_outcomes
+
+
+def _bounded_units(args, candidates, counts):
+    global_tasks_seen, batches_seen = counts
+    problem_units = _problem_units(candidates)
+    if args.max_tasks is not None:
+        remaining_tasks = args.max_tasks - global_tasks_seen
+        if remaining_tasks <= 0:
+            return (), True
+        problem_units = problem_units[:remaining_tasks]
+    if args.stop_after_batches is not None:
+        remaining_checkpoints = args.stop_after_batches - batches_seen
+        if remaining_checkpoints <= 0:
+            return (), True
+        problem_units = problem_units[: remaining_checkpoints * args.batch_size]
+    return problem_units, False
+
+
+def process_parallel_group(context, theme, group, inventory, state):
+    """Process and checkpoint one group's parallel candidate window."""
+    args = context.args
+    logger = context.logger
+    run_dir = context.run_dir
+    determinism_gate = context.determinism_gate
+    totals = context.totals
+    (
+        global_tasks_seen,
+        batches_seen,
+        consecutive_asset_errors,
+        determinism_verified,
+        stop_requested,
+    ) = state
+    problem_units, limit_reached = _bounded_units(
+        args, inventory.candidates, (global_tasks_seen, batches_seen)
+    )
+    stop_requested = stop_requested or limit_reached
+    if not problem_units:
+        return (
+            global_tasks_seen,
+            batches_seen,
+            consecutive_asset_errors,
+            determinism_verified,
+            stop_requested,
+        )
+    logger.emit(
+        "worker_pool_start",
+        theme=theme.title,
+        group_key=group.group_key,
+        tasks=len(problem_units),
+        max_workers=args.max_workers,
+    )
+    problem_outcomes = _process_window(context, problem_units)
     determinism_verified = determinism_verified or determinism_gate.verified
     for checkpoint_start in range(
         0,

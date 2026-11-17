@@ -193,7 +193,6 @@ class DashboardStore:
             if row is None:
                 return
             system_column = _system_column(
-                registered=bool(row["registered"]),
                 has_run=bool(row["latest_run"]),
                 total=total,
                 transformed=transformed,

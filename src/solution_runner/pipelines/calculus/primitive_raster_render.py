@@ -11,45 +11,9 @@ import numpy as np
 from .primitive_metadata import META, NS
 
 
-def render(model, *, selected_points=None):
-    """Keep the parent SVG's style; highlight the same curve only in solutions."""
-    import math
-
-    knots = np.asarray(model["knots"])
-    slopes = np.asarray(model["slopes"])
-    lo, hi = map(float, model["domain"])
-    cell = 20.0
-    xmin = math.floor(min(lo - 1, -2))
-    xmax = math.ceil(max(hi + 3, 2))
-    ymin = math.floor(min(knots[:, 1].min() - 1, -2))
-    ymax = math.ceil(max(knots[:, 1].max() + 1, 2))
-    width = (xmax - xmin) * cell
-    height = (ymax - ymin) * cell
-    ox = -xmin * cell
-    oy = ymax * cell
-    point = lambda x, y: (ox + x * cell, oy - y * cell)
-    template = ET.parse(
-        Path(__file__).with_name("assets") / "primitive-extrema-template.svg"
-    ).getroot()
-    for element in template.iter():
-        element.tag = element.tag.rsplit("}", 1)[-1]
-        href = element.attrib.pop("{http://www.w3.org/1999/xlink}href", None)
-        if href is not None:
-            element.set("xlink:href", href)
-    root = ET.Element(
-        "svg",
-        {
-            "xmlns": NS[1:-1],
-            "xmlns:xlink": "http://www.w3.org/1999/xlink",
-            "width": str(width),
-            "height": str(height),
-            "viewBox": f"0 0 {width} {height}",
-        },
-    )
-    ET.SubElement(root, "rect", {"width": "100%", "height": "100%", "fill": "white"})
-    ET.SubElement(root, "metadata", {"id": META}).text = json.dumps(
-        {"model": model, "highlighted": selected_points is not None}, sort_keys=True
-    )
+def _grid(root, point, bounds, size):
+    xmin, xmax, ymin, ymax = bounds
+    width, height = size
     for x in range(xmin, xmax + 1):
         px = point(x, 0)[0]
         ET.SubElement(
@@ -78,14 +42,10 @@ def render(model, *, selected_points=None):
                 "stroke-width": ".75",
             },
         )
-    horizontal, vertical = template[24], template[25]
-    horizontal.set("y1", str(oy))
-    horizontal.set("y2", str(oy))
-    horizontal.set("x2", str(width - 7.5))
-    vertical.set("x1", str(ox))
-    vertical.set("x2", str(ox))
-    vertical.set("y1", str(height))
-    root.extend((horizontal, vertical))
+
+
+def _curve_path(model, knots, slopes, point, origin, cell):
+    ox, oy = origin
     if "bezier_segments" in model:
         segments = np.asarray(model["bezier_segments"])
         coords = segments * np.array([cell, -cell]) + np.array([ox, oy])
@@ -104,39 +64,12 @@ def render(model, *, selected_points=None):
             if i == 0:
                 path = f"M{x0:.6f},{y0:.6f}"
             path += f"C{x0 + dx * cell / 3:.6f},{y0 - slopes[i] * dx * cell / 3:.6f} {x3 - dx * cell / 3:.6f},{y3 + slopes[i + 1] * dx * cell / 3:.6f} {x3:.6f},{y3:.6f}"
-    curve = template[28]
-    curve.set("d", path)
-    color = "#143B8F" if selected_points is None else "#000000"
-    curve.set("stroke", color)
-    curve.set("data-primitive-curve", "true")
-    root.append(curve)
-    endpoint_markers = []
-    for xy in (knots[0], knots[-1]):
-        x, y = point(*xy)
-        endpoint_markers.append(
-            ET.SubElement(
-                root,
-                "circle",
-                {
-                    "cx": str(x),
-                    "cy": str(y),
-                    "r": "2.2",
-                    "fill": "white",
-                    "stroke": color,
-                    "stroke-width": ".75",
-                },
-            )
-        )
-    for index, dx, dy in (
-        (38, ox - 80.582, oy - 121.3061),
-        (36, ox - 80.582, 0),
-        (37, width - 239.9657, oy - 121.198),
-        (29, ox - 80.582, -0.4805),
-        (30, width - 239.9657, oy - 121.198),
-    ):
-        node = template[index]
-        node.set("transform", f"translate({dx} {dy})")
-        root.append(node)
+    return path
+
+
+def _labels(root, point, domain, origin, width):
+    lo, hi = domain
+    ox, oy = origin
     labels = ET.SubElement(
         root,
         "g",
@@ -176,12 +109,9 @@ def render(model, *, selected_points=None):
         "text",
         {"x": str(width - 10), "y": "16", "text-anchor": "end", "font-style": "italic"},
     ).text = "y = F(x)"
-    # Axis-label masks may erase grid lines, but must never cut the curve.
-    root.remove(curve)
-    root.append(curve)
-    for marker in endpoint_markers:
-        root.remove(marker)
-        root.append(marker)
+
+
+def _selection(root, model, selected_points, point, height):
     if selected_points is not None:
         group = ET.SubElement(root, "g", {"data-runner-diagram": "stationary_points"})
         for x, direction in (
@@ -216,4 +146,96 @@ def render(model, *, selected_points=None):
                     "stroke-width": ".75",
                 },
             )
+
+
+def render(model, *, selected_points=None):
+    """Keep the parent SVG's style; highlight the same curve only in solutions."""
+    import math
+
+    knots = np.asarray(model["knots"])
+    slopes = np.asarray(model["slopes"])
+    lo, hi = map(float, model["domain"])
+    cell = 20.0
+    xmin = math.floor(min(lo - 1, -2))
+    xmax = math.ceil(max(hi + 3, 2))
+    ymin = math.floor(min(knots[:, 1].min() - 1, -2))
+    ymax = math.ceil(max(knots[:, 1].max() + 1, 2))
+    width = (xmax - xmin) * cell
+    height = (ymax - ymin) * cell
+    ox = -xmin * cell
+    oy = ymax * cell
+    point = lambda x, y: (ox + x * cell, oy - y * cell)
+    template = ET.parse(
+        Path(__file__).with_name("assets") / "primitive-extrema-template.svg"
+    ).getroot()
+    for element in template.iter():
+        element.tag = element.tag.rsplit("}", 1)[-1]
+        href = element.attrib.pop("{http://www.w3.org/1999/xlink}href", None)
+        if href is not None:
+            element.set("xlink:href", href)
+    root = ET.Element(
+        "svg",
+        {
+            "xmlns": NS[1:-1],
+            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "width": str(width),
+            "height": str(height),
+            "viewBox": f"0 0 {width} {height}",
+        },
+    )
+    ET.SubElement(root, "rect", {"width": "100%", "height": "100%", "fill": "white"})
+    ET.SubElement(root, "metadata", {"id": META}).text = json.dumps(
+        {"model": model, "highlighted": selected_points is not None}, sort_keys=True
+    )
+    _grid(root, point, (xmin, xmax, ymin, ymax), (width, height))
+    horizontal, vertical = template[24], template[25]
+    horizontal.set("y1", str(oy))
+    horizontal.set("y2", str(oy))
+    horizontal.set("x2", str(width - 7.5))
+    vertical.set("x1", str(ox))
+    vertical.set("x2", str(ox))
+    vertical.set("y1", str(height))
+    root.extend((horizontal, vertical))
+    path = _curve_path(model, knots, slopes, point, (ox, oy), cell)
+    curve = template[28]
+    curve.set("d", path)
+    color = "#143B8F" if selected_points is None else "#000000"
+    curve.set("stroke", color)
+    curve.set("data-primitive-curve", "true")
+    root.append(curve)
+    endpoint_markers = []
+    for xy in (knots[0], knots[-1]):
+        x, y = point(*xy)
+        endpoint_markers.append(
+            ET.SubElement(
+                root,
+                "circle",
+                {
+                    "cx": str(x),
+                    "cy": str(y),
+                    "r": "2.2",
+                    "fill": "white",
+                    "stroke": color,
+                    "stroke-width": ".75",
+                },
+            )
+        )
+    for index, dx, dy in (
+        (38, ox - 80.582, oy - 121.3061),
+        (36, ox - 80.582, 0),
+        (37, width - 239.9657, oy - 121.198),
+        (29, ox - 80.582, -0.4805),
+        (30, width - 239.9657, oy - 121.198),
+    ):
+        node = template[index]
+        node.set("transform", f"translate({dx} {dy})")
+        root.append(node)
+    _labels(root, point, (lo, hi), (ox, oy), width)
+    # Axis-label masks may erase grid lines, but must never cut the curve.
+    root.remove(curve)
+    root.append(curve)
+    for marker in endpoint_markers:
+        root.remove(marker)
+        root.append(marker)
+    _selection(root, model, selected_points, point, height)
     return ET.tostring(root, encoding="unicode")

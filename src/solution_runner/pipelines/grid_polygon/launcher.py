@@ -19,7 +19,6 @@ from solution_runner.group_inventory_store import GroupInventoryStore
 
 from ..core.local_inventory import load_group_inventory
 from ..core.models import (
-    GroupProfile,
     PreparedFigure,
     PreparedGridPolygon,
     ProblemStageResult,
@@ -117,16 +116,61 @@ def _api_key() -> str:
     return getpass.getpass("TEACHERHELPER_MCP_API_KEY: ").strip()
 
 
+def _prepare_existing_targets(context, args, existing_targets, apply_images):
+    active, gateway, profile, run_dir = (
+        context.active,
+        context.gateway,
+        context.profile,
+        context.run_dir,
+    )
+
+    def prepare_target(
+        target: Any,
+    ) -> tuple[PreparedGridPolygon | None, dict[str, str] | None]:
+        """Prepare one existing SVG and convert its failure to ordered evidence."""
+
+        try:
+            return (
+                active.prepare_existing(
+                    gateway,
+                    target,
+                    artifact_dir=run_dir / "existing-svg",
+                    profile=profile,
+                    apply=apply_images,
+                ),
+                None,
+            )
+        except Exception as exc:  # noqa: BLE001 - isolate one existing SVG.
+            return (
+                None,
+                {
+                    "problem_id": target.problem_id,
+                    "source_problem_id": target.source_problem_id,
+                    "error": " ".join(str(exc).split())[:2000],
+                },
+            )
+
+    if args.max_workers == 1:
+        existing_results = tuple(map(prepare_target, existing_targets))
+    else:
+        with ThreadPoolExecutor(max_workers=args.max_workers) as executor:
+            existing_results = tuple(executor.map(prepare_target, existing_targets))
+    records = []
+    image_errors = []
+    for record, error in existing_results:
+        if record is not None:
+            records.append(record)
+        if error is not None:
+            image_errors.append(error)
+    return records, image_errors
+
+
 def _prepared_records(
-    active: LauncherDependencies,
-    args: argparse.Namespace,
-    gateway: Any,
-    profile: GroupProfile,
-    inventory: GroupInventory,
-    run_dir: Path,
-    reporter: ProgressReporter,
+    context: _StageContext, args: argparse.Namespace, inventory: GroupInventory
 ) -> tuple[PreparedFigure, ...]:
     """Load a resume manifest or prepare and freeze the selected image scope."""
+    active, gateway, profile = context.active, context.gateway, context.profile
+    run_dir, reporter = context.run_dir, context.reporter
 
     manifest_path = run_dir / "prepared-manifest.json"
     apply_images = args.apply and not args.helpers_from_existing_solution
@@ -181,42 +225,11 @@ def _prepared_records(
         )
     existing_targets = () if profile.geometry_kind == "ring" else inventory.svg_targets
 
-    def prepare_target(
-        target: Any,
-    ) -> tuple[PreparedGridPolygon | None, dict[str, str] | None]:
-        """Prepare one existing SVG and convert its failure to ordered evidence."""
-
-        try:
-            return (
-                active.prepare_existing(
-                    gateway,
-                    target,
-                    artifact_dir=run_dir / "existing-svg",
-                    profile=profile,
-                    apply=apply_images,
-                ),
-                None,
-            )
-        except Exception as exc:  # noqa: BLE001 - isolate one existing SVG.
-            return (
-                None,
-                {
-                    "problem_id": target.problem_id,
-                    "source_problem_id": target.source_problem_id,
-                    "error": " ".join(str(exc).split())[:2000],
-                },
-            )
-
-    if args.max_workers == 1:
-        existing_results = tuple(map(prepare_target, existing_targets))
-    else:
-        with ThreadPoolExecutor(max_workers=args.max_workers) as executor:
-            existing_results = tuple(executor.map(prepare_target, existing_targets))
-    for record, error in existing_results:
-        if record is not None:
-            records.append(record)
-        if error is not None:
-            image_errors.append(error)
+    existing_records, existing_errors = _prepare_existing_targets(
+        context, args, existing_targets, apply_images
+    )
+    records.extend(existing_records)
+    image_errors.extend(existing_errors)
     prepared = _ordered_prepared(inventory, tuple(records))
     write_prepared_manifest(manifest_path, _scope(profile, prepared), prepared)
     (run_dir / "image-errors.json").write_text(
@@ -224,6 +237,73 @@ def _prepared_records(
         encoding="utf-8",
     )
     return prepared
+
+
+def _discover_targets(context, parser, args):
+    active, gateway, profile = context.active, context.gateway, context.profile
+    targeted, reporter = context.targeted, context.reporter
+    discovery_label = (
+        "TARGET SELECTION"
+        if targeted
+        else ("LOCAL INVENTORY" if args.inventory_db else "INVENTORY")
+    )
+    reporter.group(
+        profile.theme_title,
+        profile.group_key,
+        f"{discovery_label} STARTED",
+        stage="target_selection" if targeted else "inventory",
+    )
+    if args.inventory_db:
+        full_inventory = load_group_inventory(
+            GroupInventoryStore(args.inventory_db),
+            profile,
+            apply_solution_scope=not targeted
+            and not args.helpers_from_existing_solution,
+        )
+    elif targeted:
+        if active.targeted_inventory is None:
+            raise ValueError("targeted inventory dependency is unavailable")
+        full_inventory = active.targeted_inventory(
+            gateway,
+            profile,
+            source_problem_ids=tuple(args.only_source_problem_id or ()),
+            problem_ids=tuple(args.only_problem_id or ()),
+            max_workers=args.max_workers,
+        )
+    else:
+        full_inventory = active.inventory(
+            gateway,
+            profile,
+            max_workers=args.max_workers,
+        )
+    inventory = _selected_inventory(parser, args, full_inventory)
+    if args.exclude_parent_problem:
+        parent_problem_id = full_inventory.targets[0].problem_id
+        inventory = GroupInventory(
+            targets=tuple(
+                target
+                for target in inventory.targets
+                if target.problem_id != parent_problem_id
+            ),
+            png_targets=(),
+            svg_targets=(),
+        )
+    reporter.group(
+        profile.theme_title,
+        profile.group_key,
+        (
+            f"{discovery_label} COMPLETED  TARGETS {len(inventory.targets)}  "
+            f"PNG {len(inventory.png_targets)}  SVG {len(inventory.svg_targets)}"
+        ),
+        severity="success",
+        stage="target_selection" if targeted else "inventory",
+        details={
+            "targets": len(inventory.targets),
+            "png": len(inventory.png_targets),
+            "svg": len(inventory.svg_targets),
+        },
+    )
+    return full_inventory, inventory
 
 
 def main(
@@ -258,67 +338,6 @@ def main(
                 color=True,
             )
             targeted = bool(args.only_source_problem_id or args.only_problem_id)
-            discovery_label = (
-                "TARGET SELECTION"
-                if targeted
-                else ("LOCAL INVENTORY" if args.inventory_db else "INVENTORY")
-            )
-            reporter.group(
-                profile.theme_title,
-                profile.group_key,
-                f"{discovery_label} STARTED",
-                stage="target_selection" if targeted else "inventory",
-            )
-            if args.inventory_db:
-                full_inventory = load_group_inventory(
-                    GroupInventoryStore(args.inventory_db),
-                    profile,
-                    apply_solution_scope=not targeted
-                    and not args.helpers_from_existing_solution,
-                )
-            elif targeted:
-                if active.targeted_inventory is None:
-                    raise ValueError("targeted inventory dependency is unavailable")
-                full_inventory = active.targeted_inventory(
-                    gateway,
-                    profile,
-                    source_problem_ids=tuple(args.only_source_problem_id or ()),
-                    problem_ids=tuple(args.only_problem_id or ()),
-                    max_workers=args.max_workers,
-                )
-            else:
-                full_inventory = active.inventory(
-                    gateway,
-                    profile,
-                    max_workers=args.max_workers,
-                )
-            inventory = _selected_inventory(parser, args, full_inventory)
-            if args.exclude_parent_problem:
-                parent_problem_id = full_inventory.targets[0].problem_id
-                inventory = GroupInventory(
-                    targets=tuple(
-                        target
-                        for target in inventory.targets
-                        if target.problem_id != parent_problem_id
-                    ),
-                    png_targets=(),
-                    svg_targets=(),
-                )
-            reporter.group(
-                profile.theme_title,
-                profile.group_key,
-                (
-                    f"{discovery_label} COMPLETED  TARGETS {len(inventory.targets)}  "
-                    f"PNG {len(inventory.png_targets)}  SVG {len(inventory.svg_targets)}"
-                ),
-                severity="success",
-                stage="target_selection" if targeted else "inventory",
-                details={
-                    "targets": len(inventory.targets),
-                    "png": len(inventory.png_targets),
-                    "svg": len(inventory.svg_targets),
-                },
-            )
             stage_context = _StageContext(
                 active=active,
                 gateway=gateway,
@@ -329,6 +348,7 @@ def main(
                 reporter=reporter,
                 max_workers=args.max_workers,
             )
+            full_inventory, inventory = _discover_targets(stage_context, parser, args)
             if profile.workflow_kind == "content_rule":
                 _run_content_rule_stages(
                     stage_context,
@@ -340,9 +360,7 @@ def main(
                 prepared = (
                     ()
                     if args.helpers_from_existing_solution
-                    else _prepared_records(
-                        active, args, gateway, profile, inventory, run_dir, reporter
-                    )
+                    else _prepared_records(stage_context, args, inventory)
                 )
                 _run_stages(
                     stage_context,

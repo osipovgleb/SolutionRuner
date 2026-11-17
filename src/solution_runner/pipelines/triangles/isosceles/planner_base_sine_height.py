@@ -10,33 +10,14 @@ import sympy as sp
 from .planner_types import IsoscelesTrianglePlanError, RepairPlan
 
 
-def build_group_27320_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_solution_assets: tuple[dict[str, str], ...],
-) -> RepairPlan:
-    """Build only the base-and-sine to opposite-side altitude repair for 27320."""
-
+def _parse_27320(condition_html):
     from .planner import (
-        _answer_matches,
-        _answer_text,
-        _condition_image_repairs,
         _formula_text,
         _inline_formulas,
-        _latex_number,
-        _normalized_content,
         _parse_positive_value,
-        _plain_html,
         _request_text,
-        _section,
-        _section_transformation,
     )
 
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise IsoscelesTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
     formula = (
         _formula_text(condition_html)
         .replace("А", "A")
@@ -98,74 +79,17 @@ def build_group_27320_repair_plan(
     sine = _parse_positive_value(sine_latex)
     if sine >= 1:
         raise IsoscelesTrianglePlanError("base-angle sine must be less than one")
-    answer = _answer_text(base * sine)
-    solution = _section(content, "solution")
-    solution_missing = solution is None or not _plain_html(
-        str(solution.get("html") or "")
-    )
-    transformations = list(
-        _condition_image_repairs(content, parent_solution_assets, group_key="27320")
-    )
-    if solution_missing:
-        other_base_vertex = next(iter(base_vertices - {angle_vertex}))
-        solution_html = (
-            '<p>Треугольник <span data-inline-latex="ABC"></span> — '
-            "равнобедренный, поэтому углы при его основании равны. Тогда</p>"
-            '<center><p><span data-inline-latex="'
-            + f"{angle_vertex}H={base_name}\\sin \\angle "
-            + f"{angle_vertex}{other_base_vertex}H={base_name}\\sin \\angle {angle_name}="
-            + rf"{_latex_number(base)}\cdot {sine_latex}="
-            + answer.replace(",", "{,}")
-            + '"></span>.</p></center>'
-        )
-        transformations.append(
-            _section_transformation(
-                solution,
-                "solution",
-                "Решение",
-                solution_html,
-            )
-        )
-    answer_section = _section(content, "answer")
-    if not _answer_matches(answer_section, answer):
-        transformations.append(
-            _section_transformation(
-                answer_section,
-                "answer",
-                "Ответ",
-                f'<p><span data-effect="spaced">{answer}</span></p>',
-            )
-        )
-    return RepairPlan(answer=answer, transformations=tuple(transformations))
+    return base_name, base_vertices, angle_name, angle_vertex, base, sine, sine_latex
 
 
-def build_group_27321_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_solution_assets: tuple[dict[str, str], ...],
-) -> RepairPlan:
-    """Build only the base-and-sine to adjacent projection repair for 27321."""
-
+def _parse_27321(condition_html):
     from .planner import (
-        _answer_matches,
-        _answer_text,
-        _condition_image_repairs,
         _formula_text,
         _inline_formulas,
-        _latex_number,
-        _normalized_content,
         _parse_positive_value,
-        _plain_html,
         _request_text,
-        _section,
-        _section_transformation,
     )
 
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise IsoscelesTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
     formula = (
         _formula_text(condition_html)
         .replace("А", "A")
@@ -236,6 +160,110 @@ def build_group_27321_repair_plan(
     if cosine_squared.is_positive is not True:
         raise IsoscelesTrianglePlanError("base-angle sine must be less than one")
     cosine = sp.sqrt(cosine_squared)
+    return (
+        base_name,
+        other_base_vertex,
+        angle_vertex,
+        angle_name,
+        base,
+        cosine,
+        sine_latex,
+    )
+
+
+def build_group_27320_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_solution_assets: tuple[dict[str, str], ...],
+) -> RepairPlan:
+    """Build only the base-and-sine to opposite-side altitude repair for 27320."""
+
+    from .planner import (
+        _answer_matches,
+        _answer_text,
+        _condition_image_repairs,
+        _latex_number,
+        _normalized_content,
+        _plain_html,
+        _section,
+        _section_transformation,
+    )
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise IsoscelesTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    base_name, base_vertices, angle_name, angle_vertex, base, sine, sine_latex = (
+        _parse_27320(condition_html)
+    )
+    answer = _answer_text(base * sine)
+    solution = _section(content, "solution")
+    solution_missing = solution is None or not _plain_html(
+        str(solution.get("html") or "")
+    )
+    transformations = list(
+        _condition_image_repairs(content, parent_solution_assets, group_key="27320")
+    )
+    if solution_missing:
+        other_base_vertex = next(iter(base_vertices - {angle_vertex}))
+        solution_html = (
+            '<p>Треугольник <span data-inline-latex="ABC"></span> — '
+            "равнобедренный, поэтому углы при его основании равны. Тогда</p>"
+            '<center><p><span data-inline-latex="'
+            + f"{angle_vertex}H={base_name}\\sin \\angle "
+            + f"{angle_vertex}{other_base_vertex}H={base_name}\\sin \\angle {angle_name}="
+            + rf"{_latex_number(base)}\cdot {sine_latex}="
+            + answer.replace(",", "{,}")
+            + '"></span>.</p></center>'
+        )
+        transformations.append(
+            _section_transformation(
+                solution,
+                "solution",
+                "Решение",
+                solution_html,
+            )
+        )
+    answer_section = _section(content, "answer")
+    if not _answer_matches(answer_section, answer):
+        transformations.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
+    return RepairPlan(answer=answer, transformations=tuple(transformations))
+
+
+def build_group_27321_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_solution_assets: tuple[dict[str, str], ...],
+) -> RepairPlan:
+    """Build only the base-and-sine to adjacent projection repair for 27321."""
+
+    from .planner import (
+        _answer_matches,
+        _answer_text,
+        _condition_image_repairs,
+        _latex_number,
+        _normalized_content,
+        _plain_html,
+        _section,
+        _section_transformation,
+    )
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise IsoscelesTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    base_name, other_base_vertex, angle_vertex, angle_name, base, cosine, sine_latex = (
+        _parse_27321(condition_html)
+    )
     answer = _answer_text(base * cosine)
     solution = _section(content, "solution")
     solution_missing = solution is None or not _plain_html(

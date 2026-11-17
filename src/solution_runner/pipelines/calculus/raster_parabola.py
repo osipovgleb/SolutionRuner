@@ -25,29 +25,8 @@ NS = "{http://www.w3.org/2000/svg}"
 META = "solution-runner-parabola-v1"
 
 
-def recover(data, primitive):
-    image = Image.open(io.BytesIO(data)).convert("RGBA")
-    bg = Image.new("RGBA", image.size, "white")
-    bg.alpha_composite(image)
-    gray = np.asarray(bg.convert("L"))
-    height, width = gray.shape
-    if min(height, width) < 35 or max(height, width) > 5000:
-        raise UnsupportedCondition("unsupported parabola raster dimensions")
-    p = sp.Poly(sp.diff(primitive, X), X)
-    if p.degree() != 2 or not all(c.is_Rational for c in p.all_coeffs()):
-        raise UnsupportedCondition("a rational quadratic derivative is required")
-    a, b, _c = p.all_coeffs()
-    center = -b / (2 * a)
-    vertex = p.as_expr().subs(X, center)
-    if vertex <= 0:
-        raise UnsupportedCondition("the raster parabola needs a positive vertex")
-    dark = gray < 210
-    row_strength = dark.sum(axis=1).astype(float)
-    row_strength[: height // 3] = 0
-    row_strength[int(height * 0.97) :] = 0
-    oy = int(np.argmax(row_strength))
-    if row_strength[oy] < width * 0.65:
-        raise UnsupportedCondition("a complete horizontal axis is required")
+def _shaded_points(dark, oy):
+    width = dark.shape[1]
     # Broad filled columns distinguish the shaded region from thin axes/labels.
     support = dark[3 : max(4, oy - 3)].sum(axis=0)
     mask = support > 5
@@ -75,6 +54,10 @@ def recover(data, primitive):
     points = points[(points[:, 1] > 4) & (points[:, 1] < oy - 3)]
     if len(points) < 12:
         raise UnsupportedCondition("the parabola vertex is clipped")
+    return left, right, points
+
+
+def _fit_curve(points):
     values = median_filter(points[:, 1], size=3)
     xmid = float(points[:, 0].mean())
     xscale = float(np.ptp(points[:, 0]))
@@ -94,30 +77,13 @@ def recover(data, primitive):
             fitted[2] - fitted[1] * xmid / xscale + fitted[0] * xmid * xmid / xscale**2,
         ]
     )
-    if coef[0] * float(a) >= 0:
-        raise UnsupportedCondition("raster and formula curvature disagree")
-    vx = -coef[1] / (2 * coef[0])
-    vy = float(np.polyval(coef, vx))
-    sy = (oy - vy) / float(vertex)
-    if sy <= 0:
-        raise UnsupportedCondition("invalid positive parabola scale")
-    sx = math.sqrt(abs(sy * float(a) / coef[0]))
-    ox = vx - sx * float(center)
-    if a < 0:
-        formula_roots = sorted(sp.solve(p.as_expr(), X))
-        pixel_roots = sorted(np.roots([coef[0], coef[1], coef[2] - oy]))
-        if len(formula_roots) != 2 or not all(r.is_Rational for r in formula_roots):
-            raise UnsupportedCondition("the shaded cap needs exact rational zeroes")
-        sx = float(
-            (pixel_roots[1] - pixel_roots[0])
-            / float(formula_roots[1] - formula_roots[0])
-        )
-        ox = float(pixel_roots[0] - sx * float(formula_roots[0]))
-    residual = float(
-        np.sqrt(np.mean((np.polyval(coef, points[keep, 0]) - points[keep, 1]) ** 2))
-    )
-    if residual > max(2.0, oy * 0.025) or sx < 3:
-        raise UnsupportedCondition("the raster does not resolve a unique parabola")
+    return coef, keep
+
+
+def _verify_axis(dark, origin, sx, vertex):
+    ox, oy = origin
+    vx, center = vertex
+    height, width = dark.shape
     # Require an independently visible vertical axis near the recovered origin.
     vertical = dark[3 : oy + 1].sum(axis=0)
     below = dark[min(height, oy + 3) :].sum(axis=0)
@@ -136,6 +102,13 @@ def recover(data, primitive):
             raise UnsupportedCondition("the axis and curvature scales disagree")
         sx = axis_scale
         ox = visible
+    return sx, ox
+
+
+def _shading_span(p, coef, origin, sx, boundaries):
+    ox, oy = origin
+    left, right = boundaries
+    a = p.all_coeffs()[0]
     span = []
     if a < 0:
         roots = sp.solve(p.as_expr(), X)
@@ -162,6 +135,60 @@ def recover(data, primitive):
                     "the shading boundary is ambiguous on the half-unit lattice"
                 )
             span.append(sp.Rational(str(snapped)))
+    return span
+
+
+def recover(data, primitive):
+    image = Image.open(io.BytesIO(data)).convert("RGBA")
+    bg = Image.new("RGBA", image.size, "white")
+    bg.alpha_composite(image)
+    gray = np.asarray(bg.convert("L"))
+    height, width = gray.shape
+    if min(height, width) < 35 or max(height, width) > 5000:
+        raise UnsupportedCondition("unsupported parabola raster dimensions")
+    p = sp.Poly(sp.diff(primitive, X), X)
+    if p.degree() != 2 or not all(c.is_Rational for c in p.all_coeffs()):
+        raise UnsupportedCondition("a rational quadratic derivative is required")
+    a, b, _c = p.all_coeffs()
+    center = -b / (2 * a)
+    vertex = p.as_expr().subs(X, center)
+    if vertex <= 0:
+        raise UnsupportedCondition("the raster parabola needs a positive vertex")
+    dark = gray < 210
+    row_strength = dark.sum(axis=1).astype(float)
+    row_strength[: height // 3] = 0
+    row_strength[int(height * 0.97) :] = 0
+    oy = int(np.argmax(row_strength))
+    if row_strength[oy] < width * 0.65:
+        raise UnsupportedCondition("a complete horizontal axis is required")
+    left, right, points = _shaded_points(dark, oy)
+    coef, keep = _fit_curve(points)
+    if coef[0] * float(a) >= 0:
+        raise UnsupportedCondition("raster and formula curvature disagree")
+    vx = -coef[1] / (2 * coef[0])
+    vy = float(np.polyval(coef, vx))
+    sy = (oy - vy) / float(vertex)
+    if sy <= 0:
+        raise UnsupportedCondition("invalid positive parabola scale")
+    sx = math.sqrt(abs(sy * float(a) / coef[0]))
+    ox = vx - sx * float(center)
+    if a < 0:
+        formula_roots = sorted(sp.solve(p.as_expr(), X))
+        pixel_roots = sorted(np.roots([coef[0], coef[1], coef[2] - oy]))
+        if len(formula_roots) != 2 or not all(r.is_Rational for r in formula_roots):
+            raise UnsupportedCondition("the shaded cap needs exact rational zeroes")
+        sx = float(
+            (pixel_roots[1] - pixel_roots[0])
+            / float(formula_roots[1] - formula_roots[0])
+        )
+        ox = float(pixel_roots[0] - sx * float(formula_roots[0]))
+    residual = float(
+        np.sqrt(np.mean((np.polyval(coef, points[keep, 0]) - points[keep, 1]) ** 2))
+    )
+    if residual > max(2.0, oy * 0.025) or sx < 3:
+        raise UnsupportedCondition("the raster does not resolve a unique parabola")
+    sx, ox = _verify_axis(dark, (ox, oy), sx, (vx, center))
+    span = _shading_span(p, coef, (ox, oy), sx, (left, right))
     return {
         "coefficients": [str(n) for n in p.all_coeffs()],
         "span": [str(n) for n in span],
@@ -172,6 +199,87 @@ def recover(data, primitive):
             "fit_rmse_pixels": residual,
         },
     }
+
+
+def _draw_axes_and_labels(root, template, frame, span, point):
+    width, height, ox, oy, origin_label_dy = frame
+    left, right = span
+    horizontal, vertical = template[2], template[3]
+    horizontal.set("x2", str(width - 5.3835))
+    vertical.set("x1", str(ox))
+    vertical.set("x2", str(ox))
+    vertical.set("y1", str(height))
+    root.extend((horizontal, vertical))
+    # These are the original outlined glyphs, so the template's O never
+    # becomes a centered zero crossing the vertical axis.
+    origin, y_label, x_label = template[7], template[8], template[9]
+    origin.set("id", "origin-label")
+    origin.set("transform", f"translate({ox - 317.1145} {origin_label_dy})")
+    y_label.set("transform", f"translate({ox - 317.1145} 0)")
+    x_label.set("transform", f"translate({width - 354.1575} 0)")
+    root.extend((origin, y_label, x_label))
+    labels = ET.SubElement(
+        root,
+        "g",
+        {
+            "id": "endpoint-labels",
+            "fill": "#000000",
+            "font-family": "Times New Roman, Times, serif",
+            "font-size": "15",
+        },
+    )
+    for x in sorted({left, right} - {sp.Integer(0)}):
+        label = ET.SubElement(
+            labels,
+            "text",
+            {"x": str(point(x, 0)[0]), "y": str(oy + 14), "text-anchor": "middle"},
+        )
+        label.text = str(x).replace("-", "−")
+    right_arrow, top_arrow = template[10], template[11]
+    right_arrow.set("transform", f"translate({width - 354.1575} 0)")
+    top_arrow.set("transform", f"translate({ox - 317.1145} 0)")
+    root.extend((right_arrow, top_arrow))
+
+
+def _diagram_entry(model, f, span, origin, units, point):
+    a, b, c = map(sp.Rational, model["coefficients"])
+    left, right = span
+    ox, oy = origin
+    sx, sy = units
+    lo, hi = point(left, 0), point(right, 0)
+    entry = {
+        "curve_name": "f",
+        "integral_model": "quadratic",
+        "area_kind": "bowl" if a > 0 else "cap",
+        "area_span": [str(left), str(right)],
+        "area_svg_span": [lo[0], hi[0]],
+        "derivative_coefficients": [str(a), str(b), str(c)],
+        "svg_origin": [ox, oy],
+        "svg_units": [sx, sy],
+        "area_methods": "endpoints",
+        "raster_recovered": True,
+    }
+    # Exact quadratic represented as one cubic for the existing mathematical reader.
+    p0 = point(left, f.subs(X, left))
+    p3 = point(right, f.subs(X, right))
+    dx = float(right - left) * sx
+    entry["curve_segments"] = [
+        [
+            list(p0),
+            [
+                p0[0] + dx / 3,
+                p0[1]
+                - float(sp.diff(f, X).subs(X, left)) * float(right - left) * sy / 3,
+            ],
+            [
+                p3[0] - dx / 3,
+                p3[1]
+                + float(sp.diff(f, X).subs(X, right)) * float(right - left) * sy / 3,
+            ],
+            list(p3),
+        ]
+    ]
+    return entry
 
 
 def render(model):
@@ -211,38 +319,7 @@ def render(model):
     lo, hi = point(left, 0), point(right, 0)
     area = path + f"L{hi[0]:.5f} {oy} L{lo[0]:.5f} {oy} Z"
     whole = path if a < 0 else quadratic(sp.Rational(str(xmin)), sp.Rational(str(xmax)))
-    entry = {
-        "curve_name": "f",
-        "integral_model": "quadratic",
-        "area_kind": "bowl" if a > 0 else "cap",
-        "area_span": [str(left), str(right)],
-        "area_svg_span": [lo[0], hi[0]],
-        "derivative_coefficients": [str(a), str(b), str(c)],
-        "svg_origin": [ox, oy],
-        "svg_units": [sx, sy],
-        "area_methods": "endpoints",
-        "raster_recovered": True,
-    }
-    # Exact quadratic represented as one cubic for the existing mathematical reader.
-    p0 = point(left, f.subs(X, left))
-    p3 = point(right, f.subs(X, right))
-    dx = float(right - left) * sx
-    entry["curve_segments"] = [
-        [
-            list(p0),
-            [
-                p0[0] + dx / 3,
-                p0[1]
-                - float(sp.diff(f, X).subs(X, left)) * float(right - left) * sy / 3,
-            ],
-            [
-                p3[0] - dx / 3,
-                p3[1]
-                + float(sp.diff(f, X).subs(X, right)) * float(right - left) * sy / 3,
-            ],
-            list(p3),
-        ]
-    ]
+    entry = _diagram_entry(model, f, (left, right), (ox, oy), (sx, sy), point)
     metadata = json.dumps({"model": model, "entry": entry}, sort_keys=True)
     template = ET.parse(
         Path(__file__).with_name("assets") / "parabola-area-template.svg"
@@ -287,41 +364,9 @@ def render(model):
                 "stroke-dasharray": "7.5,3",
             },
         )
-    horizontal, vertical = template[2], template[3]
-    horizontal.set("x2", str(width - 5.3835))
-    vertical.set("x1", str(ox))
-    vertical.set("x2", str(ox))
-    vertical.set("y1", str(height))
-    root.extend((horizontal, vertical))
-    # These are the original outlined glyphs, so the template's O never
-    # becomes a centered zero crossing the vertical axis.
-    origin, y_label, x_label = template[7], template[8], template[9]
-    origin.set("id", "origin-label")
-    origin.set("transform", f"translate({ox - 317.1145} {origin_label_dy})")
-    y_label.set("transform", f"translate({ox - 317.1145} 0)")
-    x_label.set("transform", f"translate({width - 354.1575} 0)")
-    root.extend((origin, y_label, x_label))
-    labels = ET.SubElement(
-        root,
-        "g",
-        {
-            "id": "endpoint-labels",
-            "fill": "#000000",
-            "font-family": "Times New Roman, Times, serif",
-            "font-size": "15",
-        },
+    _draw_axes_and_labels(
+        root, template, (width, height, ox, oy, origin_label_dy), (left, right), point
     )
-    for x in sorted({left, right} - {sp.Integer(0)}):
-        label = ET.SubElement(
-            labels,
-            "text",
-            {"x": str(point(x, 0)[0]), "y": str(oy + 14), "text-anchor": "middle"},
-        )
-        label.text = str(x).replace("-", "−")
-    right_arrow, top_arrow = template[10], template[11]
-    right_arrow.set("transform", f"translate({width - 354.1575} 0)")
-    top_arrow.set("transform", f"translate({ox - 317.1145} 0)")
-    root.extend((right_arrow, top_arrow))
     return ET.tostring(root, encoding="unicode"), entry
 
 

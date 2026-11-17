@@ -19,32 +19,7 @@ def recover(data, question):
     return _recover_new(data, question)
 
 
-def _recover_new(data, question):
-    from . import raster_primitive
-
-    image = Image.open(io.BytesIO(data)).convert("RGBA")
-    if min(image.size) < 35 or max(image.size) > 5000:
-        raise UnsupportedCondition("unsupported primitive raster dimensions")
-    background = Image.new("RGBA", image.size, "white")
-    background.alpha_composite(image)
-    # Normalize only small source rasters; already large inputs retain their pixels.
-    if min(image.size) < 400:
-        background = background.resize(
-            (image.width * 4, image.height * 4), Image.Resampling.LANCZOS
-        )
-    logical, grid, _, cleanup = primitive_trace.trace_source(
-        np.asarray(background), question
-    )
-    analysis, points = detect(logical, 0.025)
-    for smoothing in (0.02, 0.03):
-        _, check = detect(logical, smoothing)
-        if [p.kind for p in check] != [p.kind for p in points]:
-            raise UnsupportedCondition(
-                "the raster does not resolve a stable extremum count"
-            )
-    original_anchors = np.array(
-        [logical[0], *[[p.x, p.y] for p in points], logical[-1]]
-    )
+def _pin_extrema(logical, points, question):
     # A smoothed cap can shrink away from a grid line. Snap only when the
     # original traced ink, before smoothing, actually reaches that grid level.
     pinned = []
@@ -68,9 +43,10 @@ def _recover_new(data, question):
         if retains_turn and abs(raw_y - target) <= 0.12 and abs(p.y - target) <= 0.14:
             p = replace(p, y=target)
         pinned.append(p)
-    points = pinned
-    anchors = np.array([logical[0], *[[p.x, p.y] for p in points], logical[-1]])
+    return pinned
 
+
+def _fit_curve(logical, analysis, anchors, original_anchors, points):
     def adjusted(trace):
         out = trace.copy()
         indices = np.clip(
@@ -139,7 +115,41 @@ def _recover_new(data, question):
             break
     if candidate is None:
         raise last_error
-    segments, metrics, error = candidate
+    return candidate
+
+
+def _recover_new(data, question):
+    from . import raster_primitive
+
+    image = Image.open(io.BytesIO(data)).convert("RGBA")
+    if min(image.size) < 35 or max(image.size) > 5000:
+        raise UnsupportedCondition("unsupported primitive raster dimensions")
+    background = Image.new("RGBA", image.size, "white")
+    background.alpha_composite(image)
+    # Normalize only small source rasters; already large inputs retain their pixels.
+    if min(image.size) < 400:
+        background = background.resize(
+            (image.width * 4, image.height * 4), Image.Resampling.LANCZOS
+        )
+    logical, grid, _, cleanup = primitive_trace.trace_source(
+        np.asarray(background), question
+    )
+    analysis, points = detect(logical, 0.025)
+    for smoothing in (0.02, 0.03):
+        _, check = detect(logical, smoothing)
+        if [p.kind for p in check] != [p.kind for p in points]:
+            raise UnsupportedCondition(
+                "the raster does not resolve a stable extremum count"
+            )
+    original_anchors = np.array(
+        [logical[0], *[[p.x, p.y] for p in points], logical[-1]]
+    )
+    points = _pin_extrema(logical, points, question)
+    anchors = np.array([logical[0], *[[p.x, p.y] for p in points], logical[-1]])
+
+    segments, metrics, error = _fit_curve(
+        logical, analysis, anchors, original_anchors, points
+    )
     digest = hashlib.sha256(data).hexdigest()
     model = {
         "domain": [str(question.domain.lower), str(question.domain.upper)],

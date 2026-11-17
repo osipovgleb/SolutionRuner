@@ -36,6 +36,46 @@ RULES = frozenset(
 )
 
 
+def _update_assets(content, condition, rule, parent, solution_assets, changes):
+    parent_condition_asset_id, parent_solution_assets = parent
+    solution_asset_keys = tuple(
+        str(item.get("asset_key") or "") for item in solution_assets
+    )
+    if solution_assets:
+        expected = (
+            ("image_2",)
+            if rule == "general-triangle-317337-midline-small-area-to-total"
+            else tuple(f"image_{index}" for index in range(1, len(solution_assets) + 1))
+        )
+        if solution_asset_keys != expected:
+            raise RightTrianglePlanError(
+                "parent solution assets are not consecutive image keys"
+            )
+        current_assets = {
+            str(item.get("asset_key") or ""): str(item.get("asset_id") or "")
+            for item in content.get("assets", [])
+            if isinstance(item, dict)
+        }
+        for item in solution_assets:
+            key = str(item.get("asset_key") or "")
+            if current_assets.get(key) != str(item.get("source_asset_id") or ""):
+                changes.append(
+                    _solution_asset_transformation(item, expected_asset_key=key)
+                )
+    elif rule != "general-triangle-317337-midline-small-area-to-total":
+        condition_asset_id = parent_condition_asset_id
+        if rule == "general-triangle-319058-midline-trapezoid-area":
+            if len(parent_solution_assets) != 1:
+                raise RightTrianglePlanError(
+                    "group 319058 parent must provide one image"
+                )
+            condition_asset_id = str(
+                parent_solution_assets[0].get("source_asset_id") or ""
+            )
+        if not _has_condition_asset(condition, condition_asset_id):
+            changes.append(_asset_transformation(condition_asset_id))
+
+
 def build_repair_plan(
     context: dict[str, Any],
     *,
@@ -110,39 +150,14 @@ def build_repair_plan(
             )
         )
 
-    if solution_assets:
-        expected = (
-            ("image_2",)
-            if rule == "general-triangle-317337-midline-small-area-to-total"
-            else tuple(f"image_{index}" for index in range(1, len(solution_assets) + 1))
-        )
-        if solution_asset_keys != expected:
-            raise RightTrianglePlanError(
-                "parent solution assets are not consecutive image keys"
-            )
-        current_assets = {
-            str(item.get("asset_key") or ""): str(item.get("asset_id") or "")
-            for item in content.get("assets", [])
-            if isinstance(item, dict)
-        }
-        for item in solution_assets:
-            key = str(item.get("asset_key") or "")
-            if current_assets.get(key) != str(item.get("source_asset_id") or ""):
-                changes.append(
-                    _solution_asset_transformation(item, expected_asset_key=key)
-                )
-    elif rule != "general-triangle-317337-midline-small-area-to-total":
-        condition_asset_id = parent_condition_asset_id
-        if rule == "general-triangle-319058-midline-trapezoid-area":
-            if len(parent_solution_assets) != 1:
-                raise RightTrianglePlanError(
-                    "group 319058 parent must provide one image"
-                )
-            condition_asset_id = str(
-                parent_solution_assets[0].get("source_asset_id") or ""
-            )
-        if not _has_condition_asset(condition, condition_asset_id):
-            changes.append(_asset_transformation(condition_asset_id))
+    _update_assets(
+        content,
+        condition,
+        rule,
+        (parent_condition_asset_id, parent_solution_assets),
+        solution_assets,
+        changes,
+    )
 
     return RepairPlan(answer=answer_text, transformations=tuple(changes))
 

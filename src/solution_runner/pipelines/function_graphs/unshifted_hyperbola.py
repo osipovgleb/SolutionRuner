@@ -83,34 +83,10 @@ def annotate(data, e, method):
     return data[:i] + "".join(nodes).encode() + data[i:]
 
 
-def build_context_repair_plan(
-    context, *, condition_asset_bytes, current_asset_content_type
-):
-    c = _normalized_content(context)
-    solution = _section(c, "solution")
-    answer = _section(c, "answer")
-    e, original = entry(context)
-    if (
-        not condition_asset_bytes
-        or hashlib.sha256(condition_asset_bytes).hexdigest() != e["sha256"]
-    ):
-        raise ContentPlanError("original graph bytes differ from audited registration")
-    if current_asset_content_type.split(";")[0] != e["content_type"]:
-        raise ContentPlanError("original graph MIME differs from registration")
-    from .hyperbola_questions import unshifted
-
-    target = number(unshifted(context))
-    x, y = map(Fraction, e["point"])
-    k = x * y
-    if not target or not x or y != 1:
-        raise ContentPlanError(
-            "nonzero argument and audited unit-height point required"
-        )
-    result = k / target
-    decimal = answer_text(result).replace(".", "{,}")
+def _solution_images(c, original, requirements):
     keys = []
     images = []
-    for req in required_assets(context):
+    for req in requirements:
         asset = next(
             (a for a in c["assets"] if a["asset_id"] == req["source_asset_id"]), None
         )
@@ -124,6 +100,12 @@ def build_context_repair_plan(
         keys = [original["asset_key"]]
         img = f'<center><img alt="Исходный график функции" data-asset-id="{original["asset_id"]}" data-asset-key="{original["asset_key"]}" src="/assets/{original["asset_id"]}"/></center>'
         images = [img, img]
+    return keys, images
+
+
+def _solution_html(images, e, point, k, target, result):
+    x, y = point
+    decimal = answer_text(result).replace(".", "{,}")
     quotient = rf"\frac{{{latex(k)}}}{{{latex(target)}}}"
     finish = row(
         rf"f({latex(target)})="
@@ -150,6 +132,35 @@ def build_context_repair_plan(
         + finish
     )
     html = f'<section data-content-kind="solution" data-solution-title="Решение">{first}</section><section data-content-kind="solution" data-solution-title="Альтернативное решение">{alternative}</section>'
+    return html
+
+
+def build_context_repair_plan(
+    context, *, condition_asset_bytes, current_asset_content_type
+):
+    c = _normalized_content(context)
+    solution = _section(c, "solution")
+    answer = _section(c, "answer")
+    e, original = entry(context)
+    if (
+        not condition_asset_bytes
+        or hashlib.sha256(condition_asset_bytes).hexdigest() != e["sha256"]
+    ):
+        raise ContentPlanError("original graph bytes differ from audited registration")
+    if current_asset_content_type.split(";")[0] != e["content_type"]:
+        raise ContentPlanError("original graph MIME differs from registration")
+    from .hyperbola_questions import unshifted
+
+    target = number(unshifted(context))
+    x, y = map(Fraction, e["point"])
+    k = x * y
+    if not target or not x or y != 1:
+        raise ContentPlanError(
+            "nonzero argument and audited unit-height point required"
+        )
+    result = k / target
+    keys, images = _solution_images(c, original, required_assets(context))
+    html = _solution_html(images, e, (x, y), k, target, result)
     changes = []
     old = solution["html"] if solution else ""
     clean = lambda v: re.sub(r'\s+data-transformation-target-id="[^"]*"', "", v)

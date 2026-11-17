@@ -3,6 +3,7 @@
 import hashlib
 import io
 import json
+from dataclasses import dataclass
 from itertools import pairwise
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -19,13 +20,55 @@ META = "solution-runner-trapezoid-rays-v1"
 NS = "{http://www.w3.org/2000/svg}"
 
 
-def recover(data, lower, upper):
-    image = Image.open(io.BytesIO(data)).convert("RGBA")
-    if min(image.size) < 35 or max(image.size) > 5000:
-        raise UnsupportedCondition("unsupported ray raster dimensions")
-    bg = Image.new("RGBA", image.size, "white")
-    bg.alpha_composite(image)
-    darkness = grid_reader.effective_darkness(np.asarray(bg))
+def _diagonal(keep, sx, sy):
+    segments = cv2.HoughLinesP(
+        keep.astype("uint8") * 255,
+        1,
+        np.pi / 1800,
+        threshold=max(10, int(sx * 0.3)),
+        minLineLength=sx * 0.7,
+        maxLineGap=sx * 0.35,
+    )
+    candidates = (
+        []
+        if segments is None
+        else [
+            s[0]
+            for s in segments
+            if abs(s[0][2] - s[0][0]) > sx * 0.3 and abs(s[0][3] - s[0][1]) > sy * 0.3
+        ]
+    )
+    if not candidates:
+        raise UnsupportedCondition("one complete diagonal ray is required")
+    x1, y1, x2, y2 = max(candidates, key=lambda s: np.hypot(s[2] - s[0], s[3] - s[1]))
+    slope = (y2 - y1) / (x2 - x1)
+    intercept = y1 - slope * x1
+    py, px = np.nonzero(keep)
+    for _ in range(3):
+        mask = abs(py - slope * px - intercept) < max(2, sx * 0.04)
+        if mask.sum() < sx * 0.7:
+            raise UnsupportedCondition("insufficient straight ray support")
+        slope, intercept = np.polyfit(px[mask], py[mask], 1)
+    px, py = px[mask], py[mask]
+    rmse = float(np.sqrt(np.mean((py - slope * px - intercept) ** 2)))
+    if rmse > max(1.5, sx * 0.025):
+        raise UnsupportedCondition("the graph is not a straight ray")
+    return slope, intercept, py, rmse
+
+
+@dataclass(frozen=True)
+class _RayGrid:
+    sx: float
+    sy: float
+    ox: float
+    oy: float
+    xs: tuple
+    ys: tuple
+    first_y: float
+    monochrome: bool
+
+
+def _read_grid(darkness, image):
     vx = grid_reader.projection_line_centers(
         darkness, vertical=True, foreground_threshold=0.2
     )
@@ -76,47 +119,30 @@ def recover(data, lower, upper):
     sx = vertical.step
     if not 0.9 < sx / sy < 1.1:
         raise UnsupportedCondition("the source needs a square unit grid")
+    return _RayGrid(sx, sy, ox, oy, xs, ys, hy[0], monochrome)
+
+
+def recover(data, lower, upper):
+    image = Image.open(io.BytesIO(data)).convert("RGBA")
+    if min(image.size) < 35 or max(image.size) > 5000:
+        raise UnsupportedCondition("unsupported ray raster dimensions")
+    bg = Image.new("RGBA", image.size, "white")
+    bg.alpha_composite(image)
+    darkness = grid_reader.effective_darkness(np.asarray(bg))
+    grid = _read_grid(darkness, image)
+    sx, sy = grid.sx, grid.sy
+    ox, oy = grid.ox, grid.oy
+    xs, ys, first_y, monochrome = grid.xs, grid.ys, grid.first_y, grid.monochrome
     yy, xx = np.indices(darkness.shape)
-    keep = (darkness > 0.35) & (xx > ox + sx * 0.12) & (yy > hy[0]) & (yy < oy)
+    keep = (darkness > 0.35) & (xx > ox + sx * 0.12) & (yy > first_y) & (yy < oy)
     radius = max(1.5, min(sx, sy) * 0.035)
     for x in xs:
         keep &= abs(xx - x) > radius
     for y in ys:
         keep &= abs(yy - y) > radius
-    segments = cv2.HoughLinesP(
-        keep.astype("uint8") * 255,
-        1,
-        np.pi / 1800,
-        threshold=max(10, int(sx * 0.3)),
-        minLineLength=sx * 0.7,
-        maxLineGap=sx * 0.35,
-    )
-    candidates = (
-        []
-        if segments is None
-        else [
-            s[0]
-            for s in segments
-            if abs(s[0][2] - s[0][0]) > sx * 0.3 and abs(s[0][3] - s[0][1]) > sy * 0.3
-        ]
-    )
-    if not candidates:
-        raise UnsupportedCondition("one complete diagonal ray is required")
-    x1, y1, x2, y2 = max(candidates, key=lambda s: np.hypot(s[2] - s[0], s[3] - s[1]))
-    slope = (y2 - y1) / (x2 - x1)
-    intercept = y1 - slope * x1
-    py, px = np.nonzero(keep)
-    for _ in range(3):
-        mask = abs(py - slope * px - intercept) < max(2, sx * 0.04)
-        if mask.sum() < sx * 0.7:
-            raise UnsupportedCondition("insufficient straight ray support")
-        slope, intercept = np.polyfit(px[mask], py[mask], 1)
-    px, py = px[mask], py[mask]
-    rmse = float(np.sqrt(np.mean((py - slope * px - intercept) ** 2)))
-    if rmse > max(1.5, sx * 0.025):
-        raise UnsupportedCondition("the graph is not a straight ray")
+    slope, intercept, py, rmse = _diagonal(keep, sx, sy)
     height = (
-        round((oy - hy[0]) / sy) if monochrome else round((oy - float(py.min())) / sy)
+        round((oy - first_y) / sy) if monochrome else round((oy - float(py.min())) / sy)
     )
     tolerance = min(0.8, 0.13 + abs(slope) * sx / sy * 0.05)
     if not 1 <= height <= 30 or abs((oy - float(py.min())) / sy - height) > tolerance:
@@ -155,42 +181,58 @@ def recover(data, lower, upper):
     }
 
 
-def render(model, *, shaded=False):
-    """Use the group's original SVG style; a shaded copy shares all geometry."""
-    h, c, z = model["height"], model["join"], model["zero"]
-    lower, upper = map(float, model["span"])
-    cell = 20.0
-    xmin = -2
-    xmax = max(c, z, upper) + 2
-    ymax = h + 2
-    ymin = -2
-    width = (xmax - xmin) * cell
-    height = (ymax - ymin) * cell
-    ox = -xmin * cell
-    oy = ymax * cell
-    point = lambda x, y: (ox + x * cell, oy - y * cell)
-    template = ET.parse(
-        Path(__file__).with_name("assets") / "trapezoid-rays-template.svg"
-    ).getroot()
-    for element in template.iter():
-        element.tag = element.tag.rsplit("}", 1)[-1]
-        href = element.attrib.pop("{http://www.w3.org/1999/xlink}href", None)
-        if href is not None:
-            element.set("xlink:href", href)
-    root = ET.Element(
-        "svg",
+def _labels(root, template, point, frame, values):
+    width, ox, oy = frame
+    lower, upper, c, z, h = values
+    # Copy the exact outlined O/x/y labels and arrows from the group's parent.
+    for index, dx, dy in [
+        (37, ox - 40.488, oy - 80.367),
+        (38, ox - 40.488, 0),
+        (39, width - 240.051, oy - 80.367),
+        (22, width - 240.051, oy - 80.4469),
+        (31, ox - 40.482, -0.4159),
+    ]:
+        node = template[index]
+        node.set("transform", f"translate({dx} {dy})")
+        root.append(node)
+    labels = ET.SubElement(
+        root,
+        "g",
         {
-            "xmlns": NS[1:-1],
-            "xmlns:xlink": "http://www.w3.org/1999/xlink",
-            "width": str(width),
-            "height": str(height),
-            "viewBox": f"0 0 {width} {height}",
+            "font-family": "Times New Roman, Times, serif",
+            "font-size": "15",
+            "fill": "#000000",
         },
     )
-    ET.SubElement(root, "rect", {"width": "100%", "height": "100%", "fill": "white"})
-    ET.SubElement(root, "metadata", {"id": META}).text = json.dumps(
-        {"model": model, "shaded": shaded}, sort_keys=True
-    )
+
+    def label(x, y, value, anchor="middle"):
+        text = str(value).replace("-", "−")
+        w = max(9, len(text) * 8)
+        rx = x - w / 2 if anchor == "middle" else x - w
+        ET.SubElement(
+            labels,
+            "rect",
+            {
+                "x": str(rx - 1),
+                "y": str(y - 13),
+                "width": str(w + 2),
+                "height": "16",
+                "fill": "white",
+            },
+        )
+        ET.SubElement(
+            labels, "text", {"x": str(x), "y": str(y), "text-anchor": anchor}
+        ).text = text
+
+    for x in sorted({1.0, lower, upper, float(c), float(z)} - {0.0}):
+        label(point(x, 0)[0], oy + 14, f"{x:g}")
+    for y in sorted({1, h}):
+        label(ox - 5, point(0, y)[1] + 5, y, "end")
+
+
+def _draw_grid(root, template, point, bounds, size):
+    xmin, xmax, ymin, ymax = bounds
+    width, height = size
     for x in range(xmin, int(xmax) + 1):
         attrs = {
             k: v
@@ -210,31 +252,11 @@ def render(model, *, shaded=False):
             "line",
             {**attrs, "x1": "0", "x2": str(width), "y1": str(py), "y2": str(py)},
         )
-    if shaded:
-        top = (
-            [point(lower, h), point(c, h), point(upper, 0)]
-            if not model["rising"]
-            else [point(lower, 0), point(c, h), point(upper, h)]
-        )
-        vertices = [point(lower, 0), *top, point(upper, 0)]
-        ET.SubElement(
-            root,
-            "polygon",
-            {
-                "id": "integral-area",
-                "points": " ".join(f"{x},{y}" for x, y in vertices),
-                "fill": "#143B8F",
-                "fill-opacity": "0.5",
-            },
-        )
-    horizontal, vertical = template[30], template[32]
-    horizontal.set("y1", str(oy))
-    horizontal.set("y2", str(oy))
-    horizontal.set("x2", str(width - 3))
-    vertical.set("x1", str(ox))
-    vertical.set("x2", str(ox))
-    vertical.set("y1", str(height))
-    root.extend((horizontal, vertical))
+
+
+def _draw_rays(root, template, point, model, frame):
+    h, c, z = model["height"], model["join"], model["zero"]
+    xmin, xmax, lower, upper, oy = frame
     # Like the native SVG, let the diagonal continue just beyond its zero.
     # This avoids running the graph through numerical axis labels below it.
     tail_y = -0.15
@@ -280,50 +302,72 @@ def render(model, *, shaded=False):
             "y2": str(point(bound, h)[1]),
         },
     )
-    # Copy the exact outlined O/x/y labels and arrows from the group's parent.
-    for index, dx, dy in [
-        (37, ox - 40.488, oy - 80.367),
-        (38, ox - 40.488, 0),
-        (39, width - 240.051, oy - 80.367),
-        (22, width - 240.051, oy - 80.4469),
-        (31, ox - 40.482, -0.4159),
-    ]:
-        node = template[index]
-        node.set("transform", f"translate({dx} {dy})")
-        root.append(node)
-    labels = ET.SubElement(
-        root,
-        "g",
+
+
+def render(model, *, shaded=False):
+    """Use the group's original SVG style; a shaded copy shares all geometry."""
+    h, c, z = model["height"], model["join"], model["zero"]
+    lower, upper = map(float, model["span"])
+    cell = 20.0
+    xmin = -2
+    xmax = max(c, z, upper) + 2
+    ymax = h + 2
+    ymin = -2
+    width = (xmax - xmin) * cell
+    height = (ymax - ymin) * cell
+    ox = -xmin * cell
+    oy = ymax * cell
+    point = lambda x, y: (ox + x * cell, oy - y * cell)
+    template = ET.parse(
+        Path(__file__).with_name("assets") / "trapezoid-rays-template.svg"
+    ).getroot()
+    for element in template.iter():
+        element.tag = element.tag.rsplit("}", 1)[-1]
+        href = element.attrib.pop("{http://www.w3.org/1999/xlink}href", None)
+        if href is not None:
+            element.set("xlink:href", href)
+    root = ET.Element(
+        "svg",
         {
-            "font-family": "Times New Roman, Times, serif",
-            "font-size": "15",
-            "fill": "#000000",
+            "xmlns": NS[1:-1],
+            "xmlns:xlink": "http://www.w3.org/1999/xlink",
+            "width": str(width),
+            "height": str(height),
+            "viewBox": f"0 0 {width} {height}",
         },
     )
-
-    def label(x, y, value, anchor="middle"):
-        text = str(value).replace("-", "−")
-        w = max(9, len(text) * 8)
-        rx = x - w / 2 if anchor == "middle" else x - w
+    ET.SubElement(root, "rect", {"width": "100%", "height": "100%", "fill": "white"})
+    ET.SubElement(root, "metadata", {"id": META}).text = json.dumps(
+        {"model": model, "shaded": shaded}, sort_keys=True
+    )
+    _draw_grid(root, template, point, (xmin, xmax, ymin, ymax), (width, height))
+    if shaded:
+        top = (
+            [point(lower, h), point(c, h), point(upper, 0)]
+            if not model["rising"]
+            else [point(lower, 0), point(c, h), point(upper, h)]
+        )
+        vertices = [point(lower, 0), *top, point(upper, 0)]
         ET.SubElement(
-            labels,
-            "rect",
+            root,
+            "polygon",
             {
-                "x": str(rx - 1),
-                "y": str(y - 13),
-                "width": str(w + 2),
-                "height": "16",
-                "fill": "white",
+                "id": "integral-area",
+                "points": " ".join(f"{x},{y}" for x, y in vertices),
+                "fill": "#143B8F",
+                "fill-opacity": "0.5",
             },
         )
-        ET.SubElement(
-            labels, "text", {"x": str(x), "y": str(y), "text-anchor": anchor}
-        ).text = text
-
-    for x in sorted({1.0, lower, upper, float(c), float(z)} - {0.0}):
-        label(point(x, 0)[0], oy + 14, f"{x:g}")
-    for y in sorted({1, h}):
-        label(ox - 5, point(0, y)[1] + 5, y, "end")
+    horizontal, vertical = template[30], template[32]
+    horizontal.set("y1", str(oy))
+    horizontal.set("y2", str(oy))
+    horizontal.set("x2", str(width - 3))
+    vertical.set("x1", str(ox))
+    vertical.set("x2", str(ox))
+    vertical.set("y1", str(height))
+    root.extend((horizontal, vertical))
+    _draw_rays(root, template, point, model, (xmin, xmax, lower, upper, oy))
+    _labels(root, template, point, (width, ox, oy), (lower, upper, c, z, h))
     return ET.tostring(root, encoding="unicode")
 
 

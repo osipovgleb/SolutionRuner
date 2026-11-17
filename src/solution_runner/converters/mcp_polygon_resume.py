@@ -101,6 +101,38 @@ def _filter_resumed_inventory(inventory_by_group, skip_reason_by_key):
         inventory.non_svg_content_types = {PNG_CONTENT_TYPE: len(inventory.candidates)}
 
 
+def _resumed_skip_reasons(inventory_by_group, events, same_renderer, preserve_applied):
+    all_candidates = [
+        candidate
+        for inventory in inventory_by_group.values()
+        for candidate in inventory.candidates
+    ]
+    candidates_by_key = {
+        candidate.stable_key: candidate for candidate in all_candidates
+    }
+    candidates_by_source_key: dict[tuple[str, str], list[AssetCandidate]] = {}
+    for candidate in all_candidates:
+        candidates_by_source_key.setdefault(
+            (candidate.source_problem_id, candidate.asset_key), []
+        ).append(candidate)
+
+    terminal_by_key = _terminal_outcomes(
+        events, candidates_by_key, candidates_by_source_key
+    )
+
+    skip_reason_by_key: dict[str, str] = {}
+    for key, terminal in terminal_by_key.items():
+        should_skip = (
+            terminal in {"missing_source", "stale"}
+            or (terminal == "applied" and (same_renderer or preserve_applied))
+            or (terminal == "rejected" and same_renderer)
+        )
+        if should_skip:
+            skip_reason_by_key[key] = terminal
+
+    return skip_reason_by_key
+
+
 def _resume_inventory_from_run(
     *,
     source_run_dir: Path,
@@ -144,33 +176,9 @@ def _resume_inventory_from_run(
         source_converter == converter_fingerprint
         and source_template == template_fingerprint
     )
-    all_candidates = [
-        candidate
-        for inventory in inventory_by_group.values()
-        for candidate in inventory.candidates
-    ]
-    candidates_by_key = {
-        candidate.stable_key: candidate for candidate in all_candidates
-    }
-    candidates_by_source_key: dict[tuple[str, str], list[AssetCandidate]] = {}
-    for candidate in all_candidates:
-        candidates_by_source_key.setdefault(
-            (candidate.source_problem_id, candidate.asset_key), []
-        ).append(candidate)
-
-    terminal_by_key = _terminal_outcomes(
-        events, candidates_by_key, candidates_by_source_key
+    skip_reason_by_key = _resumed_skip_reasons(
+        inventory_by_group, events, same_renderer, preserve_applied
     )
-
-    skip_reason_by_key: dict[str, str] = {}
-    for key, terminal in terminal_by_key.items():
-        should_skip = (
-            terminal in {"missing_source", "stale"}
-            or (terminal == "applied" and (same_renderer or preserve_applied))
-            or (terminal == "rejected" and same_renderer)
-        )
-        if should_skip:
-            skip_reason_by_key[key] = terminal
 
     totals = _new_totals()
     totals["groups"] = len(inventory_by_group)
@@ -225,34 +233,7 @@ def _resume_inventory_from_run(
     return inventory_by_group, totals
 
 
-def _rollback_inventory_from_run(
-    *,
-    source_run_dir: Path,
-    run_dir: Path,
-    catalog_snapshot_id: str,
-    source_site_id: str,
-    category_key: str,
-    theme_titles: Sequence[str],
-    scope: Sequence[tuple[ThemeScope, list[GroupScope]]],
-    logger: EventLogger,
-) -> tuple[dict[str, list[RollbackCandidate]], Counter[str]]:
-    """Build an exact guarded rollback list from successful source-run events."""
-
-    source = _validated_source_run_dir(source_run_dir, run_dir)
-    inventory_by_group, worklist = _load_validated_worklist(
-        source_run_dir=source,
-        run_dir=run_dir,
-        catalog_snapshot_id=catalog_snapshot_id,
-        source_site_id=source_site_id,
-        category_key=category_key,
-        theme_titles=theme_titles,
-        scope=scope,
-    )
-    all_candidates = [
-        candidate
-        for inventory in inventory_by_group.values()
-        for candidate in inventory.candidates
-    ]
+def _rollback_candidates(events, all_candidates):
     candidates_by_key = {
         candidate.stable_key: candidate for candidate in all_candidates
     }
@@ -262,7 +243,7 @@ def _rollback_inventory_from_run(
             (candidate.source_problem_id, candidate.asset_key), []
         ).append(candidate)
     applied_by_key: dict[str, RollbackCandidate] = {}
-    for event in _read_run_events(source):
+    for event in events:
         if event.get("event") != "asset_replaced":
             continue
         key = _event_candidate_key(
@@ -302,6 +283,39 @@ def _rollback_inventory_from_run(
             source_asset_id=source_asset_id,
             output_sha256=output_sha256,
         )
+
+    return applied_by_key
+
+
+def _rollback_inventory_from_run(
+    *,
+    source_run_dir: Path,
+    run_dir: Path,
+    catalog_snapshot_id: str,
+    source_site_id: str,
+    category_key: str,
+    theme_titles: Sequence[str],
+    scope: Sequence[tuple[ThemeScope, list[GroupScope]]],
+    logger: EventLogger,
+) -> tuple[dict[str, list[RollbackCandidate]], Counter[str]]:
+    """Build an exact guarded rollback list from successful source-run events."""
+
+    source = _validated_source_run_dir(source_run_dir, run_dir)
+    inventory_by_group, worklist = _load_validated_worklist(
+        source_run_dir=source,
+        run_dir=run_dir,
+        catalog_snapshot_id=catalog_snapshot_id,
+        source_site_id=source_site_id,
+        category_key=category_key,
+        theme_titles=theme_titles,
+        scope=scope,
+    )
+    all_candidates = [
+        candidate
+        for inventory in inventory_by_group.values()
+        for candidate in inventory.candidates
+    ]
+    applied_by_key = _rollback_candidates(_read_run_events(source), all_candidates)
 
     rollback_by_group: dict[str, list[RollbackCandidate]] = {
         source_group_id: [] for source_group_id in inventory_by_group

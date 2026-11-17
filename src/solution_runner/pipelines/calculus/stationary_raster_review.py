@@ -12,16 +12,7 @@ from ..probability import solution_diagrams
 from ..probability.common import UnsupportedCondition
 
 
-def review_preview(context, *, condition_asset_bytes, error):
-    """Show an uncertain candidate without exposing any apply transformations."""
-
-    from .stationary_raster_runner import _model, _render
-
-    content = deepcopy(context["normalized_content"])
-    stored = next((s for s in content["sections"] if s["key"] == "answer"), {})
-    stored_text = (
-        BeautifulSoup(stored.get("html", ""), "html.parser").get_text().strip()
-    )
+def _review_note(error):
     reason = error
     if "stored answer" in error:
         reason = "Подсчёт по рисунку не совпадает с сохранённым ответом."
@@ -48,6 +39,42 @@ def review_preview(context, *, condition_asset_bytes, error):
             + reason
             + "</p>"
         )
+    return reason, note
+
+
+def _numbered_svg(model, selected, render):
+    root = ET.fromstring(render(model, selected_points=selected))
+    ns = "{http://www.w3.org/2000/svg}"
+    group = root.find(ns + 'g[@data-runner-diagram="stationary_points"]')
+    # The whole open domain is being counted; circles already show its ends.
+    for polyline in list(group.findall(ns + "polyline")):
+        group.remove(polyline)
+    for index, circle in enumerate(group.findall(ns + "circle"), 1):
+        ET.SubElement(
+            group,
+            ns + "text",
+            {
+                "x": str(float(circle.get("cx")) + 4),
+                "y": str(float(circle.get("cy")) - 5),
+                "fill": "#007EA5",
+                "font-size": "11",
+                "font-family": "Arial",
+            },
+        ).text = str(index)
+    return ET.tostring(root, encoding="unicode")
+
+
+def review_preview(context, *, condition_asset_bytes, error):
+    """Show an uncertain candidate without exposing any apply transformations."""
+
+    from .stationary_raster_runner import _model, _render
+
+    content = deepcopy(context["normalized_content"])
+    stored = next((s for s in content["sections"] if s["key"] == "answer"), {})
+    stored_text = (
+        BeautifulSoup(stored.get("html", ""), "html.parser").get_text().strip()
+    )
+    reason, note = _review_note(error)
     specs = []
     calculated = None
     try:
@@ -57,25 +84,7 @@ def review_preview(context, *, condition_asset_bytes, error):
             context, condition_asset_bytes, review=True
         )
         calculated = str(len(selected))
-        root = ET.fromstring(_render(model, selected_points=selected))
-        ns = "{http://www.w3.org/2000/svg}"
-        group = root.find(ns + 'g[@data-runner-diagram="stationary_points"]')
-        # The whole open domain is being counted; circles already show its ends.
-        for polyline in list(group.findall(ns + "polyline")):
-            group.remove(polyline)
-        for index, circle in enumerate(group.findall(ns + "circle"), 1):
-            ET.SubElement(
-                group,
-                ns + "text",
-                {
-                    "x": str(float(circle.get("cx")) + 4),
-                    "y": str(float(circle.get("cy")) - 5),
-                    "fill": "#007EA5",
-                    "font-size": "11",
-                    "font-family": "Arial",
-                },
-            ).text = str(index)
-        solution_svg = ET.tostring(root, encoding="unicode")
+        solution_svg = _numbered_svg(model, selected, _render)
         specs = [solution_diagrams.spec(asset["asset_key"], solution_svg)]
 
         def image(key, svg):

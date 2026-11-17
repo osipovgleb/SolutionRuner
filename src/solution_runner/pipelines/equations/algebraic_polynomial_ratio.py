@@ -55,32 +55,7 @@ def _solution_html(primary_steps: list[str], ratio: str, alternative: str) -> st
     )
 
 
-def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if (
-        condition is None
-        or content.get("assets")
-        or tuple(condition.get("asset_keys") or ())
-    ):
-        raise RightTrianglePlanError("polynomial ratio condition must be text-only")
-    definition = next(
-        (item for item in _formulae(condition) if item.startswith("p(b)=")), None
-    )
-    match = _DEFINITION.fullmatch(definition or "")
-    if not match:
-        raise RightTrianglePlanError(
-            "condition does not match a reciprocal polynomial ratio"
-        )
-
-    coefficient = int(match["coefficient"])
-    first, second = match["first"], match["second"]
-    second_coefficient = match["second_coefficient"] or "1"
-    is_plus = first == "+" and not match["negative"] and second == "+"
-    is_minus = first == "-" and match["negative"] == "-" and second == "+"
-    if not (is_plus or is_minus) or int(second_coefficient) != coefficient:
-        raise RightTrianglePlanError("factors are not reciprocal counterparts")
-
+def _render_ratio(coefficient, is_plus):
     substitution = 1 if (is_plus or coefficient != 1) else 2
     if is_plus:
         p_b = f"p(b)=(b+\\frac{{{coefficient}}}{{b}})({coefficient}b+\\frac{{1}}{{b}})"
@@ -131,6 +106,37 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
         "Подставим, например, 5 вместо переменной:",
         f"Подставим, например, {substitution} вместо переменной:",
     )
+
+    return html
+
+
+def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if (
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
+    ):
+        raise RightTrianglePlanError("polynomial ratio condition must be text-only")
+    definition = next(
+        (item for item in _formulae(condition) if item.startswith("p(b)=")), None
+    )
+    match = _DEFINITION.fullmatch(definition or "")
+    if not match:
+        raise RightTrianglePlanError(
+            "condition does not match a reciprocal polynomial ratio"
+        )
+
+    coefficient = int(match["coefficient"])
+    first, second = match["first"], match["second"]
+    second_coefficient = match["second_coefficient"] or "1"
+    is_plus = first == "+" and not match["negative"] and second == "+"
+    is_minus = first == "-" and match["negative"] == "-" and second == "+"
+    if not (is_plus or is_minus) or int(second_coefficient) != coefficient:
+        raise RightTrianglePlanError("factors are not reciprocal counterparts")
+
+    html = _render_ratio(coefficient, is_plus)
 
     answer_section = _section(content, "answer")
     solution_section = _section(content, "solution")

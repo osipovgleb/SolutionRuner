@@ -77,36 +77,15 @@ def build_group_27288_repair_plan(
     )
 
 
-def build_group_27289_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_condition_asset_id: str,
-    parent_solution_assets: tuple[dict[str, str], ...],
-) -> RepairPlan:
-    """Build only the base-and-tangent to equal-side repair for group 27289."""
-
+def _parse_27289(condition_html):
     from .planner import (
-        _answer_matches,
-        _answer_text,
-        _asset_transformation,
         _formula_text,
         _inline_assignment,
         _inline_formulas,
-        _latex_number,
-        _normalized_content,
         _parse_positive_value,
-        _plain_html,
         _request_text,
-        _section,
-        _section_transformation,
-        _solution_asset_transformation,
     )
 
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise IsoscelesTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
     requested = _request_text(condition_html)
     if not re.search(r"\bAC\b", requested) or re.search(
         r"\b(?:AB|BC|AH|BH|CH)\b", requested
@@ -143,6 +122,35 @@ def build_group_27289_repair_plan(
     base = _parse_positive_value(base_latex)
     tangent = _parse_positive_value(tangent_latex)
     cosine = sp.sqrt(sp.simplify(1 / (1 + tangent**2)))
+    return base, cosine, tangent_latex
+
+
+def build_group_27289_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_condition_asset_id: str,
+    parent_solution_assets: tuple[dict[str, str], ...],
+) -> RepairPlan:
+    """Build only the base-and-tangent to equal-side repair for group 27289."""
+
+    from .planner import (
+        _answer_matches,
+        _answer_text,
+        _asset_transformation,
+        _latex_number,
+        _normalized_content,
+        _plain_html,
+        _section,
+        _section_transformation,
+        _solution_asset_transformation,
+    )
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise IsoscelesTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    base, cosine, tangent_latex = _parse_27289(condition_html)
     answer = _answer_text(base / (2 * cosine))
     solution = _section(content, "solution")
     solution_missing = solution is None or not _plain_html(

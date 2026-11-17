@@ -188,14 +188,7 @@ def run(
     return svg_path, json_path, overlay_path
 
 
-def main() -> None:
-    """Parse CLI options and run the extrema-first graph vectorizer."""
-    parser = argparse.ArgumentParser(
-        description=(
-            "Detect a Cartesian grid and raster trace with the v1 extractor, then "
-            "detect extrema as hard knots and fit shape-preserving cubic segments."
-        )
-    )
+def _add_input_options(parser):
     parser.add_argument("source", help="Path or URL to a PNG/JPEG/BMP raster graph")
     parser.add_argument(
         "--out-dir",
@@ -235,6 +228,9 @@ def main() -> None:
         help="v1 trace smoothing sigma; defaults to the selected third profile",
     )
     parser.add_argument("--simplify-cells", type=float, default=0.035)
+
+
+def _add_fit_options(parser):
     parser.add_argument(
         "--analysis-smoothing-cells",
         type=float,
@@ -297,6 +293,18 @@ def main() -> None:
         ),
     )
     parser.add_argument("--maximum-fit-knots", type=int, default=160)
+
+
+def main() -> None:
+    """Parse CLI options and run the extrema-first graph vectorizer."""
+    parser = argparse.ArgumentParser(
+        description=(
+            "Detect a Cartesian grid and raster trace with the v1 extractor, then "
+            "detect extrema as hard knots and fit shape-preserving cubic segments."
+        )
+    )
+    _add_input_options(parser)
+    _add_fit_options(parser)
     parser.add_argument(
         "--endpoint-style",
         choices=("auto", "open", "closed", "none"),

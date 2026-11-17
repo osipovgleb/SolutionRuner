@@ -21,16 +21,7 @@ _POWER_PRODUCT = re.compile(
 )
 
 
-def build_power_product_plan(
-    context: dict[str, Any], *, parent_solution_html: str = ""
-) -> RepairPlan:
-    """Use the parent's power-of-a-power and common-base product identities."""
-    content = _choice_content(context)
-    condition = _section(content, "condition")
-    solution = _section(content, "solution")
-    answer_section = _section(content, "answer")
-    if condition is None or content.get("assets") or condition.get("asset_keys"):
-        raise RightTrianglePlanError("power products must be text-only")
+def _parse_question(condition):
     soup = BeautifulSoup(str(condition.get("html") or ""), "html.parser")
     intro = soup.find("p")
     formulas = intro.select("span[data-inline-latex]") if intro else []
@@ -60,6 +51,42 @@ def build_power_product_plan(
         "Найдите значение выражения FORMULA",
     }:
         raise RightTrianglePlanError("unsupported power-product question")
+    return soup, intro, formula, match, multiple_choice
+
+
+def _choice_answer(soup, value):
+    cells = soup.select("table td")
+    if len(cells) != 4 or len(soup.select("table")) != 1:
+        raise RightTrianglePlanError("expected exactly four power-product options")
+    matches: list[int] = []
+    for index, cell in enumerate(cells, 1):
+        options = cell.select("span[data-inline-latex]")
+        if len(options) != 1 or cell.get_text("", strip=True) != f"{index})":
+            raise RightTrianglePlanError("ambiguous power-product option markup")
+        try:
+            option_value = parse_rational(str(options[0]["data-inline-latex"]))
+        except ValueError as exc:
+            raise RightTrianglePlanError(
+                "unsupported power-product option value"
+            ) from exc
+        if option_value == value:
+            matches.append(index)
+    if len(matches) != 1:
+        raise RightTrianglePlanError("power product must match exactly one option")
+    return str(matches[0])
+
+
+def build_power_product_plan(
+    context: dict[str, Any], *, parent_solution_html: str = ""
+) -> RepairPlan:
+    """Use the parent's power-of-a-power and common-base product identities."""
+    content = _choice_content(context)
+    condition = _section(content, "condition")
+    solution = _section(content, "solution")
+    answer_section = _section(content, "answer")
+    if condition is None or content.get("assets") or condition.get("asset_keys"):
+        raise RightTrianglePlanError("power products must be text-only")
+    soup, intro, formula, match, multiple_choice = _parse_question(condition)
     base, m, n, p = (int(match[name]) for name in ("base", "m", "n", "p"))
     nested, exponent = n * p, m + n * p
     if abs(nested) > 100 or abs(exponent) > 100:
@@ -68,25 +95,7 @@ def build_power_product_plan(
         )
     value = Fraction(base) ** exponent
     if multiple_choice:
-        cells = soup.select("table td")
-        if len(cells) != 4 or len(soup.select("table")) != 1:
-            raise RightTrianglePlanError("expected exactly four power-product options")
-        matches: list[int] = []
-        for index, cell in enumerate(cells, 1):
-            options = cell.select("span[data-inline-latex]")
-            if len(options) != 1 or cell.get_text("", strip=True) != f"{index})":
-                raise RightTrianglePlanError("ambiguous power-product option markup")
-            try:
-                option_value = parse_rational(str(options[0]["data-inline-latex"]))
-            except ValueError as exc:
-                raise RightTrianglePlanError(
-                    "unsupported power-product option value"
-                ) from exc
-            if option_value == value:
-                matches.append(index)
-        if len(matches) != 1:
-            raise RightTrianglePlanError("power product must match exactly one option")
-        answer = str(matches[0])
+        answer = _choice_answer(soup, value)
         soup.find("table").decompose()
     else:
         answer = _decimal(value)

@@ -9,6 +9,7 @@ import numpy as np
 from scipy.interpolate import CubicSpline
 
 from . import graph_png_to_svg_by_contrast as base
+from .graph_extrema_support import _add_boundary_supports, _add_extremum_shoulders
 from .graph_extrema_types import ExtremaFit, Extremum, Landmark
 
 
@@ -162,6 +163,114 @@ def _project_between_extrema(
     return projected
 
 
+def _refine_knots(knot_rows, target_trace, interior_extrema, options):
+    (
+        minimum_support_spacing_cells,
+        extremum_shoulder_cells,
+        slope_smoothing,
+        extremum_rounding,
+        maximum_knots,
+        maximum_error_cells,
+    ) = options
+    blocked = np.zeros(len(target_trace), dtype=bool)
+    while True:
+        knot_rows.sort(key=lambda row: row[0])
+        knots = np.asarray([[row[0], row[1]] for row in knot_rows], dtype=np.float64)
+        hard_indices = tuple(index for index, row in enumerate(knot_rows) if row[2])
+        slopes = _pchip_slopes_with_extrema(
+            knots,
+            hard_indices,
+            smoothing=slope_smoothing,
+            extremum_rounding=extremum_rounding,
+        )
+        fitted_y = _evaluate_hermite(knots, slopes, target_trace[:, 0])
+        residual = np.abs(fitted_y - target_trace[:, 1])
+        eligible = ~blocked
+        for knot_x in knots[:, 0]:
+            eligible &= (
+                np.abs(target_trace[:, 0] - knot_x) >= minimum_support_spacing_cells
+            )
+        for extremum in interior_extrema:
+            eligible &= (
+                np.abs(target_trace[:, 0] - extremum.x) >= extremum_shoulder_cells
+            )
+        if not np.any(eligible) or len(knots) >= maximum_knots:
+            break
+        eligible_indices = np.flatnonzero(eligible)
+        candidate_index = int(eligible_indices[np.argmax(residual[eligible])])
+        if residual[candidate_index] <= maximum_error_cells:
+            break
+
+        candidate_x = float(target_trace[candidate_index, 0])
+        candidate_y = float(target_trace[candidate_index, 1])
+        insertion = int(np.searchsorted(knots[:, 0], candidate_x))
+        if insertion <= 0 or insertion >= len(knots):
+            blocked[candidate_index] = True
+            continue
+        if (
+            abs(candidate_y - knots[insertion - 1, 1]) < 1e-5
+            or abs(candidate_y - knots[insertion, 1]) < 1e-5
+        ):
+            blocked[candidate_index] = True
+            continue
+        knot_rows.append((candidate_x, candidate_y, False))
+
+
+def _fit_result(
+    analysis_trace, target_trace, knot_rows, interior_extrema, used_landmarks, options
+):
+    (
+        minimum_support_spacing_cells,
+        extremum_shoulder_cells,
+        slope_smoothing,
+        extremum_rounding,
+    ) = options
+    start, end = analysis_trace[0], analysis_trace[-1]
+    knot_rows.sort(key=lambda row: row[0])
+    knots = np.asarray([[row[0], row[1]] for row in knot_rows], dtype=np.float64)
+    hard_indices = tuple(index for index, row in enumerate(knot_rows) if row[2])
+    slopes = _pchip_slopes_with_extrema(
+        knots,
+        hard_indices,
+        smoothing=slope_smoothing,
+        extremum_rounding=extremum_rounding,
+    )
+    target_fit = _evaluate_hermite(knots, slopes, target_trace[:, 0])
+    original_fit = _evaluate_hermite(knots, slopes, analysis_trace[:, 0])
+    target_residual = np.abs(target_fit - target_trace[:, 1])
+    constrained_mask = np.ones(len(target_trace), dtype=bool)
+    constrained_mask &= target_trace[:, 0] - start[0] >= extremum_shoulder_cells
+    constrained_mask &= end[0] - target_trace[:, 0] >= extremum_shoulder_cells
+    for extremum in interior_extrema:
+        constrained_mask &= (
+            np.abs(target_trace[:, 0] - extremum.x) >= extremum_shoulder_cells
+        )
+    for landmark in used_landmarks:
+        constrained_mask &= (
+            np.abs(target_trace[:, 0] - landmark.x) >= minimum_support_spacing_cells
+        )
+    maximum_fit_residual = (
+        float(np.max(target_residual[constrained_mask]))
+        if np.any(constrained_mask)
+        else float(np.max(target_residual))
+    )
+    return ExtremaFit(
+        analysis_trace=target_trace,
+        logical_knots=knots,
+        slopes=slopes,
+        extremum_knot_indices=hard_indices,
+        extrema=interior_extrema,
+        landmarks=tuple(used_landmarks),
+        segment_count=len(knots) - 1,
+        maximum_fit_residual=maximum_fit_residual,
+        maximum_trace_residual=float(
+            np.max(np.abs(original_fit - analysis_trace[:, 1]))
+        ),
+        slope_smoothing=float(np.clip(slope_smoothing, 0.0, 1.0)),
+        extremum_rounding=float(np.clip(extremum_rounding, 0.0, 1.0)),
+    )
+
+
 def fit_logical_curve(
     analysis_trace: np.ndarray,
     extrema: tuple[Extremum, ...],
@@ -209,171 +318,46 @@ def fit_logical_curve(
         knot_rows.append((landmark.x, landmark.y, False))
         used_landmarks.append(landmark)
 
-    # Endpoint circles and endpoint snapping can create a steep final raster
-    # step. Place interpolated supports a stable distance inside the branch so
-    # a ring edge cannot become a near-vertical boundary Bezier handle.
-    if len(target_trace) > 3:
-        trace_span = float(end[0] - start[0])
-        support_distance = min(
-            max(0.18, minimum_support_spacing_cells),
-            trace_span / 3.0,
-        )
-        boundary_supports = (
-            np.asarray(
-                [
-                    float(start[0] + support_distance),
-                    float(
-                        np.interp(
-                            start[0] + support_distance,
-                            target_trace[:, 0],
-                            target_trace[:, 1],
-                        )
-                    ),
-                ]
-            ),
-            np.asarray(
-                [
-                    float(end[0] - support_distance),
-                    float(
-                        np.interp(
-                            end[0] - support_distance,
-                            target_trace[:, 0],
-                            target_trace[:, 1],
-                        )
-                    ),
-                ]
-            ),
-        )
-        for boundary_neighbor in boundary_supports:
-            if any(
-                abs(float(boundary_neighbor[0]) - extremum.x) < extremum_shoulder_cells
-                for extremum in interior_extrema
-            ):
-                continue
-            if any(
-                abs(float(boundary_neighbor[0]) - row[0]) <= 1e-7 for row in knot_rows
-            ):
-                continue
-            knot_rows.append(
-                (
-                    float(boundary_neighbor[0]),
-                    float(boundary_neighbor[1]),
-                    False,
-                )
-            )
-
-    # Keep one trace-derived support point on each side of an extremum. Raster
-    # shelves are pulled at least a small distance away from the apex so they
-    # cannot turn the extremum into a short horizontal segment.
-    shoulder_positions: list[tuple[float, Extremum]] = []
-    for extremum in interior_extrema:
-        shoulder_positions.extend(
-            [
-                (extremum.x - extremum_shoulder_cells, extremum),
-                (extremum.x + extremum_shoulder_cells, extremum),
-            ]
-        )
-    for shoulder_x, extremum in shoulder_positions:
-        if shoulder_x <= start[0] or shoulder_x >= end[0]:
-            continue
-        if any(
-            abs(shoulder_x - row[0]) < minimum_support_spacing_cells
-            for row in knot_rows
-        ):
-            continue
-        shoulder_y = float(
-            np.interp(shoulder_x, target_trace[:, 0], target_trace[:, 1])
-        )
-        minimum_relief = 0.12
-        if extremum.kind == "maximum":
-            shoulder_y = min(shoulder_y, extremum.y - minimum_relief)
-        else:
-            shoulder_y = max(shoulder_y, extremum.y + minimum_relief)
-        knot_rows.append((shoulder_x, shoulder_y, False))
-
-    blocked = np.zeros(len(target_trace), dtype=bool)
-    while True:
-        knot_rows.sort(key=lambda row: row[0])
-        knots = np.asarray([[row[0], row[1]] for row in knot_rows], dtype=np.float64)
-        hard_indices = tuple(index for index, row in enumerate(knot_rows) if row[2])
-        slopes = _pchip_slopes_with_extrema(
-            knots,
-            hard_indices,
-            smoothing=slope_smoothing,
-            extremum_rounding=extremum_rounding,
-        )
-        fitted_y = _evaluate_hermite(knots, slopes, target_trace[:, 0])
-        residual = np.abs(fitted_y - target_trace[:, 1])
-        eligible = ~blocked
-        for knot_x in knots[:, 0]:
-            eligible &= (
-                np.abs(target_trace[:, 0] - knot_x) >= minimum_support_spacing_cells
-            )
-        for extremum in interior_extrema:
-            eligible &= (
-                np.abs(target_trace[:, 0] - extremum.x) >= extremum_shoulder_cells
-            )
-        if not np.any(eligible) or len(knots) >= maximum_knots:
-            break
-        eligible_indices = np.flatnonzero(eligible)
-        candidate_index = int(eligible_indices[np.argmax(residual[eligible])])
-        if residual[candidate_index] <= maximum_error_cells:
-            break
-
-        candidate_x = float(target_trace[candidate_index, 0])
-        candidate_y = float(target_trace[candidate_index, 1])
-        insertion = int(np.searchsorted(knots[:, 0], candidate_x))
-        if insertion <= 0 or insertion >= len(knots):
-            blocked[candidate_index] = True
-            continue
-        if (
-            abs(candidate_y - knots[insertion - 1, 1]) < 1e-5
-            or abs(candidate_y - knots[insertion, 1]) < 1e-5
-        ):
-            blocked[candidate_index] = True
-            continue
-        knot_rows.append((candidate_x, candidate_y, False))
-
-    knot_rows.sort(key=lambda row: row[0])
-    knots = np.asarray([[row[0], row[1]] for row in knot_rows], dtype=np.float64)
-    hard_indices = tuple(index for index, row in enumerate(knot_rows) if row[2])
-    slopes = _pchip_slopes_with_extrema(
-        knots,
-        hard_indices,
-        smoothing=slope_smoothing,
-        extremum_rounding=extremum_rounding,
+    _add_boundary_supports(
+        knot_rows,
+        target_trace,
+        (start, end),
+        interior_extrema,
+        (minimum_support_spacing_cells, extremum_shoulder_cells),
     )
-    target_fit = _evaluate_hermite(knots, slopes, target_trace[:, 0])
-    original_fit = _evaluate_hermite(knots, slopes, analysis_trace[:, 0])
-    target_residual = np.abs(target_fit - target_trace[:, 1])
-    constrained_mask = np.ones(len(target_trace), dtype=bool)
-    constrained_mask &= target_trace[:, 0] - start[0] >= extremum_shoulder_cells
-    constrained_mask &= end[0] - target_trace[:, 0] >= extremum_shoulder_cells
-    for extremum in interior_extrema:
-        constrained_mask &= (
-            np.abs(target_trace[:, 0] - extremum.x) >= extremum_shoulder_cells
-        )
-    for landmark in used_landmarks:
-        constrained_mask &= (
-            np.abs(target_trace[:, 0] - landmark.x) >= minimum_support_spacing_cells
-        )
-    maximum_fit_residual = (
-        float(np.max(target_residual[constrained_mask]))
-        if np.any(constrained_mask)
-        else float(np.max(target_residual))
+
+    _add_extremum_shoulders(
+        knot_rows,
+        target_trace,
+        (start, end),
+        interior_extrema,
+        (minimum_support_spacing_cells, extremum_shoulder_cells),
     )
-    return ExtremaFit(
-        analysis_trace=target_trace,
-        logical_knots=knots,
-        slopes=slopes,
-        extremum_knot_indices=hard_indices,
-        extrema=interior_extrema,
-        landmarks=tuple(used_landmarks),
-        segment_count=len(knots) - 1,
-        maximum_fit_residual=maximum_fit_residual,
-        maximum_trace_residual=float(
-            np.max(np.abs(original_fit - analysis_trace[:, 1]))
+
+    _refine_knots(
+        knot_rows,
+        target_trace,
+        interior_extrema,
+        (
+            minimum_support_spacing_cells,
+            extremum_shoulder_cells,
+            slope_smoothing,
+            extremum_rounding,
+            maximum_knots,
+            maximum_error_cells,
         ),
-        slope_smoothing=float(np.clip(slope_smoothing, 0.0, 1.0)),
-        extremum_rounding=float(np.clip(extremum_rounding, 0.0, 1.0)),
+    )
+
+    return _fit_result(
+        analysis_trace,
+        target_trace,
+        knot_rows,
+        interior_extrema,
+        used_landmarks,
+        (
+            minimum_support_spacing_cells,
+            extremum_shoulder_cells,
+            slope_smoothing,
+            extremum_rounding,
+        ),
     )

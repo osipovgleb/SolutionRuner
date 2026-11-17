@@ -10,32 +10,9 @@ import sympy as sp
 from .planner_types import IsoscelesTrianglePlanError, RepairPlan
 
 
-def build_group_27330_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_solution_assets: tuple[dict[str, str], ...],
-) -> RepairPlan:
-    """Build only the altitude-and-side to base-angle sine repair for 27330."""
+def _parse_27330(condition_html):
+    from .planner import _formula_text, _parse_positive_value, _request_text
 
-    from .planner import (
-        _answer_matches,
-        _answer_text,
-        _condition_image_repairs,
-        _formula_text,
-        _latex_number,
-        _normalized_content,
-        _parse_positive_value,
-        _plain_html,
-        _request_text,
-        _section,
-        _section_transformation,
-    )
-
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise IsoscelesTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
     formula = (
         _formula_text(condition_html)
         .replace("А", "A")
@@ -79,6 +56,84 @@ def build_group_27330_repair_plan(
         raise IsoscelesTrianglePlanError(
             f"{altitude_name} must be less than {base_name}"
         )
+    return first_orientation, base, altitude, sine
+
+
+def _parse_27331(condition_html):
+    from .planner import _formula_text, _parse_positive_value, _request_text
+
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
+    if not re.search(r"\bAC\s*=\s*BC\b", formula):
+        raise IsoscelesTrianglePlanError("condition must give AC=BC")
+    number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
+    base_match = re.search(rf"\bAB\s*=\s*{number}", formula)
+    altitude_match = re.search(
+        rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE
+    )
+    projection_match = re.search(rf"\bBH\s*=\s*{number}", formula)
+    cosine_variant = base_match is not None and projection_match is None
+    sine_variant = base_match is None and projection_match is not None
+    if altitude_match is None or cosine_variant == sine_variant:
+        raise IsoscelesTrianglePlanError(
+            "condition must give AH and exactly one of AB or BH"
+        )
+    request = _request_text(condition_html)
+    altitude = _parse_positive_value(altitude_match.group(1))
+    if cosine_variant:
+        if not re.search(
+            r"(?:косинус(?:\s+угла)?|\\cos)\s*(?:\\angle\s*)?(?:A|BAC)\b",
+            request,
+            re.IGNORECASE,
+        ):
+            raise IsoscelesTrianglePlanError("AB/AH variant must request cos A")
+        base = _parse_positive_value(base_match.group(1))
+        projection_squared = sp.simplify(base**2 - altitude**2)
+        if projection_squared.is_positive is not True:
+            raise IsoscelesTrianglePlanError("AH must be less than AB")
+        projection = sp.sqrt(projection_squared)
+        answer_value = sp.simplify(projection / base)
+    else:
+        if not re.search(
+            r"(?:синус(?:\s+угла)?|\\sin)\s*(?:\\angle\s*)?(?:A|BAC)\b",
+            request,
+            re.IGNORECASE,
+        ):
+            raise IsoscelesTrianglePlanError("AH/BH variant must request sin A")
+        projection = _parse_positive_value(projection_match.group(1))
+        base = sp.sqrt(altitude**2 + projection**2)
+        answer_value = sp.simplify(altitude / base)
+    return cosine_variant, base, altitude, projection, answer_value
+
+
+def build_group_27330_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_solution_assets: tuple[dict[str, str], ...],
+) -> RepairPlan:
+    """Build only the altitude-and-side to base-angle sine repair for 27330."""
+
+    from .planner import (
+        _answer_matches,
+        _answer_text,
+        _condition_image_repairs,
+        _latex_number,
+        _normalized_content,
+        _plain_html,
+        _section,
+        _section_transformation,
+    )
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise IsoscelesTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    first_orientation, base, altitude, sine = _parse_27330(condition_html)
     answer = _answer_text(sine)
     solution = _section(content, "solution")
     solution_missing = solution is None or not _plain_html(
@@ -136,12 +191,9 @@ def build_group_27331_repair_plan(
         _answer_matches,
         _answer_text,
         _condition_image_repairs,
-        _formula_text,
         _latex_number,
         _normalized_content,
-        _parse_positive_value,
         _plain_html,
-        _request_text,
         _section,
         _section_transformation,
     )
@@ -151,51 +203,9 @@ def build_group_27331_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = (
-        _formula_text(condition_html)
-        .replace("А", "A")
-        .replace("В", "B")
-        .replace("С", "C")
+    cosine_variant, base, altitude, projection, answer_value = _parse_27331(
+        condition_html
     )
-    if not re.search(r"\bAC\s*=\s*BC\b", formula):
-        raise IsoscelesTrianglePlanError("condition must give AC=BC")
-    number = r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|\d+(?:\{,\}\d+|[.,]\d+)?)"
-    base_match = re.search(rf"\bAB\s*=\s*{number}", formula)
-    altitude_match = re.search(
-        rf"\bAH\s*(?:=|равна)\s*{number}", formula, re.IGNORECASE
-    )
-    projection_match = re.search(rf"\bBH\s*=\s*{number}", formula)
-    cosine_variant = base_match is not None and projection_match is None
-    sine_variant = base_match is None and projection_match is not None
-    if altitude_match is None or cosine_variant == sine_variant:
-        raise IsoscelesTrianglePlanError(
-            "condition must give AH and exactly one of AB or BH"
-        )
-    request = _request_text(condition_html)
-    altitude = _parse_positive_value(altitude_match.group(1))
-    if cosine_variant:
-        if not re.search(
-            r"(?:косинус(?:\s+угла)?|\\cos)\s*(?:\\angle\s*)?(?:A|BAC)\b",
-            request,
-            re.IGNORECASE,
-        ):
-            raise IsoscelesTrianglePlanError("AB/AH variant must request cos A")
-        base = _parse_positive_value(base_match.group(1))
-        projection_squared = sp.simplify(base**2 - altitude**2)
-        if projection_squared.is_positive is not True:
-            raise IsoscelesTrianglePlanError("AH must be less than AB")
-        projection = sp.sqrt(projection_squared)
-        answer_value = sp.simplify(projection / base)
-    else:
-        if not re.search(
-            r"(?:синус(?:\s+угла)?|\\sin)\s*(?:\\angle\s*)?(?:A|BAC)\b",
-            request,
-            re.IGNORECASE,
-        ):
-            raise IsoscelesTrianglePlanError("AH/BH variant must request sin A")
-        projection = _parse_positive_value(projection_match.group(1))
-        base = sp.sqrt(altitude**2 + projection**2)
-        answer_value = sp.simplify(altitude / base)
     answer = _answer_text(answer_value)
     solution = _section(content, "solution")
     solution_missing = solution is None or not _plain_html(

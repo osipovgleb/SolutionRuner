@@ -70,23 +70,33 @@ def test_loads_packaged_converter_by_path() -> None:
     assert callable(converter.run)
 
 
-
 def test_asset_worker_uses_injected_operations_in_order() -> None:
     """A dry-run worker prepares and verifies an asset without applying it."""
     calls = []
     candidate = SimpleNamespace(
-        theme_title="Triangle", group_key="1", source_problem_id="2",
-        problem_id="3", asset_key="diagram",
+        theme_title="Triangle",
+        group_key="1",
+        source_problem_id="2",
+        problem_id="3",
+        asset_key="diagram",
     )
     prepared = SimpleNamespace(
-        input_sha256="input", output_sha256="output", alt_text="diagram",
-        validation={}, svg_path=Path("result.svg"),
+        input_sha256="input",
+        output_sha256="output",
+        alt_text="diagram",
+        validation={},
+        svg_path=Path("result.svg"),
     )
     logger = SimpleNamespace(emit=lambda event, **kwargs: calls.append(event))
     context = SimpleNamespace(
-        client=object(), converter=object(), converter_fingerprint="fingerprint",
-        template_path=Path("template.svg"), run_dir=Path("run"),
-        transfer_timeout_seconds=1, logger=logger, apply=False,
+        client=object(),
+        converter=object(),
+        converter_fingerprint="fingerprint",
+        template_path=Path("template.svg"),
+        run_dir=Path("run"),
+        transfer_timeout_seconds=1,
+        logger=logger,
+        apply=False,
         determinism_gate=SimpleNamespace(verify=lambda *args: calls.append("verified")),
         prepare_candidate=lambda *args, **kwargs: calls.append("prepared") or prepared,
         apply_prepared_asset=lambda *args, **kwargs: calls.append("applied"),
@@ -95,7 +105,6 @@ def test_asset_worker_uses_injected_operations_in_order() -> None:
     assert outcome.status == "dry_run"
     assert outcome.prepared is prepared
     assert calls == ["prepared", "verified", "asset_prepared"]
-
 
 
 def test_parallel_checkpoint_accounts_for_ordered_outcomes() -> None:
@@ -108,43 +117,90 @@ def test_parallel_checkpoint_accounts_for_ordered_outcomes() -> None:
     ]
     result = runner.mcp_polygon_processing.account_outcomes(totals, outcomes, 2)
     assert result == (1, 1, 1)
-    assert totals == Counter(assets_attempted=3, assets_prepared=1, assets_replaced=1, asset_errors=2)
-
+    assert totals == Counter(
+        assets_attempted=3, assets_prepared=1, assets_replaced=1, asset_errors=2
+    )
 
 
 def test_sequential_batch_verifies_first_success_once() -> None:
     """Sequential batches verify one successful conversion before accounting for both."""
     calls = []
-    candidate = SimpleNamespace(source_problem_id="2", problem_id="3", asset_key="diagram")
-    prepared = SimpleNamespace(input_sha256="input", output_sha256="output", alt_text="diagram", validation={}, svg_path=Path("result.svg"))
+    candidate = SimpleNamespace(
+        source_problem_id="2", problem_id="3", asset_key="diagram"
+    )
+    prepared = SimpleNamespace(
+        input_sha256="input",
+        output_sha256="output",
+        alt_text="diagram",
+        validation={},
+        svg_path=Path("result.svg"),
+    )
     logger = SimpleNamespace(emit=lambda event, **kwargs: calls.append(event))
-    context = SimpleNamespace(client=object(), converter=object(), converter_fingerprint="hash", template_path=Path("template.svg"), run_dir=Path("run"), args=SimpleNamespace(transfer_timeout_seconds=1, max_asset_errors=0), logger=logger, prepare_candidate=lambda *args, **kwargs: prepared, verify_first_deterministic_render=lambda *args, **kwargs: calls.append("verified"))
+    context = SimpleNamespace(
+        client=object(),
+        converter=object(),
+        converter_fingerprint="hash",
+        template_path=Path("template.svg"),
+        run_dir=Path("run"),
+        args=SimpleNamespace(transfer_timeout_seconds=1, max_asset_errors=0),
+        logger=logger,
+        prepare_candidate=lambda *args, **kwargs: prepared,
+        verify_first_deterministic_render=lambda *args, **kwargs: calls.append(
+            "verified"
+        ),
+    )
     totals = Counter()
-    result, verified, errors = mcp_polygon_batch.prepare_batch(context, SimpleNamespace(title="T"), SimpleNamespace(group_key="G"), [candidate, candidate], totals, (False, 3))
+    result, verified, errors = mcp_polygon_batch.prepare_batch(
+        context,
+        SimpleNamespace(title="T"),
+        SimpleNamespace(group_key="G"),
+        [candidate, candidate],
+        totals,
+        (False, 3),
+    )
     assert result == [prepared, prepared]
     assert verified and errors == 0
     assert totals == Counter(assets_attempted=2, assets_prepared=2)
     assert calls.count("verified") == 1
 
 
-
 def test_sequential_batch_dry_run_never_applies_assets() -> None:
     """Dry-run accounting records prepared assets without making writes."""
     calls = []
-    context = SimpleNamespace(apply=False, client=object(), source_site_id="site", args=SimpleNamespace(transfer_timeout_seconds=1, max_asset_errors=1), logger=SimpleNamespace(emit=lambda *args, **kwargs: None), apply_prepared_asset=lambda *args, **kwargs: calls.append("write"))
+    context = SimpleNamespace(
+        apply=False,
+        client=object(),
+        source_site_id="site",
+        args=SimpleNamespace(transfer_timeout_seconds=1, max_asset_errors=1),
+        logger=SimpleNamespace(emit=lambda *args, **kwargs: None),
+        apply_prepared_asset=lambda *args, **kwargs: calls.append("write"),
+    )
     totals = Counter()
-    replaced, errors = mcp_polygon_batch.apply_batch(context, SimpleNamespace(title="T"), SimpleNamespace(group_key="G"), [object(), object()], totals, 0)
+    replaced, errors = mcp_polygon_batch.apply_batch(
+        context,
+        SimpleNamespace(title="T"),
+        SimpleNamespace(group_key="G"),
+        [object(), object()],
+        totals,
+        0,
+    )
     assert (replaced, errors) == (0, 0)
     assert totals == Counter(assets_dry_run=2)
     assert calls == []
 
 
-
 def test_sequential_batch_records_stale_and_enforces_error_limit() -> None:
     """Stale assets are skipped while repeated transport failures stop the run."""
     events = []
-    context = SimpleNamespace(args=SimpleNamespace(max_asset_errors=2), logger=SimpleNamespace(emit=lambda event, **kwargs: events.append(event)))
-    scope = (SimpleNamespace(title="T"), SimpleNamespace(group_key="G"), SimpleNamespace(source_problem_id="2", problem_id="3", asset_key="diagram"))
+    context = SimpleNamespace(
+        args=SimpleNamespace(max_asset_errors=2),
+        logger=SimpleNamespace(emit=lambda event, **kwargs: events.append(event)),
+    )
+    scope = (
+        SimpleNamespace(title="T"),
+        SimpleNamespace(group_key="G"),
+        SimpleNamespace(source_problem_id="2", problem_id="3", asset_key="diagram"),
+    )
     totals = Counter()
     record = mcp_polygon_batch._record_prepare_failure
     assert record(CandidateStale("changed"), context, scope, totals, 1) == 0
@@ -153,7 +209,6 @@ def test_sequential_batch_records_stale_and_enforces_error_limit() -> None:
         record(OSError("offline"), context, scope, totals, 1)
     assert events == ["asset_stale", "asset_error", "asset_error"]
     assert totals == Counter(assets_stale=1, asset_errors=2)
-
 
 
 def test_group_processing_runs_serial_checkpoint() -> None:
@@ -165,12 +220,47 @@ def test_group_processing_runs_serial_checkpoint() -> None:
         candidate = SimpleNamespace(problem_id="problem", source_problem_id="source")
         group = SimpleNamespace(group_key="g", source_group_id="group")
         theme = SimpleNamespace(title="triangle", snapshot_theme_id="theme")
-        inventory = SimpleNamespace(candidates=[candidate], counts={"png_tasks": 1, "png_assets": 1}, non_svg_content_types={}, png_source_problem_ids=["source"])
-        args = SimpleNamespace(mode="dry-run", max_workers=1, max_tasks=None, stop_after_batches=None, batch_size=10, transfer_timeout_seconds=1, max_asset_errors=0, batch_pause_seconds=0)
-        context = SimpleNamespace(logger=SimpleNamespace(emit=lambda *args, **kwargs: None), converter_path=root / "converter", converter_fingerprint="hash", template_path=root / "template", template_fingerprint="hash", inventory_by_group={"group": inventory}, args=args, client=object(), source_site_id="site", converter=object(), run_dir=root, apply=False, determinism_gate=object(), prepare_candidate=lambda *args, **kwargs: None, apply_prepared_asset=lambda *args, **kwargs: None, verify_first_deterministic_render=lambda *args, **kwargs: None, processing_context_type=object, totals=Counter())
+        inventory = SimpleNamespace(
+            candidates=[candidate],
+            counts={"png_tasks": 1, "png_assets": 1},
+            non_svg_content_types={},
+            png_source_problem_ids=["source"],
+        )
+        args = SimpleNamespace(
+            mode="dry-run",
+            max_workers=1,
+            max_tasks=None,
+            stop_after_batches=None,
+            batch_size=10,
+            transfer_timeout_seconds=1,
+            max_asset_errors=0,
+            batch_pause_seconds=0,
+        )
+        context = SimpleNamespace(
+            logger=SimpleNamespace(emit=lambda *args, **kwargs: None),
+            converter_path=root / "converter",
+            converter_fingerprint="hash",
+            template_path=root / "template",
+            template_fingerprint="hash",
+            inventory_by_group={"group": inventory},
+            args=args,
+            client=object(),
+            source_site_id="site",
+            converter=object(),
+            run_dir=root,
+            apply=False,
+            determinism_gate=object(),
+            prepare_candidate=lambda *args, **kwargs: None,
+            apply_prepared_asset=lambda *args, **kwargs: None,
+            verify_first_deterministic_render=lambda *args, **kwargs: None,
+            processing_context_type=object,
+            totals=Counter(),
+        )
         with (
             patch.object(mcp_polygon_groups, "_assert_locked_inputs"),
-            patch.object(mcp_polygon_batch, "prepare_batch", return_value=([], True, 0)),
+            patch.object(
+                mcp_polygon_batch, "prepare_batch", return_value=([], True, 0)
+            ),
             patch.object(mcp_polygon_batch, "apply_batch", return_value=(0, 0)),
         ):
             result = mcp_polygon_groups.process_groups(context, [(theme, [group])])
@@ -179,17 +269,40 @@ def test_group_processing_runs_serial_checkpoint() -> None:
         assert progress["tasks_seen"] == 1 and progress["batches_seen"] == 1
 
 
-
 def test_parallel_worker_reports_applied_asset() -> None:
     """A successful application records the returned source asset and cleanup."""
-    candidate = SimpleNamespace(theme_title="T", group_key="G", source_problem_id="2", problem_id="3", asset_key="image")
-    prepared = SimpleNamespace(transformation_target_id="asset:image_1", output_sha256="hash", alt_text="diagram")
+    candidate = SimpleNamespace(
+        theme_title="T",
+        group_key="G",
+        source_problem_id="2",
+        problem_id="3",
+        asset_key="image",
+    )
+    prepared = SimpleNamespace(
+        transformation_target_id="asset:image_1",
+        output_sha256="hash",
+        alt_text="diagram",
+    )
     events = []
-    context = SimpleNamespace(client=object(), source_site_id="site", transfer_timeout_seconds=1, logger=SimpleNamespace(emit=lambda event, **kwargs: events.append(event)), apply_prepared_asset=lambda *args, **kwargs: ("source-asset", {"cleanup": "old"}))
-    outcome = runner.mcp_polygon_processing._apply_candidate(context, candidate, prepared)
-    assert (outcome.status, outcome.source_asset_id, outcome.cleanup) == ("replaced", "source-asset", {"cleanup": "old"})
+    context = SimpleNamespace(
+        client=object(),
+        source_site_id="site",
+        transfer_timeout_seconds=1,
+        logger=SimpleNamespace(emit=lambda event, **kwargs: events.append(event)),
+        apply_prepared_asset=lambda *args, **kwargs: (
+            "source-asset",
+            {"cleanup": "old"},
+        ),
+    )
+    outcome = runner.mcp_polygon_processing._apply_candidate(
+        context, candidate, prepared
+    )
+    assert (outcome.status, outcome.source_asset_id, outcome.cleanup) == (
+        "replaced",
+        "source-asset",
+        {"cleanup": "old"},
+    )
     assert events == ["asset_replaced"]
-
 
 
 def test_parallel_group_checkpoints_ordered_worker_results() -> None:
@@ -202,31 +315,82 @@ def test_parallel_group_checkpoints_ordered_worker_results() -> None:
         candidate = SimpleNamespace(problem_id="problem")
         group = SimpleNamespace(group_key="g", source_group_id="group")
         theme = SimpleNamespace(title="triangle")
-        args = SimpleNamespace(max_tasks=None, stop_after_batches=None, batch_size=10, max_workers=2, mode="dry-run", transfer_timeout_seconds=1)
-        context = SimpleNamespace(args=args, logger=SimpleNamespace(emit=lambda *args, **kwargs: None), client=object(), source_site_id="site", converter=object(), converter_fingerprint="hash", template_path=root / "template", run_dir=root, apply=False, determinism_gate=gate, prepare_candidate=lambda *args, **kwargs: None, apply_prepared_asset=lambda *args, **kwargs: None, totals=Counter(), processing_context_type=lambda **kwargs: SimpleNamespace(**kwargs))
+        args = SimpleNamespace(
+            max_tasks=None,
+            stop_after_batches=None,
+            batch_size=10,
+            max_workers=2,
+            mode="dry-run",
+            transfer_timeout_seconds=1,
+        )
+        context = SimpleNamespace(
+            args=args,
+            logger=SimpleNamespace(emit=lambda *args, **kwargs: None),
+            client=object(),
+            source_site_id="site",
+            converter=object(),
+            converter_fingerprint="hash",
+            template_path=root / "template",
+            run_dir=root,
+            apply=False,
+            determinism_gate=gate,
+            prepare_candidate=lambda *args, **kwargs: None,
+            apply_prepared_asset=lambda *args, **kwargs: None,
+            totals=Counter(),
+            processing_context_type=lambda **kwargs: SimpleNamespace(**kwargs),
+        )
+
         def process(_context, candidates):
             gate.verified = True
-            return tuple(SimpleNamespace(status="dry_run", prepared=object()) for _ in candidates)
-        with patch.object(mcp_polygon_parallel, "_process_problem_unit", process):
-            result = mcp_polygon_parallel.process_parallel_group(context, theme, group, SimpleNamespace(candidates=[candidate]), (0, 0, 0, False, False))
-        assert result == (1, 1, 0, True, False)
-        assert context.totals == Counter(assets_attempted=1, assets_prepared=1, assets_dry_run=1)
-        assert json.loads((root / "progress.json").read_text())["tasks_seen"] == 1
+            return tuple(
+                SimpleNamespace(status="dry_run", prepared=object()) for _ in candidates
+            )
 
+        with patch.object(mcp_polygon_parallel, "_process_problem_unit", process):
+            result = mcp_polygon_parallel.process_parallel_group(
+                context,
+                theme,
+                group,
+                SimpleNamespace(candidates=[candidate]),
+                (0, 0, 0, False, False),
+            )
+        assert result == (1, 1, 0, True, False)
+        assert context.totals == Counter(
+            assets_attempted=1, assets_prepared=1, assets_dry_run=1
+        )
+        assert json.loads((root / "progress.json").read_text())["tasks_seen"] == 1
 
 
 def test_parallel_group_stops_before_processing_when_task_limit_reached() -> None:
     """An exhausted task limit cannot schedule or mutate any candidate."""
     from solution_runner.converters import mcp_polygon_parallel
 
-    args = SimpleNamespace(max_tasks=1, stop_after_batches=None, batch_size=10, max_workers=2)
+    args = SimpleNamespace(
+        max_tasks=1, stop_after_batches=None, batch_size=10, max_workers=2
+    )
     calls = []
-    context = SimpleNamespace(args=args, logger=SimpleNamespace(emit=lambda *args, **kwargs: calls.append("event")), client=object(), source_site_id="site", converter=object(), converter_fingerprint="hash", template_path=Path("template"), run_dir=Path("run"), apply=False, determinism_gate=SimpleNamespace(verified=False), prepare_candidate=lambda *args, **kwargs: calls.append("prepare"), apply_prepared_asset=lambda *args, **kwargs: calls.append("apply"), totals=Counter(), processing_context_type=object)
+    context = SimpleNamespace(
+        args=args,
+        logger=SimpleNamespace(emit=lambda *args, **kwargs: calls.append("event")),
+        client=object(),
+        source_site_id="site",
+        converter=object(),
+        converter_fingerprint="hash",
+        template_path=Path("template"),
+        run_dir=Path("run"),
+        apply=False,
+        determinism_gate=SimpleNamespace(verified=False),
+        prepare_candidate=lambda *args, **kwargs: calls.append("prepare"),
+        apply_prepared_asset=lambda *args, **kwargs: calls.append("apply"),
+        totals=Counter(),
+        processing_context_type=object,
+    )
     inventory = SimpleNamespace(candidates=[SimpleNamespace(problem_id="problem")])
-    result = mcp_polygon_parallel.process_parallel_group(context, object(), object(), inventory, (1, 0, 0, False, False))
+    result = mcp_polygon_parallel.process_parallel_group(
+        context, object(), object(), inventory, (1, 0, 0, False, False)
+    )
     assert result == (1, 0, 0, False, True)
     assert calls == []
-
 
 
 class FakeMcpClient:
@@ -327,38 +491,38 @@ class RunnerHelpersTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             with (
                 patch(
-                "solution_runner.converters.png_to_svg_by_contrast.load_image",
-                return_value=(rgba, "fixture.png"),
+                    "solution_runner.converters.png_to_svg_by_contrast.load_image",
+                    return_value=(rgba, "fixture.png"),
                 ),
                 patch(
-                "solution_runner.converters.png_to_svg_by_contrast.alpha_shape_mask",
-                return_value=(
-                    mask,
-                    {
-                        "alpha_shape_threshold": 1,
-                        "alpha_shape_bbox": (2, 2, 17, 17),
-                    },
-                ),
-                ),
-                patch(
-                "solution_runner.converters.png_to_svg_by_contrast.infer_grid_from_alpha",
-                side_effect=ValueError("square_grid_low_confidence"),
+                    "solution_runner.converters.png_to_svg_by_contrast.alpha_shape_mask",
+                    return_value=(
+                        mask,
+                        {
+                            "alpha_shape_threshold": 1,
+                            "alpha_shape_bbox": (2, 2, 17, 17),
+                        },
+                    ),
                 ),
                 patch(
-                "solution_runner.converters.png_to_svg_by_contrast.infer_grid_from_grayscale",
-                return_value=grayscale_grid,
+                    "solution_runner.converters.png_to_svg_by_contrast.infer_grid_from_alpha",
+                    side_effect=ValueError("square_grid_low_confidence"),
+                ),
+                patch(
+                    "solution_runner.converters.png_to_svg_by_contrast.infer_grid_from_grayscale",
+                    return_value=grayscale_grid,
                 ) as grayscale_fallback,
                 patch(
-                "solution_runner.converters.png_to_svg_by_contrast.quad_from_mask",
-                return_value=polygon,
+                    "solution_runner.converters.png_to_svg_by_contrast.quad_from_mask",
+                    return_value=polygon,
                 ),
                 patch(
-                "solution_runner.converters.png_to_svg_by_contrast._select_grid_for_quad",
-                return_value=grayscale_grid,
+                    "solution_runner.converters.png_to_svg_by_contrast._select_grid_for_quad",
+                    return_value=grayscale_grid,
                 ),
                 patch(
-                "solution_runner.converters.png_to_svg_by_contrast.svg_for_mask",
-                return_value=(polygon, prototype_info),
+                    "solution_runner.converters.png_to_svg_by_contrast.svg_for_mask",
+                    return_value=(polygon, prototype_info),
                 ),
             ):
                 try:
@@ -616,9 +780,7 @@ class RunnerHelpersTest(unittest.TestCase):
             output = io.StringIO()
             with redirect_stdout(output):
                 logger = EventLogger(Path(temporary) / "events.jsonl", color="always")
-                logger.emit(
-                    "group_transition", theme="Трапеция", group_key="27556"
-                )
+                logger.emit("group_transition", theme="Трапеция", group_key="27556")
                 logger.emit(
                     "group_opened", theme="Трапеция", group_key="27556", tasks=52
                 )
@@ -674,7 +836,9 @@ class RunnerHelpersTest(unittest.TestCase):
             )
             self.assertEqual(totals["resume_skipped_missing_source"], 1)
             self.assertEqual(totals["resume_skipped_applied"], 0)
-            self.assertFalse(json.loads((run_dir / "resume.json").read_text())["same_renderer"])
+            self.assertFalse(
+                json.loads((run_dir / "resume.json").read_text())["same_renderer"]
+            )
 
     def test_resume_same_renderer_skips_applied_and_rejected(self) -> None:
         """An unchanged renderer resumes only transient failures."""
@@ -700,7 +864,10 @@ class RunnerHelpersTest(unittest.TestCase):
                 )
                 logger.close()
             self.assertEqual(
-                [candidate.stable_key for candidate in inventory["group-id"].candidates],
+                [
+                    candidate.stable_key
+                    for candidate in inventory["group-id"].candidates
+                ],
                 [candidates[3].stable_key],
             )
             self.assertEqual(totals["resume_skipped_applied"], 1)
@@ -733,7 +900,10 @@ class RunnerHelpersTest(unittest.TestCase):
                 logger.close()
 
             self.assertEqual(
-                [candidate.stable_key for candidate in inventory["group-id"].candidates],
+                [
+                    candidate.stable_key
+                    for candidate in inventory["group-id"].candidates
+                ],
                 [candidates[1].stable_key, candidates[3].stable_key],
             )
             self.assertEqual(totals["resume_skipped_applied"], 1)
@@ -825,6 +995,18 @@ class RunnerHelpersTest(unittest.TestCase):
                     logger=logger,
                 )
                 logger.close()
+                events = [
+                    json.loads(line)
+                    for line in (run_dir / "events.jsonl").read_text().splitlines()
+                ]
+        self.assertEqual(
+            next(
+                event["rolled_back"]
+                for event in events
+                if event["event"] == "batch_complete"
+            ),
+            1,
+        )
         self.assertEqual((tasks, batches, stopped), (1, 1, False))
         self.assertEqual(totals["assets_rolled_back"], 1)
         self.assertEqual(
@@ -860,7 +1042,9 @@ class RunnerHelpersTest(unittest.TestCase):
         )
         response = httpx.Response(
             404,
-            request=httpx.Request("GET", "https://example.test/problem-assets/id/content"),
+            request=httpx.Request(
+                "GET", "https://example.test/problem-assets/id/content"
+            ),
         )
         error = httpx.HTTPStatusError(
             "404 Not Found",
@@ -1001,7 +1185,7 @@ class RunnerHelpersTest(unittest.TestCase):
                                             "asset_key": "image_1",
                                             "kind": "ordinary_image",
                                             "content_type": "image/png",
-                                        }
+                                        },
                                     ],
                                 },
                                 {
@@ -1072,8 +1256,18 @@ class RunnerHelpersTest(unittest.TestCase):
         """Current target inspection uses the compact replacement context tool."""
 
         candidate = AssetCandidate(
-            "Трапеция", "theme", 2, "group", "27556", 0,
-            "problem", "5217", 0, "image_1", ("condition",), 4,
+            "Трапеция",
+            "theme",
+            2,
+            "group",
+            "27556",
+            0,
+            "problem",
+            "5217",
+            0,
+            "image_1",
+            ("condition",),
+            4,
         )
         current_asset = {
             "asset_key": "image_1",
@@ -1107,8 +1301,18 @@ class RunnerHelpersTest(unittest.TestCase):
         """Replacement readback resolves SVG type and digest from the asset UUID."""
 
         candidate = AssetCandidate(
-            "Трапеция", "theme", 2, "group", "27556", 0,
-            "problem", "5217", 0, "image_1", ("condition",), 4,
+            "Трапеция",
+            "theme",
+            2,
+            "group",
+            "27556",
+            0,
+            "problem",
+            "5217",
+            0,
+            "image_1",
+            ("condition",),
+            4,
         )
         svg_bytes = b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"/>'
         digest = hashlib.sha256(svg_bytes).hexdigest()
@@ -1116,29 +1320,35 @@ class RunnerHelpersTest(unittest.TestCase):
         client = FakeMcpClient(
             {
                 "prepare_source_asset_upload": [{"method": "PUT"}],
-                "get_source_asset": [{
-                    "source_asset": {
-                        "source_asset_id": source_asset_id,
-                        "canonical_asset_key": "canonical",
+                "get_source_asset": [
+                    {
+                        "source_asset": {
+                            "source_asset_id": source_asset_id,
+                            "canonical_asset_key": "canonical",
+                            "content_type": "image/svg+xml",
+                            "sha256": digest,
+                        }
+                    }
+                ],
+                "replace_problem_asset": [{"cleanup_candidate_asset_id": None}],
+                "get_problem_asset_target_context": [
+                    {
+                        "current_asset_id": source_asset_id,
+                        "current_asset": {
+                            "asset_id": source_asset_id,
+                            "asset_key": "image_1",
+                            "kind": "ordinary_image",
+                            "alt": "[(1, 1), (2, 1), (2, 2), (1, 2)]",
+                        },
+                    }
+                ],
+                "get_asset": [
+                    {
+                        "asset_id": source_asset_id,
                         "content_type": "image/svg+xml",
                         "sha256": digest,
                     }
-                }],
-                "replace_problem_asset": [{"cleanup_candidate_asset_id": None}],
-                "get_problem_asset_target_context": [{
-                    "current_asset_id": source_asset_id,
-                    "current_asset": {
-                        "asset_id": source_asset_id,
-                        "asset_key": "image_1",
-                        "kind": "ordinary_image",
-                        "alt": "[(1, 1), (2, 1), (2, 2), (1, 2)]",
-                    },
-                }],
-                "get_asset": [{
-                    "asset_id": source_asset_id,
-                    "content_type": "image/svg+xml",
-                    "sha256": digest,
-                }],
+                ],
             }
         )
         with tempfile.TemporaryDirectory() as temporary:
@@ -1177,7 +1387,9 @@ class RunnerHelpersTest(unittest.TestCase):
                 logger.close()
 
         self.assertEqual(result[0], source_asset_id)
-        replace_call = next(call for call in client.calls if call[0] == "replace_problem_asset")
+        replace_call = next(
+            call for call in client.calls if call[0] == "replace_problem_asset"
+        )
         self.assertEqual(replace_call[1]["replacement_asset_id"], source_asset_id)
         self.assertNotIn("replacement_source_asset_id", replace_call[1])
 
@@ -1205,7 +1417,9 @@ class RunnerHelpersTest(unittest.TestCase):
                 )
                 logger.close()
         self.assertEqual(calls, [])
-        self.assertEqual(scope[0][0].snapshot_theme_id, "785f5813-b3f0-41cd-b6a1-6c63c4223d5e")
+        self.assertEqual(
+            scope[0][0].snapshot_theme_id, "785f5813-b3f0-41cd-b6a1-6c63c4223d5e"
+        )
         self.assertEqual(scope[0][1][0].group_key, "244983")
         self.assertEqual(
             scope[0][1][0].source_group_id,
@@ -1328,9 +1542,7 @@ class RunnerHelpersTest(unittest.TestCase):
         )
 
         self.assertEqual(len(points), 4)
-        self.assertTrue(
-            any(abs(x - 172) <= 2 and abs(y - 117) <= 2 for x, y in points)
-        )
+        self.assertTrue(any(abs(x - 172) <= 2 and abs(y - 117) <= 2 for x, y in points))
 
     def test_quadrilateral_profile_preserves_kite_reflex_vertex(self) -> None:
         """A concave kite whose hull is triangular must retain four vertices."""
@@ -1351,9 +1563,7 @@ class RunnerHelpersTest(unittest.TestCase):
         )
 
         self.assertEqual(len(points), 4)
-        self.assertTrue(
-            any(abs(x - 243) <= 2 and abs(y - 116) <= 2 for x, y in points)
-        )
+        self.assertTrue(any(abs(x - 243) <= 2 and abs(y - 116) <= 2 for x, y in points))
 
     def test_empty_polygon_has_explicit_grid_selection_error(self) -> None:
         """Missing polygon vertices must not leak a generic max-empty failure."""
@@ -1482,10 +1692,13 @@ class RunnerHelpersTest(unittest.TestCase):
                 )
             )
         batches = list(_problem_batches(candidates, 2))
-        self.assertEqual([[item.problem_id for item in batch] for batch in batches], [
-            ["p1", "p1", "p2"],
-            ["p3"],
-        ])
+        self.assertEqual(
+            [[item.problem_id for item in batch] for batch in batches],
+            [
+                ["p1", "p1", "p2"],
+                ["p3"],
+            ],
+        )
 
     def test_canonical_key_depends_on_code_and_output(self) -> None:
         """Reusable keys are stable yet version-sensitive."""

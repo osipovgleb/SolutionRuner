@@ -25,7 +25,8 @@ def recover(data, question):
     if VERIFIED_CURVES.exists():
         cache = json.loads(VERIFIED_CURVES.read_text())
         if cache.get("trace_version") == TRACE_VERSION:
-            stored = cache.get("models", {}).get(digest)
+            models = cache.get("models", {})
+            stored = models.get(digest)
             if stored is not None:
                 model = deepcopy(stored)
                 if (

@@ -14,7 +14,6 @@ _source_label = _catalog_label
 
 def _system_column(
     *,
-    registered: bool,
     has_run: bool,
     total: int,
     transformed: int,

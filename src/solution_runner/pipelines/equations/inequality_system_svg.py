@@ -50,6 +50,43 @@ def _source_canvas(title: str) -> ET.Element:
     return root
 
 
+def _draw_inequalities(rows, coordinate, node):
+    for index, row in enumerate(rows):
+        start = coordinate(row.bound)
+        end = RIGHT if row.bound_relation.startswith(">") else LEFT
+        height = 16.372 if index == 0 else 9.445
+        top = AXIS_Y - height
+        direction = 1 if end > start else -1
+        shoulder = start + direction * min(25.187, abs(end - start) * 0.45)
+        node(
+            "path",
+            data_half_line=index + 1,
+            d=f"M{start:.3f} {AXIS_Y} C{start:.3f} {top:.3f} {shoulder:.3f} {top:.3f} {shoulder:.3f} {top:.3f} H{end}",
+            fill="none",
+            stroke="#000000",
+            stroke_width=".75",
+        )
+        node(
+            "path",
+            data_half_line_arrow=index + 1,
+            d=f"M{end - direction * 1.889:.3f} {top - 0.944:.3f} L{end} {top:.3f} L{end - direction * 1.889:.3f} {top + 0.944:.3f}",
+            fill="none",
+            stroke="#000000",
+            stroke_width=".75",
+        )
+    for index, row in enumerate(rows):
+        node(
+            "circle",
+            data_inequality=index + 1,
+            cx=f"{coordinate(row.bound):.3f}",
+            cy=AXIS_Y,
+            r="2.688",
+            fill="#000000" if row.bound_relation.endswith("=") else "white",
+            stroke="#000000",
+            stroke_width=".75",
+        )
+
+
 def render_intersection_svg(rows: tuple[Inequality, ...]) -> bytes:
     """Reuse source axis, arrow and x glyph; adapt boundaries, arcs and hatching."""
     if len(rows) != 2:
@@ -90,40 +127,7 @@ def render_intersection_svg(rows: tuple[Inequality, ...]) -> bytes:
                 stroke_miterlimit="10",
             )
             x += 3.34
-    for index, row in enumerate(rows):
-        start = coordinate(row.bound)
-        end = RIGHT if row.bound_relation.startswith(">") else LEFT
-        height = 16.372 if index == 0 else 9.445
-        top = AXIS_Y - height
-        direction = 1 if end > start else -1
-        shoulder = start + direction * min(25.187, abs(end - start) * 0.45)
-        node(
-            "path",
-            data_half_line=index + 1,
-            d=f"M{start:.3f} {AXIS_Y} C{start:.3f} {top:.3f} {shoulder:.3f} {top:.3f} {shoulder:.3f} {top:.3f} H{end}",
-            fill="none",
-            stroke="#000000",
-            stroke_width=".75",
-        )
-        node(
-            "path",
-            data_half_line_arrow=index + 1,
-            d=f"M{end - direction * 1.889:.3f} {top - 0.944:.3f} L{end} {top:.3f} L{end - direction * 1.889:.3f} {top + 0.944:.3f}",
-            fill="none",
-            stroke="#000000",
-            stroke_width=".75",
-        )
-    for index, row in enumerate(rows):
-        node(
-            "circle",
-            data_inequality=index + 1,
-            cx=f"{coordinate(row.bound):.3f}",
-            cy=AXIS_Y,
-            r="2.688",
-            fill="#000000" if row.bound_relation.endswith("=") else "white",
-            stroke="#000000",
-            stroke_width=".75",
-        )
+    _draw_inequalities(rows, coordinate, node)
     # A shared boundary represents the intersection's strictness on the axis.
     if len(bounds) == 1:
         closed = not result.empty and (
@@ -155,61 +159,7 @@ def render_intersection_svg(rows: tuple[Inequality, ...]) -> bytes:
     return ET.tostring(root, encoding="utf-8")
 
 
-def render_quadratic_sign_chart_svg(
-    roots: tuple[Fraction, ...], intervals: tuple[Interval, ...]
-) -> bytes:
-    """Show every sign region of a monic quadratic, shading only its solution."""
-    if len(roots) not in (0, 2) or tuple(sorted(roots)) != roots:
-        raise ValueError(
-            "zero or two ordered roots including multiplicity are required"
-        )
-    bounds = sorted(set(roots))
-    if any(
-        b not in bounds
-        for interval in intervals
-        for b in (interval.lower, interval.upper)
-        if b is not None
-    ):
-        raise ValueError("solution boundaries must be roots of the quadratic")
-    root = _source_canvas(
-        "Метод интервалов: знаки квадратного трёхчлена и множество решений"
-    )
-    root.set("height", "64")
-    root.set("viewBox", "6.311 13 174.612 64")
-    background = root.find(f"{{{NS}}}rect")
-    root.remove(background)
-
-    def node(tag: str, **attrs: object) -> ET.Element:
-        return ET.SubElement(
-            root,
-            f"{{{NS}}}{tag}",
-            {k.replace("_", "-"): str(v) for k, v in attrs.items()},
-        )
-
-    def coordinate(value: Fraction) -> float:
-        return (
-            93.006 if len(bounds) == 1 else (66.955 if value == bounds[0] else 119.057)
-        )
-
-    for interval in intervals:
-        if interval.empty:
-            continue
-        left = coordinate(interval.lower) if interval.lower is not None else LEFT
-        right = coordinate(interval.upper) if interval.upper is not None else RIGHT - 5
-        x = left + 0.5
-        while x + 4.256 <= right:
-            node(
-                "line",
-                x1=f"{x + 4.256:.3f}",
-                y1="48.943",
-                x2=f"{x:.3f}",
-                y2="53.504",
-                fill="none",
-                stroke="#143B8F",
-                stroke_width=".75",
-                stroke_miterlimit="10",
-            )
-            x += 3.34
+def _draw_sign_regions(bounds, coordinate, node):
     # Even a rejected region retains its arc and polynomial sign.
     positions = [LEFT] + [coordinate(bound) for bound in bounds] + [RIGHT]
     top = AXIS_Y - 12
@@ -257,6 +207,9 @@ def render_quadratic_sign_chart_svg(
                     stroke="#000000",
                     stroke_width=".75",
                 )
+
+
+def _draw_quadratic_bounds(bounds, intervals, coordinate, node):
     for bound in bounds:
         closed = any(
             not i.empty
@@ -332,4 +285,63 @@ def render_quadratic_sign_chart_svg(
                 font_size="12",
                 fill="#000000",
             ).text = label
+
+
+def render_quadratic_sign_chart_svg(
+    roots: tuple[Fraction, ...], intervals: tuple[Interval, ...]
+) -> bytes:
+    """Show every sign region of a monic quadratic, shading only its solution."""
+    if len(roots) not in (0, 2) or tuple(sorted(roots)) != roots:
+        raise ValueError(
+            "zero or two ordered roots including multiplicity are required"
+        )
+    bounds = sorted(set(roots))
+    if any(
+        b not in bounds
+        for interval in intervals
+        for b in (interval.lower, interval.upper)
+        if b is not None
+    ):
+        raise ValueError("solution boundaries must be roots of the quadratic")
+    root = _source_canvas(
+        "Метод интервалов: знаки квадратного трёхчлена и множество решений"
+    )
+    root.set("height", "64")
+    root.set("viewBox", "6.311 13 174.612 64")
+    background = root.find(f"{{{NS}}}rect")
+    root.remove(background)
+
+    def node(tag: str, **attrs: object) -> ET.Element:
+        return ET.SubElement(
+            root,
+            f"{{{NS}}}{tag}",
+            {k.replace("_", "-"): str(v) for k, v in attrs.items()},
+        )
+
+    def coordinate(value: Fraction) -> float:
+        return (
+            93.006 if len(bounds) == 1 else (66.955 if value == bounds[0] else 119.057)
+        )
+
+    for interval in intervals:
+        if interval.empty:
+            continue
+        left = coordinate(interval.lower) if interval.lower is not None else LEFT
+        right = coordinate(interval.upper) if interval.upper is not None else RIGHT - 5
+        x = left + 0.5
+        while x + 4.256 <= right:
+            node(
+                "line",
+                x1=f"{x + 4.256:.3f}",
+                y1="48.943",
+                x2=f"{x:.3f}",
+                y2="53.504",
+                fill="none",
+                stroke="#143B8F",
+                stroke_width=".75",
+                stroke_miterlimit="10",
+            )
+            x += 3.34
+    _draw_sign_regions(bounds, coordinate, node)
+    _draw_quadratic_bounds(bounds, intervals, coordinate, node)
     return ET.tostring(root, encoding="utf-8")

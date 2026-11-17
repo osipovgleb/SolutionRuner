@@ -39,3 +39,19 @@ def test_empty_mask_is_copied_and_unknown_method_fails_for_nonempty_mask():
     mask[2, 2] = 255
     with pytest.raises(ValueError, match="unknown inpaint method"):
         apply_inpaint_alpha(image, mask, method="unknown")
+
+
+def test_alpha_mask_selects_right_bottom_marker_and_reports_bounds():
+    from solution_runner.converters.clean_stream_mask import (
+        alpha_mask_from_right_bottom,
+    )
+
+    image = np.full((40, 40, 4), 255, dtype=np.uint8)
+    image[35:38, 35:38, 3] = 80
+    mask, report = alpha_mask_from_right_bottom(image, mask_dilate_iters=0)
+    expected = np.zeros((40, 40), dtype=np.uint8)
+    expected[35:38, 35:38] = 255
+    np.testing.assert_array_equal(mask, expected)
+    assert report["bbox"] == (35, 35, 37, 37)
+    assert report["selected_mask_pixels"] == 9
+    assert report["fallback"] == "none"

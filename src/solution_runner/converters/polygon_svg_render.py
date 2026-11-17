@@ -46,6 +46,76 @@ def edge_segments_from_quad(poly: list[tuple[float, float]]) -> list[str]:
     return out
 
 
+def _svg_document(quad, template, geometry, style):
+    columns, rows, svg_width, svg_height = geometry
+    fill, padding, cell_size, keep_template_grid = style
+    poly_path = polygon_to_svg_path(quad) + " Z"
+    edge_paths = edge_segments_from_quad(quad)
+
+    points_attr = " ".join([f"{_fmt_num(x)},{_fmt_num(y)}" for x, y in quad])
+
+    svg = (
+        f'<svg xmlns="http://www.w3.org/2000/svg" '
+        f'viewBox="0 0 {_fmt_num(svg_width)} {_fmt_num(svg_height)}" '
+        f'width="{_fmt_num(svg_width)}" height="{_fmt_num(svg_height)}" '
+        'shape-rendering="geometricPrecision" overflow="visible">\n'
+    )
+
+    if template and keep_template_grid:
+        vertical = template.get("vertical_grid_line")
+        horizontal = template.get("horizontal_grid_line")
+        if vertical:
+            for i in range(columns + 1):
+                x = float(i) * float(cell_size)
+                svg += f"  {_replace_line_coords(vertical, x, 0.0, x, svg_height)}\n"
+        if horizontal:
+            for i in range(rows + 1):
+                y = float(i) * float(cell_size)
+                svg += f"  {_replace_line_coords(horizontal, 0.0, y, svg_width, y)}\n"
+
+    if template and template.get("fill_polygon"):
+        svg += f"  {_replace_points(template['fill_polygon'], points_attr)}\n"
+    else:
+        svg += (
+            f'<g id="prototype-fill" fill="{fill}" stroke="none">\n'
+            f'  <path d="{poly_path}"/>\n'
+            "</g>\n"
+        )
+
+    if template and template.get("outline_polygon"):
+        svg += f"  {_replace_points(template['outline_polygon'], points_attr)}\n"
+    else:
+        svg += (
+            '<g id="prototype-sections" fill="none" stroke="#000" stroke-width="1">\n'
+        )
+        for i, p in enumerate(edge_paths):
+            svg += f'  <path id="edge-{i}" d="{p}"/>\n'
+        svg += "  </g>\n"
+
+    scale_x1 = float(padding) * float(cell_size)
+    scale_x2 = scale_x1 + float(cell_size)
+    scale_y = svg_height - float(cell_size)
+    scale_text_y = scale_y + float(cell_size) * 0.62
+    scale_font_size = max(7.0, float(cell_size) * 0.5)
+    scale_stroke_width = max(1.5, float(cell_size) * 0.09)
+    svg += '<g id="scale-label" fill="#0D0F0F">\n'
+    svg += (
+        f'  <line x1="{_fmt_num(scale_x1)}" y1="{_fmt_num(scale_y)}" '
+        f'x2="{_fmt_num(scale_x2)}" y2="{_fmt_num(scale_y)}" '
+        f'stroke="#0D0F0F" stroke-width="{_fmt_num(scale_stroke_width)}"/>\n'
+    )
+    svg += (
+        f'  <text x="{_fmt_num((scale_x1 + scale_x2) / 2.0)}" '
+        f'y="{_fmt_num(scale_text_y)}" text-anchor="middle" '
+        f'font-family="sans-serif" font-size="{_fmt_num(scale_font_size)}">'
+        "1 &#1089;&#1084;</text>\n"
+    )
+    svg += "</g>\n"
+
+    svg += "</svg>\n"
+    return svg
+
+
 def svg_for_mask(
     mask: np.ndarray,
     out_path: Path,
@@ -112,70 +182,12 @@ def svg_for_mask(
         for x, y in source_grid_points
     ]
 
-    poly_path = polygon_to_svg_path(quad) + " Z"
-    edge_paths = edge_segments_from_quad(quad)
-
-    points_attr = " ".join([f"{_fmt_num(x)},{_fmt_num(y)}" for x, y in quad])
-
-    svg = (
-        f'<svg xmlns="http://www.w3.org/2000/svg" '
-        f'viewBox="0 0 {_fmt_num(svg_width)} {_fmt_num(svg_height)}" '
-        f'width="{_fmt_num(svg_width)}" height="{_fmt_num(svg_height)}" '
-        'shape-rendering="geometricPrecision" overflow="visible">\n'
+    svg = _svg_document(
+        quad,
+        template,
+        (columns, rows, svg_width, svg_height),
+        (fill, padding, cell_size, keep_template_grid),
     )
-
-    if template and keep_template_grid:
-        vertical = template.get("vertical_grid_line")
-        horizontal = template.get("horizontal_grid_line")
-        if vertical:
-            for i in range(columns + 1):
-                x = float(i) * float(cell_size)
-                svg += f"  {_replace_line_coords(vertical, x, 0.0, x, svg_height)}\n"
-        if horizontal:
-            for i in range(rows + 1):
-                y = float(i) * float(cell_size)
-                svg += f"  {_replace_line_coords(horizontal, 0.0, y, svg_width, y)}\n"
-
-    if template and template.get("fill_polygon"):
-        svg += f"  {_replace_points(template['fill_polygon'], points_attr)}\n"
-    else:
-        svg += (
-            f'<g id="prototype-fill" fill="{fill}" stroke="none">\n'
-            f'  <path d="{poly_path}"/>\n'
-            "</g>\n"
-        )
-
-    if template and template.get("outline_polygon"):
-        svg += f"  {_replace_points(template['outline_polygon'], points_attr)}\n"
-    else:
-        svg += (
-            '<g id="prototype-sections" fill="none" stroke="#000" stroke-width="1">\n'
-        )
-        for i, p in enumerate(edge_paths):
-            svg += f'  <path id="edge-{i}" d="{p}"/>\n'
-        svg += "  </g>\n"
-
-    scale_x1 = float(padding) * float(cell_size)
-    scale_x2 = scale_x1 + float(cell_size)
-    scale_y = svg_height - float(cell_size)
-    scale_text_y = scale_y + float(cell_size) * 0.62
-    scale_font_size = max(7.0, float(cell_size) * 0.5)
-    scale_stroke_width = max(1.5, float(cell_size) * 0.09)
-    svg += '<g id="scale-label" fill="#0D0F0F">\n'
-    svg += (
-        f'  <line x1="{_fmt_num(scale_x1)}" y1="{_fmt_num(scale_y)}" '
-        f'x2="{_fmt_num(scale_x2)}" y2="{_fmt_num(scale_y)}" '
-        f'stroke="#0D0F0F" stroke-width="{_fmt_num(scale_stroke_width)}"/>\n'
-    )
-    svg += (
-        f'  <text x="{_fmt_num((scale_x1 + scale_x2) / 2.0)}" '
-        f'y="{_fmt_num(scale_text_y)}" text-anchor="middle" '
-        f'font-family="sans-serif" font-size="{_fmt_num(scale_font_size)}">'
-        "1 &#1089;&#1084;</text>\n"
-    )
-    svg += "</g>\n"
-
-    svg += "</svg>\n"
     out_path.write_text(svg, encoding="utf-8")
 
     xs = [p[0] for p in quad]

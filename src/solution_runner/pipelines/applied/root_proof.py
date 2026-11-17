@@ -26,52 +26,54 @@ def final(a, minimum=False):
     )
 
 
+def _distance(a, html):
+    q = a.question
+    v = q.values
+    html += line(r"v^2=2la")
+    native = v["speed"] ** 2 / (2 * v["acceleration"])
+    try:
+        native_decimal = (
+            answer(native).replace(",", "{,}") if native.is_Integer is not True else ""
+        )
+    except ValueError:
+        native_decimal = ""
+    html += line(
+        r"l=\frac{v^2}{2a}=\frac{"
+        + sp.latex(v["speed"])
+        + r"^2}{2\cdot"
+        + sp.latex(v["acceleration"])
+        + "}="
+        + sp.latex(native)
+        + ("=" + native_decimal if native_decimal else "")
+        + r"\ \text{"
+        + v["native_unit"]
+        + "}"
+    )
+    if v["native_unit"] != q.unit:
+        html += "<p>По единицам скорости и ускорения путь получен в исходных единицах. Переведём его в единицы ответа:</p>"
+        html += line("l=" + sp.latex(native) + r"\ \text{" + v["native_unit"] + "}")
+        html += line(
+            "l="
+            + sp.latex(native)
+            + r"\cdot"
+            + sp.latex(
+                sp.Rational(1, 1000) if v["native_unit"] == "м" else sp.Integer(1000)
+            )
+            + r"\ \text{"
+            + q.unit
+            + "}"
+        )
+        html += final(a)
+    return html
+
+
 def motion(a):
     q = a.question
     v = q.values
     relation = r"\geq" if q.relation == "ge" else "="
     html = line(r"v=\sqrt{2la}")
     if q.kind == "root_distance":
-        html += line(r"v^2=2la")
-        native = v["speed"] ** 2 / (2 * v["acceleration"])
-        try:
-            native_decimal = (
-                answer(native).replace(",", "{,}")
-                if native.is_Integer is not True
-                else ""
-            )
-        except ValueError:
-            native_decimal = ""
-        html += line(
-            r"l=\frac{v^2}{2a}=\frac{"
-            + sp.latex(v["speed"])
-            + r"^2}{2\cdot"
-            + sp.latex(v["acceleration"])
-            + "}="
-            + sp.latex(native)
-            + ("=" + native_decimal if native_decimal else "")
-            + r"\ \text{"
-            + v["native_unit"]
-            + "}"
-        )
-        if v["native_unit"] != q.unit:
-            html += "<p>По единицам скорости и ускорения путь получен в исходных единицах. Переведём его в единицы ответа:</p>"
-            html += line("l=" + sp.latex(native) + r"\ \text{" + v["native_unit"] + "}")
-            html += line(
-                "l="
-                + sp.latex(native)
-                + r"\cdot"
-                + sp.latex(
-                    sp.Rational(1, 1000)
-                    if v["native_unit"] == "м"
-                    else sp.Integer(1000)
-                )
-                + r"\ \text{"
-                + q.unit
-                + "}"
-            )
-            html += final(a)
-        return html
+        return _distance(a, html)
     else:
         if v["path"] != v["native_path"]:
             html += line(

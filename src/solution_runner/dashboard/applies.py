@@ -8,18 +8,16 @@ from pathlib import Path
 from threading import Lock
 from typing import Any
 
-from solution_runner.group_inventory_store import (
-    GroupInventoryStore,
-    GroupItemStageResult,
-)
+from solution_runner.group_inventory_store import GroupInventoryStore
 
 from .apply_results import (
     SUCCESS,
     _label_dashboard_run,
     _latest_run,
     _read_results,
-    _result_for,
-    _stage_error,
+    _record_group_results,
+    _record_helpers,
+    _record_problem_result,
 )
 from .apply_state import read_apply_state, write_apply_state
 from .apply_validation import helper_targets, verified_group, verified_row
@@ -188,33 +186,9 @@ class ApplyManager:
                 for result in _read_results(run_dir / "helpers-results.json")
                 if result.get("problem_id")
             }
-            completed = True
-            last_error = "Helpers не выполнены"
-            for problem_id in problem_ids:
-                helper = helpers.get(problem_id)
-                helpers_status = (
-                    str(helper.get("status") or "failed") if helper else "failed"
-                )
-                error = (
-                    None
-                    if helpers_status in SUCCESS
-                    else str(
-                        (helper or {}).get("error")
-                        or (helper or {}).get("message")
-                        or "MCP не записал Helpers"
-                    )
-                )
-                completed = completed and error is None
-                if error:
-                    last_error = " ".join(error.split())[:300]
-                self.inventory_store.update_item_stage(
-                    GroupItemStageResult(
-                        group_key=group_key,
-                        problem_id=problem_id,
-                        helpers_status=helpers_status,
-                        error=" ".join(error.split())[:500] if error else None,
-                    )
-                )
+            completed, last_error = _record_helpers(
+                self.inventory_store, group_key, problem_ids, helpers
+            )
             items = self.inventory_store.list_items(group_key)
             if self.store is not None:
                 self.store.reconcile_problem_counts(group_key, items)
@@ -279,29 +253,8 @@ class ApplyManager:
             run_dir = _latest_run(self.var_dir, group_key)
             if run_dir is None:
                 raise RuntimeError("launcher produced no run report")
-            solution = _result_for(
-                _read_results(run_dir / "solution-results.json"), problem_id
-            )
-            helpers = _result_for(
-                _read_results(run_dir / "helpers-results.json"), problem_id
-            )
-            if solution is None:
-                raise RuntimeError(
-                    "launcher produced no result for the selected problem"
-                )
-            solution_status = str(solution.get("status") or "failed")
-            helpers_status = (
-                str(helpers.get("status") or "failed") if helpers else "failed"
-            )
-            error = _stage_error(solution, helpers, solution_status, helpers_status)
-            self.inventory_store.update_item_stage(
-                GroupItemStageResult(
-                    group_key=group_key,
-                    problem_id=problem_id,
-                    apply_status=solution_status,
-                    helpers_status=helpers_status,
-                    error=" ".join(str(error).split())[:500] if error else None,
-                )
+            solution_status, helpers_status, error = _record_problem_result(
+                self.inventory_store, group_key, problem_id, run_dir
             )
             items = self.inventory_store.list_items(group_key)
             if self.store is not None:
@@ -384,32 +337,9 @@ class ApplyManager:
                 for result in _read_results(run_dir / "helpers-results.json")
                 if result.get("problem_id")
             }
-            self.inventory_store.clear_apply_results(group_key)
-            terminal_statuses: list[str] = []
-            for row in rows:
-                problem_id = str(row["problem_id"])
-                solution = solutions.get(problem_id)
-                helper = helpers.get(problem_id)
-                solution_status = (
-                    str(solution.get("status") or "failed") if solution else "failed"
-                )
-                helpers_status = (
-                    str(helper.get("status") or "failed") if helper else "failed"
-                )
-                error = _stage_error(solution, helper, solution_status, helpers_status)
-                if error:
-                    last_error = " ".join(error.split())[:300]
-                self.inventory_store.update_item_stage(
-                    GroupItemStageResult(
-                        group_key=group_key,
-                        problem_id=problem_id,
-                        apply_status=solution_status,
-                        helpers_status=helpers_status,
-                        error=" ".join(error.split())[:500] if error else None,
-                    )
-                )
-                terminal_statuses.extend((solution_status, helpers_status))
-            completed = all(status in SUCCESS for status in terminal_statuses)
+            completed, last_error = _record_group_results(
+                self.inventory_store, group_key, rows, solutions, helpers
+            )
         except Exception as exc:  # noqa: BLE001 - persist the result of this single explicit run.
             completed = False
             last_error = " ".join(str(exc).split())[:300]

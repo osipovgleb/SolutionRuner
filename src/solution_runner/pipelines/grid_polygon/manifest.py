@@ -102,20 +102,7 @@ def _scope_payload(scope: FrozenRunScope) -> dict[str, object]:
     return payload
 
 
-def read_prepared_manifest(
-    path: Path,
-    *,
-    expected_scope: FrozenRunScope,
-    allow_target_subset: bool = False,
-) -> tuple[PreparedFigure, ...]:
-    """Load prepared records only when scope, identities, and artifacts agree."""
-
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise ManifestDriftError("prepared manifest is unreadable") from exc
-    if not isinstance(payload, dict) or payload.get("schema_version") != 1:
-        raise ManifestDriftError("prepared manifest schema is unsupported")
+def _validate_scope(payload, expected_scope, allow_target_subset):
     actual_scope = payload.get("scope")
     expected_payload = _scope_payload(expected_scope)
     if not isinstance(actual_scope, dict):
@@ -147,6 +134,117 @@ def read_prepared_manifest(
             raise ManifestDriftError("prepared manifest target scope drifted")
     elif actual_target_ids != expected_target_ids:
         raise ManifestDriftError("prepared manifest scope drifted")
+    return actual_target_ids
+
+
+def _read_ring(raw, artifact, digest, diagnostics):
+    try:
+        center = tuple(int(value) for value in raw["center"])
+        outer_point = tuple(int(value) for value in raw["outer_point"])
+        inner_point = tuple(int(value) for value in raw["inner_point"])
+        outer_squared = int(raw["outer_radius_squared"])
+        inner_squared = int(raw["inner_radius_squared"])
+        inner_center = tuple(int(value) for value in raw.get("inner_center", center))
+        alignment = str(raw.get("ring_alignment") or "concentric")
+        known_circle_area = raw.get("known_circle_area")
+        raw_given_area = raw.get("given_circle_area")
+        given_circle_area = (
+            Fraction(str(raw_given_area)) if raw_given_area is not None else None
+        )
+        if not (
+            len(center)
+            == len(inner_center)
+            == len(outer_point)
+            == len(inner_point)
+            == 2
+            and 0 < inner_squared < outer_squared
+            and alignment in {"concentric", "offset"}
+            and known_circle_area in {None, "inner", "outer"}
+            and (given_circle_area is None or given_circle_area > 0)
+        ):
+            raise ValueError
+        record: PreparedFigure = PreparedGridRing(
+            problem_id=str(raw["problem_id"]),
+            source_problem_id=str(raw["source_problem_id"]),
+            condition_asset_id=str(raw["condition_asset_id"]),
+            condition_svg_path=artifact,
+            condition_svg_sha256=digest,
+            center=(center[0], center[1]),
+            outer_point=(outer_point[0], outer_point[1]),
+            inner_point=(inner_point[0], inner_point[1]),
+            outer_radius_squared=outer_squared,
+            inner_radius_squared=inner_squared,
+            condition_was_replaced=bool(raw["condition_was_replaced"]),
+            converter_diagnostics=diagnostics,
+            inner_center=(inner_center[0], inner_center[1]),
+            ring_alignment=alignment,
+            known_circle_area=known_circle_area,
+            given_circle_area=given_circle_area,
+        )
+    except (KeyError, TypeError, ValueError, IndexError) as exc:
+        raise ManifestDriftError("prepared manifest ring geometry is invalid") from exc
+    return record
+
+
+def _read_polygon(raw, artifact, digest, diagnostics):
+    try:
+        coordinates = tuple(
+            (int(point[0]), int(point[1])) for point in raw["coordinates"]
+        )
+        vertex_count = int(raw["vertex_count"])
+    except (KeyError, TypeError, ValueError, IndexError) as exc:
+        raise ManifestDriftError("prepared manifest coordinates are invalid") from exc
+    if len(coordinates) != vertex_count or len(set(coordinates)) != vertex_count:
+        raise ManifestDriftError("prepared manifest coordinates drifted")
+    try:
+        raw_ordered = raw.get("ordered_coordinates")
+        ordered_coordinates = (
+            tuple((int(point[0]), int(point[1])) for point in raw_ordered)
+            if raw_ordered is not None
+            else ordered_coordinates_from_svg(artifact.read_bytes(), coordinates)
+        )
+    except (TypeError, ValueError, IndexError, GridPolygonError) as exc:
+        raise ManifestDriftError(
+            "prepared manifest ordered coordinates are invalid"
+        ) from exc
+    if (
+        len(ordered_coordinates) != vertex_count
+        or len(set(ordered_coordinates)) != vertex_count
+    ):
+        raise ManifestDriftError("prepared manifest ordered coordinates drifted")
+    try:
+        record = PreparedGridPolygon(
+            problem_id=str(raw["problem_id"]),
+            source_problem_id=str(raw["source_problem_id"]),
+            condition_asset_id=str(raw["condition_asset_id"]),
+            condition_svg_path=artifact,
+            condition_svg_sha256=digest,
+            coordinates=coordinates,
+            vertex_count=vertex_count,
+            condition_was_replaced=bool(raw["condition_was_replaced"]),
+            converter_diagnostics=diagnostics,
+            ordered_coordinates=ordered_coordinates,
+        )
+    except KeyError as exc:
+        raise ManifestDriftError("prepared manifest identity is incomplete") from exc
+    return record
+
+
+def read_prepared_manifest(
+    path: Path,
+    *,
+    expected_scope: FrozenRunScope,
+    allow_target_subset: bool = False,
+) -> tuple[PreparedFigure, ...]:
+    """Load prepared records only when scope, identities, and artifacts agree."""
+
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ManifestDriftError("prepared manifest is unreadable") from exc
+    if not isinstance(payload, dict) or payload.get("schema_version") != 1:
+        raise ManifestDriftError("prepared manifest schema is unsupported")
+    actual_target_ids = _validate_scope(payload, expected_scope, allow_target_subset)
     raw_records = payload.get("records")
     if not isinstance(raw_records, list):
         raise ManifestDriftError("prepared manifest records are invalid")
@@ -174,109 +272,9 @@ def read_prepared_manifest(
             raise ManifestDriftError("prepared manifest diagnostics are invalid")
         geometry_kind = str(raw.get("geometry_kind") or "polygon")
         if geometry_kind == "ring":
-            try:
-                center = tuple(int(value) for value in raw["center"])
-                outer_point = tuple(int(value) for value in raw["outer_point"])
-                inner_point = tuple(int(value) for value in raw["inner_point"])
-                outer_squared = int(raw["outer_radius_squared"])
-                inner_squared = int(raw["inner_radius_squared"])
-                inner_center = tuple(
-                    int(value) for value in raw.get("inner_center", center)
-                )
-                alignment = str(raw.get("ring_alignment") or "concentric")
-                known_circle_area = raw.get("known_circle_area")
-                raw_given_area = raw.get("given_circle_area")
-                given_circle_area = (
-                    Fraction(str(raw_given_area))
-                    if raw_given_area is not None
-                    else None
-                )
-                if not (
-                    len(center)
-                    == len(inner_center)
-                    == len(outer_point)
-                    == len(inner_point)
-                    == 2
-                    and 0 < inner_squared < outer_squared
-                    and alignment in {"concentric", "offset"}
-                    and known_circle_area in {None, "inner", "outer"}
-                    and (given_circle_area is None or given_circle_area > 0)
-                ):
-                    raise ValueError
-                record: PreparedFigure = PreparedGridRing(
-                    problem_id=str(raw["problem_id"]),
-                    source_problem_id=str(raw["source_problem_id"]),
-                    condition_asset_id=str(raw["condition_asset_id"]),
-                    condition_svg_path=artifact,
-                    condition_svg_sha256=digest,
-                    center=(center[0], center[1]),
-                    outer_point=(outer_point[0], outer_point[1]),
-                    inner_point=(inner_point[0], inner_point[1]),
-                    outer_radius_squared=outer_squared,
-                    inner_radius_squared=inner_squared,
-                    condition_was_replaced=bool(raw["condition_was_replaced"]),
-                    converter_diagnostics=diagnostics,
-                    inner_center=(inner_center[0], inner_center[1]),
-                    ring_alignment=alignment,
-                    known_circle_area=known_circle_area,
-                    given_circle_area=given_circle_area,
-                )
-            except (KeyError, TypeError, ValueError, IndexError) as exc:
-                raise ManifestDriftError(
-                    "prepared manifest ring geometry is invalid"
-                ) from exc
+            record = _read_ring(raw, artifact, digest, diagnostics)
         elif geometry_kind == "polygon":
-            try:
-                coordinates = tuple(
-                    (int(point[0]), int(point[1])) for point in raw["coordinates"]
-                )
-                vertex_count = int(raw["vertex_count"])
-            except (KeyError, TypeError, ValueError, IndexError) as exc:
-                raise ManifestDriftError(
-                    "prepared manifest coordinates are invalid"
-                ) from exc
-            if (
-                len(coordinates) != vertex_count
-                or len(set(coordinates)) != vertex_count
-            ):
-                raise ManifestDriftError("prepared manifest coordinates drifted")
-            try:
-                raw_ordered = raw.get("ordered_coordinates")
-                ordered_coordinates = (
-                    tuple((int(point[0]), int(point[1])) for point in raw_ordered)
-                    if raw_ordered is not None
-                    else ordered_coordinates_from_svg(
-                        artifact.read_bytes(), coordinates
-                    )
-                )
-            except (TypeError, ValueError, IndexError, GridPolygonError) as exc:
-                raise ManifestDriftError(
-                    "prepared manifest ordered coordinates are invalid"
-                ) from exc
-            if (
-                len(ordered_coordinates) != vertex_count
-                or len(set(ordered_coordinates)) != vertex_count
-            ):
-                raise ManifestDriftError(
-                    "prepared manifest ordered coordinates drifted"
-                )
-            try:
-                record = PreparedGridPolygon(
-                    problem_id=str(raw["problem_id"]),
-                    source_problem_id=str(raw["source_problem_id"]),
-                    condition_asset_id=str(raw["condition_asset_id"]),
-                    condition_svg_path=artifact,
-                    condition_svg_sha256=digest,
-                    coordinates=coordinates,
-                    vertex_count=vertex_count,
-                    condition_was_replaced=bool(raw["condition_was_replaced"]),
-                    converter_diagnostics=diagnostics,
-                    ordered_coordinates=ordered_coordinates,
-                )
-            except KeyError as exc:
-                raise ManifestDriftError(
-                    "prepared manifest identity is incomplete"
-                ) from exc
+            record = _read_polygon(raw, artifact, digest, diagnostics)
         else:
             raise ManifestDriftError("prepared manifest geometry kind is unsupported")
         records.append(record)

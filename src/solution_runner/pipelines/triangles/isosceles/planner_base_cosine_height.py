@@ -10,33 +10,14 @@ import sympy as sp
 from .planner_types import IsoscelesTrianglePlanError, RepairPlan
 
 
-def build_group_27322_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_solution_assets: tuple[dict[str, str], ...],
-) -> RepairPlan:
-    """Build only the base-and-cosine to opposite-side altitude repair for 27322."""
-
+def _parse_base_cosine_height(condition_html):
     from .planner import (
-        _answer_matches,
-        _answer_text,
-        _condition_image_repairs,
         _formula_text,
         _inline_formulas,
-        _latex_number,
-        _normalized_content,
         _parse_positive_value,
-        _plain_html,
         _request_text,
-        _section,
-        _section_transformation,
     )
 
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise IsoscelesTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
     formula = (
         _formula_text(condition_html)
         .replace("А", "A")
@@ -99,6 +80,43 @@ def build_group_27322_repair_plan(
         )
     base = _parse_positive_value(base_latex)
     cosine = _parse_positive_value(cosine_latex)
+    return (
+        base_name,
+        base_vertices,
+        angle_name,
+        angle_vertex,
+        base,
+        cosine,
+        cosine_latex,
+    )
+
+
+def build_group_27322_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_solution_assets: tuple[dict[str, str], ...],
+) -> RepairPlan:
+    """Build only the base-and-cosine to opposite-side altitude repair for 27322."""
+
+    from .planner import (
+        _answer_matches,
+        _answer_text,
+        _condition_image_repairs,
+        _latex_number,
+        _normalized_content,
+        _plain_html,
+        _section,
+        _section_transformation,
+    )
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise IsoscelesTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    base_name, base_vertices, angle_name, angle_vertex, base, cosine, cosine_latex = (
+        _parse_base_cosine_height(condition_html)
+    )
     sine_squared = sp.simplify(1 - cosine**2)
     if sine_squared.is_positive is not True:
         raise IsoscelesTrianglePlanError("base-angle cosine must be less than one")

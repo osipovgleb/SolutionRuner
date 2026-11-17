@@ -35,7 +35,8 @@ def test_dry_run_initializes_before_any_selection_or_launch(tmp_path, mode):
 
     inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
     initializer = GroupInitializer(
-        profiles={"123": _profile()}, inventory_store=inventory,
+        profiles={"123": _profile()},
+        inventory_store=inventory,
         gateway_factory=FakeGateway,
     )
     launched = []
@@ -47,11 +48,16 @@ def test_dry_run_initializes_before_any_selection_or_launch(tmp_path, mode):
         return 1
 
     manager = DryRunManager(
-        var_dir=tmp_path, profiles={"123": _profile()},
-        inventory_store=inventory, initializer=initializer,
-        gateway_factory=FakeGateway, launcher=launch,
+        var_dir=tmp_path,
+        profiles={"123": _profile()},
+        inventory_store=inventory,
+        initializer=initializer,
+        gateway_factory=FakeGateway,
+        launcher=launch,
     )
-    manager.run_now("123", mode, requested_problem_id="child" if mode == "problem" else None)
+    manager.run_now(
+        "123", mode, requested_problem_id="child" if mode == "problem" else None
+    )
     assert len(launched) == 1
     initializer._executor.shutdown()
 
@@ -61,15 +67,18 @@ def test_failed_automatic_initialization_never_launches_a_runner(tmp_path):
 
     inventory = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
     initializer = GroupInitializer(
-        profiles={"123": _profile()}, inventory_store=inventory,
+        profiles={"123": _profile()},
+        inventory_store=inventory,
         gateway_factory=lambda: SimpleNamespace(
             get_source_catalog_children=lambda *_: {"items": []},
         ),
     )
     launched = []
     manager = DryRunManager(
-        var_dir=tmp_path, profiles={"123": _profile()},
-        inventory_store=inventory, initializer=initializer,
+        var_dir=tmp_path,
+        profiles={"123": _profile()},
+        inventory_store=inventory,
+        initializer=initializer,
         gateway_factory=lambda: None,
         launcher=lambda command: launched.append(command) or 0,
     )
@@ -92,9 +101,16 @@ def test_launcher_command_has_three_scopes_and_never_applies():
     assert parent[-2:] == ["--only-problem-id", "parent-uuid"]
     assert random[-2:] == ["--only-problem-id", "child-uuid"]
     assert "--only-problem-id" not in entire_group
-    assert all("--inventory-db" in command for command in (parent, random, entire_group))
-    assert all(command[command.index("--max-workers") + 1] == "5" for command in (parent, random, entire_group))
-    preserve = _launcher_command(profile, "parent", "parent-uuid", inventory_db, "preserve")
+    assert all(
+        "--inventory-db" in command for command in (parent, random, entire_group)
+    )
+    assert all(
+        command[command.index("--max-workers") + 1] == "5"
+        for command in (parent, random, entire_group)
+    )
+    preserve = _launcher_command(
+        profile, "parent", "parent-uuid", inventory_db, "preserve"
+    )
     assert preserve[preserve.index("--existing-solution-policy") + 1] == "preserve"
 
 
@@ -105,8 +121,14 @@ def test_problem_selection_uses_parent_or_one_saved_random_child():
         {"uuid": "child-b", "name": "Задача 12"},
     ]
 
-    assert _select_problem(children, "parent", choose=lambda items: items[-1]) == children[0]
-    assert _select_problem(children, "random", choose=lambda items: items[-1]) == children[2]
+    assert (
+        _select_problem(children, "parent", choose=lambda items: items[-1])
+        == children[0]
+    )
+    assert (
+        _select_problem(children, "random", choose=lambda items: items[-1])
+        == children[2]
+    )
     assert _select_problem(children, "all", choose=lambda items: items[-1]) is None
 
 
@@ -166,19 +188,34 @@ def test_problem_selection_accepts_the_real_mcp_children_envelope():
 
 def test_dry_run_records_update_per_problem_status_without_apply_state(tmp_path):
     store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
-    store.replace(GroupInventorySnapshot(
-        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
-        parent_problem_id="parent", parent_source_problem_id="10",
-        items=(
-            GroupInventoryItem("parent", "10", 0, True, True, True),
-            GroupInventoryItem("child", "11", 1, True, False, True),
-        ),
-    ))
+    store.replace(
+        GroupInventorySnapshot(
+            group_key="123",
+            catalog_snapshot_id="catalog",
+            source_group_id="source-group",
+            parent_problem_id="parent",
+            parent_source_problem_id="10",
+            items=(
+                GroupInventoryItem("parent", "10", 0, True, True, True),
+                GroupInventoryItem("child", "11", 1, True, False, True),
+            ),
+        )
+    )
 
-    _store_dry_run_results(store, "123", {"records": [
-        {"problem_id": "parent", "status": "prepared"},
-        {"problem_id": "child", "status": "blocked", "message": "unsupported grammar"},
-    ]})
+    _store_dry_run_results(
+        store,
+        "123",
+        {
+            "records": [
+                {"problem_id": "parent", "status": "prepared"},
+                {
+                    "problem_id": "child",
+                    "status": "blocked",
+                    "message": "unsupported grammar",
+                },
+            ]
+        },
+    )
 
     rows = {row["problem_id"]: row for row in store.list_items("123")}
     assert rows["parent"]["dry_run_status"] == "ready"
@@ -188,12 +225,28 @@ def test_dry_run_records_update_per_problem_status_without_apply_state(tmp_path)
 
 
 def test_full_group_review_requires_every_manifest_record_to_be_ready():
-    assert _full_dry_run_ready({"records": [
-        {"status": "prepared"}, {"status": "already_complete"},
-    ]}) is True
-    assert _full_dry_run_ready({"records": [
-        {"status": "prepared"}, {"status": "blocked"},
-    ]}) is False
+    assert (
+        _full_dry_run_ready(
+            {
+                "records": [
+                    {"status": "prepared"},
+                    {"status": "already_complete"},
+                ]
+            }
+        )
+        is True
+    )
+    assert (
+        _full_dry_run_ready(
+            {
+                "records": [
+                    {"status": "prepared"},
+                    {"status": "blocked"},
+                ]
+            }
+        )
+        is False
+    )
 
 
 def test_manager_persists_selected_problem_before_launch(tmp_path):
@@ -225,14 +278,19 @@ def test_manager_persists_selected_problem_before_launch(tmp_path):
 def test_manager_runs_one_explicit_initialized_problem(tmp_path):
     launched = []
     inventory_store = GroupInventoryStore(tmp_path / "dashboard.sqlite3")
-    inventory_store.replace(GroupInventorySnapshot(
-        group_key="123", catalog_snapshot_id="catalog", source_group_id="source-group",
-        parent_problem_id="parent", parent_source_problem_id="10",
-        items=(
-            GroupInventoryItem("parent", "10", 0, True, True, True),
-            GroupInventoryItem("child", "11", 1, True, False, True),
-        ),
-    ))
+    inventory_store.replace(
+        GroupInventorySnapshot(
+            group_key="123",
+            catalog_snapshot_id="catalog",
+            source_group_id="source-group",
+            parent_problem_id="parent",
+            parent_source_problem_id="10",
+            items=(
+                GroupInventoryItem("parent", "10", 0, True, True, True),
+                GroupInventoryItem("child", "11", 1, True, False, True),
+            ),
+        )
+    )
     manager = DryRunManager(
         var_dir=tmp_path,
         profiles={"123": _profile()},
@@ -282,19 +340,32 @@ def test_failed_targeted_dry_run_does_not_move_group(tmp_path):
     assert updates == []
 
 
-def test_full_group_dry_run_moves_to_review_only_when_every_record_is_ready(tmp_path, monkeypatch):
+def test_full_group_dry_run_moves_to_review_only_when_every_record_is_ready(
+    tmp_path, monkeypatch
+):
     updates = []
-    manifest = {"group_key": "123", "records": [{
-        "problem_id": "problem", "source_problem_id": "10",
-        "status": "prepared", "transformations": [],
-    }]}
+    manifest = {
+        "group_key": "123",
+        "records": [
+            {
+                "problem_id": "problem",
+                "source_problem_id": "10",
+                "status": "prepared",
+                "transformations": [],
+            }
+        ],
+    }
     monkeypatch.setattr(dry_runs_module, "latest_dry_run_manifest", lambda *_: manifest)
-    monkeypatch.setattr(dry_runs_module, "fetch_preview", lambda *_: {"group_key": "123", "samples": []})
+    monkeypatch.setattr(
+        dry_runs_module, "fetch_preview", lambda *_: {"group_key": "123", "samples": []}
+    )
     manager = DryRunManager(
         var_dir=tmp_path,
         profiles={"123": _profile()},
         gateway_factory=lambda: SimpleNamespace(close=lambda: None),
-        store=SimpleNamespace(update_group=lambda group_key, changes: updates.append((group_key, changes))),
+        store=SimpleNamespace(
+            update_group=lambda group_key, changes: updates.append((group_key, changes))
+        ),
         launcher=lambda _command: 0,
     )
 
@@ -311,7 +382,11 @@ def test_full_group_dry_run_moves_to_review_only_when_every_record_is_ready(tmp_
 
 def test_missing_only_group_without_candidates_is_skipped_without_launch(tmp_path):
     profile = SimpleNamespace(
-        **{**vars(_profile()), "workflow_kind": "geometry", "solution_scope": "missing_only"}
+        **{
+            **vars(_profile()),
+            "workflow_kind": "geometry",
+            "solution_scope": "missing_only",
+        }
     )
     manager = DryRunManager(
         var_dir=tmp_path,
@@ -333,4 +408,33 @@ def test_missing_only_group_without_candidates_is_skipped_without_launch(tmp_pat
     state = manager.run_now("123", "random")
 
     assert state["status"] == "skipped"
-    assert state["message"] == "В группе нет задач, которые этот раннер должен изменять."
+    assert (
+        state["message"] == "В группе нет задач, которые этот раннер должен изменять."
+    )
+
+
+def test_selection_closes_gateway_when_no_eligible_task():
+    from types import SimpleNamespace
+
+    from solution_runner.dashboard.dry_run_selection import select_run_target
+    from solution_runner.dashboard.dry_run_targets import NoDryRunTarget
+
+    class Gateway:
+        closed = False
+
+        def get_source_catalog_children(self, source_group_id, kind):
+            return [{"problem_id": "parent", "source_problem_id": "1"}]
+
+        def close(self):
+            self.closed = True
+
+    gateway = Gateway()
+    manager = SimpleNamespace(
+        inventory_store=None,
+        gateway_factory=lambda: gateway,
+        choose=lambda rows: rows[0],
+    )
+    profile = SimpleNamespace(source_group_id="group", solution_scope="all")
+    with pytest.raises(NoDryRunTarget):
+        select_run_target(manager, profile, "random", frozenset(), None)
+    assert gateway.closed

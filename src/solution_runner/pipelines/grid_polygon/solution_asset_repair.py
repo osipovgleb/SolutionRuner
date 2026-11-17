@@ -10,6 +10,7 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import asdict
 from datetime import UTC, datetime
+from functools import partial
 from pathlib import Path
 from typing import Any, Protocol
 
@@ -242,6 +243,64 @@ def _parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _run_job(
+    gateway, apply, job: tuple[PreparedGridPolygon, GroupProfile, SolutionStrategy]
+) -> ProblemStageResult:
+    """Convert one task exception into a durable isolated failure."""
+
+    record, profile, strategy = job
+    try:
+        return repair_rectangle_solution_asset(
+            gateway,
+            record,
+            profile,
+            strategy,
+            apply=apply,
+        )
+    except Exception as exc:  # noqa: BLE001 - target isolation is intentional.
+        return ProblemStageResult(
+            problem_id=record.problem_id,
+            source_problem_id=record.source_problem_id,
+            stage="rectangle_solution_asset",
+            status="failed",
+            message=" ".join(str(exc).split())[:2000],
+        )
+
+
+def _write_reports(output_dir, results, groups, apply):
+    (output_dir / "results.json").write_text(
+        json.dumps(
+            [asdict(result) for result in results],
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+            default=str,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    counts: dict[str, int] = {}
+    for result in results:
+        counts[result.status] = counts.get(result.status, 0) + 1
+    (output_dir / "summary.json").write_text(
+        json.dumps(
+            {
+                "apply": bool(apply),
+                "groups": list(groups),
+                "status_counts": counts,
+                "targets": len(results),
+            },
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    print(f"RESULTS {output_dir}")
+    print(" ".join(f"{key.upper()} {value}" for key, value in sorted(counts.items())))
+
+
 def main(argv: list[str] | None = None) -> int:
     """Repair selected groups and persist one isolated result for every saved task."""
 
@@ -276,28 +335,7 @@ def main(argv: list[str] | None = None) -> int:
             for record in _discover_group_records(args.run_root, profile)
         )
 
-    def run_job(
-        job: tuple[PreparedGridPolygon, GroupProfile, SolutionStrategy],
-    ) -> ProblemStageResult:
-        """Convert one task exception into a durable isolated failure."""
-
-        record, profile, strategy = job
-        try:
-            return repair_rectangle_solution_asset(
-                gateway,
-                record,
-                profile,
-                strategy,
-                apply=args.apply,
-            )
-        except Exception as exc:  # noqa: BLE001 - target isolation is intentional.
-            return ProblemStageResult(
-                problem_id=record.problem_id,
-                source_problem_id=record.source_problem_id,
-                stage="rectangle_solution_asset",
-                status="failed",
-                message=" ".join(str(exc).split())[:2000],
-            )
+    run_job = partial(_run_job, gateway, args.apply)
 
     try:
         if args.max_workers == 1:
@@ -307,37 +345,7 @@ def main(argv: list[str] | None = None) -> int:
                 results = tuple(executor.map(run_job, jobs))
     finally:
         gateway.close()
-    (output_dir / "results.json").write_text(
-        json.dumps(
-            [asdict(result) for result in results],
-            ensure_ascii=False,
-            indent=2,
-            sort_keys=True,
-            default=str,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-    counts: dict[str, int] = {}
-    for result in results:
-        counts[result.status] = counts.get(result.status, 0) + 1
-    (output_dir / "summary.json").write_text(
-        json.dumps(
-            {
-                "apply": bool(args.apply),
-                "groups": list(groups),
-                "status_counts": counts,
-                "targets": len(results),
-            },
-            ensure_ascii=False,
-            indent=2,
-            sort_keys=True,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
-    print(f"RESULTS {output_dir}")
-    print(" ".join(f"{key.upper()} {value}" for key, value in sorted(counts.items())))
+    _write_reports(output_dir, results, groups, args.apply)
     return 0
 
 

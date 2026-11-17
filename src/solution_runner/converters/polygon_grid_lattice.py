@@ -126,6 +126,42 @@ def _refine_shared_step(x_axis: dict, y_axis: dict, candidate_step: float) -> fl
     return float(refined_step)
 
 
+def _ranked_fit(x_axis, y_axis, refined_step, vote, max_vote):
+    x_coverage = float(x_axis["coverage"])
+    y_coverage = float(y_axis["coverage"])
+    balanced_coverage = min(x_coverage, y_coverage)
+    average_coverage = (x_coverage + y_coverage) / 2.0
+    x_full_coverage = float(x_axis["full_coverage"])
+    y_full_coverage = float(y_axis["full_coverage"])
+    balanced_full_coverage = min(x_full_coverage, y_full_coverage)
+    average_full_coverage = (x_full_coverage + y_full_coverage) / 2.0
+    matched_total = int(x_axis["matched_count"]) + int(y_axis["matched_count"])
+    residual_total = (
+        float(x_axis["mean_residual"]) * int(x_axis["matched_count"])
+        + float(y_axis["mean_residual"]) * int(y_axis["matched_count"])
+    ) / max(1, matched_total)
+    normalized_residual = residual_total / refined_step
+    vote_score = float(vote / max_vote) if max_vote > 0 else 0.0
+    score = (
+        4.0 * balanced_coverage
+        + 2.0 * average_coverage
+        + 2.0 * balanced_full_coverage
+        + 1.0 * average_full_coverage
+        + 0.30 * min(18, matched_total)
+        - 6.0 * normalized_residual
+        + 0.50 * vote_score
+    )
+    return (
+        score,
+        balanced_coverage,
+        matched_total,
+        -normalized_residual,
+        refined_step,
+        x_axis,
+        y_axis,
+    )
+
+
 def _fit_square_lattice(
     x_centers: list[float],
     y_centers: list[float],
@@ -152,41 +188,7 @@ def _fit_square_lattice(
         if x_axis is None or y_axis is None:
             continue
 
-        x_coverage = float(x_axis["coverage"])
-        y_coverage = float(y_axis["coverage"])
-        balanced_coverage = min(x_coverage, y_coverage)
-        average_coverage = (x_coverage + y_coverage) / 2.0
-        x_full_coverage = float(x_axis["full_coverage"])
-        y_full_coverage = float(y_axis["full_coverage"])
-        balanced_full_coverage = min(x_full_coverage, y_full_coverage)
-        average_full_coverage = (x_full_coverage + y_full_coverage) / 2.0
-        matched_total = int(x_axis["matched_count"]) + int(y_axis["matched_count"])
-        residual_total = (
-            float(x_axis["mean_residual"]) * int(x_axis["matched_count"])
-            + float(y_axis["mean_residual"]) * int(y_axis["matched_count"])
-        ) / max(1, matched_total)
-        normalized_residual = residual_total / refined_step
-        vote_score = float(vote / max_vote) if max_vote > 0 else 0.0
-        score = (
-            4.0 * balanced_coverage
-            + 2.0 * average_coverage
-            + 2.0 * balanced_full_coverage
-            + 1.0 * average_full_coverage
-            + 0.30 * min(18, matched_total)
-            - 6.0 * normalized_residual
-            + 0.50 * vote_score
-        )
-        ranked_fits.append(
-            (
-                score,
-                balanced_coverage,
-                matched_total,
-                -normalized_residual,
-                refined_step,
-                x_axis,
-                y_axis,
-            )
-        )
+        ranked_fits.append(_ranked_fit(x_axis, y_axis, refined_step, vote, max_vote))
 
     if not ranked_fits:
         raise ValueError("square_grid_lattice_not_found")

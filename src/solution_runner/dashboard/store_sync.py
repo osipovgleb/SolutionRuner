@@ -55,7 +55,6 @@ def sync_groups(
                 "latest_run": run.get("run_name"),
                 "run_status": run.get("status"),
                 "system_column": _system_column(
-                    registered=registered,
                     has_run=bool(run),
                     total=total,
                     transformed=transformed,

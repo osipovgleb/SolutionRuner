@@ -249,18 +249,9 @@ def preference(parent_html):
     return function, multiple
 
 
-def selection_style(soup, text, images):
-    from .exam_trigonometric_global_radical import reviewed as global_radical
-
-    if global_radical(str(soup)):
-        return "global_domain"
-    from .exam_trigonometric_neighbors import reviewed as neighbors
-
-    selection_method = (
-        "inequalities"
-        if circle_note(soup)
-        else "circle"
-        if "окружност" in text
+def _circle_selection(text, images):
+    return (
+        "окружност" in text
         or (len(images) == 1 and "на указанном промежутке лежат точки" in text)
         or (len(images) == 1 and "среди представленных корней отберём" in text)
         or (len(images) == 1 and "изображается жирной дугой" in text)
@@ -289,10 +280,12 @@ def selection_style(soup, text, images):
             and "из найденных решений промежутку" in text
             and "принадлеж" in text
         )
-        else "number_line"
-        if len(images) == 1 and ("числовой оси" in text or "числовой прямой" in text)
-        else "inequalities"
-        if "решим неравенства" in text
+    )
+
+
+def _inequality_selection(soup, text, images):
+    return (
+        "решим неравенства" in text
         or "с помощью неравенств" in text
         or "решим эти неравенства" in text
         or "решив неравенство" in text
@@ -325,8 +318,12 @@ def selection_style(soup, text, images):
                 for n in soup.select("[data-inline-latex]")
             )
         )
-        else "progressions"
-        if (not images and "лежат только два числа такого вида" in text)
+    )
+
+
+def _progression_selection(text, images):
+    return (
+        (not images and "лежат только два числа такого вида" in text)
         or "разность между соседними членами" in text
         or "разность между соседними корнями" in text
         or "расстояние между соседними членами" in text
@@ -339,8 +336,23 @@ def selection_style(soup, text, images):
             )
             and any(s in text for s in ("не более", "не больше"))
         )
-        else "neighbors"
-        if neighbors(str(soup))
-        else None
     )
-    return selection_method
+
+
+def selection_style(soup, text, images):
+    from .exam_trigonometric_global_radical import reviewed as global_radical
+    from .exam_trigonometric_neighbors import reviewed as neighbors
+
+    if global_radical(str(soup)):
+        return "global_domain"
+    if circle_note(soup):
+        return "inequalities"
+    if _circle_selection(text, images):
+        return "circle"
+    if len(images) == 1 and ("числовой оси" in text or "числовой прямой" in text):
+        return "number_line"
+    if _inequality_selection(soup, text, images):
+        return "inequalities"
+    if _progression_selection(text, images):
+        return "progressions"
+    return "neighbors" if neighbors(str(soup)) else None

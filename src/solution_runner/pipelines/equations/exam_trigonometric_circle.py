@@ -101,6 +101,43 @@ def read(context):
     )
 
 
+def _validate_full_roots(entry, a):
+    if (
+        (
+            a.strict_quotient is not None
+            and entry.get("figure_role") == "derivation"
+            and a.selection_method == "progressions"
+            and a.image_position != "selection"
+        )
+        or (
+            a.radical_product is not None
+            and a.radical_product.root_offset.is_negative
+            and entry.get("radical_product_domain")
+            and entry.get("figure_role") == "derivation"
+            and a.image_position != "selection"
+        )
+        or (
+            a.log_product is not None
+            and (
+                entry.get("figure_role") == "derivation"
+                or (
+                    entry.get("figure_role") == "alternative"
+                    and a.log_product.radical is not None
+                    and a.log_product.radical.alternative
+                )
+            )
+            and a.image_position != "selection"
+        )
+    ):
+        from .exam_trigonometric_single import validate_circle
+
+        validate_circle(entry, a)
+        return
+    raise UnsupportedCondition(
+        "a full-root figure must not stand in for interval selection"
+    )
+
+
 def validate(entry, a):
     from .exam_trigonometric_domain import validate_circle_domain
     from .exam_trigonometric_reciprocal_ratio import validate_axis
@@ -128,40 +165,7 @@ def validate(entry, a):
         validate_circle(entry, a)
         return
     if entry.get("selection_kind") == "all_roots":
-        if (
-            (
-                a.strict_quotient is not None
-                and entry.get("figure_role") == "derivation"
-                and a.selection_method == "progressions"
-                and a.image_position != "selection"
-            )
-            or (
-                a.radical_product is not None
-                and a.radical_product.root_offset.is_negative
-                and entry.get("radical_product_domain")
-                and entry.get("figure_role") == "derivation"
-                and a.image_position != "selection"
-            )
-            or (
-                a.log_product is not None
-                and (
-                    entry.get("figure_role") == "derivation"
-                    or (
-                        entry.get("figure_role") == "alternative"
-                        and a.log_product.radical is not None
-                        and a.log_product.radical.alternative
-                    )
-                )
-                and a.image_position != "selection"
-            )
-        ):
-            from .exam_trigonometric_single import validate_circle
-
-            validate_circle(entry, a)
-            return
-        raise UnsupportedCondition(
-            "a full-root figure must not stand in for interval selection"
-        )
+        return _validate_full_roots(entry, a)
     if "complete_residues" in entry:
         from .exam_trigonometric_inverse import decode
 

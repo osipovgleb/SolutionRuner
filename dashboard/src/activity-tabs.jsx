@@ -81,6 +81,13 @@ export function ProblemsTab({ activity, inventory, onOpenProblem, onApplyProblem
   </section>;
 }
 
+function HistoryRow({ run }) {
+  return <tr key={run.run_name}>
+        <td>{formatRunDate(run)}</td><td>{runKindLabel(run)}</td><td>{runLabels[run.scope] || run.scope}</td>
+        <td>{runLabels[run.status] || run.status}</td><td>{run.targets}</td><td class={run.failed ? "activity-error" : ""}>{run.failed}</td>
+      </tr>;
+}
+
 export function HistoryTab({ activity }) {
   const runs = activity?.runs || [];
   if (!runs.length) return <EmptyTab title="История пуста" text="Сохранённых запусков для этой группы пока нет." />;
@@ -88,10 +95,7 @@ export function HistoryTab({ activity }) {
     <div class="activity-section-title"><strong>{runs.length} запусков</strong><span>Сначала новые</span></div>
     <div class="inventory-table-wrap"><table class="inventory-table activity-table">
       <thead><tr><th>Дата</th><th>Тип</th><th>Режим</th><th>Статус</th><th>Задач</th><th>Ошибки</th></tr></thead>
-      <tbody>{runs.map((run) => <tr key={run.run_name}>
-        <td>{formatRunDate(run)}</td><td>{runKindLabel(run)}</td><td>{runLabels[run.scope] || run.scope}</td>
-        <td>{runLabels[run.status] || run.status}</td><td>{run.targets}</td><td class={run.failed ? "activity-error" : ""}>{run.failed}</td>
-      </tr>)}</tbody>
+      <tbody>{runs.map((run) => <HistoryRow key={run.run_name} run={run} />)}</tbody>
     </table></div>
   </section>;
 }

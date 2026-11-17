@@ -11,6 +11,87 @@ from queue import Empty, Queue
 from threading import Condition, Lock, Thread
 
 
+def _ensure_runtime(project_root):
+    runtime = project_root / "codex-runtime"
+    node = subprocess.run(
+        ["node", "--version"],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=10,
+    )
+    version_parts = tuple(
+        int(part) for part in node.stdout.strip().lstrip("v").split(".")[:2]
+    )
+    if version_parts < (24, 10):
+        raise RuntimeError("Shared Codex transport requires Node >=24.10")
+    fingerprint = hashlib.sha256(
+        (runtime / "package-lock.json").read_bytes()
+    ).hexdigest()
+    marker = runtime / "node_modules/.solution-runner-lock"
+    if not marker.is_file() or marker.read_text() != fingerprint:
+        logs = project_root / "var/dashboard/logs"
+        logs.mkdir(parents=True, exist_ok=True)
+        with (logs / "codex-transport-install.log").open("a") as output:
+            subprocess.run(
+                ["npm", "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
+                cwd=runtime,
+                stdout=output,
+                stderr=subprocess.STDOUT,
+                check=True,
+                timeout=120,
+            )
+        marker.write_text(fingerprint)
+
+
+def _daemon_socket():
+    version = subprocess.run(
+        ["codex", "app-server", "daemon", "version"],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=10,
+    )
+    daemon = json.loads(version.stdout)
+    if daemon.get("status") != "running":
+        subprocess.run(
+            ["codex", "app-server", "daemon", "start"],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
+        )
+        version = subprocess.run(
+            ["codex", "app-server", "daemon", "version"],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10,
+        )
+        daemon = json.loads(version.stdout)
+    socket_path = daemon.get("socketPath")
+    if not socket_path:
+        raise RuntimeError("Codex shared daemon has no control socket")
+    return socket_path
+
+
+def _start_bridge(project_root, socket_path):
+    bridge = project_root / "codex-runtime/bridge.mjs"
+    logs = project_root / "var/dashboard/logs"
+    logs.mkdir(parents=True, exist_ok=True)
+    with (logs / "codex-shared-transport.log").open("a") as errors:
+        process = subprocess.Popen(
+            ["node", str(bridge), socket_path],
+            cwd=project_root,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=errors,
+            text=True,
+            bufsize=1,
+        )
+    return process
+
+
 class SharedCodexClient:
     def __init__(self, project_root: Path) -> None:
         self.project_root = project_root
@@ -22,76 +103,9 @@ class SharedCodexClient:
         self._completed: dict[str, dict] = {}
         self._active: dict[str, str] = {}
         self._failure: str | None = None
-        runtime = project_root / "codex-runtime"
-        node = subprocess.run(
-            ["node", "--version"],
-            capture_output=True,
-            text=True,
-            check=True,
-            timeout=10,
-        )
-        version_parts = tuple(
-            int(part) for part in node.stdout.strip().lstrip("v").split(".")[:2]
-        )
-        if version_parts < (24, 10):
-            raise RuntimeError("Shared Codex transport requires Node >=24.10")
-        fingerprint = hashlib.sha256(
-            (runtime / "package-lock.json").read_bytes()
-        ).hexdigest()
-        marker = runtime / "node_modules/.solution-runner-lock"
-        if not marker.is_file() or marker.read_text() != fingerprint:
-            logs = project_root / "var/dashboard/logs"
-            logs.mkdir(parents=True, exist_ok=True)
-            with (logs / "codex-transport-install.log").open("a") as output:
-                subprocess.run(
-                    ["npm", "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
-                    cwd=runtime,
-                    stdout=output,
-                    stderr=subprocess.STDOUT,
-                    check=True,
-                    timeout=120,
-                )
-            marker.write_text(fingerprint)
-        version = subprocess.run(
-            ["codex", "app-server", "daemon", "version"],
-            capture_output=True,
-            text=True,
-            check=True,
-            timeout=10,
-        )
-        daemon = json.loads(version.stdout)
-        if daemon.get("status") != "running":
-            subprocess.run(
-                ["codex", "app-server", "daemon", "start"],
-                capture_output=True,
-                text=True,
-                check=True,
-                timeout=30,
-            )
-            version = subprocess.run(
-                ["codex", "app-server", "daemon", "version"],
-                capture_output=True,
-                text=True,
-                check=True,
-                timeout=10,
-            )
-            daemon = json.loads(version.stdout)
-        socket_path = daemon.get("socketPath")
-        if not socket_path:
-            raise RuntimeError("Codex shared daemon has no control socket")
-        bridge = project_root / "codex-runtime/bridge.mjs"
-        logs = project_root / "var/dashboard/logs"
-        logs.mkdir(parents=True, exist_ok=True)
-        with (logs / "codex-shared-transport.log").open("a") as errors:
-            self.process = subprocess.Popen(
-                ["node", str(bridge), socket_path],
-                cwd=project_root,
-                stdin=subprocess.PIPE,
-                stdout=subprocess.PIPE,
-                stderr=errors,
-                text=True,
-                bufsize=1,
-            )
+        _ensure_runtime(project_root)
+        socket_path = _daemon_socket()
+        self.process = _start_bridge(project_root, socket_path)
         Thread(target=self._read, daemon=True, name="codex-shared-transport").start()
         try:
             ready = self._ready.get(timeout=15)

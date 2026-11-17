@@ -132,19 +132,7 @@ def identity_branches(compiled, allow_inverse, domain):
     return None
 
 
-def method_branches(
-    compiled, preferred, allow_inverse, domain, parent_html, *, translation=sp.S.Zero
-):
-    from .exam_trigonometric import solve_branches
-    from .exam_trigonometric_domain import restrict, without_poles
-    from .exam_trigonometric_factor_style import retain_order
-    from .exam_trigonometric_square_factor import prepare as square_product
-
-    if (
-        compiled.power_equality is not None
-        and compiled.power_equality.absolute_level is not None
-    ):
-        preferred = compiled.power_equality.absolute_level[0]
+def _special_branches(compiled, preferred, allow_inverse, parent_html):
     if compiled.power_polynomial is not None:
         from .exam_trigonometric_power_polynomial_roots import branches
 
@@ -221,6 +209,25 @@ def method_branches(
         from .exam_trigonometric_cosine_equality import branches
 
         return compiled, compiled.raw, branches(compiled.cosine_equality), preferred
+    return None
+
+
+def method_branches(
+    compiled, preferred, allow_inverse, domain, parent_html, *, translation=sp.S.Zero
+):
+    from .exam_trigonometric import solve_branches
+    from .exam_trigonometric_domain import restrict, without_poles
+    from .exam_trigonometric_factor_style import retain_order
+    from .exam_trigonometric_square_factor import prepare as square_product
+
+    if (
+        compiled.power_equality is not None
+        and compiled.power_equality.absolute_level is not None
+    ):
+        preferred = compiled.power_equality.absolute_level[0]
+    special = _special_branches(compiled, preferred, allow_inverse, parent_html)
+    if special is not None:
+        return special
     identity = identity_branches(compiled, allow_inverse, domain)
     if identity is not None:
         factored, branches = identity

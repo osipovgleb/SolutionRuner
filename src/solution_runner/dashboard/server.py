@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 from collections.abc import Mapping
 from datetime import UTC, datetime
@@ -101,6 +102,9 @@ def _watch_profile_sources(
         try:
             _refresh_server_profiles(server)
         except Exception:
+            logging.getLogger(__name__).exception(
+                "Failed to reload dashboard profiles; retrying"
+            )
             continue
         known = current
 

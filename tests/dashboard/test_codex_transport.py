@@ -55,3 +55,22 @@ def test_timeout_does_not_replay_mutating_request():
         value.request('thread/start', {'ephemeral': False}, timeout=0.001)
     assert len(writes) == 1
     assert value._pending == {}
+
+
+def test_daemon_socket_starts_only_when_needed(monkeypatch):
+    from solution_runner.dashboard import codex_transport
+
+    calls = []
+    responses = iter([
+        SimpleNamespace(stdout='{"status":"stopped"}'),
+        SimpleNamespace(stdout=''),
+        SimpleNamespace(stdout='{"status":"running","socketPath":"/tmp/codex.sock"}'),
+    ])
+
+    def run(command, **kwargs):
+        calls.append(command)
+        return next(responses)
+
+    monkeypatch.setattr(codex_transport.subprocess, "run", run)
+    assert codex_transport._daemon_socket() == "/tmp/codex.sock"
+    assert [command[-1] for command in calls] == ["version", "start", "version"]

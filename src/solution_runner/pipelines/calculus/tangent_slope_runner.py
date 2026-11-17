@@ -17,7 +17,7 @@ from bs4 import BeautifulSoup
 from ..probability import solution_diagrams
 from ..probability.common import UnsupportedCondition, normalize, rewrite
 from ..triangles.right.basic_parent import _targeted
-from . import graph_input, graph_tangents, tangent_slope_trace
+from . import graph_input, graph_tangents, tangent_native, tangent_slope_trace
 
 KEY = "tangent_triangle"
 ALT = graph_input.ALT
@@ -55,6 +55,12 @@ def _read(context):
     text = text.replace(
         "график функции f(x)и касательная к этому графику, проведенная в точке x_0.",
         "график функции y=f(x)и касательная к нему в точке с абсциссой x_0.",
+    )
+    text = re.sub(r"x_0\s+\.", "x_0.", text)
+    text = text.replace("касательная к нему к точке", "касательная к нему в точке")
+    text = text.replace(
+        "Дан график функции y=f(x), касательная в точке с абсциссой x_0. Найти значение производной функции f(x)в x_0.",
+        "На рисунке изображен график функции y=f(x)и касательная к нему в точке с абсциссой x_0. Найдите значение производной функции f(x)в точке x_0.",
     )
     if not graph_tangents._QUESTION.fullmatch(text):
         raise UnsupportedCondition("the complete tangent slope question is required")
@@ -102,6 +108,13 @@ def _entry(k, b, origin, unit, bounds, markers=()):
 
 
 def _native(data):
+    try:
+        return _native_model(data)
+    except UnsupportedCondition:
+        return _native_model(tangent_native.presentation(data), expanded=True)
+
+
+def _native_model(data, *, expanded=False):
     root = ET.fromstring(data)
     if any(n.get("transform") for n in root.iter()):
         raise UnsupportedCondition(
@@ -110,10 +123,13 @@ def _native(data):
     lines = []
     for n in root.iter(NS + "line"):
         lines.append((n, tuple(float(n.get(k, "0")) for k in ("x1", "y1", "x2", "y2"))))
+    if expanded:
+        lines = tangent_native.straight_segments(root)
     black = [
         p
         for n, p in lines
-        if n.get("stroke", "").lower() in ("black", "#000000", "#000")
+        if n.get("stroke", "").lower()
+        in ("black", "#000000", "#000", *(("#111", "#010202") if expanded else ()))
     ]
     horizontal = [p for p in black if abs(p[3] - p[1]) < 0.3 and abs(p[2] - p[0]) > 20]
     vertical = [p for p in black if abs(p[2] - p[0]) < 0.3 and abs(p[3] - p[1]) > 20]
@@ -146,13 +162,30 @@ def _native(data):
     if len(xs) < 4 or len(ys) < 4:
         raise UnsupportedCondition("the native graph lattice is unresolved")
     ux, uy = float(np.median(np.diff(xs))), float(np.median(np.diff(ys)))
+    if expanded:
+        from solution_runner.converters.graph_png_to_svg_by_contrast import (
+            fit_grid_axis,
+        )
+
+        ux = fit_grid_axis(xs, max(xs) - min(xs) + 1).step
+        uy = fit_grid_axis(ys, max(ys) - min(ys) + 1).step
     green = [
         p
         for n, p in lines
         if n.get("stroke", "").lower() == "#0a990a" and abs(p[2] - p[0]) > 3
     ]
     if not green:
-        raise UnsupportedCondition("one native straight tangent is required")
+        if expanded:
+            green = [
+                p
+                for n, p in lines
+                if abs(p[2] - p[0]) > ux * 2
+                and abs(p[3] - p[1]) > uy * 0.2
+                and not n.get("stroke-dasharray")
+                and n.get("stroke", "none") != "none"
+            ]
+        if not green:
+            raise UnsupportedCondition("one native straight tangent is required")
     p = max(green, key=lambda p: math.hypot(p[2] - p[0], p[3] - p[1]))
     rawk = -(p[3] - p[1]) / (p[2] - p[0]) * ux / uy
     rawb = (oy - (p[1] + (ox - p[0]) * (p[3] - p[1]) / (p[2] - p[0]))) / uy
@@ -223,6 +256,9 @@ def recover(data):
 
 
 def _solution(svg, entry):
+    original = ET.fromstring(svg)
+    if original.find(".//" + NS + "style") is not None or original.get("style"):
+        svg = tangent_native.presentation(svg)
     root = ET.fromstring(graph_tangents.render_svg(entry, svg))
     vertices, right, vertical, horizontal, _ = graph_tangents.model(entry)
     ox, oy = entry["svg_origin"]
@@ -239,6 +275,12 @@ def _solution(svg, entry):
     if vertices[right] == (0, 0):
         labels[right].set("x", str(ox + 12))
         labels[right].set("y", str(oy + 28))
+    left, top, width, height = map(float, root.get("viewBox").replace(",", " ").split())
+    for label in labels.values():
+        label.set(
+            "x", str(min(left + width - 14, max(left + 4, float(label.get("x")))))
+        )
+        label.set("y", str(min(top + height - 4, max(top + 16, float(label.get("y"))))))
     # Source authoring exports may contain harmless inline paint declarations;
     # generated assets must use upload-compatible presentation attributes.
     for n in root.iter():

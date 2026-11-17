@@ -139,34 +139,12 @@ def graph_facts(
     return k, a, x, y
 
 
-def build_context_repair_plan(
-    context: dict[str, Any],
-    *,
-    condition_asset_bytes: bytes | None,
-    current_asset_content_type: str | None,
-    mode: str,
-    horizontal_model: bool = False,
-) -> RepairPlan:
-    content = _normalized_content(context)
-    condition, solution, answer = (
-        _section(content, key) for key in ("condition", "solution", "answer")
-    )
-    if condition is None or condition_asset_bytes is None:
-        raise ContentPlanError("condition and its current graph are required")
-    from .hyperbola_questions import shifted
-
-    horizontal, raw_target = shifted(context, mode, horizontal_model)
-    target = number(raw_target)
+def _source_facts(context, data, content_type, horizontal):
     warnings = ()
-    if (
-        horizontal
-        and str(current_asset_content_type).split(";")[0].lower() == "image/svg+xml"
-    ):
-        k, a, x, y = graph_facts(condition_asset_bytes, horizontal_model=True)
+    if horizontal and str(content_type).split(";")[0].lower() == "image/svg+xml":
+        k, a, x, y = graph_facts(data, horizontal_model=True)
     elif horizontal:
-        facts = _RASTER_HORIZONTAL.get(
-            hashlib.sha256(condition_asset_bytes).hexdigest()
-        )
+        facts = _RASTER_HORIZONTAL.get(hashlib.sha256(data).hexdigest())
         if facts is None:
             raise ContentPlanError(
                 "horizontal graph bytes have no audited numerical evidence"
@@ -175,11 +153,11 @@ def build_context_repair_plan(
         warnings = (
             "Изображение условия не SVG; сохранено без изменений. Координаты проверены по исходному растру, закреплённому SHA-256.",
         )
-    elif str(current_asset_content_type).split(";")[0].lower() == "image/svg+xml":
-        k, a, x, y = graph_facts(condition_asset_bytes)
+    elif str(content_type).split(";")[0].lower() == "image/svg+xml":
+        k, a, x, y = graph_facts(data)
     else:
         entry = condition_entry(context)
-        if entry["sha256"] != hashlib.sha256(condition_asset_bytes).hexdigest():
+        if entry["sha256"] != hashlib.sha256(data).hexdigest():
             raise ContentPlanError(
                 "raster graph has no verified numerical evidence for these bytes"
             )
@@ -187,34 +165,12 @@ def build_context_repair_plan(
             "Изображение условия не SVG; сохранено без изменений. Координаты проверены по исходному изображению, закреплённому SHA-256.",
         )
         k, a, x, y = map(Fraction, entry["facts"])
-    if (mode == "value" and target == (-a if horizontal else 0)) or (
-        mode == "argument" and target == (0 if horizontal else a)
-    ):
-        raise ContentPlanError("requested value is outside the function domain/range")
-    result = (
-        (k / (target + a) if mode == "value" else k / target - a)
-        if horizontal
-        else k / target + a
-        if mode == "value"
-        else k / (target - a)
-    )
-    entry = condition_entry(context)
-    if (
-        entry["kind"] != ("h" if horizontal else "v")
-        or tuple(map(Fraction, entry["facts"])) != (k, a, x, y)
-        or entry["sha256"] != hashlib.sha256(condition_asset_bytes).hexdigest()
-    ):
-        raise ContentPlanError(
-            "registered solution graph differs from condition evidence"
-        )
-    if (
-        horizontal
-        and not entry.get("has_overlay")
-        and str(current_asset_content_type).split(";")[0].lower() == "image/svg+xml"
-    ):
-        warnings += (
-            "Исходный SVG содержит внешнюю растровую ссылку; сохранён без изменений, без красных отметок.",
-        )
+    return k, a, x, y, warnings
+
+
+def _render_solution(context, solution, entry, graph, query):
+    k, a, x, y = graph
+    horizontal, target, result, mode = query
     points_image, offset_image, diagram_keys = solution_images(context)
     html = (
         horizontal_solution(
@@ -279,7 +235,10 @@ def build_context_repair_plan(
         f'<section data-content-kind="solution" data-solution-title="Решение">{first}</section>'
         f'<section data-content-kind="solution" data-solution-title="Альтернативное решение">{alternative}</section>'
     )
-    changes = []
+    return html, retired_keys, diagram_keys
+
+
+def _condition_changes(condition, horizontal, horizontal_model, changes):
     # Only remove soft hyphens from prose; never rewrite image markup or assets.
     condition_html = str(condition.get("html") or "")
     cleaned = condition_html.replace("\u00ad", "")
@@ -297,6 +256,83 @@ def build_context_repair_plan(
                 asset_keys=tuple(condition.get("asset_keys") or ()),
             )
         )
+
+
+def _answer_changes(answer, result, warnings, changes):
+    result_text = answer_text(result).replace(".", ",")
+    existing = BeautifulSoup(
+        str(answer.get("html") or "") if answer else "", "html.parser"
+    ).get_text("", strip=True)
+    if existing.replace("−", "-") != result_text:
+        if existing:
+            warnings += (
+                f"Исходный ответ {existing} отличается от вычисленного {result_text}; ответ исправляется по графику.",
+            )
+        changes.append(
+            _section_transformation(
+                answer,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{result_text}</span></p>',
+            )
+        )
+    return result_text, warnings
+
+
+def build_context_repair_plan(
+    context: dict[str, Any],
+    *,
+    condition_asset_bytes: bytes | None,
+    current_asset_content_type: str | None,
+    mode: str,
+    horizontal_model: bool = False,
+) -> RepairPlan:
+    content = _normalized_content(context)
+    condition, solution, answer = (
+        _section(content, key) for key in ("condition", "solution", "answer")
+    )
+    if condition is None or condition_asset_bytes is None:
+        raise ContentPlanError("condition and its current graph are required")
+    from .hyperbola_questions import shifted
+
+    horizontal, raw_target = shifted(context, mode, horizontal_model)
+    target = number(raw_target)
+    k, a, x, y, warnings = _source_facts(
+        context, condition_asset_bytes, current_asset_content_type, horizontal
+    )
+    if (mode == "value" and target == (-a if horizontal else 0)) or (
+        mode == "argument" and target == (0 if horizontal else a)
+    ):
+        raise ContentPlanError("requested value is outside the function domain/range")
+    result = (
+        (k / (target + a) if mode == "value" else k / target - a)
+        if horizontal
+        else k / target + a
+        if mode == "value"
+        else k / (target - a)
+    )
+    entry = condition_entry(context)
+    if (
+        entry["kind"] != ("h" if horizontal else "v")
+        or tuple(map(Fraction, entry["facts"])) != (k, a, x, y)
+        or entry["sha256"] != hashlib.sha256(condition_asset_bytes).hexdigest()
+    ):
+        raise ContentPlanError(
+            "registered solution graph differs from condition evidence"
+        )
+    if (
+        horizontal
+        and not entry.get("has_overlay")
+        and str(current_asset_content_type).split(";")[0].lower() == "image/svg+xml"
+    ):
+        warnings += (
+            "Исходный SVG содержит внешнюю растровую ссылку; сохранён без изменений, без красных отметок.",
+        )
+    html, retired_keys, diagram_keys = _render_solution(
+        context, solution, entry, (k, a, x, y), (horizontal, target, result, mode)
+    )
+    changes = []
+    _condition_changes(condition, horizontal, horizontal_model, changes)
     solution_keys = (
         tuple(
             dict.fromkeys(
@@ -326,21 +362,5 @@ def build_context_repair_plan(
                 solution, "solution", "Решение", html, asset_keys=solution_keys
             )
         )
-    result_text = answer_text(result).replace(".", ",")
-    existing = BeautifulSoup(
-        str(answer.get("html") or "") if answer else "", "html.parser"
-    ).get_text("", strip=True)
-    if existing.replace("−", "-") != result_text:
-        if existing:
-            warnings += (
-                f"Исходный ответ {existing} отличается от вычисленного {result_text}; ответ исправляется по графику.",
-            )
-        changes.append(
-            _section_transformation(
-                answer,
-                "answer",
-                "Ответ",
-                f'<p><span data-effect="spaced">{result_text}</span></p>',
-            )
-        )
+    result_text, warnings = _answer_changes(answer, result, warnings, changes)
     return RepairPlan(result_text, tuple(changes), warnings)

@@ -122,6 +122,37 @@ def _formula(condition: dict[str, Any]) -> str:
     return formula
 
 
+def _plan_with_solution(answer, expected_solution, answer_section, solution_section):
+    changes: list[dict[str, Any]] = []
+    if (
+        solution_section is None
+        or str(solution_section.get("html") or "") != expected_solution
+    ):
+        changes.append(
+            _section_transformation(
+                solution_section, "solution", "Решение", expected_solution
+            )
+        )
+    current_answer = (
+        BeautifulSoup(
+            str(answer_section.get("html") or "") if answer_section else "",
+            "html.parser",
+        )
+        .get_text("", strip=True)
+        .replace(" ", "")
+    )
+    if current_answer != answer:
+        changes.append(
+            _section_transformation(
+                answer_section,
+                "answer",
+                "Ответ",
+                f'<p><span data-effect="spaced">{answer}</span></p>',
+            )
+        )
+    return RepairPlan(answer=answer, transformations=tuple(changes))
+
+
 def _generic_plan(
     *,
     formula: str,
@@ -156,34 +187,9 @@ def _generic_plan(
             f"<p>Преобразуем полученную дробь к знаменателю {decimal_denominator}:</p>"
             f'<center><p><span data-inline-latex="{common_fraction}=\\frac{{{decimal_numerator}}}{{{decimal_denominator}}}={_answer_latex(result)}"></span>.</p></center>'
         )
-        changes: list[dict[str, Any]] = []
-        if (
-            solution_section is None
-            or str(solution_section.get("html") or "") != expected_solution
-        ):
-            changes.append(
-                _section_transformation(
-                    solution_section, "solution", "Решение", expected_solution
-                )
-            )
-        current_answer = (
-            BeautifulSoup(
-                str(answer_section.get("html") or "") if answer_section else "",
-                "html.parser",
-            )
-            .get_text("", strip=True)
-            .replace(" ", "")
+        return _plan_with_solution(
+            answer, expected_solution, answer_section, solution_section
         )
-        if current_answer != answer:
-            changes.append(
-                _section_transformation(
-                    answer_section,
-                    "answer",
-                    "Ответ",
-                    f'<p><span data-effect="spaced">{answer}</span></p>',
-                )
-            )
-        return RepairPlan(answer=answer, transformations=tuple(changes))
     rows = _expression_steps(expression)
     if not rows:
         raise RightTrianglePlanError(
@@ -210,58 +216,12 @@ def _generic_plan(
         f"{calculation}"
         f'<p>Следовательно, значение выражения равно <span data-inline-latex="{_answer_latex(result)}"></span>.</p>'
     )
-    changes: list[dict[str, Any]] = []
-    if (
-        solution_section is None
-        or str(solution_section.get("html") or "") != expected_solution
-    ):
-        changes.append(
-            _section_transformation(
-                solution_section, "solution", "Решение", expected_solution
-            )
-        )
-    current_answer = (
-        BeautifulSoup(
-            str(answer_section.get("html") or "") if answer_section else "",
-            "html.parser",
-        )
-        .get_text("", strip=True)
-        .replace(" ", "")
+    return _plan_with_solution(
+        answer, expected_solution, answer_section, solution_section
     )
-    if current_answer != answer:
-        changes.append(
-            _section_transformation(
-                answer_section,
-                "answer",
-                "Ответ",
-                f'<p><span data-effect="spaced">{answer}</span></p>',
-            )
-        )
-    return RepairPlan(answer=answer, transformations=tuple(changes))
 
 
-def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
-    """Build a transparent three-step calculation for one audited expression."""
-
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    answer_section = _section(content, "answer")
-    solution_section = _section(content, "solution")
-    if (
-        condition is None
-        or content.get("assets")
-        or tuple(condition.get("asset_keys") or ())
-    ):
-        raise RightTrianglePlanError("numeric expression conditions must be text-only")
-
-    formula = _formula(condition)
-    match = _EXPRESSION.fullmatch(formula)
-    if match is None:
-        return _generic_plan(
-            formula=formula,
-            answer_section=answer_section,
-            solution_section=solution_section,
-        )
+def _render_expression(formula, match):
     left, right, factor = (_number(match[name]) for name in ("left", "right", "factor"))
     common_row, inner = _common_denominator_row(left, right, match["inner"])
     if match["outer"] == "\\cdot":
@@ -324,34 +284,35 @@ def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
     expected_solution = (
         f'<center><p><span data-inline-latex="{calculation}"></span></p></center>'
     )
-    changes: list[dict[str, Any]] = []
+    return answer, expected_solution
+
+
+def build_context_repair_plan(context: dict[str, Any]) -> RepairPlan:
+    """Build a transparent three-step calculation for one audited expression."""
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    answer_section = _section(content, "answer")
+    solution_section = _section(content, "solution")
     if (
-        solution_section is None
-        or str(solution_section.get("html") or "") != expected_solution
+        condition is None
+        or content.get("assets")
+        or tuple(condition.get("asset_keys") or ())
     ):
-        changes.append(
-            _section_transformation(
-                solution_section, "solution", "Решение", expected_solution
-            )
+        raise RightTrianglePlanError("numeric expression conditions must be text-only")
+
+    formula = _formula(condition)
+    match = _EXPRESSION.fullmatch(formula)
+    if match is None:
+        return _generic_plan(
+            formula=formula,
+            answer_section=answer_section,
+            solution_section=solution_section,
         )
-    current_answer = (
-        BeautifulSoup(
-            str(answer_section.get("html") or "") if answer_section else "",
-            "html.parser",
-        )
-        .get_text("", strip=True)
-        .replace(" ", "")
+    answer, expected_solution = _render_expression(formula, match)
+    return _plan_with_solution(
+        answer, expected_solution, answer_section, solution_section
     )
-    if current_answer != answer:
-        changes.append(
-            _section_transformation(
-                answer_section,
-                "answer",
-                "Ответ",
-                f'<p><span data-effect="spaced">{answer}</span></p>',
-            )
-        )
-    return RepairPlan(answer=answer, transformations=tuple(changes))
 
 
 def build_decimal_sum_difference_plan(context: dict[str, Any]) -> RepairPlan:

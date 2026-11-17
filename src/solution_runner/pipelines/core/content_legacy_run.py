@@ -3,12 +3,93 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from dataclasses import dataclass
 from typing import Any
 
 from .content_context import _children, _problem_identity
 from .content_gateway import RightTriangleGateway
 from .content_services import _helpers_update
 from .errors import ContentPlanError as RightTrianglePlanError
+
+
+@dataclass(frozen=True)
+class _ManifestSettings:
+    source_group_id: str
+    parent_asset_id: str
+    content_rule_key: str | None
+    parent_solution_assets: tuple
+    parent_solution_html: str
+    skipped: set[str]
+    apply: bool
+
+
+def _process_children(gateway, services, settings):
+    results: list[dict[str, Any]] = []
+    verified_ids: list[str] = []
+    for child in _children(
+        gateway.get_source_catalog_children(settings.source_group_id, "group")
+    ):
+        problem_id, source_problem_id = _problem_identity(child)
+        if source_problem_id in settings.skipped:
+            results.append(
+                {
+                    "source_problem_id": source_problem_id,
+                    "problem_id": problem_id,
+                    "status": "skipped",
+                    "transformations": [],
+                }
+            )
+            continue
+        try:
+            context = gateway.get_problem_context(problem_id)
+            plan = services._build_content_plan(
+                context,
+                parent_asset_id=settings.parent_asset_id,
+                content_rule_key=settings.content_rule_key,
+                parent_solution_assets=settings.parent_solution_assets,
+                parent_solution_html=settings.parent_solution_html,
+            )
+            targets = [
+                item["transformation_target_id"] for item in plan.transformations
+            ]
+            if not settings.apply:
+                results.append(
+                    {
+                        "source_problem_id": source_problem_id,
+                        "problem_id": problem_id,
+                        "status": "planned",
+                        "transformations": targets,
+                    }
+                )
+                continue
+            if plan.transformations:
+                if "asset:image_1" in targets:
+                    gateway.get_problem_asset_target_context(
+                        problem_id, "asset:image_1"
+                    )
+                gateway.apply_problem_transformations(
+                    problem_id, list(plan.transformations)
+                )
+            verified_ids.append(problem_id)
+            results.append(
+                {
+                    "source_problem_id": source_problem_id,
+                    "problem_id": problem_id,
+                    "status": "applied" if plan.transformations else "already_complete",
+                    "transformations": targets,
+                }
+            )
+        except Exception as exc:  # noqa: BLE001 - retain one failure per task.
+            results.append(
+                {
+                    "source_problem_id": source_problem_id,
+                    "problem_id": problem_id,
+                    "status": "failed",
+                    "transformations": [],
+                    "message": " ".join(str(exc).split())[:500],
+                }
+            )
+    return results, verified_ids
 
 
 def run_manifest(
@@ -50,71 +131,16 @@ def run_manifest(
         raise RightTrianglePlanError(
             "manifest requires source_group_id and parent asset"
         )
-    results: list[dict[str, Any]] = []
-    verified_ids: list[str] = []
-    for child in _children(
-        gateway.get_source_catalog_children(source_group_id, "group")
-    ):
-        problem_id, source_problem_id = _problem_identity(child)
-        if source_problem_id in skipped:
-            results.append(
-                {
-                    "source_problem_id": source_problem_id,
-                    "problem_id": problem_id,
-                    "status": "skipped",
-                    "transformations": [],
-                }
-            )
-            continue
-        try:
-            context = gateway.get_problem_context(problem_id)
-            plan = services._build_content_plan(
-                context,
-                parent_asset_id=parent_asset_id,
-                content_rule_key=content_rule_key,
-                parent_solution_assets=parent_solution_assets,
-                parent_solution_html=str(manifest.get("parent_solution_html") or ""),
-            )
-            targets = [
-                item["transformation_target_id"] for item in plan.transformations
-            ]
-            if not apply:
-                results.append(
-                    {
-                        "source_problem_id": source_problem_id,
-                        "problem_id": problem_id,
-                        "status": "planned",
-                        "transformations": targets,
-                    }
-                )
-                continue
-            if plan.transformations:
-                if "asset:image_1" in targets:
-                    gateway.get_problem_asset_target_context(
-                        problem_id, "asset:image_1"
-                    )
-                gateway.apply_problem_transformations(
-                    problem_id, list(plan.transformations)
-                )
-            verified_ids.append(problem_id)
-            results.append(
-                {
-                    "source_problem_id": source_problem_id,
-                    "problem_id": problem_id,
-                    "status": "applied" if plan.transformations else "already_complete",
-                    "transformations": targets,
-                }
-            )
-        except Exception as exc:  # noqa: BLE001 - retain one failure per task.
-            results.append(
-                {
-                    "source_problem_id": source_problem_id,
-                    "problem_id": problem_id,
-                    "status": "failed",
-                    "transformations": [],
-                    "message": " ".join(str(exc).split())[:500],
-                }
-            )
+    settings = _ManifestSettings(
+        source_group_id,
+        parent_asset_id,
+        content_rule_key,
+        parent_solution_assets,
+        str(manifest.get("parent_solution_html") or ""),
+        skipped,
+        apply,
+    )
+    results, verified_ids = _process_children(gateway, services, settings)
     if apply:
         for result in results:
             if result["problem_id"] not in verified_ids:

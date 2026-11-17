@@ -2,6 +2,8 @@
 
 import io
 import logging
+import math
+from dataclasses import replace
 from fractions import Fraction
 from xml.etree import ElementTree as ET
 
@@ -31,15 +33,15 @@ def _guide(dark, grid, tangent):
         end = tangent.y_at(x)
         lo, hi = sorted((round(grid.horizontal_axis_y), round(end)))
         lo, hi = max(0, lo), min(dark.shape[0] - 1, hi)
-        if hi - lo < step * 1.2:
+        if hi - lo < step * 0.7:
             continue
         ys = np.arange(lo + 2, hi - 1)
         usable = np.array(
             [min(abs(y - gy) for gy in grid.horizontal_lines()) > 1.4 for y in ys]
         )
-        ink = np.max(dark[ys, x - 1 : x + 2], axis=1) > 0.5
+        ink = dark[ys, x] > 0.5
         support = ink[usable]
-        if len(support) < 10 or not 0.2 <= support.mean() <= 0.85:
+        if len(support) < 6 or not 0.2 <= support.mean() <= 0.85:
             continue
         # A true dashed guide has several separate runs along its length.
         runs = np.count_nonzero(np.diff(np.r_[False, ink, False].astype(int)) == 1)
@@ -71,8 +73,14 @@ def _curve(dark, grid, tangent, guide):
     count, labels, stats, _ = cv2.connectedComponentsWithStats(ink.astype("uint8"), 8)
     keep = np.zeros(count, dtype=bool)
     for i in range(1, count):
-        _x, _y, w, h, area = stats[i]
+        x, y, w, h, area = stats[i]
         keep[i] = area >= 3 and max(w, h) >= step * 0.45
+        near_axis = (
+            abs(x + w / 2 - grid.vertical_axis_x) < step * 0.9
+            or abs(y + h / 2 - grid.horizontal_axis_y) < step * 0.9
+        )
+        if near_axis and max(w, h) < step * 0.8:
+            keep[i] = False
     clean = np.where(keep[labels], dark, 0).astype("float32")
     blurred = cv2.GaussianBlur(clean, (0, 0), sigmaX=0.6, sigmaY=0.6)
     evidence = 4.5 * blurred - 0.30
@@ -132,6 +140,18 @@ def extract(data):
     trace = base.TraceResult(
         raw, smooth, simple, score, start, end, tangent, guide, markers
     )
+    # Some source curves continue into a partial bottom grid cell. Include that
+    # cell in the SVG frame rather than clipping a real minimum at its border.
+    if float(smooth[:, 1].max()) > grid.horizontal_lines()[-1]:
+        last = (
+            grid.horizontal.origin
+            + math.ceil(
+                (float(smooth[:, 1].max()) - grid.horizontal.origin)
+                / grid.horizontal.step
+            )
+            * grid.horizontal.step
+        )
+        grid = replace(grid, image_height=math.ceil(last) + 1)
     svg = base.render_graph_with_tangent_svg(
         grid,
         trace,

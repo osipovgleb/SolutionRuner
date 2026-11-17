@@ -83,29 +83,9 @@ def build_group_27799_repair_plan(
     )
 
 
-def build_group_27800_repair_plan(
-    context: dict[str, Any],
-    *,
-    parent_condition_asset_id: str,
-) -> RepairPlan:
-    """Build only the equal-side-and-included-angle-to-base repair for 27800."""
+def _parse_27800(condition_html):
+    from .planner import _formula_text, _parse_positive_value, _request_text
 
-    from .planner import (
-        _answer_text,
-        _build_missing_solution_plan,
-        _formula_text,
-        _latex_number,
-        _normalized_content,
-        _parse_positive_value,
-        _request_text,
-        _section,
-    )
-
-    content = _normalized_content(context)
-    condition = _section(content, "condition")
-    if condition is None:
-        raise IsoscelesTrianglePlanError("condition section is required")
-    condition_html = str(condition.get("html") or "")
     formula = (
         _formula_text(condition_html)
         .replace("А", "A")
@@ -135,6 +115,64 @@ def build_group_27800_repair_plan(
         raise IsoscelesTrianglePlanError("included angle must form a triangle")
     side_latex = side_match.group(1).strip()
     side = _parse_positive_value(side_latex)
+    return angle, side_latex, side
+
+
+def _parse_628232(condition_html):
+    from .planner import (
+        _formula_text,
+        _inline_assignment,
+        _parse_positive_value,
+        _request_text,
+    )
+
+    formula = (
+        _formula_text(condition_html)
+        .replace("А", "A")
+        .replace("В", "B")
+        .replace("С", "C")
+    )
+    side_match = re.search(
+        r"(?:AC\s*=\s*BC|BC\s*=\s*AC)\s*=\s*"
+        r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|"
+        r"\d+(?:\{,\}\d+|[.,]\d+)?)",
+        formula,
+    )
+    if side_match is None:
+        raise IsoscelesTrianglePlanError("condition must give AC=BC and their length")
+    tangent_latex = _inline_assignment(condition_html, r"\\tg\s*\\angle\s*A\s*=")
+    request = _request_text(condition_html)
+    if not re.search(r"\bAB\b", request) or re.search(
+        r"\b(?:AC|BC|AH|BH|CH)\b", request
+    ):
+        raise IsoscelesTrianglePlanError("condition must request AB")
+    side_latex = side_match.group(1)
+    side = _parse_positive_value(side_latex)
+    tangent = _parse_positive_value(tangent_latex)
+    return side, side_latex, tangent, tangent_latex
+
+
+def build_group_27800_repair_plan(
+    context: dict[str, Any],
+    *,
+    parent_condition_asset_id: str,
+) -> RepairPlan:
+    """Build only the equal-side-and-included-angle-to-base repair for 27800."""
+
+    from .planner import (
+        _answer_text,
+        _build_missing_solution_plan,
+        _latex_number,
+        _normalized_content,
+        _section,
+    )
+
+    content = _normalized_content(context)
+    condition = _section(content, "condition")
+    if condition is None:
+        raise IsoscelesTrianglePlanError("condition section is required")
+    condition_html = str(condition.get("html") or "")
+    angle, side_latex, side = _parse_27800(condition_html)
     cosine = sp.simplify(sp.cos(sp.pi * angle / 180))
     if cosine.has(sp.cos):
         raise IsoscelesTrianglePlanError("included angle has no supported exact cosine")
@@ -194,13 +232,9 @@ def build_group_628232_repair_plan(
         _answer_matches,
         _answer_text,
         _asset_transformation,
-        _formula_text,
-        _inline_assignment,
         _latex_number,
         _normalized_content,
-        _parse_positive_value,
         _plain_html,
-        _request_text,
         _section,
         _section_transformation,
         _solution_asset_transformation,
@@ -211,29 +245,7 @@ def build_group_628232_repair_plan(
     if condition is None:
         raise IsoscelesTrianglePlanError("condition section is required")
     condition_html = str(condition.get("html") or "")
-    formula = (
-        _formula_text(condition_html)
-        .replace("А", "A")
-        .replace("В", "B")
-        .replace("С", "C")
-    )
-    side_match = re.search(
-        r"(?:AC\s*=\s*BC|BC\s*=\s*AC)\s*=\s*"
-        r"((?:\d+(?:\{,\}\d+|[.,]\d+)?)?\\sqrt\{\d+\}|"
-        r"\d+(?:\{,\}\d+|[.,]\d+)?)",
-        formula,
-    )
-    if side_match is None:
-        raise IsoscelesTrianglePlanError("condition must give AC=BC and their length")
-    tangent_latex = _inline_assignment(condition_html, r"\\tg\s*\\angle\s*A\s*=")
-    request = _request_text(condition_html)
-    if not re.search(r"\bAB\b", request) or re.search(
-        r"\b(?:AC|BC|AH|BH|CH)\b", request
-    ):
-        raise IsoscelesTrianglePlanError("condition must request AB")
-    side_latex = side_match.group(1)
-    side = _parse_positive_value(side_latex)
-    tangent = _parse_positive_value(tangent_latex)
+    side, side_latex, tangent, tangent_latex = _parse_628232(condition_html)
     half_base = sp.simplify(side / sp.sqrt(1 + tangent**2))
     base = sp.simplify(2 * half_base)
     answer = _answer_text(base)

@@ -197,39 +197,7 @@ def _constant_sign_solution(choice: QuadraticChoice) -> str:
     )
 
 
-def build_context_repair_plan(
-    context: dict[str, Any],
-    *,
-    generated_solution_assets: tuple[dict[str, str], ...] = (),
-) -> RepairPlan:
-    """Keep the condition; place a diagram and x-membership after every option."""
-    choices, expected = _verified_choices(context)
-    content = _normalized_content(context)
-    solution = _section(content, "solution")
-    answer = _section(content, "answer")
-    assets = {a["asset_key"]: a for a in generated_solution_assets}
-    keys = [
-        f"generated_quadratic_option_{i}"
-        for i, choice in enumerate(choices, 1)
-        if choice.square_comparison is None
-    ]
-    if generated_solution_assets and (
-        len(generated_solution_assets) != len(keys) or set(assets) != set(keys)
-    ):
-        raise ValueError("diagrams must match exactly the nontrivial quadratic options")
-    changes = []
-    condition = _section(content, "condition")
-    _, repaired_html = _condition_options(condition["html"])
-    if repaired_html:
-        changes.append(
-            _section_transformation(
-                condition,
-                "condition",
-                "Условие",
-                repaired_html,
-                asset_keys=tuple(condition.get("asset_keys") or []),
-            )
-        )
+def _solution_rows(choices, content, assets, keys, changes):
     rows = []
     for index, choice in enumerate(choices, 1):
         key = f"generated_quadratic_option_{index}"
@@ -292,6 +260,43 @@ def build_context_repair_plan(
             + _formula(r"x\in " + result)
             + "<br/></li>"
         )
+    return rows
+
+
+def build_context_repair_plan(
+    context: dict[str, Any],
+    *,
+    generated_solution_assets: tuple[dict[str, str], ...] = (),
+) -> RepairPlan:
+    """Keep the condition; place a diagram and x-membership after every option."""
+    choices, expected = _verified_choices(context)
+    content = _normalized_content(context)
+    solution = _section(content, "solution")
+    answer = _section(content, "answer")
+    assets = {a["asset_key"]: a for a in generated_solution_assets}
+    keys = [
+        f"generated_quadratic_option_{i}"
+        for i, choice in enumerate(choices, 1)
+        if choice.square_comparison is None
+    ]
+    if generated_solution_assets and (
+        len(generated_solution_assets) != len(keys) or set(assets) != set(keys)
+    ):
+        raise ValueError("diagrams must match exactly the nontrivial quadratic options")
+    changes = []
+    condition = _section(content, "condition")
+    _, repaired_html = _condition_options(condition["html"])
+    if repaired_html:
+        changes.append(
+            _section_transformation(
+                condition,
+                "condition",
+                "Условие",
+                repaired_html,
+                asset_keys=tuple(condition.get("asset_keys") or []),
+            )
+        )
+    rows = _solution_rows(choices, content, assets, keys, changes)
     html = (
         '<p>Решим каждое из неравенств:</p><ol data-layout="source-options">'
         + "".join(rows)

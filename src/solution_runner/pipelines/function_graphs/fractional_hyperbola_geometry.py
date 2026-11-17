@@ -16,58 +16,10 @@ ASSET_DIR = Path(__file__).parent / "assets/fractional-hyperbolas"
 NS = "{http://www.w3.org/2000/svg}"
 
 
-def graph_evidence(data: bytes) -> dict:
-    root = ET.fromstring(data)
-    ox, oy, sx, sy, view = svg_frame(data)
-    lines = list(root.iter(NS + "line"))
-    hs = {
-        round(float(n.get("y1")), 3)
-        for n in lines
-        if n.get("stroke-dasharray")
-        and abs(float(n.get("y1")) - float(n.get("y2"))) < 0.01
-    }
-    vs = {
-        round(float(n.get("x1")), 3)
-        for n in lines
-        if n.get("stroke-dasharray")
-        and abs(float(n.get("x1")) - float(n.get("x2"))) < 0.01
-    }
-    if len(hs) != 1 or len(vs) != 1:
-        raise ContentPlanError("need unique horizontal and vertical asymptotes")
-    k = _snap((oy - next(iter(hs))) / sy)
-    b = _snap((ox - next(iter(vs))) / sx)
-    markers = [
-        n for n in root.iter(NS + "circle") if n.get("fill", "").upper() == "#143B8F"
-    ]
-    audit = (
-        registry()
-        .get("audited_unmarked_graphs", {})
-        .get(hashlib.sha256(data).hexdigest())
-        if not markers
-        else None
-    )
-    if not markers and not audit:
-        raise ContentPlanError(
-            "need a marked graph point or audited source grid intersections"
-        )
-    points = (
-        [
-            (
-                _snap((float(n.get("cx")) - ox) / sx),
-                _snap((oy - float(n.get("cy"))) / sy),
-            )
-            for n in markers
-        ]
-        if markers
-        else [tuple(map(Fraction, p)) for p in audit["points"]]
-    )
+def _visible_points(points, frame, coefficients, audit):
+    ox, oy, sx, sy, view = frame
+    b, k, c = coefficients
     x, y = points[0]
-    if x + b == 0:
-        raise ContentPlanError("marked point is on vertical asymptote")
-    c = (x + b) * (y - k)
-    if not c or any((px + b) * (py - k) != c for px, py in points):
-        raise ContentPlanError("graph points disagree with shifted hyperbola")
-    a = c + k * b
 
     def inside(point):
         px, py = ox + float(point[0]) * sx, oy - float(point[1]) * sy
@@ -123,6 +75,65 @@ def graph_evidence(data: bytes) -> dict:
         else offset
         if offset in candidates
         else min(candidates, key=lambda p: (abs(p[0]), abs(p[1])))
+    )
+    return second, third, offset
+
+
+def graph_evidence(data: bytes) -> dict:
+    root = ET.fromstring(data)
+    ox, oy, sx, sy, view = svg_frame(data)
+    lines = list(root.iter(NS + "line"))
+    hs = {
+        round(float(n.get("y1")), 3)
+        for n in lines
+        if n.get("stroke-dasharray")
+        and abs(float(n.get("y1")) - float(n.get("y2"))) < 0.01
+    }
+    vs = {
+        round(float(n.get("x1")), 3)
+        for n in lines
+        if n.get("stroke-dasharray")
+        and abs(float(n.get("x1")) - float(n.get("x2"))) < 0.01
+    }
+    if len(hs) != 1 or len(vs) != 1:
+        raise ContentPlanError("need unique horizontal and vertical asymptotes")
+    k = _snap((oy - next(iter(hs))) / sy)
+    b = _snap((ox - next(iter(vs))) / sx)
+    markers = [
+        n for n in root.iter(NS + "circle") if n.get("fill", "").upper() == "#143B8F"
+    ]
+    audit = (
+        registry()
+        .get("audited_unmarked_graphs", {})
+        .get(hashlib.sha256(data).hexdigest())
+        if not markers
+        else None
+    )
+    if not markers and not audit:
+        raise ContentPlanError(
+            "need a marked graph point or audited source grid intersections"
+        )
+    points = (
+        [
+            (
+                _snap((float(n.get("cx")) - ox) / sx),
+                _snap((oy - float(n.get("cy"))) / sy),
+            )
+            for n in markers
+        ]
+        if markers
+        else [tuple(map(Fraction, p)) for p in audit["points"]]
+    )
+    x, y = points[0]
+    if x + b == 0:
+        raise ContentPlanError("marked point is on vertical asymptote")
+    c = (x + b) * (y - k)
+    if not c or any((px + b) * (py - k) != c for px, py in points):
+        raise ContentPlanError("graph points disagree with shifted hyperbola")
+    a = c + k * b
+
+    second, third, offset = _visible_points(
+        points, (ox, oy, sx, sy, view), (b, k, c), audit
     )
     return {
         "k": k,

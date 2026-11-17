@@ -35,6 +35,41 @@ else:
     from mcp_polygon_util import _atomic_write_json, _new_totals, _sha256_bytes
 
 
+def _write_worklist(run_dir, manifest, inventory_by_group, ordered_candidates, logger):
+    target_payloads = [asdict(candidate) for candidate in ordered_candidates]
+    worklist_basis = json.dumps(
+        target_payloads,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    worklist_payload = {
+        "schema_version": 1,
+        "created_at": datetime.now(UTC).isoformat(),
+        "catalog_snapshot_id": manifest["catalog_snapshot_id"],
+        "source_site_id": manifest["source_site_id"],
+        "category_key": manifest["category_key"],
+        "theme_titles": manifest["theme_titles"],
+        "converter_sha256": manifest["converter_sha256"],
+        "template_sha256": manifest["template_sha256"],
+        "group_count": len(inventory_by_group),
+        "problem_count": len(
+            {candidate.problem_id for candidate in ordered_candidates}
+        ),
+        "target_count": len(ordered_candidates),
+        "worklist_sha256": _sha256_bytes(worklist_basis),
+        "targets": target_payloads,
+    }
+    _atomic_write_json(run_dir / "worklist.json", worklist_payload)
+    logger.emit(
+        "worklist_ready",
+        groups=worklist_payload["group_count"],
+        tasks=worklist_payload["problem_count"],
+        assets=worklist_payload["target_count"],
+        worklist_sha256=worklist_payload["worklist_sha256"],
+    )
+
+
 def build_run_worklist(
     client: McpClient,
     *,
@@ -122,36 +157,5 @@ def build_run_worklist(
                 assets=inventory.counts.get("png_assets", 0),
             )
 
-    target_payloads = [asdict(candidate) for candidate in ordered_candidates]
-    worklist_basis = json.dumps(
-        target_payloads,
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    ).encode("utf-8")
-    worklist_payload = {
-        "schema_version": 1,
-        "created_at": datetime.now(UTC).isoformat(),
-        "catalog_snapshot_id": catalog_snapshot_id,
-        "source_site_id": source_site_id,
-        "category_key": category_key,
-        "theme_titles": list(theme_titles),
-        "converter_sha256": converter_fingerprint,
-        "template_sha256": template_fingerprint,
-        "group_count": len(inventory_by_group),
-        "problem_count": len(
-            {candidate.problem_id for candidate in ordered_candidates}
-        ),
-        "target_count": len(ordered_candidates),
-        "worklist_sha256": _sha256_bytes(worklist_basis),
-        "targets": target_payloads,
-    }
-    _atomic_write_json(run_dir / "worklist.json", worklist_payload)
-    logger.emit(
-        "worklist_ready",
-        groups=worklist_payload["group_count"],
-        tasks=worklist_payload["problem_count"],
-        assets=worklist_payload["target_count"],
-        worklist_sha256=worklist_payload["worklist_sha256"],
-    )
+    _write_worklist(run_dir, manifest, inventory_by_group, ordered_candidates, logger)
     return inventory_by_group, totals

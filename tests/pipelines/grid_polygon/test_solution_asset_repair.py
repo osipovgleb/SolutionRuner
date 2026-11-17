@@ -19,8 +19,14 @@ def _prepared(tmp_path: Path) -> PreparedGridPolygon:
     coordinates = ((2, 3), (1, 1), (4, 2), (2, 2))
     svg = tmp_path / "condition.svg"
     lines = [
-        *(f'<line x1="{x}" y1="0" x2="{x}" y2="100" stroke="#bbb"/>' for x in range(0, 121, 20)),
-        *(f'<line x1="0" y1="{y}" x2="120" y2="{y}" stroke="#bbb"/>' for y in range(0, 101, 20)),
+        *(
+            f'<line x1="{x}" y1="0" x2="{x}" y2="100" stroke="#bbb"/>'
+            for x in range(0, 121, 20)
+        ),
+        *(
+            f'<line x1="0" y1="{y}" x2="120" y2="{y}" stroke="#bbb"/>'
+            for y in range(0, 101, 20)
+        ),
     ]
     points = " ".join(f"{x * 20},{y * 20}" for x, y in coordinates)
     svg.write_text(
@@ -71,7 +77,11 @@ class Gateway:
         """Return a digest that requires replacement."""
 
         assert asset_id == "asset-old"
-        return {"asset_id": asset_id, "content_type": "image/svg+xml", "sha256": "0" * 64}
+        return {
+            "asset_id": asset_id,
+            "content_type": "image/svg+xml",
+            "sha256": "0" * 64,
+        }
 
     def upload_solution_asset(
         self,
@@ -85,7 +95,11 @@ class Gateway:
         assert source_problem_id == "244997"
         assert hashlib.sha256(svg_bytes).hexdigest() == sha256
         self.uploaded = svg_bytes
-        return {"source_asset_id": "asset-new", "url": "/assets/asset-new", "sha256": sha256}
+        return {
+            "source_asset_id": "asset-new",
+            "url": "/assets/asset-new",
+            "sha256": sha256,
+        }
 
     def replace_problem_asset_target(
         self,
@@ -131,3 +145,27 @@ def test_repair_replaces_only_the_rectangle_solution_asset(tmp_path: Path) -> No
         "asset-new",
         str(list(prepared.coordinates)),
     )
+
+
+def test_repair_reports_include_ordered_results_and_status_counts(tmp_path):
+    import json
+
+    from solution_runner.pipelines.core.models import ProblemStageResult
+    from solution_runner.pipelines.grid_polygon.solution_asset_repair import (
+        _write_reports,
+    )
+
+    results = (
+        ProblemStageResult("p1", "1", "rectangle_solution_asset", "applied"),
+        ProblemStageResult("p2", "2", "rectangle_solution_asset", "failed"),
+    )
+    _write_reports(tmp_path, results, ("g1",), True)
+    rows = json.loads((tmp_path / "results.json").read_text())
+    summary = json.loads((tmp_path / "summary.json").read_text())
+    assert [row["problem_id"] for row in rows] == ["p1", "p2"]
+    assert summary == {
+        "apply": True,
+        "groups": ["g1"],
+        "status_counts": {"applied": 1, "failed": 1},
+        "targets": 2,
+    }

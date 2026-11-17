@@ -16,19 +16,23 @@ from solution_runner.group_inventory_store import (
     GroupInventoryStore,
     GroupItemStageResult,
 )
-from solution_runner.pipelines.core.local_inventory import load_group_inventory
+from solution_runner.pipelines.core import local_inventory as _local_inventory
 
+from . import dry_run_targets as _targets
+from .dry_run_preview import merged_preview
+from .dry_run_selection import select_run_target
 from .dry_run_targets import NoDryRunTarget as _exported_NoDryRunTarget
 from .dry_run_targets import (
-    _child_rows,
     _problem_id,
-    _select_problem,
     _source_problem_id,
 )
 from .previews import fetch_preview, latest_dry_run_manifest, load_preview, save_preview
 from .process_logs import run_logged as _run_launcher
 
 NoDryRunTarget = _exported_NoDryRunTarget
+load_group_inventory = _local_inventory.load_group_inventory
+_child_rows = _targets._child_rows
+_select_problem = _targets._select_problem
 
 
 MODES = {"parent", "random", "all", "problem"}
@@ -263,60 +267,12 @@ class DryRunManager:
             "append": append,
             "started_at": _now(),
         }
-        gateway = None
         try:
             if self.inventory_store is not None and self.initializer is not None:
                 self.initializer.ensure_ready(group_key)
-            if mode == "all":
-                selected = None
-            elif self.inventory_store is not None:
-                inventory = load_group_inventory(
-                    self.inventory_store,
-                    profile,
-                    apply_solution_scope=mode not in {"parent", "problem"},
-                )
-                children = [
-                    {
-                        "problem_id": target.problem_id,
-                        "source_problem_id": target.source_problem_id,
-                    }
-                    for target in inventory.targets
-                ]
-                selected = _select_problem(
-                    children,
-                    mode,
-                    choose=self.choose,
-                    excluded_problem_ids=excluded_problem_ids,
-                    requested_problem_id=requested_problem_id,
-                )
-            else:
-                gateway = self.gateway_factory()
-                children = gateway.get_source_catalog_children(
-                    profile.source_group_id, "group"
-                )
-                if (
-                    mode == "random"
-                    and getattr(profile, "solution_scope", "all") == "missing_only"
-                ):
-                    missing = gateway.get_source_catalog_missing_solution_summary(
-                        profile.source_group_id, "group"
-                    )
-                    eligible = {
-                        str(value) for value in missing.get("source_problem_ids", [])
-                    }
-                    rows = _child_rows(children)
-                    children = rows[:1] + [
-                        item
-                        for item in rows[1:]
-                        if _source_problem_id(item) in eligible
-                    ]
-                selected = _select_problem(
-                    children,
-                    mode,
-                    choose=self.choose,
-                    excluded_problem_ids=excluded_problem_ids,
-                    requested_problem_id=requested_problem_id,
-                )
+            selected = select_run_target(
+                self, profile, mode, excluded_problem_ids, requested_problem_id
+            )
             if selected is not None:
                 state["selected_problem_id"] = _problem_id(selected)
                 state["selected_source_problem_id"] = _source_problem_id(selected)
@@ -330,10 +286,6 @@ class DryRunManager:
             return self._write(state)
         except Exception as exc:  # noqa: BLE001 - one group run must terminate locally.
             return self._fail(state, exc)
-        finally:
-            close = getattr(gateway, "close", None)
-            if callable(close):
-                close()
 
         try:
             return_code = self.launcher(
@@ -355,24 +307,9 @@ class DryRunManager:
                 if self.inventory_store is not None:
                     _store_dry_run_results(self.inventory_store, group_key, manifest)
                 fresh_preview = fetch_preview(gateway, profile, manifest)
-                if append:
-                    preview = load_preview(self.preview_dir, group_key) or {
-                        "group_key": group_key,
-                        "samples": [],
-                    }
-                    fresh_by_id = {
-                        str(sample.get("problem_id")): sample
-                        for sample in fresh_preview.get("samples", [])
-                        if isinstance(sample, dict) and sample.get("problem_id")
-                    }
-                    samples = preview.setdefault("samples", [])
-                    preview["samples"] = [
-                        fresh_by_id.pop(str(sample.get("problem_id")), sample)
-                        for sample in samples
-                    ] + list(fresh_by_id.values())
-                    preview["fetched_at"] = fresh_preview["fetched_at"]
-                else:
-                    preview = fresh_preview
+                preview = merged_preview(
+                    self.preview_dir, group_key, fresh_preview, append
+                )
                 save_preview(self.preview_dir, preview)
             finally:
                 close = getattr(gateway, "close", None)
