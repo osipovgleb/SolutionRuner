@@ -8,18 +8,23 @@ from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.core.handlers import PlanInput
 
 
-def plan(case, context, *, downloaded=None, generated=None):
-    handler = get_handler(get_group_profile(case["group"]).content_rule_key)
+def source_bytes(case):
     content = case["context"]["normalized_content"]
     condition = next(s for s in content["sections"] if s["key"] == "condition")
     asset = next(
         a for a in content["assets"] if a["asset_key"] in condition["asset_keys"]
     )
     entry = graph_input.EVIDENCE[asset["asset_id"]]
-    source = (
+    return (
         graph_input.ASSETS
         / entry.get("filename", asset["asset_id"] + entry.get("extension", ".svg"))
     ).read_bytes()
+
+
+def plan(case, context, *, downloaded=None, generated=None, source=None):
+    handler = get_handler(get_group_profile(case["group"]).content_rule_key)
+    if source is None:
+        source = source_bytes(case)
     if generated is None:
         generated = tuple(
             {
@@ -42,12 +47,12 @@ def _apply_local(context, transformations):
     content = context["normalized_content"]
     for t in transformations:
         if t["transformation_target_id"].startswith("asset:"):
-            if t["operation"] == "remove":
+            if t["operation"] in ("remove", "rewrite"):
                 key = t["transformation_target_id"].removeprefix("asset:")
                 content["assets"] = [
                     a for a in content["assets"] if a["asset_key"] != key
                 ]
-            else:
+            if t["operation"] != "remove":
                 content["assets"].append(deepcopy(t["value"]))
             continue
         section = next(

@@ -99,7 +99,7 @@ def requirements(entry):
     )
 
 
-def figure(content, entry, *, svg=None, generated=()):
+def figure(content, entry, *, svg=None, generated=(), replace_generated=False):
     asset = entry.get("solution_asset")
     key = entry.get("diagram_key", KEY)
     if (
@@ -116,17 +116,20 @@ def figure(content, entry, *, svg=None, generated=()):
         if a["asset_key"]
         in next(s for s in content["sections"] if s["key"] == "condition")["asset_keys"]
     }
-    allowed.update(
-        [asset["source_id"]]
-        if asset
-        else [
+    if asset:
+        allowed.add(asset["source_id"])
+    elif svg is not None:
+        checksum = solution_diagrams.spec(key, svg)["sha256"]
+        prepared = [
             a["source_asset_id"]
             for a in generated
-            if svg is not None
-            and a.get("asset_key") == key
-            and a.get("sha256") == solution_diagrams.spec(key, svg)["sha256"]
+            if a.get("asset_key") == key and a.get("sha256") == checksum
         ]
-    )
+        allowed.update(prepared)
+        if replace_generated and prepared:
+            allowed.update(
+                a["asset_id"] for a in content["assets"] if a["asset_key"] == key
+            )
     if any(a["asset_id"] not in allowed for a in content["assets"]):
         raise UnsupportedCondition("an unrelated graph solution asset is present")
     if not asset and svg is None:

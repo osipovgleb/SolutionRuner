@@ -4,12 +4,14 @@ import json
 from copy import deepcopy
 from fractions import Fraction
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 import pytest
 from bs4 import BeautifulSoup
-from graph_samples import _apply_local, plan
+from graph_samples import _apply_local, plan, source_bytes
 
 from solution_runner.pipelines.calculus import graph_extrema as graph
+from solution_runner.pipelines.calculus import monotonic_sum_input, monotonic_sum_render
 from solution_runner.pipelines.calculus.graph_stationary import interval, select
 from solution_runner.pipelines.core.content_runtime import _with_required_assets
 from solution_runner.pipelines.core.group_profiles import get_group_profile
@@ -44,8 +46,16 @@ def test_source_answers_are_computed_without_mutation_and_plans_are_idempotent(c
         BeautifulSoup(expected, "html.parser").get_text(strip=True)
     )
     assert context == original
+    generated = get_group_profile(case["group"]).content_rule_key in (
+        "calculus-derivative-monotonic-sum",
+        "calculus-graph-extrema",
+    )
     assert all(
-        t["transformation_target_id"].startswith(("section:answer", "section:solution"))
+        t["transformation_target_id"].startswith(
+            ("section:answer", "section:solution", "section:condition", "asset:")
+            if generated
+            else ("section:answer", "section:solution", "section:condition")
+        )
         for t in first.transformations
     )
     next(s for s in context["normalized_content"]["sections"] if s["key"] == "answer")[
@@ -60,10 +70,11 @@ def test_source_answers_are_computed_without_mutation_and_plans_are_idempotent(c
         for s in context["normalized_content"]["sections"]
         if s["key"] == "solution"
     )
-    assert (
-        len(BeautifulSoup(html, "html.parser").find_all("img"))
-        == len(original["normalized_content"]["assets"]) - 1
+    images = BeautifulSoup(html, "html.parser").find_all("img")
+    expected_count = (
+        1 if generated else len(original["normalized_content"]["assets"]) - 1
     )
+    assert len(images) == expected_count
 
 
 @pytest.mark.parametrize("case", CASES, ids=lambda c: c["task"])
@@ -81,6 +92,20 @@ def test_extra_instructions_and_changed_source_diagrams_are_refused(case, leadin
         plan(case, context)
     with pytest.raises(ValueError, match="downloaded diagram"):
         plan(case, case["context"], downloaded=b"different curve")
+
+
+def test_given_extremum_search_interval_has_vertical_boundaries():
+    case = next(case for case in CASES if case["task"] == "27502")
+    traced = monotonic_sum_input.input(case["context"], source_bytes(case))
+    svg = ET.fromstring(monotonic_sum_render.render(traced))
+    overlay = svg.find('.//{*}g[@id="derivative-signs-and-integers"]')
+    lines = overlay.findall('{*}line[@stroke="#2563eb"]')
+    ox, _ = traced.entry["svg_origin"]
+    unit = traced.entry.get("x_unit", traced.entry["svg_unit"])
+    left, right = lines
+    for boundary, x in ((left, ox - 2 * unit), (right, ox + 6 * unit)):
+        assert float(boundary.get("x1")) == float(boundary.get("x2")) == x
+        assert float(boundary.get("y1")) < float(boundary.get("y2"))
 
 
 def _parabola_chart(left, right):
@@ -158,7 +183,7 @@ def test_schematic_points_with_overlapping_bounds_still_have_to_be_distinct():
         select(points, interval("(-4;7)"), svg_order=True)
 
 
-def test_same_curve_uses_the_exact_existing_minimum_figure_after_switching_kind():
+def test_same_curve_marks_minima_after_switching_kind():
     case = next(c for c in CASES if c["task"] == "523369")
     context = deepcopy(case["context"])
     condition = next(
@@ -185,8 +210,11 @@ def test_same_curve_uses_the_exact_existing_minimum_figure_after_switching_kind(
         for s in context["normalized_content"]["sections"]
         if s["key"] == "solution"
     )
-    minimum = graph._input(context)[2]["solution_asset"]["source_id"]
-    assert BeautifulSoup(solution, "html.parser").img["data-asset-id"] == minimum
+    assert (
+        BeautifulSoup(solution, "html.parser").img["data-asset-key"]
+        == "colored_function_extrema"
+    )
+    assert "с зелёного на красный" in solution
 
 
 def test_function_and_derivative_graphs_cannot_be_interchanged():
@@ -200,7 +228,7 @@ def test_function_and_derivative_graphs_cannot_be_interchanged():
         "<p>На рисунке изображен график производной функции f(x), определенной на интервале (-2;12). Найдите количество точек экстремума функции f(x) на отрезке [0;11].</p>"
         + image
     )
-    with pytest.raises(ValueError, match="graph role"):
+    with pytest.raises(ValueError, match="graph role|sign intervals"):
         plan(case, context)
 
 
@@ -230,5 +258,5 @@ def test_counting_does_not_invent_abscissa_labels_for_an_unmarked_zero():
         n["data-inline-latex"]
         for n in BeautifulSoup(html, "html.parser").select("[data-inline-latex]")
     ]
-    assert "N_{\\min}=1" in formulas
+    assert "Их количество — " + result.answer in html
     assert not any("x_{1}" in formula for formula in formulas)

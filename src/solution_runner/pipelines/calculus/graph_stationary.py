@@ -79,7 +79,7 @@ def parse(text):
         return Question("root", domain, domain)
     if (
         re.fullmatch(
-            r"Найдите количество точек, в которых производная функции f\(x\)\s*равна 0\.",
+            r"(?:Найдите|Определите) количество точек, в которых производная функции f\(x\)\s*равна 0\.",
             request,
         )
         and not primitive

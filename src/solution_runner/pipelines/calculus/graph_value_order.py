@@ -8,7 +8,7 @@ from .common import answer
 from .graph_monotonic_chart import compare
 
 
-def extremum(question, bands):
+def _comparison_model(question, bands):
     span = question.span
     maximum = question.target == "наибольшее"
     sign = -1 if maximum else 1
@@ -64,7 +64,11 @@ def extremum(question, bands):
             edges.append((b, a, op == ">"))
         else:
             edges.append((a, b, op == "<"))
-    winner = unique_winner(nodes, candidates, edges, maximum)
+    return nodes, edges, unique_winner(nodes, candidates, edges, maximum)
+
+
+def extremum(question, bands):
+    _, edges, winner = _comparison_model(question, bands)
     html = (
         "<p>Сравним значения функции в соседних точках по направлению её изменения:</p>"
     )
@@ -73,12 +77,21 @@ def extremum(question, bands):
             "f("
             + answer(a)
             + ")"
-            + ("<" if strict else r"\leq")
+            + ("<" if strict else r"\leq ")
             + "f("
             + answer(b)
             + ")"
         )
     return winner, html
+
+
+def sketch_points(question, bands):
+    nodes, edges, winner = _comparison_model(question, bands)
+    heights = dict.fromkeys(nodes, 0)
+    for _ in nodes:
+        for low, high, strict in edges:
+            heights[high] = max(heights[high], heights[low] + strict)
+    return [(x, heights[x] - heights[winner] + 1) for x in nodes], winner
 
 
 def minimum_value(question, bands, entry):

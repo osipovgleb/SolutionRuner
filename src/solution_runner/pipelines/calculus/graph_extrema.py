@@ -7,23 +7,26 @@ from fractions import Fraction
 from ..equations.linear_system_intervals import Interval, interval_latex
 from ..probability import condition_diagram, solution_diagrams
 from ..probability.common import UnsupportedCondition, line
-from . import curve_levels, graph_input
+from . import curve_levels, graph_condition_layout, graph_input, marked_curve_render
 from .common import answer
+from .graph_reading import NOTE
 from .graph_stationary import interval, select
 
 _PREFIX = re.compile(
-    r"На рисунке изображен график (?P<graph>производной функции f\(x\)|(?:функции )?y=f'\(x\)(?:\s*— производной функции f\(x\))?|(?:функции )?(?:y=)?f\(x\))"
+    r"На рисунке изображен график (?P<graph>производной (?:y=f'\(x\)\s*)?функции f\(x\)|(?:функции )?y=f'\(x\)(?:\s*— производной функции f\(x\))?|(?:функции )?(?:y=)?f\(x\))"
     r"(?:\s*—\s*)?(?:,?\s*определенной на интервале\s*(?P<domain>\([^)]*\)))?\. (?P<request>.+)"
 )
 _COUNT = re.compile(
     r"Найдите количество точек (?P<target>максимума|минимума|экстремума) функции f\(x\)\s*"
-    r"(?:на (?:отрезке|интервале)\s*(?P<span>[\[(].+[\])])|, принадлежащих интервалу\s*(?P<inside>\(.+\)))"
+    r"(?:на (?:отрезке|интервале)\s*(?P<span>[\[(].+[\])])|, принадлежащих\s*(?:(?:интервалу|отрезку)\s*)?(?P<inside>[\[(].+[\])]))"
 )
 _POINT = re.compile(
     r"Найдите точку (?P<target>экстремума|максимума|минимума) функции f\(x\)"
-    r"(?:\s*на (?:отрезке|интервале)\s*(?P<span>[\[(].+[\])]))?"
+    r"(?:\s*на (?:отрезке|интервале)\s*(?P<span>[\[(].+[\])])"
+    r"|, принадлежащую (?:отрезку|интервалу)\s*(?P<inside>[\[(].+[\])]))?"
 )
 _TARGETS = {"максимума": "max", "минимума": "min", "экстремума": "extrema"}
+_COLORED_EXTREMA = "colored_function_extrema"
 
 
 @dataclass(frozen=True)
@@ -36,7 +39,7 @@ class Question:
 
 
 def parse(text):
-    text = text.replace("−", "-").replace("–", "-")
+    text = text.replace("−", "-").replace("–", "-").replace("f '(", "f'(")
     prefix = _PREFIX.fullmatch(text)
     if not prefix:
         raise UnsupportedCondition(
@@ -56,9 +59,7 @@ def parse(text):
     if not counting and not point:
         raise UnsupportedCondition("the entire extremum request must be recognized")
     match = counting or point
-    span = match["span"]
-    if counting:
-        span = span or match["inside"]
+    span = match["span"] or match["inside"]
     selected = interval(span) if span else domain
     if selected is None:
         raise UnsupportedCondition("an explicit selection interval is required")
@@ -181,6 +182,8 @@ def _input(context):
 
 def required_assets(context):
     _, _, entry, _ = _input(context)
+    if entry.get("illustrations"):
+        return ()
     return graph_input.requirements(entry)
 
 
@@ -254,12 +257,38 @@ def proof(question, points):
     return str(len(points)), html
 
 
-def build_context_repair_plan(context, *, condition_asset_bytes=None):
+def _colored_figure(source, entry, points):
+    segments = marked_curve_render.function_segments(source)
+    chart = marked_curve_render.chart_from_turns(segments, entry["extrema_points"])
+    return marked_curve_render.render(
+        source,
+        {**entry, "curve_segments": segments, "function_sign_chart": chart},
+        [{**point, "sign": 0} for point in points],
+        points,
+        signed=True,
+    )
+
+
+def diagram_specs(context):
+    data, _, entry, points = _input(context)
+    if not entry.get("illustrations"):
+        return ()
+    return (
+        solution_diagrams.spec(
+            _COLORED_EXTREMA, _colored_figure(data[6], entry, points)
+        ),
+    )
+
+
+def build_context_repair_plan(
+    context, *, condition_asset_bytes=None, generated_solution_assets=()
+):
     data, question, entry, points = _input(context)
     content, condition, ans, solution, _, original, source = data
     condition_diagram.verify_download(source, condition_asset_bytes)
     result, html = proof(question, points)
-    current = entry.get("solution_asset")
+    colored = bool(entry.get("illustrations"))
+    current = None if colored else entry.get("solution_asset")
     current_id = current["source_id"] if current else None
     obsolete = {a["source_id"] for a in original.get("illustrations", {}).values()} - {
         current_id
@@ -273,13 +302,36 @@ def build_context_repair_plan(context, *, condition_asset_bytes=None):
         **content,
         "assets": [a for a in content["assets"] if a["asset_id"] not in obsolete],
     }
-    figure, key, changes = graph_input.figure(content, entry)
-    return solution_diagrams.repair(
+    if colored:
+        colors = (
+            "с красного на зелёный"
+            if question.target == "max"
+            else "с зелёного на красный"
+        )
+        markup = (
+            "<p>Красным показано возрастание, зелёным — убывание. "
+            f"На заданном промежутке отмечены переходы {colors}.</p>"
+        )
+        html = markup + line("N=" + result)
+        figure, key, changes = graph_input.figure(
+            content,
+            {
+                "diagram_key": _COLORED_EXTREMA,
+                "solution_alt": "Возрастание, убывание и отмеченные экстремумы функции",
+            },
+            svg=_colored_figure(source, entry, points),
+            generated=generated_solution_assets,
+            replace_generated=True,
+        )
+    else:
+        figure, key, changes = graph_input.figure(content, entry)
+    plan = solution_diagrams.repair(
         condition,
         ans,
         solution,
         result,
-        figure + html,
+        figure + html + NOTE,
         (key,) if key else (),
         tuple(removed) + tuple(changes),
     )
+    return graph_condition_layout.apply_layout(plan, context)

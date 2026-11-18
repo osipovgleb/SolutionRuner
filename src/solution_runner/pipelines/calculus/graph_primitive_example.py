@@ -1,8 +1,10 @@
 """A continuous primitive of a reviewed piecewise derivative, in source style."""
 
 import math
+from itertools import pairwise
 
 import numpy as np
+from scipy.interpolate import PchipInterpolator
 
 from ..probability.common import UnsupportedCondition
 
@@ -49,8 +51,34 @@ def render(entry):
         if at_hole is None:
             at_hole = offset
     result = [(x, y - at_hole) for x, y in result]
-    ymin = math.floor(min(y for _, y in result)) - 1
-    ymax = math.ceil(max(y for _, y in result)) + 1
+    marks = [
+        (*result[0], "A", entry["domain_closed"][0], lower),
+        (hole, 0, "B", True, hole),
+        (*result[-1], "C", entry["domain_closed"][1], upper),
+    ]
+    return _draw(result, marks)
+
+
+def render_sketch(span, points, winner, *, comparisons=()):
+    xs, ys = zip(*points, strict=True)
+    curve = PchipInterpolator(xs, ys)
+    samples = np.concatenate([np.linspace(a, b, 33) for a, b in pairwise(xs)])
+    anchors = {x for a, _, b in comparisons for x in (a, b)}
+    marks = [
+        (x, y, "", closed, x)
+        for x, y, closed in (
+            (*points[0], span.lower_closed),
+            *((x, y, True) for x, y in points[1:-1] if x in anchors or x == winner),
+            (*points[-1], span.upper_closed),
+        )
+    ]
+    return _draw(list(zip(samples, curve(samples), strict=True)), marks, sketch=True)
+
+
+def _draw(result, marks, *, sketch=False):
+    ymin = math.floor(min(0, min(y for _, y in result))) - 1
+    ymax = math.ceil(max(0, max(y for _, y in result))) + 1
+    lower, upper = math.floor(marks[0][-1]), math.ceil(marks[-1][-1])
     xmin, xmax = lower - 1, upper + 1
     scale = 22
     width, height = (xmax - xmin) * scale, (ymax - ymin) * scale
@@ -75,17 +103,17 @@ def render(entry):
     ox, oy = xy(0, 0)
     svg += f'</g><g stroke="black" fill="black" stroke-width="1"><path d="M0,{oy}H{width - 5} M{ox},{height}V5"/><path d="M{width - 2},{oy}l-10,-4 3,4 -3,4z M{ox},2l-4,10 4,-3 4,3z"/></g>'
     svg += f'<path d="{path(result)}" fill="none" stroke="#143B8F" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>'
-    for (x, y), label, closed, abscissa in zip(
-        [result[0], (hole, 0), result[-1]],
-        "ABC",
-        [entry["domain_closed"][0], True, entry["domain_closed"][1]],
-        [lower, hole, upper],
-        strict=True,
-    ):
+    for x, y, label, closed, abscissa in marks:
         px, py = xy(x, y)
         svg += f'<path d="M{px},{py}V{oy}" stroke="#777" stroke-width=".75" stroke-dasharray="5 3"/>'
         svg += f'<circle cx="{px}" cy="{py}" r="2.4" stroke="#143B8F" stroke-width=".8" fill="{"#143B8F" if closed else "white"}"/>'
-        svg += f'<text x="{px + 5}" y="{py - 5}" font-family="Times New Roman,serif" font-style="italic" font-size="14">{label}</text>'
+        if label:
+            svg += f'<text x="{px + 5}" y="{py - 5}" font-family="Times New Roman,serif" font-style="italic" font-size="14">{label}</text>'
         svg += f'<text x="{px - 9}" y="{oy + 16}" font-family="Times New Roman,serif" font-size="13">{abscissa}</text>'
-    svg += f'<g font-family="Times New Roman,serif" font-style="italic" font-size="15"><text x="{width - 12}" y="{oy + 17}">x</text><text x="{ox - 12}" y="13">y</text><text x="{ox + 5}" y="{oy + 16}">O</text></g></svg>'
+    if sketch:
+        # Keep the caption above the curve and clear of the vertical axis.
+        caption_x = 5 if ox > width / 2 else width - 62
+        svg += f'<text x="{caption_x}" y="15" font-family="Times New Roman,serif" font-style="italic" font-size="15" fill="#143B8F">y = f(x)</text>'
+    origin_label_x = ox + 5 if not sketch else ox - 14
+    svg += f'<g font-family="Times New Roman,serif" font-style="italic" font-size="15"><text x="{width - 12}" y="{oy + 17}">x</text><text x="{ox - 12}" y="13">y</text><text x="{origin_label_x}" y="{oy + 16}">O</text></g></svg>'
     return svg

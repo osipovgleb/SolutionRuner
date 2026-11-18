@@ -30,7 +30,9 @@ def test_groups_share_one_stationary_point_rule(group):
         if group["key"] == "323077"
         else "calculus-raster-horizontal-tangents"
         if group["key"] == "27489"
-        else "calculus-graph-stationary-points"
+        else "calculus-polynomial-motion"
+        if group["key"] == "501059"
+        else group["rule"]
     )
     assert profile.snapshot_theme_id == group["theme_uuid"]
     assert profile.group_order_index == group["order"]
@@ -51,7 +53,11 @@ def test_source_values_assets_and_idempotence_do_not_use_stored_answers(case):
     )
     assert context == original
     allowed = ("section:answer", "section:solution", "asset:")
-    if case["group"] == "27489":
+    formatted = (
+        get_group_profile(case["group"]).content_rule_key
+        == "calculus-derivative-monotonic-sum"
+    )
+    if case["group"] == "27489" or formatted:
         allowed += ("section:condition",)
     assert all(
         t["transformation_target_id"].startswith(allowed) for t in first.transformations
@@ -70,7 +76,7 @@ def test_source_values_assets_and_idempotence_do_not_use_stored_answers(case):
         if s["key"] == "solution"
     )
     assert len(BeautifulSoup(solution, "html.parser").find_all("img")) == int(
-        bool(entry.get("solution_asset") or entry.get("highlight_stationary"))
+        bool(formatted or entry.get("solution_asset") or entry.get("highlight_stationary"))
     )
     if entry["curve_name"] == "F":
         assert any(

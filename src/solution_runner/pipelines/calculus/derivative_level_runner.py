@@ -158,12 +158,22 @@ def _reviewed_horizontal_plan(
 
 
 def _replace_condition_raster(
-    plan, condition, asset, source, generated_solution_assets
+    plan,
+    condition,
+    asset,
+    source,
+    generated_solution_assets,
+    *,
+    render_svg=None,
+    alt="График производной функции",
 ):
     data, model = source
-    if model is None or _render(model).encode() == data:
+    if model is None:
         return plan
-    digest = hashlib.sha256(_render(model).encode()).hexdigest()
+    rendered = (render_svg or _render)(model).encode()
+    if rendered == data:
+        return plan
+    digest = hashlib.sha256(rendered).hexdigest()
     candidates = [
         a
         for a in generated_solution_assets
@@ -176,7 +186,7 @@ def _replace_condition_raster(
     image = soup.find("img")
     image["data-asset-id"] = new["source_asset_id"]
     image["src"] = new["url"]
-    image["alt"] = "График производной функции"
+    image["alt"] = alt
     image["data-transformation-target-id"] = "asset:" + asset["asset_key"]
     asset_change = {
         "transformation_target_id": "asset:" + asset["asset_key"],

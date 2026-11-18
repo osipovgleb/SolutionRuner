@@ -150,6 +150,23 @@ HANDLERS = (
         diagram_builder="solution_runner.pipelines.calculus.graph_marked_points:diagram_specs",
         requires_parent_condition_asset=False,
         requires_condition_asset_download=True,
+        allow_non_svg_condition_asset=True,
+    ),
+    HandlerSpec(
+        "calculus-derivative-monotonic-sum",
+        "solution_runner.pipelines.calculus.monotonic_sum_runner:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        asset_selector="solution_runner.pipelines.calculus.monotonic_sum_runner:required_assets",
+        diagram_builder="solution_runner.pipelines.calculus.monotonic_sum_runner:diagram_specs",
+        diagram_builder_uses_condition_bytes=True,
+        requires_parent_condition_asset=False,
+        requires_condition_asset_download=True,
+        allow_non_svg_condition_asset=True,
+        verify_content_readback=True,
+        strict_frozen_input=True,
     ),
     HandlerSpec(
         "calculus-graph-monotonic",
@@ -160,6 +177,7 @@ HANDLERS = (
         ),
         asset_selector="solution_runner.pipelines.calculus.graph_monotonic:required_assets",
         diagram_builder="solution_runner.pipelines.calculus.graph_monotonic:diagram_specs",
+        diagram_builder_uses_condition_bytes=True,
         requires_parent_condition_asset=False,
         requires_condition_asset_download=True,
         allow_non_svg_condition_asset=True,
@@ -167,8 +185,12 @@ HANDLERS = (
     HandlerSpec(
         "calculus-graph-extrema",
         "solution_runner.pipelines.calculus.graph_extrema:build_context_repair_plan",
-        inputs=(("condition_asset_bytes", "condition_asset_bytes"),),
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
         asset_selector="solution_runner.pipelines.calculus.graph_extrema:required_assets",
+        diagram_builder="solution_runner.pipelines.calculus.graph_extrema:diagram_specs",
         requires_parent_condition_asset=False,
         requires_condition_asset_download=True,
     ),
@@ -223,17 +245,20 @@ HANDLERS = (
     HandlerSpec(
         "calculus-polynomial-motion",
         "solution_runner.pipelines.calculus.motion:build_context_repair_plan",
+        inputs=(
+            ("condition_asset_bytes", "condition_asset_bytes"),
+            ("generated_solution_assets", "generated_solution_assets"),
+        ),
+        asset_selector="solution_runner.pipelines.calculus.motion:required_assets",
+        diagram_builder="solution_runner.pipelines.calculus.motion:diagram_specs",
+        diagram_builder_uses_condition_bytes=True,
         requires_parent_condition_asset=False,
+        verify_content_readback=True,
+        strict_frozen_input=True,
     ),
     HandlerSpec(
         "calculus-polynomial-tangency",
         "solution_runner.pipelines.calculus.tangency:build_context_repair_plan",
-        requires_parent_condition_asset=False,
-    ),
-    HandlerSpec(
-        "calculus-polynomial-tangency-two-methods",
-        "solution_runner.pipelines.calculus.tangency:build_context_repair_plan",
-        options=(("two_methods", True),),
         requires_parent_condition_asset=False,
     ),
 )

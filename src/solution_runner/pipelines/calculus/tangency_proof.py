@@ -1,163 +1,209 @@
-"""Derivative/contact systems and the source's alternative discriminant method."""
+"""One contact-system solution, with the tangent f and the curve g."""
+
+from html import escape
 
 import sympy as sp
 
-from ..probability.common import UnsupportedCondition, line
-from .common import X, real_roots
+from ..probability.common import line
+from .common import X
 
 
-def _system(contact):
-    derivative = sp.diff(contact.curve, X)
-    slope = sp.diff(contact.line, X)
-    return (
-        r"\begin{cases}"
-        + sp.latex(derivative)
-        + "="
-        + sp.latex(slope)
-        + r"\\"
-        + sp.latex(contact.curve)
-        + "="
-        + sp.latex(contact.line)
-        + r"\end{cases}"
-    )
+def tex(expression, **settings):
+    """Keep polynomial powers descending even when a coefficient is symbolic."""
+    expression = sp.sympify(expression)
+    parts = []
+    for (power,), coefficient in sp.Poly(expression, X).terms():
+        term = coefficient * X**power
+        negative = term.could_extract_minus_sign()
+        body = sp.latex(-term if negative else term, **settings)
+        if not parts:
+            parts.append(("-" if negative else "") + body)
+        else:
+            parts.append((" - " if negative else " + ") + body)
+    return "".join(parts)
 
 
-def _known(contact):
-    derivative = sp.diff(contact.curve, X)
-    slope = sp.diff(contact.line, X)
-    html = "<p>Угловой коэффициент касательной равен производной в точке касания. Найдём его по данной прямой:</p>"
-    html += line("y=" + sp.latex(contact.line) + r",\quad k=" + sp.latex(slope))
-    html += line("f'(x)=" + sp.latex(derivative))
-    html += "<p>Приравняем производную угловому коэффициенту:</p>"
-    html += line(sp.latex(derivative) + "=" + sp.latex(slope))
-    html += line(r"x\in\{" + ",".join(sp.latex(r) for r in contact.candidates) + r"\}")
-    if not contact.parallel:
-        html += "<p>Касательная проходит через точку графика. Проверим найденные абсциссы в исходном уравнении пересечения:</p>"
-        for root in contact.candidates:
-            residue = sp.simplify((contact.curve - contact.line).subs(X, root))
-            html += line(
-                "f("
-                + sp.latex(root)
-                + ")-("
-                + sp.latex(contact.line.subs(X, root))
-                + ")="
-                + sp.latex(residue)
-                + ("" if residue == 0 else r"\ne0")
-            )
-    x0 = contact.valid[0]
-    html += line("x_0=" + sp.latex(x0))
-    if contact.quantity == "y":
-        html += "<p>Найдём ординату по уравнению касательной:</p>"
-        substituted = sp.latex(contact.line, symbol_names={X: "(" + sp.latex(x0) + ")"})
-        html += line("y_0=" + substituted + "=" + sp.latex(contact.result))
-    return html
+def inline(formula):
+    return '<span data-inline-latex="' + escape(formula, quote=True) + '"></span>'
 
 
-def _parameter(contact):
-    a, b, c = (sp.expand(contact.curve).coeff(X, p) for p in [2, 1, 0])
-    k, l = sp.diff(contact.line, X), contact.line.subs(X, 0)
-    parameter = contact.parameter
-    x0, value = contact.valid[0]
-    html = "<p>Запишем оба условия касания: совпадение угловых коэффициентов и общей точки:</p>"
-    html += line(r"\begin{cases}f'(x_0)=k\\f(x_0)=kx_0+l\end{cases}")
-    html += line(_system(contact))
-    html += "<p>Выразим параметр из условия на производную и подставим в уравнение общей точки:</p>"
-    if a == parameter:
-        delta = k - b
-        html += line(rf"{parameter}x_0=\frac{{{sp.latex(delta)}}}{{2}}")
-        html += line(rf"-\frac{{{sp.latex(delta)}}}{{2}}x_0+({sp.latex(c - l)})=0")
-        html += line("x_0=" + sp.latex(x0))
-        html += line(
-            rf"{parameter}=\frac{{{sp.latex(delta)}}}{{2({sp.latex(x0)})}}={sp.latex(value)}"
-        )
-    elif b == parameter:
-        html += line(rf"{parameter}=({sp.latex(k)})-2({sp.latex(a)})x_0")
-        html += line(rf"x_0^2=\frac{{{sp.latex(c - l)}}}{{{sp.latex(a)}}}")
-        html += line(
-            r"x_0\in\{" + ",".join(sp.latex(x) for x, _ in contact.candidates) + r"\}"
-        )
-        if contact.sign:
-            html += "<p>Выберем корень с заданным знаком абсциссы:</p>"
-            html += line(
-                "x_0"
-                + (">0" if contact.sign > 0 else "<0")
-                + r",\quad x_0="
-                + sp.latex(x0)
-            )
-        html += line(
-            rf"{parameter}=({sp.latex(k)})-2({sp.latex(a)})({sp.latex(x0)})={sp.latex(value)}"
+def system(first, second):
+    return line(r"\begin{cases}" + first + r"\\" + second + r"\end{cases}")
+
+
+def substitute(expression, value):
+    value = sp.sympify(value)
+    number = tex(value)
+    if value < 0 or value.is_Integer is not True:
+        number = r"\left(" + number + r"\right)"
+    return tex(expression, symbol_names={X: number}, mul_symbol="dot")
+
+
+def intro(contact):
+    tangent = contact.line
+    if contact.parallel:
+        tangent = sp.diff(contact.line, X) * X - sp.Symbol("b", real=True)
+        reason = (
+            " — касательная, параллельная данной прямой "
+            + inline("y=" + tex(contact.line))
+            + " (их угловые коэффициенты равны, а свободный член касательной пока неизвестен), а "
         )
     else:
-        html += line(rf"2({sp.latex(a)})x_0+({sp.latex(b)})={sp.latex(k)}")
-        html += line("x_0=" + sp.latex(x0))
-        html += line(
-            rf"{parameter}=({sp.latex(l)})+({sp.latex(a)})({sp.latex(x0)})^2={sp.latex(value)}"
-        )
-    return html
-
-
-def _discriminant(contact):
-    a, b, c = (sp.expand(contact.curve).coeff(X, p) for p in [2, 1, 0])
-    k, l = sp.diff(contact.line, X), contact.line.subs(X, 0)
-    discriminant = sp.expand((b - k) ** 2 - 4 * a * (c - l))
-    roots = real_roots(discriminant, contact.parameter)
-    valid = []
-    checks = []
-    for root in roots:
-        av, bv = a.subs(contact.parameter, root), b.subs(contact.parameter, root)
-        if av == 0:
-            continue
-        point = sp.simplify((k - bv) / (2 * av))
-        checks.append((root, point))
-        curve = contact.curve.subs(contact.parameter, root)
-        if contact.sign is not None and sp.sign(point) != contact.sign:
-            continue
-        if sp.simplify((curve - contact.line).subs(X, point)) == 0:
-            valid.append(root)
-    if set(valid) != {contact.result}:
-        raise UnsupportedCondition("the independent discriminant method disagrees")
-    html = "<p>Второй способ. Касательная имеет с параболой одну общую точку. При ненулевом старшем коэффициенте уравнение пересечения имеет двойной корень:</p>"
-    html += line(sp.latex(sp.expand(contact.curve - contact.line)) + "=0")
-    html += line("D=" + sp.latex(discriminant) + "=0")
-    html += line(
-        str(contact.parameter) + r"\in\{" + ",".join(sp.latex(r) for r in roots) + r"\}"
+        reason = " — данная касательная, а "
+    html = (
+        "<p>Пусть "
+        + inline("f(x)=" + tex(tangent))
+        + reason
+        + inline("g(x)=" + tex(contact.curve))
+        + " — заданная функция.</p>"
+        + "<p>Составим систему условий касания:</p>"
     )
-    if contact.sign:
-        html += "<p>Проверим знак абсциссы двойного корня для каждого параметра:</p>"
-        for root, point in checks:
-            html += line(
-                str(contact.parameter)
-                + "="
-                + sp.latex(root)
-                + r"\ \Longrightarrow\ x_0="
-                + sp.latex(point)
-            )
-    html += line(str(contact.parameter) + "=" + sp.latex(contact.result))
+    html += system(
+        r"f(x)=g(x),&\text{так как графики пересекаются}",
+        r"f'(x)=g'(x),&\text{так как }f(x)\text{ — касательная к }g(x)",
+    )
+    html += system(
+        tex(tangent) + "=" + tex(contact.curve),
+        tex(sp.diff(tangent, X)) + "=" + tex(sp.diff(contact.curve, X)),
+    )
     return html
 
 
-def render(contact, *, two_methods=False):
-    if two_methods and contact.parallel:
-        raise UnsupportedCondition(
-            "the parallel-line source has no second contact method"
-        )
-    html = "<p>Первый способ.</p>" if two_methods else ""
-    html += _known(contact) if contact.parameter is None else _parameter(contact)
-    if two_methods:
-        if contact.parameter is not None:
-            html += _discriminant(contact)
-        else:
-            html += "<p>Второй способ. Запишем условие касания в виде системы:</p>"
-            html += line(_system(contact))
-            html += line(
-                r"\begin{cases}"
-                + sp.latex(
-                    sp.expand(sp.diff(contact.curve, X) - sp.diff(contact.line, X))
+def coordinate(contact):
+    derivative = sp.diff(contact.curve, X)
+    slope = sp.diff(contact.line, X)
+    equation = sp.expand(derivative - slope)
+    html = "<p>Из второго уравнения найдём абсциссу точки касания:</p>"
+    roots = contact.candidates
+    if sp.Poly(equation, X).degree() == 2:
+        from bs4 import BeautifulSoup
+
+        from ..function_graphs.parabola_proof import quadratic_steps
+
+        html += "<p>Решим квадратное уравнение через дискриминант:</p>"
+        steps = BeautifulSoup(quadratic_steps(equation, X, roots), "html.parser")
+        from ..word_problems.math_common import primitive
+
+        polynomial = sp.Poly(primitive(equation, (X,)), X)
+        a, b, c = polynomial.all_coeffs()
+        discriminant = b**2 - 4 * a * c
+        for node in steps.select("[data-inline-latex]"):
+            formula = node["data-inline-latex"].split(r"\in\left\{", 1)[0]
+            if r"\pm" in formula:
+                rows = []
+                for sign, symbol in ((-1, "-"), (1, "+")):
+                    root = sp.simplify((-b + sign * sp.sqrt(discriminant)) / (2 * a))
+                    row = formula.replace("x=", "x&=", 1).replace(r"\pm", symbol)
+                    rows.append(row + "=" + tex(root))
+                    if discriminant == 0:
+                        break
+                formula = (
+                    r"\left[\begin{aligned}"
+                    + r"\\".join(rows)
+                    + r"\end{aligned}\right."
+                    if len(rows) > 1
+                    else rows[0].replace("x&=", "x=", 1)
                 )
-                + r"=0\\"
-                + sp.latex(sp.expand(contact.curve - contact.line))
-                + r"=0\end{cases}"
+            node["data-inline-latex"] = (
+                r"\displaystyle " + formula if r"\frac" in formula else formula
             )
-            html += "<p>Подстановка найденных кандидатов в оба уравнения оставляет общую точку:</p>"
-            html += line("x_0=" + sp.latex(contact.valid[0]))
+        html += str(steps)
+    else:
+        html += line(tex(equation) + "=0")
+        html += line("x=" + tex(roots[0]))
+    if contact.parallel:
+        x0 = contact.valid[0]
+        b = sp.expand(slope * X - contact.curve)
+        value = sp.simplify(b.subs(X, x0))
+        html += "<p>Подставим найденную абсциссу в первое уравнение системы:</p>"
+        html += line("b=" + substitute(b, x0) + "=" + tex(value))
+        html += system("x=" + tex(x0), "b=" + tex(value))
+    else:
+        html += "<p>Проверим найденные значения в первом уравнении системы:</p>"
+        for root in roots:
+            fv = sp.simplify(contact.line.subs(X, root))
+            gv = sp.simplify(contact.curve.subs(X, root))
+            html += line(
+                "f("
+                + tex(root)
+                + ")="
+                + tex(fv)
+                + ("=" if fv == gv else r"\ne")
+                + tex(gv)
+                + "=g("
+                + tex(root)
+                + ")"
+            )
+        x0 = contact.valid[0]
+        html += line("x=" + tex(x0))
+    if contact.quantity == "y":
+        html += "<p>Найдём ординату точки касания:</p>"
+        html += line(
+            "y=g("
+            + tex(x0)
+            + ")="
+            + substitute(contact.curve, x0)
+            + "="
+            + tex(contact.result)
+        )
     return html
+
+
+def parameter(contact):
+    a, b, c = (sp.expand(contact.curve).coeff(X, p) for p in (2, 1, 0))
+    k, l = sp.diff(contact.line, X), contact.line.subs(X, 0)
+    p = contact.parameter
+    x0, value = contact.valid[0]
+    if a == p:
+        product = sp.simplify((k - b) / 2)
+        html = "<p>Из второго уравнения выразим произведение параметра и абсциссы:</p>"
+        html += line(tex(p * X) + "=" + tex(product))
+        # ax² = (ax)x; the first equation stays a point-of-intersection equation.
+        replaced = sp.expand(product * X + b * X + c)
+        html += "<p>Подставим это выражение в первое уравнение системы:</p>"
+        html += line(tex(contact.line) + "=" + tex(replaced))
+        html += line(tex(sp.expand(contact.line - replaced)) + "=0")
+        html += line("x=" + tex(x0))
+        html += line(
+            tex(p) + "=" + tex(product) + " : " + substitute(X, x0) + "=" + tex(value)
+        )
+    elif b == p:
+        expressed = sp.expand(k - 2 * a * X)
+        html = "<p>Из второго уравнения выразим параметр и подставим в первое:</p>"
+        html += line(tex(p) + "=" + tex(expressed))
+        # Keep the actual substitution visible before simplifying.
+        polynomial = tex(a * X**2) + "+\\left(" + tex(expressed) + r"\right)x"
+        polynomial += ("+" if c >= 0 else "") + tex(c)
+        html += line(tex(contact.line) + "=" + polynomial)
+        html += line(
+            tex(sp.expand(contact.line - (a * X**2 + expressed * X + c))) + "=0"
+        )
+        html += line("x^2=" + tex(sp.simplify((c - l) / a)))
+        html += line(
+            r"\quad\text{или}\quad ".join("x=" + tex(x) for x, _ in contact.candidates)
+        )
+        if contact.sign:
+            html += (
+                "<p>По условию абсцисса точки касания "
+                + ("положительна" if contact.sign > 0 else "отрицательна")
+                + ", поэтому "
+                + inline("x=" + tex(x0))
+                + ".</p>"
+            )
+        html += line(tex(p) + "=" + substitute(expressed, x0) + "=" + tex(value))
+    else:
+        derivative = sp.diff(contact.curve, X)
+        html = "<p>Из второго уравнения найдём абсциссу точки касания:</p>"
+        html += line(tex(sp.expand(derivative - k)) + "=0")
+        html += line("x=" + tex(x0))
+        html += "<p>Подставим найденное значение в первое уравнение системы и выразим параметр:</p>"
+        html += line(substitute(contact.line, x0) + "=" + substitute(contact.curve, x0))
+        expression = sp.expand(contact.line - (contact.curve - p))
+        html += line(tex(p) + "=" + substitute(expression, x0) + "=" + tex(value))
+    return html
+
+
+def render(contact):
+    return intro(contact) + (
+        coordinate(contact) if contact.parameter is None else parameter(contact)
+    )

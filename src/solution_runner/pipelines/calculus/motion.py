@@ -1,4 +1,4 @@
-"""One polynomial motion family evaluates velocity or solves for its time."""
+"""One physical derivative family evaluates velocity and its requested events."""
 
 import re
 
@@ -47,39 +47,125 @@ def _question(text):
     return polynomial(match["law"], T), value, bool(evaluate)
 
 
-def build_context_repair_plan(context):
+def _graph(context):
+    content = context["normalized_content"]
+    condition = next(s for s in content["sections"] if s["key"] == "condition")
+    return bool(condition.get("asset_keys"))
+
+
+def _motion_graph(context):
+    from . import graph_stationary
+
+    data, question, points = graph_stationary._input(context)
+    if question.kind != "motion":
+        raise UnsupportedCondition(
+            "the graph must describe motion and ask when its velocity is zero"
+        )
+    return data, question, points
+
+
+def required_assets(context):
+    if not _graph(context):
+        _question(read(context)[3])
+        return ()
+    from . import graph_input
+
+    data, _, _ = _motion_graph(context)
+    return graph_input.requirements(data[5])
+
+
+def diagram_specs(context, *, condition_asset_bytes=None):
+    if not _graph(context):
+        return ()
+    from . import graph_stationary
+
+    _motion_graph(context)
+    return graph_stationary.diagram_specs(context)
+
+
+def _build_graph(context, data, generated):
+    from ..probability import condition_diagram, solution_diagrams
+    from . import graph_input, graph_stationary
+
+    parsed, q, points = _motion_graph(context)
+    content, condition, ans, solution, _, entry, source = parsed
+    # The immutable condition asset is verified against its audited ID and SHA
+    # by read_graph. A supplied download must also match byte for byte.
+    if data is not None:
+        condition_diagram.verify_download(source, data)
+    svg = (
+        graph_stationary.render_svg(entry, source, q.interval, points)
+        if entry.get("highlight_stationary")
+        else None
+    )
+    figure, key, changes = graph_input.figure(
+        content, entry, svg=svg, generated=generated
+    )
+    html = "<p>Скорость равна производной расстояния по времени:</p>" + line(
+        "V(t)=s'(t)"
+    )
+    html += "<p>Найдём моменты, когда скорость обращается в ноль:</p>" + line(
+        "V(t)=0\\iff s'(t)=0"
+    )
+    html += (
+        "<p>Считаем точки графика с горизонтальной касательной, не включая начало и конец движения. Таких точек — "
+        + str(len(points))
+        + ".</p>"
+    )
+    from bs4 import BeautifulSoup
+
+    html = str(BeautifulSoup(figure + html, "html.parser"))
+    if solution is not None:
+        solution = {
+            **solution,
+            "html": str(BeautifulSoup(solution.get("html", ""), "html.parser")),
+        }
+    return solution_diagrams.repair(
+        condition,
+        ans,
+        solution,
+        str(len(points)),
+        html,
+        (key,) if key else (),
+        changes,
+    )
+
+
+def build_context_repair_plan(
+    context, *, condition_asset_bytes=None, generated_solution_assets=()
+):
+    if _graph(context):
+        return _build_graph(context, condition_asset_bytes, generated_solution_assets)
+    from bs4 import BeautifulSoup
+
+    from .motion_proof import render
+
     condition, current_answer, solution, text = read(context)
     law, value, evaluate = _question(text)
     velocity = sp.diff(law, T)
-    html = "<p>Скорость найдём как производную данного закона движения по времени:</p>"
-    html += line(r"v(t)=x'(t),\quad (t^n)'=nt^{n-1}")
-    html += line("x(t)=" + sp.latex(law))
-    html += line("v(t)=" + sp.latex(velocity))
+    roots = []
     if evaluate:
         if value < 0:
             raise UnsupportedCondition(
                 "time measured from the start cannot be negative"
             )
         result = sp.simplify(velocity.subs(T, value))
-        substitution = sp.latex(velocity, symbol_names={T: "(" + sp.latex(value) + ")"})
-        html += "<p>Подставим заданный момент времени:</p>" + line(
-            "t=" + sp.latex(value)
-        )
-        html += line("v(" + sp.latex(value) + ")=" + substitution)
-        html += line(substitution + "=" + sp.latex(result) + r"\;\mathrm{м}/\mathrm{с}")
     else:
-        equation = sp.expand(velocity - value)
-        roots = real_roots(equation, T)
+        roots = real_roots(sp.expand(velocity - value), T)
         valid = [r for r in roots if r.is_nonnegative is True]
         if len(valid) != 1:
             raise UnsupportedCondition(
                 "the motion question does not determine one nonnegative time"
             )
         result = valid[0]
-        html += "<p>Приравняем скорость заданному значению и решим уравнение:</p>"
-        html += line(sp.latex(velocity) + "=" + sp.latex(value))
-        html += line(sp.latex(equation) + "=0")
-        html += line(r"t\in\{" + ",".join(sp.latex(r) for r in roots) + r"\}")
-        html += "<p>Оставим время, не меньшее нуля, поскольку оно отсчитывается от начала движения:</p>"
-        html += line(r"t\ge0,\quad t=" + sp.latex(result) + r"\;\mathrm{с}")
+    html = str(
+        BeautifulSoup(
+            render(law, velocity, value, evaluate, result, roots), "html.parser"
+        )
+    )
+    if solution is not None:
+        solution = {
+            **solution,
+            "html": str(BeautifulSoup(solution.get("html", ""), "html.parser")),
+        }
     return finish(condition, current_answer, solution, answer(result), html)

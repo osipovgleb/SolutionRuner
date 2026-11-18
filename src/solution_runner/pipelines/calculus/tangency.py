@@ -4,6 +4,7 @@ import re
 from dataclasses import dataclass
 
 import sympy as sp
+from bs4 import BeautifulSoup
 
 from ..equations.power_arithmetic import clean
 from ..probability.common import UnsupportedCondition, finish
@@ -42,7 +43,9 @@ def _read(context):
     if sp.Poly(line, X).degree() > 1:
         raise UnsupportedCondition("the comparison graph is not a straight line")
     parallel = match["kind"] == "параллельна касательной"
-    request = match["request"]
+    request = re.sub(
+        r"\b[ас]\b", lambda m: {"а": "a", "с": "c"}[m[0]], match["request"]
+    )
     parameter = None
     sign = None
     if request in ["абсциссу точки касания", "ординату точки касания"]:
@@ -128,7 +131,7 @@ def calculate(context):
             )
         x0 = contact.valid[0]
         contact.result = (
-            x0 if contact.quantity == "x" else sp.simplify(contact.line.subs(X, x0))
+            x0 if contact.quantity == "x" else sp.simplify(contact.curve.subs(X, x0))
         )
     else:
         contact.candidates = _parameter_candidates(contact)
@@ -150,14 +153,21 @@ def calculate(context):
     return contact
 
 
-def build_context_repair_plan(context, *, two_methods=False):
+def build_context_repair_plan(context):
     from .tangency_proof import render
 
     contact = calculate(context)
+    html = str(BeautifulSoup(render(contact), "html.parser"))
+    solution = contact.solution
+    if solution is not None:
+        solution = {
+            **solution,
+            "html": str(BeautifulSoup(solution.get("html", ""), "html.parser")),
+        }
     return finish(
         contact.condition,
         contact.answer_section,
-        contact.solution,
+        solution,
         answer(contact.result),
-        render(contact, two_methods=two_methods),
+        html,
     )

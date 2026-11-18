@@ -129,6 +129,22 @@ def describe(bands):
     return labels, constraints
 
 
+def longest_band(bands):
+    exact = [
+        (bounds(b[1])[0] - bounds(b[0])[0], b)
+        for b in bands
+        if "x" in b[0] and "x" in b[1]
+    ]
+    if not exact:
+        raise UnsupportedCondition("an exact longest interval is required")
+    length, longest = max(exact, key=lambda item: item[0])
+    if any(
+        bounds(b[1])[1] - bounds(b[0])[0] > length for b in bands if b is not longest
+    ):
+        raise UnsupportedCondition("the longest interval cannot be determined exactly")
+    return length, longest
+
+
 def global_point(question, bands):
     span = question.span
     if (

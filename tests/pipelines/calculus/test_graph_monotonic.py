@@ -9,11 +9,12 @@ from xml.etree import ElementTree as ET
 
 import pytest
 from bs4 import BeautifulSoup
-from graph_samples import _apply_local, plan
+from graph_samples import _apply_local, plan, source_bytes
 
 from solution_runner.pipelines.calculus import graph_monotonic as graph
 from solution_runner.pipelines.calculus import graph_monotonic_chart, graph_value_order
 from solution_runner.pipelines.core.group_profiles import get_group_profile
+from solution_runner.pipelines.core.handler_registry import get_handler
 from solution_runner.pipelines.core.numbers import parse_rational
 
 DATA = json.loads(
@@ -51,7 +52,7 @@ def test_answers_are_computed_plans_are_local_and_idempotent(case):
     assert context == original
     assert all(
         t["transformation_target_id"].startswith(
-            ("section:answer", "section:solution", "asset:")
+            ("section:answer", "section:solution", "section:condition", "asset:")
         )
         for t in first.transformations
     )
@@ -60,8 +61,24 @@ def test_answers_are_computed_plans_are_local_and_idempotent(case):
     ] = "<p>123456</p>"
     assert plan(case, context).answer == first.answer
     context = deepcopy(original)
+    rewritten_assets = {
+        t["value"]["asset_key"]
+        for t in first.transformations
+        if t["transformation_target_id"].startswith("asset:")
+        and t["operation"] == "rewrite"
+    }
+    source = None
+    if rewritten_assets:
+        handler = get_handler(get_group_profile(case["group"]).content_rule_key)
+        source = next(
+            s["svg_text"].encode()
+            for s in handler.diagram_specs(
+                context, condition_asset_bytes=source_bytes(case)
+            )
+            if s["asset_key"] in rewritten_assets
+        )
     _apply_local(context, first.transformations)
-    assert plan(case, context).transformations == ()
+    assert plan(case, context, source=source).transformations == ()
 
 
 @pytest.mark.parametrize("case", CASES, ids=lambda c: c["task"])
@@ -120,7 +137,12 @@ def test_closed_function_domain_is_independent_of_open_derivative_end_markers():
 def test_ambiguous_integer_boundary_is_refused_without_rounding():
     with pytest.raises(ValueError, match="resolve"):
         graph_monotonic_chart.compare({"x_bounds": ["3/2", "5/2"]}, 2)
-    assert graph_monotonic_chart.compare({"x_bounds": [1, 2], "x_bounds_open": [True, True]}, 2) == -1
+    assert (
+        graph_monotonic_chart.compare(
+            {"x_bounds": [1, 2], "x_bounds_open": [True, True]}, 2
+        )
+        == -1
+    )
 
 
 def test_approximate_shorter_interval_does_not_prevent_exact_longest_length():
@@ -159,6 +181,25 @@ def test_open_endpoint_cannot_become_the_location_of_a_global_extremum():
         graph.global_point(replace(question, span=span), bands)
 
 
+def test_unique_global_extremum_removes_the_previous_function_sketch():
+    case = sample("508310")
+    context = deepcopy(case["context"])
+    content = context["normalized_content"]
+    solution = next(s for s in content["sections"] if s["key"] == "solution")
+    sketch = "function_comparison_sketch"
+    solution["asset_keys"].append(sketch)
+    content["assets"].append({"asset_key": sketch, "asset_id": "previous-sketch"})
+
+    result = plan(case, context)
+    assert result.answer == "-2"
+    assert {
+        "operation": "remove",
+        "transformation_target_id": "asset:" + sketch,
+    } in result.transformations
+    images = BeautifulSoup(result.solution_html, "html.parser").find_all("img")
+    assert [image["data-asset-key"] for image in images] == ["monotonicity_sign_chart"]
+
+
 def test_value_question_returns_ordinate_and_checks_every_candidate():
     data, question, bands = graph._input(sample("559401")["context"])
     assert graph.proof(question, bands, data[5])[0] == "-4"
@@ -168,7 +209,7 @@ def test_value_question_returns_ordinate_and_checks_every_candidate():
         graph.proof(question, bands, changed)
 
 
-def test_exact_source_illustrations_and_continuity_counterexample_are_preserved():
+def test_comparison_uses_one_source_sketch_and_valid_latex():
     case = sample("505119")
     result = plan(case, case["context"])
     solution = next(
@@ -177,33 +218,69 @@ def test_exact_source_illustrations_and_continuity_counterexample_are_preserved(
         if t["transformation_target_id"].startswith("section:solution")
     )
     images = BeautifulSoup(solution, "html.parser").find_all("img")
-    assert [img["data-asset-id"] for img in images] == [
-        a["asset_id"] for a in case["context"]["normalized_content"]["assets"][1:]
-    ]
-    assert "Непрерывность на концах существенна" in solution
-    assert "99,9999" not in solution
-    assert "f(3)&lt;f(5)" in solution
+    assert images[0]["data-asset-key"] == "monotonicity_sign_chart"
+    assert len(images) == 2
+    assert (
+        images[1]["data-asset-id"]
+        == case["context"]["normalized_content"]["assets"][1]["asset_id"]
+    )
+    assert "Примечание" not in solution
+    assert "Построим примерный график" in solution
+    assert r"f(-5) \geq f(5)" in solution
+    assert 'data-inline-latex="x=3"' in solution
 
 
-def test_primitive_example_has_a_continuous_minimum_and_correct_endpoint_markers():
-    a = graph.diagram_specs(sample("551782")["context"])[0]
-    b = graph.diagram_specs(sample("551783")["context"])[0]
-    assert a == b
-    root = ET.fromstring(a["svg_text"])
-    circles = root.findall("{*}circle")
-    assert [c.get("fill") for c in circles] == ["#143B8F", "#143B8F", "white"]
-    points = [
-        tuple(map(float, p.split(",")))
-        for p in next(
-            p for p in root.findall("{*}path") if p.get("stroke") == "#143B8F"
+@pytest.mark.parametrize("task", ("524604", "524605", "528116"))
+def test_comparison_draws_function_with_the_stated_relationship(task):
+    case = sample(task)
+    context = case["context"]
+    _, question, bands = graph._input(context)
+    points, winner = graph_value_order.sketch_points(question, bands)
+    heights = dict(points)
+    a, operator, b = question.comparisons[0]
+    if operator == "=":
+        assert heights[a] == heights[b]
+    else:
+        assert operator == "<" and heights[a] < heights[b]
+    extremum = max if question.target == "наибольшее" else min
+    assert winner == -2
+    assert heights[winner] == extremum(heights.values())
+    sketch = next(
+        spec
+        for spec in graph.diagram_specs(
+            context, condition_asset_bytes=source_bytes(case)
         )
-        .get("d")
-        .replace("M", "")
-        .replace("L", "")
-        .split()
+        if spec["asset_key"] == "function_comparison_sketch"
+    )
+    root = ET.fromstring(sketch["svg_text"])
+    assert "y = f(x)" in "".join(root.itertext())
+    assert any(path.get("stroke") == "#143B8F" for path in root.findall("{*}path"))
+    images = BeautifulSoup(plan(case, context).solution_html, "html.parser").find_all(
+        "img"
+    )
+    assert [image["data-asset-key"] for image in images] == [
+        "monotonicity_sign_chart",
+        "function_comparison_sketch",
     ]
-    # SVG y grows downward: the corner B is the lowest value of the function.
-    bottom = max(y for _, y in points)
-    corner_x = float(circles[1].get("cx"))
-    assert all(abs(x - corner_x) < 0.01 for x, y in points if abs(y - bottom) < 0.001)
-    assert not any("999999" in text for text in root.itertext())
+
+
+@pytest.mark.parametrize("task", ("551780", "551782", "551783"))
+def test_monotonic_sum_removes_the_previous_function_example(task):
+    case = sample(task)
+    context = deepcopy(case["context"])
+    content = context["normalized_content"]
+    solution = next(s for s in content["sections"] if s["key"] == "solution")
+    if task == "551780":
+        key = "image_2"
+    else:
+        key = "continuous_primitive"
+        solution["asset_keys"].append(key)
+        content["assets"].append({"asset_key": key, "asset_id": "previous-sketch"})
+
+    result = plan(case, context)
+    assert {
+        "operation": "remove",
+        "transformation_target_id": "asset:" + key,
+    } in result.transformations
+    images = BeautifulSoup(result.solution_html, "html.parser").find_all("img")
+    assert [image["data-asset-key"] for image in images] == ["monotonicity_sign_chart"]
